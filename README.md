@@ -4,7 +4,7 @@ Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 
 Time to ditch those animation macros! This is the first testing release for use, and I will be taking any and all suggestions for improving this as we go along. 
 
-This module functions similarly to the macros in the On-Use-Only Macro compendium of my macro module. However, this will run all of the animations behind the scenes without requiring fussy macros. This is ONLY set up for DnD 5e currently, though may work on other simiilar systems.
+This module functions similarly to the macros in the On-Use-Only Macro compendium of my macro module. However, this will run all of the animations behind the scenes without requiring fussy macros. This is ONLY set up for DnD 5e currently, though may work on other simiilar systems. The best part? If they change the file names again it's on me to fix it haha.... hmm
 
 REQUIRED MODULES: Midi-QOL, Furnace, FXMaster. Token Magic FX is optional
 
