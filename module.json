@@ -1,0 +1,38 @@
+{
+    "name": "automated-jb2a-animations",
+    "title": "Automated JB2A Animations",
+    "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
+    "version": "0.0.1",
+    "author": "Otigon",
+    "url": "https://github.com/otigon/automated-jb2a-animations",
+    "minimumCoreVersion": "0.7.5",
+    "compatibleCoreVersion": "0.7.9",
+    "esmodules": [
+        "src/autoAnimations.js"
+    ],
+    "packs": [
+        {
+            "name": "Useful Macros",
+            "label": "Useful Macros",
+            "path": "packs/macros-umcr.db",
+            "entity": "Macro",
+            "module": "automated-jb2a-animations"
+        }
+    ],
+    "dependencies": [
+        {
+            "name": "midi-qol",
+            "type": "module"
+        },
+        {
+            "name": "fxmaster",
+            "type": "module"
+        },
+        {
+            "name": "furnace",
+            "type": "module"
+        }
+    ],
+    "manifest": "https://github.com/otigon/otigons-animation-macros/releases/latest/download/module.json",
+    "download": "https://github.com/otigon/otigons-animation-macros/releases/download/0.1.1/otigons-animation-macros-0.1.1.zip"
+}
