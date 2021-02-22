@@ -73,7 +73,7 @@ Hooks.on("midi-qol.RollComplete", (workflow) => {
         case (itemIncludes("greataxe")):
         case (itemIncludes("mace")):
         case (itemIncludes("maul")):
-        case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") ||itemIncludes("2hb") ||itemIncludes("1hp") ||itemIncludes("2hp")):
+        case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
             MeleeWeapons(workflow)
             break;
         case (itemIncludes("hammer")):
@@ -2040,7 +2040,8 @@ async function OnTargetSpells(args) {
             tmColor = 0xE4B700;
             break;
     }
-
+    let path01;
+    let path02;
     switch (true) {
         case (itemIncludes("cure wounds")):
             path01 = "1st_Level/Cure_Wounds";
