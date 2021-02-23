@@ -95,7 +95,7 @@ Hooks.on("midi-qol.RollComplete", (workflow) => {
 let BloodyHitStutter =
     [{
         filterType: "images",
-        filterId: "myMirrorImages",
+        filterId: "BloodyHitStutter",
         time: 0,
         nbImage: 2,
         alphaImg: 1.0,
@@ -127,7 +127,7 @@ let BloodyHitStutter =
     },
     {
         filterType: "splash",
-        filterId: "mySplash",
+        filterId: "BloodSplat",
         rank: 5,
         color: 0x990505,
         padding: 80,
@@ -147,7 +147,7 @@ let BloodyHitStutter =
 let BloodSplat =
     [{
         filterType: "splash",
-        filterId: "mySplash",
+        filterId: "BloodSplat",
         rank: 5,
         color: 0x990505,
         padding: 80,
@@ -167,7 +167,7 @@ let BloodSplat =
 let HitStutter =
     [{
         filterType: "images",
-        filterId: "myMirrorImages",
+        filterId: "HitStutter",
         time: 0,
         nbImage: 2,
         alphaImg: 1.0,
@@ -291,7 +291,7 @@ async function MeleeWeapons(args) {
     let burn =
         [{
             filterType: "xfire",
-            filterId: "myColdXFire",
+            filterId: "meleeBurn",
             time: 0,
             color: fireColor,
             blend: 1,
@@ -462,15 +462,15 @@ async function MeleeWeapons(args) {
                     canvas.fxmaster.playVideo(spellAnim2);
                     game.socket.emit('module.fxmaster', spellAnim2);
                     if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        await wait(300);
+                        await wait(250);
                         switch (true) {
                             case (fireColor != "pass"):
-                                TokenMagic.addUpdateFiltersOnTargeted(burn);
-                                await wait(25);
-                                TokenMagic.addUpdateFiltersOnTargeted(tmMacro);
+                                TokenMagic.addUpdateFilters(mainTargetdata, burn);
+                                await wait(50);
+                                TokenMagic.addUpdateFilters(mainTargetdata, tmMacro);
                                 break;
                             default:
-                                TokenMagic.addUpdateFiltersOnTargeted(tmMacro);
+                                TokenMagic.addUpdateFilters(mainTargetdata, tmMacro);
                                 break;
                         }
                     }
@@ -480,18 +480,20 @@ async function MeleeWeapons(args) {
                         await wait(tmDelay);
                         switch (true) {
                             case (fireColor != "pass"):
-                                TokenMagic.addUpdateFiltersOnTargeted(burn);
-                                await wait(25);
-                                TokenMagic.addUpdateFiltersOnTargeted(tmMacro);
+                                TokenMagic.addUpdateFilters(mainTargetdata, burn);
+                                await wait(50);
+                                TokenMagic.addUpdateFilters(mainTargetdata, tmMacro);
                                 break;
                             default:
-                                TokenMagic.addUpdateFiltersOnTargeted(tmMacro);
+                                TokenMagic.addUpdateFilters(mainTargetdata, tmMacro);
                                 break;
                         }
                     }
             }
             await wait(tmKill);
-            TokenMagic.deleteFiltersOnTargeted();
+            TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+            await wait(50);
+            TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
         }
     }
     Cast()
@@ -571,7 +573,7 @@ async function MeleeRangeSwitch(args) {
     let burn =
         [{
             filterType: "xfire",
-            filterId: "myColdXFire",
+            filterId: "meleeBurn",
             time: 0,
             color: fireColor,
             blend: 1,
@@ -663,14 +665,15 @@ async function MeleeRangeSwitch(args) {
             let mainTargetdata = myStringArray[i];
             let myToken = canvas.tokens.get(lastArg.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
 
-            let distance = canvas.grid.measureDistance(mainTargetdata, myToken);
-            let distCompare;
+            let distance = MidiQOL.getDistance(mainTargetdata, myToken);
+            console.log(distance);
+            let range;
             switch (true) {
                 case (pcRace == "bugbear"):
-                    distCompare = 11;
+                    range = 10;
                     break;
                 default:
-                    distCompare = 7.5;
+                    range = 5;
                     break;
             }
 
@@ -690,7 +693,7 @@ async function MeleeRangeSwitch(args) {
             let path01 = `modules/${path00}/Library/Generic/Weapon_Attacks`;
 
             switch (true) {
-                case (distance >= distCompare):
+                case (distance > range):
                     file = `${path01}/Ranged/`;
                     switch (true) {
                         case (anDist <= 600):
@@ -734,9 +737,9 @@ async function MeleeRangeSwitch(args) {
                     game.socket.emit('module.fxmaster', spellAnim);
                     if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                         await wait(tmdelay);
-                        TokenMagic.addUpdateFiltersOnTargeted(tmMacro)
+                        TokenMagic.addFilters(mainTargetdata, tmMacro)
                         await wait(tmkill);
-                        TokenMagic.deleteFiltersOnTargeted();
+                        TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
                     }
                     break;
                 default:
@@ -769,16 +772,18 @@ async function MeleeRangeSwitch(args) {
                         await wait(tmdelay);
                         switch (true) {
                             case (fireColor != "pass"):
-                                TokenMagic.addUpdateFiltersOnTargeted(burn);
+                                TokenMagic.addFilters(mainTargetdata, burn);
                                 await wait(25);
                                 //game.macros.getName(tmMacro).execute();
-                                TokenMagic.addUpdateFiltersOnTargeted(tmMacro);
+                                TokenMagic.addFilters(mainTargetdata, tmMacro);
                                 break;
                             default:
-                                TokenMagic.addUpdateFiltersOnTargeted(tmMacro);
+                                TokenMagic.addFilters(mainTargetdata, tmMacro);
                         }
                         await wait(tmkill);
-                        TokenMagic.deleteFiltersOnTargeted();
+                        TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
+                        await wait(50);
+                        TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
                         break;
                     }
             }
@@ -930,7 +935,7 @@ async function SpellAttacks(args) {
     let letitBurn =
         [{
             filterType: "xfire",
-            filterId: "myColdXFire",
+            filterId: "letitBurn",
             time: 0,
             // Can change color in hex format
             color: tmColor,
@@ -956,7 +961,7 @@ async function SpellAttacks(args) {
     let Frosty =
         [{
             filterType: "xfire",
-            filterId: "mySuperFrost",
+            filterId: "Frosty",
             color: tmColor,
             time: 0,
             blend: 5,
@@ -980,7 +985,7 @@ async function SpellAttacks(args) {
     let Ashes =
         [{
             filterType: "fire",
-            filterId: "myFire",
+            filterId: "Ashes",
             intensity: 3,
             color: tmColor,
             amplitude: 2,
@@ -1000,7 +1005,7 @@ async function SpellAttacks(args) {
             }
         }, {
             filterType: "glow",
-            filterId: "glowripples",
+            filterId: "Ashes02",
             outerStrength: 4,
             innerStrength: 2,
             color: tmColor,
@@ -1011,7 +1016,7 @@ async function SpellAttacks(args) {
     let Electric =
         [{
             filterType: "electric",
-            // Can change color in hex format
+            filterId: "Witchy",
             color: tmColor,
             time: 0,
             blend: 2,
@@ -1176,8 +1181,25 @@ async function SpellAttacks(args) {
                             await wait(tmDelay);
                             TokenMagic.addFilters(mainTargetdata, tmMacro);
                             await wait(tmKill);
-                            TokenMagic.deleteFiltersOnTargeted();
-                            break;
+                            switch (true) {
+                                case (itemIncludes("fire bolt")):
+                                    TokenMagic.deleteFilters(mainTargetdata, "letitBurn");
+                                    break;
+                                case (itemIncludes("ray of frost")):
+                                    TokenMagic.deleteFilters(mainTargetdata, "Frosty");
+                                    break;
+                                case (itemIncludes("witch bolt")):
+                                    TokenMagic.deleteFilters(mainTargetdata, "Witchy");
+                                    break;
+                                case (itemIncludes("scorching ray")):
+                                    TokenMagic.deleteFilters(mainTargetdata, "letitBurn");
+                                    break;
+                                case (itemIncludes("disintegrate")):
+                                    TokenMagic.deleteFilters(mainTargetdata, "Ashes");
+                                    await wait(50);
+                                    TokenMagic.deleteFilters(mainTargetdata, "Ashes02");
+                                    break;
+                            }
                     }
                 }
 
@@ -1326,12 +1348,15 @@ async function CreatureAttacks(args) {
             };
             canvas.fxmaster.playVideo(spellAnim);
             game.socket.emit('module.fxmaster', spellAnim);
-        }
-        if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-            await wait(250);
-            TokenMagic.addUpdateFiltersOnTargeted(tmMacro);
-            await wait(2000);
-            TokenMagic.deleteFiltersOnTargeted();
+
+            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                await wait(250);
+                TokenMagic.addFilters(mainTargetdata, tmMacro);
+                await wait(2000);
+                TokenMagic.deleteFilters(mainTargetdata, "BloodyHitStutter");
+                await wait(50);
+                TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+            }
         }
     }
     Cast()
@@ -1412,7 +1437,7 @@ async function RangedWeapons(args) {
     let Poison =
         [{
             filterType: "smoke",
-            filterId: "mySmoke",
+            filterId: "Poison",
             color: 0x50FFAA,
             time: 0,
             blend: 2,
@@ -1432,7 +1457,7 @@ async function RangedWeapons(args) {
     let colorWave =
         [{
             filterType: "wave",
-            filterId: "myShockwave",
+            filterId: "colorWave",
             time: 0,
             strength: 0.03,
             frequency: 15,
@@ -1451,7 +1476,7 @@ async function RangedWeapons(args) {
         },
         {
             filterType: "xfire",
-            filterId: "myColdXFire",
+            filterId: "colorWave",
             time: 0,
             color: tmColor,
             blend: 1,
@@ -1670,7 +1695,14 @@ async function RangedWeapons(args) {
                 }
                 if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                     await wait(interval * x + 1500);
-                    TokenMagic.deleteFiltersOnTargeted();
+                    TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+                    await wait(50);
+                    TokenMagic.deleteFilters(mainTargetdata, "BloodyHitStutter");
+                    await wait(50);
+                    TokenMagic.deleteFilters(mainTargetdata, "Poison");
+                    await wait(50);
+                    TokenMagic.deleteFilters(mainTargetdata, "colorWave");
+                    await wait(50);
                 }
             }
             SpellAnimation(Repeater)
@@ -1680,7 +1712,7 @@ async function RangedWeapons(args) {
                         break;
                     default:
                         await wait(tmDelay);
-                        TokenMagic.addUpdateFiltersOnTargeted(tmMacro);
+                        TokenMagic.addFilters(mainTargetdata, tmMacro);
                 }
             }
         }
@@ -1817,10 +1849,10 @@ async function ThunderwaveAuto(args) {
     }
     SpellAnimation(5);
 
-    let params =
+    let shockWave =
         [{
             filterType: "wave",
-            filterId: "myShockwave",
+            filterId: "shockWave",
             time: 0,
             strength: 0.03,
             frequency: 15,
@@ -1839,7 +1871,7 @@ async function ThunderwaveAuto(args) {
         },
         {
             filterType: "xfire",
-            filterId: "myColdXFire",
+            filterId: "burn",
             time: 0,
             color: tmColor,
             blend: 1,
@@ -1861,9 +1893,11 @@ async function ThunderwaveAuto(args) {
         }];
     if (game.settings.get("automated-jb2a-animations", "tmfx")) {
         await wait(500);
-        TokenMagic.addUpdateFiltersOnTargeted(params);
+        TokenMagic.addUpdateFiltersOnTargeted(shockWave);
         await wait(3500);
-        TokenMagic.deleteFiltersOnTargeted();
+        TokenMagic.deleteFiltersOnTargeted("burn");
+        await wait(50);
+        TokenMagic.deleteFiltersOnTargeted("shockWave");
     }
 }
 
@@ -1945,10 +1979,10 @@ async function ShatterAuto(args) {
         // The number in parenthesis sets the number of times it loops
         SpellAnimation(4)
 
-        let params =
+        let shockWave =
             [{
                 filterType: "wave",
-                filterId: "myShockwave",
+                filterId: "shockWave",
                 time: 0,
                 strength: 0.03,
                 frequency: 15,
@@ -1967,7 +2001,7 @@ async function ShatterAuto(args) {
             },
             {
                 filterType: "xfire",
-                filterId: "myColdXFire",
+                filterId: "burn",
                 time: 0,
                 color: tmColor,
                 blend: 1,
@@ -1989,9 +2023,11 @@ async function ShatterAuto(args) {
             }];
         if (game.settings.get("automated-jb2a-animations", "tmfx")) {
             await wait(1400);
-            TokenMagic.addUpdateFiltersOnTargeted(params);
+            TokenMagic.addUpdateFiltersOnTargeted(shockWave);
             await wait(4500);
-            TokenMagic.deleteFiltersOnTargeted();
+            TokenMagic.deleteFiltersOnTargeted("burn");
+            await wait(50);
+            TokenMagic.deleteFiltersOnTargeted("shockWave");
         }
     }
     Cast()
@@ -2129,10 +2165,10 @@ async function MagicMissile(args) {
     let type01 = "01";
     let tint = "Regular";
     let color = "Blue";
-    let Shockwave =
+    let shockWave =
         [{
             filterType: "wave",
-            filterId: "myShockwave",
+            filterId: "shockWave",
             time: 0,
             strength: 0.03,
             frequency: 15,
@@ -2293,9 +2329,9 @@ async function MagicMissile(args) {
             if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                 // Activates the Token Magic FX after a delay
                 await wait(1000)
-                TokenMagic.addUpdateFiltersOnTargeted(Shockwave);
+                TokenMagic.addFilters(mainTargetdata, shockWave);
                 await wait(2500);
-                TokenMagic.deleteFiltersOnTargeted();
+                TokenMagic.deleteFilters(mainTargetdata, "shockWave");
             }
         }
     }
