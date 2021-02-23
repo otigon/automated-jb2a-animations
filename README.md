@@ -4,7 +4,7 @@ Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 
 ## 0.0.4 Release:
 
-2. Token Magic FX options are now ADDED and REMOVED selectively to the Token. This means they should remove themselves even if the affected token is untargeted (think dead).
+1. Token Magic FX options are now ADDED and REMOVED selectively to the Token. This means they should remove themselves even if the affected token is untargeted (think dead).
 
 2. Now ONLY removes the Token Magic FX that were applied with the given animation. All pre-existing TMFX filters should remain active and not be deleted
 
