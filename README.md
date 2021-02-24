@@ -3,16 +3,16 @@
 Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 
 ## 0.0.5 Release:
-1.	Added a new setting: Only Play Animation on Damage Rolls
+1.	Added a new setting: Only Play Animation on Damage Rolls  
    a.	Allows for further customization of animations and when they play
 
 2.	Corrected the check for Free vs Patreon Module. It should now work for both.
 
-3.	Added Explosions (See PDF for Keywords)
-   a.	Designed for use on items that utilize templates.
+3.	Added Explosions (See PDF for Keywords)  
+   a.	Designed for use on items that utilize templates.  
    b.	You can set the color, variant, and radius of the explosion in the Source Field
 
-4.	Added Exploding Arrows (See PDF for Keywords)
+4.	Added Exploding Arrows (See PDF for Keywords)  
    a.	Add the word explode in the source field and then set the color, variant and radius of the explosion.
 
 
