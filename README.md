@@ -12,6 +12,8 @@ Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 
 4. Playing with the timing of different TFMX applications and Animations to help streamline when used on The Forge.
 
+# Overview
+
 **Trying to figure out now why the Token Magic FX do not apply on the Forge**
 
 Time to ditch those animation macros! This is the first testing release for use, and I will be taking any and all suggestions for improving this as we go along. 
