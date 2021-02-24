@@ -15,10 +15,28 @@ Hooks.on('init', () => {
         default: false,
         config: true,
     });
+    game.settings.register("automated-jb2a-animations", "playonDamage", {
+        name: 'Only play animations on Damage Rolls',
+        hint: "REQUIRES A REFRESH. When Enabled, this will ONLY play the animaitons on the Damage Roll",
+        scope: 'world',
+        type: Boolean,
+        default: false,
+        config: true,
+    });
+
+    switch (game.settings.get("automated-jb2a-animations", "playonDamage")) {
+        case (true):
+            Hooks.on("midi-qol.DamageRollComplete", (workflow) => { RevItUp(workflow) })
+            break;
+        case (false):
+            Hooks.on("midi-qol.RollComplete", (workflow) => { RevItUp(workflow) })
+            break;
+    }
+
 })
 
 
-Hooks.on("midi-qol.RollComplete", (workflow) => {
+async function RevItUp(workflow) {
 
     // const lastArg = args;
     // let item = lastArg.item
@@ -76,9 +94,11 @@ Hooks.on("midi-qol.RollComplete", (workflow) => {
         case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
             MeleeWeapons(workflow)
             break;
-        case (itemIncludes("hammer")):
         case (itemIncludes("arrow")):
         case (itemIncludes("bow")):
+            ArrowOptionExplode(workflow)
+            break;
+        case (itemIncludes("hammer")):
         case (itemIncludes("boulder")):
         case (itemIncludes("siege")):
         case (itemIncludes("laser")):
@@ -86,11 +106,16 @@ Hooks.on("midi-qol.RollComplete", (workflow) => {
         case (itemIncludes("sling")):
             RangedWeapons(workflow)
             break;
+        case (itemIncludes("explode")):
+        case (itemIncludes("grenade")):
+        case (itemIncludes("bomb")):
+            ExplodeTemplate(workflow)
+            break;
     }
 
 
 
-})
+}
 
 let BloodyHitStutter =
     [{
@@ -205,7 +230,10 @@ async function MeleeWeapons(args) {
     let itemName = item.name.toLowerCase();
     let itemSource = item.data.data.source.toLowerCase();
 
-    let path00 = game.modules.get("jb2a_patreon") === true ? "JB2A_DnD5e" : "jb2a_patreon";
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -391,7 +419,6 @@ async function MeleeWeapons(args) {
     }
 
     async function Cast() {
-        //         change to lastArg.hitTargets to only play animations on hit using Midi Workflow option
         if (game.settings.get("automated-jb2a-animations", "playonhit")) {
             var myStringArray = Array.from(lastArg.hitTargets);
         } else {
@@ -507,7 +534,10 @@ async function MeleeRangeSwitch(args) {
     //console.log(pcRace);
     let itemName = item.name.toLowerCase();
     let itemSource = item.data.data.source.toLowerCase();
-    let path00 = game.modules.get("jb2a_patreon") === true ? "JB2A_DnD5e" : "jb2a_patreon";
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
     function itemIncludes(test) {
         if (itemSource.includes(test) || itemName.includes(test)) return true;
@@ -799,7 +829,10 @@ async function SpellAttacks(args) {
     let item = lastArg.item
     let itemName = item.name.toLowerCase();
     let itemSource = item.data.data.source.toLowerCase();
-    let path00 = game.modules.get("jb2a_patreon") === true ? "JB2A_DnD5e" : "jb2a_patreon";
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
     function itemIncludes(test) {
         if (itemSource.includes(test) || itemName.includes(test)) return true;
@@ -1218,8 +1251,10 @@ async function CreatureAttacks(args) {
     let item = lastArg.item;
     let itemName = item.name.toLowerCase();
     let itemSource = item.data.data.source.toLowerCase();
-    let path00 = game.modules.get("jb2a_patreon") === true ? "JB2A_DnD5e" : "jb2a_patreon";
-
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
     function itemIncludes(test) {
         if (itemSource.includes(test) || itemName.includes(test)) return true;
     }
@@ -1370,7 +1405,10 @@ async function RangedWeapons(args) {
 
     let itemName = item.name.toLowerCase();
     let itemSource = item.data.data.source.toLowerCase();
-    let path00 = game.modules.get("jb2a_patreon") === true ? "JB2A_DnD5e" : "jb2a_patreon";
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
     function itemIncludes(test) {
         if (itemSource.includes(test) || itemName.includes(test)) return true;
@@ -1729,8 +1767,10 @@ async function ThunderwaveAuto(args) {
 
     let itemName = item.name.toLowerCase();
     let itemSource = item.data.data.source.toLowerCase();
-    let path00 = game.modules.get("jb2a_patreon") === true ? "JB2A_DnD5e" : "jb2a_patreon";
-
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
     function itemIncludes(test) {
         if (itemSource.includes(test) || itemName.includes(test)) return true;
     }
@@ -1905,8 +1945,17 @@ async function ThunderwaveAuto(args) {
 async function ShatterAuto(args) {
     const lastArg = args;
     let item = lastArg.item
+
+    let itemName = item.name.toLowerCase();
     let itemSource = item.data.data.source.toLowerCase();
-    let path00 = game.modules.get("jb2a_patreon") === true ? "JB2A_DnD5e" : "jb2a_patreon";
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+
+    function itemIncludes(test) {
+        if (itemSource.includes(test) || itemName.includes(test)) return true;
+    }
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -1915,27 +1964,27 @@ async function ShatterAuto(args) {
     let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemSource.includes("blue")):
+        case (itemIncludes("blue")):
             type01 = "01";
             color = "Blue";
             tmColor = 0x0075B0;
             break;
-        case (itemSource.includes("green")):
+        case (itemIncludes("green")):
             type01 = "01";
             color = "Green";
             tmColor = 0x0EB400;
             break;
-        case (itemSource.includes("orange")):
+        case (itemIncludes("orange")):
             type01 = "01";
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
-        case (itemSource.includes("purple")):
+        case (itemIncludes("purple")):
             type01 = "01";
             color = "Purple";
             tmColor = 0xBF0099;
             break;
-        case (itemSource.includes("red")):
+        case (itemIncludes("red")):
             type01 = "01";
             color = "Red";
             tmColor = 0xBF0000;
@@ -2039,8 +2088,10 @@ async function OnTargetSpells(args) {
     let item = lastArg.item;
     let itemName = item.name.toLowerCase();
     let itemSource = item.data.data.source.toLowerCase();
-    let path00 = game.modules.get("jb2a_patreon") === true ? "JB2A_DnD5e" : "jb2a_patreon";
-
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
     function itemIncludes(test) {
         if (itemSource.includes(test) || itemName.includes(test)) return true;
     }
@@ -2156,6 +2207,11 @@ async function MagicMissile(args) {
     let itemName = item.name.toLowerCase();
     let itemSource = item.data.data.source.toLowerCase();
 
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+
     function itemIncludes(test) {
         if (itemSource.includes(test) || itemName.includes(test)) return true;
     }
@@ -2252,7 +2308,7 @@ async function MagicMissile(args) {
                         }
 
 
-                        let file = "modules/jb2a_patreon/Library/1st_Level/Magic_Missile/";
+                        let file = `modules/${path00}/Library/1st_Level/Magic_Missile/`;
 
                         let mmA = `${file}MagicMissile_${type01}_${tint}_${color}_30ft_01_1600x400.webm`;
                         let mmB = `${file}MagicMissile_${type01}_${tint}_${color}_30ft_02_1600x400.webm`;
@@ -2333,6 +2389,548 @@ async function MagicMissile(args) {
                 await wait(2500);
                 TokenMagic.deleteFilters(mainTargetdata, "shockWave");
             }
+        }
+    }
+    Cast()
+}
+
+
+async function ExplodeTemplate(args) {
+    const lastArg = args;
+    let item = lastArg.item;
+
+    let itemName = item.name.toLowerCase();
+    let itemSource = item.data.data.source.toLowerCase();
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+
+    function itemIncludes(test) {
+        if (itemSource.includes(test) || itemName.includes(test)) return true;
+    }
+
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+    let type01 = "01";
+    let color = "Orange";
+    let tmColor = 0x0075B0;
+
+    switch (true) {
+        case (itemIncludes("blue")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Blue";
+            tmColor = 0x0075B0;
+            break;
+        case (itemIncludes("green")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Green";
+            tmColor = 0x0EB400;
+            break;
+        case (itemIncludes("orange")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Orange";
+            tmColor = 0xBF6E00;
+            break;
+        case (itemIncludes("purple")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Purple";
+            tmColor = 0xBF0099;
+            break;
+        case (itemIncludes("yellow")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Yellow";
+            tmColor = 0xCFD204;
+            break;
+    }
+    let divisor = 100;
+    switch (true) {
+        case (itemIncludes("(05)")):
+            divisor = 200;
+            break;
+        case (itemIncludes("(10)")):
+            divisor = 100;
+            break;
+        case (itemIncludes("(15)")):
+            divisor = 67;
+        case (itemIncludes("(20)")):
+            divisor = 50;
+            break;
+        case (itemIncludes("(25)")):
+            divisor = 40;
+            break;
+        case (itemIncludes("(30)")):
+            divisor = 33;
+            break;
+        case (itemIncludes("(35)")):
+            divisor = 28.5;
+            break;
+        case (itemIncludes("(40)")):
+            divisor = 25;
+            break;
+        case (itemIncludes("(45)")):
+            divisor = 22.2;
+            break;
+        case (itemIncludes("(50)")):
+            divisor = 20;
+            break;
+        case (itemIncludes("nuke")):
+            divisor = 10;
+            break;
+    }
+
+
+    async function Cast() {
+
+        //Finds the center of the placed circular template and plays an animation using FXMaster
+        const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
+        let template = await canvas.templates.get(templateID);
+        // Scaled globally, change divisor for different size animation.
+        let Scale = (canvas.scene.data.grid / divisor);
+        //var myStringArray = Array.from(lastArg.targets);
+        //let mainTargetdata = myStringArray[i];
+
+        // Defines the spell template for FXMaster
+        let spellAnim =
+        {
+            file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type01}_${color}_400x400.webm`,
+            position: template.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: Scale,
+                y: Scale
+            }
+        };
+
+        async function SpellAnimation(number) {
+
+            let x = number;
+            let interval = 1000;
+            for (var i = 0; i < x; i++) {
+                setTimeout(function () {
+                    canvas.fxmaster.playVideo(spellAnim);
+                    game.socket.emit('module.fxmaster', spellAnim);
+                }, i * interval);
+            }
+        }
+        // The number in parenthesis sets the number of times it loops
+        SpellAnimation(3)
+
+        let shockWave =
+            [{
+                filterType: "wave",
+                filterId: "shockWave",
+                time: 0,
+                strength: 0.03,
+                frequency: 15,
+                maxIntensity: 4.0,
+                minIntensity: 0.5,
+                padding: 25,
+                animated:
+                {
+                    time:
+                    {
+                        active: true,
+                        speed: 0.0180,
+                        animType: "move",
+                    }
+                }
+            },
+            {
+                filterType: "xfire",
+                filterId: "burn",
+                time: 0,
+                color: tmColor,
+                blend: 1,
+                amplitude: 1,
+                dispersion: 0,
+                chromatic: false,
+                scaleX: 1,
+                scaleY: 1,
+                inlay: false,
+                animated:
+                {
+                    time:
+                    {
+                        active: true,
+                        speed: -0.0015,
+                        animType: "move"
+                    }
+                }
+            }];
+        if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+            await wait(400);
+            TokenMagic.addUpdateFiltersOnTargeted(shockWave);
+            await wait(2500);
+            TokenMagic.deleteFiltersOnTargeted("burn");
+            await wait(250);
+            TokenMagic.deleteFiltersOnTargeted("shockWave");
+        }
+    }
+    Cast()
+
+}
+
+
+async function ArrowOptionExplode(args) {
+
+    const lastArg = args;
+    let item = lastArg.item
+
+    let itemName = item.name.toLowerCase();
+    let itemSource = item.data.data.source.toLowerCase();
+    function moduleIncludes(test) {
+        if (game.modules.get(test)) return true;
+    }
+    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+
+    function itemIncludes(test) {
+        if (itemSource.includes(test) || itemName.includes(test)) return true;
+    }
+
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+    let type01 = "01";
+    let tint = "Regular";
+    let color = "White";
+    let tmColor;
+    let tmMacro;
+
+    switch (true) {
+        case (itemIncludes("green")):
+            type01 = "01";
+            tint = "Glowing";
+            color = "Green";
+            break;
+        case (itemIncludes("white")):
+            type01 = "01";
+            tint = "Regular";
+            color = "White";
+            break;
+    }
+
+    let type02 = "01";
+    let color02 = "Orange";
+
+    switch (true) {
+        case (itemIncludes("blue")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type02 = "02";
+                    break;
+            }
+            color02 = "Blue";
+            tmColor = 0x0075B0;
+            break;
+        case (itemIncludes("orange")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type02 = "02";
+                    break;
+            }
+            color02 = "Orange";
+            tmColor = 0xBF6E00;
+            break;
+        case (itemIncludes("purple")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type02 = "02";
+                    break;
+            }
+            color02 = "Purple";
+            tmColor = 0xBF0099;
+            break;
+        case (itemIncludes("yellow")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type02 = "02";
+                    break;
+            }
+            color02 = "Yellow";
+            tmColor = 0xCFD204;
+            break;
+        case (itemIncludes("acid")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type02 = "02";
+                    break;
+            }
+            color02 = "Green";
+            tmColor = 0x0EB400;
+            break;
+
+    }
+
+    /*
+        switch (true) {
+            case (itemIncludes("acid")):
+                type02 = "01";
+                color02 = "Green";
+                tmColor = 0x60CC70;
+                break;
+            case (itemIncludes("explosive")):
+                type02 = "01";
+                color02 = "Orange";
+                tmColor = 0xFF9309;
+                break;
+            case (itemIncludes("lightning")):
+                type02 = "01";
+                color02 = "Blue";
+                tmColor = 0x053ABD;
+                break;
+    
+        }
+    */
+
+    let Poison =
+        [{
+            filterType: "field",
+            filterId: "Poisoned",
+            shieldType: 3,
+            gridPadding: 1,
+            color: tmColor,
+            time: 0,
+            blend: 0,
+            intensity: 0.9,
+            lightAlpha: 1,
+            lightSize: 0.7,
+            scale: 1,
+            radius: 1,
+            chromatic: false,
+            zOrder: 512,
+            animated:
+            {
+                time:
+                {
+                    active: true,
+                    speed: 0.0015,
+                    animType: "move"
+                }
+            }
+        }];
+
+    let letitBurn =
+        [{
+            filterType: "xfire",
+            filterId: "Burning",
+            time: 0,
+            // Can change color in hex format
+            color: tmColor,
+            blend: 1,
+            amplitude: 1,
+            dispersion: 0,
+            chromatic: false,
+            scaleX: 1,
+            scaleY: 1,
+            inlay: false,
+            autoDestroy: true,
+            animated:
+            {
+                time:
+                {
+                    active: true,
+                    speed: -0.0015,
+                    animType: "move"
+                }
+
+            }
+        }];
+
+    let Electric =
+        [{
+            filterType: "electric",
+            filterId: "Shocked",
+            color: tmColor,
+            time: 0,
+            blend: 2,
+            intensity: 5,
+            animated:
+            {
+                time:
+                {
+                    active: true,
+                    speed: 0.0020,
+                    animType: "move"
+                }
+
+            }
+        }];
+    /*
+        switch (true) {
+            case (itemIncludes("acid")):
+                tmMacro = Poison;
+                break;
+            case (itemIncludes("explosive")):
+                tmMacro = letitBurn;
+                break;
+            case (itemIncludes("lightning")):
+                tmMacro = Electric;
+                break;
+    
+        }
+    */
+    let divisor = 100;
+    switch (true) {
+        case (itemIncludes("(05)")):
+            divisor = 200;
+            break;
+        case (itemIncludes("(10)")):
+            divisor = 100;
+            break;
+        case (itemIncludes("(15)")):
+            divisor = 67;
+        case (itemIncludes("(20)")):
+            divisor = 50;
+            break;
+        case (itemIncludes("(25)")):
+            divisor = 40;
+            break;
+        case (itemIncludes("(30)")):
+            divisor = 33;
+            break;
+        case (itemIncludes("(35)")):
+            divisor = 28.5;
+            break;
+        case (itemIncludes("(40)")):
+            divisor = 25;
+            break;
+        case (itemIncludes("(45)")):
+            divisor = 22.2;
+            break;
+        case (itemIncludes("(50)")):
+            divisor = 20;
+            break;
+        case (itemIncludes("nuke")):
+            divisor = 10;
+            break;
+    }
+
+
+
+    async function Cast() {
+
+        if (game.settings.get("automated-jb2a-animations", "playonhit")) {
+            var myStringArray = Array.from(lastArg.hitTargets);
+        } else {
+            var myStringArray = Array.from(lastArg.targets);
+        }
+        var arrayLength = myStringArray.length;
+        for (var i = 0; i < arrayLength; i++) {
+            let Scale = (canvas.scene.data.grid / divisor);
+
+            await wait(500)
+
+            let mainTargetdata = myStringArray[i];
+            let myToken = canvas.tokens.get(lastArg.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
+
+            let ray = new Ray(myToken.center, mainTargetdata.center);
+            let anDeg = -(ray.angle * 57.3);
+            let anDist = ray.distance;
+
+            // Animation file path
+            let file = `modules/${path00}/Library/Generic/Weapon_Attacks/Ranged/`;
+
+            // Checking for range to target to choose which file to pull
+            let anFile = `${file}Arrow01_${type01}_${tint}_${color}_30ft_1600x400.webm`;
+            let anFileSize = 600;
+            let anchorX = 0.125;
+            let boomDelay = 1250;
+            switch (true) {
+                case (anDist <= 1200):
+                    anFileSize = 1200;
+                    anFile = `${file}Arrow01_${type01}_${tint}_${color}_30ft_1600x400.webm`;
+                    anchorX = 0.125;
+                    boomDelay = 1250;
+                    break;
+                case (anDist > 2400):
+                    anFileSize = 3600;
+                    anFile = `${file}Arrow01_${type01}_${tint}_${color}_90ft_4000x400.webm`;
+                    anchorX = 0.05;
+                    boomDelay = 1750;
+                    break;
+                default:
+                    anFileSize = 2400;
+                    anFile = `${file}Arrow01_${type01}_${tint}_${color}_60ft_2800x400.webm`;
+                    anchorX = 0.071;
+                    boomDelay = 1500;
+                    break;
+            }
+
+            // Scaling the Height of the animation for consistency across ranges
+            let anScale = anDist / anFileSize;
+            let anScaleY = anDist <= 600 ? 0.6 : anScale;
+
+            let spellAnim =
+            {
+                file: anFile,
+                position: myToken.center,
+                anchor: {
+                    x: anchorX,
+                    y: 0.5
+                },
+                angle: anDeg,
+                scale: {
+                    x: anScale,
+                    y: anScaleY
+                }
+            };
+
+            let spellAnim2 =
+            {
+                file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type02}_${color02}_400x400.webm`,
+                position: mainTargetdata.center,
+                anchor: {
+                    x: 0.5,
+                    y: 0.5
+                },
+                angle: 0,
+                scale: {
+                    x: Scale,
+                    y: Scale
+                }
+            };
+
+            canvas.fxmaster.playVideo(spellAnim);
+            game.socket.emit('module.fxmaster', spellAnim);
+            switch (true) {
+                case (itemIncludes("explode")):
+                    await wait(boomDelay);
+                    canvas.fxmaster.playVideo(spellAnim2);
+                    game.socket.emit('module.fxmaster', spellAnim2);
+                    TokenMagic.addUpdateFiltersOnTargeted(letitBurn);
+                    await wait(2500);
+                    //TokenMagic.deleteFiltersOnTargeted("Shocked");
+                    //await wait(50);
+                    TokenMagic.deleteFiltersOnTargeted("Burning");
+                    //await wait(50);
+                    // TokenMagic.deleteFiltersOnTargeted("Poisoned");
+                    break;
+            }
+
         }
     }
     Cast()
