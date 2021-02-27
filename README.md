@@ -1,4 +1,4 @@
-# automated-jb2a-animations
+# Automated Animations DnD5e
 
 Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 
