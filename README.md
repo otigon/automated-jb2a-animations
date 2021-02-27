@@ -9,6 +9,7 @@ Time to ditch those animation macros! This module is designed to implement all o
 - Weapon Attacks
 - Attack Spells
 - Explosions
+- Healing Spells
 
 Currently implemented for D&D 5e
 
