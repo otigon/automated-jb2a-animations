@@ -85,10 +85,9 @@ By default, the module will only recognize specific names of items to trigger th
 
 You can still set the color of the **Melee** weapon animation in the Source Field, but the thrown weapons do not have color variants (yet), so they will stay at the standard animation.  
 
-3. Thunderwave: This spell has three different animations, and the module will choose which one to use based on where your Token is located **INSIDE** or **AROUND** the template. The image below shows possible token positions:  
+2. Thunderwave: This spell has three different animations, and the module will choose which one to use based on where your Token is located **INSIDE** or **AROUND** the template. The image below shows possible token positions:  
 
 ![Alt text](pictures/ThunderWaveLoc.png)
-
 
 
 **Please feel free to send suggestions or comments in the Suggestion Box of the JB2A discord, or log an issue on the GitHub page for issues or improvement suggestions.**
