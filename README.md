@@ -49,7 +49,7 @@ Typing any one of the Patreon color options for Fire Bolt in the **Source** Fiel
 
 # Settings
 
-1. Enable Token Magic FX
+**1. Enable Token Magic FX**
 - Token Magic FX for this Module is disabled by default. Enable this to activate the built in TMFX filters that play with the Animations.
 - This is a module wide setting, but a future release will enable the options to disable the effects on a per animations basis.
 
@@ -58,10 +58,10 @@ By default, the animations activate and play when the Midi-QOL "workflow" is com
 - If using MIDI to check for hits, the animations will play even if the attack misses and damage is not rolled.
 - If NOT using Midi to check for hits, the animation will play when the Damage is rolled, but will also play on Nat 1's.
 
-2. Only play animations on Hits
+**2. Only play animations on Hits**
 - If checking hits with Midi, you can enable this option to ONLY play animations when the target is hit by the attack
 
-3. Only play animations on Damage Rolls
+**3. Only play animations on Damage Rolls**
 - A simpler option that will ONLY play animations when the Damage or Healing rolls are done.
 
 
