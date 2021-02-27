@@ -23,6 +23,14 @@ Hooks.on('init', () => {
         default: false,
         config: true,
     });
+    game.settings.register("automated-jb2a-animations", "EnableShield", {
+        name: 'Enable Shield Spell Animation',
+        hint: "Shield is set to a test animaiton, but still looks cool. Check this to enable it",
+        scope: 'world',
+        type: Boolean,
+        default: false,
+        config: true,
+    });
 
     switch (game.settings.get("automated-jb2a-animations", "playonDamage")) {
         case (true):
@@ -32,90 +40,134 @@ Hooks.on('init', () => {
             Hooks.on("midi-qol.RollComplete", (workflow) => { RevItUp(workflow) })
             break;
     }
+    path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
 })
 
+var myToken;
+var myStringArray;
+var itemName;
+var itemSource;
+var path00;
+var pcRace;
+var checkSave;
+var saves;
+
+function moduleIncludes(test) {
+    if (game.modules.get(test)) return true;
+}
+
+function itemIncludes(test) {
+    if (itemSource.includes(test) || itemName.includes(test)) return true;
+}
 
 async function RevItUp(workflow) {
 
     // const lastArg = args;
     // let item = lastArg.item
-    let itemName = workflow.item.name.toLowerCase();
-    let itemSource = workflow.item.data.data.source.toLowerCase();
-    // let itemType = workflow.item.data.type.toLowerCase();
-
-    //function itemTypeIncludes(test) {
-    //    if (itemType.includes(test)) return true;
-    //}
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
+    itemName = workflow.item.name.toLowerCase();
+    itemSource = workflow.item.data.data.source.toLowerCase();
+    myToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
+    if (game.settings.get("automated-jb2a-animations", "playonhit")) {
+        myStringArray = Array.from(workflow.hitTargets);
+    } else {
+        myStringArray = Array.from(workflow.targets);
     }
 
-
+    let itemType = workflow.item.data.type.toLowerCase();
+    function itemTypeIncludes(test) {
+        if (itemType.includes(test)) return true;
+    }
+    /*
+        function itemIncludes(test) {
+            if (itemSource.includes(test) || itemName.includes(test)) return true;
+        }
+    */
+    /*
+        function moduleIncludes(test) {
+            if (game.modules.get(test)) return true;
+        }
+        path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+    */
     switch (true) {
+        // Use xxx in Item Source Field to exclude an item for On-Use customization
         case (itemIncludes("xxx")):
-            // Use xxx in Item Source Field to exclude an item for On-Use customization
             break;
-        case (itemIncludes("thunderwave")):
-            ThunderwaveAuto(workflow)
+        case (itemTypeIncludes("spell")):
+            checkSave = Array.from(workflow.saves);
+            saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
+            switch (true) {
+                case (itemIncludes("thunderwave")):
+                    ThunderwaveAuto()
+                    break;
+                case (itemIncludes("shatter")):
+                    ShatterAuto()
+                    break;
+                case (itemIncludes("magic missile")):
+                    MagicMissile()
+                    break;
+                case (itemIncludes("cure wounds")):
+                case (itemIncludes("healing word")):
+                    OnTargetSpells()
+                    break;
+                case (itemIncludes("fire bolt")):
+                case (itemIncludes("ray of frost")):
+                case (itemIncludes("witch bolt")):
+                case (itemIncludes("scorching ray")):
+                case (itemIncludes("disintegrate")):
+                    SpellAttacks()
+                    break;
+                case (itemIncludes("shield")):
+                    CastOnSelf()
+                    break;
+            }
             break;
-        case (itemIncludes("shatter")):
-            ShatterAuto(workflow)
-            break;
-        case (itemIncludes("magic missile")):
-            MagicMissile(workflow)
-            break;
-        case (itemIncludes("cure wounds")):
-        case (itemIncludes("healing word")):
-            OnTargetSpells(workflow)
-            break;
-        case (itemIncludes("fire bolt")):
-        case (itemIncludes("ray of frost")):
-        case (itemIncludes("witch bolt")):
-        case (itemIncludes("scorching ray")):
-        case (itemIncludes("disintegrate")):
-            SpellAttacks(workflow)
-            break;
-        case (itemIncludes("dagger")):
-        case (itemIncludes("handaxe")):
-        case (itemIncludes("spear")):
-            MeleeRangeSwitch(workflow)
-            break;
-        case (itemIncludes("bite")):
-        case (itemIncludes("claw")):
-            CreatureAttacks(workflow)
-            break;
-        case (itemIncludes("sword")):
-        case (itemIncludes("greatclub")):
-        case (itemIncludes("greataxe")):
-        case (itemIncludes("mace")):
-        case (itemIncludes("maul")):
-        case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-            MeleeWeapons(workflow)
-            break;
-        case (itemIncludes("arrow")):
-        case (itemIncludes("bow")):
-            ArrowOptionExplode(workflow)
-            break;
-        case (itemIncludes("hammer")):
-        case (itemIncludes("boulder")):
-        case (itemIncludes("siege")):
-        case (itemIncludes("laser")):
-        case (itemIncludes("javelin")):
-        case (itemIncludes("sling")):
-            RangedWeapons(workflow)
-            break;
-        case (itemIncludes("explode")):
-        case (itemIncludes("grenade")):
-        case (itemIncludes("bomb")):
-            ExplodeTemplate(workflow)
+        case (itemTypeIncludes("weapon")):
+        case (itemTypeIncludes("consumable")):
+            switch (true) {
+                case (itemIncludes("dagger")):
+                case (itemIncludes("handaxe")):
+                case (itemIncludes("spear")):
+                    pcRace = workflow.actor.data.data.details.race.toLowerCase();
+                    MeleeRangeSwitch()
+                    break;
+                case (itemIncludes("bite")):
+                case (itemIncludes("claw")):
+                    CreatureAttacks()
+                    break;
+                case (itemIncludes("sword")):
+                case (itemIncludes("greatclub")):
+                case (itemIncludes("greataxe")):
+                case (itemIncludes("mace")):
+                case (itemIncludes("maul")):
+                case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
+                    MeleeWeapons()
+                    break;
+                case (itemIncludes("arrow")):
+                case (itemIncludes("bow")):
+                    ArrowOptionExplode()
+                    break;
+                case (itemIncludes("hammer")):
+                case (itemIncludes("boulder")):
+                case (itemIncludes("siege")):
+                case (itemIncludes("laser")):
+                case (itemIncludes("javelin")):
+                case (itemIncludes("sling")):
+                    RangedWeapons()
+                    break;
+                case (itemIncludes("explode")):
+                case (itemIncludes("grenade")):
+                case (itemIncludes("bomb")):
+                    ExplodeTemplate()
+                    break;
+                case (itemIncludes("alchemist's fire")):
+                    ExplodeOnTarget()
+                    break;                    
+            }
             break;
     }
-
-
-
 }
+
 
 let BloodyHitStutter =
     [{
@@ -224,22 +276,9 @@ let HitStutter =
     }];
 
 
-async function MeleeWeapons(args) {
-    const lastArg = args;
-    let item = lastArg.item
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
+async function MeleeWeapons() {
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
     let type01 = "01";
     let tint = "Regular";
     let color;
@@ -251,9 +290,7 @@ async function MeleeWeapons(args) {
             color = "White";
     }
     let fireColor = "pass";
-    //
     // Change the HEX Color code inside the switch to change the color of the fire burn on the TMFX call. I use https://htmlcolorcodes.com/ , and keep the 0x in front
-    //
     switch (true) {
         case (itemIncludes("white")):
             type01 = "01";
@@ -320,6 +357,7 @@ async function MeleeWeapons(args) {
         [{
             filterType: "xfire",
             filterId: "meleeBurn",
+            autoDestroy: true,
             time: 0,
             color: fireColor,
             blend: 1,
@@ -333,6 +371,8 @@ async function MeleeWeapons(args) {
             {
                 time:
                 {
+                    loopDuration: 500,
+                    loops: 3,
                     active: true,
                     speed: -0.0015,
                     animType: "move"
@@ -419,16 +459,9 @@ async function MeleeWeapons(args) {
     }
 
     async function Cast() {
-        if (game.settings.get("automated-jb2a-animations", "playonhit")) {
-            var myStringArray = Array.from(lastArg.hitTargets);
-        } else {
-            var myStringArray = Array.from(lastArg.targets);
-        }
         var arrayLength = myStringArray.length;
         for (var i = 0; i < arrayLength; i++) {
             let mainTargetdata = myStringArray[i];
-            //     let mainTarget = canvas.tokens.get(mainTargetdata._id)
-            let myToken = canvas.tokens.get(lastArg.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
 
             let idsSearch = myToken.actor.data.items.filter(item => item.type === `feat`).map(item => item.name);
 
@@ -507,41 +540,29 @@ async function MeleeWeapons(args) {
                         await wait(tmDelay);
                         switch (true) {
                             case (fireColor != "pass"):
-                                TokenMagic.addUpdateFilters(mainTargetdata, burn);
+                                TokenMagic.addFilters(mainTargetdata, burn);
                                 await wait(50);
-                                TokenMagic.addUpdateFilters(mainTargetdata, tmMacro);
+                                TokenMagic.addFilters(mainTargetdata, tmMacro);
                                 break;
                             default:
-                                TokenMagic.addUpdateFilters(mainTargetdata, tmMacro);
+                                TokenMagic.addFilters(mainTargetdata, tmMacro);
                                 break;
                         }
                     }
             }
-            await wait(tmKill);
-            TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
-            await wait(50);
-            TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
+           await wait(tmKill);
+           TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+           // await wait(50);
+           // TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
         }
     }
     Cast()
 }
 
 
-async function MeleeRangeSwitch(args) {
-    const lastArg = args;
-    let item = lastArg.item;
-    let pcRace = lastArg.actor.data.data.details.race.toLowerCase();
+async function MeleeRangeSwitch() {
+    //let pcRace = lastArg.actor.data.data.details.race.toLowerCase();
     //console.log(pcRace);
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -604,6 +625,7 @@ async function MeleeRangeSwitch(args) {
         [{
             filterType: "xfire",
             filterId: "meleeBurn",
+            autoDestroy: true,
             time: 0,
             color: fireColor,
             blend: 1,
@@ -617,6 +639,8 @@ async function MeleeRangeSwitch(args) {
             {
                 time:
                 {
+                    loopDuration: 500,
+                    loops: 3,
                     active: true,
                     speed: -0.0015,
                     animType: "move"
@@ -684,19 +708,13 @@ async function MeleeRangeSwitch(args) {
     }
 
     async function Cast() {
-        if (game.settings.get("automated-jb2a-animations", "playonhit")) {
-            var myStringArray = Array.from(lastArg.hitTargets);
-        } else {
-            var myStringArray = Array.from(lastArg.targets);
-        }
         var arrayLength = myStringArray.length;
         for (var i = 0; i < arrayLength; i++) {
 
             let mainTargetdata = myStringArray[i];
-            let myToken = canvas.tokens.get(lastArg.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
 
             let distance = MidiQOL.getDistance(mainTargetdata, myToken);
-            console.log(distance);
+            //console.log(distance);
             let range;
             switch (true) {
                 case (pcRace == "bugbear"):
@@ -777,7 +795,6 @@ async function MeleeRangeSwitch(args) {
                     Scale = canvas.scene.data.grid / 175;
                     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
                     function castSpell(effect) {
-                        const tokens = canvas.tokens.controlled;
                         game.user.targets.forEach((i, t) => {
                             canvas.fxmaster.drawSpecialToward(effect, myToken, t);
 
@@ -811,8 +828,8 @@ async function MeleeRangeSwitch(args) {
                                 TokenMagic.addFilters(mainTargetdata, tmMacro);
                         }
                         await wait(tmkill);
-                        TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
-                        await wait(50);
+                        //TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
+                        //await wait(50);
                         TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
                         break;
                     }
@@ -824,19 +841,7 @@ async function MeleeRangeSwitch(args) {
 }
 
 
-async function SpellAttacks(args) {
-    const lastArg = args;
-    let item = lastArg.item
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
+async function SpellAttacks() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -969,6 +974,7 @@ async function SpellAttacks(args) {
         [{
             filterType: "xfire",
             filterId: "letitBurn",
+            autoDestroy: true,
             time: 0,
             // Can change color in hex format
             color: tmColor,
@@ -979,11 +985,12 @@ async function SpellAttacks(args) {
             scaleX: 1,
             scaleY: 1,
             inlay: false,
-            autoDestroy: true,
             animated:
             {
                 time:
                 {
+                    loopDuration: 750,
+                    loops: 1,
                     active: true,
                     speed: -0.0015,
                     animType: "move"
@@ -995,6 +1002,7 @@ async function SpellAttacks(args) {
         [{
             filterType: "xfire",
             filterId: "Frosty",
+            autoDestroy: true,
             color: tmColor,
             time: 0,
             blend: 5,
@@ -1008,6 +1016,8 @@ async function SpellAttacks(args) {
             {
                 time:
                 {
+                    loopDuration: 1400,
+                    loops: 1,
                     active: true,
                     speed: -0.0020,
                     animType: "move"
@@ -1019,11 +1029,12 @@ async function SpellAttacks(args) {
         [{
             filterType: "fire",
             filterId: "Ashes",
+            autoDestroy: true,
             intensity: 3,
             color: tmColor,
             amplitude: 2,
             time: 0,
-            blend: 10,
+            blend: 15,
             fireBlend: 1,
             alphaDiscard: true,
             zOrder: 50,
@@ -1031,33 +1042,29 @@ async function SpellAttacks(args) {
             {
                 time:
                 {
+                    loopDuration: 1000,
+                    loops: 2,
                     active: true,
                     speed: -0.0024,
                     animType: "move"
                 }
             }
-        }, {
-            filterType: "glow",
-            filterId: "Ashes02",
-            outerStrength: 4,
-            innerStrength: 2,
-            color: tmColor,
-            quality: 0.5,
-            padding: 10,
-            zOrder: 100,
         }];
     let Electric =
         [{
             filterType: "electric",
             filterId: "Witchy",
+            autoDestroy: true,
             color: tmColor,
             time: 0,
             blend: 2,
-            intensity: 5,
+            intensity: 3,
             animated:
             {
                 time:
                 {
+                    loopDuration: 1000,
+                    loops: 4,
                     active: true,
                     speed: 0.0020,
                     animType: "move"
@@ -1072,12 +1079,12 @@ async function SpellAttacks(args) {
 
     switch (true) {
         case (itemIncludes("fire bolt")):
-            tmDelay = 1000;
-            tmKill = 2000;
-            tmMacro = letitBurn;
+            //tmDelay = 1000;
+            //tmKill = 500;
+            //tmMacro = letitBurn;
             break;
         case (itemIncludes("ray of frost")):
-            tmDelay = 1000;
+            tmDelay = 750;
             tmKill = 2000;
             tmMacro = Frosty;
             break;
@@ -1088,7 +1095,7 @@ async function SpellAttacks(args) {
             break;
         case (itemIncludes("scorching ray")):
             tmDelay = 500;
-            tmKill = 2000;
+            tmKill = 750;
             tmMacro = letitBurn;
             break;
         case (itemIncludes("disintegrate")):
@@ -1100,18 +1107,12 @@ async function SpellAttacks(args) {
 
 
     async function Cast() {
-        if (game.settings.get("automated-jb2a-animations", "playonhit")) {
-            var myStringArray = Array.from(lastArg.hitTargets);
-        } else {
-            var myStringArray = Array.from(lastArg.targets);
-        }
         var arrayLength = myStringArray.length;
         for (var i = 0; i < arrayLength; i++) {
 
             let mainTargetdata = myStringArray[i];
-            let myToken = canvas.tokens.get(lastArg.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
-            let checkSave = Array.from(lastArg.saves);
-            let saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
+            //let checkSave = Array.from(lastArg.saves);
+            //let saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
             //console.log(saves);
             //console.log(mainTargetdata.id);
             function saveCheck(test) {
@@ -1203,7 +1204,7 @@ async function SpellAttacks(args) {
                 }
             };
 
-            lastArg.targets.forEach(async (i) => {
+            myStringArray.forEach(async (i) => {
                 canvas.fxmaster.playVideo(spellAnim);
                 game.socket.emit('module.fxmaster', spellAnim);
                 if (game.settings.get("automated-jb2a-animations", "tmfx")) {
@@ -1213,26 +1214,6 @@ async function SpellAttacks(args) {
                         default:
                             await wait(tmDelay);
                             TokenMagic.addFilters(mainTargetdata, tmMacro);
-                            await wait(tmKill);
-                            switch (true) {
-                                case (itemIncludes("fire bolt")):
-                                    TokenMagic.deleteFilters(mainTargetdata, "letitBurn");
-                                    break;
-                                case (itemIncludes("ray of frost")):
-                                    TokenMagic.deleteFilters(mainTargetdata, "Frosty");
-                                    break;
-                                case (itemIncludes("witch bolt")):
-                                    TokenMagic.deleteFilters(mainTargetdata, "Witchy");
-                                    break;
-                                case (itemIncludes("scorching ray")):
-                                    TokenMagic.deleteFilters(mainTargetdata, "letitBurn");
-                                    break;
-                                case (itemIncludes("disintegrate")):
-                                    TokenMagic.deleteFilters(mainTargetdata, "Ashes");
-                                    await wait(50);
-                                    TokenMagic.deleteFilters(mainTargetdata, "Ashes02");
-                                    break;
-                            }
                     }
                 }
 
@@ -1245,19 +1226,7 @@ async function SpellAttacks(args) {
 }
 
 
-async function CreatureAttacks(args) {
-
-    const lastArg = args;
-    let item = lastArg.item;
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
+async function CreatureAttacks() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -1343,15 +1312,9 @@ async function CreatureAttacks(args) {
 
 
     async function Cast() {
-        if (game.settings.get("automated-jb2a-animations", "playonhit")) {
-            var myStringArray = Array.from(lastArg.hitTargets);
-        } else {
-            var myStringArray = Array.from(lastArg.targets);
-        }
         var arrayLength = myStringArray.length;
         for (var i = 0; i < arrayLength; i++) {
-            console.log(myStringArray[i]);
-
+            //console.log(myStringArray[i]);
             let mainTargetdata = myStringArray[i];
             let tarScale;
             switch (true) {
@@ -1388,8 +1351,6 @@ async function CreatureAttacks(args) {
                 await wait(250);
                 TokenMagic.addFilters(mainTargetdata, tmMacro);
                 await wait(2000);
-                TokenMagic.deleteFilters(mainTargetdata, "BloodyHitStutter");
-                await wait(50);
                 TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
             }
         }
@@ -1398,21 +1359,7 @@ async function CreatureAttacks(args) {
 }
 
 
-async function RangedWeapons(args) {
-
-    const lastArg = args;
-    let item = lastArg.item;
-
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
+async function RangedWeapons() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -1471,31 +1418,32 @@ async function RangedWeapons(args) {
             break;
 
     }
-
-    let Poison =
-        [{
-            filterType: "smoke",
-            filterId: "Poison",
-            color: 0x50FFAA,
-            time: 0,
-            blend: 2,
-            dimX: 1,
-            dimY: 1,
-            animated:
-            {
-                time:
+    /*
+        let Poison =
+            [{
+                filterType: "smoke",
+                filterId: "Poison",
+                color: 0x50FFAA,
+                time: 0,
+                blend: 2,
+                dimX: 1,
+                dimY: 1,
+                animated:
                 {
-                    active: true,
-                    speed: 0.0015,
-                    animType: "move"
+                    time:
+                    {
+                        active: true,
+                        speed: 0.0015,
+                        animType: "move"
+                    }
                 }
-            }
-        }];
-
+            }];
+    */
     let colorWave =
         [{
             filterType: "wave",
             filterId: "colorWave",
+            autoDestroy: true,
             time: 0,
             strength: 0.03,
             frequency: 15,
@@ -1506,6 +1454,8 @@ async function RangedWeapons(args) {
             {
                 time:
                 {
+                    loopDuration: 750,
+                    loops: 2,
                     active: true,
                     speed: 0.0180,
                     animType: "move",
@@ -1515,6 +1465,7 @@ async function RangedWeapons(args) {
         {
             filterType: "xfire",
             filterId: "colorWave",
+            autoDestroy: true,
             time: 0,
             color: tmColor,
             blend: 1,
@@ -1528,6 +1479,8 @@ async function RangedWeapons(args) {
             {
                 time:
                 {
+                    loopDuration: 750,
+                    loops: 2,
                     active: true,
                     speed: -0.0015,
                     animType: "move"
@@ -1551,29 +1504,14 @@ async function RangedWeapons(args) {
     switch (true) {
         case (itemIncludes("hammer")):
             path01 = "Hammer01";
-            tmMacro = BloodyHitStutter;
+            tmMacro = HitStutter;
             Delay01 = 600;
             Delay02 = 800;
             Delay03 = 800;
             break;
-        case (itemIncludes("arrow")):
-        case (itemIncludes("bow")):
-            path01 = "Arrow01";
-            switch (true) {
-                case (itemIncludes("green")):
-                    tmMacro = Poison;
-                    break;
-                default:
-                    tmMacro = BloodSplat;
-                    break;
-            }
-            Delay01 = 750;
-            Delay02 = 1100;
-            Delay03 = 900;
-            break;
         case (itemIncludes("boulder")):
             path01 = "BoulderToss01";
-            tmMacro = BloodyHitStutter
+            tmMacro = HitStutter
             size = "500";
             Delay01 = 1250;
             Delay02 = 1750;
@@ -1581,7 +1519,7 @@ async function RangedWeapons(args) {
             break;
         case (itemIncludes("siege")):
             path01 = "SiegeBoulder01";
-            tmMacro = BloodyHitStutter;
+            tmMacro = HitStutter;
             Delay01 = 750;
             Delay02 = 1250;
             Delay03 = 1150;
@@ -1610,19 +1548,12 @@ async function RangedWeapons(args) {
     }
 
     async function Cast() {
-        // change to        lastArg.hitTargets; to only play on hits using the MIDI-QOL options
-        if (game.settings.get("automated-jb2a-animations", "playonhit")) {
-            var myStringArray = Array.from(lastArg.hitTargets);
-        } else {
-            var myStringArray = Array.from(lastArg.targets);
-        }
         var arrayLength = myStringArray.length;
         for (var i = 0; i < arrayLength; i++) {
 
             await wait(500)
 
             let mainTargetdata = myStringArray[i];
-            let myToken = canvas.tokens.get(lastArg.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
 
             let ray = new Ray(myToken.center, mainTargetdata.center);
             let anDeg = -(ray.angle * 57.3);
@@ -1734,13 +1665,6 @@ async function RangedWeapons(args) {
                 if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                     await wait(interval * x + 1500);
                     TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
-                    await wait(50);
-                    TokenMagic.deleteFilters(mainTargetdata, "BloodyHitStutter");
-                    await wait(50);
-                    TokenMagic.deleteFilters(mainTargetdata, "Poison");
-                    await wait(50);
-                    TokenMagic.deleteFilters(mainTargetdata, "colorWave");
-                    await wait(50);
                 }
             }
             SpellAnimation(Repeater)
@@ -1759,57 +1683,42 @@ async function RangedWeapons(args) {
 }
 
 
-async function ThunderwaveAuto(args) {
-    if (!canvas.fxmaster) ui.notifications.error("This macro depends on the FXMaster module. Make sure it is installed and enabled");
-
-    const lastArg = args;
-    let item = lastArg.item;
-
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
-
+async function ThunderwaveAuto() {
     let type01 = "01";
     let tint = "Bright";
     let color = "Blue";
-    let tmColor = 0x0075B0;
+    //let tmColor = 0x0075B0;
 
     switch (true) {
         case (itemIncludes("blue")):
             type01 = "01";
             tint = "Bright";
             color = "Blue";
-            tmColor = 0x0075B0;
+            //tmColor = 0x0075B0;
             break;
         case (itemIncludes("green")):
             type01 = "01";
             tint = "Bright";
             color = "Green";
-            tmColor = 0x15CA00;
+            //tmColor = 0x15CA00;
             break;
         case (itemIncludes("orange")):
             type01 = "01";
             tint = "Bright";
             color = "Orange";
-            tmColor = 0xD17506;
+            //tmColor = 0xD17506;
             break;
         case (itemIncludes("purple")):
             type01 = "01";
             tint = "Dark";
             color = "Purple";
-            tmColor = 0xA90092;
+            //tmColor = 0xA90092;
             break;
         case (itemIncludes("red")):
             type01 = "01";
             tint = "Dark";
             color = "Red";
-            tmColor = 0xC10000;
+            //tmColor = 0xC10000;
             break;
 
     }
@@ -1820,7 +1729,6 @@ async function ThunderwaveAuto(args) {
     let template = await canvas.templates.get(templateID);
     let gridSize = canvas.scene.data.grid;
     let Scale = canvas.scene.data.grid / 200;
-    let myToken = canvas.tokens.get(lastArg.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
     let file = `modules/${path00}/Library/1st_Level/Thunderwave/`;
 
     let anFile = `${file}Thunderwave_${type01}_${tint}_${color}_BMid_600x600.webm`;
@@ -1890,104 +1798,68 @@ async function ThunderwaveAuto(args) {
     SpellAnimation(5);
 
     let shockWave =
-        [{
-            filterType: "wave",
-            filterId: "shockWave",
-            time: 0,
-            strength: 0.03,
-            frequency: 15,
-            maxIntensity: 4.0,
-            minIntensity: 0.5,
-            padding: 25,
-            animated:
-            {
-                time:
-                {
-                    active: true,
-                    speed: 0.0180,
-                    animType: "move",
-                }
-            }
-        },
+    [{
+        filterType: "wave",
+        filterId: "shockWave",
+        autoDestroy: true,
+        time: 0,
+        strength: 0.03,
+        frequency: 10,
+        maxIntensity: 2.0,
+        minIntensity: 0.5,
+        padding: 25,
+        animated:
         {
-            filterType: "xfire",
-            filterId: "burn",
-            time: 0,
-            color: tmColor,
-            blend: 1,
-            amplitude: 1,
-            dispersion: 0,
-            chromatic: false,
-            scaleX: 1,
-            scaleY: 1,
-            inlay: false,
-            animated:
+            time:
             {
-                time:
-                {
-                    active: true,
-                    speed: -0.0015,
-                    animType: "move"
-                }
+                loopDuration: 900,
+                loops: 5,
+                active: true,
+                speed: 0.0180,
+                animType: "move",
             }
-        }];
-    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+        }
+    }];
+if (game.settings.get("automated-jb2a-animations", "tmfx")) {
         await wait(500);
         TokenMagic.addUpdateFiltersOnTargeted(shockWave);
-        await wait(3500);
-        TokenMagic.deleteFiltersOnTargeted("burn");
-        await wait(50);
-        TokenMagic.deleteFiltersOnTargeted("shockWave");
     }
 }
 
 
-async function ShatterAuto(args) {
-    const lastArg = args;
-    let item = lastArg.item
-
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
+async function ShatterAuto() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
     let color = "Blue";
-    let tmColor = 0x0075B0;
+    //let tmColor = 0x0075B0;
 
     switch (true) {
         case (itemIncludes("blue")):
             type01 = "01";
             color = "Blue";
-            tmColor = 0x0075B0;
+            //tmColor = 0x0075B0;
             break;
         case (itemIncludes("green")):
             type01 = "01";
             color = "Green";
-            tmColor = 0x0EB400;
+            //tmColor = 0x0EB400;
             break;
         case (itemIncludes("orange")):
             type01 = "01";
             color = "Orange";
-            tmColor = 0xBF6E00;
+            //tmColor = 0xBF6E00;
             break;
         case (itemIncludes("purple")):
             type01 = "01";
             color = "Purple";
-            tmColor = 0xBF0099;
+            //tmColor = 0xBF0099;
             break;
         case (itemIncludes("red")):
             type01 = "01";
             color = "Red";
-            tmColor = 0xBF0000;
+            //tmColor = 0xBF0000;
             break;
 
     }
@@ -1997,7 +1869,7 @@ async function ShatterAuto(args) {
         const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
         let template = await canvas.templates.get(templateID);
         // Scaled globally, change divisor for different size animation.
-        let Scale = ((canvas.scene.data.grid) / (item.data.data.target.value * 10));
+        let Scale = ((canvas.scene.data.grid) / 100);
         // Defines the spell template for FXMaster
         let spellAnim =
         {
@@ -2032,69 +1904,35 @@ async function ShatterAuto(args) {
             [{
                 filterType: "wave",
                 filterId: "shockWave",
+                autoDestroy: true,
                 time: 0,
                 strength: 0.03,
-                frequency: 15,
-                maxIntensity: 4.0,
+                frequency: 10,
+                maxIntensity: 2.0,
                 minIntensity: 0.5,
                 padding: 25,
                 animated:
                 {
                     time:
                     {
+                        loopDuration: 900,
+                        loops: 5,
                         active: true,
                         speed: 0.0180,
                         animType: "move",
-                    }
-                }
-            },
-            {
-                filterType: "xfire",
-                filterId: "burn",
-                time: 0,
-                color: tmColor,
-                blend: 1,
-                amplitude: 1,
-                dispersion: 0,
-                chromatic: false,
-                scaleX: 1,
-                scaleY: 1,
-                inlay: false,
-                animated:
-                {
-                    time:
-                    {
-                        active: true,
-                        speed: -0.0015,
-                        animType: "move"
                     }
                 }
             }];
         if (game.settings.get("automated-jb2a-animations", "tmfx")) {
             await wait(1400);
             TokenMagic.addUpdateFiltersOnTargeted(shockWave);
-            await wait(4500);
-            TokenMagic.deleteFiltersOnTargeted("burn");
-            await wait(50);
-            TokenMagic.deleteFiltersOnTargeted("shockWave");
         }
     }
     Cast()
 }
 
 
-async function OnTargetSpells(args) {
-    const lastArg = args;
-    let item = lastArg.item;
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
+async function OnTargetSpells() {
 
     let type01 = "01";
     let color = "Blue";
@@ -2144,9 +1982,7 @@ async function OnTargetSpells(args) {
 
     async function Cast() {
 
-        var myStringArray = Array.from(lastArg.targets);
         var arrayLength = myStringArray.length;
-
         for (var i = 0; i < arrayLength; i++) {
             let mainTargetdata = myStringArray[i];
             let tarScale = canvas.scene.data.grid / 200;
@@ -2173,12 +2009,12 @@ async function OnTargetSpells(args) {
                 [{
                     filterType: "outline",
                     filterId: "myOutline",
+                    autoDestroy: true,
                     padding: 10,
                     color: tmColor,
                     thickness: 1,
                     quality: 5,
                     zOrder: 9,
-                    autoDestroy: true,
                     animated:
                     {
                         thickness:
@@ -2201,30 +2037,18 @@ async function OnTargetSpells(args) {
 }
 
 
-async function MagicMissile(args) {
-    const lastArg = args;
-    let item = lastArg.item
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
+async function MagicMissile() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
     let tint = "Regular";
-    let color = "Blue";
+    let color = "Purple";
     let shockWave =
         [{
             filterType: "wave",
             filterId: "shockWave",
+            autoDestroy: true,
             time: 0,
             strength: 0.03,
             frequency: 15,
@@ -2235,6 +2059,8 @@ async function MagicMissile(args) {
             {
                 time:
                 {
+                    loopDuration: 500,
+                    loops: 3,
                     active: true,
                     speed: 0.0180,
                     animType: "move",
@@ -2243,13 +2069,11 @@ async function MagicMissile(args) {
         }];
 
     async function Cast() {
-        //            change to lastArg.hitTargets to only play animations on hit using Midi Workflow option
-        var myStringArray = Array.from(lastArg.targets);
+
         var arrayLength = myStringArray.length;
         for (var i = 0; i < arrayLength; i++) {
 
             let mainTargetdata = myStringArray[i];
-            let myToken = canvas.tokens.get(lastArg.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
 
             let ray = new Ray(myToken.center, mainTargetdata.center);
             let anDeg = -(ray.angle * 57.3);
@@ -2273,37 +2097,32 @@ async function MagicMissile(args) {
                         function random_color(items) {
                             return items[Math.floor(Math.random() * items.length)];
                         }
-
+                        
                         switch (true) {
                             case (itemIncludes("blue")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Blue";
-                                tmColor = 0x187C00;
                                 break;
                             case (itemIncludes("green")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Green";
-                                tmColor = 0x2CE600;
                                 break;
                             case (itemIncludes("purple")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Purple";
-                                tmColor = 0x8E0000;
                                 break;
                             case (itemIncludes("yellow")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Yellow";
-                                tmColor = 0xFF0000;
                                 break;
                             case (itemIncludes("random")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = random_color(items);
-                                tmColor = 0xFF0000;
                                 break;
                         }
 
@@ -2386,8 +2205,6 @@ async function MagicMissile(args) {
                 // Activates the Token Magic FX after a delay
                 await wait(1000)
                 TokenMagic.addFilters(mainTargetdata, shockWave);
-                await wait(2500);
-                TokenMagic.deleteFilters(mainTargetdata, "shockWave");
             }
         }
     }
@@ -2395,21 +2212,7 @@ async function MagicMissile(args) {
 }
 
 
-async function ExplodeTemplate(args) {
-    const lastArg = args;
-    let item = lastArg.item;
-
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
-
+async function ExplodeTemplate() {
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
@@ -2544,6 +2347,7 @@ async function ExplodeTemplate(args) {
             [{
                 filterType: "wave",
                 filterId: "shockWave",
+                autoDestroy: true,
                 time: 0,
                 strength: 0.03,
                 frequency: 15,
@@ -2554,41 +2358,21 @@ async function ExplodeTemplate(args) {
                 {
                     time:
                     {
+                        loopDuration: 500,
+                        loops: 5,
                         active: true,
                         speed: 0.0180,
                         animType: "move",
-                    }
-                }
-            },
-            {
-                filterType: "xfire",
-                filterId: "burn",
-                time: 0,
-                color: tmColor,
-                blend: 1,
-                amplitude: 1,
-                dispersion: 0,
-                chromatic: false,
-                scaleX: 1,
-                scaleY: 1,
-                inlay: false,
-                animated:
-                {
-                    time:
-                    {
-                        active: true,
-                        speed: -0.0015,
-                        animType: "move"
                     }
                 }
             }];
         if (game.settings.get("automated-jb2a-animations", "tmfx")) {
             await wait(400);
             TokenMagic.addUpdateFiltersOnTargeted(shockWave);
-            await wait(2500);
-            TokenMagic.deleteFiltersOnTargeted("burn");
-            await wait(250);
-            TokenMagic.deleteFiltersOnTargeted("shockWave");
+            //await wait(2500);
+            //TokenMagic.deleteFiltersOnTargeted("burn");
+            //await wait(250);
+            //TokenMagic.deleteFiltersOnTargeted("shockWave");
         }
     }
     Cast()
@@ -2596,29 +2380,15 @@ async function ExplodeTemplate(args) {
 }
 
 
-async function ArrowOptionExplode(args) {
-
-    const lastArg = args;
-    let item = lastArg.item
-
-    let itemName = item.name.toLowerCase();
-    let itemSource = item.data.data.source.toLowerCase();
-    function moduleIncludes(test) {
-        if (game.modules.get(test)) return true;
-    }
-    var path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;
-    }
+async function ArrowOptionExplode() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
     let tint = "Regular";
     let color = "White";
-    let tmColor;
-    let tmMacro;
+    //let tmColor;
+    //let tmMacro;
 
     switch (true) {
         case (itemIncludes("green")):
@@ -2644,7 +2414,7 @@ async function ArrowOptionExplode(args) {
                     break;
             }
             color02 = "Blue";
-            tmColor = 0x0075B0;
+            //tmColor = 0x0075B0;
             break;
         case (itemIncludes("orange")):
             switch (true) {
@@ -2653,7 +2423,7 @@ async function ArrowOptionExplode(args) {
                     break;
             }
             color02 = "Orange";
-            tmColor = 0xBF6E00;
+            //tmColor = 0xBF6E00;
             break;
         case (itemIncludes("purple")):
             switch (true) {
@@ -2662,7 +2432,7 @@ async function ArrowOptionExplode(args) {
                     break;
             }
             color02 = "Purple";
-            tmColor = 0xBF0099;
+            //tmColor = 0xBF0099;
             break;
         case (itemIncludes("yellow")):
             switch (true) {
@@ -2671,7 +2441,7 @@ async function ArrowOptionExplode(args) {
                     break;
             }
             color02 = "Yellow";
-            tmColor = 0xCFD204;
+            //tmColor = 0xCFD204;
             break;
         case (itemIncludes("acid")):
             switch (true) {
@@ -2680,7 +2450,7 @@ async function ArrowOptionExplode(args) {
                     break;
             }
             color02 = "Green";
-            tmColor = 0x0EB400;
+            //tmColor = 0x0EB400;
             break;
 
     }
@@ -2705,7 +2475,7 @@ async function ArrowOptionExplode(args) {
     
         }
     */
-
+/*
     let Poison =
         [{
             filterType: "field",
@@ -2737,6 +2507,7 @@ async function ArrowOptionExplode(args) {
         [{
             filterType: "xfire",
             filterId: "Burning",
+            autoDestroy: true,
             time: 0,
             // Can change color in hex format
             color: tmColor,
@@ -2752,6 +2523,8 @@ async function ArrowOptionExplode(args) {
             {
                 time:
                 {
+                    loopDuration: 1000,
+                    loops: 2,
                     active: true,
                     speed: -0.0015,
                     animType: "move"
@@ -2759,7 +2532,8 @@ async function ArrowOptionExplode(args) {
 
             }
         }];
-
+        */
+/*
     let Electric =
         [{
             filterType: "electric",
@@ -2779,6 +2553,7 @@ async function ArrowOptionExplode(args) {
 
             }
         }];
+        */
     /*
         switch (true) {
             case (itemIncludes("acid")):
@@ -2833,11 +2608,6 @@ async function ArrowOptionExplode(args) {
 
     async function Cast() {
 
-        if (game.settings.get("automated-jb2a-animations", "playonhit")) {
-            var myStringArray = Array.from(lastArg.hitTargets);
-        } else {
-            var myStringArray = Array.from(lastArg.targets);
-        }
         var arrayLength = myStringArray.length;
         for (var i = 0; i < arrayLength; i++) {
             let Scale = (canvas.scene.data.grid / divisor);
@@ -2845,7 +2615,6 @@ async function ArrowOptionExplode(args) {
             await wait(500)
 
             let mainTargetdata = myStringArray[i];
-            let myToken = canvas.tokens.get(lastArg.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
 
             let ray = new Ray(myToken.center, mainTargetdata.center);
             let anDeg = -(ray.angle * 57.3);
@@ -2921,11 +2690,11 @@ async function ArrowOptionExplode(args) {
                     await wait(boomDelay);
                     canvas.fxmaster.playVideo(spellAnim2);
                     game.socket.emit('module.fxmaster', spellAnim2);
-                    TokenMagic.addUpdateFiltersOnTargeted(letitBurn);
-                    await wait(2500);
+                    //TokenMagic.addUpdateFiltersOnTargeted(letitBurn);
+                    //await wait(2500);
                     //TokenMagic.deleteFiltersOnTargeted("Shocked");
                     //await wait(50);
-                    TokenMagic.deleteFiltersOnTargeted("Burning");
+                    //TokenMagic.deleteFiltersOnTargeted("Burning");
                     //await wait(50);
                     // TokenMagic.deleteFiltersOnTargeted("Poisoned");
                     break;
@@ -2934,4 +2703,223 @@ async function ArrowOptionExplode(args) {
         }
     }
     Cast()
+}
+
+
+async function CastOnSelf() {
+    if (game.settings.get("automated-jb2a-animations", "EnableShield")) {
+
+        let path01;
+        let path02;
+        let path03;
+
+        switch (true) {
+            case (itemIncludes("shield")):
+                path01 = "5th_Level";
+                path02 = "Antilife_Shell";
+                path03 = "AntilifeShell_01_Blue_NoCircle";
+                break;
+        }
+
+        const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+        await wait(500);
+
+        async function Cast() {
+
+            let Scale = ((myToken.data.width + myToken.data.height) / 8);
+
+            let spellAnim =
+            {
+                file: `modules/${path00}/Library/${path01}/${path02}/${path03}_400x400.webm`,
+                position: myToken.center,
+                anchor: {
+                    x: 0.5,
+                    y: 0.5
+                },
+                angle: 0,
+                speed: 0,
+                scale: {
+                    x: Scale,
+                    y: Scale
+                }
+            };
+            canvas.fxmaster.playVideo(spellAnim);
+            game.socket.emit('module.fxmaster', spellAnim);
+        }
+        Cast();
+    }
+}
+
+
+async function ExplodeOnTarget() {
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+    let type01 = "01";
+    let color = "Orange";
+    let tmColor = 0x0075B0;
+
+    switch (true) {
+        case (itemIncludes("blue")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Blue";
+            tmColor = 0x0075B0;
+            break;
+        case (itemIncludes("green")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Green";
+            tmColor = 0x0EB400;
+            break;
+        case (itemIncludes("orange")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Orange";
+            tmColor = 0xBF6E00;
+            break;
+        case (itemIncludes("purple")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Purple";
+            tmColor = 0xBF0099;
+            break;
+        case (itemIncludes("yellow")):
+            switch (true) {
+                case (itemIncludes("02")):
+                    type01 = "02";
+                    break;
+            }
+            color = "Yellow";
+            tmColor = 0xCFD204;
+            break;
+    }
+    let divisor = 200;
+    switch (true) {
+        case (itemIncludes("(05)")):
+            divisor = 200;
+            break;
+        case (itemIncludes("(10)")):
+            divisor = 100;
+            break;
+        case (itemIncludes("(15)")):
+            divisor = 67;
+        case (itemIncludes("(20)")):
+            divisor = 50;
+            break;
+        case (itemIncludes("(25)")):
+            divisor = 40;
+            break;
+        case (itemIncludes("(30)")):
+            divisor = 33;
+            break;
+        case (itemIncludes("(35)")):
+            divisor = 28.5;
+            break;
+        case (itemIncludes("(40)")):
+            divisor = 25;
+            break;
+        case (itemIncludes("(45)")):
+            divisor = 22.2;
+            break;
+        case (itemIncludes("(50)")):
+            divisor = 20;
+            break;
+        case (itemIncludes("nuke")):
+            divisor = 10;
+            break;
+    }
+
+
+    async function Cast() {
+
+        let mainTargetdata = myStringArray[0];
+        let Scale = (canvas.scene.data.grid / divisor);
+
+/*
+        //Finds the center of the placed circular template and plays an animation using FXMaster
+        const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
+        let template = await canvas.templates.get(templateID);
+        // Scaled globally, change divisor for different size animation.
+        let Scale = (canvas.scene.data.grid / divisor);
+        //var myStringArray = Array.from(lastArg.targets);
+        //let mainTargetdata = myStringArray[i];
+*/
+        // Defines the spell template for FXMaster
+        let spellAnim =
+        {
+            file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type01}_${color}_400x400.webm`,
+            position: mainTargetdata.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: Scale,
+                y: Scale
+            }
+        };
+
+        async function SpellAnimation(number) {
+
+            let x = number;
+            let interval = 1000;
+            for (var i = 0; i < x; i++) {
+                setTimeout(function () {
+                    canvas.fxmaster.playVideo(spellAnim);
+                    game.socket.emit('module.fxmaster', spellAnim);
+                }, i * interval);
+            }
+        }
+        // The number in parenthesis sets the number of times it loops
+        SpellAnimation(2)
+/*
+        let shockWave =
+            [{
+                filterType: "wave",
+                filterId: "shockWave",
+                autoDestroy: true,
+                time: 0,
+                strength: 0.03,
+                frequency: 15,
+                maxIntensity: 4.0,
+                minIntensity: 0.5,
+                padding: 25,
+                animated:
+                {
+                    time:
+                    {
+                        loopDuration: 500,
+                        loops: 5,
+                        active: true,
+                        speed: 0.0180,
+                        animType: "move",
+                    }
+                }
+            }];
+            */
+        //if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+            //await wait(400);
+            //TokenMagic.addUpdateFiltersOnTargeted(shockWave);
+            //await wait(2500);
+            //TokenMagic.deleteFiltersOnTargeted("burn");
+            //await wait(250);
+            //TokenMagic.deleteFiltersOnTargeted("shockWave");
+        //}
+    }
+    Cast()
+
 }
