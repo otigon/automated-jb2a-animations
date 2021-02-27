@@ -87,7 +87,13 @@ By default, the animations activate and play when the Midi-QOL "workflow" is com
 - A simpler option that will ONLY play animations when the Damage or Healing rolls are done.
 
 
-# check
+# Using Animations for other Items or Spells
+
+By default, the module will only recognize specific names of items to trigger the animations. To get around this there are a few options:
+
+1. If you want to turn off an animation for a specific item, this can be done by typing **xxx** in the **Source** field
+
+
 Current Features:
 - Automatically recognizes the weapon and spell names to choose a base animation to play. Auto-Detect is only set for Names that match an available JB2A animation. For example, if you wanted to use a Ray of Frost animation for Chill Touch, you need to put Ray of Frost in the Source field of the Chill Touch spell, then you can also set colors.
 - Dagger, Handaxe and Spear detect the range to the target to pick whether the Melee or Ranged animmation is used. Recognizes the Bugbear race to add an additional 5 foot reach in these instances.
