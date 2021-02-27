@@ -79,8 +79,11 @@ By default, the module will only recognize specific names of items to trigger th
 
 # Special Notes
 
-1. Dagger, Handaxe and Spear animations. These 3 weapons have both melee and thrown properties. The module will read your distance to the target, and use the melee animation while in range, while switching to the thrown animation when out of melee range. It will also recognize the Bugbear race with their long limbs, to use Melee Animations when 10ft or less from the target.
-2. Thunderwave: This spell has three different animations, and the module will choose which one to use based on where your Token is located **INSIDE** or **AROUND** the template. The image below shows possible token positions:  
+1. Dagger, Handaxe and Spear animations. These 3 weapons have both melee and thrown properties. The module will read your distance to the target, and use the melee animation while in range, while switching to the thrown animation when out of melee range. It will also recognize the Bugbear race with their long limbs, to use Melee Animations when 10ft or less from the target.  
+
+You can still set the color of the **Melee** weapon animation in the Source Field, but the thrown weapons do not have color variants (yet), so they will stay at the standard animation.  
+
+3. Thunderwave: This spell has three different animations, and the module will choose which one to use based on where your Token is located **INSIDE** or **AROUND** the template. The image below shows possible token positions:  
 
 ![Alt text](pictures/ThunderWaveLoc.png)
 
