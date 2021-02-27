@@ -26,15 +26,34 @@ Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 
 4. Playing with the timing of different TFMX applications and Animations to help streamline when used on The Forge.
 
-# Overview
+# Introduction
 
 **Trying to figure out now why the Token Magic FX do not apply on the Forge**
 
-Time to ditch those animation macros! This is the first testing release for use, and I will be taking any and all suggestions for improving this as we go along. 
+Time to ditch those animation macros! This module is designed to implement all of the "instant" duration animations like:
 
-This module functions similarly to the macros in the On-Use-Only Macro compendium of my macro module. However, this will run all of the animations behind the scenes without requiring fussy macros. This is ONLY set up for DnD 5e currently, though may work on other simiilar systems. The best part? If they change the file names again it's on me to fix it haha.... hmm
+- Weapon Attacks
+- Attack Spells
+- Explosions
 
-REQUIRED MODULES: Midi-QOL, Furnace, FXMaster. Token Magic FX is optional
+Currently implemented for D&D 5e
+
+REQUIRED MODULES: 
+- Midi-QOL
+- Furnace
+- FXMaster
+- JB2A - Jules&Ben's Animated Assets (patreon or free version)
+Optional Modules:
+- Token Magic FX
+
+# Overview
+
+
+
+This module functions similarly to calling On-Use Macros through Midi-QOL or Item Macro. However, this will run all of the animations behind the scenes without fussing with macros. This is ONLY set up for DnD 5e currently, though may work on other similar systems.  
+
+The module reads the data passed through Midi-QOL to get the **Name** of the item, as well as reading the item's **Source** Field. It pairs animations from the JB2A module with items having the name they were designed for. 
+
 
 There are 2 settings currently in the Configure Settings area.
 1. Enable Token Magic FX
