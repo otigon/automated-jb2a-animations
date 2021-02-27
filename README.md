@@ -95,7 +95,7 @@ By default, the module will only recognize specific names of items to trigger th
 ![Alt text](pictures/XXX.png)
 
 2. If you want to use an animation for an item that doesn't have one, simply put the animation/item name you want to use in the **Source** Field. In the example below, there is no animation currently for Chill Touch, but the Green Ray of Frost animation works nicely. By putting Ray of Frost Green (CAPS is not necessary) in the **Source** Field, this item will now call the Green Ray of Frost animation.
-3. 
+![Alt text](pictures/CTExample.png)
 
 
 Current Features:
