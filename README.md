@@ -42,7 +42,7 @@ REQUIRED MODULES:
 - Midi-QOL
 - Furnace
 - FXMaster
-- JB2A - Jules&Ben's Animated Assets (patreon or free version)
+- JB2A - Jules&Ben's Animated Assets (patreon or free version)  
 Optional Modules:
 - Token Magic FX
 
@@ -66,7 +66,7 @@ In this sense:
 The "default" animations used are the ones available in the Free version of JB2A. Their Patreon module has plenty of awesome color variants to use as well, and the color can be switched by adding the color you want (if available) in the **Source** field. (Subscription to JB2A patreon start for as little as $1.50 USD)
 
 Example: Fire Bolt
-Default Color: Orange
+Default Color: Orange  
 Available Patreon Colors: Red, Blue, Green and Purple
 
 Typing any one of the Patreon color options for Fire Bolt in the **Source** Field will change the animation played to that color variant.
