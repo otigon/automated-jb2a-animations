@@ -39,7 +39,7 @@ In this sense:
 - Disintegrate will play the Disintegrate animation
 - etc. etc. etc
 
-The "default" animations used are the ones available in the Free version of JB2A. Their Patreon module has plenty of awesome color variants to use as well, and the color can be switched by adding the color you want (if available) in the **Source** field. (Subscription to JB2A patreon start for as little as $1.50 USD)
+The "default" animations used are the ones available in the Free version of JB2A. Their Patreon module has plenty of awesome color variants to use as well, and the color can be switched by adding the color you want (if available) in the **Source** field. (Check out **JB2A** on Patreon at https://www.patreon.com/JB2A)
 
 Example: Fire Bolt  
 Default Color: Orange  
