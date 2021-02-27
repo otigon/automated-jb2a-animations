@@ -54,7 +54,7 @@ This module functions similarly to calling On-Use Macros through Midi-QOL or Ite
 
 The module reads the data passed through Midi-QOL to get the **Name** of the item, as well as reading the item's **Source** Field. It pairs animations from the JB2A module with items having the name they were designed for. 
 
-![Alt text](pictures/NameandSource.PNG)
+![Alt text](pictures/NameandSource.png)
 
 There are 2 settings currently in the Configure Settings area.
 1. Enable Token Magic FX
