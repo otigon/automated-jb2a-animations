@@ -4,8 +4,6 @@ Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 
 # Introduction
 
-**Trying to figure out now why the Token Magic FX do not apply on the Forge**
-
 Time to ditch those animation macros! This module is designed to implement all of the "instant" duration animations like:
 
 - Weapon Attacks
@@ -21,6 +19,9 @@ REQUIRED MODULES:
 - JB2A - Jules&Ben's Animated Assets (patreon or free version)  
 Optional Modules:
 - Token Magic FX
+
+# Known Issues
+- The **About Face** module can cause issues with the **FX Master** function used for the Melee attack animations. A fix has been proposed to the **FX Master** Author and it should be fixed on the next update for that module.
 
 # Overview
 
