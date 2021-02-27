@@ -56,6 +56,21 @@ The module reads the data passed through Midi-QOL to get the **Name** of the ite
 
 ![Alt text](pictures/NameandSource.png)
 
+In this sense:
+- a Greataxe will play the Greataxe animation
+- a Longsword or Shortsword will play the Sword animation
+- Fire Bolt will play the Fire Bolt animation
+- Disintegrate will play the Disintegrate animation
+- etc. etc. etc
+
+The "default" animations used are the ones available in the Free version of JB2A. Their Patreon module has plenty of awesome color variants to use as well, and the color can be switched by adding the color you want (if available) in the **Source** field. (Subscription to JB2A patreon start for as little as $1.50 USD)
+
+Example: Fire Bolt
+Default Color: Orange
+Available Patreon Colors: Red, Blue, Green and Purple
+
+Typing any one of the Patreon color options for Fire Bolt in the **Source** Field will change the animation played to that color variant.
+
 There are 2 settings currently in the Configure Settings area.
 1. Enable Token Magic FX
    Enable this checkbox to include all of the standard Token Magic FX with the animations
