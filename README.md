@@ -48,8 +48,6 @@ Optional Modules:
 
 # Overview
 
-
-
 This module functions similarly to calling On-Use Macros through Midi-QOL or Item Macro. However, this will run all of the animations behind the scenes without fussing with macros. This is ONLY set up for DnD 5e currently, though may work on other similar systems.  
 
 The module reads the data passed through Midi-QOL to get the **Name** of the item, as well as reading the item's **Source** Field. It pairs animations from the JB2A module with items having the name they were designed for. 
@@ -65,19 +63,31 @@ In this sense:
 
 The "default" animations used are the ones available in the Free version of JB2A. Their Patreon module has plenty of awesome color variants to use as well, and the color can be switched by adding the color you want (if available) in the **Source** field. (Subscription to JB2A patreon start for as little as $1.50 USD)
 
-Example: Fire Bolt
+Example: Fire Bolt  
 Default Color: Orange  
 Available Patreon Colors: Red, Blue, Green and Purple
 
 Typing any one of the Patreon color options for Fire Bolt in the **Source** Field will change the animation played to that color variant.
 
-There are 2 settings currently in the Configure Settings area.
+# Settings
+
 1. Enable Token Magic FX
-   Enable this checkbox to include all of the standard Token Magic FX with the animations
+- Token Magic FX for this Module is disabled by default. Enable this to activate the built in TMFX filters that play with the Animations.
+- This is a module wide setting, but a future release will enable the options to disable the effects on a per animations basis.
+
+**When the Animations Play**  
+By default, the animations activate and play when the Midi-QOL "workflow" is complete. This means a few things:  
+- If using MIDI to check for hits, the animations will play even if the attack misses and damage is not rolled.
+- If NOT using Midi to check for hits, the animation will play when the Damage is rolled, but will also play on Nat 1's.
+
 2. Only play animations on Hits
-   If checked, this requires the Midi-QOL setting to be enabled that checks for attacks to hit. Animations will only play when attacks hit.
-   If unchecked, animations will play on every attack roll
-   
+- If checking hits with Midi, you can enable this option to ONLY play animations when the target is hit by the attack
+
+3. Only play animations on Damage Rolls
+- A simpler option that will ONLY play animations when the Damage or Healing rolls are done.
+
+
+# check
 Current Features:
 - Automatically recognizes the weapon and spell names to choose a base animation to play. Auto-Detect is only set for Names that match an available JB2A animation. For example, if you wanted to use a Ray of Frost animation for Chill Touch, you need to put Ray of Frost in the Source field of the Chill Touch spell, then you can also set colors.
 - Dagger, Handaxe and Spear detect the range to the target to pick whether the Melee or Ranged animmation is used. Recognizes the Bugbear race to add an additional 5 foot reach in these instances.
