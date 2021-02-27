@@ -1,6 +1,8 @@
 # Automated Animations DnD5e
+**No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module**
 
 Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
+
 
 # Introduction
 
@@ -11,13 +13,13 @@ Time to ditch those animation macros! This module is designed to implement all o
 - Explosions
 - Healing Spells
 
-Currently implemented for D&D 5e
+Currently implemented for D&D 5e, this module leverages the excellent animations from **JB2A**
 
 REQUIRED MODULES: 
 - Midi-QOL
 - Furnace
 - FXMaster
-- JB2A - Jules&Ben's Animated Assets (patreon or free version)  
+- **JB2A** - Jules&Ben's Animated Assets (patreon and/or free version)  
 Optional Modules:
 - Token Magic FX
 
@@ -91,3 +93,5 @@ You can still set the color of the **Melee** weapon animation in the Source Fiel
 
 
 **Please feel free to send suggestions or comments in the Suggestion Box of the JB2A discord, or log an issue on the GitHub page for issues or improvement suggestions.**
+
+
