@@ -91,7 +91,11 @@ By default, the animations activate and play when the Midi-QOL "workflow" is com
 
 By default, the module will only recognize specific names of items to trigger the animations. To get around this there are a few options:
 
-1. If you want to turn off an animation for a specific item, this can be done by typing **xxx** in the **Source** field
+1. If you want to turn off an animation for a specific item, this can be done by typing **xxx** in the **Source** field. **NOTE** you do not need to delete any information currently in the **Source** field. Both examples below will bypass the animation.
+![Alt text](pictures/XXX.png)
+
+2. If you want to use an animation for an item that doesn't have one, simply put the animation/item name you want to use in the **Source** Field. In the example below, there is no animation currently for Chill Touch, but the Green Ray of Frost animation works nicely. By putting Ray of Frost Green (CAPS is not necessary) in the **Source** Field, this item will now call the Green Ray of Frost animation.
+3. 
 
 
 Current Features:
