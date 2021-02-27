@@ -1,3 +1,13 @@
+0.0.6 Release:
+- Reconfigured the Token Magic FX filters to AutoDestroy themselves. This should improve the performance of the filters applying and deleting on The Forge.
+
+- Fixed an error with Magic Missile where the animation would not play
+
+- Added an optional Shield Spell animation effect (enable in settings). This temporarily utilizes the Anti-Life shell animation.
+
+- Cleaned up the way the module directs traffic to avoid unnecessary checks.
+
+
 0.0.5 Release:
 - Added a new setting: Only Play Animation on Damage Rolls  
   Allows for further customization of animations and when they play
