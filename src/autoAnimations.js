@@ -66,7 +66,7 @@ async function RevItUp(workflow) {
     // const lastArg = args;
     // let item = lastArg.item
     itemName = workflow.item.name.toLowerCase();
-    itemSource = workflow.item.data.data.source.toLowerCase();
+    itemSource = workflow.item.data.data.source === null ? "null" : workflow.item.data.data.source.toLowerCase();
     myToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
     if (game.settings.get("automated-jb2a-animations", "playonhit")) {
         myStringArray = Array.from(workflow.hitTargets);
@@ -162,7 +162,7 @@ async function RevItUp(workflow) {
                     break;
                 case (itemIncludes("alchemist's fire")):
                     ExplodeOnTarget()
-                    break;                    
+                    break;
             }
             break;
     }
@@ -550,10 +550,10 @@ async function MeleeWeapons() {
                         }
                     }
             }
-           await wait(tmKill);
-           TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
-           // await wait(50);
-           // TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
+            await wait(tmKill);
+            TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+            // await wait(50);
+            // TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
         }
     }
     Cast()
@@ -1798,29 +1798,29 @@ async function ThunderwaveAuto() {
     SpellAnimation(5);
 
     let shockWave =
-    [{
-        filterType: "wave",
-        filterId: "shockWave",
-        autoDestroy: true,
-        time: 0,
-        strength: 0.03,
-        frequency: 10,
-        maxIntensity: 2.0,
-        minIntensity: 0.5,
-        padding: 25,
-        animated:
-        {
-            time:
+        [{
+            filterType: "wave",
+            filterId: "shockWave",
+            autoDestroy: true,
+            time: 0,
+            strength: 0.03,
+            frequency: 10,
+            maxIntensity: 2.0,
+            minIntensity: 0.5,
+            padding: 25,
+            animated:
             {
-                loopDuration: 900,
-                loops: 5,
-                active: true,
-                speed: 0.0180,
-                animType: "move",
+                time:
+                {
+                    loopDuration: 900,
+                    loops: 5,
+                    active: true,
+                    speed: 0.0180,
+                    animType: "move",
+                }
             }
-        }
-    }];
-if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+        }];
+    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
         await wait(500);
         TokenMagic.addUpdateFiltersOnTargeted(shockWave);
     }
@@ -2097,7 +2097,7 @@ async function MagicMissile() {
                         function random_color(items) {
                             return items[Math.floor(Math.random() * items.length)];
                         }
-                        
+
                         switch (true) {
                             case (itemIncludes("blue")):
                                 type01 = "01";
@@ -2475,85 +2475,85 @@ async function ArrowOptionExplode() {
     
         }
     */
-/*
-    let Poison =
-        [{
-            filterType: "field",
-            filterId: "Poisoned",
-            shieldType: 3,
-            gridPadding: 1,
-            color: tmColor,
-            time: 0,
-            blend: 0,
-            intensity: 0.9,
-            lightAlpha: 1,
-            lightSize: 0.7,
-            scale: 1,
-            radius: 1,
-            chromatic: false,
-            zOrder: 512,
-            animated:
-            {
-                time:
+    /*
+        let Poison =
+            [{
+                filterType: "field",
+                filterId: "Poisoned",
+                shieldType: 3,
+                gridPadding: 1,
+                color: tmColor,
+                time: 0,
+                blend: 0,
+                intensity: 0.9,
+                lightAlpha: 1,
+                lightSize: 0.7,
+                scale: 1,
+                radius: 1,
+                chromatic: false,
+                zOrder: 512,
+                animated:
                 {
-                    active: true,
-                    speed: 0.0015,
-                    animType: "move"
+                    time:
+                    {
+                        active: true,
+                        speed: 0.0015,
+                        animType: "move"
+                    }
                 }
-            }
-        }];
-
-    let letitBurn =
-        [{
-            filterType: "xfire",
-            filterId: "Burning",
-            autoDestroy: true,
-            time: 0,
-            // Can change color in hex format
-            color: tmColor,
-            blend: 1,
-            amplitude: 1,
-            dispersion: 0,
-            chromatic: false,
-            scaleX: 1,
-            scaleY: 1,
-            inlay: false,
-            autoDestroy: true,
-            animated:
-            {
-                time:
+            }];
+    
+        let letitBurn =
+            [{
+                filterType: "xfire",
+                filterId: "Burning",
+                autoDestroy: true,
+                time: 0,
+                // Can change color in hex format
+                color: tmColor,
+                blend: 1,
+                amplitude: 1,
+                dispersion: 0,
+                chromatic: false,
+                scaleX: 1,
+                scaleY: 1,
+                inlay: false,
+                autoDestroy: true,
+                animated:
                 {
-                    loopDuration: 1000,
-                    loops: 2,
-                    active: true,
-                    speed: -0.0015,
-                    animType: "move"
+                    time:
+                    {
+                        loopDuration: 1000,
+                        loops: 2,
+                        active: true,
+                        speed: -0.0015,
+                        animType: "move"
+                    }
+    
                 }
-
-            }
-        }];
-        */
-/*
-    let Electric =
-        [{
-            filterType: "electric",
-            filterId: "Shocked",
-            color: tmColor,
-            time: 0,
-            blend: 2,
-            intensity: 5,
-            animated:
-            {
-                time:
+            }];
+            */
+    /*
+        let Electric =
+            [{
+                filterType: "electric",
+                filterId: "Shocked",
+                color: tmColor,
+                time: 0,
+                blend: 2,
+                intensity: 5,
+                animated:
                 {
-                    active: true,
-                    speed: 0.0020,
-                    animType: "move"
+                    time:
+                    {
+                        active: true,
+                        speed: 0.0020,
+                        animType: "move"
+                    }
+    
                 }
-
-            }
-        }];
-        */
+            }];
+            */
     /*
         switch (true) {
             case (itemIncludes("acid")):
@@ -2848,15 +2848,15 @@ async function ExplodeOnTarget() {
         let mainTargetdata = myStringArray[0];
         let Scale = (canvas.scene.data.grid / divisor);
 
-/*
-        //Finds the center of the placed circular template and plays an animation using FXMaster
-        const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
-        let template = await canvas.templates.get(templateID);
-        // Scaled globally, change divisor for different size animation.
-        let Scale = (canvas.scene.data.grid / divisor);
-        //var myStringArray = Array.from(lastArg.targets);
-        //let mainTargetdata = myStringArray[i];
-*/
+        /*
+                //Finds the center of the placed circular template and plays an animation using FXMaster
+                const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
+                let template = await canvas.templates.get(templateID);
+                // Scaled globally, change divisor for different size animation.
+                let Scale = (canvas.scene.data.grid / divisor);
+                //var myStringArray = Array.from(lastArg.targets);
+                //let mainTargetdata = myStringArray[i];
+        */
         // Defines the spell template for FXMaster
         let spellAnim =
         {
@@ -2886,38 +2886,38 @@ async function ExplodeOnTarget() {
         }
         // The number in parenthesis sets the number of times it loops
         SpellAnimation(2)
-/*
-        let shockWave =
-            [{
-                filterType: "wave",
-                filterId: "shockWave",
-                autoDestroy: true,
-                time: 0,
-                strength: 0.03,
-                frequency: 15,
-                maxIntensity: 4.0,
-                minIntensity: 0.5,
-                padding: 25,
-                animated:
-                {
-                    time:
-                    {
-                        loopDuration: 500,
-                        loops: 5,
-                        active: true,
-                        speed: 0.0180,
-                        animType: "move",
-                    }
-                }
-            }];
-            */
+        /*
+                let shockWave =
+                    [{
+                        filterType: "wave",
+                        filterId: "shockWave",
+                        autoDestroy: true,
+                        time: 0,
+                        strength: 0.03,
+                        frequency: 15,
+                        maxIntensity: 4.0,
+                        minIntensity: 0.5,
+                        padding: 25,
+                        animated:
+                        {
+                            time:
+                            {
+                                loopDuration: 500,
+                                loops: 5,
+                                active: true,
+                                speed: 0.0180,
+                                animType: "move",
+                            }
+                        }
+                    }];
+                    */
         //if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-            //await wait(400);
-            //TokenMagic.addUpdateFiltersOnTargeted(shockWave);
-            //await wait(2500);
-            //TokenMagic.deleteFiltersOnTargeted("burn");
-            //await wait(250);
-            //TokenMagic.deleteFiltersOnTargeted("shockWave");
+        //await wait(400);
+        //TokenMagic.addUpdateFiltersOnTargeted(shockWave);
+        //await wait(2500);
+        //TokenMagic.deleteFiltersOnTargeted("burn");
+        //await wait(250);
+        //TokenMagic.deleteFiltersOnTargeted("shockWave");
         //}
     }
     Cast()
