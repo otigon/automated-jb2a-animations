@@ -1,5 +1,5 @@
 # Automated Animations DnD5e
-**No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module**
+**No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module** 
 
 Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 
@@ -27,6 +27,7 @@ Optional Modules:
 - The **About Face** module can cause issues with the **FX Master** function used for the Melee attack animations. A fix has been proposed to the **FX Master** Author and it should be fixed on the next update for that module.
 
 # Overview
+**Attack Spells and Melee attacks require a token(s) to be Targeted**
 
 This module functions similarly to calling On-Use Macros through Midi-QOL or Item Macro. However, this will run all of the animations behind the scenes without fussing with macros. This is ONLY set up for DnD 5e currently, though may work on other similar systems.  
 
