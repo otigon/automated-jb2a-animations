@@ -1,5 +1,7 @@
 # Automated Animations DnD5e
-**No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A** 
+**No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
+
+I am not affiliated with JB2A, and am working on this only as a side project to make these great animation more easily accesible. 
 
 Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 
