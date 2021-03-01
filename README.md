@@ -20,6 +20,7 @@ REQUIRED MODULES:
 - Furnace
 - FXMaster
 - **JB2A** - Jules&Ben's Animated Assets (patreon and/or free version)  
+
 Optional Modules:
 - Token Magic FX
 
