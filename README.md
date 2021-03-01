@@ -59,7 +59,7 @@ Typing any one of the Patreon color options for Fire Bolt in the **Source** Fiel
 - Token Magic FX for this Module is disabled by default. Enable this to activate the built in TMFX filters that play with the Animations.
 - This is a module wide setting, but a future release will enable the options to disable the effects on a per animations basis.
 - **If Enabled, it is recommended to have Permissive Mode enabled in the Token Magic FX Settings. This allows players to use the effects**  
-![Alt text](pictures/PermissiveMode.png)
+![Alt text](pictures/PermissiveMode.PNG)
 
 **When the Animations Play**  
 By default, the animations activate and play when the Midi-QOL "workflow" is complete. This means a few things:  
