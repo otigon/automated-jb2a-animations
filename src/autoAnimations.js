@@ -89,84 +89,98 @@ async function RevItUp(workflow) {
         }
         path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
     */
-    switch (true) {
-        // Use xxx in Item Source Field to exclude an item for On-Use customization
-        case (itemIncludes("xxx")):
-            break;
-        case (itemTypeIncludes("spell")):
-            checkSave = Array.from(workflow.saves);
-            saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
-            switch (true) {
-                case (itemIncludes("thunderwave")):
-                    ThunderwaveAuto()
-                    break;
-                case (itemIncludes("shatter")):
-                    ShatterAuto()
-                    break;
-                case (itemIncludes("magic missile")):
-                    MagicMissile()
-                    break;
-                case (itemIncludes("cure wounds")):
-                case (itemIncludes("healing word")):
-                    OnTargetSpells()
-                    break;
-                case (itemIncludes("fire bolt")):
-                case (itemIncludes("ray of frost")):
-                case (itemIncludes("witch bolt")):
-                case (itemIncludes("scorching ray")):
-                case (itemIncludes("disintegrate")):
-                    SpellAttacks()
-                    break;
-                case (itemIncludes("shield")):
-                    CastOnSelf()
-                    break;
-            }
-            break;
-        case (itemTypeIncludes("weapon")):
-        case (itemTypeIncludes("consumable")):
-            switch (true) {
-                case (itemIncludes("dagger")):
-                case (itemIncludes("handaxe")):
-                case (itemIncludes("spear")):
-                    pcRace = workflow.actor.data.data.details.race.toLowerCase();
-                    MeleeRangeSwitch()
-                    break;
-                case (itemIncludes("bite")):
-                case (itemIncludes("claw")):
-                    CreatureAttacks()
-                    break;
-                case (itemIncludes("sword")):
-                case (itemIncludes("greatclub")):
-                case (itemIncludes("greataxe")):
-                case (itemIncludes("mace")):
-                case (itemIncludes("maul")):
-                case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-                    MeleeWeapons()
-                    break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                    ArrowOptionExplode()
-                    break;
-                case (itemIncludes("hammer")):
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("laser")):
-                case (itemIncludes("javelin")):
-                case (itemIncludes("sling")):
-                    RangedWeapons()
-                    break;
-                case (itemIncludes("explode")):
-                case (itemIncludes("grenade")):
-                case (itemIncludes("bomb")):
-                    ExplodeTemplate()
-                    break;
-                case (itemIncludes("alchemist's fire")):
-                    ExplodeOnTarget()
-                    break;
-            }
-            break;
-    }
+
+    //arrayLength = myStringArray.length;
+
+        // Add an early breakout if no targets selected in Melee
+        //console.log("there are targets");
+        switch (true) {
+            // Use xxx in Item Source Field to exclude an item for On-Use customization
+            case (itemIncludes("xxx")):
+                break;
+            case (itemTypeIncludes("spell")):
+                checkSave = Array.from(workflow.saves);
+                saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
+                switch (true) {
+                    case (itemIncludes("thunderwave")):
+                        ThunderwaveAuto()
+                        break;
+                    case (itemIncludes("shatter")):
+                        ShatterAuto()
+                        break;
+                    case (itemIncludes("magic missile")):
+                        MagicMissile()
+                        break;
+                    case (itemIncludes("cure wounds")):
+                    case (itemIncludes("healing word")):
+                        OnTargetSpells()
+                        break;
+                    case (itemIncludes("fire bolt")):
+                    case (itemIncludes("ray of frost")):
+                    case (itemIncludes("witch bolt")):
+                    case (itemIncludes("scorching ray")):
+                    case (itemIncludes("disintegrate")):
+                        SpellAttacks()
+                        break;
+                    case (itemIncludes("shield")):
+                        CastOnSelf()
+                        break;
+                }
+                break;
+            case (itemTypeIncludes("weapon")):
+            case (itemTypeIncludes("consumable")):
+                switch (true) {
+                    case (itemIncludes("dagger")):
+                    case (itemIncludes("handaxe")):
+                    case (itemIncludes("spear")):
+                        pcRace = workflow.actor.data.data.details.race.toLowerCase();
+                        MeleeRangeSwitch()
+                        break;
+                    case (itemIncludes("bite")):
+                    case (itemIncludes("claw")):
+                        CreatureAttacks()
+                        break;
+                    case (itemIncludes("sword")):
+                    case (itemIncludes("greatclub")):
+                    case (itemIncludes("greataxe")):
+                    case (itemIncludes("mace")):
+                    case (itemIncludes("maul")):
+                    case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
+                        MeleeWeapons()
+                        break;
+                    case (itemIncludes("arrow")):
+                    case (itemIncludes("bow")):
+                        ArrowOptionExplode()
+                        break;
+                    case (itemIncludes("hammer")):
+                    case (itemIncludes("boulder")):
+                    case (itemIncludes("siege")):
+                    case (itemIncludes("laser")):
+                    case (itemIncludes("javelin")):
+                    case (itemIncludes("sling")):
+                        RangedWeapons()
+                        break;
+                    case (itemIncludes("explode")):
+                    case (itemIncludes("grenade")):
+                    case (itemIncludes("bomb")):
+                        ExplodeTemplate()
+                        break;
+                    case (itemIncludes("alchemist's fire")):
+                        ExplodeOnTarget()
+                        break;
+                }
+                break;
+        }
+    
 }
+
+
+/*
+Hooks.on("preCreateChatMessage", async (msg, options, userId) => {
+    const itemId = $(msg.content).attr("data-item-id");
+    console.log(itemId);
+});
+*/
 
 
 let BloodyHitStutter =
@@ -292,12 +306,12 @@ async function MeleeWeapons() {
     let fireColor = "pass";
     // Change the HEX Color code inside the switch to change the color of the fire burn on the TMFX call. I use https://htmlcolorcodes.com/ , and keep the 0x in front
     switch (true) {
-        case (itemIncludes("white")):
+        case (itemSource.includes("white")):
             type01 = "01";
             tint = "Regular";
             color = "White";
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             type01 = "Fire";
             switch (true) {
                 case (itemIncludes("lasersword")):
@@ -310,43 +324,43 @@ async function MeleeWeapons() {
             color = "Purple";
             fireColor = 0x8B00C0;
             break;
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             type01 = "Fire";
             tint = "Regular";
             color = "Blue";
             fireColor = 0x008FC0;
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             type01 = "Fire";
             tint = "Regular";
             color = "Green";
             fireColor = 0x60EA01;
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             type01 = "Fire";
             tint = "Regular";
             color = "Orange";
             fireColor = 0xF18A07;
             break;
-        case (itemIncludes("pink")):
+        case (itemSource.includes("pink")):
             type01 = "Fire";
             tint = "Regular";
             color = "Pink";
             fireColor = 0xD2049A;
             break;
-        case (itemIncludes("darkred")):
+        case (itemSource.includes("darkred")):
             type01 = "Fire";
             tint = "Dark";
             color = "Red";
             fireColor = 0x610101;
             break;
-        case (itemIncludes("red")):
+        case (itemSource.includes("red")):
             type01 = "Fire";
             tint = "Regular";
             color = "Red";
             fireColor = 0xD20404;
             break;
-        case (itemIncludes("yellow")):
+        case (itemSource.includes("yellow")):
             type01 = "Fire";
             tint = "Regular";
             color = "Yellow";
@@ -435,26 +449,44 @@ async function MeleeWeapons() {
         case (itemIncludes("1hs")):
             item01 = "DmgSlashing";
             color = "Yellow_1Handed";
+            tmDelay = 500;
+            tmKill = 750;
+            tmMacro = HitStutter;
             break;
         case (itemIncludes("2hs")):
             item01 = "DmgSlashing";
             color = "Yellow_2Handed";
+            tmDelay = 500;
+            tmKill = 750;
+            tmMacro = HitStutter;
             break;
         case (itemIncludes("1hp")):
             item01 = "DmgPiercing";
             color = "Yellow_1Handed";
+            tmDelay = 200;
+            tmKill = 500;
+            tmMacro = HitStutter;
             break;
         case (itemIncludes("2hp")):
             item01 = "DmgPiercing";
             color = "Yellow_2Handed";
+            tmDelay = 200;
+            tmKill = 500;
+            tmMacro = HitStutter;
             break;
         case (itemIncludes("1hb")):
             item01 = "DmgSlashing";
             color = "Yellow_1Handed";
+            tmDelay = 500;
+            tmKill = 750;
+            tmMacro = HitStutter;
             break;
         case (itemIncludes("2hb")):
             item01 = "DmgSlashing";
             color = "Yellow_2Handed";
+            tmDelay = 500;
+            tmKill = 750;
+            tmMacro = HitStutter;
             break;
     }
 
@@ -572,48 +604,48 @@ async function MeleeRangeSwitch() {
     let fireColor = "pass";
 
     switch (true) {
-        case (itemIncludes("white")):
+        case (itemSource.includes("white")):
             type01 = "01";
             tint = "Regular";
             color = "White";
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             type01 = "Fire";
             tint = "Dark";
             color = "Purple";
             fireColor = "0x8B00C0";
             break;
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             type01 = "Fire";
             tint = "Regular";
             color = "Blue";
             fireColor = "0x008FC0";
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             type01 = "Fire";
             tint = "Regular";
             color = "Green";
             fireColor = "0x60EA01";
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             type01 = "Fire";
             tint = "Regular";
             color = "Orange";
             fireColor = "0xF18A07";
             break;
-        case (itemIncludes("pink")):
+        case (itemSource.includes("pink")):
             type01 = "Fire";
             tint = "Regular";
             color = "Pink";
             fireColor = "0xD2049A";
             break;
-        case (itemIncludes("red")):
+        case (itemSource.includes("red")):
             type01 = "Fire";
             tint = "Regular";
             color = "Red";
             fireColor = "0xD20404";
             break;
-        case (itemIncludes("yellow")):
+        case (itemSource.includes("yellow")):
             type01 = "Fire";
             tint = "Regular";
             color = "Yellow";
@@ -869,8 +901,8 @@ async function SpellAttacks() {
         case (itemIncludes("witch bolt")):
             path = "1st_Level/Witch_Bolt";
             path2 = "WitchBolt_01";
-            tint = "Dark";
-            color = "Purple";
+            tint = "Regular";
+            color = "Blue";
             tmColor = 0xAE00AE;
             break;
         case (itemIncludes("scorching ray")):
@@ -884,53 +916,53 @@ async function SpellAttacks() {
             path = "6th_Level/Disintegrate";
             path2 = "Disintegrate_01";
             tint = "Regular";
-            color = "PurpleBlue";
+            color = "Green01";
             tmColor = 0x00AFC1;
             break;
     }
 
     switch (true) {
-        case (itemIncludes("orangepink")):
+        case (itemSource.includes("orangepink")):
             tint = "Regular";
             color = "OrangePink";
             tmColor = 0xC1005B;
             break;
-        case (itemIncludes("purpleblue")):
+        case (itemSource.includes("purpleblue")):
             tint = "Regular";
             color = "PurpleBlue";
             tmColor = 0x00AFC1;
             break;
-        case (itemIncludes("darkpurple")):
+        case (itemSource.includes("darkpurple")):
             tint = "Dark";
             color = "Purple";
             tmColor = 0xAE00AE;
             break;
-        case (itemIncludes("darkgreen")):
+        case (itemSource.includes("darkgreen")):
             tint = "Dark";
             color = "Green";
             tmColor = 0x187C00;
             break;
-        case (itemIncludes("darkred")):
+        case (itemSource.includes("darkred")):
             tint = "Dark";
             color = "Red";
             tmColor = 0x8E0000;
             break;
-        case (itemIncludes("blueyellow")):
+        case (itemSource.includes("blueyellow")):
             tint = "Regular";
             color = "BlueYellow";
             tmColor = 0xACC5C5;
             break;
-        case (itemIncludes("purpleteal")):
+        case (itemSource.includes("purpleteal")):
             tint = "Regular";
             color = "PurpleTeal";
             tmColor = 0xC38CDC;
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             tint = "Regular";
             color = "Orange";
             tmColor = 0xFF9309;
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             tint = "Regular";
             switch (true) {
                 case (itemIncludes("disintegrate")):
@@ -942,17 +974,17 @@ async function SpellAttacks() {
             }
             tmColor = 0x59E81F;
             break;
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             tint = "Regular";
             color = "Blue";
             tmColor = 0xBBDDEE;
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             tint = "Regular";
             color = "Purple";
             tmColor = 0xFF09E1;
             break;
-        case (itemIncludes("red")):
+        case (itemSource.includes("red")):
             switch (true) {
                 case (itemIncludes("fire bolt")):
                     tint = "Dark";
@@ -963,7 +995,7 @@ async function SpellAttacks() {
             color = "Red";
             tmColor = 0xBB1414;
             break;
-        case (itemIncludes("yellow")):
+        case (itemSource.includes("yellow")):
             tint = "Regular";
             color = "Yellow";
             tmColor = 0xFF0000;
@@ -1235,17 +1267,17 @@ async function CreatureAttacks() {
     let color = "Red";
 
     switch (true) {
-        case (itemIncludes("darkred")):
+        case (itemSource.includes("darkred")):
             type01 = "01";
             tint = "Dark";
             color = "Red";
             break;
-        case (itemIncludes("red")):
+        case (itemSource.includes("red")):
             type01 = "01";
             tint = "Regular";
             color = "Red";
             break;
-        case (itemIncludes("yellow")):
+        case (itemSource.includes("yellow")):
             type01 = "01";
             switch (true) {
                 case (itemIncludes("bite")):
@@ -1257,7 +1289,7 @@ async function CreatureAttacks() {
             }
             color = "Yellow";
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             type01 = "01";
             switch (true) {
                 case (itemIncludes("bite")):
@@ -1269,7 +1301,7 @@ async function CreatureAttacks() {
             }
             color = "Purple";
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             type01 = "01";
             switch (true) {
                 case (itemIncludes("bite")):
@@ -1281,7 +1313,7 @@ async function CreatureAttacks() {
             }
             color = "Orange";
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             type01 = "01";
             switch (true) {
                 case (itemIncludes("bite")):
@@ -1293,7 +1325,7 @@ async function CreatureAttacks() {
             }
             color = "Green";
             break;
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             type01 = "01";
             switch (true) {
                 case (itemIncludes("bite")):
@@ -1379,18 +1411,18 @@ async function RangedWeapons() {
     let tmDelay;
 
     switch (true) {
-        case (itemIncludes("white")):
+        case (itemSource.includes("white")):
             type01 = "01";
             tint = "Regular";
             color = "White";
             break;
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             type01 = "01";
             tint = "Regular";
             color = "Blue";
             tmColor = 0x0075B0;
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             type01 = "01";
             switch (true) {
                 case (itemIncludes("arrow")):
@@ -1404,13 +1436,13 @@ async function RangedWeapons() {
             color = "Green";
             tmColor = 0x0EB400;
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             type01 = "01";
             tint = "Regular";
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
-        case (itemIncludes("red")):
+        case (itemSource.includes("red")):
             type01 = "01";
             tint = "Regular";
             color = "Red";
@@ -1690,31 +1722,31 @@ async function ThunderwaveAuto() {
     //let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             type01 = "01";
             tint = "Bright";
             color = "Blue";
             //tmColor = 0x0075B0;
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             type01 = "01";
             tint = "Bright";
             color = "Green";
             //tmColor = 0x15CA00;
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             type01 = "01";
             tint = "Bright";
             color = "Orange";
             //tmColor = 0xD17506;
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             type01 = "01";
             tint = "Dark";
             color = "Purple";
             //tmColor = 0xA90092;
             break;
-        case (itemIncludes("red")):
+        case (itemSource.includes("red")):
             type01 = "01";
             tint = "Dark";
             color = "Red";
@@ -1836,27 +1868,27 @@ async function ShatterAuto() {
     //let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             type01 = "01";
             color = "Blue";
             //tmColor = 0x0075B0;
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             type01 = "01";
             color = "Green";
             //tmColor = 0x0EB400;
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             type01 = "01";
             color = "Orange";
             //tmColor = 0xBF6E00;
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             type01 = "01";
             color = "Purple";
             //tmColor = 0xBF0099;
             break;
-        case (itemIncludes("red")):
+        case (itemSource.includes("red")):
             type01 = "01";
             color = "Red";
             //tmColor = 0xBF0000;
@@ -1939,27 +1971,27 @@ async function OnTargetSpells() {
     let tmColor = 0x107BD9;
 
     switch (true) {
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             type01 = "01";
             color = "Blue";
             tmColor = 0x107BD9;
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             type01 = "01";
             color = "Green";
             tmColor = 0x7BDA35;
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             type01 = "01";
             color = "Purple";
             tmColor = 0x9400CB;
             break;
-        case (itemIncludes("red")):
+        case (itemSource.includes("red")):
             type01 = "01";
             color = "Red";
             tmColor = 0xE12C2C;
             break;
-        case (itemIncludes("yellow")):
+        case (itemSource.includes("yellow")):
             type01 = "01";
             color = "Yellow";
             tmColor = 0xE4B700;
@@ -2099,27 +2131,27 @@ async function MagicMissile() {
                         }
 
                         switch (true) {
-                            case (itemIncludes("blue")):
+                            case (itemSource.includes("blue")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Blue";
                                 break;
-                            case (itemIncludes("green")):
+                            case (itemSource.includes("green")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Green";
                                 break;
-                            case (itemIncludes("purple")):
+                            case (itemSource.includes("purple")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Purple";
                                 break;
-                            case (itemIncludes("yellow")):
+                            case (itemSource.includes("yellow")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Yellow";
                                 break;
-                            case (itemIncludes("random")):
+                            case (itemSource.includes("random")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = random_color(items);
@@ -2220,45 +2252,45 @@ async function ExplodeTemplate() {
     let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
             color = "Blue";
             tmColor = 0x0075B0;
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
             color = "Green";
             tmColor = 0x0EB400;
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
             color = "Purple";
             tmColor = 0xBF0099;
             break;
-        case (itemIncludes("yellow")):
+        case (itemSource.includes("yellow")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
@@ -2268,36 +2300,36 @@ async function ExplodeTemplate() {
     }
     let divisor = 100;
     switch (true) {
-        case (itemIncludes("(05)")):
+        case (itemSource.includes("(05)")):
             divisor = 200;
             break;
-        case (itemIncludes("(10)")):
+        case (itemSource.includes("(10)")):
             divisor = 100;
             break;
-        case (itemIncludes("(15)")):
+        case (itemSource.includes("(15)")):
             divisor = 67;
-        case (itemIncludes("(20)")):
+        case (itemSource.includes("(20)")):
             divisor = 50;
             break;
-        case (itemIncludes("(25)")):
+        case (itemSource.includes("(25)")):
             divisor = 40;
             break;
-        case (itemIncludes("(30)")):
+        case (itemSource.includes("(30)")):
             divisor = 33;
             break;
-        case (itemIncludes("(35)")):
+        case (itemSource.includes("(35)")):
             divisor = 28.5;
             break;
-        case (itemIncludes("(40)")):
+        case (itemSource.includes("(40)")):
             divisor = 25;
             break;
-        case (itemIncludes("(45)")):
+        case (itemSource.includes("(45)")):
             divisor = 22.2;
             break;
-        case (itemIncludes("(50)")):
+        case (itemSource.includes("(50)")):
             divisor = 20;
             break;
-        case (itemIncludes("nuke")):
+        case (itemSource.includes("nuke")):
             divisor = 10;
             break;
     }
@@ -2391,12 +2423,12 @@ async function ArrowOptionExplode() {
     //let tmMacro;
 
     switch (true) {
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             type01 = "01";
             tint = "Glowing";
             color = "Green";
             break;
-        case (itemIncludes("white")):
+        case (itemSource.includes("white")):
             type01 = "01";
             tint = "Regular";
             color = "White";
@@ -2407,45 +2439,45 @@ async function ArrowOptionExplode() {
     let color02 = "Orange";
 
     switch (true) {
-        case (itemIncludes("blue")):
+        case (itemSource.includes("blue")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type02 = "02";
                     break;
             }
             color02 = "Blue";
             //tmColor = 0x0075B0;
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type02 = "02";
                     break;
             }
             color02 = "Orange";
             //tmColor = 0xBF6E00;
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type02 = "02";
                     break;
             }
             color02 = "Purple";
             //tmColor = 0xBF0099;
             break;
-        case (itemIncludes("yellow")):
+        case (itemSource.includes("yellow")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type02 = "02";
                     break;
             }
             color02 = "Yellow";
             //tmColor = 0xCFD204;
             break;
-        case (itemIncludes("acid")):
+        case (itemSource.includes("acid")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type02 = "02";
                     break;
             }
@@ -2570,36 +2602,36 @@ async function ArrowOptionExplode() {
     */
     let divisor = 100;
     switch (true) {
-        case (itemIncludes("(05)")):
+        case (itemSource.includes("(05)")):
             divisor = 200;
             break;
-        case (itemIncludes("(10)")):
+        case (itemSource.includes("(10)")):
             divisor = 100;
             break;
-        case (itemIncludes("(15)")):
+        case (itemSource.includes("(15)")):
             divisor = 67;
-        case (itemIncludes("(20)")):
+        case (itemSource.includes("(20)")):
             divisor = 50;
             break;
-        case (itemIncludes("(25)")):
+        case (itemSource.includes("(25)")):
             divisor = 40;
             break;
-        case (itemIncludes("(30)")):
+        case (itemSource.includes("(30)")):
             divisor = 33;
             break;
-        case (itemIncludes("(35)")):
+        case (itemSource.includes("(35)")):
             divisor = 28.5;
             break;
-        case (itemIncludes("(40)")):
+        case (itemSource.includes("(40)")):
             divisor = 25;
             break;
-        case (itemIncludes("(45)")):
+        case (itemSource.includes("(45)")):
             divisor = 22.2;
             break;
-        case (itemIncludes("(50)")):
+        case (itemSource.includes("(50)")):
             divisor = 20;
             break;
-        case (itemIncludes("nuke")):
+        case (itemSource.includes("nuke")):
             divisor = 10;
             break;
     }
@@ -2760,45 +2792,45 @@ async function ExplodeOnTarget() {
     let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemIncludes("blue")):
+        case (itemInitemSource.includescludes("blue")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
             color = "Blue";
             tmColor = 0x0075B0;
             break;
-        case (itemIncludes("green")):
+        case (itemSource.includes("green")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
             color = "Green";
             tmColor = 0x0EB400;
             break;
-        case (itemIncludes("orange")):
+        case (itemSource.includes("orange")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
-        case (itemIncludes("purple")):
+        case (itemSource.includes("purple")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
             color = "Purple";
             tmColor = 0xBF0099;
             break;
-        case (itemIncludes("yellow")):
+        case (itemSource.includes("yellow")):
             switch (true) {
-                case (itemIncludes("02")):
+                case (itemSource.includes("02")):
                     type01 = "02";
                     break;
             }
@@ -2808,36 +2840,36 @@ async function ExplodeOnTarget() {
     }
     let divisor = 200;
     switch (true) {
-        case (itemIncludes("(05)")):
+        case (itemSource.includes("(05)")):
             divisor = 200;
             break;
-        case (itemIncludes("(10)")):
+        case (itemSource.includes("(10)")):
             divisor = 100;
             break;
-        case (itemIncludes("(15)")):
+        case (itemSource.includes("(15)")):
             divisor = 67;
-        case (itemIncludes("(20)")):
+        case (itemSource.includes("(20)")):
             divisor = 50;
             break;
-        case (itemIncludes("(25)")):
+        case (itemSource.includes("(25)")):
             divisor = 40;
             break;
-        case (itemIncludes("(30)")):
+        case (itemSource.includes("(30)")):
             divisor = 33;
             break;
-        case (itemIncludes("(35)")):
+        case (itemSource.includes("(35)")):
             divisor = 28.5;
             break;
-        case (itemIncludes("(40)")):
+        case (itemSource.includes("(40)")):
             divisor = 25;
             break;
-        case (itemIncludes("(45)")):
+        case (itemSource.includes("(45)")):
             divisor = 22.2;
             break;
-        case (itemIncludes("(50)")):
+        case (itemSource.includes("(50)")):
             divisor = 20;
             break;
-        case (itemIncludes("nuke")):
+        case (itemSource.includes("nuke")):
             divisor = 10;
             break;
     }
