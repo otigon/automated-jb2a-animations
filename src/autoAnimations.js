@@ -58,15 +58,15 @@ function moduleIncludes(test) {
 }
 
 function itemIncludes(test) {
-    if (itemSource.includes(test) || itemName.includes(test)) return true;
+    if (itemSource.includes(test) || itemName.includes(test)) return true;;
 }
 
 async function RevItUp(workflow) {
 
     // const lastArg = args;
     // let item = lastArg.item
-    itemName = workflow.item.name.toLowerCase();
-    itemSource = workflow.item.data.data.source === null ? "null" : workflow.item.data.data.source.toLowerCase();
+    itemName = workflow.item?.name?.toLowerCase();
+    itemSource = workflow.item?.data?.data?.source?.toLowerCase() ?? "null";
     myToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
     if (game.settings.get("automated-jb2a-animations", "playonhit")) {
         myStringArray = Array.from(workflow.hitTargets);
@@ -75,103 +75,95 @@ async function RevItUp(workflow) {
     }
 
     let itemType = workflow.item.data.type.toLowerCase();
-    function itemTypeIncludes(test) {
-        if (itemType.includes(test)) return true;
-    }
-    /*
-        function itemIncludes(test) {
-            if (itemSource.includes(test) || itemName.includes(test)) return true;
-        }
-    */
-    /*
-        function moduleIncludes(test) {
-            if (game.modules.get(test)) return true;
-        }
-        path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-    */
+    /* 
+     
+         function itemIncludes(test) {
+             if (itemSource.includes(test) || itemName.includes(test)) return true;
+         }
+     
+     
+         function moduleIncludes(test) {
+             if (game.modules.get(test)) return true;
+         }
+         path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+     */
 
     //arrayLength = myStringArray.length;
 
-        // Add an early breakout if no targets selected in Melee
-        //console.log("there are targets");
-        switch (true) {
-            // Use xxx in Item Source Field to exclude an item for On-Use customization
-            case (itemIncludes("xxx")):
-                break;
-            case (itemTypeIncludes("spell")):
-                checkSave = Array.from(workflow.saves);
-                saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
-                switch (true) {
-                    case (itemIncludes("thunderwave")):
-                        ThunderwaveAuto()
-                        break;
-                    case (itemIncludes("shatter")):
-                        ShatterAuto()
-                        break;
-                    case (itemIncludes("magic missile")):
-                        MagicMissile()
-                        break;
-                    case (itemIncludes("cure wounds")):
-                    case (itemIncludes("healing word")):
-                        OnTargetSpells()
-                        break;
-                    case (itemIncludes("fire bolt")):
-                    case (itemIncludes("ray of frost")):
-                    case (itemIncludes("witch bolt")):
-                    case (itemIncludes("scorching ray")):
-                    case (itemIncludes("disintegrate")):
-                        SpellAttacks()
-                        break;
-                    case (itemIncludes("shield")):
-                        CastOnSelf()
-                        break;
-                }
-                break;
-            case (itemTypeIncludes("weapon")):
-            case (itemTypeIncludes("consumable")):
-                switch (true) {
-                    case (itemIncludes("dagger")):
-                    case (itemIncludes("handaxe")):
-                    case (itemIncludes("spear")):
-                        pcRace = workflow.actor.data.data.details.race.toLowerCase();
-                        MeleeRangeSwitch()
-                        break;
-                    case (itemIncludes("bite")):
-                    case (itemIncludes("claw")):
-                        CreatureAttacks()
-                        break;
-                    case (itemIncludes("sword")):
-                    case (itemIncludes("greatclub")):
-                    case (itemIncludes("greataxe")):
-                    case (itemIncludes("mace")):
-                    case (itemIncludes("maul")):
-                    case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-                        MeleeWeapons()
-                        break;
-                    case (itemIncludes("arrow")):
-                    case (itemIncludes("bow")):
-                        ArrowOptionExplode()
-                        break;
-                    case (itemIncludes("hammer")):
-                    case (itemIncludes("boulder")):
-                    case (itemIncludes("siege")):
-                    case (itemIncludes("laser")):
-                    case (itemIncludes("javelin")):
-                    case (itemIncludes("sling")):
-                        RangedWeapons()
-                        break;
-                    case (itemIncludes("explode")):
-                    case (itemIncludes("grenade")):
-                    case (itemIncludes("bomb")):
-                        ExplodeTemplate()
-                        break;
-                    case (itemIncludes("alchemist's fire")):
-                        ExplodeOnTarget()
-                        break;
-                }
-                break;
-        }
-    
+    // Add an early breakout if no targets selected in Melee
+    //console.log("there are targets");
+    switch (true) {
+        // Use xxx in Item Source Field to exclude an item for On-Use customization
+        case (itemIncludes("xxx")):
+            break;
+        //case (itemTypeIncludes("spell")):
+        //case (itemTypeIncludes("weapon")):
+        //case (itemTypeIncludes("consumable")):
+        case (itemIncludes("thunderwave")):
+            ThunderwaveAuto()
+            break;
+        case (itemIncludes("shatter")):
+            ShatterAuto()
+            break;
+        case (itemIncludes("magic missile")):
+            MagicMissile()
+            break;
+        case (itemIncludes("cure") && itemIncludes("wounds")):
+        case (itemIncludes("healing word")):
+            OnTargetSpells()
+            break;
+        case (itemIncludes("fire bolt")):
+        case (itemIncludes("ray of frost")):
+        case (itemIncludes("witch bolt")):
+        case (itemIncludes("scorching ray")):
+        case (itemIncludes("disintegrate")):
+            checkSave = Array.from(workflow.saves);
+            saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
+            SpellAttacks()
+            break;
+        case (itemType.includes("spell") && itemIncludes("shield")):
+            CastOnSelf()
+            break;
+        case (itemIncludes("bite")):
+        case (itemIncludes("claw")):
+            CreatureAttacks()
+            break;
+        case (itemIncludes("sword")):
+        case (itemIncludes("greatclub")):
+        case (itemIncludes("greataxe")):
+        case (itemIncludes("mace")):
+        case (itemIncludes("maul")):
+        case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
+            MeleeWeapons()
+            break;
+        case (itemIncludes("dagger")):
+        case (itemIncludes("handaxe")):
+        case (itemIncludes("spear")):
+            pcRace = workflow.actor.data.data.details.race.toLowerCase();
+            MeleeRangeSwitch()
+            break;
+        case (itemIncludes("arrow")):
+        case (itemIncludes("bow")):
+            ArrowOptionExplode()
+            break;
+        case (itemIncludes("hammer")):
+        case (itemIncludes("boulder")):
+        case (itemIncludes("siege")):
+        case (itemIncludes("laser")):
+        case (itemIncludes("javelin")):
+        case (itemIncludes("sling")):
+            RangedWeapons()
+            break;
+        case (itemIncludes("explode")):
+        case (itemIncludes("grenade")):
+        case (itemIncludes("bomb")):
+            ExplodeTemplate()
+            break;
+        case (itemIncludes("alchemist's fire")):
+            ExplodeOnTarget()
+            break;
+    }
+
 }
 
 
@@ -449,9 +441,6 @@ async function MeleeWeapons() {
         case (itemIncludes("1hs")):
             item01 = "DmgSlashing";
             color = "Yellow_1Handed";
-            tmDelay = 500;
-            tmKill = 750;
-            tmMacro = HitStutter;
             break;
         case (itemIncludes("2hs")):
             item01 = "DmgSlashing";
@@ -463,9 +452,6 @@ async function MeleeWeapons() {
         case (itemIncludes("1hp")):
             item01 = "DmgPiercing";
             color = "Yellow_1Handed";
-            tmDelay = 200;
-            tmKill = 500;
-            tmMacro = HitStutter;
             break;
         case (itemIncludes("2hp")):
             item01 = "DmgPiercing";
@@ -475,14 +461,14 @@ async function MeleeWeapons() {
             tmMacro = HitStutter;
             break;
         case (itemIncludes("1hb")):
-            item01 = "DmgSlashing";
+            item01 = "DmgBludgeoning";
             color = "Yellow_1Handed";
             tmDelay = 500;
             tmKill = 750;
             tmMacro = HitStutter;
             break;
         case (itemIncludes("2hb")):
-            item01 = "DmgSlashing";
+            item01 = "DmgBludgeoning";
             color = "Yellow_2Handed";
             tmDelay = 500;
             tmKill = 750;
@@ -745,7 +731,43 @@ async function MeleeRangeSwitch() {
 
             let mainTargetdata = myStringArray[i];
 
-            let distance = MidiQOL.getDistance(mainTargetdata, myToken);
+            //let distance = MidiQOL.getDistance(mainTargetdata, myToken);
+
+            function getDistance(t1, t2, wallblocking = false) {
+                //Log("get distance callsed");
+                var x, x1, y, y1, d, r, segments = [], rdistance, distance;
+                for (x = 0; x < t1.data.width; x++) {
+                    for (y = 0; y < t1.data.height; y++) {
+                        const origin = new PIXI.Point(...canvas.grid.getCenter(t1.data.x + (canvas.dimensions.size * x), t1.data.y + (canvas.dimensions.size * y)));
+                        for (x1 = 0; x1 < t2.data.width; x1++) {
+                            for (y1 = 0; y1 < t2.data.height; y1++) {
+                                const dest = new PIXI.Point(...canvas.grid.getCenter(t2.data.x + (canvas.dimensions.size * x1), t2.data.y + (canvas.dimensions.size * y1)));
+                                const r = new Ray(origin, dest);
+                                if (wallblocking && canvas.walls.checkCollision(r)) {
+                                    //Log(`ray ${r} blocked due to walls`);
+                                    continue;
+                                }
+                                segments.push({ ray: r });
+                            }
+                        }
+                    }
+                }
+                // console.log(segments);
+                if (segments.length === 0) {
+                    //Log(`${t2.data.name} full blocked by walls`);
+                    return -1;
+                }
+                rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
+                distance = rdistance[0];
+                rdistance.forEach(d => {
+                    if (d < distance)
+                        distance = d;
+                });
+                return distance;
+            }
+
+            let distance = getDistance(myToken, mainTargetdata); // assume 2.5 width for each token
+
             //console.log(distance);
             let range;
             switch (true) {
@@ -1192,7 +1214,7 @@ async function SpellAttacks() {
                             break;
                         case (anDist > 1200):
                             anFileSize = 1800;
-                            anFile = `${file}/${path2}_${tint}}_${color}_45ft_2200x400.webm`;
+                            anFile = `${file}/${path2}_${tint}_${color}_45ft_2200x400.webm`;
                             anchorX = 0.091;
                             break;
                         default:
@@ -2753,14 +2775,30 @@ async function CastOnSelf() {
                 break;
         }
 
+        let tokenSize = myToken.actor.data.data.traits.size;
+        console.log(tokenSize);
+        let divisor = 375;
+        switch (true) {
+            case (tokenSize == "sm"):
+            case (tokenSize == "med"):
+                divisor = 375;
+                break;
+            case (tokenSize == "lg"):
+                divisor = 187;
+                break;
+            case (tokenSize == "huge"):
+                divisor = 125;
+                break;
+        }
+
         const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
         await wait(500);
 
         async function Cast() {
 
-            let Scale = ((myToken.data.width + myToken.data.height) / 8);
-
+            //let Scale = ((myToken.data.width + myToken.data.height) / 8);
+            let Scale = canvas.scene.data.grid / divisor;
             let spellAnim =
             {
                 file: `modules/${path00}/Library/${path01}/${path02}/${path03}_400x400.webm`,
