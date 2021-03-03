@@ -4,9 +4,10 @@
 I am not affiliated with JB2A, and am working on this only as a side project to make these great animation more easily accesible. 
 
 Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
-
+## Quick Reference PDF: https://github.com/otigon/automated-jb2a-animations/blob/main/PDF/Keywords%20and%20Colors.pdf ##
 
 # Introduction
+
 
 Time to ditch those animation macros! This module is designed to implement all of the "instant" duration animations like:
 
