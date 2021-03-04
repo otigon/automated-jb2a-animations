@@ -1,4 +1,12 @@
 Hooks.on('init', () => {
+    game.settings.register("automated-jb2a-animations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
+        name: "JB2A Assests Requirement Notification",                  // Register a module setting with checkbox
+        hint: "Disable startup window popup",               // Description of the settings
+        scope: "world",                                    // This specifies a client-stored setting
+        config: true,                                       // This specifies that the setting appears in the configuration view
+        type: Boolean,
+        default: false,                                     // The default value for the setting
+    });
     game.settings.register("automated-jb2a-animations", "tmfx", {
         name: 'Enable Token Magic FX',
         hint: "Enables all Token Magic effects with the animations",
@@ -40,9 +48,24 @@ Hooks.on('init', () => {
             Hooks.on("midi-qol.RollComplete", (workflow) => { RevItUp(workflow) })
             break;
     }
-    path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
+    path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 })
+
+Hooks.once('ready', function () {
+    if ((!game.modules.get("JB2A_DnD5e") && game.user.isGM) && (!game.modules.get("jb2a_patreon") && game.user.isGM))
+        ui.notifications.error("A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations DnD5e to Work");
+});
+
+/*
+switch (true) {
+    case (moduleIncludes("jb2a_patreon") || moduleIncludes("JB2A_DnD5e")):
+        break;
+    default:
+        ui.notifications.error("Automated Animations DnD5e Requires a JB2A Module to be INSTALLED to work");
+        break;
+}
+*/
 
 var myToken;
 var myStringArray;
@@ -100,33 +123,35 @@ async function RevItUp(workflow) {
         //case (itemTypeIncludes("weapon")):
         //case (itemTypeIncludes("consumable")):
         case (itemIncludes("thunderwave")):
-            ThunderwaveAuto()
+            thunderwaveAuto()
             break;
         case (itemIncludes("shatter")):
-            ShatterAuto()
+            shatterAuto()
             break;
         case (itemIncludes("magic missile")):
-            MagicMissile()
+            magicMissile()
             break;
         case (itemIncludes("cure") && itemIncludes("wounds")):
-        case (itemIncludes("healing word")):
-            OnTargetSpells()
+        case (itemIncludes("heal") && itemIncludes("word")):
+            onTargetSpells()
             break;
-        case (itemIncludes("fire bolt")):
-        case (itemIncludes("ray of frost")):
-        case (itemIncludes("witch bolt")):
-        case (itemIncludes("scorching ray")):
+        case (itemIncludes("fire") && itemIncludes("bolt")):
+        case (itemIncludes("ray") && itemIncludes("frost")):
+        case (itemIncludes("witch") && itemIncludes("bolt")):
+        case (itemIncludes("scorching") && itemIncludes("ray")):
         case (itemIncludes("disintegrate")):
             checkSave = Array.from(workflow.saves);
             saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
-            SpellAttacks()
+            spellAttacks()
             break;
         case (itemType.includes("spell") && itemIncludes("shield")):
-            CastOnSelf()
+        case (itemIncludes("potion") && itemIncludes("heal")):
+        case (itemIncludes("second") && itemIncludes("wind")):
+            castOnSelf()
             break;
         case (itemIncludes("bite")):
         case (itemIncludes("claw")):
-            CreatureAttacks()
+            creatureAttacks()
             break;
         case (itemIncludes("sword")):
         case (itemIncludes("greatclub")):
@@ -134,17 +159,17 @@ async function RevItUp(workflow) {
         case (itemIncludes("mace")):
         case (itemIncludes("maul")):
         case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-            MeleeWeapons()
+            meleeWeapons()
             break;
         case (itemIncludes("dagger")):
         case (itemIncludes("handaxe")):
         case (itemIncludes("spear")):
             pcRace = workflow.actor.data.data.details.race.toLowerCase();
-            MeleeRangeSwitch()
+            meleeRangeSwitch()
             break;
         case (itemIncludes("arrow")):
         case (itemIncludes("bow")):
-            ArrowOptionExplode()
+            arrowOptionExplode()
             break;
         case (itemIncludes("hammer")):
         case (itemIncludes("boulder")):
@@ -152,15 +177,15 @@ async function RevItUp(workflow) {
         case (itemIncludes("laser")):
         case (itemIncludes("javelin")):
         case (itemIncludes("sling")):
-            RangedWeapons()
+            rangedWeapons()
             break;
         case (itemIncludes("explode")):
         case (itemIncludes("grenade")):
         case (itemIncludes("bomb")):
-            ExplodeTemplate()
+            explodeTemplate()
             break;
-        case (itemIncludes("alchemist's fire")):
-            ExplodeOnTarget()
+        case (itemIncludes("alchemist") && itemIncludes("fire")):
+            explodeOnTarget()
             break;
     }
 
@@ -282,7 +307,7 @@ let HitStutter =
     }];
 
 
-async function MeleeWeapons() {
+async function meleeWeapons() {
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
@@ -578,7 +603,7 @@ async function MeleeWeapons() {
 }
 
 
-async function MeleeRangeSwitch() {
+async function meleeRangeSwitch() {
     //let pcRace = lastArg.actor.data.data.details.race.toLowerCase();
     //console.log(pcRace);
 
@@ -895,7 +920,7 @@ async function MeleeRangeSwitch() {
 }
 
 
-async function SpellAttacks() {
+async function spellAttacks() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -906,28 +931,28 @@ async function SpellAttacks() {
     let path2;
 
     switch (true) {
-        case (itemIncludes("fire bolt")):
+        case (itemIncludes("fire") && itemIncludes("bolt")):
             path = "Cantrip/Fire_Bolt";
             path2 = "FireBolt_01";
             tint = "Regular";
             color = "Orange";
             tmColor = 0xFF9309;
             break;
-        case (itemIncludes("ray of frost")):
+        case (itemIncludes("ray") && itemIncludes("frost")):
             path = "Cantrip/Ray_Of_Frost";
             path2 = "RayOfFrost_01";
             tint = "Regular";
             color = "Blue";
             tmColor = 0xBBDDEE;
             break;
-        case (itemIncludes("witch bolt")):
+        case (itemIncludes("witch") && itemIncludes("bolt")):
             path = "1st_Level/Witch_Bolt";
             path2 = "WitchBolt_01";
             tint = "Regular";
             color = "Blue";
             tmColor = 0xAE00AE;
             break;
-        case (itemIncludes("scorching ray")):
+        case (itemIncludes("scorching") && itemIncludes("ray")):
             path = "2nd_Level/Scorching_Ray";
             path2 = "ScorchingRay_01";
             tint = "Regular";
@@ -1132,22 +1157,22 @@ async function SpellAttacks() {
     let tmMacro;
 
     switch (true) {
-        case (itemIncludes("fire bolt")):
+        case (itemIncludes("fire") && itemIncludes("bolt")):
             //tmDelay = 1000;
             //tmKill = 500;
             //tmMacro = letitBurn;
             break;
-        case (itemIncludes("ray of frost")):
+        case (itemIncludes("ray") && itemIncludes("frost")):
             tmDelay = 750;
             tmKill = 2000;
             tmMacro = Frosty;
             break;
-        case (itemIncludes("witch bolt")):
+        case (itemIncludes("witch") && itemIncludes("bolt")):
             tmDelay = 50;
             tmKill = 4000;
             tmMacro = Electric;
             break;
-        case (itemIncludes("scorching ray")):
+        case (itemIncludes("scorching") && itemIncludes("ray")):
             tmDelay = 500;
             tmKill = 750;
             tmMacro = letitBurn;
@@ -1241,7 +1266,17 @@ async function SpellAttacks() {
             }
 
             let anScale = anDist / anFileSize;
-            let anScaleY = anDist <= 600 ? 0.6 : anScale;
+            //let anScaleY = anDist <= 600 ? 0.6 : anScale;
+
+            let anScaleY = anScale;
+            if (anDist <= 300) { anScaleY = 0.7 }
+            if (anDist >= 400 && anDist <= 600) { anScaleY = anScale * 0.9 }
+            if (anDist >= 700 && anDist <= 900) { anScaleY = 0.8 }
+            if (anDist >= 1000 && anDist <= 1200) { anScaleY = anScale * 0.9 }
+            if (anDist >= 1300 && anDist <= 1500) { anScaleY = 0.6 }
+            if (anDist >= 1600 && anDist <= 1800) { anScaleY = 0.8 }
+            if (anDist >= 1800) { anScaleY = anScale }
+
 
             let spellAnim =
             {
@@ -1280,7 +1315,7 @@ async function SpellAttacks() {
 }
 
 
-async function CreatureAttacks() {
+async function creatureAttacks() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -1413,7 +1448,7 @@ async function CreatureAttacks() {
 }
 
 
-async function RangedWeapons() {
+async function rangedWeapons() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -1680,6 +1715,16 @@ async function RangedWeapons() {
 
             let anScale = anDist / anFileSize;
             let anScaleY = anDist <= 600 ? 0.6 : anScale;
+            /*
+            let anScaleY = anScale;
+            if (anDist <= 300) { anScaleY = 0.75 }
+            if (anDist >= 400 && anDist <= 600) { anScaleY = anScale * 0.9 }
+            if (anDist >= 700 && anDist <= 900) { anScaleY = 0.8 }
+            if (anDist >= 1000 && anDist <= 1200) { anScaleY = anScale * 0.9 }
+            if (anDist >= 1300 && anDist <= 1500) { anScaleY = 0.6 }
+            if (anDist >= 1600 && anDist <= 1800) { anScaleY = 0.8 }
+            if (anDist >= 1800) { anScaleY = anScale }
+*/
 
             let spellAnim =
             {
@@ -1737,7 +1782,7 @@ async function RangedWeapons() {
 }
 
 
-async function ThunderwaveAuto() {
+async function thunderwaveAuto() {
     let type01 = "01";
     let tint = "Bright";
     let color = "Blue";
@@ -1881,7 +1926,7 @@ async function ThunderwaveAuto() {
 }
 
 
-async function ShatterAuto() {
+async function shatterAuto() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -1986,7 +2031,7 @@ async function ShatterAuto() {
 }
 
 
-async function OnTargetSpells() {
+async function onTargetSpells() {
 
     let type01 = "01";
     let color = "Blue";
@@ -2022,24 +2067,86 @@ async function OnTargetSpells() {
     let path01;
     let path02;
     switch (true) {
-        case (itemIncludes("cure wounds")):
-            path01 = "1st_Level/Cure_Wounds";
-            path02 = "CureWounds";
+        case (itemIncludes("cure") && itemIncludes("wound")):
+            switch (true) {
+                case (itemSource.includes("heal")):
+                    path01 = "Generic/Healing";
+                    path02 = "HealingAbility";
+                    break;
+                default:
+                    path01 = "1st_Level/Cure_Wounds";
+                    path02 = "CureWounds";
+            }
             break;
-        case (itemIncludes("healing word")):
-            path01 = "Generic/Healing";
-            path02 = "HealingAbility";
+        case (itemIncludes("heal") && itemIncludes("word")):
+            switch (true) {
+                case (itemSource.includes("cure") && itemSource.includes("wound")):
+                    path01 = "1st_Level/Cure_Wounds";
+                    path02 = "CureWounds";
+                    break;
+                default:
+                    path01 = "Generic/Healing";
+                    path02 = "HealingAbility";
+                    break;
+            }
             break;
     }
 
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     async function Cast() {
 
         var arrayLength = myStringArray.length;
         for (var i = 0; i < arrayLength; i++) {
             let mainTargetdata = myStringArray[i];
-            let tarScale = canvas.scene.data.grid / 200;
+
+            let tokenSize = mainTargetdata.actor.data.data.traits.size;
+            console.log(tokenSize);
+            let divisor = 375;
+            switch (true) {
+                case (tokenSize == "sm"):
+                case (tokenSize == "med"):
+                    switch (true) {
+                        case (itemSource.includes("heal")):
+                            divisor = 275;
+                            break;
+                        case (itemSource.includes("cure")):
+                            divisor = 325;
+                            break;
+                        default:
+                            divisor = 375;
+                            break;
+                    }
+                    break;
+                case (tokenSize == "lg"):
+                    switch (true) {
+                        case (itemSource.includes("heal")):
+                            divisor = 125;
+                            break;
+                        case (itemSource.includes("cure")):
+                            divisor = 165;
+                            break;
+                        default:
+                            divisor = 187;
+                            break;
+                    }
+                    break;
+                case (tokenSize == "huge"):
+                    switch (true) {
+                        case (itemSource.includes("heal")):
+                            divisor = 100;
+                            break;
+                        case (itemSource.includes("cure")):
+                            divisor = 115;
+                            break;
+                        default:
+                            divisor = 125;
+                            break;
+                    }
+                    break;
+            }
+            let Scale = canvas.scene.data.grid / divisor;
 
             // Defining spell animation for FX Master
             let spellAnim =
@@ -2052,8 +2159,8 @@ async function OnTargetSpells() {
                 },
                 angle: 0,
                 scale: {
-                    x: tarScale,
-                    y: tarScale
+                    x: Scale,
+                    y: Scale
                 }
             };
             canvas.fxmaster.playVideo(spellAnim);
@@ -2091,7 +2198,7 @@ async function OnTargetSpells() {
 }
 
 
-async function MagicMissile() {
+async function magicMissile() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -2266,7 +2373,7 @@ async function MagicMissile() {
 }
 
 
-async function ExplodeTemplate() {
+async function explodeTemplate() {
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
@@ -2434,7 +2541,7 @@ async function ExplodeTemplate() {
 }
 
 
-async function ArrowOptionExplode() {
+async function arrowOptionExplode() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -2760,10 +2867,10 @@ async function ArrowOptionExplode() {
 }
 
 
-async function CastOnSelf() {
+async function castOnSelf() {
     if (game.settings.get("automated-jb2a-animations", "EnableShield")) {
 
-        let path01;
+        let path01 = "breakout";
         let path02;
         let path03;
 
@@ -2773,6 +2880,46 @@ async function CastOnSelf() {
                 path02 = "Antilife_Shell";
                 path03 = "AntilifeShell_01_Blue_NoCircle";
                 break;
+            case (itemIncludes("potion") && itemIncludes("heal")):
+            case (itemIncludes("second") && itemIncludes("wind")):
+                switch (true) {
+                    case (itemSource.includes("heal")):
+                        path01 = "Generic";
+                        path02 = "Healing";
+                        break;
+                    case (itemSource.includes("cure")):
+                        path01 = "1st_Level";
+                        path02 = "Cure_Wounds";
+                        break;
+                }
+                break;
+        }
+
+        switch (true) {
+            case (itemSource.includes("blue") && itemSource.includes("heal")):
+                path03 = "HealingAbility_01_Blue";
+                break;
+            case (itemSource.includes("green") && itemSource.includes("heal")):
+                path03 = "HealingAbility_01_Green";
+                break;
+            case (itemSource.includes("purple") && itemSource.includes("heal")):
+                path03 = "HealingAbility_01_Purple";
+                break;
+            case (itemSource.includes("yellow") && itemSource.includes("heal")):
+                path03 = "HealingAbility_01_Yellow";
+                break;
+            case (itemSource.includes("blue") && itemSource.includes("cure") && itemIncludes("wound")):
+                path03 = "CureWounds_01_Blue";
+                break;
+            case (itemSource.includes("green") && itemSource.includes("cure") && itemIncludes("wound")):
+                path03 = "CureWounds_01_Green";
+                break;
+            case (itemSource.includes("purple") && itemSource.includes("cure") && itemIncludes("wound")):
+                path03 = "CureWounds_01_Purple";
+                break;
+            case (itemSource.includes("red") && itemSource.includes("cure") && itemIncludes("wound")):
+                path03 = "CureWounds_01_Red";
+                break;
         }
 
         let tokenSize = myToken.actor.data.data.traits.size;
@@ -2781,13 +2928,43 @@ async function CastOnSelf() {
         switch (true) {
             case (tokenSize == "sm"):
             case (tokenSize == "med"):
-                divisor = 375;
+                switch (true) {
+                    case (itemSource.includes("heal")):
+                        divisor = 275;
+                        break;
+                    case (itemSource.includes("cure")):
+                        divisor = 325;
+                        break;
+                    default:
+                        divisor = 375;
+                        break;
+                }
                 break;
             case (tokenSize == "lg"):
-                divisor = 187;
+                switch (true) {
+                    case (itemSource.includes("heal")):
+                        divisor = 125;
+                        break;
+                    case (itemSource.includes("cure")):
+                        divisor = 165;
+                        break;
+                    default:
+                        divisor = 187;
+                        break;
+                }
                 break;
             case (tokenSize == "huge"):
-                divisor = 125;
+                switch (true) {
+                    case (itemSource.includes("heal")):
+                        divisor = 100;
+                        break;
+                    case (itemSource.includes("cure")):
+                        divisor = 115;
+                        break;
+                    default:
+                        divisor = 125;
+                        break;
+                }
                 break;
         }
 
@@ -2814,23 +2991,31 @@ async function CastOnSelf() {
                     y: Scale
                 }
             };
+
             canvas.fxmaster.playVideo(spellAnim);
             game.socket.emit('module.fxmaster', spellAnim);
         }
-        Cast();
+        switch (true) {
+            case (path01 == "breakout"):
+                break;
+            default:
+                Cast();
+                break;
+        }
+
     }
 }
 
 
-async function ExplodeOnTarget() {
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+async function explodeOnTarget() {
+    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
     let color = "Orange";
     let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemInitemSource.includescludes("blue")):
+        case (itemSource.includescludes("blue")):
             switch (true) {
                 case (itemSource.includes("02")):
                     type01 = "02";
@@ -2918,15 +3103,6 @@ async function ExplodeOnTarget() {
         let mainTargetdata = myStringArray[0];
         let Scale = (canvas.scene.data.grid / divisor);
 
-        /*
-                //Finds the center of the placed circular template and plays an animation using FXMaster
-                const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
-                let template = await canvas.templates.get(templateID);
-                // Scaled globally, change divisor for different size animation.
-                let Scale = (canvas.scene.data.grid / divisor);
-                //var myStringArray = Array.from(lastArg.targets);
-                //let mainTargetdata = myStringArray[i];
-        */
         // Defines the spell template for FXMaster
         let spellAnim =
         {
