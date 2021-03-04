@@ -4,7 +4,8 @@
 - Removed the dependency on JB2A Free Module. If you have the patreon module the free module will no longer be required to be installed and active.
 - Added error notifications if NO JB2A module is installed.
 - Added Pop-Up window with information and to let users know the module REQUIRES a JB2A module to be installed
-- You can now switch the Cure Wounds / Healing Word animations. If switching Cure Wounds, add *heal* to the source field, then a color option (This will then use the generic healing animation). If using healing word, you can switch to the Cure Wounds animation by adding "cure wounds" to the source field.
+- You can now switch the Cure Wounds / Healing Word animations. If switching Cure Wounds, add *heal* to the source field, then a color option (This will then use the generic healing animation). If using healing word, you can switch to the Cure Wounds animation by adding "cure wounds" to the source field.  
+- Tweaked the scaling of ranged attacks/spells
 
 0.1.0 Release:
 - Shield spell animation now scales globally and to token size  
