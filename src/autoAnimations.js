@@ -1,3 +1,10 @@
+// import { log } from "./helpers/logging.js";
+import Dnd5Handler from "./system-handlers/dnd5-handler.js";
+import Pf1Handler from "./system-handlers/pf1-handler.js";
+
+const log = console.log.bind(window.console);
+// const log = () => {};
+
 Hooks.on('init', () => {
     game.settings.register("automated-jb2a-animations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
         name: "JB2A Assests Requirement Notification",                  // Register a module setting with checkbox
@@ -51,17 +58,17 @@ Hooks.on('init', () => {
         config: true,
     });
     if (game.modules.get("midi-qol")?.active) {
-        console.log("midi IS active");
+        log("midi IS active");
         switch (game.settings.get("automated-jb2a-animations", "playonDamage")) {
             case (true):
-                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { RevItUp(workflow) })
+                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { revItUpMidi(workflow) })
                 break;
             case (false):
-                Hooks.on("midi-qol.RollComplete", (workflow) => { RevItUp(workflow) })
+                Hooks.on("midi-qol.RollComplete", (workflow) => { revItUpMidi(workflow) })
                 break;
         }
     } else {
-        Hooks.on("createChatMessage", async (msg) => { getCoreParams(msg) });
+        Hooks.on("createChatMessage", async (msg) => { onCreateChatMessage(msg) });
         //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
 
@@ -69,480 +76,161 @@ Hooks.on('init', () => {
 })
 
 Hooks.once('ready', function () {
-    if ((!game.modules.get("JB2A_DnD5e") && game.user.isGM) && (!game.modules.get("jb2a_patreon") && game.user.isGM))
+    if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") || !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error("A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations DnD5e to Work");
+    }
 });
 
-//var myToken;
-//var myStringArray;
-//var itemName;
-//var itemSource;
+const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
 var path00;
-//var pcRace;
-//var checkSave;
-//var saves;
 
 function moduleIncludes(test) {
-    if (game.modules.get(test)) return true;
+    return !!game.modules.get(test);
 }
-function getCoreParams(msg) {
 
-    //const rollType = msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? "pass";
-    const rollType = ((msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? "pass") || (msg.data?.flavor?.toLowerCase() ?? "pass"));
-    console.log(rollType);
+function onCreateChatMessage(msg) {
+    log('onCreateChatMessage', msg);
 
+    const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
+    log(rollType);
 
     const mreFlavor = msg.data.content.toLowerCase();
-    if (mreFlavor.includes("attack")) {
-        console.log("this is an attack roll");
-    } else {
-        console.log("this is NOT an attack roll");
-    }
+    const isAttack = rollType.includes("attack") || mreFlavor.includes("attack");
+    log(isAttack ? "this is an attack roll" : "this is NOT an attack roll");
 
-    if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == true) {
-        if (rollType.includes("damage")) {
-            const itemId = msg.data.flags.dnd5e.roll.itemId;
-            console.log(itemId);
-            const myToken = canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-            console.log(myToken);
-            const itemName = myToken.actor.items.get(itemId).name?.toLowerCase();
-            console.log(itemName);
-            const itemSource = myToken.actor.items.get(itemId).data?.data?.source?.toLowerCase() ?? "";
-            console.log(itemSource);
-            let myStringArray = Array.from(msg.user.targets);
-            console.log(myStringArray);
-            const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
-            console.log(itemType);
-            revItUpCore(itemName, itemSource, myToken, myStringArray, itemType)
-        }
-    }
-
-    if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false) {
-        if (rollType.includes("damage")) {
-            //console.log("damage roll");
-        } else
-            if (rollType.includes("attack") || mreFlavor.includes("attack")) {
-                const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id");
-                console.log(itemId);
-                const myToken = canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-                console.log(myToken);
-                const itemName = myToken.actor.items.get(itemId).name?.toLowerCase();
-                console.log(itemName);
-                const itemSource = myToken.actor.items.get(itemId).data?.data?.source?.toLowerCase() ?? "";
-                console.log(itemSource);
-                let myStringArray = Array.from(msg.user.targets);
-                console.log(myStringArray);
-                const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
-                console.log(itemType);
-                revItUpCore(itemName, itemSource, myToken, myStringArray, itemType)
-            } else /*if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false)*/ {
-                const itemId = $(msg.data.content).attr("data-item-id");
-                console.log(itemId);
-                const myToken = canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-                console.log(myToken);
-                const itemName = myToken.actor.items.get(itemId).name?.toLowerCase();
-                console.log(itemName);
-                const itemSource = myToken.actor.items.get(itemId).data?.data?.source?.toLowerCase() ?? "";
-                console.log(itemSource);
-                let myStringArray = Array.from(msg.user.targets);
-                switch (true) {
-                    case (itemName.includes("cure") && itemName.includes("wound")):
-                    case (itemName.includes("heal") && itemName.includes("word")):
-                        onTargetSpells(itemName, itemSource, myStringArray);
-                        break;
-                    case (itemName.includes("disintegrate")):
-                        spellAttacks(myToken, itemName, itemSource, myStringArray);
-                        break;
-                    case (itemName.includes("second") && itemName.includes("wind")):
-                        castOnSelf(itemName, itemSource, myToken);
-                        break;
-                    case (itemSource.includes("boulder")):
-                    case (itemSource.includes("siege")):
-                        rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                        break;
-                    case (itemName.includes("thunderwave")):
-                        Hooks.once("createMeasuredTemplate", () => {
-                            thunderwaveAuto(myToken, itemSource);
-                        })
-                        break;
-                    case (itemName.includes("shatter")):
-                        Hooks.once("createMeasuredTemplate", () => {
-                            shatterAuto(itemSource);
-                        })
-                        break;
-                    case (itemName.includes("explode")):
-                    case (itemName.includes("grenade")):
-                    case (itemName.includes("bomb")):
-                        Hooks.once("createMeasuredTemplate", () => {
-                            explodeTemplate(itemSource);
-                        })
-                        break;
-                }
-            }
-    }
-
-}
-
-function getMidiParams(workflow) {
-    const itemName = workflow.item?.name?.toLowerCase();
-    const itemSource = workflow.item?.data?.data?.source?.toLowerCase() ?? "null";
-    const myToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
-    let myStringArray;
-    if (game.settings.get("automated-jb2a-animations", "playonhit")) {
-        myStringArray = Array.from(workflow.hitTargets);
-    } else {
-        myStringArray = Array.from(workflow.targets);
-    }
-    const itemType = workflow.item.data.type.toLowerCase();
-
-    RevItUp(itemName, itemSource, myToken, myStringArray, itemType)
-}
-
-async function RevItUp(itemName, itemSource, myToken, myStringArray, itemType) {
-
-    // const lastArg = args;
-    // let item = lastArg.item
-    /*
-    const itemName = workflow.item?.name?.toLowerCase();
-    const itemSource = workflow.item?.data?.data?.source?.toLowerCase() ?? "null";
-    const myToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
-    let myStringArray;
-    switch (game.settings.get("automated-jb2a-animations", "playonhit")) {
-        case (true):
-            myStringArray = Array.from(workflow.hitTargets);
+    let handler;
+    switch (game.system.id) {
+        case "pf1":
+            handler = new Pf1Handler(msg);
             break;
+        case "dnd5e":
         default:
-            myStringArray = Array.from(workflow.targets);
+            handler = new Dnd5Handler(msg);
             break;
     }
-    let itemType = workflow.item.data.type.toLowerCase();
-    */
-    //let checkSave = Array.from(workflow.saves);
 
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
+    const playonDamageCore = game.settings.get("automated-jb2a-animations", "playonDamageCore") === true;
+    const isDamage = rollType.includes("damage");
+
+    if ((playonDamageCore && isDamage) || (!playonDamageCore && !isDamage)) {
+        revItUp(handler)
     }
-
-    //let checkSave;
-    let saves;
-    let pcRace;
-    // Add an early breakout if no targets selected in Melee
-    //  console.log("there are targets");
-    switch (true) {
-        // Use xxx in Item Source Field to exclude an item for On-Use customization
-        case (itemIncludes("xxx")):
-            break;
-        case (itemType.includes("spell")):
-            switch (true) {
-                case (itemIncludes("thunderwave")):
-                    thunderwaveAuto(myToken, itemSource)
-                    break;
-                case (itemIncludes("shatter")):
-                    shatterAuto(itemSource)
-                    break;
-                case (itemIncludes("magic missile")):
-                    magicMissile(myToken, myStringArray, itemSource)
-                    break;
-                case (itemIncludes("cure") && itemIncludes("wounds")):
-                case (itemIncludes("heal") && itemIncludes("word")):
-                    onTargetSpells(itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("fire") && itemIncludes("bolt")):
-                case (itemIncludes("ray") && itemIncludes("frost")):
-                case (itemIncludes("witch") && itemIncludes("bolt")):
-                case (itemIncludes("scorching") && itemIncludes("ray")):
-                case (itemIncludes("disintegrate")):
-                    //checkSave = Array.from(workflow.saves);
-                    saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
-                    spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
-                    break;
-                case (itemIncludes("shield")):
-                    castOnSelf(itemName, itemSource, myToken)
-                    break;
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("laser")):
-                case (itemIncludes("sling")):
-                    rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                    arrowOptionExplode(myToken, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("explode")):
-                case (itemIncludes("grenade")):
-                case (itemIncludes("bomb")):
-                    explodeTemplate(itemSource)
-                    break;
-            }
-            break;
-        case (itemType.includes("weapon")):
-            switch (true) {
-                case (itemIncludes("bite")):
-                case (itemIncludes("claw")):
-                    creatureAttacks(itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("sword")):
-                case (itemIncludes("great") && itemIncludes("club")):
-                case (itemIncludes("great") && itemIncludes("axe")):
-                case (itemIncludes("mace")):
-                case (itemIncludes("maul")):
-                case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-                    meleeWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("dagger")):
-                case (itemIncludes("hand") && itemIncludes("axe")):
-                case (itemIncludes("spear")):
-                    pcRace = myToken.actor.data.data.details.race.toLowerCase();
-                    meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pcRace)
-                    break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                    arrowOptionExplode(myToken, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("hammer")):
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("laser")):
-                case (itemIncludes("javelin")):
-                case (itemIncludes("sling")):
-                    rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("explode")):
-                case (itemIncludes("grenade")):
-                case (itemIncludes("bomb")):
-                    explodeTemplate(itemSource)
-                    break;
-            }
-            break;
-        case (itemType.includes("consumable")):
-            switch (true) {
-                case (itemIncludes("alchemist") && itemIncludes("fire")):
-                    explodeOnTarget(itemSource, myStringArray)
-                    break;
-                case (itemIncludes("potion") && itemIncludes("heal")):
-                    castOnSelf(itemName, itemSource, myToken)
-                    break;
-            }
-            break;
-        case (itemType.includes("feat")):
-            switch (true) {
-                case (itemIncludes("second") && itemIncludes("wind")):
-                    castOnSelf(itemName, itemSource, myToken);
-                    break;
-            }
-        /*
-            case (itemType.includes("spell") && itemIncludes("shield")):
-            case (itemIncludes("potion") && itemIncludes("heal")):
-            case (itemIncludes("second") && itemIncludes("wind")):
-                castOnSelf()
-                break;
-            case (itemIncludes("thunderwave")):
-                thunderwaveAuto()
-                break;
-            case (itemIncludes("shatter")):
-                shatterAuto()
-                break;
-            case (itemIncludes("magic missile")):
-                magicMissile()
-                break;
-            case (itemIncludes("cure") && itemIncludes("wounds")):
-            case (itemIncludes("heal") && itemIncludes("word")):
-                onTargetSpells()
-                break;
-            case (itemIncludes("fire") && itemIncludes("bolt")):
-            case (itemIncludes("ray") && itemIncludes("frost")):
-            case (itemIncludes("witch") && itemIncludes("bolt")):
-            case (itemIncludes("scorching") && itemIncludes("ray")):
-            case (itemIncludes("disintegrate")):
-                checkSave = Array.from(workflow.saves);
-                saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
-                spellAttacks()
-                break;
-            case (itemIncludes("bite")):
-            case (itemIncludes("claw")):
-                creatureAttacks()
-                break;
-            case (itemIncludes("sword")):
-            case (itemIncludes("greatclub")):
-            case (itemIncludes("greataxe")):
-            case (itemIncludes("mace")):
-            case (itemIncludes("maul")):
-            case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-                meleeWeapons()
-                break;
-            case (itemIncludes("dagger")):
-            case (itemIncludes("handaxe")):
-            case (itemIncludes("spear")):
-                pcRace = workflow.actor.data.data.details.race.toLowerCase();
-                meleeRangeSwitch()
-                break;
-            case (itemIncludes("arrow")):
-            case (itemIncludes("bow")):
-                arrowOptionExplode()
-                break;
-            case (itemIncludes("hammer")):
-            case (itemIncludes("boulder")):
-            case (itemIncludes("siege")):
-            case (itemIncludes("laser")):
-            case (itemIncludes("javelin")):
-            case (itemIncludes("sling")):
-                rangedWeapons()
-                break;
-            case (itemIncludes("explode")):
-            case (itemIncludes("grenade")):
-            case (itemIncludes("bomb")):
-                explodeTemplate()
-                break;
-            case (itemIncludes("alchemist") && itemIncludes("fire")):
-                explodeOnTarget()
-                break;
-                */
-    }
-
 }
 
-async function revItUpCore(itemName, itemSource, myToken, myStringArray, itemType) {
+async function revItUpMidi(workflow) {
+    let checkSave = Array.from(workflow.saves);
+    let saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
+    // TODO - `saves` was already commented out enough that it didn't work. It looks like
+    // it's checking if the target saved the throw or not which seems like it should be
+    // a "play on damage" check
 
-    /*
-    const rollType = msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? "pass";
-    if (rollType.includes("damage")) {
-        const itemId = msg.data.flags.dnd5e.roll.itemId;
-        console.log(itemId);
-        const myToken = canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-        console.log(myToken);
-        const itemName = myToken.actor.items.get(itemId).name?.toLowerCase();
-        console.log(itemName);
-        const itemSource = myToken.actor.items.get(itemId).data?.data?.source?.toLowerCase() ?? "";
-        console.log(itemSource);
-        let myStringArray = Array.from(msg.user.targets);
-        console.log(myStringArray);
+    // so maybe something like (I'm not really sure what saves is for)
+    // if (target saved) {
+    //     return;
+    // }
 
-        let itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
-    */
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
-    let pcRace;
-
-    switch (true) {
-        // Use xxx in Item Source Field to exclude an item for On-Use customization
-        case (itemIncludes("xxx")):
-            break;
-        case (itemType.includes("spell")):
-            switch (true) {
-
-                case (itemIncludes("thunderwave")):
-                    thunderwaveAuto(myToken, itemSource)
-                    break;
-                case (itemIncludes("shatter")):
-                    shatterAuto(itemSource)
-                    break;
-
-                case (itemIncludes("magic missile")):
-                    magicMissile(myToken, myStringArray, itemSource)
-                    break;
-                case (itemIncludes("cure") && itemIncludes("wounds")):
-                case (itemIncludes("heal") && itemIncludes("word")):
-                    onTargetSpells(itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("fire") && itemIncludes("bolt")):
-                case (itemIncludes("ray") && itemIncludes("frost")):
-                case (itemIncludes("witch") && itemIncludes("bolt")):
-                case (itemIncludes("scorching") && itemIncludes("ray")):
-                case (itemIncludes("disintegrate")):
-                    spellAttacks(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("shield")):
-                    castOnSelf(itemName, itemSource, myToken)
-                    break;
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("laser")):
-                case (itemIncludes("sling")):
-                    rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                    arrowOptionExplode(myToken, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("explode")):
-                case (itemIncludes("grenade")):
-                case (itemIncludes("bomb")):
-                    explodeTemplate(itemSource)
-                    break;
-            }
-            break;
-        case (itemType.includes("weapon")):
-            switch (true) {
-                case (itemIncludes("bite")):
-                case (itemIncludes("claw")):
-                    creatureAttacks(itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("sword")):
-                case (itemIncludes("great") && itemIncludes("club")):
-                case (itemIncludes("great") && itemIncludes("axe")):
-                case (itemIncludes("mace")):
-                case (itemIncludes("maul")):
-                case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-                    meleeWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("dagger")):
-                case (itemIncludes("hand") && itemIncludes("axe")):
-                case (itemIncludes("spear")):
-                    pcRace = myToken.actor.data.data.details.race.toLowerCase();
-                    meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pcRace)
-                    break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                    arrowOptionExplode(myToken, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("hammer")):
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("laser")):
-                case (itemIncludes("javelin")):
-                case (itemIncludes("sling")):
-                    rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("explode")):
-                case (itemIncludes("grenade")):
-                case (itemIncludes("bomb")):
-                    explodeTemplate(itemSource)
-                    break;
-            }
-            break;
-        case (itemType.includes("consumable")):
-            switch (true) {
-                case (itemIncludes("alchemist") && itemIncludes("fire")):
-                    explodeOnTarget(itemSource, myStringArray)
-                    break;
-                case (itemIncludes("potion") && itemIncludes("heal")):
-                    castOnSelf(itemName, itemSource, myToken)
-                    break;
-            }
-            break;
-        case (itemType.includes("feat")):
-            switch (true) {
-                case (itemIncludes("second") && itemIncludes("wind")):
-                    castOnSelf(itemName, itemSource, myToken);
-                    break;
-            }
-    }
-    //}
-
-
-    // const lastArg = args;
-    // let item = lastArg.item
-
-    // Add an early breakout if no targets selected in Melee
-    //  console.log("there are targets");
-
+    const handler = new new MidiHandler(workflow);
+    await revItUp(handler);
 }
 
+async function revItUp(handler) {
+    switch (true) {
+        // Use xxx in Item Source Field to exclude an item for On-Use customization
+        case (handler.itemIncludes("xxx")):
+            break;
+        case (handler.itemIncludes("thunderwave")):
+            thunderwaveAuto(handler);
+            break;
+        case (handler.itemIncludes("shatter")):
+            shatterAuto(handler);
+            break;
 
-let BloodyHitStutter =
+        case (handler.itemIncludes("magic missile")):
+            magicMissile(handler);
+            break;
+        case (handler.itemIncludes("cure", "wounds")):
+        case (handler.itemIncludes("heal", "word")):
+            onTargetSpells(handler);
+            break;
+        case (handler.itemIncludes("fire", "bolt")):
+        case (handler.itemIncludes("ray", "frost")):
+        case (handler.itemIncludes("witch", "bolt")):
+        case (handler.itemIncludes("scorching", "ray")):
+        case (handler.itemIncludes("disintegrate")):
+            spellAttacks(handler);
+            break;
+        case (handler.itemIncludes("shield")):
+            castOnSelf(handler);
+            break;
+        case (handler.itemIncludes("boulder")):
+        case (handler.itemIncludes("siege")):
+        case (handler.itemIncludes("laser")):
+        case (handler.itemIncludes("sling")):
+            rangedWeapons(handler);
+            break;
+        case (handler.itemIncludes("arrow")):
+        case (handler.itemIncludes("bow")):
+            arrowOptionExplode(handler);
+            break;
+        case (handler.itemIncludes("explode")):
+        case (handler.itemIncludes("grenade")):
+        case (handler.itemIncludes("bomb")):
+            explodeTemplate(handler);
+            break;
+        case (handler.itemIncludes("bite")):
+        case (handler.itemIncludes("claw")):
+            creatureAttacks(handler);
+            break;
+        case (handler.itemIncludes("sword")):
+        case (handler.itemIncludes("greatclub")):
+        case (handler.itemIncludes("greataxe")):
+        case (handler.itemIncludes("battle", "axe")):
+        case (handler.itemIncludes("mace")):
+        case (handler.itemIncludes("maul")):
+        case handler.itemIncludes("1hs"):
+        case handler.itemIncludes("2hs"):
+        case handler.itemIncludes("1hb"):
+        case handler.itemIncludes("2hb"):
+        case handler.itemIncludes("1hp"):
+        case handler.itemIncludes("2hp"):
+            meleeWeapons(handler);
+            break;
+        case (handler.itemIncludes("dagger")):
+        case (handler.itemIncludes("hand", "axe")):
+        case (handler.itemIncludes("spear")):
+            meleeRangeSwitch(handler);
+            break;
+        case (handler.itemIncludes("arrow")):
+        case (handler.itemIncludes("bow")):
+            arrowOptionExplode(handler);
+            break;
+        case (handler.itemIncludes("hammer")):
+        case (handler.itemIncludes("boulder")):
+        case (handler.itemIncludes("siege")):
+        case (handler.itemIncludes("laser")):
+        case (handler.itemIncludes("javelin")):
+        case (handler.itemIncludes("sling")):
+            rangedWeapons(handler);
+            break;
+        case (handler.itemIncludes("explode")):
+        case (handler.itemIncludes("grenade")):
+        case (handler.itemIncludes("bomb")):
+            explodeTemplate(handler);
+            break;
+        case (handler.itemIncludes("alchemist", "fire")):
+            explodeOnTarget(handler);
+            break;
+        case (handler.itemIncludes("potion", "heal")):
+            castOnSelf(handler);
+            break;
+        case (handler.itemIncludes("second", "wind")):
+            castOnSelf(handler);
+            break;
+    }
+}
+
+let bloodyHitStutter =
     [{
         filterType: "images",
         filterId: "BloodyHitStutter",
@@ -594,7 +282,7 @@ let BloodyHitStutter =
         anchorY: 0.32 + (Math.random() * 0.36)
     }];
 
-let BloodSplat =
+let bloodSplat =
     [{
         filterType: "splash",
         filterId: "BloodSplat",
@@ -614,7 +302,7 @@ let BloodSplat =
         anchorY: 0.32 + (Math.random() * 0.36)
     }];
 
-let HitStutter =
+let hitStutter =
     [{
         filterType: "images",
         filterId: "HitStutter",
@@ -648,17 +336,12 @@ let HitStutter =
         }
     }];
 
-function colorChecks(itemSource, itemName) {
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
+function colorChecks(handler) {
     let type01 = "01";
     let tint = "Regular";
     let color;
     switch (true) {
-        case (itemIncludes("laser")):
+        case (handler.itemIncludes("laser")):
             color = "Blue";
             break;
         default:
@@ -667,15 +350,15 @@ function colorChecks(itemSource, itemName) {
     let fireColor = "pass";
 
     switch (true) {
-        case (itemSource.includes("white")):
+        case (handler.itemIncludes("white")):
             type01 = "01";
             tint = "Regular";
             color = "White";
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             type01 = "Fire";
             switch (true) {
-                case (itemIncludes("lasersword")):
+                case (handler.itemIncludes("lasersword")):
                     tint = "Regular";
                     break;
                 default:
@@ -685,143 +368,56 @@ function colorChecks(itemSource, itemName) {
             color = "Purple";
             fireColor = 0x8B00C0;
             break;
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             type01 = "Fire";
             tint = "Regular";
             color = "Blue";
             fireColor = 0x008FC0;
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             type01 = "Fire";
             tint = "Regular";
             color = "Green";
             fireColor = 0x60EA01;
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             type01 = "Fire";
             tint = "Regular";
             color = "Orange";
             fireColor = 0xF18A07;
             break;
-        case (itemSource.includes("pink")):
+        case (handler.itemIncludes("pink")):
             type01 = "Fire";
             tint = "Regular";
             color = "Pink";
             fireColor = 0xD2049A;
             break;
-        case (itemSource.includes("darkred")):
+        case (handler.itemIncludes("darkred")):
             type01 = "Fire";
             tint = "Dark";
             color = "Red";
             fireColor = 0x610101;
             break;
-        case (itemSource.includes("red")):
+        case (handler.itemIncludes("red")):
             type01 = "Fire";
             tint = "Regular";
             color = "Red";
             fireColor = 0xD20404;
             break;
-        case (itemSource.includes("yellow")):
+        case (handler.itemIncludes("yellow")):
             type01 = "Fire";
             tint = "Regular";
             color = "Yellow";
             fireColor = 0xCFD204;
             break;
     }
-    return [type01, tint, color, fireColor];
 
+    return { type01, tint, color, fireColor };
 }
 
-async function meleeWeapons(myToken, itemName, itemSource, myStringArray) {
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+async function meleeWeapons(handler) {
+    let { type01, tint, color, fireColor } = colorChecks(handler);
 
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
-    let params = colorChecks(itemSource, itemName);
-
-    let type01 = params[0],
-        tint = params[1],
-        color = params[2],
-        fireColor = params[3];
-
-    /*
-        let type01 = "01";
-        let tint = "Regular";
-        let color;
-        switch (true) {
-            case (itemIncludes("laser")):
-                color = "Blue";
-                break;
-            default:
-                color = "White";
-        }
-        let fireColor = "pass";
-        // Change the HEX Color code inside the switch to change the color of the fire burn on the TMFX call. I use https://htmlcolorcodes.com/ , and keep the 0x in front
-        switch (true) {
-            case (itemSource.includes("white")):
-                type01 = "01";
-                tint = "Regular";
-                color = "White";
-                break;
-            case (itemSource.includes("purple")):
-                type01 = "Fire";
-                switch (true) {
-                    case (itemIncludes("lasersword")):
-                        tint = "Regular";
-                        break;
-                    default:
-                        tint = "Dark";
-                        break;
-                }
-                color = "Purple";
-                fireColor = 0x8B00C0;
-                break;
-            case (itemSource.includes("blue")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Blue";
-                fireColor = 0x008FC0;
-                break;
-            case (itemSource.includes("green")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Green";
-                fireColor = 0x60EA01;
-                break;
-            case (itemSource.includes("orange")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Orange";
-                fireColor = 0xF18A07;
-                break;
-            case (itemSource.includes("pink")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Pink";
-                fireColor = 0xD2049A;
-                break;
-            case (itemSource.includes("darkred")):
-                type01 = "Fire";
-                tint = "Dark";
-                color = "Red";
-                fireColor = 0x610101;
-                break;
-            case (itemSource.includes("red")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Red";
-                fireColor = 0xD20404;
-                break;
-            case (itemSource.includes("yellow")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Yellow";
-                fireColor = 0xCFD204;
-                break;
-        }
-        */
     let burn =
         [{
             filterType: "xfire",
@@ -858,93 +454,94 @@ async function meleeWeapons(myToken, itemName, itemSource, myStringArray) {
 
     let item01 = "Dagger02";
     switch (true) {
-        case (itemIncludes("greatsword")):
+        case (handler.itemIncludes("greatsword")):
             item01 = "GreatSword01";
             tmDelay = 1600;
             tmKill = 1600;
-            tmMacro = BloodyHitStutter;
+            tmMacro = bloodyHitStutter;
             break;
-        case (itemIncludes("greatclub")):
+        case (handler.itemIncludes("greatclub")):
             item01 = "GreatClub01";
             tmDelay = 1100;
             tmKill = 1600;
-            tmMacro = BloodyHitStutter;
+            tmMacro = bloodyHitStutter;
             break;
-        case (itemIncludes("greataxe")):
+        case (handler.itemIncludes("greataxe")):
+        case (handler.itemIncludes("battle", "axe")):
             item01 = "GreatAxe01";
             tmDelay = 1600;
             tmKill = 1600;
-            tmMacro = BloodyHitStutter;
+            tmMacro = bloodyHitStutter;
             break;
-        case (itemIncludes("mace")):
+        case (handler.itemIncludes("mace")):
             item01 = "Mace01";
             tmDelay = 1100;
             tmKill = 1600;
-            tmMacro = BloodyHitStutter;
+            tmMacro = bloodyHitStutter;
             break;
-        case (itemIncludes("lasersword")):
+        case (handler.itemIncludes("lasersword")):
             item01 = "LaserSword01";
             type01 = "01";
             tmDelay = 1300;
             tmKill = 1600;
-            tmMacro = BloodSplat;
+            tmMacro = bloodSplat;
             break;
-        case (itemIncludes("sword")):
+        case (handler.itemIncludes("sword")):
             item01 = "Sword01";
             tmDelay = 1300;
             tmKill = 1600;
-            tmMacro = BloodSplat;
+            tmMacro = bloodSplat;
             break;
-        case (itemIncludes("maul")):
+        case (handler.itemIncludes("maul")):
             item01 = "Maul01";
             tmDelay = 1900;
             tmKill = 1600;
-            tmMacro = BloodyHitStutter;
+            tmMacro = bloodyHitStutter;
             break;
-        case (itemIncludes("1hs")):
+        case (handler.itemIncludes("1hs")):
             item01 = "DmgSlashing";
             color = "Yellow_1Handed";
             break;
-        case (itemIncludes("2hs")):
+        case (handler.itemIncludes("2hs")):
             item01 = "DmgSlashing";
             color = "Yellow_2Handed";
             tmDelay = 500;
             tmKill = 750;
-            tmMacro = HitStutter;
+            tmMacro = hitStutter;
             break;
-        case (itemIncludes("1hp")):
+        case (handler.itemIncludes("1hp")):
             item01 = "DmgPiercing";
             color = "Yellow_1Handed";
             break;
-        case (itemIncludes("2hp")):
+        case (handler.itemIncludes("2hp")):
             item01 = "DmgPiercing";
             color = "Yellow_2Handed";
             tmDelay = 200;
             tmKill = 500;
-            tmMacro = HitStutter;
+            tmMacro = hitStutter;
             break;
-        case (itemIncludes("1hb")):
+        case (handler.itemIncludes("1hb")):
             item01 = "DmgBludgeoning";
             color = "Yellow_1Handed";
             tmDelay = 500;
             tmKill = 750;
-            tmMacro = HitStutter;
+            tmMacro = hitStutter;
             break;
-        case (itemIncludes("2hb")):
+        case (handler.itemIncludes("2hb")):
             item01 = "DmgBludgeoning";
             color = "Yellow_2Handed";
             tmDelay = 500;
             tmKill = 750;
-            tmMacro = HitStutter;
+            tmMacro = hitStutter;
             break;
     }
 
-    async function Cast() {
-        var arrayLength = myStringArray.length;
+    async function cast() {
+        var arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
-            let mainTargetdata = myStringArray[i];
+            let target = handler.allTargets[i];
 
-            let idsSearch = myToken.actor.data.items.filter(item => item.type === `feat`).map(item => item.name);
+            let idsSearch = handler.actorToken.actor.data.items.filter(item => item.type === `feat`).map(item => item.name);
 
             function actorIncludes(test) {
                 if (idsSearch.includes(test)) return true;
@@ -955,7 +552,7 @@ async function meleeWeapons(myToken, itemName, itemSource, myStringArray) {
             let spellAnim2 =
             {
                 file: dsBoom,
-                position: mainTargetdata.center,
+                position: target.center,
                 anchor: {
                     x: 0.5,
                     y: 0.5
@@ -978,7 +575,7 @@ async function meleeWeapons(myToken, itemName, itemSource, myStringArray) {
 
             function castSpell(effect) {
                 game.user.targets.forEach((i, t) => {
-                    canvas.fxmaster.drawSpecialToward(effect, myToken, t);
+                    canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, t);
 
                 });
             }
@@ -1006,12 +603,12 @@ async function meleeWeapons(myToken, itemName, itemSource, myStringArray) {
                         await wait(250);
                         switch (true) {
                             case (fireColor != "pass"):
-                                TokenMagic.addUpdateFilters(mainTargetdata, burn);
+                                TokenMagic.addUpdateFilters(target, burn);
                                 await wait(50);
-                                TokenMagic.addUpdateFilters(mainTargetdata, tmMacro);
+                                TokenMagic.addUpdateFilters(target, tmMacro);
                                 break;
                             default:
-                                TokenMagic.addUpdateFilters(mainTargetdata, tmMacro);
+                                TokenMagic.addUpdateFilters(target, tmMacro);
                                 break;
                         }
                     }
@@ -1021,84 +618,75 @@ async function meleeWeapons(myToken, itemName, itemSource, myStringArray) {
                         await wait(tmDelay);
                         switch (true) {
                             case (fireColor != "pass"):
-                                TokenMagic.addFilters(mainTargetdata, burn);
+                                TokenMagic.addFilters(target, burn);
                                 await wait(50);
-                                TokenMagic.addFilters(mainTargetdata, tmMacro);
+                                TokenMagic.addFilters(target, tmMacro);
                                 break;
                             default:
-                                TokenMagic.addFilters(mainTargetdata, tmMacro);
+                                TokenMagic.addFilters(target, tmMacro);
                                 break;
                         }
                     }
             }
             await wait(tmKill);
-            TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+            TokenMagic.deleteFilters(target, "BloodSplat");
             // await wait(50);
-            // TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
+            // TokenMagic.deleteFilters(target, "meleeBurn");
         }
     }
-    Cast()
+    cast();
 }
 
 
-async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pcRace) {
-    //let pcRace = lastArg.actor.data.data.details.race.toLowerCase();
-    //console.log(pcRace);
-
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
+async function meleeRangeSwitch(handler) {
     let type01 = "01";
     let tint = "Regular";
     let color = "White";
     let fireColor = "pass";
 
     switch (true) {
-        case (itemSource.includes("white")):
+        case (handler.itemIncludes("white")):
             type01 = "01";
             tint = "Regular";
             color = "White";
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             type01 = "Fire";
             tint = "Dark";
             color = "Purple";
             fireColor = "0x8B00C0";
             break;
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             type01 = "Fire";
             tint = "Regular";
             color = "Blue";
             fireColor = "0x008FC0";
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             type01 = "Fire";
             tint = "Regular";
             color = "Green";
             fireColor = "0x60EA01";
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             type01 = "Fire";
             tint = "Regular";
             color = "Orange";
             fireColor = "0xF18A07";
             break;
-        case (itemSource.includes("pink")):
+        case (handler.itemIncludes("pink")):
             type01 = "Fire";
             tint = "Regular";
             color = "Pink";
             fireColor = "0xD2049A";
             break;
-        case (itemSource.includes("red")):
+        case (handler.itemIncludes("red")):
             type01 = "Fire";
             tint = "Regular";
             color = "Red";
             fireColor = "0xD20404";
             break;
-        case (itemSource.includes("yellow")):
+        case (handler.itemIncludes("yellow")):
             type01 = "Fire";
             tint = "Regular";
             color = "Yellow";
@@ -1141,34 +729,34 @@ async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pc
     // delay before deleting Token Magic FX if needed, change inside switch cases to adjust the deletion
     let tmkill = 1000;
     // calls a Token Magic FX macro defined above, change inside the switch cases to desired TMFX
-    let tmMacro = BloodSplat;
+    let tmMacro = bloodSplat;
     let item11;
     let item01 = "Dagger02";
     switch (true) {
-        case (itemIncludes("handaxe")):
+        case (handler.itemIncludes("handaxe")):
             item01 = "HandAxe02";
             item11 = "HandAxe01";
-            tmMacro = BloodSplat;
+            tmMacro = bloodSplat;
             tmdelay = 1250;
             tmkill = 1500;
             Delay01 = 600;
             Delay02 = 900;
             Delay03 = 900;
             break;
-        case (itemIncludes("dagger")):
+        case (handler.itemIncludes("dagger")):
             item01 = "Dagger02";
             item11 = "Dagger01";
-            tmMacro = BloodSplat;
+            tmMacro = bloodSplat;
             tmdelay = 1000;
             tmkill = 1500;
             Delay01 = 600;
             Delay02 = 600;
             Delay03 = 600;
             break;
-        case (itemIncludes("spear")):
+        case (handler.itemIncludes("spear")):
             item01 = "Spear01";
             item11 = "Spear01";
-            tmMacro = BloodSplat;
+            tmMacro = bloodSplat;
             tmdelay = 1000;
             tmkill = 1500;
             Delay01 = 600;
@@ -1178,13 +766,13 @@ async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pc
     }
 
     switch (true) {
-        case (itemIncludes("kunai")):
+        case (handler.itemIncludes("kunai")):
             item11 = "Kunai01";
             Delay01 = 600;
             Delay02 = 600;
             Delay03 = 600;
             break;
-        case (itemIncludes("02")):
+        case (handler.itemIncludes("02")):
             item11 = "Dagger02";
             Delay01 = 600;
             Delay02 = 600;
@@ -1192,53 +780,18 @@ async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pc
             break;
     }
 
-    async function Cast() {
-        var arrayLength = myStringArray.length;
+    async function cast() {
+        var arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
 
-            let mainTargetdata = myStringArray[i];
+            let target = handler.allTargets[i];
 
-            //let distance = MidiQOL.getDistance(mainTargetdata, myToken);
+            let distance = handler.getDistance(target);
 
-            function getDistance(t1, t2, wallblocking = false) {
-                //Log("get distance callsed");
-                var x, x1, y, y1, d, r, segments = [], rdistance, distance;
-                for (x = 0; x < t1.data.width; x++) {
-                    for (y = 0; y < t1.data.height; y++) {
-                        const origin = new PIXI.Point(...canvas.grid.getCenter(t1.data.x + (canvas.dimensions.size * x), t1.data.y + (canvas.dimensions.size * y)));
-                        for (x1 = 0; x1 < t2.data.width; x1++) {
-                            for (y1 = 0; y1 < t2.data.height; y1++) {
-                                const dest = new PIXI.Point(...canvas.grid.getCenter(t2.data.x + (canvas.dimensions.size * x1), t2.data.y + (canvas.dimensions.size * y1)));
-                                const r = new Ray(origin, dest);
-                                if (wallblocking && canvas.walls.checkCollision(r)) {
-                                    //Log(`ray ${r} blocked due to walls`);
-                                    continue;
-                                }
-                                segments.push({ ray: r });
-                            }
-                        }
-                    }
-                }
-                // console.log(segments);
-                if (segments.length === 0) {
-                    //Log(`${t2.data.name} full blocked by walls`);
-                    return -1;
-                }
-                rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
-                distance = rdistance[0];
-                rdistance.forEach(d => {
-                    if (d < distance)
-                        distance = d;
-                });
-                return distance;
-            }
-
-            let distance = getDistance(myToken, mainTargetdata); // assume 2.5 width for each token
-
-            //console.log(distance);
+            //log(distance);
             let range;
             switch (true) {
-                case (pcRace == "bugbear"):
+                case (handler.actorRace === "bugbear"):
                     range = 10;
                     break;
                 default:
@@ -1246,7 +799,7 @@ async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pc
                     break;
             }
 
-            let ray = new Ray(myToken.center, mainTargetdata.center);
+            let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
 
@@ -1290,7 +843,7 @@ async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pc
                     spellAnim =
                     {
                         file: anFile,
-                        position: myToken.center,
+                        position: handler.actorToken.center,
                         anchor: {
                             x: anchorX,
                             y: 0.5
@@ -1306,18 +859,18 @@ async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pc
                     game.socket.emit('module.fxmaster', spellAnim);
                     if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                         await wait(tmdelay);
-                        TokenMagic.addFilters(mainTargetdata, tmMacro)
+                        TokenMagic.addFilters(target, tmMacro)
                         await wait(tmkill);
-                        TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+                        TokenMagic.deleteFilters(target, "BloodSplat");
                     }
                     break;
                 default:
-                    // console.log("in range");
+                    // log("in range");
                     Scale = canvas.scene.data.grid / 175;
                     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
                     function castSpell(effect) {
                         game.user.targets.forEach((i, t) => {
-                            canvas.fxmaster.drawSpecialToward(effect, myToken, t);
+                            canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, t);
 
                         });
                     }
@@ -1340,36 +893,29 @@ async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pc
                         await wait(tmdelay);
                         switch (true) {
                             case (fireColor != "pass"):
-                                TokenMagic.addFilters(mainTargetdata, burn);
+                                TokenMagic.addFilters(target, burn);
                                 await wait(25);
                                 //game.macros.getName(tmMacro).execute();
-                                TokenMagic.addFilters(mainTargetdata, tmMacro);
+                                TokenMagic.addFilters(target, tmMacro);
                                 break;
                             default:
-                                TokenMagic.addFilters(mainTargetdata, tmMacro);
+                                TokenMagic.addFilters(target, tmMacro);
                         }
                         await wait(tmkill);
-                        //TokenMagic.deleteFilters(mainTargetdata, "meleeBurn");
+                        //TokenMagic.deleteFilters(target, "meleeBurn");
                         //await wait(50);
-                        TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+                        TokenMagic.deleteFilters(target, "BloodSplat");
                         break;
                     }
             }
 
         }
     }
-    Cast()
+    cast();
 }
 
 
-async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves) {
-
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
+async function spellAttacks(handler) {
     let tint;
     let color;
     let tmColor;
@@ -1377,35 +923,35 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
     let path2;
 
     switch (true) {
-        case (itemIncludes("fire") && itemIncludes("bolt")):
+        case (handler.itemIncludes("fire", "bolt")):
             path = "Cantrip/Fire_Bolt";
             path2 = "FireBolt_01";
             tint = "Regular";
             color = "Orange";
             tmColor = 0xFF9309;
             break;
-        case (itemIncludes("ray") && itemIncludes("frost")):
+        case (handler.itemIncludes("ray", "frost")):
             path = "Cantrip/Ray_Of_Frost";
             path2 = "RayOfFrost_01";
             tint = "Regular";
             color = "Blue";
             tmColor = 0xBBDDEE;
             break;
-        case (itemIncludes("witch") && itemIncludes("bolt")):
+        case (handler.itemIncludes("witch", "bolt")):
             path = "1st_Level/Witch_Bolt";
             path2 = "WitchBolt_01";
             tint = "Regular";
             color = "Blue";
             tmColor = 0xAE00AE;
             break;
-        case (itemIncludes("scorching") && itemIncludes("ray")):
+        case (handler.itemIncludes("scorching", "ray")):
             path = "2nd_Level/Scorching_Ray";
             path2 = "ScorchingRay_01";
             tint = "Regular";
             color = "Orange";
             tmColor = 0xFF9309;
             break;
-        case (itemIncludes("disintegrate")):
+        case (handler.itemIncludes("disintegrate")):
             path = "6th_Level/Disintegrate";
             path2 = "Disintegrate_01";
             tint = "Regular";
@@ -1415,50 +961,50 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
     }
 
     switch (true) {
-        case (itemSource.includes("orangepink")):
+        case (handler.itemIncludes("orangepink")):
             tint = "Regular";
             color = "OrangePink";
             tmColor = 0xC1005B;
             break;
-        case (itemSource.includes("purpleblue")):
+        case (handler.itemIncludes("purpleblue")):
             tint = "Regular";
             color = "PurpleBlue";
             tmColor = 0x00AFC1;
             break;
-        case (itemSource.includes("darkpurple")):
+        case (handler.itemIncludes("darkpurple")):
             tint = "Dark";
             color = "Purple";
             tmColor = 0xAE00AE;
             break;
-        case (itemSource.includes("darkgreen")):
+        case (handler.itemIncludes("darkgreen")):
             tint = "Dark";
             color = "Green";
             tmColor = 0x187C00;
             break;
-        case (itemSource.includes("darkred")):
+        case (handler.itemIncludes("darkred")):
             tint = "Dark";
             color = "Red";
             tmColor = 0x8E0000;
             break;
-        case (itemSource.includes("blueyellow")):
+        case (handler.itemIncludes("blueyellow")):
             tint = "Regular";
             color = "BlueYellow";
             tmColor = 0xACC5C5;
             break;
-        case (itemSource.includes("purpleteal")):
+        case (handler.itemIncludes("purpleteal")):
             tint = "Regular";
             color = "PurpleTeal";
             tmColor = 0xC38CDC;
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             tint = "Regular";
             color = "Orange";
             tmColor = 0xFF9309;
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             tint = "Regular";
             switch (true) {
-                case (itemIncludes("disintegrate")):
+                case (handler.itemIncludes("disintegrate")):
                     color = "Green01";
                     break;
                 default:
@@ -1467,19 +1013,19 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
             }
             tmColor = 0x59E81F;
             break;
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             tint = "Regular";
             color = "Blue";
             tmColor = 0xBBDDEE;
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             tint = "Regular";
             color = "Purple";
             tmColor = 0xFF09E1;
             break;
-        case (itemSource.includes("red")):
+        case (handler.itemIncludes("red")):
             switch (true) {
-                case (itemIncludes("fire bolt")):
+                case (handler.itemIncludes("fire", "bolt")):
                     tint = "Dark";
                     break;
                 default:
@@ -1488,7 +1034,7 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
             color = "Red";
             tmColor = 0xBB1414;
             break;
-        case (itemSource.includes("yellow")):
+        case (handler.itemIncludes("yellow")):
             tint = "Regular";
             color = "Yellow";
             tmColor = 0xFF0000;
@@ -1523,7 +1069,7 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
 
             }
         }];
-    let Frosty =
+    let frosty =
         [{
             filterType: "xfire",
             filterId: "Frosty",
@@ -1550,7 +1096,7 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
 
             }
         }];
-    let Ashes =
+    let ashes =
         [{
             filterType: "fire",
             filterId: "Ashes",
@@ -1575,7 +1121,7 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
                 }
             }
         }];
-    let Electric =
+    let electric =
         [{
             filterType: "electric",
             filterId: "Witchy",
@@ -1603,48 +1149,43 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
     let tmMacro;
 
     switch (true) {
-        case (itemIncludes("fire") && itemIncludes("bolt")):
+        case (handler.itemIncludes("fire", "bolt")):
             //tmDelay = 1000;
             //tmKill = 500;
             //tmMacro = letitBurn;
             break;
-        case (itemIncludes("ray") && itemIncludes("frost")):
+        case (handler.itemIncludes("ray", "frost")):
             tmDelay = 750;
             tmKill = 2000;
-            tmMacro = Frosty;
+            tmMacro = frosty;
             break;
-        case (itemIncludes("witch") && itemIncludes("bolt")):
+        case (handler.itemIncludes("witch", "bolt")):
             tmDelay = 50;
             tmKill = 4000;
-            tmMacro = Electric;
+            tmMacro = electric;
             break;
-        case (itemIncludes("scorching") && itemIncludes("ray")):
+        case (handler.itemIncludes("scorching", "ray")):
             tmDelay = 500;
             tmKill = 750;
             tmMacro = letitBurn;
             break;
-        case (itemIncludes("disintegrate")):
+        case (handler.itemIncludes("disintegrate")):
             tmDelay = 500;
             tmKill = 2000;
-            tmMacro = Ashes;
+            tmMacro = ashes;
             break;
     }
 
-
-    async function Cast() {
-        var arrayLength = myStringArray.length;
+    async function cast() {
+        var arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
-
-            let mainTargetdata = myStringArray[i];
-            //let checkSave = Array.from(lastArg.saves);
-            //let saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
-            //console.log(saves);
-            //console.log(mainTargetdata.id);
+            let target = handler.allTargets[i];
+            //log(target.id);
             function saveCheck(test) {
                 if (saves?.includes(test)) return true;
             }
 
-            let ray = new Ray(myToken.center, mainTargetdata.center);
+            let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
 
@@ -1655,8 +1196,8 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
             let anchorX = 0.2;
 
             switch (true) {
-                case (itemIncludes("fire bolt")):
-                case (itemIncludes("scorching ray")):
+                case (handler.itemIncludes("fire", "bolt")):
+                case (handler.itemIncludes("scorching", "ray")):
                     switch (true) {
                         case (anDist <= 1600):
                             anFileSize = 1200;
@@ -1675,8 +1216,8 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
                             break;
                     }
                     break;
-                case (itemIncludes("ray of frost")):
-                case (itemIncludes("disintegrate")):
+                case (handler.itemIncludes("ray", "frost")):
+                case (handler.itemIncludes("disintegrate")):
                     switch (true) {
                         case (anDist <= 600):
                             anFileSize = 600;
@@ -1695,7 +1236,7 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
                             break;
                     }
                     break;
-                case (itemIncludes("witch bolt")):
+                case (handler.itemIncludes("witch bolt")):
                     switch (true) {
                         case (anDist <= 600):
                             anFileSize = 600;
@@ -1727,7 +1268,7 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
             let spellAnim =
             {
                 file: anFile,
-                position: myToken.center,
+                position: handler.actorToken.center,
                 anchor: {
                     x: anchorX,
                     y: 0.5
@@ -1739,16 +1280,16 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
                 }
             };
 
-            myStringArray.forEach(async (i) => {
+            handler.allTargets.forEach(async (i) => {
                 canvas.fxmaster.playVideo(spellAnim);
                 game.socket.emit('module.fxmaster', spellAnim);
                 if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                     switch (true) {
-                        case (saveCheck(mainTargetdata.id)):
+                        case (saveCheck(target.id)):
                             break;
                         default:
                             await wait(tmDelay);
-                            TokenMagic.addFilters(mainTargetdata, tmMacro);
+                            TokenMagic.addFilters(target, tmMacro);
                     }
                 }
 
@@ -1757,37 +1298,30 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
 
         }
     }
-    Cast()
+    cast();
 }
 
 
-async function creatureAttacks(itemName, itemSource, myStringArray) {
-
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
+async function creatureAttacks(handler) {
     let type01 = "01";
     let tint = "Regular";
     let color = "Red";
 
     switch (true) {
-        case (itemSource.includes("darkred")):
+        case (handler.itemIncludes("darkred")):
             type01 = "01";
             tint = "Dark";
             color = "Red";
             break;
-        case (itemSource.includes("red")):
+        case (handler.itemIncludes("red")):
             type01 = "01";
             tint = "Regular";
             color = "Red";
             break;
-        case (itemSource.includes("yellow")):
+        case (handler.itemIncludes("yellow")):
             type01 = "01";
             switch (true) {
-                case (itemIncludes("bite")):
+                case (handler.itemIncludes("bite")):
                     tint = "Regular";
                     break;
                 default:
@@ -1796,10 +1330,10 @@ async function creatureAttacks(itemName, itemSource, myStringArray) {
             }
             color = "Yellow";
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             type01 = "01";
             switch (true) {
-                case (itemIncludes("bite")):
+                case (handler.itemIncludes("bite")):
                     tint = "Regular";
                     break;
                 default:
@@ -1808,10 +1342,10 @@ async function creatureAttacks(itemName, itemSource, myStringArray) {
             }
             color = "Purple";
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             type01 = "01";
             switch (true) {
-                case (itemIncludes("bite")):
+                case (handler.itemIncludes("bite")):
                     tint = "Regular";
                     break;
                 default:
@@ -1820,10 +1354,10 @@ async function creatureAttacks(itemName, itemSource, myStringArray) {
             }
             color = "Orange";
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             type01 = "01";
             switch (true) {
-                case (itemIncludes("bite")):
+                case (handler.itemIncludes("bite")):
                     tint = "Regular";
                     break;
                 default:
@@ -1832,10 +1366,10 @@ async function creatureAttacks(itemName, itemSource, myStringArray) {
             }
             color = "Green";
             break;
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             type01 = "01";
             switch (true) {
-                case (itemIncludes("bite")):
+                case (handler.itemIncludes("bite")):
                     tint = "Regular";
                     break;
                 default:
@@ -1850,29 +1384,29 @@ async function creatureAttacks(itemName, itemSource, myStringArray) {
     let path;
 
 
-    async function Cast() {
-        var arrayLength = myStringArray.length;
+    async function cast() {
+        var arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
-            //console.log(myStringArray[i]);
-            let mainTargetdata = myStringArray[i];
+            //log(handler.allTargets[i]);
+            let target = handler.allTargets[i];
             let tarScale;
             switch (true) {
-                case (itemIncludes("claw")):
+                case (handler.itemIncludes("claw")):
                     path = "Claws";
-                    tmMacro = BloodSplat;
-                    tarScale = ((mainTargetdata.data.width + mainTargetdata.data.height) / 4);
+                    tmMacro = bloodSplat;
+                    tarScale = ((target.data.width + target.data.height) / 4);
                     break;
-                case (itemIncludes("bite")):
+                case (handler.itemIncludes("bite")):
                     path = "Bite";
-                    tmMacro = BloodyHitStutter;
-                    tarScale = ((mainTargetdata.data.width + mainTargetdata.data.height) / 2);
+                    tmMacro = bloodyHitStutter;
+                    tarScale = ((target.data.width + target.data.height) / 2);
                     break;
             }
             let spellAnim =
             {
                 //                         File path to animation
                 file: `modules/${path00}/Library/Generic/Creature/${path}_${type01}_${tint}_${color}_400x400.webm`,
-                position: mainTargetdata.center,
+                position: target.center,
                 anchor: {
                     x: 0.5,
                     y: 0.5
@@ -1888,30 +1422,23 @@ async function creatureAttacks(itemName, itemSource, myStringArray) {
 
             if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                 await wait(250);
-                TokenMagic.addFilters(mainTargetdata, tmMacro);
+                TokenMagic.addFilters(target, tmMacro);
                 await wait(2000);
-                TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+                TokenMagic.deleteFilters(target, "BloodSplat");
             }
         }
     }
-    Cast()
+    cast();
 }
 
 
-async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
-
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
+async function rangedWeapons(handler) {
     let type01 = "01";
     let tint = "Regular";
     let tmColor = 0xFF9309;
     let color;
     switch (true) {
-        case (itemIncludes("laser")):
+        case (handler.itemIncludes("laser")):
             color = "Blue";
             tmColor = 0x0075B0;
             break;
@@ -1922,22 +1449,22 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
     let tmDelay;
 
     switch (true) {
-        case (itemSource.includes("white")):
+        case (handler.itemIncludes("white")):
             type01 = "01";
             tint = "Regular";
             color = "White";
             break;
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             type01 = "01";
             tint = "Regular";
             color = "Blue";
             tmColor = 0x0075B0;
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             type01 = "01";
             switch (true) {
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
+                case (handler.itemIncludes("arrow")):
+                case (handler.itemIncludes("bow")):
                     tint = "Glowing";
                     break;
                 default:
@@ -1947,13 +1474,13 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
             color = "Green";
             tmColor = 0x0EB400;
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             type01 = "01";
             tint = "Regular";
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
-        case (itemSource.includes("red")):
+        case (handler.itemIncludes("red")):
             type01 = "01";
             tint = "Regular";
             color = "Red";
@@ -2034,8 +1561,8 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
     let tmMacro = "pass";
 
     switch (true) {
-        case (itemIncludes("white")):
-            tmMacro = BloodSplat;
+        case (handler.itemIncludes("white")):
+            tmMacro = bloodSplat;
             break;
     }
 
@@ -2045,60 +1572,60 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
     let Delay02 = 900;
     let Delay03 = 900;
     switch (true) {
-        case (itemIncludes("hammer")):
+        case (handler.itemIncludes("hammer")):
             path01 = "Hammer01";
-            tmMacro = HitStutter;
+            tmMacro = hitStutter;
             Delay01 = 600;
             Delay02 = 800;
             Delay03 = 800;
             break;
-        case (itemIncludes("boulder")):
+        case (handler.itemIncludes("boulder")):
             path01 = "BoulderToss01";
-            tmMacro = HitStutter
+            tmMacro = hitStutter
             size = "500";
             Delay01 = 1250;
             Delay02 = 1750;
             Delay03 = 1550;
             break;
-        case (itemIncludes("siege")):
+        case (handler.itemIncludes("siege")):
             path01 = "SiegeBoulder01";
-            tmMacro = HitStutter;
+            tmMacro = hitStutter;
             Delay01 = 750;
             Delay02 = 1250;
             Delay03 = 1150;
             size = "500";
             break;
-        case (itemIncludes("laser")):
+        case (handler.itemIncludes("laser")):
             path01 = "LaserShot";
             tmMacro = colorWave;
             Delay01 = 500;
             Delay02 = 500;
             Delay03 = 500;
             break;
-        case (itemIncludes("sling")):
+        case (handler.itemIncludes("sling")):
             path01 = "SlingShot";
             Delay01 = 2000;
             Delay02 = 2300;
             Delay03 = 2000;
             break;
-        case (itemIncludes("javelin")):
+        case (handler.itemIncludes("javelin")):
             path01 = "Javelin01";
-            tmMacro = BloodSplat;
+            tmMacro = bloodSplat;
             Delay01 = 750;
             Delay02 = 1250;
             Delay03 = 1050;
             break;
     }
 
-    async function Cast() {
-        var arrayLength = myStringArray.length;
+    async function cast() {
+        var arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
 
             await wait(500)
 
-            let mainTargetdata = myStringArray[i];
+            let target = handler.allTargets[i];
 
-            let ray = new Ray(myToken.center, mainTargetdata.center);
+            let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
 
@@ -2108,9 +1635,9 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
             let anFileSize = 600;
             let anchorX = 0.2;
             switch (true) {
-                case (itemIncludes("hammer")):
-                case (itemIncludes("kunai")):
-                case (itemIncludes("sling")):
+                case (handler.itemIncludes("hammer")):
+                case (handler.itemIncludes("kunai")):
+                case (handler.itemIncludes("sling")):
                     anFile = `${file}/${path01}_${type01}_${tint}_${color}_15ft_1000x${size}.webm`;
                     anFileSize = 600;
                     anchorX = 0.2;
@@ -2135,12 +1662,12 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
                             break;
                     }
                     break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("javelin")):
-                case (itemIncludes("laser")):
+                case (handler.itemIncludes("arrow")):
+                case (handler.itemIncludes("bow")):
+                case (handler.itemIncludes("boulder")):
+                case (handler.itemIncludes("siege")):
+                case (handler.itemIncludes("javelin")):
+                case (handler.itemIncludes("laser")):
                     anFile = `${file}/${path01}_${type01}_${tint}_${color}_30ft_1600x${size}.webm`;
                     anFileSize = 600;
                     anchorX = 0.125;
@@ -2183,7 +1710,7 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
             let spellAnim =
             {
                 file: anFile,
-                position: myToken.center,
+                position: handler.actorToken.center,
                 anchor: {
                     x: anchorX,
                     y: 0.5
@@ -2197,7 +1724,7 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
 
             let Repeater = 1;
             switch (true) {
-                case (itemIncludes("laser")):
+                case (handler.itemIncludes("laser")):
                     Repeater = 3;
                     break;
                 default:
@@ -2217,57 +1744,58 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
                 }
                 if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                     await wait(interval * x + 1500);
-                    TokenMagic.deleteFilters(mainTargetdata, "BloodSplat");
+                    TokenMagic.deleteFilters(target, "BloodSplat");
                 }
             }
             SpellAnimation(Repeater)
             if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                 switch (true) {
-                    case (tmMacro == "pass"):
+                    case (tmMacro === "pass"):
                         break;
                     default:
                         await wait(tmDelay);
-                        TokenMagic.addFilters(mainTargetdata, tmMacro);
+                        TokenMagic.addFilters(target, tmMacro);
+                        break;
                 }
             }
         }
     }
-    Cast()
+    cast();
 }
 
 
-async function thunderwaveAuto(myToken, itemSource) {
+async function thunderwaveAuto(handler) {
     let type01 = "01";
     let tint = "Bright";
     let color = "Blue";
     //let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemSource.includes("blue")):
+        case (handler.itemItemincludes("blue")):
             type01 = "01";
             tint = "Bright";
             color = "Blue";
             //tmColor = 0x0075B0;
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             type01 = "01";
             tint = "Bright";
             color = "Green";
             //tmColor = 0x15CA00;
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             type01 = "01";
             tint = "Bright";
             color = "Orange";
             //tmColor = 0xD17506;
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             type01 = "01";
             tint = "Dark";
             color = "Purple";
             //tmColor = 0xA90092;
             break;
-        case (itemSource.includes("red")):
+        case (handler.itemIncludes("red")):
             type01 = "01";
             tint = "Dark";
             color = "Red";
@@ -2275,8 +1803,6 @@ async function thunderwaveAuto(myToken, itemSource) {
             break;
 
     }
-
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     const templateID = await canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
     let template = await canvas.templates.get(templateID);
@@ -2287,33 +1813,33 @@ async function thunderwaveAuto(myToken, itemSource) {
     let anFile = `${file}Thunderwave_${type01}_${tint}_${color}_BMid_600x600.webm`;
     let ang = 0;
     switch (true) {
-        case ((myToken.data.x >= template.x && myToken.data.x <= (template.x + (gridSize * 2))) && (myToken.data.y >= template.y && myToken.data.y <= (template.y + (gridSize * 2)))):
+        case ((handler.actorToken.data.x >= template.x && handler.actorToken.data.x <= (template.x + (gridSize * 2))) && (handler.actorToken.data.y >= template.y && handler.actorToken.data.y <= (template.y + (gridSize * 2)))):
             ang = 0;
             anFile = `${file}Thunderwave_${type01}_${tint}_${color}_Center_600x600.webm`;
             break;
-        case ((myToken.data.x >= (template.x - gridSize)) && (myToken.data.x <= (template.x - (gridSize * 0.5)))) && ((myToken.data.y >= (template.y - gridSize)) && (myToken.data.y <= (template.y - (gridSize * 0.5)))):
+        case ((handler.actorToken.data.x >= (template.x - gridSize)) && (handler.actorToken.data.x <= (template.x - (gridSize * 0.5)))) && ((handler.actorToken.data.y >= (template.y - gridSize)) && (handler.actorToken.data.y <= (template.y - (gridSize * 0.5)))):
             ang = 270;
             anFile = `${file}Thunderwave_${type01}_${tint}_${color}_BLeft_600x600.webm`;
             break;
-        case ((myToken.data.x >= (template.x + (gridSize * 2.5))) && (myToken.data.x <= (template.x + (gridSize * 3)))) && ((myToken.data.y >= (template.y - gridSize)) && (myToken.data.y <= (template.y - (gridSize * 0.5)))):
+        case ((handler.actorToken.data.x >= (template.x + (gridSize * 2.5))) && (handler.actorToken.data.x <= (template.x + (gridSize * 3)))) && ((handler.actorToken.data.y >= (template.y - gridSize)) && (handler.actorToken.data.y <= (template.y - (gridSize * 0.5)))):
             ang = 180;
             anFile = `${file}Thunderwave_${type01}_${tint}_${color}_BLeft_600x600.webm`;
             break;
-        case (((myToken.data.x >= (template.x + (gridSize * 2.5))) && myToken.data.x <= (template.x + (gridSize * 3))) && ((myToken.data.y <= (template.y + (gridSize * 3))) && (myToken.data.y >= (template.y + (gridSize * 2.5))))):
+        case (((handler.actorToken.data.x >= (template.x + (gridSize * 2.5))) && handler.actorToken.data.x <= (template.x + (gridSize * 3))) && ((handler.actorToken.data.y <= (template.y + (gridSize * 3))) && (handler.actorToken.data.y >= (template.y + (gridSize * 2.5))))):
             ang = 90;
             anFile = `${file}Thunderwave_${type01}_${tint}_${color}_BLeft_600x600.webm`;
             break;
-        case ((myToken.data.x <= (template.x - (gridSize * 0.5))) && (myToken.data.x >= (template.x - gridSize))) && ((myToken.data.y <= (template.y + (gridSize * 3))) && (myToken.data.y >= (template.y + (gridSize * 2.5)))):
+        case ((handler.actorToken.data.x <= (template.x - (gridSize * 0.5))) && (handler.actorToken.data.x >= (template.x - gridSize))) && ((handler.actorToken.data.y <= (template.y + (gridSize * 3))) && (handler.actorToken.data.y >= (template.y + (gridSize * 2.5)))):
             ang = 0;
             anFile = `${file}Thunderwave_${type01}_${tint}_${color}_BLeft_600x600.webm`;
             break;
-        case (myToken.data.x == (template.x + (gridSize * 3))) && ((myToken.data.y >= template.y) && myToken.data.y <= (template.y + (gridSize * 2))):
+        case (handler.actorToken.data.x === (template.x + (gridSize * 3))) && ((handler.actorToken.data.y >= template.y) && handler.actorToken.data.y <= (template.y + (gridSize * 2))):
             ang = 90;
             break;
-        case ((myToken.data.x >= template.x) && (myToken.data.x <= (template.x + (gridSize * 2)))) && ((myToken.data.y >= (template.y - gridSize)) && (myToken.data.y <= (template.y - (gridSize * 0.5)))):
+        case ((handler.actorToken.data.x >= template.x) && (handler.actorToken.data.x <= (template.x + (gridSize * 2)))) && ((handler.actorToken.data.y >= (template.y - gridSize)) && (handler.actorToken.data.y <= (template.y - (gridSize * 0.5)))):
             ang = 180;
             break;
-        case ((myToken.data.x >= (template.x - gridSize)) && (myToken.data.x <= (template.x - (gridSize * 0.5)))) && ((myToken.data.y >= template.y) && myToken.data.y <= (template.y + (gridSize * 2))):
+        case ((handler.actorToken.data.x >= (template.x - gridSize)) && (handler.actorToken.data.x <= (template.x - (gridSize * 0.5)))) && ((handler.actorToken.data.y >= template.y) && handler.actorToken.data.y <= (template.y + (gridSize * 2))):
             ang = 270;
             break;
     }
@@ -2336,7 +1862,7 @@ async function thunderwaveAuto(myToken, itemSource) {
         }
     };
 
-    async function SpellAnimation(number) {
+    async function spellAnimation(number) {
 
         let x = number;
         // This is the interval in between the start of each animation on the loop in milliseconds
@@ -2348,7 +1874,7 @@ async function thunderwaveAuto(myToken, itemSource) {
             }, i * interval);
         }
     }
-    SpellAnimation(5);
+    spellAnimation(5);
 
     let shockWave =
         [{
@@ -2380,43 +1906,40 @@ async function thunderwaveAuto(myToken, itemSource) {
 }
 
 
-async function shatterAuto(itemSource) {
-
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
+async function shatterAuto(handler) {
     let type01 = "01";
     let color = "Blue";
     //let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             type01 = "01";
             color = "Blue";
             //tmColor = 0x0075B0;
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             type01 = "01";
             color = "Green";
             //tmColor = 0x0EB400;
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             type01 = "01";
             color = "Orange";
             //tmColor = 0xBF6E00;
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             type01 = "01";
             color = "Purple";
             //tmColor = 0xBF0099;
             break;
-        case (itemSource.includes("red")):
+        case (handler.itemIncludes("red")):
             type01 = "01";
             color = "Red";
             //tmColor = 0xBF0000;
             break;
 
     }
-    async function Cast() {
+    async function cast() {
 
         //Finds the center of the placed circular template and plays an animation using FXMaster
         const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
@@ -2481,42 +2004,37 @@ async function shatterAuto(itemSource) {
             TokenMagic.addUpdateFiltersOnTargeted(shockWave);
         }
     }
-    Cast()
+    cast();
 }
 
 
-async function onTargetSpells(itemName, itemSource, myStringArray) {
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
+async function onTargetSpells(handler) {
     let type01 = "01";
     let color = "Blue";
     let tmColor = 0x107BD9;
 
     switch (true) {
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             type01 = "01";
             color = "Blue";
             tmColor = 0x107BD9;
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             type01 = "01";
             color = "Green";
             tmColor = 0x7BDA35;
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             type01 = "01";
             color = "Purple";
             tmColor = 0x9400CB;
             break;
-        case (itemSource.includes("red")):
+        case (handler.itemIncludes("red")):
             type01 = "01";
             color = "Red";
             tmColor = 0xE12C2C;
             break;
-        case (itemSource.includes("yellow")):
+        case (handler.itemIncludes("yellow")):
             type01 = "01";
             color = "Yellow";
             tmColor = 0xE4B700;
@@ -2525,9 +2043,9 @@ async function onTargetSpells(itemName, itemSource, myStringArray) {
     let path01;
     let path02;
     switch (true) {
-        case (itemIncludes("cure") && itemIncludes("wound")):
+        case (handler.itemIncludes("cure", "wound")):
             switch (true) {
-                case (itemSource.includes("heal")):
+                case (handler.itemIncludes("heal")):
                     path01 = "Generic/Healing";
                     path02 = "HealingAbility";
                     break;
@@ -2536,9 +2054,9 @@ async function onTargetSpells(itemName, itemSource, myStringArray) {
                     path02 = "CureWounds";
             }
             break;
-        case (itemIncludes("heal") && itemIncludes("word")):
+        case (handler.itemIncludes("heal", "word")):
             switch (true) {
-                case (itemSource.includes("cure") && itemSource.includes("wound")):
+                case (handler.itemIncludes("cure", "wound")):
                     path01 = "1st_Level/Cure_Wounds";
                     path02 = "CureWounds";
                     break;
@@ -2550,39 +2068,21 @@ async function onTargetSpells(itemName, itemSource, myStringArray) {
             break;
     }
 
-
-    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    async function Cast() {
-
-        var arrayLength = myStringArray.length;
+    async function cast() {
+        var arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
-            let mainTargetdata = myStringArray[i];
+            let target = handler.allTargets[i];
 
-            let tokenSize = mainTargetdata.actor.data.data.traits.size;
-            console.log(tokenSize);
+            let tokenSize = target.actor.data.data.traits.size;
+            log(tokenSize);
             let divisor = 375;
             switch (true) {
-                case (tokenSize == "sm"):
-                case (tokenSize == "med"):
+                case (tokenSize === "lg"):
                     switch (true) {
-                        case (itemSource.includes("heal")):
-                            divisor = 275;
-                            break;
-                        case (itemSource.includes("cure")):
-                            divisor = 325;
-                            break;
-                        default:
-                            divisor = 375;
-                            break;
-                    }
-                    break;
-                case (tokenSize == "lg"):
-                    switch (true) {
-                        case (itemSource.includes("heal")):
+                        case (handler.itemIncludes("heal")):
                             divisor = 125;
                             break;
-                        case (itemSource.includes("cure")):
+                        case (handler.itemIncludes("cure")):
                             divisor = 165;
                             break;
                         default:
@@ -2590,12 +2090,12 @@ async function onTargetSpells(itemName, itemSource, myStringArray) {
                             break;
                     }
                     break;
-                case (tokenSize == "huge"):
+                case (tokenSize === "huge"):
                     switch (true) {
-                        case (itemSource.includes("heal")):
+                        case (handler.itemIncludes("heal")):
                             divisor = 100;
                             break;
-                        case (itemSource.includes("cure")):
+                        case (handler.itemIncludes("cure")):
                             divisor = 115;
                             break;
                         default:
@@ -2603,22 +2103,37 @@ async function onTargetSpells(itemName, itemSource, myStringArray) {
                             break;
                     }
                     break;
+                case (tokenSize === "sm"):
+                case (tokenSize === "med"):
+                default:
+                    switch (true) {
+                        case (handler.itemIncludes("heal")):
+                            divisor = 275;
+                            break;
+                        case (handler.itemIncludes("cure")):
+                            divisor = 325;
+                            break;
+                        default:
+                            divisor = 375;
+                            break;
+                    }
+                    break;
             }
-            let Scale = canvas.scene.data.grid / divisor;
+            let scale = canvas.scene.data.grid / divisor;
 
             // Defining spell animation for FX Master
             let spellAnim =
             {
                 file: `modules/${path00}/Library/${path01}/${path02}_${type01}_${color}_400x400.webm`,
-                position: mainTargetdata.center,
+                position: target.center,
                 anchor: {
                     x: 0.5,
                     y: 0.5
                 },
                 angle: 0,
                 scale: {
-                    x: Scale,
-                    y: Scale
+                    x: scale,
+                    y: scale
                 }
             };
             canvas.fxmaster.playVideo(spellAnim);
@@ -2652,14 +2167,11 @@ async function onTargetSpells(itemName, itemSource, myStringArray) {
             }
         }
     }
-    Cast()
+    cast();
 }
 
 
-async function magicMissile(myToken, myStringArray, itemSource) {
-
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
+async function magicMissile(handler) {
     let type01 = "01";
     let tint = "Regular";
     let color = "Purple";
@@ -2687,58 +2199,54 @@ async function magicMissile(myToken, myStringArray, itemSource) {
             }
         }];
 
-    async function Cast() {
-
-        var arrayLength = myStringArray.length;
+    async function cast() {
+        var arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
+            let target = handler.allTargets[i];
 
-            let mainTargetdata = myStringArray[i];
-
-            let ray = new Ray(myToken.center, mainTargetdata.center);
+            let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
 
-            async function SpellAnimation(number) {
+            async function spellAnimation(number) {
 
                 let x = number;
                 let interval = 500;
                 for (var i = 0; i < x; i++) {
                     setTimeout(function () {
+                        let c1 = "Blue";
+                        let c2 = "Green";
+                        let c3 = "Purple";
+                        let c4 = "Yellow";
 
-
-                        let C1 = "Blue";
-                        let C2 = "Green";
-                        let C3 = "Purple";
-                        let C4 = "Yellow";
-
-                        var items = [C1, C2, C3, C4];
+                        var items = [c1, c2, c3, c4];
 
                         function random_color(items) {
                             return items[Math.floor(Math.random() * items.length)];
                         }
 
                         switch (true) {
-                            case (itemSource.includes("blue")):
+                            case (handler.itemIncludes("blue")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Blue";
                                 break;
-                            case (itemSource.includes("green")):
+                            case (handler.itemIncludes("green")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Green";
                                 break;
-                            case (itemSource.includes("purple")):
+                            case (handler.itemIncludes("purple")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Purple";
                                 break;
-                            case (itemSource.includes("yellow")):
+                            case (handler.itemIncludes("yellow")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = "Yellow";
                                 break;
-                            case (itemSource.includes("random")):
+                            case (handler.itemIncludes("random")):
                                 type01 = "01";
                                 tint = "Regular";
                                 color = random_color(items);
@@ -2803,7 +2311,7 @@ async function magicMissile(myToken, myStringArray, itemSource) {
                         let spellAnim =
                         {
                             file: anFile,
-                            position: myToken.center,
+                            position: handler.actorToken.center,
                             anchor: {
                                 x: anchorX,
                                 y: 0.5
@@ -2819,65 +2327,63 @@ async function magicMissile(myToken, myStringArray, itemSource) {
                     }, i * interval);
                 }
             }
-            SpellAnimation(3)
+            spellAnimation(3)
             if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                 // Activates the Token Magic FX after a delay
                 await wait(1000)
-                TokenMagic.addFilters(mainTargetdata, shockWave);
+                TokenMagic.addFilters(target, shockWave);
             }
         }
     }
-    Cast()
+    cast();
 }
 
 
-async function explodeTemplate(itemSource) {
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
+async function explodeTemplate(handler) {
     let type01 = "01";
     let color = "Orange";
     let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
             color = "Blue";
             tmColor = 0x0075B0;
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
             color = "Green";
             tmColor = 0x0EB400;
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
             color = "Purple";
             tmColor = 0xBF0099;
             break;
-        case (itemSource.includes("yellow")):
+        case (handler.itemIncludes("yellow")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
@@ -2887,50 +2393,48 @@ async function explodeTemplate(itemSource) {
     }
     let divisor = 100;
     switch (true) {
-        case (itemSource.includes("(05)")):
+        case (handler.itemIncludes("(05)")):
             divisor = 200;
             break;
-        case (itemSource.includes("(10)")):
+        case (handler.itemIncludes("(10)")):
             divisor = 100;
             break;
-        case (itemSource.includes("(15)")):
+        case (handler.itemIncludes("(15)")):
             divisor = 67;
-        case (itemSource.includes("(20)")):
+        case (handler.itemIncludes("(20)")):
             divisor = 50;
             break;
-        case (itemSource.includes("(25)")):
+        case (handler.itemIncludes("(25)")):
             divisor = 40;
             break;
-        case (itemSource.includes("(30)")):
+        case (handler.itemIncludes("(30)")):
             divisor = 33;
             break;
-        case (itemSource.includes("(35)")):
+        case (handler.itemIncludes("(35)")):
             divisor = 28.5;
             break;
-        case (itemSource.includes("(40)")):
+        case (handler.itemIncludes("(40)")):
             divisor = 25;
             break;
-        case (itemSource.includes("(45)")):
+        case (handler.itemIncludes("(45)")):
             divisor = 22.2;
             break;
-        case (itemSource.includes("(50)")):
+        case (handler.itemIncludes("(50)")):
             divisor = 20;
             break;
-        case (itemSource.includes("nuke")):
+        case (handler.itemIncludes("nuke")):
             divisor = 10;
             break;
     }
 
-
-    async function Cast() {
-
+    async function cast() {
         //Finds the center of the placed circular template and plays an animation using FXMaster
         const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
         let template = await canvas.templates.get(templateID);
         // Scaled globally, change divisor for different size animation.
         let Scale = (canvas.scene.data.grid / divisor);
-        //var myStringArray = Array.from(lastArg.targets);
-        //let mainTargetdata = myStringArray[i];
+        //var handler.allTargets = Array.from(lastArg.targets);
+        //let target = handler.allTargets[i];
 
         // Defines the spell template for FXMaster
         let spellAnim =
@@ -2994,19 +2498,11 @@ async function explodeTemplate(itemSource) {
             //TokenMagic.deleteFiltersOnTargeted("shockWave");
         }
     }
-    Cast()
-
+    cast();
 }
 
 
-async function arrowOptionExplode(myToken, itemSource, myStringArray) {
-
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
+async function arrowOptionExplode(handler) {
     let type01 = "01";
     let tint = "Regular";
     let color = "White";
@@ -3014,12 +2510,12 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
     //let tmMacro;
 
     switch (true) {
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             type01 = "01";
             tint = "Glowing";
             color = "Green";
             break;
-        case (itemSource.includes("white")):
+        case (handler.itemIncludes("white")):
             type01 = "01";
             tint = "Regular";
             color = "White";
@@ -3030,45 +2526,45 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
     let color02 = "Orange";
 
     switch (true) {
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type02 = "02";
                     break;
             }
             color02 = "Blue";
             //tmColor = 0x0075B0;
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type02 = "02";
                     break;
             }
             color02 = "Orange";
             //tmColor = 0xBF6E00;
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type02 = "02";
                     break;
             }
             color02 = "Purple";
             //tmColor = 0xBF0099;
             break;
-        case (itemSource.includes("yellow")):
+        case (handler.itemIncludes("yellow")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type02 = "02";
                     break;
             }
             color02 = "Yellow";
             //tmColor = 0xCFD204;
             break;
-        case (itemSource.includes("acid")):
+        case (handler.itemIncludes("acid")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type02 = "02";
                     break;
             }
@@ -3080,17 +2576,17 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
 
     /*
         switch (true) {
-            case (itemIncludes("acid")):
+            case (handler.itemIncludes("acid")):
                 type02 = "01";
                 color02 = "Green";
                 tmColor = 0x60CC70;
                 break;
-            case (itemIncludes("explosive")):
+            case (handler.itemIncludes("explosive")):
                 type02 = "01";
                 color02 = "Orange";
                 tmColor = 0xFF9309;
                 break;
-            case (itemIncludes("lightning")):
+            case (handler.itemIncludes("lightning")):
                 type02 = "01";
                 color02 = "Blue";
                 tmColor = 0x053ABD;
@@ -3179,13 +2675,13 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
             */
     /*
         switch (true) {
-            case (itemIncludes("acid")):
+            case (handler.itemIncludes("acid")):
                 tmMacro = Poison;
                 break;
-            case (itemIncludes("explosive")):
+            case (handler.itemIncludes("explosive")):
                 tmMacro = letitBurn;
                 break;
-            case (itemIncludes("lightning")):
+            case (handler.itemIncludes("lightning")):
                 tmMacro = Electric;
                 break;
     
@@ -3193,53 +2689,50 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
     */
     let divisor = 100;
     switch (true) {
-        case (itemSource.includes("(05)")):
+        case (handler.itemIncludes("(05)")):
             divisor = 200;
             break;
-        case (itemSource.includes("(10)")):
+        case (handler.itemIncludes("(10)")):
             divisor = 100;
             break;
-        case (itemSource.includes("(15)")):
+        case (handler.itemIncludes("(15)")):
             divisor = 67;
-        case (itemSource.includes("(20)")):
+        case (handler.itemIncludes("(20)")):
             divisor = 50;
             break;
-        case (itemSource.includes("(25)")):
+        case (handler.itemIncludes("(25)")):
             divisor = 40;
             break;
-        case (itemSource.includes("(30)")):
+        case (handler.itemIncludes("(30)")):
             divisor = 33;
             break;
-        case (itemSource.includes("(35)")):
+        case (handler.itemIncludes("(35)")):
             divisor = 28.5;
             break;
-        case (itemSource.includes("(40)")):
+        case (handler.itemIncludes("(40)")):
             divisor = 25;
             break;
-        case (itemSource.includes("(45)")):
+        case (handler.itemIncludes("(45)")):
             divisor = 22.2;
             break;
-        case (itemSource.includes("(50)")):
+        case (handler.itemIncludes("(50)")):
             divisor = 20;
             break;
-        case (itemSource.includes("nuke")):
+        case (handler.itemIncludes("nuke")):
             divisor = 10;
             break;
     }
 
-
-
-    async function Cast() {
-
-        var arrayLength = myStringArray.length;
+    async function cast() {
+        var arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
             let Scale = (canvas.scene.data.grid / divisor);
 
             await wait(500)
 
-            let mainTargetdata = myStringArray[i];
+            let target = handler.allTargets[i];
 
-            let ray = new Ray(myToken.center, mainTargetdata.center);
+            let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
 
@@ -3279,7 +2772,7 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
             let spellAnim =
             {
                 file: anFile,
-                position: myToken.center,
+                position: handler.actorToken.center,
                 anchor: {
                     x: anchorX,
                     y: 0.5
@@ -3294,7 +2787,7 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
             let spellAnim2 =
             {
                 file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type02}_${color02}_400x400.webm`,
-                position: mainTargetdata.center,
+                position: target.center,
                 anchor: {
                     x: 0.5,
                     y: 0.5
@@ -3309,7 +2802,7 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
             canvas.fxmaster.playVideo(spellAnim);
             game.socket.emit('module.fxmaster', spellAnim);
             switch (true) {
-                case (itemIncludes("explode")):
+                case (handler.itemIncludes("explode")):
                     await wait(boomDelay);
                     canvas.fxmaster.playVideo(spellAnim2);
                     game.socket.emit('module.fxmaster', spellAnim2);
@@ -3325,35 +2818,30 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
 
         }
     }
-    Cast()
+    cast();
 }
 
 
-async function castOnSelf(itemName, itemSource, myToken) {
+async function castOnSelf(handler) {
     if (game.settings.get("automated-jb2a-animations", "EnableShield")) {
-
-        function itemIncludes(test) {
-            if (itemSource.includes(test) || itemName.includes(test)) return true;;
-        }
-
         let path01 = "breakout";
         let path02;
         let path03;
 
         switch (true) {
-            case (itemIncludes("shield")):
+            case (handler.itemIncludes("shield")):
                 path01 = "5th_Level";
                 path02 = "Antilife_Shell";
                 path03 = "AntilifeShell_01_Blue_NoCircle";
                 break;
-            case (itemIncludes("potion") && itemIncludes("heal")):
-            case (itemIncludes("second") && itemIncludes("wind")):
+            case (handler.itemIncludes("potion", "heal")):
+            case (handler.itemIncludes("second", "wind")):
                 switch (true) {
-                    case (itemSource.includes("heal")):
+                    case (handler.itemIncludes("heal")):
                         path01 = "Generic";
                         path02 = "Healing";
                         break;
-                    case (itemSource.includes("cure")):
+                    case (handler.itemIncludes("cure")):
                         path01 = "1st_Level";
                         path02 = "Cure_Wounds";
                         break;
@@ -3362,56 +2850,42 @@ async function castOnSelf(itemName, itemSource, myToken) {
         }
 
         switch (true) {
-            case (itemSource.includes("blue") && itemSource.includes("heal")):
+            case (handler.itemIncludes("blue", "heal")):
                 path03 = "HealingAbility_01_Blue";
                 break;
-            case (itemSource.includes("green") && itemSource.includes("heal")):
+            case (handler.itemIncludes("green", "heal")):
                 path03 = "HealingAbility_01_Green";
                 break;
-            case (itemSource.includes("purple") && itemSource.includes("heal")):
+            case (handler.itemIncludes("purple", "heal")):
                 path03 = "HealingAbility_01_Purple";
                 break;
-            case (itemSource.includes("yellow") && itemSource.includes("heal")):
+            case (handler.itemIncludes("yellow", "heal")):
                 path03 = "HealingAbility_01_Yellow";
                 break;
-            case (itemSource.includes("blue") && itemSource.includes("cure") && itemIncludes("wound")):
+            case (handler.itemIncludes("blue", "cure", "wound")):
                 path03 = "CureWounds_01_Blue";
                 break;
-            case (itemSource.includes("green") && itemSource.includes("cure") && itemIncludes("wound")):
+            case (handler.itemIncludes("green", "cure", "wound")):
                 path03 = "CureWounds_01_Green";
                 break;
-            case (itemSource.includes("purple") && itemSource.includes("cure") && itemIncludes("wound")):
+            case (handler.itemIncludes("purple", "cure", "wound")):
                 path03 = "CureWounds_01_Purple";
                 break;
-            case (itemSource.includes("red") && itemSource.includes("cure") && itemIncludes("wound")):
+            case (handler.itemIncludes("red", "cure", "wound")):
                 path03 = "CureWounds_01_Red";
                 break;
         }
 
-        let tokenSize = myToken.actor.data.data.traits.size;
-        console.log(tokenSize);
+        let tokenSize = handler.actorToken.actor.data.data.traits.size;
+        log(tokenSize);
         let divisor = 375;
         switch (true) {
-            case (tokenSize == "sm"):
-            case (tokenSize == "med"):
+            case (tokenSize === "lg"):
                 switch (true) {
-                    case (itemSource.includes("heal")):
-                        divisor = 275;
-                        break;
-                    case (itemSource.includes("cure")):
-                        divisor = 325;
-                        break;
-                    default:
-                        divisor = 375;
-                        break;
-                }
-                break;
-            case (tokenSize == "lg"):
-                switch (true) {
-                    case (itemSource.includes("heal")):
+                    case (handler.itemIncludes("heal")):
                         divisor = 125;
                         break;
-                    case (itemSource.includes("cure")):
+                    case (handler.itemIncludes("cure")):
                         divisor = 165;
                         break;
                     default:
@@ -3419,12 +2893,12 @@ async function castOnSelf(itemName, itemSource, myToken) {
                         break;
                 }
                 break;
-            case (tokenSize == "huge"):
+            case (tokenSize === "huge"):
                 switch (true) {
-                    case (itemSource.includes("heal")):
+                    case (handler.itemIncludes("heal")):
                         divisor = 100;
                         break;
-                    case (itemSource.includes("cure")):
+                    case (handler.itemIncludes("cure")):
                         divisor = 115;
                         break;
                     default:
@@ -3432,20 +2906,33 @@ async function castOnSelf(itemName, itemSource, myToken) {
                         break;
                 }
                 break;
+                case (tokenSize === "sm"):
+                case (tokenSize === "med"):
+                default:
+                    switch (true) {
+                        case (handler.itemIncludes("heal")):
+                            divisor = 275;
+                            break;
+                        case (handler.itemIncludes("cure")):
+                            divisor = 325;
+                            break;
+                        default:
+                            divisor = 375;
+                            break;
+                    }
+                    break;
         }
-
-        const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
         await wait(500);
 
-        async function Cast() {
+        async function cast() {
 
-            //let Scale = ((myToken.data.width + myToken.data.height) / 8);
+            //let Scale = ((handler.actorToken.data.width + handler.actorToken.data.height) / 8);
             let Scale = canvas.scene.data.grid / divisor;
             let spellAnim =
             {
                 file: `modules/${path00}/Library/${path01}/${path02}/${path03}_400x400.webm`,
-                position: myToken.center,
+                position: handler.actorToken.center,
                 anchor: {
                     x: 0.5,
                     y: 0.5
@@ -3462,10 +2949,10 @@ async function castOnSelf(itemName, itemSource, myToken) {
             game.socket.emit('module.fxmaster', spellAnim);
         }
         switch (true) {
-            case (path01 == "breakout"):
+            case (path01 === "breakout"):
                 break;
             default:
-                Cast();
+                cast();
                 break;
         }
 
@@ -3473,53 +2960,51 @@ async function castOnSelf(itemName, itemSource, myToken) {
 }
 
 
-async function explodeOnTarget(itemSource, myStringArray) {
-    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
+async function explodeOnTarget(handler) {
     let type01 = "01";
     let color = "Orange";
     let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemSource.includes("blue")):
+        case (handler.itemIncludes("blue")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
             color = "Blue";
             tmColor = 0x0075B0;
             break;
-        case (itemSource.includes("green")):
+        case (handler.itemIncludes("green")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
             color = "Green";
             tmColor = 0x0EB400;
             break;
-        case (itemSource.includes("orange")):
+        case (handler.itemIncludes("orange")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
-        case (itemSource.includes("purple")):
+        case (handler.itemIncludes("purple")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
             color = "Purple";
             tmColor = 0xBF0099;
             break;
-        case (itemSource.includes("yellow")):
+        case (handler.itemIncludes("yellow")):
             switch (true) {
-                case (itemSource.includes("02")):
+                case (handler.itemIncludes("02")):
                     type01 = "02";
                     break;
             }
@@ -3529,51 +3014,50 @@ async function explodeOnTarget(itemSource, myStringArray) {
     }
     let divisor = 200;
     switch (true) {
-        case (itemSource.includes("(05)")):
+        case (handler.itemIncludes("(05)")):
             divisor = 200;
             break;
-        case (itemSource.includes("(10)")):
+        case (handler.itemIncludes("(10)")):
             divisor = 100;
             break;
-        case (itemSource.includes("(15)")):
+        case (handler.itemIncludes("(15)")):
             divisor = 67;
-        case (itemSource.includes("(20)")):
+        case (handler.itemIncludes("(20)")):
             divisor = 50;
             break;
-        case (itemSource.includes("(25)")):
+        case (handler.itemIncludes("(25)")):
             divisor = 40;
             break;
-        case (itemSource.includes("(30)")):
+        case (handler.itemIncludes("(30)")):
             divisor = 33;
             break;
-        case (itemSource.includes("(35)")):
+        case (handler.itemIncludes("(35)")):
             divisor = 28.5;
             break;
-        case (itemSource.includes("(40)")):
+        case (handler.itemIncludes("(40)")):
             divisor = 25;
             break;
-        case (itemSource.includes("(45)")):
+        case (handler.itemIncludes("(45)")):
             divisor = 22.2;
             break;
-        case (itemSource.includes("(50)")):
+        case (handler.itemIncludes("(50)")):
             divisor = 20;
             break;
-        case (itemSource.includes("nuke")):
+        case (handler.itemIncludes("nuke")):
             divisor = 10;
             break;
     }
 
+    async function cast() {
 
-    async function Cast() {
-
-        let mainTargetdata = myStringArray[0];
+        let target = handler.allTargets[0];
         let Scale = (canvas.scene.data.grid / divisor);
 
         // Defines the spell template for FXMaster
         let spellAnim =
         {
             file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type01}_${color}_400x400.webm`,
-            position: mainTargetdata.center,
+            position: target.center,
             anchor: {
                 x: 0.5,
                 y: 0.5
@@ -3632,6 +3116,5 @@ async function explodeOnTarget(itemSource, myStringArray) {
         //TokenMagic.deleteFiltersOnTargeted("shockWave");
         //}
     }
-    Cast()
-
+    cast();
 }
