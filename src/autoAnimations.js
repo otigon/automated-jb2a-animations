@@ -1,7 +1,7 @@
-// import { log } from "./helpers/logging.js";
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
 
+// just swap which of these two lines is commented to turn on/off all logging
 const log = console.log.bind(window.console);
 // const log = () => {};
 
