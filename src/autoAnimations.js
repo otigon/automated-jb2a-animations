@@ -15,33 +15,22 @@ Hooks.on('init', () => {
         default: false,
         config: true,
     });
-    if (game.modules.get("midi-qol")?.active) {
-        game.settings.register("automated-jb2a-animations", "playonhit", {
-            name: 'Only play animations on Hits',
-            hint: "Requires Midi-QOL Workflow setting HITS to be enables with Check",
-            scope: 'world',
-            type: Boolean,
-            default: false,
-            config: true,
-        });
-        game.settings.register("automated-jb2a-animations", "playonDamage", {
-            name: 'Only play animations on Damage Rolls',
-            hint: "REQUIRES A REFRESH. When Enabled, this will ONLY play the animaitons on the Damage Roll",
-            scope: 'world',
-            type: Boolean,
-            default: false,
-            config: true,
-        });
-    } else {
-        game.settings.register("automated-jb2a-animations", "playonDamageCore", {
-            name: 'Play Attack Animations on Damage Rolls Only',
-            hint: "By Default, Animations play on Attack Rolls",
-            scope: 'world',
-            type: Boolean,
-            default: false,
-            config: true,
-        });
-    }
+    game.settings.register("automated-jb2a-animations", "playonhit", {
+        name: 'Only play animations on Hits',
+        hint: "Requires Midi-QOL Workflow setting HITS to be enables with Check",
+        scope: 'world',
+        type: Boolean,
+        default: false,
+        config: true,
+    });
+    game.settings.register("automated-jb2a-animations", "playonDamage", {
+        name: 'Only play animations on Damage Rolls',
+        hint: "REQUIRES A REFRESH. When Enabled, this will ONLY play the animaitons on the Damage Roll",
+        scope: 'world',
+        type: Boolean,
+        default: false,
+        config: true,
+    });
     game.settings.register("automated-jb2a-animations", "EnableShield", {
         name: 'Enable Shield Spell Animation',
         hint: "Shield is set to a test animaiton, but still looks cool. Check this to enable it",
@@ -50,19 +39,14 @@ Hooks.on('init', () => {
         default: false,
         config: true,
     });
-    if (game.modules.get("midi-qol")?.active) {
-        console.log("midi IS active");
-        switch (game.settings.get("automated-jb2a-animations", "playonDamage")) {
-            case (true):
-                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { RevItUp(workflow) })
-                break;
-            case (false):
-                Hooks.on("midi-qol.RollComplete", (workflow) => { RevItUp(workflow) })
-                break;
-        }
-    } else {
-        Hooks.on("createChatMessage", async (msg) => { getCoreParams(msg) });
-        //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
+
+    switch (game.settings.get("automated-jb2a-animations", "playonDamage")) {
+        case (true):
+            Hooks.on("midi-qol.DamageRollComplete", (workflow) => { RevItUp(workflow) })
+            break;
+        case (false):
+            Hooks.on("midi-qol.RollComplete", (workflow) => { RevItUp(workflow) })
+            break;
     }
 
     path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
@@ -73,473 +57,147 @@ Hooks.once('ready', function () {
         ui.notifications.error("A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations DnD5e to Work");
 });
 
-//var myToken;
-//var myStringArray;
-//var itemName;
-//var itemSource;
+/*
+switch (true) {
+    case (moduleIncludes("jb2a_patreon") || moduleIncludes("JB2A_DnD5e")):
+        break;
+    default:
+        ui.notifications.error("Automated Animations DnD5e Requires a JB2A Module to be INSTALLED to work");
+        break;
+}
+*/
+
+var myToken;
+var myStringArray;
+var itemName;
+var itemSource;
 var path00;
-//var pcRace;
-//var checkSave;
-//var saves;
+var pcRace;
+var checkSave;
+var saves;
 
 function moduleIncludes(test) {
     if (game.modules.get(test)) return true;
 }
-function getCoreParams(msg) {
 
-    //const rollType = msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? "pass";
-    const rollType = ((msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? "pass") || (msg.data?.flavor?.toLowerCase() ?? "pass"));
-    console.log(rollType);
-
-
-    const mreFlavor = msg.data.content.toLowerCase();
-    if (mreFlavor.includes("attack")) {
-        console.log("this is an attack roll");
-    } else {
-        console.log("this is NOT an attack roll");
-    }
-
-    if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == true) {
-        if (rollType.includes("damage")) {
-            const itemId = msg.data.flags.dnd5e.roll.itemId;
-            console.log(itemId);
-            const myToken = canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-            console.log(myToken);
-            const itemName = myToken.actor.items.get(itemId).name?.toLowerCase();
-            console.log(itemName);
-            const itemSource = myToken.actor.items.get(itemId).data?.data?.source?.toLowerCase() ?? "";
-            console.log(itemSource);
-            let myStringArray = Array.from(msg.user.targets);
-            console.log(myStringArray);
-            const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
-            console.log(itemType);
-            revItUpCore(itemName, itemSource, myToken, myStringArray, itemType)
-        }
-    }
-
-    if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false) {
-        if (rollType.includes("damage")) {
-            //console.log("damage roll");
-        } else
-            if (rollType.includes("attack") || mreFlavor.includes("attack")) {
-                const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id");
-                console.log(itemId);
-                const myToken = canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-                console.log(myToken);
-                const itemName = myToken.actor.items.get(itemId).name?.toLowerCase();
-                console.log(itemName);
-                const itemSource = myToken.actor.items.get(itemId).data?.data?.source?.toLowerCase() ?? "";
-                console.log(itemSource);
-                let myStringArray = Array.from(msg.user.targets);
-                console.log(myStringArray);
-                const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
-                console.log(itemType);
-                revItUpCore(itemName, itemSource, myToken, myStringArray, itemType)
-            } else /*if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false)*/ {
-                const itemId = $(msg.data.content).attr("data-item-id");
-                console.log(itemId);
-                const myToken = canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-                console.log(myToken);
-                const itemName = myToken.actor.items.get(itemId).name?.toLowerCase();
-                console.log(itemName);
-                const itemSource = myToken.actor.items.get(itemId).data?.data?.source?.toLowerCase() ?? "";
-                console.log(itemSource);
-                let myStringArray = Array.from(msg.user.targets);
-                switch (true) {
-                    case (itemName.includes("cure") && itemName.includes("wound")):
-                    case (itemName.includes("heal") && itemName.includes("word")):
-                        onTargetSpells(itemName, itemSource, myStringArray);
-                        break;
-                    case (itemName.includes("disintegrate")):
-                        spellAttacks(myToken, itemName, itemSource, myStringArray);
-                        break;
-                    case (itemName.includes("second") && itemName.includes("wind")):
-                        castOnSelf(itemName, itemSource, myToken);
-                        break;
-                    case (itemSource.includes("boulder")):
-                    case (itemSource.includes("siege")):
-                        rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                        break;
-                    case (itemName.includes("thunderwave")):
-                        Hooks.once("createMeasuredTemplate", () => {
-                            thunderwaveAuto(myToken, itemSource);
-                        })
-                        break;
-                    case (itemName.includes("shatter")):
-                        Hooks.once("createMeasuredTemplate", () => {
-                            shatterAuto(itemSource);
-                        })
-                        break;
-                    case (itemName.includes("explode")):
-                    case (itemName.includes("grenade")):
-                    case (itemName.includes("bomb")):
-                        Hooks.once("createMeasuredTemplate", () => {
-                            explodeTemplate(itemSource);
-                        })
-                        break;
-                }
-            }
-    }
-
+function itemIncludes(test) {
+    if (itemSource.includes(test) || itemName.includes(test)) return true;;
 }
 
-function getMidiParams(workflow) {
-    const itemName = workflow.item?.name?.toLowerCase();
-    const itemSource = workflow.item?.data?.data?.source?.toLowerCase() ?? "null";
-    const myToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
-    let myStringArray;
+async function RevItUp(workflow) {
+
+    // const lastArg = args;
+    // let item = lastArg.item
+    itemName = workflow.item?.name?.toLowerCase();
+    itemSource = workflow.item?.data?.data?.source?.toLowerCase() ?? "null";
+    myToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
     if (game.settings.get("automated-jb2a-animations", "playonhit")) {
         myStringArray = Array.from(workflow.hitTargets);
     } else {
         myStringArray = Array.from(workflow.targets);
     }
-    const itemType = workflow.item.data.type.toLowerCase();
 
-    RevItUp(itemName, itemSource, myToken, myStringArray, itemType)
-}
-
-async function RevItUp(itemName, itemSource, myToken, myStringArray, itemType) {
-
-    // const lastArg = args;
-    // let item = lastArg.item
-    /*
-    const itemName = workflow.item?.name?.toLowerCase();
-    const itemSource = workflow.item?.data?.data?.source?.toLowerCase() ?? "null";
-    const myToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null)
-    let myStringArray;
-    switch (game.settings.get("automated-jb2a-animations", "playonhit")) {
-        case (true):
-            myStringArray = Array.from(workflow.hitTargets);
-            break;
-        default:
-            myStringArray = Array.from(workflow.targets);
-            break;
-    }
     let itemType = workflow.item.data.type.toLowerCase();
-    */
-    //let checkSave = Array.from(workflow.saves);
+    /* 
+     
+         function itemIncludes(test) {
+             if (itemSource.includes(test) || itemName.includes(test)) return true;
+         }
+     
+     
+         function moduleIncludes(test) {
+             if (game.modules.get(test)) return true;
+         }
+         path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+     */
 
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
+    //arrayLength = myStringArray.length;
 
-    //let checkSave;
-    let saves;
-    let pcRace;
     // Add an early breakout if no targets selected in Melee
-    //  console.log("there are targets");
+    //console.log("there are targets");
     switch (true) {
         // Use xxx in Item Source Field to exclude an item for On-Use customization
         case (itemIncludes("xxx")):
             break;
-        case (itemType.includes("spell")):
-            switch (true) {
-                case (itemIncludes("thunderwave")):
-                    thunderwaveAuto(myToken, itemSource)
-                    break;
-                case (itemIncludes("shatter")):
-                    shatterAuto(itemSource)
-                    break;
-                case (itemIncludes("magic missile")):
-                    magicMissile(myToken, myStringArray, itemSource)
-                    break;
-                case (itemIncludes("cure") && itemIncludes("wounds")):
-                case (itemIncludes("heal") && itemIncludes("word")):
-                    onTargetSpells(itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("fire") && itemIncludes("bolt")):
-                case (itemIncludes("ray") && itemIncludes("frost")):
-                case (itemIncludes("witch") && itemIncludes("bolt")):
-                case (itemIncludes("scorching") && itemIncludes("ray")):
-                case (itemIncludes("disintegrate")):
-                    //checkSave = Array.from(workflow.saves);
-                    saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
-                    spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
-                    break;
-                case (itemIncludes("shield")):
-                    castOnSelf(itemName, itemSource, myToken)
-                    break;
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("laser")):
-                case (itemIncludes("sling")):
-                    rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                    arrowOptionExplode(myToken, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("explode")):
-                case (itemIncludes("grenade")):
-                case (itemIncludes("bomb")):
-                    explodeTemplate(itemSource)
-                    break;
-            }
+        //case (itemTypeIncludes("spell")):
+        //case (itemTypeIncludes("weapon")):
+        //case (itemTypeIncludes("consumable")):
+        case (itemIncludes("thunderwave")):
+            thunderwaveAuto()
             break;
-        case (itemType.includes("weapon")):
-            switch (true) {
-                case (itemIncludes("bite")):
-                case (itemIncludes("claw")):
-                    creatureAttacks(itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("sword")):
-                case (itemIncludes("great") && itemIncludes("club")):
-                case (itemIncludes("great") && itemIncludes("axe")):
-                case (itemIncludes("mace")):
-                case (itemIncludes("maul")):
-                case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-                    meleeWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("dagger")):
-                case (itemIncludes("hand") && itemIncludes("axe")):
-                case (itemIncludes("spear")):
-                    pcRace = myToken.actor.data.data.details.race.toLowerCase();
-                    meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pcRace)
-                    break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                    arrowOptionExplode(myToken, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("hammer")):
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("laser")):
-                case (itemIncludes("javelin")):
-                case (itemIncludes("sling")):
-                    rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("explode")):
-                case (itemIncludes("grenade")):
-                case (itemIncludes("bomb")):
-                    explodeTemplate(itemSource)
-                    break;
-            }
+        case (itemIncludes("shatter")):
+            shatterAuto()
             break;
-        case (itemType.includes("consumable")):
-            switch (true) {
-                case (itemIncludes("alchemist") && itemIncludes("fire")):
-                    explodeOnTarget(itemSource, myStringArray)
-                    break;
-                case (itemIncludes("potion") && itemIncludes("heal")):
-                    castOnSelf(itemName, itemSource, myToken)
-                    break;
-            }
+        case (itemIncludes("magic missile")):
+            magicMissile()
             break;
-        case (itemType.includes("feat")):
-            switch (true) {
-                case (itemIncludes("second") && itemIncludes("wind")):
-                    castOnSelf(itemName, itemSource, myToken);
-                    break;
-            }
-        /*
-            case (itemType.includes("spell") && itemIncludes("shield")):
-            case (itemIncludes("potion") && itemIncludes("heal")):
-            case (itemIncludes("second") && itemIncludes("wind")):
-                castOnSelf()
-                break;
-            case (itemIncludes("thunderwave")):
-                thunderwaveAuto()
-                break;
-            case (itemIncludes("shatter")):
-                shatterAuto()
-                break;
-            case (itemIncludes("magic missile")):
-                magicMissile()
-                break;
-            case (itemIncludes("cure") && itemIncludes("wounds")):
-            case (itemIncludes("heal") && itemIncludes("word")):
-                onTargetSpells()
-                break;
-            case (itemIncludes("fire") && itemIncludes("bolt")):
-            case (itemIncludes("ray") && itemIncludes("frost")):
-            case (itemIncludes("witch") && itemIncludes("bolt")):
-            case (itemIncludes("scorching") && itemIncludes("ray")):
-            case (itemIncludes("disintegrate")):
-                checkSave = Array.from(workflow.saves);
-                saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
-                spellAttacks()
-                break;
-            case (itemIncludes("bite")):
-            case (itemIncludes("claw")):
-                creatureAttacks()
-                break;
-            case (itemIncludes("sword")):
-            case (itemIncludes("greatclub")):
-            case (itemIncludes("greataxe")):
-            case (itemIncludes("mace")):
-            case (itemIncludes("maul")):
-            case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-                meleeWeapons()
-                break;
-            case (itemIncludes("dagger")):
-            case (itemIncludes("handaxe")):
-            case (itemIncludes("spear")):
-                pcRace = workflow.actor.data.data.details.race.toLowerCase();
-                meleeRangeSwitch()
-                break;
-            case (itemIncludes("arrow")):
-            case (itemIncludes("bow")):
-                arrowOptionExplode()
-                break;
-            case (itemIncludes("hammer")):
-            case (itemIncludes("boulder")):
-            case (itemIncludes("siege")):
-            case (itemIncludes("laser")):
-            case (itemIncludes("javelin")):
-            case (itemIncludes("sling")):
-                rangedWeapons()
-                break;
-            case (itemIncludes("explode")):
-            case (itemIncludes("grenade")):
-            case (itemIncludes("bomb")):
-                explodeTemplate()
-                break;
-            case (itemIncludes("alchemist") && itemIncludes("fire")):
-                explodeOnTarget()
-                break;
-                */
+        case (itemIncludes("cure") && itemIncludes("wounds")):
+        case (itemIncludes("heal") && itemIncludes("word")):
+            onTargetSpells()
+            break;
+        case (itemIncludes("fire") && itemIncludes("bolt")):
+        case (itemIncludes("ray") && itemIncludes("frost")):
+        case (itemIncludes("witch") && itemIncludes("bolt")):
+        case (itemIncludes("scorching") && itemIncludes("ray")):
+        case (itemIncludes("disintegrate")):
+            checkSave = Array.from(workflow.saves);
+            saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
+            spellAttacks()
+            break;
+        case (itemType.includes("spell") && itemIncludes("shield")):
+        case (itemIncludes("potion") && itemIncludes("heal")):
+        case (itemIncludes("second") && itemIncludes("wind")):
+            castOnSelf()
+            break;
+        case (itemIncludes("bite")):
+        case (itemIncludes("claw")):
+            creatureAttacks()
+            break;
+        case (itemIncludes("sword")):
+        case (itemIncludes("greatclub")):
+        case (itemIncludes("greataxe")):
+        case (itemIncludes("mace")):
+        case (itemIncludes("maul")):
+        case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
+            meleeWeapons()
+            break;
+        case (itemIncludes("dagger")):
+        case (itemIncludes("handaxe")):
+        case (itemIncludes("spear")):
+            pcRace = workflow.actor.data.data.details.race.toLowerCase();
+            meleeRangeSwitch()
+            break;
+        case (itemIncludes("arrow")):
+        case (itemIncludes("bow")):
+            arrowOptionExplode()
+            break;
+        case (itemIncludes("hammer")):
+        case (itemIncludes("boulder")):
+        case (itemIncludes("siege")):
+        case (itemIncludes("laser")):
+        case (itemIncludes("javelin")):
+        case (itemIncludes("sling")):
+            rangedWeapons()
+            break;
+        case (itemIncludes("explode")):
+        case (itemIncludes("grenade")):
+        case (itemIncludes("bomb")):
+            explodeTemplate()
+            break;
+        case (itemIncludes("alchemist") && itemIncludes("fire")):
+            explodeOnTarget()
+            break;
     }
 
 }
 
-async function revItUpCore(itemName, itemSource, myToken, myStringArray, itemType) {
 
-    /*
-    const rollType = msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? "pass";
-    if (rollType.includes("damage")) {
-        const itemId = msg.data.flags.dnd5e.roll.itemId;
-        console.log(itemId);
-        const myToken = canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-        console.log(myToken);
-        const itemName = myToken.actor.items.get(itemId).name?.toLowerCase();
-        console.log(itemName);
-        const itemSource = myToken.actor.items.get(itemId).data?.data?.source?.toLowerCase() ?? "";
-        console.log(itemSource);
-        let myStringArray = Array.from(msg.user.targets);
-        console.log(myStringArray);
-
-        let itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
-    */
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
-    let pcRace;
-
-    switch (true) {
-        // Use xxx in Item Source Field to exclude an item for On-Use customization
-        case (itemIncludes("xxx")):
-            break;
-        case (itemType.includes("spell")):
-            switch (true) {
-
-                case (itemIncludes("thunderwave")):
-                    thunderwaveAuto(myToken, itemSource)
-                    break;
-                case (itemIncludes("shatter")):
-                    shatterAuto(itemSource)
-                    break;
-
-                case (itemIncludes("magic missile")):
-                    magicMissile(myToken, myStringArray, itemSource)
-                    break;
-                case (itemIncludes("cure") && itemIncludes("wounds")):
-                case (itemIncludes("heal") && itemIncludes("word")):
-                    onTargetSpells(itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("fire") && itemIncludes("bolt")):
-                case (itemIncludes("ray") && itemIncludes("frost")):
-                case (itemIncludes("witch") && itemIncludes("bolt")):
-                case (itemIncludes("scorching") && itemIncludes("ray")):
-                case (itemIncludes("disintegrate")):
-                    spellAttacks(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("shield")):
-                    castOnSelf(itemName, itemSource, myToken)
-                    break;
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("laser")):
-                case (itemIncludes("sling")):
-                    rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                    arrowOptionExplode(myToken, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("explode")):
-                case (itemIncludes("grenade")):
-                case (itemIncludes("bomb")):
-                    explodeTemplate(itemSource)
-                    break;
-            }
-            break;
-        case (itemType.includes("weapon")):
-            switch (true) {
-                case (itemIncludes("bite")):
-                case (itemIncludes("claw")):
-                    creatureAttacks(itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("sword")):
-                case (itemIncludes("great") && itemIncludes("club")):
-                case (itemIncludes("great") && itemIncludes("axe")):
-                case (itemIncludes("mace")):
-                case (itemIncludes("maul")):
-                case (itemIncludes("1hs") || itemIncludes("2hs") || itemIncludes("1hb") || itemIncludes("2hb") || itemIncludes("1hp") || itemIncludes("2hp")):
-                    meleeWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("dagger")):
-                case (itemIncludes("hand") && itemIncludes("axe")):
-                case (itemIncludes("spear")):
-                    pcRace = myToken.actor.data.data.details.race.toLowerCase();
-                    meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pcRace)
-                    break;
-                case (itemIncludes("arrow")):
-                case (itemIncludes("bow")):
-                    arrowOptionExplode(myToken, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("hammer")):
-                case (itemIncludes("boulder")):
-                case (itemIncludes("siege")):
-                case (itemIncludes("laser")):
-                case (itemIncludes("javelin")):
-                case (itemIncludes("sling")):
-                    rangedWeapons(myToken, itemName, itemSource, myStringArray)
-                    break;
-                case (itemIncludes("explode")):
-                case (itemIncludes("grenade")):
-                case (itemIncludes("bomb")):
-                    explodeTemplate(itemSource)
-                    break;
-            }
-            break;
-        case (itemType.includes("consumable")):
-            switch (true) {
-                case (itemIncludes("alchemist") && itemIncludes("fire")):
-                    explodeOnTarget(itemSource, myStringArray)
-                    break;
-                case (itemIncludes("potion") && itemIncludes("heal")):
-                    castOnSelf(itemName, itemSource, myToken)
-                    break;
-            }
-            break;
-        case (itemType.includes("feat")):
-            switch (true) {
-                case (itemIncludes("second") && itemIncludes("wind")):
-                    castOnSelf(itemName, itemSource, myToken);
-                    break;
-            }
-    }
-    //}
-
-
-    // const lastArg = args;
-    // let item = lastArg.item
-
-    // Add an early breakout if no targets selected in Melee
-    //  console.log("there are targets");
-
-}
+/*
+Hooks.on("preCreateChatMessage", async (msg, options, userId) => {
+    const itemId = $(msg.content).attr("data-item-id");
+    console.log(itemId);
+});
+*/
 
 
 let BloodyHitStutter =
@@ -648,11 +306,9 @@ let HitStutter =
         }
     }];
 
-function colorChecks(itemSource, itemName) {
 
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
+async function meleeWeapons() {
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
     let tint = "Regular";
@@ -665,7 +321,7 @@ function colorChecks(itemSource, itemName) {
             color = "White";
     }
     let fireColor = "pass";
-
+    // Change the HEX Color code inside the switch to change the color of the fire burn on the TMFX call. I use https://htmlcolorcodes.com/ , and keep the 0x in front
     switch (true) {
         case (itemSource.includes("white")):
             type01 = "01";
@@ -728,100 +384,6 @@ function colorChecks(itemSource, itemName) {
             fireColor = 0xCFD204;
             break;
     }
-    return [type01, tint, color, fireColor];
-
-}
-
-async function meleeWeapons(myToken, itemName, itemSource, myStringArray) {
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
-
-    let params = colorChecks(itemSource, itemName);
-
-    let type01 = params[0],
-        tint = params[1],
-        color = params[2],
-        fireColor = params[3];
-
-    /*
-        let type01 = "01";
-        let tint = "Regular";
-        let color;
-        switch (true) {
-            case (itemIncludes("laser")):
-                color = "Blue";
-                break;
-            default:
-                color = "White";
-        }
-        let fireColor = "pass";
-        // Change the HEX Color code inside the switch to change the color of the fire burn on the TMFX call. I use https://htmlcolorcodes.com/ , and keep the 0x in front
-        switch (true) {
-            case (itemSource.includes("white")):
-                type01 = "01";
-                tint = "Regular";
-                color = "White";
-                break;
-            case (itemSource.includes("purple")):
-                type01 = "Fire";
-                switch (true) {
-                    case (itemIncludes("lasersword")):
-                        tint = "Regular";
-                        break;
-                    default:
-                        tint = "Dark";
-                        break;
-                }
-                color = "Purple";
-                fireColor = 0x8B00C0;
-                break;
-            case (itemSource.includes("blue")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Blue";
-                fireColor = 0x008FC0;
-                break;
-            case (itemSource.includes("green")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Green";
-                fireColor = 0x60EA01;
-                break;
-            case (itemSource.includes("orange")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Orange";
-                fireColor = 0xF18A07;
-                break;
-            case (itemSource.includes("pink")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Pink";
-                fireColor = 0xD2049A;
-                break;
-            case (itemSource.includes("darkred")):
-                type01 = "Fire";
-                tint = "Dark";
-                color = "Red";
-                fireColor = 0x610101;
-                break;
-            case (itemSource.includes("red")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Red";
-                fireColor = 0xD20404;
-                break;
-            case (itemSource.includes("yellow")):
-                type01 = "Fire";
-                tint = "Regular";
-                color = "Yellow";
-                fireColor = 0xCFD204;
-                break;
-        }
-        */
     let burn =
         [{
             filterType: "xfire",
@@ -1041,15 +603,11 @@ async function meleeWeapons(myToken, itemName, itemSource, myStringArray) {
 }
 
 
-async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pcRace) {
+async function meleeRangeSwitch() {
     //let pcRace = lastArg.actor.data.data.details.race.toLowerCase();
     //console.log(pcRace);
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
 
     let type01 = "01";
     let tint = "Regular";
@@ -1362,13 +920,9 @@ async function meleeRangeSwitch(myToken, itemName, itemSource, myStringArray, pc
 }
 
 
-async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves) {
+async function spellAttacks() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
 
     let tint;
     let color;
@@ -1641,7 +1195,7 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
             //console.log(saves);
             //console.log(mainTargetdata.id);
             function saveCheck(test) {
-                if (saves?.includes(test)) return true;
+                if (saves.includes(test)) return true;
             }
 
             let ray = new Ray(myToken.center, mainTargetdata.center);
@@ -1761,13 +1315,9 @@ async function spellAttacks(myToken, itemName, itemSource, myStringArray, saves)
 }
 
 
-async function creatureAttacks(itemName, itemSource, myStringArray) {
+async function creatureAttacks() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
 
     let type01 = "01";
     let tint = "Regular";
@@ -1898,13 +1448,9 @@ async function creatureAttacks(itemName, itemSource, myStringArray) {
 }
 
 
-async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
+async function rangedWeapons() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
 
     let type01 = "01";
     let tint = "Regular";
@@ -2236,7 +1782,7 @@ async function rangedWeapons(myToken, itemName, itemSource, myStringArray) {
 }
 
 
-async function thunderwaveAuto(myToken, itemSource) {
+async function thunderwaveAuto() {
     let type01 = "01";
     let tint = "Bright";
     let color = "Blue";
@@ -2278,7 +1824,7 @@ async function thunderwaveAuto(myToken, itemSource) {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
-    const templateID = await canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
+    const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
     let template = await canvas.templates.get(templateID);
     let gridSize = canvas.scene.data.grid;
     let Scale = canvas.scene.data.grid / 200;
@@ -2380,7 +1926,7 @@ async function thunderwaveAuto(myToken, itemSource) {
 }
 
 
-async function shatterAuto(itemSource) {
+async function shatterAuto() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -2485,11 +2031,7 @@ async function shatterAuto(itemSource) {
 }
 
 
-async function onTargetSpells(itemName, itemSource, myStringArray) {
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
+async function onTargetSpells() {
 
     let type01 = "01";
     let color = "Blue";
@@ -2656,7 +2198,7 @@ async function onTargetSpells(itemName, itemSource, myStringArray) {
 }
 
 
-async function magicMissile(myToken, myStringArray, itemSource) {
+async function magicMissile() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -2831,7 +2373,7 @@ async function magicMissile(myToken, myStringArray, itemSource) {
 }
 
 
-async function explodeTemplate(itemSource) {
+async function explodeTemplate() {
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
@@ -2999,13 +2541,9 @@ async function explodeTemplate(itemSource) {
 }
 
 
-async function arrowOptionExplode(myToken, itemSource, myStringArray) {
+async function arrowOptionExplode() {
 
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-    function itemIncludes(test) {
-        if (itemSource.includes(test) || itemName.includes(test)) return true;;
-    }
 
     let type01 = "01";
     let tint = "Regular";
@@ -3329,12 +2867,8 @@ async function arrowOptionExplode(myToken, itemSource, myStringArray) {
 }
 
 
-async function castOnSelf(itemName, itemSource, myToken) {
+async function castOnSelf() {
     if (game.settings.get("automated-jb2a-animations", "EnableShield")) {
-
-        function itemIncludes(test) {
-            if (itemSource.includes(test) || itemName.includes(test)) return true;;
-        }
 
         let path01 = "breakout";
         let path02;
@@ -3473,7 +3007,7 @@ async function castOnSelf(itemName, itemSource, myToken) {
 }
 
 
-async function explodeOnTarget(itemSource, myStringArray) {
+async function explodeOnTarget() {
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
     let type01 = "01";
@@ -3481,7 +3015,7 @@ async function explodeOnTarget(itemSource, myStringArray) {
     let tmColor = 0x0075B0;
 
     switch (true) {
-        case (itemSource.includes("blue")):
+        case (itemSource.includescludes("blue")):
             switch (true) {
                 case (itemSource.includes("02")):
                     type01 = "02";
