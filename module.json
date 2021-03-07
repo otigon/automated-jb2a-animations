@@ -2,7 +2,7 @@
     "name": "automated-jb2a-animations",
     "title": "Automated Animations DnD5e",
     "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "author": "Otigon",
     "url": "https://github.com/otigon/automated-jb2a-animations",
     "minimumCoreVersion": "0.7.5",
@@ -24,10 +24,6 @@
     ],
     "dependencies": [
         {
-            "name": "midi-qol",
-            "type": "module"
-        },
-        {
             "name": "fxmaster",
             "type": "module"
         },
@@ -37,5 +33,5 @@
         }
     ],
     "manifest": "https://raw.githubusercontent.com/otigon/automated-jb2a-animations/main/module.json",
-    "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/0.1.1/automated-jb2a-animations-0.1.1.zip"
+    "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/0.1.2/automated-jb2a-animations-0.1.2.zip"
 }
