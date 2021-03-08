@@ -20,13 +20,19 @@ Time to ditch those animation macros! This module is designed to implement all o
 Currently implemented for D&D 5e, this module leverages the excellent animations from **JB2A**
 
 REQUIRED MODULES: 
-- Midi-QOL
 - Furnace
 - FXMaster
 - **JB2A** - Jules&Ben's Animated Assets (patreon and/or free version)  
 
 Optional Modules:
 - Token Magic FX
+
+Supported Modules for 5e (Those that mess with rolling):
+- CORE support now live!
+- MRE; Options to play animations on Attack or Damage
+- Midi-QOL; Options to play animations on Damage, Hit Targets, Check Saves for certain effects
+- Better Rolls; SPECIAL CASE, Will need Midi-QOL Active for now to piggy back. I will look at pure Better Rolls Support soon
+
 
 # Known Issues
 - The **About Face** module can cause issues with the **FX Master** function used for the Melee attack animations. A fix has been proposed to the **FX Master** Author and it should be fixed on the next update for that module.
