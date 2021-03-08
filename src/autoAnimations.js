@@ -115,7 +115,7 @@ function getCoreParams(msg) {
             const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
             //console.log(itemType);
             if (game.modules.get("mre-dnd5e")?.active) {
-                console.log("MRE is active");
+                //console.log("MRE is active");
                 switch (game.settings.get("mre-dnd5e", "autoDamage")) {
                     case (true):
                         switch (true) {
@@ -146,40 +146,9 @@ function getCoreParams(msg) {
                 }
 
             } else {
-                console.log("MRE is NOT active");
+                //console.log("MRE is NOT active");
                 revItUpCore(itemName, itemSource, myToken, myStringArray, itemType);
             }
-/*
-            switch (game.settings.get("mre-dnd5e", "autoDamage")) {
-                case (true):
-                    switch (true) {
-                        case (itemName.includes("thunderwave")):
-                            Hooks.once("createMeasuredTemplate", () => {
-                                thunderwaveAuto(myToken, itemSource);
-                            })
-                            break;
-                        case (itemName.includes("shatter")):
-                            Hooks.once("createMeasuredTemplate", () => {
-                                shatterAuto(itemSource);
-                            })
-                            break;
-                        case (itemName.includes("explode")):
-                        case (itemName.includes("grenade")):
-                        case (itemName.includes("bomb")):
-                            Hooks.once("createMeasuredTemplate", () => {
-                                explodeTemplate(itemSource);
-                            })
-                            break;
-                        default:
-                            revItUpCore(itemName, itemSource, myToken, myStringArray, itemType);
-                    }
-                    break;
-                case (false):
-                    revItUpCore(itemName, itemSource, myToken, myStringArray, itemType);
-                    break;
-            }
-*/
-            //revItUpCore(itemName, itemSource, myToken, myStringArray, itemType)
         }
     }
 
