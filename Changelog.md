@@ -1,3 +1,7 @@
+0.1.5 Release:  
+- Initial Support for PF1
+- Lots of behind the scenes changes
+
 0.1.1 Release:  
 - Healing Potions and Second Wind can now call the healing animations (not by default). Use *heal* in the source for generic healing animation, use *cure wounds* for the cure wounds animation. Add a color in the source field for desired color variant.  
 - Item Name check fixes to account for custom items and prep for future expansions  
