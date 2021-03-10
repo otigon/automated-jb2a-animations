@@ -17,7 +17,7 @@ Time to ditch those animation macros! This module is designed to implement all o
 - Explosions
 - Healing Spells
 
-Currently implemented for **D&D** 5e and **PF1**, this module leverages the excellent animations from **JB2A**
+Currently implemented for **D&D 5e** and **PF1**, this module leverages the excellent animations from **JB2A**
 
 REQUIRED MODULES: 
 - FXMaster
