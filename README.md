@@ -1,4 +1,4 @@
-# Automated Animations DnD5e
+# Automated Animations
 **No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
 
 I am not affiliated with JB2A, and am working on this only as a side project to make these great animation more easily accesible. 
@@ -17,10 +17,9 @@ Time to ditch those animation macros! This module is designed to implement all o
 - Explosions
 - Healing Spells
 
-Currently implemented for D&D 5e, this module leverages the excellent animations from **JB2A**
+Currently implemented for **D&D** 5e and **PF1**, this module leverages the excellent animations from **JB2A**
 
 REQUIRED MODULES: 
-- Furnace
 - FXMaster
 - **JB2A** - Jules&Ben's Animated Assets (patreon and/or free version)  
 
@@ -32,6 +31,9 @@ Supported Modules for 5e (Those that mess with rolling):
 - MRE; Options to play animations on Attack or Damage
 - Midi-QOL; Options to play animations on Damage, Hit Targets, Check Saves for certain effects
 - Better Rolls; SPECIAL CASE, Will need Midi-QOL Active for now to piggy back. I will look at pure Better Rolls Support soon
+
+PF1 Support:
+- Initial support for the PF1 system. There may be bugs that pop up, but let me know and I'll get on it to fix them
 
 
 # Known Issues
