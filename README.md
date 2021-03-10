@@ -7,7 +7,7 @@ Tutorial Video: https://www.youtube.com/watch?v=psYt4IdfIVI
 ## Quick Reference PDF ##
 https://github.com/otigon/automated-jb2a-animations/blob/main/PDF/Keywords%20and%20Colors.pdf  
 
-##I'm aware of an issue that the recent PF1 integration isn't working. I'll check on this later today and provide a fix  
+## I'm aware of an issue that the recent PF1 integration isn't working. I'll check on this later today and provide a fix  
 
 # Introduction
 
