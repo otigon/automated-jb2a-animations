@@ -4,7 +4,7 @@
 
 ## SPELLS  (NOT case sensitive)
 ---
->Spell Name
+>**Spell Name**
 >>Default Color
 >>>JB2A Patreon Color
 ---
