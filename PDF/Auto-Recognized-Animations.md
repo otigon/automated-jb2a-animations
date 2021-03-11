@@ -4,7 +4,7 @@
 
 |Spell Name | Default Color|
 |----------|----------------|
-|Variant Colors|
+|<td colspan=3>Variant Colors|
 
 >Spell Name
 >>Default Color
