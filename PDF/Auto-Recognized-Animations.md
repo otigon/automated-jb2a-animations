@@ -36,8 +36,12 @@
 >>Blue
 >>>Dark Green, Dark Purple, Dark Red, Green, Red, Yellow  
 
->corching Ray
->> Orange Blue, Green, Purple, Red, Yellow
-- Disintegrate: Green | Dark Red, Orange Pink, Purple Blue
+>Scorching Ray
+>>Orange
+>>>Blue, Green, Purple, Red, Yellow  
+
+>Disintegrate
+>>Green
+>>>Dark Red, Orange Pink, Purple Blue
 
 
