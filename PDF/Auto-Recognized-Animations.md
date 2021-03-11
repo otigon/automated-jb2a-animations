@@ -6,9 +6,14 @@
 >>>JB2A Patreon Color
 
 >Thunderwave
->>Blue  |   Green - Orange - Purple - Red
-- Shatter: Blue | Green, Orange, Purple, Red
-- Magic Missile: Purple   |    Blue, Green, Yellow, Random
+>>Blue
+>>>Green - Orange - Purple - Red
+>Shatter: Blue
+>>Green
+>>>Orange, Purple, Red
+>Magic Missile
+>>Purple
+>>>Blue, Green, Yellow, Random
 - Cure Wounds:  Blue      |    Green, Purple, Red
 - Healing Word: Blue, Green, Purple, Yellow **(all colors available in Free version)**
 - Firebolt or Fire Bolt: Orange | Red, Blue, Green, Purple
