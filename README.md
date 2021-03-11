@@ -49,7 +49,7 @@ The first 3 are a higher priority, but the rest will flucuate depending on circu
 6. Adding more automatic recognition options (Spiritual Weapon Auto-Spawn & Delete, Reaction effects, Stuns, etc)  
 
 # Overview
-**Attack Spells and Melee attacks require a token(s) to be Targeted**
+## Attack Spells and Melee attacks require a token(s) to be Targeted
 
 This module functions similarly to calling On-Use Macros through Midi-QOL or Item Macro. However, this will run all of the animations behind the scenes without fussing with macros. This is ONLY set up for DnD5e and PF1 currently, though may work on other similar systems.  
 
