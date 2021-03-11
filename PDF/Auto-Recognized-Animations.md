@@ -7,7 +7,7 @@
 
 >Thunderwave
 >>Blue
->>>Green - Orange - Purple - Red  
+>>>Green - Orange - Purple - Red 
 >Shatter: Blue
 >>Green
 >>>Orange, Purple, Red
