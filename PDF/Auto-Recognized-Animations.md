@@ -1,7 +1,9 @@
 # The KeyWords below will be automatically recognized by the Automated Animations module  
 
 ## SPELLS  (NOT case sensitive)
-Spell Name: Default Color | JB2A Patreon Color
+>Spell Name
+>>Default Color
+>>>JB2A Patreon Color
 
 >Thunderwave
 >>Blue  |   Green - Orange - Purple - Red
