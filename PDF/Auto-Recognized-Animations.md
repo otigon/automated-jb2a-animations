@@ -4,7 +4,7 @@
 
 >**Spell Name
 >>Default Color
->>>JB2A Patreon Color
+>>>JB2A Patreon Color**
 
 >**Thunderwave
 >>Blue
