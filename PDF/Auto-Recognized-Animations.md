@@ -1,4 +1,6 @@
-# The KeyWords below will be automatically recognized by the Automated Animations module  
+# The KeyWords below will be automatically recognized by the Automated Animations module
+
+### Spell name is Automatically Recognized, and plays with the Default Color. Put a Patreon color in the Source or Name field to change it
 
 ## SPELLS  (NOT case sensitive)
 
