@@ -2,14 +2,6 @@
 
 ## SPELLS  (NOT case sensitive)
 
-|Spell Name | Default Color|
-|----------|----------------|
-|<td colspan=3>Variant Colors|
-  
-|Thunderwave |<td colspan=3>Blue|||
-|----------|------|-|---------|
-|Green|Orange|Purple|Red|
-
 >Spell Name
 >>Default Color
 >>>JB2A Patreon Color
