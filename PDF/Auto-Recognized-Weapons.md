@@ -16,6 +16,9 @@
 
 >**Handaxe | Hand axe**
 
+>**LaserSword**
+>> Blue color as default in Free Module
+
 >**Mace**
 
 >**Maul**
@@ -26,3 +29,5 @@
 
 ## COLORS Available in the Patreon Module
 
+| Purple | Blue | Green | Orange | Pink | Red | Yellow|
+|--------|------|-------|--------|------|-----|-------|
