@@ -6,7 +6,7 @@
 |----------|----------------|
 |<td colspan=3>Variant Colors|
   
-|Thunderwave | Blue|||
+|Thunderwave |<td colspan=3>Blue|||
 |----------|------|-|---------|
 |Green|Orange|Purple|Red|
 
