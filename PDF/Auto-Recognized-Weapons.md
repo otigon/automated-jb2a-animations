@@ -18,6 +18,7 @@
 
 >**LaserSword**
 >> Blue color as default in Free Module
+>>> Patreon Colors: Dark Red | Green | Purple | Red  
 
 >**Mace**
 
