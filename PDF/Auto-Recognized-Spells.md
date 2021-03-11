@@ -8,7 +8,7 @@
 >>Default Color
 >>>JB2A Patreon Color
 
-###>**Thunderwave**
+>**Thunderwave**
 >>Blue
 >>>Green | Orange | Purple | Red  
 
