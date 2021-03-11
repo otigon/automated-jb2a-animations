@@ -20,7 +20,7 @@ Time to ditch those animation macros! This module is designed to implement all o
 Currently implemented for **D&D 5e** and **PF1**, this module leverages the excellent animations from **JB2A**
 
 REQUIRED MODULES: 
-- FXMaster
+- **FXMaster**
 - **JB2A** - Jules&Ben's Animated Assets (patreon and/or free version)  
 
 Optional Modules:
@@ -38,6 +38,15 @@ PF1 Support:
 
 # Known Issues
 - The **About Face** module can cause issues with the **FX Master** function used for the Melee attack animations. A fix has been proposed to the **FX Master** Author and it should be fixed on the next update for that module.
+
+## Roadmap (subject to change):  
+The first 3 are a higher priority, but the rest will flucuate depending on circumstances  
+1. Adding Localization to support other languages  
+2/3. Adding an Item Sheet Tab for better customization of animations (as opposed to manual input in Name/Source Fields). Handled through applying flags  
+2/3. Extending support to PF2e, Star Wars and GURP  
+4. Adding customizable TMFX options on a per item basis (versus a global on/off setting currently)
+5. Ability to easily apply Sound FX in item customization settings via file picker
+6. Adding more automatic recognition options (Spiritual Weapon Auto-Spawn & Delete, Reaction effects, Stuns, etc)  
 
 # Overview
 **Attack Spells and Melee attacks require a token(s) to be Targeted**
