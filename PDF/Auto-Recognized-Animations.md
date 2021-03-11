@@ -7,7 +7,7 @@
 |<td colspan=3>Variant Colors|
   
 |Thunderwave | Blue|||
-|----------|----------------|
+|----------|------|-|---------|
 |Green|Orange|Purple|Red|
 
 >Spell Name
