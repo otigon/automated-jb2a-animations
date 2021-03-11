@@ -2,46 +2,46 @@
 
 ## SPELLS  (NOT case sensitive)
 
->**Spell Name
+>**Spell Name**
 >>Default Color
->>>JB2A Patreon Color**
+>>>JB2A Patreon Color
 
->**Thunderwave
+>**Thunderwave**
 >>Blue
 >>>Green - Orange - Purple - Red  
 
->**Shatter: Blue
->>Green
->>>Orange, Purple, Red  
+>**Shatter**
+>>Blue
+>>>GreenOrange, Purple, Red  
 
->**Magic Missile
+>**Magic Missile**
 >>Purple
 >>>Blue, Green, Yellow, Random  
 
->**Cure Wounds
+>**Cure Wounds**
 >>Blue
 >>>Green, Purple, Red  
 
->**Healing Word
+>**Healing Word**
 >>Blue, Green, Purple, Yellow **(all colors available in Free version)**  
 
->**Firebolt or Fire Bolt
+>**Firebolt or Fire Bolt**
 >>Orange
 >>>Red, Blue, Green, Purple  
 
->**Ray of Frost
+>**Ray of Frost**
 >>Blue
 >>>Green, Purple Teal, Yellow Blue  
 
->**Witchbolt or Witch Bolt
+>**Witchbolt or Witch Bolt**
 >>Blue
 >>>Dark Green, Dark Purple, Dark Red, Green, Red, Yellow  
 
->**Scorching Ray
+>**Scorching Ray**
 >>Orange
 >>>Blue, Green, Purple, Red, Yellow  
 
->**Disintegrate
+>**Disintegrate**
 >>Green
 >>>Dark Red, Orange Pink, Purple Blue
 
