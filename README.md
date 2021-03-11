@@ -51,9 +51,11 @@ The first 3 are a higher priority, but the rest will flucuate depending on circu
 # Overview
 **Attack Spells and Melee attacks require a token(s) to be Targeted**
 
-This module functions similarly to calling On-Use Macros through Midi-QOL or Item Macro. However, this will run all of the animations behind the scenes without fussing with macros. This is ONLY set up for DnD 5e currently, though may work on other similar systems.  
+This module functions similarly to calling On-Use Macros through Midi-QOL or Item Macro. However, this will run all of the animations behind the scenes without fussing with macros. This is ONLY set up for DnD5e and PF1 currently, though may work on other similar systems.  
 
-The module reads the data passed through Midi-QOL to get the **Name** of the item, as well as reading the item's **Source** Field. It pairs animations from the JB2A module with items having the name they were designed for.
+The module reads the data passed through Chat Cards to get the **Name** of the item, as well as reading the item's **Source** Field. It pairs animations from the JB2A module with items having the name they were designed for.
+
+### Source Field is only available in the DnD5e System currently. I am working to add better customization fields based on Core Foundry to be used in other systems.  
 
 A good breakdown of what words the module looks for are in this reference PDF: https://github.com/otigon/automated-jb2a-animations/blob/main/PDF/Keywords%20and%20Colors.pdf
 
