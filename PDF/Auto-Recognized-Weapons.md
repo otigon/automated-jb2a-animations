@@ -2,9 +2,7 @@
 
 ### Weapon Name is Automatically Recognized, and plays with no color (just the weapon). Put a Patreon color in the Source or Name field to change it
 
-## Weapons  (NOT case sensitive)
-
->**Weapon Name**
+## Melee Weapons  (NOT case sensitive)
 
 >**Dagger**
 
@@ -32,3 +30,34 @@
 
 | Purple | Blue | Green | Orange | Pink | Red | Yellow|
 |--------|------|-------|--------|------|-----|-------|
+
+
+## Ranged Weapons (NOT case SenSiTive)
+
+>**Arrow | Bow** (automatically plays for anything with **bow** in the name)
+>> Variant Color: **Green**  
+
+>**Boulder**  
+
+>**Dagger**
+>>Variants: 02 | Kunai
+>>Switches between Melee and Range automatically
+>>Use 02 or Kunai in Source Field or name to change THROWING animation
+>>No colors currently for thrown, but can be set for melee 
+
+>**Hammer**  
+
+>**Hand Axe | Handaxe**
+>>Switches between Melee and Range automatically
+>>No colors currently for thrown, but can be set for melee  
+
+>**Javelin**  
+
+>**Laser** (for laser guns)
+>> Colors: **Blue, Green, Orange, Red**  
+
+>**Siege**  
+
+>**Spear**
+>>Switches between Melee and Range automatically
+>>No colors currently for thrown, but can be set for melee
