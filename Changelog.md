@@ -1,4 +1,10 @@
-0.1.5 Release:  
+0.1.7 Release:  
+- Actual support for PF1, sorry for the mishap  
+- Fixed an issue in DnD5e where Animations wouldn't play as intended. When multiple tokens from the same actor were on the canvas, the animations didn't work for them. This is fixed now.  
+- Fixed the leaky error message from popping up when JB2A was actually installed
+- Better description for the setting to turn off the PopUp window
+
+0.1.6 Release:  
 - Initial Support for PF1
 - Lots of behind the scenes changes
 
