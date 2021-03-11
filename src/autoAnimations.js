@@ -8,8 +8,8 @@ const log = () => { };
 
 Hooks.on('init', () => {
     game.settings.register("automated-jb2a-animations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
-        name: "JB2A Assests Requirement Notification",                  // Register a module setting with checkbox
-        hint: "Disable startup window popup",               // Description of the settings
+        name: "Disable the Startup Window Popup",                  // Register a module setting with checkbox
+        hint: "Checking this box will prevent the Popup Window from showing its ugly mug",               // Description of the settings
         scope: "world",                                    // This specifies a client-stored setting
         config: true,                                       // This specifies that the setting appears in the configuration view
         type: Boolean,
@@ -166,7 +166,7 @@ Hooks.on("renderItemSheet", async (sheet, html) => {
 */
 
 Hooks.once('ready', function () {
-    if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") || !game.modules.get("jb2a_patreon"))) {
+    if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error("A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work");
     }
 });
@@ -182,29 +182,14 @@ function moduleIncludes(test) {
 function onCreateChatMessage(msg) {
     log('onCreateChatMessage', msg);
 
-    const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
-    log(rollType);
 
-    const mreFlavor = msg.data.content.toLowerCase();
-    const isAttack = rollType.includes("attack") || mreFlavor.includes("attack roll");
-    log(isAttack ? "this is an attack roll" : "this is NOT an attack roll");
+    //const mreFlavor = msg.data.content.toLowerCase();
+    //const isAttack = rollType.includes("attack") || mreFlavor.includes("attack roll");
+    //log(isAttack ? "this is an attack roll" : "this is NOT an attack roll");
 
-    let handler;
-    switch (game.system.id) {
-        case "pf1":
-            handler = new Pf1Handler(msg);
-            break;
-        case "dnd5e":
-            handler = new Dnd5Handler(msg);
-            break;
-    }
+    let handler = new Pf1Handler(msg);
 
-    const playonDamageCore = game.settings.get("automated-jb2a-animations", "playonDamageCore") === true;
-    const isDamage = rollType.includes("damage");
-
-    if ((playonDamageCore && isDamage) || (!playonDamageCore && !isDamage)) {
-        revItUp(handler)
-    }
+    revItUp(handler)
 }
 
 function revItUpMidi(workflow) {
