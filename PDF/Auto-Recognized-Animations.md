@@ -11,11 +11,16 @@
 
 >Shatter: Blue
 >>Green
->>>Orange, Purple, Red
+>>>Orange, Purple, Red  
+
 >Magic Missile
 >>Purple
->>>Blue, Green, Yellow, Random
-- Cure Wounds:  Blue      |    Green, Purple, Red
+>>>Blue, Green, Yellow, Random  
+
+>Cure Wounds
+>>Blue
+>>>Green, Purple, Red  
+
 - Healing Word: Blue, Green, Purple, Yellow **(all colors available in Free version)**
 - Firebolt or Fire Bolt: Orange | Red, Blue, Green, Purple
 - Ray of Frost: Blue | Green, Purple Teal, Yellow Blue
