@@ -3,7 +3,7 @@
 ## SPELLS  (NOT case sensitive)
 Spell Name | Default Color | JB2A Patreon Color
 
- - Thunderwave:     Blue   |    Green - Orange - Purple - Red 
+- Thunderwave:     Blue   |    Green - Orange - Purple - Red 
 - Shatter
 - Magic Missile: Default: Purple  -- Variant: Blue, Green, Yellow, Random
 - Cure Wounds: Default: Blue Variant: Green, Purple, Red
