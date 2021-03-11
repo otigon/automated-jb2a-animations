@@ -4,7 +4,7 @@
 
 ## SPELLS  (NOT case sensitive)
 
->**Spell Name**
+><span style="color:black">Spell Name</span>
 >>Default Color
 >>>JB2A Patreon Color
 
