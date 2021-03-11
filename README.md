@@ -55,7 +55,7 @@ This module functions similarly to calling On-Use Macros through Midi-QOL or Ite
 
 The module reads the data passed through Chat Cards to get the **Name** of the item, as well as reading the item's **Source** Field. It pairs animations from the JB2A module with items having the name they were designed for.
 
-### Source Field is only available in the DnD5e System currently. I am working to add better customization fields based on Core Foundry to be used in other systems.  
+### Source Field is only available in the DnD5e System currently. I am working to add better customization fields based on Core Foundry to be used in other systems. For PF1, the best (current) way to change colors of effects is to add that color to the Name field
 
 A good breakdown of what words the module looks for are in this reference PDF: https://github.com/otigon/automated-jb2a-animations/blob/main/PDF/Keywords%20and%20Colors.pdf
 
