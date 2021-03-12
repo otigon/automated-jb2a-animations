@@ -83,7 +83,15 @@ Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`
 **Example 2**  
 **Item:** Crossbow  
 **Source Field:** explode 02 red (10) | or explode02red(10)  
-**Result:** Red explosion on arrow impact with 30 feet Radius, Variant 02 explosion
+**Result:** Red explosion on arrow impact with 30 feet Radius, Variant 02 explosion  
+
+### Explosions with Templates  
+Example: Fireball, Thrown Bombs  
+
+| Keywords |
+| :--| 
+| `bomb`, `grenade`, `explode`||
+
 
 
 
