@@ -64,3 +64,7 @@ Place one of the following Keywords in the Source or Name field:
 | `2hp` | 2 handed piercing | |
 | `1hb` | 1 handed bludgeoning | |
 | `2hb` | 2 handed bludgeoning | |
+
+### Exploding Arrows  
+
+| Keyword | explode |
