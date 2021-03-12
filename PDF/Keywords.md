@@ -51,4 +51,16 @@ If not stated otherwise each weapon has the following color options: `Blue`, `Gr
 | Maul | Melee | |
 | Spear | Melee/Ranged | Switches between Melee and Ranged automatically. <br> No colors currently for ranged, but can be set for Melee. |
 | Siege | Ranged | |
-| Sword | Melee | Plays with anything using the word `sword` in the name except Greatsword |
+| Sword | Melee | Plays with anything using the word `sword` in the name except Greatsword |  
+
+### Generic Damage types (Patreon Only)
+**Currently can only be used for items that are not automatically recognized**  
+Place one of the following Keywords in the Source or Name field:
+| Keyword | Animation Type |
+| :-------| :--------------|
+| `1hs` | 1 handed slashing | |
+| `2hs` | 2 handed slashing | |
+| `1hp` | 1 handed piercing | |
+| `2hp` | 2 handed piercing | |
+| `1hb` | 1 handed bludgeoning | |
+| `2hb` | 2 handed bludgeoning | |
