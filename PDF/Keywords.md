@@ -69,7 +69,7 @@ Place one of the following Keywords in the Source or Name field:
 Bite and Claw attacks are automatically recognized and play on the targeted token  
 
 | Keywords |
-|:---| :---|
+| :---| :---|
 | `bite` | `claw` |
 
 ### Exploding Arrows  
