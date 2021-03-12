@@ -2,6 +2,7 @@
 **BIG thanks to *brkwsk* for hepling with the formatting on Markdown**
 
 These will be automatically recognized by the Automated Animations module.  
+
 ---
 ### Spells
 
@@ -27,6 +28,7 @@ Thunderwave is currently set for DND5e rules based on a 15 ft. cube. When placin
 Automated Animations picks an animation based on where the Token is in relation to the template.
 
 ![](../pictures/ThunderWaveLoc.png)  
+
 ---
 ### Weapons
 
@@ -52,6 +54,7 @@ If not stated otherwise each weapon has the following color options: `Blue`, `Gr
 | Spear | Melee/Ranged | Switches between Melee and Ranged automatically. <br> No colors currently for ranged, but can be set for Melee. |
 | Siege | Ranged | |
 | Sword | Melee | Plays with anything using the word `sword` in the name except Greatsword |  
+
 ---
 ### Generic Damage types (Patreon Only)
 **Currently can only be used for items that are not automatically recognized**  
@@ -64,6 +67,7 @@ Place one of the following Keywords in the Source or Name field:
 | `2hp` | 2 handed piercing | |
 | `1hb` | 1 handed bludgeoning | |
 | `2hb` | 2 handed bludgeoning | |  
+
 ---
 ### Creature Attacks  
 Bite and Claw attacks are automatically recognized and play on the targeted token  
@@ -94,6 +98,7 @@ Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`
 **Item:** Crossbow  
 **Source Field:** explode 02 red (10) | or explode02red(10)  
 **Result:** Red explosion on arrow impact with 30 feet Radius, Variant 02 explosion  
+
 ---
 ### Explosions with Templates  
 Example: Fireball, Thrown Bombs  
