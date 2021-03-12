@@ -70,7 +70,7 @@ Bite and Claw attacks are automatically recognized and play on the targeted toke
 
 | Keywords |
 |:---| :---|
-| `bite` | `claw` ||
+| `bite` | `claw` |
 
 ### Exploding Arrows  
 Add the keyword **explode** to the Name or Source field of **Longbow**, **Shortbow**, **Crossbow**, etc. (anything with **bow** in the name)  
@@ -78,7 +78,7 @@ Keyword: **explode**
 Variant: **02**  
 Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`  
 #### Set the Radius
-| Keyword | <div align="center">(05)</div> | <div align="center">(10)</div> | <div align="center">(15)</div> | <div align="center">(20)</div> | <div align="center">(25)</div> | <div align="center">(30)</div> | <div align="center">(35)</div> | <div align="center">(40)</div> | <div align="center">(45)</div> | <div align="center">(50)</div> | <div align="center">nuke</div> |
+| Keyword | <div align="center">`(05)`</div> | <div align="center">`(10)`</div> | <div align="center">`(15)`</div> | <div align="center">`(20)`</div> | <div align="center">`(25)`</div> | <div align="center">`(30)`</div> | <div align="center">`(35)`</div> | <div align="center">`(40)`</div> | <div align="center">`(45)`</div> | <div align="center">`(50)`</div> | <div align="center">`nuke`</div> |
 |:--------| :----| :----| :----| :----| :----| :----| :----| :----| :----| :----| :----|
 | Radius | 5 feet | 10 feet | 15 feet | 20 feet | 25 feet | 30 feet | 35 feet | 40 feet | 45 feet | 50 feet | Fill the screen|  
 
@@ -104,7 +104,7 @@ Example: Fireball, Thrown Bombs
 | `blue`, `green`, `orange`, `purple`, `yellow`||  
 
 #### Set the Radius
-| Keyword | <div align="center">(05)</div> | <div align="center">(10)</div> | <div align="center">(15)</div> | <div align="center">(20)</div> | <div align="center">(25)</div> | <div align="center">(30)</div> | <div align="center">(35)</div> | <div align="center">(40)</div> | <div align="center">(45)</div> | <div align="center">(50)</div> | <div align="center">nuke</div> |
+| Keyword | <div align="center">`(05)`</div> | <div align="center">`(10)`</div> | <div align="center">`(15)`</div> | <div align="center">`(20)`</div> | <div align="center">`(25)`</div> | <div align="center">`(30)`</div> | <div align="center">`(35)`</div> | <div align="center">`(40)`</div> | <div align="center">`(45)`</div> | <div align="center">`(50)`</div> | <div align="center">`nuke`</div> |
 |:--------| :----| :----| :----| :----| :----| :----| :----| :----| :----| :----| :----|
 | Radius | 5 feet | 10 feet | 15 feet | 20 feet | 25 feet | 30 feet | 35 feet | 40 feet | 45 feet | 50 feet | Fill the screen|  
 
