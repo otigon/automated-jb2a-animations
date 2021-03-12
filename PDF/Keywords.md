@@ -63,7 +63,14 @@ Place one of the following Keywords in the Source or Name field:
 | `1hp` | 1 handed piercing | |
 | `2hp` | 2 handed piercing | |
 | `1hb` | 1 handed bludgeoning | |
-| `2hb` | 2 handed bludgeoning | |
+| `2hb` | 2 handed bludgeoning | |  
+
+### Creature Attacks  
+Bite and Claw attacks are automatically recognized and play on the targeted token  
+
+| Keywords |
+|:---| :---|
+| `bite` | `claw` ||
 
 ### Exploding Arrows  
 Add the keyword **explode** to the Name or Source field of **Longbow**, **Shortbow**, **Crossbow**, etc. (anything with **bow** in the name)  
