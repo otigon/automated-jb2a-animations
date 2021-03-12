@@ -66,9 +66,21 @@ Place one of the following Keywords in the Source or Name field:
 | `2hb` | 2 handed bludgeoning | |
 
 ### Exploding Arrows  
-Add the keyword **explode** to the Name or Source field of **Longbow**, **Shortbow**, **Crossbow**, etc. (anything with **bow** in the name)
+Add the keyword **explode** to the Name or Source field of **Longbow**, **Shortbow**, **Crossbow**, etc. (anything with **bow** in the name)  
 Keyword: **explode**  
-Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`
-
-| Keyword | explode |
+Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`  
+#### Set the Radius
+| Keyword | Radius |
 | :-------| :-------|
+| (05) | 5 feet |
+| (05) | 10 feet |
+| (05) | 15 feet |
+| (05) | 20 feet |
+| (05) | 25 feet |
+| (05) | 30 feet |
+| (05) | 35 feet |
+| (05) | 40 feet |
+| (05) | 45 feet |
+| (05) | 50 feet |
+| (05) | Fill the Screen |
+
