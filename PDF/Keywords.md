@@ -66,5 +66,7 @@ Place one of the following Keywords in the Source or Name field:
 | `2hb` | 2 handed bludgeoning | |
 
 ### Exploding Arrows  
+Add the keyword **explode** to the Name or Source field of **Longbow**, **Shortbow**, **Crossbow**, etc. (anything with **bow** in the name)
 
 | Keyword | explode |
+| :-------| :-------|
