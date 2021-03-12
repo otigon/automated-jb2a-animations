@@ -70,8 +70,8 @@ Bite and Claw attacks are automatically recognized and play on the targeted toke
 
 | Name | Default Color | JB2A Patreon Color |
 | :----| :-------------| :------------------|
-| `bite` | `red` | `blue`, `green`, `orange`, `purple`, `yellow` |
-| `claw` | `red` | `blue`, `green`, `orange`, `purple`, `yellow`, `darkred` or `dark red`|
+| `bite` | <div align="center">`red`</div> | `blue`, `green`, `orange`, `purple`, `yellow` |
+| `claw` | <div align="center">`red`</div> | `blue`, `green`, `orange`, `purple`, `yellow`, `darkred` or `dark red`|
 
 
 ### Exploding Arrows  
