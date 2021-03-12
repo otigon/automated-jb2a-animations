@@ -2,7 +2,7 @@
 **BIG thanks to *brkwsk* for hepling with the formatting on Markdown**
 
 These will be automatically recognized by the Automated Animations module.
-
+---
 ### Spells
 
 Spell name is automatically recognized and plays with the Default Color. Put a Patreon Color in the items source or name field to change it.
@@ -19,7 +19,7 @@ Spell name is automatically recognized and plays with the Default Color. Put a P
 | Shatter | `Blue` | `Green`, `Orange`, `Purple`, `Red` |
 | Thunderwave | `Blue` | `Green`, `Orange`, `Purple`, `Red` |
 | Witchbolt/Witch Bolt | `Blue` | `Dark Green`, `Dark Purple`, `Dark Red`, `Green`, `Red`, `Yellow` |
----
+
 #### Thunderwave Notes
 
 Thunderwave is currently set for DND5e rules based on a 15 ft. cube. When placing the template in 5e, the token who is casting the spell should be along an edge, at a corner, or inside the template.
