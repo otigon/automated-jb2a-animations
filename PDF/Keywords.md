@@ -77,12 +77,12 @@ Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`
 
 **Example 1**  
 **Item:** Longbow  
-**Source Field:** explode green (30) | or explodegreen(30)
+**Source Field:** explode green (30) | or explodegreen(30)  
 **Result:** Green explosion on arrow impact with 30 feet Radius  
 
-**Example 2**
-**Item:** Crossbow
-**Source Field:** explode 02 red (10) | or explode02red(10)
+**Example 2**  
+**Item:** Crossbow  
+**Source Field:** explode 02 red (10) | or explode02red(10)  
 **Result:** Red explosion on arrow impact with 30 feet Radius, Variant 02 explosion
 
 
