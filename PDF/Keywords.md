@@ -88,7 +88,7 @@ Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`
 ### Explosions with Templates  
 Example: Fireball, Thrown Bombs  
 
-| Keywords |
+| <div align="center">Keywords</div> |
 | :--| 
 | `bomb`, `grenade`, `explode`||
 
