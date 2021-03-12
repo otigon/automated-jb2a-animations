@@ -71,7 +71,7 @@ Keyword: **explode**
 Variant: **02**  
 Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`  
 #### Set the Radius
-| Keyword | (05) | (10) | (15) | (20) | (25) | (30) | (35) | (40) | (45) | (50) | nuke |
+| Keyword | <div align="center">(05)</div> | <div align="center">(10)</div> | <div align="center">(15)</div> | <div align="center">(20)</div> | <div align="center">(25)</div> | <div align="center">(30)</div> | <div align="center">(35)</div> | <div align="center">(40)</div> | <div align="center">(45)</div> | <div align="center">(50)</div> | <div align="center">nuke</div> |
 |:--------| :----| :----| :----| :----| :----| :----| :----| :----| :----| :----| :----|
 | Radius | 5 feet | 10 feet | 15 feet | 20 feet | 25 feet | 30 feet | 35 feet | 40 feet | 45 feet | 50 feet | Fill the screen|  
 
