@@ -71,21 +71,19 @@ Keyword: **explode**
 Variant: **02**  
 Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`  
 #### Set the Radius
-| Keyword | (05) | (10) | (15) | (20) | (25) | (30) | (35) | (40) | (45) | (50) | (05) |
+| Keyword | (05) | (10) | (15) | (20) | (25) | (30) | (35) | (40) | (45) | (50) | nuke |
 |:--------| :----| :----| :----| :----| :----| :----| :----| :----| :----| :----| :----|
-| Radius | 5 feet | 10 feet | 15 feet | 20 feet | 25 feet | 30 feet | 35 feet | 40 feet | 45 feet | 50 feet | Fill the screen|
+| Radius | 5 feet | 10 feet | 15 feet | 20 feet | 25 feet | 30 feet | 35 feet | 40 feet | 45 feet | 50 feet | Fill the screen|  
 
-| Keyword | Radius |
-| :-------| :-------|
-| (05) | 5 feet |
-| (10) | 10 feet |
-| (15) | 15 feet |
-| (20) | 20 feet |
-| (25) | 25 feet |
-| (30) | 30 feet |
-| (35) | 35 feet |
-| (40) | 40 feet |
-| (45) | 45 feet |
-| (50) | 50 feet |
-| nuke | Fill the Screen |
+**Example 1**  
+**Item:** Longbow  
+**Source Field:** explode green (30) | or explodegreen(30)
+**Result:** Green explosion on arrow impact with 30 feet Radius  
+
+**Example 2**
+**Item:** Crossbow
+**Source Field:** explode 02 red (10) | or explode02red(10)
+**Result:** Red explosion on arrow impact with 30 feet Radius, Variant 02 explosion
+
+
 
