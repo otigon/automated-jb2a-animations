@@ -91,12 +91,12 @@ Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`
 
 **Example 1**  
 **Item:** Longbow  
-**Source Field:** explode green (30) | or explodegreen(30)  
+**Source Field:** `explode green (30)` | or `explodegreen(30)`  
 **Result:** Green explosion on arrow impact with 30 feet Radius  
 
 **Example 2**  
 **Item:** Crossbow  
-**Source Field:** explode 02 red (10) | or explode02red(10)  
+**Source Field:** `explode 02 red (10)` | or `explode02red(10)`  
 **Result:** Red explosion on arrow impact with 30 feet Radius, Variant 02 explosion  
 
 ---
@@ -119,7 +119,7 @@ Example: Fireball, Thrown Bombs
 
 **Example**  
 **Item:** Fireball  
-**Source Field:** bomb red (45) | or bombred(45)  
+**Source Field:** `bomb red (45)` | or `bombred(45)`  
 **Result:** Red Explosion with 45 feet Radius
 
 
