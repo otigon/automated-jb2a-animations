@@ -1,7 +1,7 @@
 # Keywords  
 **BIG thanks to *brkwsk* for hepling with the formatting on Markdown**
 
-These will be automatically recognized by the Automated Animations module.
+These will be automatically recognized by the Automated Animations module.  
 ---
 ### Spells
 
@@ -26,7 +26,7 @@ Thunderwave is currently set for DND5e rules based on a 15 ft. cube. When placin
 
 Automated Animations picks an animation based on where the Token is in relation to the template.
 
-![](../pictures/ThunderWaveLoc.png)
+![](../pictures/ThunderWaveLoc.png)  
 ---
 ### Weapons
 
@@ -71,7 +71,7 @@ Bite and Claw attacks are automatically recognized and play on the targeted toke
 | Name | Default Color | JB2A Patreon Color |
 | :----| :-------------| :------------------|
 | `bite` | <div align="center">`red`</div> | `blue`, `green`, `orange`, `purple`, `yellow` |
-| `claw` | <div align="center">`red`</div> | `blue`, `green`, `orange`, `purple`, `yellow`, `darkred` or `dark red`|
+| `claw` | <div align="center">`red`</div> | `blue`, `green`, `orange`, `purple`, `yellow`, `darkred` or `dark red`|  
 
 ---
 ### Exploding Arrows  
