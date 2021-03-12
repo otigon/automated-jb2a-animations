@@ -73,14 +73,14 @@ Available Colors: `blue`, `green`, `orange`, `purple`, `yellow`
 | Keyword | Radius |
 | :-------| :-------|
 | (05) | 5 feet |
-| (05) | 10 feet |
-| (05) | 15 feet |
-| (05) | 20 feet |
-| (05) | 25 feet |
-| (05) | 30 feet |
-| (05) | 35 feet |
-| (05) | 40 feet |
-| (05) | 45 feet |
-| (05) | 50 feet |
-| (05) | Fill the Screen |
+| (10) | 10 feet |
+| (15) | 15 feet |
+| (20) | 20 feet |
+| (25) | 25 feet |
+| (30) | 30 feet |
+| (35) | 35 feet |
+| (40) | 40 feet |
+| (45) | 45 feet |
+| (50) | 50 feet |
+| nuke | Fill the Screen |
 
