@@ -1,6 +1,7 @@
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
+//import dnd5ItemSheetHandler from "./system-handlers/dnd5ItemSheetHandler.js";
 
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
@@ -84,84 +85,204 @@ Hooks.on('init', () => {
     path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 })
 
+
+
+
 // For adding a tab to the Item Sheet to replace the Source Field. Work in Progress
 /*
-const MODULE_NAME = "automated-jb2a-animations";
+const MODULE_NAME = "autoanimations";
 Hooks.on("renderItemSheet", async (sheet, html) => {
+
+
+    //if ("rerender" in sheet === false) {
+    //const itemId = sheet.object.id;
+    //console.log(itemId);
+    let itemType = sheet.object.data.type.toLowerCase();
+    console.log(itemType);
+
     const flags = sheet.object.data.flags ?? {};
     const KillAnim = "Disable Animation";
-    const SwitchAnim = "Change Animation to Another";
-    const BoomBoom = "Add Explosion";
-    const CustomTMFX = "Set Custom TMFX";
-    //const FormTargetsEnemy = "Enemy";
-    //const FormTargetsAllies = "Allies";
-    //const FormTargetsAll = "All";
-    const AuraTab = "Animate";
-    const SoundFX = "Add Sounds";
-    const ChooseColor = "Change Color to";
-    const SetField = "Fill In Here for Animation Details";
-    const ColorBlue = "Blue";
-    const ColorGreen = "Green";
-    const ColorYellow = "Yellow";
-    const ColorRed = "Red";
-    const SoundPath = "Set Sound Path"
-    //const FormSaveEnable = "Save Type To Prevent";
-    //const FormSaveDC = "Save DC";
-    const FormTypePrompt = "Red Greatsword, Orange Fire bolt, etc.";
-    const SoundFXPrompt = "sounds/melee/longsword.ogg";
-    const TMFXprompt = "put tmfx prest here"
+    const AnimTab = "Animate";
+    const SetColor = "Set Animation Color";
+    const SetAnim = "Set Animation Name";
+
+    const FormBlue = "Blue";
+    const FormGreen = "Green";
+    const FormYellow = "Yellow";
+    const FormRed = "Red";
+    const FormPink = "Pink";
+    const FormOrange = "Orange";
+    const FormPurple = "Purple";
+    const FormRandom = "Random";
+    const FormDarkgreen = "Darkgreen";
+    const FormDarkred = "Darkred";
+    const FormDarkpurple = "Darkpurple";
+    const FormOrangepink = "Orangepink";
+    const FormPurpleblue = "Purpleblue";
+    const FormPurpleteal = "Purpleteal";
+    const FormYellowblue = "Yellowblue";
+
+    const FormCureWounds = "Cure Wounds";
+    const FormDisintegrate = "Disintegrate";
+    const FormFirebolt = "Firebolt";
+    const FormHealingWord = "Healing Word";
+    const FormMagicMissile = "Magic Missile";
+    const FormRayofFrost = "Ray of Frost";
+    const FormScorchingRay = "Scorching Ray";
+    const FormShatter = "Shatter";
+    const FormThunderwave = "Thunderwave";
+    const FormWitchbolt = "Witchbolt";
+
+    const FormDagger = "Dagger";
+    const FormGreataxe = "Greataxe";
+    const FormGreatclub = "Greatclub";
+    const FormGreatsword = "Greatsword";
+    const FormHandaxe = "Handaxe";
+    const FormLasersword = "Lasersword";
+    const FormMace = "Mace";
+    const FormMaul = "Maul";
+    const FormSpear = "Spear";
+    const FormSword = "Sword";
+
+    const tab = `<a class="item" data-tab="Animate"><i class="fas fa-fan"></i> ${AnimTab}</a>`;
+    let color = flags[MODULE_NAME]?.color ? flags[MODULE_NAME]?.color : "";
+    let animName = flags[MODULE_NAME]?.animName ? flags[MODULE_NAME]?.animName : "";
+
+    let contents;
+    switch (true) {
+        case (itemType.includes("weapon")):
+            contents = `
+            <div class="tab active" data-tab="Animate" autocomplete = "on">
+                <div class="form-group">
+                    <label>${KillAnim}?</label>
+                    <input name="flags.${MODULE_NAME}.killAnim" type="checkbox" ${flags[MODULE_NAME]?.killAnim ? 'checked' : ''}></input>
+                </div>
+        
+                <div class="form-group input-select">
+                <label>${SetAnim}:</label>
+                <select name="flags.${MODULE_NAME}.animName" data-dtype="String" value=${animName}>
+                    <option value="" ${flags[MODULE_NAME]?.animName === '' ? 'selected' : ''}></option>
+                    <option value="Dagger"${flags[MODULE_NAME]?.animName === 'Dagger' ? 'selected' : ''}>${FormDagger}</option>
+                    <option value="Greataxe"${flags[MODULE_NAME]?.animName === 'Greataxe' ? 'selected' : ''}>${FormGreataxe}</option>
+                    <option value="Greatclub"${flags[MODULE_NAME]?.animName === 'Greatclub' ? 'selected' : ''}>${FormGreatclub}</option>
+                    <option value="Greatsword"${flags[MODULE_NAME]?.animName === 'Greatsword' ? 'selected' : ''}>${FormGreatsword}</option>
+                    <option value="Handaxe"${flags[MODULE_NAME]?.animName === 'Handaxe' ? 'selected' : ''}>${FormHandaxe}</option>
+                    <option value="Lasersword"${flags[MODULE_NAME]?.animName === 'Lasersword' ? 'selected' : ''}>${FormLasersword}</option>
+                    <option value="Mace"${flags[MODULE_NAME]?.animName === 'Mace' ? 'selected' : ''}>${FormMace}</option>
+                    <option value="Maul"${flags[MODULE_NAME]?.animName === 'Maul' ? 'selected' : ''}>${FormMaul}</option>
+                    <option value="Spear"${flags[MODULE_NAME]?.animName === 'Spear' ? 'selected' : ''}>${FormSpear}</option>
+                    <option value="Sword"${flags[MODULE_NAME]?.animName === 'Sword' ? 'selected' : ''}>${FormSword}</option>
+        
+                    </select>
+                </div>
+                <div class="form-group input-select">
+                <label>${SetColor}:</label>
+                <select name="flags.${MODULE_NAME}.color" data-dtype="String" value=${color}>
+                    <option value="" ${flags[MODULE_NAME]?.color === '' ? 'selected' : ''}></option>
+                    <option value="Blue"${flags[MODULE_NAME]?.color === 'Blue' ? 'selected' : ''}>${FormBlue}</option>
+                    <option value="Green"${flags[MODULE_NAME]?.color === 'Green' ? 'selected' : ''}>${FormGreen}</option>
+                    <option value="Yellow"${flags[MODULE_NAME]?.color === 'Yellow' ? 'selected' : ''}>${FormYellow}</option>
+                    <option value="Red"${flags[MODULE_NAME]?.color === 'Red' ? 'selected' : ''}>${FormRed}</option>
+                    <option value="Pink"${flags[MODULE_NAME]?.color === 'Pink' ? 'selected' : ''}>${FormPink}</option>
+                    <option value="Orange"${flags[MODULE_NAME]?.color === 'Orange' ? 'selected' : ''}>${FormOrange}</option>
+                    <option value="Purple"${flags[MODULE_NAME]?.color === 'Purple' ? 'selected' : ''}>${FormPurple}</option>
+        
+                    </select>
+                </div>
+                
+            </div>`;
+
+            html.find(".tabs .item").last().after(tab);
+
+            switch (game.system.id) {
+                case "pf1":
+                    if (!flags[MODULE_NAME]?.applied) html.find('.flexrow.description-container .description-body').append(contents);
+                    break;
+                case "dnd5e":
+                    if (!flags[MODULE_NAME]?.applied) html.find(".tab").last().after(contents);
+            }
+
+            break;
+        case (itemType.includes("spell")):
+            contents = `
+            <div class="tab active" data-tab="Animate" autocomplete = "on">
+                <div class="form-group">
+                    <label>${KillAnim}?</label>
+                    <input name="flags.${MODULE_NAME}.killAnim" type="checkbox" ${flags[MODULE_NAME]?.killAnim ? 'checked' : ''}></input>
+                </div>
+        
+                <div class="form-group input-select">
+                <label>${SetAnim}:</label>
+                <select name="flags.${MODULE_NAME}.animName" data-dtype="String" value=${animName}>
+                    <option value="" ${flags[MODULE_NAME]?.animName === '' ? 'selected' : ''}></option>
+                    <option value="Cure Wounds"${flags[MODULE_NAME]?.animName === 'Cure Wounds' ? 'selected' : ''}>${FormCureWounds}</option>
+                    <option value="Disintegrate"${flags[MODULE_NAME]?.animName === 'Disintegrate' ? 'selected' : ''}>${FormDisintegrate}</option>
+                    <option value="Firebolt"${flags[MODULE_NAME]?.animName === 'Firebolt' ? 'selected' : ''}>${FormFirebolt}</option>
+                    <option value="Healing Word"${flags[MODULE_NAME]?.animName === 'Healing Word' ? 'selected' : ''}>${FormHealingWord}</option>
+                    <option value="Magic Missile"${flags[MODULE_NAME]?.animName === 'Magic Missile' ? 'selected' : ''}>${FormMagicMissile}</option>
+                    <option value="Ray of Frost"${flags[MODULE_NAME]?.animName === 'Ray of Frost' ? 'selected' : ''}>${FormRayofFrost}</option>
+                    <option value="Scorching Ray"${flags[MODULE_NAME]?.animName === 'Scorching Ray' ? 'selected' : ''}>${FormScorchingRay}</option>
+                    <option value="Shatter"${flags[MODULE_NAME]?.animName === 'Shatter' ? 'selected' : ''}>${FormShatter}</option>
+                    <option value="Thunderwave"${flags[MODULE_NAME]?.animName === 'Thunderwave' ? 'selected' : ''}>${FormThunderwave}</option>
+                    <option value="Witchbolt"${flags[MODULE_NAME]?.animName === 'Witchbolt' ? 'selected' : ''}>${FormWitchbolt}</option>
+        
+                    </select>
+                </div>
+                <div class="form-group input-select">
+                <label>${SetColor}:</label>
+                <select name="flags.${MODULE_NAME}.color" data-dtype="String" value=${color}>
+                    <option value="" ${flags[MODULE_NAME]?.color === '' ? 'selected' : ''}></option>
+                    <option value="Blue"${flags[MODULE_NAME]?.color === 'Blue' ? 'selected' : ''}>${FormBlue}</option>
+                    <option value="Green"${flags[MODULE_NAME]?.color === 'Green' ? 'selected' : ''}>${FormGreen}</option>
+                    <option value="Yellow"${flags[MODULE_NAME]?.color === 'Yellow' ? 'selected' : ''}>${FormYellow}</option>
+                    <option value="Red"${flags[MODULE_NAME]?.color === 'Red' ? 'selected' : ''}>${FormRed}</option>
+                    <option value="Orange"${flags[MODULE_NAME]?.color === 'Orange' ? 'selected' : ''}>${FormOrange}</option>
+                    <option value="Purple"${flags[MODULE_NAME]?.color === 'Purple' ? 'selected' : ''}>${FormPurple}</option>
+                    <option value="Darkred"${flags[MODULE_NAME]?.color === 'Darkred' ? 'selected' : ''}>${FormDarkred}</option>
+                    <option value="Darkgreen"${flags[MODULE_NAME]?.color === 'Darkgreen' ? 'selected' : ''}>${FormDarkgreen}</option>
+                    <option value="Darkpurple"${flags[MODULE_NAME]?.color === 'Darkpurple' ? 'selected' : ''}>${FormDarkpurple}</option>
+                    <option value="Orangepink"${flags[MODULE_NAME]?.color === 'Orangepink' ? 'selected' : ''}>${FormOrangepink}</option>
+                    <option value="Purpleblue"${flags[MODULE_NAME]?.color === 'Purpleblue' ? 'selected' : ''}>${FormPurpleblue}</option>
+                    <option value="Purpleteal"${flags[MODULE_NAME]?.color === 'Purpleteal' ? 'selected' : ''}>${FormPurpleteal}</option>
+                    <option value="Yellowblue"${flags[MODULE_NAME]?.color === 'Yellowblue' ? 'selected' : ''}>${FormYellowblue}</option>
+                    <option value="Random"${flags[MODULE_NAME]?.color === 'Random' ? 'selected' : ''}>${FormRandom}</option>
 
 
-    const tab = `<a class="item" data-tab="ActiveAuras"><i class="fas fa-broadcast-tower"></i> ${AuraTab}</a>`;
-    let type = flags[MODULE_NAME]?.type ? flags[MODULE_NAME]?.type : "";
-    let alignment = flags[MODULE_NAME]?.alignment ? flags[MODULE_NAME]?.alignment : "";
-    let save = flags[MODULE_NAME]?.save ? flags[MODULE_NAME]?.save : "";
+                    </select>
+                </div>
+                
+            </div>`;
+            html.find(".tabs .item").last().after(tab);
 
-    const contents = `
-    <div class="tab" data-tab="ActiveAuras">
-        <div class="form-group">
-        <label>${SetField}</label>
-        <input id="type" name="flags.${MODULE_NAME}.type" type="text" value="${type}" placeholder="${FormTypePrompt}"></input>
-        </div>
-        <div class="form-group">
-            <label>${KillAnim}?</label>
-            <input name="flags.${MODULE_NAME}.isAura" type="checkbox" ${flags[MODULE_NAME]?.isAura ? 'checked' : ''}></input>
-         </div>
-         <div class="form-group">
-            <label>${SwitchAnim}?</label>
-            <input name="flags.${MODULE_NAME}.ignoreSelf" type="checkbox" ${flags[MODULE_NAME]?.ignoreSelf ? 'checked' : ''}></input>
-        </div>
-        <div class="form-group">
-            <label>${BoomBoom}?</label>
-            <input name="flags.${MODULE_NAME}.hidden" type="checkbox" ${flags[MODULE_NAME]?.hidden ? 'checked' : ''}></input>
-        </div>
-        <div class="form-group">
-            <label>${SoundFX}?</label>
-            <input name="flags.${MODULE_NAME}.height" type="checkbox" ${flags[MODULE_NAME]?.height ? 'checked' : ''}></input>
-        </div>
-        <div class="form-group">
-            <label>${ChooseColor}:</label>
-            <select name="flags.${MODULE_NAME}.alignment" data-dtype="String" value=${alignment}>
-                <option value="" ${flags[MODULE_NAME]?.alignment === '' ? 'selected' : ''}></option>
-                <option value="good"${flags[MODULE_NAME]?.alignment === 'good' ? 'selected' : ''}>${ColorBlue}</option>
-                <option value="neutral"${flags[MODULE_NAME]?.alignment === 'neutral' ? 'selected' : ''}>${ColorGreen}</option>
-                <option value="evil"${flags[MODULE_NAME]?.alignment === 'evil' ? 'selected' : ''}>${ColorYellow}</option>
-                <option value="evil"${flags[MODULE_NAME]?.alignment === 'evil' ? 'selected' : ''}>${ColorRed}</option>
-            </select>
-        </div>  
-        <div class="form-group">
-        <label>${CustomTMFX}</label>
-        <input id="type" name="flags.${MODULE_NAME}.type" type="text" value="${type}" placeholder="${TMFXprompt}"></input>
-        </div>
-        <div class="form-group">
-        <label>${SoundPath}</label>
-        <input id="type" name="flags.${MODULE_NAME}.type" type="text" value="${type}" placeholder="${SoundFXPrompt}"></input>
-        </div>
-      
-    </div>`;
+            switch (game.system.id) {
+                case "pf1":
+                    if (!flags[MODULE_NAME]?.applied) html.find('.flexrow.description-container .description-body').append(contents);
+                    break;
+                case "dnd5e":
+                    if (!flags[MODULE_NAME]?.applied) html.find(".tab").last().after(contents);
+            }
+            break;
+    }
+    
+//let actorAnim = actor.items.get(itemId);
+//console.log(actorAnim);
 
-    html.find(".tabs .item").last().after(tab);
-    if (!flags[MODULE_NAME]?.applied) html.find(".tab").last().after(contents);
+    let handler;
+    switch (game.system.id) {
+        case "pf1":
+            handler = pf1ItemSheetHandler;
+            break;
+        case "dnd5":
+            handler = dnd5ItemSheetHandler;
+            break;
+    }
+    if (!handler.shouldHandle(item)) {
+        return;
+    }
+
+
+
+
 });
 */
 
@@ -169,6 +290,7 @@ Hooks.once('ready', function () {
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error("A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work");
     }
+    game.settings.set("tokenmagic", "fxPlayerPermission", true);
 });
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -194,7 +316,7 @@ function onCreateChatMessage(msg) {
 
 function revItUpMidi(workflow) {
     let handler = new MidiHandler(workflow);
-    revItUpDnD5e(handler);
+    revItUp(handler);
 }
 
 function revItUp5eCore(msg) {
@@ -230,18 +352,18 @@ function revItUp5eCore(msg) {
                                     })
                                     break;
                                 default:
-                                    revItUpDnD5e(handler);
+                                    revItUp(handler);
                             }
                             break;
                         case (false):
-                            revItUpDnD5e(handler);
+                            revItUp(handler);
                             break;
                     }
                 }
 
             } else {
                 log("MRE is NOT active");
-                revItUpDnD5e(handler);
+                revItUp(handler);
             }
         }
         switch (true) {
@@ -256,7 +378,7 @@ function revItUp5eCore(msg) {
             log("damage roll");
         } else
             if (rollType.includes("attack") || mreFlavor.includes("attack roll")) {
-                revItUpDnD5e(handler)
+                revItUp(handler)
             } else /*if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false)*/ {
                 if (handler.itemIncludes("xxx")) {
                 } else {
@@ -308,121 +430,42 @@ function revItUp5eCore(msg) {
 
 }
 
-async function revItUpDnD5e(handler) {
-
-    // Add an early breakout if no targets selected in Melee
-    log("there are targets");
-    switch (true) {
-        // Use xxx in Item Source Field to exclude an item for On-Use customization
-        case (handler.itemIncludes("xxx")):
-            break;
-        case (handler.itemTypeIncludes("spell")):
-            switch (true) {
-                case (handler.itemIncludes("thunderwave")):
-                    thunderwaveAuto(handler)
-                    break;
-                case (handler.itemIncludes("shatter")):
-                    shatterAuto(handler)
-                    break;
-                case (handler.itemIncludes("magic", "missile")):
-                    magicMissile(handler)
-                    break;
-                case (handler.itemIncludes("cure", "wounds")):
-                case (handler.itemIncludes("heal", "word")):
-                    onTargetSpells(handler)
-                    break;
-                case (handler.itemIncludes("fire", "bolt")):
-                case (handler.itemIncludes("ray", "frost")):
-                case (handler.itemIncludes("witch", "bolt")):
-                case (handler.itemIncludes("scorching", "ray")):
-                case (handler.itemIncludes("disintegrate")):
-                    //checkSave = Array.from(workflow.saves);
-                    //saves = Array.from(checkSave.filter(actor => actor.id).map(actor => actor.id));
-                    spellAttacks(handler)
-                    break;
-                case (handler.itemIncludes("shield")):
-                    castOnSelf(handler)
-                    break;
-                case (handler.itemIncludes("boulder")):
-                case (handler.itemIncludes("siege")):
-                case (handler.itemIncludes("laser")):
-                case (handler.itemIncludes("sling")):
-                    rangedWeapons(handler)
-                    break;
-                case (handler.itemIncludes("arrow")):
-                case (handler.itemIncludes("bow")):
-                    arrowOptionExplode(handler)
-                    break;
-                case (handler.itemIncludes("explode")):
-                case (handler.itemIncludes("grenade")):
-                case (handler.itemIncludes("bomb")):
-                    explodeTemplate(handler)
-                    break;
-            }
-            break;
-        case (handler.itemTypeIncludes("weapon")):
-            switch (true) {
-                case (handler.itemIncludes("bite")):
-                case (handler.itemIncludes("claw")):
-                    creatureAttacks(handler)
-                    break;
-                case (handler.itemIncludes("sword")):
-                case (handler.itemIncludes("great", "club")):
-                case (handler.itemIncludes("great", "axe")):
-                case (handler.itemIncludes("mace")):
-                case (handler.itemIncludes("maul")):
-                case (handler.itemIncludes("1hs") || handler.itemIncludes("2hs") || handler.itemIncludes("1hb") || handler.itemIncludes("2hb") || handler.itemIncludes("1hp") || handler.itemIncludes("2hp")):
-                    meleeWeapons(handler)
-                    break;
-                case (handler.itemIncludes("dagger")):
-                case (handler.itemIncludes("hand", "axe")):
-                case (handler.itemIncludes("spear")):
-                    //pcRace = myToken.actor.data.data.details.race.toLowerCase();
-                    meleeRangeSwitch(handler)
-                    break;
-                case (handler.itemIncludes("arrow")):
-                case (handler.itemIncludes("bow")):
-                    arrowOptionExplode(handler)
-                    break;
-                case (handler.itemIncludes("hammer")):
-                case (handler.itemIncludes("boulder")):
-                case (handler.itemIncludes("siege")):
-                case (handler.itemIncludes("laser")):
-                case (handler.itemIncludes("javelin")):
-                case (handler.itemIncludes("sling")):
-                    rangedWeapons(handler)
-                    break;
-                case (handler.itemIncludes("explode")):
-                case (handler.itemIncludes("grenade")):
-                case (handler.itemIncludes("bomb")):
-                    explodeTemplate(handler)
-                    break;
-            }
-            break;
-        case (handler.itemTypeIncludes("consumable")):
-            switch (true) {
-                case (handler.itemIncludes("alchemist", "fire")):
-                    explodeOnTarget(handler)
-                    break;
-                case (handler.itemIncludes("potion", "heal")):
-                    castOnSelf(handler)
-                    break;
-            }
-            break;
-        case (handler.itemTypeIncludes("feat")):
-            switch (true) {
-                case (handler.itemIncludes("second", "wind")):
-                    castOnSelf(handler);
-                    break;
-            }
-    }
-
-}
-
 async function revItUp(handler) {
     switch (true) {
         // Use xxx in Item Source Field to exclude an item for On-Use customization
         case (handler.itemIncludes("xxx")):
+            break;
+        case (handler.itemIncludes("rapier")):
+        case (handler.itemIncludes("sword")):
+        case (handler.itemIncludes("greatclub")):
+        case (handler.itemIncludes("greataxe")):
+        case (handler.itemIncludes("battle", "axe")):
+        case (handler.itemIncludes("mace")):
+        case (handler.itemIncludes("maul")):
+        case handler.itemIncludes("1hs"):
+        case handler.itemIncludes("2hs"):
+        case handler.itemIncludes("1hb"):
+        case handler.itemIncludes("2hb"):
+        case handler.itemIncludes("1hp"):
+        case handler.itemIncludes("2hp"):
+            meleeWeapons(handler);
+            break;
+        case (handler.itemIncludes("dagger")):
+        case (handler.itemIncludes("hand", "axe")):
+        case (handler.itemIncludes("spear")):
+            meleeRangeSwitch(handler);
+            break;
+        case (handler.itemIncludes("arrow")):
+        case (handler.itemIncludes("bow")):
+            arrowOptionExplode(handler);
+            break;
+        case (handler.itemIncludes("hammer")):
+        case (handler.itemIncludes("boulder")):
+        case (handler.itemIncludes("siege")):
+        case (handler.itemIncludes("laser")):
+        case (handler.itemIncludes("javelin")):
+        case (handler.itemIncludes("sling")):
+            rangedWeapons(handler);
             break;
         case (handler.itemIncludes("thunderwave")):
             thunderwaveAuto(handler);
@@ -465,37 +508,6 @@ async function revItUp(handler) {
         case (handler.itemIncludes("bite")):
         case (handler.itemIncludes("claw")):
             creatureAttacks(handler);
-            break;
-        case (handler.itemIncludes("sword")):
-        case (handler.itemIncludes("greatclub")):
-        case (handler.itemIncludes("greataxe")):
-        case (handler.itemIncludes("battle", "axe")):
-        case (handler.itemIncludes("mace")):
-        case (handler.itemIncludes("maul")):
-        case handler.itemIncludes("1hs"):
-        case handler.itemIncludes("2hs"):
-        case handler.itemIncludes("1hb"):
-        case handler.itemIncludes("2hb"):
-        case handler.itemIncludes("1hp"):
-        case handler.itemIncludes("2hp"):
-            meleeWeapons(handler);
-            break;
-        case (handler.itemIncludes("dagger")):
-        case (handler.itemIncludes("hand", "axe")):
-        case (handler.itemIncludes("spear")):
-            meleeRangeSwitch(handler);
-            break;
-        case (handler.itemIncludes("arrow")):
-        case (handler.itemIncludes("bow")):
-            arrowOptionExplode(handler);
-            break;
-        case (handler.itemIncludes("hammer")):
-        case (handler.itemIncludes("boulder")):
-        case (handler.itemIncludes("siege")):
-        case (handler.itemIncludes("laser")):
-        case (handler.itemIncludes("javelin")):
-        case (handler.itemIncludes("sling")):
-            rangedWeapons(handler);
             break;
         case (handler.itemIncludes("explode")):
         case (handler.itemIncludes("grenade")):
@@ -738,6 +750,12 @@ async function meleeWeapons(handler) {
 
     let item01 = "Dagger02";
     switch (true) {
+        case (handler.itemIncludes("rapier")):
+            item01 = "Rapier01";
+            tmDelay = 900;
+            tmKill = 1600;
+            tmMacro = bloodSplat;
+            break;
         case (handler.itemIncludes("greatsword")):
             item01 = "GreatSword01";
             tmDelay = 1600;
@@ -1245,37 +1263,37 @@ async function spellAttacks(handler) {
     }
 
     switch (true) {
-        case (handler.itemIncludes("orangepink")):
+        case (handler.itemIncludes("orange", "pink")):
             tint = "Regular";
             color = "OrangePink";
             tmColor = 0xC1005B;
             break;
-        case (handler.itemIncludes("purpleblue")):
+        case (handler.itemIncludes("purple", "blue")):
             tint = "Regular";
             color = "PurpleBlue";
             tmColor = 0x00AFC1;
             break;
-        case (handler.itemIncludes("darkpurple")):
+        case (handler.itemIncludes("dark", "purple")):
             tint = "Dark";
             color = "Purple";
             tmColor = 0xAE00AE;
             break;
-        case (handler.itemIncludes("darkgreen")):
+        case (handler.itemIncludes("dark", "green")):
             tint = "Dark";
             color = "Green";
             tmColor = 0x187C00;
             break;
-        case (handler.itemIncludes("darkred")):
+        case (handler.itemIncludes("dark", "red")):
             tint = "Dark";
             color = "Red";
             tmColor = 0x8E0000;
             break;
-        case (handler.itemIncludes("blueyellow")):
+        case (handler.itemIncludes("blue", "yellow")):
             tint = "Regular";
             color = "BlueYellow";
             tmColor = 0xACC5C5;
             break;
-        case (handler.itemIncludes("purpleteal")):
+        case (handler.itemIncludes("purple", "teal")):
             tint = "Regular";
             color = "PurpleTeal";
             tmColor = 0xC38CDC;
