@@ -2,6 +2,7 @@ export default class Dnd5Handler {
     constructor(msg) {
         const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id");
         //console.log(itemId);
+        
         const tokenId = msg.data.speaker.token;  
         //console.log(tokenId);
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
@@ -15,6 +16,28 @@ export default class Dnd5Handler {
         //console.log(this._itemSource);
         this._itemType = this._actorToken.actor.items?.get(itemId).data?.type?.toLowerCase();
         //console.log(this._itemType);
+        this._animColor = this._actorToken.actor.items.get(itemId).data.flags?.autoanimations?.color?.toLowerCase() ?? "";
+        //console.log(this._animColor);
+        this._animType = this._actorToken.actor.items.get(itemId).data.flags?.autoanimations?.animName?.toLowerCase() ?? "";
+        //console.log(this._animType);
+        this._animName;
+        switch (true) {
+            case(this._animType === ``):
+                this._animName = this._itemName;
+                break;
+            default:
+                this._animName = this._animType;
+                break;
+        }
+        this._animColorEffect;
+        switch (true) {
+            case(this._animColor === ``):
+                this._animColorEffect = this._itemSource;
+                break;
+            default:
+                this._animColorEffect = this._animColor;
+                break;
+        }
     }
 
     get actor() {
@@ -41,6 +64,18 @@ export default class Dnd5Handler {
         return this._actorToken.actor.items?.get(itemId).data?.type?.toLowerCase();
     }
 
+    get animColor() {
+        return this._actorToken.actor.items.get(itemId).data.flags?.autoanimations.color?.toLowerCase() ?? "";
+    }
+
+    get animType() {
+        return this._actorToken.actor.items.get(itemId).data.flags?.autoanimations.animName?.toLowerCase() ?? "";
+    }
+/*
+    get killAnim() {
+        return this._actorToken.actor.items.get(itemId).data.flags?.autoanimations?.animName?.toLowerCase() ?? "";
+    }
+*/
 /*
     get itemType() {
         return this._actor.items.get(itemId).data.type.toLowerCase();
@@ -71,17 +106,27 @@ export default class Dnd5Handler {
         });
         return distance;
     }
-
+/*
     itemIncludes() {
         return [...arguments].every(a => this._itemName?.includes(a) || this._itemSource?.includes(a));
     }
+    */
+    itemIncludes() {
+        return [...arguments].every(a => this._animName?.includes(a) || this._itemSource?.includes(a));
+    }
     itemSourceIncludes() {
         return [...arguments].every(a => this._itemSource?.includes(a));
+    }
+    itemColorIncludes() {
+        return [...arguments].every(a => this._animColorEffect?.includes(a));
     }
     itemNameIncludes() {
         return [...arguments].every(a => this._itemName?.includes(a));
     }
     itemTypeIncludes() {
         return [...arguments].every(a => this._itemType?.includes(a));
+    }
+    animNameIncludes() {
+        return [...arguments].every(a => this._animType?.includes(a));
     }
 }

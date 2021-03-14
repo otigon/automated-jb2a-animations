@@ -24,6 +24,7 @@ export default class MidiHandler {
         }    
 
         this._itemName = item.name?.toLowerCase();
+        console.log(this._itemName);
         this._itemSource = item.data?.data?.source?.toLowerCase() ?? '';
         this._itemType = item.data.type.toLowerCase();
     }
