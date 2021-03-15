@@ -85,11 +85,133 @@ Hooks.on('init', () => {
     path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 })
 
+function itemSheetContents(handler) {
+    let contents;
+    switch (true) {
+        case (handler.itemTypeIncludes("spell")):
+            switch (true) {
+                case (handler.animNameIncludes("cure", "wound")):
+                    contents = `
+                    <div class="tab active" data-tab="Animate" autocomplete = "on">
+                        <div class="form-group">
+                            <label>${KillAnim}?</label>
+                            <input name="flags.${MODULE_NAME}.killAnim" type="checkbox" ${flags[MODULE_NAME]?.killAnim ? 'checked' : ''}></input>
+                        </div>
+                
+                        <div class="form-group input-select">
+                        <label>${SetAnim}:</label>
+                        <select name="flags.${MODULE_NAME}.animName" data-dtype="String" value=${animName}>
+                            <option value="" ${flags[MODULE_NAME]?.animName === '' ? 'selected' : ''}></option>
+                            <option value="Dagger"${flags[MODULE_NAME]?.animName === 'Dagger' ? 'selected' : ''}>${FormDagger}</option>
+                            <option value="Greataxe"${flags[MODULE_NAME]?.animName === 'Greataxe' ? 'selected' : ''}>${FormGreataxe}</option>
+                            <option value="Greatclub"${flags[MODULE_NAME]?.animName === 'Greatclub' ? 'selected' : ''}>${FormGreatclub}</option>
+                            <option value="Greatsword"${flags[MODULE_NAME]?.animName === 'Greatsword' ? 'selected' : ''}>${FormGreatsword}</option>
+                            <option value="Handaxe"${flags[MODULE_NAME]?.animName === 'Handaxe' ? 'selected' : ''}>${FormHandaxe}</option>
+                            <option value="Lasersword"${flags[MODULE_NAME]?.animName === 'Lasersword' ? 'selected' : ''}>${FormLasersword}</option>
+                            <option value="Mace"${flags[MODULE_NAME]?.animName === 'Mace' ? 'selected' : ''}>${FormMace}</option>
+                            <option value="Maul"${flags[MODULE_NAME]?.animName === 'Maul' ? 'selected' : ''}>${FormMaul}</option>
+                            <option value="Spear"${flags[MODULE_NAME]?.animName === 'Spear' ? 'selected' : ''}>${FormSpear}</option>
+                            <option value="Sword"${flags[MODULE_NAME]?.animName === 'Sword' ? 'selected' : ''}>${FormSword}</option>
+                
+                            </select>
+                        </div>
+                        <div class="form-group input-select">
+                        <label>${SetColor}:</label>
+                        <select name="flags.${MODULE_NAME}.color" data-dtype="String" value=${color}>
+                            <option value="" ${flags[MODULE_NAME]?.color === '' ? 'selected' : ''}></option>
+                            <option value="Blue"${flags[MODULE_NAME]?.color === 'Blue' ? 'selected' : ''}>${FormBlue}</option>
+                            <option value="Green"${flags[MODULE_NAME]?.color === 'Green' ? 'selected' : ''}>${FormGreen}</option>
+                            <option value="Red"${flags[MODULE_NAME]?.color === 'Red' ? 'selected' : ''}>${FormRed}</option>
+                            <option value="Purple"${flags[MODULE_NAME]?.color === 'Purple' ? 'selected' : ''}>${FormPurple}</option>
+                            </select>
+                            </div>
+                    
+                    </div>`;
+                    html.find(".tabs .item").last().after(tab);
+
+                    switch (game.system.id) {
+                        case "pf1":
+                            if (!flags[MODULE_NAME]?.applied) html.find('.flexrow.description-container .description-body').append(contents);
+                            break;
+                        case "dnd5e":
+                            if (!flags[MODULE_NAME]?.applied) html.find(".tab").last().after(contents);
+                    }
+                    break;
+                default:
+                    contents = `
+                    <div class="tab active" data-tab="Animate" autocomplete = "on">
+                        <div class="form-group">
+                            <label>${KillAnim}?</label>
+                            <input name="flags.${MODULE_NAME}.killAnim" type="checkbox" ${flags[MODULE_NAME]?.killAnim ? 'checked' : ''}></input>
+                        </div>
+                
+                        <div class="form-group input-select">
+                        <label>${SetAnim}:</label>
+                        <select name="flags.${MODULE_NAME}.animName" data-dtype="String" value=${animName}>
+                            <option value="" ${flags[MODULE_NAME]?.animName === '' ? 'selected' : ''}></option>
+                            <option value="Cure Wounds"${flags[MODULE_NAME]?.animName === 'Cure Wounds' ? 'selected' : ''}>${FormCureWounds}</option>
+                            <option value="Disintegrate"${flags[MODULE_NAME]?.animName === 'Disintegrate' ? 'selected' : ''}>${FormDisintegrate}</option>
+                            <option value="Firebolt"${flags[MODULE_NAME]?.animName === 'Firebolt' ? 'selected' : ''}>${FormFirebolt}</option>
+                            <option value="Healing Word"${flags[MODULE_NAME]?.animName === 'Healing Word' ? 'selected' : ''}>${FormHealingWord}</option>
+                            <option value="Magic Missile"${flags[MODULE_NAME]?.animName === 'Magic Missile' ? 'selected' : ''}>${FormMagicMissile}</option>
+                            <option value="Ray of Frost"${flags[MODULE_NAME]?.animName === 'Ray of Frost' ? 'selected' : ''}>${FormRayofFrost}</option>
+                            <option value="Scorching Ray"${flags[MODULE_NAME]?.animName === 'Scorching Ray' ? 'selected' : ''}>${FormScorchingRay}</option>
+                            <option value="Shatter"${flags[MODULE_NAME]?.animName === 'Shatter' ? 'selected' : ''}>${FormShatter}</option>
+                            <option value="Thunderwave"${flags[MODULE_NAME]?.animName === 'Thunderwave' ? 'selected' : ''}>${FormThunderwave}</option>
+                            <option value="Witchbolt"${flags[MODULE_NAME]?.animName === 'Witchbolt' ? 'selected' : ''}>${FormWitchbolt}</option>
+                
+                            </select>
+                        </div>
+                        <div class="form-group input-select">
+                        <label>${SetColor}:</label>
+                        <select name="flags.${MODULE_NAME}.color" data-dtype="String" value=${color}>
+                            <option value="" ${flags[MODULE_NAME]?.color === '' ? 'selected' : ''}></option>
+                            <option value="Blue"${flags[MODULE_NAME]?.color === 'Blue' ? 'selected' : ''}>${FormBlue}</option>
+                            <option value="Green"${flags[MODULE_NAME]?.color === 'Green' ? 'selected' : ''}>${FormGreen}</option>
+                            <option value="Yellow"${flags[MODULE_NAME]?.color === 'Yellow' ? 'selected' : ''}>${FormYellow}</option>
+                            <option value="Red"${flags[MODULE_NAME]?.color === 'Red' ? 'selected' : ''}>${FormRed}</option>
+                            <option value="Orange"${flags[MODULE_NAME]?.color === 'Orange' ? 'selected' : ''}>${FormOrange}</option>
+                            <option value="Purple"${flags[MODULE_NAME]?.color === 'Purple' ? 'selected' : ''}>${FormPurple}</option>
+                            <option value="Darkred"${flags[MODULE_NAME]?.color === 'Darkred' ? 'selected' : ''}>${FormDarkred}</option>
+                            <option value="Darkgreen"${flags[MODULE_NAME]?.color === 'Darkgreen' ? 'selected' : ''}>${FormDarkgreen}</option>
+                            <option value="Darkpurple"${flags[MODULE_NAME]?.color === 'Darkpurple' ? 'selected' : ''}>${FormDarkpurple}</option>
+                            <option value="Orangepink"${flags[MODULE_NAME]?.color === 'Orangepink' ? 'selected' : ''}>${FormOrangepink}</option>
+                            <option value="Purpleblue"${flags[MODULE_NAME]?.color === 'Purpleblue' ? 'selected' : ''}>${FormPurpleblue}</option>
+                            <option value="Purpleteal"${flags[MODULE_NAME]?.color === 'Purpleteal' ? 'selected' : ''}>${FormPurpleteal}</option>
+                            <option value="Yellowblue"${flags[MODULE_NAME]?.color === 'Yellowblue' ? 'selected' : ''}>${FormYellowblue}</option>
+                            <option value="Random"${flags[MODULE_NAME]?.color === 'Random' ? 'selected' : ''}>${FormRandom}</option>
+        
+        
+                            </select>
+                        </div>
+                        
+                    </div>`;
+                    html.find(".tabs .item").last().after(tab);
+        
+                    switch (game.system.id) {
+                        case "pf1":
+                            if (!flags[MODULE_NAME]?.applied) html.find('.flexrow.description-container .description-body').append(contents);
+                            break;
+                        case "dnd5e":
+                            if (!flags[MODULE_NAME]?.applied) html.find(".tab").last().after(contents);
+                    }
+                    break;       
+            }
+    }
+
+}
 
 
 
-// For adding a tab to the Item Sheet to replace the Source Field. Work in Progress
+
+
+
+
+
+
 /*
+// For adding a tab to the Item Sheet to replace the Source Field. Work in Progress
+
 const MODULE_NAME = "autoanimations";
 Hooks.on("renderItemSheet", async (sheet, html) => {
 
@@ -149,6 +271,7 @@ Hooks.on("renderItemSheet", async (sheet, html) => {
     let animName = flags[MODULE_NAME]?.animName ? flags[MODULE_NAME]?.animName : "";
 
     let contents;
+
     switch (true) {
         case (itemType.includes("weapon")):
             contents = `
@@ -204,68 +327,118 @@ Hooks.on("renderItemSheet", async (sheet, html) => {
 
             break;
         case (itemType.includes("spell")):
-            contents = `
-            <div class="tab active" data-tab="Animate" autocomplete = "on">
-                <div class="form-group">
-                    <label>${KillAnim}?</label>
-                    <input name="flags.${MODULE_NAME}.killAnim" type="checkbox" ${flags[MODULE_NAME]?.killAnim ? 'checked' : ''}></input>
-                </div>
-        
-                <div class="form-group input-select">
-                <label>${SetAnim}:</label>
-                <select name="flags.${MODULE_NAME}.animName" data-dtype="String" value=${animName}>
-                    <option value="" ${flags[MODULE_NAME]?.animName === '' ? 'selected' : ''}></option>
-                    <option value="Cure Wounds"${flags[MODULE_NAME]?.animName === 'Cure Wounds' ? 'selected' : ''}>${FormCureWounds}</option>
-                    <option value="Disintegrate"${flags[MODULE_NAME]?.animName === 'Disintegrate' ? 'selected' : ''}>${FormDisintegrate}</option>
-                    <option value="Firebolt"${flags[MODULE_NAME]?.animName === 'Firebolt' ? 'selected' : ''}>${FormFirebolt}</option>
-                    <option value="Healing Word"${flags[MODULE_NAME]?.animName === 'Healing Word' ? 'selected' : ''}>${FormHealingWord}</option>
-                    <option value="Magic Missile"${flags[MODULE_NAME]?.animName === 'Magic Missile' ? 'selected' : ''}>${FormMagicMissile}</option>
-                    <option value="Ray of Frost"${flags[MODULE_NAME]?.animName === 'Ray of Frost' ? 'selected' : ''}>${FormRayofFrost}</option>
-                    <option value="Scorching Ray"${flags[MODULE_NAME]?.animName === 'Scorching Ray' ? 'selected' : ''}>${FormScorchingRay}</option>
-                    <option value="Shatter"${flags[MODULE_NAME]?.animName === 'Shatter' ? 'selected' : ''}>${FormShatter}</option>
-                    <option value="Thunderwave"${flags[MODULE_NAME]?.animName === 'Thunderwave' ? 'selected' : ''}>${FormThunderwave}</option>
-                    <option value="Witchbolt"${flags[MODULE_NAME]?.animName === 'Witchbolt' ? 'selected' : ''}>${FormWitchbolt}</option>
-        
-                    </select>
-                </div>
-                <div class="form-group input-select">
-                <label>${SetColor}:</label>
-                <select name="flags.${MODULE_NAME}.color" data-dtype="String" value=${color}>
-                    <option value="" ${flags[MODULE_NAME]?.color === '' ? 'selected' : ''}></option>
-                    <option value="Blue"${flags[MODULE_NAME]?.color === 'Blue' ? 'selected' : ''}>${FormBlue}</option>
-                    <option value="Green"${flags[MODULE_NAME]?.color === 'Green' ? 'selected' : ''}>${FormGreen}</option>
-                    <option value="Yellow"${flags[MODULE_NAME]?.color === 'Yellow' ? 'selected' : ''}>${FormYellow}</option>
-                    <option value="Red"${flags[MODULE_NAME]?.color === 'Red' ? 'selected' : ''}>${FormRed}</option>
-                    <option value="Orange"${flags[MODULE_NAME]?.color === 'Orange' ? 'selected' : ''}>${FormOrange}</option>
-                    <option value="Purple"${flags[MODULE_NAME]?.color === 'Purple' ? 'selected' : ''}>${FormPurple}</option>
-                    <option value="Darkred"${flags[MODULE_NAME]?.color === 'Darkred' ? 'selected' : ''}>${FormDarkred}</option>
-                    <option value="Darkgreen"${flags[MODULE_NAME]?.color === 'Darkgreen' ? 'selected' : ''}>${FormDarkgreen}</option>
-                    <option value="Darkpurple"${flags[MODULE_NAME]?.color === 'Darkpurple' ? 'selected' : ''}>${FormDarkpurple}</option>
-                    <option value="Orangepink"${flags[MODULE_NAME]?.color === 'Orangepink' ? 'selected' : ''}>${FormOrangepink}</option>
-                    <option value="Purpleblue"${flags[MODULE_NAME]?.color === 'Purpleblue' ? 'selected' : ''}>${FormPurpleblue}</option>
-                    <option value="Purpleteal"${flags[MODULE_NAME]?.color === 'Purpleteal' ? 'selected' : ''}>${FormPurpleteal}</option>
-                    <option value="Yellowblue"${flags[MODULE_NAME]?.color === 'Yellowblue' ? 'selected' : ''}>${FormYellowblue}</option>
-                    <option value="Random"${flags[MODULE_NAME]?.color === 'Random' ? 'selected' : ''}>${FormRandom}</option>
-
-
-                    </select>
-                </div>
+            switch (true) {
+                case (handler.animNameIncludes("cure", "wound")):
+                    contents = `
+                    <div class="tab active" data-tab="Animate" autocomplete = "on">
+                        <div class="form-group">
+                            <label>${KillAnim}?</label>
+                            <input name="flags.${MODULE_NAME}.killAnim" type="checkbox" ${flags[MODULE_NAME]?.killAnim ? 'checked' : ''}></input>
+                        </div>
                 
-            </div>`;
-            html.find(".tabs .item").last().after(tab);
+                        <div class="form-group input-select">
+                        <label>${SetAnim}:</label>
+                        <select name="flags.${MODULE_NAME}.animName" data-dtype="String" value=${animName}>
+                            <option value="" ${flags[MODULE_NAME]?.animName === '' ? 'selected' : ''}></option>
+                            <option value="Dagger"${flags[MODULE_NAME]?.animName === 'Dagger' ? 'selected' : ''}>${FormDagger}</option>
+                            <option value="Greataxe"${flags[MODULE_NAME]?.animName === 'Greataxe' ? 'selected' : ''}>${FormGreataxe}</option>
+                            <option value="Greatclub"${flags[MODULE_NAME]?.animName === 'Greatclub' ? 'selected' : ''}>${FormGreatclub}</option>
+                            <option value="Greatsword"${flags[MODULE_NAME]?.animName === 'Greatsword' ? 'selected' : ''}>${FormGreatsword}</option>
+                            <option value="Handaxe"${flags[MODULE_NAME]?.animName === 'Handaxe' ? 'selected' : ''}>${FormHandaxe}</option>
+                            <option value="Lasersword"${flags[MODULE_NAME]?.animName === 'Lasersword' ? 'selected' : ''}>${FormLasersword}</option>
+                            <option value="Mace"${flags[MODULE_NAME]?.animName === 'Mace' ? 'selected' : ''}>${FormMace}</option>
+                            <option value="Maul"${flags[MODULE_NAME]?.animName === 'Maul' ? 'selected' : ''}>${FormMaul}</option>
+                            <option value="Spear"${flags[MODULE_NAME]?.animName === 'Spear' ? 'selected' : ''}>${FormSpear}</option>
+                            <option value="Sword"${flags[MODULE_NAME]?.animName === 'Sword' ? 'selected' : ''}>${FormSword}</option>
+                
+                            </select>
+                        </div>
+                        <div class="form-group input-select">
+                        <label>${SetColor}:</label>
+                        <select name="flags.${MODULE_NAME}.color" data-dtype="String" value=${color}>
+                            <option value="" ${flags[MODULE_NAME]?.color === '' ? 'selected' : ''}></option>
+                            <option value="Blue"${flags[MODULE_NAME]?.color === 'Blue' ? 'selected' : ''}>${FormBlue}</option>
+                            <option value="Green"${flags[MODULE_NAME]?.color === 'Green' ? 'selected' : ''}>${FormGreen}</option>
+                            <option value="Red"${flags[MODULE_NAME]?.color === 'Red' ? 'selected' : ''}>${FormRed}</option>
+                            <option value="Purple"${flags[MODULE_NAME]?.color === 'Purple' ? 'selected' : ''}>${FormPurple}</option>
+                            </select>
+                            </div>
+                    
+                    </div>`;
+                    html.find(".tabs .item").last().after(tab);
 
-            switch (game.system.id) {
-                case "pf1":
-                    if (!flags[MODULE_NAME]?.applied) html.find('.flexrow.description-container .description-body').append(contents);
+                    switch (game.system.id) {
+                        case "pf1":
+                            if (!flags[MODULE_NAME]?.applied) html.find('.flexrow.description-container .description-body').append(contents);
+                            break;
+                        case "dnd5e":
+                            if (!flags[MODULE_NAME]?.applied) html.find(".tab").last().after(contents);
+                    }
                     break;
-                case "dnd5e":
-                    if (!flags[MODULE_NAME]?.applied) html.find(".tab").last().after(contents);
+                default:
+                    contents = `
+                    <div class="tab active" data-tab="Animate" autocomplete = "on">
+                        <div class="form-group">
+                            <label>${KillAnim}?</label>
+                            <input name="flags.${MODULE_NAME}.killAnim" type="checkbox" ${flags[MODULE_NAME]?.killAnim ? 'checked' : ''}></input>
+                        </div>
+                
+                        <div class="form-group input-select">
+                        <label>${SetAnim}:</label>
+                        <select name="flags.${MODULE_NAME}.animName" data-dtype="String" value=${animName}>
+                            <option value="" ${flags[MODULE_NAME]?.animName === '' ? 'selected' : ''}></option>
+                            <option value="Cure Wounds"${flags[MODULE_NAME]?.animName === 'Cure Wounds' ? 'selected' : ''}>${FormCureWounds}</option>
+                            <option value="Disintegrate"${flags[MODULE_NAME]?.animName === 'Disintegrate' ? 'selected' : ''}>${FormDisintegrate}</option>
+                            <option value="Firebolt"${flags[MODULE_NAME]?.animName === 'Firebolt' ? 'selected' : ''}>${FormFirebolt}</option>
+                            <option value="Healing Word"${flags[MODULE_NAME]?.animName === 'Healing Word' ? 'selected' : ''}>${FormHealingWord}</option>
+                            <option value="Magic Missile"${flags[MODULE_NAME]?.animName === 'Magic Missile' ? 'selected' : ''}>${FormMagicMissile}</option>
+                            <option value="Ray of Frost"${flags[MODULE_NAME]?.animName === 'Ray of Frost' ? 'selected' : ''}>${FormRayofFrost}</option>
+                            <option value="Scorching Ray"${flags[MODULE_NAME]?.animName === 'Scorching Ray' ? 'selected' : ''}>${FormScorchingRay}</option>
+                            <option value="Shatter"${flags[MODULE_NAME]?.animName === 'Shatter' ? 'selected' : ''}>${FormShatter}</option>
+                            <option value="Thunderwave"${flags[MODULE_NAME]?.animName === 'Thunderwave' ? 'selected' : ''}>${FormThunderwave}</option>
+                            <option value="Witchbolt"${flags[MODULE_NAME]?.animName === 'Witchbolt' ? 'selected' : ''}>${FormWitchbolt}</option>
+                
+                            </select>
+                        </div>
+                        <div class="form-group input-select">
+                        <label>${SetColor}:</label>
+                        <select name="flags.${MODULE_NAME}.color" data-dtype="String" value=${color}>
+                            <option value="" ${flags[MODULE_NAME]?.color === '' ? 'selected' : ''}></option>
+                            <option value="Blue"${flags[MODULE_NAME]?.color === 'Blue' ? 'selected' : ''}>${FormBlue}</option>
+                            <option value="Green"${flags[MODULE_NAME]?.color === 'Green' ? 'selected' : ''}>${FormGreen}</option>
+                            <option value="Yellow"${flags[MODULE_NAME]?.color === 'Yellow' ? 'selected' : ''}>${FormYellow}</option>
+                            <option value="Red"${flags[MODULE_NAME]?.color === 'Red' ? 'selected' : ''}>${FormRed}</option>
+                            <option value="Orange"${flags[MODULE_NAME]?.color === 'Orange' ? 'selected' : ''}>${FormOrange}</option>
+                            <option value="Purple"${flags[MODULE_NAME]?.color === 'Purple' ? 'selected' : ''}>${FormPurple}</option>
+                            <option value="Darkred"${flags[MODULE_NAME]?.color === 'Darkred' ? 'selected' : ''}>${FormDarkred}</option>
+                            <option value="Darkgreen"${flags[MODULE_NAME]?.color === 'Darkgreen' ? 'selected' : ''}>${FormDarkgreen}</option>
+                            <option value="Darkpurple"${flags[MODULE_NAME]?.color === 'Darkpurple' ? 'selected' : ''}>${FormDarkpurple}</option>
+                            <option value="Orangepink"${flags[MODULE_NAME]?.color === 'Orangepink' ? 'selected' : ''}>${FormOrangepink}</option>
+                            <option value="Purpleblue"${flags[MODULE_NAME]?.color === 'Purpleblue' ? 'selected' : ''}>${FormPurpleblue}</option>
+                            <option value="Purpleteal"${flags[MODULE_NAME]?.color === 'Purpleteal' ? 'selected' : ''}>${FormPurpleteal}</option>
+                            <option value="Yellowblue"${flags[MODULE_NAME]?.color === 'Yellowblue' ? 'selected' : ''}>${FormYellowblue}</option>
+                            <option value="Random"${flags[MODULE_NAME]?.color === 'Random' ? 'selected' : ''}>${FormRandom}</option>
+        
+        
+                            </select>
+                        </div>
+                        
+                    </div>`;
+                    html.find(".tabs .item").last().after(tab);
+        
+                    switch (game.system.id) {
+                        case "pf1":
+                            if (!flags[MODULE_NAME]?.applied) html.find('.flexrow.description-container .description-body').append(contents);
+                            break;
+                        case "dnd5e":
+                            if (!flags[MODULE_NAME]?.applied) html.find(".tab").last().after(contents);
+                    }
+                    break;       
             }
-            break;
     }
-    
-//let actorAnim = actor.items.get(itemId);
-//console.log(actorAnim);
+
+    //let actorAnim = actor.items.get(itemId);
+    //console.log(actorAnim);
 
     let handler;
     switch (game.system.id) {
@@ -290,7 +463,9 @@ Hooks.once('ready', function () {
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error("A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work");
     }
-    game.settings.set("tokenmagic", "fxPlayerPermission", true);
+    if (game.user.isGM && game.modules.get("tokenmagic")?.active) {
+        game.settings.set("tokenmagic", "fxPlayerPermission", true);
+    }
 });
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
