@@ -34,8 +34,7 @@ export default class MidiHandler {
     }
 
     get actorRace() {
-        // todo
-        return "";
+        return this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() ?? "";
     }
 
     get actorToken() {
