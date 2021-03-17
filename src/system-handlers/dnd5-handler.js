@@ -9,6 +9,7 @@ export default class Dnd5Handler {
         //console.log(this._actorToken);
         //this._actorToken02 = canvas.tokens.get(tokenId);
         //console.log(this._actorToken02);
+        this._itemId = itemId;
         this._allTargets = Array.from(msg.user.targets)
         this._itemName = this._actorToken.actor.items.get(itemId).name?.toLowerCase();
         //console.log(this._itemName);
@@ -46,6 +47,11 @@ export default class Dnd5Handler {
 
     get actorRace() {
         return this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() ?? "";
+    }
+
+    get reachCheck() {
+
+        return this._actorToken.actor.items.get(this._itemId).data.data.properties.rch;
     }
 
     get actorToken() {

@@ -37,6 +37,10 @@ export default class MidiHandler {
         return this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() ?? "";
     }
 
+    get reachCheck() {
+        return this._item.data.data.properties.rch;
+    }
+
     get actorToken() {
         return this._actorToken;
     }
