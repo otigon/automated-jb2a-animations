@@ -287,6 +287,7 @@ async function revItUp(handler) {
         case (handler.itemIncludes("witch", "bolt")):
         case (handler.itemIncludes("scorching", "ray")):
         case (handler.itemIncludes("disintegrate")):
+        case (handler.itemIncludes("eldritch", "blast")):
             spellAttacks(handler);
             break;
         case (handler.itemIncludes("shield")):
@@ -1072,6 +1073,11 @@ async function spellAttacks(handler) {
             color = "Green01";
             tmColor = 0x00AFC1;
             break;
+        case (handler.itemIncludes("eldritch", "blast")):
+            path = "Cantrip/Eldritch_Blast";
+            path2 = "EldritchBlast_01";
+            tint = "Regular";
+            color = "Purple";
     }
 
     switch (true) {
@@ -1313,6 +1319,7 @@ async function spellAttacks(handler) {
             switch (true) {
                 case (handler.itemIncludes("fire", "bolt")):
                 case (handler.itemIncludes("scorching", "ray")):
+                case (handler.itemIncludes("eldritch", "blast")):
                     switch (true) {
                         case (anDist <= 1600):
                             anFileSize = 1200;
