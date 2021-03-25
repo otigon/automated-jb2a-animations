@@ -1,3 +1,8 @@
+0.2.0 Release:  
+- Animate Tab is now live  
+- Source Field (DnD5e) is now Deprecated
+- Cure Wounds and Generic Healing animations now default to playing on self if no target is selected  
+
 0.1.7 Release:  
 - Actual support for PF1, sorry for the mishap  
 - Fixed an issue in DnD5e where Animations wouldn't play as intended. When multiple tokens from the same actor were on the canvas, the animations didn't work for them. This is fixed now.  
