@@ -1,35 +1,39 @@
 export default class Dnd5Handler {
     constructor(msg) {
         const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id");
-        //console.log(itemId);
-        
         const tokenId = msg.data.speaker.token;  
-        //console.log(tokenId);
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-        //console.log(this._actorToken);
-        //this._actorToken02 = canvas.tokens.get(tokenId);
-        //console.log(this._actorToken02);
         this._itemId = itemId;
         this._allTargets = Array.from(msg.user.targets)
-        this._itemName = this._actorToken.actor.items.get(itemId).name?.toLowerCase();
-        //console.log(this._itemName);
-        this._itemSource = this._actorToken.actor.items.get(itemId).data?.data?.source?.toLowerCase() ?? "";
-        //console.log(this._itemSource);
-        this._itemType = this._actorToken.actor.items?.get(itemId).data?.type?.toLowerCase();
-        //console.log(this._itemType);
-        this._animColor = this._actorToken.actor.items.get(itemId).data.flags?.autoanimations?.color?.toLowerCase() ?? "";
-        //console.log(this._animColor);
-        this._animType = this._actorToken.actor.items.get(itemId).data.flags?.autoanimations?.animName?.toLowerCase() ?? "";
-        //console.log(this._animType);
-        this._animName;
+        this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
+        this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
+        this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
+
+        // getting flag data from Animation Tab
+        this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";;
+        // 
+        this._animColor = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations?.color?.toLowerCase() ?? "";
+        this._animName = this._flags.animName?.toLowerCase() ?? "";
+        this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
+        this._animExRadius = this._flags.explodeRadius?.toLowerCase() ?? "";
+        this._animExVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
+        this._animType = this._flags.animType?.toLowerCase() ?? "";
+        this._animKill = this._flags.killAnim;
+        this._animOverride = this._flags.override;
+        this._animExplode = this._flags.explosion;
+        this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
+
+        //console.log(this._animName);
+        this._animNameFinal;
         switch (true) {
-            case(this._animType === ``):
-                this._animName = this._itemName;
+            case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
+                this._animNameFinal = this._itemName;
                 break;
             default:
-                this._animName = this._animType;
+                this._animNameFinal = this._animName;
                 break;
         }
+        //console.log(this._animNameFinal);
         this._animColorEffect;
         switch (true) {
             case(this._animColor === ``):
@@ -39,6 +43,7 @@ export default class Dnd5Handler {
                 this._animColorEffect = this._animColor;
                 break;
         }
+        //console.log(this._animColorEffect);
     }
 
     get actor() {
@@ -70,13 +75,51 @@ export default class Dnd5Handler {
         return this._actorToken.actor.items?.get(itemId).data?.type?.toLowerCase();
     }
 
+    get checkSaves() {
+        return;
+    }
+
     get animColor() {
-        return this._actorToken.actor.items.get(itemId).data.flags?.autoanimations.color?.toLowerCase() ?? "";
+        return this._animColorEffect;
+    }
+
+    get animName() {
+        return this._animNameFinal;
+    }
+
+    get animExColor() {
+        return this._animExColor;
+    }
+
+    get animExRadius() {
+        return this._animExRadius;
+    }
+
+    get animExVariant() {
+        return this._animExVariant;
     }
 
     get animType() {
-        return this._actorToken.actor.items.get(itemId).data.flags?.autoanimations.animName?.toLowerCase() ?? "";
+        return this._animType;
     }
+
+    get animKill() {
+        return this._animKill;
+    }
+
+    get animOverride() {
+        return this._animOverride;
+    }
+
+    get animExplode() {
+        return this._animExplode;
+    }
+
+    get animDagThrVar() {
+        return this._animDgThrVar;
+    }
+
+
 /*
     get killAnim() {
         return this._actorToken.actor.items.get(itemId).data.flags?.autoanimations?.animName?.toLowerCase() ?? "";
@@ -118,7 +161,7 @@ export default class Dnd5Handler {
     }
     */
     itemIncludes() {
-        return [...arguments].every(a => this._animName?.includes(a) || this._itemSource?.includes(a));
+        return [...arguments].every(a => this._animNameFinal?.includes(a) || this._itemSource?.includes(a));
     }
     itemSourceIncludes() {
         return [...arguments].every(a => this._itemSource?.includes(a));
@@ -127,12 +170,12 @@ export default class Dnd5Handler {
         return [...arguments].every(a => this._animColorEffect?.includes(a));
     }
     itemNameIncludes() {
-        return [...arguments].every(a => this._itemName?.includes(a));
+        return [...arguments].every(a => this._animNameFinal?.includes(a));
     }
     itemTypeIncludes() {
         return [...arguments].every(a => this._itemType?.includes(a));
     }
     animNameIncludes() {
-        return [...arguments].every(a => this._animType?.includes(a));
+        return [...arguments].every(a => this._animName?.includes(a));
     }
 }

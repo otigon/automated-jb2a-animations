@@ -12,6 +12,31 @@ export default class Pf1Handler {
         this._actorToken = canvas.tokens.ownedTokens.find(x => x.actor.id === actor.id);
         this._allTargets = Array.from(message.user.targets)
         this._itemName = item.name?.toLowerCase();
+
+        // getting flag data from Animation Tab
+        this._flags = item?.data?.flags?.autoanimations ?? "";;
+        // 
+        this._animColor = this._flags.color?.toLowerCase() ?? "";
+        this._animName = this._flags.animName?.toLowerCase() ?? "";
+        this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
+        this._animExRadius = this._flags.explodeRadius?.toLowerCase() ?? "";
+        this._animExVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
+        this._animType = this._flags.animType?.toLowerCase() ?? "";
+        this._animKill = this._flags.killAnim;
+        this._animOverride = this._flags.override;
+        this._animExplode = this._flags.explosion;
+        this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
+
+        this._animNameFinal;
+        switch (true) {
+            case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
+                this._animNameFinal = this._itemName;
+                break;
+            default:
+                this._animNameFinal = this._animName;
+                break;
+        }
+
     }
 
     get actor() {
@@ -21,6 +46,11 @@ export default class Pf1Handler {
     get actorRace() {
         // todo
         return "";
+    }
+
+    get reachCheck() {
+        // to do
+        return 0;
     }
 
     get actorToken() {
@@ -37,6 +67,50 @@ export default class Pf1Handler {
 
     get itemType() {
         return this._actor.items.get(this._item.id).data.type.toLowerCase();
+    }
+
+    get checkSaves() {
+        return;
+    }
+
+    get animColor() {
+        return this._animColorEffect;
+    }
+
+    get animName() {
+        return this._animNameFinal;
+    }
+
+    get animExColor() {
+        return this._animExColor;
+    }
+
+    get animExRadius() {
+        return this._animExRadius;
+    }
+
+    get animExVariant() {
+        return this._animExVariant;
+    }
+
+    get animType() {
+        return this._animType;
+    }
+
+    get animKill() {
+        return this._animKill;
+    }
+
+    get animOverride() {
+        return this._animOverride;
+    }
+
+    get animExplode() {
+        return this._animExplode;
+    }
+
+    get animDagThrVar() {
+        return this._animDgThrVar;
     }
 
     getDistanceTo(target) {
@@ -80,4 +154,21 @@ export default class Pf1Handler {
     itemIncludes() {
         return [...arguments].every(a => this._itemName?.includes(a));
     }
+
+    itemSourceIncludes() {
+        return [...arguments].every(a => this._itemSource?.includes(a));
+    }
+    itemColorIncludes() {
+        return [...arguments].every(a => this._animColor?.includes(a));
+    }
+    itemNameIncludes() {
+        return [...arguments].every(a => this._animNameFinal?.includes(a));
+    }
+    itemTypeIncludes() {
+        return [...arguments].every(a => this._itemType?.includes(a));
+    }
+    animNameIncludes() {
+        return [...arguments].every(a => this._animName?.includes(a));
+    }
+
 }
