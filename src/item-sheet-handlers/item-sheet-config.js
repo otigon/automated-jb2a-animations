@@ -49,7 +49,7 @@ export class AnimationTab {
         tabs.first().append($(
             '<a class="item" data-tab="autoanimations">Animate</a>'
         ));
-        
+
         switch (game.system.id) {
             case ("dnd5e"):
                 $(html.find(`.sheet-body`)).append($(
@@ -140,9 +140,9 @@ export class AnimationTab {
         }
 
         switch (true) {
-            case (this.animateItem.animName.toLowerCase().includes("dagger") || this.item.name.toLowerCase().includes("dagger")):
-            case (this.animateItem.animName.toLowerCase().includes("spear") || this.item.name.toLowerCase().includes("spear")):
-            case (this.animateItem.animName.toLowerCase().includes("handaxe") || this.item.name.toLowerCase().includes("handaxe")):
+            case (this.animateItem.animName.toLowerCase().includes("dagger")):
+            case (this.animateItem.animName.toLowerCase().includes("spear")):
+            case (this.animateItem.animName.toLowerCase().includes("handaxe")):
                 noRangeColor.show();
                 break;
             default:
