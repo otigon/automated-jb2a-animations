@@ -6,8 +6,8 @@
 I am not affiliated with JB2A, and am working on this only as a side project to make these great animation more easily accesible. 
 
 Tutorial Video: https://www.youtube.com/watch?v=ZU2IbyEzias
-## Quick Reference PDF ##
-https://github.com/otigon/automated-jb2a-animations/blob/main/PDF/Keywords%20and%20Colors.pdf  
+## Available Animations ##
+https://github.com/otigon/automated-jb2a-animations/blob/main/Animations/Available%20Animations.md  
 
 # Introduction
 
