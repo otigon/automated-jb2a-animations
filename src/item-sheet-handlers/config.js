@@ -257,7 +257,7 @@ AUTOANIM.animTypePick = {
     "t5": "Creature Attack",
     "t6": "Attack Spell",
     "t7": "Healing Spell",
-    "t8": "Explosives (Cirlce Template)",
+    "t8": "Explosives (Circle Template)",
     "t9": "Explosives (On Target)",
 }
 

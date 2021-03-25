@@ -228,7 +228,7 @@ export class AnimationTab {
         });
 
         this.html.find('select[name="flags.autoanimations.animType"]').change(evt => {
-            this.item.setFlag("autoanimations", "animType", "");
+            //this.item.setFlag("autoanimations", "animType", "");
             //this.activate = true;
         })
 

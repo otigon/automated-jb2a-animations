@@ -4,7 +4,7 @@ function getNameColor(data) {
     let itemNameFlags = data.entity?.flags?.autoanimations?.animName?.toLowerCase() ?? ``;
     let itemAnimType = data.item?.flags?.autoanimations?.animType?.toLowerCase() ?? ``;
     let isOverride = data.item?.flags?.autoanimations?.override;
-    console.log(isOverride);
+    //console.log(isOverride);
     //let itemColorSys = data.item.data.source;
     //let itemColorflags = data.item.flags.autoanimations.color.toLowerCase();
     /*

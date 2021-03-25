@@ -141,13 +141,14 @@ function revItUp5eCore(msg) {
     let handler = new Dnd5Handler(msg);
 
     const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
+    //$(msg.data.content).attr("data-item-id")
     const mreFlavor = msg.data.content.toLowerCase();
     if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == true) {
         if (rollType.includes("damage")) {
             //const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
             if (game.modules.get("mre-dnd5e")?.active) {
                 log("MRE is active");
-                if (handler.itemIncludes("xxx")) {
+                if (handler.itemIncludes("xxx") || handler.animKill) {
                 } else {
                     switch (game.settings.get("mre-dnd5e", "autoDamage")) {
                         case (true):
@@ -164,7 +165,7 @@ function revItUp5eCore(msg) {
                                     break;
                                 case (handler.itemNameIncludes("grenade")):
                                 case (handler.itemNameIncludes("bomb")):
-                                case (handler.animType  === "t9"):
+                                case (handler.animType === "t9"):
                                     Hooks.once("createMeasuredTemplate", () => {
                                         explodeTemplate(handler);
                                     })
@@ -190,19 +191,19 @@ function revItUp5eCore(msg) {
                 break;
         }
     }
-
     if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false) {
         if (rollType.includes("damage")) {
             log("damage roll");
         } else
-            if (rollType.includes("attack") || mreFlavor.includes("attack roll")) {
+            if (rollType.includes("attack") || mreFlavor.includes("flavor-text>attack roll")) {
                 revItUp(handler)
             } else /*if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false)*/ {
-                if (handler.itemIncludes("xxx")) {
+                if (handler.itemIncludes("xxx") || handler.animKill) {
                 } else {
                     switch (true) {
                         case (handler.itemNameIncludes("cure", "wound")):
                         case (handler.itemNameIncludes("heal", "word")):
+                        case (handler.itemNameIncludes("generic", "heal")):
                             onTargetSpells(handler);
                             break;
                         case (handler.itemNameIncludes("disintegrate")):
@@ -530,7 +531,7 @@ function colorChecks(handler) {
 async function meleeWeapons(handler) {
     let { type01, tint, color, fireColor } = colorChecks(handler);
 
-    console.log(color);
+    //console.log(color);
 
     let burn =
         [{
@@ -752,7 +753,7 @@ async function meleeWeapons(handler) {
             }
             await wait(tmKill);
             if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-            TokenMagic.deleteFilters(target, "BloodSplat");
+                TokenMagic.deleteFilters(target, "BloodSplat");
             }
             // await wait(50);
             // TokenMagic.deleteFilters(target, "meleeBurn");
@@ -3122,72 +3123,75 @@ async function explodeOnTarget(handler) {
     }
 
     async function cast() {
+        var arrayLength = handler.allTargets.length;
 
-        let target = handler.allTargets[0];
-        let Scale = (canvas.scene.data.grid / divisor);
+        for (var i = 0; i < arrayLength; i++) {
+            let target = handler.allTargets[i];
+            let Scale = (canvas.scene.data.grid / divisor);
 
-        // Defines the spell template for FXMaster
-        let spellAnim =
-        {
-            file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type01}_${color}_400x400.webm`,
-            position: target.center,
-            anchor: {
-                x: 0.5,
-                y: 0.5
-            },
-            angle: 0,
-            scale: {
-                x: Scale,
-                y: Scale
+            // Defines the spell template for FXMaster
+            let spellAnim =
+            {
+                file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type01}_${color}_400x400.webm`,
+                position: target.center,
+                anchor: {
+                    x: 0.5,
+                    y: 0.5
+                },
+                angle: 0,
+                scale: {
+                    x: Scale,
+                    y: Scale
+                }
+            };
+
+            async function SpellAnimation(number) {
+
+                let x = number;
+                let interval = 1000;
+                for (var i = 0; i < x; i++) {
+                    setTimeout(function () {
+                        canvas.fxmaster.playVideo(spellAnim);
+                        game.socket.emit('module.fxmaster', spellAnim);
+                    }, i * interval);
+                }
             }
-        };
-
-        async function SpellAnimation(number) {
-
-            let x = number;
-            let interval = 1000;
-            for (var i = 0; i < x; i++) {
-                setTimeout(function () {
-                    canvas.fxmaster.playVideo(spellAnim);
-                    game.socket.emit('module.fxmaster', spellAnim);
-                }, i * interval);
-            }
-        }
-        // The number in parenthesis sets the number of times it loops
-        SpellAnimation(2)
-        /*
-                let shockWave =
-                    [{
-                        filterType: "wave",
-                        filterId: "shockWave",
-                        autoDestroy: true,
-                        time: 0,
-                        strength: 0.03,
-                        frequency: 15,
-                        maxIntensity: 4.0,
-                        minIntensity: 0.5,
-                        padding: 25,
-                        animated:
-                        {
-                            time:
+            // The number in parenthesis sets the number of times it loops
+            SpellAnimation(2)
+            /*
+                    let shockWave =
+                        [{
+                            filterType: "wave",
+                            filterId: "shockWave",
+                            autoDestroy: true,
+                            time: 0,
+                            strength: 0.03,
+                            frequency: 15,
+                            maxIntensity: 4.0,
+                            minIntensity: 0.5,
+                            padding: 25,
+                            animated:
                             {
-                                loopDuration: 500,
-                                loops: 5,
-                                active: true,
-                                speed: 0.0180,
-                                animType: "move",
+                                time:
+                                {
+                                    loopDuration: 500,
+                                    loops: 5,
+                                    active: true,
+                                    speed: 0.0180,
+                                    animType: "move",
+                                }
                             }
-                        }
-                    }];
-                    */
-        //if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-        //await wait(400);
-        //TokenMagic.addUpdateFiltersOnTargeted(shockWave);
-        //await wait(2500);
-        //TokenMagic.deleteFiltersOnTargeted("burn");
-        //await wait(250);
-        //TokenMagic.deleteFiltersOnTargeted("shockWave");
-        //}
+                        }];
+                        */
+            //if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+            //await wait(400);
+            //TokenMagic.addUpdateFiltersOnTargeted(shockWave);
+            //await wait(2500);
+            //TokenMagic.deleteFiltersOnTargeted("burn");
+            //await wait(250);
+            //TokenMagic.deleteFiltersOnTargeted("shockWave");
+            //}
+        }
     }
     cast();
 }

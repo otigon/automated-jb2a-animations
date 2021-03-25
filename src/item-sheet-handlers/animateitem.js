@@ -62,8 +62,8 @@ export class AnimateItem {
     */
     get meleeColor() {
         //console.log(this.animType);
-        console.log(this.itemName);
-        console.log(this.color);
+        //console.log(this.itemName);
+        //console.log(this.color);
         switch (true) {
             case (this.itemName.includes("lasersword")):
                 return AUTOANIM.animColorLaserSword;
