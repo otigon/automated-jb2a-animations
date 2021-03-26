@@ -131,6 +131,7 @@ AUTOANIM.animColorEBlast = {
     "b3": "Dark Purple",
     "b4": "Green",
     "b5": "Yellow",
+    "b6": "Dark Red",
 }
 
 AUTOANIM.animColorDisintegrate = {
