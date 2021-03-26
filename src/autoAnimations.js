@@ -1330,7 +1330,7 @@ async function spellAttacks(handler) {
             let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
-
+            console.log(anDist);
             let file = `modules/${path00}/Library/${path}`;
 
             let anFile;
@@ -1342,12 +1342,12 @@ async function spellAttacks(handler) {
                 case (handler.itemNameIncludes("scorching", "ray")):
                 case (handler.itemNameIncludes("eldritch blast")):
                     switch (true) {
-                        case (anDist <= 1600):
+                        case (anDist <= 1100):
                             anFileSize = 1200;
                             anFile = `${file}/${path2}_${tint}_${color}_30ft_1600x400.webm`;
                             anchorX = 0.125;
                             break;
-                        case (anDist > 4000):
+                        case (anDist > 2100):
                             anFileSize = 3600;
                             anFile = `${file}/${path2}_${tint}_${color}_90ft_4000x400.webm`;
                             anchorX = 0.05;
