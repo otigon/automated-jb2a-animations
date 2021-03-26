@@ -1,4 +1,15 @@
-0.2.0 Release:  
+0.2.12 Release:  
+- Fixed a slight scaling issue with some attack spells.  
+- Added Dark Red color menu option for Eldritch Blast  
+
+2.2.11 Release:  
+- Corrected an issue where sometimes Eldritch Blast would play when it should not  
+- Added multi-target functionality for the On-Target explosion effects  
+- Corrected an issue with the 5e Second Wind feature, with override, not playing animations correctly  
+- Corrected an out of place line that would cause errors in the console  
+- Spelling correction  
+
+2.2.0 Release:  
 - Animate Tab is now live  
 - Source Field (DnD5e) is now Deprecated
 - Cure Wounds and Generic Healing animations now default to playing on self if no target is selected  
