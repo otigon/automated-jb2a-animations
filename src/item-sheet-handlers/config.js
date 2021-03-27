@@ -316,7 +316,17 @@ AUTOANIM.laserblastColors = {
     "b2": "Blue",
     "b3": "Green",
     "b4": "Orange",
-    "b5": "Red",
+    "b5": "Pink",
+    "b6": "Purple",
+    "b7": "Red",
+}
+
+AUTOANIM.explosionLoops = {
+    "el1": 1,
+    "el2": 2,
+    "el3": 3,
+    "el4": 4,
+    "el5": 5,
 }
 
 AUTOANIM.explosionRadius = {

@@ -21,6 +21,7 @@ export default class Pf1Handler {
         this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._animExRadius = this._flags.explodeRadius?.toLowerCase() ?? "";
         this._animExVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
+        this._animExLoop = this._flags.explodeLoop ?? "";
         this._animType = this._flags.animType?.toLowerCase() ?? "";
         this._animKill = this._flags.killAnim;
         this._animOverride = this._flags.override;
@@ -91,6 +92,10 @@ export default class Pf1Handler {
 
     get animExVariant() {
         return this._animExVariant;
+    }
+    
+    get animExLoop() {
+        return this._animExLoop;
     }
 
     get animType() {

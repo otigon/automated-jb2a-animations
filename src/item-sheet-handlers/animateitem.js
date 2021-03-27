@@ -16,6 +16,7 @@ export class AnimateItem {
         this.explodeVariant = this.data.explodeVariant;
         this.itemName = itemData[0];
         this.animTypeVar = itemData[1];
+        this.explodeLoop = this.data.explodeLoop;
         //this.itemNameSys = itemData[2];
         this.dtvar = this.data.dtvar;
         //this.flagObject = Object.assign({}, this.data);
@@ -27,6 +28,7 @@ export class AnimateItem {
             animType: ``,
             color: ``,
             explodeColor: ``,
+            explodeLoop: 1,
             explodeRadius: ``,
             explodeVariant: ``,
             dtvar: ``,
@@ -215,6 +217,10 @@ export class AnimateItem {
         } else {
             return AUTOANIM.explosionVariantFree;
         }
+    }
+
+    get exLoops() {
+        return AUTOANIM.explosionLoops;
     }
 
     get animNameHolder() {

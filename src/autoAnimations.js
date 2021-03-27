@@ -671,6 +671,28 @@ async function meleeWeapons(handler) {
     async function cast() {
         var arrayLength = handler.allTargets.length;
         //console.log(arrayLength);
+        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let myToken = handler.actorToken;
+        let targetTrainer =
+        {
+            file: noTargetAnim,
+            position: myToken.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: 0.35,
+                y: 0.35
+            }
+        }
+
+        switch (true) {
+            case (arrayLength === 0):
+                canvas.fxmaster.playVideo(targetTrainer);
+                game.socket.emit('module.fxmaster', targetTrainer);
+        }
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
 
@@ -777,7 +799,6 @@ async function randomGenDmg(handler) {
     //let tmMacro = "HitStutter";
 
     async function cast() {
-
         var arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
 
@@ -832,6 +853,13 @@ async function randomGenDmg(handler) {
                     await wait(500);
                     TokenMagic.addFilters(target, tmMacro);
                     break;
+            }
+            */
+            /*
+            await wait(250);
+            if (handler.animExplode) {
+                explodeOnTarget(handler);
+                break;
             }
             */
         }
@@ -1707,7 +1735,18 @@ async function rangedWeapons(handler) {
             color = "Red";
             tmColor = 0xBF0000;
             break;
-
+        case (handler.itemColorIncludes("pink")):
+            type01 = "01";
+            tint = "Regular";
+            color = "Pink";
+            tmColor = 0xFF00C6;
+            break;
+        case (handler.itemColorIncludes("purple")):
+            type01 = "01";
+            tint = "Regular";
+            color = "Pink";
+            tmColor = 0x8707B0;
+            break;
     }
     /*
         let Poison =
@@ -2645,6 +2684,7 @@ async function explodeTemplate(handler) {
     }
 
     async function cast() {
+        let loops = handler.animExLoop;
         //Finds the center of the placed circular template and plays an animation using FXMaster
         const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
         let template = await canvas.templates.get(templateID);
@@ -2681,7 +2721,7 @@ async function explodeTemplate(handler) {
             }
         }
         // The number in parenthesis sets the number of times it loops
-        SpellAnimation(3)
+        SpellAnimation(loops)
 
         let shockWave =
             [{
@@ -3202,6 +3242,7 @@ async function explodeOnTarget(handler) {
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
+        let loops = handler.animExLoop;
 
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
@@ -3235,7 +3276,7 @@ async function explodeOnTarget(handler) {
                 }
             }
             // The number in parenthesis sets the number of times it loops
-            SpellAnimation(2)
+            SpellAnimation(loops)
             /*
                     let shockWave =
                         [{
