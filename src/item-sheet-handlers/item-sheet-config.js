@@ -268,5 +268,5 @@ export class AnimationTab {
     isActive() {
         return $(this.html).find('a.item[data-tab="autoanimations"]').hasClass("active");
     }
-    
+
 }

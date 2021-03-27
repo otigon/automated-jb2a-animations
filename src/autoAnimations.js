@@ -165,7 +165,7 @@ function revItUp5eCore(msg) {
                                     break;
                                 case (handler.itemNameIncludes("grenade")):
                                 case (handler.itemNameIncludes("bomb")):
-                                case (handler.animType === "t9"):
+                                case (handler.animType === "t8"):
                                     Hooks.once("createMeasuredTemplate", () => {
                                         explodeTemplate(handler);
                                     })
@@ -238,7 +238,8 @@ function revItUp5eCore(msg) {
                         case (handler.itemNameIncludes("grenade")):
                         case (handler.itemNameIncludes("bomb")):
                         case (handler.itemNameIncludes("fireball") && handler.itemSourceIncludes("explode")):
-                            Hooks.once("createMeasuredTemplate", () => {
+                        case (handler.animType === "t8"):
+                                Hooks.once("createMeasuredTemplate", () => {
                                 explodeTemplate(handler);
                             })
                             break;
