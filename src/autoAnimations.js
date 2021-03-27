@@ -239,7 +239,7 @@ function revItUp5eCore(msg) {
                         case (handler.itemNameIncludes("bomb")):
                         case (handler.itemNameIncludes("fireball") && handler.itemSourceIncludes("explode")):
                         case (handler.animType === "t8"):
-                                Hooks.once("createMeasuredTemplate", () => {
+                            Hooks.once("createMeasuredTemplate", () => {
                                 explodeTemplate(handler);
                             })
                             break;
@@ -256,6 +256,12 @@ async function revItUp(handler) {
         case (handler.itemIncludes("xxx")):
         case (handler.animKill):
             break;
+        case (handler.animType === "t9"):
+            explodeOnTarget(handler);
+            break;
+        case (handler.animType === "t8"):
+            explodeTemplate(handler);
+            break;
         case handler.itemNameIncludes("rapier"):
         case handler.itemNameIncludes("sword"):
         case handler.itemNameIncludes("greatclub"):
@@ -271,11 +277,6 @@ async function revItUp(handler) {
         case handler.itemNameIncludes("1 handed piercing"):
         case handler.itemNameIncludes("2 handed piercing"):
             meleeWeapons(handler);
-            break;
-        case handler.itemNameIncludes("unarmed strike"):
-            if (moduleIncludes("jb2a_patreon")) {
-            randomGenDmg(handler);
-            }
             break;
         case (handler.itemNameIncludes("dagger")):
         case (handler.itemNameIncludes("hand", "axe")):
@@ -331,15 +332,11 @@ async function revItUp(handler) {
             break;
         case (handler.itemNameIncludes("grenade")):
         case (handler.itemNameIncludes("bomb")):
-        case (handler.animType === "t8"):
             explodeTemplate(handler);
             break;
         case (handler.itemNameIncludes("bite")):
         case (handler.itemNameIncludes("claw")):
             creatureAttacks(handler);
-            break;
-        case (handler.animType === "t9"):
-            explodeOnTarget(handler);
             break;
         case (handler.itemNameIncludes("potion", "heal")):
             castOnSelf(handler);
@@ -347,6 +344,12 @@ async function revItUp(handler) {
         case (handler.itemNameIncludes("second", "wind")):
             castOnSelf(handler);
             break;
+        case handler.itemNameIncludes("unarmed strike"):
+            if (moduleIncludes("jb2a_patreon")) {
+                randomGenDmg(handler);
+            }
+            break;
+
     }
 }
 
