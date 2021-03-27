@@ -1,3 +1,9 @@
+0.2.21 Release:
+- Fixed selector on item sheet Tab (thanks hmqgg)  
+- Added auto-recognition for unarmed strikes (only if Patreon version of JB2A present). Uses randomized generic damage  
+- Updated the Animate Tab to only show Free JB2A options, if no Patreon module is present  
+- Updated the Pop-Up window to fix broken links  
+
 0.2.12 Release:  
 - Fixed a slight scaling issue with some attack spells.  
 - Added Dark Red color menu option for Eldritch Blast  
