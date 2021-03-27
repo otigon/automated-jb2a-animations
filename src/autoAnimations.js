@@ -256,10 +256,10 @@ async function revItUp(handler) {
         case (handler.itemIncludes("xxx")):
         case (handler.animKill):
             break;
-        case (handler.animType === "t9"):
+        case ((handler.animType === "t9") && handler.animOverride):
             explodeOnTarget(handler);
             break;
-        case (handler.animType === "t8"):
+        case ((handler.animType === "t8") && handler.animOverride):
             explodeTemplate(handler);
             break;
         case handler.itemNameIncludes("rapier"):
@@ -670,6 +670,7 @@ async function meleeWeapons(handler) {
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
+        //console.log(arrayLength);
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
 
