@@ -60,13 +60,18 @@ export class AnimateItem {
         return data;
     }
     */
+
     get meleeColor() {
         //console.log(this.animType);
         //console.log(this.itemName);
         //console.log(this.color);
         switch (true) {
             case (this.itemName.includes("lasersword")):
-                return AUTOANIM.animColorLaserSword;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorLaserSword;
+                } else {
+                    return AUTOANIM.animColorLaserSwordFree;
+                }
                 break;
             case (this.itemName.includes("dagger")):
             case (this.itemName.includes("greataxe")):
@@ -79,52 +84,104 @@ export class AnimateItem {
             case (this.itemName.includes("scimitar")):
             case (this.itemName.includes("spear")):
             case (this.itemName.includes("sword")):
-                return AUTOANIM.animColorMelee;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorMelee;
+                } else {
+                    return AUTOANIM.animColorMeleeFree;
+                }
                 break;
             case (this.itemName.includes("cure", "wound")):
-                return AUTOANIM.animColorCureWounds;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorCureWounds;
+                } else {
+                    return AUTOANIM.animColorCureWoundsFree;
+                }
                 break;
             case (this.itemName.includes("disintegrate")):
-                return AUTOANIM.animColorDisintegrate;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorDisintegrate;
+                } else {
+                    return AUTOANIM.animColorDisintegrateFree;
+                }
                 break;
             case (this.itemName.includes("eldritch blast")):
-                return AUTOANIM.animColorEBlast;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorEBlast;
+                } else {
+                    return AUTOANIM.animColorEBlastFree;
+                }
                 break;
             case (this.itemName.includes("fire", "bolt")):
-                return AUTOANIM.animColorFirebolt;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorFirebolt;
+                } else {
+                    return AUTOANIM.animColorFireboltFree;
+                }
                 break;
             case (this.itemName.includes("generic", "heal")):
             case (this.itemName.includes("heal", "word")):
                 return AUTOANIM.animColorHealingWord;
                 break;
             case (this.itemName.includes("magic" && "missile")):
-                return AUTOANIM.animColorMagicMissile;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorMagicMissile;
+                } else {
+                    return AUTOANIM.animColorMagicMissileFree;
+                }
                 break;
             case (this.itemName.includes("ray of frost")):
-                return AUTOANIM.animColorRayFrost;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorRayFrost;
+                } else {
+                    return AUTOANIM.animColorRayFrostFree;
+                }
                 break;
             case (this.itemName.includes("scorching ray")):
-                return AUTOANIM.animColorScorchingRay;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorScorchingRay;
+                } else {
+                    return AUTOANIM.animColorScorchingRayFree;
+                }
                 break;
             case (this.itemName.includes("witch", "bolt")):
-                return AUTOANIM.animColorWitchbolt;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorWitchbolt;
+                } else {
+                    return AUTOANIM.animColorWitchboltFree;
+                }
                 break;
             case (this.itemName.includes("thunderwave")):
             case (this.itemName.includes("shatter")):
-                return AUTOANIM.animColorShatterThunder;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorShatterThunder;
+                } else {
+                    return AUTOANIM.animColorShatterThunderFree;
+                }
                 break;
             case (this.itemName.includes("arrow")):
             case (this.itemName.includes("bow")):
-                return AUTOANIM.animColorArrow;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animColorArrow;
+                } else {
+                    return AUTOANIM.animColorArrowFree;
+                }
                 break;
             case (this.itemName.includes("laser")):
                 return AUTOANIM.laserblastColors;
                 break;
             case (this.itemName.includes("bite")):
-                return AUTOANIM.animBiteColor;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animBiteColor;
+                } else {
+                    return AUTOANIM.animBiteColorFree;
+                }
                 break;
             case (this.itemName.includes("claw")):
-                return AUTOANIM.animClawColor;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animClawColor;
+                } else {
+                    return AUTOANIM.animClawColorFree;
+                }
                 break;
             default:
                 return AUTOANIM.animNoColor;
@@ -133,19 +190,31 @@ export class AnimateItem {
     }
 
     get daggerVar() {
-        return AUTOANIM.daggerVariant;
+        if (moduleIncludes("jb2a_patreon")) {
+            return AUTOANIM.daggerVariant;
+        } else {
+            return AUTOANIM.daggerVariantFree;
+        }
     }
 
     get exColors() {
-        return AUTOANIM.explosionColors;
+        if (moduleIncludes("jb2a_patreon")) {
+            return AUTOANIM.explosionColors;
+        } else {
+            return AUTOANIM.explosionColorsFree;
+        }
     }
 
     get exRadii() {
-        return AUTOANIM.explosionRadius;
+            return AUTOANIM.explosionRadius;
     }
 
     get exVariants() {
-        return AUTOANIM.explosionVariant;
+        if (moduleIncludes("jb2a_patreon")) {
+            return AUTOANIM.explosionVariant;
+        } else {
+            return AUTOANIM.explosionVariantFree;
+        }
     }
 
     get animNameHolder() {
@@ -155,10 +224,18 @@ export class AnimateItem {
                 return AUTOANIM.animNameMeleeWeapon;
                 break;
             case (this.animType === "t3"):
-                return AUTOANIM.animNameGenericDmg;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animNameGenericDmg;
+                } else {
+                    return AUTOANIM.animNameGenericDmgFree;
+                }
                 break;
             case (this.animType === "t4"):
-                return AUTOANIM.animNameRangeWeapon;
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.animNameRangeWeapon;
+                } else {
+                    return AUTOANIM.animNameRangeWeaponFree;
+                }
                 break;
             case (this.animType === "t5"):
                 return AUTOANIM.animCreatureAttack;
@@ -195,4 +272,8 @@ export class AnimateItem {
         }
     */
 
+}
+
+function moduleIncludes(test) {
+    return !!game.modules.get(test);
 }

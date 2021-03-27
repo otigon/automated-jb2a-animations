@@ -50,6 +50,12 @@ AUTOANIM.animNameRangeWeapon = {
     "a7": "Throwing Hammer",
 };
 
+AUTOANIM.animNameRangeWeaponFree = {
+    "a1": ``,
+    "a2": "Arrow",
+    "a3": "Laser Blast",
+};
+
 AUTOANIM.animNameGenericDmg = {
     "a1": ``,
     "a2": "1 Handed Slashing",
@@ -58,6 +64,10 @@ AUTOANIM.animNameGenericDmg = {
     "a5": "2 Handed Slashing",
     "a6": "2 Handed Piercing",
     "a7": "2 Handed Bludgeoning",
+}
+
+AUTOANIM.animNameGenericDmgFree = {
+    "a1": ``,
 }
 
 AUTOANIM.animCreatureAttack = {
@@ -77,6 +87,11 @@ AUTOANIM.animClawColor = {
     "b8": "Yellow",
 }
 
+AUTOANIM.animClawColorFree = {
+    "b1": ``,
+    "b2": "Red",
+}
+
 AUTOANIM.animBiteColor = {
     "b1": ``,
     "b2": "Blue",
@@ -85,6 +100,11 @@ AUTOANIM.animBiteColor = {
     "b5": "Purple",
     "b6": "Red",
     "b7": "Yellow",
+}
+
+AUTOANIM.animBiteColorFree = {
+    "b1": ``,
+    "b2": "Red",
 }
 
 AUTOANIM.animColorMelee = {
@@ -97,13 +117,23 @@ AUTOANIM.animColorMelee = {
     "b7": "Purple",
     "b8": "Pink",
     "b9": "Yellow"
-};
+}
+
+AUTOANIM.animColorMeleeFree = {
+    "b1": ``,
+    "b2": `Regular`,
+}
 
 AUTOANIM.daggerVariant = {
     "dt1": ``,
     "dt2": "Dagger01",
     "dt3": "Dagger02",
     "dt4": "Kunai",
+}
+
+AUTOANIM.daggerVariantFree = {
+    "dt1": ``,
+    "dt2": "Dagger01"
 }
 
 AUTOANIM.animColorLaserSword = {
@@ -115,7 +145,12 @@ AUTOANIM.animColorLaserSword = {
     "b6": "Purple",
     "b7": "Yellow",
     "b8": "Darkred"
-};
+}
+
+AUTOANIM.animColorLaserSwordFree = {
+    "b1": ``,
+    "b2": "Blue",
+}
 
 AUTOANIM.animColorCureWounds = {
     "b1": ``,
@@ -123,7 +158,12 @@ AUTOANIM.animColorCureWounds = {
     "b3": "Green",
     "b4": "Purple",
     "b5": "Red"
-};
+}
+
+AUTOANIM.animColorCureWoundsFree = {
+    "b1": ``,
+    "b2": "Blue",
+}
 
 AUTOANIM.animColorEBlast = {
     "b1": ``,
@@ -134,12 +174,22 @@ AUTOANIM.animColorEBlast = {
     "b6": "Dark Red",
 }
 
+AUTOANIM.animColorEBlastFree = {
+    "b1": ``,
+    "b2": "Purple",
+}
+
 AUTOANIM.animColorDisintegrate = {
     "b1": ``,
     "b2": "Green",
     "b3": "Darkred",
     "b4": "Orange Pink",
     "b5": "Purple Blue"
+};
+
+AUTOANIM.animColorDisintegrateFree = {
+    "b1": ``,
+    "b2": "Green",
 };
 
 AUTOANIM.animColorFirebolt = {
@@ -149,6 +199,11 @@ AUTOANIM.animColorFirebolt = {
     "b4": "Orange",
     "b5": "Purple",
     "b6": "Red",
+};
+
+AUTOANIM.animColorFireboltFree = {
+    "b1": ``,
+    "b2": "Orange",
 };
 
 AUTOANIM.animColorHealingWord = {
@@ -168,12 +223,22 @@ AUTOANIM.animColorMagicMissile = {
     "b6": "Random"
 };
 
+AUTOANIM.animColorMagicMissileFree = {
+    "b1": ``,
+    "b2": "Purple",
+};
+
 AUTOANIM.animColorRayFrost = {
     "b1": ``,
     "b2": "Blue",
     "b3": "Green",
     "b4": "Purple Teal",
     "b5": "Yellow Blue",
+};
+
+AUTOANIM.animColorRayFrostFree = {
+    "b1": ``,
+    "b2": "Blue",
 };
 
 AUTOANIM.animColorScorchingRay = {
@@ -186,6 +251,11 @@ AUTOANIM.animColorScorchingRay = {
     "b7": "Yellow",
 };
 
+AUTOANIM.animColorScorchingRayFree = {
+    "b1": ``,
+    "b2": "Orange",
+};
+
 AUTOANIM.animColorShatterThunder = {
     "b1": ``,
     "b2": "Blue",
@@ -193,6 +263,11 @@ AUTOANIM.animColorShatterThunder = {
     "b4": "Orange",
     "b5": "Purple",
     "b6": "Red"
+};
+
+AUTOANIM.animColorShatterThunderFree = {
+    "b1": ``,
+    "b2": "Blue",
 };
 
 AUTOANIM.animColorWitchbolt = {
@@ -206,10 +281,20 @@ AUTOANIM.animColorWitchbolt = {
     "b8": "Darkred"
 };
 
+AUTOANIM.animColorWitchboltFree = {
+    "b1": ``,
+    "b2": "Blue",
+};
+
 AUTOANIM.animColorArrow = {
     "b1": ``,
     "b2": "Regular",
     "b3": "Green"
+};
+
+AUTOANIM.animColorArrowFree = {
+    "b1": ``,
+    "b2": "Regular",
 };
 
 AUTOANIM.explosionColors = {
@@ -219,6 +304,11 @@ AUTOANIM.explosionColors = {
     "ec4": "Orange",
     "ec5": "Purple",
     "ec6": "Yellow",
+}
+
+AUTOANIM.explosionColorsFree = {
+    "ec1": ``,
+    "ec2": "Orange",
 }
 
 AUTOANIM.laserblastColors = {
@@ -248,6 +338,11 @@ AUTOANIM.explosionVariant = {
     "ev1": ``,
     "ev2": "01",
     "ev3": "02",
+}
+
+AUTOANIM.explosionVariantFree = {
+    "ev1": ``,
+    "ev2": "01",
 }
 
 AUTOANIM.animTypePick = {

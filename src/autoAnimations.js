@@ -271,6 +271,11 @@ async function revItUp(handler) {
         case handler.itemNameIncludes("2 handed piercing"):
             meleeWeapons(handler);
             break;
+        case handler.itemNameIncludes("unarmed strike"):
+            if (moduleIncludes("jb2a_patreon")) {
+            randomGenDmg(handler);
+            }
+            break;
         case (handler.itemNameIncludes("dagger")):
         case (handler.itemNameIncludes("hand", "axe")):
         case (handler.itemNameIncludes("spear")):
@@ -762,6 +767,74 @@ async function meleeWeapons(handler) {
     cast();
 }
 
+async function randomGenDmg(handler) {
+
+    //let tmMacro = "HitStutter";
+
+    async function cast() {
+
+        var arrayLength = handler.allTargets.length;
+        for (var i = 0; i < arrayLength; i++) {
+
+            let target = handler.allTargets[i];
+
+            let file = `modules/${path00}/Library/Generic/Weapon_Attacks/Melee/`;
+
+            let gd1 = `${file}DmgBludgeoning_01_Regular_Yellow_1handed_800x600.webm`;
+            let gd2 = `${file}DmgBludgeoning_01_Regular_Yellow_2handed_800x600.webm`;
+            let gd3 = `${file}DmgPiercing_01_Regular_Yellow_1handed_800x600.webm`;
+            let gd4 = `${file}DmgPiercing_01_Regular_Yellow_2handed_800x600.webm`;
+            let gd5 = `${file}DmgSlashing_01_Regular_Yellow_1handed_800x600.webm`;
+            let gd6 = `${file}DmgSlashing_01_Regular_Yellow_2handed_800x600.webm`;
+
+
+            var itemsA = [gd1, gd2, gd3, gd4, gd5, gd6];
+
+            function random_itemA(itemsA) {
+                return itemsA[Math.floor(Math.random() * itemsA.length)];
+            }
+
+
+            // Scaled globally, change divisor to increase/decrease size of animation
+            let Scale = canvas.scene.data.grid / 175;
+            // randomly mirrors animation
+            var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+
+            let anim = random_itemA(itemsA);
+
+            function castSpell(effect) {
+                game.user.targets.forEach((i, t) => {
+                    canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, t);
+
+                });
+            }
+            castSpell({
+                file: anim,
+                anchor: {
+                    x: 0.4,
+                    y: 0.5,
+                },
+                speed: 0,
+                angle: 0,
+                scale: {
+                    x: Scale,
+                    y: (Scale * plusOrMinus),
+                },
+            });
+            /*
+            switch (true) {
+                case (game.settings.get("automated-jb2a-animations", "tmfx")):
+                    await wait(500);
+                    TokenMagic.addFilters(target, tmMacro);
+                    break;
+            }
+            */
+        }
+    }
+    cast();
+
+
+}
 
 async function meleeRangeSwitch(handler) {
     let type01 = "01";
@@ -3195,4 +3268,5 @@ async function explodeOnTarget(handler) {
     }
     cast();
 }
+
 
