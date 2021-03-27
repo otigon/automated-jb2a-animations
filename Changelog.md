@@ -1,4 +1,7 @@
-0.2.21 Release:
+0.2.23 & 0.2.24:  
+- Fix for Explosion Overrides not functioning as intended 
+
+2.2.21 Release:
 - Fixed selector on item sheet Tab (thanks hmqgg)  
 - Added auto-recognition for unarmed strikes (only if Patreon version of JB2A present). Uses randomized generic damage  
 - Updated the Animate Tab to only show Free JB2A options, if no Patreon module is present  
