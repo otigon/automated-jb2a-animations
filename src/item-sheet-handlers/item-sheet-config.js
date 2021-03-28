@@ -157,7 +157,7 @@ export class AnimationTab {
             case (this.animateItem.animName.toLowerCase().includes("javelin") || this.item.name.toLowerCase().includes("javelin")):
             case (this.animateItem.animName.toLowerCase().includes("boulder") || this.item.name.toLowerCase().includes("boulder")):
             case (this.animateItem.animName.toLowerCase().includes("siege") || this.item.name.toLowerCase().includes("siege")):
-            case (this.animateItem.animName.toLowerCase().includes("throwing" && "hammer") || this.item.name.toLowerCase().includes("throwing" && "hammer")):
+            case (this.animateItem.animName.toLowerCase().includes("throwing") || this.item.name.toLowerCase().includes("throwing")):
                 animateColor.hide();
                 break;
         }
