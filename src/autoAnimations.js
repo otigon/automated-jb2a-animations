@@ -24,6 +24,14 @@ Hooks.on('init', () => {
         type: Boolean,
         default: false,                                     // The default value for the setting
     });
+    game.settings.register("automated-jb2a-animations", "targetingAssist", {
+        name: "Targeting Assistant",
+        hint: "Enable this setting to activate the Targeting Assistant",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+    });
     game.settings.register("automated-jb2a-animations", "tmfx", {
         name: 'Enable Token Magic FX',
         hint: "Enables all Token Magic effects with the animations",
@@ -683,13 +691,13 @@ async function meleeWeapons(handler) {
             },
             angle: 0,
             scale: {
-                x: 0.35,
-                y: 0.35
+                x: 0.25,
+                y: 0.25
             }
         }
 
         switch (true) {
-            case (arrayLength === 0):
+            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -769,8 +777,12 @@ async function meleeWeapons(handler) {
                     }
                     break;
                 default:
+                    await wait(tmDelay - 200);
+                    if (handler.animExplode && handler.animOverride) {
+                        explodeOnTarget(handler);
+                    }
                     if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        await wait(tmDelay);
+                        await wait(200);
                         switch (true) {
                             case (fireColor != "pass"):
                                 TokenMagic.addFilters(target, burn);
@@ -781,6 +793,7 @@ async function meleeWeapons(handler) {
                                 TokenMagic.addFilters(target, tmMacro);
                                 break;
                         }
+                        await wait(250);
                     }
             }
             await wait(tmKill);
@@ -796,10 +809,33 @@ async function meleeWeapons(handler) {
 
 async function randomGenDmg(handler) {
 
-    //let tmMacro = "HitStutter";
-
     async function cast() {
         var arrayLength = handler.allTargets.length;
+
+        //let tmMacro = "HitStutter";
+        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let myToken = handler.actorToken;
+        let targetTrainer =
+        {
+            file: noTargetAnim,
+            position: myToken.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: 0.25,
+                y: 0.25
+            }
+        }
+    
+        switch (true) {
+            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+                canvas.fxmaster.playVideo(targetTrainer);
+                game.socket.emit('module.fxmaster', targetTrainer);
+        }
+    
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
@@ -855,13 +891,11 @@ async function randomGenDmg(handler) {
                     break;
             }
             */
-            /*
-            await wait(250);
-            if (handler.animExplode) {
+
+            if (handler.animExplode && handler.animOverride) {
                 explodeOnTarget(handler);
-                break;
             }
-            */
+
         }
     }
     cast();
@@ -1013,6 +1047,29 @@ async function meleeRangeSwitch(handler) {
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
+        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let myToken = handler.actorToken;
+        let targetTrainer =
+        {
+            file: noTargetAnim,
+            position: myToken.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: 0.25,
+                y: 0.25
+            }
+        }
+    
+        switch (true) {
+            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+                canvas.fxmaster.playVideo(targetTrainer);
+                game.socket.emit('module.fxmaster', targetTrainer);
+        }
+    
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
@@ -1160,6 +1217,7 @@ async function spellAttacks(handler) {
     let tint;
     let color;
     let tmColor;
+
     let path;
     let path2;
 
@@ -1206,7 +1264,7 @@ async function spellAttacks(handler) {
             color = "Purple";
             break;
     }
-
+    
     switch (true) {
         case (handler.itemColorIncludes("orange", "pink")):
             tint = "Regular";
@@ -1287,7 +1345,7 @@ async function spellAttacks(handler) {
             tmColor = 0xFF0000;
             break;
     }
-
+    
     let letitBurn =
         [{
             filterType: "xfire",
@@ -1425,6 +1483,30 @@ async function spellAttacks(handler) {
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
+
+        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let myToken = handler.actorToken;
+        let targetTrainer =
+        {
+            file: noTargetAnim,
+            position: myToken.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: 0.25,
+                y: 0.25
+            }
+        }
+    
+        switch (true) {
+            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+                canvas.fxmaster.playVideo(targetTrainer);
+                game.socket.emit('module.fxmaster', targetTrainer);
+        }
+    
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
             //log(target.id);
@@ -1632,9 +1714,32 @@ async function creatureAttacks(handler) {
     let tmMacro;
     let path;
 
-
     async function cast() {
         var arrayLength = handler.allTargets.length;
+
+        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let myToken = handler.actorToken;
+        let targetTrainer =
+        {
+            file: noTargetAnim,
+            position: myToken.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: 0.25,
+                y: 0.25
+            }
+        }
+    
+        switch (true) {
+            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+                canvas.fxmaster.playVideo(targetTrainer);
+                game.socket.emit('module.fxmaster', targetTrainer);
+        }
+    
         for (var i = 0; i < arrayLength; i++) {
             //log(handler.allTargets[i]);
             let target = handler.allTargets[i];
@@ -1748,27 +1853,6 @@ async function rangedWeapons(handler) {
             tmColor = 0x8707B0;
             break;
     }
-    /*
-        let Poison =
-            [{
-                filterType: "smoke",
-                filterId: "Poison",
-                color: 0x50FFAA,
-                time: 0,
-                blend: 2,
-                dimX: 1,
-                dimY: 1,
-                animated:
-                {
-                    time:
-                    {
-                        active: true,
-                        speed: 0.0015,
-                        animType: "move"
-                    }
-                }
-            }];
-    */
     let colorWave =
         [{
             filterType: "wave",
@@ -1877,8 +1961,33 @@ async function rangedWeapons(handler) {
             break;
     }
 
+
     async function cast() {
         var arrayLength = handler.allTargets.length;
+
+        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let myToken = handler.actorToken;
+        let targetTrainer =
+        {
+            file: noTargetAnim,
+            position: myToken.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: 0.25,
+                y: 0.25
+            }
+        }
+    
+        switch (true) {
+            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+                canvas.fxmaster.playVideo(targetTrainer);
+                game.socket.emit('module.fxmaster', targetTrainer);
+        }
+    
         for (var i = 0; i < arrayLength; i++) {
 
             await wait(500)
@@ -2455,8 +2564,33 @@ async function magicMissile(handler) {
             }
         }];
 
+    
     async function cast() {
         var arrayLength = handler.allTargets.length;
+
+        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let myToken = handler.actorToken;
+        let targetTrainer =
+        {
+            file: noTargetAnim,
+            position: myToken.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: 0.25,
+                y: 0.25
+            }
+        }
+    
+        switch (true) {
+            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+                canvas.fxmaster.playVideo(targetTrainer);
+                game.socket.emit('module.fxmaster', targetTrainer);
+        }
+
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
 
@@ -2649,6 +2783,9 @@ async function explodeTemplate(handler) {
     }
     let divisor = 100;
     switch (true) {
+        case (handler.animExRadius.includes("2")):
+            divisor = 300;
+            break;
         case (handler.animExRadius.includes("05")):
             divisor = 200;
             break;
@@ -2946,6 +3083,9 @@ async function arrowOptionExplode(handler) {
     */
     let divisor = 100;
     switch (true) {
+        case (handler.animExRadius.includes("2")):
+            divisor = 300;
+            break;
         case (handler.animExRadius.includes("05")):
             divisor = 200;
             break;
@@ -2982,6 +3122,29 @@ async function arrowOptionExplode(handler) {
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
+
+        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let myToken = handler.actorToken;
+        let targetTrainer =
+        {
+            file: noTargetAnim,
+            position: myToken.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: 0.25,
+                y: 0.25
+            }
+        }
+    
+        switch (true) {
+            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+                canvas.fxmaster.playVideo(targetTrainer);
+                game.socket.emit('module.fxmaster', targetTrainer);
+        }
         for (var i = 0; i < arrayLength; i++) {
             let Scale = (canvas.scene.data.grid / divisor);
 
@@ -3206,7 +3369,10 @@ async function explodeOnTarget(handler) {
     }
     let divisor = 200;
     switch (true) {
-        case (handler.animExRadius.includes("05")):
+        case (handler.animExRadius.includes("2")):
+            divisor = 300;
+            break;
+        case (handler.animExRadius.includes("5")):
             divisor = 200;
             break;
         case (handler.animExRadius.includes("10")):

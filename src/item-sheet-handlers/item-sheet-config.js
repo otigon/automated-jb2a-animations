@@ -121,11 +121,13 @@ export class AnimationTab {
 
 
         switch (true) {
-            case (this.animateItem.explosion && ((this.animateItem.animName.toLowerCase().includes("arrow")) || this.item.name.toLowerCase().includes("bow")) && this.animateItem.animType === "t4"):
+            case (this.animateItem.explosion && this.animateItem.override && ((this.animateItem.animName.toLowerCase().includes("arrow")) || this.item.name.toLowerCase().includes("bow")) && this.animateItem.animType === "t4"):
+                case (this.animateItem.explosion && (this.animateItem.animType === "t2") && this.animateItem.override):
+                case (this.animateItem.explosion && (this.animateItem.animType === "t3") && this.animateItem.override):
                 explosionOptions.show();
                 break;
-            case ((this.animateItem.animType === "t8") && (this.animateItem.override)):
-            case ((this.animateItem.animType === "t9") && (this.animateItem.override)):
+            case ((this.animateItem.animType === "t8") && this.animateItem.override):
+            case ((this.animateItem.animType === "t9") && this.animateItem.override):
                 explosionOptions.show();
                 animateName.hide();
                 animateColor.hide();
@@ -162,6 +164,8 @@ export class AnimationTab {
 
         switch (true) {
             case ((this.animateItem.animName.toLowerCase().includes("arrow")) && (this.animateItem.animType === "t4") && this.animateItem.override):
+            case ((this.animateItem.animType === "t2") && this.animateItem.override):
+            case ((this.animateItem.animType === "t3") && this.animateItem.override):
                 animateExplosion.show();
                 break;
             default:

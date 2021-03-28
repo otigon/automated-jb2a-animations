@@ -93,7 +93,7 @@ export default class Pf1Handler {
     get animExVariant() {
         return this._animExVariant;
     }
-    
+
     get animExLoop() {
         return this._animExLoop;
     }

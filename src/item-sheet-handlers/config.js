@@ -331,17 +331,18 @@ AUTOANIM.explosionLoops = {
 
 AUTOANIM.explosionRadius = {
     "er1": ``,
-    "er2": "5",
-    "ec3": "10",
-    "ec4": "15",
-    "ec5": "20",
-    "ec6": "25",
-    "ec7": "30",
-    "ec8": "35",
-    "ec9": "40",
-    "ec10": "45",
-    "ec11": "50",
-    "ec12": "Nuclear",
+    "er2": "2",
+    "er3": "5",
+    "ec4": "10",
+    "ec5": "15",
+    "ec6": "20",
+    "ec7": "25",
+    "ec8": "30",
+    "ec9": "35",
+    "ec10": "40",
+    "ec11": "45",
+    "ec12": "50",
+    "ec13": "Nuclear",
 }
 
 AUTOANIM.explosionVariant = {
