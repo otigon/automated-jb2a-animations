@@ -1,4 +1,8 @@
-0.2.23 & 0.2.24:  
+0.2.30:  
+- Added the ability to add Explosions to Melee Weapon Attacks. Must use the Override setting in the Animate Tab  
+- Added a "Targeting Assistant" Setting. Plays an animation on the Source Token when they attack without a target (Only for animations that require a target)  
+- 
+2.2.23 & 0.2.24:  
 - Fix for Explosion Overrides not functioning as intended 
 
 2.2.21 Release:
