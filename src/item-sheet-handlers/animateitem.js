@@ -70,9 +70,9 @@ export class AnimateItem {
         switch (true) {
             case (this.itemName.includes("lasersword")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorLaserSword;
+                    return AUTOANIM.localized(AUTOANIM.animColorLaserSword);
                 } else {
-                    return AUTOANIM.animColorLaserSwordFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree);
                 }
                 break;
             case (this.itemName.includes("dagger")):
@@ -87,135 +87,135 @@ export class AnimateItem {
             case (this.itemName.includes("spear")):
             case (this.itemName.includes("sword")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorMelee;
+                    return AUTOANIM.localized(AUTOANIM.animColorMelee);
                 } else {
-                    return AUTOANIM.animColorMeleeFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorMeleeFree);
                 }
                 break;
             case (this.itemName.includes("cure", "wound")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorCureWounds;
+                    return AUTOANIM.localized(AUTOANIM.animColorCureWounds);
                 } else {
-                    return AUTOANIM.animColorCureWoundsFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorCureWoundsFree);
                 }
                 break;
             case (this.itemName.includes("disintegrate")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorDisintegrate;
+                    return AUTOANIM.localized(AUTOANIM.animColorDisintegrate);
                 } else {
-                    return AUTOANIM.animColorDisintegrateFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorDisintegrateFree);
                 }
                 break;
             case (this.itemName.includes("eldritch blast")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorEBlast;
+                    return AUTOANIM.localized(AUTOANIM.animColorEBlast);
                 } else {
-                    return AUTOANIM.animColorEBlastFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorEBlastFree);
                 }
                 break;
             case (this.itemName.includes("fire", "bolt")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorFirebolt;
+                    return AUTOANIM.localized(AUTOANIM.animColorFirebolt);
                 } else {
-                    return AUTOANIM.animColorFireboltFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorFireboltFree);
                 }
                 break;
             case (this.itemName.includes("generic", "heal")):
             case (this.itemName.includes("heal", "word")):
-                return AUTOANIM.animColorHealingWord;
+                return AUTOANIM.localized(AUTOANIM.animColorHealingWord);
                 break;
             case (this.itemName.includes("magic" && "missile")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorMagicMissile;
+                    return AUTOANIM.localized(AUTOANIM.animColorMagicMissile);
                 } else {
-                    return AUTOANIM.animColorMagicMissileFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorMagicMissileFree);
                 }
                 break;
             case (this.itemName.includes("ray of frost")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorRayFrost;
+                    return AUTOANIM.localized(AUTOANIM.animColorRayFrost);
                 } else {
-                    return AUTOANIM.animColorRayFrostFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorRayFrostFree);
                 }
                 break;
             case (this.itemName.includes("scorching ray")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorScorchingRay;
+                    return AUTOANIM.localized(AUTOANIM.animColorScorchingRay);
                 } else {
-                    return AUTOANIM.animColorScorchingRayFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorScorchingRayFree);
                 }
                 break;
             case (this.itemName.includes("witch", "bolt")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorWitchbolt;
+                    return AUTOANIM.localized(AUTOANIM.animColorWitchbolt);
                 } else {
-                    return AUTOANIM.animColorWitchboltFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorWitchboltFree);
                 }
                 break;
             case (this.itemName.includes("thunderwave")):
             case (this.itemName.includes("shatter")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorShatterThunder;
+                    return AUTOANIM.localized(AUTOANIM.animColorShatterThunder);
                 } else {
-                    return AUTOANIM.animColorShatterThunderFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree);
                 }
                 break;
             case (this.itemName.includes("arrow")):
             case (this.itemName.includes("bow")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animColorArrow;
+                    return AUTOANIM.localized(AUTOANIM.animColorArrow);
                 } else {
-                    return AUTOANIM.animColorArrowFree;
+                    return AUTOANIM.localized(AUTOANIM.animColorArrowFree);
                 }
                 break;
             case (this.itemName.includes("laser")):
-                return AUTOANIM.laserblastColors;
+                return AUTOANIM.localized(AUTOANIM.laserblastColors);
                 break;
             case (this.itemName.includes("bite")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animBiteColor;
+                    return AUTOANIM.localized(AUTOANIM.animBiteColor);
                 } else {
-                    return AUTOANIM.animBiteColorFree;
+                    return AUTOANIM.localized(AUTOANIM.animBiteColorFree);
                 }
                 break;
             case (this.itemName.includes("claw")):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animClawColor;
+                    return AUTOANIM.localized(AUTOANIM.animClawColor);
                 } else {
-                    return AUTOANIM.animClawColorFree;
+                    return AUTOANIM.localized(AUTOANIM.animClawColorFree);
                 }
                 break;
             default:
-                return AUTOANIM.animNoColor;
+                return AUTOANIM.localized(AUTOANIM.animNull);
                 break;
         }
     }
 
     get daggerVar() {
         if (moduleIncludes("jb2a_patreon")) {
-            return AUTOANIM.daggerVariant;
+            return AUTOANIM.localized(AUTOANIM.daggerVariant);
         } else {
-            return AUTOANIM.daggerVariantFree;
+            return AUTOANIM.localized(AUTOANIM.daggerVariantFree);
         }
     }
 
     get exColors() {
         if (moduleIncludes("jb2a_patreon")) {
-            return AUTOANIM.explosionColors;
+            return AUTOANIM.localized(AUTOANIM.explosionColors);
         } else {
-            return AUTOANIM.explosionColorsFree;
+            return AUTOANIM.localized(AUTOANIM.explosionColorsFree);
         }
     }
 
     get exRadii() {
-            return AUTOANIM.explosionRadius;
+            return AUTOANIM.localized(AUTOANIM.explosionRadius);
     }
 
     get exVariants() {
         if (moduleIncludes("jb2a_patreon")) {
-            return AUTOANIM.explosionVariant;
+            return AUTOANIM.localized(AUTOANIM.explosionVariant);
         } else {
-            return AUTOANIM.explosionVariantFree;
+            return AUTOANIM.localized(AUTOANIM.explosionVariantFree);
         }
     }
 
@@ -227,36 +227,36 @@ export class AnimateItem {
         //console.log(this.animTypeVar);
         switch (true) {
             case (this.animType === "t2"):
-                return AUTOANIM.animNameMeleeWeapon;
+                return AUTOANIM.localized(AUTOANIM.animNameMeleeWeapon);
                 break;
             case (this.animType === "t3"):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animNameGenericDmg;
+                    return AUTOANIM.localized(AUTOANIM.animNameGenericDmg);
                 } else {
-                    return AUTOANIM.animNameGenericDmgFree;
+                    return AUTOANIM.localized(AUTOANIM.animNameGenericDmgFree);
                 }
                 break;
             case (this.animType === "t4"):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.animNameRangeWeapon;
+                    return AUTOANIM.localized(AUTOANIM.animNameRangeWeapon);
                 } else {
-                    return AUTOANIM.animNameRangeWeaponFree;
+                    return AUTOANIM.localized(AUTOANIM.animNameRangeWeaponFree);
                 }
                 break;
             case (this.animType === "t5"):
-                return AUTOANIM.animCreatureAttack;
+                return AUTOANIM.localized(AUTOANIM.animCreatureAttack);
                 break;
             case (this.animType === "t6"):
-                return AUTOANIM.animNameAttackSpell;
+                return AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
                 break;
             case (this.animType === "t7"):
-                return AUTOANIM.animNameHealSpell;
+                return AUTOANIM.localized(AUTOANIM.animNameHealSpell);
                 break;
         }
     }
 
     get animTypePick() {
-        return AUTOANIM.animTypePick;
+        return AUTOANIM.localized(AUTOANIM.animTypePick);
     }
 
 

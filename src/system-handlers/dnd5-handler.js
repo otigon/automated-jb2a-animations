@@ -8,6 +8,7 @@ export default class Dnd5Handler {
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
         this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
+        this._itemNameLocal = this._actorToken.actor?.items?.get(itemId)?.name ?? "";
 
         // getting flag data from Animation Tab
         this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";;
@@ -74,6 +75,10 @@ export default class Dnd5Handler {
 
     get itemType() {
         return this._actorToken.actor.items?.get(itemId).data?.type?.toLowerCase();
+    }
+
+    get itemNameLocale() {
+        return this._itemNameLocal;
     }
 
     get checkSaves() {

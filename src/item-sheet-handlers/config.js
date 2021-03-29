@@ -4,66 +4,67 @@ export const AUTOANIM = {};
 
 AUTOANIM.animNameAttackSpell = {
     "a1": ``,
-    "a2": "Disintegrate",
-    "a3": "Eldritch Blast", 
-    "a4": "Fire Bolt",
-    "a5": "Magic Missile",
-    "a6": "Ray of Frost",
-    "a7": "Scorching Ray",
-    "a8": "Witch Bolt"
+    "a2": "AUTOANIM.itemDisintegrate",
+    "a3": "AUTOANIM.itemEldritchBlast", 
+    "a4": "AUTOANIM.itemFireBolt",
+    "a5": "AUTOANIM.itemMagicMissile",
+    "a6": "AUTOANIM.itemRayFrost",
+    "a7": "AUTOANIM.itemScorchingRay",
+    "a8": "AUTOANIM.itemWitchBolt"
 };
 
 AUTOANIM.animNameHealSpell = {
     "a1": ``,
-    "a2": "Cure Wounds",
-    "a3": "Generic Healing",
+    "cure wounds": "AUTOANIM.itemCureWounds",
+    "generic healing": "AUTOANIM.itemGenericHealing",
 }
 
 AUTOANIM.animNameTemplateSpell = {
     "tp1": ``,
-    "tp2": "Thunderwave",
-    "tp3": "Shatter"
+    "thunderwave": "AUTOANIM.itemThunderwave",
+    "shatter": "AUTOANIM.itemShatter"
 };
 
 AUTOANIM.animNameMeleeWeapon = {
     "a1": ``,
-    "a2": "Dagger",
-    "a3": "Greataxe",
-    "a4": "Greatclub",
-    "a5": "Greatsword",
-    "a6": "Handaxe",
-    "a7": "Lasersword",
-    "a8": "Mace",
-    "a9": "Maul",
-    "a10": "Spear",
-    "a11": "Sword",
-    "a12": "Rapier"
+    "dagger": "AUTOANIM.itemDagger",
+    "greataxe": "AUTOANIM.itemGreataxe",
+    "greatclub": "AUTOANIM.itemGreatclub",
+    "greatsword": "AUTOANIM.itemGreatsword",
+    "handaxe": "AUTOANIM.itemAxe",
+    "lasersword": "AUTOANIM.itemLaserSword",
+    "mace": "AUTOANIM.itemMace",
+    "maul": "AUTOANIM.itemMaul",
+    "sling": "AUTOANIM.itemSling",
+    "spear": "AUTOANIM.itemSpear",
+    "sword": "AUTOANIM.itemSword",
+    "rapier": "AUTOANIM.itemRapier"
 };
 
 AUTOANIM.animNameRangeWeapon = {
     "a1": ``,
-    "a2": "Arrow",
-    "a3": "Boulder",
-    "a4": "Javelin",
-    "a5": "Laser Blast",
-    "a6": "Siege Boulder",
-    "a7": "Throwing Hammer",
+    "arrow": "AUTOANIM.itemArrow",
+    "boulder": "AUTOANIM.itemBoulder",
+    "javelin": "AUTOANIM.itemJavelin",
+    "laser blast": "AUTOANIM.itemLaserBlast",
+    "siege boulder": "AUTOANIM.itemSiegeBoulder",
+    "throwing hammer": "AUTOANIM.itemThrowingHammer",
 };
 
 AUTOANIM.animNameRangeWeaponFree = {
     "a1": ``,
-    "a2": "Arrow",
-    "a3": "Laser Blast",
+    "arrow": "AUTOANIM.itemArrow",
+    "laser blast": "AUTOANIM.itemLaserBlast",
 };
 
 AUTOANIM.animNameGenericDmg = {
     "a1": ``,
-    "a2": "1 Handed Slashing",
-    "a3": "1 Handed Piercing",
-    "a4": "1 Handed Bludgeoning",
-    "a5": "2 Handed Slashing",
-    "a6": "2 Handed Piercing",
-    "a7": "2 Handed Bludgeoning",
+    "1 handed slashing": "AUTOANIM.item1HS",
+    "1 handed piercing": "AUTOANIM.item1HP",
+    "1 handed bludgeoning": "AUTOANIM.item1HB",
+    "2 handed slashing": "AUTOANIM.item2HS",
+    "2 handed piercing": "AUTOANIM.item2HP",
+    "2 handed bludgeoning": "AUTOANIM.item2HB",
 }
 
 AUTOANIM.animNameGenericDmgFree = {
@@ -72,254 +73,255 @@ AUTOANIM.animNameGenericDmgFree = {
 
 AUTOANIM.animCreatureAttack = {
     "a1": ``,
-    "a2": "Bite",
-    "a3": "Claw",
+    "bite": "AUTOANIM.itemBite",
+    "claw": "AUTOANIM.itemClaw",
 }
 
 AUTOANIM.animClawColor = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Orange",
-    "b5": "Purple",
-    "b6": "Red",
-    "b7": "Darkred",
-    "b8": "Yellow",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "yellow": "AUTOANIM.colorYellow",
 }
 
 AUTOANIM.animClawColorFree = {
     "b1": ``,
-    "b2": "Red",
+    "red": "AUTOANIM.colorRed",
 }
 
 AUTOANIM.animBiteColor = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Orange",
-    "b5": "Purple",
-    "b6": "Red",
-    "b7": "Yellow",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow",
 }
 
 AUTOANIM.animBiteColorFree = {
     "b1": ``,
-    "b2": "Red",
+    "red": "AUTOANIM.colorRed",
 }
 
 AUTOANIM.animColorMelee = {
     "b1": ``,
-    "b2": `Regular`,
-    "b3": "Blue",
-    "b4": "Green",
-    "b5": "Orange",
-    "b6": "Red",
-    "b7": "Purple",
-    "b8": "Pink",
-    "b9": "Yellow"
+    "regular": `AUTOANIM.colorWhite`,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
+    "purple": "AUTOANIM.colorPurple",
+    "pink": "AUTOANIM.colorPink",
+    "yellow": "AUTOANIM.colorYellow"
 }
 
 AUTOANIM.animColorMeleeFree = {
     "b1": ``,
-    "b2": `Regular`,
+    "regular": `AUTOANIM.colorWhite`,
 }
 
 AUTOANIM.daggerVariant = {
     "dt1": ``,
-    "dt2": "Dagger01",
-    "dt3": "Dagger02",
-    "dt4": "Kunai",
+    "dagger01": "AUTOANIM.itemDagger01",
+    "dagger02": "AUTOANIM.itemDagger02",
+    "kunai": "AUTOANIM.itemKunai",
 }
 
 AUTOANIM.daggerVariantFree = {
     "dt1": ``,
-    "dt2": "Dagger01"
+    "dagger01": "AUTOANIM.itemDagger01",
 }
 
 AUTOANIM.animColorLaserSword = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Orange",
-    "b5": "Red",
-    "b6": "Purple",
-    "b7": "Yellow",
-    "b8": "Darkred"
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow",
+    "dark red": "AUTOANIM.colorDarkRed"
 }
 
 AUTOANIM.animColorLaserSwordFree = {
     "b1": ``,
-    "b2": "Blue",
+    "blue": "AUTOANIM.colorBlue",
 }
 
 AUTOANIM.animColorCureWounds = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Purple",
-    "b5": "Red"
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed"
 }
 
 AUTOANIM.animColorCureWoundsFree = {
     "b1": ``,
-    "b2": "Blue",
+    "blue": "AUTOANIM.colorBlue",
 }
 
 AUTOANIM.animColorEBlast = {
     "b1": ``,
-    "b2": "Purple",
-    "b3": "Dark Purple",
-    "b4": "Green",
-    "b5": "Yellow",
-    "b6": "Dark Red",
+    "purple": "AUTOANIM.colorPurple",
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "green": "AUTOANIM.colorGreen",
+    "yellow": "AUTOANIM.colorYellow",
+    "dark red": "AUTOANIM.colorDarkRed",
 }
 
 AUTOANIM.animColorEBlastFree = {
     "b1": ``,
-    "b2": "Purple",
+    "purple": "AUTOANIM.colorPurple",
 }
 
 AUTOANIM.animColorDisintegrate = {
     "b1": ``,
-    "b2": "Green",
-    "b3": "Darkred",
-    "b4": "Orange Pink",
-    "b5": "Purple Blue"
+    "green": "AUTOANIM.colorGreen",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "orange pink": "AUTOANIM.colorOrangePink",
+    "purple blue": "AUTOANIM.colorPurpleBlue"
 };
 
 AUTOANIM.animColorDisintegrateFree = {
     "b1": ``,
-    "b2": "Green",
+    "green": "AUTOANIM.colorGreen",
 };
 
 AUTOANIM.animColorFirebolt = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Orange",
-    "b5": "Purple",
-    "b6": "Red",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
 };
 
 AUTOANIM.animColorFireboltFree = {
     "b1": ``,
-    "b2": "Orange",
+    "orange": "AUTOANIM.colorOrange",
 };
 
 AUTOANIM.animColorHealingWord = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Purple",
-    "b5": "Yellow"
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow"
 };
 
 AUTOANIM.animColorMagicMissile = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Purple",
-    "b5": "Yellow",
-    "b6": "Random"
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
 };
 
 AUTOANIM.animColorMagicMissileFree = {
     "b1": ``,
-    "b2": "Purple",
+    "purple": "AUTOANIM.colorPurple",
 };
 
 AUTOANIM.animColorRayFrost = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Purple Teal",
-    "b5": "Yellow Blue",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple blue": "AUTOANIM.colorPurpleBlue",
+    "yellow blue": "AUTOANIM.colorYellowBlue",
 };
 
 AUTOANIM.animColorRayFrostFree = {
     "b1": ``,
-    "b2": "Blue",
+    "blue": "AUTOANIM.colorBlue",
 };
 
 AUTOANIM.animColorScorchingRay = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Orange",
-    "b5": "Purple",
-    "b6": "Red",
-    "b7": "Yellow",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow",
 };
 
 AUTOANIM.animColorScorchingRayFree = {
     "b1": ``,
-    "b2": "Orange",
+    "orange": "AUTOANIM.colorOrange",
 };
 
 AUTOANIM.animColorShatterThunder = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Orange",
-    "b5": "Purple",
-    "b6": "Red"
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed"
 };
 
 AUTOANIM.animColorShatterThunderFree = {
     "b1": ``,
-    "b2": "Blue",
+    "blue": "AUTOANIM.colorBlue",
 };
 
 AUTOANIM.animColorWitchbolt = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Red",
-    "b5": "Yellow",
-    "b6": "Darkgreen",
-    "b7": "Darkpurple",
-    "b8": "Darkred"
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow",
+    "dark green": "AUTOANIM.colorDarkGreen",
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "dark red": "AUTOANIM.colorDarkRed"
 };
 
 AUTOANIM.animColorWitchboltFree = {
     "b1": ``,
-    "b2": "Blue",
+    "blue": "AUTOANIM.colorBlue",
 };
 
 AUTOANIM.animColorArrow = {
     "b1": ``,
-    "b2": "Regular",
-    "b3": "Green"
+    "regular": "AUTOANIM.colorWhite",
+    "green": "AUTOANIM.colorGreen"
 };
 
 AUTOANIM.animColorArrowFree = {
     "b1": ``,
-    "b2": "Regular",
+    "regular": "AUTOANIM.colorWhite",
 };
 
 AUTOANIM.explosionColors = {
     "ec1": ``,
-    "ec2": "Blue",
-    "ec3": "Green",
-    "ec4": "Orange",
-    "ec5": "Purple",
-    "ec6": "Yellow",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow",
 }
 
 AUTOANIM.explosionColorsFree = {
     "ec1": ``,
-    "ec2": "Orange",
+    "orange": "AUTOANIM.colorOrange",
 }
 
 AUTOANIM.laserblastColors = {
     "b1": ``,
-    "b2": "Blue",
-    "b3": "Green",
-    "b4": "Orange",
-    "b5": "Pink",
-    "b6": "Purple",
-    "b7": "Red",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "pink": "AUTOANIM.colorPink",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
 }
+
 
 AUTOANIM.explosionLoops = {
     "el1": 1,
@@ -330,47 +332,55 @@ AUTOANIM.explosionLoops = {
 }
 
 AUTOANIM.explosionRadius = {
-    "er1": ``,
-    "er2": "2",
-    "er3": "5",
-    "ec4": "10",
-    "ec5": "15",
-    "ec6": "20",
-    "ec7": "25",
-    "ec8": "30",
-    "ec9": "35",
-    "ec10": "40",
-    "ec11": "45",
-    "ec12": "50",
-    "ec13": "Nuclear",
+    "0": ``,
+    "2": "AUTOANIM.radius02",
+    "5": "AUTOANIM.radius05",
+    "10": "AUTOANIM.radius10",
+    "15": "AUTOANIM.radius15",
+    "20": "AUTOANIM.radius20",
+    "25": "AUTOANIM.radius25",
+    "30": "AUTOANIM.radius30",
+    "35": "AUTOANIM.radius35",
+    "40": "AUTOANIM.radius40",
+    "45": "AUTOANIM.radius45",
+    "50": "AUTOANIM.radius50",
+    "nuclear": "AUTOANIM.radiusNuke",
 }
 
 AUTOANIM.explosionVariant = {
     "ev1": ``,
-    "ev2": "01",
-    "ev3": "02",
+    "01": "AUTOANIM.variant01",
+    "02": "AUTOANIM.variant02",
 }
 
 AUTOANIM.explosionVariantFree = {
     "ev1": ``,
-    "ev2": "01",
+    "01": "AUTOANIM.variant01",
 }
 
 AUTOANIM.animTypePick = {
     "t1": ``,
-    "t2": "Melee Weapon",
-    "t3": "Generic Melee Dmg",
-    "t4": "Ranged Weapon",
-    "t5": "Creature Attack",
-    "t6": "Attack Spell",
-    "t7": "Healing Spell",
-    "t8": "Explosives (Circle Template)",
-    "t9": "Explosives (On Target)",
+    "t2": "AUTOANIM.typeMelee",
+    "t3": "AUTOANIM.typeGenMelee",
+    "t4": "AUTOANIM.typeRanged",
+    "t5": "AUTOANIM.typeCreature",
+    "t6": "AUTOANIM.typeAttackSpell",
+    "t7": "AUTOANIM.typeHealingSpell",
+    "t8": "AUTOANIM.typeExplosiveCT",
+    "t9": "AUTOANIM.typeExplosiveOT",
 }
 
 AUTOANIM.animNull = {
     "n1": ``,
 }
+
+AUTOANIM.localized = function (cfg) {
+    return Object.keys(cfg).reduce((i18nCfg, key) => {
+            i18nCfg[key] = game.i18n.localize(cfg[key]);
+            return i18nCfg;
+        }, {}
+    );
+};
 
 AUTOANIM.numeric = function(value, fallback) {
     if($.isNumeric(value)) {

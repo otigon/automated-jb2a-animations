@@ -1,16 +1,16 @@
 <div class="animation-tab-contents">
     <div class="form-group">
-        <label>Check this box to disable Animations</label>
+        <label>{{localize "AUTOANIM.menuKillAnim"}}</label>
         <input type="checkbox" name="flags.autoanimations.killAnim" {{checked killAnim}}>
     </div>
     <div class="animation-not-disabled">
         <div class="form-group">
-            <lable>Override Animation?</lable>
+            <lable>{{localize "AUTOANIM.menuOverride"}}</lable>
             <input type="checkbox" name="flags.autoanimations.override" {{checked override}}>
         </div>
         <div class="animation-type">
             <div class="form-group">
-                <label>Choose an Animation Type</label>
+                <label>{{localize "AUTOANIM.menuAnimType"}}</label>
                 <div class="form-fields">
                     <select name="flags.autoanimations.animType" class="animation-types">
                         {{#select animType}}
@@ -24,12 +24,12 @@
         </div>
         <div class="animation-name">
             <div class="form-group">
-                <label>Choose an Animation</label>
+                <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                 <div class="form-fields">
                     <select name="flags.autoanimations.animName" class="animation-names">
                         {{#select animName}}
-                        {{#each animNameHolder as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animNameHolder as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -38,12 +38,12 @@
         </div>
         <div class="animation-color">
             <div class="form-group">
-                <label>Choose a Color</label>
+                <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                 <div class="form-fields">
                     <select name="flags.autoanimations.color" class="animation-colors">
                         {{#select color}}
-                        {{#each meleeColor as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each meleeColor as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -52,17 +52,17 @@
         </div>
         <div class="animation-ranged-color">
             <div class="form-group">
-                <label>Color ONLY applies to the Melee Attack, NOT the Ranged Attack</label>
+                <label>{{localize "AUTOANIM.menuNoRangeColor"}}</label>
             </div>
         </div>
         <div class="dagger-variant">
             <div class="form-group">
-                <label>Choose a Thrown Variant</label>
+                <label>{{localize "AUTOANIM.menuThrownVariant"}}</label>
                 <div class="form-fields">
                     <select name="flags.autoanimations.dtvar" class="dagger-variants">
                         {{#select dtvar}}
-                        {{#each daggerVar as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each daggerVar as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -71,49 +71,49 @@
         </div>
         <div class="animate-explosion">
             <div class="form-group">
-                <label>Enable Explosion?</label>
+                <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
                 <input type="checkbox" name="flags.autoanimations.explosion" {{checked explosion}}>
             </div>
         </div>
         <div class="animate-explosion-options">
             <div class="form-group">
-                <label>Choose Explosion Variant</label>
+                <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
                 <div class="form-fields">
                     <select name="flags.autoanimations.explodeVariant" class="explosion-colors">
                         {{#select explodeVariant}}
-                        {{#each exVariants as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each exVariants as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label>Choose Explosion Color</label>
+                <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
                 <div class="form-fields">
                     <select name="flags.autoanimations.explodeColor" class="explosion-colors">
                         {{#select explodeColor}}
-                        {{#each exColors as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each exColors as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label>Choose Explosion Radius</label>
+                <label>{{localize "AUTOANIM.menuExplodeRadius"}}</label>
                 <div class="form-fields">
                     <select name="flags.autoanimations.explodeRadius" class="explosion-radii">
                         {{#select explodeRadius}}
-                        {{#each exRadii as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each exRadii as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label>Number of Loops for Explosion</label>
+                <label>{{localize "AUTOANIM.menuExplodeLoops"}}</label>
                 <div class="form-fields">
                     <select name="flags.autoanimations.explodeLoop" class="explosion-loops">
                         {{#select explodeLoop}}

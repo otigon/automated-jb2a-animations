@@ -12,6 +12,7 @@ export default class Pf1Handler {
         this._actorToken = canvas.tokens.ownedTokens.find(x => x.actor.id === actor.id);
         this._allTargets = Array.from(message.user.targets)
         this._itemName = item.name?.toLowerCase();
+        this._itemNameLocal = item.name ?? ``;
 
         // getting flag data from Animation Tab
         this._flags = item?.data?.flags?.autoanimations ?? "";;
@@ -68,6 +69,10 @@ export default class Pf1Handler {
 
     get itemType() {
         return this._actor.items.get(this._item.id).data.type.toLowerCase();
+    }
+
+    get itemNameLocale() {
+        return this._itemNameLocal;
     }
 
     get checkSaves() {

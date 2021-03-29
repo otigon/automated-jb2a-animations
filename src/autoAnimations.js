@@ -9,32 +9,32 @@ const log = () => { };
 
 Hooks.on('init', () => {
     game.settings.register("automated-jb2a-animations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
-        name: "Disable the Startup Window Popup",                  // Register a module setting with checkbox
-        hint: "Checking this box will prevent the Popup Window from showing its ugly mug",               // Description of the settings
+        name: game.i18n.format("AUTOANIM.initpopup_name"),                  // Register a module setting with checkbox
+        hint: game.i18n.format("AUTOANIM.initpopup_hint"),               // Description of the settings
         scope: "world",                                    // This specifies a client-stored setting
         config: true,                                       // This specifies that the setting appears in the configuration view
         type: Boolean,
         default: false,                                     // The default value for the setting
     });
     game.settings.register("automated-jb2a-animations", "hideFromPlayers", { // game.setting.register("NameOfTheModule", "VariableName",
-        name: "Hide the Animation Tab from Players",                  // Register a module setting with checkbox
-        hint: "Checking this box will prevent the Animation Tab from being seen by Players",               // Description of the settings
+        name: game.i18n.format("AUTOANIM.animtab_name"),                  // Register a module setting with checkbox
+        hint: game.i18n.format("AUTOANIM.animtab_hint"),               // Description of the settings
         scope: "world",                                    // This specifies a client-stored setting
         config: true,                                       // This specifies that the setting appears in the configuration view
         type: Boolean,
         default: false,                                     // The default value for the setting
     });
     game.settings.register("automated-jb2a-animations", "targetingAssist", {
-        name: "Targeting Assistant",
-        hint: "Enable this setting to activate the Targeting Assistant",
+        name: game.i18n.format("AUTOANIM.tarassist_name"),
+        hint: game.i18n.format("AUTOANIM.tarassist_hint"),
         scope: "world",
         config: true,
         type: Boolean,
         default: false,
     });
     game.settings.register("automated-jb2a-animations", "tmfx", {
-        name: 'Enable Token Magic FX',
-        hint: "Enables all Token Magic effects with the animations",
+        name: game.i18n.format("AUTOANIM.tfmxenable_name"),
+        hint: game.i18n.format("AUTOANIM.tfmxenable_hint"),
         scope: 'world',
         type: Boolean,
         default: false,
@@ -44,25 +44,26 @@ Hooks.on('init', () => {
         case "dnd5e":
             if (game.modules.get("midi-qol")?.active) {
                 game.settings.register("automated-jb2a-animations", "playonhit", {
-                    name: 'Only play animations on Hits',
-                    hint: "Requires Midi-QOL Workflow setting HITS to be enables with Check",
+                    name: game.i18n.format("AUTOANIM.midionhit_name"),
+                    hint: game.i18n.format("AUTOANIM.midionhit_hint"),
                     scope: 'world',
                     type: Boolean,
                     default: false,
                     config: true,
                 });
                 game.settings.register("automated-jb2a-animations", "playonDamage", {
-                    name: 'Only play animations on Damage Rolls',
-                    hint: "REQUIRES A REFRESH. When Enabled, this will ONLY play the animaitons on the Damage Roll",
+                    name: game.i18n.format("AUTOANIM.midiondmg_name"),
+                    hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
                     scope: 'world',
                     type: Boolean,
                     default: false,
                     config: true,
+                    onChange: () => { window.location.reload() }
                 });
             } else {
                 game.settings.register("automated-jb2a-animations", "playonDamageCore", {
-                    name: 'Play Attack Animations on Damage Rolls Only',
-                    hint: "By Default, Animations play on Attack Rolls",
+                    name: game.i18n.format("AUTOANIM.coreondmg_name"),
+                    hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
                     scope: 'world',
                     type: Boolean,
                     default: false,
@@ -71,8 +72,8 @@ Hooks.on('init', () => {
             }
     }
     game.settings.register("automated-jb2a-animations", "EnableShield", {
-        name: 'Enable Shield Spell Animation',
-        hint: "Shield is set to a test animaiton, but still looks cool. Check this to enable it",
+        name: game.i18n.format("AUTOANIM.enableshield_name"),
+        hint: game.i18n.format("AUTOANIM.enableshield_hint"),
         scope: 'world',
         type: Boolean,
         default: false,
@@ -111,7 +112,7 @@ Hooks.on(`renderItemSheet`, (app, html, data) => {
 
 Hooks.once('ready', function () {
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
-        ui.notifications.error("A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work");
+        ui.notifications.error(game.i18n.format("AUTOANIM.error"));
     }
     if (game.user.isGM && game.modules.get("tokenmagic")?.active) {
         game.settings.set("tokenmagic", "fxPlayerPermission", true);
@@ -271,12 +272,21 @@ async function revItUp(handler) {
             explodeTemplate(handler);
             break;
         case handler.itemNameIncludes("rapier"):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemRapier")):
         case handler.itemNameIncludes("sword"):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemGreatsword")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemLongsword")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemShortsword")):
         case handler.itemNameIncludes("greatclub"):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemGreatclub")):
         case handler.itemNameIncludes("greataxe"):
-        case handler.itemNameIncludes("battle", "axe"):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemGreataxe")):
+        case handler.itemNameIncludes("battleaxe"):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemBattleaxe")):
         case handler.itemNameIncludes("mace"):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemMace")):
         case handler.itemNameIncludes("maul"):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemMaul")):
         case handler.itemNameIncludes("scimitar"):
         case handler.itemNameIncludes("1 handed slashing"):
         case handler.itemNameIncludes("2 handed slashing"):
@@ -523,7 +533,7 @@ function colorChecks(handler) {
             color = "Pink";
             fireColor = 0xD2049A;
             break;
-        case (handler.itemColorIncludes("darkred")):
+        case (handler.itemColorIncludes("dark red")):
             type01 = "Fire";
             tint = "Dark";
             color = "Red";
@@ -587,37 +597,44 @@ async function meleeWeapons(handler) {
     let item01 = "Dagger02";
     switch (true) {
         case (handler.itemNameIncludes("rapier")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemRapier")):
             item01 = "Rapier01";
             tmDelay = 900;
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
         case (handler.itemNameIncludes("greatsword")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemGreatsword")):
             item01 = "GreatSword01";
             tmDelay = 1600;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
         case (handler.itemNameIncludes("greatclub")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemGreatclub")):
             item01 = "GreatClub01";
             tmDelay = 1100;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
         case (handler.itemNameIncludes("greataxe")):
-        case (handler.itemNameIncludes("battle", "axe")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemGreataxe")):
+        case (handler.itemNameIncludes("battleaxe")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemBattleaxe")):
             item01 = "GreatAxe01";
             tmDelay = 1600;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
         case (handler.itemNameIncludes("mace")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemMace")):
             item01 = "Mace01";
             tmDelay = 1100;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
         case (handler.itemNameIncludes("lasersword")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemLaserSword")):
             item01 = "LaserSword01";
             type01 = "01";
             tmDelay = 1300;
@@ -626,47 +643,51 @@ async function meleeWeapons(handler) {
             break;
         case (handler.itemNameIncludes("sword")):
         case (handler.itemNameIncludes("scimitar")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemScimitar")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemLongsword")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemShortsword")):
             item01 = "Sword01";
             tmDelay = 1300;
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
         case (handler.itemNameIncludes("maul")):
+        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemMaul")):
             item01 = "Maul01";
             tmDelay = 1900;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        case handler.itemNameIncludes("1 handed slashing"):
+        case (handler.itemNameIncludes("1 handed slashing")):
             item01 = "DmgSlashing";
             color = "Yellow_1Handed";
             break;
-        case handler.itemNameIncludes("2 handed slashing"):
+        case (handler.itemNameIncludes("2 handed slashing")):
             item01 = "DmgSlashing";
             color = "Yellow_2Handed";
             tmDelay = 500;
             tmKill = 750;
             tmMacro = hitStutter;
             break;
-        case handler.itemNameIncludes("1 handed piercing"):
+        case (handler.itemNameIncludes("1 handed piercing")):
             item01 = "DmgPiercing";
             color = "Yellow_1Handed";
             break;
-        case handler.itemNameIncludes("2 handed piercing"):
+        case (handler.itemNameIncludes("2 handed piercing")):
             item01 = "DmgPiercing";
             color = "Yellow_2Handed";
             tmDelay = 200;
             tmKill = 500;
             tmMacro = hitStutter;
             break;
-        case handler.itemNameIncludes("1 handed bludgeoning"):
+        case (handler.itemNameIncludes("1 handed bludgeoning")):
             item01 = "DmgBludgeoning";
             color = "Yellow_1Handed";
             tmDelay = 500;
             tmKill = 750;
             tmMacro = hitStutter;
             break;
-        case handler.itemNameIncludes("2 handed bludgeoning"):
+        case (handler.itemNameIncludes("2 handed bludgeoning")):
             item01 = "DmgBludgeoning";
             color = "Yellow_2Handed";
             tmDelay = 500;
@@ -829,13 +850,13 @@ async function randomGenDmg(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
@@ -1063,13 +1084,13 @@ async function meleeRangeSwitch(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
@@ -1264,7 +1285,7 @@ async function spellAttacks(handler) {
             color = "Purple";
             break;
     }
-    
+
     switch (true) {
         case (handler.itemColorIncludes("orange", "pink")):
             tint = "Regular";
@@ -1345,7 +1366,7 @@ async function spellAttacks(handler) {
             tmColor = 0xFF0000;
             break;
     }
-    
+
     let letitBurn =
         [{
             filterType: "xfire",
@@ -1500,13 +1521,13 @@ async function spellAttacks(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
             //log(target.id);
@@ -1733,13 +1754,13 @@ async function creatureAttacks(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
             //log(handler.allTargets[i]);
             let target = handler.allTargets[i];
@@ -1981,13 +2002,13 @@ async function rangedWeapons(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
 
             await wait(500)
@@ -2564,7 +2585,7 @@ async function magicMissile(handler) {
             }
         }];
 
-    
+
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
@@ -2584,7 +2605,7 @@ async function magicMissile(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
@@ -3139,7 +3160,7 @@ async function arrowOptionExplode(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
