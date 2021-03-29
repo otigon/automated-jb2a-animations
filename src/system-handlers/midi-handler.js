@@ -10,7 +10,6 @@ export default class MidiHandler {
         this._actor = actor;
 
         this._actorToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null);
-        this._itemNameLocal = item.name ?? ``;
 
         // getting flag data from Animation Tab
         this._flags = item.data?.flags?.autoanimations ?? "";;
@@ -88,10 +87,6 @@ export default class MidiHandler {
 
     get itemType() {
         return this._item.data.type.toLowerCase();
-    }
-
-    get itemNameLocale() {
-        return this._itemNameLocal;
     }
 
     get checkSaves() {

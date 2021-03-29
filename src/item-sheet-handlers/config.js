@@ -31,7 +31,7 @@ AUTOANIM.animNameMeleeWeapon = {
     "greataxe": "AUTOANIM.itemGreataxe",
     "greatclub": "AUTOANIM.itemGreatclub",
     "greatsword": "AUTOANIM.itemGreatsword",
-    "handaxe": "AUTOANIM.itemAxe",
+    "handaxe": "AUTOANIM.itemHandaxe",
     "lasersword": "AUTOANIM.itemLaserSword",
     "mace": "AUTOANIM.itemMace",
     "maul": "AUTOANIM.itemMaul",

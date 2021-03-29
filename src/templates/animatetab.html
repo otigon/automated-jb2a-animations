@@ -28,8 +28,8 @@
                 <div class="form-fields">
                     <select name="flags.autoanimations.animName" class="animation-names">
                         {{#select animName}}
-                        {{#each animNameHolder as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
+                        {{#each animNameHolder as |key name|}}
+                        <option value="{{key}}">{{key}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
