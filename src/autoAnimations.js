@@ -146,7 +146,7 @@ function revItUpMidi(workflow) {
     revItUp(handler);
 }
 
-function revItUp5eCore(msg) {
+function revItUp5eCore(msg) { 
     let handler = new Dnd5Handler(msg);
 
     const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
@@ -174,8 +174,10 @@ function revItUp5eCore(msg) {
                                         shatterAuto(handler);
                                     })
                                     break;
-                                case (handler.itemNameIncludes("grenade")):
-                                case (handler.itemNameIncludes("bomb")):
+                                //case (handler.itemNameIncludes("grenade")):
+                                //case (handler.itemNameIncludes("bomb")):
+                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
+                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
                                 case (handler.animType === "t8"):
                                     Hooks.once("createMeasuredTemplate", () => {
                                         explodeTemplate(handler);
@@ -230,11 +232,12 @@ function revItUp5eCore(msg) {
                             break;
                         //case (handler.itemNameIncludes("shield")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase()):
-                        //case (handler.itemNameIncludes("second", "wind")):
-                        //case (handler.itemNameIncludes("potion", "heal")):
+                            //case (handler.itemNameIncludes("second", "wind")):
+                            //case (handler.itemNameIncludes("potion", "heal")):
                             castOnSelf(handler);
                             break;
-                        case (handler.itemNameIncludes("catapult")):
+                        //case (handler.itemNameIncludes("catapult")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCatapult").toLowerCase()):
                             rangedWeapons(handler);
                             break;
                         //case (handler.itemNameIncludes("boulder")):
@@ -253,9 +256,10 @@ function revItUp5eCore(msg) {
                                 shatterAuto(handler);
                             })
                             break;
-                        case (handler.itemNameIncludes("explode")):
-                        case (handler.itemNameIncludes("grenade")):
-                        case (handler.itemNameIncludes("bomb")):
+                        //case (handler.itemNameIncludes("grenade")):
+                        //case (handler.itemNameIncludes("bomb")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
                         case (handler.animType === "t8"):
                             Hooks.once("createMeasuredTemplate", () => {
                                 explodeTemplate(handler);
@@ -282,7 +286,8 @@ async function revItUp(handler) {
             break;
         //case handler.itemNameIncludes("rapier"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
-        //case handler.itemNameIncludes("sword"):
+        case handler.itemNameIncludes("sword"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSword").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortsword").toLowerCase()):
@@ -631,44 +636,44 @@ async function meleeWeapons(handler) {
     let item01 = "Dagger02";
     switch (true) {
         //case (handler.itemNameIncludes("rapier")):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
             item01 = "Rapier01";
             tmDelay = 900;
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
         //case (handler.itemNameIncludes("greatsword")):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
             item01 = "GreatSword01";
             tmDelay = 1600;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
         //case (handler.itemNameIncludes("greatclub")):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase()):
             item01 = "GreatClub01";
             tmDelay = 1100;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
         //case (handler.itemNameIncludes("greataxe")):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase()):
         //case (handler.itemNameIncludes("battleaxe")):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase()):
             item01 = "GreatAxe01";
             tmDelay = 1600;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
         //case (handler.itemNameIncludes("mace")):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemMace").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMace").toLowerCase()):
             item01 = "Mace01";
             tmDelay = 1100;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
         //case (handler.itemNameIncludes("lasersword")):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
             item01 = "LaserSword01";
             type01 = "01";
             tmDelay = 1300;
@@ -677,16 +682,17 @@ async function meleeWeapons(handler) {
             break;
         //case (handler.itemNameIncludes("sword")):
         //case (handler.itemNameIncludes("scimitar")):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemShortsword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortsword").toLowerCase()):
             item01 = "Sword01";
             tmDelay = 1300;
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
         //case (handler.itemNameIncludes("maul")):
-        case (handler.itemNameLocale === game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
             item01 = "Maul01";
             tmDelay = 1900;
             tmKill = 1600;
@@ -1217,8 +1223,12 @@ async function meleeRangeSwitch(handler) {
 
                     canvas.fxmaster.playVideo(spellAnim);
                     game.socket.emit('module.fxmaster', spellAnim);
+                    await wait(tmdelay);
+                    if (handler.animExplode && handler.animOverride) {
+                        explodeOnTarget(handler);
+                    }
                     if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        await wait(tmdelay);
+                        //await wait(200);
                         TokenMagic.addFilters(target, tmMacro)
                         await wait(tmkill);
                         TokenMagic.deleteFilters(target, "BloodSplat");
@@ -1249,8 +1259,12 @@ async function meleeRangeSwitch(handler) {
                             y: (Scale * plusOrMinus),
                         },
                     });
+                    await wait(tmdelay - 200);
+                    if (handler.animExplode && handler.animOverride) {
+                        explodeOnTarget(handler);
+                    }
                     if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        await wait(tmdelay);
+                        await wait(200);
                         switch (true) {
                             case (fireColor != "pass"):
                                 TokenMagic.addFilters(target, burn);
@@ -1729,7 +1743,7 @@ async function creatureAttacks(handler) {
     }
 
     switch (true) {
-        case (handler.itemColorIncludes("darkred")):
+        case (handler.itemColorIncludes("dark red")):
             type01 = "01";
             tint = "Dark";
             color = "Red";
@@ -1979,6 +1993,7 @@ async function rangedWeapons(handler) {
             Delay01 = 600;
             Delay02 = 800;
             Delay03 = 800;
+            tint = "Regular";
             break;
         case (handler.itemNameIncludes("siege")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()):
@@ -1988,6 +2003,7 @@ async function rangedWeapons(handler) {
             Delay02 = 1250;
             Delay03 = 1150;
             size = "500";
+            tint = "Regular";
             break;
         //case (handler.itemNameIncludes("boulder")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()):
@@ -1997,6 +2013,7 @@ async function rangedWeapons(handler) {
             Delay01 = 1250;
             Delay02 = 1750;
             Delay03 = 1550;
+            tint = "Regular";
             break;
         case (handler.itemNameIncludes("laser")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
@@ -2012,6 +2029,7 @@ async function rangedWeapons(handler) {
             Delay01 = 2000;
             Delay02 = 2300;
             Delay03 = 2000;
+            tint = "Regular";
             break;
         //case (handler.itemNameIncludes("javelin")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
@@ -2020,6 +2038,7 @@ async function rangedWeapons(handler) {
             Delay01 = 750;
             Delay02 = 1250;
             Delay03 = 1050;
+            tint = "Regular";
             break;
     }
 

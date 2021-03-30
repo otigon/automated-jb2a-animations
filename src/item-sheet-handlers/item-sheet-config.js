@@ -121,9 +121,13 @@ export class AnimationTab {
 
 
         switch (true) {
-            case (this.animateItem.explosion && this.animateItem.override && ((this.animateItem.animName.toLowerCase().includes("arrow")) || this.item.name.toLowerCase().includes("bow")) && this.animateItem.animType === "t4"):
-                case (this.animateItem.explosion && (this.animateItem.animType === "t2") && this.animateItem.override):
-                case (this.animateItem.explosion && (this.animateItem.animType === "t3") && this.animateItem.override):
+            case (this.animateItem.explosion && this.animateItem.override &&
+                ((this.animateItem.animName.includes(game.i18n.format("AUTOANIM.itemArrow"))) ||
+                    this.item.name.toLowerCase().includes("bow") || this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()) ||
+                    this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase())) &&
+                this.animateItem.animType === "t4"):
+            case (this.animateItem.explosion && (this.animateItem.animType === "t2") && this.animateItem.override):
+            case (this.animateItem.explosion && (this.animateItem.animType === "t3") && this.animateItem.override):
                 explosionOptions.show();
                 break;
             case ((this.animateItem.animType === "t8") && this.animateItem.override):
@@ -142,9 +146,12 @@ export class AnimationTab {
         }
 
         switch (true) {
-            case (this.animateItem.animName.toLowerCase().includes("dagger")):
-            case (this.animateItem.animName.toLowerCase().includes("spear")):
-            case (this.animateItem.animName.toLowerCase().includes("handaxe")):
+            //case (this.animateItem.animName.toLowerCase().includes("dagger")):
+            case this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()):
+            //case (this.animateItem.animName.toLowerCase().includes("spear")):
+            case this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
+            //case (this.animateItem.animName.toLowerCase().includes("handaxe")):
+            case this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase()):
                 noRangeColor.show();
                 break;
             default:
@@ -153,17 +160,21 @@ export class AnimationTab {
         }
 
         switch (true) {
-            case (this.animateItem.animName.toLowerCase().includes("boulder") || this.item.name.toLowerCase().includes("boulder")):
-            case (this.animateItem.animName.toLowerCase().includes("javelin") || this.item.name.toLowerCase().includes("javelin")):
-            case (this.animateItem.animName.toLowerCase().includes("boulder") || this.item.name.toLowerCase().includes("boulder")):
-            case (this.animateItem.animName.toLowerCase().includes("siege") || this.item.name.toLowerCase().includes("siege")):
-            case (this.animateItem.animName.toLowerCase().includes("throwing") || this.item.name.toLowerCase().includes("throwing")):
+            //case (this.animateItem.animName.toLowerCase().includes("boulder") || this.item.name.toLowerCase().includes("boulder")):
+            case (this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()) || this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase())):
+            //case (this.animateItem.animName.toLowerCase().includes("javelin") || this.item.name.toLowerCase().includes("javelin")):
+            case (this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()) || this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase())):
+            //case (this.animateItem.animName.toLowerCase().includes("siege") || this.item.name.toLowerCase().includes("siege")):
+            case (this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()) || this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase())):
+            //case (this.animateItem.animName.toLowerCase().includes("throwing") || this.item.name.toLowerCase().includes("throwing")):
+            case (this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()) || this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase())):
                 animateColor.hide();
                 break;
         }
 
         switch (true) {
-            case ((this.animateItem.animName.toLowerCase().includes("arrow")) && (this.animateItem.animType === "t4") && this.animateItem.override):
+            //case ((this.animateItem.animName.toLowerCase().includes("arrow")) && (this.animateItem.animType === "t4") && this.animateItem.override):
+            case ((this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase())) && (this.animateItem.animType === "t4") && this.animateItem.override):
             case ((this.animateItem.animType === "t2") && this.animateItem.override):
             case ((this.animateItem.animType === "t3") && this.animateItem.override):
                 animateExplosion.show();
@@ -173,7 +184,8 @@ export class AnimationTab {
         }
 
         switch (true) {
-            case ((this.animateItem.animName === "Dagger") && (this.animateItem.animType === "t2") && (this.animateItem.override)):
+            //case ((this.animateItem.animName === "Dagger") && (this.animateItem.animType === "t2") && (this.animateItem.override)):
+            case ((this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase())) && (this.animateItem.animType === "t2") && (this.animateItem.override)):
                 dagThrowVariant.show();
                 break;
             default:

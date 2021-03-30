@@ -68,24 +68,40 @@ export class AnimateItem {
         //console.log(this.itemName);
         //console.log(this.color);
         switch (true) {
-            case (this.itemName.includes("lasersword")):
+            //case (this.itemName.includes("lasersword")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
+
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorLaserSword);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree);
                 }
                 break;
-            case (this.itemName.includes("dagger")):
-            case (this.itemName.includes("greataxe")):
-            case (this.itemName.includes("greatsword")):
-            case (this.itemName.includes("greatclub")):
-            case (this.itemName.includes("handaxe")):
-            case (this.itemName.includes("mace")):
-            case (this.itemName.includes("maul")):
-            case (this.itemName.includes("rapier")):
-            case (this.itemName.includes("scimitar")):
-            case (this.itemName.includes("spear")):
-            case (this.itemName.includes("sword")):
+            //case (this.itemName.includes("dagger")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()):
+            //case (this.itemName.includes("greataxe")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase()):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase()):
+            //case (this.itemName.includes("greatsword")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
+            //case (this.itemName.includes("greatclub")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase()):
+            //case (this.itemName.includes("handaxe")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase()):
+            //case (this.itemName.includes("mace")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemMace").toLowerCase()):
+            //case (this.itemName.includes("maul")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
+            //case (this.itemName.includes("rapier")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
+            //case (this.itemName.includes("scimitar")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
+            //case (this.itemName.includes("spear")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
+            //case (this.itemName.includes("sword")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemSword").toLowerCase()):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemShortsword").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorMelee);
                 } else {
@@ -93,92 +109,110 @@ export class AnimateItem {
                 }
                 break;
             case (this.itemName.includes("cure", "wound")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorCureWounds);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorCureWoundsFree);
                 }
                 break;
-            case (this.itemName.includes("disintegrate")):
+            //case (this.itemName.includes("disintegrate")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorDisintegrate);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorDisintegrateFree);
                 }
                 break;
-            case (this.itemName.includes("eldritch blast")):
+            //case (this.itemName.includes("eldritch blast")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorEBlast);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorEBlastFree);
                 }
                 break;
-            case (this.itemName.includes("fire", "bolt")):
+            //case (this.itemName.includes("fire", "bolt")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorFirebolt);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorFireboltFree);
                 }
                 break;
-            case (this.itemName.includes("generic", "heal")):
-            case (this.itemName.includes("heal", "word")):
+            //case (this.itemName.includes("generic", "heal")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
+            //case (this.itemName.includes("heal", "word")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
                 return AUTOANIM.localized(AUTOANIM.animColorHealingWord);
                 break;
-            case (this.itemName.includes("magic" && "missile")):
+            //case (this.itemName.includes("magic" && "missile")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorMagicMissile);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorMagicMissileFree);
                 }
                 break;
-            case (this.itemName.includes("ray of frost")):
+            //case (this.itemName.includes("ray of frost")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorRayFrost);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorRayFrostFree);
                 }
                 break;
-            case (this.itemName.includes("scorching ray")):
+            //case (this.itemName.includes("scorching ray")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorScorchingRay);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorScorchingRayFree);
                 }
                 break;
-            case (this.itemName.includes("witch", "bolt")):
+            //case (this.itemName.includes("witch", "bolt")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorWitchbolt);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorWitchboltFree);
                 }
                 break;
-            case (this.itemName.includes("thunderwave")):
-            case (this.itemName.includes("shatter")):
+            //case (this.itemName.includes("thunderwave")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
+            //case (this.itemName.includes("shatter")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemShatter").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorShatterThunder);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree);
                 }
                 break;
-            case (this.itemName.includes("arrow")):
-            case (this.itemName.includes("bow")):
+            //case (this.itemName.includes("arrow")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
+            case this.itemName.includes("bow"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animColorArrow);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorArrowFree);
                 }
                 break;
-            case (this.itemName.includes("laser")):
+            //case (this.itemName.includes("laser")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
                 return AUTOANIM.localized(AUTOANIM.laserblastColors);
                 break;
-            case (this.itemName.includes("bite")):
+            //case (this.itemName.includes("bite")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animBiteColor);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animBiteColorFree);
                 }
                 break;
-            case (this.itemName.includes("claw")):
+            //case (this.itemName.includes("claw")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.animClawColor);
                 } else {
@@ -208,7 +242,7 @@ export class AnimateItem {
     }
 
     get exRadii() {
-            return AUTOANIM.localized(AUTOANIM.explosionRadius);
+        return AUTOANIM.localized(AUTOANIM.explosionRadius);
     }
 
     get exVariants() {

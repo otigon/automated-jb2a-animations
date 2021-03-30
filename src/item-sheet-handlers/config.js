@@ -35,7 +35,6 @@ AUTOANIM.animNameMeleeWeapon = {
     "lasersword": "AUTOANIM.itemLaserSword",
     "mace": "AUTOANIM.itemMace",
     "maul": "AUTOANIM.itemMaul",
-    "sling": "AUTOANIM.itemSling",
     "spear": "AUTOANIM.itemSpear",
     "sword": "AUTOANIM.itemSword",
     "rapier": "AUTOANIM.itemRapier"
@@ -48,6 +47,7 @@ AUTOANIM.animNameRangeWeapon = {
     "javelin": "AUTOANIM.itemJavelin",
     "laser blast": "AUTOANIM.itemLaserBlast",
     "siege boulder": "AUTOANIM.itemSiegeBoulder",
+    "sling": "AUTOANIM.itemSling",
     "throwing hammer": "AUTOANIM.itemThrowingHammer",
 };
 
