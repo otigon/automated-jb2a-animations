@@ -117,8 +117,8 @@
                 <div class="form-fields">
                     <select name="flags.autoanimations.explodeLoop" class="explosion-loops">
                         {{#select explodeLoop}}
-                        {{#each exLoops as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each exLoops as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>

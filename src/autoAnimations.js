@@ -146,7 +146,7 @@ function revItUpMidi(workflow) {
     revItUp(handler);
 }
 
-function revItUp5eCore(msg) { 
+function revItUp5eCore(msg) {
     let handler = new Dnd5Handler(msg);
 
     const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
@@ -199,7 +199,7 @@ function revItUp5eCore(msg) {
             }
         }
         switch (true) {
-            case (handler.itemTypeIncludes("spell") && handler.itemNameIncludes("shield")):
+            case (handler.itemTypeIncludes("spell") && handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase())):
                 castOnSelf(handler);
                 break;
         }
@@ -286,7 +286,7 @@ async function revItUp(handler) {
             break;
         //case handler.itemNameIncludes("rapier"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
-        case handler.itemNameIncludes("sword"):
+        //case handler.itemNameIncludes("sword"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSword").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
@@ -304,12 +304,18 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
         //case handler.itemNameIncludes("scimitar"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
-        case handler.itemNameIncludes("1 handed slashing"):
-        case handler.itemNameIncludes("2 handed slashing"):
-        case handler.itemNameIncludes("1 handed bludgeoning"):
-        case handler.itemNameIncludes("2 handed bludgeoning"):
-        case handler.itemNameIncludes("1 handed piercing"):
-        case handler.itemNameIncludes("2 handed piercing"):
+        //case handler.itemNameIncludes("1 handed slashing"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HS").toLowerCase()):
+        //case handler.itemNameIncludes("2 handed slashing"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HS").toLowerCase()):
+        //case handler.itemNameIncludes("1 handed bludgeoning"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HB").toLowerCase()):
+        //case handler.itemNameIncludes("2 handed bludgeoning"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HB").toLowerCase()):
+        //case handler.itemNameIncludes("1 handed piercing"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HP").toLowerCase()):
+        //case handler.itemNameIncludes("2 handed piercing"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HP").toLowerCase()):
             meleeWeapons(handler);
             break;
         //case handler.itemNameIncludes("dagger"):
@@ -320,7 +326,7 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
             meleeRangeSwitch(handler);
             break;
-        case handler.itemNameIncludes("arrow"):
+        //case handler.itemNameIncludes("arrow"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
         case handler.itemNameIncludes("bow"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
@@ -329,7 +335,7 @@ async function revItUp(handler) {
             break;
         //case (handler.itemNameIncludes("throwing hammer")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()):
-        case handler.itemNameIncludes("siege"):
+        //case handler.itemNameIncludes("siege"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()):
         //case (handler.itemNameIncludes("boulder")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()):
@@ -373,7 +379,6 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
         //case (handler.itemNameIncludes("disintegrate")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
-
             spellAttacks(handler);
             break;
         //case (handler.itemNameIncludes("shield")):
@@ -398,7 +403,8 @@ async function revItUp(handler) {
             castOnSelf(handler);
             break;
         */
-        case handler.itemNameIncludes("unarmed strike"):
+        //case handler.itemNameIncludes("unarmed strike"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
             itemUnarmedStrike
             if (moduleIncludes("jb2a_patreon")) {
                 randomGenDmg(handler);
@@ -698,29 +704,34 @@ async function meleeWeapons(handler) {
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        case (handler.itemNameIncludes("1 handed slashing")):
+        //case (handler.itemNameIncludes("1 handed slashing")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HS").toLowerCase()):
             item01 = "DmgSlashing";
             color = "Yellow_1Handed";
             break;
-        case (handler.itemNameIncludes("2 handed slashing")):
+        //case (handler.itemNameIncludes("2 handed slashing")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HS").toLowerCase()):
             item01 = "DmgSlashing";
             color = "Yellow_2Handed";
             tmDelay = 500;
             tmKill = 750;
             tmMacro = hitStutter;
             break;
-        case (handler.itemNameIncludes("1 handed piercing")):
+        //case (handler.itemNameIncludes("1 handed piercing")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HP").toLowerCase()):
             item01 = "DmgPiercing";
             color = "Yellow_1Handed";
             break;
-        case (handler.itemNameIncludes("2 handed piercing")):
+        //case (handler.itemNameIncludes("2 handed piercing")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HP").toLowerCase()):
             item01 = "DmgPiercing";
             color = "Yellow_2Handed";
             tmDelay = 200;
             tmKill = 500;
             tmMacro = hitStutter;
             break;
-        case (handler.itemNameIncludes("1 handed bludgeoning")):
+        //case (handler.itemNameIncludes("1 handed bludgeoning")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HB").toLowerCase()):
             item01 = "DmgBludgeoning";
             color = "Yellow_1Handed";
             tmDelay = 500;
@@ -728,6 +739,7 @@ async function meleeWeapons(handler) {
             tmMacro = hitStutter;
             break;
         case (handler.itemNameIncludes("2 handed bludgeoning")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HB").toLowerCase()):
             item01 = "DmgBludgeoning";
             color = "Yellow_2Handed";
             tmDelay = 500;
@@ -735,7 +747,6 @@ async function meleeWeapons(handler) {
             tmMacro = hitStutter;
             break;
     }
-
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
@@ -1858,7 +1869,7 @@ async function rangedWeapons(handler) {
     let tmColor = 0xFF9309;
     let color;
     switch (true) {
-        //case (handler.itemNameIncludes("laser")):
+        case (handler.itemNameIncludes("laser")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
             color = "Blue";
             tmColor = 0x0075B0;
@@ -1883,18 +1894,7 @@ async function rangedWeapons(handler) {
             break;
         case (handler.itemColorIncludes("green")):
             type01 = "01";
-            switch (true) {
-                //case (handler.itemNameIncludes("arrow")):
-                case (handler.itemNameIncludes("bow")):
-                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
-                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
-                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
-                    tint = "Glowing";
-                    break;
-                default:
-                    tint = "Regular"
-                    break;
-            }
+            tint = "Regular"
             color = "Green";
             tmColor = 0x0EB400;
             break;
@@ -2122,7 +2122,7 @@ async function rangedWeapons(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()):
                 //case (handler.itemNameIncludes("javelin")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
-                //case (handler.itemNameIncludes("laser")):
+                case (handler.itemNameIncludes("laser")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
                     anFile = `${file}/${path01}_${type01}_${tint}_${color}_30ft_1600x${size}.webm`;
                     anFileSize = 600;
@@ -2181,6 +2181,7 @@ async function rangedWeapons(handler) {
             let Repeater = 1;
             switch (true) {
                 case (handler.itemNameIncludes("laser")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
                     Repeater = 3;
                     break;
                 default:
@@ -2539,7 +2540,7 @@ async function onTargetSpells(handler) {
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                             divisor = 125;
                             break;
-                        case (handler.itemNameIncludes("cure")):
+                        case (handler.itemNameIncludes("cure", "wound")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                             divisor = 165;
                             break;
@@ -2550,12 +2551,12 @@ async function onTargetSpells(handler) {
                     break;
                 case (tokenSize === "huge"):
                     switch (true) {
-                        case (handler.itemNameIncludes("heal")):
+                        //case (handler.itemNameIncludes("heal")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                             divisor = 100;
                             break;
-                        case (handler.itemNameIncludes("cure")):
+                        case (handler.itemNameIncludes("cure", "wound")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                             divisor = 115;
                             break;
@@ -2568,12 +2569,12 @@ async function onTargetSpells(handler) {
                 case (tokenSize === "med"):
                 default:
                     switch (true) {
-                        case (handler.itemNameIncludes("heal")):
+                        //case (handler.itemNameIncludes("heal")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                             divisor = 275;
                             break;
-                        case (handler.itemNameIncludes("cure")):
+                        case (handler.itemNameIncludes("cure", "wound")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                             divisor = 325;
                             break;
@@ -2830,91 +2831,73 @@ async function magicMissile(handler) {
 
 async function explodeTemplate(handler) {
     let type01 = "01";
+    switch (true) {
+        case (handler.animExVariant.includes("02")):
+            type01 = "02";
+            break;
+    }
+
     let color = "Orange";
     let tmColor = 0x0075B0;
 
     switch (true) {
         case (handler.animExColor.includes("blue")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Blue";
             tmColor = 0x0075B0;
             break;
         case (handler.animExColor.includes("green")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Green";
             tmColor = 0x0EB400;
             break;
         case (handler.animExColor.includes("orange")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
         case (handler.animExColor.includes("purple")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Purple";
             tmColor = 0xBF0099;
             break;
         case (handler.animExColor.includes("yellow")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Yellow";
             tmColor = 0xCFD204;
             break;
     }
     let divisor = 100;
     switch (true) {
-        case (handler.animExRadius.includes("2")):
+        case (handler.animExRadius === "2"):
             divisor = 300;
             break;
-        case (handler.animExRadius.includes("05")):
+        case (handler.animExRadius === "5"):
             divisor = 200;
             break;
-        case (handler.animExRadius.includes("10")):
+        case (handler.animExRadius === "10"):
             divisor = 100;
             break;
-        case (handler.animExRadius.includes("15")):
+        case (handler.animExRadius === "15"):
             divisor = 67;
-        case (handler.animExRadius.includes("20")):
+            break;
+        case (handler.animExRadius === "20"):
             divisor = 50;
             break;
-        case (handler.animExRadius.includes("25")):
+        case (handler.animExRadius === "25"):
             divisor = 40;
             break;
-        case (handler.animExRadius.includes("30")):
+        case (handler.animExRadius === "30"):
             divisor = 33;
             break;
-        case (handler.animExRadius.includes("35")):
+        case (handler.animExRadius === "35"):
             divisor = 28.5;
             break;
-        case (handler.animExRadius.includes("40")):
+        case (handler.animExRadius === "40"):
             divisor = 25;
             break;
-        case (handler.animExRadius.includes("45")):
+        case (handler.animExRadius === "45"):
             divisor = 22.2;
             break;
-        case (handler.animExRadius.includes("50")):
+        case (handler.animExRadius === "50"):
             divisor = 20;
             break;
-        case (handler.animExRadius.includes("nuclear")):
+        case (handler.animExRadius === "nuclear"):
             divisor = 10;
             break;
     }
@@ -3016,55 +2999,36 @@ async function arrowOptionExplode(handler) {
     }
 
     let type02 = "01";
+    switch (true) {
+        case handler.animExVariant.includes("02"):
+            type02 = "02";
+            break;
+    }
     let color02 = "Orange";
+
+    
 
     switch (true) {
         case (handler.animExColor.includes("blue")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Blue";
             //tmColor = 0x0075B0;
             break;
         case (handler.animExColor.includes("orange")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Orange";
             //tmColor = 0xBF6E00;
             break;
         case (handler.animExColor.includes("purple")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Purple";
             //tmColor = 0xBF0099;
             break;
         case (handler.animExColor.includes("yellow")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Yellow";
             //tmColor = 0xCFD204;
             break;
         case (handler.animExColor.includes("green")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Green";
             //tmColor = 0x0EB400;
             break;
-
     }
 
     /*
@@ -3320,6 +3284,12 @@ async function arrowOptionExplode(handler) {
 
             canvas.fxmaster.playVideo(spellAnim);
             game.socket.emit('module.fxmaster', spellAnim);
+            /*
+            if (handler.animExplode && handler.animOverride) {
+                await wait(boomDelay);
+                explodeOnTarget(handler);
+            }
+            */
             switch (true) {
                 case (handler.animExplode):
                     await wait(boomDelay);
@@ -3334,6 +3304,7 @@ async function arrowOptionExplode(handler) {
                     // TokenMagic.deleteFiltersOnTargeted("Poisoned");
                     break;
             }
+            
 
         }
     }
@@ -3400,91 +3371,71 @@ async function castOnSelf(handler) {
 
 async function explodeOnTarget(handler) {
     let type01 = "01";
+    switch (true) {
+        case (handler.animExVariant.includes("02")):
+            type01 = "02";
+            break;
+    }
     let color = "Orange";
     let tmColor = 0x0075B0;
 
     switch (true) {
         case (handler.animExColor.includes("blue")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Blue";
             tmColor = 0x0075B0;
             break;
         case (handler.animExColor.includes("green")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Green";
             tmColor = 0x0EB400;
             break;
         case (handler.animExColor.includes("orange")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
         case (handler.animExColor.includes("purple")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Purple";
             tmColor = 0xBF0099;
             break;
         case (handler.animExColor.includes("yellow")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Yellow";
             tmColor = 0xCFD204;
             break;
     }
     let divisor = 200;
     switch (true) {
-        case (handler.animExRadius.includes("2")):
+        case (handler.animExRadius === "2"):
             divisor = 300;
             break;
-        case (handler.animExRadius.includes("5")):
+        case (handler.animExRadius === "5"):
             divisor = 200;
             break;
-        case (handler.animExRadius.includes("10")):
+        case (handler.animExRadius === "10"):
             divisor = 100;
             break;
-        case (handler.animExRadius.includes("15")):
+        case (handler.animExRadius === "15"):
             divisor = 67;
-        case (handler.animExRadius.includes("20")):
+        case (handler.animExRadius === "20"):
             divisor = 50;
             break;
-        case (handler.animExRadius.includes("25")):
+        case (handler.animExRadius === "25"):
             divisor = 40;
             break;
-        case (handler.animExRadius.includes("30")):
+        case (handler.animExRadius === "30"):
             divisor = 33;
             break;
-        case (handler.animExRadius.includes("35")):
+        case (handler.animExRadius === "35"):
             divisor = 28.5;
             break;
-        case (handler.animExRadius.includes("40")):
+        case (handler.animExRadius === "40"):
             divisor = 25;
             break;
-        case (handler.animExRadius.includes("45")):
+        case (handler.animExRadius === "45"):
             divisor = 22.2;
             break;
-        case (handler.animExRadius.includes("50")):
+        case (handler.animExRadius === "50"):
             divisor = 20;
             break;
-        case (handler.animExRadius.includes("nuclear")):
+        case (handler.animExRadius === "nuclear"):
             divisor = 10;
             break;
     }

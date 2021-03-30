@@ -128,6 +128,13 @@
     "AUTOANIM.radius50": "50",
     "AUTOANIM.radiusNuke": "Nuclear",
 
+    "AUTOANIM.explodeLoop01":"1",
+    "AUTOANIM.explodeLoop02":"2",
+    "AUTOANIM.explodeLoop03":"3",
+    "AUTOANIM.explodeLoop04":"4",
+    "AUTOANIM.explodeLoop05":"5",
+
+
     "AUTOANIM.typeMelee": "Melee Weapon",
     "AUTOANIM.typeGenMelee": "Generic Melee Damage",
     "AUTOANIM.typeRanged": "Ranged Weapon",

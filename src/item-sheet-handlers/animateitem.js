@@ -254,7 +254,7 @@ export class AnimateItem {
     }
 
     get exLoops() {
-        return AUTOANIM.explosionLoops;
+        return AUTOANIM.localized(AUTOANIM.explosionLoops);
     }
 
     get animNameHolder() {
