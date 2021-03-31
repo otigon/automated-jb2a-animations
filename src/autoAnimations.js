@@ -9,32 +9,32 @@ const log = () => { };
 
 Hooks.on('init', () => {
     game.settings.register("automated-jb2a-animations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
-        name: "Disable the Startup Window Popup",                  // Register a module setting with checkbox
-        hint: "Checking this box will prevent the Popup Window from showing its ugly mug",               // Description of the settings
+        name: game.i18n.format("AUTOANIM.initpopup_name"),                  // Register a module setting with checkbox
+        hint: game.i18n.format("AUTOANIM.initpopup_hint"),               // Description of the settings
         scope: "world",                                    // This specifies a client-stored setting
         config: true,                                       // This specifies that the setting appears in the configuration view
         type: Boolean,
         default: false,                                     // The default value for the setting
     });
     game.settings.register("automated-jb2a-animations", "hideFromPlayers", { // game.setting.register("NameOfTheModule", "VariableName",
-        name: "Hide the Animation Tab from Players",                  // Register a module setting with checkbox
-        hint: "Checking this box will prevent the Animation Tab from being seen by Players",               // Description of the settings
+        name: game.i18n.format("AUTOANIM.animtab_name"),                  // Register a module setting with checkbox
+        hint: game.i18n.format("AUTOANIM.animtab_hint"),               // Description of the settings
         scope: "world",                                    // This specifies a client-stored setting
         config: true,                                       // This specifies that the setting appears in the configuration view
         type: Boolean,
         default: false,                                     // The default value for the setting
     });
     game.settings.register("automated-jb2a-animations", "targetingAssist", {
-        name: "Targeting Assistant",
-        hint: "Enable this setting to activate the Targeting Assistant",
+        name: game.i18n.format("AUTOANIM.tarassist_name"),
+        hint: game.i18n.format("AUTOANIM.tarassist_hint"),
         scope: "world",
         config: true,
         type: Boolean,
         default: false,
     });
     game.settings.register("automated-jb2a-animations", "tmfx", {
-        name: 'Enable Token Magic FX',
-        hint: "Enables all Token Magic effects with the animations",
+        name: game.i18n.format("AUTOANIM.tfmxenable_name"),
+        hint: game.i18n.format("AUTOANIM.tfmxenable_hint"),
         scope: 'world',
         type: Boolean,
         default: false,
@@ -44,25 +44,26 @@ Hooks.on('init', () => {
         case "dnd5e":
             if (game.modules.get("midi-qol")?.active) {
                 game.settings.register("automated-jb2a-animations", "playonhit", {
-                    name: 'Only play animations on Hits',
-                    hint: "Requires Midi-QOL Workflow setting HITS to be enables with Check",
+                    name: game.i18n.format("AUTOANIM.midionhit_name"),
+                    hint: game.i18n.format("AUTOANIM.midionhit_hint"),
                     scope: 'world',
                     type: Boolean,
                     default: false,
                     config: true,
                 });
                 game.settings.register("automated-jb2a-animations", "playonDamage", {
-                    name: 'Only play animations on Damage Rolls',
-                    hint: "REQUIRES A REFRESH. When Enabled, this will ONLY play the animaitons on the Damage Roll",
+                    name: game.i18n.format("AUTOANIM.midiondmg_name"),
+                    hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
                     scope: 'world',
                     type: Boolean,
                     default: false,
                     config: true,
+                    onChange: () => { window.location.reload() }
                 });
             } else {
                 game.settings.register("automated-jb2a-animations", "playonDamageCore", {
-                    name: 'Play Attack Animations on Damage Rolls Only',
-                    hint: "By Default, Animations play on Attack Rolls",
+                    name: game.i18n.format("AUTOANIM.coreondmg_name"),
+                    hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
                     scope: 'world',
                     type: Boolean,
                     default: false,
@@ -71,8 +72,8 @@ Hooks.on('init', () => {
             }
     }
     game.settings.register("automated-jb2a-animations", "EnableShield", {
-        name: 'Enable Shield Spell Animation',
-        hint: "Shield is set to a test animaiton, but still looks cool. Check this to enable it",
+        name: game.i18n.format("AUTOANIM.enableshield_name"),
+        hint: game.i18n.format("AUTOANIM.enableshield_hint"),
         scope: 'world',
         type: Boolean,
         default: false,
@@ -111,7 +112,7 @@ Hooks.on(`renderItemSheet`, (app, html, data) => {
 
 Hooks.once('ready', function () {
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
-        ui.notifications.error("A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work");
+        ui.notifications.error(game.i18n.format("AUTOANIM.error"));
     }
     if (game.user.isGM && game.modules.get("tokenmagic")?.active) {
         game.settings.set("tokenmagic", "fxPlayerPermission", true);
@@ -161,18 +162,22 @@ function revItUp5eCore(msg) {
                     switch (game.settings.get("mre-dnd5e", "autoDamage")) {
                         case (true):
                             switch (true) {
-                                case (handler.itemNameIncludes("thunderwave")):
+                                //case (handler.itemNameIncludes("thunderwave")):
+                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
                                     Hooks.once("createMeasuredTemplate", () => {
                                         thunderwaveAuto(handler);
                                     })
                                     break;
-                                case (handler.itemNameIncludes("shatter")):
+                                //case (handler.itemNameIncludes("shatter")):
+                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShatter").toLowerCase()):
                                     Hooks.once("createMeasuredTemplate", () => {
                                         shatterAuto(handler);
                                     })
                                     break;
-                                case (handler.itemNameIncludes("grenade")):
-                                case (handler.itemNameIncludes("bomb")):
+                                //case (handler.itemNameIncludes("grenade")):
+                                //case (handler.itemNameIncludes("bomb")):
+                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
+                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
                                 case (handler.animType === "t8"):
                                     Hooks.once("createMeasuredTemplate", () => {
                                         explodeTemplate(handler);
@@ -194,7 +199,7 @@ function revItUp5eCore(msg) {
             }
         }
         switch (true) {
-            case (handler.itemTypeIncludes("spell") && handler.itemNameIncludes("shield")):
+            case (handler.itemTypeIncludes("spell") && handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase())):
                 castOnSelf(handler);
                 break;
         }
@@ -210,42 +215,51 @@ function revItUp5eCore(msg) {
                 } else {
                     switch (true) {
                         case (handler.itemNameIncludes("cure", "wound")):
-                        case (handler.itemNameIncludes("heal", "word")):
-                        case (handler.itemNameIncludes("generic", "heal")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
+                        //case (handler.itemNameIncludes("heal", "word")):
+                        //case (handler.itemNameIncludes("generic", "heal")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                             onTargetSpells(handler);
                             break;
-                        case (handler.itemNameIncludes("disintegrate")):
+                        //case (handler.itemNameIncludes("disintegrate")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
                             spellAttacks(handler);
                             break;
-                        case (handler.itemNameIncludes("magic", "missile")):
+                        //case (handler.itemNameIncludes("magic", "missile")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
                             magicMissile(handler);
                             break;
-                        case (handler.itemNameIncludes("shield")):
-                        case (handler.itemNameIncludes("second", "wind")):
-                        case (handler.itemNameIncludes("potion", "heal")):
+                        //case (handler.itemNameIncludes("shield")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase()):
+                            //case (handler.itemNameIncludes("second", "wind")):
+                            //case (handler.itemNameIncludes("potion", "heal")):
                             castOnSelf(handler);
                             break;
-                        case (handler.itemNameIncludes("catapult")):
+                        //case (handler.itemNameIncludes("catapult")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCatapult").toLowerCase()):
                             rangedWeapons(handler);
                             break;
                         //case (handler.itemNameIncludes("boulder")):
                         //case (handler.itemNameIncludes("siege")):
                         //rangedWeapons(handler)
                         //break;
-                        case (handler.itemNameIncludes("thunderwave")):
+                        //case (handler.itemNameIncludes("thunderwave")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
                             Hooks.once("createMeasuredTemplate", () => {
                                 thunderwaveAuto(handler);
                             })
                             break;
-                        case (handler.itemNameIncludes("shatter")):
+                        //case (handler.itemNameIncludes("shatter")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShatter").toLowerCase()):
                             Hooks.once("createMeasuredTemplate", () => {
                                 shatterAuto(handler);
                             })
                             break;
-                        case (handler.itemNameIncludes("explode")):
-                        case (handler.itemNameIncludes("grenade")):
-                        case (handler.itemNameIncludes("bomb")):
-                        case (handler.itemNameIncludes("fireball") && handler.itemSourceIncludes("explode")):
+                        //case (handler.itemNameIncludes("grenade")):
+                        //case (handler.itemNameIncludes("bomb")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
                         case (handler.animType === "t8"):
                             Hooks.once("createMeasuredTemplate", () => {
                                 explodeTemplate(handler);
@@ -270,89 +284,130 @@ async function revItUp(handler) {
         case ((handler.animType === "t8") && handler.animOverride):
             explodeTemplate(handler);
             break;
-        case handler.itemNameIncludes("rapier"):
-        case handler.itemNameIncludes("sword"):
-        case handler.itemNameIncludes("greatclub"):
-        case handler.itemNameIncludes("greataxe"):
-        case handler.itemNameIncludes("battle", "axe"):
-        case handler.itemNameIncludes("mace"):
-        case handler.itemNameIncludes("maul"):
-        case handler.itemNameIncludes("scimitar"):
-        case handler.itemNameIncludes("1 handed slashing"):
-        case handler.itemNameIncludes("2 handed slashing"):
-        case handler.itemNameIncludes("1 handed bludgeoning"):
-        case handler.itemNameIncludes("2 handed bludgeoning"):
-        case handler.itemNameIncludes("1 handed piercing"):
-        case handler.itemNameIncludes("2 handed piercing"):
+        //case handler.itemNameIncludes("rapier"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
+        //case handler.itemNameIncludes("sword"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortsword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
+        //case handler.itemNameIncludes("greatclub"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase()):
+        //case handler.itemNameIncludes("greataxe"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase()):
+        //case handler.itemNameIncludes("battleaxe"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase()):
+        //case handler.itemNameIncludes("mace"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMace").toLowerCase()):
+        //case handler.itemNameIncludes("maul"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
+        //case handler.itemNameIncludes("scimitar"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
+        //case handler.itemNameIncludes("1 handed slashing"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HS").toLowerCase()):
+        //case handler.itemNameIncludes("2 handed slashing"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HS").toLowerCase()):
+        //case handler.itemNameIncludes("1 handed bludgeoning"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HB").toLowerCase()):
+        //case handler.itemNameIncludes("2 handed bludgeoning"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HB").toLowerCase()):
+        //case handler.itemNameIncludes("1 handed piercing"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HP").toLowerCase()):
+        //case handler.itemNameIncludes("2 handed piercing"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HP").toLowerCase()):
             meleeWeapons(handler);
             break;
-        case (handler.itemNameIncludes("dagger")):
-        case (handler.itemNameIncludes("hand", "axe")):
-        case (handler.itemNameIncludes("spear")):
+        //case handler.itemNameIncludes("dagger"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()):
+        //case handler.itemNameIncludes("handaxe"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase()):
+        //case handler.itemNameIncludes("spear"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
             meleeRangeSwitch(handler);
             break;
-        case (handler.itemNameIncludes("arrow")):
-        case (handler.itemNameIncludes("bow")):
+        //case handler.itemNameIncludes("arrow"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
+        case handler.itemNameIncludes("bow"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
             arrowOptionExplode(handler);
             break;
-        case (handler.itemNameIncludes("hammer")):
-        case (handler.itemNameIncludes("siege")):
-        case (handler.itemNameIncludes("boulder")):
-        case (handler.itemNameIncludes("laser")):
-        case (handler.itemNameIncludes("javelin")):
-        case (handler.itemNameIncludes("sling")):
+        //case (handler.itemNameIncludes("throwing hammer")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()):
+        //case handler.itemNameIncludes("siege"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()):
+        //case (handler.itemNameIncludes("boulder")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()):
+        case handler.itemNameIncludes("laser"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
+        //case (handler.itemNameIncludes("javelin")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
+        //case (handler.itemNameIncludes("sling")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSling").toLowerCase()):
             rangedWeapons(handler);
             break;
-        case (handler.itemNameIncludes("thunderwave")):
+        //case (handler.itemNameIncludes("thunderwave")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
             thunderwaveAuto(handler);
             break;
-        case (handler.itemNameIncludes("shatter")):
+        //case (handler.itemNameIncludes("shatter")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShatter").toLowerCase()):
             shatterAuto(handler);
             break;
-        case (handler.itemNameIncludes("magic missile")):
+        //case (handler.itemNameIncludes("magic missile")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
             magicMissile(handler);
             break;
         case (handler.itemNameIncludes("cure", "wounds")):
-        case (handler.itemNameIncludes("heal", "word")):
-        case (handler.itemNameIncludes("generic", "heal")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
+        //case (handler.itemNameIncludes("heal", "word")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+        //case (handler.itemNameIncludes("generic", "heal")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
             onTargetSpells(handler);
             break;
-        case (handler.itemNameIncludes("fire", "bolt")):
-        case (handler.itemNameIncludes("ray", "frost")):
-        case (handler.itemNameIncludes("witch", "bolt")):
-        case (handler.itemNameIncludes("eldritch blast")):
-        case (handler.itemNameIncludes("scorching", "ray")):
-        case (handler.itemNameIncludes("disintegrate")):
+        //case (handler.itemNameIncludes("fire", "bolt")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
+        //case (handler.itemNameIncludes("ray", "frost")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
+        //case (handler.itemNameIncludes("witch", "bolt")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
+        //case (handler.itemNameIncludes("eldritch blast")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
+        //case (handler.itemNameIncludes("scorching", "ray")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
+        //case (handler.itemNameIncludes("disintegrate")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
             spellAttacks(handler);
             break;
-        case (handler.itemNameIncludes("shield")):
+        //case (handler.itemNameIncludes("shield")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase()):
             castOnSelf(handler);
             break;
-        case (handler.itemNameIncludes("boulder")):
-        case (handler.itemNameIncludes("siege")):
-        case (handler.itemNameIncludes("laser")):
-        case (handler.itemNameIncludes("sling")):
-            rangedWeapons(handler);
-            break;
-        case (handler.itemNameIncludes("arrow")):
-        case (handler.itemNameIncludes("bow")):
-            arrowOptionExplode(handler);
-            break;
-        case (handler.itemNameIncludes("grenade")):
-        case (handler.itemNameIncludes("bomb")):
+        //case (handler.itemNameIncludes("grenade")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
+        //case (handler.itemNameIncludes("bomb")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
             explodeTemplate(handler);
             break;
-        case (handler.itemNameIncludes("bite")):
-        case (handler.itemNameIncludes("claw")):
+        //case (handler.itemNameIncludes("bite")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+        //case (handler.itemNameIncludes("claw")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
             creatureAttacks(handler);
             break;
+        /*
         case (handler.itemNameIncludes("potion", "heal")):
             castOnSelf(handler);
             break;
         case (handler.itemNameIncludes("second", "wind")):
             castOnSelf(handler);
             break;
-        case handler.itemNameIncludes("unarmed strike"):
+        */
+        //case handler.itemNameIncludes("unarmed strike"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
+            itemUnarmedStrike
             if (moduleIncludes("jb2a_patreon")) {
                 randomGenDmg(handler);
             }
@@ -467,12 +522,26 @@ let hitStutter =
         }
     }];
 
+function UrlExists(url, cb) {
+    jQuery.ajax({
+        url: url,
+        dataType: 'text',
+        type: 'GET',
+        complete: function (xhr) {
+            if (typeof cb === 'function')
+                cb.apply(this, [xhr.status]);
+        }
+    });
+}
+
+
 function colorChecks(handler) {
     let type01 = "01";
     let tint = "Regular";
     let color;
     switch (true) {
-        case (handler.itemNameIncludes("laser")):
+        //case (handler.itemNameIncludes("lasersword")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
             color = "Blue";
             break;
         default:
@@ -489,7 +558,8 @@ function colorChecks(handler) {
         case (handler.itemColorIncludes("purple")):
             type01 = "Fire";
             switch (true) {
-                case (handler.itemNameIncludes("laser", "sword")):
+                //case (handler.itemNameIncludes("laser", "sword")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
                     tint = "Regular";
                     break;
                 default:
@@ -523,7 +593,7 @@ function colorChecks(handler) {
             color = "Pink";
             fireColor = 0xD2049A;
             break;
-        case (handler.itemColorIncludes("darkred")):
+        case (handler.itemColorIncludes("dark red")):
             type01 = "Fire";
             tint = "Dark";
             color = "Red";
@@ -586,87 +656,105 @@ async function meleeWeapons(handler) {
 
     let item01 = "Dagger02";
     switch (true) {
-        case (handler.itemNameIncludes("rapier")):
+        //case (handler.itemNameIncludes("rapier")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
             item01 = "Rapier01";
             tmDelay = 900;
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
-        case (handler.itemNameIncludes("greatsword")):
+        //case (handler.itemNameIncludes("greatsword")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
             item01 = "GreatSword01";
             tmDelay = 1600;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        case (handler.itemNameIncludes("greatclub")):
+        //case (handler.itemNameIncludes("greatclub")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase()):
             item01 = "GreatClub01";
             tmDelay = 1100;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        case (handler.itemNameIncludes("greataxe")):
-        case (handler.itemNameIncludes("battle", "axe")):
+        //case (handler.itemNameIncludes("greataxe")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase()):
+        //case (handler.itemNameIncludes("battleaxe")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase()):
             item01 = "GreatAxe01";
             tmDelay = 1600;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        case (handler.itemNameIncludes("mace")):
+        //case (handler.itemNameIncludes("mace")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMace").toLowerCase()):
             item01 = "Mace01";
             tmDelay = 1100;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        case (handler.itemNameIncludes("lasersword")):
+        //case (handler.itemNameIncludes("lasersword")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
             item01 = "LaserSword01";
             type01 = "01";
             tmDelay = 1300;
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
-        case (handler.itemNameIncludes("sword")):
-        case (handler.itemNameIncludes("scimitar")):
+        //case (handler.itemNameIncludes("sword")):
+        //case (handler.itemNameIncludes("scimitar")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortsword").toLowerCase()):
             item01 = "Sword01";
             tmDelay = 1300;
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
-        case (handler.itemNameIncludes("maul")):
+        //case (handler.itemNameIncludes("maul")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
             item01 = "Maul01";
             tmDelay = 1900;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        case handler.itemNameIncludes("1 handed slashing"):
+        //case (handler.itemNameIncludes("1 handed slashing")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HS").toLowerCase()):
             item01 = "DmgSlashing";
             color = "Yellow_1Handed";
             break;
-        case handler.itemNameIncludes("2 handed slashing"):
+        //case (handler.itemNameIncludes("2 handed slashing")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HS").toLowerCase()):
             item01 = "DmgSlashing";
             color = "Yellow_2Handed";
             tmDelay = 500;
             tmKill = 750;
             tmMacro = hitStutter;
             break;
-        case handler.itemNameIncludes("1 handed piercing"):
+        //case (handler.itemNameIncludes("1 handed piercing")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HP").toLowerCase()):
             item01 = "DmgPiercing";
             color = "Yellow_1Handed";
             break;
-        case handler.itemNameIncludes("2 handed piercing"):
+        //case (handler.itemNameIncludes("2 handed piercing")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HP").toLowerCase()):
             item01 = "DmgPiercing";
             color = "Yellow_2Handed";
             tmDelay = 200;
             tmKill = 500;
             tmMacro = hitStutter;
             break;
-        case handler.itemNameIncludes("1 handed bludgeoning"):
+        //case (handler.itemNameIncludes("1 handed bludgeoning")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HB").toLowerCase()):
             item01 = "DmgBludgeoning";
             color = "Yellow_1Handed";
             tmDelay = 500;
             tmKill = 750;
             tmMacro = hitStutter;
             break;
-        case handler.itemNameIncludes("2 handed bludgeoning"):
+        case (handler.itemNameIncludes("2 handed bludgeoning")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HB").toLowerCase()):
             item01 = "DmgBludgeoning";
             color = "Yellow_2Handed";
             tmDelay = 500;
@@ -674,7 +762,6 @@ async function meleeWeapons(handler) {
             tmMacro = hitStutter;
             break;
     }
-
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
@@ -701,6 +788,15 @@ async function meleeWeapons(handler) {
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
+
+        /*
+        UrlExists(anim, function (status) {
+            if (status === 404) {
+                anim = `${file}/GreatAxe01_Fire_Regular_Red_800x600.webm`;
+                console.log("failure");
+            }
+        });
+        */
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
 
@@ -731,7 +827,7 @@ async function meleeWeapons(handler) {
             let Scale = canvas.scene.data.grid / 175;
             // randomly mirrors animation
             var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-
+            
             let file = `modules/${path00}/Library/Generic/Weapon_Attacks/Melee`;
 
             let anim = `${file}/${item01}_${type01}_${tint}_${color}_800x600.webm`;
@@ -829,13 +925,13 @@ async function randomGenDmg(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
@@ -997,8 +1093,13 @@ async function meleeRangeSwitch(handler) {
     let tmMacro = bloodSplat;
     let item11;
     let item01 = "Dagger02";
+
+    //case handler.itemNameIncludes("handaxe"):
+    //case handler.itemNameIncludes("spear"):
+
     switch (true) {
-        case (handler.itemNameIncludes("handaxe")):
+        //case (handler.itemNameIncludes("handaxe")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase()):
             item01 = "HandAxe02";
             item11 = "HandAxe01";
             tmMacro = bloodSplat;
@@ -1008,7 +1109,8 @@ async function meleeRangeSwitch(handler) {
             Delay02 = 900;
             Delay03 = 900;
             break;
-        case (handler.itemNameIncludes("dagger")):
+        //case (handler.itemNameIncludes("dagger")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()):
             item01 = "Dagger02";
             item11 = "Dagger01";
             tmMacro = bloodSplat;
@@ -1018,7 +1120,8 @@ async function meleeRangeSwitch(handler) {
             Delay02 = 600;
             Delay03 = 600;
             break;
-        case (handler.itemNameIncludes("spear")):
+        //case (handler.itemNameIncludes("spear")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
             item01 = "Spear01";
             item11 = "Spear01";
             tmMacro = bloodSplat;
@@ -1063,13 +1166,13 @@ async function meleeRangeSwitch(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
@@ -1155,8 +1258,12 @@ async function meleeRangeSwitch(handler) {
 
                     canvas.fxmaster.playVideo(spellAnim);
                     game.socket.emit('module.fxmaster', spellAnim);
+                    await wait(tmdelay);
+                    if (handler.animExplode && handler.animOverride) {
+                        explodeOnTarget(handler);
+                    }
                     if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        await wait(tmdelay);
+                        //await wait(200);
                         TokenMagic.addFilters(target, tmMacro)
                         await wait(tmkill);
                         TokenMagic.deleteFilters(target, "BloodSplat");
@@ -1187,8 +1294,12 @@ async function meleeRangeSwitch(handler) {
                             y: (Scale * plusOrMinus),
                         },
                     });
+                    await wait(tmdelay - 200);
+                    if (handler.animExplode && handler.animOverride) {
+                        explodeOnTarget(handler);
+                    }
                     if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        await wait(tmdelay);
+                        await wait(200);
                         switch (true) {
                             case (fireColor != "pass"):
                                 TokenMagic.addFilters(target, burn);
@@ -1222,81 +1333,87 @@ async function spellAttacks(handler) {
     let path2;
 
     switch (true) {
-        case (handler.itemNameIncludes("fire", "bolt")):
+        //case (handler.itemNameIncludes("fire", "bolt")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
             path = "Cantrip/Fire_Bolt";
             path2 = "FireBolt_01";
             tint = "Regular";
             color = "Orange";
             tmColor = 0xFF9309;
             break;
-        case (handler.itemNameIncludes("ray", "frost")):
+        //case (handler.itemNameIncludes("ray", "frost")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
             path = "Cantrip/Ray_Of_Frost";
             path2 = "RayOfFrost_01";
             tint = "Regular";
             color = "Blue";
             tmColor = 0xBBDDEE;
             break;
-        case (handler.itemNameIncludes("witch", "bolt")):
+        //case (handler.itemNameIncludes("witch", "bolt")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
             path = "1st_Level/Witch_Bolt";
             path2 = "WitchBolt_01";
             tint = "Regular";
             color = "Blue";
             tmColor = 0xAE00AE;
             break;
-        case (handler.itemNameIncludes("scorching", "ray")):
+        //case (handler.itemNameIncludes("scorching", "ray")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
             path = "2nd_Level/Scorching_Ray";
             path2 = "ScorchingRay_01";
             tint = "Regular";
             color = "Orange";
             tmColor = 0xFF9309;
             break;
-        case (handler.itemNameIncludes("disintegrate")):
+        //case (handler.itemNameIncludes("disintegrate")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
             path = "6th_Level/Disintegrate";
             path2 = "Disintegrate_01";
             tint = "Regular";
             color = "Green01";
             tmColor = 0x00AFC1;
             break;
-        case (handler.itemNameIncludes("eldritch blast")):
+        //case (handler.itemNameIncludes("eldritch blast")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
             path = "Cantrip/Eldritch_Blast";
             path2 = "EldritchBlast_01";
             tint = "Regular";
             color = "Purple";
             break;
     }
-    
+
     switch (true) {
-        case (handler.itemColorIncludes("orange", "pink")):
+        case (handler.itemColorIncludes("orange pink")):
             tint = "Regular";
             color = "OrangePink";
             tmColor = 0xC1005B;
             break;
-        case (handler.itemColorIncludes("purple", "blue")):
+        case (handler.itemColorIncludes("purple blue")):
             tint = "Regular";
             color = "PurpleBlue";
             tmColor = 0x00AFC1;
             break;
-        case (handler.itemColorIncludes("dark", "purple")):
+        case (handler.itemColorIncludes("dark purple")):
             tint = "Dark";
             color = "Purple";
             tmColor = 0xAE00AE;
             break;
-        case (handler.itemColorIncludes("dark", "green")):
+        case (handler.itemColorIncludes("dark green")):
             tint = "Dark";
             color = "Green";
             tmColor = 0x187C00;
             break;
-        case (handler.itemColorIncludes("dark", "red")):
+        case (handler.itemColorIncludes("dark red")):
             tint = "Dark";
             color = "Red";
             tmColor = 0x8E0000;
             break;
-        case (handler.itemColorIncludes("blue", "yellow")):
+        case (handler.itemColorIncludes("yellow blue")):
             tint = "Regular";
             color = "BlueYellow";
             tmColor = 0xACC5C5;
             break;
-        case (handler.itemColorIncludes("purple", "teal")):
+        case (handler.itemColorIncludes("purple teal")):
             tint = "Regular";
             color = "PurpleTeal";
             tmColor = 0xC38CDC;
@@ -1309,7 +1426,8 @@ async function spellAttacks(handler) {
         case (handler.itemColorIncludes("green")):
             tint = "Regular";
             switch (true) {
-                case (handler.itemNameIncludes("disintegrate")):
+                //case (handler.itemNameIncludes("disintegrate")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
                     color = "Green01";
                     break;
                 default:
@@ -1330,7 +1448,8 @@ async function spellAttacks(handler) {
             break;
         case (handler.itemColorIncludes("red")):
             switch (true) {
-                case (handler.itemNameIncludes("fire", "bolt")):
+                //case (handler.itemNameIncludes("fire", "bolt")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
                     tint = "Dark";
                     break;
                 default:
@@ -1345,7 +1464,7 @@ async function spellAttacks(handler) {
             tmColor = 0xFF0000;
             break;
     }
-    
+
     let letitBurn =
         [{
             filterType: "xfire",
@@ -1454,27 +1573,32 @@ async function spellAttacks(handler) {
     let tmMacro;
 
     switch (true) {
-        case (handler.itemNameIncludes("fire", "bolt")):
+        //case (handler.itemNameIncludes("fire", "bolt")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
             //tmDelay = 1000;
             //tmKill = 500;
             //tmMacro = letitBurn;
             break;
-        case (handler.itemNameIncludes("ray", "frost")):
+        //case (handler.itemNameIncludes("ray", "frost")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
             tmDelay = 750;
             tmKill = 2000;
             tmMacro = frosty;
             break;
-        case (handler.itemNameIncludes("witch", "bolt")):
+        //case (handler.itemNameIncludes("witch", "bolt")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
             tmDelay = 50;
             tmKill = 4000;
             tmMacro = electric;
             break;
-        case (handler.itemNameIncludes("scorching", "ray")):
+        //case (handler.itemNameIncludes("scorching", "ray")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
             tmDelay = 500;
             tmKill = 750;
             tmMacro = letitBurn;
             break;
-        case (handler.itemNameIncludes("disintegrate")):
+        //case (handler.itemNameIncludes("disintegrate")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
             tmDelay = 500;
             tmKill = 2000;
             tmMacro = ashes;
@@ -1500,13 +1624,13 @@ async function spellAttacks(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
             //log(target.id);
@@ -1526,9 +1650,12 @@ async function spellAttacks(handler) {
             let anchorX = 0.2;
 
             switch (true) {
-                case (handler.itemNameIncludes("fire", "bolt")):
-                case (handler.itemNameIncludes("scorching", "ray")):
-                case (handler.itemNameIncludes("eldritch blast")):
+                //case (handler.itemNameIncludes("fire", "bolt")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
+                //case (handler.itemNameIncludes("scorching", "ray")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
+                //case (handler.itemNameIncludes("eldritch blast")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
                     switch (true) {
                         case (anDist <= 1100):
                             anFileSize = 1200;
@@ -1547,8 +1674,10 @@ async function spellAttacks(handler) {
                             break;
                     }
                     break;
-                case (handler.itemNameIncludes("ray", "frost")):
-                case (handler.itemNameIncludes("disintegrate")):
+                //case (handler.itemNameIncludes("ray", "frost")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
+                //case (handler.itemNameIncludes("disintegrate")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
                     switch (true) {
                         case (anDist <= 600):
                             anFileSize = 600;
@@ -1567,7 +1696,8 @@ async function spellAttacks(handler) {
                             break;
                     }
                     break;
-                case (handler.itemNameIncludes("witch bolt")):
+                //case (handler.itemNameIncludes("witch bolt")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
                     switch (true) {
                         case (anDist <= 600):
                             anFileSize = 600;
@@ -1639,7 +1769,16 @@ async function creatureAttacks(handler) {
     let color = "Red";
 
     switch (true) {
-        case (handler.itemColorIncludes("darkred")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+            tint = "Regular";
+            break;
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
+            tint = "Bright";
+            break;
+    }
+
+    switch (true) {
+        case (handler.itemColorIncludes("dark red")):
             type01 = "01";
             tint = "Dark";
             color = "Red";
@@ -1651,62 +1790,22 @@ async function creatureAttacks(handler) {
             break;
         case (handler.itemColorIncludes("yellow")):
             type01 = "01";
-            switch (true) {
-                case (handler.itemNameIncludes("bite")):
-                    tint = "Regular";
-                    break;
-                default:
-                    tint = "Bright";
-                    break;
-            }
             color = "Yellow";
             break;
         case (handler.itemColorIncludes("purple")):
             type01 = "01";
-            switch (true) {
-                case (handler.itemNameIncludes("bite")):
-                    tint = "Regular";
-                    break;
-                default:
-                    tint = "Bright";
-                    break;
-            }
             color = "Purple";
             break;
         case (handler.itemColorIncludes("orange")):
             type01 = "01";
-            switch (true) {
-                case (handler.itemNameIncludes("bite")):
-                    tint = "Regular";
-                    break;
-                default:
-                    tint = "Bright";
-                    break;
-            }
             color = "Orange";
             break;
         case (handler.itemColorIncludes("green")):
             type01 = "01";
-            switch (true) {
-                case (handler.itemNameIncludes("bite")):
-                    tint = "Regular";
-                    break;
-                default:
-                    tint = "Bright";
-                    break;
-            }
             color = "Green";
             break;
         case (handler.itemColorIncludes("blue")):
             type01 = "01";
-            switch (true) {
-                case (handler.itemNameIncludes("bite")):
-                    tint = "Regular";
-                    break;
-                default:
-                    tint = "Bright";
-                    break;
-            }
             color = "Blue";
             break;
     }
@@ -1733,24 +1832,26 @@ async function creatureAttacks(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
             //log(handler.allTargets[i]);
             let target = handler.allTargets[i];
             let tarScale;
             switch (true) {
-                case (handler.itemNameIncludes("claw")):
+                //case (handler.itemNameIncludes("claw")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                     path = "Claws";
                     tmMacro = bloodSplat;
                     tarScale = ((target.data.width + target.data.height) / 4);
                     break;
-                case (handler.itemNameIncludes("bite")):
+                //case (handler.itemNameIncludes("bite")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
                     path = "Bite";
                     tmMacro = bloodyHitStutter;
                     tarScale = ((target.data.width + target.data.height) / 2);
@@ -1793,6 +1894,7 @@ async function rangedWeapons(handler) {
     let color;
     switch (true) {
         case (handler.itemNameIncludes("laser")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
             color = "Blue";
             tmColor = 0x0075B0;
             break;
@@ -1816,15 +1918,7 @@ async function rangedWeapons(handler) {
             break;
         case (handler.itemColorIncludes("green")):
             type01 = "01";
-            switch (true) {
-                case (handler.itemNameIncludes("arrow")):
-                case (handler.itemNameIncludes("bow")):
-                    tint = "Glowing";
-                    break;
-                default:
-                    tint = "Regular"
-                    break;
-            }
+            tint = "Regular"
             color = "Green";
             tmColor = 0x0EB400;
             break;
@@ -1916,48 +2010,59 @@ async function rangedWeapons(handler) {
     let Delay02 = 900;
     let Delay03 = 900;
     switch (true) {
-        case (handler.itemNameIncludes("hammer")):
+        //case (handler.itemNameIncludes("hammer")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()):
             path01 = "Hammer01";
             tmMacro = hitStutter;
             Delay01 = 600;
             Delay02 = 800;
             Delay03 = 800;
+            tint = "Regular";
             break;
         case (handler.itemNameIncludes("siege")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()):
             path01 = "SiegeBoulder01";
             tmMacro = hitStutter;
             Delay01 = 750;
             Delay02 = 1250;
             Delay03 = 1150;
             size = "500";
+            tint = "Regular";
             break;
-        case (handler.itemNameIncludes("boulder")):
+        //case (handler.itemNameIncludes("boulder")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()):
             path01 = "BoulderToss01";
             tmMacro = hitStutter
             size = "500";
             Delay01 = 1250;
             Delay02 = 1750;
             Delay03 = 1550;
+            tint = "Regular";
             break;
         case (handler.itemNameIncludes("laser")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
             path01 = "LaserShot";
             tmMacro = colorWave;
             Delay01 = 500;
             Delay02 = 500;
             Delay03 = 500;
             break;
-        case (handler.itemNameIncludes("sling")):
+        //case (handler.itemNameIncludes("sling")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSling").toLowerCase()):
             path01 = "SlingShot";
             Delay01 = 2000;
             Delay02 = 2300;
             Delay03 = 2000;
+            tint = "Regular";
             break;
-        case (handler.itemNameIncludes("javelin")):
+        //case (handler.itemNameIncludes("javelin")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
             path01 = "Javelin01";
             tmMacro = bloodSplat;
             Delay01 = 750;
             Delay02 = 1250;
             Delay03 = 1050;
+            tint = "Regular";
             break;
     }
 
@@ -1981,13 +2086,13 @@ async function rangedWeapons(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
-    
+
         for (var i = 0; i < arrayLength; i++) {
 
             await wait(500)
@@ -2004,9 +2109,11 @@ async function rangedWeapons(handler) {
             let anFileSize = 600;
             let anchorX = 0.2;
             switch (true) {
-                case (handler.itemNameIncludes("hammer")):
-                case (handler.itemNameIncludes("kunai")):
-                case (handler.itemNameIncludes("sling")):
+                //case (handler.itemNameIncludes("hammer")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()):
+                //case (handler.itemNameIncludes("kunai")):
+                //case (handler.itemNameIncludes("sling")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSling").toLowerCase()):
                     anFile = `${file}/${path01}_${type01}_${tint}_${color}_15ft_1000x${size}.webm`;
                     anFileSize = 600;
                     anchorX = 0.2;
@@ -2031,12 +2138,16 @@ async function rangedWeapons(handler) {
                             break;
                     }
                     break;
-                case (handler.itemNameIncludes("arrow")):
-                case (handler.itemNameIncludes("bow")):
+                //case (handler.itemNameIncludes("arrow")):
+                //case (handler.itemNameIncludes("bow")):
                 case (handler.itemNameIncludes("siege")):
-                case (handler.itemNameIncludes("boulder")):
-                case (handler.itemNameIncludes("javelin")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()):
+                //case (handler.itemNameIncludes("boulder")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()):
+                //case (handler.itemNameIncludes("javelin")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
                 case (handler.itemNameIncludes("laser")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
                     anFile = `${file}/${path01}_${type01}_${tint}_${color}_30ft_1600x${size}.webm`;
                     anFileSize = 600;
                     anchorX = 0.125;
@@ -2094,6 +2205,7 @@ async function rangedWeapons(handler) {
             let Repeater = 1;
             switch (true) {
                 case (handler.itemNameIncludes("laser")):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
                     Repeater = 3;
                     break;
                 default:
@@ -2413,11 +2525,14 @@ async function onTargetSpells(handler) {
     let path02;
     switch (true) {
         case (handler.itemNameIncludes("cure", "wound")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
             path01 = "1st_Level/Cure_Wounds";
             path02 = "CureWounds";
             break;
-        case (handler.itemNameIncludes("heal", "word")):
-        case (handler.itemNameIncludes("generic", "heal")):
+        //case (handler.itemNameIncludes("heal", "word")):
+        //case (handler.itemNameIncludes("generic", "heal")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
             path01 = "Generic/Healing";
             path02 = "HealingAbility";
             break;
@@ -2444,10 +2559,13 @@ async function onTargetSpells(handler) {
             switch (true) {
                 case (tokenSize === "lg"):
                     switch (true) {
-                        case (handler.itemNameIncludes("heal")):
+                        //case (handler.itemNameIncludes("heal")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                             divisor = 125;
                             break;
-                        case (handler.itemNameIncludes("cure")):
+                        case (handler.itemNameIncludes("cure", "wound")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                             divisor = 165;
                             break;
                         default:
@@ -2457,10 +2575,13 @@ async function onTargetSpells(handler) {
                     break;
                 case (tokenSize === "huge"):
                     switch (true) {
-                        case (handler.itemNameIncludes("heal")):
+                        //case (handler.itemNameIncludes("heal")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                             divisor = 100;
                             break;
-                        case (handler.itemNameIncludes("cure")):
+                        case (handler.itemNameIncludes("cure", "wound")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                             divisor = 115;
                             break;
                         default:
@@ -2472,10 +2593,13 @@ async function onTargetSpells(handler) {
                 case (tokenSize === "med"):
                 default:
                     switch (true) {
-                        case (handler.itemNameIncludes("heal")):
+                        //case (handler.itemNameIncludes("heal")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                             divisor = 275;
                             break;
-                        case (handler.itemNameIncludes("cure")):
+                        case (handler.itemNameIncludes("cure", "wound")):
+                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                             divisor = 325;
                             break;
                         default:
@@ -2564,7 +2688,7 @@ async function magicMissile(handler) {
             }
         }];
 
-    
+
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
@@ -2584,7 +2708,7 @@ async function magicMissile(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
@@ -2731,91 +2855,73 @@ async function magicMissile(handler) {
 
 async function explodeTemplate(handler) {
     let type01 = "01";
+    switch (true) {
+        case (handler.animExVariant.includes("02")):
+            type01 = "02";
+            break;
+    }
+
     let color = "Orange";
     let tmColor = 0x0075B0;
 
     switch (true) {
         case (handler.animExColor.includes("blue")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Blue";
             tmColor = 0x0075B0;
             break;
         case (handler.animExColor.includes("green")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Green";
             tmColor = 0x0EB400;
             break;
         case (handler.animExColor.includes("orange")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
         case (handler.animExColor.includes("purple")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Purple";
             tmColor = 0xBF0099;
             break;
         case (handler.animExColor.includes("yellow")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Yellow";
             tmColor = 0xCFD204;
             break;
     }
     let divisor = 100;
     switch (true) {
-        case (handler.animExRadius.includes("2")):
+        case (handler.animExRadius === "2"):
             divisor = 300;
             break;
-        case (handler.animExRadius.includes("05")):
+        case (handler.animExRadius === "5"):
             divisor = 200;
             break;
-        case (handler.animExRadius.includes("10")):
+        case (handler.animExRadius === "10"):
             divisor = 100;
             break;
-        case (handler.animExRadius.includes("15")):
+        case (handler.animExRadius === "15"):
             divisor = 67;
-        case (handler.animExRadius.includes("20")):
+            break;
+        case (handler.animExRadius === "20"):
             divisor = 50;
             break;
-        case (handler.animExRadius.includes("25")):
+        case (handler.animExRadius === "25"):
             divisor = 40;
             break;
-        case (handler.animExRadius.includes("30")):
+        case (handler.animExRadius === "30"):
             divisor = 33;
             break;
-        case (handler.animExRadius.includes("35")):
+        case (handler.animExRadius === "35"):
             divisor = 28.5;
             break;
-        case (handler.animExRadius.includes("40")):
+        case (handler.animExRadius === "40"):
             divisor = 25;
             break;
-        case (handler.animExRadius.includes("45")):
+        case (handler.animExRadius === "45"):
             divisor = 22.2;
             break;
-        case (handler.animExRadius.includes("50")):
+        case (handler.animExRadius === "50"):
             divisor = 20;
             break;
-        case (handler.animExRadius.includes("nuclear")):
+        case (handler.animExRadius === "nuclear"):
             divisor = 10;
             break;
     }
@@ -2917,55 +3023,36 @@ async function arrowOptionExplode(handler) {
     }
 
     let type02 = "01";
+    switch (true) {
+        case handler.animExVariant.includes("02"):
+            type02 = "02";
+            break;
+    }
     let color02 = "Orange";
+
+
 
     switch (true) {
         case (handler.animExColor.includes("blue")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Blue";
             //tmColor = 0x0075B0;
             break;
         case (handler.animExColor.includes("orange")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Orange";
             //tmColor = 0xBF6E00;
             break;
         case (handler.animExColor.includes("purple")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Purple";
             //tmColor = 0xBF0099;
             break;
         case (handler.animExColor.includes("yellow")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Yellow";
             //tmColor = 0xCFD204;
             break;
         case (handler.animExColor.includes("green")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type02 = "02";
-                    break;
-            }
             color02 = "Green";
             //tmColor = 0x0EB400;
             break;
-
     }
 
     /*
@@ -3139,7 +3226,7 @@ async function arrowOptionExplode(handler) {
                 y: 0.25
             }
         }
-    
+
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
@@ -3221,6 +3308,12 @@ async function arrowOptionExplode(handler) {
 
             canvas.fxmaster.playVideo(spellAnim);
             game.socket.emit('module.fxmaster', spellAnim);
+            /*
+            if (handler.animExplode && handler.animOverride) {
+                await wait(boomDelay);
+                explodeOnTarget(handler);
+            }
+            */
             switch (true) {
                 case (handler.animExplode):
                     await wait(boomDelay);
@@ -3236,6 +3329,7 @@ async function arrowOptionExplode(handler) {
                     break;
             }
 
+
         }
     }
     cast();
@@ -3244,19 +3338,9 @@ async function arrowOptionExplode(handler) {
 
 async function castOnSelf(handler) {
 
-    let path01 = "breakout";
-    let path02;
-    let path03;
-
-    switch (true) {
-        case (handler.itemNameIncludes("shield")):
-            if (game.settings.get("automated-jb2a-animations", "EnableShield")) {
-                path01 = "5th_Level";
-                path02 = "Antilife_Shell";
-                path03 = "AntilifeShell_01_Blue_NoCircle";
-            }
-            break;
-    }
+    let path01 = "5th_Level";
+    let path02 = "Antilife_Shell";
+    let path03 = "AntilifeShell_01_Blue_NoCircle";
     log(path01);
     log(path02);
     log(path03);
@@ -3303,13 +3387,7 @@ async function castOnSelf(handler) {
         canvas.fxmaster.playVideo(spellAnim);
         game.socket.emit('module.fxmaster', spellAnim);
     }
-    switch (true) {
-        case (path01 === "breakout"):
-            break;
-        default:
-            cast();
-            break;
-    }
+    cast();
 
 
 }
@@ -3317,91 +3395,71 @@ async function castOnSelf(handler) {
 
 async function explodeOnTarget(handler) {
     let type01 = "01";
+    switch (true) {
+        case (handler.animExVariant.includes("02")):
+            type01 = "02";
+            break;
+    }
     let color = "Orange";
     let tmColor = 0x0075B0;
 
     switch (true) {
         case (handler.animExColor.includes("blue")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Blue";
             tmColor = 0x0075B0;
             break;
         case (handler.animExColor.includes("green")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Green";
             tmColor = 0x0EB400;
             break;
         case (handler.animExColor.includes("orange")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Orange";
             tmColor = 0xBF6E00;
             break;
         case (handler.animExColor.includes("purple")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Purple";
             tmColor = 0xBF0099;
             break;
         case (handler.animExColor.includes("yellow")):
-            switch (true) {
-                case (handler.animExVariant.includes("02")):
-                    type01 = "02";
-                    break;
-            }
             color = "Yellow";
             tmColor = 0xCFD204;
             break;
     }
     let divisor = 200;
     switch (true) {
-        case (handler.animExRadius.includes("2")):
+        case (handler.animExRadius === "2"):
             divisor = 300;
             break;
-        case (handler.animExRadius.includes("5")):
+        case (handler.animExRadius === "5"):
             divisor = 200;
             break;
-        case (handler.animExRadius.includes("10")):
+        case (handler.animExRadius === "10"):
             divisor = 100;
             break;
-        case (handler.animExRadius.includes("15")):
+        case (handler.animExRadius === "15"):
             divisor = 67;
-        case (handler.animExRadius.includes("20")):
+        case (handler.animExRadius === "20"):
             divisor = 50;
             break;
-        case (handler.animExRadius.includes("25")):
+        case (handler.animExRadius === "25"):
             divisor = 40;
             break;
-        case (handler.animExRadius.includes("30")):
+        case (handler.animExRadius === "30"):
             divisor = 33;
             break;
-        case (handler.animExRadius.includes("35")):
+        case (handler.animExRadius === "35"):
             divisor = 28.5;
             break;
-        case (handler.animExRadius.includes("40")):
+        case (handler.animExRadius === "40"):
             divisor = 25;
             break;
-        case (handler.animExRadius.includes("45")):
+        case (handler.animExRadius === "45"):
             divisor = 22.2;
             break;
-        case (handler.animExRadius.includes("50")):
+        case (handler.animExRadius === "50"):
             divisor = 20;
             break;
-        case (handler.animExRadius.includes("nuclear")):
+        case (handler.animExRadius === "nuclear"):
             divisor = 10;
             break;
     }
