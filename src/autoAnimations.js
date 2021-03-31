@@ -523,7 +523,7 @@ let hitStutter =
             }
         }
     }];
-
+/*
 function UrlExists(url, cb) {
     jQuery.ajax({
         url: url,
@@ -535,7 +535,7 @@ function UrlExists(url, cb) {
         }
     });
 }
-
+*/
 
 function colorChecks(handler) {
     let type01 = "01";
@@ -768,6 +768,7 @@ async function meleeWeapons(handler) {
     async function cast() {
         var arrayLength = handler.allTargets.length;
         //console.log(arrayLength);
+        var targetCheck = handler.targetAssistant.length;
         let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
@@ -786,7 +787,7 @@ async function meleeWeapons(handler) {
         }
 
         switch (true) {
-            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -911,6 +912,7 @@ async function randomGenDmg(handler) {
         var arrayLength = handler.allTargets.length;
 
         //let tmMacro = "HitStutter";
+        var targetCheck = handler.targetAssistant.length;
         let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
@@ -929,7 +931,7 @@ async function randomGenDmg(handler) {
         }
 
         switch (true) {
-            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -1152,6 +1154,8 @@ async function meleeRangeSwitch(handler) {
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
+
+        var targetCheck = handler.targetAssistant.length;
         let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
@@ -1170,7 +1174,7 @@ async function meleeRangeSwitch(handler) {
         }
 
         switch (true) {
-            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -1610,6 +1614,7 @@ async function spellAttacks(handler) {
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
+        var targetCheck = handler.targetAssistant.length;
         let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
@@ -1628,7 +1633,7 @@ async function spellAttacks(handler) {
         }
 
         switch (true) {
-            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -1771,15 +1776,6 @@ async function creatureAttacks(handler) {
     let color = "Red";
 
     switch (true) {
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
-            tint = "Regular";
-            break;
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
-            tint = "Bright";
-            break;
-    }
-
-    switch (true) {
         case (handler.itemColorIncludes("dark red")):
             type01 = "01";
             tint = "Dark";
@@ -1791,22 +1787,47 @@ async function creatureAttacks(handler) {
             color = "Red";
             break;
         case (handler.itemColorIncludes("yellow")):
+            switch (true) {
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
+                    tint = "Bright";
+                    break;
+            }        
             type01 = "01";
             color = "Yellow";
             break;
         case (handler.itemColorIncludes("purple")):
+            switch (true) {
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
+                    tint = "Bright";
+                    break;
+            }        
             type01 = "01";
             color = "Purple";
             break;
         case (handler.itemColorIncludes("orange")):
+            switch (true) {
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
+                    tint = "Bright";
+                    break;
+            }        
             type01 = "01";
             color = "Orange";
             break;
         case (handler.itemColorIncludes("green")):
+            switch (true) {
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
+                    tint = "Bright";
+                    break;
+            }        
             type01 = "01";
             color = "Green";
             break;
         case (handler.itemColorIncludes("blue")):
+            switch (true) {
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
+                    tint = "Bright";
+                    break;
+            }        
             type01 = "01";
             color = "Blue";
             break;
@@ -1818,6 +1839,7 @@ async function creatureAttacks(handler) {
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
+        var targetCheck = handler.targetAssistant.length;
         let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
@@ -1836,7 +1858,7 @@ async function creatureAttacks(handler) {
         }
 
         switch (true) {
-            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -2072,6 +2094,7 @@ async function rangedWeapons(handler) {
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
+        var targetCheck = handler.targetAssistant.length;
         let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
@@ -2087,6 +2110,12 @@ async function rangedWeapons(handler) {
                 x: 0.25,
                 y: 0.25
             }
+        }
+
+        switch (true) {
+            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+                canvas.fxmaster.playVideo(targetTrainer);
+                game.socket.emit('module.fxmaster', targetTrainer);
         }
 
         switch (true) {
@@ -2694,6 +2723,7 @@ async function magicMissile(handler) {
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
+        var targetCheck = handler.targetAssistant.length;
         let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
@@ -2712,7 +2742,7 @@ async function magicMissile(handler) {
         }
 
         switch (true) {
-            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -3212,6 +3242,7 @@ async function arrowOptionExplode(handler) {
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
+        var targetCheck = handler.targetAssistant.length;
         let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
@@ -3230,10 +3261,11 @@ async function arrowOptionExplode(handler) {
         }
 
         switch (true) {
-            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
+        
         for (var i = 0; i < arrayLength; i++) {
             let Scale = (canvas.scene.data.grid / divisor);
 
