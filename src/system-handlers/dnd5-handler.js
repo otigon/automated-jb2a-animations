@@ -4,7 +4,7 @@ export default class Dnd5Handler {
         const tokenId = msg.data.speaker.token;  
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         this._itemId = itemId;
-        this._allTargets = Array.from(msg.user.targets)
+        this._allTargets = Array.from(msg.user.targets);
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
         this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
@@ -65,6 +65,10 @@ export default class Dnd5Handler {
     }
 
     get allTargets() {
+        return this._allTargets;
+    }
+
+    get targetAssistant() {
         return this._allTargets;
     }
 

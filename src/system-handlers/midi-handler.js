@@ -33,6 +33,8 @@ export default class MidiHandler {
         } else {
             this._allTargets = Array.from(workflow.targets);
         }
+        // separate due to Midi Hit Target List for Targeting Assistant
+        this._targetAssistant = Array.from(workflow.targets);
 
         this._itemName = item.name?.toLowerCase() ?? '';;
         this._itemSource = item.data?.data?.source?.toLowerCase() ?? '';
@@ -79,6 +81,10 @@ export default class MidiHandler {
 
     get allTargets() {
         return this._allTargets;
+    }
+
+    get targetAssistant() {
+        return this._targetAssistant;
     }
 
     get isValid() {
