@@ -1,7 +1,6 @@
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
-//import SwadeHandler from "./system-handlers/swade-handler.js";
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 
 // just swap which of these two lines is commented to turn on/off all logging
@@ -98,9 +97,6 @@ Hooks.on('init', () => {
             case "dnd5e":
                 Hooks.on("createChatMessage", async (msg) => { revItUp5eCore(msg) });
                 break;
-            case "swade":
-                Hooks.on("swadeChatCard", async (actor, item, msg) => { swadeChatMessage(actor, item, msg) });
-                break;
         }
         //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
@@ -133,10 +129,6 @@ function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
 
-function swadeChatMessage(actor) {
-    let handler = new SwadeHandler(actor, item, msg);
-    revItUp(handler);
-}
 
 function onCreateChatMessage(msg) {
     log('onCreateChatMessage', msg);
