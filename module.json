@@ -20,10 +20,10 @@
             "path": "lang/en.json"
         },
         {
-			"lang": "es",
-			"name": "Español",
-			"path": "lang/es.json"
-		}
+	    "lang": "es",
+	    "name": "Español",
+	    "path": "lang/es.json"
+	}
     ],  
     "packs": [
         {
