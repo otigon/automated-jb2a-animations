@@ -168,6 +168,8 @@ export class AnimationTab {
             case (this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()) || this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase())):
             //case (this.animateItem.animName.toLowerCase().includes("throwing") || this.item.name.toLowerCase().includes("throwing")):
             case (this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()) || this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase())):
+            case (this.animateItem.animType === "t3"):
+            case (this.animateItem.animName.toLowerCase().includes(game.i18n.format("AUTOANIM.itemSling").toLowerCase())):
                 animateColor.hide();
                 break;
         }

@@ -233,7 +233,7 @@ AUTOANIM.animColorRayFrost = {
     "b1": ``,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
-    "purple blue": "AUTOANIM.colorPurpleBlue",
+    "purple teal": "AUTOANIM.colorPurpleTeal",
     "yellow blue": "AUTOANIM.colorYellowBlue",
 };
 

@@ -385,8 +385,10 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase()):
             castOnSelf(handler);
             break;
-        case (handler.itemNameIncludes("grenade")):
-        case (handler.itemNameIncludes("bomb")):
+        //case (handler.itemNameIncludes("grenade")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
+        //case (handler.itemNameIncludes("bomb")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
             explodeTemplate(handler);
             break;
         //case (handler.itemNameIncludes("bite")):
@@ -519,6 +521,19 @@ let hitStutter =
             }
         }
     }];
+
+function UrlExists(url, cb) {
+    jQuery.ajax({
+        url: url,
+        dataType: 'text',
+        type: 'GET',
+        complete: function (xhr) {
+            if (typeof cb === 'function')
+                cb.apply(this, [xhr.status]);
+        }
+    });
+}
+
 
 function colorChecks(handler) {
     let type01 = "01";
@@ -773,6 +788,15 @@ async function meleeWeapons(handler) {
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
+
+        /*
+        UrlExists(anim, function (status) {
+            if (status === 404) {
+                anim = `${file}/GreatAxe01_Fire_Regular_Red_800x600.webm`;
+                console.log("failure");
+            }
+        });
+        */
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
 
@@ -803,7 +827,7 @@ async function meleeWeapons(handler) {
             let Scale = canvas.scene.data.grid / 175;
             // randomly mirrors animation
             var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-
+            
             let file = `modules/${path00}/Library/Generic/Weapon_Attacks/Melee`;
 
             let anim = `${file}/${item01}_${type01}_${tint}_${color}_800x600.webm`;
@@ -1359,37 +1383,37 @@ async function spellAttacks(handler) {
     }
 
     switch (true) {
-        case (handler.itemColorIncludes("orange", "pink")):
+        case (handler.itemColorIncludes("orange pink")):
             tint = "Regular";
             color = "OrangePink";
             tmColor = 0xC1005B;
             break;
-        case (handler.itemColorIncludes("purple", "blue")):
+        case (handler.itemColorIncludes("purple blue")):
             tint = "Regular";
             color = "PurpleBlue";
             tmColor = 0x00AFC1;
             break;
-        case (handler.itemColorIncludes("dark", "purple")):
+        case (handler.itemColorIncludes("dark purple")):
             tint = "Dark";
             color = "Purple";
             tmColor = 0xAE00AE;
             break;
-        case (handler.itemColorIncludes("dark", "green")):
+        case (handler.itemColorIncludes("dark green")):
             tint = "Dark";
             color = "Green";
             tmColor = 0x187C00;
             break;
-        case (handler.itemColorIncludes("dark", "red")):
+        case (handler.itemColorIncludes("dark red")):
             tint = "Dark";
             color = "Red";
             tmColor = 0x8E0000;
             break;
-        case (handler.itemColorIncludes("blue", "yellow")):
+        case (handler.itemColorIncludes("yellow blue")):
             tint = "Regular";
             color = "BlueYellow";
             tmColor = 0xACC5C5;
             break;
-        case (handler.itemColorIncludes("purple", "teal")):
+        case (handler.itemColorIncludes("purple teal")):
             tint = "Regular";
             color = "PurpleTeal";
             tmColor = 0xC38CDC;
@@ -3006,7 +3030,7 @@ async function arrowOptionExplode(handler) {
     }
     let color02 = "Orange";
 
-    
+
 
     switch (true) {
         case (handler.animExColor.includes("blue")):
@@ -3304,7 +3328,7 @@ async function arrowOptionExplode(handler) {
                     // TokenMagic.deleteFiltersOnTargeted("Poisoned");
                     break;
             }
-            
+
 
         }
     }
