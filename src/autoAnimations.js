@@ -1,6 +1,7 @@
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
+import SwadeHandler from "./system-handlers/swade-handler.js";
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 
 // just swap which of these two lines is commented to turn on/off all logging
@@ -96,6 +97,10 @@ Hooks.on('init', () => {
                 break;
             case "dnd5e":
                 Hooks.on("createChatMessage", async (msg) => { revItUp5eCore(msg) });
+                break;
+            case "swade":
+                Hooks.on("swadeChatCard", async (actor, item, msg) => { swadeChatMessage(actor, item, msg) });
+                break;
         }
         //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
@@ -128,6 +133,11 @@ function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
 
+function swadeChatMessage(actor) {
+    let handler = new SwadeHandler(actor, item, msg);
+    revItUp(handler);
+}
+
 function onCreateChatMessage(msg) {
     log('onCreateChatMessage', msg);
 
@@ -151,7 +161,7 @@ function revItUp5eCore(msg) {
 
     const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
     //$(msg.data.content).attr("data-item-id")
-    const mreFlavor = msg.data.content.toLowerCase();
+    const mreFlavor = msg.data.content;
     if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == true) {
         if (rollType.includes("damage")) {
             //const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
@@ -208,7 +218,7 @@ function revItUp5eCore(msg) {
         if (rollType.includes("damage")) {
             log("damage roll");
         } else
-            if (rollType.includes("attack") || mreFlavor.includes("flavor-text>attack roll")) {
+            if (rollType.includes("attack") || mreFlavor.includes("Attack Roll")) {
                 revItUp(handler)
             } else /*if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false)*/ {
                 if (handler.itemIncludes("xxx") || handler.animKill) {
