@@ -1,7 +1,7 @@
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
-import SwadeHandler from "./system-handlers/swade-handler.js";
+//import SwadeHandler from "./system-handlers/swade-handler.js";
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 
 // just swap which of these two lines is commented to turn on/off all logging
@@ -218,7 +218,7 @@ function revItUp5eCore(msg) {
         if (rollType.includes("damage")) {
             log("damage roll");
         } else
-            if (rollType.includes("attack") || mreFlavor.includes("Attack Roll")) {
+            if (rollType.includes("attack")) {
                 revItUp(handler)
             } else /*if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false)*/ {
                 if (handler.itemIncludes("xxx") || handler.animKill) {
