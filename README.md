@@ -32,7 +32,7 @@ Supported Modules for 5e (Those that mess with rolling):
 - CORE support now live!
 - MRE; Options to play animations on Attack or Damage
 - Midi-QOL; Options to play animations on Damage, Hit Targets, Check Saves for certain effects
-- Better Rolls; SPECIAL CASE, Will need Midi-QOL Active for now to piggy back. I will look at pure Better Rolls Support soon
+- Better Rolls; version 1.4.5 and above will play the animation on Attack Rolls through Better Rolls. I'll work on optional play on Damage Rolls for BR
 
 PF1 Support:
 - Initial support for the PF1 system. There may be bugs that pop up, but let me know and I'll get on it to fix them
