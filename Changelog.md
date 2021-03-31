@@ -1,11 +1,15 @@
-0.2.40:  
+0.2.41 - 0.2.44:  
+- Add Spanish and Japanese localization
+- Fixed Targeting Trainer problems when used with Midi-QOL On-Hit option
+- Minor Bug fixes
+2.2.40:  
 - Add localication support  
 - Force refresh on Midi "On-Damage" setting change  
-2.2.30:  
+3.2.30:  
 - Added the ability to add Explosions to Melee Weapon Attacks. Must use the Override setting in the Animate Tab  
 - Added a "Targeting Assistant" Setting. Plays an animation on the Source Token when they attack without a target (Only for animations that require a target)  
 - 
-3.2.23 & 0.2.24:  
+4.2.23 & 0.2.24:  
 - Fix for Explosion Overrides not functioning as intended 
 
 2.2.21 Release:
