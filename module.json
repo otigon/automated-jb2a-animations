@@ -11,8 +11,8 @@
         "src/autoAnimations.js"
     ],
     "scripts": [
-        "src/initial_warning.js"   
-    ],  
+        "src/initial_warning.js"
+    ],
     "languages": [
         {
             "lang": "en",
@@ -20,16 +20,21 @@
             "path": "lang/en.json"
         },
         {
-	    "lang": "es",
-	    "name": "Español",
-	    "path": "lang/es.json"
-    	},
+            "lang": "es",
+            "name": "Español",
+            "path": "lang/es.json"
+        },
         {
             "lang": "ja",
             "name": "日本語",
             "path": "lang/ja.json"
+        },
+        {
+            "lang": "fr",
+            "name": "Français",
+            "path": "lang/fr.json"
         }
-    ],  
+    ],
     "packs": [
         {
             "name": "Useful Macros",
