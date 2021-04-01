@@ -1185,26 +1185,7 @@ async function meleeRangeSwitch(handler) {
             let distance = handler.getDistanceTo(target);
 
             //log(distance);
-            let range;
-            switch (true) {
-                case (handler.actorRace === "bugbear"):
-                    range = 10;
-                    break;
-                default:
-                    range = 5;
-                    break;
-            }
-
-            let reach;
-            switch (true) {
-                case (handler.reachCheck):
-                    reach = 5;
-                    break;
-                default:
-                    reach = 0;
-                    break;
-            }
-
+            let range = 5;
             let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
@@ -1221,7 +1202,7 @@ async function meleeRangeSwitch(handler) {
             let path01 = `modules/${path00}/Library/Generic/Weapon_Attacks`;
 
             switch (true) {
-                case (distance > (range + reach)):
+                case (distance > (range + handler.reachCheck)):
                     file = `${path01}/Ranged/`;
                     switch (true) {
                         case (anDist <= 600):
