@@ -1,19 +1,19 @@
 0.2.46:  
 - Reconfigured the Reach checks, and added Reach Check for PF1 attacks  
-2.2.45:  
+0.2.45:  
 - Added French Localization  
-3.2.41 - 0.2.44:  
+0.2.41 - 0.2.44:  
 - Add Spanish and Japanese localization
 - Fixed Targeting Trainer problems when used with Midi-QOL On-Hit option
 - Minor Bug fixes
-4.2.40:  
+0.2.40:  
 - Add localication support  
 - Force refresh on Midi "On-Damage" setting change  
 5.2.30:  
 - Added the ability to add Explosions to Melee Weapon Attacks. Must use the Override setting in the Animate Tab  
 - Added a "Targeting Assistant" Setting. Plays an animation on the Source Token when they attack without a target (Only for animations that require a target)  
 - 
-6.2.23 & 0.2.24:  
+0.2.23 & 0.2.24:  
 - Fix for Explosion Overrides not functioning as intended 
 
 2.2.21 Release:
@@ -26,14 +26,14 @@
 - Fixed a slight scaling issue with some attack spells.  
 - Added Dark Red color menu option for Eldritch Blast  
 
-2.2.11 Release:  
+0.2.11 Release:  
 - Corrected an issue where sometimes Eldritch Blast would play when it should not  
 - Added multi-target functionality for the On-Target explosion effects  
 - Corrected an issue with the 5e Second Wind feature, with override, not playing animations correctly  
 - Corrected an out of place line that would cause errors in the console  
 - Spelling correction  
 
-2.2.0 Release:  
+0.2.0 Release:  
 - Animate Tab is now live  
 - Source Field (DnD5e) is now Deprecated
 - Cure Wounds and Generic Healing animations now default to playing on self if no target is selected  
