@@ -51,8 +51,12 @@ export default class Pf1Handler {
     }
 
     get reachCheck() {
-        // to do
-        return 0;
+        let reach = 0;
+
+        if (this._item.data.data?.range?.units?.toLowerCase() === "reach") {
+            reach =+ 5;
+        }
+        return reach;
     }
 
     get actorToken() {

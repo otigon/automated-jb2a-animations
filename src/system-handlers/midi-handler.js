@@ -67,12 +67,15 @@ export default class MidiHandler {
         return this._actor;
     }
 
-    get actorRace() {
-        return this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() ?? "";
-    }
-
     get reachCheck() {
-        return this._item.data.data.properties.rch;
+        let reach = 0;
+        if (this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
+            reach += 5;
+        }
+        if (this._item.data.data.properties.rch) {
+            reach +=5;
+        }
+        return reach;
     }
 
     get actorToken() {
