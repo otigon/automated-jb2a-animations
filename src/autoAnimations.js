@@ -129,7 +129,6 @@ function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
 
-
 function onCreateChatMessage(msg) {
     log('onCreateChatMessage', msg);
 
@@ -394,7 +393,7 @@ async function revItUp(handler) {
             explodeTemplate(handler);
             break;
         //case (handler.itemNameIncludes("bite")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+        case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()) && !handler.itemNameIncludes("frost")):
         //case (handler.itemNameIncludes("claw")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
             creatureAttacks(handler);
