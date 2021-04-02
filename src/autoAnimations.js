@@ -2,6 +2,14 @@ import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
+import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
+//import colorChecks from "./system-handlers/colorChecks-WIP.js"
+
+//import spellAttacks from "./animation-functions/attack-spells.js";
+//import meleeWeapons from "./animation-functions/melee-attacks.js";
+//import meleeRangeSwitch from "./animation-functions/melee-range-attacks.js";
+//import randomGenDmg from "./animation-functions/generic-damage.js";
+
 
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
@@ -124,6 +132,13 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 var path00;
 
+class AutoAnimations {
+    static playAnimation(sourceToken, targets, item){
+        let handler = new GeneralAnimHandler(sourceToken, targets, item);
+        revItUp(handler);
+    }
+}
+
 
 function moduleIncludes(test) {
     return !!game.modules.get(test);
@@ -131,11 +146,6 @@ function moduleIncludes(test) {
 
 function onCreateChatMessage(msg) {
     log('onCreateChatMessage', msg);
-
-
-    //const mreFlavor = msg.data.content.toLowerCase();
-    //const isAttack = rollType.includes("attack") || mreFlavor.includes("attack roll");
-    //log(isAttack ? "this is an attack roll" : "this is NOT an attack roll");
 
     let handler = new Pf1Handler(msg);
 
@@ -151,8 +161,6 @@ function revItUp5eCore(msg) {
     let handler = new Dnd5Handler(msg);
 
     const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
-    //$(msg.data.content).attr("data-item-id")
-    const mreFlavor = msg.data.content;
     if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == true) {
         if (rollType.includes("damage")) {
             //const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
@@ -523,7 +531,7 @@ let hitStutter =
         }
     }];
 /*
-function UrlExists(url, cb) {
+function UrlExists(url, cb) { 
     jQuery.ajax({
         url: url,
         dataType: 'text',

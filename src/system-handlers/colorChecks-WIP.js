@@ -250,3 +250,5 @@ function colorChecks(handler) {
     return { type01, tint, color, fireColor, tmColor };
 
 }
+
+export default colorChecks;

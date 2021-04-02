@@ -1,50 +1,48 @@
-export default class Dnd5Handler {
-    constructor(msg) {
-        const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id");
-        const tokenId = msg.data.speaker.token;  
-        this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
-        this._itemId = itemId;
-        this._allTargets = Array.from(msg.user.targets);
-        this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
-        this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
-        this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
+export default class GeneralAnimHandler {
+    constructor(sourceToken, targets, item) {
+        
+        this._actorToken = sourceToken;
+        this._item = item;
 
-        // getting flag data from Animation Tab
-        this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
-        // 
-        this._animColor = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations?.color?.toLowerCase() ?? "";
+        this._allTargets = Array.from(targets);
+
+        this._flags = this._item.data?.flags?.autoanimations ?? "";
+
+        this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._animExRadius = this._flags.explodeRadius?.toLowerCase() ?? "";
         this._animExVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
-        this._animExLoop = this._flags.explodeLoop ?? "";
         this._animType = this._flags.animType?.toLowerCase() ?? "";
         this._animKill = this._flags.killAnim;
         this._animOverride = this._flags.override;
         this._animExplode = this._flags.explosion;
         this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
-
-        //console.log(this._animName);
+        
+        this._itemName = this._item.name?.toLowerCase() ?? '';;
+        this._itemSource = this._item.data?.data?.source?.toLowerCase() ?? '';
+        this._itemType = this._item.type.toLowerCase();
+        
         this._animNameFinal;
         switch (true) {
-            case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
+            case ((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
                 this._animNameFinal = this._itemName;
                 break;
             default:
                 this._animNameFinal = this._animName;
                 break;
         }
-        //console.log(this._animNameFinal);
+
         this._animColorEffect;
         switch (true) {
-            case(this._animColor === ``):
+            case (this._animColor === ``):
                 this._animColorEffect = this._itemSource;
                 break;
             default:
                 this._animColorEffect = this._animColor;
                 break;
+
         }
-        //console.log(this._animColorEffect);
     }
 
     get actor() {
@@ -56,7 +54,7 @@ export default class Dnd5Handler {
         if (this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
             reach += 5;
         }
-        if (this._actorToken.actor?.items?.get(this._itemId)?.data?.data?.properties?.rch) {
+        if (this._item.data?.data?.properties?.rch) {
             reach +=5;
         }
         return reach;
@@ -79,7 +77,7 @@ export default class Dnd5Handler {
     }
 
     get itemType() {
-        return this._actorToken.actor.items?.get(itemId).data?.type?.toLowerCase();
+        return this._item.type?.toLowerCase();
     }
 
     get checkSaves() {
@@ -130,17 +128,6 @@ export default class Dnd5Handler {
         return this._animDgThrVar;
     }
 
-
-/*
-    get killAnim() {
-        return this._actorToken.actor.items.get(itemId).data.flags?.autoanimations?.animName?.toLowerCase() ?? "";
-    }
-*/
-/*
-    get itemType() {
-        return this._actor.items.get(itemId).data.type.toLowerCase();
-    }
-*/
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {
@@ -166,11 +153,7 @@ export default class Dnd5Handler {
         });
         return distance;
     }
-/*
-    itemIncludes() {
-        return [...arguments].every(a => this._itemName?.includes(a) || this._itemSource?.includes(a));
-    }
-    */
+
     itemIncludes() {
         return [...arguments].every(a => this._animNameFinal?.includes(a) || this._itemSource?.includes(a));
     }
@@ -189,4 +172,6 @@ export default class Dnd5Handler {
     animNameIncludes() {
         return [...arguments].every(a => this._animName?.includes(a));
     }
+
+
 }
