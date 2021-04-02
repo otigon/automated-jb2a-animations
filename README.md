@@ -43,10 +43,10 @@ PF1 Support:
 
 ## Roadmap (subject to change):  
     
-1. Adding Localization to support other languages   
-2. Extending support to PF2e, Star Wars, GURP and SWADE  
+1. Adding Localization to support other languages -- DONE     
+2. Extending support to PF2e, Star Wars, GURP and SWADE  -- In Progress
 4. Adding customizable TMFX options on a per item basis (versus a global on/off setting currently)
-5. Ability to easily apply Sound FX in item customization settings
+5. Ability to easily apply Sound FX in item customization settings  -- waiting until 0.8 stable  
 6. Adding more automatic recognition options (Spiritual Weapon Auto-Spawn & Delete, Reaction effects, Stuns, etc)  
 
 # Overview
