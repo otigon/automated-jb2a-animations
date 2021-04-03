@@ -417,7 +417,6 @@ async function revItUp(handler) {
         */
         case handler.itemNameIncludes("unarmed strike"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
-            itemUnarmedStrike
             if (moduleIncludes("jb2a_patreon")) {
                 randomGenDmg(handler);
             }
@@ -822,8 +821,12 @@ async function meleeWeapons(handler) {
             let anim = `${file}/${item01}_${type01}_${tint}_${color}_800x600.webm`;
 
             function castSpell(effect) {
-                    canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, target);
+                game.user.targets.forEach((i, t) => {
+                    canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, t);
+
+                });
             }
+
             castSpell({
                 file: anim,
                 anchor: {
@@ -928,8 +931,12 @@ async function randomGenDmg(handler) {
             let anim = random_itemA(itemsA);
 
             function castSpell(effect) {
-                    canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, target);
+                game.user.targets.forEach((i, t) => {
+                    canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, t);
+
+                });
             }
+
             castSpell({
                 file: anim,
                 anchor: {
@@ -1221,8 +1228,12 @@ async function meleeRangeSwitch(handler) {
                     Scale = canvas.scene.data.grid / 175;
                     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
                     function castSpell(effect) {
-                            canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, target);
+                        game.user.targets.forEach((i, t) => {
+                            canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, t);
+
+                        });
                     }
+                    
                     file = `${path01}/Melee/`;
 
                     castSpell({
