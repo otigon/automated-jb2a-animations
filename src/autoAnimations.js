@@ -1726,7 +1726,7 @@ async function creatureAttacks(handler) {
             break;
         case (handler.itemColorIncludes("yellow")):
             switch (true) {
-                case handerl.itemNameIncludes("claw"):
+                case handler.itemNameIncludes("claw"):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                     tint = "Bright";
                     break;
@@ -1736,7 +1736,7 @@ async function creatureAttacks(handler) {
             break;
         case (handler.itemColorIncludes("purple")):
             switch (true) {
-                case handerl.itemNameIncludes("claw"):
+                case handler.itemNameIncludes("claw"):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                     tint = "Bright";
                     break;
@@ -1746,7 +1746,7 @@ async function creatureAttacks(handler) {
             break;
         case (handler.itemColorIncludes("orange")):
             switch (true) {
-                case handerl.itemNameIncludes("claw"):
+                case handler.itemNameIncludes("claw"):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                     tint = "Bright";
                     break;
@@ -1756,7 +1756,7 @@ async function creatureAttacks(handler) {
             break;
         case (handler.itemColorIncludes("green")):
             switch (true) {
-                case handerl.itemNameIncludes("claw"):
+                case handler.itemNameIncludes("claw"):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                     tint = "Bright";
                     break;
@@ -1766,7 +1766,7 @@ async function creatureAttacks(handler) {
             break;
         case (handler.itemColorIncludes("blue")):
             switch (true) {
-                case handerl.itemNameIncludes("claw"):
+                case handler.itemNameIncludes("claw"):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                     tint = "Bright";
                     break;
