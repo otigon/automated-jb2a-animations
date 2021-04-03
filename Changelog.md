@@ -1,3 +1,10 @@
+0.2.51:  
+- Added in checks for standard English in auto-recognition as a back-up to Localization. For cases where the items were in English but the browser is set to another langauge.  
+- Changed the Melee Animations to cycle through target list 1 by 1, rather than all at once. This fixes an issue where melee animations were repeated unnecessarily  
+- Added support for other Modules to call animations externally  
+- Removed "Improved Divine Smite" check (DnD5e), as this is better handled through the Animate Override tab now.  
+- back-end work to start cleaning up code.  
+  
 0.2.46:  
 - Reconfigured the Reach checks, and added Reach Check for PF1 attacks  
   
