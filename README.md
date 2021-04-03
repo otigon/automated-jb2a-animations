@@ -115,7 +115,13 @@ By Default, animations will play on Attack Rolls. Setting is available to play a
 
 2. Thunderwave: This spell has three different animations, and the module will choose which one to use based on where your Token is located **INSIDE** or **AROUND** the template. The image below shows possible token positions:  
 
-![Alt text](pictures/ThunderWaveLoc.png)
+![Alt text](pictures/ThunderWaveLoc.png)  
+  
+  
+# External Calls for Animations  
+Other modules can now call animations through Automated Animations by using:  
+**AutoAnimations.playAnimation(sourceToken, targets, item)**  
+
 
 
 **Please feel free to send suggestions or comments in the Suggestion Box of the JB2A discord, or log an issue on the GitHub page for issues or improvement suggestions.**
