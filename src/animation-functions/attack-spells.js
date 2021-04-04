@@ -25,8 +25,9 @@ async function spellAttacks(handler) {
                     tint = "Regular";
                 case (color === "default"):
                     color = "Orange";
+                case (tmColor === "default"):
+                    tmColor = 0xFF9309;
             }
-            tmColor = 0xFF9309;
             break;
         case (handler.itemNameIncludes("ray", "frost")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
@@ -37,8 +38,9 @@ async function spellAttacks(handler) {
                     tint = "Regular";
                 case (color === "default"):
                     color = "Blue";
+                case (tmColor === "default"):
+                    tmColor = 0xBBDDEE;
             }
-            tmColor = 0xBBDDEE;
             break;
         case (handler.itemNameIncludes("witch", "bolt")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
@@ -49,8 +51,9 @@ async function spellAttacks(handler) {
                     tint = "Regular";
                 case (color === "default"):
                     color = "Blue";
+                case (tmColor === "default"):
+                    tmColor = 0xAE00AE;
             }
-            tmColor = 0xAE00AE;
             break;
         case (handler.itemNameIncludes("scorching", "ray")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
@@ -61,8 +64,9 @@ async function spellAttacks(handler) {
                     tint = "Regular";
                 case (color === "default"):
                     color = "Orange";
+                case (tmColor === "default"):
+                    tmColor = 0xFF9309;
             }
-            tmColor = 0xFF9309;
             break;
         case (handler.itemNameIncludes("disintegrate")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
@@ -73,8 +77,9 @@ async function spellAttacks(handler) {
                     tint = "Regular";
                 case (color === "default"):
                     color = "Green01";
+                case (tmColor === "default"):
+                    tmColor = 0x00AFC1;
             }
-            tmColor = 0x00AFC1;
             break;
         case (handler.itemNameIncludes("eldritch blast")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
@@ -85,6 +90,7 @@ async function spellAttacks(handler) {
                     tint = "Regular";
                 case (color === "default"):
                     color = "Purple";
+                case (tmColor === "default"):
             }
             break;
     }
