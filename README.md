@@ -38,9 +38,6 @@ PF1 Support:
 - Initial support for the PF1 system. There may be bugs that pop up, but let me know and I'll get on it to fix them
 
 
-# Known Issues
-- The **About Face** module can cause issues with the **FX Master** function used for the Melee attack animations. A fix has been proposed to the **FX Master** Author and it should be fixed on the next update for that module.
-
 ## Roadmap (subject to change):  
     
 1. Adding Localization to support other languages -- DONE     
