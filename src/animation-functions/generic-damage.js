@@ -65,11 +65,9 @@ async function randomGenDmg(handler) {
             let anim = random_itemA(itemsA);
 
             function castSpell(effect) {
-                game.user.targets.forEach((i, t) => {
-                    canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, t);
-
-                });
+                canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, target);
             }
+
             castSpell({
                 file: anim,
                 anchor: {

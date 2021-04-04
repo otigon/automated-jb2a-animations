@@ -1,3 +1,5 @@
+import colorChecks from "./colorChecks.js"
+
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function spellAttacks(handler) {
@@ -5,148 +7,88 @@ async function spellAttacks(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    
+
     let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
-    let tint;
-    let color;
-    let tmColor;
+    let { tint, color, tmColor } = colorChecks(handler);
 
     let path;
     let path2;
 
     switch (true) {
-        //case (handler.itemNameIncludes("fire", "bolt")):
+        case (handler.itemNameIncludes("fire", "bolt")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
             path = "Cantrip/Fire_Bolt";
             path2 = "FireBolt_01";
-            tint = "Regular";
-            color = "Orange";
+            switch (true) {
+                case (tint === "default"):
+                    tint = "Regular";
+                case (color === "default"):
+                    color = "Orange";
+            }
             tmColor = 0xFF9309;
             break;
-        //case (handler.itemNameIncludes("ray", "frost")):
+        case (handler.itemNameIncludes("ray", "frost")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
             path = "Cantrip/Ray_Of_Frost";
             path2 = "RayOfFrost_01";
-            tint = "Regular";
-            color = "Blue";
+            switch (true) {
+                case (tint === "default"):
+                    tint = "Regular";
+                case (color === "default"):
+                    color = "Blue";
+            }
             tmColor = 0xBBDDEE;
             break;
-        //case (handler.itemNameIncludes("witch", "bolt")):
+        case (handler.itemNameIncludes("witch", "bolt")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
             path = "1st_Level/Witch_Bolt";
             path2 = "WitchBolt_01";
-            tint = "Regular";
-            color = "Blue";
+            switch (true) {
+                case (tint === "default"):
+                    tint = "Regular";
+                case (color === "default"):
+                    color = "Blue";
+            }
             tmColor = 0xAE00AE;
             break;
-        //case (handler.itemNameIncludes("scorching", "ray")):
+        case (handler.itemNameIncludes("scorching", "ray")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
             path = "2nd_Level/Scorching_Ray";
             path2 = "ScorchingRay_01";
-            tint = "Regular";
-            color = "Orange";
+            switch (true) {
+                case (tint === "default"):
+                    tint = "Regular";
+                case (color === "default"):
+                    color = "Orange";
+            }
             tmColor = 0xFF9309;
             break;
-        //case (handler.itemNameIncludes("disintegrate")):
+        case (handler.itemNameIncludes("disintegrate")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
             path = "6th_Level/Disintegrate";
             path2 = "Disintegrate_01";
-            tint = "Regular";
-            color = "Green01";
+            switch (true) {
+                case (tint === "default"):
+                    tint = "Regular";
+                case (color === "default"):
+                    color = "Green01";
+            }
             tmColor = 0x00AFC1;
             break;
-        //case (handler.itemNameIncludes("eldritch blast")):
+        case (handler.itemNameIncludes("eldritch blast")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
             path = "Cantrip/Eldritch_Blast";
             path2 = "EldritchBlast_01";
-            tint = "Regular";
-            color = "Purple";
+            switch (true) {
+                case (tint === "default"):
+                    tint = "Regular";
+                case (color === "default"):
+                    color = "Purple";
+            }
             break;
     }
 
-    switch (true) {
-        case (handler.itemColorIncludes("orange pink")):
-            tint = "Regular";
-            color = "OrangePink";
-            tmColor = 0xC1005B;
-            break;
-        case (handler.itemColorIncludes("purple blue")):
-            tint = "Regular";
-            color = "PurpleBlue";
-            tmColor = 0x00AFC1;
-            break;
-        case (handler.itemColorIncludes("dark purple")):
-            tint = "Dark";
-            color = "Purple";
-            tmColor = 0xAE00AE;
-            break;
-        case (handler.itemColorIncludes("dark green")):
-            tint = "Dark";
-            color = "Green";
-            tmColor = 0x187C00;
-            break;
-        case (handler.itemColorIncludes("dark red")):
-            tint = "Dark";
-            color = "Red";
-            tmColor = 0x8E0000;
-            break;
-        case (handler.itemColorIncludes("yellow blue")):
-            tint = "Regular";
-            color = "BlueYellow";
-            tmColor = 0xACC5C5;
-            break;
-        case (handler.itemColorIncludes("purple teal")):
-            tint = "Regular";
-            color = "PurpleTeal";
-            tmColor = 0xC38CDC;
-            break;
-        case (handler.itemColorIncludes("orange")):
-            tint = "Regular";
-            color = "Orange";
-            tmColor = 0xFF9309;
-            break;
-        case (handler.itemColorIncludes("green")):
-            tint = "Regular";
-            switch (true) {
-                //case (handler.itemNameIncludes("disintegrate")):
-                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
-                    color = "Green01";
-                    break;
-                default:
-                    color = "Green";
-                    break;
-            }
-            tmColor = 0x59E81F;
-            break;
-        case (handler.itemColorIncludes("blue")):
-            tint = "Regular";
-            color = "Blue";
-            tmColor = 0xBBDDEE;
-            break;
-        case (handler.itemColorIncludes("purple")):
-            tint = "Regular";
-            color = "Purple";
-            tmColor = 0xFF09E1;
-            break;
-        case (handler.itemColorIncludes("red")):
-            switch (true) {
-                //case (handler.itemNameIncludes("fire", "bolt")):
-                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
-                    tint = "Dark";
-                    break;
-                default:
-                    tint = "Regular";
-            }
-            color = "Red";
-            tmColor = 0xBB1414;
-            break;
-        case (handler.itemColorIncludes("yellow")):
-            tint = "Regular";
-            color = "Yellow";
-            tmColor = 0xFF0000;
-            break;
-    }
 
     let letitBurn =
         [{
@@ -256,31 +198,31 @@ async function spellAttacks(handler) {
     let tmMacro;
 
     switch (true) {
-        //case (handler.itemNameIncludes("fire", "bolt")):
+        case (handler.itemNameIncludes("fire", "bolt")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
             //tmDelay = 1000;
             //tmKill = 500;
             //tmMacro = letitBurn;
             break;
-        //case (handler.itemNameIncludes("ray", "frost")):
+        case (handler.itemNameIncludes("ray", "frost")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
             tmDelay = 750;
             tmKill = 2000;
             tmMacro = frosty;
             break;
-        //case (handler.itemNameIncludes("witch", "bolt")):
+        case (handler.itemNameIncludes("witch", "bolt")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
             tmDelay = 50;
             tmKill = 4000;
             tmMacro = electric;
             break;
-        //case (handler.itemNameIncludes("scorching", "ray")):
+        case (handler.itemNameIncludes("scorching", "ray")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
             tmDelay = 500;
             tmKill = 750;
             tmMacro = letitBurn;
             break;
-        //case (handler.itemNameIncludes("disintegrate")):
+        case (handler.itemNameIncludes("disintegrate")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
             tmDelay = 500;
             tmKill = 2000;
@@ -326,7 +268,7 @@ async function spellAttacks(handler) {
             let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
-            console.log(anDist);
+            //console.log(anDist);
             let file = `modules/${path00}/Library/${path}`;
 
             let anFile;
@@ -334,11 +276,11 @@ async function spellAttacks(handler) {
             let anchorX = 0.2;
 
             switch (true) {
-                //case (handler.itemNameIncludes("fire", "bolt")):
+                case (handler.itemNameIncludes("fire", "bolt")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
-                //case (handler.itemNameIncludes("scorching", "ray")):
+                case (handler.itemNameIncludes("scorching", "ray")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
-                //case (handler.itemNameIncludes("eldritch blast")):
+                case (handler.itemNameIncludes("eldritch blast")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
                     switch (true) {
                         case (anDist <= 1100):
@@ -358,9 +300,9 @@ async function spellAttacks(handler) {
                             break;
                     }
                     break;
-                //case (handler.itemNameIncludes("ray", "frost")):
+                case (handler.itemNameIncludes("ray", "frost")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
-                //case (handler.itemNameIncludes("disintegrate")):
+                case (handler.itemNameIncludes("disintegrate")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
                     switch (true) {
                         case (anDist <= 600):
@@ -380,7 +322,7 @@ async function spellAttacks(handler) {
                             break;
                     }
                     break;
-                //case (handler.itemNameIncludes("witch bolt")):
+                case (handler.itemNameIncludes("witch bolt")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
                     switch (true) {
                         case (anDist <= 600):

@@ -1,3 +1,27 @@
+import colorChecks from "./colorChecks.js"
+import explodeOnTarget from "./explode-ontarget.js";
+import drawSpecialToward from "./fxmaster-drawTowards.js"
+
+let bloodSplat =
+    [{
+        filterType: "splash",
+        filterId: "BloodSplat",
+        rank: 5,
+        color: 0x990505,
+        padding: 80,
+        time: Math.random() * 1000,
+        seed: Math.random(),
+        splashFactor: 1,
+        spread: 0.4,
+        blend: 1,
+        dimX: 1,
+        dimY: 1,
+        cut: false,
+        textureAlphaBlend: true,
+        anchorX: 0.32 + (Math.random() * 0.36),
+        anchorY: 0.32 + (Math.random() * 0.36)
+    }];
+
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function meleeRangeSwitch(handler) {
@@ -8,59 +32,15 @@ async function meleeRangeSwitch(handler) {
 
     let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
-    let type01 = "01";
-    let tint = "Regular";
-    let color = "White";
-    let fireColor = "pass";
+    let { type01, tint, color, fireColor } = colorChecks(handler);
 
     switch (true) {
-        case (handler.itemColorIncludes("white")):
+        case (type01 === "default"):
             type01 = "01";
+        case (tint === "default"):
             tint = "Regular";
+        case (color === "default"):
             color = "White";
-            break;
-        case (handler.itemColorIncludes("purple")):
-            type01 = "Fire";
-            tint = "Dark";
-            color = "Purple";
-            fireColor = "0x8B00C0";
-            break;
-        case (handler.itemColorIncludes("blue")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Blue";
-            fireColor = "0x008FC0";
-            break;
-        case (handler.itemColorIncludes("green")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Green";
-            fireColor = "0x60EA01";
-            break;
-        case (handler.itemColorIncludes("orange")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Orange";
-            fireColor = "0xF18A07";
-            break;
-        case (handler.itemColorIncludes("pink")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Pink";
-            fireColor = "0xD2049A";
-            break;
-        case (handler.itemColorIncludes("red")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Red";
-            fireColor = "0xD20404";
-            break;
-        case (handler.itemColorIncludes("yellow")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Yellow";
-            fireColor = "0xCFD204";
-            break;
     }
 
     let burn =
@@ -106,7 +86,7 @@ async function meleeRangeSwitch(handler) {
     //case handler.itemNameIncludes("spear"):
 
     switch (true) {
-        //case (handler.itemNameIncludes("handaxe")):
+        case (handler.itemNameIncludes("handaxe")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase()):
             item01 = "HandAxe02";
             item11 = "HandAxe01";
@@ -117,7 +97,7 @@ async function meleeRangeSwitch(handler) {
             Delay02 = 900;
             Delay03 = 900;
             break;
-        //case (handler.itemNameIncludes("dagger")):
+        case (handler.itemNameIncludes("dagger")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()):
             item01 = "Dagger02";
             item11 = "Dagger01";
@@ -128,7 +108,7 @@ async function meleeRangeSwitch(handler) {
             Delay02 = 600;
             Delay03 = 600;
             break;
-        //case (handler.itemNameIncludes("spear")):
+        case (handler.itemNameIncludes("spear")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
             item01 = "Spear01";
             item11 = "Spear01";
@@ -262,29 +242,51 @@ async function meleeRangeSwitch(handler) {
                     break;
                 default:
                     // log("in range");
+                    file = `${path01}/Melee/`;
                     Scale = canvas.scene.data.grid / 175;
                     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-                    function castSpell(effect) {
-                        game.user.targets.forEach((i, t) => {
-                            canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, t);
 
-                        });
-                    }
-                    file = `${path01}/Melee/`;
-
-                    castSpell({
+                    let meleeAnim =
+                    {
                         file: `${file}${item01}_${type01}_${tint}_${color}_800x600.webm`,
+                        position: handler.actorToken.center,
                         anchor: {
                             x: 0.4,
-                            y: 0.5,
+                            y: 0.5
                         },
-                        speed: 0,
-                        angle: 0,
+                        angle: anDeg,
                         scale: {
                             x: Scale,
-                            y: (Scale * plusOrMinus),
-                        },
-                    });
+                            y: (Scale * plusOrMinus)
+                        }
+                    };
+        
+                    switch (true) {
+                        case distance <= 5:
+                            canvas.fxmaster.playVideo(meleeAnim);
+                            game.socket.emit('module.fxmaster', meleeAnim);
+                            break;
+                        default:
+                            function castSpell(effect) {
+                                drawSpecialToward(effect, handler.actorToken, target);
+                            }
+                            
+
+                            castSpell({
+                                file: `${file}${item01}_${type01}_${tint}_${color}_800x600.webm`,
+                                anchor: {
+                                    x: 0.4,
+                                    y: 0.5,
+                                },
+                                speed: 0,
+                                angle: 0,
+                                scale: {
+                                    x: Scale,
+                                    y: (Scale * plusOrMinus),
+                                },
+                            });       
+                    }
+
                     await wait(tmdelay - 200);
                     if (handler.animExplode && handler.animOverride) {
                         explodeOnTarget(handler);

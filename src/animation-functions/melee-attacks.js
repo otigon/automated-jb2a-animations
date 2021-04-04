@@ -1,83 +1,9 @@
-function colorChecks(handler) {
-    let type01 = "01";
-    let tint = "Regular";
-    let color;
-    switch (true) {
-        //case (handler.itemNameIncludes("lasersword")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
-            color = "Blue";
-            break;
-        default:
-            color = "White";
-    }
-    let fireColor = "pass";
+import colorChecks from "./colorChecks.js"
+import explodeOnTarget from "./explode-ontarget.js";
+import drawSpecialToward from "./fxmaster-drawTowards.js"
 
-    switch (true) {
-        case (handler.itemColorIncludes("white")):
-            type01 = "01";
-            tint = "Regular";
-            color = "White";
-            break;
-        case (handler.itemColorIncludes("purple")):
-            type01 = "Fire";
-            switch (true) {
-                //case (handler.itemNameIncludes("laser", "sword")):
-                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
-                    tint = "Regular";
-                    break;
-                default:
-                    tint = "Dark";
-                    break;
-            }
-            color = "Purple";
-            fireColor = 0x8B00C0;
-            break;
-        case (handler.itemColorIncludes("blue")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Blue";
-            fireColor = 0x008FC0;
-            break;
-        case (handler.itemColorIncludes("green")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Green";
-            fireColor = 0x60EA01;
-            break;
-        case (handler.itemColorIncludes("orange")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Orange";
-            fireColor = 0xF18A07;
-            break;
-        case (handler.itemColorIncludes("pink")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Pink";
-            fireColor = 0xD2049A;
-            break;
-        case (handler.itemColorIncludes("dark red")):
-            type01 = "Fire";
-            tint = "Dark";
-            color = "Red";
-            fireColor = 0x610101;
-            break;
-        case (handler.itemColorIncludes("red")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Red";
-            fireColor = 0xD20404;
-            break;
-        case (handler.itemColorIncludes("yellow")):
-            type01 = "Fire";
-            tint = "Regular";
-            color = "Yellow";
-            fireColor = 0xCFD204;
-            break;
-    }
-    return { type01, tint, color, fireColor };
-}
 
+const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 let bloodyHitStutter =
     [{
         filterType: "images",
@@ -184,8 +110,6 @@ let hitStutter =
         }
     }];
 
-const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-
 async function meleeWeapons(handler) {
 
     function moduleIncludes(test) {
@@ -196,6 +120,20 @@ async function meleeWeapons(handler) {
 
     let { type01, tint, color, fireColor } = colorChecks(handler);
 
+    switch (true) {
+        case (type01 === "default"):
+            type01 = "01";
+        case (tint === "default"):
+            tint = "Regular";
+        case (color === "default"):
+            switch (true) {
+                case (handler.itemNameIncludes("laser")):
+                    color = "Blue";
+                    break;
+                default:
+                    color = "White";
+            }
+    }
     //console.log(color);
 
     let burn =
@@ -234,44 +172,44 @@ async function meleeWeapons(handler) {
 
     let item01 = "Dagger02";
     switch (true) {
-        //case (handler.itemNameIncludes("rapier")):
+        case (handler.itemNameIncludes("rapier")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
             item01 = "Rapier01";
             tmDelay = 900;
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
-        //case (handler.itemNameIncludes("greatsword")):
+        case (handler.itemNameIncludes("greatsword")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
             item01 = "GreatSword01";
             tmDelay = 1600;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        //case (handler.itemNameIncludes("greatclub")):
+        case (handler.itemNameIncludes("greatclub")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase()):
             item01 = "GreatClub01";
             tmDelay = 1100;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        //case (handler.itemNameIncludes("greataxe")):
+        case (handler.itemNameIncludes("greataxe")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase()):
-        //case (handler.itemNameIncludes("battleaxe")):
+        case (handler.itemNameIncludes("battleaxe")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase()):
             item01 = "GreatAxe01";
             tmDelay = 1600;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        //case (handler.itemNameIncludes("mace")):
+        case (handler.itemNameIncludes("mace")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMace").toLowerCase()):
             item01 = "Mace01";
             tmDelay = 1100;
             tmKill = 1600;
             tmMacro = bloodyHitStutter;
             break;
-        //case (handler.itemNameIncludes("lasersword")):
+        case (handler.itemNameIncludes("lasersword")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
             item01 = "LaserSword01";
             type01 = "01";
@@ -279,8 +217,8 @@ async function meleeWeapons(handler) {
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
-        //case (handler.itemNameIncludes("sword")):
-        //case (handler.itemNameIncludes("scimitar")):
+        case (handler.itemNameIncludes("sword")):
+        case (handler.itemNameIncludes("scimitar")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSword").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
@@ -290,7 +228,7 @@ async function meleeWeapons(handler) {
             tmKill = 1600;
             tmMacro = bloodSplat;
             break;
-        //case (handler.itemNameIncludes("maul")):
+        case (handler.itemNameIncludes("maul")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
             item01 = "Maul01";
             tmDelay = 1900;
@@ -379,28 +317,6 @@ async function meleeWeapons(handler) {
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
 
-            let idsSearch = handler.actorToken.actor.data.items.filter(item => item.type === `feat`).map(item => item.name);
-
-            function actorIncludes(test) {
-                if (idsSearch.includes(test)) return true;
-            }
-
-            let dsBoom = `modules/${path00}/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm`;
-            let dsScale = canvas.scene.data.grid / 400;
-            let spellAnim2 =
-            {
-                file: dsBoom,
-                position: target.center,
-                anchor: {
-                    x: 0.5,
-                    y: 0.5
-                },
-                angle: 0,
-                scale: {
-                    x: dsScale,
-                    y: dsScale
-                }
-            };
 
             // Scaled globally, change divisor to increase/decrease size of animation
             let Scale = canvas.scene.data.grid / 175;
@@ -410,67 +326,72 @@ async function meleeWeapons(handler) {
             let file = `modules/${path00}/Library/Generic/Weapon_Attacks/Melee`;
 
             let anim = `${file}/${item01}_${type01}_${tint}_${color}_800x600.webm`;
+            
+            let distance = handler.getDistanceTo(target);
+            let range = 5; 
 
-            function castSpell(effect) {
-                game.user.targets.forEach((i, t) => {
-                    canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, t);
+            let ray = new Ray (handler.actorToken.center, target.center);
+            let anDeg = -(ray.angle * 57.3);
 
-                });
-            }
-            castSpell({
+            let meleeAnim =
+            {
                 file: anim,
+                position: handler.actorToken.center,
                 anchor: {
                     x: 0.4,
-                    y: 0.5,
+                    y: 0.5
                 },
-                speed: 0,
-                angle: 0,
+                angle: anDeg,
                 scale: {
                     x: Scale,
-                    y: (Scale * plusOrMinus),
-                },
-            });
-
+                    y: (Scale * plusOrMinus)
+                }
+            };
 
             switch (true) {
-                case (actorIncludes("Improved Divine Smite")):
-                    await wait(tmDelay - 300);
-                    canvas.fxmaster.playVideo(spellAnim2);
-                    game.socket.emit('module.fxmaster', spellAnim2);
-                    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        await wait(250);
-                        switch (true) {
-                            case (fireColor != "pass"):
-                                TokenMagic.addUpdateFilters(target, burn);
-                                await wait(50);
-                                TokenMagic.addUpdateFilters(target, tmMacro);
-                                break;
-                            default:
-                                TokenMagic.addUpdateFilters(target, tmMacro);
-                                break;
-                        }
-                    }
+                case distance <= range:
+                    canvas.fxmaster.playVideo(meleeAnim);
+                    game.socket.emit('module.fxmaster', meleeAnim);
                     break;
                 default:
-                    await wait(tmDelay - 200);
-                    if (handler.animExplode && handler.animOverride) {
-                        explodeOnTarget(handler);
+                    function castSpell(effect) {
+                        drawSpecialToward(effect, handler.actorToken, target);
                     }
-                    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        await wait(200);
-                        switch (true) {
-                            case (fireColor != "pass"):
-                                TokenMagic.addFilters(target, burn);
-                                await wait(50);
-                                TokenMagic.addFilters(target, tmMacro);
-                                break;
-                            default:
-                                TokenMagic.addFilters(target, tmMacro);
-                                break;
-                        }
-                        await wait(250);
-                    }
+                    castSpell({
+                        file: anim,
+                        anchor: {
+                            x: 0.4,
+                            y: 0.5,
+                        },
+                        speed: 0,
+                        angle: 0,
+                        scale: {
+                            x: Scale,
+                            y: (Scale * plusOrMinus),
+                        },
+                    });
+        
             }
+
+            await wait(tmDelay - 200);
+            if (handler.animExplode && handler.animOverride) {
+                explodeOnTarget(handler);
+            }
+            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                await wait(200);
+                switch (true) {
+                    case (fireColor != "pass"):
+                        TokenMagic.addFilters(target, burn);
+                        await wait(50);
+                        TokenMagic.addFilters(target, tmMacro);
+                        break;
+                    default:
+                        TokenMagic.addFilters(target, tmMacro);
+                        break;
+                }
+                await wait(250);
+            }
+
             await wait(tmKill);
             if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                 TokenMagic.deleteFilters(target, "BloodSplat");

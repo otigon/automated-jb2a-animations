@@ -4,7 +4,7 @@ export default class GeneralAnimHandler {
         this._actorToken = sourceToken;
         this._item = item;
 
-        this._allTargets = Array.from(targets);
+        this._allTargets = targets;
 
         this._flags = this._item.data?.flags?.autoanimations ?? "";
 
