@@ -223,6 +223,10 @@ export class AnimationTab {
                     this.app._tabsAlt.subTabs[0].parent.activate("autoanimations");
                     this.activate = false;
                     break
+                case ("tormenta20"):
+                    this.app._tabs[0].activate("autoanimations");
+                    this.activate = false;
+                    break;
             }
         }
         /*
