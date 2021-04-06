@@ -13,7 +13,7 @@ function colorChecks(handler) {
         case (handler.itemColorIncludes("purple blue")):
             tint = "Regular";
             color = "PurpleBlue";
-            tmColor = 0x00AFC1;
+            tmColor = 0x60B2FF;
             break;
         case (handler.itemColorIncludes("blue yellow")):
             tint = "Regular";
@@ -197,6 +197,7 @@ function colorChecks(handler) {
             tint = "Regular";
             color = "Pink";
             fireColor = 0xD2049A;
+            tmColor = 0xD2049A;
             break;
         case (handler.itemColorIncludes("purple")):
             switch (true) {
@@ -320,8 +321,8 @@ function colorChecks(handler) {
             fireColor = 0xCFD204;
             tmColor = 0xFF0000;
             break;
-
     }
+    //console.log(tmColor);
 
     return { type01, tint, color, fireColor, tmColor };
 

@@ -41,6 +41,10 @@ export default class Pf1Handler {
 
     }
 
+    get playOnMiss() {
+        return false;
+    }
+
     get actor() {
         return this._actor;
     }

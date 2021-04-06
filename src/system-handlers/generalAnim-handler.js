@@ -5,6 +5,7 @@ export default class GeneralAnimHandler {
         this._item = item;
 
         this._allTargets = targets;
+        console.log(targets);
 
         this._flags = this._item.data?.flags?.autoanimations ?? "";
 
@@ -13,6 +14,7 @@ export default class GeneralAnimHandler {
         this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._animExRadius = this._flags.explodeRadius?.toLowerCase() ?? "";
         this._animExVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
+        this._animExLoop = this._flags.explodeLoop ?? "";
         this._animType = this._flags.animType?.toLowerCase() ?? "";
         this._animKill = this._flags.killAnim;
         this._animOverride = this._flags.override;
@@ -43,6 +45,10 @@ export default class GeneralAnimHandler {
                 break;
 
         }
+    }
+
+    get playOnMiss() {
+        return false;
     }
 
     get actor() {

@@ -90,7 +90,6 @@ async function spellAttacks(handler) {
                     tint = "Regular";
                 case (color === "default"):
                     color = "Purple";
-                case (tmColor === "default"):
             }
             break;
     }
@@ -272,14 +271,42 @@ async function spellAttacks(handler) {
             }
 
             let ray = new Ray(handler.actorToken.center, target.center);
-            let anDeg = -(ray.angle * 57.3);
-            let anDist = ray.distance;
+            let missAnim = Math.floor(Math.random() * 15) + 6;
+            var plusOrMinusRay = Math.random() < 0.5 ? -1 : 1;
+            var plusOrMinusDist = Math.random() < 0.5 ? -1 : 1;
+            let missHit;
+            let missDist;
+
+            switch (true) {
+                case (handler.playOnMiss):
+                    switch (true) {
+                        case handler.hitTargetsId.includes(target.id):
+                            missHit = 0;
+                            missDist = 0;
+                            break;
+                        default:
+                            missHit = missAnim * plusOrMinusRay;
+                            missDist = canvas.grid.size * plusOrMinusDist;
+                    }
+                    break;
+                default:
+                    missHit = 0;
+                    missDist = 0;
+            }
+
+            let anDeg = -(ray.angle * 57.3 + missHit);
+            let anDist = ray.distance + missDist;
+
             //console.log(anDist);
             let file = `modules/${path00}/Library/${path}`;
 
             let anFile;
             let anFileSize = 600;
             let anchorX = 0.2;
+            let anScale;
+            let anScaleY;
+            //let anScaleY = anDist <= 600 ? 0.6 : anScale;
+
 
             switch (true) {
                 case (handler.itemNameIncludes("fire", "bolt")):
@@ -289,12 +316,12 @@ async function spellAttacks(handler) {
                 case (handler.itemNameIncludes("eldritch blast")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
                     switch (true) {
-                        case (anDist <= 1100):
+                        case (anDist <= 1400):
                             anFileSize = 1200;
                             anFile = `${file}/${path2}_${tint}_${color}_30ft_1600x400.webm`;
                             anchorX = 0.125;
                             break;
-                        case (anDist > 2100):
+                        case (anDist > 2600):
                             anFileSize = 3600;
                             anFile = `${file}/${path2}_${tint}_${color}_90ft_4000x400.webm`;
                             anchorX = 0.05;
@@ -305,6 +332,30 @@ async function spellAttacks(handler) {
                             anchorX = 0.071;
                             break;
                     }
+                    switch (true) {
+                        case anDist <= 300:
+                            anScaleY = 0.4;
+                            break;
+                        case anDist <= 600:
+                            anScaleY = 0.5;
+                            break;
+                        case anDist <= 900:
+                            anScaleY = 0.6;
+                            break;
+                        case anDist <= 1200:
+                            anScaleY = 0.7;
+                            break;
+                        case anDist <= 1500:
+                            anScaleY = 0.7;
+                            break;
+                        case anDist <= 1800:
+                            anScaleY = 0.9;
+                            break;
+                        default:
+                            anScaleY = anScale;
+                            break;
+                    }
+                    anScale = anDist / anFileSize;
                     break;
                 case (handler.itemNameIncludes("ray", "frost")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
@@ -327,6 +378,30 @@ async function spellAttacks(handler) {
                             anchorX = 0.125;
                             break;
                     }
+                    switch (true) {
+                        case anDist <= 300:
+                            anScaleY = 0.4;
+                            break;
+                        case anDist <= 600:
+                            anScaleY = 0.5;
+                            break;
+                        case anDist <= 900:
+                            anScaleY = 0.6;
+                            break;
+                        case anDist <= 1200:
+                            anScaleY = 0.7;
+                            break;
+                        case anDist <= 1500:
+                            anScaleY = 0.7;
+                            break;
+                        case anDist <= 1800:
+                            anScaleY = 0.9;
+                            break;
+                        default:
+                            anScaleY = anScale;
+                            break;
+                    }
+                    anScale = anDist / anFileSize;
                     break;
                 case (handler.itemNameIncludes("witch bolt")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
@@ -342,20 +417,26 @@ async function spellAttacks(handler) {
                             anchorX = 0.125;
                             break;
                     }
+                    switch (true) {
+                        case anDist <= 300:
+                            anScaleY = 0.7;
+                            break;
+                        case anDist <= 600:
+                            anScaleY = 0.8;
+                            break;
+                        case anDist <= 900:
+                            anScaleY = 0.8;
+                            break;
+                        case anDist <= 1200:
+                            anScaleY = 0.9;
+                            break;
+                        default:
+                            anScaleY = anScale;
+                            break;
+                    }
+                    anScale = anDist / anFileSize;
                     break;
             }
-
-            let anScale = anDist / anFileSize;
-            //let anScaleY = anDist <= 600 ? 0.6 : anScale;
-
-            let anScaleY = anScale;
-            if (anDist <= 300) { anScaleY = 0.7 }
-            if (anDist >= 400 && anDist <= 600) { anScaleY = anScale * 0.9 }
-            if (anDist >= 700 && anDist <= 900) { anScaleY = 0.8 }
-            if (anDist >= 1000 && anDist <= 1200) { anScaleY = anScale * 0.9 }
-            if (anDist >= 1300 && anDist <= 1500) { anScaleY = 0.6 }
-            if (anDist >= 1600 && anDist <= 1800) { anScaleY = 0.8 }
-            if (anDist >= 1800) { anScaleY = anScale }
 
 
             let spellAnim =
@@ -378,12 +459,24 @@ async function spellAttacks(handler) {
                 game.socket.emit('module.fxmaster', spellAnim);
                 if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                     switch (true) {
+                        case handler.playOnMiss:
+                            switch (true) {
+                                case handler.hitTargetsId.includes(target.id):
+                                    await wait(tmDelay);
+                                    TokenMagic.addFilters(target, tmMacro);
+                                    break;
+                                default:
+                            }
+                    }
+                    /*
+                    switch (true) {
                         case (saveCheck(target.id)):
                             break;
                         default:
                             await wait(tmDelay);
                             TokenMagic.addFilters(target, tmMacro);
                     }
+                    */
                 }
 
             });

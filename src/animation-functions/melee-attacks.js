@@ -1,6 +1,6 @@
 import colorChecks from "./colorChecks.js"
-import explodeOnTarget from "./explode-ontarget.js";
-import drawSpecialToward from "./fxmaster-drawTowards.js"
+import meleeExplosion from "./melee-explosion.js";
+//import drawSpecialToward from "./fxmaster-drawTowards.js"
 
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -177,7 +177,7 @@ async function meleeWeapons(handler) {
             item01 = "Rapier01";
             tmDelay = 900;
             tmKill = 1600;
-            tmMacro = bloodSplat;
+            //tmMacro = bloodSplat;
             break;
         case (handler.itemNameIncludes("greatsword")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
@@ -215,7 +215,7 @@ async function meleeWeapons(handler) {
             type01 = "01";
             tmDelay = 1300;
             tmKill = 1600;
-            tmMacro = bloodSplat;
+            //tmMacro = bloodSplat;
             break;
         case (handler.itemNameIncludes("sword")):
         case (handler.itemNameIncludes("scimitar")):
@@ -226,7 +226,7 @@ async function meleeWeapons(handler) {
             item01 = "Sword01";
             tmDelay = 1300;
             tmKill = 1600;
-            tmMacro = bloodSplat;
+            //tmMacro = bloodSplat;
             break;
         case (handler.itemNameIncludes("maul")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
@@ -326,12 +326,30 @@ async function meleeWeapons(handler) {
             let file = `modules/${path00}/Library/Generic/Weapon_Attacks/Melee`;
 
             let anim = `${file}/${item01}_${type01}_${tint}_${color}_800x600.webm`;
-            
-            let distance = handler.getDistanceTo(target);
-            let range = 5; 
 
-            let ray = new Ray (handler.actorToken.center, target.center);
-            let anDeg = -(ray.angle * 57.3);
+            let distance = handler.getDistanceTo(target);
+            let range = 5;
+
+            let ray = new Ray(handler.actorToken.center, target.center);
+            let missAnim = Math.floor(Math.random() * 45) + 30;
+            var plusOrMinusRay = Math.random() < 0.5 ? -1 : 1;
+            let missHit;
+
+            switch (true) {
+                case (handler.playOnMiss):
+                    switch (true) {
+                        case handler.hitTargetsId.includes(target.id):
+                            missHit = 0;
+                            break;
+                        default:
+                            missHit = missAnim * plusOrMinusRay;
+                    }
+                    break;
+                default:
+                    missHit = 0;
+            }
+
+            let anDeg = -(ray.angle * 57.3 + missHit);
 
             let meleeAnim =
             {
@@ -347,6 +365,47 @@ async function meleeWeapons(handler) {
                     y: (Scale * plusOrMinus)
                 }
             };
+
+            function drawSpecialToward(effect, tok1, tok2) {
+                const origin = {
+                    x: tok1.center.x,
+                    y: tok1.center.y
+                }
+                const effectData = mergeObject(effect, {
+                    position: {
+                        x: origin.x,
+                        y: origin.y
+                    }
+                });
+
+                let missAnim = 0.5;
+                var plusOrMinusHit = Math.random() < 0.5 ? -1 : 1;
+                let missHit;
+
+                switch (true) {
+                    case (handler.playOnMiss):
+                        switch (true) {
+                            case handler.hitTargetsId.includes(target.id):
+                                missHit = 0;
+                                break;
+                            default:
+                                missHit = missAnim * plusOrMinusHit;
+                        }
+                        break;
+                    default:
+                        missHit = 0;
+                }
+
+                let ray = new Ray(tok1.center, tok2.center);
+                effectData.distance = ray.distance;
+                effectData.rotation = ray.angle + missHit;
+                // Throw effect locally
+                canvas.fxmaster.playVideo(effectData);
+                // And to other clients
+                game.socket.emit('module.fxmaster', effectData);
+            }
+
+
 
             switch (true) {
                 case distance <= range:
@@ -370,34 +429,55 @@ async function meleeWeapons(handler) {
                             y: (Scale * plusOrMinus),
                         },
                     });
-        
+
             }
 
-            await wait(tmDelay - 200);
-            if (handler.animExplode && handler.animOverride) {
-                explodeOnTarget(handler);
-            }
-            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                await wait(200);
-                switch (true) {
-                    case (fireColor != "pass"):
-                        TokenMagic.addFilters(target, burn);
-                        await wait(50);
-                        TokenMagic.addFilters(target, tmMacro);
-                        break;
-                    default:
-                        TokenMagic.addFilters(target, tmMacro);
-                        break;
-                }
-                await wait(250);
-            }
 
-            await wait(tmKill);
-            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                TokenMagic.deleteFilters(target, "BloodSplat");
+            switch (true) {
+                case handler.playOnMiss:
+                    switch (true) {
+                        case handler.hitTargetsId.includes(target.id):
+                            await wait(tmDelay - 200);
+                            if (handler.animExplode && handler.animOverride) {
+                                meleeExplosion(handler, target);
+                            }
+                            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                                await wait(200);
+                                switch (true) {
+                                    case (fireColor != "pass"):
+                                        TokenMagic.addFilters(target, burn);
+                                        await wait(50);
+                                        TokenMagic.addFilters(target, tmMacro);
+                                        break;
+                                    default:
+                                        TokenMagic.addFilters(target, tmMacro);
+                                        break;
+                                }
+                            }
+                            break;
+                        default:
+                            await wait(500);
+                    }
+                    break;
+                default:
+                    await wait(tmDelay - 200);
+                    if (handler.animExplode && handler.animOverride) {
+                        meleeExplosion(handler, target);
+                    }
+                    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                        await wait(200);
+                        switch (true) {
+                            case (fireColor != "pass"):
+                                TokenMagic.addFilters(target, burn);
+                                await wait(50);
+                                TokenMagic.addFilters(target, tmMacro);
+                                break;
+                            default:
+                                TokenMagic.addFilters(target, tmMacro);
+                                break;
+                        }
+                    }
             }
-            // await wait(50);
-            // TokenMagic.deleteFilters(target, "meleeBurn");
         }
     }
     cast();

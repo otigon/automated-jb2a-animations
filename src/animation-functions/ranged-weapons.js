@@ -64,7 +64,10 @@ async function rangedWeapons(handler) {
 
     let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
-    let { type01, tint, color, tmColor } = colorChecks(handler);
+    let { type01, tint, color, fireColor, tmColor } = colorChecks(handler);
+
+    //console.log(color);
+    //console.log(tmColor);
 
     switch (true) {
         case (type01 === "default"):
@@ -185,7 +188,7 @@ async function rangedWeapons(handler) {
                 case (color === "default"):
                     color = "Blue";
             }
-            path01 = "LaserShot";
+            path01 = "LaserShot"; 
             tmMacro = colorWave;
             Delay01 = 500;
             Delay02 = 500;
@@ -259,13 +262,36 @@ async function rangedWeapons(handler) {
             let target = handler.allTargets[i];
 
             let ray = new Ray(handler.actorToken.center, target.center);
-            let anDeg = -(ray.angle * 57.3);
-            let anDist = ray.distance;
+            let missAnim = Math.floor(Math.random() * 15) + 6;
+            var plusOrMinusRay = Math.random() < 0.5 ? -1 : 1;
+            var plusOrMinusDist = Math.random() < 0.5 ? -1 : 1;
+            let missHit;
+            let missDist;
+
+            switch (true) {
+                case (handler.playOnMiss):
+                    switch (true) {
+                        case handler.hitTargetsId.includes(target.id):
+                            missHit = 0;
+                            missDist = 0;
+                            break;
+                        default:
+                            missHit = missAnim * plusOrMinusRay;
+                            missDist = canvas.grid.size * plusOrMinusDist;
+                    }
+                    break;
+                default:
+                    missHit = 0;
+                    missDist = 0;
+            }
+
+            let anDeg = -(ray.angle * 57.3 + missHit);
+            let anDist = ray.distance + missDist;
 
             let file = `modules/${path00}/Library/Generic/Weapon_Attacks/Ranged`;
 
             let anFile = `${file}/${path01}_${type01}_${tint}_${color}_15ft_1000x${size}.webm`;
-            console.log(anFile);
+            //console.log(anFile);
             let anFileSize = 600;
             let anchorX = 0.2;
             switch (true) {
@@ -394,9 +420,16 @@ async function rangedWeapons(handler) {
                     case (tmMacro === "pass"):
                         break;
                     default:
-                        await wait(tmDelay);
-                        TokenMagic.addFilters(target, tmMacro);
-                        break;
+                        switch (true) {
+                            case handler.playOnMiss:
+                                switch (true) {
+                                    case handler.hitTargetsId.includes(target.id):
+                                        await wait(tmDelay);
+                                        TokenMagic.addFilters(target, tmMacro);
+                                        break;
+                                    default:
+                                }
+                        }    
                 }
             }
         }

@@ -47,6 +47,10 @@ export default class Dnd5Handler {
         //console.log(this._animColorEffect);
     }
 
+    get playOnMiss() {
+        return false;
+    }
+
     get actor() {
         return this._actorToken.actor;
     }

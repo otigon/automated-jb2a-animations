@@ -68,6 +68,14 @@ Hooks.on('init', () => {
                     default: false,
                     config: true,
                 });
+                game.settings.register("automated-jb2a-animations", "playonmiss", {
+                    name: game.i18n.format("AUTOANIM.midionmiss_name"),
+                    hint: game.i18n.format("AUTOANIM.midionmiss_hint"),
+                    scope: `world`,
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                })
                 game.settings.register("automated-jb2a-animations", "playonDamage", {
                     name: game.i18n.format("AUTOANIM.midiondmg_name"),
                     hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
@@ -235,8 +243,8 @@ function revItUp5eCore(msg) {
             } else /*if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false)*/ {
                 if (handler.itemIncludes("xxx") || handler.animKille) {
                 }
-                
-                 else {
+
+                else {
                     switch (true) {
                         case (handler.itemNameIncludes("cure", "wound")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
@@ -291,7 +299,7 @@ function revItUp5eCore(msg) {
                             break;
                     }
                 }
-                
+
             }
     }
 

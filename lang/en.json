@@ -9,6 +9,8 @@
     "AUTOANIM.tfmxenable_hint":"Enables all Token Magic effects with the animations",
     "AUTOANIM.midionhit_name":"Only play animations on Hits",
     "AUTOANIM.midionhit_hint":"Requires Midi-QOL Workflow settings to Check if Attacks hit",
+    "AUTOANIM.midionmiss_name": "Play Animations on Hits and Misses",
+    "AUTOANIM.midionmiss_hint": "On a Miss, the Animation will veer off target. Requires MIDI Workflow to check for hits",
     "AUTOANIM.midiondmg_name":"Only play animations on Damage Rolls",
     "AUTOANIM.midiondmg_hint":"REQUIRES A REFRESH. When Enabled, this will ONLY play the animations on the Damage Roll",
     "AUTOANIM.coreondmg_name":"Play Attack Animations on Damage Rolls Only",

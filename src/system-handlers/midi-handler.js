@@ -27,12 +27,31 @@ export default class MidiHandler {
         this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
 
         this._checkSave = Array.from(workflow.saves);
+        this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
 
+        this._hitTargets = Array.from(workflow.hitTargets);
+        this._hitTargetsId = Array.from(this._hitTargets.filter(actor => actor.id).map(actor => actor.id));
+        this._targets = Array.from(workflow.targets);
+        this._targetsId = Array.from(this._targets.filter(actor => actor.id).map(actor => actor.id));
+        switch (true) {
+            case (game.settings.get("automated-jb2a-animations", "playonmiss")):
+                this._allTargets = Array.from(workflow.targets);
+                break;
+            case (game.settings.get("automated-jb2a-animations", "playonhit")):
+                this._allTargets = Array.from(workflow.hitTargets);
+                break;
+            default:
+                this._allTargets = Array.from(workflow.targets);
+            }
+        
+        this._playOnMiss = game.settings.get("automated-jb2a-animations", "playonmiss");
+        /*
         if (game.settings.get("automated-jb2a-animations", "playonhit")) {
             this._allTargets = Array.from(workflow.hitTargets);
         } else {
             this._allTargets = Array.from(workflow.targets);
         }
+        */
         // separate due to Midi Hit Target List for Targeting Assistant
         this._targetAssistant = Array.from(workflow.targets);
 
@@ -63,6 +82,10 @@ export default class MidiHandler {
 
     }
 
+    get playOnMiss() {
+        return this._playOnMiss;
+    }
+
     get actor() {
         return this._actor;
     }
@@ -84,6 +107,14 @@ export default class MidiHandler {
 
     get allTargets() {
         return this._allTargets;
+    }
+
+    get hitTargetsId() {
+        return this._hitTargetsId;
+    }
+
+    get targetsId() {
+        return this._targetsId;
     }
 
     get targetAssistant() {

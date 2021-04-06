@@ -1,26 +1,6 @@
 import colorChecks from "./colorChecks.js"
-import explodeOnTarget from "./explode-ontarget.js";
-import drawSpecialToward from "./fxmaster-drawTowards.js"
-
-let bloodSplat =
-    [{
-        filterType: "splash",
-        filterId: "BloodSplat",
-        rank: 5,
-        color: 0x990505,
-        padding: 80,
-        time: Math.random() * 1000,
-        seed: Math.random(),
-        splashFactor: 1,
-        spread: 0.4,
-        blend: 1,
-        dimX: 1,
-        dimY: 1,
-        cut: false,
-        textureAlphaBlend: true,
-        anchorX: 0.32 + (Math.random() * 0.36),
-        anchorY: 0.32 + (Math.random() * 0.36)
-    }];
+import meleeExplosion from "./melee-explosion.js";
+//import drawSpecialToward from "./fxmaster-drawTowards.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -78,7 +58,7 @@ async function meleeRangeSwitch(handler) {
     // delay before deleting Token Magic FX if needed, change inside switch cases to adjust the deletion
     let tmkill = 1000;
     // calls a Token Magic FX macro defined above, change inside the switch cases to desired TMFX
-    let tmMacro = bloodSplat;
+    //let tmMacro = bloodSplat;
     let item11;
     let item01 = "Dagger02";
 
@@ -90,7 +70,7 @@ async function meleeRangeSwitch(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase()):
             item01 = "HandAxe02";
             item11 = "HandAxe01";
-            tmMacro = bloodSplat;
+            //tmMacro = bloodSplat;
             tmdelay = 1250;
             tmkill = 1500;
             Delay01 = 600;
@@ -101,7 +81,7 @@ async function meleeRangeSwitch(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()):
             item01 = "Dagger02";
             item11 = "Dagger01";
-            tmMacro = bloodSplat;
+            //tmMacro = bloodSplat;
             tmdelay = 1000;
             tmkill = 1500;
             Delay01 = 600;
@@ -112,7 +92,7 @@ async function meleeRangeSwitch(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
             item01 = "Spear01";
             item11 = "Spear01";
-            tmMacro = bloodSplat;
+            //tmMacro = bloodSplat;
             tmdelay = 1000;
             tmkill = 1500;
             Delay01 = 600;
@@ -172,8 +152,15 @@ async function meleeRangeSwitch(handler) {
             //log(distance);
             let range = 5;
             let ray = new Ray(handler.actorToken.center, target.center);
-            let anDeg = -(ray.angle * 57.3);
-            let anDist = ray.distance;
+
+            let missAnim;
+            var plusOrMinusRay = Math.random() < 0.5 ? -1 : 1;
+            var plusOrMinusDist = Math.random() < 0.5 ? -1 : 1;
+            let missHit;
+            let missDist;
+
+            let anDeg = -(ray.angle * 57.3 + missHit);
+            let anDist = ray.distance + missDist;
 
             let file;
             let anFile;
@@ -189,6 +176,29 @@ async function meleeRangeSwitch(handler) {
             switch (true) {
                 case (distance > (range + handler.reachCheck)):
                     file = `${path01}/Ranged/`;
+
+                    missAnim = Math.floor(Math.random() * 12) + 6;
+        
+                    switch (true) {
+                        case (handler.playOnMiss):
+                            switch (true) {
+                                case handler.hitTargetsId.includes(target.id):
+                                    missHit = 0;
+                                    missDist = 0;
+                                    break;
+                                default:
+                                    missHit = missAnim * plusOrMinusRay;
+                                    missDist = canvas.grid.size * plusOrMinusDist;
+                            }
+                            break;
+                        default:
+                            missHit = 0;
+                            missDist = 0;
+                    }
+        
+                    anDeg = -(ray.angle * 57.3 + missHit);
+                    anDist = ray.distance + missDist;
+
                     switch (true) {
                         case (anDist <= 600):
                             anFileSize = 600;
@@ -211,7 +221,7 @@ async function meleeRangeSwitch(handler) {
                     }
                     anScale = anDist / anFileSize;
                     anScaleY = anDist <= 600 ? 0.6 : anScale;
-
+        
                     spellAnim =
                     {
                         file: anFile,
@@ -229,15 +239,25 @@ async function meleeRangeSwitch(handler) {
 
                     canvas.fxmaster.playVideo(spellAnim);
                     game.socket.emit('module.fxmaster', spellAnim);
-                    await wait(tmdelay);
-                    if (handler.animExplode && handler.animOverride) {
-                        explodeOnTarget(handler);
-                    }
-                    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        //await wait(200);
-                        TokenMagic.addFilters(target, tmMacro)
-                        await wait(tmkill);
-                        TokenMagic.deleteFilters(target, "BloodSplat");
+
+                    switch (true) {
+                        case handler.playOnMiss:
+                            switch (true) {
+                                case handler.hitTargetsId.includes(target.id):
+                                    await wait(tmdelay);
+                                    if (handler.animExplode && handler.animOverride) {
+                                        meleeExplosion(handler, target);
+                                    }
+                                    break;
+                                default:
+                                    await wait(500);
+                            }
+                            break;
+                        default:
+                            await wait(tmdelay);
+                            if (handler.animExplode && handler.animOverride) {
+                                meleeExplosion(handler, target);
+                            }
                     }
                     break;
                 default:
@@ -246,6 +266,28 @@ async function meleeRangeSwitch(handler) {
                     Scale = canvas.scene.data.grid / 175;
                     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
 
+                    missAnim = Math.floor(Math.random() * 20) + 14;
+        
+                    switch (true) {
+                        case (handler.playOnMiss):
+                            switch (true) {
+                                case handler.hitTargetsId.includes(target.id):
+                                    missHit = 0;
+                                    missDist = 0;
+                                    break;
+                                default:
+                                    missHit = missAnim * plusOrMinusRay;
+                                    missDist = canvas.grid.size * plusOrMinusDist;
+                            }
+                            break;
+                        default:
+                            missHit = 0;
+                            missDist = 0;
+                    }
+        
+                    anDeg = -(ray.angle * 57.3 + missHit);
+                    anDist = ray.distance + missDist;
+        
                     let meleeAnim =
                     {
                         file: `${file}${item01}_${type01}_${tint}_${color}_800x600.webm`,
@@ -260,17 +302,56 @@ async function meleeRangeSwitch(handler) {
                             y: (Scale * plusOrMinus)
                         }
                     };
-        
+
                     switch (true) {
                         case distance <= 5:
                             canvas.fxmaster.playVideo(meleeAnim);
                             game.socket.emit('module.fxmaster', meleeAnim);
                             break;
                         default:
+                            function drawSpecialToward(effect, tok1, tok2) {
+                                const origin = {
+                                    x: tok1.center.x,
+                                    y: tok1.center.y
+                                }
+                                const effectData = mergeObject(effect, {
+                                    position: {
+                                        x: origin.x,
+                                        y: origin.y
+                                    }
+                                });
+
+                                let missAnim = 0.5;
+                                var plusOrMinusHit = Math.random() < 0.5 ? -1 : 1;
+                                let missHit;
+
+                                switch (true) {
+                                    case (handler.playOnMiss):
+                                        switch (true) {
+                                            case handler.hitTargetsId.includes(target.id):
+                                                missHit = 0;
+                                                break;
+                                            default:
+                                                missHit = missAnim * plusOrMinusHit;
+                                        }
+                                        break;
+                                    default:
+                                        missHit = 0;
+                                }
+
+                                let ray = new Ray(tok1.center, tok2.center);
+                                effectData.distance = ray.distance;
+                                effectData.rotation = ray.angle + missHit;
+                                // Throw effect locally
+                                canvas.fxmaster.playVideo(effectData);
+                                // And to other clients
+                                game.socket.emit('module.fxmaster', effectData);
+                            }
+
                             function castSpell(effect) {
                                 drawSpecialToward(effect, handler.actorToken, target);
                             }
-                            
+
 
                             castSpell({
                                 file: `${file}${item01}_${type01}_${tint}_${color}_800x600.webm`,
@@ -284,33 +365,47 @@ async function meleeRangeSwitch(handler) {
                                     x: Scale,
                                     y: (Scale * plusOrMinus),
                                 },
-                            });       
+                            });
                     }
 
-                    await wait(tmdelay - 200);
-                    if (handler.animExplode && handler.animOverride) {
-                        explodeOnTarget(handler);
-                    }
-                    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                        await wait(200);
-                        switch (true) {
-                            case (fireColor != "pass"):
-                                TokenMagic.addFilters(target, burn);
-                                await wait(25);
-                                //game.macros.getName(tmMacro).execute();
-                                TokenMagic.addFilters(target, tmMacro);
-                                break;
-                            default:
-                                TokenMagic.addFilters(target, tmMacro);
-                        }
-                        await wait(tmkill);
-                        //TokenMagic.deleteFilters(target, "meleeBurn");
-                        //await wait(50);
-                        TokenMagic.deleteFilters(target, "BloodSplat");
-                        break;
+                    switch (true) {
+                        case handler.playOnMiss:
+                            switch (true) {
+                                case handler.hitTargetsId.includes(target.id):
+                                    await wait(tmdelay);
+                                    if (handler.animExplode && handler.animOverride) {
+                                        meleeExplosion(handler, target);
+                                    }
+                                    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                                        await wait(200);
+                                        switch (true) {
+                                            case (fireColor != "pass"):
+                                                TokenMagic.addFilters(target, burn);
+                                                break;
+                                            default:
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    await wait(500);
+                            }
+                            break;
+                        default:
+                            await wait(tmdelay);
+                            if (handler.animExplode && handler.animOverride) {
+                                meleeExplosion(handler, target);
+                            }
+                            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                                await wait(200);
+                                switch (true) {
+                                    case (fireColor != "pass"):
+                                        TokenMagic.addFilters(target, burn);
+                                        break;
+                                    default:
+                                }
+                            }
                     }
             }
-
         }
     }
     cast();

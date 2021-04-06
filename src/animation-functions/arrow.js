@@ -1,3 +1,5 @@
+import meleeExplosion from "./melee-explosion.js";
+
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function arrowOptionExplode(handler) {
@@ -25,40 +27,6 @@ async function arrowOptionExplode(handler) {
             color = "White";
             break;
     }
-
-    let type02 = "01";
-    switch (true) {
-        case handler.animExVariant.includes("02"):
-            type02 = "02";
-            break;
-    }
-    let color02 = "Orange";
-
-
-
-    switch (true) {
-        case (handler.animExColor.includes("blue")):
-            color02 = "Blue";
-            //tmColor = 0x0075B0;
-            break;
-        case (handler.animExColor.includes("orange")):
-            color02 = "Orange";
-            //tmColor = 0xBF6E00;
-            break;
-        case (handler.animExColor.includes("purple")):
-            color02 = "Purple";
-            //tmColor = 0xBF0099;
-            break;
-        case (handler.animExColor.includes("yellow")):
-            color02 = "Yellow";
-            //tmColor = 0xCFD204;
-            break;
-        case (handler.animExColor.includes("green")):
-            color02 = "Green";
-            //tmColor = 0x0EB400;
-            break;
-    }
-
     /*
         switch (true) {
             case (handler.itemIncludes("acid")):
@@ -172,44 +140,6 @@ async function arrowOptionExplode(handler) {
     
         }
     */
-    let divisor = 100;
-    switch (true) {
-        case (handler.animExRadius.includes("2")):
-            divisor = 300;
-            break;
-        case (handler.animExRadius.includes("05")):
-            divisor = 200;
-            break;
-        case (handler.animExRadius.includes("10")):
-            divisor = 100;
-            break;
-        case (handler.animExRadius.includes("15")):
-            divisor = 67;
-        case (handler.animExRadius.includes("20")):
-            divisor = 50;
-            break;
-        case (handler.animExRadius.includes("25")):
-            divisor = 40;
-            break;
-        case (handler.animExRadius.includes("30")):
-            divisor = 33;
-            break;
-        case (handler.animExRadius.includes("35")):
-            divisor = 28.5;
-            break;
-        case (handler.animExRadius.includes("40")):
-            divisor = 25;
-            break;
-        case (handler.animExRadius.includes("45")):
-            divisor = 22.2;
-            break;
-        case (handler.animExRadius.includes("50")):
-            divisor = 20;
-            break;
-        case (handler.animExRadius.includes("nuclear")):
-            divisor = 10;
-            break;
-    }
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
@@ -239,16 +169,36 @@ async function arrowOptionExplode(handler) {
         }
 
         for (var i = 0; i < arrayLength; i++) {
-            let Scale = (canvas.scene.data.grid / divisor);
-
-            await wait(500)
 
             let target = handler.allTargets[i];
 
             let ray = new Ray(handler.actorToken.center, target.center);
-            let anDeg = -(ray.angle * 57.3);
-            let anDist = ray.distance;
+            let missAnim = Math.floor(Math.random() * 15) + 6;
+            var plusOrMinusRay = Math.random() < 0.5 ? -1 : 1;
+            var plusOrMinusDist = Math.random() < 0.5 ? -1 : 1;
+            let missHit;
+            let missDist;
 
+            switch (true) {
+                case (handler.playOnMiss):
+                    switch (true) {
+                        case handler.hitTargetsId.includes(target.id):
+                            missHit = 0;
+                            missDist = 0;
+                            break;
+                        default:
+                            missHit = missAnim * plusOrMinusRay;
+                            missDist = canvas.grid.size * plusOrMinusDist;
+                    }
+                    break;
+                default:
+                    missHit = 0;
+                    missDist = 0;
+            }
+
+            let anDeg = -(ray.angle * 57.3 + missHit);
+            let anDist = ray.distance + missDist;
+            //console.log(anDist);
             // Animation file path
             let file = `modules/${path00}/Library/Generic/Weapon_Attacks/Ranged/`;
 
@@ -258,7 +208,7 @@ async function arrowOptionExplode(handler) {
             let anchorX = 0.125;
             let boomDelay = 1250;
             switch (true) {
-                case (anDist <= 1200):
+                case (anDist <= 1000):
                     anFileSize = 1200;
                     anFile = `${file}Arrow01_${type01}_${tint}_${color}_30ft_1600x400.webm`;
                     anchorX = 0.125;
@@ -280,7 +230,31 @@ async function arrowOptionExplode(handler) {
 
             // Scaling the Height of the animation for consistency across ranges
             let anScale = anDist / anFileSize;
-            let anScaleY = anDist <= 600 ? 0.6 : anScale;
+            let anScaleY;
+            switch (true) {
+                case anDist <= 300:
+                    anScaleY = 0.4;
+                    break;
+                case anDist <= 600:
+                    anScaleY = 0.5;
+                    break;
+                case anDist <= 900:
+                    anScaleY = 0.6;
+                    break;
+                case anDist <= 1200:
+                    anScaleY = 0.7;
+                    break;
+                case anDist <= 1500:
+                    anScaleY = 0.7;
+                    break;
+                case anDist <= 1800:
+                    anScaleY = 0.9;
+                    break;
+                default:
+                    anScaleY = anScale;
+                    break;
+            }
+
 
             let spellAnim =
             {
@@ -297,20 +271,6 @@ async function arrowOptionExplode(handler) {
                 }
             };
 
-            let spellAnim2 =
-            {
-                file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type02}_${color02}_400x400.webm`,
-                position: target.center,
-                anchor: {
-                    x: 0.5,
-                    y: 0.5
-                },
-                angle: 0,
-                scale: {
-                    x: Scale,
-                    y: Scale
-                }
-            };
 
             canvas.fxmaster.playVideo(spellAnim);
             game.socket.emit('module.fxmaster', spellAnim);
@@ -320,22 +280,26 @@ async function arrowOptionExplode(handler) {
                 explodeOnTarget(handler);
             }
             */
+
             switch (true) {
-                case (handler.animExplode):
-                    await wait(boomDelay);
-                    canvas.fxmaster.playVideo(spellAnim2);
-                    game.socket.emit('module.fxmaster', spellAnim2);
-                    //TokenMagic.addUpdateFiltersOnTargeted(letitBurn);
-                    //await wait(2500);
-                    //TokenMagic.deleteFiltersOnTargeted("Shocked");
-                    //await wait(50);
-                    //TokenMagic.deleteFiltersOnTargeted("Burning");
-                    //await wait(50);
-                    // TokenMagic.deleteFiltersOnTargeted("Poisoned");
+                case (handler.playOnMiss):
+                    switch (true) {
+                        case handler.hitTargetsId.includes(target.id):
+                            await wait(boomDelay);
+                            if (handler.animExplode && handler.animOverride) {
+                                meleeExplosion(handler, target);
+                            }
+                            break;
+                        default:
+                            await wait(500);
+                    }
                     break;
+                default:
+                    await wait(boomDelay);
+                    if (handler.animExplode && handler.animOverride) {
+                        meleeExplosion(handler, target);
+                    }
             }
-
-
         }
     }
     cast();
