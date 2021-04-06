@@ -1,4 +1,14 @@
-0.2.51:  
+0.2.70:
+- Tweaked scaling of some animations for better visuals  
+- Removed an empty "macro" compendium  
+- Added option for Midi-QOL to play Animations on Hits AND Misses. Misses will veer off course  
+  
+0.2.60: 
+- Tweaks for melee animations, better visuals overall and better performance with Mars 5e  
+- Fixed incompatability with the About Face module  
+- Lots of code organizations  
+  
+2.2.51:  
 - Added in checks for standard English in auto-recognition as a back-up to Localization. For cases where the items were in English but the browser is set to another langauge.  
 - Changed the Melee Animations to cycle through target list 1 by 1, rather than all at once. This fixes an issue where melee animations were repeated unnecessarily  
 - Added support for other Modules to call animations externally  
