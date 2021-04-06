@@ -14,6 +14,8 @@ export class AnimationTab {
             case ("pf1"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
                 break;
+            case ("tormenta20"):
+                acceptedTypes = ['arma', 'magia', 'consumivel', 'poder'];
         }
         if (acceptedTypes.includes(data.entity.type)) {
             let tab = animationTabs[app.id];
@@ -42,6 +44,10 @@ export class AnimationTab {
         }
 
         let tabs = html.find('form nav.sheet-navigation.tabs');
+        if (game.system.id === "tormenta20") {
+            tabs = html.find('form nav.sheet-tabs');
+        }
+
         if (tabs.find('a[data-tab=autoanimations]').length > 0) {
             return;
         }
@@ -61,7 +67,10 @@ export class AnimationTab {
                     '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
                 ));
                 break;
-
+            case ("tormenta20"):
+                $(html.find(`.sheet-body`)).append($(
+                    '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
+                ));
         }
 
 

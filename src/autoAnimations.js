@@ -1,6 +1,7 @@
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
+import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 //import colorChecks from "./system-handlers/colorChecks-WIP.js"
@@ -122,6 +123,9 @@ Hooks.on('init', () => {
             case "dnd5e":
                 Hooks.on("createChatMessage", async (msg) => { revItUp5eCore(msg) });
                 break;
+            case "tormenta20":
+                Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
+                break;
         }
         //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
@@ -172,6 +176,11 @@ function onCreateChatMessage(msg) {
 
 function revItUpMidi(workflow) {
     let handler = new MidiHandler(workflow);
+    revItUp(handler);
+}
+
+function setupTormenta20(msg) {
+    let handler = new Tormenta20Handler(msg);
     revItUp(handler);
 }
 
