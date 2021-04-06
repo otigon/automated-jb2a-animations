@@ -5,6 +5,65 @@ export default class Tormenta20Handler {
   
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         this._itemId = itemId;
+
+        switch (this._actorToken.actor.data.data.tamanho) {
+            case "Pequeno":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "sm"
+                }
+                break;
+            case "Medio":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "med"
+                }
+                break;
+            case "Grande":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "lg"
+                }
+                break;
+            case "Enorme":
+                    this._actorToken.actor.data.data["traits"] = {
+                        size: "huge"
+                    }
+                    break;
+            default:
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "med"
+                }
+                break;
+        }
+
+        const targets = Array.from(msg.user.targets);
+        targets.forEach((target) => {
+            switch (target.actor.data.data.tamanho) {
+                case "Pequeno":
+                    target.actor.data.data["traits"] = {
+                        size: "sm"
+                    }
+                    break;
+                case "Medio":
+                    target.actor.data.data["traits"] = {
+                        size: "med"
+                    }
+                    break;
+                case "Grande":
+                    target.actor.data.data["traits"] = {
+                        size: "lg"
+                    }
+                    break;
+                case "Enorme":
+                        target.actor.data.data["traits"] = {
+                            size: "huge"
+                        }
+                        break;
+                default:
+                    target.actor.data.data["traits"] = {
+                        size: "med"
+                    }
+                    break;
+            }
+        });
         this._allTargets = Array.from(msg.user.targets);
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
