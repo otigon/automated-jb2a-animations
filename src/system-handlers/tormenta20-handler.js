@@ -7,14 +7,14 @@ export default class Tormenta20Handler {
         this._itemId = itemId;
 
         switch (this._actorToken.actor.data.data.tamanho) {
+            case "Minusculo":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "tiny"
+                }
+                break;
             case "Pequeno":
                 this._actorToken.actor.data.data["traits"] = {
                     size: "sm"
-                }
-                break;
-            case "Medio":
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "med"
                 }
                 break;
             case "Grande":
@@ -27,6 +27,12 @@ export default class Tormenta20Handler {
                         size: "huge"
                     }
                     break;
+            case "Colossal":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "grg"
+                }
+                break;
+            case "Medio":
             default:
                 this._actorToken.actor.data.data["traits"] = {
                     size: "med"
@@ -37,14 +43,14 @@ export default class Tormenta20Handler {
         const targets = Array.from(msg.user.targets);
         targets.forEach((target) => {
             switch (target.actor.data.data.tamanho) {
+                case "Minusculo":
+                    target.actor.data.data["traits"] = {
+                        size: "tiny"
+                    }
+                    break;
                 case "Pequeno":
                     target.actor.data.data["traits"] = {
                         size: "sm"
-                    }
-                    break;
-                case "Medio":
-                    target.actor.data.data["traits"] = {
-                        size: "med"
                     }
                     break;
                 case "Grande":
@@ -53,10 +59,16 @@ export default class Tormenta20Handler {
                     }
                     break;
                 case "Enorme":
-                        target.actor.data.data["traits"] = {
-                            size: "huge"
-                        }
-                        break;
+                    target.actor.data.data["traits"] = {
+                        size: "huge"
+                    }
+                    break;
+                case "Colossal":
+                    target.actor.data.data["traits"] = {
+                        size: "grg"
+                    }
+                    break;
+                case "Medio":
                 default:
                     target.actor.data.data["traits"] = {
                         size: "med"
@@ -117,10 +129,7 @@ export default class Tormenta20Handler {
     
     get reachCheck() {
         let reach = 0;
-        if (this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
-            reach += 5;
-        }
-        if (this._actorToken.actor?.items?.get(this._itemId)?.data?.data?.properties?.rch) {
+        if (this._actorToken.actor?.items?.get(this._itemId)?.data?.data?.propriedades?.alongada) {
             reach +=5;
         }
         return reach;
