@@ -16,7 +16,15 @@ function colorChecks(handler) {
             tmColor = 0x60B2FF;
             break;
         case (handler.itemColorIncludes("blue yellow")):
-            tint = "Regular";
+            switch (true) {
+                case handler.itemNameIncludes("spirit guardians"):
+                    tint = "Light";
+                    break;
+                default:
+                    tint = "Regular";
+                    break;
+            }
+            type01 = "01";
             color = "BlueYellow";
             tmColor = 0xACC5C5;
             break;
@@ -25,8 +33,13 @@ function colorChecks(handler) {
             color = "PurpleTeal";
             tmColor = 0xC38CDC;
             break;
+        case (handler.itemColorIncludes("dark blue")):
+            tint = "Dark";
+            type01 = "01";
+            color = "Blue";
         case (handler.itemColorIncludes("dark purple")):
             tint = "Dark";
+            type01 = "01";
             color = "Purple";
             tmColor = 0xAE00AE;
             break;
@@ -35,12 +48,17 @@ function colorChecks(handler) {
             color = "Green";
             tmColor = 0x187C00;
             break;
+        case (handler.itemColorIncludes("teal yellow")):
+            type01 = "01";
+            color = "TealYellow";
+            break;
         case (handler.itemColorIncludes("dark red")):
             switch (true) {
                 case (handler.itemNameIncludes("claw")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+                case handler.itemNameIncludes("spirit guardians"):
                     type01 = "01";
                     break;
                 default:
@@ -50,6 +68,28 @@ function colorChecks(handler) {
             tint = "Dark";
             color = "Red";
             tmColor = 0x8E0000;
+            break;
+        case (handler.itemColorIncludes("green orange")):
+            type01 = "01";
+            tint = "Light";
+            color = "GreenOrange";
+            break;
+        case (handler.itemColorIncludes("pink purple")):
+            type01 = "01";
+            tint = "Light";
+            color = "PinkPurple";
+            break;
+        case handler.itemColorIncludes("pink yellow"):
+            type01 = "01";
+            color = "PinkYellow";
+            break;
+        case handler.itemColorIncludes("blue orange"):
+            type01 = "01";
+            color = "BlueOrange";
+            break;
+        case handler.itemColorIncludes("blue grey"):
+            type01 = "01";
+            color = "BlueGrey";
             break;
         case (handler.itemColorIncludes("white")):
             type01 = "01";
@@ -69,12 +109,17 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                 case (handler.itemNameIncludes("heal", "word")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                 case (handler.itemNameIncludes("magic", "missile")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
                 case (handler.itemNameIncludes("claw")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+                case (handler.itemNameIncludes("sleetstorm")):
+                case (handler.itemNameIncludes("call lightning")):
+                case (handler.itemNameIncludes("wall of force")):
+                case (handler.itemNameIncludes("whirlwind")):
                     type01 = "01";
                     break;
                 default:
@@ -109,12 +154,17 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                 case (handler.itemNameIncludes("heal", "word")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                 case (handler.itemNameIncludes("magic", "missile")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
                 case (handler.itemNameIncludes("claw")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+                case (handler.itemNameIncludes("sleetstorm")):
+                case (handler.itemNameIncludes("call lightning")):
+                case (handler.itemNameIncludes("wall of force")):
+                case (handler.itemNameIncludes("whirlwind")):
                     type01 = "01";
                     break;
                 default:
@@ -149,6 +199,10 @@ function colorChecks(handler) {
             fireColor = 0x60EA01;
             tmColor = 0x59E81F;
             break;
+        case handler.itemColorIncludes("grey"):
+            type01 = "01";
+            color = "Grey";
+            break;
         case (handler.itemColorIncludes("orange")):
             switch (true) {
                 case (handler.itemNameIncludes("laser")):
@@ -162,6 +216,8 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+                case (handler.itemNameIncludes("wall of force")):
+                case (handler.itemNameIncludes("whirlwind")):
                     type01 = "01";
                     break;
                 default:
@@ -212,12 +268,19 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                 case (handler.itemNameIncludes("heal", "word")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                 case (handler.itemNameIncludes("magic", "missile")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
                 case (handler.itemNameIncludes("claw")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+                case handler.itemNameIncludes("eldritch blast"):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
+                case (handler.itemNameIncludes("sleetstorm")):
+                case (handler.itemNameIncludes("call lightning")):
+                case (handler.itemNameIncludes("wall of force")):
+                case (handler.itemNameIncludes("whirlwind")):
                     type01 = "01";
                     break;
                 default:
@@ -233,6 +296,8 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
                 case (handler.itemNameIncludes("magic", "missile")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
+                case (handler.itemNameIncludes("sleetstorm")):
                 case (handler.itemNameIncludes("fire bolt")):
                 case (handler.itemNameIncludes("scorching ray")):
                     tint = "Regular";
@@ -269,6 +334,8 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+                case (handler.itemNameIncludes("call lightning")):
+                case (handler.itemNameIncludes("wall of force")):
                     type01 = "01";
                     break;
                 default:
@@ -295,12 +362,15 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                 case (handler.itemNameIncludes("heal", "word")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
                 case (handler.itemNameIncludes("magic", "missile")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
                 case (handler.itemNameIncludes("claw")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+                case (handler.itemNameIncludes("call lightning")):
+                case (handler.itemNameIncludes("wall of force")):
                     type01 = "01";
                     break;
                 default:
@@ -319,7 +389,7 @@ function colorChecks(handler) {
             }
             color = "Yellow";
             fireColor = 0xCFD204;
-            tmColor = 0xFF0000;
+            tmColor = 0xE2F104;
             break;
     }
     //console.log(tmColor);
