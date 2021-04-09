@@ -16,8 +16,9 @@ function colorChecks(handler) {
             tmColor = 0x60B2FF;
             break;
         case (handler.itemColorIncludes("blue yellow")):
+        case handler.itemColorIncludes("yellow blue"):
             switch (true) {
-                case handler.itemNameIncludes("spirit guardians"):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase()):
                     tint = "Light";
                     break;
                 default:
@@ -58,7 +59,7 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
-                case handler.itemNameIncludes("spirit guardians"):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase()):
                     type01 = "01";
                     break;
                 default:
@@ -116,10 +117,10 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
-                case (handler.itemNameIncludes("sleetstorm")):
-                case (handler.itemNameIncludes("call lightning")):
-                case (handler.itemNameIncludes("wall of force")):
-                case (handler.itemNameIncludes("whirlwind")):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animCallLightning").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase())):
                     type01 = "01";
                     break;
                 default:
@@ -161,10 +162,10 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
-                case (handler.itemNameIncludes("sleetstorm")):
-                case (handler.itemNameIncludes("call lightning")):
-                case (handler.itemNameIncludes("wall of force")):
-                case (handler.itemNameIncludes("whirlwind")):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animCallLightning").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase())):
                     type01 = "01";
                     break;
                 default:
@@ -216,8 +217,8 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
-                case (handler.itemNameIncludes("wall of force")):
-                case (handler.itemNameIncludes("whirlwind")):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase())):
                     type01 = "01";
                     break;
                 default:
@@ -277,10 +278,10 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
                 case handler.itemNameIncludes("eldritch blast"):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
-                case (handler.itemNameIncludes("sleetstorm")):
-                case (handler.itemNameIncludes("call lightning")):
-                case (handler.itemNameIncludes("wall of force")):
-                case (handler.itemNameIncludes("whirlwind")):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animCallLightning").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase())):
                     type01 = "01";
                     break;
                 default:
@@ -297,7 +298,7 @@ function colorChecks(handler) {
                 case (handler.itemNameIncludes("magic", "missile")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
-                case (handler.itemNameIncludes("sleetstorm")):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase())):
                 case (handler.itemNameIncludes("fire bolt")):
                 case (handler.itemNameIncludes("scorching ray")):
                     tint = "Regular";
@@ -334,8 +335,8 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
-                case (handler.itemNameIncludes("call lightning")):
-                case (handler.itemNameIncludes("wall of force")):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animCallLightning").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase())):
                     type01 = "01";
                     break;
                 default:
@@ -369,8 +370,8 @@ function colorChecks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
-                case (handler.itemNameIncludes("call lightning")):
-                case (handler.itemNameIncludes("wall of force")):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animCallLightning").toLowerCase())):
+                case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase())):
                     type01 = "01";
                     break;
                 default:
