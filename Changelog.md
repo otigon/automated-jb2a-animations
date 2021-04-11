@@ -1,4 +1,20 @@
-0.2.70:
+0.2.80:  
+- Renamed the Animate Tab to A-A for space savings
+- Changed Magic Missiles to shoot only 1 dart per cast/use  
+- Bite and Claw animations scaled by Source Token size, previously was by Target Size  
+- Reconfigured the "Miss" animations (Midi-QOL option only) to land around target. Previous method had too large a variance.  
+- Add Shatter animation to On Target and Circular Template Explosion options in the Animate Tab Overrides
+- Add new options to the Animate Tab  
+- Self Emanations: Self Origin effects for use with things like Nova explosions  
+- Aura: For use combined with the Custom Token Animations module by Kandashi. Automatically spawn Aura type effects on the token, with a dialog box to close at a later time (or through CTA if it is closed early). Works with Tint coloration and Opacity options
+- Hunter's Mark: Add support for the Hunter's Mark Animation that will play on both Source and Target, and call a CTA animation (if CTA is active)
+  
+2.2.71 - 0.2.75:  
+- Add support for Tormenta20  
+- Add Brazilian Translations  
+- Fixes for YellowBlue Ray of Frost and Generic Healing  
+  
+2.2.70:
 - Tweaked scaling of some animations for better visuals  
 - Removed an empty "macro" compendium  
 - Added option for Midi-QOL to play Animations on Hits AND Misses. Misses will veer off course  
