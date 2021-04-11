@@ -159,6 +159,36 @@
     "AUTOANIM.menuExplodeVariant": "Choose Explosion Variant",
     "AUTOANIM.menuExplodeColor": "Choose Explosion Color",
     "AUTOANIM.menuExplodeRadius": "Choose Explosion Radius",
-    "AUTOANIM.menuExplodeLoops": "Number of Loops for Explosion"
+    "AUTOANIM.menuExplodeLoops": "Number of Loops for Explosion",
+
+    "AUTOANIM.typeSelfEffects": "Self Emanation",
+    "AUTOANIM.typeAuras": "Aura",
+
+    "AUTOANIM.animCallLightning":"Call Lightning",
+    "AUTOANIM.animDarkness":"Darkness",
+    "AUTOANIM.animFogCloud":"Fog Cloud",
+    "AUTOANIM.animSleetstorm":"Sleetstorm",
+    "AUTOANIM.animSpiritGuardians":"Spirit Guardians",
+    "AUTOANIM.animWallOfForce":"Wall of Force",
+    "AUTOANIM.animWhirlwind":"Whirlwind",
+    "AUTOANIM.animAntiLifeShell":"Antilife Shell",
+
+    "AUTOANIM.colorGrey": "Grey",
+    "AUTOANIM.colorBlueGrey": "Blue Grey",
+    "AUTOANIM.colorDarkBlue":"Dark Blue",
+    "AUTOANIM.colorTealYellow": "Teal Yellow",
+    "AUTOANIM.colorPinkPurple": "Pink Purple",
+    "AUTOANIM.colorPinkYellow": "Pink Yellow",
+    "AUTOANIM.colorBlueOrange": "Blue Orange",
+    "AUTOANIM.colorGreenOrange": "Green Orange",
+    "AUTOANIM.menuChooseRadius":"Choose a Radius",
+    "AUTOANIM.removeAura": "Remove CTA Effect",
+    "AUTOANIM.auraTint": "Aura Tint:",
+    "AUTOANIM.auraOpacity": "Aura Opacity (0-1):",
+    "AUTOANIM.colorBlack": "Black",
+    "AUTOANIM.itemHM": "Hunter's Mark",
+    "AUTOANIM.hmAnim": "Hunter's Mark Animation",
+    "AUTOANIM.ctaRequired": "Custom Token Animations is Required for Auras",
+    "AUTOANIM.tabName": "Animate"
 
 }
