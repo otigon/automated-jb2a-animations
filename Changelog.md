@@ -7,7 +7,8 @@
 - Add new options to the Animate Tab  
 - Self Emanations: Self Origin effects for use with things like Nova explosions  
 - Aura: For use combined with the Custom Token Animations module by Kandashi. Automatically spawn Aura type effects on the token, with a dialog box to close at a later time (or through CTA if it is closed early). Works with Tint coloration and Opacity options
-- Hunter's Mark: Add support for the Hunter's Mark Animation that will play on both Source and Target, and call a CTA animation (if CTA is active)
+- Hunter's Mark: Add support for the Hunter's Mark Animation that will play on both Source and Target, and call a CTA animation (if CTA is active)  
+- Updated en.json for new animation and color names, menu options, etc.  
   
 2.2.71 - 0.2.75:  
 - Add support for Tormenta20  
