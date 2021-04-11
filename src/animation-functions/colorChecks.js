@@ -90,7 +90,7 @@ function colorChecks(handler) {
             break;
         case handler.itemColorIncludes("blue grey"):
             type01 = "01";
-            color = "BlueGrey";
+            color = "BlueGrey_01";
             break;
         case (handler.itemColorIncludes("white")):
             type01 = "01";
@@ -392,6 +392,8 @@ function colorChecks(handler) {
             fireColor = 0xCFD204;
             tmColor = 0xE2F104;
             break;
+        case (handler.itemColorIncludes("black")):
+            color = "Black";
     }
     //console.log(tmColor);
 

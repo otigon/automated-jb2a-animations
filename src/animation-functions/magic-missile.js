@@ -189,7 +189,7 @@ async function magicMissile(handler) {
                     }, i * interval);
                 }
             }
-            spellAnimation(3)
+            spellAnimation(1)
             if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                 // Activates the Token Magic FX after a delay
                 await wait(1000)

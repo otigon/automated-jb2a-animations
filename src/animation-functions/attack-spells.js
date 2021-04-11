@@ -270,32 +270,55 @@ async function spellAttacks(handler) {
                 if (saves?.includes(test)) return true;
             }
 
-            let ray = new Ray(handler.actorToken.center, target.center);
-            let missAnim = Math.floor(Math.random() * 15) + 6;
-            var plusOrMinusRay = Math.random() < 0.5 ? -1 : 1;
-            var plusOrMinusDist = Math.random() < 0.5 ? -1 : 1;
-            let missHit;
-            let missDist;
+            let grid = canvas.grid.size;
+            var oddEvenX = Math.random() < 0.5 ? -1 : 1;
+            var oddEvenY = Math.random() < 0.5 ? -1 : 1;
+            let missMax;
+            let missMin;
+            let targetSize = target.actor.data.data.traits.size;
+            switch (true) {
+                case targetSize === "tiny":
+                case targetSize === "sm":
+                case targetSize === "med":
+                    missMax = grid * 1.5;
+                    missMin = grid * 0.5;
+                    break;
+                case targetSize === "lg":
+                    missMax = grid * 2;
+                    missMin = grid;
+                    break;
+                case targetSize === "huge":
+                    missMax = (grid * 2.5);
+                    missMin = (grid * 1.5);
+                    break;
+                case targetSize === "grg":
+                    missMax = (grid * 3);
+                    missMin = (grid * 2);
+                    break;
+            }
+            let missHit = {
+                'x': (target.center.x) + ((Math.floor(Math.random() * (missMax - missMin) + missMin)) * oddEvenX),
+                'y': (target.center.y) + ((Math.floor(Math.random() * (missMax - missMin) + missMin)) * oddEvenY)
+            }
 
+            let hitSpot;
             switch (true) {
                 case (handler.playOnMiss):
                     switch (true) {
                         case handler.hitTargetsId.includes(target.id):
-                            missHit = 0;
-                            missDist = 0;
+                            hitSpot = target.center;
                             break;
                         default:
-                            missHit = missAnim * plusOrMinusRay;
-                            missDist = canvas.grid.size * plusOrMinusDist;
+                            hitSpot = missHit;
                     }
                     break;
                 default:
-                    missHit = 0;
-                    missDist = 0;
+                    hitSpot = target.center;
             }
+            let ray = new Ray(handler.actorToken.center, hitSpot);
 
-            let anDeg = -(ray.angle * 57.3 + missHit);
-            let anDist = ray.distance + missDist;
+            let anDeg = -(ray.angle * 57.3);
+            let anDist = ray.distance;
 
             //console.log(anDist);
             let file = `modules/${path00}/Library/${path}`;

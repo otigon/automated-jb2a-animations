@@ -5,7 +5,7 @@
     </div>
     <div class="animation-not-disabled">
         <div class="form-group">
-            <lable>{{localize "AUTOANIM.menuOverride"}}</lable>
+            <label>{{localize "AUTOANIM.menuOverride"}}</label>
             <input type="checkbox" name="flags.autoanimations.override" {{checked override}}>
         </div>
         <div class="animation-type">
@@ -22,6 +22,11 @@
                 </div>
             </div>
         </div>
+        <div class="cta-required">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.ctaRequired"}}</label>
+            </div>
+        </div>
         <div class="animation-name">
             <div class="form-group">
                 <label>{{localize "AUTOANIM.menuAnimName"}}</label>
@@ -30,6 +35,20 @@
                         {{#select animName}}
                         {{#each animNameHolder as |key name|}}
                         <option value="{{key}}">{{key}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="hm-animation">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.hmAnim"}}</label>
+                <div class="form-fields">
+                    <select name="flags.autoanimations.hmAnim" class ="hm-animation">
+                        {{#select hmAnim}}
+                        {{#each huntermarkAnim as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -122,6 +141,37 @@
                         {{/each}}
                         {{/select}}
                     </select>
+                </div>
+            </div>
+        </div>
+        <div class="self-cast-radius">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.menuChooseRadius"}}</label>
+                <div class="form-fields">
+                    <select name="flags.autoanimations.selfRadius" class="self radius">
+                        {{#select selfRadius}}
+                        {{#each selfCastRadius as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="select-tint">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.auraTint"}} </label>
+                <input type="color" id="flags.autoanimations.animTint" name="flags.autoanimations.animTint" value={{hexColour}}>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.auraOpacity"}} </label>
+                <input type="number" id="flags.autoanimations.auraOpacity" name="flags.autoanimations.auraOpacity" min="0" max="1" value={{opacity}}>
+            </div>
+        </div>
+        <div class="rotation-static">
+            <div class="form-group">
+                <label>Enable to make CTA image Static</label>
+                <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked ctaOption}}>
                 </div>
             </div>
         </div>

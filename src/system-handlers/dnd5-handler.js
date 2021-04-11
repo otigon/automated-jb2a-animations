@@ -23,6 +23,11 @@ export default class Dnd5Handler {
         this._animOverride = this._flags.override;
         this._animExplode = this._flags.explosion;
         this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
+        this._selfRadius = this._flags.selfRadius ?? "";
+        this._animTint = this._flags.animTint ?? "";
+        this._auraOpacity = this._flags.auraOpacity ?? "";
+        this._ctaOption = this._flags.ctaOption ?? "";
+        this._hmAnim = this._flags.hmAnim ?? "";
 
         //console.log(this._animName);
         this._animNameFinal;
@@ -134,17 +139,26 @@ export default class Dnd5Handler {
         return this._animDgThrVar;
     }
 
+    get selfRadius() {
+        return this._selfRadius;
+    }
 
-/*
-    get killAnim() {
-        return this._actorToken.actor.items.get(itemId).data.flags?.autoanimations?.animName?.toLowerCase() ?? "";
+    get animTint() {
+        return this._animTint;
     }
-*/
-/*
-    get itemType() {
-        return this._actor.items.get(itemId).data.type.toLowerCase();
+
+    get auraOpacity() {
+        return this._auraOpacity;
     }
-*/
+
+    get ctaOption() {
+        return this._ctaOption;
+    }
+
+    get hmAnim() {
+        return this._hmAnim;
+    }
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {

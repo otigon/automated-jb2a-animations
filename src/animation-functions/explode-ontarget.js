@@ -14,8 +14,18 @@ async function explodeOnTarget(handler) {
             type01 = "02";
             break;
     }
-    let color = "Orange";
     let tmColor = 0x0075B0;
+
+    let color;
+    let path01;
+
+    switch (true) {
+        case handler.animExVariant === "shatter":
+            color = "Blue";
+            break;
+        default:
+            color = "Orange";
+    }
 
     switch (true) {
         case (handler.animExColor.includes("blue")):
@@ -38,7 +48,19 @@ async function explodeOnTarget(handler) {
             color = "Yellow";
             tmColor = 0xCFD204;
             break;
+        case (handler.animExColor.includes("red")):
+            color = "Red";
+            break;
     }
+
+    switch (true) {
+        case handler.animExVariant === "shatter":
+            path01 = `modules/${path00}/Library/2nd_Level/Shatter/Shatter_01_${color}_400x400.webm`;
+            break;
+        default:
+            path01 = `modules/${path00}/Library/Generic/Explosion/Explosion_${type01}_${color}_400x400.webm`;
+    }
+
     let divisor = 200;
     switch (true) {
         case (handler.animExRadius === "2"):
@@ -52,6 +74,7 @@ async function explodeOnTarget(handler) {
             break;
         case (handler.animExRadius === "15"):
             divisor = 67;
+            break;
         case (handler.animExRadius === "20"):
             divisor = 50;
             break;
@@ -89,7 +112,7 @@ async function explodeOnTarget(handler) {
             // Defines the spell template for FXMaster
             let spellAnim =
             {
-                file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type01}_${color}_400x400.webm`,
+                file: path01,
                 position: target.center,
                 anchor: {
                     x: 0.5,

@@ -1,25 +1,5 @@
 import colorChecks from "./colorChecks.js"
 
-let bloodSplat =
-    [{
-        filterType: "splash",
-        filterId: "BloodSplat",
-        rank: 5,
-        color: 0x990505,
-        padding: 80,
-        time: Math.random() * 1000,
-        seed: Math.random(),
-        splashFactor: 1,
-        spread: 0.4,
-        blend: 1,
-        dimX: 1,
-        dimY: 1,
-        cut: false,
-        textureAlphaBlend: true,
-        anchorX: 0.32 + (Math.random() * 0.36),
-        anchorY: 0.32 + (Math.random() * 0.36)
-    }];
-
 let bloodyHitStutter =
     [{
         filterType: "images",
@@ -123,6 +103,27 @@ async function creatureAttacks(handler) {
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
 
+        let Scale;
+        let Size = handler.actor.data.data.traits.size;
+        switch (true) {
+            case Size === "tiny":
+            case Size === "sm":
+                Scale = 0.25;
+                break;
+            case Size === "med":
+                Scale = 0.5;
+                break;
+            case Size === "lg":
+                Scale = 0.75;
+                break;
+            case Size === "huge":
+                Scale = 1.15;
+                break;
+            case Size === "grg":
+                Scale = 1.4;
+                break;
+        }
+
         for (var i = 0; i < arrayLength; i++) {
             //log(handler.allTargets[i]);
             let target = handler.allTargets[i];
@@ -131,14 +132,11 @@ async function creatureAttacks(handler) {
                 case (handler.itemNameIncludes("claw")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
                     path = "Claws";
-                    tmMacro = bloodSplat;
-                    tarScale = ((target.data.width + target.data.height) / 4);
                     break;
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
                     path = "Bite";
                     tmMacro = bloodyHitStutter;
-                    tarScale = ((target.data.width + target.data.height) / 2);
                     break;
             }
             let spellAnim =
@@ -152,8 +150,8 @@ async function creatureAttacks(handler) {
                 },
                 angle: 0,
                 scale: {
-                    x: tarScale,
-                    y: tarScale
+                    x: Scale,
+                    y: Scale
                 }
             };
             canvas.fxmaster.playVideo(spellAnim);

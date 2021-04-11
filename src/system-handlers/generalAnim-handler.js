@@ -6,7 +6,7 @@ export default class GeneralAnimHandler {
 
         this._allTargets = targets;
         console.log(targets);
-
+        
         this._flags = this._item.data?.flags?.autoanimations ?? "";
 
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
@@ -20,6 +20,11 @@ export default class GeneralAnimHandler {
         this._animOverride = this._flags.override;
         this._animExplode = this._flags.explosion;
         this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
+        this._selfRadius = this._flags.selfRadius ?? "";
+        this._animTint = this._flags.animTint ?? "";
+        this._auraOpacity = this._flags.auraOpacity ?? "";
+        this._ctaOption = this._flags.ctaOption ?? "";
+        this._hmAnim = this._flags.hmAnim ?? "";
         
         this._itemName = this._item.name?.toLowerCase() ?? '';;
         this._itemSource = this._item.data?.data?.source?.toLowerCase() ?? '';
@@ -132,6 +137,26 @@ export default class GeneralAnimHandler {
 
     get animDagThrVar() {
         return this._animDgThrVar;
+    }
+
+    get selfRadius() {
+        return this._selfRadius;
+    }
+
+    get animTint() {
+        return this._animTint;
+    }
+
+    get auraOpacity() {
+        return this._auraOpacity;
+    }
+
+    get ctaOption() {
+        return this._ctaOption;
+    }
+
+    get hmAnim() {
+        return this._hmAnim;
     }
 
     getDistanceTo(target) {

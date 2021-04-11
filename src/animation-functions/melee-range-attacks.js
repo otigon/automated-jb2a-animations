@@ -161,6 +161,56 @@ async function meleeRangeSwitch(handler) {
 
             let anDeg = -(ray.angle * 57.3 + missHit);
             let anDist = ray.distance + missDist;
+            //////
+
+            let grid = canvas.grid.size;
+            var oddEvenX = Math.random() < 0.5 ? -1 : 1;
+            var oddEvenY = Math.random() < 0.5 ? -1 : 1;
+            let missMax;
+            let missMin;
+            let targetSize = target.actor.data.data.traits.size;
+            switch (true) {
+                case targetSize === "tiny":
+                case targetSize === "sm":
+                case targetSize === "med":
+                    missMax = grid * 1.5;
+                    missMin = grid * 0.5;
+                    break;
+                case targetSize === "lg":
+                    missMax = grid * 2;
+                    missMin = grid;
+                    break;
+                case targetSize === "huge":
+                    missMax = (grid * 2.5);
+                    missMin = (grid * 1.5);
+                    break;
+                case targetSize === "grg":
+                    missMax = (grid * 3);
+                    missMin = (grid * 2);
+                    break;
+            }
+            let missHitRange = {
+                'x': (target.center.x) + ((Math.floor(Math.random() * (missMax - missMin) + missMin)) * oddEvenX),
+                'y': (target.center.y) + ((Math.floor(Math.random() * (missMax - missMin) + missMin)) * oddEvenY)
+            }
+
+            let hitSpot;
+            switch (true) {
+                case (handler.playOnMiss):
+                    switch (true) {
+                        case handler.hitTargetsId.includes(target.id):
+                            hitSpot = target.center;
+                            break;
+                        default:
+                            hitSpot = missHitRange;
+                    }
+                    break;
+                default:
+                    hitSpot = target.center;
+            }
+            let rangeRay = new Ray(handler.actorToken.center, hitSpot);
+
+            /////////
 
             let file;
             let anFile;
@@ -178,26 +228,23 @@ async function meleeRangeSwitch(handler) {
                     file = `${path01}/Ranged/`;
 
                     missAnim = Math.floor(Math.random() * 12) + 6;
-        
+
                     switch (true) {
                         case (handler.playOnMiss):
                             switch (true) {
                                 case handler.hitTargetsId.includes(target.id):
-                                    missHit = 0;
-                                    missDist = 0;
+                                    hitSpot = target.center;
                                     break;
                                 default:
-                                    missHit = missAnim * plusOrMinusRay;
-                                    missDist = canvas.grid.size * plusOrMinusDist;
+                                    hitSpot = missHit;
                             }
                             break;
                         default:
-                            missHit = 0;
-                            missDist = 0;
+                            hitSpot = target.center;
                     }
-        
-                    anDeg = -(ray.angle * 57.3 + missHit);
-                    anDist = ray.distance + missDist;
+
+                    anDeg = -(rangeRay.angle * 57.3);
+                    anDist = rangeRay.distance;
 
                     switch (true) {
                         case (anDist <= 600):
@@ -221,7 +268,7 @@ async function meleeRangeSwitch(handler) {
                     }
                     anScale = anDist / anFileSize;
                     anScaleY = anDist <= 600 ? 0.6 : anScale;
-        
+
                     spellAnim =
                     {
                         file: anFile,
@@ -267,7 +314,7 @@ async function meleeRangeSwitch(handler) {
                     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
 
                     missAnim = Math.floor(Math.random() * 20) + 14;
-        
+
                     switch (true) {
                         case (handler.playOnMiss):
                             switch (true) {
@@ -284,10 +331,10 @@ async function meleeRangeSwitch(handler) {
                             missHit = 0;
                             missDist = 0;
                     }
-        
+
                     anDeg = -(ray.angle * 57.3 + missHit);
                     anDist = ray.distance + missDist;
-        
+
                     let meleeAnim =
                     {
                         file: `${file}${item01}_${type01}_${tint}_${color}_800x600.webm`,

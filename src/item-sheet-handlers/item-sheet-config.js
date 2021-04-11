@@ -9,7 +9,7 @@ export class AnimationTab {
         let acceptedTypes;
         switch (game.system.id) {
             case ("dnd5e"):
-                acceptedTypes = ['weapon', 'spell', 'consumable', 'feat'];
+                acceptedTypes = ['weapon', 'spell', 'consumable', 'feat', 'equipment'];
                 break;
             case ("pf1"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
@@ -53,7 +53,7 @@ export class AnimationTab {
         }
 
         tabs.first().append($(
-            '<a class="item" data-tab="autoanimations">Animate</a>'
+            '<a class="item" data-tab="autoanimations">A-A</a>'
         ));
 
         switch (game.system.id) {
@@ -113,6 +113,11 @@ export class AnimationTab {
         let explosionOptions = this.html.find('.animate-explosion-options');
         let dagThrowVariant = this.html.find('.dagger-variant');
         let noRangeColor = this.html.find('.animation-ranged-color');
+        let auraTint = this.html.find('.select-tint');
+        let selfRadius = this.html.find('.self-cast-radius');
+        let ctaStatic = this.html.find('.rotation-static');
+        let hmAnimation = this.html.find('.hm-animation');
+        let ctaRequired = this.html.find('.cta-required');
 
         if (this.animateItem.killAnim) {
             animateEnabled.hide();
@@ -127,7 +132,42 @@ export class AnimationTab {
             animateName.hide();
             //animateName.hide();
         }
+        if (this.animateItem.override && this.animateItem.animType === "t11") {ctaRequired.show()} else {ctaRequired.hide()}
+        switch (true) {
+            case ((this.animateItem.animType === "t11") && this.animateItem.override):
+                auraTint.show();
+                break;
+            default:
+                auraTint.hide();
+        }
 
+        switch (true) {
+            case this.animateItem.override && (this.animateItem.animType === "t10" || this.animateItem.animType === "t11"):
+                selfRadius.show();
+                break;
+            default:
+                selfRadius.hide();
+        }
+
+        switch (true) {
+            case this.animateItem.override && this.animateItem.animName === ``:
+                animateColor.hide();
+                break;
+            default:
+                animateColor.show();
+                break;
+        }
+
+        switch (true) {
+            case this.item.name.toLowerCase().includes("hunter's mark"):
+            case this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemHM").toLowerCase()):
+                ctaStatic.show();
+                hmAnimation.show();
+                break;
+            default:
+                hmAnimation.hide();
+                ctaStatic.hide();
+        }
 
         switch (true) {
             case (this.animateItem.explosion && this.animateItem.override &&
@@ -204,6 +244,7 @@ export class AnimationTab {
                 break;
         }
 
+
         if (this.editable) {
             this.handleEvents();
         } else {
@@ -248,12 +289,21 @@ export class AnimationTab {
             this.activate = true;
         });
 
+        this.html.find(`.animation-tab-contents input[type="color"]`).change(evt => {
+            this.activate = true;
+        });
+
+        this.html.find('.animation-tab-contents input[type="number"]').change(evt => {
+            this.activate = true;
+        });
+
         this.html.find('input[name="flags.autoanimations.killAnim"]').click(evt => {
-            this.animateItem.toggleEnabled(evt.target.checked);
+            //this.animateItem.toggleEnabled(evt.target.checked);
             //this.render();
             //mergeDamnObject(this.item);
         });
         this.html.find('select[name="flags.autoanimations.animName"]').change(evt => {
+            //this.animateItem.changeFlag(`autoanimations`, `animTint`, `#FFFFFF`);
             //this.animateItem.animName = evt.target.value;
             //this.activate = true;
         });
@@ -271,6 +321,11 @@ export class AnimationTab {
         this.html.find('input[name="flags.autoanimations.override"]').click(evt => {
             //this.animateItem.toggleEnabled(evt.target.unchecked);
             //this.activate = true;
+        });
+
+        this.html.find('input[name="flags.autoanimations.ctaOption"]').click(evt => {
+            //this.animateItem.toggleEnabled(evt.target.unchecked);
+            this.activate = true;
         });
 
         this.html.find('input[name="flags.autoanimations.explosion"]').click(evt => {

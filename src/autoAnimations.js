@@ -19,7 +19,10 @@ import magicMissile from "./animation-functions/magic-missile.js";
 import arrowOptionExplode from "./animation-functions/arrow.js";
 import explodeTemplate from "./animation-functions/explosion-template.js";
 import explodeOnTarget from "./animation-functions/explode-ontarget.js";
-import castOnSelf from "./animation-functions/cast-on-self.js";
+import castOnSelf from "./animation-functions/shield.js";
+import selfCast from "./animation-functions/emanations.js";
+import ctaCall from "./animation-functions/CTAcall.js";
+import huntersMark from "./animation-functions/hunters-mark.js";
 
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
@@ -326,6 +329,14 @@ async function revItUp(handler) {
         case ((handler.animType === "t8") && handler.animOverride):
             explodeTemplate(handler);
             break;
+        case ((handler.animType === "t10") && handler.animOverride):
+            selfCast(handler);
+            break;
+        case ((handler.animType === "t11") && handler.animOverride):
+            if (game.modules.get("Custom-Token-Animations")?.active) {
+            ctaCall(handler);
+            }
+            break;
         case handler.itemNameIncludes("rapier"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
         case handler.itemNameIncludes("sword"):
@@ -438,6 +449,10 @@ async function revItUp(handler) {
         case (handler.itemNameIncludes("claw")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
             creatureAttacks(handler);
+            break;
+        case (handler.itemNameIncludes("hunter's mark")):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHM").toLowerCase()):
+            huntersMark(handler)
             break;
         /*
         case (handler.itemNameIncludes("potion", "heal")):
