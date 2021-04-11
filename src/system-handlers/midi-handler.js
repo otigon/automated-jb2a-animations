@@ -1,7 +1,7 @@
 export default class MidiHandler {
     constructor(workflow) {
         const item = workflow.item;
-        this._actorToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null);
+        this._actorToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(item._id) != null);
         const actor = this._actorToken?.actor;
         if (!item || !actor) {
             return;

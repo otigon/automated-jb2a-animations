@@ -2,7 +2,7 @@ export default class Dnd5Handler {
     constructor(msg) {
         const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id");
         const tokenId = msg.data.speaker.token;  
-        this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
+        this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         this._itemId = itemId;
         this._allTargets = Array.from(msg.user.targets);
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
