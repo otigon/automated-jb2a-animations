@@ -167,6 +167,10 @@ export default class Tormenta20Handler {
     get animColor() {
         return this._animColorEffect;
     }
+            
+    get color () {
+        return this._animColor;
+    }
   
     get animName() {
         return this._animNameFinal;
