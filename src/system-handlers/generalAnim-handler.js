@@ -99,6 +99,10 @@ export default class GeneralAnimHandler {
         return this._animColorEffect;
     }
 
+    get color () {
+        return this._animColor;
+    }
+            
     get animName() {
         return this._animNameFinal;
     }
