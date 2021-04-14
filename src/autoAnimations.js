@@ -24,6 +24,8 @@ import selfCast from "./animation-functions/emanations.js";
 import ctaCall from "./animation-functions/CTAcall.js";
 import huntersMark from "./animation-functions/hunters-mark.js";
 
+import ImagePicker from "./ImagePicker.js";
+
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
 const log = () => { };
@@ -79,7 +81,7 @@ Hooks.on('init', () => {
                     type: Boolean,
                     default: false,
                     config: true,
-                })
+                });
                 game.settings.register("automated-jb2a-animations", "playonDamage", {
                     name: game.i18n.format("AUTOANIM.midiondmg_name"),
                     hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
@@ -89,6 +91,41 @@ Hooks.on('init', () => {
                     config: true,
                     onChange: () => { window.location.reload() }
                 });
+                game.settings.register("automated-jb2a-animations", "EnableCritical", {
+                    name: 'Critical Hits',
+                    hint: 'Enable for Critical Hit Animations to play on Source Token',
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+                game.settings.register("automated-jb2a-animations", "CriticalAnimation", {
+                    name: 'Critical Hit Animation',
+                    scope: 'world',
+                    type: ImagePicker.Image,
+                    default: "modules/JB2A_DnD5e/Library/Generic/UI/Critical_02_Red_200x200.webm",
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+                game.settings.register("automated-jb2a-animations", "EnableCriticalMiss", {
+                    name: 'Critical Hits',
+                    hint: 'Enable for Critical Miss Animations to play on Source Token',
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+                game.settings.register("automated-jb2a-animations", "CriticalMissAnimation", {
+                    name: 'Critical Miss Animation',
+                    scope: 'world',
+                    type: ImagePicker.Image,
+                    default: "modules/JB2A_DnD5e/Library/Generic/UI/Miss_02_White_200x200.webm",
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+            
             } else {
                 game.settings.register("automated-jb2a-animations", "playonDamageCore", {
                     name: game.i18n.format("AUTOANIM.coreondmg_name"),
@@ -108,6 +145,7 @@ Hooks.on('init', () => {
         default: false,
         config: true,
     });
+
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
         switch (game.settings.get("automated-jb2a-animations", "playonDamage")) {
@@ -118,6 +156,10 @@ Hooks.on('init', () => {
                 Hooks.on("midi-qol.RollComplete", (workflow) => { revItUpMidi(workflow) })
                 break;
         }
+        if (game.settings.get("automated-jb2a-animations", "EnableCritical") || game.settings.get("automated-jb2a-animations", "EnableCriticalMiss")) {
+            Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalChecks(workflow) })
+        }
+
     } else {
         switch (game.system.id) {
             case "pf1":
@@ -134,6 +176,8 @@ Hooks.on('init', () => {
     }
     path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 })
+let critAnim;
+let critMissAnim;
 
 Hooks.on(`renderItemSheet`, (app, html, data) => {
     if (!game.user.isGM && game.settings.get("automated-jb2a-animations", "hideFromPlayers")) {
@@ -150,6 +194,11 @@ Hooks.once('ready', function () {
     if (game.user.isGM && game.modules.get("tokenmagic")?.active) {
         game.settings.set("tokenmagic", "fxPlayerPermission", true);
     }
+    critAnim = game.settings.get("automated-jb2a-animations", "CriticalAnimation");
+    critAnim = critAnim.substring(7);
+    critMissAnim = game.settings.get("automated-jb2a-animations", "CriticalMissAnimation");
+    critMissAnim = critMissAnim.substring(7);
+
 });
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -180,6 +229,10 @@ function onCreateChatMessage(msg) {
 function revItUpMidi(workflow) {
     let handler = new MidiHandler(workflow);
     revItUp(handler);
+}
+
+function criticalChecks(workflow) {
+    criticalCheck(workflow);
 }
 
 function setupTormenta20(msg) {
@@ -334,7 +387,7 @@ async function revItUp(handler) {
             break;
         case ((handler.animType === "t11") && handler.animOverride):
             if (game.modules.get("Custom-Token-Animations")?.active) {
-            ctaCall(handler);
+                ctaCall(handler);
             }
             break;
         case handler.itemNameIncludes("rapier"):
@@ -470,6 +523,56 @@ async function revItUp(handler) {
             break;
 
     }
+}
+async function criticalCheck(workflow) {
+    let rollCheck = workflow.attackRoll.results[0];
+
+    let token;
+    let Anim;
+
+    switch (true) {
+        case (game.settings.get("automated-jb2a-animations", "EnableCritical") && rollCheck === 20):
+            token = canvas.tokens.get(workflow.tokenId);
+            Anim =
+            {
+                file: critAnim,
+                position: token.center,
+                anchor: {
+                    x: 0.5,
+                    y: 0.5
+                },
+                angle: 0,
+                scale: {
+                    x: 1,
+                    y: 1
+                }
+            };
+            canvas.fxmaster.playVideo(Anim);
+            game.socket.emit('module.fxmaster', Anim);
+            break;
+        case (game.settings.get("automated-jb2a-animations", "EnableCriticalMiss") && rollCheck === 1):
+            token = canvas.tokens.get(workflow.tokenId);
+            Anim =
+            {
+                file: critMissAnim,
+                position: token.center,
+                anchor: {
+                    x: 0.5,
+                    y: 0.5
+                },
+                angle: 0,
+                scale: {
+                    x: 1,
+                    y: 1
+                }
+            };
+            canvas.fxmaster.playVideo(Anim);
+            game.socket.emit('module.fxmaster', Anim);
+            break;
+    }
+
+
+
 }
 
 

@@ -2,25 +2,6 @@ import colorChecks from "./colorChecks.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-let bloodSplat =
-    [{
-        filterType: "splash",
-        filterId: "BloodSplat",
-        rank: 5,
-        color: 0x990505,
-        padding: 80,
-        time: Math.random() * 1000,
-        seed: Math.random(),
-        splashFactor: 1,
-        spread: 0.4,
-        blend: 1,
-        dimX: 1,
-        dimY: 1,
-        cut: false,
-        textureAlphaBlend: true,
-        anchorX: 0.32 + (Math.random() * 0.36),
-        anchorY: 0.32 + (Math.random() * 0.36)
-    }];
 
 let hitStutter =
     [{
@@ -129,12 +110,6 @@ async function rangedWeapons(handler) {
 
     let tmMacro = "pass";
 
-    switch (true) {
-        case (handler.itemColorIncludes("white")):
-            tmMacro = bloodSplat;
-            break;
-    }
-
     let path01 = "Dagger02";
     let size = "400";
     let Delay01 = 900;
@@ -213,7 +188,6 @@ async function rangedWeapons(handler) {
                     color = "White";
             }
             path01 = "Javelin01";
-            tmMacro = bloodSplat;
             Delay01 = 750;
             Delay02 = 1250;
             Delay03 = 1050;
@@ -431,10 +405,6 @@ async function rangedWeapons(handler) {
                         canvas.fxmaster.playVideo(spellAnim);
                         game.socket.emit('module.fxmaster', spellAnim);
                     }, i * interval);
-                }
-                if (game.settings.get("automated-jb2a-animations", "tmfx")) {
-                    await wait(interval * x + 1500);
-                    TokenMagic.deleteFilters(target, "BloodSplat");
                 }
             }
             SpellAnimation(Repeater)

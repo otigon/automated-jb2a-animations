@@ -1,6 +1,8 @@
 import colorChecks from "./colorChecks.js"
+import { JB2APATREONDB } from "./jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-free-database.js";
 
-let bloodyHitStutter =
+let HitStutter =
     [{
         filterType: "images",
         filterId: "BloodyHitStutter",
@@ -32,24 +34,6 @@ let bloodyHitStutter =
                 loops: 4
             }
         }
-    },
-    {
-        filterType: "splash",
-        filterId: "BloodSplat",
-        rank: 5,
-        color: 0x990505,
-        padding: 80,
-        time: Math.random() * 1000,
-        seed: Math.random(),
-        splashFactor: 1,
-        spread: 0.4,
-        blend: 1,
-        dimX: 1,
-        dimY: 1,
-        cut: false,
-        textureAlphaBlend: true,
-        anchorX: 0.32 + (Math.random() * 0.36),
-        anchorY: 0.32 + (Math.random() * 0.36)
     }];
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -60,21 +44,13 @@ async function creatureAttacks(handler) {
         return !!game.modules.get(test);
     }
 
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let { type01, tint, color } = colorChecks(handler);
+    //let { color } = colorChecks(handler);
 
-    switch (true) {
-        case (type01 === "default"):
-            type01 = "01";
-        case (tint === "default"):
-            tint = "Regular";
-        case (color === "default"):
-            color = "Red";
-    }
+    let color;
 
     let tmMacro;
-    let path;
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
@@ -127,22 +103,41 @@ async function creatureAttacks(handler) {
         for (var i = 0; i < arrayLength; i++) {
             //log(handler.allTargets[i]);
             let target = handler.allTargets[i];
-            let tarScale;
+            let obj02;
+            let filePath;
             switch (true) {
                 case (handler.itemNameIncludes("claw")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
-                    path = "Claws";
+                    obj02 = "creatureclaw";
+                    switch (true) {
+                        case handler.color === "a1" || ``:
+                        case !handler.color:
+                            color = "red";
+                            break;
+                        default:
+                            color = handler.color;
+                    }        
+                    filePath = obj01[obj02][color];
                     break;
                 case (handler.itemNameIncludes("bite")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
-                    path = "Bite";
-                    tmMacro = bloodyHitStutter;
+                    obj02 = "creaturebite";
+                    switch (true) {
+                        case handler.color === "a1" || ``:
+                        case !handler.color:
+                            color = "red";
+                            break;
+                        default:
+                            color = handler.color;
+                    }        
+                    filePath = obj01[obj02][color];
+                    tmMacro = HitStutter;
                     break;
             }
             let spellAnim =
             {
                 //                         File path to animation
-                file: `modules/${path00}/Library/Generic/Creature/${path}_${type01}_${tint}_${color}_400x400.webm`,
+                file: filePath,
                 position: target.center,
                 anchor: {
                     x: 0.5,
@@ -160,8 +155,6 @@ async function creatureAttacks(handler) {
             if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                 await wait(250);
                 TokenMagic.addFilters(target, tmMacro);
-                await wait(2000);
-                TokenMagic.deleteFilters(target, "BloodSplat");
             }
         }
     }

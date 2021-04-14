@@ -1,3 +1,6 @@
+import { JB2APATREONDB } from "./jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-free-database.js";
+
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function explodeOnTarget(handler) {
@@ -6,60 +9,53 @@ async function explodeOnTarget(handler) {
         return !!game.modules.get(test);
     }
 
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let type01 = "01";
-    switch (true) {
-        case (handler.animExVariant.includes("02")):
-            type01 = "02";
-            break;
-    }
-    let tmColor = 0x0075B0;
-
+    let obj02;
+    let obj03;
     let color;
-    let path01;
 
+    let filePath;
     switch (true) {
         case handler.animExVariant === "shatter":
-            color = "Blue";
+            obj02 = "shatter";
+            switch (true) {
+                case handler.animExColor === "a1" || handler.animExColor === ``:
+                case !handler.animExColor:
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.animExColor;
+            }
+            filePath = obj01[obj02][color];
+            break;
+        case handler.animExVariant === "01":
+            obj03 = "01";
+            obj02 = "explosion";
+            switch (true) {
+                case handler.animExColor === "a1" || handler.animExColor === ``:
+                case !handler.animExColor:
+                    color = "orange";
+                    break;
+                default:
+                    color = handler.animExColor;
+            }
+            filePath = obj01[obj02][obj03][color];
             break;
         default:
-            color = "Orange";
+            obj03 = "02";
+            obj02 = "explosion";
+            switch (true) {
+                case handler.animExColor === "a1" || handler.animExColor === ``:
+                case !handler.animExColor:
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.animExColor;
+            }
+            filePath = obj01[obj02][obj03][color];
     }
 
-    switch (true) {
-        case (handler.animExColor.includes("blue")):
-            color = "Blue";
-            tmColor = 0x0075B0;
-            break;
-        case (handler.animExColor.includes("green")):
-            color = "Green";
-            tmColor = 0x0EB400;
-            break;
-        case (handler.animExColor.includes("orange")):
-            color = "Orange";
-            tmColor = 0xBF6E00;
-            break;
-        case (handler.animExColor.includes("purple")):
-            color = "Purple";
-            tmColor = 0xBF0099;
-            break;
-        case (handler.animExColor.includes("yellow")):
-            color = "Yellow";
-            tmColor = 0xCFD204;
-            break;
-        case (handler.animExColor.includes("red")):
-            color = "Red";
-            break;
-    }
-
-    switch (true) {
-        case handler.animExVariant === "shatter":
-            path01 = `modules/${path00}/Library/2nd_Level/Shatter/Shatter_01_${color}_400x400.webm`;
-            break;
-        default:
-            path01 = `modules/${path00}/Library/Generic/Explosion/Explosion_${type01}_${color}_400x400.webm`;
-    }
 
     let divisor = 200;
     switch (true) {
@@ -112,7 +108,7 @@ async function explodeOnTarget(handler) {
             // Defines the spell template for FXMaster
             let spellAnim =
             {
-                file: path01,
+                file: filePath,
                 position: target.center,
                 anchor: {
                     x: 0.5,

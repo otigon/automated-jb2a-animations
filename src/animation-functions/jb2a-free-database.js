@@ -152,4 +152,54 @@ JB2AFREEDB.lasershot = {
     }
 }
 
+JB2AFREEDB.creaturebite = {
+    "red": 'modules/JB2A_DnD5e/Library/Generic/Creature/Bite_01_Regular_Red_400x400.webm',
+}
 
+JB2AFREEDB.creatureclaw = {
+    "red": 'modules/JB2A_DnD5e/Library/Generic/Creature/Claws_01_Regular_Red_400x400.webm',
+}
+
+JB2AFREEDB.calllightning = {
+    "blue": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Blue_1000x1000.webm',
+    "blueorange": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_BlueOrange_1000x1000.webm',
+    "green": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Green_1000x1000.webm',
+    "pinkyellow": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_PinkYellow_1000x1000.webm',
+    "purple": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Purple_1000x1000.webm',
+    "red": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Red_1000x1000.webm',
+    "yellow": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Yellow_1000x1000.webm',
+}
+
+JB2AFREEDB.darkness = {
+    "black": 'modules/JB2A_DnD5e/Library/2nd_Level/Darkness/Darkness_01_Black_600x600.webm',
+    "green": 'modules/JB2A_DnD5e/Library/2nd_Level/Darkness/Darkness_01_Green_600x600.webm',
+}
+
+JB2AFREEDB.sleetstorm = {
+    "blue": 'modules/JB2A_DnD5e/Library/3rd_Level/Sleet_Storm/SleetStorm_01_Blue_800x800.webm',
+}
+
+JB2AFREEDB.spiritguardians = {
+    "yellow blue": 'modules/JB2A_DnD5e/Library/3rd_Level/Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm',
+}
+
+JB2AFREEDB.wallofforce = {
+    "grey": 'modules/JB2A_DnD5e/Library/5th_Level/Wall_Of_Force/WallOfForce_01_Grey_Sphere_400x400.webm',
+}
+
+JB2AFREEDB.whirlwind = {
+    "blue grey": 'modules/JB2A_DnD5e/Library/7th_Level/Whirlwind/Whirlwind_01_BlueGrey_400x400.webm',
+}
+
+JB2AFREEDB.fogcloud = {
+    "white": 'modules/JB2A_DnD5e/Library/1st_Level/Fog_Cloud/FogCloud_01_White_800x800.webm'
+}
+
+JB2AFREEDB.explosion = {
+    "01": {
+        "orange": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
+    },
+    "02": {
+        "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
+    }
+}

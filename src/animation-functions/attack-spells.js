@@ -1,4 +1,7 @@
-import colorChecks from "./colorChecks.js"
+import colorChecks from "./colorChecks.js";
+import { JB2APATREONDB } from "./jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-free-database.js";
+
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -8,93 +11,121 @@ async function spellAttacks(handler) {
         return !!game.modules.get(test);
     }
 
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let { tint, color, tmColor } = colorChecks(handler);
+    let { tmColor } = colorChecks(handler);
 
-    let path;
-    let path2;
-
+    let obj02;
+    let spellPath01;
+    let spellPath02;
+    let spellPath03;
+    let color;
+    let ranVar = Math.floor(Math.random() * 3 + 1).toString();
+    var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
     switch (true) {
         case (handler.itemNameIncludes("fire", "bolt")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
-            path = "Cantrip/Fire_Bolt";
-            path2 = "FireBolt_01";
+            obj02 = "firebolt";
+            if (tmColor === "default") { tmColor = 0xFF9309; };
             switch (true) {
-                case (tint === "default"):
-                    tint = "Regular";
-                case (color === "default"):
-                    color = "Orange";
-                case (tmColor === "default"):
-                    tmColor = 0xFF9309;
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "orange";
+                    break;
+                default:
+                    color = handler.color;
             }
+            spellPath01 = obj01[obj02][color]['30'];
+            spellPath02 = obj01[obj02][color]['60'];
+            spellPath03 = obj01[obj02][color]['90'];
             break;
         case (handler.itemNameIncludes("ray", "frost")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
-            path = "Cantrip/Ray_Of_Frost";
-            path2 = "RayOfFrost_01";
+            obj02 = "rayoffrost";
+            if (tmColor === "default") { tmColor = 0xBBDDEE; };
             switch (true) {
-                case (tint === "default"):
-                    tint = "Regular";
-                case (color === "default"):
-                    color = "Blue";
-                case (tmColor === "default"):
-                    tmColor = 0xBBDDEE;
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.color;
             }
+            spellPath01 = obj01[obj02][color]['15'];
+            spellPath02 = obj01[obj02][color]['30'];
+            spellPath03 = obj01[obj02][color]['45'];
             break;
         case (handler.itemNameIncludes("witch", "bolt")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
-            path = "1st_Level/Witch_Bolt";
-            path2 = "WitchBolt_01";
+            obj02 = "witchbolt";
+            if (tmColor === "default") { tmColor = 0xAE00AE; };
             switch (true) {
-                case (tint === "default"):
-                    tint = "Regular";
-                case (color === "default"):
-                    color = "Blue";
-                case (tmColor === "default"):
-                    tmColor = 0xAE00AE;
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.color;
             }
+            spellPath01 = obj01[obj02][color]['15'];
+            spellPath02 = obj01[obj02][color]['30'];
             break;
         case (handler.itemNameIncludes("scorching", "ray")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
-            path = "2nd_Level/Scorching_Ray";
-            path2 = "ScorchingRay_01";
+            obj02 = "scorchingray";
+            if (tmColor === "default") { tmColor = 0xFF9309; };
             switch (true) {
-                case (tint === "default"):
-                    tint = "Regular";
-                case (color === "default"):
-                    color = "Orange";
-                case (tmColor === "default"):
-                    tmColor = 0xFF9309;
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "orange";
+                    break;
+                default:
+                    color = handler.color;
+            }
+            switch (true) {
+                case handler.srayVariant === "02":
+                    spellPath01 = obj01[obj02]['02'][color]['30'][ranVar];
+                    spellPath02 = obj01[obj02]['02'][color]['60'][ranVar];
+                    spellPath03 = obj01[obj02]['02'][color]['90'][ranVar];
+                    break;
+                default:
+                    spellPath01 = obj01[obj02]['01'][color]['30'];
+                    spellPath02 = obj01[obj02]['01'][color]['60'];
+                    spellPath03 = obj01[obj02]['01'][color]['90'];
             }
             break;
         case (handler.itemNameIncludes("disintegrate")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
-            path = "6th_Level/Disintegrate";
-            path2 = "Disintegrate_01";
+            obj02 = "disintegrate";
+            if (tmColor === "default") { tmColor = 0x00AFC1; };
             switch (true) {
-                case (tint === "default"):
-                    tint = "Regular";
-                case (color === "default"):
-                    color = "Green01";
-                case (tmColor === "default"):
-                    tmColor = 0x00AFC1;
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "green";
+                    break;
+                default:
+                    color = handler.color;
             }
+            spellPath01 = obj01[obj02][color]['15'];
+            spellPath02 = obj01[obj02][color]['30'];
+            spellPath03 = obj01[obj02][color]['45'];
             break;
         case (handler.itemNameIncludes("eldritch blast")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
-            path = "Cantrip/Eldritch_Blast";
-            path2 = "EldritchBlast_01";
+            obj02 = "eldritchblast";
             switch (true) {
-                case (tint === "default"):
-                    tint = "Regular";
-                case (color === "default"):
-                    color = "Purple";
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "purple";
+                    break;
+                default:
+                    color = handler.color;
             }
+            spellPath01 = obj01[obj02][color]['30'];
+            spellPath02 = obj01[obj02][color]['60'];
+            spellPath03 = obj01[obj02][color]['90'];
             break;
     }
-
-
     let letitBurn =
         [{
             filterType: "xfire",
@@ -319,9 +350,7 @@ async function spellAttacks(handler) {
 
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
-
             //console.log(anDist);
-            let file = `modules/${path00}/Library/${path}`;
 
             let anFile;
             let anFileSize = 600;
@@ -329,7 +358,6 @@ async function spellAttacks(handler) {
             let anScale;
             let anScaleY;
             //let anScaleY = anDist <= 600 ? 0.6 : anScale;
-
 
             switch (true) {
                 case (handler.itemNameIncludes("fire", "bolt")):
@@ -341,17 +369,17 @@ async function spellAttacks(handler) {
                     switch (true) {
                         case (anDist <= 1400):
                             anFileSize = 1200;
-                            anFile = `${file}/${path2}_${tint}_${color}_30ft_1600x400.webm`;
+                            anFile = spellPath01;
                             anchorX = 0.125;
                             break;
                         case (anDist > 2600):
                             anFileSize = 3600;
-                            anFile = `${file}/${path2}_${tint}_${color}_90ft_4000x400.webm`;
+                            anFile = spellPath03;
                             anchorX = 0.05;
                             break;
                         default:
                             anFileSize = 2400;
-                            anFile = `${file}/${path2}_${tint}_${color}_60ft_2800x400.webm`;
+                            anFile = spellPath02;
                             anchorX = 0.071;
                             break;
                     }
@@ -387,17 +415,17 @@ async function spellAttacks(handler) {
                     switch (true) {
                         case (anDist <= 600):
                             anFileSize = 600;
-                            anFile = `${file}/${path2}_${tint}_${color}_15ft_1000x400.webm`;
+                            anFile = spellPath01;
                             anchorX = 0.2;
                             break;
                         case (anDist > 1200):
                             anFileSize = 1800;
-                            anFile = `${file}/${path2}_${tint}_${color}_45ft_2200x400.webm`;
+                            anFile = spellPath03;
                             anchorX = 0.091;
                             break;
                         default:
                             anFileSize = 1200;
-                            anFile = `${file}/${path2}_${tint}_${color}_30ft_1600x400.webm`;
+                            anFile = spellPath02;
                             anchorX = 0.125;
                             break;
                     }
@@ -431,12 +459,12 @@ async function spellAttacks(handler) {
                     switch (true) {
                         case (anDist <= 600):
                             anFileSize = 600;
-                            anFile = `${file}/${path2}_${tint}_${color}_15ft_1000x400.webm`;
+                            anFile = spellPath01;
                             anchorX = 0.2;
                             break;
                         default:
                             anFileSize = 1200;
-                            anFile = `${file}/${path2}_${tint}_${color}_30ft_1600x400.webm`;
+                            anFile = spellPath02;
                             anchorX = 0.125;
                             break;
                     }
@@ -461,7 +489,6 @@ async function spellAttacks(handler) {
                     break;
             }
 
-
             let spellAnim =
             {
                 file: anFile,
@@ -473,7 +500,7 @@ async function spellAttacks(handler) {
                 angle: anDeg,
                 scale: {
                     x: anScale,
-                    y: anScaleY
+                    y: (anScaleY * plusOrMinus)
                 }
             };
 
@@ -488,8 +515,11 @@ async function spellAttacks(handler) {
                                     await wait(tmDelay);
                                     TokenMagic.addFilters(target, tmMacro);
                                     break;
-                                default:
                             }
+                            break;
+                        default:
+                            await wait(tmDelay);
+                            TokenMagic.addFilters(target, tmMacro);
                     }
                     /*
                     switch (true) {

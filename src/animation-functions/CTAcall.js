@@ -1,4 +1,5 @@
-import colorChecks from "./colorChecks.js"
+import { JB2APATREONDB } from "./jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-free-database.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -8,62 +9,93 @@ async function ctaCall(handler) {
         return !!game.modules.get(test);
     }
 
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-
-    let { tint, color } = colorChecks(handler);
-    /*
-    call lightning
-    darkness
-    fog cloud
-    sleetstorm
-    spirit guardians
-    wall of force
-    whirlwind
-    */
-
-    let file = `modules/${path00}/Library/`;
-    let path;
+    //let { tint, color } = colorChecks(handler);
+    let obj02;
+    let color;
     switch (true) {
         case handler.animName === "call lightning":
         case handler.animName === game.i18n.format("AUTOANIM.animCallLightning").toLowerCase():
-            if (color === "default") { color = "Blue" };
-            path = `3rd_Level/Call_Lightning/CallLightning_01_${color}_1000x1000.webm`;
-            break;
+            obj02 = "calllightning";
+            switch (true) {
+                case handler.color === "a1" || ``:
+                case !handler.color:
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.color;
+            }        
+    break;
         case handler.animName === "darkness":
         case handler.animName === game.i18n.format("AUTOANIM.animDarkness").toLowerCase():
-            if (color === "default") { color = "Black" };
-            path = `2nd_Level/Darkness/Darkness_01_${color}_600x600.webm`;
-            break;
+            obj02 = "darkness";
+            switch (true) {
+                case handler.color === "a1" || ``:
+                case !handler.color:
+                    color = "black";
+                    break;
+                default:
+                    color = handler.color;
+            }        
+    break;
         case handler.animName === "fog cloud":
         case handler.animName === game.i18n.format("AUTOANIM.animFogCloud").toLowerCase():
-            path = `1st_Level/Fog_Cloud/FogCloud_01_White_800x800.webm`;
+            obj02 = "fogcloud";
+            color = "white";
             break;
         case handler.animName === "sleetstorm":
         case handler.animName === game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase():
-            if (color === "default") { color = "Blue" };
-            path = `3rd_Level/Sleet_Storm/SleetStorm_01_${color}_800x800.webm`;
-            break;
+            obj02 = "sleetstorm";
+            switch (true) {
+                case handler.color === "a1" || ``:
+                case !handler.color:
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.color;
+            }        
+    break;
         case handler.animName === "spirit guardians":
         case handler.animName === game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase():
-            if (color === "default") { color = "BlueYellow", tint = "Light" };
-            path = `3rd_Level/Spirit_Guardians/SpiritGuardians_01_${tint}_${color}_600x600.webm`;
-            break;
+            obj02 = "spiritguardians";
+            switch (true) {
+                case handler.color === "a1" || ``:
+                case !handler.color:
+                    color = "yellow blue";
+                    break;
+                default:
+                    color = handler.color;
+            }        
+    break;
         case handler.animName === "wall of force":
         case handler.animName === game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase():
-            if (color === "default") { color = "Grey" };
-            path = `5th_Level/Wall_Of_Force/WallOfForce_01_${color}_Sphere_400x400.webm`;
-            break;
+            obj02 = "wallofforce";
+            switch (true) {
+                case handler.color === "a1" || ``:
+                case !handler.color:
+                    color = "grey";
+                    break;
+                default:
+                    color = handler.color;
+            }        
+    break;
         case handler.animName === "whirlwind":
         case handler.animName === game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase():
-            if (color === "default") { color = "BlueGrey_01" };
-            path = `7th_Level/Whirlwind/Whirlwind_01_${color}_400x400.webm`;
-            break;
+            obj02 = "whirlwind";
+            switch (true) {
+                case handler.color === "a1" || ``:
+                case !handler.color:
+                    color = "blue grey";
+                    break;
+                default:
+                    color = handler.color;
+            }        
+    break;
     }
 
-    let animPath = `${file}${path}`;
-
-
+    let filePath = obj01[obj02][color];
+    console.log(filePath);
     let scale;
     let tokenSize = handler.actorToken.actor.data.data.traits.size;
 
@@ -128,6 +160,19 @@ async function ctaCall(handler) {
                     scale = 11;
             }
             break;
+        case handler.selfRadius === "30":
+            switch (true) {
+                case (tokenSize === "lg"):
+                    scale = 7;
+                    break;
+                case tokenSize === "huge":
+                    scale = 5.1;
+                    break;
+                default:
+                    scale = 13;
+                    break;
+            }
+            break;
     }
 
     let token = handler.actorToken;
@@ -142,7 +187,7 @@ async function ctaCall(handler) {
         rotation: "static",
         scale: scale,
         speed: 0,
-        texturePath: animPath,
+        texturePath: filePath,
         tint: tintPost,
         xScale: 0.5,
         yScale: 0.5
@@ -157,7 +202,7 @@ async function ctaCall(handler) {
     let update = false;
     let tokenName = token.name;
 
-    CTA.addAnimation(token, textureData, pushToken, pushActor, name, update)
+    CTA.addAnimation(token, textureData, pushToken, pushActor, name, update, randomID())
 
     let clsd = false;
     let d = new Dialog({
@@ -171,7 +216,7 @@ async function ctaCall(handler) {
         default: 'yes',
         close: () => {
             if (clsd === false) console.log('This was closed without using a button');
-            if (clsd === true) CTA.removeAnimByName(token, name, true);
+            if (clsd === true) CTA.removeAnimByName(token, name, true, true);
         }
     },
     { width: 100, height: 75}

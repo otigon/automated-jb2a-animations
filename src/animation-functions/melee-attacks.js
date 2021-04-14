@@ -1,80 +1,12 @@
 import colorChecks from "./colorChecks.js"
 import meleeExplosion from "./melee-explosion.js";
+import { JB2APATREONDB } from "./jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-free-database.js";
+
 //import drawSpecialToward from "./fxmaster-drawTowards.js"
 
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-let bloodyHitStutter =
-    [{
-        filterType: "images",
-        filterId: "BloodyHitStutter",
-        time: 0,
-        nbImage: 2,
-        alphaImg: 1.0,
-        alphaChr: 0.0,
-        autoDestroy: true,
-        blend: 4,
-        ampX: 0.03,
-        ampY: 0.03,
-        zOrder: 20,
-        animated:
-        {
-            time:
-            {
-                active: true,
-                speed: 0.070,
-                animType: "move",
-                loopDuration: 200,
-                loops: 2
-            },
-            anchorX:
-            {
-                animType: "chaoticOscillation",
-                loopDuration: 100,
-                val1: 0.40,
-                val2: 0.60,
-                loops: 4
-            }
-        }
-    },
-    {
-        filterType: "splash",
-        filterId: "BloodSplat",
-        rank: 5,
-        color: 0x990505,
-        padding: 80,
-        time: Math.random() * 1000,
-        seed: Math.random(),
-        splashFactor: 1,
-        spread: 0.4,
-        blend: 1,
-        dimX: 1,
-        dimY: 1,
-        cut: false,
-        textureAlphaBlend: true,
-        anchorX: 0.32 + (Math.random() * 0.36),
-        anchorY: 0.32 + (Math.random() * 0.36)
-    }];
-
-let bloodSplat =
-    [{
-        filterType: "splash",
-        filterId: "BloodSplat",
-        rank: 5,
-        color: 0x990505,
-        padding: 80,
-        time: Math.random() * 1000,
-        seed: Math.random(),
-        splashFactor: 1,
-        spread: 0.4,
-        blend: 1,
-        dimX: 1,
-        dimY: 1,
-        cut: false,
-        textureAlphaBlend: true,
-        anchorX: 0.32 + (Math.random() * 0.36),
-        anchorY: 0.32 + (Math.random() * 0.36)
-    }];
 
 let hitStutter =
     [{
@@ -116,23 +48,26 @@ async function meleeWeapons(handler) {
         return !!game.modules.get(test);
     }
 
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let { type01, tint, color, fireColor } = colorChecks(handler);
+    let { fireColor } = colorChecks(handler);
+
+    let color;
 
     switch (true) {
-        case (type01 === "default"):
-            type01 = "01";
-        case (tint === "default"):
-            tint = "Regular";
-        case (color === "default"):
+        case handler.color === "a1" || ``:
+        case !handler.color:
             switch (true) {
-                case (handler.itemNameIncludes("laser")):
-                    color = "Blue";
+                case handler.itemNameIncludes("lasersword"):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
+                    color = "blue";
                     break;
                 default:
-                    color = "White";
+                    color = "white";
             }
+            break;
+        default:
+            color = handler.color;
     }
     //console.log(color);
 
@@ -170,49 +105,48 @@ async function meleeWeapons(handler) {
     // calls a Token Magic FX macro defined above, change inside the switch cases to desired TMFX
     let tmMacro = "HitStutter";
 
-    let item01 = "Dagger02";
+    let obj02 = "meleedagger";
     switch (true) {
         case (handler.itemNameIncludes("rapier")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
-            item01 = "Rapier01";
+            obj02 = "rapier";
             tmDelay = 900;
             tmKill = 1600;
             //tmMacro = bloodSplat;
             break;
         case (handler.itemNameIncludes("greatsword")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
-            item01 = "GreatSword01";
+            obj02 = "greatsword";
             tmDelay = 1600;
             tmKill = 1600;
-            tmMacro = bloodyHitStutter;
+            tmMacro = hitStutter;
             break;
         case (handler.itemNameIncludes("greatclub")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase()):
-            item01 = "GreatClub01";
+            obj02 = "greatclub";
             tmDelay = 1100;
             tmKill = 1600;
-            tmMacro = bloodyHitStutter;
+            tmMacro = hitStutter;
             break;
         case (handler.itemNameIncludes("greataxe")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase()):
         case (handler.itemNameIncludes("battleaxe")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase()):
-            item01 = "GreatAxe01";
+            obj02 = "greataxe";
             tmDelay = 1600;
             tmKill = 1600;
-            tmMacro = bloodyHitStutter;
+            tmMacro = hitStutter;
             break;
         case (handler.itemNameIncludes("mace")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMace").toLowerCase()):
-            item01 = "Mace01";
+            obj02 = "mace";
             tmDelay = 1100;
             tmKill = 1600;
-            tmMacro = bloodyHitStutter;
+            tmMacro = hitStutter;
             break;
         case (handler.itemNameIncludes("lasersword")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
-            item01 = "LaserSword01";
-            type01 = "01";
+            obj02 = "lasersword";
             tmDelay = 1300;
             tmKill = 1600;
             //tmMacro = bloodSplat;
@@ -223,61 +157,62 @@ async function meleeWeapons(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortsword").toLowerCase()):
-            item01 = "Sword01";
+            obj02 = "sword";
             tmDelay = 1300;
             tmKill = 1600;
             //tmMacro = bloodSplat;
             break;
         case (handler.itemNameIncludes("maul")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
-            item01 = "Maul01";
+            obj02 = "maul";
             tmDelay = 1900;
             tmKill = 1600;
-            tmMacro = bloodyHitStutter;
+            tmMacro = hitStutter;
             break;
         //case (handler.itemNameIncludes("1 handed slashing")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HS").toLowerCase()):
-            item01 = "DmgSlashing";
-            color = "Yellow_1Handed";
+            obj02 = "genericmelee";
+            color = "1hs";
             break;
         //case (handler.itemNameIncludes("2 handed slashing")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HS").toLowerCase()):
-            item01 = "DmgSlashing";
-            color = "Yellow_2Handed";
+            obj02 = "genericmelee";
+            color = "2hs";
             tmDelay = 500;
             tmKill = 750;
             tmMacro = hitStutter;
             break;
         //case (handler.itemNameIncludes("1 handed piercing")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HP").toLowerCase()):
-            item01 = "DmgPiercing";
-            color = "Yellow_1Handed";
+            obj02 = "genericmelee";
+            color = "1hp";
             break;
         //case (handler.itemNameIncludes("2 handed piercing")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HP").toLowerCase()):
-            item01 = "DmgPiercing";
-            color = "Yellow_2Handed";
+            obj02 = "genericmelee";
+            color = "2hp";
             tmDelay = 200;
             tmKill = 500;
             tmMacro = hitStutter;
             break;
         //case (handler.itemNameIncludes("1 handed bludgeoning")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HB").toLowerCase()):
-            item01 = "DmgBludgeoning";
-            color = "Yellow_1Handed";
+            obj02 = "genericmelee";
+            color = "1hb";
             tmDelay = 500;
             tmKill = 750;
             tmMacro = hitStutter;
             break;
         case (handler.itemNameIncludes("2 handed bludgeoning")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HB").toLowerCase()):
-            item01 = "DmgBludgeoning";
-            color = "Yellow_2Handed";
+            obj02 = "genericmelee";
+            color = "2hb";
             tmDelay = 500;
             tmKill = 750;
             tmMacro = hitStutter;
             break;
     }
+    let filePath = obj01[obj02][color];
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
@@ -323,9 +258,6 @@ async function meleeWeapons(handler) {
             // randomly mirrors animation
             var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
 
-            let file = `modules/${path00}/Library/Generic/Weapon_Attacks/Melee`;
-
-            let anim = `${file}/${item01}_${type01}_${tint}_${color}_800x600.webm`;
 
             let distance = handler.getDistanceTo(target);
             let range = 5;
@@ -353,7 +285,7 @@ async function meleeWeapons(handler) {
 
             let meleeAnim =
             {
-                file: anim,
+                file: filePath,
                 position: handler.actorToken.center,
                 anchor: {
                     x: 0.4,
@@ -417,7 +349,7 @@ async function meleeWeapons(handler) {
                         drawSpecialToward(effect, handler.actorToken, target);
                     }
                     castSpell({
-                        file: anim,
+                        file: filePath,
                         anchor: {
                             x: 0.4,
                             y: 0.5,
