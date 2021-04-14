@@ -1,4 +1,9 @@
-0.2.80:  
+0.2.82:  
+- Add Scorching Ray Variant form new JB2A  
+- Fixed 30 Foot "Auras" failing to render  
+- Added Critical Hit and Miss Animation Options (customizable to select own animation). This is only active for DnD5e with Midi-QOL until I get time to code the rest.  
+  
+2.2.80:  
 - Renamed the Animate Tab to A-A for space savings
 - Changed Magic Missiles to shoot only 1 dart per cast/use  
 - Bite and Claw animations scaled by Source Token size, previously was by Target Size  
