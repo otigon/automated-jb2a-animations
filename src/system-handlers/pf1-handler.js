@@ -95,6 +95,10 @@ export default class Pf1Handler {
     get animColor() {
         return this._animColor;
     }
+            
+    get color () {
+        return this._animColor;
+    }
 
     get animName() {
         return this._animNameFinal;
