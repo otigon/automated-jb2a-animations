@@ -76,8 +76,7 @@ export default class MidiHandler {
         //console.log(this._animNameFinal);
         this._animColorEffect;
         switch (true) {
-            case (this._animColor === ``):
-            case (!this._animColor):
+            case(this._animColor === ``):
                 this._animColorEffect = this._itemSource;
                 break;
             default:
