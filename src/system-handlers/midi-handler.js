@@ -142,6 +142,10 @@ export default class MidiHandler {
     get animColor() {
         return this._animColorEffect;
     }
+            
+    get color () {
+        return this._animColor;
+    }
 
     get animName() {
         return this._animNameFinal;
