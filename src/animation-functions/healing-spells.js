@@ -1,4 +1,6 @@
 import colorChecks from "./colorChecks.js"
+import { JB2APATREONDB } from "./jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-free-database.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -8,35 +10,46 @@ async function onTargetSpells(handler) {
         return !!game.modules.get(test);
     }
 
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let { type01, color, tmColor } = colorChecks(handler);
+    let { tmColor } = colorChecks(handler);
 
     switch (true) {
-        case type01 === "default":
-            type01 = "01";
-        case color === "default":
-            color = "Blue";
         case tmColor === "default":
             tmColor = 0x107BD9;
     }
 
-    let path01;
-    let path02;
+    let obj02;
+    let color;
     switch (true) {
         case (handler.itemNameIncludes("cure", "wound")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
-            path01 = "1st_Level/Cure_Wounds";
-            path02 = "CureWounds";
+            obj02 = "curewounds";
+            switch (true) {
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.color;
+            }
             break;
         case (handler.itemNameIncludes("heal", "word")):
         case (handler.itemNameIncludes("generic", "heal")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
-            path01 = "Generic/Healing";
-            path02 = "HealingAbility";
+            obj02 = "generichealing";
+            switch (true) {
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.color;
+            }
             break;
     }
+    let filePath = obj01[obj02][color]['400'];
 
     async function cast() {
         var arrayLength;
@@ -112,7 +125,7 @@ async function onTargetSpells(handler) {
             // Defining spell animation for FX Master
             let spellAnim =
             {
-                file: `modules/${path00}/Library/${path01}/${path02}_${type01}_${color}_400x400.webm`,
+                file: filePath,
                 position: target.center,
                 anchor: {
                     x: 0.5,

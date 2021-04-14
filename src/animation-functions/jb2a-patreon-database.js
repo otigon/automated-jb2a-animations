@@ -80,7 +80,6 @@ JB2APATREONDB.eldritchblast = {
     }
 }
 
-
 JB2APATREONDB.curewounds = {
     'blue': {
         '200': 'modules/jb2a_patreon/Library/1st_Level/Cure_Wounds/CureWounds_01_Blue_200x200.webm',
@@ -97,6 +96,25 @@ JB2APATREONDB.curewounds = {
     'red': {
         '200': 'modules/jb2a_patreon/Library/1st_Level/Cure_Wounds/CureWounds_01_Red_200x200.webm',
         '400': 'modules/jb2a_patreon/Library/1st_Level/Cure_Wounds/CureWounds_01_Red_400x400.webm'
+    }
+}
+
+JB2APATREONDB.generichealing = {
+    'blue': {
+        '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Blue_200x200.webm',
+        '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Blue_400x400.webm',
+    },
+    'green': {
+        '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Green_200x200.webm',
+        '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Green_400x400.webm',
+    },
+    'purple': {
+        '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Purple_200x200.webm',
+        '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Purple_400x400.webm',
+    },
+    'yellow': {
+        '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Yellow_200x200.webm',
+        '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Yellow_400x400.webm',
     }
 }
 
