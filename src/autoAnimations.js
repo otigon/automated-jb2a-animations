@@ -109,7 +109,7 @@ Hooks.on('init', () => {
                     onchange: () => { window.location.reload() }
                 });
                 game.settings.register("automated-jb2a-animations", "EnableCriticalMiss", {
-                    name: 'Critical Hits',
+                    name: 'Critical Misses',
                     hint: 'Enable for Critical Miss Animations to play on Source Token',
                     scope: 'world',
                     type: Boolean,
