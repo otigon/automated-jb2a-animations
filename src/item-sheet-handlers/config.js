@@ -110,7 +110,7 @@ AUTOANIM.animBiteColorFree = {
 
 AUTOANIM.animColorMelee = {
     "a1": ``,
-    "regular": `AUTOANIM.colorWhite`,
+    "white": `AUTOANIM.colorWhite`,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",

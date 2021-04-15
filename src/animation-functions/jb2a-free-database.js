@@ -32,6 +32,25 @@ JB2AFREEDB.curewounds = {
     }
 }
 
+JB2AFREEDB.generichealing = {
+    'blue': {
+        '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Blue_200x200.webm',
+        '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Blue_400x400.webm',
+    },
+    'green': {
+        '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Green_200x200.webm',
+        '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Green_400x400.webm',
+    },
+    'purple': {
+        '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Purple_200x200.webm',
+        '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Purple_400x400.webm',
+    },
+    'yellow': {
+        '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_200x200.webm',
+        '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_400x400.webm',
+    }
+}
+
 JB2AFREEDB.thunderwave = {
     'blue': {
         'left':'modules/JB2A_DnD5e/Library/1st_Level/Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm',

@@ -1,5 +1,8 @@
 import colorChecks from "./colorChecks.js"
 import meleeExplosion from "./melee-explosion.js";
+import { JB2APATREONDB } from "./jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-free-database.js";
+
 //import drawSpecialToward from "./fxmaster-drawTowards.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -10,17 +13,17 @@ async function meleeRangeSwitch(handler) {
         return !!game.modules.get(test);
     }
 
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let { type01, tint, color, fireColor } = colorChecks(handler);
-
+    let { fireColor } = colorChecks(handler);
+    let color
     switch (true) {
-        case (type01 === "default"):
-            type01 = "01";
-        case (tint === "default"):
-            tint = "Regular";
-        case (color === "default"):
-            color = "White";
+        case handler.color === "a1" || handler.color === ``:
+        case !handler.color:
+            color = "white";
+            break;
+        default:
+            color = handler.color;
     }
 
     let burn =
@@ -59,17 +62,16 @@ async function meleeRangeSwitch(handler) {
     let tmkill = 1000;
     // calls a Token Magic FX macro defined above, change inside the switch cases to desired TMFX
     //let tmMacro = bloodSplat;
-    let item11;
-    let item01 = "Dagger02";
-
-    //case handler.itemNameIncludes("handaxe"):
-    //case handler.itemNameIncludes("spear"):
+    let obj02;
+    let obj12;
+    let obj03;
 
     switch (true) {
         case (handler.itemNameIncludes("handaxe")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase()):
-            item01 = "HandAxe02";
-            item11 = "HandAxe01";
+            obj02 = "meleehandaxe";
+            obj12 = "rangehandaxe";
+            obj03 = "01";
             //tmMacro = bloodSplat;
             tmdelay = 1250;
             tmkill = 1500;
@@ -79,9 +81,18 @@ async function meleeRangeSwitch(handler) {
             break;
         case (handler.itemNameIncludes("dagger")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()):
-            item01 = "Dagger02";
-            item11 = "Dagger01";
-            //tmMacro = bloodSplat;
+            obj02 = "meleedagger";
+            obj12 = "rangedagger";
+            switch (true) {
+                case handler.animDagThrVar === "kunai":
+                    obj03 = "kunai";
+                    break;
+                case handler.animDagThrVar === "02":
+                    obj03 = "02";
+                    break;
+                default:
+                    obj03 = "01";
+            }        
             tmdelay = 1000;
             tmkill = 1500;
             Delay01 = 600;
@@ -90,8 +101,9 @@ async function meleeRangeSwitch(handler) {
             break;
         case (handler.itemNameIncludes("spear")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
-            item01 = "Spear01";
-            item11 = "Spear01";
+            obj02 = "meleespear";
+            obj12 = "rangespear";
+            obj03 = "01";
             //tmMacro = bloodSplat;
             tmdelay = 1000;
             tmkill = 1500;
@@ -101,21 +113,9 @@ async function meleeRangeSwitch(handler) {
             break;
     }
 
-    switch (true) {
-        case (handler.animDagThrVar.includes("kunai")):
-            item11 = "Kunai01";
-            Delay01 = 600;
-            Delay02 = 600;
-            Delay03 = 600;
-            break;
-        case (handler.animDagThrVar.includes("02")):
-            item11 = "Dagger02";
-            Delay01 = 600;
-            Delay02 = 600;
-            Delay03 = 600;
-            break;
-    }
-
+    let rangeFilePath = obj01[obj12][obj03];
+    let meleeFilePath = obj01[obj02][color];
+    
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
@@ -221,11 +221,8 @@ async function meleeRangeSwitch(handler) {
             let Scale;
             let spellAnim;
 
-            let path01 = `modules/${path00}/Library/Generic/Weapon_Attacks`;
-
             switch (true) {
                 case (distance > (range + handler.reachCheck)):
-                    file = `${path01}/Ranged/`;
 
                     missAnim = Math.floor(Math.random() * 12) + 6;
 
@@ -249,19 +246,19 @@ async function meleeRangeSwitch(handler) {
                     switch (true) {
                         case (anDist <= 600):
                             anFileSize = 600;
-                            anFile = `${file}/${item11}_01_Regular_White_15ft_1000x400.webm`;
+                            anFile = rangeFilePath[15];
                             anchorX = 0.2;
                             tmdelay = Delay01;
                             break;
                         case (anDist > 1200):
                             anFileSize = 1800;
-                            anFile = `${file}/${item11}_01_Regular_White_45ft_2200x400.webm`;
+                            anFile = rangeFilePath[45];
                             anchorX = 0.091;
                             tmdelay = Delay02;
                             break;
                         default:
                             anFileSize = 1200;
-                            anFile = `${file}/${item11}_01_Regular_White_30ft_1600x400.webm`;
+                            anFile = rangeFilePath[30];
                             anchorX = 0.125;
                             tmdelay = Delay03;
                             break;
@@ -309,7 +306,6 @@ async function meleeRangeSwitch(handler) {
                     break;
                 default:
                     // log("in range");
-                    file = `${path01}/Melee/`;
                     Scale = canvas.scene.data.grid / 175;
                     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
 
@@ -337,7 +333,7 @@ async function meleeRangeSwitch(handler) {
 
                     let meleeAnim =
                     {
-                        file: `${file}${item01}_${type01}_${tint}_${color}_800x600.webm`,
+                        file: meleeFilePath,
                         position: handler.actorToken.center,
                         anchor: {
                             x: 0.4,
@@ -401,7 +397,7 @@ async function meleeRangeSwitch(handler) {
 
 
                             castSpell({
-                                file: `${file}${item01}_${type01}_${tint}_${color}_800x600.webm`,
+                                file: meleeFilePath,
                                 anchor: {
                                     x: 0.4,
                                     y: 0.5,

@@ -294,6 +294,24 @@ JB2APATREONDB.meleedagger = {
     'green': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Dagger02_Fire_Regular_Green_800x600.webm'
 }
 
+JB2APATREONDB.rangedagger = {
+    '01': {
+        '15': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
+        '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
+        '45': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
+    },
+    '02': {
+        '15': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_15ft_1000x400.webm',
+        '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_30ft_1600x400.webm',
+        '45': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_45ft_2200x400.webm',
+    },
+    'kunai': {
+        '15': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_15ft_1000x400.webm',
+        '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_30ft_1600x400.webm',
+        '45': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_45ft_2200x400.webm',
+    },
+}
+
 JB2APATREONDB.greataxe = {
     'orange': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/GreatAxe01_Fire_Regular_Orange_800x600.webm',
     'pink': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/GreatAxe01_Fire_Regular_Pink_800x600.webm',
@@ -336,6 +354,14 @@ JB2APATREONDB.meleehandaxe = {
     'purple': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/HandAxe02_Fire_Dark_Purple_800x600.webm',
     'blue': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/HandAxe02_Fire_Regular_Blue_800x600.webm',
     'green': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/HandAxe02_Fire_Regular_Green_800x600.webm'
+}
+
+JB2APATREONDB.rangehandaxe = {
+    '01': {
+        '15': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_15ft_1000x400.webm',
+        '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_30ft_1600x400.webm',
+        '45': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_45ft_2200x400.webm',
+    }
 }
 
 JB2APATREONDB.lasersword = {
@@ -394,6 +420,14 @@ JB2APATREONDB.meleespear = {
     'purple': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_Fire_Dark_Purple_800x600.webm',
     'blue': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_Fire_Regular_Blue_800x600.webm',
     'green': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_Fire_Regular_Green_800x600.webm'
+}
+
+JB2APATREONDB.rangespear = {
+    '01': {
+        '15': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_15ft_1000x400.webm',
+        '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_30ft_1600x400.webm',
+        '45': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_45ft_2200x400.webm',
+    }
 }
 
 JB2APATREONDB.sword = {
