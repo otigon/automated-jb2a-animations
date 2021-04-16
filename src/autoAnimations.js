@@ -125,7 +125,7 @@ Hooks.on('init', () => {
                     config: true,
                     onchange: () => { window.location.reload() }
                 });
-            
+
             } else {
                 game.settings.register("automated-jb2a-animations", "playonDamageCore", {
                     name: game.i18n.format("AUTOANIM.coreondmg_name"),
@@ -194,11 +194,12 @@ Hooks.once('ready', function () {
     if (game.user.isGM && game.modules.get("tokenmagic")?.active) {
         game.settings.set("tokenmagic", "fxPlayerPermission", true);
     }
-    critAnim = game.settings.get("automated-jb2a-animations", "CriticalAnimation");
-    critAnim = critAnim.substring(7);
-    critMissAnim = game.settings.get("automated-jb2a-animations", "CriticalMissAnimation");
-    critMissAnim = critMissAnim.substring(7);
-
+    if (game.modules.get("midi-qol")?.active) {
+        critAnim = game.settings.get("automated-jb2a-animations", "CriticalAnimation");
+        critAnim = critAnim.substring(7);
+        critMissAnim = game.settings.get("automated-jb2a-animations", "CriticalMissAnimation");
+        critMissAnim = critMissAnim.substring(7);
+    }
 });
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
