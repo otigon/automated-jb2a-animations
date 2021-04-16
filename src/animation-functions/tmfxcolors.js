@@ -1,91 +1,71 @@
-export const TMFXCOLORS = {};
-
-TMFXCOLORS.blue = {
-    'tmColor': function () {
-        return 0x107BD9;
-    }
-}
-TMFXCOLORS.green = {
-    'tmColor': function () {
+export const TMFXCOLORS = {
+    'white': function () {
+        return "pass";
+    },
+    'blue': function () {
+        return 0x107BD9
+    },
+    'green': function () {
         return 0x59E81F;
-    }
-}
-TMFXCOLORS.orange = {
-    'tmColor': function () {
+    },
+    'orange': function () {
         return 0xFF9309;
-    }
-}
-TMFXCOLORS.red = {
-    'tmColor': function () {
+    },
+    'red': function () {
         return 0xBB1414;
-    }
-}
-TMFXCOLORS.pink = {
-    'tmColor': function () {
+    },
+    'pink': function () {
         return 0xD2049A;
-    }
-}
-TMFXCOLORS.purple = {
-    'tmColor': function () {
+    },
+    'purple': function () {
         return 0xFF09E1;
-    }
-}
-TMFXCOLORS.yellow = {
-    'tmColor': function () {
+    },
+    'yellow': function () {
         return 0xE2F104;
-    }
-}
-TMFXCOLORS.orangepink = {
-    'tmColor': function () {
+    },
+    'orangepink': function () {
         return 0xC1005B;
-    }
-}
-TMFXCOLORS.purpleblue = {
-    'tmColor': function () {
+    },
+    'purpleblue': function () {
         return 0x60B2FF;
-    }
-}
-TMFXCOLORS.blueyellow = {
-    'tmColor': function () {
-        return 0xACC5C5;
-    }
-}
-TMFXCOLORS.purpleteal = {
-    'tmColor': function () {
+    },
+    'purple teal': function () {
         return 0xC38CDC;
-    }
-}
-TMFXCOLORS.darkblue = {
-    // need to do
-}
-TMFXCOLORS.darkpurple = {
-    'tmColor': function () {
+    },
+    'yellow blue': function () {
+        return 0xACC5C5;
+    },
+    'darkblue': function () {
+        // need to do
+        return;
+    },
+    'darkpurple': function () {
         return 0xAE00AE;
-    }
-}
-TMFXCOLORS.darkgreen = {
-    'tmColor': function () {
+    },
+    'darkgreen': function () {
         return 0x187C00;
-    }
-}
-TMFXCOLORS.darkred = {
-    'tmColor': function () {
+    },
+    'darkred': function () {
         return 0x8E0000;
+    },
+    'tealyellow': function () {
+        // need to do
+        return;
+    },
+    'greenorange': function () {
+        // need to do
+        return;
+    },
+    'pinkpurple': function () {
+        // need to do
+        return;
+    },
+    'blueorange': function () {
+        // need to do
+        return;
+    },
+    'bluegrey': function () {
+        // need to do
+        return;
     }
-}
-TMFXCOLORS.tealyellow = {
-    // need to do
-}
-TMFXCOLORS.greenorange = {
-    // need to do
-}
-TMFXCOLORS.pinkpurple = {
-    // need to do
-}
-TMFXCOLORS.blueorange = {
-    // need to do
-}
-TMFXCOLORS.bluegrey = {
-    // need to do
-}
-
+};

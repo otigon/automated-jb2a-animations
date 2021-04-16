@@ -1,7 +1,7 @@
 import colorChecks from "./colorChecks.js";
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
-
+import { TMFXCOLORS } from "./tmfxcolors.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -13,7 +13,7 @@ async function spellAttacks(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let { tmColor } = colorChecks(handler);
+    //let { tmColor } = colorChecks(handler);
 
     let obj02;
     let spellPath01;
@@ -26,7 +26,6 @@ async function spellAttacks(handler) {
         case (handler.itemNameIncludes("fire", "bolt")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
             obj02 = "firebolt";
-            if (tmColor === "default") { tmColor = 0xFF9309; };
             switch (true) {
                 case handler.color === "a1" || handler.color === ``:
                 case !handler.color:
@@ -42,7 +41,6 @@ async function spellAttacks(handler) {
         case (handler.itemNameIncludes("ray", "frost")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
             obj02 = "rayoffrost";
-            if (tmColor === "default") { tmColor = 0xBBDDEE; };
             switch (true) {
                 case handler.color === "a1" || handler.color === ``:
                 case !handler.color:
@@ -58,7 +56,6 @@ async function spellAttacks(handler) {
         case (handler.itemNameIncludes("witch", "bolt")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
             obj02 = "witchbolt";
-            if (tmColor === "default") { tmColor = 0xAE00AE; };
             switch (true) {
                 case handler.color === "a1" || handler.color === ``:
                 case !handler.color:
@@ -73,7 +70,6 @@ async function spellAttacks(handler) {
         case (handler.itemNameIncludes("scorching", "ray")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
             obj02 = "scorchingray";
-            if (tmColor === "default") { tmColor = 0xFF9309; };
             switch (true) {
                 case handler.color === "a1" || handler.color === ``:
                 case !handler.color:
@@ -97,7 +93,6 @@ async function spellAttacks(handler) {
         case (handler.itemNameIncludes("disintegrate")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
             obj02 = "disintegrate";
-            if (tmColor === "default") { tmColor = 0x00AFC1; };
             switch (true) {
                 case handler.color === "a1" || handler.color === ``:
                 case !handler.color:
@@ -126,6 +121,7 @@ async function spellAttacks(handler) {
             spellPath03 = obj01[obj02][color]['90'];
             break;
     }
+    let tmColor = TMFXCOLORS[color]();
     let letitBurn =
         [{
             filterType: "xfire",

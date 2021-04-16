@@ -1,7 +1,7 @@
-import colorChecks from "./colorChecks.js"
 import meleeExplosion from "./melee-explosion.js";
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { TMFXCOLORS } from "./tmfxcolors.js";
 
 //import drawSpecialToward from "./fxmaster-drawTowards.js"
 
@@ -15,7 +15,6 @@ async function meleeRangeSwitch(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let { fireColor } = colorChecks(handler);
     let color
     switch (true) {
         case handler.color === "a1" || handler.color === ``:
@@ -25,6 +24,7 @@ async function meleeRangeSwitch(handler) {
         default:
             color = handler.color;
     }
+    let fireColor = TMFXCOLORS[color]();
 
     let burn =
         [{

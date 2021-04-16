@@ -1,4 +1,3 @@
-import colorChecks from "./colorChecks.js"
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import { TMFXCOLORS } from "./tmfxcolors.js";
@@ -43,7 +42,7 @@ async function onTargetSpells(handler) {
             break;
     }
     let filePath = obj01[obj02][color]['400'];
-    let tmColor = TMFXCOLORS[color].tmColor();
+    let tmColor = TMFXCOLORS[color]();
 
     async function cast() {
         var arrayLength;

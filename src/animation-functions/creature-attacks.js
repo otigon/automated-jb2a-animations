@@ -1,4 +1,3 @@
-import colorChecks from "./colorChecks.js"
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 
