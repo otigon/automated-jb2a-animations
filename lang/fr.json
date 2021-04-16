@@ -157,7 +157,7 @@
     "AUTOANIM.menuExplodeVariant": "Choisissez la variante de l'explosion",
     "AUTOANIM.menuExplodeColor": "Choisissez la couleur de l'explosion",
     "AUTOANIM.menuExplodeRadius": "Choisir le rayon d'explosion",
-    "AUTOANIM.menuExplodeLoops": "Nombre de boucles pour l'explosion"
+    "AUTOANIM.menuExplodeLoops": "Nombre de boucles pour l'explosion",
 
     "AUTOANIM.typeSelfEffects": "Self Emanation",
     "AUTOANIM.typeAuras": "Aura",
@@ -187,5 +187,14 @@
     "AUTOANIM.itemHM": "Hunter's Mark",
     "AUTOANIM.hmAnim": "Hunter's Mark Animation",
     "AUTOANIM.ctaRequired": "Custom Token Animations is Required for Auras",
-    "AUTOANIM.tabName": "Animate"    
+    "AUTOANIM.tabName": "Animate",
+    "AUTOANIM.crithit_name": "Critical Hits",
+    "AUTOANIM.crithit_hint": "Enable for Critical Hit Animations to play on Source Token",
+    "AUTOANIM.crithitAnim_name": "Critical Hit Animation",
+    "AUTOANIM.critmiss_name": "Critical Misses",
+    "AUTOANIM.critmiss_hint": "Enable for Critical Miss Animations to play on Source Token",
+    "AUTOANIM.critmissAnim_name": "Critical Miss Animation",
+    "AUTOANIM.midionmiss_name": "Play Animations on Hits and Misses",
+    "AUTOANIM.midionmiss_hint": "On a Miss, the Animation will veer off target. Requires MIDI Workflow to check for hits"
+
 }
