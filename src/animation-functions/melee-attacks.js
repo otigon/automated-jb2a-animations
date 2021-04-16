@@ -68,33 +68,6 @@ async function meleeWeapons(handler) {
             color = handler.color;
     }
     //console.log(color);
-    let fireColor = TMFXCOLORS[color]();
-    let burn =
-        [{
-            filterType: "xfire",
-            filterId: "meleeBurn",
-            autoDestroy: true,
-            time: 0,
-            color: fireColor,
-            blend: 1,
-            amplitude: 1,
-            dispersion: 0,
-            chromatic: false,
-            scaleX: 1,
-            scaleY: 1,
-            inlay: false,
-            animated:
-            {
-                time:
-                {
-                    loopDuration: 500,
-                    loops: 3,
-                    active: true,
-                    speed: -0.0015,
-                    animType: "move"
-                }
-            }
-        }];
 
     // delay before activating the Token Magic FX Macros, change inside the switch cases to adjust the timing
     let tmDelay = 1000;
@@ -211,6 +184,34 @@ async function meleeWeapons(handler) {
             break;
     }
     let filePath = obj01[obj02][color];
+    let fireColor = TMFXCOLORS[color]();
+
+    let burn =
+    [{
+        filterType: "xfire",
+        filterId: "meleeBurn",
+        autoDestroy: true,
+        time: 0,
+        color: fireColor,
+        blend: 1,
+        amplitude: 1,
+        dispersion: 0,
+        chromatic: false,
+        scaleX: 1,
+        scaleY: 1,
+        inlay: false,
+        animated:
+        {
+            time:
+            {
+                loopDuration: 500,
+                loops: 3,
+                active: true,
+                speed: -0.0015,
+                animType: "move"
+            }
+        }
+    }];
 
     async function cast() {
         var arrayLength = handler.allTargets.length;

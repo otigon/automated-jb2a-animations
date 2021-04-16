@@ -67,5 +67,24 @@ export const TMFXCOLORS = {
     'bluegrey': function () {
         // need to do
         return;
+    },
+    '1hs': function () {
+        return "pass";
+    },
+    '1hp': function () {
+        return "pass";
+    },
+    '1hb': function () {
+        return "pass";
+    },
+    '2hs': function () {
+        return "pass";
+    },
+    '2hp': function () {
+        return "pass";
+    },
+    '2hb': function () {
+        return "pass";
     }
+
 };
