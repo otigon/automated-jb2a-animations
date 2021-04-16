@@ -1,6 +1,7 @@
 import colorChecks from "./colorChecks.js"
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { TMFXCOLORS } from "./tmfxcolors.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -11,14 +12,6 @@ async function onTargetSpells(handler) {
     }
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
-    let { tmColor } = colorChecks(handler);
-
-    switch (true) {
-        case tmColor === "default":
-            tmColor = 0x107BD9;
-    }
-
     let obj02;
     let color;
     switch (true) {
@@ -50,6 +43,7 @@ async function onTargetSpells(handler) {
             break;
     }
     let filePath = obj01[obj02][color]['400'];
+    let tmColor = TMFXCOLORS[color].tmColor();
 
     async function cast() {
         var arrayLength;

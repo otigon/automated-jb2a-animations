@@ -92,8 +92,8 @@ Hooks.on('init', () => {
                     onChange: () => { window.location.reload() }
                 });
                 game.settings.register("automated-jb2a-animations", "EnableCritical", {
-                    name: 'Critical Hits',
-                    hint: 'Enable for Critical Hit Animations to play on Source Token',
+                    name: game.i18n.format("AUTOANIM.crithit_name"),
+                    hint: game.i18n.format("AUTOANIM.crithit_hint"),
                     scope: 'world',
                     type: Boolean,
                     default: false,
@@ -101,7 +101,7 @@ Hooks.on('init', () => {
                     onchange: () => { window.location.reload() }
                 });
                 game.settings.register("automated-jb2a-animations", "CriticalAnimation", {
-                    name: 'Critical Hit Animation',
+                    name: game.i18n.format("AUTOANIM.crithitAnim_name"),
                     scope: 'world',
                     type: ImagePicker.Image,
                     default: "modules/JB2A_DnD5e/Library/Generic/UI/Critical_02_Red_200x200.webm",
@@ -109,8 +109,8 @@ Hooks.on('init', () => {
                     onchange: () => { window.location.reload() }
                 });
                 game.settings.register("automated-jb2a-animations", "EnableCriticalMiss", {
-                    name: 'Critical Misses',
-                    hint: 'Enable for Critical Miss Animations to play on Source Token',
+                    name: game.i18n.format("AUTOANIM.critmiss_name"),
+                    hint: game.i18n.format("AUTOANIM.critmiss_hint"),
                     scope: 'world',
                     type: Boolean,
                     default: false,
@@ -118,7 +118,7 @@ Hooks.on('init', () => {
                     onchange: () => { window.location.reload() }
                 });
                 game.settings.register("automated-jb2a-animations", "CriticalMissAnimation", {
-                    name: 'Critical Miss Animation',
+                    name: game.i18n.format("AUTOANIM.critmissAnim_name"),
                     scope: 'world',
                     type: ImagePicker.Image,
                     default: "modules/JB2A_DnD5e/Library/Generic/UI/Miss_02_White_200x200.webm",

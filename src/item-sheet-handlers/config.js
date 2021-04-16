@@ -1,5 +1,5 @@
 
-export const AUTOANIM = {};
+export const AUTOANIM = {}
 
 
 AUTOANIM.animNameAttackSpell = {
@@ -145,7 +145,7 @@ AUTOANIM.animColorLaserSword = {
     "red": "AUTOANIM.colorRed",
     "purple": "AUTOANIM.colorPurple",
     "yellow": "AUTOANIM.colorYellow",
-    "dark red": "AUTOANIM.colorDarkRed"
+    "darkred": "AUTOANIM.colorDarkRed"
 }
 
 AUTOANIM.animColorLaserSwordFree = {

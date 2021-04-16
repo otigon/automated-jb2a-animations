@@ -11,12 +11,8 @@ async function castOnSelf(handler) {
     let path01 = "5th_Level";
     let path02 = "Antilife_Shell";
     let path03 = "AntilifeShell_01_Blue_NoCircle";
-    log(path01);
-    log(path02);
-    log(path03);
 
     let tokenSize = handler.actorToken.actor.data.data.traits.size;
-    log(tokenSize);
     let divisor = 375;
     switch (true) {
         case (tokenSize === "lg"):
