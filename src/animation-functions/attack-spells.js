@@ -1,4 +1,3 @@
-import colorChecks from "./colorChecks.js";
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import { TMFXCOLORS } from "./tmfxcolors.js";
@@ -12,8 +11,6 @@ async function spellAttacks(handler) {
     }
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
-    //let { tmColor } = colorChecks(handler);
 
     let obj02;
     let spellPath01;

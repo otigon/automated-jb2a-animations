@@ -45,8 +45,6 @@ async function creatureAttacks(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    //let { color } = colorChecks(handler);
-
     let color;
 
     let tmMacro;

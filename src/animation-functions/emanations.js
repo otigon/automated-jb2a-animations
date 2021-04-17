@@ -20,183 +20,91 @@ async function selfCast(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    switch (true) {
-        case handler.animName === "shatter":
-        case handler.animName === game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
+    switch (handler.animName) {
+        case  "shatter" || game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
             testPath = obj01[obj02][property];
             break;
-        case handler.animName === "thunderwave":
-        case handler.animName === game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
+        case "thunderwave" || ame.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
             testPath = obj01[obj02][property]['center'];
             break;
-        case handler.animName === "antilife shell":
-        case handler.animName === game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
+        case "antilife shell" || game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
             testPath = obj01['antilifeshell']['antilifeshell'];
             break;
     }
 
     let divisor;
-    /*
-    switch (true) {
-        case (handler.selfRadius === "5"):
-            switch (true) {
-                case handler.animName === "shatter":
-                case handler.animName === game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
-                case handler.animName === "antilife shell":
-                case handler.animName === game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
-                    divisor = 125;
-                    break;
-                case handler.animName === "thunderwave":
-                case handler.animName === game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
-                    divisor = 175;
-                    break;
-            }
-            break;
-        case (handler.selfRadius === "10"):
-            switch (true) {
-                case handler.animName === "shatter":
-                case handler.animName === game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
-                case handler.animName === "antilife shell":
-                case handler.animName === game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
-                    divisor = 85;
-                    break;
-                case handler.animName === "thunderwave":
-                case handler.animName === game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
-                    divisor = 125;
-                    break;
-            }
-            break;
-        case (handler.selfRadius === "15"):
-            switch (true) {
-                case handler.animName === "shatter":
-                case handler.animName === game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
-                case handler.animName === "antilife shell":
-                case handler.animName === game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
-                    divisor = 62;
-                    break;
-                case handler.animName === "thunderwave":
-                case handler.animName === game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
-                    divisor = 90;
-                    break;
-            }
-            break;
-        case (handler.selfRadius === "20"):
-            switch (true) {
-                case handler.animName === "shatter":
-                case handler.animName === game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
-                case handler.animName === "antilife shell":
-                case handler.animName === game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
-                    divisor = 46;
-                    break;
-                case handler.animName === "thunderwave":
-                case handler.animName === game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
-                    divisor = 68;
-                    break;
-            }
-            break;
-        case (handler.selfRadius === "25"):
-            switch (true) {
-                case handler.animName === "shatter":
-                case handler.animName === game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
-                case handler.animName === "antilife shell":
-                case handler.animName === game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
-                    divisor = 39;
-                    break;
-                case handler.animName === "thunderwave":
-                case handler.animName === game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
-                    divisor = 55;
-                    break;
-            }
-            break;
-        case (handler.selfRadius === "30"):
-            switch (true) {
-                case handler.animName === "shatter":
-                case handler.animName === game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
-                case handler.animName === "antilife shell":
-                case handler.animName === game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
-                    divisor = 32;
-                    break;
-                case handler.animName === "thunderwave":
-                case handler.animName === game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
-                    divisor = 45;
-                    break;
-            }
-            break;
-    }
-    */
-
     let tokenSize = handler.actor.data.data.traits.size;
-    switch (true) {
-        case handler.selfRadius === "5":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    if (handler.animName === "thunderwave") {divisor = 125;} else {divisor = 85;}
+    switch (handler.selfRadius) {
+        case "5":
+            switch (tokenSize) {
+                case "lg":
+                    divisor = handler.animName === "thunderwave" ? 125 : 85;
                     break;
-                case (tokenSize === "huge"):
-                    if (handler.animName === "thunderwave") {divisor = 90;} else {divisor = 62;}
+                case "huge":
+                    divisor = handler.animName === "thunderwave" ? 90 : 62;
                     break;
                 default:
-                    if (handler.animName === "thunderwave") {divisor = 175;} else {divisor = 125;}
+                    divisor = handler.animName === "thunderwave" ? 175 : 125;
             }
             break;
-        case handler.selfRadius === "10":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    if (handler.animName === "thunderwave") {divisor = 90;} else {divisor = 62;}
+        case "10":
+            switch (tokenSize) {
+                case "lg":
+                    divisor = handler.animName === "thunderwave" ? 90 : 62; 
                     break;
-                case (tokenSize === "huge"):
-                    if (handler.animName === "thunderwave") {divisor = 68;} else {divisor = 46;}
+                case "huge":
+                    divisor = handler.animName === "thunderwave" ? 68 : 46;
                     break;
                 default:
-                    if (handler.animName === "thunderwave") {divisor = 125;} else {divisor = 85;}
+                    divisor = handler.animName === "thunderwave" ? 125 : 85; 
             }
             break;
-        case handler.selfRadius === "15":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    if (handler.animName === "thunderwave") {divisor = 68;} else {divisor = 46;}
+        case "15":
+            switch (tokenSize) {
+                case "lg":
+                    divisor = handler.animName === "thunderwave" ? 68 : 46;
                     break;
-                case (tokenSize === "huge"):
-                    if (handler.animName === "thunderwave") {divisor = 58;} else {divisor = 42;}
+                case "huge":
+                    divisor = handler.animName === "thunderwave" ? 58 : 42;
                     break;
                 default:
-                    if (handler.animName === "thunderwave") {divisor = 90;} else {divisor = 62;}
+                    divisor = handler.animName === "thunderwave" ? 90 : 62;
             }
             break;
-        case handler.selfRadius === "20":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    if (handler.animName === "thunderwave") {divisor = 55;} else {divisor = 39;}
+        case "20":
+            switch (tokenSize) {
+                case "lg":
+                    divisor = handler.animName === "thunderwave" ? 55 : 39;
                     break;
-                case (tokenSize === "huge"):
-                    if (handler.animName === "thunderwave") {divisor = 52;} else {divisor = 35;}
+                case "huge":
+                    divisor = handler.animName === "thunderwave" ? 52 : 35;
                     break;
                 default:
-                    if (handler.animName === "thunderwave") {divisor = 68;} else {divisor = 46;}
+                    divisor = handler.animName === "thunderwave" ? 68 : 46;
             }
             break;
-        case handler.selfRadius === "25":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    if (handler.animName === "thunderwave") {divisor = 48;} else {divisor = 32;}
+        case "25":
+            switch (tokenSize) {
+                case "lg":
+                    divisor = handler.animName === "thunderwave" ? 48 : 32;
                     break;
-                case (tokenSize === "huge"):
-                    if (handler.animName === "thunderwave") {divisor = 45;} else {divisor = 30;}
+                case "huge":
+                    divisor = handler.animName === "thunderwave" ? 45 : 30;
                     break;
                 default:
-                    if (handler.animName === "thunderwave") {divisor = 55;} else {divisor = 39;}
+                    divisor = handler.animName === "thunderwave" ? 55 : 39;
             }
             break;
-        case handler.selfRadius === "30":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    if (handler.animName === "thunderwave") {divisor = 42;} else {divisor = 27;}
+        case "30":
+            switch (tokenSize) {
+                case "lg":
+                    divisor = handler.animName === "thunderwave" ? 42 : 27;
                     break;
-                case tokenSize === "huge":
-                    if (handler.animName === "thunderwave") {divisor = 40;} else {divisor = 26;}
+                case "huge":
+                    divisor = handler.animName === "thunderwave" ? 40 : 26;
                     break;
                 default:
-                    if (handler.animName === "thunderwave") {divisor = 48;} else {divisor = 32;}
+                    divisor = handler.animName === "thunderwave" ? 48 : 32;
             }
             break;
     }

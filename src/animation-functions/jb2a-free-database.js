@@ -222,3 +222,13 @@ JB2AFREEDB.explosion = {
         "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
     }
 }
+
+JB2AFREEDB.huntersmark = {
+    'loop': {
+        'green':'modules/JB2A_DnD5e/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Green_Loop_200x200.webm',
+    },
+    'pulse': {
+        'green':'modules/JB2A_DnD5e/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Green_Pulse_200x200.webm',
+    }
+}
+

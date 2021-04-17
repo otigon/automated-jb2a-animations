@@ -484,6 +484,36 @@ JB2APATREONDB.lasershot = {
     }
 }
 
+JB2APATREONDB.rangehammer = {
+    '15': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_15ft_1000x400.webm',
+    '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_30ft_1600x400.webm',
+    '45': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_45ft_2200x400.webm',
+}
+
+JB2APATREONDB.rangesling = {
+    '15': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_15ft_1000x400.webm',
+    '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_30ft_1600x400.webm',
+    '45': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_45ft_2200x400.webm',
+}
+
+JB2APATREONDB.rangejavelin = {
+    '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_30ft_1600x400.webm',
+    '60': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_60ft_2800x400.webm',
+    '90': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_90ft_4000x400.webm',
+}
+
+JB2APATREONDB.boulder = {
+    '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss01_01_Regular_White_30ft_1600x500.webm',
+    '60': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss01_01_Regular_White_60ft_2800x500.webm',
+    '90': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss01_01_Regular_White_90ft_4000x500.webm',
+}
+
+JB2APATREONDB.siege = {
+    '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_30ft_1600x500.webm',
+    '60': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_60ft_2800x500.webm',
+    '90': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_90ft_4000x500.webm',
+}
+
 JB2APATREONDB.creaturebite = {
     "blue": 'modules/jb2a_patreon/Library/Generic/Creature/Bite_01_Regular_Blue_400x400.webm',
     "green": 'modules/jb2a_patreon/Library/Generic/Creature/Bite_01_Regular_Green_400x400.webm',
@@ -573,4 +603,31 @@ JB2APATREONDB.explosion = {
     }
 }
 
+JB2APATREONDB.huntersmark = {
+    '01': {
+        'loop': {
+            'blue': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Blue_Loop_200x200.webm',
+            'green': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Green_Loop_200x200.webm',
+            'purple': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Purple_Loop_200x200.webm',
+        },
+        'pulse': {
+            'blue': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Blue_Pulse_200x200.webm',
+            'green': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Green_Pulse_200x200.webm',
+            'purple': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Purple_Pulse_200x200.webm',
+        }
+    },
+    '02': {
+        'loop': {
+            'blue': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_02_Regular_Blue_Loop_200x200.webm',
+            'green': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_02_Regular_Green_Loop_200x200.webm',
+            'purple': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_02_Regular_Purple_Loop_200x200.webm',
+        },
+        'pulse': {
+            'blue': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_02_Regular_Blue_Pulse_200x200.webm',
+            'green': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_02_Regular_Green_Pulse_200x200.webm',
+            'purple': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_02_Regular_Purple_Pulse_200x200.webm',
+        }
+    }
+
+}
 
