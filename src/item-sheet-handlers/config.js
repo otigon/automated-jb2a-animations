@@ -344,7 +344,7 @@ AUTOANIM.explosionRadius = {
     "40": "AUTOANIM.radius40",
     "45": "AUTOANIM.radius45",
     "50": "AUTOANIM.radius50",
-    "nuclear": "AUTOANIM.radiusNuke",
+    "100": "AUTOANIM.radiusNuke",
 }
 
 AUTOANIM.explosionVariant = {

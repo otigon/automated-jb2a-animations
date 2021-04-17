@@ -1,3 +1,6 @@
+import { JB2APATREONDB } from "./jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-free-database.js";
+
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function meleeExplosion(handler, target) {
@@ -6,78 +9,27 @@ async function meleeExplosion(handler, target) {
         return !!game.modules.get(test);
     }
 
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    let type01 = "01";
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    let obj02 = 'explosion';
+    let obj03 = '01';
     switch (true) {
-        case (handler.animExVariant.includes("02")):
-            type01 = "02";
+        case handler.animExVariant === "02":
+            obj03 = '02';
             break;
     }
-    let color = "Orange";
-    let tmColor = 0x0075B0;
-
+    let color;
     switch (true) {
-        case (handler.animExColor.includes("blue")):
-            color = "Blue";
-            tmColor = 0x0075B0;
+        case handler.animExColor === "a1" || ``:
+        case !handler.animExColor:
+            color = 'orange';
             break;
-        case (handler.animExColor.includes("green")):
-            color = "Green";
-            tmColor = 0x0EB400;
-            break;
-        case (handler.animExColor.includes("orange")):
-            color = "Orange";
-            tmColor = 0xBF6E00;
-            break;
-        case (handler.animExColor.includes("purple")):
-            color = "Purple";
-            tmColor = 0xBF0099;
-            break;
-        case (handler.animExColor.includes("yellow")):
-            color = "Yellow";
-            tmColor = 0xCFD204;
-            break;
+        default:
+            color = handler.animExColor;
     }
-    let divisor = 200;
-    switch (true) {
-        case (handler.animExRadius === "2"):
-            divisor = 300;
-            break;
-        case (handler.animExRadius === "5"):
-            divisor = 200;
-            break;
-        case (handler.animExRadius === "10"):
-            divisor = 100;
-            break;
-        case (handler.animExRadius === "15"):
-            divisor = 67;
-        case (handler.animExRadius === "20"):
-            divisor = 50;
-            break;
-        case (handler.animExRadius === "25"):
-            divisor = 40;
-            break;
-        case (handler.animExRadius === "30"):
-            divisor = 33;
-            break;
-        case (handler.animExRadius === "35"):
-            divisor = 28.5;
-            break;
-        case (handler.animExRadius === "40"):
-            divisor = 25;
-            break;
-        case (handler.animExRadius === "45"):
-            divisor = 22.2;
-            break;
-        case (handler.animExRadius === "50"):
-            divisor = 20;
-            break;
-        case (handler.animExRadius === "nuclear"):
-            divisor = 10;
-            break;
-    }
+    let filePath = obj01[obj02][obj03][color];
 
+    let divisor = (1000 * (1/(handler.animExRadius)));
+    
     async function cast() {
         let loops = handler.animExLoop;
 
@@ -86,7 +38,7 @@ async function meleeExplosion(handler, target) {
             // Defines the spell template for FXMaster
             let spellAnim =
             {
-                file: `modules/${path00}/Library/Generic/Explosion/Explosion_${type01}_${color}_400x400.webm`,
+                file: filePath,
                 position: target.center,
                 anchor: {
                     x: 0.5,

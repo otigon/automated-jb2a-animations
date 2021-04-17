@@ -56,46 +56,7 @@ async function explodeOnTarget(handler) {
             filePath = obj01[obj02][obj03][color];
     }
 
-
-    let divisor = 200;
-    switch (true) {
-        case (handler.animExRadius === "2"):
-            divisor = 300;
-            break;
-        case (handler.animExRadius === "5"):
-            divisor = 200;
-            break;
-        case (handler.animExRadius === "10"):
-            divisor = 100;
-            break;
-        case (handler.animExRadius === "15"):
-            divisor = 67;
-            break;
-        case (handler.animExRadius === "20"):
-            divisor = 50;
-            break;
-        case (handler.animExRadius === "25"):
-            divisor = 40;
-            break;
-        case (handler.animExRadius === "30"):
-            divisor = 33;
-            break;
-        case (handler.animExRadius === "35"):
-            divisor = 28.5;
-            break;
-        case (handler.animExRadius === "40"):
-            divisor = 25;
-            break;
-        case (handler.animExRadius === "45"):
-            divisor = 22.2;
-            break;
-        case (handler.animExRadius === "50"):
-            divisor = 20;
-            break;
-        case (handler.animExRadius === "nuclear"):
-            divisor = 10;
-            break;
-    }
+    let divisor = (1000 * (1/(handler.animExRadius)));
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
