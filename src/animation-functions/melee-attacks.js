@@ -212,7 +212,8 @@ async function meleeWeapons(handler) {
             }
         }
     }];
-
+    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    await wait(globalDelay);
     async function cast() {
         var arrayLength = handler.allTargets.length;
         //console.log(arrayLength);

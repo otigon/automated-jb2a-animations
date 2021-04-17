@@ -20,6 +20,8 @@ async function shatterAuto(handler) {
         default:
             color = handler.color;
     }
+    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    await wait(globalDelay);
 
     async function cast() {
 

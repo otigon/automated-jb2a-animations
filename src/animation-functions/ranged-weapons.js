@@ -150,6 +150,8 @@ async function rangedWeapons(handler) {
             break;
     }
     let filePath = obj01[obj02];
+    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    await wait(globalDelay);
 
     async function cast() {
         var arrayLength = handler.allTargets.length;

@@ -69,7 +69,9 @@ async function magicMissile(handler) {
             let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
-
+            let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+            await wait(globalDelay);
+        
             async function spellAnimation(number) {
 
                 let x = number;

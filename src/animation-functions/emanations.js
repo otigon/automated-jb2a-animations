@@ -109,6 +109,8 @@ async function selfCast(handler) {
             break;
     }
 
+    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    await wait(globalDelay);
 
     async function cast() {
 

@@ -36,6 +36,8 @@ let HitStutter =
     }];
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+await wait(globalDelay);
 
 async function creatureAttacks(handler) {
 

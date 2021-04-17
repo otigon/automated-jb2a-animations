@@ -7,6 +7,8 @@ async function randomGenDmg(handler) {
     }
 
     let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
+    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    await wait(globalDelay);
 
     async function cast() {
         var arrayLength = handler.allTargets.length;

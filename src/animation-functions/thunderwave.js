@@ -81,6 +81,8 @@ async function thunderwaveAuto(handler) {
             y: Scale
         }
     };
+    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    await wait(globalDelay);
 
     async function spellAnimation(number) {
 

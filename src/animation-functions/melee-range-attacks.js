@@ -115,7 +115,9 @@ async function meleeRangeSwitch(handler) {
 
     let rangeFilePath = obj01[obj12][obj03];
     let meleeFilePath = obj01[obj02][color];
-    
+    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    await wait(globalDelay);
+
     async function cast() {
         var arrayLength = handler.allTargets.length;
 

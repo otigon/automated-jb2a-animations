@@ -43,6 +43,8 @@ async function onTargetSpells(handler) {
     }
     let filePath = obj01[obj02][color]['400'];
     let tmColor = TMFXCOLORS[color]();
+    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    await wait(globalDelay);
 
     async function cast() {
         var arrayLength;

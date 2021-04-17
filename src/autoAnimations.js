@@ -38,6 +38,14 @@ Hooks.on('init', () => {
         type: Boolean,
         default: false,                                     // The default value for the setting
     });
+    game.settings.register("automated-jb2a-animations", "globaldelay", {
+        name: "Global Delay",
+        hint: "Delay the Start of All Animations in milliseconds",
+        scope: "world",
+        config: true,
+        default: 100,
+        type: Number
+    })
     game.settings.register("automated-jb2a-animations", "hideFromPlayers", { // game.setting.register("NameOfTheModule", "VariableName",
         name: game.i18n.format("AUTOANIM.animtab_name"),                  // Register a module setting with checkbox
         hint: game.i18n.format("AUTOANIM.animtab_hint"),               // Description of the settings

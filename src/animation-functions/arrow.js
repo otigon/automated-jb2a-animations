@@ -140,7 +140,8 @@ async function arrowOptionExplode(handler) {
     
         }
     */
-
+    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    await wait(globalDelay);
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
@@ -202,7 +203,7 @@ async function arrowOptionExplode(handler) {
                 'y': (target.center.y) + ((Math.floor(Math.random() * (missMax - missMin) + missMin)) * oddEvenY)
             }
 
-            let hitSpot;            
+            let hitSpot;
             switch (true) {
                 case (handler.playOnMiss):
                     switch (true) {
