@@ -39,8 +39,8 @@ Hooks.on('init', () => {
         default: false,                                     // The default value for the setting
     });
     game.settings.register("automated-jb2a-animations", "globaldelay", {
-        name: "Global Delay",
-        hint: "Delay the Start of All Animations in milliseconds",
+        name: game.i18n.format("AUTOANIM.globaldelay_name"),
+        hint: game.i18n.format("AUTOANIM.globaldelay_hint"),
         scope: "world",
         config: true,
         default: 100,

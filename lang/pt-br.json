@@ -195,6 +195,9 @@
   "AUTOANIM.crithitAnim_name": "Critical Hit Animation",
   "AUTOANIM.critmiss_name": "Critical Misses",
   "AUTOANIM.critmiss_hint": "Enable for Critical Miss Animations to play on Source Token",
-  "AUTOANIM.critmissAnim_name": "Critical Miss Animation"
+  "AUTOANIM.critmissAnim_name": "Critical Miss Animation",
+
+  "AUTOANIM.globaldelay_name": "Global Delay",
+  "AUTOANIM.globaldelay_hint": "Delay the Start of All Animations in milliseconds"
 
 }
