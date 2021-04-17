@@ -94,6 +94,29 @@ JB2AFREEDB.meleedagger = {
     'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Dagger02_01_Regular_White_800x600.webm'
 }
 
+JB2AFREEDB.rangedagger = {
+    '01': {
+        '15': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
+        '30': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
+        '45': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
+    }
+}
+JB2AFREEDB.rangehandaxe = {
+    '01': {
+        '15': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
+        '30': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
+        '45': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
+    }
+}
+JB2AFREEDB.rangespear = {
+    '01': {
+        '15': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
+        '30': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
+        '45': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
+    }
+}
+
+
 JB2AFREEDB.greataxe = {
     'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/GreatAxe01_01_Regular_White_800x600.webm'
 }
@@ -232,29 +255,29 @@ JB2AFREEDB.huntersmark = {
     }
 }
 
-JB2APATREONDB.magicmissile = {
+JB2AFREEDB.magicmissile = {
     'purple': {
         '30':{
-            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_01_1600x400.webm',
-            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_02_1600x400.webm',
-            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_03_1600x400.webm',
-            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_04_1600x400.webm',
-            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_05_1600x400.webm',
-            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_06_1600x400.webm',
-            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_07_1600x400.webm',
-            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_08_1600x400.webm',
-            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_09_1600x400.webm',
+            '1': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_01_1600x400.webm',
+            '2': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_02_1600x400.webm',
+            '3': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_03_1600x400.webm',
+            '4': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_04_1600x400.webm',
+            '5': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_05_1600x400.webm',
+            '6': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_06_1600x400.webm',
+            '7': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_07_1600x400.webm',
+            '8': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_08_1600x400.webm',
+            '9': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_09_1600x400.webm',
         },
         '60':{
-            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_01_2800x400.webm',
-            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_02_2800x400.webm',
-            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_03_2800x400.webm',
-            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_04_2800x400.webm',
-            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_05_2800x400.webm',
-            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_06_2800x400.webm',
-            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_07_2800x400.webm',
-            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_08_2800x400.webm',
-            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_09_2800x400.webm',
+            '1': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_01_2800x400.webm',
+            '2': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_02_2800x400.webm',
+            '3': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_03_2800x400.webm',
+            '4': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_04_2800x400.webm',
+            '5': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_05_2800x400.webm',
+            '6': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_06_2800x400.webm',
+            '7': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_07_2800x400.webm',
+            '8': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_08_2800x400.webm',
+            '9': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_09_2800x400.webm',
         }
     }
 }
