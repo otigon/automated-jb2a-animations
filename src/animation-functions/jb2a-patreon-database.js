@@ -631,3 +631,102 @@ JB2APATREONDB.huntersmark = {
 
 }
 
+JB2APATREONDB.magicmissile = {
+    'blue': {
+        '30':{
+            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_01_1600x400.webm',
+            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_02_1600x400.webm',
+            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_03_1600x400.webm',
+            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_04_1600x400.webm',
+            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_05_1600x400.webm',
+            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_06_1600x400.webm',
+            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_07_1600x400.webm',
+            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_08_1600x400.webm',
+            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_09_1600x400.webm',
+        },
+        '60':{
+            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_01_2800x400.webm',
+            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_02_2800x400.webm',
+            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_03_2800x400.webm',
+            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_04_2800x400.webm',
+            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_05_2800x400.webm',
+            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_06_2800x400.webm',
+            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_07_2800x400.webm',
+            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_08_2800x400.webm',
+            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_09_2800x400.webm',
+        }
+    },
+    'green': {
+        '30':{
+            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_01_1600x400.webm',
+            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_02_1600x400.webm',
+            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_03_1600x400.webm',
+            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_04_1600x400.webm',
+            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_05_1600x400.webm',
+            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_06_1600x400.webm',
+            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_07_1600x400.webm',
+            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_08_1600x400.webm',
+            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_09_1600x400.webm',
+        },
+        '60':{
+            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_01_2800x400.webm',
+            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_02_2800x400.webm',
+            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_03_2800x400.webm',
+            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_04_2800x400.webm',
+            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_05_2800x400.webm',
+            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_06_2800x400.webm',
+            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_07_2800x400.webm',
+            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_08_2800x400.webm',
+            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_09_2800x400.webm',
+        }
+    },
+    'purple': {
+        '30':{
+            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_01_1600x400.webm',
+            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_02_1600x400.webm',
+            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_03_1600x400.webm',
+            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_04_1600x400.webm',
+            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_05_1600x400.webm',
+            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_06_1600x400.webm',
+            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_07_1600x400.webm',
+            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_08_1600x400.webm',
+            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_09_1600x400.webm',
+        },
+        '60':{
+            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_01_2800x400.webm',
+            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_02_2800x400.webm',
+            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_03_2800x400.webm',
+            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_04_2800x400.webm',
+            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_05_2800x400.webm',
+            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_06_2800x400.webm',
+            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_07_2800x400.webm',
+            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_08_2800x400.webm',
+            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_09_2800x400.webm',
+        }
+    },
+    'yellow': {
+        '30':{
+            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_01_1600x400.webm',
+            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_02_1600x400.webm',
+            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_03_1600x400.webm',
+            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_04_1600x400.webm',
+            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_05_1600x400.webm',
+            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_06_1600x400.webm',
+            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_07_1600x400.webm',
+            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_08_1600x400.webm',
+            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_09_1600x400.webm',
+        },
+        '60':{
+            '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_01_2800x400.webm',
+            '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_02_2800x400.webm',
+            '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_03_2800x400.webm',
+            '4': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_04_2800x400.webm',
+            '5': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_05_2800x400.webm',
+            '6': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_06_2800x400.webm',
+            '7': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_07_2800x400.webm',
+            '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_08_2800x400.webm',
+            '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_09_2800x400.webm',
+        }
+    }
+}
+

@@ -4,7 +4,6 @@ import Pf1Handler from "./system-handlers/pf1-handler.js";
 import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
-//import colorChecks from "./system-handlers/colorChecks-WIP.js"
 
 import spellAttacks from "./animation-functions/attack-spells.js";
 import meleeWeapons from "./animation-functions/melee-attacks.js";

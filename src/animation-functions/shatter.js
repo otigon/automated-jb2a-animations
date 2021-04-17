@@ -1,4 +1,5 @@
-import colorChecks from "./colorChecks.js"
+import { JB2APATREONDB } from "./jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-free-database.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -8,15 +9,16 @@ async function shatterAuto(handler) {
         return !!game.modules.get(test);
     }
 
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    let { type01, color } = colorChecks(handler);
-
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    
+    let color;
     switch (true) {
-        case type01 === "default":
-            type01 = "01";
-        case color === "default":
-            color = "Blue";
+        case handler.color === "a1" || ``:
+        case !handler.color:
+            color = "blue";
+            break;
+        default:
+            color = handler.color;
     }
 
     async function cast() {
@@ -29,7 +31,7 @@ async function shatterAuto(handler) {
         // Defines the spell template for FXMaster
         let spellAnim =
         {
-            file: `modules/${path00}/Library/2nd_Level/Shatter/Shatter_${type01}_${color}_400x400.webm`,
+            file: obj01['shatter'][color],
             position: template.center,
             anchor: {
                 x: 0.5,
