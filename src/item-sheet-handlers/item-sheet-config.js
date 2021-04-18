@@ -173,8 +173,8 @@ export class AnimationTab {
         }
 
         switch (true) {
-            case this.item.name.toLowerCase().includes("hunter's mark"):
-            case this.item.name.toLowerCase().includes(game.i18n.format("AUTOANIM.itemHM").toLowerCase()):
+            case this.itemName.includes("hunter's mark"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemHM").toLowerCase()):
                 ctaStatic.show();
                 hmAnimation.show();
                 break;
@@ -182,7 +182,7 @@ export class AnimationTab {
                 hmAnimation.hide();
                 ctaStatic.hide();
         }
-
+        
         switch (true) {
             case (explosion && override &&
                 ((animName.includes(game.i18n.format("AUTOANIM.itemArrow"))) ||
@@ -313,7 +313,13 @@ export class AnimationTab {
         this.html.find('.animation-tab-contents input[type="number"]').change(evt => {
             this.activate = true;
         });
+        
+        this.html.find('input[name="flags.autoanimations.ctaOption"]').click(evt => {
+            //this.animateItem.toggleEnabled(evt.target.unchecked);
+            this.activate = true;
+        });
 
+        /*
         this.html.find('input[name="flags.autoanimations.killAnim"]').click(evt => {
             //this.animateItem.toggleEnabled(evt.target.checked);
             //this.render();
@@ -339,12 +345,8 @@ export class AnimationTab {
             //this.animateItem.toggleEnabled(evt.target.unchecked);
             //this.activate = true;
         });
-
-        this.html.find('input[name="flags.autoanimations.ctaOption"]').click(evt => {
-            //this.animateItem.toggleEnabled(evt.target.unchecked);
-            this.activate = true;
-        });
-
+        */
+        /*
         this.html.find('input[name="flags.autoanimations.explosion"]').click(evt => {
             //this.animateItem.toggleEnabled(evt.target.value);
             //this.activate = true;
@@ -364,7 +366,7 @@ export class AnimationTab {
             //this.animateItem.color = evt.target.value;
             //this.activate = true;
         });
-
+        */
 
     }
 
