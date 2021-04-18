@@ -84,10 +84,11 @@ async function magicMissile(handler) {
                         let c4 = "yellow";
 
                         var items = [c1, c2, c3, c4];
-                        let ranVar = Math.floor(Math.random() * 3 + 1).toString();
+                        let ranVar = Math.floor(Math.random() * 9 + 1).toString();
                         function random_color(items) {
                             return items[Math.floor(Math.random() * items.length)];
                         }
+                        console.log(ranVar);
                         let color;
                         switch (true) {
                             case handler.color === "a1" || ``:

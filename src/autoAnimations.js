@@ -1,6 +1,7 @@
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
+import Dnd35Handler from "./system-handlers/dnd35-handler.js";
 import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
@@ -170,6 +171,7 @@ Hooks.on('init', () => {
     } else {
         switch (game.system.id) {
             case "pf1":
+            case "D35E":
                 Hooks.on("createChatMessage", async (msg) => { onCreateChatMessage(msg) });
                 break;
             case "dnd5e":
@@ -228,8 +230,14 @@ function moduleIncludes(test) {
 
 function onCreateChatMessage(msg) {
     log('onCreateChatMessage', msg);
-
-    let handler = new Pf1Handler(msg);
+    let handler;
+    switch (game.system.id){
+        case "pf1":
+            handler = new Pf1Handler(msg);
+            break;
+        case "D35E":
+            handler = new Dnd35Handler(msg);
+    }
 
     revItUp(handler)
 }

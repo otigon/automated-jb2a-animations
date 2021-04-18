@@ -23,10 +23,10 @@ export const TMFXCOLORS = {
     'yellow': function () {
         return 0xE2F104;
     },
-    'orangepink': function () {
+    'orange pink': function () {
         return 0xC1005B;
     },
-    'purpleblue': function () {
+    'purple blue': function () {
         return 0x60B2FF;
     },
     'purple teal': function () {
@@ -35,36 +35,36 @@ export const TMFXCOLORS = {
     'yellow blue': function () {
         return 0xACC5C5;
     },
-    'darkblue': function () {
+    'dark blue': function () {
         // need to do
         return;
     },
-    'darkpurple': function () {
+    'dark purple': function () {
         return 0xAE00AE;
     },
-    'darkgreen': function () {
+    'dark green': function () {
         return 0x187C00;
     },
-    'darkred': function () {
+    'dark red': function () {
         return 0x8E0000;
     },
-    'tealyellow': function () {
+    'teal yellow': function () {
         // need to do
         return;
     },
-    'greenorange': function () {
+    'green orange': function () {
         // need to do
         return;
     },
-    'pinkpurple': function () {
+    'pink purple': function () {
         // need to do
         return;
     },
-    'blueorange': function () {
+    'blue orange': function () {
         // need to do
         return;
     },
-    'bluegrey': function () {
+    'blue grey': function () {
         // need to do
         return;
     },

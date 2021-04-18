@@ -36,11 +36,9 @@ let HitStutter =
     }];
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
-await wait(globalDelay);
 
 async function creatureAttacks(handler) {
-
+    
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -80,25 +78,26 @@ async function creatureAttacks(handler) {
 
         let Scale;
         let Size = handler.actor.data.data.traits.size;
-        switch (true) {
-            case Size === "tiny":
-            case Size === "sm":
+        switch (Size) {
+            case "tiny" || "sm":
                 Scale = 0.25;
                 break;
-            case Size === "med":
+            case "med":
                 Scale = 0.5;
                 break;
-            case Size === "lg":
+            case "lg":
                 Scale = 0.75;
                 break;
-            case Size === "huge":
+            case "huge":
                 Scale = 1.15;
                 break;
-            case Size === "grg":
+            case "grg":
                 Scale = 1.4;
                 break;
         }
-
+        let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+        await wait(globalDelay);
+    
         for (var i = 0; i < arrayLength; i++) {
             //log(handler.allTargets[i]);
             let target = handler.allTargets[i];

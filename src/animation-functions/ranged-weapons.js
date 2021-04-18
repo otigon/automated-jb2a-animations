@@ -74,7 +74,6 @@ async function rangedWeapons(handler) {
     let tmMacro = "pass";
 
     let obj02;
-    let size = "400";
     let Delay01 = 900;
     let Delay02 = 900;
     let Delay03 = 900;
@@ -99,7 +98,6 @@ async function rangedWeapons(handler) {
             Delay01 = 750;
             Delay02 = 1250;
             Delay03 = 1150;
-            size = "500";
             break;
         case (handler.itemNameIncludes("boulder")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()):
@@ -109,7 +107,6 @@ async function rangedWeapons(handler) {
             }
             obj02 = "boulder";
             tmMacro = hitStutter
-            size = "500";
             Delay01 = 1250;
             Delay02 = 1750;
             Delay03 = 1550;

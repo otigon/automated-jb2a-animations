@@ -145,7 +145,7 @@ AUTOANIM.animColorLaserSword = {
     "red": "AUTOANIM.colorRed",
     "purple": "AUTOANIM.colorPurple",
     "yellow": "AUTOANIM.colorYellow",
-    "darkred": "AUTOANIM.colorDarkRed"
+    "dark red": "AUTOANIM.colorDarkRed"
 }
 
 AUTOANIM.animColorLaserSwordFree = {
