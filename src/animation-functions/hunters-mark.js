@@ -1,5 +1,4 @@
-import { JB2APATREONDB } from "./jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-free-database.js";
+import colorChecks from "./colorChecks.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -9,26 +8,18 @@ async function huntersMark(handler) {
         return !!game.modules.get(test);
     }
 
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let obj02 = 'huntersmark';
+    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 
-
-    let obj03 = handler.hmAnim;
-    if (obj03 === "a1") { obj03 = "01" };
-    let color;
-    switch (handler.color) {
-        case "a1" || ``:
-            color = 'green';
-            break;
-        default:
-            color = handler.color;
-    }
+    let { color } = colorChecks(handler);
+    let type = handler.hmAnim;
+    if (type === "a1") { type = "01" };
+    if (color === "default") { color = "Green" };
 
     let myToken = handler.actorToken;
     let target = handler.allTargets[0];
 
-    let hmLoop = obj01[obj02][obj03]['loop'][color];
-    let hmPulse = obj01[obj02][obj03]['pulse'][color];
+    let hmLoop = `modules/${path00}/Library/1st_Level/Hunters_Mark/HuntersMark_${type}_Regular_${color}_Loop_200x200.webm`
+    let hmPulse = `modules/${path00}/Library/1st_Level/Hunters_Mark/HuntersMark_${type}_Regular_${color}_Pulse_200x200.webm`
 
     let hmAnimPulseSelf = {
         file: hmPulse,
@@ -78,18 +69,17 @@ async function huntersMark(handler) {
     let tintPost = parseInt(tintPre.substr(1), 16);
     console.log(tintPost);
     let rotationData = {
-        texturePath: hmLoop,
+        belowToken: false,
+        multiple: 1,
+        opacity: 1,
+        radius: .25,
+        rotation: "rotation",
         scale: Scale,
         speed: 10,
-        multiple: 1,
-        rotation: "rotation",
-        xScale: 0.5,
-        yScale: 0.5,
-        belowToken: false,
-        radius: .25,
-        opacity: 1,
+        texturePath: hmLoop,
         tint: tintPost,
-        equip: false
+        xScale: 0.5,
+        yScale: 0.5
     }
 
     let staticData = {
@@ -128,7 +118,7 @@ async function huntersMark(handler) {
     if (game.modules.get("Custom-Token-Animations")?.active) {
         await wait(3000);
 
-        CTA.addAnimation(target, textureData, pushActor, name)
+        CTA.addAnimation(target, textureData, pushToken, pushActor, name, update)
 
         let clsd = false;
         let d = new Dialog({
@@ -142,7 +132,7 @@ async function huntersMark(handler) {
             default: 'yes',
             close: () => {
                 if (clsd === false) console.log('This was closed without using a button');
-                if (clsd === true) CTA.removeAnimByName(target, name, true, true);
+                if (clsd === true) CTA.removeAnimByName(target, name, true);
             }
         },
         { width: 100, height: 75}

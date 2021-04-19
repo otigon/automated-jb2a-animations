@@ -11,10 +11,12 @@ async function ctaCall(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
+    //let { tint, color } = colorChecks(handler);
     let obj02;
     let color;
-    switch (handler.animName) {
-        case "call lightning" || game.i18n.format("AUTOANIM.animCallLightning").toLowerCase():
+    switch (true) {
+        case handler.animName === "call lightning":
+        case handler.animName === game.i18n.format("AUTOANIM.animCallLightning").toLowerCase():
             obj02 = "calllightning";
             switch (true) {
                 case handler.color === "a1" || ``:
@@ -23,9 +25,10 @@ async function ctaCall(handler) {
                     break;
                 default:
                     color = handler.color;
-            }
-            break;
-        case "darkness" || game.i18n.format("AUTOANIM.animDarkness").toLowerCase():
+            }        
+    break;
+        case handler.animName === "darkness":
+        case handler.animName === game.i18n.format("AUTOANIM.animDarkness").toLowerCase():
             obj02 = "darkness";
             switch (true) {
                 case handler.color === "a1" || ``:
@@ -34,13 +37,15 @@ async function ctaCall(handler) {
                     break;
                 default:
                     color = handler.color;
-            }
-            break;
-        case "fog cloud" || game.i18n.format("AUTOANIM.animFogCloud").toLowerCase():
+            }        
+    break;
+        case handler.animName === "fog cloud":
+        case handler.animName === game.i18n.format("AUTOANIM.animFogCloud").toLowerCase():
             obj02 = "fogcloud";
             color = "white";
             break;
-        case "sleetstorm" || game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase():
+        case handler.animName === "sleetstorm":
+        case handler.animName === game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase():
             obj02 = "sleetstorm";
             switch (true) {
                 case handler.color === "a1" || ``:
@@ -49,9 +54,10 @@ async function ctaCall(handler) {
                     break;
                 default:
                     color = handler.color;
-            }
-            break;
-        case "spirit guardians" || game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase():
+            }        
+    break;
+        case handler.animName === "spirit guardians":
+        case handler.animName === game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase():
             obj02 = "spiritguardians";
             switch (true) {
                 case handler.color === "a1" || ``:
@@ -60,9 +66,10 @@ async function ctaCall(handler) {
                     break;
                 default:
                     color = handler.color;
-            }
-            break;
-        case "wall of force" || game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase():
+            }        
+    break;
+        case handler.animName === "wall of force":
+        case handler.animName === game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase():
             obj02 = "wallofforce";
             switch (true) {
                 case handler.color === "a1" || ``:
@@ -71,9 +78,10 @@ async function ctaCall(handler) {
                     break;
                 default:
                     color = handler.color;
-            }
-            break;
-        case "whirlwind" || game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase():
+            }        
+    break;
+        case handler.animName === "whirlwind":
+        case handler.animName === game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase():
             obj02 = "whirlwind";
             switch (true) {
                 case handler.color === "a1" || ``:
@@ -82,8 +90,8 @@ async function ctaCall(handler) {
                     break;
                 default:
                     color = handler.color;
-            }
-            break;
+            }        
+    break;
     }
 
     let filePath = obj01[obj02][color];
@@ -194,7 +202,7 @@ async function ctaCall(handler) {
     let update = false;
     let tokenName = token.name;
 
-    CTA.addAnimation(token, textureData, pushActor, name)
+    CTA.addAnimation(token, textureData, pushToken, pushActor, name, update, randomID())
 
     let clsd = false;
     let d = new Dialog({
@@ -211,11 +219,10 @@ async function ctaCall(handler) {
             if (clsd === true) CTA.removeAnimByName(token, name, true, true);
         }
     },
-        { width: 100, height: 75 }
+    { width: 100, height: 75}
     );
     d.options.resizable = true;
     d.render(true)
-
 }
 
 export default ctaCall;
