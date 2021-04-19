@@ -17,8 +17,11 @@ export class AnimationTab {
                 break;
             case ("tormenta20"):
                 acceptedTypes = ['arma', 'magia', 'consumivel', 'poder'];
+                break;
             case ("D35E"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
+                break;
+
         }
         if (acceptedTypes.includes(data.entity.type)) {
             let tab = animationTabs[app.id];
@@ -182,7 +185,7 @@ export class AnimationTab {
                 hmAnimation.hide();
                 ctaStatic.hide();
         }
-        
+
         switch (true) {
             case (explosion && override &&
                 ((animName.includes(game.i18n.format("AUTOANIM.itemArrow"))) ||
@@ -224,13 +227,13 @@ export class AnimationTab {
 
         switch (true) {
             //case (this.animateItem.animName.toLowerCase().includes("boulder") || this.item.name.toLowerCase().includes("boulder")):
-            case (animName.includes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()) && !override) ):
+            case (animName.includes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()) && !override)):
             //case (this.animateItem.animName.toLowerCase().includes("javelin") || this.item.name.toLowerCase().includes("javelin")):
-            case (animName.includes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()) && !override) ):
+            case (animName.includes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()) && !override)):
             //case (this.animateItem.animName.toLowerCase().includes("siege") || this.item.name.toLowerCase().includes("siege")):
-            case (animName.includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()) && !override) ):
+            case (animName.includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()) && !override)):
             //case (this.animateItem.animName.toLowerCase().includes("throwing") || this.item.name.toLowerCase().includes("throwing")):
-            case (animName.includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()) && !override) ):
+            case (animName.includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()) && !override)):
             case (animType === "t3"):
             case (animName.includes(game.i18n.format("AUTOANIM.itemSling").toLowerCase())):
                 animateColor.hide();
@@ -313,7 +316,7 @@ export class AnimationTab {
         this.html.find('.animation-tab-contents input[type="number"]').change(evt => {
             this.activate = true;
         });
-        
+
         this.html.find('input[name="flags.autoanimations.ctaOption"]').click(evt => {
             //this.animateItem.toggleEnabled(evt.target.unchecked);
             this.activate = true;
