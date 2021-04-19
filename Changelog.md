@@ -1,4 +1,7 @@
-0.2.82:  
+0.2.83-0.2.89  
+- Lots of backend code cleaning and various fixes that came along with it.  
+  
+2.2.82:  
 - Add Scorching Ray Variant form new JB2A  
 - Fixed 30 Foot "Auras" failing to render  
 - Added Critical Hit and Miss Animation Options (customizable to select own animation). This is only active for DnD5e with Midi-QOL until I get time to code the rest.  
