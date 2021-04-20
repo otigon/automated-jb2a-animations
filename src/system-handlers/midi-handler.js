@@ -100,7 +100,7 @@ export default class MidiHandler {
         if (this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
             reach += 5;
         }
-        if (this._item.data.data.properties.rch) {
+        if (this._item.data?.data?.properties?.rch) {
             reach +=5;
         }
         return reach;
