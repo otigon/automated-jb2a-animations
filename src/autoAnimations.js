@@ -3,6 +3,7 @@ import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
 import Dnd35Handler from "./system-handlers/dnd35-handler.js";
 import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
+import SwadeHandler from './system-handlers/swade-handler.js';
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 
@@ -176,10 +177,13 @@ Hooks.on('init', () => {
                 break;
             case "dnd5e":
                 Hooks.on("createChatMessage", async (msg) => { revItUp5eCore(msg) });
+                //Hooks.on("preCreateChatMessage", async (msg, options, userId) => {dnd5ecrits(msg)});
                 break;
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
+            case "swade":
+                Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
         }
         //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
@@ -231,15 +235,21 @@ function moduleIncludes(test) {
 function onCreateChatMessage(msg) {
     log('onCreateChatMessage', msg);
     let handler;
-    switch (game.system.id){
+    switch (game.system.id) {
         case "pf1":
             handler = new Pf1Handler(msg);
             break;
         case "D35E":
             handler = new Dnd35Handler(msg);
+            break;
     }
 
     revItUp(handler)
+}
+
+function swadeData(SwadeActor, SwadeItem) {
+    let handler = new SwadeHandler(SwadeActor, SwadeItem);
+    revItUp(handler);
 }
 
 function revItUpMidi(workflow) {
@@ -586,8 +596,15 @@ async function criticalCheck(workflow) {
             game.socket.emit('module.fxmaster', Anim);
             break;
     }
+    /*
+    Hooks.on("preCreateChatMessage", async (msg, options, userId) => {
+        let rollData = JSON.parse(msg.roll)
+        const critMin = rollData.terms[0].options.critical
+        const rollTotal = rollData.terms[0].results.find(i => i.active).result
 
-
+        if (rollTotal >= critMin) { stuff }
+    })
+    */
 
 }
 

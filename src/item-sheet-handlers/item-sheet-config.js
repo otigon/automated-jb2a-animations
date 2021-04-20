@@ -2,7 +2,6 @@ import { AUTOANIM } from "./config.js";
 import { AnimateItem } from "./animateitem.js";
 const animationTabs = [];
 import getNameColor from "./name-color-checks.js";
-import Pf1Handler from "../system-handlers/pf1-handler.js";
 
 export class AnimationTab {
 
@@ -21,7 +20,11 @@ export class AnimationTab {
             case ("D35E"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
                 break;
-
+            case ("swade"):
+                acceptedTypes = ['weapon', 'gear', 'skill', 'power', 'ability', 'shield'];
+                break;
+            case ("pf2e"):
+                acceptedTypes = ['weapon', 'npc strike', 'consumable', 'spell', 'action'];
         }
         if (acceptedTypes.includes(data.entity.type)) {
             let tab = animationTabs[app.id];
@@ -55,6 +58,14 @@ export class AnimationTab {
             tabs = html.find('form nav.sheet-tabs');
         }
 
+        if (game.system.id === "pf2e") {
+            tabs = html.find('form h4.sheet-tabs.tabs');
+        }
+
+        if (game.system.id === "swade") {
+            tabs = html.find('form nav.flexrow.tabs');
+        }
+
         if (tabs.find('a[data-tab=autoanimations]').length > 0) {
             return;
         }
@@ -75,6 +86,8 @@ export class AnimationTab {
                 ));
                 break;
             case ("tormenta20"):
+            case ("swade"):
+            case ("pf2e"):
                 $(html.find(`.sheet-body`)).append($(
                     '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
                 ));
@@ -83,6 +96,11 @@ export class AnimationTab {
                 $(html.find(`.primary-body`)).append($(
                     '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
                 ));
+                break;
+            case ("swade"):
+                $(html.find('.sheet-header')).append($(
+                    '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
+                ))
         }
 
 
@@ -274,6 +292,9 @@ export class AnimationTab {
         if (this.activate && !this.isActive()) {
             switch (game.system.id) {
                 case ("dnd5e"):
+                case ("swade"):
+                case ("tormenta20"):
+                case ("pf2e"):
                     this.app._tabs[0].activate("autoanimations");
                     this.activate = false;
                     break;
@@ -281,10 +302,6 @@ export class AnimationTab {
                     this.app._tabsAlt.subTabs[0].parent.activate("autoanimations");
                     this.activate = false;
                     break
-                case ("tormenta20"):
-                    this.app._tabs[0].activate("autoanimations");
-                    this.activate = false;
-                    break;
                 case ("D35E"):
                     this.activate = false;
                     break;
