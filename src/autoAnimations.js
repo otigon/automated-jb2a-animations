@@ -272,6 +272,12 @@ function revItUp5eCore(msg) {
     }
     let handler = new Dnd5Handler(msg);
 
+    if (handler.animType === "t11" && handler.animOverride) {
+        if (game.modules.get("Custom-Token-Animations")?.active) {
+            ctaCall(handler);
+        }
+    }
+
     const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
     if (game.settings.get("automated-jb2a-animations", "playonDamageCore")) {
         if (rollType.includes("damage")) {
