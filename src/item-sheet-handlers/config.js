@@ -122,7 +122,7 @@ AUTOANIM.animColorMelee = {
 
 AUTOANIM.animColorMeleeFree = {
     "a1": ``,
-    "regular": `AUTOANIM.colorWhite`,
+    "white": `AUTOANIM.colorWhite`,
 }
 
 AUTOANIM.daggerVariant = {
