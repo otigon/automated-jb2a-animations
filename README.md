@@ -1,4 +1,4 @@
-## NOTE: Use of the Source Field (in DnD 5e) has been deprecated. Moving forward only the Animate Tab will be supported and updated  
+## NOTE: Use of the Source Field (in DnD 5e) has been phased out  
 
 # Automated Animations
 **No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
