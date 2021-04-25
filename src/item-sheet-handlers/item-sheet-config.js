@@ -17,6 +17,9 @@ export class AnimationTab {
             case ("tormenta20"):
                 acceptedTypes = ['arma', 'magia', 'consumivel', 'poder'];
                 break;
+            case ("demonlord"):
+                acceptedTypes = ['weapons', 'spell', 'talent', 'item'];
+                break;
             case ("D35E"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
                 break;
@@ -58,6 +61,10 @@ export class AnimationTab {
             tabs = html.find('form nav.sheet-tabs');
         }
 
+        if (game.system.id === "demonlord") {
+            tabs = html.find('form nav.sheet-tabs');
+        }
+
         if (game.system.id === "pf2e") {
             tabs = html.find('form h4.sheet-tabs.tabs');
         }
@@ -84,6 +91,12 @@ export class AnimationTab {
                 $(html.find(`.primary-body`)).append($(
                     '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
                 ));
+                break;
+            case ("demonlord"):
+                $(html.find(`.sheet-content`)).append($(
+                    '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
+                ));
+                html.find(`.sheet-body`).height(395)
                 break;
             case ("tormenta20"):
             case ("swade"):
@@ -294,6 +307,7 @@ export class AnimationTab {
                 case ("dnd5e"):
                 case ("swade"):
                 case ("tormenta20"):
+                case ("demonlord"):
                 case ("pf2e"):
                     this.app._tabs[0].activate("autoanimations");
                     this.activate = false;
