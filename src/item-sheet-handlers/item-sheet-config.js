@@ -18,7 +18,7 @@ export class AnimationTab {
                 acceptedTypes = ['arma', 'magia', 'consumivel', 'poder'];
                 break;
             case ("demonlord"):
-                acceptedTypes = ['weapons', 'spell', 'talent', 'item'];
+                acceptedTypes = ['weapon', 'spell', 'talent', 'item'];
                 break;
             case ("D35E"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
