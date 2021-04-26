@@ -184,7 +184,7 @@ Hooks.on('init', () => {
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
             case "demonlord":
-                Hooks.on("createChatMessage", async (msg) => { setupDemonLord(msg) });
+                Hooks.on("DL.ApplyDamage", setupDemonLord);
                 break;
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
@@ -270,8 +270,8 @@ function setupTormenta20(msg) {
     revItUp(handler);
 }
 
-function setupDemonLord(msg) {
-    let handler = new DemonLordHandler(msg);
+function setupDemonLord(...args) {
+    let handler = new DemonLordHandler(...args);
     revItUp(handler);
 }
 

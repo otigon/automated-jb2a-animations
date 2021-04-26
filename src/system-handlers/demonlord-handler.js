@@ -1,12 +1,13 @@
 export default class DemonLordHandler {
-    constructor(msg) {
-        const itemId = $(msg.data.content).attr("data-item-id");
-        const tokenId = msg.data.speaker.token;
-  
-        this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
+    constructor({
+        sourceToken,
+        targets,
+        itemId,
+      }) {
+        this._actorToken = sourceToken || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         this._itemId = itemId;
 
-        this._allTargets = Array.from(msg.user.targets);
+        this._allTargets = Array.from(targets)
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
         this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
@@ -59,23 +60,93 @@ export default class DemonLordHandler {
     }
   
     get actor() {
-        return this._actorToken.actor;
+        return this._actorToken;
     }
     
     get reachCheck() {
         let reach = 0;
-        if (this._actorToken.actor?.items?.get(this._itemId)?.data?.data?.propriedades?.alongada) {
+        if (this._actorToken?.items?.get(this._itemId)?.data?.data?.propriedades?.alongada) {
             reach +=5;
         }
         return reach;
     }
   
     get actorToken() {
+        switch (this._actorToken.actor.data.data.characteristics.size) {
+            case "1/8":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "tiny"
+                }
+                break;
+            case "1/4":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "sm"
+                }
+                break;
+            case "2":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "lg"
+                }
+                break;
+            case "4":
+                    this._actorToken.actor.data.data["traits"] = {
+                        size: "huge"
+                    }
+                    break;
+            case "10":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "grg"
+                }
+                break;
+            case "1":
+            default:
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "med"
+                }
+                break;
+        }
         return this._actorToken;
     }
   
     get allTargets() {
-        return this._allTargets;
+        const allTargets = Array.from(this._allTargets);
+        allTargets.forEach((target) => {
+            switch (target.actor.data.data.characteristics.size) {
+                case "1/8":
+                    target.actor.data.data["traits"] = {
+                        size: "tiny"
+                    }
+                    break;
+                case "1/4":
+                    target.actor.data.data["traits"] = {
+                        size: "sm"
+                    }
+                    break;
+                case "2":
+                    target.actor.data.data["traits"] = {
+                        size: "lg"
+                    }   
+                    break;
+                case "4":
+                    target.actor.data.data["traits"] = {
+                        size: "huge"
+                    }
+                    break;
+                case "10":
+                    target.actor.data.data["traits"] = {
+                        size: "grg"
+                    }
+                    break;
+                case "1":
+                default:
+                    target.actor.data.data["traits"] = {
+                        size: "med"
+                    }
+                    break;
+            }
+    
+        });
+        return allTargets;
     }
   
     get targetAssistant() {
@@ -87,7 +158,7 @@ export default class DemonLordHandler {
     }
   
     get itemType() {
-        return this._actorToken.actor.items?.get(itemId).data?.type?.toLowerCase();
+        return this._actorToken.items?.get(itemId).data?.type?.toLowerCase();
     }
   
     get checkSaves() {
