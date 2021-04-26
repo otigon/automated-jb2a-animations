@@ -185,6 +185,7 @@ Hooks.on('init', () => {
                 break;
             case "demonlord":
                 Hooks.on("DL.ApplyDamage", setupDemonLord);
+                Hooks.on("DL.ApplyHealing", setupDemonLord);
                 break;
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
