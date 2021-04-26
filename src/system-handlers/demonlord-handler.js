@@ -7,6 +7,40 @@ export default class DemonLordHandler {
         this._actorToken = sourceToken || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         this._itemId = itemId;
 
+        switch (this._actorToken.actor.data.data.characteristics.size) {
+            case "1/8":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "tiny"
+                }
+                break;
+            case "1/4":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "sm"
+                }
+                break;
+            case "2":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "lg"
+                }
+                break;
+            case "4":
+                    this._actorToken.actor.data.data["traits"] = {
+                        size: "huge"
+                    }
+                    break;
+            case "10":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "grg"
+                }
+                break;
+            case "1":
+            default:
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "med"
+                }
+                break;
+        }
+
         this._allTargets = Array.from(targets)
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
@@ -60,7 +94,7 @@ export default class DemonLordHandler {
     }
   
     get actor() {
-        return this._actorToken;
+        return this._actorToken.actor;
     }
     
     get reachCheck() {
@@ -72,39 +106,6 @@ export default class DemonLordHandler {
     }
   
     get actorToken() {
-        switch (this._actorToken.actor.data.data.characteristics.size) {
-            case "1/8":
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "tiny"
-                }
-                break;
-            case "1/4":
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "sm"
-                }
-                break;
-            case "2":
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "lg"
-                }
-                break;
-            case "4":
-                    this._actorToken.actor.data.data["traits"] = {
-                        size: "huge"
-                    }
-                    break;
-            case "10":
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "grg"
-                }
-                break;
-            case "1":
-            default:
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "med"
-                }
-                break;
-        }
         return this._actorToken;
     }
   
