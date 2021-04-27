@@ -283,3 +283,24 @@ JB2AFREEDB.magicmissile = {
         }
     }
 }
+
+JB2AFREEDB.music = {
+    'blue': {
+        '1': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/BassClef_01_Regular_Blue_200x200.webm',
+        '2': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/BeamedQuavers_01_Regular_Blue_200x200.webm',
+        '3': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Crotchet_01_Regular_Blue_200x200.webm',
+        '4': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Flat_01_Regular_Blue_200x200.webm',
+        '5': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Quaver_01_Regular_Blue_200x200.webm',
+        '6': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Sharp_01_Regular_Blue_200x200.webm',
+        '7': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/TrebleClef_01_Regular_Blue_200x200.webm'
+    }
+}
+
+JB2AFREEDB.mistystep = {
+    "01": {
+        "blue": 'modules/JB2A_DnD5e/Library/2nd_Level/Misty_Step/MistyStep_01_Regular_Blue_400x400.webm'
+    },
+    "02": {
+        "blue": 'modules/JB2A_DnD5e/Library/2nd_Level/Misty_Step/MistyStep_02_Regular_Blue_400x400.webm'
+    }
+}

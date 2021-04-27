@@ -486,6 +486,30 @@ AUTOANIM.hmAnimFree = {
     "01": "Eye",
 }
 
+AUTOANIM.mistystepColor = {
+    'blue': "AUTOANIM.colorBlue",
+    'green': "AUTOANIM.colorGreen",
+    'orange': "AUTOANIM.colorOrange",
+    'purple': "AUTOANIM.colorPurple",
+    'dark green': "AUTOANIM.colorDarkGreen",
+    'dark red': "AUTOANIM.colorDarkRed"
+}
+
+AUTOANIM.mistystepColorFree = {
+    'blue': "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.musicnoteColor = {
+    'blue': "AUTOANIM.colorBlue",
+    'green': "AUTOANIM.colorGreen",
+    'orange': "AUTOANIM.colorOrange",
+    'purple': "AUTOANIM.colorPurple",
+}
+
+AUTOANIM.musicnoteColorFree = {
+    'blue': "AUTOANIM.colorBlue",
+}
+
 AUTOANIM.animTypePick = {
     "t1": ``,
     "t2": "AUTOANIM.typeMelee",

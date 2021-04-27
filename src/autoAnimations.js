@@ -24,6 +24,8 @@ import castOnSelf from "./animation-functions/shield.js";
 import selfCast from "./animation-functions/emanations.js";
 import ctaCall from "./animation-functions/CTAcall.js";
 import huntersMark from "./animation-functions/hunters-mark.js";
+import bardicInspiration from "./animation-functions/bardic-inspiration.js";
+import mistyStep from "./animation-functions/misty-step.js";
 
 import ImagePicker from "./ImagePicker.js";
 
@@ -394,6 +396,12 @@ function revItUp5eCore(msg) {
                                 explodeTemplate(handler);
                             })
                             break;
+                        case handler.itemNameIncludes("misty step"):
+                            mistyStep(handler);
+                            break;
+                        case handler.itemNameIncludes("bardic inspiration"):
+                            bardicInspiration(handler);
+                            break;
                     }
                 }
 
@@ -421,6 +429,12 @@ async function revItUp(handler) {
             if (game.modules.get("Custom-Token-Animations")?.active) {
                 ctaCall(handler);
             }
+            break;
+        case handler.itemNameIncludes("misty step"):
+            mistyStep(handler);
+            break;
+        case handler.itemNameIncludes("bardic inspiration"):
+            bardicInspiration(handler);
             break;
         case handler.itemNameIncludes("rapier"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
@@ -613,7 +627,6 @@ async function criticalCheck(workflow) {
     */
 
 }
-
 
 
 

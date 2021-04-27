@@ -633,7 +633,7 @@ JB2APATREONDB.huntersmark = {
 
 JB2APATREONDB.magicmissile = {
     'blue': {
-        '30':{
+        '30': {
             '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_01_1600x400.webm',
             '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_02_1600x400.webm',
             '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_03_1600x400.webm',
@@ -644,7 +644,7 @@ JB2APATREONDB.magicmissile = {
             '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_08_1600x400.webm',
             '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_30ft_09_1600x400.webm',
         },
-        '60':{
+        '60': {
             '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_01_2800x400.webm',
             '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_02_2800x400.webm',
             '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Blue_60ft_03_2800x400.webm',
@@ -657,7 +657,7 @@ JB2APATREONDB.magicmissile = {
         }
     },
     'green': {
-        '30':{
+        '30': {
             '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_01_1600x400.webm',
             '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_02_1600x400.webm',
             '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_03_1600x400.webm',
@@ -668,7 +668,7 @@ JB2APATREONDB.magicmissile = {
             '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_08_1600x400.webm',
             '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_30ft_09_1600x400.webm',
         },
-        '60':{
+        '60': {
             '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_01_2800x400.webm',
             '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_02_2800x400.webm',
             '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Green_60ft_03_2800x400.webm',
@@ -681,7 +681,7 @@ JB2APATREONDB.magicmissile = {
         }
     },
     'purple': {
-        '30':{
+        '30': {
             '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_01_1600x400.webm',
             '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_02_1600x400.webm',
             '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_03_1600x400.webm',
@@ -692,7 +692,7 @@ JB2APATREONDB.magicmissile = {
             '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_08_1600x400.webm',
             '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_09_1600x400.webm',
         },
-        '60':{
+        '60': {
             '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_01_2800x400.webm',
             '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_02_2800x400.webm',
             '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_03_2800x400.webm',
@@ -705,7 +705,7 @@ JB2APATREONDB.magicmissile = {
         }
     },
     'yellow': {
-        '30':{
+        '30': {
             '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_01_1600x400.webm',
             '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_02_1600x400.webm',
             '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_03_1600x400.webm',
@@ -716,7 +716,7 @@ JB2APATREONDB.magicmissile = {
             '8': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_08_1600x400.webm',
             '9': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_30ft_09_1600x400.webm',
         },
-        '60':{
+        '60': {
             '1': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_01_2800x400.webm',
             '2': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_02_2800x400.webm',
             '3': 'modules/jb2a_patreon/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Yellow_60ft_03_2800x400.webm',
@@ -730,3 +730,60 @@ JB2APATREONDB.magicmissile = {
     }
 }
 
+JB2APATREONDB.music = {
+    'blue': {
+        '1': 'modules/jb2a_patreon/Library/Generic/Music_Notation/BassClef_01_Regular_Blue_200x200.webm',
+        '2': 'modules/jb2a_patreon/Library/Generic/Music_Notation/BeamedQuavers_01_Regular_Blue_200x200.webm',
+        '3': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Crotchet_01_Regular_Blue_200x200.webm',
+        '4': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Flat_01_Regular_Blue_200x200.webm',
+        '5': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Quaver_01_Regular_Blue_200x200.webm',
+        '6': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Sharp_01_Regular_Blue_200x200.webm',
+        '7': 'modules/jb2a_patreon/Library/Generic/Music_Notation/TrebleClef_01_Regular_Blue_200x200.webm'
+    },
+    'green': {
+        '1': 'modules/jb2a_patreon/Library/Generic/Music_Notation/BassClef_01_Regular_Green_200x200.webm',
+        '2': 'modules/jb2a_patreon/Library/Generic/Music_Notation/BeamedQuavers_01_Regular_Green_200x200.webm',
+        '3': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Crotchet_01_Regular_Green_200x200.webm',
+        '4': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Flat_01_Regular_Green_200x200.webm',
+        '5': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Quaver_01_Regular_Green_200x200.webm',
+        '6': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Sharp_01_Regular_Green_200x200.webm',
+        '7': 'modules/jb2a_patreon/Library/Generic/Music_Notation/TrebleClef_01_Regular_Green_200x200.webm'
+    },
+    'orange': {
+        '1': 'modules/jb2a_patreon/Library/Generic/Music_Notation/BassClef_01_Regular_Orange_200x200.webm',
+        '2': 'modules/jb2a_patreon/Library/Generic/Music_Notation/BeamedQuavers_01_Regular_Orange_200x200.webm',
+        '3': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Crotchet_01_Regular_Orange_200x200.webm',
+        '4': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Flat_01_Regular_Orange_200x200.webm',
+        '5': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Quaver_01_Regular_Orange_200x200.webm',
+        '6': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Sharp_01_Regular_Orange_200x200.webm',
+        '7': 'modules/jb2a_patreon/Library/Generic/Music_Notation/TrebleClef_01_Regular_Orange_200x200.webm'
+    },
+    'purple': {
+        '1': 'modules/jb2a_patreon/Library/Generic/Music_Notation/BassClef_01_Regular_Purple_200x200.webm',
+        '2': 'modules/jb2a_patreon/Library/Generic/Music_Notation/BeamedQuavers_01_Regular_Purple_200x200.webm',
+        '3': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Crotchet_01_Regular_Purple_200x200.webm',
+        '4': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Flat_01_Regular_Purple_200x200.webm',
+        '5': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Quaver_01_Regular_Purple_200x200.webm',
+        '6': 'modules/jb2a_patreon/Library/Generic/Music_Notation/Sharp_01_Regular_Purple_200x200.webm',
+        '7': 'modules/jb2a_patreon/Library/Generic/Music_Notation/TrebleClef_01_Regular_Purple_200x200.webm'
+    }
+}
+
+JB2APATREONDB.mistystep = {
+    "01": {
+        "blue": 'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_01_Regular_Blue_400x400.webm',
+        "green":'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_01_Regular_Green_400x400.webm',
+        "orange":'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_01_Regular_Orange_400x400.webm',
+        "purple":'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_01_Regular_Purple_400x400.webm',
+        "dark green":'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_01_Dark_Green_400x400.webm',
+        "dark red": 'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_01_Dark_Red_400x400.webm'
+    },
+    "02": {
+        "blue": 'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_02_Regular_Blue_400x400.webm',
+        "green":'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_02_Regular_Green_400x400.webm',
+        "orange":'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_02_Regular_Orange_400x400.webm',
+        "purple":'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_02_Regular_Purple_400x400.webm',
+        "dark green":'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_02_Dark_Green_400x400.webm',
+        "dark red": 'modules/jb2a_patreon/Library/2nd_Level/Misty_Step/MistyStep_02_Dark_Red_400x400.webm'
+    }
+}
