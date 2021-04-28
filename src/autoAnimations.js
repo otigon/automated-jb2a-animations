@@ -3,6 +3,7 @@ import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
 import Dnd35Handler from "./system-handlers/dnd35-handler.js";
 import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
+import DemonLordHandler from './system-handlers/demonlord-handler.js';
 import SwadeHandler from './system-handlers/swade-handler.js';
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
@@ -182,6 +183,10 @@ Hooks.on('init', () => {
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
+            case "demonlord":
+                Hooks.on("DL.ApplyDamage", setupDemonLord);
+                Hooks.on("DL.ApplyHealing", setupDemonLord);
+                break;
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
         }
@@ -263,6 +268,11 @@ function criticalChecks(workflow) {
 
 function setupTormenta20(msg) {
     let handler = new Tormenta20Handler(msg);
+    revItUp(handler);
+}
+
+function setupDemonLord(...args) {
+    let handler = new DemonLordHandler(...args);
     revItUp(handler);
 }
 
