@@ -270,6 +270,20 @@ export class AnimateItem {
                     return AUTOANIM.localized(AUTOANIM.hmColorsFree);
                 }
                 break;
+            case this.itemName === "misty step":
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.localized(AUTOANIM.mistystepColor);
+                } else {
+                    return AUTOANIM.localized(AUTOANIM.mistystepColorFree);
+                }
+                break;
+            case this.itemName === "bardic inspiration":
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.localized(AUTOANIM.musicnoteColor);
+                } else {
+                    return AUTOANIM.localized(AUTOANIM.musicnoteColorFree);
+                }
+                break;
             default:
                 return AUTOANIM.localized(AUTOANIM.animNull);
                 break;
