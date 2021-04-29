@@ -173,6 +173,7 @@ AUTOANIM.animColorEBlast = {
     "green": "AUTOANIM.colorGreen",
     "yellow": "AUTOANIM.colorYellow",
     "dark red": "AUTOANIM.colorDarkRed",
+    "orange": "AUTOANIM.colorOrange"
 }
 
 AUTOANIM.animColorEBlastFree = {
@@ -395,7 +396,8 @@ AUTOANIM.spiritguardianColors = {
     "dark red": "AUTOANIM.colorDarkRed",
     "yellow blue": "AUTOANIM.colorYellowBlue",
     "green orange": "AUTOANIM.colorGreenOrange",
-    "pink purple": "AUTOANIM.colorPinkPurple"
+    "pink purple": "AUTOANIM.colorPinkPurple",
+    "dark white blue": "AUTOANIM.colorDarkWhiteBlue"
 }
 
 AUTOANIM.spiritguardianColorsFree = {
@@ -487,6 +489,7 @@ AUTOANIM.hmAnimFree = {
 }
 
 AUTOANIM.mistystepColor = {
+    "a1": ``,
     'blue': "AUTOANIM.colorBlue",
     'green': "AUTOANIM.colorGreen",
     'orange': "AUTOANIM.colorOrange",
@@ -496,10 +499,12 @@ AUTOANIM.mistystepColor = {
 }
 
 AUTOANIM.mistystepColorFree = {
+    "a1": ``,
     'blue': "AUTOANIM.colorBlue",
 }
 
 AUTOANIM.musicnoteColor = {
+    "a1": ``,
     'blue': "AUTOANIM.colorBlue",
     'green': "AUTOANIM.colorGreen",
     'orange': "AUTOANIM.colorOrange",
@@ -507,7 +512,33 @@ AUTOANIM.musicnoteColor = {
 }
 
 AUTOANIM.musicnoteColorFree = {
+    "a1": ``,
     'blue': "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.uaStrikeColor = {
+    "a1": ``,
+    'blue': "AUTOANIM.colorBlue",
+    'green': "AUTOANIM.colorGreen",
+    "yellow": "AUTOANIM.colorYellow",
+    "dark red": "AUTOANIM.colorDarkRed"
+}
+
+AUTOANIM.uaStrikeType = {
+    "physical": "AUTOANIM.uaPhysical",
+    "magical": "AUTOANIM.uaMagical",
+}
+
+AUTOANIM.guidingboltColor = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+}
+
+AUTOANIM.guidingboltColorFree = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
 }
 
 AUTOANIM.animTypePick = {

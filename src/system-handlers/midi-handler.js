@@ -30,6 +30,7 @@ export default class MidiHandler {
         this._auraOpacity = this._flags.auraOpacity ?? "";
         this._ctaOption = this._flags.ctaOption ?? "";
         this._hmAnim = this._flags.hmAnim ?? "";
+        this._uaStrikeType = this._flags.uaStrikeType ?? "";
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
@@ -204,6 +205,10 @@ export default class MidiHandler {
 
     get hmAnim() {
         return this._hmAnim;
+    }
+
+    get uaStrikeType() {
+        return this._uaStrikeType;
     }
 
     getDistanceTo(target) {

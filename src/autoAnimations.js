@@ -27,6 +27,7 @@ import ctaCall from "./animation-functions/CTAcall.js";
 import huntersMark from "./animation-functions/hunters-mark.js";
 import bardicInspiration from "./animation-functions/bardic-inspiration.js";
 import mistyStep from "./animation-functions/misty-step.js";
+import unarmedStrike from "./animation-functions/unarmed-strike.js";
 
 import ImagePicker from "./ImagePicker.js";
 
@@ -541,6 +542,7 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
         case (handler.itemNameIncludes("disintegrate")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
+        case handler.itemNameIncludes("guiding bolt"):
             spellAttacks(handler);
             break;
         case (handler.itemNameIncludes("shield")):
@@ -573,8 +575,10 @@ async function revItUp(handler) {
         */
         case handler.itemNameIncludes("unarmed strike"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
+        case handler.itemNameIncludes("flurry of blows"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
             if (moduleIncludes("jb2a_patreon")) {
-                randomGenDmg(handler);
+                unarmedStrike(handler);
             }
             break;
 

@@ -117,6 +117,20 @@ async function spellAttacks(handler) {
             spellPath02 = obj01[obj02][color]['60'];
             spellPath03 = obj01[obj02][color]['90'];
             break;
+        case handler.itemNameIncludes("guiding bolt"):
+            obj02 = "guidingbolt";
+            switch (true) {
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "blue yellow";
+                    break;
+                default:
+                    color = handler.color;
+            }
+            spellPath01 = obj01[obj02][color]['30'];
+            spellPath02 = obj01[obj02][color]['60'];
+            spellPath03 = obj01[obj02][color]['90'];
+            break;
     }
     let tmColor = TMFXCOLORS[color]();
     let letitBurn =
@@ -360,6 +374,7 @@ async function spellAttacks(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
                 case (handler.itemNameIncludes("eldritch blast")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
+                case handler.itemNameIncludes("guiding bolt"):
                     switch (true) {
                         case (anDist <= 1400):
                             anFileSize = 1200;

@@ -24,6 +24,7 @@ export class AnimateItem {
         this.auraOpacity = this.data.auraOpacity;
         this.ctaOption = this.data.ctaOption;
         this.hmAnim = this.data.hmAnim;
+        this.uaStrikeType = this.data.uaStrikeType;
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -45,6 +46,7 @@ export class AnimateItem {
             animTint: ``,
             auraOpacity: ``,
             hmAnim: ``,
+            uaStrikeType: ``,
             //itemName = ``,
             //animTypeVar = ``,
         }
@@ -124,6 +126,13 @@ export class AnimateItem {
                     return AUTOANIM.localized(AUTOANIM.animColorCureWounds);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.animColorCureWoundsFree);
+                }
+                break;
+            case this.itemName.includes("guiding bolt"):
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.localized(AUTOANIM.guidingboltColor);
+                } else {
+                    return AUTOANIM.localized(AUTOANIM.guidingboltColorFree);
                 }
                 break;
             case (this.itemName.includes("disintegrate")):
@@ -284,6 +293,12 @@ export class AnimateItem {
                     return AUTOANIM.localized(AUTOANIM.musicnoteColorFree);
                 }
                 break;
+            case this.itemName.includes("unarmed strike"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
+            case this.itemName.includes("flurry of blows"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
+                return AUTOANIM.localized(AUTOANIM.uaStrikeColor);
+                break;
             default:
                 return AUTOANIM.localized(AUTOANIM.animNull);
                 break;
@@ -388,6 +403,10 @@ export class AnimateItem {
         } else {
             return AUTOANIM.localized(AUTOANIM.hmAnimFree);
         }
+    }
+
+    get uaStrike() {
+        return AUTOANIM.localized(AUTOANIM.uaStrikeType);
     }
     /*
     changeFlag(scope, key, value){

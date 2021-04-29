@@ -25,6 +25,7 @@ export default class GeneralAnimHandler {
         this._auraOpacity = this._flags.auraOpacity ?? "";
         this._ctaOption = this._flags.ctaOption ?? "";
         this._hmAnim = this._flags.hmAnim ?? "";
+        this._uaStrikeType = this._flags.uaStrikeType ?? "";
         
         this._itemName = this._item.name?.toLowerCase() ?? '';;
         this._itemSource = this._item.data?.data?.source?.toLowerCase() ?? '';
@@ -161,6 +162,10 @@ export default class GeneralAnimHandler {
 
     get hmAnim() {
         return this._hmAnim;
+    }
+
+    get uaStrikeType() {
+        return this._uaStrikeType;
     }
 
     getDistanceTo(target) {

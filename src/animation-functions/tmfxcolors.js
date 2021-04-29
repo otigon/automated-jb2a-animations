@@ -35,6 +35,9 @@ export const TMFXCOLORS = {
     'yellow blue': function () {
         return 0xACC5C5;
     },
+    'blue yellow': function () {
+        return;
+    },
     'dark blue': function () {
         // need to do
         return;
@@ -58,6 +61,9 @@ export const TMFXCOLORS = {
     },
     'pink purple': function () {
         // need to do
+        return;
+    },
+    'purple pink': function () {
         return;
     },
     'blue orange': function () {

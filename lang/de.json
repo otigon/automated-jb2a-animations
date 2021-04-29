@@ -198,5 +198,11 @@
     "AUTOANIM.critmissAnim_name": "Kritischer-Fehlschlag-Animation",
 
     "AUTOANIM.globaldelay_name": "Globale Verzögerung",
-    "AUTOANIM.globaldelay_hint": "Verzögern Sie den Start aller Animationen in Millisekunden"
+    "AUTOANIM.globaldelay_hint": "Verzögern Sie den Start aller Animationen in Millisekunden",
+
+    "AUTOANIM.colorDarkWhiteBlue": "Dunkel Weiß Blau",
+    "AUTOANIM.uaMagical": "Magical",
+    "AUTOANIM.uaPhysical": "Physical",
+    "AUTOANIM.uaType": "Unarmed Type",
+    "AUTOANIM.itemFlurryBlows": "Flurry of Blows"
 }

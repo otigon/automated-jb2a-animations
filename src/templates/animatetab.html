@@ -69,6 +69,20 @@
                 </div>
             </div>
         </div>
+        <div class="ua-strike-type">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.uaType"}}</label>
+                <div class="form-fields">
+                    <select name="flags.autoanimations.uaStrikeType" class="ua-strike-type">
+                        {{#select uaStrikeType}}
+                        {{#each uaStrike as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="animation-ranged-color">
             <div class="form-group">
                 <label>{{localize "AUTOANIM.menuNoRangeColor"}}</label>

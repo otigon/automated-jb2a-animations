@@ -161,6 +161,7 @@ export class AnimationTab {
         let ctaStatic = this.html.find('.rotation-static');
         let hmAnimation = this.html.find('.hm-animation');
         let ctaRequired = this.html.find('.cta-required');
+        let uaStrikeType = this.html.find('.ua-strike-type');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
@@ -217,6 +218,19 @@ export class AnimationTab {
                 ctaStatic.hide();
         }
 
+        switch (true) {
+            case this.itemName.includes("unarmed strike"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
+            case this.itemName.includes("flurry of blows"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
+                uaStrikeType.show();
+                break;
+            case this.animateItem.override:
+                uaStrikeType.hide();
+                break;
+            default:
+                uaStrikeType.hide();
+        }
         switch (true) {
             case (explosion && override &&
                 ((animName.includes(game.i18n.format("AUTOANIM.itemArrow"))) ||

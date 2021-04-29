@@ -198,6 +198,11 @@
     "AUTOANIM.midionmiss_hint": "On a Miss, the Animation will veer off target. Requires MIDI Workflow to check for hits",
 
     "AUTOANIM.globaldelay_name": "Global Delay",
-    "AUTOANIM.globaldelay_hint": "Delay the Start of All Animations in milliseconds"
+    "AUTOANIM.globaldelay_hint": "Delay the Start of All Animations in milliseconds",
 
+    "AUTOANIM.colorDarkWhiteBlue": "Dark White Blue",
+    "AUTOANIM.uaMagical": "Magical",
+    "AUTOANIM.uaPhysical": "Physical",
+    "AUTOANIM.uaType": "Unarmed Type",
+    "AUTOANIM.itemFlurryBlows": "Flurry of Blows"
 }

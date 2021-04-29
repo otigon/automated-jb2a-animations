@@ -243,6 +243,9 @@ JB2AFREEDB.explosion = {
     },
     "02": {
         "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
+    },
+    "03": {
+        "blue yellow": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm'
     }
 }
 
@@ -302,5 +305,50 @@ JB2AFREEDB.mistystep = {
     },
     "02": {
         "blue": 'modules/JB2A_DnD5e/Library/2nd_Level/Misty_Step/MistyStep_02_Regular_Blue_400x400.webm'
+    }
+}
+
+JB2AFREEDB.unarmedstrike = {
+    'magical': {
+        'blue': {
+            '01': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Regular_Blue_Magical01_800x600.webm',
+            '02': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Regular_Blue_Magical02_800x600.webm'
+        }
+    },
+    'physical': {
+        'blue': {
+            '01': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Regular_Blue_Physical01_800x600.webm',
+            '02': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Regular_Blue_Physical02_800x600.webm'
+        }
+    }
+}
+
+JB2AFREEDB.flurryofblows = {
+    'magical': {
+
+        'blue': {
+            '01': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Blue_Magical01_800x600.webm',
+            '02': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Blue_Magical02_800x600.webm'
+        }
+    },
+    'physical': {
+        'blue': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Blue_Physical01_800x600.webm'
+    }
+}
+
+JB2AFREEDB.impact = {
+    '01': {
+        'blue': 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm'
+    },
+    '02': {
+        'blue': 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm'
+    }
+}
+
+JB2AFREEDB.guidingbolt = {
+    'blue yellow': {
+        '30': 'modules/JB2A_DnD5e/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_30ft_1600x400.webm',
+        '60': 'modules/JB2A_DnD5e/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_60ft_2800x400.webm',
+        '90': 'modules/JB2A_DnD5e/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_90ft_4000x400.webm'
     }
 }

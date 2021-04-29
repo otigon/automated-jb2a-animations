@@ -65,6 +65,7 @@ export default class DemonLordHandler {
         this._auraOpacity = this._flags.auraOpacity ?? "";
         this._ctaOption = this._flags.ctaOption ?? "";
         this._hmAnim = this._flags.hmAnim ?? "";
+        this._uaStrikeType = this._flags.uaStrikeType ?? "";
   
         //console.log(this._animName);
         this._animNameFinal;
@@ -234,6 +235,10 @@ export default class DemonLordHandler {
         return this._hmAnim;
     }
     
+    get uaStrikeType() {
+        return this._uaStrikeType;
+    }
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {
