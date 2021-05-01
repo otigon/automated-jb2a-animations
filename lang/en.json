@@ -138,7 +138,7 @@
 
 
     "AUTOANIM.typeMelee": "Melee Weapon",
-    "AUTOANIM.typeGenMelee": "Generic Melee Damage",
+    "AUTOANIM.typeGenMelee": "Melee Damage",
     "AUTOANIM.typeRanged": "Ranged Weapon",
     "AUTOANIM.typeCreature": "Creature Attack",
     "AUTOANIM.typeAttackSpell": "Attack Spell",
@@ -204,5 +204,6 @@
     "AUTOANIM.uaMagical": "Magical",
     "AUTOANIM.uaPhysical": "Physical",
     "AUTOANIM.uaType": "Unarmed Type",
-    "AUTOANIM.itemFlurryBlows": "Flurry of Blows"
+    "AUTOANIM.itemFlurryBlows": "Flurry of Blows",
+    "AUTOANIM.itemGuidingBolt": "Guiding Bolt"
 }

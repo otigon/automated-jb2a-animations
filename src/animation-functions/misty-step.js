@@ -108,6 +108,7 @@ async function mistyStep(handler) {
 
             }
 
+            await canvas.templates.deleteMany([removeTemplates[0].id, removeTemplates[1].id]);
             token.update({ "hidden": !token.data.hidden })
             await token.update({ x: template.x, y: template.y }, { animate: false })
             await wait(1500);
@@ -141,7 +142,6 @@ async function mistyStep(handler) {
 
             }
 
-            await canvas.templates.deleteMany([removeTemplates[0].id, removeTemplates[1].id]);
             //await actor.deleteEmbeddedEntity("ActiveEffect", lastArg.effectId);
             await wait(1500);
             token.update({ "hidden": !token.data.hidden })

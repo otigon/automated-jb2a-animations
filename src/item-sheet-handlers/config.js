@@ -10,7 +10,8 @@ AUTOANIM.animNameAttackSpell = {
     "a5": "AUTOANIM.itemMagicMissile",
     "a6": "AUTOANIM.itemRayFrost",
     "a7": "AUTOANIM.itemScorchingRay",
-    "a8": "AUTOANIM.itemWitchBolt"
+    "a8": "AUTOANIM.itemWitchBolt",
+    "a9": "AUTOANIM.itemGuidingBolt"
 };
 
 AUTOANIM.animNameHealSpell = {
@@ -65,6 +66,8 @@ AUTOANIM.animNameGenericDmg = {
     "2 handed slashing": "AUTOANIM.item2HS",
     "2 handed piercing": "AUTOANIM.item2HP",
     "2 handed bludgeoning": "AUTOANIM.item2HB",
+    "unarmed strike": "AUTOANIM.itemUnarmedStrike",
+    "flurry of blows": "AUTOANIM.itemFlurryBlows"
 }
 
 AUTOANIM.animNameGenericDmgFree = {

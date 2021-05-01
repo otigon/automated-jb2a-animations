@@ -204,5 +204,7 @@
     "AUTOANIM.uaMagical": "Magical",
     "AUTOANIM.uaPhysical": "Physical",
     "AUTOANIM.uaType": "Unarmed Type",
-    "AUTOANIM.itemFlurryBlows": "Flurry of Blows"
+    "AUTOANIM.itemFlurryBlows": "Flurry of Blows",
+    "AUTOANIM.itemGuidingBolt": "Guiding Bolt"
+
 }

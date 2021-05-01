@@ -220,8 +220,10 @@ export class AnimationTab {
 
         switch (true) {
             case this.itemName.includes("unarmed strike"):
+            case animName.includes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
             case this.itemName.includes("flurry of blows"):
+            case animName.includes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
                 uaStrikeType.show();
                 break;
@@ -248,7 +250,7 @@ export class AnimationTab {
                 animateColor.hide();
                 break;
             case ((animType === "t3") && (override)):
-                animateColor.hide();
+                //animateColor.hide();
                 explosionOptions.hide();
                 break;
             default:
@@ -279,7 +281,7 @@ export class AnimationTab {
             case (animName.includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()) && !override)):
             //case (this.animateItem.animName.toLowerCase().includes("throwing") || this.item.name.toLowerCase().includes("throwing")):
             case (animName.includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()) || (this.itemName.includes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()) && !override)):
-            case (animType === "t3"):
+            //case (animType === "t3"):
             case (animName.includes(game.i18n.format("AUTOANIM.itemSling").toLowerCase())):
                 animateColor.hide();
                 break;
