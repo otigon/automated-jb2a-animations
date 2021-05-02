@@ -42,7 +42,7 @@ async function mistyStep(handler) {
         let pos;
         canvas.app.stage.addListener('pointerdown', event => {
             pos = event.data.getLocalPosition(canvas.app.stage);
-            console.log(`x: ${pos.x}, y: ${pos.y}`);
+            //console.log(`x: ${pos.x}, y: ${pos.y}`);
             deleteTemplatesAndMove();
         });
 
@@ -50,7 +50,7 @@ async function mistyStep(handler) {
             canvas.app.stage.removeListener('pointerdown');
 
             let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
-            console.log(gridPos);
+            //console.log(gridPos);
     
             if (token != undefined) {
 

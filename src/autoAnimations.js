@@ -163,10 +163,12 @@ Hooks.on('init', () => {
         log("midi IS active");
         switch (game.settings.get("automated-jb2a-animations", "playonDamage")) {
             case (true):
-                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { revItUpMidi(workflow) })
+                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { revItUpMidi(workflow) });
+                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg)});
                 break;
             case (false):
-                Hooks.on("midi-qol.RollComplete", (workflow) => { revItUpMidi(workflow) })
+                Hooks.on("midi-qol.RollComplete", (workflow) => { revItUpMidi(workflow) });
+                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg)});
                 break;
         }
         if (game.settings.get("automated-jb2a-animations", "EnableCritical") || game.settings.get("automated-jb2a-animations", "EnableCriticalMiss")) {
@@ -251,7 +253,11 @@ function onCreateChatMessage(msg) {
             handler = new Dnd35Handler(msg);
             break;
     }
-
+    switch (true) {
+        case ((handler.animName === "misty step") && (!handler.animKill)):
+            mistyStep(handler);
+            break;
+    }
     revItUp(handler)
 }
 
@@ -271,24 +277,51 @@ function criticalChecks(workflow) {
 
 function setupTormenta20(msg) {
     let handler = new Tormenta20Handler(msg);
+    switch (true) {
+        case ((handler.animName === "misty step") && (!handler.animKill)):
+            mistyStep(handler);
+            break;
+    }
     revItUp(handler);
 }
 
 function setupDemonLord(...args) {
     let handler = new DemonLordHandler(...args);
+    switch (true) {
+        case ((handler.animName === "misty step") && (!handler.animKill)):
+            mistyStep(handler);
+            break;
+    }
     revItUp(handler);
 }
 
+function specialCaseAnimations(msg) {
+    let handler = new Dnd5Handler(msg);
+    if (handler.animName !== "misty step") {return}
+    mistyStep(handler);
+}
+
 function revItUp5eCore(msg) {
+    let handler = new Dnd5Handler(msg);
+
     if (game.modules.get("mars-5e")?.active) {
+        switch (true) {
+            case ((handler.animName === "misty step") && (!handler.animKill)):
+                mistyStep(handler);
+                break;
+        }    
         return;
     }
-    let handler = new Dnd5Handler(msg);
 
     if (handler.animType === "t11" && handler.animOverride) {
         if (game.modules.get("Custom-Token-Animations")?.active) {
             ctaCall(handler);
         }
+    }
+    switch (true) {
+        case ((handler.animName === "misty step") && (!handler.animKill)):
+            mistyStep(handler);
+            break;
     }
 
     const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
@@ -407,9 +440,11 @@ function revItUp5eCore(msg) {
                                 explodeTemplate(handler);
                             })
                             break;
+                        /*
                         case handler.itemNameIncludes("misty step"):
                             mistyStep(handler);
                             break;
+                        */
                         case handler.itemNameIncludes("bardic inspiration"):
                             bardicInspiration(handler);
                             break;
@@ -441,9 +476,11 @@ async function revItUp(handler) {
                 ctaCall(handler);
             }
             break;
+        /*
         case handler.itemNameIncludes("misty step"):
             mistyStep(handler);
             break;
+        */
         case handler.itemNameIncludes("bardic inspiration"):
             bardicInspiration(handler);
             break;
