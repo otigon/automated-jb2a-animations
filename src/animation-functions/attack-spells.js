@@ -392,6 +392,7 @@ async function spellAttacks(handler) {
                             anchorX = 0.071;
                             break;
                     }
+                    anScale = anDist / anFileSize;
                     switch (true) {
                         case anDist <= 300:
                             anScaleY = 0.4;
@@ -415,7 +416,6 @@ async function spellAttacks(handler) {
                             anScaleY = anScale;
                             break;
                     }
-                    anScale = anDist / anFileSize;
                     break;
                 case (handler.itemNameIncludes("ray", "frost")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
@@ -438,6 +438,7 @@ async function spellAttacks(handler) {
                             anchorX = 0.125;
                             break;
                     }
+                    anScale = anDist / anFileSize;
                     switch (true) {
                         case anDist <= 300:
                             anScaleY = 0.4;
@@ -461,7 +462,6 @@ async function spellAttacks(handler) {
                             anScaleY = anScale;
                             break;
                     }
-                    anScale = anDist / anFileSize;
                     break;
                 case (handler.itemNameIncludes("witch bolt")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
@@ -477,6 +477,7 @@ async function spellAttacks(handler) {
                             anchorX = 0.125;
                             break;
                     }
+                    anScale = anDist / anFileSize;
                     switch (true) {
                         case anDist <= 300:
                             anScaleY = 0.7;
@@ -494,7 +495,6 @@ async function spellAttacks(handler) {
                             anScaleY = anScale;
                             break;
                     }
-                    anScale = anDist / anFileSize;
                     break;
             }
 
@@ -512,7 +512,6 @@ async function spellAttacks(handler) {
                     y: (anScaleY * plusOrMinus)
                 }
             };
-
             handler.allTargets.forEach(async (i) => {
                 canvas.fxmaster.playVideo(spellAnim);
                 game.socket.emit('module.fxmaster', spellAnim);
