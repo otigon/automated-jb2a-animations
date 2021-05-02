@@ -21,14 +21,10 @@ async function mistyStep(handler) {
             color = handler.color;
     }
 
-    let actor = handler.actor;
     const token = handler.actorToken;
-    const folder01 = "imports/custom_spellfx/";
     let anFile1 = obj01[obj02]['01'][color];
     let anFile2 = obj01[obj02]['02'][color];
 
-    let anDeg;
-    let ray;
     let myScale = canvas.grid.size / 100 * .6;
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -38,55 +34,25 @@ async function mistyStep(handler) {
         x: token.x + canvas.grid.size / 2,
         y: token.y + canvas.grid.size / 2,
         direction: 0,
-        distance: 30,
-
+        distance: 32.5,
         borderColor: "#FF0000",
-        flags: {
-            DAESRD: {
-                MistyStep: {
-                    ActorId: actor.id
-                }
-            }
-        }
-
     });
 
     range.then(result => {
-        let templateData = {
-            t: "rect",
-            user: game.user._id,
-            distance: 7.5,
-            direction: 45,
-            x: 0,
-            y: 0,
-            fillColor: game.user.color,
-            flags: {
-                DAESRD: {
-                    MistyStep: {
-                        ActorId: actor.id
-                    }
-                }
-            }
-        };
-
-
-
-        Hooks.once("createMeasuredTemplate", deleteTemplatesAndMove);
-
-        let template = new game.dnd5e.canvas.AbilityTemplate(templateData);
-        template.actorSheet = actor.sheet;
-        template.drawPreview();
+        let pos;
+        canvas.app.stage.addListener('pointerdown', event => {
+            pos = event.data.getLocalPosition(canvas.app.stage);
+            console.log(`x: ${pos.x}, y: ${pos.y}`);
+            deleteTemplatesAndMove();
+        });
 
         async function deleteTemplatesAndMove(scene, template) {
+            canvas.app.stage.removeListener('pointerdown');
 
-            let removeTemplates = canvas.templates.placeables.filter(i => i.data.flags.DAESRD?.MistyStep?.ActorId === actor.id);
-
-
+            let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
+            console.log(gridPos);
+    
             if (token != undefined) {
-
-                ray = new Ray(token.center, { x: template.x + canvas.grid.size / 2, y: template.y + canvas.grid.size / 2 });
-                // Determines the angle
-                anDeg = -(ray.angle * 57.3) - 90;
 
                 const data = {
                     file: anFile1,
@@ -95,41 +61,37 @@ async function mistyStep(handler) {
                         x: .5,
                         y: .5
                     },
-                    angle: anDeg,
+                    angle: 0,
                     speed: 0,
                     scale: {
                         x: myScale,
                         y: myScale
                     }
                 }
-
                 canvas.fxmaster.playVideo(data);
                 game.socket.emit('module.fxmaster', data);
-
             }
-
-            await canvas.templates.deleteMany([removeTemplates[0].id, removeTemplates[1].id]);
+            let templateLength = canvas.templates.placeables.length;
+            let template01 = canvas.templates.placeables[(templateLength - 1)].id;
+            await canvas.templates.get(template01).delete()
+            await wait(750);
             token.update({ "hidden": !token.data.hidden })
-            await token.update({ x: template.x, y: template.y }, { animate: false })
-            await wait(1500);
+            await token.update({ x: gridPos[0], y: gridPos[1] }, { animate: false })
+            await wait(750);
 
             if (token != undefined) {
-
-                anDeg = -(ray.angle * 57.3) - 90;
-
-
 
                 const data2 = {
                     file: anFile2,
                     position: {
-                        x: template.x + canvas.grid.size / 2,
-                        y: template.y + canvas.grid.size / 2
+                        x: gridPos[0] + canvas.grid.size / 2,
+                        y: gridPos[1] + canvas.grid.size / 2
                     },
                     anchor: {
                         x: .5,
                         y: .5
                     },
-                    angle: anDeg,
+                    angle: 0,
                     speed: 0,
                     scale: {
                         x: -myScale,
@@ -141,11 +103,8 @@ async function mistyStep(handler) {
                 game.socket.emit('module.fxmaster', data2);
 
             }
-
-            //await actor.deleteEmbeddedEntity("ActiveEffect", lastArg.effectId);
             await wait(1500);
             token.update({ "hidden": !token.data.hidden })
-
         };
     });
 }
