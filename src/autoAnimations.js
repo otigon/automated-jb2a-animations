@@ -11,7 +11,7 @@ import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import spellAttacks from "./animation-functions/attack-spells.js";
 import meleeWeapons from "./animation-functions/melee-attacks.js";
 import meleeRangeSwitch from "./animation-functions/melee-range-attacks.js";
-import randomGenDmg from "./animation-functions/generic-damage.js";
+//import randomGenDmg from "./animation-functions/generic-damage.js";
 import creatureAttacks from "./animation-functions/creature-attacks.js";
 import rangedWeapons from "./animation-functions/ranged-weapons.js";
 import thunderwaveAuto from "./animation-functions/thunderwave.js";
@@ -26,7 +26,7 @@ import selfCast from "./animation-functions/emanations.js";
 import ctaCall from "./animation-functions/CTAcall.js";
 import huntersMark from "./animation-functions/hunters-mark.js";
 import bardicInspiration from "./animation-functions/bardic-inspiration.js";
-import mistyStep from "./animation-functions/misty-step.js";
+//import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
 
 import ImagePicker from "./ImagePicker.js";
@@ -253,11 +253,6 @@ function onCreateChatMessage(msg) {
             handler = new Dnd35Handler(msg);
             break;
     }
-    switch (true) {
-        case ((handler.animName === "misty step") && (!handler.animKill)):
-            mistyStep(handler);
-            break;
-    }
     revItUp(handler)
 }
 
@@ -277,39 +272,22 @@ function criticalChecks(workflow) {
 
 function setupTormenta20(msg) {
     let handler = new Tormenta20Handler(msg);
-    switch (true) {
-        case ((handler.animName === "misty step") && (!handler.animKill)):
-            mistyStep(handler);
-            break;
-    }
     revItUp(handler);
 }
 
 function setupDemonLord(...args) {
     let handler = new DemonLordHandler(...args);
-    switch (true) {
-        case ((handler.animName === "misty step") && (!handler.animKill)):
-            mistyStep(handler);
-            break;
-    }
     revItUp(handler);
 }
 
 function specialCaseAnimations(msg) {
     let handler = new Dnd5Handler(msg);
-    if (handler.animName !== "misty step") {return}
-    mistyStep(handler);
 }
 
 function revItUp5eCore(msg) {
     let handler = new Dnd5Handler(msg);
 
     if (game.modules.get("mars-5e")?.active) {
-        switch (true) {
-            case ((handler.animName === "misty step") && (!handler.animKill)):
-                mistyStep(handler);
-                break;
-        }    
         return;
     }
 
@@ -317,11 +295,6 @@ function revItUp5eCore(msg) {
         if (game.modules.get("Custom-Token-Animations")?.active) {
             ctaCall(handler);
         }
-    }
-    switch (true) {
-        case ((handler.animName === "misty step") && (!handler.animKill)):
-            mistyStep(handler);
-            break;
     }
 
     const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
@@ -440,11 +413,6 @@ function revItUp5eCore(msg) {
                                 explodeTemplate(handler);
                             })
                             break;
-                        /*
-                        case handler.itemNameIncludes("misty step"):
-                            mistyStep(handler);
-                            break;
-                        */
                         case handler.itemNameIncludes("bardic inspiration"):
                             bardicInspiration(handler);
                             break;
@@ -476,11 +444,6 @@ async function revItUp(handler) {
                 ctaCall(handler);
             }
             break;
-        /*
-        case handler.itemNameIncludes("misty step"):
-            mistyStep(handler);
-            break;
-        */
         case handler.itemNameIncludes("bardic inspiration"):
             bardicInspiration(handler);
             break;
