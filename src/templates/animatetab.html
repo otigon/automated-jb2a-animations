@@ -190,6 +190,13 @@
                 <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked ctaOption}}>
             </div>
         </div>
+        <div class="teleporting">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.range"}}</label>
+                <input type="number" id="flags.autoanimations.teleDist" name="flags.autoanimations.teleDist"
+                    min="5" max="500" value={{teleRange}}>
+            </div>
+        </div>
     </div>
 </div>
 </div>

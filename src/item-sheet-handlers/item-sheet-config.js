@@ -162,11 +162,18 @@ export class AnimationTab {
         let hmAnimation = this.html.find('.hm-animation');
         let ctaRequired = this.html.find('.cta-required');
         let uaStrikeType = this.html.find('.ua-strike-type');
+        let teleport = this.html.find('.teleporting');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
         let animType = this.animateItem.animType;
         let explosion = this.animateItem.explosion;
+
+        if (animType === "t12" && override) {
+            teleport.show();
+        } else {
+            teleport.hide();
+        }
 
         if (this.animateItem.killAnim) {
             animateEnabled.hide();
@@ -199,6 +206,9 @@ export class AnimationTab {
         }
 
         switch (true) {
+            case this.animateItem.animType === "t12":
+                animateColor.show();
+                break;
             case this.animateItem.override && this.animateItem.animName === ``:
                 animateColor.hide();
                 break;

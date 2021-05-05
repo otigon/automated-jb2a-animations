@@ -205,6 +205,9 @@
   "AUTOANIM.uaPhysical": "Physical",
   "AUTOANIM.uaType": "Unarmed Type",
   "AUTOANIM.itemFlurryBlows": "Flurry of Blows",
-  "AUTOANIM.itemGuidingBolt": "Guiding Bolt"
+  "AUTOANIM.itemGuidingBolt": "Guiding Bolt",
+  "AUTOANIM.animTeleportation": "Teleportation",
+  "AUTOANIM.range": "Input a Range",
+  "AUTOANIM.itemMistyStep": "Misty Step"
 
 }

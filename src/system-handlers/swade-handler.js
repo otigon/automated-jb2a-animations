@@ -34,6 +34,7 @@ export default class SwadeHandler {
         this._ctaOption = this._flags.ctaOption ?? "";
         this._hmAnim = this._flags.hmAnim ?? "";
         this._uaStrikeType = this._flags.uaStrikeType ?? "";
+        this._teleDist = this._flags.teleDist ?? "";
 
         this._animNameFinal;
         switch (true) {
@@ -47,6 +48,9 @@ export default class SwadeHandler {
 
     }
 
+    get itemMacro () {
+        return "";
+    }
 
     get playOnMiss() {
         return false;
@@ -164,6 +168,10 @@ export default class SwadeHandler {
 
     get uaStrikeType() {
         return this._uaStrikeType;
+    }
+
+    get teleRange() {
+        return this._teleDist;
     }
 
     getDistanceTo(target) {

@@ -544,6 +544,11 @@ AUTOANIM.guidingboltColorFree = {
     'blue yellow': "AUTOANIM.colorYellowBlue",
 }
 
+AUTOANIM.animTeleport = {
+    'a1': ``,
+    'misty step': "AUTOANIM.itemMistyStep"
+}
+
 AUTOANIM.animTypePick = {
     "t1": ``,
     "t2": "AUTOANIM.typeMelee",
@@ -555,7 +560,8 @@ AUTOANIM.animTypePick = {
     "t8": "AUTOANIM.typeExplosiveCT",
     "t9": "AUTOANIM.typeExplosiveOT",
     "t10": "AUTOANIM.typeSelfEffects",
-    "t11": "AUTOANIM.typeAuras"
+    "t11": "AUTOANIM.typeAuras",
+    "t12": "AUTOANIM.animTeleportation",
 }
 
 AUTOANIM.animNull = {

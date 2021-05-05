@@ -25,6 +25,7 @@ export class AnimateItem {
         this.ctaOption = this.data.ctaOption;
         this.hmAnim = this.data.hmAnim;
         this.uaStrikeType = this.data.uaStrikeType;
+        this.teleDist = this.data.teleDist;
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -47,6 +48,7 @@ export class AnimateItem {
             auraOpacity: ``,
             hmAnim: ``,
             uaStrikeType: ``,
+            teleDist: ``,
             //itemName = ``,
             //animTypeVar = ``,
         }
@@ -280,6 +282,7 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName === "misty step":
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemMistyStep").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.mistystepColor);
                 } else {
@@ -382,6 +385,9 @@ export class AnimateItem {
             case (this.animType === "t11"):
                 return AUTOANIM.localized(AUTOANIM.aura);
                 break;
+            case (this.animType === "t12"):
+                return AUTOANIM.localized(AUTOANIM.animTeleport);
+                break;
         }
     }
 
@@ -407,6 +413,10 @@ export class AnimateItem {
 
     get uaStrike() {
         return AUTOANIM.localized(AUTOANIM.uaStrikeType);
+    }
+
+    get teleRange() {
+        return this.teleDist || "30";
     }
     /*
     changeFlag(scope, key, value){

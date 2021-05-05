@@ -11,7 +11,7 @@ import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import spellAttacks from "./animation-functions/attack-spells.js";
 import meleeWeapons from "./animation-functions/melee-attacks.js";
 import meleeRangeSwitch from "./animation-functions/melee-range-attacks.js";
-//import randomGenDmg from "./animation-functions/generic-damage.js";
+import randomGenDmg from "./animation-functions/generic-damage.js";
 import creatureAttacks from "./animation-functions/creature-attacks.js";
 import rangedWeapons from "./animation-functions/ranged-weapons.js";
 import thunderwaveAuto from "./animation-functions/thunderwave.js";
@@ -26,7 +26,7 @@ import selfCast from "./animation-functions/emanations.js";
 import ctaCall from "./animation-functions/CTAcall.js";
 import huntersMark from "./animation-functions/hunters-mark.js";
 import bardicInspiration from "./animation-functions/bardic-inspiration.js";
-//import mistyStep from "./animation-functions/misty-step.js";
+import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
 
 import ImagePicker from "./ImagePicker.js";
@@ -164,11 +164,11 @@ Hooks.on('init', () => {
         switch (game.settings.get("automated-jb2a-animations", "playonDamage")) {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { revItUpMidi(workflow) });
-                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg)});
+                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
                 break;
             case (false):
                 Hooks.on("midi-qol.RollComplete", (workflow) => { revItUpMidi(workflow) });
-                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg)});
+                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
                 break;
         }
         if (game.settings.get("automated-jb2a-animations", "EnableCritical") || game.settings.get("automated-jb2a-animations", "EnableCriticalMiss")) {
@@ -253,6 +253,13 @@ function onCreateChatMessage(msg) {
             handler = new Dnd35Handler(msg);
             break;
     }
+    if (game.user.id === msg.user.id) {
+        switch (true) {
+            case ((handler.animType === "t12") && (handler.animOverride)):
+                mistyStep(handler);
+                break;
+        }
+    }
     revItUp(handler)
 }
 
@@ -272,28 +279,64 @@ function criticalChecks(workflow) {
 
 function setupTormenta20(msg) {
     let handler = new Tormenta20Handler(msg);
+    if (game.user.id === msg.user.id) {
+        switch (true) {
+            case ((handler.animType === "t12") && (handler.animOverride)):
+                mistyStep(handler);
+                break;
+        }
+    }
     revItUp(handler);
 }
 
 function setupDemonLord(...args) {
     let handler = new DemonLordHandler(...args);
+    if (game.user.id === msg.user.id) {
+        switch (true) {
+            case ((handler.animType === "t12") && (handler.animOverride)):
+                mistyStep(handler);
+                break;
+        }
+    }
     revItUp(handler);
 }
 
 function specialCaseAnimations(msg) {
     let handler = new Dnd5Handler(msg);
+    if (game.user.id !== msg.user.id) {
+        return;
+    }
+    switch (true) {
+        case ((handler.animType === "t12") && (handler.animOverride)):
+            mistyStep(handler);
+            break;
+    }
 }
 
 function revItUp5eCore(msg) {
     let handler = new Dnd5Handler(msg);
 
     if (game.modules.get("mars-5e")?.active) {
+        if (game.user.id === msg.user.id) {
+            switch (true) {
+                case ((handler.animType === "t12") && (handler.animOverride)):
+                    mistyStep(handler);
+                    break;
+            }
+        }
         return;
     }
 
     if (handler.animType === "t11" && handler.animOverride) {
         if (game.modules.get("Custom-Token-Animations")?.active) {
             ctaCall(handler);
+        }
+    }
+    if (game.user.id === msg.user.id) {
+        switch (true) {
+            case ((handler.animType === "t12") && (handler.animOverride)):
+                mistyStep(handler);
+                break;
         }
     }
 

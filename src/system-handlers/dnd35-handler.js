@@ -8,6 +8,7 @@ export default class Dnd35Handler {
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
         this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
+        this._itemMacro = this._actorToken.actor.items?.get(itemId)?.data?.flags?.itemacro?.macro?.data?.name ?? "";
 
         // getting flag data from Animation Tab
         this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
@@ -29,6 +30,7 @@ export default class Dnd35Handler {
         this._ctaOption = this._flags.ctaOption ?? "";
         this._hmAnim = this._flags.hmAnim ?? "";
         this._uaStrikeType = this._flags.uaStrikeType ?? "";
+        this._teleDist = this._flags.teleDist ?? "";
 
         //console.log(this._animName);
         this._animNameFinal;
@@ -42,6 +44,10 @@ export default class Dnd35Handler {
         }
         //console.log(this._animNameFinal);
         //console.log(this._animColorEffect);
+    }
+
+    get itemMacro () {
+        return this._itemMacro;
     }
 
     get playOnMiss() {
@@ -157,6 +163,10 @@ export default class Dnd35Handler {
 
     get uaStrikeType() {
         return this._uaStrikeType;
+    }
+
+    get teleRange() {
+        return this._teleDist;
     }
 
     getDistanceTo(target) {

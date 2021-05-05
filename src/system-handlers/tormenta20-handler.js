@@ -80,7 +80,6 @@ export default class Tormenta20Handler {
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
         this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
-  
         // getting flag data from Animation Tab
         this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
         // 
@@ -101,7 +100,8 @@ export default class Tormenta20Handler {
         this._ctaOption = this._flags.ctaOption ?? "";
         this._hmAnim = this._flags.hmAnim ?? "";
         this._uaStrikeType = this._flags.uaStrikeType ?? "";
-  
+        this._teleDist = this._flags.teleDist ?? "";
+
         //console.log(this._animName);
         this._animNameFinal;
         switch (true) {
@@ -124,7 +124,11 @@ export default class Tormenta20Handler {
         }
         //console.log(this._animColorEffect);
     }
-  
+
+    get itemMacro () {
+        return "";
+    }
+
     get playOnMiss() {
         return false;
     }
@@ -237,6 +241,10 @@ export default class Tormenta20Handler {
         return this._uaStrikeType;
     }
     
+    get teleRange() {
+        return this._teleDist;
+    }
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {

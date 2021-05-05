@@ -26,11 +26,13 @@ export default class GeneralAnimHandler {
         this._ctaOption = this._flags.ctaOption ?? "";
         this._hmAnim = this._flags.hmAnim ?? "";
         this._uaStrikeType = this._flags.uaStrikeType ?? "";
-        
+        this._teleDist = this._flags.teleDist ?? "";
+
         this._itemName = this._item.name?.toLowerCase() ?? '';;
         this._itemSource = this._item.data?.data?.source?.toLowerCase() ?? '';
         this._itemType = this._item.type.toLowerCase();
-        
+        this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+
         this._animNameFinal;
         switch (true) {
             case ((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
@@ -51,6 +53,10 @@ export default class GeneralAnimHandler {
                 break;
 
         }
+    }
+    
+    get itemMacro () {
+        return this._itemMacro;
     }
 
     get playOnMiss() {
@@ -166,6 +172,10 @@ export default class GeneralAnimHandler {
 
     get uaStrikeType() {
         return this._uaStrikeType;
+    }
+
+    get teleRange() {
+        return this._teleDist;
     }
 
     getDistanceTo(target) {
