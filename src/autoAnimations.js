@@ -243,6 +243,7 @@ function moduleIncludes(test) {
 }
 
 function onCreateChatMessage(msg) {
+    if (msg.user.id !== game.user.id) {return};
     log('onCreateChatMessage', msg);
     let handler;
     switch (game.system.id) {
@@ -302,10 +303,10 @@ function setupDemonLord(...args) {
 }
 
 function specialCaseAnimations(msg) {
-    let handler = new Dnd5Handler(msg);
     if (game.user.id !== msg.user.id) {
         return;
     }
+    let handler = new Dnd5Handler(msg);
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             mistyStep(handler);
@@ -314,6 +315,7 @@ function specialCaseAnimations(msg) {
 }
 
 function revItUp5eCore(msg) {
+    if (msg.user.id !== game.user.id) {return};
     let handler = new Dnd5Handler(msg);
 
     if (game.modules.get("mars-5e")?.active) {
