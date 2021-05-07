@@ -292,6 +292,7 @@ function setupTormenta20(msg) {
 
 function setupDemonLord(...args) {
     let handler = new DemonLordHandler(...args);
+    /*
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
@@ -299,6 +300,7 @@ function setupDemonLord(...args) {
                 break;
         }
     }
+    */
     revItUp(handler);
 }
 
