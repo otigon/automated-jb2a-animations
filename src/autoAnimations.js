@@ -316,6 +316,7 @@ function specialCaseAnimations(msg) {
 
 function revItUp5eCore(msg) {
     if (msg.user.id !== game.user.id) {return};
+    if (msg.data?.flavor?.includes("Long Rest")) {return};
     let handler = new Dnd5Handler(msg);
 
     if (game.modules.get("mars-5e")?.active) {

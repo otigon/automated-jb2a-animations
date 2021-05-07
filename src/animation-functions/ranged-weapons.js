@@ -90,7 +90,7 @@ async function rangedWeapons(handler) {
         case (handler.itemNameIncludes("siege")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()):
             switch (true) {
-                case (color === "default"):
+                case (handler.color === "default"):
                     color = "White";
             }
             obj02 = "siege";
@@ -102,7 +102,7 @@ async function rangedWeapons(handler) {
         case (handler.itemNameIncludes("boulder")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()):
             switch (true) {
-                case (color === "default"):
+                case (handler.animColor === "a1"):
                     color = "White";
             }
             obj02 = "boulder";
@@ -114,8 +114,12 @@ async function rangedWeapons(handler) {
         case (handler.itemNameIncludes("laser")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
             switch (true) {
-                case (color === "default"):
-                    color = "Blue";
+                case (handler.color === "a1"):
+                case (!handler.color):
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.color;
             }
             obj02 = "lasershot";
             tmMacro = colorWave;
@@ -126,7 +130,7 @@ async function rangedWeapons(handler) {
         case (handler.itemNameIncludes("sling")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSling").toLowerCase()):
             switch (true) {
-                case (color === "default"):
+                case (handler.color === "default"):
                     color = "White";
             }
             obj02 = "rangesling";
@@ -137,7 +141,7 @@ async function rangedWeapons(handler) {
         case (handler.itemNameIncludes("javelin")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
             switch (true) {
-                case (color === "default"):
+                case (handler.color === "default"):
                     color = "White";
             }
             obj02 = "rangejavelin";
@@ -146,7 +150,14 @@ async function rangedWeapons(handler) {
             Delay03 = 1050;
             break;
     }
-    let filePath = obj01[obj02];
+    let filePath;
+    switch (obj02) {
+        case "lasershot":
+            filePath = obj01[obj02][color]
+            break;
+        default:
+            filePath = obj01[obj02];
+    }
     let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
     await wait(globalDelay);
 
