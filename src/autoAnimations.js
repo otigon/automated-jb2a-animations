@@ -625,9 +625,7 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
         case handler.itemNameIncludes("flurry of blows"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
-            if (moduleIncludes("jb2a_patreon")) {
                 unarmedStrike(handler);
-            }
             break;
 
     }

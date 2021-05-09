@@ -72,6 +72,8 @@ AUTOANIM.animNameGenericDmg = {
 
 AUTOANIM.animNameGenericDmgFree = {
     "a1": ``,
+    "unarmed strike": "AUTOANIM.itemUnarmedStrike",
+    "flurry of blows": "AUTOANIM.itemFlurryBlows"
 }
 
 AUTOANIM.animCreatureAttack = {
@@ -525,6 +527,11 @@ AUTOANIM.uaStrikeColor = {
     'green': "AUTOANIM.colorGreen",
     "yellow": "AUTOANIM.colorYellow",
     "dark red": "AUTOANIM.colorDarkRed"
+}
+
+AUTOANIM.uaStrikeColorFree = {
+    "a1": ``,
+    'blue': "AUTOANIM.colorBlue",
 }
 
 AUTOANIM.uaStrikeType = {

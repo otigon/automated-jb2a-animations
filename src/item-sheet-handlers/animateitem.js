@@ -300,7 +300,11 @@ export class AnimateItem {
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
             case this.itemName.includes("flurry of blows"):
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
-                return AUTOANIM.localized(AUTOANIM.uaStrikeColor);
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.localized(AUTOANIM.uaStrikeColor);
+                } else {
+                    return AUTOANIM.localized(AUTOANIM.uaStrikeColorFree);
+                }
                 break;
             default:
                 return AUTOANIM.localized(AUTOANIM.animNull);
