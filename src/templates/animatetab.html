@@ -1,3 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .auraOpacity {
+            border: 10px rgb(0, 0, 0);
+            border-radius: 10px;
+            max-width: 15%;
+        }
+        input[name="flags.autoanimations.auraOpacity"], textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+        }
+        .animation-types {
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+        }
+        .animation-names {
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+        }
+        .animation-colors {
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+        }
+        .explosion-variants {
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+        }
+        .explosion-colors {
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+        }
+        .explosion-radii {
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+        }
+        .explosion-loops {
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+        }
+        .cta-required {
+            text-align: center;
+        }
+
+    </style>
+</head>
+
 <div class="animation-tab-contents">
     <div class="form-group">
         <label>{{localize "AUTOANIM.menuKillAnim"}}</label>
@@ -112,7 +163,7 @@
             <div class="form-group">
                 <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
                 <div class="form-fields">
-                    <select name="flags.autoanimations.explodeVariant" class="explosion-colors">
+                    <select name="flags.autoanimations.explodeVariant" class="explosion-variants">
                         {{#select explodeVariant}}
                         {{#each exVariants as |name key|}}
                         <option value="{{key}}">{{name}}</option>
@@ -180,8 +231,7 @@
             </div>
             <div class="form-group">
                 <label>{{localize "AUTOANIM.auraOpacity"}} </label>
-                <input type="number" id="flags.autoanimations.auraOpacity" name="flags.autoanimations.auraOpacity"
-                    min="0" max="1" value={{opacity}}>
+                <input type="number" id="flags.autoanimations.auraOpacity" name="flags.autoanimations.auraOpacity" min="0" max="1" value={{opacity}} class="auraOpacity">
             </div>
         </div>
         <div class="rotation-static">
@@ -193,10 +243,9 @@
         <div class="teleporting">
             <div class="form-group">
                 <label>{{localize "AUTOANIM.range"}}</label>
-                <input type="number" id="flags.autoanimations.teleDist" name="flags.autoanimations.teleDist"
-                    min="5" max="500" value={{teleRange}}>
+                <input type="number" id="flags.autoanimations.teleDist" name="flags.autoanimations.teleDist" min="5"
+                    max="500" value={{teleRange}}>
             </div>
         </div>
     </div>
-</div>
 </div>
