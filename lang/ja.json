@@ -205,5 +205,9 @@
     "AUTOANIM.uaPhysical": "物理",
     "AUTOANIM.uaType": "素手",
     "AUTOANIM.itemFlurryBlows": "連打",
-    "AUTOANIM.itemGuidingBolt": "ガイディング・ボルト"
+    "AUTOANIM.itemGuidingBolt": "ガイディング・ボルト",
+    "AUTOANIM.animTeleportation": "Teleportation",
+    "AUTOANIM.range": "Input a Range",
+    "AUTOANIM.itemMistyStep": "Misty Step"
+
 }
