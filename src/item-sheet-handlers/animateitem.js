@@ -148,9 +148,9 @@ export class AnimateItem {
             case (this.itemName.includes("eldritch blast")):
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.localized(AUTOANIM.animColorEBlast);
+                    return AUTOANIM.localized(AUTOANIM.animColorEldritchBlast);
                 } else {
-                    return AUTOANIM.localized(AUTOANIM.animColorEBlastFree);
+                    return AUTOANIM.localized(AUTOANIM.animColorEldritchBlastFree);
                 }
                 break;
             case (this.itemName.includes("fire bolt")):

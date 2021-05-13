@@ -171,17 +171,18 @@ AUTOANIM.animColorCureWoundsFree = {
     "blue": "AUTOANIM.colorBlue",
 }
 
-AUTOANIM.animColorEBlast = {
+AUTOANIM.animColorEldritchBlast = {
     "a1": ``,
     "purple": "AUTOANIM.colorPurple",
     "dark purple": "AUTOANIM.colorDarkPurple",
     "green": "AUTOANIM.colorGreen",
     "yellow": "AUTOANIM.colorYellow",
     "dark red": "AUTOANIM.colorDarkRed",
-    "orange": "AUTOANIM.colorOrange"
+    "orange": "AUTOANIM.colorOrange",
+    "pink": "AUTOANIM.colorPink",
 }
 
-AUTOANIM.animColorEBlastFree = {
+AUTOANIM.animColorEldritchBlastFree = {
     "a1": ``,
     "purple": "AUTOANIM.colorPurple",
 }
