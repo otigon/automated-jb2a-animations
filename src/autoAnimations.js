@@ -352,6 +352,7 @@ function revItUp5eCore(msg) {
             if (game.modules.get("mre-dnd5e")?.active) {
                 log("MRE is active");
                 if (handler.itemIncludes("xxx") || handler.animKill) {
+                    return;
                 } else {
                     switch (game.settings.get("mre-dnd5e", "autoDamage")) {
                         case (true):
@@ -405,7 +406,8 @@ function revItUp5eCore(msg) {
             if (rollType.includes("attack")) {
                 revItUp(handler)
             } else /*if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false)*/ {
-                if (handler.itemIncludes("xxx") || handler.animKille) {
+                if (handler.itemIncludes("xxx") || handler.animKill) {
+                    return;
                 }
 
                 else {
