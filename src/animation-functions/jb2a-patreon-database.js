@@ -885,8 +885,12 @@ JB2APATREONDB.guidingbolt = {
         '30': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_PurplePink_30ft_1600x400.webm',
         '60': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_PurplePink_60ft_2800x400.webm',
         '90': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_PurplePink_90ft_4000x400.webm'
+    },
+    'white blue': {
+        '30': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_WhiteBlue_30ft_1600x400.webm',
+        '60': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_WhiteBlue_60ft_2800x400.webm',
+        '90': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_WhiteBlue_90ft_4000x400.webm'
     }
-
 }
 
 JB2APATREONDB.impact = {

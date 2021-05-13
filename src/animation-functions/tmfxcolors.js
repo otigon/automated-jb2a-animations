@@ -74,6 +74,9 @@ export const TMFXCOLORS = {
         // need to do
         return;
     },
+    'white blue': function () {
+        return;
+    },
     '1hs': function () {
         return "pass";
     },

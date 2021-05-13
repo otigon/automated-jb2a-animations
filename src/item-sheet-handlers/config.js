@@ -545,6 +545,7 @@ AUTOANIM.guidingboltColor = {
     'blue yellow': "AUTOANIM.colorYellowBlue",
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
+    "white blue": "AUTOANIM.colorWhiteBlue"
 }
 
 AUTOANIM.guidingboltColorFree = {
