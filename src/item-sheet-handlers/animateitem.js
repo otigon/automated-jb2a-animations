@@ -241,9 +241,11 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName === "call lightning":
+            case this.itemName.includes(game.i18n.format("AUTOANIM.animCallLightning").toLowerCase()):
                 return AUTOANIM.localized(AUTOANIM.calllightningColors);
                 break;
             case this.itemName === "sleetstorm":
+            case this.itemName.includes(game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.sleetstormColors);
                 } else {
@@ -251,6 +253,7 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName === "spirit guardians":
+            case this.itemName.includes(game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.spiritguardianColors);
                 } else {
@@ -258,6 +261,7 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName === "wall of force":
+            case this.itemName.includes(game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.wallofforceColors);
                 } else {
@@ -265,6 +269,7 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName === "whirlwind":
+            case this.itemName.includes(game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.whirlwindColors);
                 } else {
@@ -272,9 +277,11 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName === "darkness":
+            case this.itemName.includes(game.i18n.format("AUTOANIM.animDarkness").toLowerCase()):
                 return AUTOANIM.localized(AUTOANIM.darknessColors);
                 break;
             case this.itemName === "hunter's mark":
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemHM").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.hmColors);
                 } else {
@@ -290,6 +297,7 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName === "bardic inspiration":
+
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.musicnoteColor);
                 } else {
