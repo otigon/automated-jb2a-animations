@@ -26,6 +26,9 @@ export class AnimateItem {
         this.hmAnim = this.data.hmAnim;
         this.uaStrikeType = this.data.uaStrikeType;
         this.teleDist = this.data.teleDist;
+        this.soundFile = this.data.sounds.soundFile;
+        this.soundDelay = this.data.sounds.soundDelay;
+        this.soundVolume = this.data.sounds.soundVolume;
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -49,6 +52,7 @@ export class AnimateItem {
             hmAnim: ``,
             uaStrikeType: ``,
             teleDist: ``,
+            sounds: {},
             //itemName = ``,
             //animTypeVar = ``,
         }
@@ -430,6 +434,7 @@ export class AnimateItem {
     get teleRange() {
         return this.teleDist || "30";
     }
+    
     /*
     changeFlag(scope, key, value){
         setFlag(scope, key, value)

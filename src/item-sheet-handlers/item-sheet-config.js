@@ -347,6 +347,48 @@ export class AnimationTab {
                     break;
             }
         }
+
+        var max_fields = 10;
+        var wrapper = $(".input_fields_wrap");
+        var add_button = $(".add_field_button");
+        var remove_button = $(".remove_field_button");
+
+        $(add_button).click(function (e) {
+            e.preventDefault();
+            var total_fields = wrapper[0].childNodes.length;
+            if (total_fields < max_fields) {
+                $(wrapper).append(
+                    '<div class="item-audio">',
+                    '<div class="enable-audio">',
+                    '<div class="audio-picker">',
+                    '<div class="form-inline">',
+                    '<div class="form group">',
+                    '<label>Choose Audio File</label>',
+                    '<button type="button" class="file-picker-aa" data-type="audio" name="audio-button" data-target="flags.autoanimations.soundFile" title="Browse Files" style="float: right"> <i class="fas fa-music fa-sm"></i> </button>',
+                    '<input class="audio-input" style="float: right" type="text" name="flags.autoanimations.sounds.soundFile" >',
+                    '</div>',
+                    '<div class="form-group">',
+                    '<label>Delay Audio (milliseconds)</label>',
+                    '<input type="number" id="flags.autoanimations.sounds.soundDelay" name="flags.autoanimations.sounds.soundDelay" min="0"  class="delayAudio">',
+                    '</div>',
+                    '<div class="form-group">',
+                    '<label>Audio Volume (0 - 100)</label>',
+                    '<input type="number" id="flags.autoanimations.sounds.soundVolume" name="flags.autoanimations.sounds.soundVolume" min="0" max="1"  class="audioVolume">',
+                    '</div>',
+                    '</div>',
+                    '</div>',
+                    '</div>',
+                    '</div>',
+                );
+            }
+        });
+        $(remove_button).click(function (e) {
+            e.preventDefault();
+            var total_fields = wrapper[0].childNodes.length;
+            if (total_fields > 1) {
+                wrapper[0].childNodes[total_fields - 1].remove();
+            }
+        });
         /*
         if (this.activate && !this.isActive()) {
             this.app._tabs[0].activate("autoanimations");

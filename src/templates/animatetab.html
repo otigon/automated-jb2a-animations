@@ -8,44 +8,167 @@
             border-radius: 10px;
             max-width: 15%;
         }
-        input[name="flags.autoanimations.auraOpacity"], textarea {
+
+        input[name="flags.autoanimations.auraOpacity"],
+        textarea {
             background-color: rgb(196, 196, 196);
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
             border-color: black;
         }
+
+        input[name="flags.autoanimations.audioDelay"],
+        textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            text-align: center;
+        }
+
+        input[name="flags.autoanimations.audioVolume"],
+        textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            text-align: center;
+        }
+
+        input[name="flags.autoanimations.audioExDelay"],
+        textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            text-align: center;
+        }
+
+        input[name="flags.autoanimations.audioExVolume"],
+        textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            text-align: center;
+        }
+
         .animation-types {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .animation-names {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .animation-colors {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .explosion-variants {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .explosion-colors {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .explosion-radii {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .explosion-loops {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .cta-required {
             text-align: center;
         }
 
+        .file-picker-aa {
+            width: 40px;
+            height: 30px;
+            position: right;
+            top: 0;
+            right: 0;
+        }
+
+        .file-picker-ex-aa {
+            width: 40px;
+            height: 30px;
+            position: right;
+            top: 0;
+            right: 0;
+        }
+
+        .audio-input {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            margin: auto;
+            max-width: 300px;
+        }
+
+        .audio-ex-input {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            margin: auto;
+            max-width: 300px;
+        }
+
+        input[name="flags.autoanimations.audioItem"],
+        textarea {
+            height: 30px;
+        }
+
+        input[name="flags.autoanimations.audioItem"] {
+            padding: 5px 5px;
+            line-height: 28px;
+        }
+
+        input[name="flags.autoanimations.audioExplosion"],
+        textarea {
+            height: 30px;
+        }
+
+        input[name="flags.autoanimations.audioExplosion"] {
+            padding: 5px 5px;
+            line-height: 28px;
+        }
+
+        .item-audio {
+            background-color: rgb(160, 222, 238);
+            border-radius: 5px;
+            border-color: black;
+        }
+
+        .item-audio,
+        label {
+            font-weight: bold;
+            color: black
+        }
+
+        .explode-audio {
+            background-color: rgb(253, 207, 169);
+            border-radius: 5px;
+            border-color: black;
+        }
+
+        .explode-audio,
+        label {
+            font-weight: bold;
+            color: black
+        }
     </style>
 </head>
 
@@ -231,7 +354,8 @@
             </div>
             <div class="form-group">
                 <label>{{localize "AUTOANIM.auraOpacity"}} </label>
-                <input type="number" id="flags.autoanimations.auraOpacity" name="flags.autoanimations.auraOpacity" min="0" max="1" value={{opacity}} class="auraOpacity">
+                <input type="number" id="flags.autoanimations.auraOpacity" name="flags.autoanimations.auraOpacity"
+                    min="0" max="1" value={{opacity}} class="auraOpacity">
             </div>
         </div>
         <div class="rotation-static">
@@ -248,4 +372,10 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<button type="button" class="add_field_button">Add Field</button>
+<button type="button" class="remove_field_button">Remove Field</button>
+<div class="input_fields_wrap">
 </div>
