@@ -60,6 +60,10 @@ export class AnimateItem {
                 soundFile: '',
                 soundDelay: 0,
                 soundVolume: 50,
+            }, {
+                soundFile: '',
+                soundDelay: 0,
+                soundVolume: 50,
             }],
         }
     }
