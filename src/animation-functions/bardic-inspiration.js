@@ -10,15 +10,34 @@ async function bardicInspiration(handler) {
     }
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let obj02 = 'music';
+    let obj02;
+    let repeat;
     let color;
+    console.log(handler.bardAnim);
     switch (true) {
-        case handler.color === "a1" || handler.color === ``:
-        case !handler.color:
-            color = "blue";
+        case (handler.bardAnim === "music"):
+            obj02 = "music";
+            repeat = 10;
+            switch (true) {
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "blue";
+                    break;
+                default:
+                    color = handler.color;
+            }        
             break;
         default:
-            color = handler.color;
+            obj02 = "bardicinspiration";
+            repeat = 1;
+            switch (true) {
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    color = "green orange";
+                    break;
+                default:
+                    color = handler.color;
+            }        
     }
 
     let token = handler.actorToken;
@@ -26,6 +45,10 @@ async function bardicInspiration(handler) {
 
     function randomSpot(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function targetCenter(target) {
+        return target?.center;
     }
 
     let centerX = token.center.x;
@@ -45,63 +68,108 @@ async function bardicInspiration(handler) {
 
     async function cast(number) {
         let x = number;
+
         for (var i = 0; i < x; i++) {
-
             let ranVar = Math.floor(Math.random() * 7 + 1).toString();
-            let filePath = obj01[obj02][color][ranVar];
+            let filePath;
+            let varX;
+            let varY;
+            let varXtarget;
+            let varYtarget;
+            let sourceAnim;
+            let targetAnim;
+            let varTarget;
+            switch (obj02) {
+                case "music":
+                    filePath = obj01[obj02][color][ranVar];
+                    varX = randomSpot(xMin, xMax);
+                    varY = randomSpot(yMin, yMax);
+                    varXtarget = randomSpot(xMintarget, xMaxtarget);
+                    varYtarget = randomSpot(yMintarget, yMaxtarget);
 
-            let varX = randomSpot(xMin, xMax);
-            let varY = randomSpot(yMin, yMax);
+                    sourceAnim =
+                    {
+                        file: filePath,
+                        position: {
+                            x: varX,
+                            y: varY
+                        },
+                        anchor: {
+                            x: 0.5,
+                            y: 0.5
+                        },
+                        angle: 0,
+                        scale: {
+                            x: .5,
+                            y: .5
+                        }
+                    };
 
-            let varXtarget = randomSpot(xMintarget, xMaxtarget);
-            let varYtarget = randomSpot(yMintarget, yMaxtarget);
+                    targetAnim =
+                    {
+                        file: filePath,
+                        position: {
+                            x: varXtarget,
+                            y: varYtarget
+                        },
+                        anchor: {
+                            x: 0.5,
+                            y: 0.5
+                        },
+                        angle: 0,
+                        scale: {
+                            x: .5,
+                            y: .5
+                        }
+                    };
+        
+                    break;
+                case "bardicinspiration":
+                    filePath = obj01[obj02][color];
+                    
+                    varTarget = targetCenter(target);
+                    sourceAnim =
+                    {
+                        file: filePath,
+                        position: token.center,
+                        anchor: {
+                            x: 0.5,
+                            y: 0.5
+                        },
+                        angle: 0,
+                        scale: {
+                            x: .5,
+                            y: .5
+                        }
+                    };
+                    targetAnim =
+                    {
+                        file: filePath,
+                        position: varTarget,
+                        anchor: {
+                            x: 0.5,
+                            y: 0.5
+                        },
+                        angle: 0,
+                        scale: {
+                            x: .5,
+                            y: .5
+                        }
+                    };
+            }
 
-            let sourceAnim =
-            {
-                file: filePath,
-                position: {
-                    x: varX,
-                    y: varY
-                },
-                anchor: {
-                    x: 0.5,
-                    y: 0.5
-                },
-                angle: 0,
-                scale: {
-                    x: .5,
-                    y: .5
-                }
-            };
-
-            let targetAnim =
-            {
-                file: filePath,
-                position: {
-                    x: varXtarget,
-                    y: varYtarget
-                },
-                anchor: {
-                    x: 0.5,
-                    y: 0.5
-                },
-                angle: 0,
-                scale: {
-                    x: .5,
-                    y: .5
-                }
-            };
-
-            canvas.fxmaster.playVideo(sourceAnim);
-            game.socket.emit('module.fxmaster', sourceAnim);
-            if (target) {
+            if (handler.bardSelf) {
+                canvas.fxmaster.playVideo(sourceAnim);
+                game.socket.emit('module.fxmaster', sourceAnim);
+            }
+            if (target && handler.bardTarget) {
                 canvas.fxmaster.playVideo(targetAnim);
                 game.socket.emit('module.fxmaster', targetAnim);
             }
             await wait(500);
         }
     }
-    cast(10);
+    cast(repeat);
 
 }
 export default bardicInspiration;

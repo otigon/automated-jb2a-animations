@@ -4,7 +4,7 @@ import { JB2AFREEDB } from "./jb2a-free-database.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function explodeTemplate(handler) {
-    
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -14,87 +14,31 @@ async function explodeTemplate(handler) {
     let obj02;
     let obj03;
     let color;
-
+    let variant = handler.animExVariant;
     let filePath;
     switch (true) {
         case handler.animExVariant === "shatter":
             obj02 = "shatter";
-            switch (true) {
-                case handler.animExColor === "a1" || handler.animExColor === ``:
-                case !handler.animExColor:
-                    color = "blue";
-                    break;
-                default:
-                    color = handler.animExColor;
-            }
+            color = handler.animExColor;
             filePath = obj01[obj02][color];
             break;
-        case handler.animExVariant === "01":
-            obj03 = "01";
+        default:
             obj02 = "explosion";
-            switch (true) {
-                case handler.animExColor === "a1" || handler.animExColor === ``:
-                case !handler.animExColor:
-                    color = "orange";
-                    break;
-                default:
-                    color = handler.animExColor;
-            }
-            filePath = obj01[obj02][obj03][color];
+            color = handler.animExColor;
+            filePath = obj01[obj02][variant][color];
+    }
+    let multiplier;
+    switch (variant) {
+        case ('05'):
+        case ('06'):
+        case ('07'):
+            multiplier = 1500;
             break;
         default:
-            obj03 = "02";
-            obj02 = "explosion";
-            switch (true) {
-                case handler.animExColor === "a1" || handler.animExColor === ``:
-                case !handler.animExColor:
-                    color = "blue";
-                    break;
-                default:
-                    color = handler.animExColor;
-            }
-            filePath = obj01[obj02][obj03][color];
+            multiplier = 1000;
     }
-
-    let divisor = 100;
-    switch (true) {
-        case (handler.animExRadius === "2"):
-            divisor = 300;
-            break;
-        case (handler.animExRadius === "5"):
-            divisor = 200;
-            break;
-        case (handler.animExRadius === "10"):
-            divisor = 100;
-            break;
-        case (handler.animExRadius === "15"):
-            divisor = 67;
-            break;
-        case (handler.animExRadius === "20"):
-            divisor = 50;
-            break;
-        case (handler.animExRadius === "25"):
-            divisor = 40;
-            break;
-        case (handler.animExRadius === "30"):
-            divisor = 33;
-            break;
-        case (handler.animExRadius === "35"):
-            divisor = 28.5;
-            break;
-        case (handler.animExRadius === "40"):
-            divisor = 25;
-            break;
-        case (handler.animExRadius === "45"):
-            divisor = 22.2;
-            break;
-        case (handler.animExRadius === "50"):
-            divisor = 20;
-            break;
-        case (handler.animExRadius === "nuclear"):
-            divisor = 10;
-            break;
-    }
+    let divisor = (multiplier * (1/(handler.animExRadius)));
+    
     let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
     await wait(globalDelay);
 

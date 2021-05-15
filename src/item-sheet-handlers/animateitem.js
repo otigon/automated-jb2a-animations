@@ -26,6 +26,10 @@ export class AnimateItem {
         this.hmAnim = this.data.hmAnim;
         this.uaStrikeType = this.data.uaStrikeType;
         this.teleDist = this.data.teleDist;
+        this.spellVar = this.data.spellVar;
+        this.bardAnim = this.data.bards.bardAnim;
+        this.bardTarget = this.data.bards.bardTarget;
+        this.bardSelf = this.data.bards.bardSelf;
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -49,6 +53,12 @@ export class AnimateItem {
             hmAnim: ``,
             uaStrikeType: ``,
             teleDist: ``,
+            spellVar: ``,
+            bards: {
+                bardTarget: true,
+                bardSelf: true,
+                bardAnim: ``,
+            }
             //itemName = ``,
             //animTypeVar = ``,
         }
@@ -165,7 +175,29 @@ export class AnimateItem {
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
             case (this.itemName.includes("healing word")):
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
-                return AUTOANIM.localized(AUTOANIM.animColorHealingWord);
+                if (moduleIncludes("jb2a_patreon")) {
+                    switch (this.spellVar) {
+                        case ('01'):
+                            return AUTOANIM.localized(AUTOANIM.animGenHealing01);
+                            break;
+                        case ('02'):
+                            return AUTOANIM.localized(AUTOANIM.animGenHealing02);
+                            break;
+                        default:
+                            return;
+                    }
+                } else {
+                    switch (this.spellVar) {
+                        case ('01'):
+                            return AUTOANIM.localized(AUTOANIM.animGenHealing01);
+                            break;
+                        case ('02'):
+                            return AUTOANIM.localized(AUTOANIM.animGenHealingFree02);
+                            break;
+                        default:
+                            return;
+                    }
+                }
                 break;
             case (this.itemName.includes("magic missile")):
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
@@ -186,9 +218,13 @@ export class AnimateItem {
             case (this.itemName.includes("scorching ray")):
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.localized(AUTOANIM.animColorScorchingRay);
+                    if (this.spellVar === "02") {
+                        return AUTOANIM.localized(AUTOANIM.animColorScorchingRay['02'])
+                    } else {
+                        return AUTOANIM.localized(AUTOANIM.animColorScorchingRay['01']);
+                    }
                 } else {
-                    return AUTOANIM.localized(AUTOANIM.animColorScorchingRayFree);
+                    return AUTOANIM.localized(AUTOANIM.animColorScorchingRayFree)
                 }
                 break;
             case (this.itemName.includes("witch bolt")):
@@ -297,11 +333,22 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName === "bardic inspiration":
-
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.localized(AUTOANIM.musicnoteColor);
+                    switch (this.bardAnim) {
+                        case "music":
+                            return AUTOANIM.localized(AUTOANIM.musicnoteColor);
+                            break;
+                        default:
+                            return AUTOANIM.localized(AUTOANIM.bardicInspirationColors);
+                    }
                 } else {
-                    return AUTOANIM.localized(AUTOANIM.musicnoteColorFree);
+                    switch (this.bardAnim) {
+                        case "music":
+                            return AUTOANIM.localized(AUTOANIM.musicnoteColorFree);
+                            break;
+                        default:
+                            return AUTOANIM.localized(AUTOANIM.bardicInspirationColorsFree);
+                    }
                 }
                 break;
             case this.itemName.includes("unarmed strike"):
@@ -327,18 +374,54 @@ export class AnimateItem {
             return AUTOANIM.localized(AUTOANIM.daggerVariantFree);
         }
     }
-
     get exColors() {
+        let explodeVariant = this.explodeVariant;
         if (moduleIncludes("jb2a_patreon")) {
-            switch (true) {
-                case this.explodeVariant === "shatter":
+            switch (this.explodeVariant) {
+                case ('01'):
+                case ('02'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColors012);
+                    break;
+                case ('03'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColors03);
+                    break;
+                case ('04'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColors04);
+                    break;
+                case ('05'):
+                case ('06'):
+                case ('07'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColors0567);
+                    break;
+                case ('shatter'):
                     return AUTOANIM.localized(AUTOANIM.animColorShatterThunder);
                     break;
                 default:
-                    return AUTOANIM.localized(AUTOANIM.explosionColors);
+                    return;
             }
         } else {
-            return AUTOANIM.localized(AUTOANIM.explosionColorsFree);
+            switch (this.explodeVariant) {
+                case ('01'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
+                    break;
+                case ('03'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColorsFree03);
+                    break;
+                case ('02'):
+                case ('04'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
+                    break;
+                case ('05'):
+                case ('06'):
+                case ('07'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
+                    break;
+                case ('shatter'):
+                    return AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree);
+                    break;
+                default:
+                    return;
+            }
         }
     }
 
@@ -400,6 +483,9 @@ export class AnimateItem {
             case (this.animType === "t12"):
                 return AUTOANIM.localized(AUTOANIM.animTeleport);
                 break;
+            case (this.animType === "t13"):
+                return AUTOANIM.localized(AUTOANIM.animNameClassFeatures);
+                break;
         }
     }
 
@@ -430,6 +516,15 @@ export class AnimateItem {
     get teleRange() {
         return this.teleDist || "30";
     }
+
+    get spellVariant() {
+        return AUTOANIM.localized(AUTOANIM.spellVariant);
+    }
+
+    get bardAnimName() {
+        return AUTOANIM.localized(AUTOANIM.bardAnimType);
+    }
+
     /*
     changeFlag(scope, key, value){
         setFlag(scope, key, value)

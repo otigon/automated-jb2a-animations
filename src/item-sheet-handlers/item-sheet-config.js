@@ -163,11 +163,34 @@ export class AnimationTab {
         let ctaRequired = this.html.find('.cta-required');
         let uaStrikeType = this.html.find('.ua-strike-type');
         let teleport = this.html.find('.teleporting');
+        let spellVariant = this.html.find('.spell-variant');
+        let bard01 = this.html.find('.bard-options');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
         let animType = this.animateItem.animType;
         let explosion = this.animateItem.explosion;
+
+        switch (true) {
+            case animName.includes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase()) && override:
+            case this.itemName.includes("bardic inspiration") && !override:
+            case this.itemName.includes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase()) && !override:
+                bard01.show();
+                break;
+            default:
+                bard01.hide();
+        }
+
+        switch (true) {
+            case this.itemName.includes("scorching ray"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
+            case animName.includes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
+            case animName.includes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
+                spellVariant.show();
+                break;
+            default:
+                spellVariant.hide();
+        }
 
         if (animType === "t12" && override) {
             teleport.show();

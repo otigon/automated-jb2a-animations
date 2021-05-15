@@ -5,7 +5,7 @@ export const AUTOANIM = {}
 AUTOANIM.animNameAttackSpell = {
     "a1": ``,
     "a2": "AUTOANIM.itemDisintegrate",
-    "a3": "AUTOANIM.itemEldritchBlast", 
+    "a3": "AUTOANIM.itemEldritchBlast",
     "a4": "AUTOANIM.itemFireBolt",
     "a5": "AUTOANIM.itemMagicMissile",
     "a6": "AUTOANIM.itemRayFrost",
@@ -13,6 +13,12 @@ AUTOANIM.animNameAttackSpell = {
     "a8": "AUTOANIM.itemWitchBolt",
     "a9": "AUTOANIM.itemGuidingBolt"
 };
+
+AUTOANIM.spellVariant = {
+    'a1': ``,
+    "01": "AUTOANIM.variant01",
+    "02": "AUTOANIM.variant02",
+}
 
 AUTOANIM.animNameHealSpell = {
     "a1": ``,
@@ -214,12 +220,26 @@ AUTOANIM.animColorFireboltFree = {
     "orange": "AUTOANIM.colorOrange",
 };
 
-AUTOANIM.animColorHealingWord = {
+AUTOANIM.animGenHealing01 = {
     "a1": ``,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "purple": "AUTOANIM.colorPurple",
     "yellow": "AUTOANIM.colorYellow"
+};
+
+AUTOANIM.animGenHealing02 = {
+    "a1": ``,
+    "blue white": "AUTOANIM.colorWhiteBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+    "teal yellow": "AUTOANIM.colorTealYellow"
+};
+
+
+AUTOANIM.animGenHealingFree02 = {
+    "a1": ``,
+    "green orange": "AUTOANIM.colorGreenOrange",
 };
 
 AUTOANIM.animColorMagicMissile = {
@@ -250,13 +270,22 @@ AUTOANIM.animColorRayFrostFree = {
 };
 
 AUTOANIM.animColorScorchingRay = {
-    "a1": ``,
-    "blue": "AUTOANIM.colorBlue",
-    "green": "AUTOANIM.colorGreen",
-    "orange": "AUTOANIM.colorOrange",
-    "purple": "AUTOANIM.colorPurple",
-    "red": "AUTOANIM.colorRed",
-    "yellow": "AUTOANIM.colorYellow",
+    '01': {
+        "a1": ``,
+        "blue": "AUTOANIM.colorBlue",
+        "green": "AUTOANIM.colorGreen",
+        "orange": "AUTOANIM.colorOrange",
+        "purple": "AUTOANIM.colorPurple",
+        "red": "AUTOANIM.colorRed",
+        "yellow": "AUTOANIM.colorYellow",
+        "rainbow01": "AUTOANIM.colorRainbow01",
+        "rainbow02": "AUTOANIM.colorRainbow02"
+    },
+    '02': {
+        "a1": ``,
+        "blue": "AUTOANIM.colorBlue",
+        "orange": "AUTOANIM.colorOrange",
+    }
 };
 
 AUTOANIM.animColorScorchingRayFree = {
@@ -305,7 +334,7 @@ AUTOANIM.animColorArrowFree = {
     "regular": "AUTOANIM.colorWhite",
 };
 
-AUTOANIM.explosionColors = {
+AUTOANIM.explosionColors012 = {
     "ec1": ``,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
@@ -313,10 +342,44 @@ AUTOANIM.explosionColors = {
     "purple": "AUTOANIM.colorPurple",
     "yellow": "AUTOANIM.colorYellow",
 }
+AUTOANIM.explosionColors03 = {
+    "ec1": ``,
+    "yellow blue": "AUTOANIM.colorYellowBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+    "blue white": "AUTOANIM.colorWhiteBlue"
+}
+AUTOANIM.explosionColors04 = {
+    "ec1": ``,
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange"
+}
+AUTOANIM.explosionColors0567 = {
+    "ec1": ``,
+    "blue white": "AUTOANIM.colorWhiteBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+    "teal yellow": "AUTOANIM.colorTealYellow"
+}
 
-AUTOANIM.explosionColorsFree = {
+AUTOANIM.explosionColorsFree01 = {
     "ec1": ``,
     "orange": "AUTOANIM.colorOrange",
+}
+AUTOANIM.explosionColorsFree024 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+}
+AUTOANIM.explosionColorsFree03 = {
+    "ec1": ``,
+    "yellow blue": "AUTOANIM.colorYellowBlue",
+}
+AUTOANIM.explosionColorsFree0567 = {
+    "ec1": ``,
+    "blue white": "AUTOANIM.colorWhiteBlue",
 }
 
 AUTOANIM.laserblastColors = {
@@ -358,12 +421,23 @@ AUTOANIM.explosionVariant = {
     "ev1": ``,
     "01": "AUTOANIM.variant01",
     "02": "AUTOANIM.variant02",
+    "03": "AUTOANIM.variant03",
+    "04": "AUTOANIM.variant04",
+    "05": "AUTOANIM.variant05",
+    "06": "AUTOANIM.variant06",
+    "07": "AUTOANIM.variant07",
     "shatter": "AUTOANIM.itemShatter"
 }
 
 AUTOANIM.explosionVariantFree = {
     "ev1": ``,
     "01": "AUTOANIM.variant01",
+    "02": "AUTOANIM.variant02",
+    "03": "AUTOANIM.variant03",
+    "04": "AUTOANIM.variant04",
+    "05": "AUTOANIM.variant05",
+    "06": "AUTOANIM.variant06",
+    "07": "AUTOANIM.variant07",
     "shatter": "AUTOANIM.itemShatter"
 }
 
@@ -558,6 +632,29 @@ AUTOANIM.animTeleport = {
     'misty step': "AUTOANIM.itemMistyStep"
 }
 
+AUTOANIM.bardicInspirationColors = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+}
+
+AUTOANIM.bardicInspirationColorsFree = {
+    'a1': ``,
+    "green orange": "AUTOANIM.colorGreenOrange",
+}
+
+AUTOANIM.animNameClassFeatures = {
+    'a1': ``,
+    'bardic inspiration': "AUTOANIM.bardicInspiration"
+}
+
+AUTOANIM.bardAnimType = {
+    'a1': ``,
+    'bardicinspiration': "AUTOANIM.bardicInspiration",
+    'music': "AUTOANIM.musicNotes"
+}
+
 AUTOANIM.animTypePick = {
     "t1": ``,
     "t2": "AUTOANIM.typeMelee",
@@ -571,6 +668,7 @@ AUTOANIM.animTypePick = {
     "t10": "AUTOANIM.typeSelfEffects",
     "t11": "AUTOANIM.typeAuras",
     "t12": "AUTOANIM.animTeleportation",
+    "t13": "AUTOANIM.classFeatures"
 }
 
 AUTOANIM.animNull = {
@@ -580,21 +678,21 @@ AUTOANIM.animNull = {
 
 AUTOANIM.localized = function (cfg) {
     return Object.keys(cfg).reduce((i18nCfg, key) => {
-            i18nCfg[key] = game.i18n.localize(cfg[key]);
-            return i18nCfg;
-        }, {}
+        i18nCfg[key] = game.i18n.localize(cfg[key]);
+        return i18nCfg;
+    }, {}
     );
 };
 
-AUTOANIM.numeric = function(value, fallback) {
-    if($.isNumeric(value)) {
+AUTOANIM.numeric = function (value, fallback) {
+    if ($.isNumeric(value)) {
         return parseInt(value);
     } else {
         return fallback;
     }
 };
 
-AUTOANIM.fromCollection = function(collection, entryId) {
+AUTOANIM.fromCollection = function (collection, entryId) {
     const pack = game.packs.find(p => p.collection === collection);
     return pack.getEntity(entryId).then(ent => {
         return ent;

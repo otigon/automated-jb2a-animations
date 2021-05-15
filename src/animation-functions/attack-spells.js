@@ -76,7 +76,7 @@ async function spellAttacks(handler) {
                     color = handler.color;
             }
             switch (true) {
-                case handler.srayVariant === "02":
+                case handler.spellVariant === "02":
                     spellPath01 = obj01[obj02]['02'][color]['30'][ranVar];
                     spellPath02 = obj01[obj02]['02'][color]['60'][ranVar];
                     spellPath03 = obj01[obj02]['02'][color]['90'][ranVar];

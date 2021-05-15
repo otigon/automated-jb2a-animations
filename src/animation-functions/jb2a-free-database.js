@@ -33,22 +33,30 @@ JB2AFREEDB.curewounds = {
 }
 
 JB2AFREEDB.generichealing = {
-    'blue': {
-        '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Blue_200x200.webm',
-        '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Blue_400x400.webm',
+    '01': {
+        'blue': {
+            '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Blue_200x200.webm',
+            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Blue_400x400.webm',
+        },
+        'green': {
+            '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Green_200x200.webm',
+            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Green_400x400.webm',
+        },
+        'purple': {
+            '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Purple_200x200.webm',
+            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Purple_400x400.webm',
+        },
+        'yellow': {
+            '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_200x200.webm',
+            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_400x400.webm',
+        }
     },
-    'green': {
-        '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Green_200x200.webm',
-        '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Green_400x400.webm',
-    },
-    'purple': {
-        '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Purple_200x200.webm',
-        '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Purple_400x400.webm',
-    },
-    'yellow': {
-        '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_200x200.webm',
-        '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_400x400.webm',
+    '02': {
+        'GreenOrange': {
+            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm',
+        },
     }
+
 }
 
 JB2AFREEDB.thunderwave = {
@@ -245,8 +253,20 @@ JB2AFREEDB.explosion = {
         "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
     },
     "03": {
-        "blue yellow": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm'
-    }
+        "yellow blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm'
+    },
+    "04": {
+        "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
+    },
+    "05": {
+        "blue white": 'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+    },
+    "06": {
+        "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
+    },
+    "07": {
+        "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
+    },
 }
 
 JB2AFREEDB.huntersmark = {
@@ -352,3 +372,8 @@ JB2AFREEDB.guidingbolt = {
         '90': 'modules/JB2A_DnD5e/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_90ft_4000x400.webm'
     }
 }
+
+JB2AFREEDB.bardicinspiration = {
+    'green orange': 'modules/JB2A_DnD5e/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm',
+}
+

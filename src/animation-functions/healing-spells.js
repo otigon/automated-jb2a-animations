@@ -13,6 +13,16 @@ async function onTargetSpells(handler) {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let obj02;
     let color;
+    let filePath;
+    let size;
+    let variant;
+    if (handler.spellVariant === '01' || handler.spellVariant === `` || !handler.spellVariant) {
+        size = '400';
+        variant = '01';
+    } else {
+        size = '600';
+        variant = '02';
+    }
     switch (true) {
         case (handler.itemNameIncludes("cure", "wound")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
@@ -25,6 +35,7 @@ async function onTargetSpells(handler) {
                 default:
                     color = handler.color;
             }
+            filePath = obj01[obj02][color][size];
             break;
         case (handler.itemNameIncludes("heal", "word")):
         case (handler.itemNameIncludes("generic", "heal")):
@@ -34,14 +45,20 @@ async function onTargetSpells(handler) {
             switch (true) {
                 case handler.color === "a1" || handler.color === ``:
                 case !handler.color:
-                    color = "blue";
+                    switch (handler.spellVariant) {
+                        case ('02'):
+                            color = "green orange";
+                            break;
+                        default:
+                            color = "blue";
+                    }
                     break;
                 default:
                     color = handler.color;
             }
+            filePath = obj01[obj02][variant][color][size];
             break;
     }
-    let filePath = obj01[obj02][color]['400'];
     let tmColor = TMFXCOLORS[color]();
     let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
     await wait(globalDelay);

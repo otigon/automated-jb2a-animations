@@ -11,24 +11,33 @@ async function meleeExplosion(handler, target) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let obj02 = 'explosion';
-    let obj03 = '01';
-    switch (true) {
-        case handler.animExVariant === "02":
-            obj03 = '02';
-            break;
-    }
     let color;
+    let variant = handler.animExVariant;
+    let filePath;
+
     switch (true) {
-        case handler.animExColor === "a1" || ``:
-        case !handler.animExColor:
-            color = 'orange';
+        case handler.animExVariant === "shatter":
+            obj02 = "shatter";
+            color = handler.animExColor;
+            filePath = obj01[obj02][color];
             break;
         default:
+            obj02 = "explosion";
             color = handler.animExColor;
+            filePath = obj01[obj02][variant][color];
     }
-    let filePath = obj01[obj02][obj03][color];
 
-    let divisor = (1000 * (1/(handler.animExRadius)));
+    let multiplier;
+    switch (variant) {
+        case ('05'):
+        case ('06'):
+        case ('07'):
+            multiplier = 1500;
+            break;
+        default:
+            multiplier = 1000;
+    }
+    let divisor = (multiplier * (1/(handler.animExRadius)));
     
     async function cast() {
         let loops = handler.animExLoop;

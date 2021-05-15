@@ -84,9 +84,9 @@ JB2APATREONDB.eldritchblast = {
         '90': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Orange_90ft_4000x400.webm'
     },
     'pink': {
-        '30':'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Pink_30ft_1600x400.webm',
-        '60':'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Pink_60ft_2800x400.webm',
-        '90':'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Pink_90ft_4000x400.webm'
+        '30': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Pink_30ft_1600x400.webm',
+        '60': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Pink_60ft_2800x400.webm',
+        '90': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Pink_90ft_4000x400.webm'
     }
 }
 
@@ -110,21 +110,37 @@ JB2APATREONDB.curewounds = {
 }
 
 JB2APATREONDB.generichealing = {
-    'blue': {
-        '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Blue_200x200.webm',
-        '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Blue_400x400.webm',
+    '01': {
+        'blue': {
+            '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Blue_200x200.webm',
+            '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Blue_400x400.webm',
+        },
+        'green': {
+            '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Green_200x200.webm',
+            '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Green_400x400.webm',
+        },
+        'purple': {
+            '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Purple_200x200.webm',
+            '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Purple_400x400.webm',
+        },
+        'yellow': {
+            '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Yellow_200x200.webm',
+            '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Yellow_400x400.webm',
+        }
     },
-    'green': {
-        '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Green_200x200.webm',
-        '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Green_400x400.webm',
-    },
-    'purple': {
-        '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Purple_200x200.webm',
-        '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Purple_400x400.webm',
-    },
-    'yellow': {
-        '200': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Yellow_200x200.webm',
-        '400': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_01_Yellow_400x400.webm',
+    '02': {
+        'blue white': {
+            '600': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_02_Regular_BlueWhite_Burst_600x600.webm',
+        },
+        'green orange': {
+            '600': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm',
+        },
+        'purple pink': {
+            '600': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_02_Regular_PurplePink_Burst_600x600.webm',
+        },
+        'teal yellow': {
+            '600': 'modules/jb2a_patreon/Library/Generic/Healing/HealingAbility_02_Regular_TealYellow_Burst_600x600.webm',
+        },
     }
 }
 
@@ -218,7 +234,17 @@ JB2APATREONDB.scorchingray = {
             '30': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_30ft_1600x400.webm',
             '60': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_60ft_2800x400.webm',
             '90': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_90ft_4000x400.webm'
-        }
+        },
+        'rainbow01': {
+            '30': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_30ft_1600x400.webm',
+            '60': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_60ft_2800x400.webm',
+            '90': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_90ft_4000x400.webm'
+        },
+        'rainbow02': {
+            '30': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_30ft_1600x400.webm',
+            '60': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_60ft_2800x400.webm',
+            '90': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_90ft_4000x400.webm'
+        },
     },
     '02': {
         'blue': {
@@ -613,10 +639,36 @@ JB2APATREONDB.explosion = {
         "yellow": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Yellow_400x400.webm'
     },
     "03": {
-        "blue yellow": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm',
+        "yellow blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm',
         "green orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_GreenOrange_400x400.webm',
-        "purple pink": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_PurplePink_400x400.webm'
-    }
+        "purple pink": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_PurplePink_400x400.webm',
+        "blue white": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Dark_BlueWhite_400x400.webm'
+    },
+    "04": {
+        "dark purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Purple_400x400.webm',
+        "dark red": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Red_400x400.webm',
+        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
+        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Green_400x400.webm',
+        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Orange_400x400.webm',
+    },
+    "05": {
+        "blue white": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+        "green orange": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm',
+        "purple pink": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm',
+        "teal yellow": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm',
+    },
+    "06": {
+        "blue white": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
+        "green orange": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm',
+        "purple pink": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm',
+        "teal yellow": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm',
+    },
+    "07": {
+        "blue white": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
+        "green orange": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm',
+        "purple pink": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm',
+        "teal yellow": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm',
+    },
 }
 
 JB2APATREONDB.huntersmark = {
@@ -887,9 +939,9 @@ JB2APATREONDB.guidingbolt = {
         '90': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_PurplePink_90ft_4000x400.webm'
     },
     'white blue': {
-        '30': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_WhiteBlue_30ft_1600x400.webm',
-        '60': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_WhiteBlue_60ft_2800x400.webm',
-        '90': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_WhiteBlue_90ft_4000x400.webm'
+        '30': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Dark_BlueWhite_30ft_1600x400.webm',
+        '60': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Dark_BlueWhite_60ft_2800x400.webm',
+        '90': 'modules/jb2a_patreon/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Dark_BlueWhite_90ft_4000x400.webm'
     }
 }
 
@@ -919,5 +971,11 @@ JB2APATREONDB.impact = {
         'yellow': 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Yellow_400x400.webm'
     },
     'boulder': 'modules/jb2a_patreon/Library/Generic/Impact/BoulderImpact_01_Regular_White_500x500.webm'
+}
+
+JB2APATREONDB.bardicinspiration = {
+    'blue yellow': 'modules/jb2a_patreon/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm',
+    'green orange': 'modules/jb2a_patreon/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm',
+    'purple pink': 'modules/jb2a_patreon/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_PurplePink_400x400.webm',
 }
 

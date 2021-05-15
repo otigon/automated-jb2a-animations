@@ -14,49 +14,32 @@ async function explodeOnTarget(handler) {
     let obj02;
     let obj03;
     let color;
-
+    let variant = handler.animExVariant;
     let filePath;
     switch (true) {
         case handler.animExVariant === "shatter":
             obj02 = "shatter";
-            switch (true) {
-                case handler.animExColor === "a1" || handler.animExColor === ``:
-                case !handler.animExColor:
-                    color = "blue";
-                    break;
-                default:
-                    color = handler.animExColor;
-            }
+            color = handler.animExColor;
             filePath = obj01[obj02][color];
             break;
-        case handler.animExVariant === "01":
-            obj03 = "01";
-            obj02 = "explosion";
-            switch (true) {
-                case handler.animExColor === "a1" || handler.animExColor === ``:
-                case !handler.animExColor:
-                    color = "orange";
-                    break;
-                default:
-                    color = handler.animExColor;
-            }
-            filePath = obj01[obj02][obj03][color];
-            break;
         default:
-            obj03 = "02";
             obj02 = "explosion";
-            switch (true) {
-                case handler.animExColor === "a1" || handler.animExColor === ``:
-                case !handler.animExColor:
-                    color = "blue";
-                    break;
-                default:
-                    color = handler.animExColor;
-            }
-            filePath = obj01[obj02][obj03][color];
+            color = handler.animExColor;
+            filePath = obj01[obj02][variant][color];
     }
 
-    let divisor = (1000 * (1/(handler.animExRadius)));
+    let multiplier;
+    switch (variant) {
+        case ('05'):
+        case ('06'):
+        case ('07'):
+            multiplier = 1500;
+            break;
+        default:
+            multiplier = 1000;
+    }
+    let divisor = (multiplier * (1/(handler.animExRadius)));
+
     let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
     await wait(globalDelay);
 

@@ -94,6 +94,14 @@ export const TMFXCOLORS = {
     },
     '2hb': function () {
         return "pass";
+    },
+    'rainbow01': function () {
+        return "pass";
+    },
+    'rainbow02': function () {
+        return "pass";
+    },
+    'blue white': function () {
+        return "pass";
     }
-
 };

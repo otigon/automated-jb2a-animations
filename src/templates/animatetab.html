@@ -8,44 +8,53 @@
             border-radius: 10px;
             max-width: 15%;
         }
-        input[name="flags.autoanimations.auraOpacity"], textarea {
+
+        input[name="flags.autoanimations.auraOpacity"],
+        textarea {
             background-color: rgb(196, 196, 196);
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
             border-color: black;
         }
+
         .animation-types {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .animation-names {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .animation-colors {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .explosion-variants {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .explosion-colors {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .explosion-radii {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .explosion-loops {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
         }
+
         .cta-required {
             text-align: center;
         }
-
     </style>
 </head>
 
@@ -86,6 +95,42 @@
                         {{#select animName}}
                         {{#each animNameHolder as |key name|}}
                         <option value="{{key}}">{{key}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="bard-options">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.bardAnimation"}}</label>
+                <div class="form-fields">
+                    <select name="flags.autoanimations.bards.bardAnim" class="bard-options">
+                        {{#select bardAnim}}
+                        {{#each bardAnimName as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.bardTarget"}}</label>
+                <input type="checkbox" name="flags.autoanimations.bards.bardTarget" {{checked bardTarget}}>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.bardSelf"}}</label>
+                <input type="checkbox" name="flags.autoanimations.bards.bardSelf" {{checked bardSelf}}>
+            </div>
+        </div>
+        <div class="spell-variant">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                <div class="form-fields">
+                    <select name="flags.autoanimations.spellVar" class="spell-variants">
+                        {{#select spellVar}}
+                        {{#each spellVariant as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -231,7 +276,8 @@
             </div>
             <div class="form-group">
                 <label>{{localize "AUTOANIM.auraOpacity"}} </label>
-                <input type="number" id="flags.autoanimations.auraOpacity" name="flags.autoanimations.auraOpacity" min="0" max="1" value={{opacity}} class="auraOpacity">
+                <input type="number" id="flags.autoanimations.auraOpacity" name="flags.autoanimations.auraOpacity"
+                    min="0" max="1" value={{opacity}} class="auraOpacity">
             </div>
         </div>
         <div class="rotation-static">

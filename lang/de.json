@@ -208,6 +208,21 @@
     "AUTOANIM.itemGuidingBolt": "Guiding Bolt",
     "AUTOANIM.animTeleportation": "Teleportation",
     "AUTOANIM.range": "Input a Range",
-    "AUTOANIM.itemMistyStep": "Misty Step"
+    "AUTOANIM.itemMistyStep": "Misty Step",
+    "AUTOANIM.colorWhiteBlue": "White Blue",
 
+    "AUTOANIM.variantChoice": "Choose a Variant",
+    "AUTOANIM.colorRainbow01": "Rainbow01",
+    "AUTOANIM.colorRainbow02": "Rainbow02",
+    "AUTOANIM.variant03":"03",
+    "AUTOANIM.variant04":"04",
+    "AUTOANIM.variant05":"05",
+    "AUTOANIM.variant06":"06",
+    "AUTOANIM.variant07":"07",
+    "AUTOANIM.classFeatures": "Class Features",
+    "AUTOANIM.bardicInspiration": "Bardic Inspiration",
+    "AUTOANIM.musicNotes": "Music Notes",
+    "AUTOANIM.bardAnimation": "Bard Animation",
+    "AUTOANIM.bardTarget": "Animate on Target?",
+    "AUTOANIM.bardSelf": "Animate on Self?"
 }

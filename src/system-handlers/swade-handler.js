@@ -35,6 +35,10 @@ export default class SwadeHandler {
         this._hmAnim = this._flags.hmAnim ?? "";
         this._uaStrikeType = this._flags.uaStrikeType ?? "";
         this._teleDist = this._flags.teleDist ?? "";
+        this._spellVar = this._flags.spellVar ?? "";
+        this._bardTarget = this._flags.bards.bardTarget ?? true;
+        this._bardSelf = this._flags.bards.bardSelf ?? true;
+        this._bardAnim = this._flags.bards.bardAnim ?? "";
 
         this._animNameFinal;
         switch (true) {
@@ -172,6 +176,22 @@ export default class SwadeHandler {
 
     get teleRange() {
         return this._teleDist;
+    }
+
+    get spellVariant() {
+        return this._spellVar;
+    }
+
+    get bardTarget() {
+        return this._bardTarget;
+    }
+
+    get bardSelf() {
+        return this._bardSelf;
+    }
+
+    get bardAnim() {
+        return this._bardAnim;
     }
 
     getDistanceTo(target) {
