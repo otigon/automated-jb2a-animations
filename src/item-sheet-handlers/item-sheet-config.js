@@ -353,41 +353,26 @@ export class AnimationTab {
         var add_button = $(".add_field_button");
         var remove_button = $(".remove_field_button");
 
-        $(add_button).click(function (e) {
+        // using an arrow function (=>) instead of defining an inline function (using the keyword `function`) binds it to the outer context meaning you can now access variables from the outer scope (like `this.animateItem`)
+        $(add_button).click((e) => {
             e.preventDefault();
-            var total_fields = wrapper[0].childNodes.length;
-            if (total_fields < max_fields) {
-                $(wrapper).append(
-                    '<div class="item-audio">',
-                    '<div class="enable-audio">',
-                    '<div class="audio-picker">',
-                    '<div class="form-inline">',
-                    '<div class="form group">',
-                    '<label>Choose Audio File</label>',
-                    '<button type="button" class="file-picker-aa" data-type="audio" name="audio-button" data-target="flags.autoanimations.soundFile" title="Browse Files" style="float: right"> <i class="fas fa-music fa-sm"></i> </button>',
-                    '<input class="audio-input" style="float: right" type="text" name="flags.autoanimations.sounds.soundFile" >',
-                    '</div>',
-                    '<div class="form-group">',
-                    '<label>Delay Audio (milliseconds)</label>',
-                    '<input type="number" id="flags.autoanimations.sounds.soundDelay" name="flags.autoanimations.sounds.soundDelay" min="0"  class="delayAudio">',
-                    '</div>',
-                    '<div class="form-group">',
-                    '<label>Audio Volume (0 - 100)</label>',
-                    '<input type="number" id="flags.autoanimations.sounds.soundVolume" name="flags.autoanimations.sounds.soundVolume" min="0" max="1"  class="audioVolume">',
-                    '</div>',
-                    '</div>',
-                    '</div>',
-                    '</div>',
-                    '</div>',
-                );
-            }
+            const sound = {
+                soundFile: '',
+                soundDelay: 0,
+                soundVolume: 50,
+            };
+            const allSounds = this.animateItem.allSounds || [];
+            allSounds.push(sound);
+            this.animateItem.allSounds = allSounds;
+            // I have no idea how to save it from here -- currently it's not making it back into the template
         });
-        $(remove_button).click(function (e) {
+        $(remove_button).click((e) => {
             e.preventDefault();
-            var total_fields = wrapper[0].childNodes.length;
-            if (total_fields > 1) {
-                wrapper[0].childNodes[total_fields - 1].remove();
-            }
+            const index = e.delegateTarget.getAttribute('soundIndex');
+            const allSounds = [...this.animateItem.allSounds];
+            allSounds.splice(index, 1);
+            this.animateItem.allSounds = allSounds;
+            // again, I have no idea how to save it from here
         });
         /*
         if (this.activate && !this.isActive()) {

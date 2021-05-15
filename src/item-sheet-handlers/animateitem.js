@@ -30,6 +30,7 @@ export class AnimateItem {
         this.soundDelay = this.data.sounds.soundDelay;
         this.soundVolume = this.data.sounds.soundVolume;
         //this.flagObject = Object.assign({}, this.data);
+        this.allSounds = this.data.allSounds;
     }
 
     defaultData() {
@@ -55,6 +56,11 @@ export class AnimateItem {
             sounds: {},
             //itemName = ``,
             //animTypeVar = ``,
+            allSounds: [{
+                soundFile: '',
+                soundDelay: 0,
+                soundVolume: 50,
+            }],
         }
     }
     /*
