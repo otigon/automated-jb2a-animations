@@ -33,9 +33,9 @@ export default class MidiHandler {
         this._uaStrikeType = this._flags.uaStrikeType ?? "";
         this._teleDist = this._flags.teleDist ?? "";
         this._spellVar = this._flags.spellVar ?? "";
-        this._bardTarget = this._flags.bards.bardTarget ?? true;
-        this._bardSelf = this._flags.bards.bardSelf ?? true;
-        this._bardAnim = this._flags.bards.bardAnim ?? "";
+        this._bardTarget = this._flags.bards?.bardTarget ?? true;
+        this._bardSelf = this._flags.bards?.bardSelf ?? true;
+        this._bardAnim = this._flags.bards?.bardAnim ?? "";
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));

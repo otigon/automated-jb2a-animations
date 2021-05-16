@@ -36,9 +36,9 @@ export default class SwadeHandler {
         this._uaStrikeType = this._flags.uaStrikeType ?? "";
         this._teleDist = this._flags.teleDist ?? "";
         this._spellVar = this._flags.spellVar ?? "";
-        this._bardTarget = this._flags.bards.bardTarget ?? true;
-        this._bardSelf = this._flags.bards.bardSelf ?? true;
-        this._bardAnim = this._flags.bards.bardAnim ?? "";
+        this._bardTarget = this._flags.bards?.bardTarget ?? true;
+        this._bardSelf = this._flags.bards?.bardSelf ?? true;
+        this._bardAnim = this._flags.bards?.bardAnim ?? "";
 
         this._animNameFinal;
         switch (true) {
