@@ -53,6 +53,7 @@ async function mistyStep(handler) {
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {
+        if (event.data.button !== 0) {return}
         pos = event.data.getLocalPosition(canvas.app.stage);
         deleteTemplatesAndMove();
         canvas.app.stage.removeListener('pointerdown');
