@@ -17,7 +17,8 @@ async function huntersMark(handler) {
     if (obj03 === "a1") { obj03 = "01" };
     let color;
     switch (handler.color) {
-        case "a1" || ``:
+        case "a1":
+        case ``:
             color = 'green';
             break;
         default:

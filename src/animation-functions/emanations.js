@@ -21,13 +21,16 @@ async function selfCast(handler) {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
     switch (handler.animName) {
-        case  "shatter" || game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
+        case  "shatter":
+        case game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
             testPath = obj01[obj02][property];
             break;
-        case "thunderwave" || ame.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
+        case "thunderwave":
+        case game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
             testPath = obj01[obj02][property]['center'];
             break;
-        case "antilife shell" || game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
+        case "antilife shell":
+        case game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
             testPath = obj01['antilifeshell']['antilifeshell'];
             break;
     }

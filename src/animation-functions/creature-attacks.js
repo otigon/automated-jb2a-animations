@@ -79,7 +79,8 @@ async function creatureAttacks(handler) {
         let Scale;
         let Size = handler.actor.data.data.traits.size;
         switch (Size) {
-            case "tiny" || "sm":
+            case "tiny":
+            case "sm":
                 Scale = 0.25;
                 break;
             case "med":
