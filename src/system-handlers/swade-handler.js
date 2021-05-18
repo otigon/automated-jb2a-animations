@@ -12,6 +12,40 @@ export default class SwadeHandler {
         this._actorToken = canvas.tokens.ownedTokens.find(x => x.actor.id === actor.id);
         this._allTargets = Array.from(game.user.targets);
 
+        switch (this._actorToken.actor.data.data.stats.size) {
+            case "1/8":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "tiny"
+                }
+                break;
+            case "1/4":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "sm"
+                }
+                break;
+            case "2":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "lg"
+                }
+                break;
+            case "4":
+                    this._actorToken.actor.data.data["traits"] = {
+                        size: "huge"
+                    }
+                    break;
+            case "10":
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "grg"
+                }
+                break;
+            case "1":
+            default:
+                this._actorToken.actor.data.data["traits"] = {
+                    size: "med"
+                }
+                break;
+        }
+
         this._itemName = item.name?.toLowerCase();
 
         // getting flag data from Animation Tab

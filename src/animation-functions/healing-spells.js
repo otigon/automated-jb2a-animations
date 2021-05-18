@@ -16,12 +16,13 @@ async function onTargetSpells(handler) {
     let filePath;
     let size;
     let variant;
-    if (handler.spellVariant === '01' || handler.spellVariant === `` || !handler.spellVariant) {
-        size = '400';
-        variant = '01';
-    } else {
+    if (handler.spellVariant === '02') {
         size = '600';
         variant = '02';
+    } else {
+        size = '400';
+        variant = '01';
+
     }
     switch (true) {
         case (handler.itemNameIncludes("cure", "wound")):
@@ -78,7 +79,7 @@ async function onTargetSpells(handler) {
             } else target = handler.allTargets[i];
             //let target = handler.allTargets[i];
 
-            let tokenSize = target.actor.data.data.traits.size;
+            let tokenSize = target.actor.data.data?.traits?.size ?? "med";
             let divisor = 375;
             switch (true) {
                 case (tokenSize === "lg"):
