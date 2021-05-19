@@ -61,7 +61,7 @@ async function onTargetSpells(handler) {
             break;
     }
     let tmColor = TMFXCOLORS[color]();
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function cast() {
@@ -176,7 +176,7 @@ async function onTargetSpells(handler) {
                         }
                     }
                 }];
-            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+            if (game.settings.get("autoanimations", "tmfx")) {
                 TokenMagic.addUpdateFiltersOnTargeted(Holy);
             }
         }

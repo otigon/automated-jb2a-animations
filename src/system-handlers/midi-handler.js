@@ -45,19 +45,19 @@ export default class MidiHandler {
         this._targets = Array.from(workflow.targets);
         this._targetsId = Array.from(this._targets.filter(actor => actor.id).map(actor => actor.id));
         switch (true) {
-            case (game.settings.get("automated-jb2a-animations", "playonmiss")):
+            case (game.settings.get("autoanimations", "playonmiss")):
                 this._allTargets = Array.from(workflow.targets);
                 break;
-            case (game.settings.get("automated-jb2a-animations", "playonhit")):
+            case (game.settings.get("autoanimations", "playonhit")):
                 this._allTargets = Array.from(workflow.hitTargets);
                 break;
             default:
                 this._allTargets = Array.from(workflow.targets);
             }
         
-        this._playOnMiss = game.settings.get("automated-jb2a-animations", "playonmiss");
+        this._playOnMiss = game.settings.get("autoanimations", "playonmiss");
         /*
-        if (game.settings.get("automated-jb2a-animations", "playonhit")) {
+        if (game.settings.get("autoanimations", "playonhit")) {
             this._allTargets = Array.from(workflow.hitTargets);
         } else {
             this._allTargets = Array.from(workflow.targets);

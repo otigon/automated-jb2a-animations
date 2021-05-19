@@ -36,7 +36,7 @@ import ImagePicker from "./ImagePicker.js";
 const log = () => { };
 
 Hooks.on('init', () => {
-    game.settings.register("automated-jb2a-animations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
+    game.settings.register("autoanimations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
         name: game.i18n.format("AUTOANIM.initpopup_name"),                  // Register a module setting with checkbox
         hint: game.i18n.format("AUTOANIM.initpopup_hint"),               // Description of the settings
         scope: "world",                                    // This specifies a client-stored setting
@@ -44,7 +44,7 @@ Hooks.on('init', () => {
         type: Boolean,
         default: false,                                     // The default value for the setting
     });
-    game.settings.register("automated-jb2a-animations", "globaldelay", {
+    game.settings.register("autoanimations", "globaldelay", {
         name: game.i18n.format("AUTOANIM.globaldelay_name"),
         hint: game.i18n.format("AUTOANIM.globaldelay_hint"),
         scope: "world",
@@ -52,7 +52,7 @@ Hooks.on('init', () => {
         default: 100,
         type: Number
     })
-    game.settings.register("automated-jb2a-animations", "hideFromPlayers", { // game.setting.register("NameOfTheModule", "VariableName",
+    game.settings.register("autoanimations", "hideFromPlayers", { // game.setting.register("NameOfTheModule", "VariableName",
         name: game.i18n.format("AUTOANIM.animtab_name"),                  // Register a module setting with checkbox
         hint: game.i18n.format("AUTOANIM.animtab_hint"),               // Description of the settings
         scope: "world",                                    // This specifies a client-stored setting
@@ -60,7 +60,7 @@ Hooks.on('init', () => {
         type: Boolean,
         default: false,                                     // The default value for the setting
     });
-    game.settings.register("automated-jb2a-animations", "targetingAssist", {
+    game.settings.register("autoanimations", "targetingAssist", {
         name: game.i18n.format("AUTOANIM.tarassist_name"),
         hint: game.i18n.format("AUTOANIM.tarassist_hint"),
         scope: "world",
@@ -68,7 +68,7 @@ Hooks.on('init', () => {
         type: Boolean,
         default: false,
     });
-    game.settings.register("automated-jb2a-animations", "tmfx", {
+    game.settings.register("autoanimations", "tmfx", {
         name: game.i18n.format("AUTOANIM.tfmxenable_name"),
         hint: game.i18n.format("AUTOANIM.tfmxenable_hint"),
         scope: 'world',
@@ -79,7 +79,7 @@ Hooks.on('init', () => {
     switch (game.system.id) {
         case "dnd5e":
             if (game.modules.get("midi-qol")?.active) {
-                game.settings.register("automated-jb2a-animations", "playonhit", {
+                game.settings.register("autoanimations", "playonhit", {
                     name: game.i18n.format("AUTOANIM.midionhit_name"),
                     hint: game.i18n.format("AUTOANIM.midionhit_hint"),
                     scope: 'world',
@@ -87,7 +87,7 @@ Hooks.on('init', () => {
                     default: false,
                     config: true,
                 });
-                game.settings.register("automated-jb2a-animations", "playonmiss", {
+                game.settings.register("autoanimations", "playonmiss", {
                     name: game.i18n.format("AUTOANIM.midionmiss_name"),
                     hint: game.i18n.format("AUTOANIM.midionmiss_hint"),
                     scope: `world`,
@@ -95,7 +95,7 @@ Hooks.on('init', () => {
                     default: false,
                     config: true,
                 });
-                game.settings.register("automated-jb2a-animations", "playonDamage", {
+                game.settings.register("autoanimations", "playonDamage", {
                     name: game.i18n.format("AUTOANIM.midiondmg_name"),
                     hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
                     scope: 'world',
@@ -104,7 +104,7 @@ Hooks.on('init', () => {
                     config: true,
                     onChange: () => { window.location.reload() }
                 });
-                game.settings.register("automated-jb2a-animations", "EnableCritical", {
+                game.settings.register("autoanimations", "EnableCritical", {
                     name: game.i18n.format("AUTOANIM.crithit_name"),
                     hint: game.i18n.format("AUTOANIM.crithit_hint"),
                     scope: 'world',
@@ -113,7 +113,7 @@ Hooks.on('init', () => {
                     config: true,
                     onchange: () => { window.location.reload() }
                 });
-                game.settings.register("automated-jb2a-animations", "CriticalAnimation", {
+                game.settings.register("autoanimations", "CriticalAnimation", {
                     name: game.i18n.format("AUTOANIM.crithitAnim_name"),
                     scope: 'world',
                     type: ImagePicker.Image,
@@ -121,7 +121,7 @@ Hooks.on('init', () => {
                     config: true,
                     onchange: () => { window.location.reload() }
                 });
-                game.settings.register("automated-jb2a-animations", "EnableCriticalMiss", {
+                game.settings.register("autoanimations", "EnableCriticalMiss", {
                     name: game.i18n.format("AUTOANIM.critmiss_name"),
                     hint: game.i18n.format("AUTOANIM.critmiss_hint"),
                     scope: 'world',
@@ -130,7 +130,7 @@ Hooks.on('init', () => {
                     config: true,
                     onchange: () => { window.location.reload() }
                 });
-                game.settings.register("automated-jb2a-animations", "CriticalMissAnimation", {
+                game.settings.register("autoanimations", "CriticalMissAnimation", {
                     name: game.i18n.format("AUTOANIM.critmissAnim_name"),
                     scope: 'world',
                     type: ImagePicker.Image,
@@ -140,7 +140,7 @@ Hooks.on('init', () => {
                 });
 
             } else {
-                game.settings.register("automated-jb2a-animations", "playonDamageCore", {
+                game.settings.register("autoanimations", "playonDamageCore", {
                     name: game.i18n.format("AUTOANIM.coreondmg_name"),
                     hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
                     scope: 'world',
@@ -150,7 +150,7 @@ Hooks.on('init', () => {
                 });
             }
     }
-    game.settings.register("automated-jb2a-animations", "EnableShield", {
+    game.settings.register("autoanimations", "EnableShield", {
         name: game.i18n.format("AUTOANIM.enableshield_name"),
         hint: game.i18n.format("AUTOANIM.enableshield_hint"),
         scope: 'world',
@@ -161,7 +161,7 @@ Hooks.on('init', () => {
 
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
-        switch (game.settings.get("automated-jb2a-animations", "playonDamage")) {
+        switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { revItUpMidi(workflow) });
                 Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
@@ -171,7 +171,7 @@ Hooks.on('init', () => {
                 Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
                 break;
         }
-        if (game.settings.get("automated-jb2a-animations", "EnableCritical") || game.settings.get("automated-jb2a-animations", "EnableCriticalMiss")) {
+        if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
             Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalChecks(workflow) })
         }
 
@@ -203,7 +203,7 @@ let critAnim;
 let critMissAnim;
 
 Hooks.on(`renderItemSheet`, (app, html, data) => {
-    if (!game.user.isGM && game.settings.get("automated-jb2a-animations", "hideFromPlayers")) {
+    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
         return;
     }
     AnimationTab.bind(app, html, data);
@@ -218,9 +218,9 @@ Hooks.once('ready', function () {
         game.settings.set("tokenmagic", "fxPlayerPermission", true);
     }
     if (game.modules.get("midi-qol")?.active) {
-        critAnim = game.settings.get("automated-jb2a-animations", "CriticalAnimation");
+        critAnim = game.settings.get("autoanimations", "CriticalAnimation");
         critAnim = critAnim.substring(7);
-        critMissAnim = game.settings.get("automated-jb2a-animations", "CriticalMissAnimation");
+        critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
         critMissAnim = critMissAnim.substring(7);
     }
 });
@@ -346,7 +346,7 @@ function revItUp5eCore(msg) {
     }
 
     const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
-    if (game.settings.get("automated-jb2a-animations", "playonDamageCore")) {
+    if (game.settings.get("autoanimations", "playonDamageCore")) {
         if (rollType.includes("damage")) {
             //const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
             if (game.modules.get("mre-dnd5e")?.active) {
@@ -399,13 +399,13 @@ function revItUp5eCore(msg) {
                 break;
         }
     }
-    if (!game.settings.get("automated-jb2a-animations", "playonDamageCore")) {
+    if (!game.settings.get("autoanimations", "playonDamageCore")) {
         if (rollType.includes("damage")) {
             log("damage roll");
         } else
             if (rollType.includes("attack")) {
                 revItUp(handler)
-            } else /*if (game.settings.get("automated-jb2a-animations", "playonDamageCore") == false)*/ {
+            } else /*if (game.settings.get("autoanimations", "playonDamageCore") == false)*/ {
                 if (handler.itemIncludes("xxx") || handler.animKill) {
                     return;
                 }
@@ -639,7 +639,7 @@ async function criticalCheck(workflow) {
     let Anim;
 
     switch (true) {
-        case (game.settings.get("automated-jb2a-animations", "EnableCritical") && rollCheck === 20):
+        case (game.settings.get("autoanimations", "EnableCritical") && rollCheck === 20):
             token = canvas.tokens.get(workflow.tokenId);
             Anim =
             {
@@ -658,7 +658,7 @@ async function criticalCheck(workflow) {
             canvas.fxmaster.playVideo(Anim);
             game.socket.emit('module.fxmaster', Anim);
             break;
-        case (game.settings.get("automated-jb2a-animations", "EnableCriticalMiss") && rollCheck === 1):
+        case (game.settings.get("autoanimations", "EnableCriticalMiss") && rollCheck === 1):
             token = canvas.tokens.get(workflow.tokenId);
             Anim =
             {

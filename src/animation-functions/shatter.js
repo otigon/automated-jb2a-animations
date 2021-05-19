@@ -20,7 +20,7 @@ async function shatterAuto(handler) {
         default:
             color = handler.color;
     }
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function cast() {
@@ -83,7 +83,7 @@ async function shatterAuto(handler) {
                     }
                 }
             }];
-        if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+        if (game.settings.get("autoanimations", "tmfx")) {
             await wait(1400);
             TokenMagic.addUpdateFiltersOnTargeted(shockWave);
         }

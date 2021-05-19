@@ -1,5 +1,5 @@
 {
-    "name": "automated-jb2a-animations",
+    "name": "autoanimations",
     "title": "Automated Animations",
     "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
     "version": "0.3.26",

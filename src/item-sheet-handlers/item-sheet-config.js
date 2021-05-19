@@ -139,7 +139,7 @@ export class AnimationTab {
     async render() {
 
 
-        let template = await renderTemplate('modules/automated-jb2a-animations/src/templates/animatetab.html', this.animateItem);
+        let template = await renderTemplate('modules/autoanimations/src/templates/animatetab.html', this.animateItem);
         let el = this.html.find('.animation-tab-contents');
         if (el.length) {
             el.replaceWith(template);

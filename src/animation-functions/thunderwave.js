@@ -81,7 +81,7 @@ async function thunderwaveAuto(handler) {
             y: Scale
         }
     };
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function spellAnimation(number) {
@@ -121,7 +121,7 @@ async function thunderwaveAuto(handler) {
                 }
             }
         }];
-    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+    if (game.settings.get("autoanimations", "tmfx")) {
         await wait(500);
         TokenMagic.addUpdateFiltersOnTargeted(shockWave);
     }

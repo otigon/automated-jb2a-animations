@@ -115,14 +115,14 @@ async function meleeRangeSwitch(handler) {
 
     let rangeFilePath = obj01[obj12][obj03];
     let meleeFilePath = obj01[obj02][color];
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
         var targetCheck = handler.targetAssistant.length;
-        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let noTargetAnim = `modules/autoanimations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
         {
@@ -140,7 +140,7 @@ async function meleeRangeSwitch(handler) {
         }
 
         switch (true) {
-            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -421,7 +421,7 @@ async function meleeRangeSwitch(handler) {
                                     if (handler.animExplode && handler.animOverride) {
                                         meleeExplosion(handler, target);
                                     }
-                                    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                                    if (game.settings.get("autoanimations", "tmfx")) {
                                         await wait(200);
                                         switch (true) {
                                             case (fireColor != "pass"):
@@ -440,7 +440,7 @@ async function meleeRangeSwitch(handler) {
                             if (handler.animExplode && handler.animOverride) {
                                 meleeExplosion(handler, target);
                             }
-                            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                            if (game.settings.get("autoanimations", "tmfx")) {
                                 await wait(200);
                                 switch (true) {
                                     case (fireColor != "pass"):

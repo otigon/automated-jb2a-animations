@@ -158,14 +158,14 @@ async function rangedWeapons(handler) {
         default:
             filePath = obj01[obj02];
     }
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
         var targetCheck = handler.targetAssistant.length;
-        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let noTargetAnim = `modules/autoanimations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
         {
@@ -183,13 +183,13 @@ async function rangedWeapons(handler) {
         }
 
         switch (true) {
-            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
 
         switch (true) {
-            case ((arrayLength === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((arrayLength === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -387,7 +387,7 @@ async function rangedWeapons(handler) {
                 }
             }
             SpellAnimation(Repeater)
-            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+            if (game.settings.get("autoanimations", "tmfx")) {
                 switch (true) {
                     case (tmMacro === "pass"):
                         break;
