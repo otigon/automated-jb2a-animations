@@ -375,7 +375,6 @@ export class AnimateItem {
         }
     }
     get exColors() {
-        let explodeVariant = this.explodeVariant;
         if (moduleIncludes("jb2a_patreon")) {
             switch (this.explodeVariant) {
                 case ('01'):
@@ -394,6 +393,7 @@ export class AnimateItem {
                     return AUTOANIM.localized(AUTOANIM.explosionColors0567);
                     break;
                 case ('shatter'):
+                case ('thunderwave'):
                     return AUTOANIM.localized(AUTOANIM.animColorShatterThunder);
                     break;
                 default:
@@ -417,6 +417,7 @@ export class AnimateItem {
                     return AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
                     break;
                 case ('shatter'):
+                case ('thunderwave'):
                     return AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree);
                     break;
                 default:
@@ -430,10 +431,12 @@ export class AnimateItem {
     }
 
     get exVariants() {
-        if (moduleIncludes("jb2a_patreon")) {
-            return AUTOANIM.localized(AUTOANIM.explosionVariant);
-        } else {
-            return AUTOANIM.localized(AUTOANIM.explosionVariantFree);
+        switch (true) {
+            case (this.animType === "t10"):
+                return AUTOANIM.localized(AUTOANIM.selfemanation);
+                break;
+            default:
+                return AUTOANIM.localized(AUTOANIM.explosionVariant);
         }
     }
 

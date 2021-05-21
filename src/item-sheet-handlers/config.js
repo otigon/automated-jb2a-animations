@@ -443,6 +443,13 @@ AUTOANIM.explosionVariantFree = {
 
 AUTOANIM.selfemanation = {
     "a1": ``,
+    "01": "AUTOANIM.variant01",
+    "02": "AUTOANIM.variant02",
+    "03": "AUTOANIM.variant03",
+    "04": "AUTOANIM.variant04",
+    "05": "AUTOANIM.variant05",
+    "06": "AUTOANIM.variant06",
+    "07": "AUTOANIM.variant07",
     "antilife-shell": "AUTOANIM.animAntiLifeShell",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
@@ -665,7 +672,7 @@ AUTOANIM.animTypePick = {
     "t7": "AUTOANIM.typeHealingSpell",
     "t8": "AUTOANIM.typeExplosiveCT",
     "t9": "AUTOANIM.typeExplosiveOT",
-    "t10": "AUTOANIM.typeSelfEffects",
+    "t10": "AUTOANIM.typeExplosiveSelf",
     "t11": "AUTOANIM.typeAuras",
     "t12": "AUTOANIM.animTeleportation",
     "t13": "AUTOANIM.classFeatures"

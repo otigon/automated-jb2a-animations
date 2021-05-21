@@ -7,21 +7,15 @@ async function selfCast(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    let obj02 = handler.animName.toLowerCase();
-    let property;
-    switch (true) {
-        case handler.animColor === "a1":
-            property = 'blue';
-            break;
-        default:
-            property = handler.animColor;
-    }
+    let obj02 = handler.animExVariant;
+    let property = handler.animExColor;
+    let loops = handler.animExLoop;
     let testPath;
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    switch (handler.animName) {
-        case  "shatter":
+    switch (handler.animExVariant) {
+        case "shatter":
         case game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
             testPath = obj01[obj02][property];
             break;
@@ -29,89 +23,28 @@ async function selfCast(handler) {
         case game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
             testPath = obj01[obj02][property]['center'];
             break;
-        case "antilife shell":
+        case "antilife-shell":
         case game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
             testPath = obj01['antilifeshell']['antilifeshell'];
             break;
+        default:
+            testPath = obj01['explosion'][obj02][property];
     }
 
-    let divisor;
-    let tokenSize = handler.actor.data.data.traits.size;
-    switch (handler.selfRadius) {
-        case "5":
-            switch (tokenSize) {
-                case "lg":
-                    divisor = handler.animName === "thunderwave" ? 125 : 85;
-                    break;
-                case "huge":
-                    divisor = handler.animName === "thunderwave" ? 90 : 62;
-                    break;
-                default:
-                    divisor = handler.animName === "thunderwave" ? 175 : 125;
-            }
+    let multiplier;
+    switch (obj02) {
+        case ('05'):
+        case ('06'):
+        case ('07'):
+        case ('thunderwave'):
+            multiplier = 1500;
             break;
-        case "10":
-            switch (tokenSize) {
-                case "lg":
-                    divisor = handler.animName === "thunderwave" ? 90 : 62; 
-                    break;
-                case "huge":
-                    divisor = handler.animName === "thunderwave" ? 68 : 46;
-                    break;
-                default:
-                    divisor = handler.animName === "thunderwave" ? 125 : 85; 
-            }
-            break;
-        case "15":
-            switch (tokenSize) {
-                case "lg":
-                    divisor = handler.animName === "thunderwave" ? 68 : 46;
-                    break;
-                case "huge":
-                    divisor = handler.animName === "thunderwave" ? 58 : 42;
-                    break;
-                default:
-                    divisor = handler.animName === "thunderwave" ? 90 : 62;
-            }
-            break;
-        case "20":
-            switch (tokenSize) {
-                case "lg":
-                    divisor = handler.animName === "thunderwave" ? 55 : 39;
-                    break;
-                case "huge":
-                    divisor = handler.animName === "thunderwave" ? 52 : 35;
-                    break;
-                default:
-                    divisor = handler.animName === "thunderwave" ? 68 : 46;
-            }
-            break;
-        case "25":
-            switch (tokenSize) {
-                case "lg":
-                    divisor = handler.animName === "thunderwave" ? 48 : 32;
-                    break;
-                case "huge":
-                    divisor = handler.animName === "thunderwave" ? 45 : 30;
-                    break;
-                default:
-                    divisor = handler.animName === "thunderwave" ? 55 : 39;
-            }
-            break;
-        case "30":
-            switch (tokenSize) {
-                case "lg":
-                    divisor = handler.animName === "thunderwave" ? 42 : 27;
-                    break;
-                case "huge":
-                    divisor = handler.animName === "thunderwave" ? 40 : 26;
-                    break;
-                default:
-                    divisor = handler.animName === "thunderwave" ? 48 : 32;
-            }
-            break;
+        default:
+            multiplier = 1000;
+
     }
 
+    let divisor = (multiplier * (1/handler.animExRadius));
     let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
     await wait(globalDelay);
 
@@ -135,8 +68,23 @@ async function selfCast(handler) {
             }
         };
 
-        canvas.fxmaster.playVideo(spellAnim);
-        game.socket.emit('module.fxmaster', spellAnim);
+
+        async function SpellAnimation(number) {
+
+            let x = number;
+            let interval = 1000;
+            for (var i = 0; i < x; i++) {
+                setTimeout(function () {
+                    canvas.fxmaster.playVideo(spellAnim);
+                    game.socket.emit('module.fxmaster', spellAnim);
+                }, i * interval);
+            }
+        }
+        // The number in parenthesis sets the number of times it loops
+        SpellAnimation(loops)
+
+        //canvas.fxmaster.playVideo(spellAnim);
+        //game.socket.emit('module.fxmaster', spellAnim);
     }
     cast();
 }

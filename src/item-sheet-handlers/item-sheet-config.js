@@ -221,7 +221,7 @@ export class AnimationTab {
         }
 
         switch (true) {
-            case this.animateItem.override && (this.animateItem.animType === "t10" || this.animateItem.animType === "t11"):
+            case this.animateItem.override && this.animateItem.animType === "t11":
                 selfRadius.show();
                 break;
             default:
@@ -278,6 +278,7 @@ export class AnimationTab {
                 break;
             case ((animType === "t8") && override):
             case ((animType === "t9") && override):
+            case ((animType === "t10") && override):
                 explosionOptions.show();
                 animateName.hide();
                 animateColor.hide();

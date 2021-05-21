@@ -224,5 +224,8 @@
     "AUTOANIM.musicNotes": "음표",
     "AUTOANIM.bardAnimation": "바드 애니메이션",
     "AUTOANIM.bardTarget": "대상에게 애니메이션을 재생합니까?",
-    "AUTOANIM.bardSelf": "자신에게 애니메이션을 재생합니까?"
+    "AUTOANIM.bardSelf": "자신에게 애니메이션을 재생합니까?",
+
+    "AUTOANIM.typeExplosiveSelf": "Explosives (Self)"
+
 }

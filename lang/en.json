@@ -224,5 +224,8 @@
     "AUTOANIM.musicNotes": "Music Notes",
     "AUTOANIM.bardAnimation": "Bard Animation",
     "AUTOANIM.bardTarget": "Animate on Target?",
-    "AUTOANIM.bardSelf": "Animate on Self?"
+    "AUTOANIM.bardSelf": "Animate on Self?",
+    
+    "AUTOANIM.typeExplosiveSelf": "Explosives (Self)"
+
 }
