@@ -226,6 +226,7 @@
     "AUTOANIM.bardTarget": "Animate on Target?",
     "AUTOANIM.bardSelf": "Animate on Self?",
     
-    "AUTOANIM.typeExplosiveSelf": "Explosives (Self)"
+    "AUTOANIM.typeExplosiveSelf": "Explosives (Self)",
+    "AUTOANIM.spellLoops": "Loop Animation (1-10)"
 
 }

@@ -36,6 +36,7 @@ export default class MidiHandler {
         this._bardTarget = this._flags.bards?.bardTarget ?? true;
         this._bardSelf = this._flags.bards?.bardSelf ?? true;
         this._bardAnim = this._flags.bards?.bardAnim ?? "";
+        this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
@@ -239,6 +240,10 @@ export default class MidiHandler {
 
     get bardAnim() {
         return this._bardAnim;
+    }
+
+    get spellLoops() {
+        return this._spellLoops;
     }
 
     getDistanceTo(target) {

@@ -30,6 +30,7 @@ export class AnimateItem {
         this.bardAnim = this.data.bards.bardAnim;
         this.bardTarget = this.data.bards.bardTarget;
         this.bardSelf = this.data.bards.bardSelf;
+        this.spellLoops = this.data.spellOptions.spellLoops;
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -58,6 +59,9 @@ export class AnimateItem {
                 bardTarget: true,
                 bardSelf: true,
                 bardAnim: ``,
+            },
+            spellOptions: {
+                spellLoops: 1,
             }
             //itemName = ``,
             //animTypeVar = ``,
@@ -526,6 +530,10 @@ export class AnimateItem {
 
     get bardAnimName() {
         return AUTOANIM.localized(AUTOANIM.bardAnimType);
+    }
+
+    get spellLoop() {
+        return this.spellLoops || 1;
     }
 
     /*

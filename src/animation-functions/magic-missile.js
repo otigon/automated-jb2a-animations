@@ -11,6 +11,14 @@ async function magicMissile(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
+    let loopVar;
+    switch (true) {
+        case handler.spellLoops > 10:
+            loopVar = 10;
+            break;
+        default:
+            loopVar = handler.spellLoops;
+    }
     let shockWave =
         [{
             filterType: "wave",
@@ -88,7 +96,6 @@ async function magicMissile(handler) {
                         function random_color(items) {
                             return items[Math.floor(Math.random() * items.length)];
                         }
-                        console.log(ranVar);
                         let color;
                         switch (true) {
                             case handler.color === "a1" || ``:
@@ -141,7 +148,7 @@ async function magicMissile(handler) {
                     }, i * interval);
                 }
             }
-            spellAnimation(1)
+            spellAnimation(loopVar)
             if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                 // Activates the Token Magic FX after a delay
                 await wait(1000)

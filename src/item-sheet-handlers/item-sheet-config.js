@@ -165,11 +165,23 @@ export class AnimationTab {
         let teleport = this.html.find('.teleporting');
         let spellVariant = this.html.find('.spell-variant');
         let bard01 = this.html.find('.bard-options');
+        let spellLoops = this.html.find('.spell-loops');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
         let animType = this.animateItem.animType;
         let explosion = this.animateItem.explosion;
+
+        switch (true) {
+            case (animName === "magic missile"):
+            case (this.itemName.includes("magic missile")):
+            case (animName.includes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase())):
+            case (this.itemName.includes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase())):
+                spellLoops.show();
+                break;
+            default:
+                spellLoops.hide();
+        }
 
         switch (true) {
             case animName.includes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase()) && override:
