@@ -12,12 +12,12 @@ async function spellAttacks(handler) {
 
     var randomProperty = function (obj) {
         var keys = Object.keys(obj);
-        console.log(keys);
+        //console.log(keys);
         var keyLength = keys.length;
-        console.log(keyLength);
+        //console.log(keyLength);
         var ranKey = Math.floor(Math.random() * keyLength);
-        console.log(ranKey);
-        console.log(keys[ranKey]);
+        //console.log(ranKey);
+        //console.log(keys[ranKey]);
         return keys[ranKey];
         //return obj[keys[ keys.length * Math.random() << 0]];
     };
