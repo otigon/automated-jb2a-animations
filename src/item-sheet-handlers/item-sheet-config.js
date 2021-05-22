@@ -29,7 +29,7 @@ export class AnimationTab {
             case ("pf2e"):
                 acceptedTypes = ['weapon', 'npc strike', 'consumable', 'spell', 'action'];
         }
-        if (acceptedTypes.includes(data.entity.type)) {
+        if (acceptedTypes.includes(data.itemType.toLowerCase())) {
             let tab = animationTabs[app.id];
             if (!tab) {
                 tab = new AnimationTab(app);
@@ -72,11 +72,11 @@ export class AnimationTab {
         if (game.system.id === "swade") {
             tabs = html.find('form nav.flexrow.tabs');
         }
-
+        /*
         if (tabs.find('a[data-tab=autoanimations]').length > 0) {
             return;
         }
-
+        */
         tabs.first().append($(
             '<a class="item" data-tab="autoanimations">A-A</a>'
         ));

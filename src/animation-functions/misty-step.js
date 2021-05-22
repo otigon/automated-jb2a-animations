@@ -38,16 +38,16 @@ async function mistyStep(handler) {
     let myScale = canvas.grid.size / 100 * .6;
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
     var templateRange = handler.teleRange;
-    let range = MeasuredTemplate.create({
+    let range = await canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [{
         t: "circle",
-        user: game.user._id,
+        user: game.user.id,
         x: token.x + canvas.grid.size / 2,
         y: token.y + canvas.grid.size / 2,
         direction: 0,
         distance: templateRange,
         borderColor: "#FF0000",
         //fillColor: "#FF3366",
-    });
+    }]);
 
     range;
 
@@ -61,8 +61,9 @@ async function mistyStep(handler) {
 
     async function deleteTemplatesAndMove() {
         let templateLength = canvas.templates.placeables.length;
-        let template01 = canvas.templates.placeables[(templateLength - 1)].id;
-        await canvas.templates.get(template01).delete()
+        let template01 = canvas.templates.placeables[templateLength - 1].id;
+        await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template01]);
+        //await canvas.templates.get(template01).delete()
         let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
         //console.log(gridPos);
 
@@ -86,8 +87,10 @@ async function mistyStep(handler) {
             game.socket.emit('module.fxmaster', data);
         }
         await wait(750);
-        token.update({ "hidden": !token.data.hidden })
-        await token.update({ x: gridPos[0], y: gridPos[1] }, { animate: false })
+        canvas.scene.updateEmbeddedDocuments("Token", [{"_id": token.id, hidden: true}]);
+        //token.update({ "hidden": !token.data.hidden })
+        await canvas.scene.updateEmbeddedDocuments("Token", [{"_id": token.id, x: gridPos[0], y: gridPos[1]}], {animate: false});
+        //await token.update({ x: gridPos[0], y: gridPos[1] }, { animate: false })
         await wait(750);
 
         if (token != undefined) {
@@ -115,7 +118,8 @@ async function mistyStep(handler) {
 
         }
         await wait(1500);
-        token.update({ "hidden": !token.data.hidden })
+        canvas.scene.updateEmbeddedDocuments("Token", [{"_id": token.id, hidden: false}]);
+        //token.update({ "hidden": !token.data.hidden })
     };
 }
 export default mistyStep;
