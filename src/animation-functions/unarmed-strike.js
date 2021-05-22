@@ -84,13 +84,6 @@ async function unarmedStrike(handler) {
                     }
                     break;
             }
-            console.log(obj01);
-            console.log(obj);
-            console.log(obj02);
-            console.log(color);
-            console.log(ranVar);
-            console.log(filePath);
-
 
             // Scaled globally, change divisor to increase/decrease size of animation
             let Scale = canvas.scene.data.grid / 175;
