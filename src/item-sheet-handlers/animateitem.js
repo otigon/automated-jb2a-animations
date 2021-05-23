@@ -30,6 +30,9 @@ export class AnimateItem {
         this.bardAnim = this.data.bards.bardAnim;
         this.bardTarget = this.data.bards.bardTarget;
         this.bardSelf = this.data.bards.bardSelf;
+        this.allSounds = this.data.allSounds;
+        this.enableAudio = this.data.allSounds.item.enableAudio;
+        this.audioExplodeEnabled = this.data.allSounds.explosion.audioExplodeEnabled;
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -58,7 +61,21 @@ export class AnimateItem {
                 bardTarget: true,
                 bardSelf: true,
                 bardAnim: ``,
-            }
+            },
+            allSounds: {
+                item: {
+                    enableAudio: false,
+                    soundFile: ``,
+                    soundDelay: 100,
+                    soundVolume: 25
+                },
+                explosion: {
+                    audioExplodeEnabled: false,
+                    soundFile: ``,
+                    soundDelay: 100,
+                    soundVolume: 25
+                }
+            },
             //itemName = ``,
             //animTypeVar = ``,
         }
@@ -523,6 +540,30 @@ export class AnimateItem {
 
     get bardAnimName() {
         return AUTOANIM.localized(AUTOANIM.bardAnimType);
+    }
+
+    get newAudio() {
+        return this.allSounds.item.soundFile;
+    }
+
+    get delayAudio() {
+        return this.allSounds.item.soundDelay;
+    }
+
+    get volumeAudio() {
+        return this.allSounds.item.soundVolume;
+    }
+
+    get newExAudio() {
+        return this.allSounds.explosion.soundFile;
+    }
+
+    get delayExAudio() {
+        return this.allSounds.explosion.soundDelay;
+    }
+
+    get volumeExAudio() {
+        return this.allSounds.explosion.soundVolume;
     }
 
     /*

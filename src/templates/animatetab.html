@@ -17,6 +17,42 @@
             border-color: black;
         }
 
+        input[name="flags.autoanimations.audioDelay"],
+        textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            text-align: center;
+        }
+
+        input[name="flags.autoanimations.audioVolume"],
+        textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            text-align: center;
+        }
+
+        input[name="flags.autoanimations.audioExDelay"],
+        textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            text-align: center;
+        }
+
+        input[name="flags.autoanimations.audioExVolume"],
+        textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            text-align: center;
+        }
+
         .animation-types {
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
@@ -54,6 +90,84 @@
 
         .cta-required {
             text-align: center;
+        }
+
+        .file-picker-aa {
+            width: 40px;
+            height: 30px;
+            position: right;
+            top: 0;
+            right: 0;
+        }
+
+        .file-picker-ex-aa {
+            width: 40px;
+            height: 30px;
+            position: right;
+            top: 0;
+            right: 0;
+        }
+
+        .audio-input {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            margin: auto;
+            max-width: 300px;
+        }
+
+        .audio-ex-input {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            margin: auto;
+            max-width: 300px;
+        }
+
+        input[name="flags.autoanimations.audioItem"],
+        textarea {
+            height: 30px;
+        }
+
+        input[name="flags.autoanimations.audioItem"] {
+            padding: 5px 5px;
+            line-height: 28px;
+        }
+
+        input[name="flags.autoanimations.audioExplosion"],
+        textarea {
+            height: 30px;
+        }
+
+        input[name="flags.autoanimations.audioExplosion"] {
+            padding: 5px 5px;
+            line-height: 28px;
+        }
+
+        .item-audio {
+            background-color: rgb(160, 222, 238);
+            border-radius: 5px;
+            border-color: black;
+        }
+
+        .item-audio,
+        label {
+            font-weight: bold;
+            color: black
+        }
+
+        .explode-audio {
+            background-color: rgb(253, 207, 169);
+            border-radius: 5px;
+            border-color: black;
+        }
+
+        .explode-audio,
+        label {
+            font-weight: bold;
+            color: black
         }
     </style>
 </head>
@@ -253,6 +367,43 @@
                     </select>
                 </div>
             </div>
+            <div class="audio-ex-checkbox">
+                <div class="form-group">
+                    <label>Enable Explosion Audio</label>
+                    <input type="checkbox" name="flags.autoanimations.allSounds.explosion.audioExplodeEnabled" {{checked
+                        audioExplodeEnabled}}>
+                </div>
+            </div>
+            <div class="explode-audio">
+                <div class="enable-ex-audio">
+                    <div class="ex-audio-picker">
+                        <div class="form-inline">
+                            <div class="form group">
+                                <label>Choose Audio File</label>
+                                <button type="button" class="file-picker-ex-aa" data-type="audio" name="audio-ex-button"
+                                    data-target="flags.autoanimations.allSounds.explosion.soundFile"
+                                    title="Browse Files" style="float: right">
+                                    <i class="fas fa-music fa-sm"></i>
+                                </button>
+                                <input class="audio-ex-input" style="float: right" type="text"
+                                    name="flags.autoanimations.allSounds.explosion.soundFile" value={{newExAudio}}>
+                            </div>
+                            <div class="form-group">
+                                <label>Delay Audio (milliseconds)</label>
+                                <input type="number" id="flags.autoanimations.allSounds.explosion.soundDelay"
+                                    name="flags.autoanimations.allSounds.explosion.soundDelay" min="0"
+                                    class="delayExSound" value={{delayExAudio}}>
+                            </div>
+                            <div class="form-group">
+                                <label>Audio Volume (0 - 100)</label>
+                                <input type="number" id="flags.autoanimations.allSounds.explosion.soundVolume"
+                                    name="flags.autoanimations.allSounds.explosion.soundVolume" min="0" max="1"
+                                    class="audioExVolume" value={{volumeExAudio}}>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="self-cast-radius">
             <div class="form-group">
@@ -291,6 +442,42 @@
                 <label>{{localize "AUTOANIM.range"}}</label>
                 <input type="number" id="flags.autoanimations.teleDist" name="flags.autoanimations.teleDist" min="5"
                     max="500" value={{teleRange}}>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="audio-checkbox">
+    <div class="form-group">
+        <label>Enable Item Audio</label>
+        <input type="checkbox" name="flags.autoanimations.allSounds.item.enableAudio" {{checked enableAudio}}>
+    </div>
+</div>
+<div class="item-audio">
+    <div class="enable-audio">
+        <div class="audio-picker">
+            <div class="form-inline">
+                <div class="form group">
+                    <label>Choose Audio File</label>
+                    <button type="button" class="file-picker-aa" data-type="audio" name="audio-button"
+                        data-target="flags.autoanimations.allSounds.item.soundFile" title="Browse Files"
+                        style="float: right">
+                        <i class="fas fa-music fa-sm"></i>
+                    </button>
+                    <input class="audio-input" style="float: right" type="text"
+                        name="flags.autoanimations.allSounds.item.soundFile" value={{newAudio}}>
+                </div>
+                <div class="form-group">
+                    <label>Delay Audio (milliseconds)</label>
+                    <input type="number" id="flags.autoanimations.allSounds.item.soundDelay"
+                        name="flags.autoanimations.allSounds.item.soundDelay" min="0" value={{delayAudio}}
+                        class="delayAudio">
+                </div>
+                <div class="form-group">
+                    <label>Audio Volume (0 - 100)</label>
+                    <input type="number" id="flags.autoanimations.allSounds.item.soundVolume"
+                        name="flags.autoanimations.allSounds.item.soundVolume" min="0" max="1" value={{volumeAudio}}
+                        class="audioVolume">
+                </div>
             </div>
         </div>
     </div>
