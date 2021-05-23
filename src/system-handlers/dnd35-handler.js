@@ -35,6 +35,7 @@ export default class Dnd35Handler {
         this._bardTarget = this._flags.bards?.bardTarget ?? true;
         this._bardSelf = this._flags.bards?.bardSelf ?? true;
         this._bardAnim = this._flags.bards?.bardAnim ?? "";
+        this._allSounds = this._flags.allSounds ?? "";
 
         //console.log(this._animName);
         this._animNameFinal;
@@ -187,6 +188,10 @@ export default class Dnd35Handler {
 
     get bardAnim() {
         return this._bardAnim;
+    }
+
+    get allSounds() {
+        return this._allSounds;
     }
 
     getDistanceTo(target) {

@@ -224,6 +224,12 @@
     "AUTOANIM.musicNotes": "Music Notes",
     "AUTOANIM.bardAnimation": "Bard Animation",
     "AUTOANIM.bardTarget": "Animate on Target?",
-    "AUTOANIM.bardSelf": "Animate on Self?"
+    "AUTOANIM.bardSelf": "Animate on Self?",
+
+    "AUTOANIM.itemAudio": "Enable Item Audio",
+    "AUTOANIM.explosionAudio": "Enable Explosion Audio",
+    "AUTOANIM.chooseAudio": "Choose Audio File",
+    "AUTOANIM.audioDelay": "Delay Audio (milliseconds)",
+    "AUTOANIM.audioVolume": "Audio Volume (0 - 100)"
 
 }

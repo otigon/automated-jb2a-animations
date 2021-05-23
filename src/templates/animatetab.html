@@ -17,7 +17,7 @@
             border-color: black;
         }
 
-        input[name="flags.autoanimations.audioDelay"],
+        input[name="flags.autoanimations.allSounds.item.delay"],
         textarea {
             background-color: rgb(196, 196, 196);
             border-radius: 5px;
@@ -26,7 +26,7 @@
             text-align: center;
         }
 
-        input[name="flags.autoanimations.audioVolume"],
+        input[name="flags.autoanimations.allSounds.item.volume"],
         textarea {
             background-color: rgb(196, 196, 196);
             border-radius: 5px;
@@ -35,7 +35,7 @@
             text-align: center;
         }
 
-        input[name="flags.autoanimations.audioExDelay"],
+        input[name="flags.autoanimations.allSounds.explosion.delay"],
         textarea {
             background-color: rgb(196, 196, 196);
             border-radius: 5px;
@@ -44,7 +44,7 @@
             text-align: center;
         }
 
-        input[name="flags.autoanimations.audioExVolume"],
+        input[name="flags.autoanimations.allSounds.explosion.volume"],
         textarea {
             background-color: rgb(196, 196, 196);
             border-radius: 5px;
@@ -126,26 +126,26 @@
             max-width: 300px;
         }
 
-        input[name="flags.autoanimations.audioItem"],
+        input[name="flags.autoanimations.allSounds.item.file"],
         textarea {
             height: 30px;
         }
 
-        input[name="flags.autoanimations.audioItem"] {
+        input[name="flags.autoanimations.allSounds.item.file"] {
             padding: 5px 5px;
             line-height: 28px;
         }
 
-        input[name="flags.autoanimations.audioExplosion"],
+        input[name="flags.autoanimations.allSounds.explosion.file"],
         textarea {
             height: 30px;
         }
 
-        input[name="flags.autoanimations.audioExplosion"] {
+        input[name="flags.autoanimations.allSounds.explosion.file"] {
             padding: 5px 5px;
             line-height: 28px;
         }
-
+        
         .item-audio {
             background-color: rgb(160, 222, 238);
             border-radius: 5px;
@@ -369,7 +369,7 @@
             </div>
             <div class="audio-ex-checkbox">
                 <div class="form-group">
-                    <label>Enable Explosion Audio</label>
+                    <label>{{localize "AUTOANIM.explosionAudio"}}</label>
                     <input type="checkbox" name="flags.autoanimations.allSounds.explosion.audioExplodeEnabled" {{checked
                         audioExplodeEnabled}}>
                 </div>
@@ -379,7 +379,7 @@
                     <div class="ex-audio-picker">
                         <div class="form-inline">
                             <div class="form group">
-                                <label>Choose Audio File</label>
+                                <label>{{localize "AUTOANIM.chooseAudio"}}</label>
                                 <button type="button" class="file-picker-ex-aa" data-type="audio" name="audio-ex-button"
                                     data-target="flags.autoanimations.allSounds.explosion.file" title="Browse Files"
                                     style="float: right">
@@ -389,13 +389,13 @@
                                     name="flags.autoanimations.allSounds.explosion.file" value={{newExAudio}}>
                             </div>
                             <div class="form-group">
-                                <label>Delay Audio (milliseconds)</label>
+                                <label>{{localize "AUTOANIM.audioDelay"}}</label>
                                 <input type="number" id="flags.autoanimations.allSounds.explosion.soundDelay"
                                     name="flags.autoanimations.allSounds.explosion.delay" min="0" class="delayExSound"
                                     value={{delayExAudio}}>
                             </div>
                             <div class="form-group">
-                                <label>Audio Volume (0 - 100)</label>
+                                <label>{{localize "AUTOANIM.audioVolume"}}</label>
                                 <input type="number" id="flags.autoanimations.allSounds.explosion.volume"
                                     name="flags.autoanimations.allSounds.explosion.volume" min="0" max="1"
                                     class="audioExVolume" value={{volumeExAudio}}>
@@ -448,7 +448,7 @@
 </div>
 <div class="audio-checkbox">
     <div class="form-group">
-        <label>Enable Item Audio</label>
+        <label>{{localize "AUTOANIM.itemAudio"}}</label>
         <input type="checkbox" name="flags.autoanimations.allSounds.item.enableAudio" {{checked enableAudio}}>
     </div>
 </div>
@@ -457,7 +457,7 @@
         <div class="audio-picker">
             <div class="form-inline">
                 <div class="form group">
-                    <label>Choose Audio File</label>
+                    <label>{{localize "AUTOANIM.chooseAudio"}}</label>
                     <button type="button" class="file-picker-aa" data-type="audio" name="audio-button"
                         data-target="flags.autoanimations.allSounds.item.file" title="Browse Files"
                         style="float: right">
@@ -467,12 +467,12 @@
                         name="flags.autoanimations.allSounds.item.file" value={{newAudio}}>
                 </div>
                 <div class="form-group">
-                    <label>Delay Audio (milliseconds)</label>
+                    <label>{{localize "AUTOANIM.audioDelay"}}</label>
                     <input type="number" id="flags.autoanimations.allSounds.item.delay"
                         name="flags.autoanimations.allSounds.item.delay" min="0" value={{delayAudio}}>
                 </div>
                 <div class="form-group">
-                    <label>Audio Volume (0 - 100)</label>
+                    <label>{{localize "AUTOANIM.audioVolume"}}</label>
                     <input type="number" id="flags.autoanimations.allSounds.item.volume"
                         name="flags.autoanimations.allSounds.item.volume" min="0" max="1" value={{volumeAudio}}>
                 </div>
