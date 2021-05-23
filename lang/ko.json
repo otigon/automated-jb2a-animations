@@ -226,6 +226,9 @@
     "AUTOANIM.bardTarget": "대상에게 애니메이션을 재생합니까?",
     "AUTOANIM.bardSelf": "자신에게 애니메이션을 재생합니까?",
 
+    "AUTOANIM.typeExplosiveSelf": "Explosives (Self)",
+    "AUTOANIM.spellLoops": "Loop Animation (1-10)",
+
     "AUTOANIM.itemAudio": "Enable Item Audio",
     "AUTOANIM.explosionAudio": "Enable Explosion Audio",
     "AUTOANIM.chooseAudio": "Choose Audio File",

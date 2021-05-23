@@ -226,6 +226,9 @@
   "AUTOANIM.bardTarget": "Animate on Target?",
   "AUTOANIM.bardSelf": "Animate on Self?",
 
+  "AUTOANIM.typeExplosiveSelf": "Explosives (Self)",
+  "AUTOANIM.spellLoops": "Loop Animation (1-10)",
+
   "AUTOANIM.itemAudio": "Enable Item Audio",
   "AUTOANIM.explosionAudio": "Enable Explosion Audio",
   "AUTOANIM.chooseAudio": "Choose Audio File",

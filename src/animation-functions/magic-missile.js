@@ -11,6 +11,14 @@ async function magicMissile(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
+    let loopVar;
+    switch (true) {
+        case handler.spellLoops > 10:
+            loopVar = 10;
+            break;
+        default:
+            loopVar = handler.spellLoops;
+    }
     let shockWave =
         [{
             filterType: "wave",
@@ -40,7 +48,7 @@ async function magicMissile(handler) {
         var arrayLength = handler.allTargets.length;
 
         var targetCheck = handler.targetAssistant.length;
-        let noTargetAnim = `modules/autoanimations/Animations/No_Target_400x400.webm`;
+        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
         {
@@ -58,7 +66,7 @@ async function magicMissile(handler) {
         }
 
         switch (true) {
-            case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -69,7 +77,7 @@ async function magicMissile(handler) {
             let ray = new Ray(handler.actorToken.center, target.center);
             let anDeg = -(ray.angle * 57.3);
             let anDist = ray.distance;
-            let globalDelay = game.settings.get("autoanimations", "globaldelay");
+            let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
             await wait(globalDelay);
         
             async function spellAnimation(number) {
@@ -88,7 +96,6 @@ async function magicMissile(handler) {
                         function random_color(items) {
                             return items[Math.floor(Math.random() * items.length)];
                         }
-                        console.log(ranVar);
                         let color;
                         switch (true) {
                             case handler.color === "a1" || ``:
@@ -141,8 +148,8 @@ async function magicMissile(handler) {
                     }, i * interval);
                 }
             }
-            spellAnimation(1)
-            if (game.settings.get("autoanimations", "tmfx")) {
+            spellAnimation(loopVar)
+            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
                 // Activates the Token Magic FX after a delay
                 await wait(1000)
                 TokenMagic.addFilters(target, shockWave);
