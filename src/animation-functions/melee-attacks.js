@@ -44,6 +44,9 @@ let hitStutter =
 
 async function meleeWeapons(handler) {
 
+    let audio = handler.allSounds.item;
+    let audioEnabled = audio.enableAudio;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -187,38 +190,38 @@ async function meleeWeapons(handler) {
     let fireColor = TMFXCOLORS[color]();
 
     let burn =
-    [{
-        filterType: "xfire",
-        filterId: "meleeBurn",
-        autoDestroy: true,
-        time: 0,
-        color: fireColor,
-        blend: 1,
-        amplitude: 1,
-        dispersion: 0,
-        chromatic: false,
-        scaleX: 1,
-        scaleY: 1,
-        inlay: false,
-        animated:
-        {
-            time:
+        [{
+            filterType: "xfire",
+            filterId: "meleeBurn",
+            autoDestroy: true,
+            time: 0,
+            color: fireColor,
+            blend: 1,
+            amplitude: 1,
+            dispersion: 0,
+            chromatic: false,
+            scaleX: 1,
+            scaleY: 1,
+            inlay: false,
+            animated:
             {
-                loopDuration: 500,
-                loops: 3,
-                active: true,
-                speed: -0.0015,
-                animType: "move"
+                time:
+                {
+                    loopDuration: 500,
+                    loops: 3,
+                    active: true,
+                    speed: -0.0015,
+                    animType: "move"
+                }
             }
-        }
-    }];
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+        }];
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
     async function cast() {
         var arrayLength = handler.allTargets.length;
         //console.log(arrayLength);
         var targetCheck = handler.targetAssistant.length;
-        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let noTargetAnim = `modules/autoanimations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
         {
@@ -236,7 +239,7 @@ async function meleeWeapons(handler) {
         }
 
         switch (true) {
-            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -361,7 +364,6 @@ async function meleeWeapons(handler) {
                             y: (Scale * plusOrMinus),
                         },
                     });
-
             }
 
 
@@ -373,7 +375,7 @@ async function meleeWeapons(handler) {
                             if (handler.animExplode && handler.animOverride) {
                                 meleeExplosion(handler, target);
                             }
-                            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                            if (game.settings.get("autoanimations", "tmfx")) {
                                 await wait(200);
                                 switch (true) {
                                     case (fireColor != "pass"):
@@ -396,7 +398,7 @@ async function meleeWeapons(handler) {
                     if (handler.animExplode && handler.animOverride) {
                         meleeExplosion(handler, target);
                     }
-                    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+                    if (game.settings.get("autoanimations", "tmfx")) {
                         await wait(200);
                         switch (true) {
                             case (fireColor != "pass"):
@@ -413,6 +415,10 @@ async function meleeWeapons(handler) {
         }
     }
     cast();
+    if (audioEnabled) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }
 }
 
 export default meleeWeapons;

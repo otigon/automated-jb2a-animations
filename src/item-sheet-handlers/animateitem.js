@@ -30,6 +30,9 @@ export class AnimateItem {
         this.bardAnim = this.data.bards.bardAnim;
         this.bardTarget = this.data.bards.bardTarget;
         this.bardSelf = this.data.bards.bardSelf;
+        this.allSounds = this.data.allSounds;
+        this.enableAudio = this.data.allSounds.item.enableAudio;
+        this.audioExplodeEnabled = this.data.allSounds.explosion.audioExplodeEnabled;
         this.spellLoops = this.data.spellOptions.spellLoops;
         //this.flagObject = Object.assign({}, this.data);
     }
@@ -59,6 +62,20 @@ export class AnimateItem {
                 bardTarget: true,
                 bardSelf: true,
                 bardAnim: ``,
+            },
+            allSounds: {
+                item: {
+                    enableAudio: false,
+                    file: ``,
+                    delay: 100,
+                    volume: 25
+                },
+                explosion: {
+                    audioExplodeEnabled: false,
+                    file: ``,
+                    delay: 100,
+                    volume: 25
+                }
             },
             spellOptions: {
                 spellLoops: 1,
@@ -532,6 +549,30 @@ export class AnimateItem {
         return AUTOANIM.localized(AUTOANIM.bardAnimType);
     }
 
+    get newAudio() {
+        return this.allSounds.item.file;
+    }
+
+    get delayAudio() {
+        return this.allSounds.item.delay;
+    }
+
+    get volumeAudio() {
+        return this.allSounds.item.volume;
+    }
+
+    get newExAudio() {
+        return this.allSounds.explosion.file;
+    }
+
+    get delayExAudio() {
+        return this.allSounds.explosion.delay;
+    }
+
+    get volumeExAudio() {
+        return this.allSounds.explosion.volume;
+    }
+  
     get spellLoop() {
         return this.spellLoops || 1;
     }

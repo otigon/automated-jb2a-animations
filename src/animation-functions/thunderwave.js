@@ -5,6 +5,9 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function thunderwaveAuto(handler) {
 
+    let audio = handler.allSounds.item;
+    let audioEnabled = audio.enableAudio;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -81,7 +84,7 @@ async function thunderwaveAuto(handler) {
             y: Scale
         }
     };
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function spellAnimation(number) {
@@ -97,6 +100,10 @@ async function thunderwaveAuto(handler) {
         }
     }
     spellAnimation(5);
+    if (audioEnabled) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }
 
     let shockWave =
         [{
@@ -121,7 +128,7 @@ async function thunderwaveAuto(handler) {
                 }
             }
         }];
-    if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+    if (game.settings.get("autoanimations", "tmfx")) {
         await wait(500);
         TokenMagic.addUpdateFiltersOnTargeted(shockWave);
     }

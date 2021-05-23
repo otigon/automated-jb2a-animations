@@ -29,7 +29,7 @@ export class AnimationTab {
             case ("pf2e"):
                 acceptedTypes = ['weapon', 'npc strike', 'consumable', 'spell', 'action'];
         }
-        if (acceptedTypes.includes(data.entity.type)) {
+        if (acceptedTypes.includes(data.itemType.toLowerCase())) {
             let tab = animationTabs[app.id];
             if (!tab) {
                 tab = new AnimationTab(app);
@@ -72,11 +72,11 @@ export class AnimationTab {
         if (game.system.id === "swade") {
             tabs = html.find('form nav.flexrow.tabs');
         }
-
+        /*
         if (tabs.find('a[data-tab=autoanimations]').length > 0) {
             return;
         }
-
+        */
         tabs.first().append($(
             '<a class="item" data-tab="autoanimations">A-A</a>'
         ));
@@ -139,7 +139,7 @@ export class AnimationTab {
     async render() {
 
 
-        let template = await renderTemplate('modules/automated-jb2a-animations/src/templates/animatetab.html', this.animateItem);
+        let template = await renderTemplate('modules/autoanimations/src/templates/animatetab.html', this.animateItem);
         let el = this.html.find('.animation-tab-contents');
         if (el.length) {
             el.replaceWith(template);
@@ -165,12 +165,36 @@ export class AnimationTab {
         let teleport = this.html.find('.teleporting');
         let spellVariant = this.html.find('.spell-variant');
         let bard01 = this.html.find('.bard-options');
+        let audioOptions = this.html.find('.item-audio');
+        let explodeAudio = this.html.find('.explode-audio');
+        let exCheckBox = this.html.find('.audio-ex-checkbox');
         let spellLoops = this.html.find('.spell-loops');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
         let animType = this.animateItem.animType;
         let explosion = this.animateItem.explosion;
+        let audio = this.animateItem.allSounds.item.enableAudio;
+        let exAudio = this.animateItem.allSounds.explosion.audioExplodeEnabled;
+        let enableExplosion = this.animateItem.explosion;
+
+        if(enableExplosion && override) {
+            exCheckBox.show();
+        } else {
+            exCheckBox.hide();
+        }
+
+        if (audio) {
+            audioOptions.show();
+        } else {
+            audioOptions.hide();
+        }
+
+        if (exAudio && override) {
+            explodeAudio.show()
+        } else {
+            explodeAudio.hide()
+        }
 
         switch (true) {
             case (animName === "magic missile"):
@@ -398,6 +422,10 @@ export class AnimationTab {
             this.activate = true;
         });
 
+        this.html.find('.audio-checkbox input[type="checkbox"]').change(evt => {
+            this.activate = true;
+        });
+
         this.html.find('.animation-tab-contents select').change(evt => {
             this.activate = true;
         });
@@ -410,59 +438,48 @@ export class AnimationTab {
             this.activate = true;
         });
 
+        this.html.find('.item-audio input[type="number"]').change(evt => {
+            this.activate = true;
+        });
+
+        this.html.find('.item-audio input[type="text"]').change(evt => {
+            this.activate = true;
+        });
+
         this.html.find('input[name="flags.autoanimations.ctaOption"]').click(evt => {
             //this.animateItem.toggleEnabled(evt.target.unchecked);
             this.activate = true;
         });
 
-        /*
-        this.html.find('input[name="flags.autoanimations.killAnim"]').click(evt => {
-            //this.animateItem.toggleEnabled(evt.target.checked);
-            //this.render();
-            //mergeDamnObject(this.item);
-        });
-        this.html.find('select[name="flags.autoanimations.animName"]').change(evt => {
-            //this.animateItem.changeFlag(`autoanimations`, `animTint`, `#FFFFFF`);
-            //this.animateItem.animName = evt.target.value;
-            //this.activate = true;
-        });
-
-        this.html.find('select[name="flags.autoanimations.animType"]').change(evt => {
-            //this.item.setFlag("autoanimations", "animType", "");
-            //this.activate = true;
+        this.html.find('button[name="audio-button"]').click(evt => {
+            const fp = new FilePicker({
+                //current: currentAudio,
+                type: "audio",
+                button: "audio-picker",
+                //current: 'input[name="flags.automated-jb2a-animations.sounds.itemAudio"].value',
+                //field: currentAudio,
+                callback: (url) => {
+                    this.item.setFlag("autoanimations", "allSounds.item.file", url);
+                    this.activate = true;
+                }
+            });
+            fp.browse();
         })
 
-        this.html.find('select[name="flags.autoanimations.color"]').change(evt => {
-            //this.animateItem.color = evt.target.value;
-            //this.activate = true;
-        });
-
-        this.html.find('input[name="flags.autoanimations.override"]').click(evt => {
-            //this.animateItem.toggleEnabled(evt.target.unchecked);
-            //this.activate = true;
-        });
-        */
-        /*
-        this.html.find('input[name="flags.autoanimations.explosion"]').click(evt => {
-            //this.animateItem.toggleEnabled(evt.target.value);
-            //this.activate = true;
-        });
-
-        this.html.find('select[name="flags.autoanimations.explodeVariant"]').change(evt => {
-            //this.animateItem.color = evt.target.value;
-            //this.activate = true;
-        });
-
-        this.html.find('select[name="flags.autoanimations.explodeColor"]').change(evt => {
-            //this.animateItem.color = evt.target.value;
-            //this.activate = true;
-        });
-
-        this.html.find('select[name="flags.autoanimations.explodeRadius"]').change(evt => {
-            //this.animateItem.color = evt.target.value;
-            //this.activate = true;
-        });
-        */
+        this.html.find('button[name="audio-ex-button"]').click(evt => {
+            const efp = new FilePicker({
+                //current: currentAudio,
+                type: "audio",
+                button: "audio-ex-picker",
+                //current: 'input[name="flags.automated-jb2a-animations.sounds.itemAudio"].value',
+                //field: currentAudio,
+                callback: (url) => {
+                    this.item.setFlag("autoanimations", "allSounds.explosion.file", url);
+                    this.activate = true;
+                }
+            });
+            efp.browse();
+        })
 
     }
 

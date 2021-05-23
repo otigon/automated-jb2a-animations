@@ -39,6 +39,9 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function creatureAttacks(handler) {
     
+    let audio = handler.allSounds.item;
+    let audioEnabled = audio.enableAudio;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -53,7 +56,7 @@ async function creatureAttacks(handler) {
         var arrayLength = handler.allTargets.length;
 
         var targetCheck = handler.targetAssistant.length;
-        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let noTargetAnim = `modules/autoanimations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
         {
@@ -71,7 +74,7 @@ async function creatureAttacks(handler) {
         }
 
         switch (true) {
-            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -96,7 +99,7 @@ async function creatureAttacks(handler) {
                 Scale = 1.4;
                 break;
         }
-        let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+        let globalDelay = game.settings.get("autoanimations", "globaldelay");
         await wait(globalDelay);
     
         for (var i = 0; i < arrayLength; i++) {
@@ -151,13 +154,17 @@ async function creatureAttacks(handler) {
             canvas.fxmaster.playVideo(spellAnim);
             game.socket.emit('module.fxmaster', spellAnim);
 
-            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+            if (game.settings.get("autoanimations", "tmfx")) {
                 await wait(250);
                 TokenMagic.addFilters(target, tmMacro);
             }
         }
     }
     cast();
+    if (audioEnabled) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }
 }
 
 export default creatureAttacks;

@@ -36,6 +36,7 @@ export default class MidiHandler {
         this._bardTarget = this._flags.bards?.bardTarget ?? true;
         this._bardSelf = this._flags.bards?.bardSelf ?? true;
         this._bardAnim = this._flags.bards?.bardAnim ?? "";
+        this._allSounds = this._flags.allSounds ?? "";
         this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
 
         this._checkSave = Array.from(workflow.saves);
@@ -46,19 +47,19 @@ export default class MidiHandler {
         this._targets = Array.from(workflow.targets);
         this._targetsId = Array.from(this._targets.filter(actor => actor.id).map(actor => actor.id));
         switch (true) {
-            case (game.settings.get("automated-jb2a-animations", "playonmiss")):
+            case (game.settings.get("autoanimations", "playonmiss")):
                 this._allTargets = Array.from(workflow.targets);
                 break;
-            case (game.settings.get("automated-jb2a-animations", "playonhit")):
+            case (game.settings.get("autoanimations", "playonhit")):
                 this._allTargets = Array.from(workflow.hitTargets);
                 break;
             default:
                 this._allTargets = Array.from(workflow.targets);
             }
         
-        this._playOnMiss = game.settings.get("automated-jb2a-animations", "playonmiss");
+        this._playOnMiss = game.settings.get("autoanimations", "playonmiss");
         /*
-        if (game.settings.get("automated-jb2a-animations", "playonhit")) {
+        if (game.settings.get("autoanimations", "playonhit")) {
             this._allTargets = Array.from(workflow.hitTargets);
         } else {
             this._allTargets = Array.from(workflow.targets);
@@ -242,6 +243,10 @@ export default class MidiHandler {
         return this._bardAnim;
     }
 
+    get allSounds() {
+        return this._allSounds;
+    }
+  
     get spellLoops() {
         return this._spellLoops;
     }

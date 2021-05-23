@@ -5,6 +5,9 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function meleeExplosion(handler, target) {
 
+    let audio = handler.allSounds.explosion;
+    let audioEnabled = audio.audioExplodeEnabled;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -37,44 +40,48 @@ async function meleeExplosion(handler, target) {
         default:
             multiplier = 1000;
     }
-    let divisor = (multiplier * (1/(handler.animExRadius)));
-    
+    let divisor = (multiplier * (1 / (handler.animExRadius)));
+
     async function cast() {
         let loops = handler.animExLoop;
 
-            let Scale = (canvas.scene.data.grid / divisor);
+        let Scale = (canvas.scene.data.grid / divisor);
 
-            // Defines the spell template for FXMaster
-            let spellAnim =
-            {
-                file: filePath,
-                position: target.center,
-                anchor: {
-                    x: 0.5,
-                    y: 0.5
-                },
-                angle: 0,
-                scale: {
-                    x: Scale,
-                    y: Scale
-                }
-            };
-
-            async function SpellAnimation(number) {
-
-                let x = number;
-                let interval = 1000;
-                for (var i = 0; i < x; i++) {
-                    setTimeout(function () {
-                        canvas.fxmaster.playVideo(spellAnim);
-                        game.socket.emit('module.fxmaster', spellAnim);
-                    }, i * interval);
-                }
+        // Defines the spell template for FXMaster
+        let spellAnim =
+        {
+            file: filePath,
+            position: target.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: Scale,
+                y: Scale
             }
-            // The number in parenthesis sets the number of times it loops
-            SpellAnimation(loops)        
+        };
+
+        async function SpellAnimation(number) {
+
+            let x = number;
+            let interval = 1000;
+            for (var i = 0; i < x; i++) {
+                setTimeout(function () {
+                    canvas.fxmaster.playVideo(spellAnim);
+                    game.socket.emit('module.fxmaster', spellAnim);
+                }, i * interval);
+            }
+        }
+        // The number in parenthesis sets the number of times it loops
+        SpellAnimation(loops)
     }
     cast();
+    if (audioEnabled) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }
 }
 
 export default meleeExplosion;

@@ -35,6 +35,7 @@ export default class Dnd35Handler {
         this._bardTarget = this._flags.bards?.bardTarget ?? true;
         this._bardSelf = this._flags.bards?.bardSelf ?? true;
         this._bardAnim = this._flags.bards?.bardAnim ?? "";
+        this._allSounds = this._flags.allSounds ?? "";
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
 
         //console.log(this._animName);
@@ -190,6 +191,10 @@ export default class Dnd35Handler {
         return this._bardAnim;
     }
 
+    get allSounds() {
+        return this._allSounds;
+    }
+  
     get spellLoops() {
         return this._spellLoops;
     }

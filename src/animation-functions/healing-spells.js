@@ -6,6 +6,9 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function onTargetSpells(handler) {
 
+    let audio = handler.allSounds.item;
+    let audioEnabled = audio.enableAudio;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -61,7 +64,7 @@ async function onTargetSpells(handler) {
             break;
     }
     let tmColor = TMFXCOLORS[color]();
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function cast() {
@@ -176,12 +179,16 @@ async function onTargetSpells(handler) {
                         }
                     }
                 }];
-            if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+            if (game.settings.get("autoanimations", "tmfx")) {
                 TokenMagic.addUpdateFiltersOnTargeted(Holy);
             }
         }
     }
     cast();
+    if (audioEnabled) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }
 }
 
 export default onTargetSpells;

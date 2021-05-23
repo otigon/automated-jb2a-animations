@@ -2,12 +2,15 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function randomGenDmg(handler) {
 
+    let audio = handler.allSounds.item;
+    let audioEnabled = audio.enableAudio;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
 
     let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function cast() {
@@ -15,7 +18,7 @@ async function randomGenDmg(handler) {
 
         //let tmMacro = "HitStutter";
         var targetCheck = handler.targetAssistant.length;
-        let noTargetAnim = `modules/automated-jb2a-animations/Animations/No_Target_400x400.webm`;
+        let noTargetAnim = `modules/autoanimations/Animations/No_Target_400x400.webm`;
         let myToken = handler.actorToken;
         let targetTrainer =
         {
@@ -33,7 +36,7 @@ async function randomGenDmg(handler) {
         }
 
         switch (true) {
-            case ((targetCheck === 0) && (game.settings.get("automated-jb2a-animations", "targetingAssist"))):
+            case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
                 canvas.fxmaster.playVideo(targetTrainer);
                 game.socket.emit('module.fxmaster', targetTrainer);
         }
@@ -85,7 +88,7 @@ async function randomGenDmg(handler) {
             });
             /*
             switch (true) {
-                case (game.settings.get("automated-jb2a-animations", "tmfx")):
+                case (game.settings.get("autoanimations", "tmfx")):
                     await wait(500);
                     TokenMagic.addFilters(target, tmMacro);
                     break;
@@ -99,6 +102,10 @@ async function randomGenDmg(handler) {
         }
     }
     cast();
+    if (audioEnabled) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }
 }
 
 export default randomGenDmg;

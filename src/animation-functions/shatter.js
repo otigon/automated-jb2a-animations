@@ -5,6 +5,9 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function shatterAuto(handler) {
 
+    let audio = handler.allSounds.item;
+    let audioEnabled = audio.enableAudio;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -20,7 +23,7 @@ async function shatterAuto(handler) {
         default:
             color = handler.color;
     }
-    let globalDelay = game.settings.get("automated-jb2a-animations", "globaldelay");
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function cast() {
@@ -83,12 +86,16 @@ async function shatterAuto(handler) {
                     }
                 }
             }];
-        if (game.settings.get("automated-jb2a-animations", "tmfx")) {
+        if (game.settings.get("autoanimations", "tmfx")) {
             await wait(1400);
             TokenMagic.addUpdateFiltersOnTargeted(shockWave);
         }
     }
     cast();
+    if (audioEnabled) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }
 }
 
 export default shatterAuto;
