@@ -17,6 +17,27 @@
             border-color: black;
         }
 
+
+        input[name="flags.autoanimations.allSounds.item.delay"],
+              textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+            text-align: center;
+        }
+
+        input[name="flags.autoanimations.spellOptions.spellLoops"],
+
+        textarea {
+            background-color: rgb(196, 196, 196);
+            border-radius: 5px;
+            border: 10px rgb(0, 0, 0);
+            border-color: black;
+
+            text-align: center;
+        }
+      
         input[name="flags.autoanimations.allSounds.item.delay"],
         textarea {
             background-color: rgb(196, 196, 196);
@@ -25,7 +46,7 @@
             border-color: black;
             text-align: center;
         }
-
+      
         input[name="flags.autoanimations.allSounds.item.volume"],
         textarea {
             background-color: rgb(196, 196, 196);
@@ -51,6 +72,7 @@
             border: 10px rgb(0, 0, 0);
             border-color: black;
             text-align: center;
+
         }
 
         .animation-types {
@@ -276,6 +298,14 @@
                         {{/each}}
                         {{/select}}
                     </select>
+                </div>
+            </div>
+        </div>
+        <div class="spell-loops">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.spellLoops"}}</label>
+                <input type="number" id="flags.autoanimations.spellOptions.spellLoops" name="flags.autoanimations.spellOptions.spellLoops" min="1"
+                    max="10" value={{spellLoop}}>
                 </div>
             </div>
         </div>

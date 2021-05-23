@@ -74,6 +74,7 @@ export default class SwadeHandler {
         this._bardSelf = this._flags.bards?.bardSelf ?? true;
         this._bardAnim = this._flags.bards?.bardAnim ?? "";
         this._allSounds = this._flags.allSounds ?? "";
+        this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
 
         this._animNameFinal;
         switch (true) {
@@ -231,6 +232,10 @@ export default class SwadeHandler {
 
     get allSounds() {
         return this._allSounds;
+    }
+  
+    get spellLoops() {
+        return this._spellLoops;
     }
 
     getDistanceTo(target) {

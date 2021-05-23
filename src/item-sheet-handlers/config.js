@@ -186,6 +186,7 @@ AUTOANIM.animColorEldritchBlast = {
     "dark red": "AUTOANIM.colorDarkRed",
     "orange": "AUTOANIM.colorOrange",
     "pink": "AUTOANIM.colorPink",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.animColorEldritchBlastFree = {
@@ -198,7 +199,8 @@ AUTOANIM.animColorDisintegrate = {
     "green": "AUTOANIM.colorGreen",
     "dark red": "AUTOANIM.colorDarkRed",
     "orange pink": "AUTOANIM.colorOrangePink",
-    "purple blue": "AUTOANIM.colorPurpleBlue"
+    "purple blue": "AUTOANIM.colorPurpleBlue",
+    "random": "AUTOANIM.colorRandom"
 };
 
 AUTOANIM.animColorDisintegrateFree = {
@@ -213,6 +215,7 @@ AUTOANIM.animColorFirebolt = {
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
     "red": "AUTOANIM.colorRed",
+    "random": "AUTOANIM.colorRandom"
 };
 
 AUTOANIM.animColorFireboltFree = {
@@ -262,6 +265,7 @@ AUTOANIM.animColorRayFrost = {
     "green": "AUTOANIM.colorGreen",
     "purple teal": "AUTOANIM.colorPurpleTeal",
     "yellow blue": "AUTOANIM.colorYellowBlue",
+    "random": "AUTOANIM.colorRandom"
 };
 
 AUTOANIM.animColorRayFrostFree = {
@@ -279,12 +283,14 @@ AUTOANIM.animColorScorchingRay = {
         "red": "AUTOANIM.colorRed",
         "yellow": "AUTOANIM.colorYellow",
         "rainbow01": "AUTOANIM.colorRainbow01",
-        "rainbow02": "AUTOANIM.colorRainbow02"
+        "rainbow02": "AUTOANIM.colorRainbow02",
+        "random": "AUTOANIM.colorRandom"
     },
     '02': {
         "a1": ``,
         "blue": "AUTOANIM.colorBlue",
         "orange": "AUTOANIM.colorOrange",
+        "random": "AUTOANIM.colorRandom"
     }
 };
 
@@ -315,7 +321,8 @@ AUTOANIM.animColorWitchbolt = {
     "yellow": "AUTOANIM.colorYellow",
     "dark green": "AUTOANIM.colorDarkGreen",
     "dark purple": "AUTOANIM.colorDarkPurple",
-    "dark red": "AUTOANIM.colorDarkRed"
+    "dark red": "AUTOANIM.colorDarkRed",
+    "random": "AUTOANIM.colorRandom"
 };
 
 AUTOANIM.animColorWitchboltFree = {
@@ -443,6 +450,13 @@ AUTOANIM.explosionVariantFree = {
 
 AUTOANIM.selfemanation = {
     "a1": ``,
+    "01": "AUTOANIM.variant01",
+    "02": "AUTOANIM.variant02",
+    "03": "AUTOANIM.variant03",
+    "04": "AUTOANIM.variant04",
+    "05": "AUTOANIM.variant05",
+    "06": "AUTOANIM.variant06",
+    "07": "AUTOANIM.variant07",
     "antilife-shell": "AUTOANIM.animAntiLifeShell",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
@@ -619,7 +633,8 @@ AUTOANIM.guidingboltColor = {
     'blue yellow': "AUTOANIM.colorYellowBlue",
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
-    "white blue": "AUTOANIM.colorWhiteBlue"
+    "white blue": "AUTOANIM.colorWhiteBlue",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.guidingboltColorFree = {
@@ -665,7 +680,7 @@ AUTOANIM.animTypePick = {
     "t7": "AUTOANIM.typeHealingSpell",
     "t8": "AUTOANIM.typeExplosiveCT",
     "t9": "AUTOANIM.typeExplosiveOT",
-    "t10": "AUTOANIM.typeSelfEffects",
+    "t10": "AUTOANIM.typeExplosiveSelf",
     "t11": "AUTOANIM.typeAuras",
     "t12": "AUTOANIM.animTeleportation",
     "t13": "AUTOANIM.classFeatures"

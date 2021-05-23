@@ -168,6 +168,7 @@ export class AnimationTab {
         let audioOptions = this.html.find('.item-audio');
         let explodeAudio = this.html.find('.explode-audio');
         let exCheckBox = this.html.find('.audio-ex-checkbox');
+        let spellLoops = this.html.find('.spell-loops');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
@@ -193,6 +194,17 @@ export class AnimationTab {
             explodeAudio.show()
         } else {
             explodeAudio.hide()
+        }
+
+        switch (true) {
+            case (animName === "magic missile"):
+            case (this.itemName.includes("magic missile")):
+            case (animName.includes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase())):
+            case (this.itemName.includes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase())):
+                spellLoops.show();
+                break;
+            default:
+                spellLoops.hide();
         }
 
         switch (true) {
@@ -245,7 +257,7 @@ export class AnimationTab {
         }
 
         switch (true) {
-            case this.animateItem.override && (this.animateItem.animType === "t10" || this.animateItem.animType === "t11"):
+            case this.animateItem.override && this.animateItem.animType === "t11":
                 selfRadius.show();
                 break;
             default:
@@ -302,6 +314,7 @@ export class AnimationTab {
                 break;
             case ((animType === "t8") && override):
             case ((animType === "t9") && override):
+            case ((animType === "t10") && override):
                 explosionOptions.show();
                 animateName.hide();
                 animateColor.hide();

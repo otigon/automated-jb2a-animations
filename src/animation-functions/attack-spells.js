@@ -13,8 +13,22 @@ async function spellAttacks(handler) {
         return !!game.modules.get(test);
     }
 
+    var randomProperty = function (obj) {
+        var keys = Object.keys(obj);
+        //console.log(keys);
+        var keyLength = keys.length;
+        //console.log(keyLength);
+        var ranKey = Math.floor(Math.random() * keyLength);
+        //console.log(ranKey);
+        //console.log(keys[ranKey]);
+        return keys[ranKey];
+        //return obj[keys[ keys.length * Math.random() << 0]];
+    };
+
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
+    //let ranColor = randomProperty(obj01['firebolt']);
+    //console.log(ranColor);
     let obj02;
     let spellPath01;
     let spellPath02;
@@ -31,6 +45,9 @@ async function spellAttacks(handler) {
                 case !handler.color:
                     color = "orange";
                     break;
+                case handler.color === "random":
+                    color = randomProperty(obj01[obj02]);
+                    break;
                 default:
                     color = handler.color;
             }
@@ -45,6 +62,9 @@ async function spellAttacks(handler) {
                 case handler.color === "a1" || handler.color === ``:
                 case !handler.color:
                     color = "blue";
+                    break;
+                case handler.color === "random":
+                    color = randomProperty(obj01[obj02]);
                     break;
                 default:
                     color = handler.color;
@@ -61,6 +81,9 @@ async function spellAttacks(handler) {
                 case !handler.color:
                     color = "blue";
                     break;
+                case handler.color === "random":
+                    color = randomProperty(obj01[obj02]);
+                    break;
                 default:
                     color = handler.color;
             }
@@ -74,6 +97,15 @@ async function spellAttacks(handler) {
                 case handler.color === "a1" || handler.color === ``:
                 case !handler.color:
                     color = "orange";
+                    break;
+                case handler.color === "random":
+                    switch (true) {
+                        case handler.spellVariant === "02":
+                            color = randomProperty(obj01[obj02]['02']);
+                            break;
+                        default:
+                            color = randomProperty(obj01[obj02]['01']);
+                    }
                     break;
                 default:
                     color = handler.color;
@@ -98,6 +130,9 @@ async function spellAttacks(handler) {
                 case !handler.color:
                     color = "green";
                     break;
+                case handler.color === "random":
+                    color = randomProperty(obj01[obj02]);
+                    break;
                 default:
                     color = handler.color;
             }
@@ -113,6 +148,9 @@ async function spellAttacks(handler) {
                 case !handler.color:
                     color = "purple";
                     break;
+                case handler.color === "random":
+                    color = randomProperty(obj01[obj02]);
+                    break;
                 default:
                     color = handler.color;
             }
@@ -126,6 +164,9 @@ async function spellAttacks(handler) {
                 case handler.color === "a1" || handler.color === ``:
                 case !handler.color:
                     color = "blue yellow";
+                    break;
+                case handler.color === "random":
+                    color = randomProperty(obj01[obj02]);
                     break;
                 default:
                     color = handler.color;
