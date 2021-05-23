@@ -65,15 +65,15 @@ export class AnimateItem {
             allSounds: {
                 item: {
                     enableAudio: false,
-                    soundFile: ``,
-                    soundDelay: 100,
-                    soundVolume: 25
+                    file: ``,
+                    delay: 100,
+                    volume: 25
                 },
                 explosion: {
                     audioExplodeEnabled: false,
-                    soundFile: ``,
-                    soundDelay: 100,
-                    soundVolume: 25
+                    file: ``,
+                    delay: 100,
+                    volume: 25
                 }
             },
             //itemName = ``,
@@ -543,27 +543,27 @@ export class AnimateItem {
     }
 
     get newAudio() {
-        return this.allSounds.item.soundFile;
+        return this.allSounds.item.file;
     }
 
     get delayAudio() {
-        return this.allSounds.item.soundDelay;
+        return this.allSounds.item.delay;
     }
 
     get volumeAudio() {
-        return this.allSounds.item.soundVolume;
+        return this.allSounds.item.volume;
     }
 
     get newExAudio() {
-        return this.allSounds.explosion.soundFile;
+        return this.allSounds.explosion.file;
     }
 
     get delayExAudio() {
-        return this.allSounds.explosion.soundDelay;
+        return this.allSounds.explosion.delay;
     }
 
     get volumeExAudio() {
-        return this.allSounds.explosion.soundVolume;
+        return this.allSounds.explosion.volume;
     }
 
     /*

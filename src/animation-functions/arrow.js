@@ -3,6 +3,10 @@ import meleeExplosion from "./melee-explosion.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function arrowOptionExplode(handler) {
+
+    let audio = handler.allSounds.item;
+    let audioEnabled = audio.enableAudio;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -326,6 +330,10 @@ async function arrowOptionExplode(handler) {
         }
     }
     cast();
+    if (audioEnabled) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }
 }
 
 export default arrowOptionExplode;

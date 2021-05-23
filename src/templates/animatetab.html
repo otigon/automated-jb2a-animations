@@ -381,23 +381,23 @@
                             <div class="form group">
                                 <label>Choose Audio File</label>
                                 <button type="button" class="file-picker-ex-aa" data-type="audio" name="audio-ex-button"
-                                    data-target="flags.autoanimations.allSounds.explosion.soundFile"
-                                    title="Browse Files" style="float: right">
+                                    data-target="flags.autoanimations.allSounds.explosion.file" title="Browse Files"
+                                    style="float: right">
                                     <i class="fas fa-music fa-sm"></i>
                                 </button>
                                 <input class="audio-ex-input" style="float: right" type="text"
-                                    name="flags.autoanimations.allSounds.explosion.soundFile" value={{newExAudio}}>
+                                    name="flags.autoanimations.allSounds.explosion.file" value={{newExAudio}}>
                             </div>
                             <div class="form-group">
                                 <label>Delay Audio (milliseconds)</label>
                                 <input type="number" id="flags.autoanimations.allSounds.explosion.soundDelay"
-                                    name="flags.autoanimations.allSounds.explosion.soundDelay" min="0"
-                                    class="delayExSound" value={{delayExAudio}}>
+                                    name="flags.autoanimations.allSounds.explosion.delay" min="0" class="delayExSound"
+                                    value={{delayExAudio}}>
                             </div>
                             <div class="form-group">
                                 <label>Audio Volume (0 - 100)</label>
-                                <input type="number" id="flags.autoanimations.allSounds.explosion.soundVolume"
-                                    name="flags.autoanimations.allSounds.explosion.soundVolume" min="0" max="1"
+                                <input type="number" id="flags.autoanimations.allSounds.explosion.volume"
+                                    name="flags.autoanimations.allSounds.explosion.volume" min="0" max="1"
                                     class="audioExVolume" value={{volumeExAudio}}>
                             </div>
                         </div>
@@ -459,24 +459,22 @@
                 <div class="form group">
                     <label>Choose Audio File</label>
                     <button type="button" class="file-picker-aa" data-type="audio" name="audio-button"
-                        data-target="flags.autoanimations.allSounds.item.soundFile" title="Browse Files"
+                        data-target="flags.autoanimations.allSounds.item.file" title="Browse Files"
                         style="float: right">
                         <i class="fas fa-music fa-sm"></i>
                     </button>
                     <input class="audio-input" style="float: right" type="text"
-                        name="flags.autoanimations.allSounds.item.soundFile" value={{newAudio}}>
+                        name="flags.autoanimations.allSounds.item.file" value={{newAudio}}>
                 </div>
                 <div class="form-group">
                     <label>Delay Audio (milliseconds)</label>
-                    <input type="number" id="flags.autoanimations.allSounds.item.soundDelay"
-                        name="flags.autoanimations.allSounds.item.soundDelay" min="0" value={{delayAudio}}
-                        class="delayAudio">
+                    <input type="number" id="flags.autoanimations.allSounds.item.delay"
+                        name="flags.autoanimations.allSounds.item.delay" min="0" value={{delayAudio}}>
                 </div>
                 <div class="form-group">
                     <label>Audio Volume (0 - 100)</label>
-                    <input type="number" id="flags.autoanimations.allSounds.item.soundVolume"
-                        name="flags.autoanimations.allSounds.item.soundVolume" min="0" max="1" value={{volumeAudio}}
-                        class="audioVolume">
+                    <input type="number" id="flags.autoanimations.allSounds.item.volume"
+                        name="flags.autoanimations.allSounds.item.volume" min="0" max="1" value={{volumeAudio}}>
                 </div>
             </div>
         </div>

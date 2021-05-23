@@ -446,7 +446,7 @@ export class AnimationTab {
                 //current: 'input[name="flags.automated-jb2a-animations.sounds.itemAudio"].value',
                 //field: currentAudio,
                 callback: (url) => {
-                    this.item.setFlag("autoanimations", "allSounds.item.soundFile", url);
+                    this.item.setFlag("autoanimations", "allSounds.item.file", url);
                     this.activate = true;
                 }
             });
@@ -461,7 +461,7 @@ export class AnimationTab {
                 //current: 'input[name="flags.automated-jb2a-animations.sounds.itemAudio"].value',
                 //field: currentAudio,
                 callback: (url) => {
-                    this.item.setFlag("autoanimations", "allSounds.explosion.soundFile", url);
+                    this.item.setFlag("autoanimations", "allSounds.explosion.file", url);
                     this.activate = true;
                 }
             });

@@ -44,6 +44,9 @@ let hitStutter =
 
 async function meleeWeapons(handler) {
 
+    let audio = handler.allSounds.item;
+    let audioEnabled = audio.enableAudio;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -187,31 +190,31 @@ async function meleeWeapons(handler) {
     let fireColor = TMFXCOLORS[color]();
 
     let burn =
-    [{
-        filterType: "xfire",
-        filterId: "meleeBurn",
-        autoDestroy: true,
-        time: 0,
-        color: fireColor,
-        blend: 1,
-        amplitude: 1,
-        dispersion: 0,
-        chromatic: false,
-        scaleX: 1,
-        scaleY: 1,
-        inlay: false,
-        animated:
-        {
-            time:
+        [{
+            filterType: "xfire",
+            filterId: "meleeBurn",
+            autoDestroy: true,
+            time: 0,
+            color: fireColor,
+            blend: 1,
+            amplitude: 1,
+            dispersion: 0,
+            chromatic: false,
+            scaleX: 1,
+            scaleY: 1,
+            inlay: false,
+            animated:
             {
-                loopDuration: 500,
-                loops: 3,
-                active: true,
-                speed: -0.0015,
-                animType: "move"
+                time:
+                {
+                    loopDuration: 500,
+                    loops: 3,
+                    active: true,
+                    speed: -0.0015,
+                    animType: "move"
+                }
             }
-        }
-    }];
+        }];
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
     async function cast() {
@@ -361,7 +364,6 @@ async function meleeWeapons(handler) {
                             y: (Scale * plusOrMinus),
                         },
                     });
-
             }
 
 
@@ -413,6 +415,10 @@ async function meleeWeapons(handler) {
         }
     }
     cast();
+    if (audioEnabled) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }
 }
 
 export default meleeWeapons;

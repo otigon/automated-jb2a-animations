@@ -9,7 +9,10 @@ async function mistyStep(handler) {
         console.log("A-A Misty Step will not work with DAE SRD Misty Step");
         return;
     }
-    
+
+    let audio = handler.allSounds.item;
+    let audioEnabled = audio.enableAudio;
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -53,7 +56,7 @@ async function mistyStep(handler) {
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {
-        if (event.data.button !== 0) {return}
+        if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
         deleteTemplatesAndMove();
         canvas.app.stage.removeListener('pointerdown');
@@ -85,11 +88,15 @@ async function mistyStep(handler) {
             }
             canvas.fxmaster.playVideo(data);
             game.socket.emit('module.fxmaster', data);
+            if (audioEnabled) {
+                await wait(audio.delay);
+                AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+            }
         }
         await wait(750);
-        canvas.scene.updateEmbeddedDocuments("Token", [{"_id": token.id, hidden: true}]);
+        canvas.scene.updateEmbeddedDocuments("Token", [{ "_id": token.id, hidden: true }]);
         //token.update({ "hidden": !token.data.hidden })
-        await canvas.scene.updateEmbeddedDocuments("Token", [{"_id": token.id, x: gridPos[0], y: gridPos[1]}], {animate: false});
+        await canvas.scene.updateEmbeddedDocuments("Token", [{ "_id": token.id, x: gridPos[0], y: gridPos[1] }], { animate: false });
         //await token.update({ x: gridPos[0], y: gridPos[1] }, { animate: false })
         await wait(750);
 
@@ -115,10 +122,13 @@ async function mistyStep(handler) {
 
             canvas.fxmaster.playVideo(data2);
             game.socket.emit('module.fxmaster', data2);
-
+            if (audioEnabled) {
+                await wait(audio.delay);
+                AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+            }
         }
         await wait(1500);
-        canvas.scene.updateEmbeddedDocuments("Token", [{"_id": token.id, hidden: false}]);
+        canvas.scene.updateEmbeddedDocuments("Token", [{ "_id": token.id, hidden: false }]);
         //token.update({ "hidden": !token.data.hidden })
     };
 }
