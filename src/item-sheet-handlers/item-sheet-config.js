@@ -9,7 +9,7 @@ export class AnimationTab {
         let acceptedTypes;
         switch (game.system.id) {
             case ("dnd5e"):
-                acceptedTypes = ['weapon', 'spell', 'consumable', 'feat', 'equipment'];
+                acceptedTypes = ['weapon', 'spell', 'consumable', 'feature', 'equipment'];
                 break;
             case ("pf1"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
@@ -169,6 +169,7 @@ export class AnimationTab {
         let explodeAudio = this.html.find('.explode-audio');
         let exCheckBox = this.html.find('.audio-ex-checkbox');
         let spellLoops = this.html.find('.spell-loops');
+        let bardMarker = this.html.find('.marker-color');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
@@ -177,6 +178,13 @@ export class AnimationTab {
         let audio = this.animateItem.allSounds.item.enableAudio;
         let exAudio = this.animateItem.allSounds.explosion.audioExplodeEnabled;
         let enableExplosion = this.animateItem.explosion;
+        let marker = this.animateItem.bards.marker;
+        
+        if (marker) {
+            bardMarker.show();
+        } else {
+            bardMarker.hide();
+        }
 
         if(enableExplosion && override) {
             exCheckBox.show();

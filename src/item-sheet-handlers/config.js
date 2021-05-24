@@ -659,6 +659,18 @@ AUTOANIM.bardicInspirationColorsFree = {
     "green orange": "AUTOANIM.colorGreenOrange",
 }
 
+AUTOANIM.bardicMarkerColors = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+}
+
+AUTOANIM.bardicMarkerColorsFree = {
+    'a1': ``,
+    "green orange": "AUTOANIM.colorGreenOrange",
+}
+
 AUTOANIM.animNameClassFeatures = {
     'a1': ``,
     'bardic inspiration': "AUTOANIM.bardicInspiration"

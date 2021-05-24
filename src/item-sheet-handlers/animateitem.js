@@ -27,9 +27,12 @@ export class AnimateItem {
         this.uaStrikeType = this.data.uaStrikeType;
         this.teleDist = this.data.teleDist;
         this.spellVar = this.data.spellVar;
+        this.bards = this.data.bards;
         this.bardAnim = this.data.bards.bardAnim;
         this.bardTarget = this.data.bards.bardTarget;
         this.bardSelf = this.data.bards.bardSelf;
+        this.marker = this.data.bards.marker;
+        this.markerColor = this.data.bards.markerColor;
         this.allSounds = this.data.allSounds;
         this.enableAudio = this.data.allSounds.item.enableAudio;
         this.audioExplodeEnabled = this.data.allSounds.explosion.audioExplodeEnabled;
@@ -62,6 +65,8 @@ export class AnimateItem {
                 bardTarget: true,
                 bardSelf: true,
                 bardAnim: ``,
+                marker: true,
+                markerColor: ``
             },
             allSounds: {
                 item: {
@@ -572,9 +577,17 @@ export class AnimateItem {
     get volumeExAudio() {
         return this.allSounds.explosion.volume;
     }
-  
+
     get spellLoop() {
         return this.spellLoops || 1;
+    }
+
+    get markerColors() {
+        if (moduleIncludes("jb2a_patreon")) {
+            return AUTOANIM.localized(AUTOANIM.bardicMarkerColors);
+        } else {
+            return AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree);
+        }
     }
 
     /*

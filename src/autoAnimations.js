@@ -116,10 +116,9 @@ Hooks.on('init', () => {
                 game.settings.register("autoanimations", "CriticalAnimation", {
                     name: game.i18n.format("AUTOANIM.crithitAnim_name"),
                     scope: 'world',
-                    type: ImagePicker.Image,
-                    default: "modules/JB2A_DnD5e/Library/Generic/UI/Critical_02_Red_200x200.webm",
                     config: true,
-                    onchange: () => { window.location.reload() }
+                    type: String,
+                    filePicker: true
                 });
                 game.settings.register("autoanimations", "EnableCriticalMiss", {
                     name: game.i18n.format("AUTOANIM.critmiss_name"),
@@ -133,10 +132,9 @@ Hooks.on('init', () => {
                 game.settings.register("autoanimations", "CriticalMissAnimation", {
                     name: game.i18n.format("AUTOANIM.critmissAnim_name"),
                     scope: 'world',
-                    type: ImagePicker.Image,
-                    default: "modules/JB2A_DnD5e/Library/Generic/UI/Miss_02_White_200x200.webm",
                     config: true,
-                    onchange: () => { window.location.reload() }
+                    type: String,
+                    filePicker: true
                 });
 
             } else {

@@ -16,7 +16,7 @@ async function bardicInspiration(handler) {
     let obj02;
     let repeat;
     let color;
-    console.log(handler.bardAnim);
+    //console.log(handler.bardAnim);
     switch (true) {
         case (handler.bardAnim === "music"):
             obj02 = "music";
@@ -28,7 +28,7 @@ async function bardicInspiration(handler) {
                     break;
                 default:
                     color = handler.color;
-            }        
+            }
             break;
         default:
             obj02 = "bardicinspiration";
@@ -40,11 +40,35 @@ async function bardicInspiration(handler) {
                     break;
                 default:
                     color = handler.color;
-            }        
+            }
     }
 
     let token = handler.actorToken;
     let target = handler.allTargets[0];
+    let markerScale = canvas.grid.size * 1.5;
+    let color02 = handler.bards.markerColor;
+    //console.log(color02);
+
+    let markerPath = obj01['bardicinspiration']['marker'][color02];
+    let markerSelf = {
+        alpha: 0.85,
+        x: (token.x - (canvas.grid.size / 3)),
+        y: (token.y - (canvas.grid.size / 3)),
+        height: markerScale,
+        width: markerScale,
+        img: markerPath,
+    };
+    let markerTarget
+    if (target) {
+        markerTarget = {
+            x: (target.x - (canvas.grid.size / 2)),
+            y: (target.y - (canvas.grid.size / 2)),
+            height: markerScale,
+            width: markerScale,
+            img: markerPath
+        };
+    }
+
 
     function randomSpot(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -69,110 +93,142 @@ async function bardicInspiration(handler) {
     let yMaxtarget = centerYtarget;
     let yMintarget = centerYtarget - grid / 2;
 
-    async function cast(number) {
-        let x = number;
-
+    async function music(number) {
+        let x = number
         for (var i = 0; i < x; i++) {
             let ranVar = Math.floor(Math.random() * 7 + 1).toString();
-            let filePath;
-            let varX;
-            let varY;
-            let varXtarget;
-            let varYtarget;
-            let sourceAnim;
-            let targetAnim;
-            let varTarget;
-            switch (obj02) {
-                case "music":
-                    filePath = obj01[obj02][color][ranVar];
-                    varX = randomSpot(xMin, xMax);
-                    varY = randomSpot(yMin, yMax);
-                    varXtarget = randomSpot(xMintarget, xMaxtarget);
-                    varYtarget = randomSpot(yMintarget, yMaxtarget);
+            //console.log(obj01[obj02][color]);
+            //console.log(obj02);
+            //console.log(color);
+            let filePath = obj01[obj02][color][ranVar];
+            let varX = randomSpot(xMin, xMax);
+            let varY = randomSpot(yMin, yMax);
+            let varXtarget = randomSpot(xMintarget, xMaxtarget);
+            let varYtarget = randomSpot(yMintarget, yMaxtarget);
 
-                    sourceAnim =
-                    {
-                        file: filePath,
-                        position: {
-                            x: varX,
-                            y: varY
-                        },
-                        anchor: {
-                            x: 0.5,
-                            y: 0.5
-                        },
-                        angle: 0,
-                        scale: {
-                            x: .5,
-                            y: .5
-                        }
-                    };
+            let sourceAnim =
+            {
+                file: filePath,
+                position: {
+                    x: varX,
+                    y: varY
+                },
+                anchor: {
+                    x: 0.5,
+                    y: 0.5
+                },
+                angle: 0,
+                scale: {
+                    x: .5,
+                    y: .5
+                }
+            };
 
-                    targetAnim =
-                    {
-                        file: filePath,
-                        position: {
-                            x: varXtarget,
-                            y: varYtarget
-                        },
-                        anchor: {
-                            x: 0.5,
-                            y: 0.5
-                        },
-                        angle: 0,
-                        scale: {
-                            x: .5,
-                            y: .5
-                        }
-                    };
-        
-                    break;
-                case "bardicinspiration":
-                    filePath = obj01[obj02][color];
-                    
-                    varTarget = targetCenter(target);
-                    sourceAnim =
-                    {
-                        file: filePath,
-                        position: token.center,
-                        anchor: {
-                            x: 0.5,
-                            y: 0.5
-                        },
-                        angle: 0,
-                        scale: {
-                            x: .5,
-                            y: .5
-                        }
-                    };
-                    targetAnim =
-                    {
-                        file: filePath,
-                        position: varTarget,
-                        anchor: {
-                            x: 0.5,
-                            y: 0.5
-                        },
-                        angle: 0,
-                        scale: {
-                            x: .5,
-                            y: .5
-                        }
-                    };
-            }
+            let targetAnim =
+            {
+                file: filePath,
+                position: {
+                    x: varXtarget,
+                    y: varYtarget
+                },
+                anchor: {
+                    x: 0.5,
+                    y: 0.5
+                },
+                angle: 0,
+                scale: {
+                    x: .5,
+                    y: .5
+                }
+            };
 
-            if (handler.bardSelf) {
+            async function selfCasting() {
                 canvas.fxmaster.playVideo(sourceAnim);
                 game.socket.emit('module.fxmaster', sourceAnim);
             }
-            if (target && handler.bardTarget) {
+
+            async function targetCasting() {
                 canvas.fxmaster.playVideo(targetAnim);
                 game.socket.emit('module.fxmaster', targetAnim);
             }
-            await wait(500);
+            if (handler.bardSelf) {
+                selfCasting();
+            }
+            if (target && handler.bardTarget) {
+                targetCasting();
+            }    
+            await wait (350)
         }
     }
-    cast(repeat);
+    async function bardicInspiration() {
+
+        let filePath = obj01[obj02]['inspire'][color];
+
+        let varTarget = targetCenter(target);
+        let sourceAnim =
+        {
+            file: filePath,
+            position: token.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: .5,
+                y: .5
+            }
+        };
+        let targetAnim =
+        {
+            file: filePath,
+            position: varTarget,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            scale: {
+                x: .5,
+                y: .5
+            }
+        };
+
+        async function selfCasting() {
+            //const selfMarker = await canvas.scene.createEmbeddedDocuments("Tile", [markerSelf]);
+            canvas.fxmaster.playVideo(sourceAnim);
+            game.socket.emit('module.fxmaster', sourceAnim);
+            //let length = canvas.background.placeables.length;
+            //let delete01 = canvas.background.placeables[length - 1];
+            //await wait(2750);
+            //canvas.scene.deleteEmbeddedDocuments("Tile", [delete01.id])
+        }
+
+        async function targetCasting() {
+            //const targetMarker = await canvas.scene.createEmbeddedDocuments("Tile", [markerTarget]);
+            canvas.fxmaster.playVideo(targetAnim);
+            game.socket.emit('module.fxmaster', targetAnim);
+            //let length = canvas.background.placeables.length;
+            //let delete02 = canvas.background.placeables[length - 1];
+            //await wait(3000);
+            //canvas.scene.deleteEmbeddedDocuments("Tile", [delete02.id])
+        }
+        if (handler.bardSelf) {
+            selfCasting();
+            await wait(3000);
+        }
+        if (target && handler.bardTarget) {
+            targetCasting();
+        }
+        await wait(500);
+    }
+    switch (true) {
+        case obj02 === "music":
+            music(10);
+            break;
+        default:
+            bardicInspiration();
+    }
     if (audioEnabled) {
         await wait(audio.delay);
         AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
