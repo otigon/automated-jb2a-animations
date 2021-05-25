@@ -1,3 +1,10 @@
+0.3.50  
+- First update for Foundry 0.8.XX  
+- REQUIRES an Uninstall/Reinstall of the Module. I had to change the back-end name to work in sounds and some other fun features in the future  
+- Item Sounds: In the A-A Tab, you can now choose a sound to play when the item is used. There is also a Sound option for Explosions. This is a work in progess and subject to change based on feedback.  
+- Bardic Inspiration: Optional Marker animation to use in conjunction with the Bardic Inpiration Animation. The Marker requires Custom Token Animations to be active  
+- Critical Hit and Miss (MIDI ONLY): Changed up the File Pickers in the Setting Menu, and refactored the checks for isCritical or isFumble, so this takes into account other modifiers for crits.  
+  
 0.2.83-0.2.89  
 - Lots of backend code cleaning and various fixes that came along with it.  
   
