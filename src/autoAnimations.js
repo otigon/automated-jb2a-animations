@@ -630,6 +630,8 @@ async function revItUp(handler) {
     }
 }
 async function criticalCheck(workflow) {
+
+    if (!workflow.isCritical && !workflow.isFumble) {return;}
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
 
