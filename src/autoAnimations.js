@@ -115,6 +115,7 @@ Hooks.on('init', () => {
                 });
                 game.settings.register("autoanimations", "CriticalAnimation", {
                     name: game.i18n.format("AUTOANIM.crithitAnim_name"),
+                    //name: "Choose A File",
                     scope: 'world',
                     config: true,
                     type: String,
@@ -217,9 +218,7 @@ Hooks.once('ready', function () {
     }
     if (game.modules.get("midi-qol")?.active) {
         critAnim = game.settings.get("autoanimations", "CriticalAnimation");
-        critAnim = critAnim.substring(7);
         critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
-        critMissAnim = critMissAnim.substring(7);
     }
 });
 
@@ -631,13 +630,14 @@ async function revItUp(handler) {
     }
 }
 async function criticalCheck(workflow) {
-    let rollCheck = workflow.attackRoll.results[0];
+    let critical = workflow.isCritical;
+    let fumble = workflow.isFumble;
 
     let token;
     let Anim;
 
     switch (true) {
-        case (game.settings.get("autoanimations", "EnableCritical") && rollCheck === 20):
+        case (game.settings.get("autoanimations", "EnableCritical") && critical):
             token = canvas.tokens.get(workflow.tokenId);
             Anim =
             {
@@ -656,7 +656,7 @@ async function criticalCheck(workflow) {
             canvas.fxmaster.playVideo(Anim);
             game.socket.emit('module.fxmaster', Anim);
             break;
-        case (game.settings.get("autoanimations", "EnableCriticalMiss") && rollCheck === 1):
+        case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
             token = canvas.tokens.get(workflow.tokenId);
             Anim =
             {
