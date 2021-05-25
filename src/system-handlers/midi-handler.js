@@ -36,6 +36,7 @@ export default class MidiHandler {
         this._bardTarget = this._flags.bards?.bardTarget ?? true;
         this._bardSelf = this._flags.bards?.bardSelf ?? true;
         this._bardAnim = this._flags.bards?.bardAnim ?? "";
+        this._bards = this._flags.bards ?? "";
         this._allSounds = this._flags.allSounds ?? "";
         this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
 
@@ -241,6 +242,10 @@ export default class MidiHandler {
 
     get bardAnim() {
         return this._bardAnim;
+    }
+    
+    get bards() {
+        return this._bards;
     }
 
     get allSounds() {

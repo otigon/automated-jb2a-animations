@@ -93,6 +93,33 @@ async function bardicInspiration(handler) {
     let yMaxtarget = centerYtarget;
     let yMintarget = centerYtarget - grid / 2;
 
+    async function markerCreate(markerToken) {
+
+        let name = "Bardic Inspiration";
+
+        let textureData = {
+            texturePath: "modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm",
+            scale: "1.5",
+            speed: 0,
+            multiple: 1,
+            rotation: "static",
+            xScale: 0.5,
+            yScale: 0.5,
+            belowToken: true,
+            radius: 2,
+            opacity: 0.85,
+            tint: 16777215,
+            equip: false,
+            lock: false
+        }
+        CTA.addAnimation(markerToken, textureData, false, name, null)
+        //CTA.addAnimation(markerToken, textureData, false, name, null)
+    }
+    async function markerDelete(markerToken) {
+        let name = "Bardic Inspiration";
+        CTA.removeAnimByName(markerToken, name, true, true);
+        //CTA.removeAnimByName(markerToken, name, true, true);
+    }
     async function music(number) {
         let x = number
         for (var i = 0; i < x; i++) {
@@ -156,8 +183,8 @@ async function bardicInspiration(handler) {
             }
             if (target && handler.bardTarget) {
                 targetCasting();
-            }    
-            await wait (350)
+            }
+            await wait(350)
         }
     }
     async function bardicInspiration() {
@@ -215,19 +242,50 @@ async function bardicInspiration(handler) {
         }
         if (handler.bardSelf) {
             selfCasting();
-            await wait(3000);
         }
         if (target && handler.bardTarget) {
             targetCasting();
         }
-        await wait(500);
     }
+    let ctaActive = game.modules.get("Custom-Token-Animations")?.active;
     switch (true) {
         case obj02 === "music":
             music(10);
+            if (handler.bards.marker && ctaActive) {
+                if (handler.bards.marker) {
+                    if (handler.bardSelf) {
+                        markerCreate(token);
+                    }
+                    if (target && handler.bardTarget) {
+                        markerCreate(target);
+                    }
+                    await wait(3750);
+                    if (handler.bardSelf) {
+                        markerDelete(token);
+                    }
+                    if (target && handler.bardTarget) {
+                        markerDelete(target);
+                    }
+                }
+            }
             break;
         default:
             bardicInspiration();
+            if (handler.bards.marker && ctaActive) {
+                if (handler.bardSelf) {
+                    markerCreate(token);
+                }
+                if (target && handler.bardTarget) {
+                    markerCreate(target);
+                }
+                await wait(3750);
+                if (handler.bardSelf) {
+                    markerDelete(token);
+                }
+                if (target && handler.bardTarget) {
+                    markerDelete(target);
+                }
+            }
     }
     if (audioEnabled) {
         await wait(audio.delay);
