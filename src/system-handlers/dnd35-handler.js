@@ -37,6 +37,8 @@ export default class Dnd35Handler {
         this._bardAnim = this._flags.bards?.bardAnim ?? "";
         this._bards = this._flags.bards ?? "";
         this._allSounds = this._flags.allSounds ?? "";
+        this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
+        this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
 
         //console.log(this._animName);
@@ -198,6 +200,14 @@ export default class Dnd35Handler {
 
     get allSounds() {
         return this._allSounds;
+    }
+
+    get itemSound() {
+        return this._itemSound;
+    }
+
+    get explodeSound() {
+        return this._explodeSound
     }
   
     get spellLoops() {

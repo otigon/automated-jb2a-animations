@@ -6,7 +6,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 async function meleeExplosion(handler, target) {
 
     let audio = handler.allSounds.explosion;
-    let audioEnabled = audio.audioExplodeEnabled;
+    let audioEnabled = handler.explodeSound;
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);

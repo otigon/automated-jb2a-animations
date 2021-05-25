@@ -11,7 +11,7 @@ async function mistyStep(handler) {
     }
 
     let audio = handler.allSounds.item;
-    let audioEnabled = audio.enableAudio;
+    let audioEnabled = handler.itemSound;
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
