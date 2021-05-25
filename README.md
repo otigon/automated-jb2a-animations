@@ -1,5 +1,7 @@
 ## NOTE: 0.3.28 was the last version for Foundry 0.7.9. Moving forward with 0.3.50, all releases will be geared towards Foundry 0.8.XX. The 0.7.9 version has been forked to here: https://github.com/otigon/automated-animations-0.7.9 . I will update that fork with new JB2A Animation Releases through the end of June.
 
+## ALSO NOTE: 0.3.50 REQUIRES an Uninstall/Reinstall of the Automated Animations Module. I had to change the back-end module name to be able implement Sounds
+
 # Automated Animations
 **No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
 **Exception**: The No Target Animation used by this module was provided by JB2A  
