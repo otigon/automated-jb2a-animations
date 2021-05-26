@@ -2,14 +2,14 @@ export default class Pf1Handler {
     constructor(message) {
         const item = message?.itemSource;
         const actor = item?.options?.actor;
-    
+        const tokenId = message.data.speaker.token;  
         if (!item || !actor) {
             return;
         }
 
         this._item = item;
         this._actor = actor;    
-        this._actorToken = canvas.tokens.ownedTokens.find(x => x.actor.id === actor.id);
+        this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         this._allTargets = Array.from(message.user.targets);
 
         this._itemName = item.name?.toLowerCase();
