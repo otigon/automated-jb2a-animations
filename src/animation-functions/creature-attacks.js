@@ -75,8 +75,8 @@ async function creatureAttacks(handler) {
 
         switch (true) {
             case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
-                canvas.fxmaster.playVideo(targetTrainer);
-                game.socket.emit('module.fxmaster', targetTrainer);
+                canvas.autoanimations.playVideo(targetTrainer);
+                game.socket.emit('module.autoanimations', targetTrainer);
         }
 
         let Scale;
@@ -151,8 +151,8 @@ async function creatureAttacks(handler) {
                     y: Scale
                 }
             };
-            canvas.fxmaster.playVideo(spellAnim);
-            game.socket.emit('module.fxmaster', spellAnim);
+            canvas.autoanimations.playVideo(spellAnim);
+            game.socket.emit('module.autoanimations', spellAnim);
 
             if (game.settings.get("autoanimations", "tmfx")) {
                 await wait(250);

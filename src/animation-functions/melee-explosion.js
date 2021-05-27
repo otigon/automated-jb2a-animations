@@ -69,8 +69,8 @@ async function meleeExplosion(handler, target) {
             let interval = 1000;
             for (var i = 0; i < x; i++) {
                 setTimeout(function () {
-                    canvas.fxmaster.playVideo(spellAnim);
-                    game.socket.emit('module.fxmaster', spellAnim);
+                    canvas.autoanimations.playVideo(spellAnim);
+                    game.socket.emit('module.autoanimations', spellAnim);
                 }, i * interval);
             }
         }

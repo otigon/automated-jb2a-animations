@@ -169,8 +169,8 @@ async function arrowOptionExplode(handler) {
 
         switch (true) {
             case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
-                canvas.fxmaster.playVideo(targetTrainer);
-                game.socket.emit('module.fxmaster', targetTrainer);
+                canvas.autoanimations.playVideo(targetTrainer);
+                game.socket.emit('module.autoanimations', targetTrainer);
         }
 
         for (var i = 0; i < arrayLength; i++) {
@@ -299,8 +299,8 @@ async function arrowOptionExplode(handler) {
             };
 
 
-            canvas.fxmaster.playVideo(spellAnim);
-            game.socket.emit('module.fxmaster', spellAnim);
+            canvas.autoanimations.playVideo(spellAnim);
+            game.socket.emit('module.autoanimations', spellAnim);
             /*
             if (handler.animExplode && handler.animOverride) {
                 await wait(boomDelay);

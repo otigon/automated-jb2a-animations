@@ -153,8 +153,8 @@ async function onTargetSpells(handler) {
                     y: scale
                 }
             };
-            canvas.fxmaster.playVideo(spellAnim);
-            game.socket.emit('module.fxmaster', spellAnim);
+            canvas.autoanimations.playVideo(spellAnim);
+            game.socket.emit('module.autoanimations', spellAnim);
 
             let Holy =
                 [{

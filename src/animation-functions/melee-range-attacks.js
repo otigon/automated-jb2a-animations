@@ -144,8 +144,8 @@ async function meleeRangeSwitch(handler) {
 
         switch (true) {
             case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
-                canvas.fxmaster.playVideo(targetTrainer);
-                game.socket.emit('module.fxmaster', targetTrainer);
+                canvas.autoanimations.playVideo(targetTrainer);
+                game.socket.emit('module.autoanimations', targetTrainer);
         }
 
         for (var i = 0; i < arrayLength; i++) {
@@ -286,8 +286,8 @@ async function meleeRangeSwitch(handler) {
                         }
                     };
 
-                    canvas.fxmaster.playVideo(spellAnim);
-                    game.socket.emit('module.fxmaster', spellAnim);
+                    canvas.autoanimations.playVideo(spellAnim);
+                    game.socket.emit('module.autoanimations', spellAnim);
 
                     switch (true) {
                         case handler.playOnMiss:
@@ -353,8 +353,8 @@ async function meleeRangeSwitch(handler) {
 
                     switch (true) {
                         case distance <= 5:
-                            canvas.fxmaster.playVideo(meleeAnim);
-                            game.socket.emit('module.fxmaster', meleeAnim);
+                            canvas.autoanimations.playVideo(meleeAnim);
+                            game.socket.emit('module.autoanimations', meleeAnim);
                             break;
                         default:
                             function drawSpecialToward(effect, tok1, tok2) {
@@ -391,9 +391,9 @@ async function meleeRangeSwitch(handler) {
                                 effectData.distance = ray.distance;
                                 effectData.rotation = ray.angle + missHit;
                                 // Throw effect locally
-                                canvas.fxmaster.playVideo(effectData);
+                                canvas.autoanimations.playVideo(effectData);
                                 // And to other clients
-                                game.socket.emit('module.fxmaster', effectData);
+                                game.socket.emit('module.autoanimations', effectData);
                             }
 
                             function castSpell(effect) {

@@ -170,13 +170,13 @@ async function bardicInspiration(handler) {
             };
 
             async function selfCasting() {
-                canvas.fxmaster.playVideo(sourceAnim);
-                game.socket.emit('module.fxmaster', sourceAnim);
+                canvas.autoanimations.playVideo(sourceAnim);
+                game.socket.emit('module.autoanimations', sourceAnim);
             }
 
             async function targetCasting() {
-                canvas.fxmaster.playVideo(targetAnim);
-                game.socket.emit('module.fxmaster', targetAnim);
+                canvas.autoanimations.playVideo(targetAnim);
+                game.socket.emit('module.autoanimations', targetAnim);
             }
             if (handler.bardSelf) {
                 selfCasting();
@@ -223,8 +223,8 @@ async function bardicInspiration(handler) {
 
         async function selfCasting() {
             //const selfMarker = await canvas.scene.createEmbeddedDocuments("Tile", [markerSelf]);
-            canvas.fxmaster.playVideo(sourceAnim);
-            game.socket.emit('module.fxmaster', sourceAnim);
+            canvas.autoanimations.playVideo(sourceAnim);
+            game.socket.emit('module.autoanimations', sourceAnim);
             //let length = canvas.background.placeables.length;
             //let delete01 = canvas.background.placeables[length - 1];
             //await wait(2750);
@@ -233,8 +233,8 @@ async function bardicInspiration(handler) {
 
         async function targetCasting() {
             //const targetMarker = await canvas.scene.createEmbeddedDocuments("Tile", [markerTarget]);
-            canvas.fxmaster.playVideo(targetAnim);
-            game.socket.emit('module.fxmaster', targetAnim);
+            canvas.autoanimations.playVideo(targetAnim);
+            game.socket.emit('module.autoanimations', targetAnim);
             //let length = canvas.background.placeables.length;
             //let delete02 = canvas.background.placeables[length - 1];
             //await wait(3000);

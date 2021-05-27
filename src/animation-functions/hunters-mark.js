@@ -124,10 +124,10 @@ async function huntersMark(handler) {
 
     let tokenName = target.name;
 
-    canvas.fxmaster.playVideo(hmAnimPulseSelf);
-    game.socket.emit('module.fxmaster', hmAnimPulseSelf)
-    canvas.fxmaster.playVideo(hmAnimPulseTarget);
-    game.socket.emit('module.fxmaster', hmAnimPulseTarget)
+    canvas.autoanimations.playVideo(hmAnimPulseSelf);
+    game.socket.emit('module.autoanimations', hmAnimPulseSelf)
+    canvas.autoanimations.playVideo(hmAnimPulseTarget);
+    game.socket.emit('module.autoanimations', hmAnimPulseTarget)
 
     if (game.modules.get("Custom-Token-Animations")?.active) {
         await wait(3000);

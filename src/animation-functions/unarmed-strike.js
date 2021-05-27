@@ -58,8 +58,8 @@ async function unarmedStrike(handler) {
 
         switch (true) {
             case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
-                canvas.fxmaster.playVideo(targetTrainer);
-                game.socket.emit('module.fxmaster', targetTrainer);
+                canvas.autoanimations.playVideo(targetTrainer);
+                game.socket.emit('module.autoanimations', targetTrainer);
         }
 
         for (var i = 0; i < arrayLength; i++) {

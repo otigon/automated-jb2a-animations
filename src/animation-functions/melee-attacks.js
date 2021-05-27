@@ -240,8 +240,8 @@ async function meleeWeapons(handler) {
 
         switch (true) {
             case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
-                canvas.fxmaster.playVideo(targetTrainer);
-                game.socket.emit('module.fxmaster', targetTrainer);
+                canvas.autoanimations.playVideo(targetTrainer);
+                game.socket.emit('module.autoanimations', targetTrainer);
         }
 
         /*
@@ -335,17 +335,17 @@ async function meleeWeapons(handler) {
                 effectData.distance = ray.distance;
                 effectData.rotation = ray.angle + missHit;
                 // Throw effect locally
-                canvas.fxmaster.playVideo(effectData);
+                canvas.autoanimations.playVideo(effectData);
                 // And to other clients
-                game.socket.emit('module.fxmaster', effectData);
+                game.socket.emit('module.autoanimations', effectData);
             }
 
 
 
             switch (true) {
                 case distance <= range:
-                    canvas.fxmaster.playVideo(meleeAnim);
-                    game.socket.emit('module.fxmaster', meleeAnim);
+                    canvas.autoanimations.playVideo(meleeAnim);
+                    game.socket.emit('module.autoanimations', meleeAnim);
                     break;
                 default:
                     function castSpell(effect) {
@@ -363,6 +363,7 @@ async function meleeWeapons(handler) {
                             x: Scale,
                             y: (Scale * plusOrMinus),
                         },
+                        ease: "Linear"
                     });
             }
 

@@ -187,14 +187,14 @@ async function rangedWeapons(handler) {
 
         switch (true) {
             case ((targetCheck === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
-                canvas.fxmaster.playVideo(targetTrainer);
-                game.socket.emit('module.fxmaster', targetTrainer);
+                canvas.autoanimations.playVideo(targetTrainer);
+                game.socket.emit('module.autoanimations', targetTrainer);
         }
 
         switch (true) {
             case ((arrayLength === 0) && (game.settings.get("autoanimations", "targetingAssist"))):
-                canvas.fxmaster.playVideo(targetTrainer);
-                game.socket.emit('module.fxmaster', targetTrainer);
+                canvas.autoanimations.playVideo(targetTrainer);
+                game.socket.emit('module.autoanimations', targetTrainer);
         }
 
         for (var i = 0; i < arrayLength; i++) {
@@ -384,8 +384,8 @@ async function rangedWeapons(handler) {
                 let interval = 250;
                 for (var i = 0; i < x; i++) {
                     setTimeout(function () {
-                        canvas.fxmaster.playVideo(spellAnim);
-                        game.socket.emit('module.fxmaster', spellAnim);
+                        canvas.autoanimations.playVideo(spellAnim);
+                        game.socket.emit('module.autoanimations', spellAnim);
                     }, i * interval);
                 }
             }

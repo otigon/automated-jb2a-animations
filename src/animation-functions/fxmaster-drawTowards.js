@@ -29,9 +29,9 @@ function drawSpecialToward(effect, tok1, tok2) {
     //effectData.distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY) - (1 - effectData.anchor.x) * tok2.width * canvas.grid.size;
 
     // Throw effect locally
-    canvas.fxmaster.playVideo(effectData);
+    canvas.autoanimations.playVideo(effectData);
     // And to other clients
-    game.socket.emit('module.fxmaster', effectData);
+    game.socket.emit('module.autoanimations', effectData);
   }
 
   export default drawSpecialToward;

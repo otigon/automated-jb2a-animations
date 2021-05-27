@@ -86,8 +86,8 @@ async function mistyStep(handler) {
                     y: myScale
                 }
             }
-            canvas.fxmaster.playVideo(data);
-            game.socket.emit('module.fxmaster', data);
+            canvas.autoanimations.playVideo(data);
+            game.socket.emit('module.autoanimations', data);
             if (audioEnabled) {
                 await wait(audio.delay);
                 AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
@@ -120,8 +120,8 @@ async function mistyStep(handler) {
                 }
             }
 
-            canvas.fxmaster.playVideo(data2);
-            game.socket.emit('module.fxmaster', data2);
+            canvas.autoanimations.playVideo(data2);
+            game.socket.emit('module.autoanimations', data2);
             if (audioEnabled) {
                 await wait(audio.delay);
                 AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);

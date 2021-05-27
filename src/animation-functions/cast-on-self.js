@@ -54,8 +54,8 @@ async function castOnSelf(handler) {
             }
         };
 
-        canvas.fxmaster.playVideo(spellAnim);
-        game.socket.emit('module.fxmaster', spellAnim);
+        canvas.autoanimations.playVideo(spellAnim);
+        game.socket.emit('module.autoanimations', spellAnim);
     }
     cast();
     if (audioEnabled) {

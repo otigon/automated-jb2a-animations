@@ -29,13 +29,28 @@ import bardicInspiration from "./animation-functions/bardic-inspiration.js";
 import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
 
+import { AALayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
 
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
 const log = () => { };
 
+function registerLayer() {
+    const layers = foundry.utils.mergeObject(Canvas.layers, {
+      autoanimations: AALayer
+    });
+    Object.defineProperty(Canvas, 'layers', {
+      get: function () {
+        return layers
+      }
+    });
+  }  
+
 Hooks.on('init', () => {
+
+    registerLayer();
+
     game.settings.register("autoanimations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
         name: game.i18n.format("AUTOANIM.initpopup_name"),                  // Register a module setting with checkbox
         hint: game.i18n.format("AUTOANIM.initpopup_hint"),               // Description of the settings
@@ -51,6 +66,15 @@ Hooks.on('init', () => {
         config: true,
         default: 100,
         type: Number
+    })
+    game.settings.register("autoanimations", "animateLayer", {
+        name: "Animations play above Overhead Tiles",
+        hint: "Check to enable animations playing above Overhead Tiles (Requires a Refressh)",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        onChange: () => { window.location.reload() }
     })
     game.settings.register("autoanimations", "hideFromPlayers", { // game.setting.register("NameOfTheModule", "VariableName",
         name: game.i18n.format("AUTOANIM.animtab_name"),                  // Register a module setting with checkbox
