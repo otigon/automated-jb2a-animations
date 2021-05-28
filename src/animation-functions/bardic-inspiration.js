@@ -47,6 +47,7 @@ async function bardicInspiration(handler) {
     let target = handler.allTargets[0];
     let markerScale = canvas.grid.size * 1.5;
     let color02 = handler.bards.markerColor;
+    console.log(color02);
     //console.log(color02);
 
     let markerPath = obj01['bardicinspiration']['marker'][color02];
@@ -98,7 +99,7 @@ async function bardicInspiration(handler) {
         let name = "Bardic Inspiration";
 
         let textureData = {
-            texturePath: "modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm",
+            texturePath: markerPath,
             scale: "1.5",
             speed: 0,
             multiple: 1,

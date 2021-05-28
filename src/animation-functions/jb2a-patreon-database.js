@@ -87,6 +87,11 @@ JB2APATREONDB.eldritchblast = {
         '30': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Pink_30ft_1600x400.webm',
         '60': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Pink_60ft_2800x400.webm',
         '90': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Pink_90ft_4000x400.webm'
+    },
+    'light green': {
+        '30': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_LightGreen_30ft_1600x400.webm',
+        '60': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_LightGreen_60ft_2800x400.webm',
+        '90': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_LightGreen_90ft_4000x400.webm'
     }
 }
 
@@ -978,11 +983,13 @@ JB2APATREONDB.bardicinspiration = {
         'blue yellow': 'modules/jb2a_patreon/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm',
         'green orange': 'modules/jb2a_patreon/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm',
         'purple pink': 'modules/jb2a_patreon/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_PurplePink_400x400.webm',
+        'dark red': 'modules/jb2a_patreon/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Dark_Red_400x400.webm'
     },
     'marker': {
         'blue yellow': 'modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm',
         'green orange': 'modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm',
         'purple pink': 'modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_PurplePink_400x400.webm',
+        'dark red': 'modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Dark_Red_400x400.webm',
     }
 }
 

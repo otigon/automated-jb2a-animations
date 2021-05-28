@@ -235,5 +235,7 @@
   "AUTOANIM.audioDelay": "Delay Audio (milliseconds)",
   "AUTOANIM.audioVolume": "Audio Volume (0 - 100)",
   "AUTOANIM.markerEnable": "Enable Marker (CTA Required)",
-  "AUTOANIM.markerColor": "Marker Color"
+  "AUTOANIM.markerColor": "Marker Color",
+    
+  "AUTOANIM.colorLightGreen": "Light Green"
 }

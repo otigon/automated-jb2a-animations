@@ -182,6 +182,7 @@ AUTOANIM.animColorEldritchBlast = {
     "purple": "AUTOANIM.colorPurple",
     "dark purple": "AUTOANIM.colorDarkPurple",
     "green": "AUTOANIM.colorGreen",
+    "light green": "AUTOANIM.colorLightGreen",
     "yellow": "AUTOANIM.colorYellow",
     "dark red": "AUTOANIM.colorDarkRed",
     "orange": "AUTOANIM.colorOrange",
@@ -652,6 +653,7 @@ AUTOANIM.bardicInspirationColors = {
     'blue yellow': "AUTOANIM.colorYellowBlue",
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
+    "dark red": "AUTOANIM.colorDarkRed",
 }
 
 AUTOANIM.bardicInspirationColorsFree = {
@@ -664,6 +666,7 @@ AUTOANIM.bardicMarkerColors = {
     'blue yellow': "AUTOANIM.colorYellowBlue",
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
+    "dark red": "AUTOANIM.colorDarkRed",
 }
 
 AUTOANIM.bardicMarkerColorsFree = {
