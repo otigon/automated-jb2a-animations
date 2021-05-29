@@ -1,4 +1,4 @@
-import { AutoAnimations } from "./canvasanimation.js"
+import { AACanvasAnimation } from "./canvasanimation.js"
 //import { easeFunctions } from "../module/ease.js";
 
 export class AALayer extends PlaceablesLayer {
@@ -88,7 +88,7 @@ export class AALayer extends PlaceablesLayer {
           return x;
         }
         const animate = function () {
-          AutoAnimations.animateSmooth(attributes, {
+          AACanvasAnimation.animateSmooth(attributes, {
             name: `autoanimations.video.${randomID()}.move`,
             context: this,
             duration: animationDuration,

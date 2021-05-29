@@ -11,7 +11,7 @@ import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import spellAttacks from "./animation-functions/attack-spells.js";
 import meleeWeapons from "./animation-functions/melee-attacks.js";
 import meleeRangeSwitch from "./animation-functions/melee-range-attacks.js";
-import randomGenDmg from "./animation-functions/generic-damage.js";
+//import randomGenDmg from "./animation-functions/generic-damage.js";
 import creatureAttacks from "./animation-functions/creature-attacks.js";
 import rangedWeapons from "./animation-functions/ranged-weapons.js";
 import thunderwaveAuto from "./animation-functions/thunderwave.js";
@@ -31,7 +31,7 @@ import unarmedStrike from "./animation-functions/unarmed-strike.js";
 import breathWeapon from "./animation-functions/breath-weapons.js";
 
 import { AALayer } from "./canvas-animation/AutoAnimationsLayer.js";
-import ImagePicker from "./ImagePicker.js";
+//import ImagePicker from "./ImagePicker.js";
 
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);

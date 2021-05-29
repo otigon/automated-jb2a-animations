@@ -50,6 +50,7 @@
             "path": "lang/de.json"
         }  
     ],
+    "socket": true,
     "manifest": "https://raw.githubusercontent.com/otigon/automated-jb2a-animations/main/module.json",
     "download": "https://github.com/otigon/automated-jb2a-animations/archive/main.zip"
 }

@@ -1,4 +1,4 @@
-export class AutoAnimations extends CanvasAnimation {
+export class AACanvasAnimation extends CanvasAnimation {
   static async animateSmooth(attributes, { context, name = null, duration = 1000, ontick, ease } = {}) {
     // Prepare attributes
     attributes = attributes.map(a => {
