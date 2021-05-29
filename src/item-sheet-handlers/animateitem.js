@@ -570,26 +570,10 @@ export class AnimateItem {
     }
 
     get videoPreview() {
-        /*
-        function moduleIncludes(test) {
-            return !!game.modules.get(test);
-        }
-
-        let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-        let obj02 = this.animName.toLowerCase();
-        console.log(obj02)
-        let obj03 = this.color;
-        let filePath = "modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Purple_30ft_1600x400.webm";
-        return filePath;
-        */
-        //return obj01[obj02][obj03];
-
-        //return "modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Purple_30ft_1600x400.webm";
         let filePath = animPreview(this.data, this.itemName);
-        //console.log(this.data);
-        //console.log(filePath);
         return filePath;
     }
+    
 
     /*
     changeFlag(scope, key, value){

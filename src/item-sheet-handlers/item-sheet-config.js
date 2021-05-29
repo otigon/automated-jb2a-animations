@@ -170,7 +170,7 @@ export class AnimationTab {
         let exCheckBox = this.html.find('.audio-ex-checkbox');
         let spellLoops = this.html.find('.spell-loops');
         let bardMarker = this.html.find('.marker-color');
-        let videoPreview = this.html.find('.video-preview');
+        let videoPreview = this.html.find('.previews');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
@@ -180,19 +180,20 @@ export class AnimationTab {
         let exAudio = this.animateItem.allSounds.explosion.audioExplodeEnabled;
         let enableExplosion = this.animateItem.explosion;
         let marker = this.animateItem.bards.marker;
-        
+        /*
         if (!override) {
             videoPreview.hide();
         } else {
             videoPreview.show();
         }
+        */
         if (marker) {
             bardMarker.show();
         } else {
             bardMarker.hide();
         }
 
-        if(enableExplosion && override) {
+        if (enableExplosion && override) {
             exCheckBox.show();
         } else {
             exCheckBox.hide();
@@ -427,7 +428,34 @@ export class AnimationTab {
             this.activate = false;
         }
         */
-
+        let filePathVideo = this.animateItem.videoPreview;
+        //console.log(filePathVideo);
+        let content;
+        switch (true) {
+            case filePathVideo === "no preview":
+                break;
+            default:
+                switch (game.settings.get("autoanimations", "videoLoop")) {
+                    case "0":
+                        break;
+                    case "1":
+                        content = `<video class="video-preview" src="${filePathVideo}" controls loop> </video>`;
+                        this.html.find('.previews').append(content);
+                        break;
+                    case "2":
+                        content = `<video class="video-preview" src="${filePathVideo}" autoplay="autoplay" controls loop> </video>`;
+                        this.html.find('.previews').append(content);
+                        break;
+                    }
+                /*
+                if (game.settings.get("autoanimations", "videoLoop")) {
+                    content = `<video class="video-preview" src="${filePathVideo}" autoplay="autoplay" controls loop> </video>`;
+                } else {
+                    content = `<video class="video-preview" src="${filePathVideo}" controls loop> </video>`;
+                }
+                this.html.find('.previews').append(content);
+                */
+        }
     }
 
     handleEvents() {

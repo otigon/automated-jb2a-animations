@@ -77,6 +77,19 @@ Hooks.on('init', () => {
         default: false,
         onChange: () => { window.location.reload() }
     })
+    game.settings.register("autoanimations", "videoLoop", {
+        name: "Autoplay Video previews in A-A Tab?",
+        hint: "Check this box to autoplay video previews",
+        scope: "world",
+        type: String,
+        choices: {
+            "0": "No Video Preview",
+            "1": "Manually Play Video Preview",
+            "2": "Autoplay Video Preview"
+        },
+        default: "0",
+        config: true
+    })
     game.settings.register("autoanimations", "hideFromPlayers", { // game.setting.register("NameOfTheModule", "VariableName",
         name: game.i18n.format("AUTOANIM.animtab_name"),                  // Register a module setting with checkbox
         hint: game.i18n.format("AUTOANIM.animtab_hint"),               // Description of the settings
