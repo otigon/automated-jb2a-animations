@@ -170,6 +170,7 @@ export class AnimationTab {
         let exCheckBox = this.html.find('.audio-ex-checkbox');
         let spellLoops = this.html.find('.spell-loops');
         let bardMarker = this.html.find('.marker-color');
+        let videoPreview = this.html.find('.video-preview');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
@@ -180,6 +181,11 @@ export class AnimationTab {
         let enableExplosion = this.animateItem.explosion;
         let marker = this.animateItem.bards.marker;
         
+        if (!override) {
+            videoPreview.hide();
+        } else {
+            videoPreview.show();
+        }
         if (marker) {
             bardMarker.show();
         } else {

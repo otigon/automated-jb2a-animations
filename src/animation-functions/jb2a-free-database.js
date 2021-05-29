@@ -52,7 +52,7 @@ JB2AFREEDB.generichealing = {
         }
     },
     '02': {
-        'GreenOrange': {
+        'green orange': {
             '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm',
         },
     }
@@ -75,10 +75,12 @@ JB2AFREEDB.witchbolt = {
 }
 
 JB2AFREEDB.scorchingray = {
-    'orange': {
-        '30': 'modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_30ft_1600x400.webm',
-        '60': 'modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_60ft_2800x400.webm',
-        '90': 'modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_90ft_4000x400.webm'
+    '01': {
+        'orange': {
+            '30': 'modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_30ft_1600x400.webm',
+            '60': 'modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_60ft_2800x400.webm',
+            '90': 'modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_90ft_4000x400.webm'
+        }
     }
 }
 
@@ -374,6 +376,11 @@ JB2AFREEDB.guidingbolt = {
 }
 
 JB2AFREEDB.bardicinspiration = {
-    'green orange': 'modules/JB2A_DnD5e/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm',
+    'inspire': {
+        'green orange': 'modules/JB2A_DnD5e/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm',
+    },
+    'marker': {
+        'green orange': 'modules/JB2A_DnD5e/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm',
+    }
 }
 

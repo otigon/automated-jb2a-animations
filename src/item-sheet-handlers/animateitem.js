@@ -1,4 +1,7 @@
 import { AUTOANIM } from "./config.js";
+//import { JB2APATREONDB } from "../animation-functions/jb2a-patreon-database.js";
+//import { JB2AFREEDB } from "../animation-functions/jb2a-free-database.js";
+import animPreview from "./anim-preview.js";
 
 export class AnimateItem {
 
@@ -85,33 +88,8 @@ export class AnimateItem {
             spellOptions: {
                 spellLoops: 1,
             }
-            //itemName = ``,
-            //animTypeVar = ``,
         }
     }
-    /*
-    serializeData() {
-        return {
-            killAnim: this.killAnim,
-            override: this.override,
-            animName: this.animName,
-            color: this.color,
-            animType: this.animType,
-            explosion: this.explosion,
-            explodeColor: this.explodeColor,
-            explodeRadius: this.explodeRadius,
-            explodeVariant: this.explodeVariant,
-        }
-    }
-    */
-    /*
-    serializeEntries(entries, trash) {
-        let data = {};
-        entries.forEach((spell, idx) => data["" + idx] = spell.serializeData());
-        trash.forEach(index => data["-=" + index] = null);
-        return data;
-    }
-    */
 
     get meleeColor() {
         //console.log(this.animType);
@@ -167,6 +145,7 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName.includes("guiding bolt"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemGuidingBolt").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     return AUTOANIM.localized(AUTOANIM.guidingboltColor);
                 } else {
@@ -588,6 +567,28 @@ export class AnimateItem {
         } else {
             return AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree);
         }
+    }
+
+    get videoPreview() {
+        /*
+        function moduleIncludes(test) {
+            return !!game.modules.get(test);
+        }
+
+        let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+        let obj02 = this.animName.toLowerCase();
+        console.log(obj02)
+        let obj03 = this.color;
+        let filePath = "modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Purple_30ft_1600x400.webm";
+        return filePath;
+        */
+        //return obj01[obj02][obj03];
+
+        //return "modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Purple_30ft_1600x400.webm";
+        let filePath = animPreview(this.data, this.itemName);
+        //console.log(this.data);
+        //console.log(filePath);
+        return filePath;
     }
 
     /*

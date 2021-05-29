@@ -28,6 +28,7 @@ import huntersMark from "./animation-functions/hunters-mark.js";
 import bardicInspiration from "./animation-functions/bardic-inspiration.js";
 import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
+import breathWeapon from "./animation-functions/breath-weapons.js";
 
 import { AALayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
@@ -38,14 +39,14 @@ const log = () => { };
 
 function registerLayer() {
     const layers = foundry.utils.mergeObject(Canvas.layers, {
-      autoanimations: AALayer
+        autoanimations: AALayer
     });
     Object.defineProperty(Canvas, 'layers', {
-      get: function () {
-        return layers
-      }
+        get: function () {
+            return layers
+        }
     });
-  }  
+}
 
 Hooks.on('init', () => {
 
@@ -264,7 +265,7 @@ function moduleIncludes(test) {
 }
 
 function onCreateChatMessage(msg) {
-    if (msg.user.id !== game.user.id) {return};
+    if (msg.user.id !== game.user.id) { return };
     log('onCreateChatMessage', msg);
     let handler;
     switch (game.system.id) {
@@ -338,8 +339,8 @@ function specialCaseAnimations(msg) {
 }
 
 function revItUp5eCore(msg) {
-    if (msg.user.id !== game.user.id) {return};
-    if (msg.data?.flavor?.includes("Long Rest")) {return};
+    if (msg.user.id !== game.user.id) { return };
+    if (msg.data?.flavor?.includes("Long Rest")) { return };
     let handler = new Dnd5Handler(msg);
 
     if (game.modules.get("mars-5e")?.active) {
@@ -648,14 +649,18 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
         case handler.itemNameIncludes("flurry of blows"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
-                unarmedStrike(handler);
+            unarmedStrike(handler);
             break;
-
+        case handler.itemNameIncludes("cone of cold"):
+            Hooks.once("createMeasuredTemplate", () => {
+                breathWeapon(handler);
+            })
+            break;
     }
 }
 async function criticalCheck(workflow) {
 
-    if (!workflow.isCritical && !workflow.isFumble) {return;}
+    if (!workflow.isCritical && !workflow.isFumble) { return; }
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
 
