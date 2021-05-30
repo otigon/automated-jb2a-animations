@@ -15,27 +15,27 @@ export class AnimationTab {
                 break;
             case ("pf1"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
-                typeLoc = data.itemType;
+                typeLoc = data.entity.type;
                 break;
             case ("tormenta20"):
                 acceptedTypes = ['arma', 'magia', 'consumivel', 'poder'];
-                typeLoc = data.itemType;
+                typeLoc = data.entity.type;
                 break;
             case ("demonlord"):
                 acceptedTypes = ['weapon', 'spell', 'talent', 'item'];
-                typeLoc = data.itemType;
+                typeLoc = data.entity.type;
                 break;
             case ("D35E"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
-                typeLoc = data.itemType;
+                typeLoc = data.item.type;
                 break;
             case ("swade"):
                 acceptedTypes = ['weapon', 'gear', 'skill', 'power', 'ability', 'shield'];
-                typeLoc = data.itemType;
+                typeLoc = data.entity.type;
                 break;
             case ("pf2e"):
                 acceptedTypes = ['weapon', 'npc strike', 'consumable', 'spell', 'action'];
-                typeLoc = data.itemType;
+                typeLoc = data.entity.type;
         }
         if (acceptedTypes.includes(typeLoc.toLowerCase())) {
             let tab = animationTabs[app.id];
