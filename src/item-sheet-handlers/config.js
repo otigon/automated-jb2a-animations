@@ -237,7 +237,7 @@ AUTOANIM.animGenHealing02 = {
     "blue white": "AUTOANIM.colorWhiteBlue",
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
-    "teal yellow": "AUTOANIM.colorTealYellow"
+    "teal yellow": "AUTOANIM.colorTealYellow",
 };
 
 
@@ -252,6 +252,7 @@ AUTOANIM.animColorMagicMissile = {
     "green": "AUTOANIM.colorGreen",
     "purple": "AUTOANIM.colorPurple",
     "yellow": "AUTOANIM.colorYellow",
+    "orange": "AUTOANIM.colorOrange",
     "random": "AUTOANIM.colorRandom"
 };
 

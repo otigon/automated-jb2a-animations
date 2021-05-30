@@ -256,7 +256,9 @@ Hooks.once('ready', function () {
     }
     if (game.modules.get("midi-qol")?.active) {
         critAnim = game.settings.get("autoanimations", "CriticalAnimation");
+        console.log(critAnim);
         critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
+        console.log(critMissAnim)
     }
 });
 
@@ -387,6 +389,7 @@ function revItUp5eCore(msg) {
             if (game.modules.get("mre-dnd5e")?.active) {
                 log("MRE is active");
                 if (handler.itemIncludes("xxx") || handler.animKill) {
+                    itemSound(handler);
                     return;
                 } else {
                     switch (game.settings.get("mre-dnd5e", "autoDamage")) {
@@ -442,6 +445,7 @@ function revItUp5eCore(msg) {
                 revItUp(handler)
             } else /*if (game.settings.get("autoanimations", "playonDamageCore") == false)*/ {
                 if (handler.itemIncludes("xxx") || handler.animKill) {
+                    itemSound(handler);
                     return;
                 }
 
@@ -501,6 +505,11 @@ function revItUp5eCore(msg) {
                         case handler.itemNameIncludes("bardic inspiration"):
                             bardicInspiration(handler);
                             break;
+                        case handler.itemNameIncludes("cone of cold"):
+                            Hooks.once("createMeasuredTemplate", () => {
+                                breathWeapon(handler);
+                            })
+                            break;
                     }
                 }
 
@@ -508,12 +517,19 @@ function revItUp5eCore(msg) {
     }
 
 }
-
+async function itemSound (handler) {
+    let audio = handler.allSounds.item;
+    if (handler.itemSound) {
+        await wait(audio.delay);
+        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+    }        
+}
 async function revItUp(handler) {
     switch (true) {
         // Use xxx in Item Source Field to exclude an item for On-Use customization
         case (handler.itemIncludes("xxx")):
         case (handler.animKill):
+            itemSound(handler);
             break;
         case ((handler.animType === "t9") && handler.animOverride):
             explodeOnTarget(handler);
@@ -665,10 +681,14 @@ async function revItUp(handler) {
             unarmedStrike(handler);
             break;
         case handler.itemNameIncludes("cone of cold"):
-            Hooks.once("createMeasuredTemplate", () => {
+            if (game.modules.get("midi-qol")?.active) {
                 breathWeapon(handler);
-            })
-            break;
+            } else {
+                Hooks.once("createMeasuredTemplate", () => {
+                    breathWeapon(handler);
+                })
+            }
+break;
     }
 }
 async function criticalCheck(workflow) {
@@ -697,8 +717,8 @@ async function criticalCheck(workflow) {
                     y: 1
                 }
             };
-            canvas.fxmaster.playVideo(Anim);
-            game.socket.emit('module.fxmaster', Anim);
+            canvas.autoanimations.playVideo(Anim);
+            game.socket.emit('module.autoanimations', Anim);
             break;
         case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
             token = canvas.tokens.get(workflow.tokenId);
@@ -716,8 +736,8 @@ async function criticalCheck(workflow) {
                     y: 1
                 }
             };
-            canvas.fxmaster.playVideo(Anim);
-            game.socket.emit('module.fxmaster', Anim);
+            canvas.autoanimations.playVideo(Anim);
+            game.socket.emit('module.autoanimations', Anim);
             break;
     }
     /*

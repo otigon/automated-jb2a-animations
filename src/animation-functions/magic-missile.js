@@ -93,8 +93,9 @@ async function magicMissile(handler) {
                         let c2 = "green";
                         let c3 = "purple";
                         let c4 = "yellow";
+                        let c5 = "orange";
 
-                        var items = [c1, c2, c3, c4];
+                        var items = [c1, c2, c3, c4, c5];
                         let ranVar = Math.floor(Math.random() * 9 + 1).toString();
                         function random_color(items) {
                             return items[Math.floor(Math.random() * items.length)];

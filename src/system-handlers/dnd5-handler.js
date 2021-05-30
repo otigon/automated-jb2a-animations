@@ -1,6 +1,6 @@
 export default class Dnd5Handler {
     constructor(msg) {
-        const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id");
+        const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id") || msg.data?.flags?.["midi-qol"]?.itemId;
         const tokenId = msg.data.speaker.token;  
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
 

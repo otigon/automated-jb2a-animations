@@ -7,29 +7,37 @@ export class AnimationTab {
 
     static bind(app, html, data) {
         let acceptedTypes;
+        let typeLoc;
         switch (game.system.id) {
             case ("dnd5e"):
                 acceptedTypes = ['weapon', 'spell', 'consumable', 'feature', 'equipment'];
+                typeLoc = data.itemType;
                 break;
             case ("pf1"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
+                typeLoc = data.itemType;
                 break;
             case ("tormenta20"):
                 acceptedTypes = ['arma', 'magia', 'consumivel', 'poder'];
+                typeLoc = data.itemType;
                 break;
             case ("demonlord"):
                 acceptedTypes = ['weapon', 'spell', 'talent', 'item'];
+                typeLoc = data.itemType;
                 break;
             case ("D35E"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
+                typeLoc = data.item.type;
                 break;
             case ("swade"):
                 acceptedTypes = ['weapon', 'gear', 'skill', 'power', 'ability', 'shield'];
+                typeLoc = data.itemType;
                 break;
             case ("pf2e"):
                 acceptedTypes = ['weapon', 'npc strike', 'consumable', 'spell', 'action'];
+                typeLoc = data.itemType;
         }
-        if (acceptedTypes.includes(data.itemType.toLowerCase())) {
+        if (acceptedTypes.includes(typeLoc.toLowerCase())) {
             let tab = animationTabs[app.id];
             if (!tab) {
                 tab = new AnimationTab(app);
@@ -418,6 +426,7 @@ export class AnimationTab {
                     this.activate = false;
                     break
                 case ("D35E"):
+                    this.app._tabsAlt.subTabs[0].parent.activate("autoanimations");
                     this.activate = false;
                     break;
             }

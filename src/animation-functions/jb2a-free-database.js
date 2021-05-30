@@ -384,3 +384,25 @@ JB2AFREEDB.bardicinspiration = {
     }
 }
 
+JB2AFREEDB.breathweapons = {
+    'line': {
+        'acid': {
+            'green': 'modules/JB2A_DnD5e/Library/Generic/Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Green_30ft_Line_Burst_1200x200.webm',
+        },
+        'fire': {
+            'orange': 'modules/JB2A_DnD5e/Library/Generic/Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Line_Burst_1200x200.webm',
+        },
+        'lightning': {
+            'blue': 'modules/JB2A_DnD5e/Library/Generic/Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Blue_30ft_Line_Burst_1200x200.webm',
+        }
+    }
+}
+
+JB2AFREEDB.divinesmite = {
+    'caster': {
+        'blue yellow': 'modules/JB2A_DnD5e/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400',
+    },
+    'target': {
+        'blue yellow': 'modules/JB2A_DnD5e/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400',
+    }
+}

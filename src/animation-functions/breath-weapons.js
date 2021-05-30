@@ -18,7 +18,7 @@ async function breathWeapon(handler) {
     let obj03;
     let color;
     let variant = handler.animExVariant;
-    let filePath = "modules/jb2a_patreon/Library/Generic/Fire/FireJet_01_Orange_30ft_1200x200.webm"
+    let filePath = "modules/jb2a_patreon/Library/BreathWeapon_Lightning_wip.webm"
     let multiplier;
     switch (variant) {
         case ('05'):
@@ -41,27 +41,27 @@ async function breathWeapon(handler) {
         let template = await canvas.templates.documentCollection.get(templateID);
         console.log(template);
         // Scaled globally, change divisor for different size animation.
-        let Scale = (canvas.scene.data.grid / divisor);
+        let Scale = (canvas.scene.data.grid / 155);
         let token = handler.actorToken;
         //var handler.allTargets = Array.from(lastArg.targets);
         //let target = handler.allTargets[i];
-
+        
         // Defines the spell template for FXMaster
         let spellAnim =
         {
             file: filePath,
             position: {
-                x: token.x,
-                y: token.y
+                x: template.data.x,
+                y: template.data.y
             },
             anchor: {
-                x: -0.05,
-                y: 0.25
+                x: 0.05,
+                y: 0.5
             },
             angle: -template.data.direction,
             scale: {
-                x: 1,
-                y: 1
+                x: Scale,
+                y: Scale
             }
         };
 
@@ -78,15 +78,6 @@ async function breathWeapon(handler) {
         }
         // The number in parenthesis sets the number of times it loops
         SpellAnimation(1)
-
-        if (game.settings.get("autoanimations", "tmfx")) {
-            await wait(400);
-            TokenMagic.addUpdateFiltersOnTargeted(shockWave);
-            //await wait(2500);
-            //TokenMagic.deleteFiltersOnTargeted("burn");
-            //await wait(250);
-            //TokenMagic.deleteFiltersOnTargeted("shockWave");
-        }
     }
     cast();
     if (audioEnabled) {
