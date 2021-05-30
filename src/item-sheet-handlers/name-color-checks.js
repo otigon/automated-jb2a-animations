@@ -1,9 +1,20 @@
 function getNameColor(data) {
 
-    let itemNameSys = data.document.name?.toLowerCase() ?? ``;
-    let itemNameFlags = data.document.data?.flags?.autoanimations?.animName?.toLowerCase() ?? ``;
-    let itemAnimType = data.document.data?.flags?.autoanimations?.animType?.toLowerCase() ?? ``;
-    let isOverride = data.document.data?.flags?.autoanimations?.override;
+    let itemNameSys;
+    let itemNameFlags;
+    let itemAnimType;
+    let isOverride;
+    if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+        itemNameSys = data.entity?.name?.toLowerCase() ?? ``;
+        itemNameFlags = data.entity?.flags?.autoanimations?.animName?.toLowerCase() ?? ``;
+        itemAnimType = data.item?.flags?.autoanimations?.animType?.toLowerCase() ?? ``;
+        isOverride = data.item?.flags?.autoanimations?.override;
+    } else {
+        itemNameSys = data.document.name?.toLowerCase() ?? ``;
+        itemNameFlags = data.document.data?.flags?.autoanimations?.animName?.toLowerCase() ?? ``;
+        itemAnimType = data.document.data?.flags?.autoanimations?.animType?.toLowerCase() ?? ``;
+        isOverride = data.document.data?.flags?.autoanimations?.override;
+    }
     //console.log(isOverride);
     //let itemColorSys = data.item.data.source;
     //let itemColorflags = data.item.flags.autoanimations.color.toLowerCase();
@@ -21,8 +32,8 @@ function getNameColor(data) {
     */
     let animNameFinal;
     switch (true) {
-        case(!isOverride):
-        case(((isOverride) && (itemNameFlags === ''))):
+        case (!isOverride):
+        case (((isOverride) && (itemNameFlags === ''))):
             animNameFinal = itemNameSys;
             break;
         default:

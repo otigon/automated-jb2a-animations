@@ -19,11 +19,20 @@ export class AALayer extends PlaceablesLayer {
     } else {
       level = 199;
     }
-    return foundry.utils.mergeObject(super.layerOptions, {
-      name: "autoanimations",
-      canDragCreate: false,
-      zIndex: level
-    });
+    if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+      return mergeObject(super.layerOptions, {
+        objectClass: Note,
+        sheetClass: NoteConfig,
+        canDragCreate: false,
+        zIndex: 180
+      });
+    } else {
+      return foundry.utils.mergeObject(super.layerOptions, {
+        name: "autoanimations",
+        canDragCreate: false,
+        zIndex: level
+      });
+    }
   }
 
   static documentName = "Note";
@@ -33,14 +42,25 @@ export class AALayer extends PlaceablesLayer {
     return new Promise((resolve) => {
 
       // Set default values
-      data = foundry.utils.mergeObject({
-        anchor: { x: 0.5, y: 0.5 },
-        rotation: 0,
-        scale: { x: 1.0, y: 1.0 },
-        position: { x: 0, y: 0 },
-        playbackRate: 1.0,
-        ease: "Linear"
-      }, data);
+      if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+        data = mergeObject({
+          anchor: { x: 0.5, y: 0.5 },
+          rotation: 0,
+          scale: { x: 1.0, y: 1.0 },
+          position: { x: 0, y: 0 },
+          playbackRate: 1.0,
+          ease: "Linear"
+        }, data);    
+      } else {
+        data = foundry.utils.mergeObject({
+          anchor: { x: 0.5, y: 0.5 },
+          rotation: 0,
+          scale: { x: 1.0, y: 1.0 },
+          position: { x: 0, y: 0 },
+          playbackRate: 1.0,
+          ease: "Linear"
+        }, data);
+      }
 
       // Create video
       var video = document.createElement("video");

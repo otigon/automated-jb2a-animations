@@ -29,6 +29,7 @@ import bardicInspiration from "./animation-functions/bardic-inspiration.js";
 import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
 import breathWeapon from "./animation-functions/breath-weapons.js";
+import mistyStepOld from "./animation-functions/misty-step-old.js";
 
 import { AALayer } from "./canvas-animation/AutoAnimationsLayer.js";
 //import ImagePicker from "./ImagePicker.js";
@@ -38,14 +39,25 @@ import { AALayer } from "./canvas-animation/AutoAnimationsLayer.js";
 const log = () => { };
 
 function registerLayer() {
-    const layers = foundry.utils.mergeObject(Canvas.layers, {
-        autoanimations: AALayer
-    });
-    Object.defineProperty(Canvas, 'layers', {
-        get: function () {
-            return layers
-        }
-    });
+    if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+        const layers = mergeObject(Canvas.layers, {
+            autoanimations: AALayer
+        });
+        Object.defineProperty(Canvas, 'layers', {
+            get: function () {
+                return layers
+            }
+        });
+    } else {
+        const layers = foundry.utils.mergeObject(Canvas.layers, {
+            autoanimations: AALayer
+        });
+        Object.defineProperty(Canvas, 'layers', {
+            get: function () {
+                return layers
+            }
+        });
+    }
 }
 
 Hooks.on('init', () => {
@@ -294,7 +306,12 @@ function onCreateChatMessage(msg) {
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
-                mistyStep(handler);
+                if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+                    mistyStepOld(handler);
+
+                } else {
+                    mistyStep(handler);
+                }
                 break;
         }
     }
@@ -320,7 +337,12 @@ function setupTormenta20(msg) {
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
-                mistyStep(handler);
+                if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+                    mistyStepOld(handler);
+
+                } else {
+                    mistyStep(handler);
+                }
                 break;
         }
     }
@@ -348,8 +370,13 @@ function specialCaseAnimations(msg) {
     let handler = new Dnd5Handler(msg);
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
-            mistyStep(handler);
-            break;
+            if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+                mistyStepOld(handler);
+
+            } else {
+                mistyStep(handler);
+            }
+        break;
     }
 }
 
@@ -362,8 +389,13 @@ function revItUp5eCore(msg) {
         if (game.user.id === msg.user.id) {
             switch (true) {
                 case ((handler.animType === "t12") && (handler.animOverride)):
-                    mistyStep(handler);
-                    break;
+                    if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+                        mistyStepOld(handler);
+    
+                    } else {
+                        mistyStep(handler);
+                    }
+                        break;
             }
         }
         return;
@@ -377,7 +409,12 @@ function revItUp5eCore(msg) {
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
-                mistyStep(handler);
+                if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+                    mistyStepOld(handler);
+
+                } else {
+                    mistyStep(handler);
+                }
                 break;
         }
     }
