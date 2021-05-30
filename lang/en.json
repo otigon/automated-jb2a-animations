@@ -237,5 +237,16 @@
     "AUTOANIM.markerEnable": "Enable Marker (CTA Required)",
     "AUTOANIM.markerColor": "Marker Color",
     
-    "AUTOANIM.colorLightGreen": "Light Green"
+    "AUTOANIM.colorLightGreen": "Light Green",
+    "AUTOANIM.colorGreenYellow": "Green Yellow",
+    "AUTOANIM.breathWeapon": "Breath Weapon",
+    "AUTOANIM.dmgTypeAcid": "Acid",
+    "AUTOANIM.dmgTypeFire": "Fire",
+    "AUTOANIM.dmgTypeLightning": "Lightning",
+    "AUTOANIM.bwWarning": "Assumes 30 foot Line Template",
+    "AUTOANIM.dsEffect": "Divine Smite Effect",
+    "AUTOANIM.delay": "Delay (milliseconds)",
+    "AUTOANIM.selfColor": "Self Animation Color",
+    "AUTOANIM.targetColor": "Target Animation Color",
+    "AUTOANIM.ctaStatic": "Enable to make CTA image Static"
 }

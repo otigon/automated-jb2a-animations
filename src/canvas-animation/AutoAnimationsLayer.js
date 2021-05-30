@@ -128,7 +128,7 @@ export class AALayer extends PlaceablesLayer {
     });
     let ray = new Ray(tok1.center, tok2.center);
     effectData.distance = ray.distance;
-    effectData.rotation = ray.angle + missHit;
+    effectData.rotation = ray.angle;
     // And to other clients
     game.socket.emit('module.autoanimations', effectData);
     // Throw effect locally

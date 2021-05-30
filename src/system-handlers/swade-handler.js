@@ -78,6 +78,7 @@ export default class SwadeHandler {
         this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
+        this._divineSmite = this._flags.divineSmite ?? "";
 
         this._animNameFinal;
         switch (true) {
@@ -253,6 +254,10 @@ export default class SwadeHandler {
         return this._spellLoops;
     }
 
+    get divineSmite() {
+        return this._divineSmite;
+    }
+    
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {

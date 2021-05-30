@@ -14,38 +14,64 @@ async function breathWeapon(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let obj02;
-    let obj03;
+    let obj02 = 'breathweapons';
+    let obj03 = 'line';
+    let type;
     let color;
-    let variant = handler.animExVariant;
-    let filePath = "modules/jb2a_patreon/Library/BreathWeapon_Lightning_wip.webm"
-    let multiplier;
-    switch (variant) {
-        case ('05'):
-        case ('06'):
-        case ('07'):
-            multiplier = 1500;
+    switch (handler.animName) {
+        case 'fire':
+        case game.i18n.format("AUTOANIM.dmgTypeFire").toLowerCase():
+            type = 'fire';
+            switch (true) {
+                case handler.color === ``:
+                case handler.color === 'a1':
+                    color = 'orange';
+                    break;
+                default:
+                    color = handler.color;
+            }
             break;
-        default:
-            multiplier = 1000;
+        case 'acid':
+        case game.i18n.format("AUTOANIM.dmgTypeAcid").toLowerCase():
+            type = 'acid';
+            switch (true) {
+                case handler.color === ``:
+                case handler.color === 'a1':
+                    color = 'green';
+                    break;
+                default:
+                    color = handler.color;
+            }
+            break;
+        case 'lightning':
+        case game.i18n.format("AUTOANIM.dmgTypeLightning").toLowerCase():
+            type = 'lightning';
+            switch (true) {
+                case handler.color === ``:
+                case handler.color === 'a1':
+                    color = 'blue';
+                    break;
+                default:
+                    color = handler.color;
+            }
+            break;
     }
-    let divisor = (multiplier * (1/(handler.animExRadius)));
-    
+    let filePath = obj01[obj02][obj03][type][color];
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     async function cast() {
-        let loops = handler.animExLoop;
         //Finds the center of the placed circular template and plays an animation using FXMaster
         const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
         let template = await canvas.templates.documentCollection.get(templateID);
         console.log(template);
         // Scaled globally, change divisor for different size animation.
         let Scale = (canvas.scene.data.grid / 155);
-        let token = handler.actorToken;
+        //let token = handler.actorToken;
         //var handler.allTargets = Array.from(lastArg.targets);
         //let target = handler.allTargets[i];
-        
+
         // Defines the spell template for FXMaster
         let spellAnim =
         {
@@ -64,20 +90,8 @@ async function breathWeapon(handler) {
                 y: Scale
             }
         };
-
-        async function SpellAnimation(number) {
-
-            let x = number;
-            let interval = 1000;
-            for (var i = 0; i < x; i++) {
-                setTimeout(function () {
-                    canvas.autoanimations.playVideo(spellAnim);
-                    game.socket.emit('module.autoanimations', spellAnim);
-                }, i * interval);
-            }
-        }
-        // The number in parenthesis sets the number of times it loops
-        SpellAnimation(1)
+        canvas.autoanimations.playVideo(spellAnim);
+        game.socket.emit('module.autoanimations', spellAnim);
     }
     cast();
     if (audioEnabled) {

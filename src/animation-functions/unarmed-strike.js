@@ -1,5 +1,7 @@
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
+import meleeExplosion from "./melee-explosion.js";
+import divineSmite from "./divine-smite.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -94,7 +96,10 @@ async function unarmedStrike(handler) {
             var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
 
             function castSpell(effect) {
-                canvas.fxmaster.drawSpecialToward(effect, handler.actorToken, target);
+                if (handler.divineSmite.dsEnable) {
+                    divineSmite(handler)
+                }    
+                canvas.autoanimations.drawSpecialToward(effect, handler.actorToken, target);
             }
 
             castSpell({
@@ -120,7 +125,7 @@ async function unarmedStrike(handler) {
             */
 
             if (handler.animExplode && handler.animOverride) {
-                explodeOnTarget(handler);
+                meleeExplosion(handler, target);
             }
 
         }

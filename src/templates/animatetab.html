@@ -114,6 +114,10 @@
             text-align: center;
         }
 
+        .bwWarning {
+            text-align: center;
+        }
+
         .file-picker-aa {
             width: 40px;
             height: 30px;
@@ -168,10 +172,12 @@
             line-height: 28px;
         }
 
-        .item-audio {
+        .audio-checkbox {
             background-color: rgb(160, 222, 238);
-            border-radius: 5px;
+            border-style: dotted;
+            border-width: 2px;
             border-color: black;
+            border-radius: 10px;
         }
 
         .item-audio,
@@ -182,8 +188,6 @@
 
         .explode-audio {
             background-color: rgb(253, 207, 169);
-            border-radius: 5px;
-            border-color: black;
         }
 
         .explode-audio,
@@ -197,6 +201,20 @@
             margin-left: auto;
             margin-right: auto;
             width: 50%;
+        }
+
+        .divine-smite {
+            border-style: dotted;
+            border-radius: 10px;
+            border-width: 2px;
+            border-color: black;
+        }
+
+        .animate-explosion-options {
+            border-style: dotted;
+            border-radius: 10px;
+            border-width: 2px;
+            border-color: black;
         }
     </style>
 </head>
@@ -224,6 +242,9 @@
                     </select>
                 </div>
             </div>
+        </div>
+        <div class="bwWarning">
+            <label>{{localize "AUTOANIM.bwWarning"}}</label>
         </div>
         <div class="cta-required">
             <div class="form-group">
@@ -367,6 +388,60 @@
             </div>
         </div>
     </div>
+    <div class="divine-smite">
+        <div class="form-group">
+            <label>{{localize "AUTOANIM.dsEffect"}}</label>
+            <input type="checkbox" name="flags.autoanimations.divineSmite.dsEnable" {{checked dsEnable}}>
+        </div>
+        <div class="dsOptions">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.bardSelf"}}</label>
+                <input type="checkbox" name="flags.autoanimations.divineSmite.dsSelf" {{checked dsSelf}}>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.delay"}}</label>
+                <input type="number" id="flags.autoanimations.divineSmite.dsSelfDelay"
+                    name="flags.autoanimations.divineSmite.dsSelfDelay" min="0" value={{dsDelaySelf}}>
+            </div>
+            <div class="dsSelfColor">
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.selfColor"}}</label>
+                    <div class="form-fields">
+                        <select name="flags.autoanimations.divineSmite.dsSelfColor">
+                            {{#select dsSelfColor}}
+                            {{#each dsColorSelf as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.bardTarget"}}</label>
+                <input type="checkbox" name="flags.autoanimations.divineSmite.dsTarget" {{checked dsTarget}}>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.delay"}}</label>
+                <input type="number" id="flags.autoanimations.divineSmite.dsTargetDelay"
+                    name="flags.autoanimations.divineSmite.dsTargetDelay" min="0" value={{dsDelayTarget}}>
+            </div>
+            <div class="dsTargetColor">
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.targetColor"}}</label>
+                    <div class="form-fields">
+                        <select name="flags.autoanimations.divineSmite.dsTargetColor">
+                            {{#select dsTargetColor}}
+                            {{#each dsColorTarget as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="animate-explosion">
         <div class="form-group">
             <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
@@ -488,7 +563,7 @@
     </div>
     <div class="rotation-static">
         <div class="form-group">
-            <label>Enable to make CTA image Static</label>
+            <label>{{localize "AUTOANIM.ctaStatic"}}</label>
             <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked ctaOption}}>
         </div>
     </div>
@@ -506,30 +581,30 @@
         <label>{{localize "AUTOANIM.itemAudio"}}</label>
         <input type="checkbox" name="flags.autoanimations.allSounds.item.enableAudio" {{checked enableAudio}}>
     </div>
-</div>
-<div class="item-audio">
-    <div class="enable-audio">
-        <div class="audio-picker">
-            <div class="form-inline">
-                <div class="form group">
-                    <label>{{localize "AUTOANIM.chooseAudio"}}</label>
-                    <button type="button" class="file-picker-aa" data-type="audio" name="audio-button"
-                        data-target="flags.autoanimations.allSounds.item.file" title="Browse Files"
-                        style="float: right">
-                        <i class="fas fa-music fa-sm"></i>
-                    </button>
-                    <input class="audio-input" style="float: right" type="text"
-                        name="flags.autoanimations.allSounds.item.file" value={{newAudio}}>
-                </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.audioDelay"}}</label>
-                    <input type="number" id="flags.autoanimations.allSounds.item.delay"
-                        name="flags.autoanimations.allSounds.item.delay" min="0" value={{delayAudio}}>
-                </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.audioVolume"}}</label>
-                    <input type="number" id="flags.autoanimations.allSounds.item.volume"
-                        name="flags.autoanimations.allSounds.item.volume" min="0" max="1" value={{volumeAudio}}>
+    <div class="item-audio">
+        <div class="enable-audio">
+            <div class="audio-picker">
+                <div class="form-inline">
+                    <div class="form group">
+                        <label>{{localize "AUTOANIM.chooseAudio"}}</label>
+                        <button type="button" class="file-picker-aa" data-type="audio" name="audio-button"
+                            data-target="flags.autoanimations.allSounds.item.file" title="Browse Files"
+                            style="float: right">
+                            <i class="fas fa-music fa-sm"></i>
+                        </button>
+                        <input class="audio-input" style="float: right" type="text"
+                            name="flags.autoanimations.allSounds.item.file" value={{newAudio}}>
+                    </div>
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.audioDelay"}}</label>
+                        <input type="number" id="flags.autoanimations.allSounds.item.delay"
+                            name="flags.autoanimations.allSounds.item.delay" min="0" value={{delayAudio}}>
+                    </div>
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                        <input type="number" id="flags.autoanimations.allSounds.item.volume"
+                            name="flags.autoanimations.allSounds.item.volume" min="0" max="1" value={{volumeAudio}}>
+                    </div>
                 </div>
             </div>
         </div>

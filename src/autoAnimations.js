@@ -416,6 +416,11 @@ function revItUp5eCore(msg) {
                                         explodeTemplate(handler);
                                     })
                                     break;
+                                case handler.animType === "t14":
+                                    Hooks.once("createMeasuredTemplate", () => {
+                                        breathWeapon(handler);
+                                    })
+                                    break;
                                 default:
                                     revItUp(handler);
                             }
@@ -451,6 +456,11 @@ function revItUp5eCore(msg) {
 
                 else {
                     switch (true) {
+                        case handler.animType === "t14":
+                            Hooks.once("createMeasuredTemplate", () => {
+                                breathWeapon(handler);
+                            })
+                            break;
                         case (handler.itemNameIncludes("cure", "wound")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                         case (handler.itemNameIncludes("heal", "word")):
@@ -505,11 +515,6 @@ function revItUp5eCore(msg) {
                         case handler.itemNameIncludes("bardic inspiration"):
                             bardicInspiration(handler);
                             break;
-                        case handler.itemNameIncludes("cone of cold"):
-                            Hooks.once("createMeasuredTemplate", () => {
-                                breathWeapon(handler);
-                            })
-                            break;
                     }
                 }
 
@@ -517,12 +522,12 @@ function revItUp5eCore(msg) {
     }
 
 }
-async function itemSound (handler) {
+async function itemSound(handler) {
     let audio = handler.allSounds.item;
     if (handler.itemSound) {
         await wait(audio.delay);
         AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-    }        
+    }
 }
 async function revItUp(handler) {
     switch (true) {
@@ -680,7 +685,7 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
             unarmedStrike(handler);
             break;
-        case handler.itemNameIncludes("cone of cold"):
+        case handler.animType === "t14":
             if (game.modules.get("midi-qol")?.active) {
                 breathWeapon(handler);
             } else {
@@ -688,7 +693,7 @@ async function revItUp(handler) {
                     breathWeapon(handler);
                 })
             }
-break;
+            break;
     }
 }
 async function criticalCheck(workflow) {

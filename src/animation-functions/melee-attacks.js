@@ -2,6 +2,7 @@ import meleeExplosion from "./melee-explosion.js";
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import { TMFXCOLORS } from "./tmfxcolors.js";
+import divineSmite from "./divine-smite.js";
 
 //import drawSpecialToward from "./fxmaster-drawTowards.js"
 
@@ -334,6 +335,9 @@ async function meleeWeapons(handler) {
                 let ray = new Ray(tok1.center, tok2.center);
                 effectData.distance = ray.distance;
                 effectData.rotation = ray.angle + missHit;
+                if (handler.divineSmite.dsEnable) {
+                    divineSmite(handler)
+                }
                 // Throw effect locally
                 canvas.autoanimations.playVideo(effectData);
                 // And to other clients
@@ -344,6 +348,9 @@ async function meleeWeapons(handler) {
 
             switch (true) {
                 case distance <= range:
+                    if (handler.divineSmite.dsEnable) {
+                        divineSmite(handler)
+                    }    
                     canvas.autoanimations.playVideo(meleeAnim);
                     game.socket.emit('module.autoanimations', meleeAnim);
                     break;

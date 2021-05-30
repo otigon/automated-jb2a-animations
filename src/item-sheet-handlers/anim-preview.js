@@ -13,6 +13,7 @@ function animPreview(item, name) {
     //console.log(name);
     let color;
     let obj02;
+    let bwType;
     let spellVar;
     let preview;
     if (item.override) {
@@ -1100,6 +1101,55 @@ function animPreview(item, name) {
                         break;
                 }
                 break;
+            case item.animType === 't14':
+                obj02 = 'breathweapons';
+                switch (itemName) {
+                    case 'fire':
+                    case game.i18n.format("AUTOANIM.dmgTypeFire").toLowerCase():
+                        bwType = 'fire';
+                        switch (true) {
+                            case item.color === ``:
+                            case item.color === 'a1':
+                            case item.color === 'random':
+                                color = 'orange';
+                                break;
+                            default:
+                                color = item.color;
+                        }
+                        if (obj01[obj02]['line'][bwType][color] === undefined) {color = 'orange'};
+                        preview = obj01[obj02]['line'][bwType][color];
+                        break;
+                    case 'acid':
+                    case game.i18n.format("AUTOANIM.dmgTypeAcid").toLowerCase():
+                        bwType = 'acid';
+                        switch (true) {
+                            case item.color === ``:
+                            case item.color === 'a1':
+                            case item.color === 'random':
+                                color = 'green';
+                                break;
+                            default:
+                                color = item.color;
+                        }
+                        if (obj01[obj02]['line'][bwType][color] === undefined) {color = 'orange'};
+                        preview = obj01[obj02]['line'][bwType][color];
+                        break;
+                    case 'lightning':
+                    case game.i18n.format("AUTOANIM.dmgTypeLightning").toLowerCase():
+                        bwType = 'lightning';
+                        switch (true) {
+                            case item.color === ``:
+                            case item.color === 'a1':
+                            case item.color === 'random':
+                                color = 'blue';
+                                break;
+                            default:
+                                color = item.color;
+                        }
+                        if (obj01[obj02]['line'][bwType][color] === undefined) {color = 'orange'};
+                        preview = obj01[obj02]['line'][bwType][color];
+                        break;
+                }
         }
     }
     //console.log(preview);

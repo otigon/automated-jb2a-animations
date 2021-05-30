@@ -178,7 +178,9 @@ export class AnimationTab {
         let exCheckBox = this.html.find('.audio-ex-checkbox');
         let spellLoops = this.html.find('.spell-loops');
         let bardMarker = this.html.find('.marker-color');
-        let videoPreview = this.html.find('.previews');
+        let divineSmite = this.html.find('.divine-smite');
+        let divineOptions = this.html.find('.dsOptions');
+        let bwWarning = this.html.find('.bwWarning');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
@@ -188,6 +190,7 @@ export class AnimationTab {
         let exAudio = this.animateItem.allSounds.explosion.audioExplodeEnabled;
         let enableExplosion = this.animateItem.explosion;
         let marker = this.animateItem.bards.marker;
+        let DSenable = this.animateItem.divineSmite.dsEnable;
         /*
         if (!override) {
             videoPreview.hide();
@@ -195,6 +198,17 @@ export class AnimationTab {
             videoPreview.show();
         }
         */
+        if (animType === "t14" && override) {
+            bwWarning.show();
+        } else {
+            bwWarning.hide();
+        }
+        if (DSenable) {
+            divineOptions.show();
+        } else {
+            divineOptions.hide();
+        }
+
         if (marker) {
             bardMarker.show();
         } else {
@@ -389,6 +403,15 @@ export class AnimationTab {
                 break;
             default:
                 animateExplosion.hide();
+        }
+
+        switch (true) {
+            case ((animType === "t2") && override):
+            case ((animType === "t3") && override):
+                divineSmite.show();
+                break;
+            default:
+                divineSmite.hide();
         }
 
         switch (true) {

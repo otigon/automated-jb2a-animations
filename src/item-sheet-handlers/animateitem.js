@@ -40,6 +40,15 @@ export class AnimateItem {
         this.enableAudio = this.data.allSounds.item.enableAudio;
         this.audioExplodeEnabled = this.data.allSounds.explosion.audioExplodeEnabled;
         this.spellLoops = this.data.spellOptions.spellLoops;
+        this.divineSmite = this.data.divineSmite;
+        this.dsEnable = this.data.divineSmite.dsEnable;
+        this.dsSelf = this.data.divineSmite.dsSelf;
+        this.dsTarget = this.data.divineSmite.dsTarget;
+        this.dsSelfColor = this.data.divineSmite.dsSelfColor;
+        this.dsTargetColor = this.data.divineSmite.dsTargetColor;
+        this.dsSelfDelay = this.data.divineSmite.dsSelfDelay;
+        this.dsTargetDelay = this.data.divineSmite.dsTargetDelay;
+
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -87,6 +96,15 @@ export class AnimateItem {
             },
             spellOptions: {
                 spellLoops: 1,
+            },
+            divineSmite: {
+                dsEnable: false,
+                dsSelf: true,
+                dsSelfColor: ``,
+                dsSelfDelay: 0,
+                dsTarget: true,
+                dsTargetColor: ``,
+                dsTargetDelay: 1250,
             }
         }
     }
@@ -366,6 +384,23 @@ export class AnimateItem {
                     return AUTOANIM.localized(AUTOANIM.uaStrikeColorFree);
                 }
                 break;
+            case this.animType === 't14':
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.localized(AUTOANIM.BWColor);
+                } else {
+                    switch (this.animName) {
+                        case 'acid':
+                            return AUTOANIM.localized(AUTOANIM.BWAcid);
+                            break;
+                        case 'fire':
+                            return AUTOANIM.localized(AUTOANIM.BWFire);
+                            break;
+                        case 'lightning':
+                            return AUTOANIM.localized(AUTOANIM.BWLightning);
+                            break;
+                    }
+                }
+                break;
             default:
                 return AUTOANIM.localized(AUTOANIM.animNull);
                 break;
@@ -494,6 +529,9 @@ export class AnimateItem {
             case (this.animType === "t13"):
                 return AUTOANIM.localized(AUTOANIM.animNameClassFeatures);
                 break;
+            case (this.animType === 't14'):
+                return AUTOANIM.localized(AUTOANIM.animBWType);
+                break;
         }
     }
 
@@ -573,7 +611,22 @@ export class AnimateItem {
         let filePath = animPreview(this.data, this.itemName);
         return filePath;
     }
-    
+
+    get dsColorSelf() {
+        return AUTOANIM.localized(AUTOANIM.dsSelf);
+    }
+
+    get dsColorTarget() {
+        return AUTOANIM.localized(AUTOANIM.dsTarget);
+    }
+
+    get dsDelaySelf() {
+        return this.divineSmite.dsSelfDelay;
+    }
+
+    get dsDelayTarget() {
+        return this.divineSmite.dsTargetDelay;
+    }
 
     /*
     changeFlag(scope, key, value){

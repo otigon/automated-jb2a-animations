@@ -636,6 +636,7 @@ AUTOANIM.guidingboltColor = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "white blue": "AUTOANIM.colorWhiteBlue",
+    "pink": "AUTOANIM.colorPink",
     "random": "AUTOANIM.colorRandom"
 }
 
@@ -686,6 +687,58 @@ AUTOANIM.bardAnimType = {
     'music': "AUTOANIM.musicNotes"
 }
 
+AUTOANIM.dsSelf = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+    'green yellow': "AUTOANIM.colorGreenYellow",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+}
+
+AUTOANIM.dsTarget = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+    'green yellow': "AUTOANIM.colorGreenYellow",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+}
+
+AUTOANIM.animBWType = {
+    'a1': ``,
+    'acid': "AUTOANIM.dmgTypeAcid",
+    'fire': "AUTOANIM.dmgTypeFire",
+    'lightning': "AUTOANIM.dmgTypeLightning",
+}
+
+AUTOANIM.BWColor = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+}
+
+AUTOANIM.BWAcid = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+}
+AUTOANIM.BWFire = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+}
+AUTOANIM.BWLightning = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+}
+
+
 AUTOANIM.animTypePick = {
     "t1": ``,
     "t2": "AUTOANIM.typeMelee",
@@ -699,7 +752,8 @@ AUTOANIM.animTypePick = {
     "t10": "AUTOANIM.typeExplosiveSelf",
     "t11": "AUTOANIM.typeAuras",
     "t12": "AUTOANIM.animTeleportation",
-    "t13": "AUTOANIM.classFeatures"
+    "t13": "AUTOANIM.classFeatures",
+    "t14": "AUTOANIM.breathWeapon",
 }
 
 AUTOANIM.animNull = {
