@@ -27,7 +27,7 @@ export class AnimationTab {
                 break;
             case ("D35E"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
-                typeLoc = data.item.type;
+                typeLoc = data.itemType;
                 break;
             case ("swade"):
                 acceptedTypes = ['weapon', 'gear', 'skill', 'power', 'ability', 'shield'];
