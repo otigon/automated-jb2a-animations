@@ -356,7 +356,8 @@ AUTOANIM.explosionColors03 = {
     "yellow blue": "AUTOANIM.colorYellowBlue",
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
-    "blue white": "AUTOANIM.colorWhiteBlue"
+    "blue white": "AUTOANIM.colorWhiteBlue",
+    "pink": "AUTOANIM.colorPink"
 }
 AUTOANIM.explosionColors04 = {
     "ec1": ``,
