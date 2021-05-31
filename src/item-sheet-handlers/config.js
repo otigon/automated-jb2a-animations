@@ -688,6 +688,12 @@ AUTOANIM.bardAnimType = {
     'music': "AUTOANIM.musicNotes"
 }
 
+AUTOANIM.bardTargetAnimType = {
+    'a1': ``,
+    'bardicinspiration': "AUTOANIM.bardicInspiration",
+    'music': "AUTOANIM.musicNotes"
+}
+
 AUTOANIM.dsSelf = {
     'a1': ``,
     'blue yellow': "AUTOANIM.colorYellowBlue",

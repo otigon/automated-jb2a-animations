@@ -14,6 +14,8 @@ async function bardicInspiration(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let obj02;
+    let obj02T
+    let colorT;
     let repeat;
     let color;
     //console.log(handler.bardAnim);
@@ -43,33 +45,42 @@ async function bardicInspiration(handler) {
             }
     }
 
+    switch (true) {
+        case (handler.bards.bardTargetAnim === "music"):
+            obj02T = "music";
+            repeat = 10;
+            switch (true) {
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    colorT = "blue";
+                    break;
+                default:
+                    colorT = handler.bards.bardTargetColor;
+            }
+            break;
+        default:
+            obj02T = "bardicinspiration";
+            repeat = 1;
+            switch (true) {
+                case handler.color === "a1" || handler.color === ``:
+                case !handler.color:
+                    colorT = "green orange";
+                    break;
+                default:
+                    colorT = handler.bards.bardTargetColor;
+            }
+    }
+
     let token = handler.actorToken;
     let target = handler.allTargets[0];
     let markerScale = canvas.grid.size * 1.5;
     let color02 = handler.bards.markerColor;
-    console.log(color02);
+    let color02T = handler.bards.markerColorTarget;
+    //console.log(color02);
     //console.log(color02);
 
     let markerPath = obj01['bardicinspiration']['marker'][color02];
-    let markerSelf = {
-        alpha: 0.85,
-        x: (token.x - (canvas.grid.size / 3)),
-        y: (token.y - (canvas.grid.size / 3)),
-        height: markerScale,
-        width: markerScale,
-        img: markerPath,
-    };
-    let markerTarget
-    if (target) {
-        markerTarget = {
-            x: (target.x - (canvas.grid.size / 2)),
-            y: (target.y - (canvas.grid.size / 2)),
-            height: markerScale,
-            width: markerScale,
-            img: markerPath
-        };
-    }
-
+    let markerPathTarget = obj01['bardicinspiration']['marker'][color02T];
 
     function randomSpot(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -116,6 +127,30 @@ async function bardicInspiration(handler) {
         CTA.addAnimation(markerToken, textureData, false, name, null)
         //CTA.addAnimation(markerToken, textureData, false, name, null)
     }
+
+    async function markerCreateTarget(markerToken) {
+
+        let name = "Bardic Inspiration";
+
+        let textureData = {
+            texturePath: markerPathTarget,
+            scale: "1.5",
+            speed: 0,
+            multiple: 1,
+            rotation: "static",
+            xScale: 0.5,
+            yScale: 0.5,
+            belowToken: true,
+            radius: 2,
+            opacity: 0.85,
+            tint: 16777215,
+            equip: false,
+            lock: false
+        }
+        CTA.addAnimation(markerToken, textureData, false, name, null)
+        //CTA.addAnimation(markerToken, textureData, false, name, null)
+    }
+
     async function markerDelete(markerToken) {
         let name = "Bardic Inspiration";
         CTA.removeAnimByName(markerToken, name, true, true);
@@ -131,8 +166,6 @@ async function bardicInspiration(handler) {
             let filePath = obj01[obj02][color][ranVar];
             let varX = randomSpot(xMin, xMax);
             let varY = randomSpot(yMin, yMax);
-            let varXtarget = randomSpot(xMintarget, xMaxtarget);
-            let varYtarget = randomSpot(yMintarget, yMaxtarget);
 
             let sourceAnim =
             {
@@ -152,9 +185,30 @@ async function bardicInspiration(handler) {
                 }
             };
 
+            async function selfCasting() {
+                canvas.autoanimations.playVideo(sourceAnim);
+                game.socket.emit('module.autoanimations', sourceAnim);
+            }
+
+            if (handler.bardSelf) {
+                selfCasting();
+            }
+
+            await wait(350)
+        }
+    }
+
+    async function musicTarget(number) {
+        let x = number
+        for (var i = 0; i < x; i++) {
+            let ranVar = Math.floor(Math.random() * 7 + 1).toString();
+            let filePathTarget = obj01[obj02T][colorT][ranVar];
+            let varXtarget = randomSpot(xMintarget, xMaxtarget);
+            let varYtarget = randomSpot(yMintarget, yMaxtarget);
+
             let targetAnim =
             {
-                file: filePath,
+                file: filePathTarget,
                 position: {
                     x: varXtarget,
                     y: varYtarget
@@ -170,29 +224,22 @@ async function bardicInspiration(handler) {
                 }
             };
 
-            async function selfCasting() {
-                canvas.autoanimations.playVideo(sourceAnim);
-                game.socket.emit('module.autoanimations', sourceAnim);
-            }
-
             async function targetCasting() {
                 canvas.autoanimations.playVideo(targetAnim);
                 game.socket.emit('module.autoanimations', targetAnim);
             }
-            if (handler.bardSelf) {
-                selfCasting();
-            }
+
             if (target && handler.bardTarget) {
                 targetCasting();
             }
             await wait(350)
         }
     }
+
     async function bardicInspiration() {
 
         let filePath = obj01[obj02]['inspire'][color];
 
-        let varTarget = targetCenter(target);
         let sourceAnim =
         {
             file: filePath,
@@ -207,9 +254,25 @@ async function bardicInspiration(handler) {
                 y: .5
             }
         };
+
+        async function selfCasting() {
+            canvas.autoanimations.playVideo(sourceAnim);
+            game.socket.emit('module.autoanimations', sourceAnim);
+        }
+        if (handler.bardSelf) {
+            selfCasting();
+        }
+    }
+
+    async function bardicInspirationTarget() {
+
+        let filePathTarget = obj01[obj02T]['inspire'][colorT]
+
+        let varTarget = targetCenter(target);
+
         let targetAnim =
         {
-            file: filePath,
+            file: filePathTarget,
             position: varTarget,
             anchor: {
                 x: 0.5,
@@ -222,33 +285,22 @@ async function bardicInspiration(handler) {
             }
         };
 
-        async function selfCasting() {
-            //const selfMarker = await canvas.scene.createEmbeddedDocuments("Tile", [markerSelf]);
-            canvas.autoanimations.playVideo(sourceAnim);
-            game.socket.emit('module.autoanimations', sourceAnim);
-            //let length = canvas.background.placeables.length;
-            //let delete01 = canvas.background.placeables[length - 1];
-            //await wait(2750);
-            //canvas.scene.deleteEmbeddedDocuments("Tile", [delete01.id])
-        }
-
         async function targetCasting() {
-            //const targetMarker = await canvas.scene.createEmbeddedDocuments("Tile", [markerTarget]);
             canvas.autoanimations.playVideo(targetAnim);
             game.socket.emit('module.autoanimations', targetAnim);
-            //let length = canvas.background.placeables.length;
-            //let delete02 = canvas.background.placeables[length - 1];
-            //await wait(3000);
-            //canvas.scene.deleteEmbeddedDocuments("Tile", [delete02.id])
         }
-        if (handler.bardSelf) {
-            selfCasting();
-        }
+
         if (target && handler.bardTarget) {
             targetCasting();
         }
     }
+
     let ctaActive = game.modules.get("Custom-Token-Animations")?.active;
+
+    if (obj02 === "music") {
+
+    }
+
     switch (true) {
         case obj02 === "music":
             music(10);
@@ -257,15 +309,9 @@ async function bardicInspiration(handler) {
                     if (handler.bardSelf) {
                         markerCreate(token);
                     }
-                    if (target && handler.bardTarget) {
-                        markerCreate(target);
-                    }
                     await wait(3750);
                     if (handler.bardSelf) {
                         markerDelete(token);
-                    }
-                    if (target && handler.bardTarget) {
-                        markerDelete(target);
                     }
                 }
             }
@@ -276,18 +322,41 @@ async function bardicInspiration(handler) {
                 if (handler.bardSelf) {
                     markerCreate(token);
                 }
-                if (target && handler.bardTarget) {
-                    markerCreate(target);
-                }
                 await wait(3750);
                 if (handler.bardSelf) {
                     markerDelete(token);
                 }
+            }
+    }
+
+    switch (true) {
+        case obj02T === "music":
+            musicTarget(10);
+            if (handler.bards.marker && ctaActive) {
+                if (handler.bards.marker) {
+                    if (target && handler.bardTarget) {
+                        markerCreateTarget(target);
+                    }
+                    await wait(3750);
+                    if (target && handler.bardTarget) {
+                        markerDelete(target);
+                    }
+                }
+            }
+            break;
+        default:
+            bardicInspirationTarget();
+            if (handler.bards.marker && ctaActive) {
+                if (target && handler.bardTarget) {
+                    markerCreateTarget(target);
+                }
+                await wait(3750);
                 if (target && handler.bardTarget) {
                     markerDelete(target);
                 }
             }
     }
+
     if (audioEnabled) {
         await wait(audio.delay);
         AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);

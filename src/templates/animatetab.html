@@ -283,6 +283,30 @@
                 <input type="checkbox" name="flags.autoanimations.bards.bardTarget" {{checked bardTarget}}>
             </div>
             <div class="form-group">
+                <label>Target Animation</label>
+                <div class="form-fields">
+                    <select name="flags.autoanimations.bards.bardTargetAnim">
+                        {{#select bardTargetAnim}}
+                        {{#each bardAnimTarget as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Target Color</label>
+                <div class="form-fields">
+                    <select name="flags.autoanimations.bards.bardTargetColor">
+                        {{#select bardTargetColor}}
+                        {{#each bardColorTarget as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label>{{localize "AUTOANIM.bardSelf"}}</label>
                 <input type="checkbox" name="flags.autoanimations.bards.bardSelf" {{checked bardSelf}}>
             </div>
@@ -296,6 +320,18 @@
                     <div class="form-fields">
                         <select name="flags.autoanimations.bards.markerColor" class="marker-color">
                             {{#select markerColor}}
+                            {{#each markerColors as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Marker Color Target</label>
+                    <div class="form-fields">
+                        <select name="flags.autoanimations.bards.markerColorTarget" class="marker-color">
+                            {{#select markerColorTarget}}
                             {{#each markerColors as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}

@@ -33,9 +33,12 @@ export class AnimateItem {
         this.bards = this.data.bards;
         this.bardAnim = this.data.bards.bardAnim;
         this.bardTarget = this.data.bards.bardTarget;
+        this.bardTargetAnim = this.data.bards.bardTargetAnim;
+        this.bardTargetColor = this.data.bards.bardTargetColor;
         this.bardSelf = this.data.bards.bardSelf;
         this.marker = this.data.bards.marker;
         this.markerColor = this.data.bards.markerColor;
+        this.markerColorTarget = this.data.bards.markerColorTarget;
         this.allSounds = this.data.allSounds;
         this.enableAudio = this.data.allSounds.item.enableAudio;
         this.audioExplodeEnabled = this.data.allSounds.explosion.audioExplodeEnabled;
@@ -75,10 +78,13 @@ export class AnimateItem {
             spellVar: ``,
             bards: {
                 bardTarget: true,
+                bardTargetAnim: ``,
+                bardTargetColor: ``,
                 bardSelf: true,
                 bardAnim: ``,
                 marker: true,
-                markerColor: ``
+                markerColor: ``,
+                markerColorTarget: ``
             },
             allSounds: {
                 item: {
@@ -571,6 +577,29 @@ export class AnimateItem {
         return AUTOANIM.localized(AUTOANIM.bardAnimType);
     }
 
+    get bardAnimTarget() {
+        return AUTOANIM.localized(AUTOANIM.bardTargetAnimType);
+    }
+
+    get bardColorTarget() {
+            if (moduleIncludes("jb2a_patreon")) {
+                switch (this.bardTargetAnim) {
+                    case "music":
+                        return AUTOANIM.localized(AUTOANIM.musicnoteColor);
+                        break;
+                    default:
+                        return AUTOANIM.localized(AUTOANIM.bardicInspirationColors);
+                }
+            } else {
+                switch (this.bardTargetAnim) {
+                    case "music":
+                        return AUTOANIM.localized(AUTOANIM.musicnoteColorFree);
+                        break;
+                    default:
+                        return AUTOANIM.localized(AUTOANIM.bardicInspirationColorsFree);
+                }
+            }
+    }
     get newAudio() {
         return this.allSounds.item.file;
     }
