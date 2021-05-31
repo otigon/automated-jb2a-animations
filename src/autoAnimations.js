@@ -39,7 +39,7 @@ import { AALayer } from "./canvas-animation/AutoAnimationsLayer.js";
 const log = () => { };
 
 function registerLayer() {
-    if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
         const layers = mergeObject(Canvas.layers, {
             autoanimations: AALayer
         });
@@ -306,7 +306,7 @@ function onCreateChatMessage(msg) {
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
-                if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
                     mistyStepOld(handler);
 
                 } else {
@@ -337,7 +337,7 @@ function setupTormenta20(msg) {
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
-                if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
                     mistyStepOld(handler);
 
                 } else {
@@ -370,7 +370,7 @@ function specialCaseAnimations(msg) {
     let handler = new Dnd5Handler(msg);
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
-            if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
                 mistyStepOld(handler);
 
             } else {
@@ -394,7 +394,7 @@ function revItUp5eCore(msg) {
         if (game.user.id === msg.user.id) {
             switch (true) {
                 case ((handler.animType === "t12") && (handler.animOverride)):
-                    if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+                    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
                         mistyStepOld(handler);
 
                     } else {
@@ -419,7 +419,7 @@ function revItUp5eCore(msg) {
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
-                if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
                     mistyStepOld(handler);
 
                 } else {

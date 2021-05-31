@@ -4,7 +4,7 @@ function getNameColor(data) {
     let itemNameFlags;
     let itemAnimType;
     let isOverride;
-    if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
         itemNameSys = data.entity?.name?.toLowerCase() ?? ``;
         itemNameFlags = data.entity?.flags?.autoanimations?.animName?.toLowerCase() ?? ``;
         itemAnimType = data.item?.flags?.autoanimations?.animType?.toLowerCase() ?? ``;

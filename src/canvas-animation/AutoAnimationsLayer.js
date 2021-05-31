@@ -19,7 +19,7 @@ export class AALayer extends PlaceablesLayer {
     } else {
       level = 199;
     }
-    if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
       return mergeObject(super.layerOptions, {
         objectClass: Note,
         sheetClass: NoteConfig,
@@ -42,7 +42,7 @@ export class AALayer extends PlaceablesLayer {
     return new Promise((resolve) => {
 
       // Set default values
-      if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+      if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
         data = mergeObject({
           anchor: { x: 0.5, y: 0.5 },
           rotation: 0,
@@ -140,7 +140,7 @@ export class AALayer extends PlaceablesLayer {
       x: tok1.center.x,
       y: tok1.center.y
     }
-    const effectData = foundry.utils.mergeObject(effect, {
+    const effectData = mergeObject(effect, {
       position: {
         x: origin.x,
         y: origin.y

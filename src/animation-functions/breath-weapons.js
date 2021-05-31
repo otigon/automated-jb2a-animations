@@ -65,7 +65,7 @@ async function breathWeapon(handler) {
         //Finds the center of the placed circular template and plays an animation using FXMaster
         const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
         let template;
-        if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+        if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
             template = await canvas.templates.get(templateID);
         } else {
             template = await canvas.templates.documentCollection.get(templateID);
