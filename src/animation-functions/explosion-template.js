@@ -49,7 +49,12 @@ async function explodeTemplate(handler) {
         let loops = handler.animExLoop;
         //Finds the center of the placed circular template and plays an animation using FXMaster
         const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
-        let template = await canvas.templates.get(templateID);
+        let template;
+        if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
+            template = await canvas.templates.get(templateID);
+        } else {
+            template = await canvas.templates.documentCollection.get(templateID);
+        }
         // Scaled globally, change divisor for different size animation.
         let Scale = (canvas.scene.data.grid / divisor);
         //var handler.allTargets = Array.from(lastArg.targets);

@@ -401,6 +401,11 @@ function revItUp5eCore(msg) {
                         mistyStep(handler);
                     }
                     break;
+                case handler.animType === "t14":
+                    Hooks.once("createMeasuredTemplate", () => {
+                        breathWeapon(handler);
+                    })
+                    break;
             }
         }
         return;
@@ -726,6 +731,12 @@ async function revItUp(handler) {
         case handler.itemNameIncludes("flurry of blows"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
             unarmedStrike(handler);
+            break;
+        case handler.animType === "t14":
+            if (game.modules.get("midi-qol")?.active) {
+            } else {
+                breathWeapon(handler);
+            }
             break;
     }
 }
