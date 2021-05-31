@@ -376,7 +376,12 @@ function specialCaseAnimations(msg) {
             } else {
                 mistyStep(handler);
             }
-        break;
+            break;
+        case handler.animType === "t14":
+            Hooks.once("createMeasuredTemplate", () => {
+                breathWeapon(handler);
+            })
+            break;
     }
 }
 
@@ -391,11 +396,11 @@ function revItUp5eCore(msg) {
                 case ((handler.animType === "t12") && (handler.animOverride)):
                     if (game.data.version === "0.7.09" || game.data.version === "0.7.10") {
                         mistyStepOld(handler);
-    
+
                     } else {
                         mistyStep(handler);
                     }
-                        break;
+                    break;
             }
         }
         return;
@@ -721,15 +726,6 @@ async function revItUp(handler) {
         case handler.itemNameIncludes("flurry of blows"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
             unarmedStrike(handler);
-            break;
-        case handler.animType === "t14":
-            if (game.modules.get("midi-qol")?.active) {
-                breathWeapon(handler);
-            } else {
-                Hooks.once("createMeasuredTemplate", () => {
-                    breathWeapon(handler);
-                })
-            }
             break;
     }
 }
