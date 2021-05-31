@@ -10,8 +10,8 @@ export class AnimationTab {
         let typeLoc;
         switch (game.system.id) {
             case ("dnd5e"):
-                acceptedTypes = ['weapon', 'spell', 'consumable', 'feature', 'equipment'];
-                typeLoc = data.itemType;
+                acceptedTypes = ['weapon', 'spell', 'consumable', 'feat', 'equipment'];
+                typeLoc = data.item.type;
                 break;
             case ("pf1"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];

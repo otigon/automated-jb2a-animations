@@ -32,7 +32,7 @@ import breathWeapon from "./animation-functions/breath-weapons.js";
 import mistyStepOld from "./animation-functions/misty-step-old.js";
 
 import { AALayer } from "./canvas-animation/AutoAnimationsLayer.js";
-//import ImagePicker from "./ImagePicker.js";
+import ImagePicker from "./ImagePicker.js";
 
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
@@ -154,40 +154,76 @@ Hooks.on('init', () => {
                     config: true,
                     onChange: () => { window.location.reload() }
                 });
-                game.settings.register("autoanimations", "EnableCritical", {
-                    name: game.i18n.format("AUTOANIM.crithit_name"),
-                    hint: game.i18n.format("AUTOANIM.crithit_hint"),
-                    scope: 'world',
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                    onchange: () => { window.location.reload() }
-                });
-                game.settings.register("autoanimations", "CriticalAnimation", {
-                    name: game.i18n.format("AUTOANIM.crithitAnim_name"),
-                    //name: "Choose A File",
-                    scope: 'world',
-                    config: true,
-                    type: String,
-                    filePicker: true
-                });
-                game.settings.register("autoanimations", "EnableCriticalMiss", {
-                    name: game.i18n.format("AUTOANIM.critmiss_name"),
-                    hint: game.i18n.format("AUTOANIM.critmiss_hint"),
-                    scope: 'world',
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                    onchange: () => { window.location.reload() }
-                });
-                game.settings.register("autoanimations", "CriticalMissAnimation", {
-                    name: game.i18n.format("AUTOANIM.critmissAnim_name"),
-                    scope: 'world',
-                    config: true,
-                    type: String,
-                    filePicker: true
-                });
-
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                    game.settings.register("autoanimations", "EnableCritical", {
+                        name: game.i18n.format("AUTOANIM.crithit_name"),
+                        hint: game.i18n.format("AUTOANIM.crithit_hint"),
+                        scope: 'world',
+                        type: Boolean,
+                        default: false,
+                        config: true,
+                        onchange: () => { window.location.reload() }
+                    });
+                    game.settings.register("autoanimations", "CriticalAnimation", {
+                        name: game.i18n.format("AUTOANIM.crithitAnim_name"),
+                        scope: 'world',
+                        type: ImagePicker.Image,
+                        default: "modules/JB2A_DnD5e/Library/Generic/UI/Critical_02_Red_200x200.webm",
+                        config: true,
+                        onchange: () => { window.location.reload() }
+                    });
+                    game.settings.register("autoanimations", "EnableCriticalMiss", {
+                        name: game.i18n.format("AUTOANIM.critmiss_name"),
+                        hint: game.i18n.format("AUTOANIM.critmiss_hint"),
+                        scope: 'world',
+                        type: Boolean,
+                        default: false,
+                        config: true,
+                        onchange: () => { window.location.reload() }
+                    });
+                    game.settings.register("autoanimations", "CriticalMissAnimation", {
+                        name: game.i18n.format("AUTOANIM.critmissAnim_name"),
+                        scope: 'world',
+                        type: ImagePicker.Image,
+                        default: "modules/JB2A_DnD5e/Library/Generic/UI/Miss_02_White_200x200.webm",
+                        config: true,
+                        onchange: () => { window.location.reload() }
+                    });
+                } else {
+                    game.settings.register("autoanimations", "EnableCritical", {
+                        name: game.i18n.format("AUTOANIM.crithit_name"),
+                        hint: game.i18n.format("AUTOANIM.crithit_hint"),
+                        scope: 'world',
+                        type: Boolean,
+                        default: false,
+                        config: true,
+                        onchange: () => { window.location.reload() }
+                    });
+                    game.settings.register("autoanimations", "CriticalAnimation", {
+                        name: game.i18n.format("AUTOANIM.crithitAnim_name"),
+                        //name: "Choose A File",
+                        scope: 'world',
+                        config: true,
+                        type: String,
+                        filePicker: true
+                    });
+                    game.settings.register("autoanimations", "EnableCriticalMiss", {
+                        name: game.i18n.format("AUTOANIM.critmiss_name"),
+                        hint: game.i18n.format("AUTOANIM.critmiss_hint"),
+                        scope: 'world',
+                        type: Boolean,
+                        default: false,
+                        config: true,
+                        onchange: () => { window.location.reload() }
+                    });
+                    game.settings.register("autoanimations", "CriticalMissAnimation", {
+                        name: game.i18n.format("AUTOANIM.critmissAnim_name"),
+                        scope: 'world',
+                        config: true,
+                        type: String,
+                        filePicker: true
+                    });
+                }
             } else {
                 game.settings.register("autoanimations", "playonDamageCore", {
                     name: game.i18n.format("AUTOANIM.coreondmg_name"),
