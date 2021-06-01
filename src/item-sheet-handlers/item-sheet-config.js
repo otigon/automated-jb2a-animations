@@ -15,15 +15,15 @@ export class AnimationTab {
                 break;
             case ("pf1"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
-                typeLoc = data.entity.type;
+                typeLoc = data.item.type;
                 break;
             case ("tormenta20"):
                 acceptedTypes = ['arma', 'magia', 'consumivel', 'poder'];
-                typeLoc = data.entity.type;
+                typeLoc = data.item.type;
                 break;
             case ("demonlord"):
                 acceptedTypes = ['weapon', 'spell', 'talent', 'item'];
-                typeLoc = data.entity.type;
+                typeLoc = data.item.type;
                 break;
             case ("D35E"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
@@ -31,13 +31,13 @@ export class AnimationTab {
                 break;
             case ("swade"):
                 acceptedTypes = ['weapon', 'gear', 'skill', 'power', 'ability', 'shield'];
-                typeLoc = data.entity.type;
+                typeLoc = data.item.type;
                 break;
             case ("pf2e"):
                 acceptedTypes = ['weapon', 'npc strike', 'consumable', 'spell', 'action'];
-                typeLoc = data.entity.type;
+                typeLoc = data.item.type;
         }
-        if (acceptedTypes.includes(typeLoc.toLowerCase())) {
+        if (acceptedTypes.includes(typeLoc)) {
             let tab = animationTabs[app.id];
             if (!tab) {
                 tab = new AnimationTab(app);
@@ -449,7 +449,7 @@ export class AnimationTab {
                     this.activate = false;
                     break
                 case ("D35E"):
-                    this.app._tabsAlt.subTabs[0].parent.activate("autoanimations");
+                    this.app._initialTab.activate("autoanimations");
                     this.activate = false;
                     break;
             }
