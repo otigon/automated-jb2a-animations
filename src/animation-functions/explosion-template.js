@@ -64,7 +64,10 @@ async function explodeTemplate(handler) {
         let spellAnim =
         {
             file: filePath,
-            position: template.center,
+            position: {
+                x: template.data.x,
+                y: template.data.y
+            },
             anchor: {
                 x: 0.5,
                 y: 0.5
