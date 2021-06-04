@@ -1,7 +1,7 @@
 export default class Pf1Handler {
     constructor(message) {
         const item = message?.itemSource;
-        const actor = item?.options?.actor;
+        const actor = item?.options?.actor || item?.actor;
         const tokenId = message.data.speaker.token;  
         if (!item || !actor) {
             return;

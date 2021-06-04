@@ -91,13 +91,13 @@ export class AnimateItem {
                     enableAudio: false,
                     file: ``,
                     delay: 100,
-                    volume: 25
+                    volume: 0.25
                 },
                 explosion: {
                     audioExplodeEnabled: false,
                     file: ``,
                     delay: 100,
-                    volume: 25
+                    volume: 0.25
                 }
             },
             spellOptions: {
