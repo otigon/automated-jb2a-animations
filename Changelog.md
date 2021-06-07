@@ -1,3 +1,15 @@
+0.3.51 - 0.3.65  
+- Removed Dependancy on FX Master. A-A now has an option to play Animations ABOVE overhead tiles. This defaults to playing underneath and makes for some great depth on scenes.  
+- Added Video Previews for animations, configureable in the Module Settings. This is defaulted to OFF  
+- Added backwards compatibility with 0.7.9 and 0.7.10 Foundry Versions  
+- Divine Smite and Breath Weapon Animations added  
+- Several fixes due to updates to 0.8.6  
+- Localization updates  
+- Fixed CSS bleed  
+- PF1 and Demon Lord system compatibility with 0.8.6 Foundry  
+- Sounds now play outside of animation dependancy  
+- Many error fixes  
+  
 0.3.50  
 - First update for Foundry 0.8.XX  
 - REQUIRES an Uninstall/Reinstall of the Module. I had to change the back-end name to work in sounds and some other fun features in the future  
