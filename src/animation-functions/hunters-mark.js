@@ -5,9 +5,6 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function huntersMark(handler) {
 
-    let audio = handler.allSounds.item;
-    let audioEnabled = handler.itemSound;
-
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -155,11 +152,6 @@ async function huntersMark(handler) {
         d.render(true)
 
     }
-    if (audioEnabled) {
-        await wait(audio.delay);
-        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-    }
-
 }
 
 export default huntersMark;

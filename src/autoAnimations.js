@@ -399,7 +399,7 @@ function setupDemonLord(...args) {
     revItUp(handler);
 }
 
-function specialCaseAnimations(msg) {
+async function specialCaseAnimations(msg) {
     if (game.user.id !== msg.user.id) {
         return;
     }
@@ -415,6 +415,9 @@ function specialCaseAnimations(msg) {
             break;
         case handler.animType === "t14":
             Hooks.once("createMeasuredTemplate", () => {
+                if (handler.itemSound) {
+                    itemSound(handler);
+                }
                 breathWeapon(handler);
             })
             break;
@@ -469,10 +472,12 @@ function revItUp5eCore(msg) {
     if (game.settings.get("autoanimations", "playonDamageCore")) {
         if (rollType.includes("damage")) {
             //const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
+            if (handler.itemSound) {
+                itemSound(handler);
+            }
             if (game.modules.get("mre-dnd5e")?.active) {
                 log("MRE is active");
                 if (handler.itemIncludes("xxx") || handler.animKill) {
-                    itemSound(handler);
                     return;
                 } else {
                     switch (game.settings.get("mre-dnd5e", "autoDamage")) {
@@ -530,14 +535,22 @@ function revItUp5eCore(msg) {
             log("damage roll");
         } else
             if (rollType.includes("attack")) {
+                if (handler.itemSound) {
+                    itemSound(handler);
+                }
                 revItUp(handler)
             } else /*if (game.settings.get("autoanimations", "playonDamageCore") == false)*/ {
-                if (handler.itemIncludes("xxx") || handler.animKill) {
+                if (handler.itemSound) {
                     itemSound(handler);
+                }
+                if (handler.itemIncludes("xxx") || handler.animKill) {
                     return;
                 }
 
                 else {
+                    if (handler.itemSound) {
+                        itemSound(handler);
+                    }
                     switch (true) {
                         case handler.animType === "t14":
                             Hooks.once("createMeasuredTemplate", () => {
@@ -613,11 +626,13 @@ async function itemSound(handler) {
     }
 }
 async function revItUp(handler) {
+    if (handler.itemSound) {
+        itemSound(handler);
+    }
     switch (true) {
         // Use xxx in Item Source Field to exclude an item for On-Use customization
         case (handler.itemIncludes("xxx")):
         case (handler.animKill):
-            itemSound(handler);
             break;
         case ((handler.animType === "t9") && handler.animOverride):
             explodeOnTarget(handler);

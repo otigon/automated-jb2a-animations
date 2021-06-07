@@ -2,9 +2,6 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function castOnSelf(handler) {
 
-    let audio = handler.allSounds.item;
-    let audioEnabled = handler.itemSound;
-
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -58,10 +55,6 @@ async function castOnSelf(handler) {
         game.socket.emit('module.autoanimations', spellAnim);
     }
     cast();
-    if (audioEnabled) {
-        await wait(audio.delay);
-        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-    }
 }
 
 export default castOnSelf;
