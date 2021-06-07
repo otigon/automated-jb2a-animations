@@ -36,6 +36,11 @@ export class AnimationTab {
             case ("pf2e"):
                 acceptedTypes = ['weapon', 'npc strike', 'consumable', 'spell', 'action'];
                 typeLoc = data.item.type;
+                break;
+            case ("sfrpg"):
+                acceptedTypes = ['weapon', 'spell', 'shield', 'consumable'];
+                typeLoc = data.item.type;
+                break;
         }
         if (acceptedTypes.includes(typeLoc)) {
             let tab = animationTabs[app.id];
@@ -91,6 +96,7 @@ export class AnimationTab {
 
         switch (game.system.id) {
             case ("dnd5e"):
+            case ("sfrpg"):
                 $(html.find(`.sheet-body`)).append($(
                     '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
                 ));
@@ -452,6 +458,16 @@ export class AnimationTab {
                     this.app._initialTab.activate("autoanimations");
                     this.activate = false;
                     break;
+                case ("sfrpg"):
+                    /*
+                    for (var i = 0; i < 2; i++) {
+                        this.app._tabs[i].activate("autoanimations");
+                    }
+                    */
+                    this.app._tabs[0].activate("autoanimations");
+                    //this.app._tabs[1].activate("autoanimations");
+                    this.activate = false;
+                    break;
             }
         }
         /*
@@ -478,15 +494,15 @@ export class AnimationTab {
                         content = `<video class="video-preview" src="${filePathVideo}" autoplay="autoplay" controls loop> </video>`;
                         this.html.find('.previews').append(content);
                         break;
-                    }
-                /*
-                if (game.settings.get("autoanimations", "videoLoop")) {
-                    content = `<video class="video-preview" src="${filePathVideo}" autoplay="autoplay" controls loop> </video>`;
-                } else {
-                    content = `<video class="video-preview" src="${filePathVideo}" controls loop> </video>`;
                 }
-                this.html.find('.previews').append(content);
-                */
+            /*
+            if (game.settings.get("autoanimations", "videoLoop")) {
+                content = `<video class="video-preview" src="${filePathVideo}" autoplay="autoplay" controls loop> </video>`;
+            } else {
+                content = `<video class="video-preview" src="${filePathVideo}" controls loop> </video>`;
+            }
+            this.html.find('.previews').append(content);
+            */
         }
     }
 
