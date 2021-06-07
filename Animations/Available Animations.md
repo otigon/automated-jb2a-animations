@@ -100,6 +100,19 @@ Example: Fireball, Thrown Bombs, other AOE effects with Circular templates
 | :--| 
 | `blue`, `green`, `orange`, `purple`, `yellow`||  
 
+
+| Explosion Variant | Type | Default Color | JB2A Patreon Color |
+| :------ | :------ | :------- | :---------------------- |
+| 01 | `Explosion 01` | `Orange` | `Green`, `Purple`, `Purple`, `Yellow` |
+| 02 | `Explosion 02` | `Blue` | `Green`, `Purple`, `Purple`, `Yellow` |
+| 03 | `Flame Effect` | `Yellow Blue` | `Green Orange`, `Pink Purple`, `Blue White`, `Pink` |
+| 04 | `Quick Explode` | `Blue` | `Green`, `Orange`, `Dark Red`, `Dark Purple` |
+| 05 | `Snowflake Burst` | `Blue White` | `Green Orange`, `Pink Purple`, `Teal Yellow` |
+| 06 | `Music Notes` | `Blue White` | `Green Orange`, `Pink Purple`, `Teal Yellow` |
+| 07 | `Out Pulse Effect` | `Blue White` | `Green Orange`, `Pink Purple`, `Teal Yellow` |
+| Shatter | `Shatter Animation` | `Blue` | `Green`, `Orange`, `Purple`, `Red` |
+
+
 #### Set the Radius  
 **Defaults to 10 foot radius if no radius is specified**
 Radius can be chosen from 5 foot (1 grid square) to 50 feet (10 grid square) or... a Nuclear blast size  
