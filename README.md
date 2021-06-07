@@ -1,8 +1,9 @@
-## NOTE: This is now backwards compatible with miniumum Foundry Core version 0.7.9
-
-## ALSO NOTE: 0.3.50 and above REQUIRES an Uninstall/Reinstall of the Automated Animations Module from version 0.3.28. I had to change the back-end module name to be able implement Sounds  
-
-### Patreon Link: https://www.patreon.com/otigon : Not required, but appreciated
+## NOTE: 0.3.50 and above REQUIRES an Uninstall/Reinstall of the Automated Animations Module from version 0.3.28. I had to change the back-end module name to be able implement Sounds  
+If you enjoy Automated Animations, consider sending some love on Patreon
+### Patreon Link: https://www.patreon.com/otigon : Not required, but appreciated  
+\
+\
+\
 
 # Automated Animations
 **No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
@@ -16,55 +17,90 @@ https://github.com/otigon/automated-jb2a-animations/blob/main/Animations/Availab
 
 # Introduction
 
-
 Time to ditch those animation macros! This module is designed to implement all of the "instant" duration animations like:
 
 - Weapon Attacks
 - Attack Spells
 - Explosions
-- Healing Spells
+- Healing Spells  
+**Now implementing:**
+- Instant Template Effects
+- Class Features  
+- Aura Effects with the **Custom Token Animations** module by Kandashi
+- Sound Effect options
 
-Currently implemented for **D&D 5e** and **PF1**, this module leverages the excellent animations from **JB2A**
+Current System Compatibility:  
+- DnD 5e  
+- PF1  
+- Shadow of the Demon Lord  
+- Tormenta 20  
+- Swade (WIP, it seems to broken atm)  
+
+Systems in Process for Compatibility:  
+- Starfinder (in process)  
+- Warhammer  (awaiting 0.8 system release)  
+- DnD 3.5 (in process)  
+- Please log a GitHub request for other systems  
 
 REQUIRED MODULES: 
-- **FXMaster**
 - **JB2A** - Jules&Ben's Animated Assets (patreon and/or free version)  
 
 Optional Modules:
 - Token Magic FX
 
-Supported Modules for 5e (Those that mess with rolling):
-- CORE support now live!
+Supported Modules for DnD5e (Those that mess with rolling):
+- CORE
 - MRE; Options to play animations on Attack or Damage
-- Midi-QOL; Options to play animations on Damage, Hit Targets, Check Saves for certain effects
-- Better Rolls; version 1.4.5 and above will play the animation on Attack Rolls through Better Rolls. I'll work on optional play on Damage Rolls for BR
-
-PF1 Support:
-- Initial support for the PF1 system. There may be bugs that pop up, but let me know and I'll get on it to fix them
-
+- Midi-QOL; Options to play animations on Attack, Damage, Hit Targets, Check Saves for certain effects
+- Better Rolls; version 1.4.5 and above will play the animation on Attack Rolls through Better Rolls. I'll work on optional play on Damage Rolls for BR  
+- Minimal Rolling Enhancements  
+- Mars 5e  
 
 ## Roadmap (subject to change):  
-    
-1. Adding Localization to support other languages -- DONE     
-2. Extending support to Star Wars, GURP  -- In Progress
-4. Adding customizable TMFX options on a per item basis (versus a global on/off setting currently)
-5. Ability to easily apply Sound FX in item customization settings  -- waiting until 0.8 stable  
-6. Adding more automatic recognition options (Spiritual Weapon Auto-Spawn & Delete, Reaction effects, Stuns, etc)  
+     
+1. Extending support to more systems  -- In Process
+2. Adding customizable TMFX options on a per item basis (versus a global on/off setting currently)  
+3. Adding "Summon" effects for spells/features  
+4. Enhancing Item Sounds to use a wildcard feature  
 
 # Overview
 ## Attack Spells and Melee attacks require a token(s) to be Targeted
 
-This module functions similarly to calling On-Use Macros through Midi-QOL or Item Macro. However, this will run all of the animations behind the scenes without fussing with macros. This is ONLY set up for DnD5e and PF1 currently, though may work on other similar systems. System expansion will be in the works soon (see roadmap above) 
+This module functions similarly to calling On-Use Macros through Midi-QOL or Item Macro. However, this will run all of the animations behind the scenes without fussing with macros.  
 
-Automated Animations reads the data passed through Chat Cards, or Module Hooks, to get the **Name** of the item. Items (Spells, Weapons, etc) that have a **name** matching a **JB2A animation** will play an animation on use. This generally occurs on the Attack Roll, with options for playing Animations on Damage Rolls. All **default** colors for available animations are based on the **Free** JB2A Module. To use color variants, you need to have the **Patreon** version of the JB2A Module.
+Automated Animations reads the data passed through Chat Cards, or Module Hooks, to get the required information. Items (Spells, Weapons, etc) that have a **name** matching a **JB2A animation** will automatically play an animation on use. This generally occurs on the Attack Roll, with options for playing Animations on Damage Rolls. All **default** colors for available animations are based on the **Free** JB2A Module. To use color variants, you need to have the **Patreon** version of the JB2A Module.  
+# Module Settings  
+ 
+- **Disable the Startup Window Popup**: Prevents the Welcome Information from opening on start-up  
+- **Global Delay**: Adds a user specified Delay to the start of ALL animations. Designated in milliseconds  
+- **Animations Play ABOVE Overhead Tiles**: By default, animations are rendered BELOW any Overhead tiles. This makes for great depth on scenes.  
+- **Autoplay Video Preview in A-A Tab**:  
+-- **No Video Preview** (Default)  
+-- **Manual Play**: Must click a play button to preview  
+-- **Autoplay**: Video previews automatically play
+- **Hide Animation Tab from Players**: Prevents Player access to the A-A Tab
+- **Targeting Assistant**: Plays a "No Target" animation on the Source Token if there are no targets when an animation was expecting at least one  
+- **Enable Token Magic FX**: Turns on integerated Token Magic Effects filters (Will change on a future update)  
+- **Only play animations on Damage Rolls**: DEFAULT behavior plays animations on Attack Rolls  
+  
 
-# Animate Tab  
+**Midi-QOL ONLY Options** (Will expand on future updates)
+- **Only Play Animations on Hits**: Will not play animations on misses  
+- **Play Animations on Hits and Misses**: Midi-QOL ONLY option. Animations veer off-target on misses  
+- **Critical Hit and Critical Miss**: Enables Crit Hit and Miss Animations (user specified via File Picker).  
+
+# A-A Tab  
+
 
 ![Alt text](pictures/AnimateTab.PNG)  
 
-The **Animate** Tab on Item sheets allows users to customize colors (from the Patreon module), assign a different animation to the item, or stop the animation from playing altogether.  
+The **A-A** Tab on Item sheets allow users to customize colors (from the Patreon module), assign a different animation to the item, stop the animation from playing, and enable Sounds to play when the item is used.  
 
 Item Names that are automatically Recognized will have the **COLOR** menu pre-populated with available color variants. This is where you will change the colors of the animation.  
+  
+Some items are automatically recognized, and will play animations by default. For ANY item that is automatically recognized or not, you can change/set the desired animation by checking the OVERRIDE button in the A-A Tab.  
+  
+Checking the **DISABLE** animation button will cause NO animation to play for those that are automatically recognized.  
   
 ![Alt text](pictures/AnimateColors.PNG)  
   
@@ -73,43 +109,85 @@ To use a different animation, or to assign an animation to an Item that doesn't 
 ![Alt text](pictures/AnimateOverride.PNG)  
 
 This enables an option to **Choose an Animation Type**. This menu is divided into several categories:  
-- Melee Weapon  
-- Generic Melee Damage  
-- Ranged Weapon  
-- Creature Attack  
-- Attack Spell  
-- Healing Spell  
-- Explosives (Template)  
-- Explosives (Target)  
 
+
+## Melee Weapon  
+
+Melee Animations such as Greataxe, Mace, Rapier etc. Some animations also have "Ranged" variants and will switch between the Melee and Ranged Animation depending on token position and other class features.  
+- Dagger
+- Handaxe
+- Spear  
+  
+You can also use the following sub-options:  
+- Divine Smite effect (Divine Smite on self and target are configureable)
+- Explosion (Add explosive effects on hit)  
+-- Explosion Sounds are configurable with this option
+  
+## Melee Damage  
+  
+Provides Generic Damage type animations (patreon ONLY), and the Unarmed Strike and Flurry of Blows animations  
+  
+  You can also use the following sub-options:  
+- Divine Smite effect (Divine Smite on self and target are configureable)
+- Explosion (Add explosive effects on hit)  
+-- Explosion Sounds are configurable with this option
+  
+## Ranged Weapon 
+
+Ranged Weapon animations such as Arrow, Boulder, Laser Shots, and a Throwing Hammer  
+  
+Using the "Arrow" Animation allows for choosing an Explosion Effect on arrow landing  
+  
+## Creature Attack  
+  
+Bite and Claw Animations  
+  
+## Attack Spells  
+  
+Contains all JB2A Attack Spell animations such as Fire Bolt, Guiding Bolt and Ray of Frost  
+  
+## Healing Spell
+  
+Contains the Cure Wounds and Generic Healing animations. Where available, variant options are provided  
+  
+## Explosives (Circle Template)  
+  
+Designed for use with items that have a Sphere, Cone, Circle type template (required). You can set the Variant, Radius and number of Loops for the animation.  
+  
+## Explosives (On Target)  
+  
+Causes an Explosion animation on the Targeted Token on item use  
+  
+## Explosives (Self)  
+  
+Intended for "Self Emanating" effects like Nova Explosions, Anti-Life Shell, etc. These will happen on the Source Token  
+  
+## Aura (REQUIRES the Custom Token Animations Module)  
+  
+Offers several JB2A Animations to be used as an Aura effect, and spawns a Dialog box that will delete the CTA aura effect when used. If you close (X) the dialog box unintentionally, you will need to delete the effect using the CTA panel.  
+Gives the options to set the Radius, Animation Type, Tint, and Opacity (0.75 recommended)  
+  
+## Teleportation  
+  
+Currently only set for use with the Misty Step Animation. You can set the Range for the spawned guide template, and when used your token will teleport to whereever you LEFT click on the Canvas.  
+  
+## Class Features  
+  
+Specific for future expansion, but currently only contains the Bardic Inspiration animation. You can set Source and Target animations independantly as well as enabling **Marker** animations for Source and Target. MARKERS REQUIRE the CTA Module.  
+  
+## Breath Weapons  
+  
+Currently set for Line/Ray Templates, and assumes a 30 foot distance. This menu will be updated to encompass more Template types (Cones for example). You can choose the Animation Type and Color  
+  
+# Item Sounds  
+![Alt text](pictures/ItemSounds.png)  
+  
+A recent addition is the ability to play sounds when using items. When enabled, you can choose any Audio file and set the volume **(0.25 - 0.75 Recommended)**. The Audio Delay can be set in milliseconds to time the start of the Audio File with a particular animation.  
+  
 # Available Animations  
-check the Animations.md file for available animations and colors  
-## Special Notes  
-**Explosives (Template)**  
-For use with Spells/Items that use a Circular Template. This will play an explosion animation at the center of a circular template when placed on the canvas.  
-**Explosives (Target)**  
-Designed for use with **thrown items** like Alchemist's Fire to play an explosion directly on the targetted token.  
+check the Animations.md file for available animations and colors   
 
-# Settings
 
-**1. Enable Token Magic FX**
-- Token Magic FX for this Module is disabled by default. Enable this to activate the built in TMFX filters that play with the Animations.
-- This is a world setting, but a future release will enable the options to disable the effects on a per animations basis.
-
-**When the Animations Play**  
-**MIDI-QOL**  
-By default, the animations activate and play when the Midi-QOL "workflow" is complete. This means a few things:  
-- If using MIDI to check for hits, the animations will play even if the attack misses and damage is not rolled.
-- If NOT using Midi to check for hits, the animation will play when the Damage is rolled, but will also play on Nat 1's.
-
-**2. Only play animations on Hits**
-- If checking hits with Midi, you can enable this option to ONLY play animations when the target is hit by the attack
-
-**3. Only play animations on Damage Rolls**
-- A simpler option that will ONLY play animations when the Damage or Healing rolls are done.
-
-**Core 5e, MRE**  
-By Default, animations will play on Attack Rolls. Setting is available to play animations on **Damage Rolls** only.
 
 # Special Notes
 
@@ -123,6 +201,10 @@ By Default, animations will play on Attack Rolls. Setting is available to play a
 # External Calls for Animations  
 Other modules can now call animations through Automated Animations by using:  
 **AutoAnimations.playAnimation(sourceToken, targets, item)**  
+Parameters are as follows:
+- sourceToken: The Token that is using the item  
+- targets: passed as an Array
+- item: the item that is being used  
 
 
 

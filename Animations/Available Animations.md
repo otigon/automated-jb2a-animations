@@ -10,16 +10,18 @@ Spell name is automatically recognized and plays with the Default Color. Change 
 | Spell Name | Default Color | JB2A Patreon Color |
 | :--------- | :------------ | :----------------- |
 | Cure Wounds | `Blue` | `Green`, `Purple`, `Red` |
-| Disintegrate | `Green` | `Dark Red`, `Orange Pink`, `Purple Blue` |
-| Eldritch Blast | `Purple` | `Dark Purple`, `Green`, `Yellow` |
-| Firebolt/Fire Bolt | `Orange` | `Red`, `Blue`, `Green`, `Purple` |
-| Healing Word | `Blue`, `Green`, `Purple`, `Yellow` | *all colors are available in the Free version* |
-| Magic Missile | `Purple` | `Blue`, `Green`, `Yellow`, `Random` |
-| Ray of Frost | `Blue` | `Green`, `Purple Teal`, `Yellow Blue` |
-| Scorching Ray | `Orange` | `Blue`, `Green`, `Purple`, `Red`, `Yellow` |
+| Generic Healing Variant 01 | `Blue`, `Green`, `Purple`, `Yellow` | *all colors are available in the Free version* |
+| Generic Healing Variant 02 | `Green Orange` | `White Blue`, `Pink Purple`, `Teal Yellow` |
+| Disintegrate | `Green` | `Dark Red`, `Orange Pink`, `Purple Blue`, `Random` |
+| Eldritch Blast | `Purple` | `Dark Purple`, `Green`, `Light Green`, `Yellow`, `Dark Red`, `Orange`, `Pink`, `Random` |
+| Firebolt/Fire Bolt | `Orange` | `Red`, `Blue`, `Green`, `Purple`, `Orange`, `Random` |
+| Guiding Bolt | `Blue Yellow` | `Green Orange`, `Pink Purple`, `White Blue`, `Pink`, `Random` |
+| Magic Missile | `Purple` | `Blue`, `Green`, `Yellow`,`Orange`, `Random` |
+| Ray of Frost | `Blue` | `Green`, `Purple Teal`, `Yellow Blue`, `Random` |
+| Scorching Ray | `Orange` | `Blue`, `Green`, `Purple`, `Red`, `Yellow`, `Rainbow01`, `Rainbow02`, `Random` |
 | Shatter | `Blue` | `Green`, `Orange`, `Purple`, `Red` |
 | Thunderwave | `Blue` | `Green`, `Orange`, `Purple`, `Red` |
-| Witchbolt/Witch Bolt | `Blue` | `Dark Green`, `Dark Purple`, `Dark Red`, `Green`, `Red`, `Yellow` |
+| Witchbolt/Witch Bolt | `Blue` | `Dark Green`, `Dark Purple`, `Dark Red`, `Green`, `Red`, `Yellow`, `Random` |
 
 #### Thunderwave Notes
 
