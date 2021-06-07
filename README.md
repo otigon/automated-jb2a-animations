@@ -46,12 +46,13 @@ REQUIRED MODULES:
 - **JB2A** - Jules&Ben's Animated Assets (patreon and/or free version)  
 
 Optional Modules:
-- Token Magic FX
+- Token Magic FX  
+- Custom Token Animations by Kandashi (For Aura effects)  
 
-Supported Modules for DnD5e (Those that mess with rolling):
-- CORE
-- MRE; Options to play animations on Attack or Damage
-- Midi-QOL; Options to play animations on Attack, Damage, Hit Targets, Check Saves for certain effects
+Supported Modules for DnD5e (Those that mess with rolling):  
+- CORE  
+- MRE; Options to play animations on Attack or Damage  
+- Midi-QOL; Options to play animations on Attack, Damage, Hit Targets, Check Saves for certain effects  
 - Better Rolls; version 1.4.5 and above will play the animation on Attack Rolls through Better Rolls. I'll work on optional play on Damage Rolls for BR  
 - Minimal Rolling Enhancements  
 - Mars 5e  
