@@ -9,8 +9,7 @@
             max-width: 15%;
         }
 
-        input[name="flags.autoanimations.auraOpacity"],
-        textarea {
+        input[name="flags.autoanimations.auraOpacity"] {
             background-color: rgb(196, 196, 196);
             border-radius: 5px;
             border: 10px rgb(0, 0, 0);
@@ -144,8 +143,7 @@
             max-width: 300px;
         }
 
-        input[name="flags.autoanimations.allSounds.item.file"],
-        textarea {
+        input[name="flags.autoanimations.allSounds.item.file"] .textarea {
             height: 30px;
         }
 
@@ -154,8 +152,7 @@
             line-height: 28px;
         }
 
-        input[name="flags.autoanimations.allSounds.explosion.file"],
-        textarea {
+        input[name="flags.autoanimations.allSounds.explosion.file"] .textarea {
             height: 30px;
         }
 
@@ -172,20 +169,12 @@
             border-radius: 10px;
         }
 
-        .item-audio,
-        label {
+        label.audio-label  {
             font-weight: bold;
-            color: black
         }
 
         .explode-audio {
             background-color: rgb(253, 207, 169);
-        }
-
-        .explode-audio,
-        label {
-            font-weight: bold;
-            color: black
         }
 
         .video-preview {
@@ -537,7 +526,7 @@
                 <div class="ex-audio-picker">
                     <div class="form-inline">
                         <div class="form group">
-                            <label>{{localize "AUTOANIM.chooseAudio"}}</label>
+                            <label class="audio-label">{{localize "AUTOANIM.chooseAudio"}}</label>
                             <button type="button" class="file-picker-ex-aa" data-type="audio" name="audio-ex-button"
                                 data-target="flags.autoanimations.allSounds.explosion.file" title="Browse Files"
                                 style="float: right">
@@ -614,7 +603,7 @@
             <div class="audio-picker">
                 <div class="form-inline">
                     <div class="form group">
-                        <label>{{localize "AUTOANIM.chooseAudio"}}</label>
+                        <label class="audio-label">{{localize "AUTOANIM.chooseAudio"}}</label>
                         <button type="button" class="file-picker-aa" data-type="audio" name="audio-button"
                             data-target="flags.autoanimations.allSounds.item.file" title="Browse Files"
                             style="float: right">
