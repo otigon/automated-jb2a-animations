@@ -274,8 +274,7 @@ Hooks.on('init', () => {
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
             case "demonlord":
-                Hooks.on("DL.ApplyDamage", setupDemonLord);
-                Hooks.on("DL.ApplyHealing", setupDemonLord);
+                Hooks.on("DL.Action", setupDemonLord);
                 break;
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
