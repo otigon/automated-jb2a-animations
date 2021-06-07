@@ -8,7 +8,8 @@
     "minimumCoreVersion": "0.7.9",
     "compatibleCoreVersion": "0.8.6",
     "esmodules": [
-        "src/autoAnimations.js"
+        "src/autoAnimations.js",
+        "canvas-animation/AutoAnimationsLayer.js"
     ],
     "scripts": [
         "src/initial_warning.js"

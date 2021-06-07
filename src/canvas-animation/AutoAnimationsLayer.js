@@ -1,15 +1,23 @@
 import { AACanvasAnimation } from "./canvasanimation.js"
 //import { easeFunctions } from "../module/ease.js";
 
-export class AALayer extends PlaceablesLayer {
+export class AALayer extends CanvasLayer {
   constructor() {
     super();
     this.loader = new PIXI.Loader();
+
+    this.mouseInteractionManager = null;
+
+    this._interactiveChildren = false;
+    this._dragging = false;
+
+    this.options = this.constructor.layerOptions;
 
     // Listen to the socket
     game.socket.on("module.autoanimations", (data) => {
       this.playVideo(data);
     });
+
   }
 
   static get layerOptions() {
@@ -35,7 +43,6 @@ export class AALayer extends PlaceablesLayer {
     }
   }
 
-  static documentName = "Note";
 
 
   playVideo(data) {
@@ -50,7 +57,7 @@ export class AALayer extends PlaceablesLayer {
           position: { x: 0, y: 0 },
           playbackRate: 1.0,
           ease: "Linear"
-        }, data);    
+        }, data);
       } else {
         data = foundry.utils.mergeObject({
           anchor: { x: 0.5, y: 0.5 },
@@ -82,6 +89,8 @@ export class AALayer extends PlaceablesLayer {
         vidSprite.scale.set(data.scale.x, data.scale.y);
         vidSprite.position.set(data.position.x, data.position.y);
 
+        if (data.width) { vidSprite.width = data.width; }
+
         if ((!data.speed || data.speed === 0) && !data.distance) {
           return;
         }
@@ -101,11 +110,14 @@ export class AALayer extends PlaceablesLayer {
         }
         ];
         let animationDuration = video.duration * 1000;
-        if (hasProperty(data, "animationDelay")) {
-          animationDuration -= Math.max(0, 1000 * (data.animationDelay.end + data.animationDelay.start));
-        }
-        function easeLinear(x) {
-          return x;
+        if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+          if (hasProperty(data, "animationDelay")) {
+            animationDuration -= Math.max(0, 1000 * (data.animationDelay.end + data.animationDelay.start));
+          }
+        } else {
+          if (foundry.utils.hasProperty(data, "animationDelay")) {
+            animationDuration -= Math.max(0, 1000 * (data.animationDelay.end + data.animationDelay.start));
+          }
         }
         const animate = function () {
           AACanvasAnimation.animateSmooth(attributes, {
@@ -115,22 +127,35 @@ export class AALayer extends PlaceablesLayer {
             ease: easeLinear(data.ease)
           })
         }
-        if (hasProperty(data, "animationDelay.start")) {
-          setTimeout(animate, data.animationDelay.start * 1000.0);
+        if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+          if (hasProperty(data, "animationDelay.start")) {
+            setTimeout(animate, data.animationDelay.start * 1000.0);
+          } else {
+            animate();
+          }
         } else {
-          animate();
+          if (foundry.utils.hasProperty(data, "animationDelay.start")) {
+            setTimeout(animate, data.animationDelay.start * 1000.0);
+          } else {
+            animate();
+          }
         }
+
       };
+
+      function easeLinear(x) {
+        return x;
+      }
 
       video.onerror = () => {
         this.removeChild(vidSprite);
         resolve();
-        vidSprite.destroy();
+        vidSprite?.destroy();
       }
       video.onended = () => {
         this.removeChild(vidSprite);
         resolve();
-        vidSprite.destroy();
+        vidSprite?.destroy();
       }
     })
   }
@@ -154,5 +179,6 @@ export class AALayer extends PlaceablesLayer {
     // Throw effect locally
     return canvas.autoanimations.playVideo(effectData);
   }
+
 
 }
