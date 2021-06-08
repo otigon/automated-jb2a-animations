@@ -7,6 +7,7 @@ import DemonLordHandler from './system-handlers/demonlord-handler.js';
 import SwadeHandler from './system-handlers/swade-handler.js';
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
+import SW5eHandler from "./system-handlers/sw5e-handler.js";
 
 import spellAttacks from "./animation-functions/attack-spells.js";
 import meleeWeapons from "./animation-functions/melee-attacks.js";
@@ -234,6 +235,17 @@ Hooks.on('init', () => {
                     config: true,
                 });
             }
+            break;
+        case "sw5e":
+            game.settings.register("autoanimations", "playonDamageCore", {
+                name: game.i18n.format("AUTOANIM.coreondmg_name"),
+                hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            });
+            break;
     }
     game.settings.register("autoanimations", "EnableShield", {
         name: game.i18n.format("AUTOANIM.enableshield_name"),
@@ -267,6 +279,7 @@ Hooks.on('init', () => {
                 Hooks.on("createChatMessage", async (msg) => { onCreateChatMessage(msg) });
                 break;
             case "dnd5e":
+            case "sw5e":
                 Hooks.on("createChatMessage", async (msg) => { revItUp5eCore(msg) });
                 //Hooks.on("preCreateChatMessage", async (msg, options, userId) => {dnd5ecrits(msg)});
                 break;
@@ -427,7 +440,18 @@ async function specialCaseAnimations(msg) {
 function revItUp5eCore(msg) {
     if (msg.user.id !== game.user.id) { return };
     if (msg.data?.flavor?.includes("Long Rest")) { return };
-    let handler = new Dnd5Handler(msg);
+    let handler;
+    let rollType;
+    switch (game.system.id) {
+        case "dnd5e":
+            handler = new Dnd5Handler(msg);
+            rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
+            break;
+        case "sw5e":
+            handler = new SW5eHandler(msg);
+            rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
+        break;
+    }
 
     if (game.modules.get("mars-5e")?.active) {
         if (game.user.id === msg.user.id) {
@@ -468,7 +492,7 @@ function revItUp5eCore(msg) {
         }
     }
 
-    const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
+    //const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
     if (game.settings.get("autoanimations", "playonDamageCore")) {
         if (rollType.includes("damage")) {
             //const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();

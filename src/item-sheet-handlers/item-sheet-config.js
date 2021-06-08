@@ -13,6 +13,10 @@ export class AnimationTab {
                 acceptedTypes = ['weapon', 'spell', 'consumable', 'feat', 'equipment'];
                 typeLoc = data.item.type;
                 break;
+            case ("sw5e"):
+                acceptedTypes = ['weapon', 'power', 'consumable', 'feat', 'equipment'];
+                typeLoc = data.item.type;
+                break;
             case ("pf1"):
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
                 typeLoc = data.item.type;
@@ -96,6 +100,7 @@ export class AnimationTab {
 
         switch (game.system.id) {
             case ("dnd5e"):
+            case ("sw5e"):
             case ("sfrpg"):
                 $(html.find(`.sheet-body`)).append($(
                     '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
@@ -443,6 +448,7 @@ export class AnimationTab {
         if (this.activate && !this.isActive()) {
             switch (game.system.id) {
                 case ("dnd5e"):
+                case ("sw5e"):
                 case ("swade"):
                 case ("tormenta20"):
                 case ("demonlord"):
