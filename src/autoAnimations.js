@@ -127,6 +127,33 @@ Hooks.on('init', () => {
         config: true,
     });
     switch (game.system.id) {
+        case "demonlord": {
+            game.settings.register("autoanimations", "playonhit", {
+                name: game.i18n.format("AUTOANIM.demonlordhit_name"),
+                hint: game.i18n.format("AUTOANIM.demonlordhit_hint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            });
+            game.settings.register("autoanimations", "playonmiss", {
+                name: game.i18n.format("AUTOANIM.demonlordmiss_name"),
+                hint: game.i18n.format("AUTOANIM.demonlordmiss_hint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            });
+            game.settings.register("autoanimations", "playonDamage", {
+                name: game.i18n.format("AUTOANIM.demonlorddmg_name"),
+                hint: game.i18n.format("AUTOANIM.demonlorddmg_hint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            });
+            break
+        }
         case "dnd5e":
             if (game.modules.get("midi-qol")?.active) {
                 game.settings.register("autoanimations", "playonhit", {
@@ -273,9 +300,10 @@ Hooks.on('init', () => {
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
-            case "demonlord":
+            case "demonlord": {
                 Hooks.on("DL.Action", setupDemonLord);
                 break;
+            }
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
         }
@@ -384,18 +412,24 @@ function setupTormenta20(msg) {
     revItUp(handler);
 }
 
-function setupDemonLord(...args) {
-    let handler = new DemonLordHandler(...args);
-    /*
-    if (game.user.id === msg.user.id) {
-        switch (true) {
-            case ((handler.animType === "t12") && (handler.animOverride)):
-                mistyStep(handler);
-                break;
+function setupDemonLord(data) {
+    const playAnimations = () => {
+        let handler = new DemonLordHandler(data);
+        revItUp(handler);
+    }
+
+    const getDeniedType = () => {
+        if (game.settings.get("autoanimations", "playonDamage")) {
+            return ["roll-attack"]
+        } else {
+            return ["roll-damage"]
         }
     }
-    */
-    revItUp(handler);
+
+
+    if (!getDeniedType().includes(data.type)) {
+        playAnimations()
+    }
 }
 
 async function specialCaseAnimations(msg) {

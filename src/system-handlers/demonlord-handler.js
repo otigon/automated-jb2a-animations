@@ -3,6 +3,7 @@ export default class DemonLordHandler {
         sourceToken,
         targets,
         itemId,
+        hitTargets = []
       }) {
         this._actorToken = sourceToken || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         this._itemId = itemId;
@@ -41,7 +42,13 @@ export default class DemonLordHandler {
                 break;
         }
 
-        this._allTargets = Array.from(targets)
+        this._hitTargets = Array.from(hitTargets);
+        if (game.settings.get("autoanimations", "playonhit")) {
+            this._allTargets = Array.from(hitTargets);
+        } else {
+            this._allTargets = Array.from(targets);
+        }
+        this._playOnMiss = game.settings.get("autoanimations", "playonmiss");
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
         this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
@@ -88,7 +95,6 @@ export default class DemonLordHandler {
                 this._animNameFinal = this._animName;
                 break;
         }
-        //console.log(this._animNameFinal);
         this._animColorEffect;
         switch (true) {
             case(this._animColor === ``):
@@ -98,7 +104,6 @@ export default class DemonLordHandler {
                 this._animColorEffect = this._animColor;
                 break;
         }
-        //console.log(this._animColorEffect);
     }
 
     get itemMacro () {
@@ -106,7 +111,7 @@ export default class DemonLordHandler {
     }
 
     get playOnMiss() {
-        return false;
+        return this._playOnMiss;
     }
   
     get actor() {
@@ -164,6 +169,10 @@ export default class DemonLordHandler {
     
         });
         return allTargets;
+    }
+
+    get hitTargetsId() {
+        return this._hitTargets.filter(actor => actor.id).map(actor => actor.id);
     }
   
     get targetAssistant() {
