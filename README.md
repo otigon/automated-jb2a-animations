@@ -186,7 +186,7 @@ Currently set for Line/Ray Templates, and assumes a 30 foot distance. This menu 
 A recent addition is the ability to play sounds when using items. When enabled, you can choose any Audio file and set the volume **(0.25 - 0.75 Recommended)**. The Audio Delay can be set in milliseconds to time the start of the Audio File with a particular animation.  
   
 # Available Animations  
-check the Animations.md file for available animations and colors   
+check the Animations.md (https://github.com/otigon/automated-jb2a-animations/blob/main/Animations/Available%20Animations.md) file for available animations and colors   
 
 
 
