@@ -181,6 +181,7 @@ Specific for future expansion, but currently only contains the Bardic Inspiratio
 Currently set for Line/Ray Templates, and assumes a 30 foot distance. This menu will be updated to encompass more Template types (Cones for example). You can choose the Animation Type and Color  
   
 # Item Sounds  
+  
 ![Alt text](pictures/ItemSounds.png)  
   
 A recent addition is the ability to play sounds when using items. When enabled, you can choose any Audio file and set the volume **(0.25 - 0.75 Recommended)**. The Audio Delay can be set in milliseconds to time the start of the Audio File with a particular animation.  
