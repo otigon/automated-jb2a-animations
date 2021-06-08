@@ -129,6 +129,7 @@ Hooks.on('init', () => {
     });
     switch (game.system.id) {
         case "dnd5e":
+        case "sw5e":
             if (game.modules.get("midi-qol")?.active) {
                 game.settings.register("autoanimations", "playonhit", {
                     name: game.i18n.format("AUTOANIM.midionhit_name"),
@@ -235,16 +236,6 @@ Hooks.on('init', () => {
                     config: true,
                 });
             }
-            break;
-        case "sw5e":
-            game.settings.register("autoanimations", "playonDamageCore", {
-                name: game.i18n.format("AUTOANIM.coreondmg_name"),
-                hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
-                scope: 'world',
-                type: Boolean,
-                default: false,
-                config: true,
-            });
             break;
     }
     game.settings.register("autoanimations", "EnableShield", {
@@ -450,7 +441,7 @@ function revItUp5eCore(msg) {
         case "sw5e":
             handler = new SW5eHandler(msg);
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
-        break;
+            break;
     }
 
     if (game.modules.get("mars-5e")?.active) {
