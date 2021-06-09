@@ -152,6 +152,14 @@ Hooks.on('init', () => {
                 default: false,
                 config: true,
             });
+            game.settings.register("autoanimations", "playonApplyDamage", {
+                name: game.i18n.format("AUTOANIM.demonlordapplydmg_name"),
+                hint: game.i18n.format("AUTOANIM.demonlordapplydmg_hint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            });
             break
         }
         case "dnd5e":
@@ -420,9 +428,11 @@ function setupDemonLord(data) {
 
     const getDeniedType = () => {
         if (game.settings.get("autoanimations", "playonDamage")) {
-            return ["roll-attack"]
+            return ["roll-attack", "apply-damage"]
+        } if (game.settings.get("autoanimations", "playonApplyDamage")) {
+            return ["roll-attack", "roll-damage"]
         } else {
-            return ["roll-damage"]
+            return ["roll-damage", "apply-damage"]
         }
     }
 
