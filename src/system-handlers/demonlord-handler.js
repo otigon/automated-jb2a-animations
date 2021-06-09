@@ -43,12 +43,12 @@ export default class DemonLordHandler {
         }
 
         this._hitTargets = Array.from(hitTargets);
-        if (game.settings.get("autoanimations", "playonhit")) {
+        if (game.settings.get("autoanimations", "playtrigger") === "hits") {
             this._allTargets = Array.from(hitTargets);
         } else {
             this._allTargets = Array.from(targets);
         }
-        this._playOnMiss = game.settings.get("autoanimations", "playonmiss");
+        this._playOnMiss = game.settings.get("autoanimations", "playtrigger") === "misses";
         this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
         this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();

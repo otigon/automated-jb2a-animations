@@ -128,38 +128,21 @@ Hooks.on('init', () => {
     });
     switch (game.system.id) {
         case "demonlord": {
-            game.settings.register("autoanimations", "playonhit", {
-                name: game.i18n.format("AUTOANIM.demonlordhit_name"),
-                hint: game.i18n.format("AUTOANIM.demonlordhit_hint"),
-                scope: 'world',
-                type: Boolean,
-                default: false,
-                config: true,
-            });
-            game.settings.register("autoanimations", "playonmiss", {
-                name: game.i18n.format("AUTOANIM.demonlordmiss_name"),
-                hint: game.i18n.format("AUTOANIM.demonlordmiss_hint"),
-                scope: 'world',
-                type: Boolean,
-                default: false,
-                config: true,
-            });
-            game.settings.register("autoanimations", "playonDamage", {
-                name: game.i18n.format("AUTOANIM.demonlorddmg_name"),
-                hint: game.i18n.format("AUTOANIM.demonlorddmg_hint"),
-                scope: 'world',
-                type: Boolean,
-                default: false,
-                config: true,
-            });
-            game.settings.register("autoanimations", "playonApplyDamage", {
-                name: game.i18n.format("AUTOANIM.demonlordapplydmg_name"),
-                hint: game.i18n.format("AUTOANIM.demonlordapplydmg_hint"),
-                scope: 'world',
-                type: Boolean,
-                default: false,
-                config: true,
-            });
+            game.settings.register("autoanimations", "playtrigger", {
+                name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
+                hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
+                scope: "world",
+                type: String,
+                choices: {
+                    "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
+                    "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
+                    "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
+                    "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
+                    "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
+                },
+                default: "rollattack",
+                config: true
+            })
             break
         }
         case "dnd5e":
@@ -427,9 +410,9 @@ function setupDemonLord(data) {
     }
 
     const getDeniedType = () => {
-        if (game.settings.get("autoanimations", "playonDamage")) {
+        if (game.settings.get("autoanimations", "playtrigger") === "rolldamage") {
             return ["roll-attack", "apply-damage"]
-        } if (game.settings.get("autoanimations", "playonApplyDamage")) {
+        } if (game.settings.get("autoanimations", "playtrigger") === "applydamage") {
             return ["roll-attack", "roll-damage"]
         } else {
             return ["roll-damage", "apply-damage"]
