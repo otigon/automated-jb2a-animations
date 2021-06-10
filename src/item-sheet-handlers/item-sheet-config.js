@@ -21,6 +21,10 @@ export class AnimationTab {
                 acceptedTypes = ['attack', 'spell', 'consumable', 'feat', 'equipment'];
                 typeLoc = data.item.type;
                 break;
+            case ("wfrp4e"):
+                acceptedTypes = ['weapon', 'spell', 'skill', 'ammunition', 'trapping', 'prayer', 'trait'];
+                typeLoc = data.item.type;
+                break;
             case ("tormenta20"):
                 acceptedTypes = ['arma', 'magia', 'consumivel', 'poder'];
                 typeLoc = data.item.type;
@@ -89,6 +93,10 @@ export class AnimationTab {
         if (game.system.id === "swade") {
             tabs = html.find('form nav.flexrow.tabs');
         }
+
+        if (game.system.id === "wfrp4e") {
+            tabs = html.find('form nav.sheet-tabs.tabs');
+        }
         /*
         if (tabs.find('a[data-tab=autoanimations]').length > 0) {
             return;
@@ -104,6 +112,11 @@ export class AnimationTab {
             case ("sfrpg"):
                 $(html.find(`.sheet-body`)).append($(
                     '<div class="tab animate-items" data-group="primary" data-tab="autoanimations"></div>'
+                ));
+                break;
+            case ("wfrp4e"):
+                $(html.find(`form section.content`)).append($(
+                    '<div class="tab animate-items" data-tab="autoanimations"></div>'
                 ));
                 break;
             case ("pf1"):
@@ -453,6 +466,7 @@ export class AnimationTab {
                 case ("tormenta20"):
                 case ("demonlord"):
                 case ("pf2e"):
+                case ("wfrp4e"):
                     this.app._tabs[0].activate("autoanimations");
                     this.activate = false;
                     break;

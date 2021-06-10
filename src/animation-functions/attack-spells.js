@@ -355,7 +355,7 @@ async function spellAttacks(handler) {
             var oddEvenY = Math.random() < 0.5 ? -1 : 1;
             let missMax;
             let missMin;
-            let targetSize = target.actor.data.data.traits.size;
+            let targetSize = target.actor.data?.data?.traits?.size ?? "med";
             switch (true) {
                 case targetSize === "tiny":
                 case targetSize === "sm":

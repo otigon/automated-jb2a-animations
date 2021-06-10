@@ -8,6 +8,7 @@ import SwadeHandler from './system-handlers/swade-handler.js';
 import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import SW5eHandler from "./system-handlers/sw5e-handler.js";
+import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
 
 import spellAttacks from "./animation-functions/attack-spells.js";
 import meleeWeapons from "./animation-functions/melee-attacks.js";
@@ -283,6 +284,29 @@ Hooks.on('init', () => {
                 break;
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
+                break;
+            case "wfrp4e":
+                Hooks.on("wfrp4e:rollWeaponTest", async (data, info) => {
+                    let targets = game.user.targets;
+                    wfrpWeapon(data, targets, info)
+                });
+                Hooks.on("wfrp4e:rollPrayerTest", async (data, info) => {
+                    let targets = game.user.targets;
+                    wfrpPrayer(data, targets, info)
+                });
+                Hooks.on("wfrp4e:rollCastTest", async (data, info) => {
+                    let targets = game.user.targets;
+                    wfrpCast(data, targets, info)
+                });
+                Hooks.on("wfrp4e:rollTraitTest", async (data, info) => {
+                    let targets = game.user.targets;
+                    wfrpTrait(data, targets, info)
+                });
+                Hooks.on("wfrp4e:rollTest", async (data, info) => {
+                    let targets = game.user.targets;
+                    wfrpSkill(data, targets, info)
+                });
+            break;
         }
         //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
@@ -867,8 +891,97 @@ async function criticalCheck(workflow) {
 
 }
 
+//WFRP Functions
+function wfrpWeapon(data, targets, info) {
+    if (game.user.id !== info.user) { return }
+    let item = data.weapon;
+    let allTargets = Array.from(targets);
+    let handler = new WFRP4eHandler(item, allTargets);
+    switch (true) {
+        case ((handler.animType === "t12") && (handler.animOverride)):
+            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                mistyStepOld(handler);
 
+            } else {
+                mistyStep(handler);
+            }
+            break;
+        default:
+            revItUp(handler);
+    }
+}
+function wfrpPrayer(data, targets, info) {
+    if (game.user.id !== info.user) { return }
+    let item = data.prayer;
+    let allTargets = Array.from(targets);
+    let handler = new WFRP4eHandler(item, allTargets);
+    switch (true) {
+        case ((handler.animType === "t12") && (handler.animOverride)):
+            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                mistyStepOld(handler);
 
+            } else {
+                mistyStep(handler);
+            }
+            break;
+        default:
+            revItUp(handler);
+    }
+}
+function wfrpCast(data, targets, info) {
+    if (game.user.id !== info.user) { return }
+    let item = data.spell;
+    let allTargets = Array.from(targets);
+    let handler = new WFRP4eHandler(item, allTargets);
+    switch (true) {
+        case ((handler.animType === "t12") && (handler.animOverride)):
+            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                mistyStepOld(handler);
+
+            } else {
+                mistyStep(handler);
+            }
+            break;
+        default:
+            revItUp(handler);
+    }
+}
+function wfrpTrait(data, targets, info) {
+    if (game.user.id !== info.user) { return }
+    let item = data.trait;
+    let allTargets = Array.from(targets);
+    let handler = new WFRP4eHandler(item, allTargets);
+    switch (true) {
+        case ((handler.animType === "t12") && (handler.animOverride)):
+            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                mistyStepOld(handler);
+
+            } else {
+                mistyStep(handler);
+            }
+            break;
+        default:
+            revItUp(handler);
+    }
+}
+function wfrpSkill(data, targets, info) {
+    if (game.user.id !== info.user) { return }
+    let item = data.skill;
+    let allTargets = Array.from(targets);
+    let handler = new WFRP4eHandler(item, allTargets);
+    switch (true) {
+        case ((handler.animType === "t12") && (handler.animOverride)):
+            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                mistyStepOld(handler);
+
+            } else {
+                mistyStep(handler);
+            }
+            break;
+        default:
+            revItUp(handler);
+    }
+}
 
 
 
