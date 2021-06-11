@@ -272,7 +272,29 @@ export default class MidiHandler {
     }
 
     getDistanceTo(target) {
-        return MidiQOL.getDistance(target, this._actorToken);
+        var x, x1, y, y1, d, r, segments = [], rdistance, distance;
+        for (x = 0; x < this._actorToken.data.width; x++) {
+            for (y = 0; y < this._actorToken.data.height; y++) {
+                const origin = new PIXI.Point(...canvas.grid.getCenter(this._actorToken.data.x + (canvas.dimensions.size * x), this._actorToken.data.y + (canvas.dimensions.size * y)));
+                for (x1 = 0; x1 < target.data.width; x1++) {
+                    for (y1 = 0; y1 < target.data.height; y1++) {
+                        const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));
+                        const r = new Ray(origin, dest);
+                        segments.push({ ray: r });
+                    }
+                }
+            }
+        }
+        if (segments.length === 0) {
+            return -1;
+        }
+        rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
+        distance = rdistance[0];
+        rdistance.forEach(d => {
+            if (d < distance)
+                distance = d;
+        });
+        return distance;
     }
 
     itemIncludes() {
