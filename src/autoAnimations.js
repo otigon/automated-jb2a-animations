@@ -497,6 +497,10 @@ function revItUp5eCore(msg) {
             ctaCall(handler);
         }
     }
+    if (handler.itemNameIncludes("bardic inspiration") || handler.itemNameIncludes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase())) {
+        bardicInspiration(handler);
+    }
+
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
@@ -650,9 +654,6 @@ function revItUp5eCore(msg) {
                                 explodeTemplate(handler);
                             })
                             break;
-                        case handler.itemNameIncludes("bardic inspiration"):
-                            bardicInspiration(handler);
-                            break;
                     }
                 }
 
@@ -691,6 +692,7 @@ async function revItUp(handler) {
             }
             break;
         case handler.itemNameIncludes("bardic inspiration"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase()):
             bardicInspiration(handler);
             break;
         case handler.itemNameIncludes("rapier"):
