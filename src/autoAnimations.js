@@ -306,7 +306,7 @@ Hooks.on('init', () => {
                     let targets = game.user.targets;
                     wfrpSkill(data, targets, info)
                 });
-            break;
+                break;
         }
         //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
@@ -409,6 +409,9 @@ function setupTormenta20(msg) {
                 }
                 break;
         }
+    }
+    if (game.user.id === msg.user.id) {
+        return;
     }
     revItUp(handler);
 }

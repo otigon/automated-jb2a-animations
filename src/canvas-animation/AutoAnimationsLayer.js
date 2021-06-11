@@ -1,5 +1,5 @@
 import { AACanvasAnimation } from "./canvasanimation.js"
-//import { easeFunctions } from "../module/ease.js";
+import { easeFunctions } from "./ease.js";
 
 export class AALayer extends CanvasLayer {
   constructor() {
@@ -94,9 +94,14 @@ export class AALayer extends CanvasLayer {
         if ((!data.speed || data.speed === 0) && !data.distance) {
           return;
         }
+        if (data.distance) {
+          data.speed = data.distance / video.duration;
+        }  
+        /*
         if (data.distance && data.speed == "auto") {
           data.speed = data.distance / video.duration;
         }
+        */
         // Compute final position
         const delta = video.duration * data.speed;
         const deltaX = delta * Math.cos(data.rotation)
@@ -124,7 +129,7 @@ export class AALayer extends CanvasLayer {
             name: `autoanimations.video.${randomID()}.move`,
             context: this,
             duration: animationDuration,
-            ease: easeLinear(data.ease)
+            ease: easeFunctions[data.ease]
           })
         }
         if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
@@ -142,10 +147,6 @@ export class AALayer extends CanvasLayer {
         }
 
       };
-
-      function easeLinear(x) {
-        return x;
-      }
 
       video.onerror = () => {
         this.removeChild(vidSprite);
