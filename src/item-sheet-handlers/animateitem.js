@@ -362,6 +362,7 @@ export class AnimateItem {
                 }
                 break;
             case this.itemName === "bardic inspiration":
+            case this.itemName.includes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
                     switch (this.bardAnim) {
                         case "music":
@@ -582,23 +583,23 @@ export class AnimateItem {
     }
 
     get bardColorTarget() {
-            if (moduleIncludes("jb2a_patreon")) {
-                switch (this.bardTargetAnim) {
-                    case "music":
-                        return AUTOANIM.localized(AUTOANIM.musicnoteColor);
-                        break;
-                    default:
-                        return AUTOANIM.localized(AUTOANIM.bardicInspirationColors);
-                }
-            } else {
-                switch (this.bardTargetAnim) {
-                    case "music":
-                        return AUTOANIM.localized(AUTOANIM.musicnoteColorFree);
-                        break;
-                    default:
-                        return AUTOANIM.localized(AUTOANIM.bardicInspirationColorsFree);
-                }
+        if (moduleIncludes("jb2a_patreon")) {
+            switch (this.bardTargetAnim) {
+                case "music":
+                    return AUTOANIM.localized(AUTOANIM.musicnoteColor);
+                    break;
+                default:
+                    return AUTOANIM.localized(AUTOANIM.bardicInspirationColors);
             }
+        } else {
+            switch (this.bardTargetAnim) {
+                case "music":
+                    return AUTOANIM.localized(AUTOANIM.musicnoteColorFree);
+                    break;
+                default:
+                    return AUTOANIM.localized(AUTOANIM.bardicInspirationColorsFree);
+            }
+        }
     }
     get newAudio() {
         return this.allSounds.item.file;
