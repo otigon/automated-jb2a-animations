@@ -411,25 +411,8 @@ function setupTormenta20(msg) {
 }
 
 function setupDemonLord(data) {
-    const playAnimations = () => {
-        let handler = new DemonLordHandler(data);
-        revItUp(handler);
-    }
-
-    const getDeniedType = () => {
-        if (game.settings.get("autoanimations", "playtrigger") === "rolldamage") {
-            return ["roll-attack", "apply-damage"]
-        } if (game.settings.get("autoanimations", "playtrigger") === "applydamage") {
-            return ["roll-attack", "roll-damage"]
-        } else {
-            return ["roll-damage", "apply-damage"]
-        }
-    }
-
-
-    if (!getDeniedType().includes(data?.type ?? "")) {
-        playAnimations()
-    }
+    let handler = new DemonLordHandler(data);
+    revItUp(handler);
 }
 
 async function specialCaseAnimations(msg) {
