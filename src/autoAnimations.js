@@ -791,6 +791,7 @@ async function revItUp(handler) {
         case (handler.itemNameIncludes("disintegrate")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
         case handler.itemNameIncludes("guiding bolt"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGuidingBolt").toLowerCase()):
             spellAttacks(handler);
             break;
         case (handler.itemNameIncludes("shield")):
