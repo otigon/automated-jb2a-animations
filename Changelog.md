@@ -1,3 +1,14 @@
+0.3.66 - 0.3.73  
+- Star Wars 5e Support added  
+- SW5e Midi support  
+- WFRP 4e Support Added  
+- Tormenta 20 fix for dual animations  
+- Added aniamtions linear easing back in  
+- Localization fixes  
+- Fix for range checks for clients using older versions of Midi-QOL  
+- Upgrade for Shadow of the Demon Lord system thanks to Patrick Porto  
+  
+  
 0.3.51 - 0.3.65  
 - Removed Dependancy on FX Master. A-A now has an option to play Animations ABOVE overhead tiles. This defaults to playing underneath and makes for some great depth on scenes.  
 - Added Video Previews for animations, configureable in the Module Settings. This is defaulted to OFF  
