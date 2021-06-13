@@ -1,11 +1,31 @@
 export default class DemonLordHandler {
     constructor({
+        type: eventType,
         sourceToken,
         targets,
         itemId,
+        hitTargets = []
       }) {
         this._actorToken = sourceToken || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         this._itemId = itemId;
+        const item = this._actorToken.actor?.items?.get(itemId);
+
+        const canRunAnimations = () => {
+            const commonEventTypes = ["apply-healing"]
+            if (!item?.hasDamage() && !item?.hasHealing()) {
+                return true
+            }
+            if (game.settings.get("autoanimations", "playtrigger") === "rolldamage") {
+                return commonEventTypes.concat(["roll-damage"]).includes(eventType)
+            } if (game.settings.get("autoanimations", "playtrigger") === "applydamage") {
+                return commonEventTypes.concat(["apply-damage"]).includes(eventType)
+            }
+            return commonEventTypes.concat(["roll-attack"]).includes(eventType)
+        }
+        
+        if (eventType && !canRunAnimations()) {
+            return
+        }
 
         switch (this._actorToken.actor.data.data.characteristics.size) {
             case "1/8":
@@ -41,15 +61,24 @@ export default class DemonLordHandler {
                 break;
         }
 
-        this._allTargets = Array.from(targets)
-        this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
-        this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
-        this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
+        const getTargets = () => {
+            if (game.settings.get("autoanimations", "playtrigger") === "hits") {
+                return Array.from(hitTargets);
+            }
+            return Array.from(targets);
+        }
+
+        this._hitTargets = Array.from(hitTargets);
+        this._allTargets = getTargets()
+        this._playOnMiss = game.settings.get("autoanimations", "playtrigger") === "misses";
+        this._itemName = item?.name?.toLowerCase() ?? "";
+        this._itemSource = item?.data?.data?.source?.toLowerCase() ?? "";
+        this._itemType = item?.data?.type?.toLowerCase();
 
         // getting flag data from Animation Tab
-        this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
+        this._flags = item?.data?.flags?.autoanimations ?? "";
         // 
-        this._animColor = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations?.color?.toLowerCase() ?? "";
+        this._animColor = item?.data?.flags?.autoanimations?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._animExRadius = this._flags.explodeRadius?.toLowerCase() ?? "";
@@ -88,7 +117,6 @@ export default class DemonLordHandler {
                 this._animNameFinal = this._animName;
                 break;
         }
-        //console.log(this._animNameFinal);
         this._animColorEffect;
         switch (true) {
             case(this._animColor === ``):
@@ -98,7 +126,6 @@ export default class DemonLordHandler {
                 this._animColorEffect = this._animColor;
                 break;
         }
-        //console.log(this._animColorEffect);
     }
 
     get itemMacro () {
@@ -106,7 +133,7 @@ export default class DemonLordHandler {
     }
 
     get playOnMiss() {
-        return false;
+        return this._playOnMiss;
     }
   
     get actor() {
@@ -164,6 +191,10 @@ export default class DemonLordHandler {
     
         });
         return allTargets;
+    }
+
+    get hitTargetsId() {
+        return this._hitTargets.filter(actor => actor.id).map(actor => actor.id);
     }
   
     get targetAssistant() {

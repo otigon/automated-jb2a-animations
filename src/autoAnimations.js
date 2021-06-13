@@ -129,6 +129,26 @@ Hooks.on('init', () => {
         config: true,
     });
     switch (game.system.id) {
+        case "demonlord": {
+            if (!(game.data.version === "0.7.9" || game.data.version === "0.7.10")) {
+                game.settings.register("autoanimations", "playtrigger", {
+                    name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
+                    hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
+                    scope: "world",
+                    type: String,
+                    choices: {
+                        "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
+                        "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
+                        "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
+                        "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
+                        "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
+                    },
+                    default: "rollattack",
+                    config: true
+                })
+            }
+            break
+        }
         case "dnd5e":
         case "sw5e":
             if (game.modules.get("midi-qol")?.active) {
@@ -278,10 +298,15 @@ Hooks.on('init', () => {
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
-            case "demonlord":
-                Hooks.on("DL.ApplyDamage", setupDemonLord);
-                Hooks.on("DL.ApplyHealing", setupDemonLord);
+            case "demonlord": {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                    Hooks.on("DL.ApplyDamage", setupDemonLord);
+                    Hooks.on("DL.ApplyHealing", setupDemonLord);
+                } else {
+                    Hooks.on("DL.Action", setupDemonLord);
+                }
                 break;
+            }
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
                 break;
@@ -416,17 +441,8 @@ function setupTormenta20(msg) {
     revItUp(handler);
 }
 
-function setupDemonLord(...args) {
-    let handler = new DemonLordHandler(...args);
-    /*
-    if (game.user.id === msg.user.id) {
-        switch (true) {
-            case ((handler.animType === "t12") && (handler.animOverride)):
-                mistyStep(handler);
-                break;
-        }
-    }
-    */
+function setupDemonLord(data) {
+    let handler = new DemonLordHandler(data);
     revItUp(handler);
 }
 
