@@ -60,9 +60,14 @@ export default class MidiHandler {
                 break;
             default:
                 this._allTargets = Array.from(workflow.targets);
-            }
-        
+        }
+
         this._playOnMiss = game.settings.get("autoanimations", "playonmiss");
+
+        const midiSettings = game.settings.get("midi-qol", "ConfigSettings")
+        this._gmAD = midiSettings.gmAutoDamage;
+        this._userAD = midiSettings.autoRollDamage;
+    
         /*
         if (game.settings.get("autoanimations", "playonhit")) {
             this._allTargets = Array.from(workflow.hitTargets);
@@ -90,7 +95,7 @@ export default class MidiHandler {
         //console.log(this._animNameFinal);
         this._animColorEffect;
         switch (true) {
-            case(this._animColor === ``):
+            case (this._animColor === ``):
                 this._animColorEffect = this._itemSource;
                 break;
             default:
@@ -101,7 +106,7 @@ export default class MidiHandler {
 
     }
 
-    get itemMacro () {
+    get itemMacro() {
         return this._itemMacro;
     }
 
@@ -119,7 +124,7 @@ export default class MidiHandler {
             reach += 5;
         }
         if (this._item.data?.data?.properties?.rch) {
-            reach +=5;
+            reach += 5;
         }
         return reach;
     }
@@ -159,8 +164,8 @@ export default class MidiHandler {
     get animColor() {
         return this._animColorEffect;
     }
-            
-    get color () {
+
+    get color() {
         return this._animColor;
     }
 
@@ -247,7 +252,7 @@ export default class MidiHandler {
     get bardAnim() {
         return this._bardAnim;
     }
-    
+
     get bards() {
         return this._bards;
     }
@@ -263,7 +268,7 @@ export default class MidiHandler {
     get explodeSound() {
         return this._explodeSound
     }
-  
+
     get spellLoops() {
         return this._spellLoops;
     }
@@ -274,6 +279,10 @@ export default class MidiHandler {
 
     get templates() {
         return this._templates;
+    }
+
+    get autoDamage() {
+        return game.user.isGM ? this._gmAD : this._userAD;
     }
 
     getDistanceTo(target) {

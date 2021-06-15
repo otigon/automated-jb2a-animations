@@ -47,6 +47,7 @@ export default class SW5eHandler {
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
         this._templates = this._flags.templates ?? "";
+        this._item = this._actorToken.actor.items?.get(itemId) ?? "";
 
         //console.log(this._animName);
         this._animNameFinal;
@@ -236,6 +237,10 @@ export default class SW5eHandler {
     
     get templates() {
         return this._templates;
+    }
+    
+    get hasAttack() {
+        return this._item.hasAttack;
     }
 
     getDistanceTo(target) {

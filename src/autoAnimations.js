@@ -459,7 +459,7 @@ async function specialCaseAnimations(msg) {
                 mistyStep(handler);
             }
             break;
-        case (handler.animType === "t8"  && handler.animOverride):
+        case (handler.animType === "t8" && handler.animOverride):
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateEffects(handler, msg);
             })
@@ -555,12 +555,6 @@ function revItUp5eCore(msg) {
                                         shatterAuto(handler);
                                     })
                                     break;
-                                case (handler.itemNameIncludes("grenade")):
-                                case (handler.itemNameIncludes("bomb")):
-                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
-                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
-                                default:
-                                    revItUp(handler);
                             }
                             break;
                         case (false):
@@ -569,10 +563,7 @@ function revItUp5eCore(msg) {
                     }
                 }
 
-            } else {
-                log("MRE is NOT active");
-                revItUp(handler);
-            }
+            } else { log("MRE is NOT active"); revItUp(handler); }
         }
         switch (true) {
             case (handler.itemTypeIncludes("spell") && handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase())):
@@ -584,7 +575,7 @@ function revItUp5eCore(msg) {
         if (rollType.includes("damage")) {
             log("damage roll");
         } else
-            if (rollType.includes("attack")) {
+            if (rollType.includes("attack") || !handler.hasAttack) {
                 if (handler.itemSound) {
                     itemSound(handler);
                 }
@@ -602,6 +593,7 @@ function revItUp5eCore(msg) {
                         itemSound(handler);
                     }
                     switch (true) {
+                        /*
                         case (handler.itemNameIncludes("cure", "wound")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                         case (handler.itemNameIncludes("heal", "word")):
@@ -632,6 +624,7 @@ function revItUp5eCore(msg) {
                         //case (handler.itemNameIncludes("siege")):
                         //rangedWeapons(handler)
                         //break;
+                        */
                         case (handler.itemNameIncludes("thunderwave")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
                             Hooks.once("createMeasuredTemplate", () => {
@@ -671,7 +664,7 @@ async function revItUp(handler) {
                         templateEffects(handler);
                         return;
                     }
-                    } else if (handler.animType === "t8" && handler.animOverride) {
+                } else if (handler.animType === "t8" && handler.animOverride) {
                     Hooks.once("createMeasuredTemplate", (msg) => {
                         templateEffects(handler, msg);
                     });
@@ -771,7 +764,17 @@ async function revItUp(handler) {
             break;
         case (handler.itemNameIncludes("thunderwave")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
-            thunderwaveAuto(handler);
+            switch (true) {
+                case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
+                    console.log(handler.autoDamage);
+                    thunderwaveAuto(handler);
+                    break;
+                default:
+                    Hooks.once("createMeasuredTemplate", () => {
+                        console.log(handler.autoDamage);
+                        thunderwaveAuto(handler);
+                    })
+            }
             break;
         case (handler.itemNameIncludes("shatter")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShatter").toLowerCase()):
