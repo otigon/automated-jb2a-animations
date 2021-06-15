@@ -41,22 +41,12 @@ const log = () => { };
 
 function registerLayer() {
     if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-        const layers = mergeObject(Canvas.layers, {
+        CONFIG.Canvas.layers = mergeObject(CONFIG.Canvas.layers, {
             autoanimations: AALayer
-        });
-        Object.defineProperty(Canvas, 'layers', {
-            get: function () {
-                return layers
-            }
         });
     } else {
-        const layers = foundry.utils.mergeObject(Canvas.layers, {
+        CONFIG.Canvas.layers = foundry.utils.mergeObject(CONFIG.Canvas.layers, {
             autoanimations: AALayer
-        });
-        Object.defineProperty(Canvas, 'layers', {
-            get: function () {
-                return layers
-            }
         });
     }
 }
