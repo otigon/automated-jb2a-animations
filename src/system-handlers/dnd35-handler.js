@@ -41,6 +41,7 @@ export default class Dnd35Handler {
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
+        this._templates = this._flags.templates ?? "";
 
         //console.log(this._animName);
         this._animNameFinal;
@@ -219,6 +220,10 @@ export default class Dnd35Handler {
         return this._divineSmite;
     }
     
+    get templates() {
+        return this._templates;
+    }
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {

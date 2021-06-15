@@ -106,6 +106,7 @@ export default class DemonLordHandler {
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
+        this._templates = this._flags.templates ?? "";
 
         //console.log(this._animName);
         this._animNameFinal;
@@ -327,6 +328,10 @@ export default class DemonLordHandler {
 
     get divineSmite() {
         return this._divineSmite;
+    }
+
+    get templates() {
+        return this._templates;
     }
 
     getDistanceTo(target) {

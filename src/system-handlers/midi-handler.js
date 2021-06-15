@@ -42,6 +42,7 @@ export default class MidiHandler {
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
+        this._templates = this._flags.templates ?? "";
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
@@ -269,6 +270,10 @@ export default class MidiHandler {
 
     get divineSmite() {
         return this._divineSmite;
+    }
+
+    get templates() {
+        return this._templates;
     }
 
     getDistanceTo(target) {

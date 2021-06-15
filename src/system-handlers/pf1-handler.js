@@ -45,6 +45,7 @@ export default class Pf1Handler {
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
+        this._templates = this._flags.templates ?? "";
 
         this._animNameFinal;
         switch (true) {
@@ -224,6 +225,10 @@ export default class Pf1Handler {
         return this._divineSmite;
     }
     
+    get templates() {
+        return this._templates;
+    }
+
     getDistanceTo(target) {
         const scene = game.scenes.active;
         const gridSize = scene.data.grid;

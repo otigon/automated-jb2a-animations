@@ -21,7 +21,6 @@ import shatterAuto from "./animation-functions/shatter.js";
 import onTargetSpells from "./animation-functions/healing-spells.js";
 import magicMissile from "./animation-functions/magic-missile.js";
 import arrowOptionExplode from "./animation-functions/arrow.js";
-import explodeTemplate from "./animation-functions/explosion-template.js";
 import explodeOnTarget from "./animation-functions/explode-ontarget.js";
 import castOnSelf from "./animation-functions/shield.js";
 import selfCast from "./animation-functions/emanations.js";
@@ -30,8 +29,8 @@ import huntersMark from "./animation-functions/hunters-mark.js";
 import bardicInspiration from "./animation-functions/bardic-inspiration.js";
 import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
-import breathWeapon from "./animation-functions/breath-weapons.js";
 import mistyStepOld from "./animation-functions/misty-step-old.js";
+import templateEffects from "./animation-functions/template-effects.js";
 
 import { AALayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
@@ -460,12 +459,9 @@ async function specialCaseAnimations(msg) {
                 mistyStep(handler);
             }
             break;
-        case handler.animType === "t14":
-            Hooks.once("createMeasuredTemplate", () => {
-                if (handler.itemSound) {
-                    itemSound(handler);
-                }
-                breathWeapon(handler);
+        case (handler.animType === "t8"  && handler.animOverride):
+            Hooks.once("createMeasuredTemplate", (msg) => {
+                templateEffects(handler, msg);
             })
             break;
     }
@@ -498,11 +494,6 @@ function revItUp5eCore(msg) {
                         mistyStep(handler);
                     }
                     break;
-                case handler.animType === "t14":
-                    Hooks.once("createMeasuredTemplate", () => {
-                        breathWeapon(handler);
-                    })
-                    break;
             }
         }
         return;
@@ -515,6 +506,13 @@ function revItUp5eCore(msg) {
     }
     if (handler.itemNameIncludes("bardic inspiration") || handler.itemNameIncludes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase())) {
         bardicInspiration(handler);
+    }
+
+    if (handler.animType === "t8" && handler.animOverride) {
+        Hooks.once("createMeasuredTemplate", (msg) => {
+            templateEffects(handler, msg);
+        });
+        return;
     }
 
     if (game.user.id === msg.user.id) {
@@ -561,16 +559,6 @@ function revItUp5eCore(msg) {
                                 case (handler.itemNameIncludes("bomb")):
                                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
                                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
-                                case (handler.animType === "t8"):
-                                    Hooks.once("createMeasuredTemplate", () => {
-                                        explodeTemplate(handler);
-                                    })
-                                    break;
-                                case handler.animType === "t14":
-                                    Hooks.once("createMeasuredTemplate", () => {
-                                        breathWeapon(handler);
-                                    })
-                                    break;
                                 default:
                                     revItUp(handler);
                             }
@@ -614,11 +602,6 @@ function revItUp5eCore(msg) {
                         itemSound(handler);
                     }
                     switch (true) {
-                        case handler.animType === "t14":
-                            Hooks.once("createMeasuredTemplate", () => {
-                                breathWeapon(handler);
-                            })
-                            break;
                         case (handler.itemNameIncludes("cure", "wound")):
                         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
                         case (handler.itemNameIncludes("heal", "word")):
@@ -661,15 +644,6 @@ function revItUp5eCore(msg) {
                                 shatterAuto(handler);
                             })
                             break;
-                        case (handler.itemNameIncludes("grenade")):
-                        case (handler.itemNameIncludes("bomb")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
-                        case (handler.animType === "t8"):
-                            Hooks.once("createMeasuredTemplate", () => {
-                                explodeTemplate(handler);
-                            })
-                            break;
                     }
                 }
 
@@ -688,6 +662,30 @@ async function revItUp(handler) {
     if (handler.itemSound) {
         itemSound(handler);
     }
+
+    if (game.modules.get("midi-qol")?.active) { } else {
+        switch (game.system.id) {
+            case "dnd5e":
+                if (game.modules.get("mars-5e")?.active) {
+                    if (handler.animType === "t8" && handler.animOverride) {
+                        templateEffects(handler);
+                        return;
+                    }
+                    } else if (handler.animType === "t8" && handler.animOverride) {
+                    Hooks.once("createMeasuredTemplate", (msg) => {
+                        templateEffects(handler, msg);
+                    });
+                    return;
+                }
+                break;
+            default:
+                if (handler.animType === "t8" && handler.animOverride) {
+                    templateEffects(handler);
+                    return;
+                }
+        }
+    }
+
     switch (true) {
         // Use xxx in Item Source Field to exclude an item for On-Use customization
         case (handler.itemIncludes("xxx")):
@@ -695,9 +693,6 @@ async function revItUp(handler) {
             break;
         case ((handler.animType === "t9") && handler.animOverride):
             explodeOnTarget(handler);
-            break;
-        case ((handler.animType === "t8") && handler.animOverride):
-            explodeTemplate(handler);
             break;
         case ((handler.animType === "t10") && handler.animOverride):
             selfCast(handler);
@@ -814,12 +809,6 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase()):
             castOnSelf(handler);
             break;
-        case (handler.itemNameIncludes("grenade")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGrenade").toLowerCase()):
-        case (handler.itemNameIncludes("bomb")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBomb").toLowerCase()):
-            explodeTemplate(handler);
-            break;
         case (handler.itemNameIncludes("bite") && !handler.itemNameIncludes("frost")):
         case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()) && !handler.itemNameIncludes("frost")):
         case (handler.itemNameIncludes("claw")):
@@ -830,25 +819,11 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHM").toLowerCase()):
             huntersMark(handler)
             break;
-        /*
-        case (handler.itemNameIncludes("potion", "heal")):
-            castOnSelf(handler);
-            break;
-        case (handler.itemNameIncludes("second", "wind")):
-            castOnSelf(handler);
-            break;
-        */
         case handler.itemNameIncludes("unarmed strike"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
         case handler.itemNameIncludes("flurry of blows"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
             unarmedStrike(handler);
-            break;
-        case handler.animType === "t14":
-            if (game.modules.get("midi-qol")?.active) {
-            } else {
-                breathWeapon(handler);
-            }
             break;
     }
 }
