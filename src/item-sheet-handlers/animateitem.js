@@ -756,7 +756,7 @@ export class AnimateItem {
                             return;
                     }
                 } else {
-                    switch (this.explodeVariant) {
+                    switch (this.tempAnim) {
                         case ('ex01'):
                             return AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
                             break;
