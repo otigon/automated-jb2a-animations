@@ -1,3 +1,14 @@
+0.3.78  
+- Hot Fix for those running on Foundry 0.7.9 or 0.7.10  
+  
+  
+0.3.75-0.3.77  
+- Minor Fixes
+- Added a custom File Picker to the Templates Option in the A-A tab for usability with any video files. Note that actual implementation with that may vary depending on how the file is rendered or its size  
+- KO Localization update  
+- Updated how AA registers its animation layer  
+  
+
 0.3.74  
 - BREAKING: Items that were configured with the "EXPLOSIONS (Circle Template)" or "BREATH WEAPONS" option in the A-A tab WILL NOT play their animations and need to be reconfigured  
 - The above mentioned options have been replaced with a new TEMPLATES option that will automatically play the configured animation on top of the Template when placed  
