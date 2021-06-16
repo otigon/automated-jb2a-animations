@@ -46,7 +46,7 @@ async function templateEffects(handler, msg) {
     let videoHeight = videoData.height;
     let videoWidth = videoData.width;
     let duration = videoData.duration * 1000;
-    console.log(duration);
+    //console.log(duration);
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
@@ -60,7 +60,7 @@ async function templateEffects(handler, msg) {
         } else {
             template = await canvas.templates.documentCollection.get(templateID);
         }
-        console.log(template);
+        //console.log(template);
         let templateW;
         let templateLength;
         let scaleX;
@@ -107,8 +107,8 @@ async function templateEffects(handler, msg) {
                 yAnchor = 0.5;
                 break;
         }
-        console.log(scaleY);
-        console.log(scaleX);
+        //console.log(scaleY);
+        //console.log(scaleX);
         let spellAnim =
         {
             file: filePath,
