@@ -1,3 +1,9 @@
+0.3.74  
+- BREAKING: Items that were configured with the "EXPLOSIONS (Circle Template)" or "BREATH WEAPONS" option in the A-A tab WILL NOT play their animations and need to be reconfigured  
+- The above mentioned options have been replaced with a new TEMPLATES option that will automatically play the configured animation on top of the Template when placed  
+- Animations automatically scale to the template size and rotation  
+  
+  
 0.3.66 - 0.3.73  
 - Star Wars 5e Support added  
 - SW5e Midi support  

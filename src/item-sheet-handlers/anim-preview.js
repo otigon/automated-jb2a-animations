@@ -13,7 +13,8 @@ function animPreview(item, name) {
     //console.log(name);
     let color;
     let obj02;
-    let bwType;
+    let tempType;
+    let tempAnim;
     let spellVar;
     let preview;
     if (item.override) {
@@ -550,128 +551,11 @@ function animPreview(item, name) {
                 }
                 break;
             case item.animType === 't8':
-                switch (item.explodeVariant) {
-                    case '01':
-                    case game.i18n.format("AUTOANIM.variant01").toLowerCase():
-                        obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
-                                color = 'orange';
-                                break;
-                            default:
-                                color = item.explodeColor;
-                        }
-                        if (obj01[obj02]['01'][color] === undefined) { color = 'orange' };
-                        preview = obj01[obj02]['01'][color];
-                        break;
-                    case '02':
-                    case game.i18n.format("AUTOANIM.variant02").toLowerCase():
-                        obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
-                                color = 'blue';
-                                break;
-                            default:
-                                color = item.explodeColor;
-                        }
-                        if (obj01[obj02]['02'][color] === undefined) { color = 'blue' };
-                        preview = obj01[obj02]['02'][color];
-                        break;
-                    case '03':
-                    case game.i18n.format("AUTOANIM.variant03").toLowerCase():
-                        obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
-                                color = 'yellow blue';
-                                break;
-                            default:
-                                color = item.explodeColor;
-                        }
-                        if (obj01[obj02]['03'][color] === undefined) { color = 'yellow blue' };
-                        preview = obj01[obj02]['03'][color];
-                        break;
-                    case '04':
-                    case game.i18n.format("AUTOANIM.variant04").toLowerCase():
-                        obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
-                                color = 'blue';
-                                break;
-                            default:
-                                color = item.explodeColor;
-                        }
-                        if (obj01[obj02]['04'][color] === undefined) { color = 'blue' };
-                        preview = obj01[obj02]['04'][color];
-                        break;
-                    case '05':
-                    case game.i18n.format("AUTOANIM.variant05").toLowerCase():
-                        obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
-                                color = 'blue white';
-                                break;
-                            default:
-                                color = item.explodeColor;
-                        }
-                        if (obj01[obj02]['05'][color] === undefined) { color = 'blue white' };
-                        preview = obj01[obj02]['05'][color];
-                        break;
-                    case '06':
-                    case game.i18n.format("AUTOANIM.variant06").toLowerCase():
-                        obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
-                                color = 'blue white';
-                                break;
-                            default:
-                                color = item.explodeColor;
-                        }
-                        if (obj01[obj02]['06'][color] === undefined) { color = 'blue white' };
-                        preview = obj01[obj02]['06'][color];
-                        break;
-                    case '07':
-                    case game.i18n.format("AUTOANIM.variant07").toLowerCase():
-                        obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
-                                color = 'blue white';
-                                break;
-                            default:
-                                color = item.explodeColor;
-                        }
-                        if (obj01[obj02]['07'][color] === undefined) { color = 'blue white' };
-                        preview = obj01[obj02]['07'][color];
-                        break;
-                    case 'shatter':
-                    case game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
-                        obj02 = "shatter";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
-                                color = 'blue';
-                                break;
-                            default:
-                                color = item.explodeColor;
-                        }
-                        if (obj01[obj02][color] === undefined) { color = 'blue' };
-                        preview = obj01[obj02][color];
-                        break;
-                }
+                obj02 = "templates";
+                tempType = item.templates.tempType;
+                color = item.templates.tempColor;
+                tempAnim = item.templates.tempAnim;
+                preview = obj01[obj02][tempType][tempAnim][color];
                 break;
             case item.animType === 't9':
                 switch (item.explodeVariant) {
@@ -1101,7 +985,6 @@ function animPreview(item, name) {
                         break;
                 }
                 break;
-            case item.animType === 't14':
                 obj02 = 'breathweapons';
                 switch (itemName) {
                     case 'fire':
@@ -1116,7 +999,7 @@ function animPreview(item, name) {
                             default:
                                 color = item.color;
                         }
-                        if (obj01[obj02]['line'][bwType][color] === undefined) {color = 'orange'};
+                        if (obj01[obj02]['line'][bwType][color] === undefined) { color = 'orange' };
                         preview = obj01[obj02]['line'][bwType][color];
                         break;
                     case 'acid':
@@ -1131,7 +1014,7 @@ function animPreview(item, name) {
                             default:
                                 color = item.color;
                         }
-                        if (obj01[obj02]['line'][bwType][color] === undefined) {color = 'orange'};
+                        if (obj01[obj02]['line'][bwType][color] === undefined) { color = 'orange' };
                         preview = obj01[obj02]['line'][bwType][color];
                         break;
                     case 'lightning':
@@ -1146,7 +1029,7 @@ function animPreview(item, name) {
                             default:
                                 color = item.color;
                         }
-                        if (obj01[obj02]['line'][bwType][color] === undefined) {color = 'orange'};
+                        if (obj01[obj02]['line'][bwType][color] === undefined) { color = 'orange' };
                         preview = obj01[obj02]['line'][bwType][color];
                         break;
                 }

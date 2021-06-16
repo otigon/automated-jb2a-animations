@@ -14,6 +14,7 @@ export default class Dnd5Handler {
         this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
         this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
         this._itemMacro = this._actorToken.actor.items?.get(itemId)?.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._item = this._actorToken.actor.items?.get(itemId) ?? "";
 
         // getting flag data from Animation Tab
         this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
@@ -46,6 +47,7 @@ export default class Dnd5Handler {
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
+        this._templates = this._flags.templates ?? "";
       
         //console.log(this._animName);
         this._animNameFinal;
@@ -231,6 +233,14 @@ export default class Dnd5Handler {
 
     get divineSmite() {
         return this._divineSmite;
+    }
+
+    get templates() {
+        return this._templates;
+    }
+
+    get hasAttack() {
+        return this._item.hasAttack;
     }
     
     getDistanceTo(target) {

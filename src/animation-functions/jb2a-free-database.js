@@ -406,3 +406,79 @@ JB2AFREEDB.divinesmite = {
         'blue yellow': 'modules/JB2A_DnD5e/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400',
     }
 }
+
+JB2AFREEDB.templates = {
+    'ray': {
+        'acid': {
+            'green': 'modules/JB2A_DnD5e/Library/Generic/Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Green_30ft_Line_Burst_1200x200.webm',
+        },
+        'fire': {
+            'orange': 'modules/JB2A_DnD5e/Library/Generic/Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Line_Burst_1200x200.webm',
+        },
+        'lightning': {
+            'blue': 'modules/JB2A_DnD5e/Library/Generic/Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Blue_30ft_Line_Burst_1200x200.webm',
+        }
+    },
+
+    'cone': {
+        'cold': {
+            'blue': 'modules/JB2A_DnD5e/Library/Generic/Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Blue_30ft_Cone_Burst_600x600.webm',
+        },
+        'coneofcold': {
+            'blue': 'modules/JB2A_DnD5e/Library/5th_Level/Cone_Of_Cold/ConeOfCold_01_Regular_Blue_600x600.webm',
+        },
+        'fire01': {
+            'orange': 'modules/JB2A_DnD5e/Library/Generic/Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Cone_Burst_600x600.webm',
+        },
+        'fire02': {
+            'orange': 'modules/JB2A_DnD5e/Library/Generic/Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Cone_Burst_600x600.webm',
+        },
+        'burninghands01': {
+            'orange': 'modules/JB2A_DnD5e/Library/1st_Level/Burning_Hands/BurningHands_01_Regular_Orange_600x600.webm',
+        },
+        'burninghands02': {
+            'orange': 'modules/JB2A_DnD5e/Library/1st_Level/Burning_Hands/BurningHands_01_Regular_Orange_600x600.webm',
+        },
+        'poison': {
+            'green': 'modules/JB2A_DnD5e/Library/Generic/Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Green_30ft_Cone_Burst_600x600.webm',
+        }
+    },
+    'circle': {
+        "ex01": {
+            "orange": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
+        },
+        "ex02": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
+        },
+        "ex03": {
+            "yellow blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm'
+        },
+        "ex04": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
+        },
+        "snowflake": {
+            "blue white": 'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+        },
+        "outpulse01": {
+            "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
+        },
+        "outpulse02": {
+            "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
+        },
+        "shatter": {
+            'purple': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Purple_400x400.webm',
+            'red': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Red_400x400.webm',
+            'blue': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Blue_400x400.webm',
+            'green': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Green_400x400.webm',
+            'orange': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Orange_400x400.webm'        
+        }
+    },
+    'rect': {
+        "entangle": {
+            'brown': "modules/JB2A_DnD5e/Library/1st_Level/Entangle/Entangle_01_Brown_400x400.webm",
+            'green': "modules/JB2A_DnD5e/Library/1st_Level/Entangle/Entangle_01_Green_400x400.webm",
+            'yellow': "modules/JB2A_DnD5e/Library/1st_Level/Entangle/Entangle_01_Yellow_400x400.webm"
+        }
+    }
+}
+

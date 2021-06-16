@@ -206,6 +206,9 @@ export class AnimationTab {
         let divineOptions = this.html.find('.dsOptions');
         let bwWarning = this.html.find('.bwWarning');
 
+        let standardOptions = this.html.find('.standard-options');
+        let templateOptions = this.html.find('.template-options');
+
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
         let animType = this.animateItem.animType;
@@ -222,6 +225,14 @@ export class AnimationTab {
             videoPreview.show();
         }
         */
+
+        if (animType === "t8" && override) {
+            standardOptions.hide();
+            templateOptions.show();
+        } else {
+            standardOptions.show();
+            templateOptions.hide();
+        }
         if (animType === "t14" && override) {
             bwWarning.show();
         } else {
@@ -373,7 +384,6 @@ export class AnimationTab {
             case (explosion && (animType === "t3") && override):
                 explosionOptions.show();
                 break;
-            case ((animType === "t8") && override):
             case ((animType === "t9") && override):
             case ((animType === "t10") && override):
                 explosionOptions.show();
