@@ -41,26 +41,31 @@ const log = () => { };
 
 function registerLayer() {
     if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-        CONFIG.Canvas.layers = mergeObject(CONFIG.Canvas.layers, {
+        const layers = mergeObject(Canvas.layers, {
             autoanimations: AALayer
+        });
+        Object.defineProperty(Canvas, 'layers', {
+            get: function () {
+                return layers
+            }
         });
     } else {
         CONFIG.Canvas.layers = foundry.utils.mergeObject(CONFIG.Canvas.layers, {
             autoanimations: AALayer
         });
+        if (!Object.is(Canvas.layers, CONFIG.Canvas.layers)) {
+            console.error('Possible incomplete layer injection by other module detected! Trying workaround...')
+    
+            const layers = Canvas.layers
+            Object.defineProperty(Canvas, 'layers', {
+                get: function () {
+                    return foundry.utils.mergeObject(layers, CONFIG.Canvas.layers)
+                }
+            })
+        }    
     }
 
     // workaround for other modules
-    if (!Object.is(Canvas.layers, CONFIG.Canvas.layers)) {
-        console.error('Possible incomplete layer injection by other module detected! Trying workaround...')
-
-        const layers = Canvas.layers
-        Object.defineProperty(Canvas, 'layers', {
-            get: function () {
-                return foundry.utils.mergeObject(layers, CONFIG.Canvas.layers)
-            }
-        })
-    }
 }
 
 Hooks.on('init', () => {
