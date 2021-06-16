@@ -278,5 +278,7 @@
     "AUTOANIM.snowflake": "Snowflake Burst",
     "AUTOANIM.outpulse01": "Outpulse 01",
     "AUTOANIM.outpulse02": "Outpulse 02",
-    "AUTOANIM.entangle": "Entangle"
+    "AUTOANIM.entangle": "Entangle",
+
+    "AUTOANIM.customAnim": "Custom Animation?"
 }
