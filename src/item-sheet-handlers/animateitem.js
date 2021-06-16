@@ -55,6 +55,8 @@ export class AnimateItem {
         this.tempColor = this.data.templates.tempColor;
         this.tempAnim = this.data.templates.tempAnim;
         this.tempLoop = this.data.templates.tempLoop;
+        this.customAnim = this.data.templates.customAnim;
+        this.customPath = this.data.templates.customPath
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -120,6 +122,8 @@ export class AnimateItem {
                 tempAnim: ``,
                 tempColor: ``,
                 tempLoop: 1,
+                customAnim: false,
+                customPath: ""
             }
         }
     }
@@ -789,6 +793,10 @@ export class AnimateItem {
 
     get loopTemp() {
         return this.tempLoop;
+    }
+
+    get CTempPath() {
+        return this.customPath;
     }
 
     /*

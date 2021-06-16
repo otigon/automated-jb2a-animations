@@ -208,6 +208,8 @@ export class AnimationTab {
 
         let standardOptions = this.html.find('.standard-options');
         let templateOptions = this.html.find('.template-options');
+        let stdtempOptions = this.html.find('.standard-template-options');
+        let cstmtempOptions = this.html.find('.custom-template-options');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
@@ -229,10 +231,18 @@ export class AnimationTab {
         if (animType === "t8" && override) {
             standardOptions.hide();
             templateOptions.show();
+            if (this.animateItem.customAnim) {
+                stdtempOptions.hide();
+                cstmtempOptions.show();
+            } else {
+                stdtempOptions.show();
+                cstmtempOptions.hide();
+            }
         } else {
             standardOptions.show();
             templateOptions.hide();
         }
+
         if (animType === "t14" && override) {
             bwWarning.show();
         } else {
@@ -600,6 +610,22 @@ export class AnimationTab {
             });
             efp.browse();
         })
+
+        this.html.find('button[name="ctanim-button"]').click(evt => {
+            const efp = new FilePicker({
+                //current: currentAudio,
+                type: "audio",
+                button: "audio-ex-picker",
+                //current: 'input[name="flags.automated-jb2a-animations.sounds.itemAudio"].value',
+                //field: currentAudio,
+                callback: (url) => {
+                    this.item.setFlag("autoanimations", "templates.customPath", url);
+                    this.activate = true;
+                }
+            });
+            efp.browse();
+        })
+
 
     }
 

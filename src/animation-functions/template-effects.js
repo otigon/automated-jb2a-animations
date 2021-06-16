@@ -16,8 +16,13 @@ async function templateEffects(handler, msg) {
     let anim = handler.templates.tempAnim;
     let color = handler.templates.tempColor;
     let loop = handler.templates.tempLoop;
+    let filePath;
 
-    let filePath = obj01['templates'][type][anim][color];
+    if (handler.templates.customAnim) {
+        filePath = handler.templates.customPath;
+    } else {
+        filePath = obj01['templates'][type][anim][color];
+    }
 
     function getVideoDimensionsOf(url) {
         return new Promise(resolve => {

@@ -555,7 +555,11 @@ function animPreview(item, name) {
                 tempType = item.templates.tempType;
                 color = item.templates.tempColor;
                 tempAnim = item.templates.tempAnim;
+                if (item.templates.customAnim) {
+                    preview = item.templates.customPath;
+                } else {
                 preview = obj01[obj02][tempType][tempAnim][color];
+                }
                 break;
             case item.animType === 't9':
                 switch (item.explodeVariant) {

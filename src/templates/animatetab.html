@@ -144,7 +144,7 @@
         }
 
         input[name="flags.autoanimations.allSounds.item.file"] {
-            padding: 5px 5px;
+            padding: 1px 1px;
             line-height: 28px;
         }
 
@@ -192,6 +192,10 @@
             border-radius: 10px;
             border-width: 2px;
             border-color: black;
+        }
+
+        .animation-tab-contents {
+            padding-bottom: 25px;
         }
     </style>
 </head>
@@ -599,28 +603,30 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label>{{localize "AUTOANIM.menuAnimName"}}</label>
-                <div class="form-fields">
-                    <select name="flags.autoanimations.templates.tempAnim">
-                        {{#select tempAnim}}
-                        {{#each animTemp as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
+            <div class="standard-template-options">
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                    <div class="form-fields">
+                        <select name="flags.autoanimations.templates.tempAnim">
+                            {{#select tempAnim}}
+                            {{#each animTemp as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class ="form-group">
-                <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
-                <div class="form-fields">
-                    <select name="flags.autoanimations.templates.tempColor">
-                        {{#select tempColor}}
-                        {{#each colorTemp as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                    <div class="form-fields">
+                        <select name="flags.autoanimations.templates.tempColor">
+                            {{#select tempColor}}
+                            {{#each colorTemp as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -628,9 +634,26 @@
                 <input type="number" id="flags.autoanimations.templates.tempLoop"
                     name="flags.autoanimations.templates.tempLoop" min="0" value={{loopTemp}}>
             </div>
+            <div class="form-group">
+                <label>Custom Animation?</label>
+                <input type="checkbox" name="flags.autoanimations.templates.customAnim" {{checked customAnim}}>
+            </div>
+            <div class="custom-template-options">
+                <div class="form group">
+                    <label class="custom-template-anim">{{localize "AUTOANIM.menuAnimName"}}</label>
+                    <button type="button" class="file-picker-aa" data-type="audio" name="ctanim-button"
+                        data-target="flags.autoanimations.templates.customPath" title="Browse Files"
+                        style="float: right">
+                        <i class="fas fa-music fa-sm"></i>
+                    </button>
+                    <input class="audio-input" style="float: right" type="text"
+                        name="flags.autoanimations.templates.customPath" value={{CTempPath}}>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="audio-checkbox">
     <div class="form-group">
         <label>{{localize "AUTOANIM.itemAudio"}}</label>
