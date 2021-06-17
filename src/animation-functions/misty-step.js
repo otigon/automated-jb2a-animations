@@ -69,62 +69,58 @@ async function mistyStep(handler) {
         let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
         //console.log(gridPos);
 
-        if (token != undefined) {
-
-            const data = {
-                file: anFile1,
-                position: token.center,
-                anchor: {
-                    x: .5,
-                    y: .5
-                },
-                angle: 0,
-                speed: 0,
-                scale: {
-                    x: myScale,
-                    y: myScale
-                }
-            }
-            canvas.autoanimations.playVideo(data);
-            game.socket.emit('module.autoanimations', data);
-            if (audioEnabled) {
-                await wait(audio.delay);
-                AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+        const data = {
+            file: anFile1,
+            position: token.center,
+            anchor: {
+                x: .5,
+                y: .5
+            },
+            angle: 0,
+            speed: 0,
+            scale: {
+                x: myScale,
+                y: myScale
             }
         }
+
+        const data2 = {
+            file: anFile2,
+            position: {
+                x: gridPos[0] + canvas.grid.size / 2,
+                y: gridPos[1] + canvas.grid.size / 2
+            },
+            anchor: {
+                x: .5,
+                y: .5
+            },
+            angle: 0,
+            speed: 0,
+            scale: {
+                x: -myScale,
+                y: -myScale
+            }
+        }
+
+        canvas.autoanimations.playVideo(data);
+        game.socket.emit('module.autoanimations', data);
+        if (audioEnabled) {
+            await wait(audio.delay);
+            AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
+        }
+
         await wait(750);
         token.toggleVisibility();
         await canvas.scene.updateEmbeddedDocuments("Token", [{ "_id": token.id, x: gridPos[0], y: gridPos[1] }], { animate: false });
-        //await token.update({ x: gridPos[0], y: gridPos[1] }, { animate: false })
+
         await wait(750);
-
-        if (token != undefined) {
-
-            const data2 = {
-                file: anFile2,
-                position: {
-                    x: gridPos[0] + canvas.grid.size / 2,
-                    y: gridPos[1] + canvas.grid.size / 2
-                },
-                anchor: {
-                    x: .5,
-                    y: .5
-                },
-                angle: 0,
-                speed: 0,
-                scale: {
-                    x: -myScale,
-                    y: -myScale
-                }
-            }
-
-            canvas.autoanimations.playVideo(data2);
-            game.socket.emit('module.autoanimations', data2);
-            if (audioEnabled) {
-                await wait(audio.delay);
-                AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-            }
+        canvas.autoanimations.playVideo(data2);
+        game.socket.emit('module.autoanimations', data2);
+        if (audioEnabled) {
+            await wait(audio.delay);
+            AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
         }
+        
         await wait(1500);
         token.toggleVisibility();
     };
