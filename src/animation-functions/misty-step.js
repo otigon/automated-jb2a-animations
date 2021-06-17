@@ -66,7 +66,6 @@ async function mistyStep(handler) {
         let templateLength = canvas.templates.placeables.length;
         let template01 = canvas.templates.placeables[templateLength - 1].id;
         await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template01]);
-        //await canvas.templates.get(template01).delete()
         let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
         //console.log(gridPos);
 
@@ -94,8 +93,7 @@ async function mistyStep(handler) {
             }
         }
         await wait(750);
-        canvas.scene.updateEmbeddedDocuments("Token", [{ "_id": token.id, hidden: true }]);
-        //token.update({ "hidden": !token.data.hidden })
+        token.toggleVisibility();
         await canvas.scene.updateEmbeddedDocuments("Token", [{ "_id": token.id, x: gridPos[0], y: gridPos[1] }], { animate: false });
         //await token.update({ x: gridPos[0], y: gridPos[1] }, { animate: false })
         await wait(750);
@@ -128,8 +126,7 @@ async function mistyStep(handler) {
             }
         }
         await wait(1500);
-        canvas.scene.updateEmbeddedDocuments("Token", [{ "_id": token.id, hidden: false }]);
-        //token.update({ "hidden": !token.data.hidden })
+        token.toggleVisibility();
     };
 }
 export default mistyStep;

@@ -72,6 +72,10 @@ export default class Dnd5Handler {
         //console.log(this._animColorEffect);
     }
 
+    get item () {
+        return this._item;
+    }
+    
     get itemMacro () {
         return this._itemMacro;
     }

@@ -71,6 +71,10 @@ export default class SW5eHandler {
         }
         //console.log(this._animColorEffect);
     }
+    
+    get item () {
+        return this._item;
+    }
 
     get itemMacro () {
         return this._itemMacro;

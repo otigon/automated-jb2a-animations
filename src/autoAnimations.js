@@ -489,6 +489,7 @@ function revItUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
+    if (!handler.item) {return}
 
     if (game.modules.get("mars-5e")?.active) {
         if (game.user.id === msg.user.id) {
