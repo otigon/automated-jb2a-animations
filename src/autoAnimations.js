@@ -32,7 +32,7 @@ import unarmedStrike from "./animation-functions/unarmed-strike.js";
 import mistyStepOld from "./animation-functions/misty-step-old.js";
 import templateEffects from "./animation-functions/template-effects.js";
 
-import { AALayer } from "./canvas-animation/AutoAnimationsLayer.js";
+import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
 
 // just swap which of these two lines is commented to turn on/off all logging
@@ -51,26 +51,38 @@ function registerLayer() {
         });
     } else {
         CONFIG.Canvas.layers = foundry.utils.mergeObject(CONFIG.Canvas.layers, {
-            autoanimations: AALayer
+            autoanimations: AALayer,
+            autoanimationsG: AAGroundLayer
         });
         if (!Object.is(Canvas.layers, CONFIG.Canvas.layers)) {
             console.error('Possible incomplete layer injection by other module detected! Trying workaround...')
-    
+
             const layers = Canvas.layers
             Object.defineProperty(Canvas, 'layers', {
                 get: function () {
                     return foundry.utils.mergeObject(layers, CONFIG.Canvas.layers)
                 }
             })
-        }    
+        }
     }
 
     // workaround for other modules
+}
+function activateSocket() {
+    game.socket.on("module.autoanimations", (data) => {
+        //console.log(data.position);
+        if (data.level === "ground") {
+            canvas.autoanimationsG.playVideo(data);
+        } else {
+            canvas.autoanimations.playVideo(data);
+        }
+    });
 }
 
 Hooks.on('init', () => {
 
     registerLayer();
+    activateSocket();
 
     game.settings.register("autoanimations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
         name: game.i18n.format("AUTOANIM.initpopup_name"),                  // Register a module setting with checkbox
@@ -489,7 +501,7 @@ function revItUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
-    if (!handler.item) {return}
+    if (!handler.item) { return }
 
     if (game.modules.get("mars-5e")?.active) {
         if (game.user.id === msg.user.id) {

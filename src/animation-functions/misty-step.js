@@ -62,27 +62,38 @@ async function mistyStep(handler) {
         canvas.app.stage.removeListener('pointerdown');
     });
 
-    async function deleteTemplatesAndMove() {
-        let templateLength = canvas.templates.placeables.length;
-        let template01 = canvas.templates.placeables[templateLength - 1].id;
-        await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template01]);
-        let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
-        //console.log(gridPos);
 
-        const data = {
-            file: anFile1,
-            position: token.center,
-            anchor: {
-                x: .5,
-                y: .5
-            },
-            angle: 0,
-            speed: 0,
-            scale: {
-                x: myScale,
-                y: myScale
-            }
+    const data = {
+        file: anFile1,
+        position: token.center,
+        anchor: {
+            x: .5,
+            y: .5
+        },
+        angle: 0,
+        speed: 0,
+        scale: {
+            x: myScale,
+            y: myScale
         }
+    }
+
+
+    function playAnim(data) {
+        canvas.autoanimations.playVideo(data);
+        game.socket.emit('module.autoanimations', data);
+    }
+    function toggleVis(token) {
+        token.toggleVisibility();
+    }
+
+    function moveToken(token, gridPos) {
+        canvas.scene.updateEmbeddedDocuments("Token", [{ "_id": token.id, x: gridPos[0], y: gridPos[1] }], { animate: false });
+    }    
+
+    async function deleteTemplatesAndMove() {
+
+        let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
 
         const data2 = {
             file: anFile2,
@@ -102,27 +113,22 @@ async function mistyStep(handler) {
             }
         }
 
-        canvas.autoanimations.playVideo(data);
-        game.socket.emit('module.autoanimations', data);
-        if (audioEnabled) {
-            await wait(audio.delay);
-            AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-        }
+        let templateLength = canvas.templates.placeables.length;
+        let template01 = canvas.templates.placeables[templateLength - 1].id;
+        await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template01]);
 
-        await wait(750);
-        token.toggleVisibility();
-        await canvas.scene.updateEmbeddedDocuments("Token", [{ "_id": token.id, x: gridPos[0], y: gridPos[1] }], { animate: false });
-
-        await wait(750);
-        canvas.autoanimations.playVideo(data2);
-        game.socket.emit('module.autoanimations', data2);
-        if (audioEnabled) {
-            await wait(audio.delay);
-            AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-        }
+        playAnim(data)
+        await wait (750)
+        toggleVis(token);
         
-        await wait(1500);
-        token.toggleVisibility();
+        await wait (375)
+        moveToken(token, gridPos);
+    
+        await wait (375)
+        playAnim(data2);
+        
+        await wait(1500)
+        toggleVis(token);    
     };
 }
 export default mistyStep;

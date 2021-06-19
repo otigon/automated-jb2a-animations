@@ -46,6 +46,8 @@ async function explodeOnTarget(handler) {
     async function cast() {
         var arrayLength = handler.allTargets.length;
         let loops = handler.animExLoop;
+        let level = handler.flags.animLevel;
+        let animLevel = level ? "ground" : "above";
 
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
@@ -64,7 +66,8 @@ async function explodeOnTarget(handler) {
                 scale: {
                     x: Scale,
                     y: Scale
-                }
+                },
+                level: animLevel
             };
 
             async function SpellAnimation(number) {
@@ -73,46 +76,18 @@ async function explodeOnTarget(handler) {
                 let interval = 1000;
                 for (var i = 0; i < x; i++) {
                     setTimeout(function () {
-                        canvas.autoanimations.playVideo(spellAnim);
-                        game.socket.emit('module.autoanimations', spellAnim);
-                    }, i * interval);
+                        if (level) {
+                            canvas.autoanimationsG.playVideo(spellAnim);
+                            game.socket.emit('module.autoanimations', spellAnim);
+                        } else {
+                            canvas.autoanimations.playVideo(spellAnim);
+                            game.socket.emit('module.autoanimations', spellAnim);
+                        }
+                        }, i * interval);
                 }
             }
             // The number in parenthesis sets the number of times it loops
             SpellAnimation(loops)
-            /*
-                    let shockWave =
-                        [{
-                            filterType: "wave",
-                            filterId: "shockWave",
-                            autoDestroy: true,
-                            time: 0,
-                            strength: 0.03,
-                            frequency: 15,
-                            maxIntensity: 4.0,
-                            minIntensity: 0.5,
-                            padding: 25,
-                            animated:
-                            {
-                                time:
-                                {
-                                    loopDuration: 500,
-                                    loops: 5,
-                                    active: true,
-                                    speed: 0.0180,
-                                    animType: "move",
-                                }
-                            }
-                        }];
-                        */
-            //if (game.settings.get("autoanimations", "tmfx")) {
-            //await wait(400);
-            //TokenMagic.addUpdateFiltersOnTargeted(shockWave);
-            //await wait(2500);
-            //TokenMagic.deleteFiltersOnTargeted("burn");
-            //await wait(250);
-            //TokenMagic.deleteFiltersOnTargeted("shockWave");
-            //}
         }
     }
     cast();

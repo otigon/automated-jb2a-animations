@@ -285,6 +285,10 @@ export default class MidiHandler {
         return game.user.isGM ? this._gmAD : this._userAD;
     }
 
+    get flags() {
+        return this._flags;
+    }
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {

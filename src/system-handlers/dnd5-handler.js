@@ -246,6 +246,10 @@ export default class Dnd5Handler {
     get hasAttack() {
         return this._item.hasAttack;
     }
+
+    get flags() {
+        return this._flags;
+    }
     
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;

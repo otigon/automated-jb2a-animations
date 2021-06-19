@@ -134,7 +134,8 @@ async function onTargetSpells(handler) {
                     break;
             }
             let scale = canvas.scene.data.grid / divisor;
-
+            let animLevel = handler.flags.animLevel ? "ground" : "above";
+            console.log(animLevel);
             // Defining spell animation for FX Master
             let spellAnim =
             {
@@ -146,12 +147,18 @@ async function onTargetSpells(handler) {
                 },
                 angle: 0,
                 scale: {
-                    x: scale,
-                    y: scale
-                }
+                    x: scale * 1.5,
+                    y: scale * 1.5
+                },
+                level: animLevel
             };
-            canvas.autoanimations.playVideo(spellAnim);
-            game.socket.emit('module.autoanimations', spellAnim);
+            if (animLevel === "ground") {
+                canvas.autoanimationsG.playVideo(spellAnim);
+                game.socket.emit('module.autoanimations', spellAnim);
+            } else {
+                canvas.autoanimations.playVideo(spellAnim);
+                game.socket.emit('module.autoanimations', spellAnim);
+            }
 
             let Holy =
                 [{

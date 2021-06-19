@@ -102,6 +102,9 @@ async function bardicInspiration(handler) {
     let yMaxtarget = centerYtarget;
     let yMintarget = centerYtarget - grid / 2;
 
+    let tokenScale = (token.w / canvas.grid.size) * 0.5;
+    let targetScale = (target.w / canvas.grid.size) * 0.5;
+    /*
     async function markerCreate(markerToken) {
 
         let name = "Bardic Inspiration";
@@ -124,7 +127,28 @@ async function bardicInspiration(handler) {
         CTA.addAnimation(markerToken, textureData, false, name, null)
         //CTA.addAnimation(markerToken, textureData, false, name, null)
     }
-
+    */
+    async function markerCreate(markerToken) {
+        let spellAnim =
+        {
+            file: markerPath,
+            position: token.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            speed: 0,
+            scale: {
+                x: tokenScale,
+                y: tokenScale
+            },
+            level: "ground"
+        };
+        canvas.autoanimationsG.playVideo(spellAnim);
+        game.socket.emit('module.autoanimations', spellAnim);
+    }
+    /*
     async function markerCreateTarget(markerToken) {
 
         let name = "Bardic Inspiration";
@@ -147,12 +171,34 @@ async function bardicInspiration(handler) {
         CTA.addAnimation(markerToken, textureData, false, name, null)
         //CTA.addAnimation(markerToken, textureData, false, name, null)
     }
-
+    */
+    async function markerCreateTarget(markerToken) {
+        let spellAnim =
+        {
+            file: markerPathTarget,
+            position: target.center,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            },
+            angle: 0,
+            speed: 0,
+            scale: {
+                x: targetScale,
+                y: targetScale
+            },
+            level: "ground"
+        };
+        canvas.autoanimationsG.playVideo(spellAnim);
+        game.socket.emit('module.autoanimations', spellAnim);
+    }
+    /*
     async function markerDelete(markerToken) {
         let name = "Bardic Inspiration";
         CTA.removeAnimByName(markerToken, name, true, true);
         //CTA.removeAnimByName(markerToken, name, true, true);
     }
+    */
     async function music(number) {
         let x = number
         for (var i = 0; i < x; i++) {
@@ -292,7 +338,7 @@ async function bardicInspiration(handler) {
         }
     }
 
-    let ctaActive = game.modules.get("Custom-Token-Animations")?.active;
+    //let ctaActive = game.modules.get("Custom-Token-Animations")?.active;
 
     if (obj02 === "music") {
 
@@ -301,56 +347,40 @@ async function bardicInspiration(handler) {
     switch (true) {
         case obj02 === "music":
             music(10);
-            if (handler.bards.marker && ctaActive) {
-                if (handler.bards.marker) {
-                    if (handler.bardSelf) {
-                        markerCreate(token);
-                    }
-                    await wait(3750);
-                    if (handler.bardSelf) {
-                        markerDelete(token);
-                    }
-                }
-            }
-            break;
-        default:
-            bardicInspiration();
-            if (handler.bards.marker && ctaActive) {
+            if (handler.bards.marker) {
                 if (handler.bardSelf) {
                     markerCreate(token);
                 }
                 await wait(3750);
+            }
+            break;
+        default:
+            bardicInspiration();
+            if (handler.bards.marker) {
                 if (handler.bardSelf) {
-                    markerDelete(token);
+                    markerCreate(token);
                 }
+                await wait(3750);
             }
     }
 
     switch (true) {
         case obj02T === "music":
             musicTarget(10);
-            if (handler.bards.marker && ctaActive) {
-                if (handler.bards.marker) {
-                    if (target && handler.bardTarget) {
-                        markerCreateTarget(target);
-                    }
-                    await wait(3750);
-                    if (target && handler.bardTarget) {
-                        markerDelete(target);
-                    }
-                }
-            }
-            break;
-        default:
-            bardicInspirationTarget();
-            if (handler.bards.marker && ctaActive) {
+            if (handler.bards.marker) {
                 if (target && handler.bardTarget) {
                     markerCreateTarget(target);
                 }
                 await wait(3750);
+            }
+            break;
+        default:
+            bardicInspirationTarget();
+            if (handler.bards.marker) {
                 if (target && handler.bardTarget) {
-                    markerDelete(target);
+                    markerCreateTarget(target);
                 }
+                await wait(3750);
             }
     }
 }

@@ -206,6 +206,12 @@
         <input type="checkbox" name="flags.autoanimations.killAnim" {{checked killAnim}}>
     </div>
     <div class="animation-not-disabled">
+        <div class="anim-level">
+            <div class="form-group">
+                <label>Play Animation Underneath Token?</label>
+                <input type="checkbox" name="flags.autoanimations.animLevel" {{checked animLevel}}>
+            </div>
+        </div>
         <div class="form-group">
             <label>{{localize "AUTOANIM.menuOverride"}}</label>
             <input type="checkbox" name="flags.autoanimations.override" {{checked override}}>

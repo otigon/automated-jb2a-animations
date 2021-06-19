@@ -57,11 +57,13 @@ export class AnimateItem {
         this.tempLoop = this.data.templates.tempLoop;
         this.customAnim = this.data.templates.customAnim;
         this.customPath = this.data.templates.customPath
+        this.animLevel = this.data.animLevel;
         //this.flagObject = Object.assign({}, this.data);
     }
 
     defaultData() {
         return {
+            animLevel: false,
             animName: ``,
             animType: ``,
             color: ``,

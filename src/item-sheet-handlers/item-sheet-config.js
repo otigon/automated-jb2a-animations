@@ -205,7 +205,7 @@ export class AnimationTab {
         let divineSmite = this.html.find('.divine-smite');
         let divineOptions = this.html.find('.dsOptions');
         let bwWarning = this.html.find('.bwWarning');
-
+        let levels = this.html.find('.anim-level');
         let standardOptions = this.html.find('.standard-options');
         let templateOptions = this.html.find('.template-options');
         let stdtempOptions = this.html.find('.standard-template-options');
@@ -227,7 +227,16 @@ export class AnimationTab {
             videoPreview.show();
         }
         */
-
+        switch (animType) {
+            case "t7":
+            case "t8":
+            case "t9":
+            case "t10":
+                levels.show();
+                break;
+            default:
+                levels.hide();
+        }
         if (animType === "t8" && override) {
             standardOptions.hide();
             templateOptions.show();

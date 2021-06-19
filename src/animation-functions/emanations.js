@@ -53,6 +53,9 @@ async function selfCast(handler) {
 
         //let Scale = ((handler.actorToken.data.width + handler.actorToken.data.height) / 8);
         let Scale = canvas.scene.data.grid / divisor;
+        let level = handler.flags.animLevel;
+        let animLevel = level ? "ground" : "above";
+
         let spellAnim =
         {
             file: testPath,
@@ -66,7 +69,8 @@ async function selfCast(handler) {
             scale: {
                 x: Scale,
                 y: Scale
-            }
+            },
+            level: animLevel
         };
 
 
@@ -76,8 +80,13 @@ async function selfCast(handler) {
             let interval = 1000;
             for (var i = 0; i < x; i++) {
                 setTimeout(function () {
-                    canvas.autoanimations.playVideo(spellAnim);
-                    game.socket.emit('module.autoanimations', spellAnim);
+                    if (level) {
+                        canvas.autoanimationsG.playVideo(spellAnim);
+                        game.socket.emit('module.autoanimations', spellAnim);
+                    } else {
+                        canvas.autoanimations.playVideo(spellAnim);
+                        game.socket.emit('module.autoanimations', spellAnim);
+                    }
                 }, i * interval);
             }
         }

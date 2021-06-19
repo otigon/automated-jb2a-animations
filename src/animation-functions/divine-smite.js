@@ -54,7 +54,8 @@ async function divineSmite(handler) {
         scale: {
             x: Scale,
             y: Scale
-        }
+        },
+        level: "ground"
     }
 
     let targetAnim;
@@ -76,7 +77,7 @@ async function divineSmite(handler) {
 
     async function selfAnimation() {
         await wait(dsSelfDelay);
-        canvas.autoanimations.playVideo(selfAnim);
+        canvas.autoanimationsG.playVideo(selfAnim);
         game.socket.emit('module.autoanimations', selfAnim);
 
     }

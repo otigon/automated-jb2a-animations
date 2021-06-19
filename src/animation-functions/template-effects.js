@@ -114,6 +114,8 @@ async function templateEffects(handler, msg) {
         }
         //console.log(scaleY);
         //console.log(scaleX);
+        let level = handler.flags.animLevel;
+        let animLevel = level ? "ground" : "above";
         let spellAnim =
         {
             file: filePath,
@@ -129,15 +131,21 @@ async function templateEffects(handler, msg) {
             scale: {
                 x: scaleX,
                 y: scaleY
-            }
+            },
+            level: animLevel
         };
         async function loopAnimation(number) {
             let x = number;
             let interval = duration;
             for (var i = 0; i < x; i++) {
                 setTimeout(function () {
-                    canvas.autoanimations.playVideo(spellAnim);
-                    game.socket.emit('module.autoanimations', spellAnim);
+                    if (level) {
+                        canvas.autoanimationsG.playVideo(spellAnim);
+                        game.socket.emit('module.autoanimations', spellAnim);
+                    } else {
+                        canvas.autoanimations.playVideo(spellAnim);
+                        game.socket.emit('module.autoanimations', spellAnim);
+                    }
                 }, i * interval)
             }
         }
