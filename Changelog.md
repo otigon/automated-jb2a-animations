@@ -1,3 +1,9 @@
+0.3.79 - 0.3.80  
+- Misty Step tweaks (shoudl now work for Firefox, and hopefully everything else)  
+- Added a "ground" layer to the module. Currently settable if using overrides for Healing Spells, Templates, On Target and Self Explosions. This will expand on a future update  
+- Add the "Impact" Boulder animation to the Self Explosions option  
+  
+  
 0.3.78  
 - Hot Fix for those running on Foundry 0.7.9 or 0.7.10  
   
