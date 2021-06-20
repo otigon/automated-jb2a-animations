@@ -10,13 +10,6 @@ async function onTargetSpells(handler) {
         return !!game.modules.get(test);
     }
 
-    var randomProperty = function (obj) {
-        var keys = Object.keys(obj);
-        var keyLength = keys.length;
-        var ranKey = Math.floor(Math.random() * keyLength);
-        return keys[ranKey];
-    };
-
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let obj02;
     let color;
@@ -40,9 +33,6 @@ async function onTargetSpells(handler) {
                 case !handler.color:
                     color = "blue";
                     break;
-                case handler.color === "random":
-                    color = randomProperty(obj01[obj02]);
-                    break;
                 default:
                     color = handler.color;
             }
@@ -63,9 +53,6 @@ async function onTargetSpells(handler) {
                         default:
                             color = "blue";
                     }
-                    break;
-                case handler.color === "random":
-                    color = randomProperty(obj01[obj02][variant]);
                     break;
                 default:
                     color = handler.color;

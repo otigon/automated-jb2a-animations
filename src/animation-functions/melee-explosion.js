@@ -37,6 +37,9 @@ async function meleeExplosion(handler, target) {
         case ('07'):
             multiplier = 1500;
             break;
+        case ('impact'):
+            multiplier = 1500;
+            break;
         default:
             multiplier = 1000;
     }
@@ -46,7 +49,8 @@ async function meleeExplosion(handler, target) {
         let loops = handler.animExLoop;
 
         let Scale = (canvas.scene.data.grid / divisor);
-
+        let level = handler.flags.animLevel;
+        let animLevel = level ? "ground" : "above";
         // Defines the spell template for FXMaster
         let spellAnim =
         {
@@ -60,7 +64,8 @@ async function meleeExplosion(handler, target) {
             scale: {
                 x: Scale,
                 y: Scale
-            }
+            },
+            level: animLevel
         };
 
         async function SpellAnimation(number) {
@@ -68,11 +73,16 @@ async function meleeExplosion(handler, target) {
             let x = number;
             let interval = 1000;
             for (var i = 0; i < x; i++) {
-                setTimeout(function () {
-                    canvas.autoanimations.playVideo(spellAnim);
-                    game.socket.emit('module.autoanimations', spellAnim);
-                }, i * interval);
-            }
+                    setTimeout(function () {
+                        if (level) {
+                            canvas.autoanimationsG.playVideo(spellAnim);
+                            game.socket.emit('module.autoanimations', spellAnim);
+                        } else {
+                            canvas.autoanimations.playVideo(spellAnim);
+                            game.socket.emit('module.autoanimations', spellAnim);
+                        }
+                        }, i * interval);
+                }
         }
         // The number in parenthesis sets the number of times it loops
         SpellAnimation(loops)

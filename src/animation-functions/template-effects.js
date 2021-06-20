@@ -9,13 +9,6 @@ async function templateEffects(handler, msg) {
         return !!game.modules.get(test);
     }
 
-    var randomProperty = function (obj) {
-        var keys = Object.keys(obj);
-        var keyLength = keys.length;
-        var ranKey = Math.floor(Math.random() * keyLength);
-        return keys[ranKey];
-    };
-
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
     let type = handler.templates.tempType;
@@ -24,9 +17,7 @@ async function templateEffects(handler, msg) {
     let color = handler.templates.tempColor;
     let loop = handler.templates.tempLoop;
     let filePath;
-    if (handler.templates.tempColor === "random") {
-        color = randomProperty(obj01['templates'][type][anim]);
-    }
+
     if (handler.templates.customAnim) {
         filePath = handler.templates.customPath;
     } else {

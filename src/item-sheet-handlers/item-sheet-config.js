@@ -228,6 +228,8 @@ export class AnimationTab {
         }
         */
         switch (animType) {
+            //case "t2":
+            //case "t3":
             case "t7":
             case "t8":
             case "t9":
@@ -402,6 +404,7 @@ export class AnimationTab {
             case (explosion && (animType === "t2") && override):
             case (explosion && (animType === "t3") && override):
                 explosionOptions.show();
+                levels.show();
                 break;
             case ((animType === "t9") && override):
             case ((animType === "t10") && override):
@@ -412,9 +415,11 @@ export class AnimationTab {
             case ((animType === "t3") && (override)):
                 //animateColor.hide();
                 explosionOptions.hide();
+                levels.hide();
                 break;
             default:
                 explosionOptions.hide();
+                levels.hide();
                 break;
         }
 

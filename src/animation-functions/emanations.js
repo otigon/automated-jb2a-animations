@@ -8,44 +8,28 @@ async function selfCast(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-
-    var randomProperty = function (obj) {
-        var keys = Object.keys(obj);
-        var keyLength = keys.length;
-        var ranKey = Math.floor(Math.random() * keyLength);
-        return keys[ranKey];
-    };
-
     let obj02 = handler.animExVariant;
-    let color = obj02 === "impact" ? "boulder" : handler.animExColor;
+    let property = obj02 === "impact" ? "boulder" : handler.animExColor;
     let loops = handler.animExLoop;
     let testPath;
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+
     switch (handler.animExVariant) {
         case "shatter":
         case game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
-            if (handler.animExColor === "random") {
-                color = randomProperty(obj01[obj02]);
-            }                
-            testPath = obj01[obj02][color];
+            testPath = obj01[obj02][property];
             break;
         case "thunderwave":
         case game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
-            if (handler.animExColor === "random") {
-                color = randomProperty(obj01[obj02]);
-            }                
-            testPath = obj01[obj02][color]['center'];
+            testPath = obj01[obj02][property]['center'];
             break;
         case "antilife-shell":
         case game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
             testPath = obj01['antilifeshell']['antilifeshell'];
             break;
         default:
-            if (handler.animExColor === "random") {
-                color = randomProperty(obj01['explosion'][obj02]);
-            }                
-            testPath = obj01['explosion'][obj02][color];
+            testPath = obj01['explosion'][obj02][property];
     }
 
     let multiplier;

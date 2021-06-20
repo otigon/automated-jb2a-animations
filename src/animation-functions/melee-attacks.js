@@ -49,13 +49,6 @@ async function meleeWeapons(handler) {
         return !!game.modules.get(test);
     }
 
-    var randomProperty = function (obj) {
-        var keys = Object.keys(obj);
-        var keyLength = keys.length;
-        var ranKey = Math.floor(Math.random() * keyLength);
-        return keys[ranKey];
-    };
-
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
     let color;
@@ -190,10 +183,6 @@ async function meleeWeapons(handler) {
             tmKill = 750;
             tmMacro = hitStutter;
             break;
-    }
-
-    if (handler.color === "random") {
-            color = randomProperty(obj01[obj02]);
     }
     let filePath = obj01[obj02][color];
     let fireColor = TMFXCOLORS[color]();
@@ -358,7 +347,7 @@ async function meleeWeapons(handler) {
                 case distance <= range:
                     if (handler.divineSmite.dsEnable) {
                         divineSmite(handler)
-                    }
+                    }    
                     canvas.autoanimations.playVideo(meleeAnim);
                     game.socket.emit('module.autoanimations', meleeAnim);
                     break;

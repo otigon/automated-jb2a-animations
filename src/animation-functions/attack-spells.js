@@ -12,9 +12,14 @@ async function spellAttacks(handler) {
 
     var randomProperty = function (obj) {
         var keys = Object.keys(obj);
+        //console.log(keys);
         var keyLength = keys.length;
+        //console.log(keyLength);
         var ranKey = Math.floor(Math.random() * keyLength);
+        //console.log(ranKey);
+        //console.log(keys[ranKey]);
         return keys[ranKey];
+        //return obj[keys[ keys.length * Math.random() << 0]];
     };
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;

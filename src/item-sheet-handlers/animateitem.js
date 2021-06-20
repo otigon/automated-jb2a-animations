@@ -438,6 +438,9 @@ export class AnimateItem {
                     return AUTOANIM.localized(AUTOANIM.explosionColors0567);
                     break;
                 case ('shatter'):
+                case ('impact'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColorsImpact);
+                    break;
                 case ('thunderwave'):
                     return AUTOANIM.localized(AUTOANIM.animColorShatterThunder);
                     break;
