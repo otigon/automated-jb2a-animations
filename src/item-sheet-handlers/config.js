@@ -398,7 +398,7 @@ AUTOANIM.explosionColorsImpact = {
 
 AUTOANIM.impactVariant = {
     "a1" : ``,
-    "boulder": "Boulder",
+    "boulder": "AUTOANIM.itemBoulder",
     "01" : "01",
     "02" : "02",
     "03" : "03",

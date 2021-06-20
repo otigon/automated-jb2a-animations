@@ -284,22 +284,5 @@
 
     "AUTOANIM.impact": "Impact",
     "AUTOANIM.impactVariant": "Impact Variant",
-    "AUTOANIM.colorBoulder":"Boulder",
-    "AUTOANIM.color01DarkRed":"01 Dark Red",
-    "AUTOANIM.color01Blue":"01 Blue",
-    "AUTOANIM.color01Green":"01 Green",
-    "AUTOANIM.color01Yellow":"01 Yellow",
-    "AUTOANIM.color02DarkRed":"02 Dark Red",
-    "AUTOANIM.color02Blue":"02 Blue",
-    "AUTOANIM.color02Green":"02 Green",
-    "AUTOANIM.color02Yellow":"02 Yellow",
-    "AUTOANIM.color03DarkRed":"03 Dark Red",
-    "AUTOANIM.color03Blue":"03 Blue",
-    "AUTOANIM.color03Green":"03 Green",
-    "AUTOANIM.color03Yellow":"03 Yellow",
-    "AUTOANIM.color04DarkRed":"04 Dark Red",
-    "AUTOANIM.color04Blue":"04 Blue",
-    "AUTOANIM.color04Green":"04 Green",
-    "AUTOANIM.color04Yellow":"04 Yellow",
     "AUTOANIM.underToken": "Play Animation Underneath Token?"
 }
