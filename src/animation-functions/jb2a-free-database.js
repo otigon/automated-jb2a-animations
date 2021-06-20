@@ -270,10 +270,18 @@ JB2AFREEDB.explosion = {
         "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
     },
     "impact": {
-        "01 blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
-        "02 blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
-        "03 blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
-        "04 blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
+        "01": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
+        },
+        "02": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
+        },
+        "03": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
+        },
+        "04": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
+        },
     }
 }
 

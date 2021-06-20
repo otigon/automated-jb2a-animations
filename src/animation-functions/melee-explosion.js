@@ -23,6 +23,7 @@ async function meleeExplosion(handler, target) {
     let obj02 = 'explosion';
     let color;
     let variant = handler.animExVariant;
+    let impactVar = handler.flags.impactVar ?? "";
     let filePath;
 
     switch (true) {
@@ -34,6 +35,18 @@ async function meleeExplosion(handler, target) {
                 color = handler.animExColor;
             }
             filePath = obj01[obj02][color];
+            break;
+        case handler.animExVariant === "impact":
+            if (impactVar === "boulder") {
+                filePath = obj01[obj02][variant][impactVar];
+            } else {
+                if (handler.animExColor === "random") {
+                    color = randomProperty(obj01[obj02][variant][impactVar]);
+                } else {
+                    color = handler.animExColor;
+                }
+                filePath = obj01[obj02][variant][impactVar][color]
+            }
             break;
         default:
             obj02 = "explosion";
@@ -89,16 +102,16 @@ async function meleeExplosion(handler, target) {
             let x = number;
             let interval = 1000;
             for (var i = 0; i < x; i++) {
-                    setTimeout(function () {
-                        if (level) {
-                            canvas.autoanimationsG.playVideo(spellAnim);
-                            game.socket.emit('module.autoanimations', spellAnim);
-                        } else {
-                            canvas.autoanimations.playVideo(spellAnim);
-                            game.socket.emit('module.autoanimations', spellAnim);
-                        }
-                        }, i * interval);
-                }
+                setTimeout(function () {
+                    if (level) {
+                        canvas.autoanimationsG.playVideo(spellAnim);
+                        game.socket.emit('module.autoanimations', spellAnim);
+                    } else {
+                        canvas.autoanimations.playVideo(spellAnim);
+                        game.socket.emit('module.autoanimations', spellAnim);
+                    }
+                }, i * interval);
+            }
         }
         // The number in parenthesis sets the number of times it loops
         SpellAnimation(loops)

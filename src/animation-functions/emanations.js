@@ -1,4 +1,4 @@
-  
+
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -17,8 +17,9 @@ async function selfCast(handler) {
     };
 
     let obj02 = handler.animExVariant;
-    let color = obj02 === "impact" ? "boulder" : handler.animExColor;
+    let color = handler.animExColor;
     let loops = handler.animExLoop;
+    let impactVar = handler.flags.impactVar ?? "";
     let testPath;
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
@@ -27,26 +28,42 @@ async function selfCast(handler) {
         case game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
             if (handler.animExColor === "random") {
                 color = randomProperty(obj01[obj02]);
-            }                
+            }
             testPath = obj01[obj02][color];
             break;
         case "thunderwave":
         case game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
             if (handler.animExColor === "random") {
                 color = randomProperty(obj01[obj02]);
-            }                
+            }
             testPath = obj01[obj02][color]['center'];
             break;
         case "antilife-shell":
         case game.i18n.format("AUTOANIM.animAntiLifeShell").toLowerCase():
             testPath = obj01['antilifeshell']['antilifeshell'];
             break;
+        case "impact":
+            if (impactVar === "boulder") {
+                testPath = obj01['explosion'][obj02][impactVar];
+            } else {
+                if (handler.animExColor === "random") {
+                    color = randomProperty(obj01['explosion'][obj02][impactVar]);
+                } else {
+                    color = handler.animExColor;
+                }
+                testPath = obj01['explosion'][obj02][impactVar][color]
+            }
+            break;
         default:
             if (handler.animExColor === "random") {
                 color = randomProperty(obj01['explosion'][obj02]);
-            }                
+            }
             testPath = obj01['explosion'][obj02][color];
     }
+    console.log (obj01);
+    console.log (obj02);
+    console.log (impactVar);
+    console.log (color);
 
     let multiplier;
     switch (obj02) {
@@ -62,7 +79,7 @@ async function selfCast(handler) {
 
     }
 
-    let divisor = (multiplier * (1/handler.animExRadius));
+    let divisor = (multiplier * (1 / handler.animExRadius));
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 

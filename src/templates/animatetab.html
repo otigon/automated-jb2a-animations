@@ -487,6 +487,20 @@
                         </select>
                     </div>
                 </div>
+                <div class="impact-variant">
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.impactVariant"}}</label>
+                        <div class="form-fields">
+                            <select name="flags.autoanimations.impactVar" class="impact-variants">
+                                {{#select impactVar}}
+                                {{#each varImpact as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
                     <div class="form-fields">

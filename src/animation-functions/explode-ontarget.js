@@ -22,6 +22,7 @@ async function explodeOnTarget(handler) {
     let obj03;
     let color;
     let variant = handler.animExVariant;
+    let impactVar = handler.flags.impactVar ?? "";
     let filePath;
     switch (true) {
         case handler.animExVariant === "shatter":
@@ -29,15 +30,28 @@ async function explodeOnTarget(handler) {
             color = handler.animExColor;
             if (handler.animExColor === "random") {
                 color = randomProperty(obj01[obj02]);
-            }        
+            }
             filePath = obj01[obj02][color];
+            break;
+        case handler.animExVariant === "impact":
+            obj02 = "explosion";
+            if (impactVar === "boulder") {
+                filePath = obj01[obj02][variant][impactVar];
+            } else {
+                if (handler.animExColor === "random") {
+                    color = randomProperty(obj01[obj02][variant][impactVar]);
+                } else {
+                    color = handler.animExColor;
+                }
+                filePath = obj01[obj02][variant][impactVar][color]
+            }
             break;
         default:
             obj02 = "explosion";
             color = handler.animExColor;
             if (handler.animExColor === "random") {
                 color = randomProperty(obj01[obj02][variant]);
-            }        
+            }
             filePath = obj01[obj02][variant][color];
     }
 
@@ -51,7 +65,7 @@ async function explodeOnTarget(handler) {
         default:
             multiplier = 1000;
     }
-    let divisor = (multiplier * (1/(handler.animExRadius)));
+    let divisor = (multiplier * (1 / (handler.animExRadius)));
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
@@ -96,7 +110,7 @@ async function explodeOnTarget(handler) {
                             canvas.autoanimations.playVideo(spellAnim);
                             game.socket.emit('module.autoanimations', spellAnim);
                         }
-                        }, i * interval);
+                    }, i * interval);
                 }
             }
             // The number in parenthesis sets the number of times it loops

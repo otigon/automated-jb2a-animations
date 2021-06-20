@@ -210,6 +210,7 @@ export class AnimationTab {
         let templateOptions = this.html.find('.template-options');
         let stdtempOptions = this.html.find('.standard-template-options');
         let cstmtempOptions = this.html.find('.custom-template-options');
+        let impact = this.html.find('.impact-variant');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
@@ -227,6 +228,12 @@ export class AnimationTab {
             videoPreview.show();
         }
         */
+       
+        if (this.animateItem.explodeVariant === "impact") {
+            impact.show();
+        } else {
+            impact.hide();
+        }
         switch (animType) {
             case "t7":
             case "t8":

@@ -59,6 +59,7 @@ export class AnimateItem {
         this.customPath = this.data.templates.customPath
         this.animLevel = this.data.animLevel;
         this.exAnimLevel = this.data.exAnimLevel;
+        this.impactVar = this.data.impactVar;
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -74,6 +75,7 @@ export class AnimateItem {
             explodeRadius: ``,
             explodeVariant: ``,
             exAnimLevel: false,
+            impactVar: ``,
             dtvar: ``,
             killAnim: false,
             explosion: false,
@@ -440,7 +442,11 @@ export class AnimateItem {
                     return AUTOANIM.localized(AUTOANIM.explosionColors0567);
                     break;
                 case ('impact'):
-                    return AUTOANIM.localized(AUTOANIM.explosionColorsImpact);
+                    if (this.impactVar === "boulder") {
+                        return
+                    } else {
+                        return AUTOANIM.localized(AUTOANIM.explosionColorsImpact);
+                    }
                     break;
                 case ('shatter'):
                 case ('thunderwave'):
@@ -807,6 +813,10 @@ export class AnimateItem {
 
     get CTempPath() {
         return this.customPath;
+    }
+
+    get varImpact() {
+        return AUTOANIM.localized(AUTOANIM.impactVariant);
     }
 
     /*
