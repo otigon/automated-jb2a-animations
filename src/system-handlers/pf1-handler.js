@@ -229,6 +229,10 @@ export default class Pf1Handler {
         return this._templates;
     }
 
+    get flags() {
+        return this._flags;
+    }
+
     getDistanceTo(target) {
         const scene = game.scenes.active;
         const gridSize = scene.data.grid;

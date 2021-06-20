@@ -224,6 +224,10 @@ export default class Dnd35Handler {
         return this._templates;
     }
 
+    get flags() {
+        return this._flags;
+    }
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {
