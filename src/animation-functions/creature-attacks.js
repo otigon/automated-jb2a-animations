@@ -38,10 +38,17 @@ let HitStutter =
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function creatureAttacks(handler) {
-    
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
+
+    var randomProperty = function (obj) {
+        var keys = Object.keys(obj);
+        var keyLength = keys.length;
+        var ranKey = Math.floor(Math.random() * keyLength);
+        return keys[ranKey];
+    };
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
@@ -98,7 +105,7 @@ async function creatureAttacks(handler) {
         }
         let globalDelay = game.settings.get("autoanimations", "globaldelay");
         await wait(globalDelay);
-    
+
         for (var i = 0; i < arrayLength; i++) {
             //log(handler.allTargets[i]);
             let target = handler.allTargets[i];
@@ -113,9 +120,12 @@ async function creatureAttacks(handler) {
                         case !handler.color:
                             color = "red";
                             break;
+                        case handler.color === "random":
+                            color = randomProperty(obj01[obj02]);
+                            break;
                         default:
                             color = handler.color;
-                    }        
+                    }
                     filePath = obj01[obj02][color];
                     break;
                 case (handler.itemNameIncludes("bite")):
@@ -126,9 +136,12 @@ async function creatureAttacks(handler) {
                         case !handler.color:
                             color = "red";
                             break;
+                        case handler.color === "random":
+                            color = randomProperty(obj01[obj02]);
+                            break;
                         default:
                             color = handler.color;
-                    }        
+                    }
                     filePath = obj01[obj02][color];
                     tmMacro = HitStutter;
                     break;

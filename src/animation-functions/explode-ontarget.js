@@ -9,6 +9,13 @@ async function explodeOnTarget(handler) {
         return !!game.modules.get(test);
     }
 
+    var randomProperty = function (obj) {
+        var keys = Object.keys(obj);
+        var keyLength = keys.length;
+        var ranKey = Math.floor(Math.random() * keyLength);
+        return keys[ranKey];
+    };
+
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
     let obj02;
@@ -20,11 +27,17 @@ async function explodeOnTarget(handler) {
         case handler.animExVariant === "shatter":
             obj02 = "shatter";
             color = handler.animExColor;
+            if (handler.animExColor === "random") {
+                color = randomProperty(obj01[obj02]);
+            }        
             filePath = obj01[obj02][color];
             break;
         default:
             obj02 = "explosion";
             color = handler.animExColor;
+            if (handler.animExColor === "random") {
+                color = randomProperty(obj01[obj02][variant]);
+            }        
             filePath = obj01[obj02][variant][color];
     }
 

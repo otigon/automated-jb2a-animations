@@ -97,6 +97,7 @@ AUTOANIM.animClawColor = {
     "red": "AUTOANIM.colorRed",
     "dark red": "AUTOANIM.colorDarkRed",
     "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.animClawColorFree = {
@@ -112,6 +113,7 @@ AUTOANIM.animBiteColor = {
     "purple": "AUTOANIM.colorPurple",
     "red": "AUTOANIM.colorRed",
     "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.animBiteColorFree = {
@@ -128,7 +130,8 @@ AUTOANIM.animColorMelee = {
     "red": "AUTOANIM.colorRed",
     "purple": "AUTOANIM.colorPurple",
     "pink": "AUTOANIM.colorPink",
-    "yellow": "AUTOANIM.colorYellow"
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.animColorMeleeFree = {
@@ -156,7 +159,8 @@ AUTOANIM.animColorLaserSword = {
     "red": "AUTOANIM.colorRed",
     "purple": "AUTOANIM.colorPurple",
     "yellow": "AUTOANIM.colorYellow",
-    "dark red": "AUTOANIM.colorDarkRed"
+    "dark red": "AUTOANIM.colorDarkRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.animColorLaserSwordFree = {
@@ -169,7 +173,8 @@ AUTOANIM.animColorCureWounds = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "purple": "AUTOANIM.colorPurple",
-    "red": "AUTOANIM.colorRed"
+    "red": "AUTOANIM.colorRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.animColorCureWoundsFree = {
@@ -229,7 +234,8 @@ AUTOANIM.animGenHealing01 = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "purple": "AUTOANIM.colorPurple",
-    "yellow": "AUTOANIM.colorYellow"
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
 };
 
 AUTOANIM.animGenHealing02 = {
@@ -238,6 +244,7 @@ AUTOANIM.animGenHealing02 = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "teal yellow": "AUTOANIM.colorTealYellow",
+    "random": "AUTOANIM.colorRandom"
 };
 
 
@@ -307,7 +314,8 @@ AUTOANIM.animColorShatterThunder = {
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
-    "red": "AUTOANIM.colorRed"
+    "red": "AUTOANIM.colorRed",
+    "random": "AUTOANIM.colorRandom"
 };
 
 AUTOANIM.animColorShatterThunderFree = {
@@ -350,6 +358,7 @@ AUTOANIM.explosionColors012 = {
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
     "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
 }
 AUTOANIM.explosionColors03 = {
     "ec1": ``,
@@ -357,7 +366,8 @@ AUTOANIM.explosionColors03 = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "blue white": "AUTOANIM.colorWhiteBlue",
-    "pink": "AUTOANIM.colorPink"
+    "pink": "AUTOANIM.colorPink",
+    "random": "AUTOANIM.colorRandom"
 }
 AUTOANIM.explosionColors04 = {
     "ec1": ``,
@@ -365,14 +375,16 @@ AUTOANIM.explosionColors04 = {
     "dark red": "AUTOANIM.colorDarkRed",
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
-    "orange": "AUTOANIM.colorOrange"
+    "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
 }
 AUTOANIM.explosionColors0567 = {
     "ec1": ``,
     "blue white": "AUTOANIM.colorWhiteBlue",
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
-    "teal yellow": "AUTOANIM.colorTealYellow"
+    "teal yellow": "AUTOANIM.colorTealYellow",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.explosionColorsFree01 = {
@@ -619,7 +631,8 @@ AUTOANIM.uaStrikeColor = {
     'blue': "AUTOANIM.colorBlue",
     'green': "AUTOANIM.colorGreen",
     "yellow": "AUTOANIM.colorYellow",
-    "dark red": "AUTOANIM.colorDarkRed"
+    "dark red": "AUTOANIM.colorDarkRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.uaStrikeColorFree = {
@@ -771,6 +784,7 @@ AUTOANIM.coneColdColor = {
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.coneColdColorFree = {
@@ -784,6 +798,7 @@ AUTOANIM.coneFireColor = {
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.coneFireColorFree = {
@@ -797,6 +812,7 @@ AUTOANIM.conePoisonColor = {
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.conePoisonColorFree = {
@@ -810,6 +826,7 @@ AUTOANIM.coneBHColor = {
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.coneBHColorFree = {
@@ -830,6 +847,7 @@ AUTOANIM.rayFireColor = {
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.rayFireColorFree = {
@@ -843,6 +861,7 @@ AUTOANIM.rayLightningColor = {
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.rayLightningColorFree = {
@@ -856,6 +875,7 @@ AUTOANIM.rayAcidColor = {
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.rayAcidColorFree = {
@@ -872,7 +892,7 @@ AUTOANIM.circleAnimations = {
     "snowflake": "AUTOANIM.snowflake",
     "outpulse01": "AUTOANIM.outpulse01",
     "outpulse02": "AUTOANIM.outpulse02",
-    "shatter": "AUTOANIM.itemShatter"
+    "shatter": "AUTOANIM.itemShatter",
 }
 
 AUTOANIM.rectangleAnimations = {
@@ -885,6 +905,7 @@ AUTOANIM.entangleColors = {
     "brown": "AUTOANIM.colorBrown",
     "green": "AUTOANIM.colorGreen",
     "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.animTypePick = {
