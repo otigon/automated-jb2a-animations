@@ -269,6 +269,9 @@ JB2AFREEDB.explosion = {
     "07": {
         "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
     },
+    "impact": {
+        "boulder": "modules/jb2a_patreon/Library/Generic/Impact/BoulderImpact_01_Regular_White_500x500.webm"
+    }
 }
 
 JB2AFREEDB.huntersmark = {

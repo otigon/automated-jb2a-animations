@@ -42,7 +42,8 @@ const log = () => { };
 function registerLayer() {
     if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
         const layers = mergeObject(Canvas.layers, {
-            autoanimations: AALayer
+            autoanimations: AALayer,
+            autoanimationsG: AAGroundLayer
         });
         Object.defineProperty(Canvas, 'layers', {
             get: function () {

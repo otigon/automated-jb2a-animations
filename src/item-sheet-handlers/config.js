@@ -436,7 +436,7 @@ AUTOANIM.explosionVariant = {
     "05": "AUTOANIM.variant05",
     "06": "AUTOANIM.variant06",
     "07": "AUTOANIM.variant07",
-    "shatter": "AUTOANIM.itemShatter"
+    "shatter": "AUTOANIM.itemShatter",
 }
 
 AUTOANIM.explosionVariantFree = {
@@ -448,7 +448,7 @@ AUTOANIM.explosionVariantFree = {
     "05": "AUTOANIM.variant05",
     "06": "AUTOANIM.variant06",
     "07": "AUTOANIM.variant07",
-    "shatter": "AUTOANIM.itemShatter"
+    "shatter": "AUTOANIM.itemShatter",
 }
 
 AUTOANIM.selfemanation = {
@@ -463,6 +463,7 @@ AUTOANIM.selfemanation = {
     "antilife-shell": "AUTOANIM.animAntiLifeShell",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
+    "impact": "AUTOANIM.impact"
 }
 
 AUTOANIM.selfCastRadius = {

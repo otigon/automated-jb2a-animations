@@ -280,5 +280,7 @@
     "AUTOANIM.outpulse02": "Outpulse 02",
     "AUTOANIM.entangle": "Entangle",
 
-    "AUTOANIM.customAnim": "Custom Animation?"
+    "AUTOANIM.customAnim": "Custom Animation?",
+
+    "AUTOANIM.impact": "Impact"
 }

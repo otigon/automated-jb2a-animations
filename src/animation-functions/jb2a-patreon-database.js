@@ -675,6 +675,9 @@ JB2APATREONDB.explosion = {
         "purple pink": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm',
         "teal yellow": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm',
     },
+    "impact": {
+        "boulder": "modules/jb2a_patreon/Library/Generic/Impact/BoulderImpact_01_Regular_White_500x500.webm"
+    }
 }
 
 JB2APATREONDB.huntersmark = {

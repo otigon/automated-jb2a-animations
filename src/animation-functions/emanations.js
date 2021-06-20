@@ -9,7 +9,7 @@ async function selfCast(handler) {
         return !!game.modules.get(test);
     }
     let obj02 = handler.animExVariant;
-    let property = handler.animExColor;
+    let property = obj02 === "impact" ? "boulder" : handler.animExColor;
     let loops = handler.animExLoop;
     let testPath;
 
@@ -38,6 +38,7 @@ async function selfCast(handler) {
         case ('06'):
         case ('07'):
         case ('thunderwave'):
+        case ('impact'):
             multiplier = 1500;
             break;
         default:

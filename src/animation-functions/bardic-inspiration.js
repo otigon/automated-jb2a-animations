@@ -185,7 +185,7 @@ async function bardicInspiration(handler) {
             speed: 0,
             scale: {
                 x: targetScale,
-                y: targetScale
+                y: targetScaleS
             },
             level: "ground"
         };
