@@ -230,8 +230,6 @@ export class AnimationTab {
         switch (animType) {
             case "t7":
             case "t8":
-            case "t9":
-            case "t10":
                 levels.show();
                 break;
             default:

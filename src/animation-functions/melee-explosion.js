@@ -12,6 +12,13 @@ async function meleeExplosion(handler, target) {
         return !!game.modules.get(test);
     }
 
+    var randomProperty = function (obj) {
+        var keys = Object.keys(obj);
+        var keyLength = keys.length;
+        var ranKey = Math.floor(Math.random() * keyLength);
+        return keys[ranKey];
+    };
+
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let obj02 = 'explosion';
     let color;
@@ -21,12 +28,21 @@ async function meleeExplosion(handler, target) {
     switch (true) {
         case handler.animExVariant === "shatter":
             obj02 = "shatter";
-            color = handler.animExColor;
+            if (handler.animExColor === "random") {
+                color = randomProperty(obj01[obj02]);
+            } else {
+                color = handler.animExColor;
+            }
             filePath = obj01[obj02][color];
             break;
         default:
             obj02 = "explosion";
-            color = handler.animExColor;
+            if (handler.animExColor === "random") {
+                color = randomProperty(obj01[obj02][variant]);
+            } else {
+                color = handler.animExColor;
+            }
+            //console.log(obj01[obj02][variant])
             filePath = obj01[obj02][variant][color];
     }
 
@@ -35,6 +51,9 @@ async function meleeExplosion(handler, target) {
         case ('05'):
         case ('06'):
         case ('07'):
+            multiplier = 1500;
+            break;
+        case ('impact'):
             multiplier = 1500;
             break;
         default:
@@ -46,7 +65,8 @@ async function meleeExplosion(handler, target) {
         let loops = handler.animExLoop;
 
         let Scale = (canvas.scene.data.grid / divisor);
-
+        let level = handler.flags.exAnimLevel;
+        let animLevel = level ? "ground" : "above";
         // Defines the spell template for FXMaster
         let spellAnim =
         {
@@ -60,7 +80,8 @@ async function meleeExplosion(handler, target) {
             scale: {
                 x: Scale,
                 y: Scale
-            }
+            },
+            level: animLevel
         };
 
         async function SpellAnimation(number) {
@@ -68,11 +89,16 @@ async function meleeExplosion(handler, target) {
             let x = number;
             let interval = 1000;
             for (var i = 0; i < x; i++) {
-                setTimeout(function () {
-                    canvas.autoanimations.playVideo(spellAnim);
-                    game.socket.emit('module.autoanimations', spellAnim);
-                }, i * interval);
-            }
+                    setTimeout(function () {
+                        if (level) {
+                            canvas.autoanimationsG.playVideo(spellAnim);
+                            game.socket.emit('module.autoanimations', spellAnim);
+                        } else {
+                            canvas.autoanimations.playVideo(spellAnim);
+                            game.socket.emit('module.autoanimations', spellAnim);
+                        }
+                        }, i * interval);
+                }
         }
         // The number in parenthesis sets the number of times it loops
         SpellAnimation(loops)

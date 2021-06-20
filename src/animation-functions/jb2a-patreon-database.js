@@ -676,7 +676,23 @@ JB2APATREONDB.explosion = {
         "teal yellow": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm',
     },
     "impact": {
-        "boulder": "modules/jb2a_patreon/Library/Generic/Impact/BoulderImpact_01_Regular_White_500x500.webm"
+        "boulder": "modules/jb2a_patreon/Library/Generic/Impact/BoulderImpact_01_Regular_White_500x500.webm",
+        "01 dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Dark_Red_400x400.webm',
+        "01 blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
+        "01 green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Green_400x400.webm',
+        "01 yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Yellow_400x400.webm',
+        "02 dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Dark_Red_400x400.webm',
+        "02 blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
+        "02 green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Green_400x400.webm',
+        "02 yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Yellow_400x400.webm',
+        "03 dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Dark_Red_400x400.webm',
+        "03 blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
+        "03 green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Green_400x400.webm',
+        "03 yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Yellow_400x400.webm',
+        "04 dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Dark_Red_400x400.webm',
+        "04 blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
+        "04 green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Green_400x400.webm',
+        "04 yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Yellow_400x400.webm'
     }
 }
 

@@ -59,7 +59,7 @@ async function explodeOnTarget(handler) {
     async function cast() {
         var arrayLength = handler.allTargets.length;
         let loops = handler.animExLoop;
-        let level = handler.flags.animLevel;
+        let level = handler.flags.exAnimLevel;
         let animLevel = level ? "ground" : "above";
 
         for (var i = 0; i < arrayLength; i++) {

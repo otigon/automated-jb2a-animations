@@ -387,6 +387,37 @@ AUTOANIM.explosionColors0567 = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.explosionColorsImpact = {
+    "ec1": ``,
+    "boulder": "AUTOANIM.colorBoulder",
+    "01 dark red": "AUTOANIM.color01DarkRed",
+    "01 blue": "AUTOANIM.color01Blue",
+    "01 green": "AUTOANIM.color01Green",
+    "01 yellow": "AUTOANIM.color01Yellow",
+    "02 dark red": "AUTOANIM.color02DarkRed",
+    "02 blue": "AUTOANIM.color02Blue",
+    "02 green": "AUTOANIM.color02Green",
+    "02 yellow": "AUTOANIM.color02Yellow",
+    "03 dark red": "AUTOANIM.color03DarkRed",
+    "03 blue": "AUTOANIM.color03Blue",
+    "03 green": "AUTOANIM.color03Green",
+    "03 yellow": "AUTOANIM.color03Yellow",
+    "04 dark red": "AUTOANIM.color04DarkRed",
+    "04 blue": "AUTOANIM.color04Blue",
+    "04 green": "AUTOANIM.color04Green",
+    "04 yellow": "AUTOANIM.color04Yellow",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.explosionColorsImpactFree = {
+    "ec1": ``,
+    "01 blue": "AUTOANIM.color01Blue",
+    "02 blue": "AUTOANIM.color02Blue",
+    "03 blue": "AUTOANIM.color03Blue",
+    "04 blue": "AUTOANIM.color04Blue",
+    "random": "AUTOANIM.colorRandom"
+}
+
 AUTOANIM.explosionColorsFree01 = {
     "ec1": ``,
     "orange": "AUTOANIM.colorOrange",
@@ -449,6 +480,7 @@ AUTOANIM.explosionVariant = {
     "06": "AUTOANIM.variant06",
     "07": "AUTOANIM.variant07",
     "shatter": "AUTOANIM.itemShatter",
+    "impact": "AUTOANIM.impact",
 }
 
 AUTOANIM.explosionVariantFree = {
@@ -461,6 +493,7 @@ AUTOANIM.explosionVariantFree = {
     "06": "AUTOANIM.variant06",
     "07": "AUTOANIM.variant07",
     "shatter": "AUTOANIM.itemShatter",
+    "impact": "AUTOANIM.impact"
 }
 
 AUTOANIM.selfemanation = {

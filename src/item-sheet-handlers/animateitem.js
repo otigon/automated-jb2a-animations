@@ -58,6 +58,7 @@ export class AnimateItem {
         this.customAnim = this.data.templates.customAnim;
         this.customPath = this.data.templates.customPath
         this.animLevel = this.data.animLevel;
+        this.exAnimLevel = this.data.exAnimLevel;
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -72,6 +73,7 @@ export class AnimateItem {
             explodeLoop: 1,
             explodeRadius: ``,
             explodeVariant: ``,
+            exAnimLevel: false,
             dtvar: ``,
             killAnim: false,
             explosion: false,
@@ -437,6 +439,9 @@ export class AnimateItem {
                 case ('07'):
                     return AUTOANIM.localized(AUTOANIM.explosionColors0567);
                     break;
+                case ('impact'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColorsImpact);
+                    break;
                 case ('shatter'):
                 case ('thunderwave'):
                     return AUTOANIM.localized(AUTOANIM.animColorShatterThunder);
@@ -460,6 +465,9 @@ export class AnimateItem {
                 case ('06'):
                 case ('07'):
                     return AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
+                    break;
+                case ('impact'):
+                    return AUTOANIM.localized(AUTOANIM.explosionColorsImpactFree);
                     break;
                 case ('shatter'):
                 case ('thunderwave'):
