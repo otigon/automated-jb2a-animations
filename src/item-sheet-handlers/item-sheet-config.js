@@ -1,3 +1,6 @@
+/*
+The bulk of the Tab method for Automated Animations is based on the work of Simone Ricciardi, author of the Magic Items module
+*/
 import { AUTOANIM } from "./config.js";
 import { AnimateItem } from "./animateitem.js";
 const animationTabs = [];
