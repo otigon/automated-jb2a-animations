@@ -3,6 +3,7 @@ The framework for the code below originated from Honeybadger (Trioderigon) for c
 */
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
+import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -41,7 +42,15 @@ async function mistyStep(handler) {
     let anFile1 = obj01[obj02]['01'][color];
     let anFile2 = obj01[obj02]['02'][color];
 
-    let myScale = canvas.grid.size / 100 * .6;
+    var videoData = await getVideoDimensionsOf(anFile1);
+    var videoData2 = await getVideoDimensionsOf(anFile2);
+    let videoWidth = videoData.width;
+    //let duration = videoData.duration * 1000;
+    let videoWidth2 = videoData2.width;
+    let tokenWidth = token.w
+    let Scale = (tokenWidth / videoWidth) * 1.5;
+    let Scale2 = (tokenWidth / videoWidth2) * 1.5;
+
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
     var templateRange = handler.teleRange;
     let range = await canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [{
@@ -76,8 +85,8 @@ async function mistyStep(handler) {
         angle: 0,
         speed: 0,
         scale: {
-            x: myScale,
-            y: myScale
+            x: Scale,
+            y: Scale
         }
     }
 
@@ -101,8 +110,8 @@ async function mistyStep(handler) {
         const data2 = {
             file: anFile2,
             position: {
-                x: gridPos[0] + canvas.grid.size / 2,
-                y: gridPos[1] + canvas.grid.size / 2
+                x: gridPos[0] + tokenWidth / 2,
+                y: gridPos[1] + tokenWidth / 2
             },
             anchor: {
                 x: .5,
@@ -111,8 +120,8 @@ async function mistyStep(handler) {
             angle: 0,
             speed: 0,
             scale: {
-                x: -myScale,
-                y: -myScale
+                x: -Scale2,
+                y: -Scale2
             }
         }
 

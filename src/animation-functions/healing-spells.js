@@ -1,6 +1,7 @@
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import { TMFXCOLORS } from "./tmfxcolors.js";
+import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -73,6 +74,11 @@ async function onTargetSpells(handler) {
             filePath = obj01[obj02][variant][color][size];
             break;
     }
+    var videoData = await getVideoDimensionsOf(filePath);
+    let videoHeight = videoData.height;
+    let videoWidth = videoData.width;
+    let duration = videoData.duration * 1000;
+
     let tmColor = TMFXCOLORS[color]();
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
@@ -91,64 +97,10 @@ async function onTargetSpells(handler) {
                 target = handler.actorToken;
             } else target = handler.allTargets[i];
             //let target = handler.allTargets[i];
-
-            let tokenSize = target.actor.data.data?.traits?.size ?? "med";
-            let divisor = 375;
-            switch (true) {
-                case (tokenSize === "lg"):
-                    switch (true) {
-                        case (handler.itemNameIncludes("heal")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
-                            divisor = 125;
-                            break;
-                        case (handler.itemNameIncludes("cure", "wound")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
-                            divisor = 165;
-                            break;
-                        default:
-                            divisor = 187;
-                            break;
-                    }
-                    break;
-                case (tokenSize === "huge"):
-                    switch (true) {
-                        case (handler.itemNameIncludes("heal")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
-                            divisor = 100;
-                            break;
-                        case (handler.itemNameIncludes("cure", "wound")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
-                            divisor = 115;
-                            break;
-                        default:
-                            divisor = 125;
-                            break;
-                    }
-                    break;
-                case (tokenSize === "sm"):
-                case (tokenSize === "med"):
-                default:
-                    switch (true) {
-                        case (handler.itemNameIncludes("heal")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
-                            divisor = 275;
-                            break;
-                        case (handler.itemNameIncludes("cure", "wound")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
-                            divisor = 325;
-                            break;
-                        default:
-                            divisor = 375;
-                            break;
-                    }
-                    break;
-            }
-            let scale = canvas.scene.data.grid / divisor;
+            let targetWidth = target.w
+            let scaleX = (targetWidth / videoWidth) * 2.25;
             let animLevel = handler.flags.animLevel ? "ground" : "above";
-            console.log(animLevel);
+            //console.log(animLevel);
             // Defining spell animation for FX Master
             let spellAnim =
             {
@@ -160,8 +112,8 @@ async function onTargetSpells(handler) {
                 },
                 angle: 0,
                 scale: {
-                    x: scale * 1.5,
-                    y: scale * 1.5
+                    x: scaleX,
+                    y: scaleX
                 },
                 level: animLevel
             };

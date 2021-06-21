@@ -1,5 +1,6 @@
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
+import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -33,25 +34,6 @@ async function templateEffects(handler, msg) {
         filePath = obj01['templates'][type][anim][color];
     }
 
-    function getVideoDimensionsOf(url) {
-        return new Promise(resolve => {
-            // create the video element
-            const video = document.createElement('video');
-            video.preload = "metadata";
-
-            // place a listener on it
-            video.addEventListener("loadedmetadata", function () {
-                // retrieve dimensions
-                const height = this.videoHeight;
-                const width = this.videoWidth;
-                const duration = this.duration
-                // send back result
-                resolve({ height, width, duration });
-            }, false);
-            video.src = url;
-
-        });
-    }
     var videoData = await getVideoDimensionsOf(filePath)
     //console.log(videoData.height);
     //console.log(videoData.width);

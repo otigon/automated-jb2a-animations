@@ -1,5 +1,6 @@
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
+import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
 let HitStutter =
     [{
@@ -51,21 +52,20 @@ async function creatureAttacks(handler) {
     };
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
     let color;
-
     let tmMacro;
+    let sourceToken = handler.actorToken
+    let tokenWidth = sourceToken.w
 
     async function cast() {
         var arrayLength = handler.allTargets.length;
 
         var targetCheck = handler.targetAssistant.length;
         let noTargetAnim = `modules/autoanimations/Animations/No_Target_400x400.webm`;
-        let myToken = handler.actorToken;
         let targetTrainer =
         {
             file: noTargetAnim,
-            position: myToken.center,
+            position: sourceToken.center,
             anchor: {
                 x: 0.5,
                 y: 0.5
@@ -83,26 +83,6 @@ async function creatureAttacks(handler) {
                 game.socket.emit('module.autoanimations', targetTrainer);
         }
 
-        let Scale;
-        let Size = handler.actor.data.data.traits.size;
-        switch (Size) {
-            case "tiny":
-            case "sm":
-                Scale = 0.25;
-                break;
-            case "med":
-                Scale = 0.5;
-                break;
-            case "lg":
-                Scale = 0.75;
-                break;
-            case "huge":
-                Scale = 1.15;
-                break;
-            case "grg":
-                Scale = 1.4;
-                break;
-        }
         let globalDelay = game.settings.get("autoanimations", "globaldelay");
         await wait(globalDelay);
 
@@ -146,6 +126,12 @@ async function creatureAttacks(handler) {
                     tmMacro = HitStutter;
                     break;
             }
+            var videoData = await getVideoDimensionsOf(filePath);
+            let videoHeight = videoData.height;
+            let videoWidth = videoData.width;
+            let duration = videoData.duration * 1000;
+            let scaleX = (tokenWidth / videoWidth) * 1.75;
+
             let spellAnim =
             {
                 //                         File path to animation
@@ -157,8 +143,8 @@ async function creatureAttacks(handler) {
                 },
                 angle: 0,
                 scale: {
-                    x: Scale,
-                    y: Scale
+                    x: scaleX,
+                    y: scaleX
                 }
             };
             canvas.autoanimations.playVideo(spellAnim);
