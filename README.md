@@ -1,6 +1,11 @@
 ## NOTE: 0.3.50 and above REQUIRES an Uninstall/Reinstall of the Automated Animations Module from version 0.3.28. I had to change the back-end module name to be able implement Sounds  
 If you enjoy Automated Animations, consider sending some love on Patreon
 ### Patreon Link: https://www.patreon.com/otigon : Not required, but appreciated  
+
+MIT and BSD-3 License provided:  
+- Code from Midi-QOL (Tim Posney) is used to check distnace between tokens: Copyright (c) 2020 Tim Posney  
+- Honeybadger (Trioderigon) provided the framework for the Misty Step Animation  
+- Code from FX Master (U~Man) is used to create multiple canvas layers for the animations: Copyright 2021 U~man  
 \
 \
 \
