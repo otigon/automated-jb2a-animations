@@ -1,3 +1,6 @@
+/*
+This code is taken directly from the FX Master Module for creating Canvas Layers and Playing Animations. Copyright 2021 U~man
+*/
 import { AACanvasAnimation } from "./canvasanimation.js"
 import { easeFunctions } from "./ease.js";
 
