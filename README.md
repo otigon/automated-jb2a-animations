@@ -3,9 +3,9 @@ If you enjoy Automated Animations, consider sending some love on Patreon
 ### Patreon Link: https://www.patreon.com/otigon : Not required, but appreciated  
 
 MIT and BSD-3 License provided:  
-- Code from Midi-QOL (Tim Posney) is used to check distnace between tokens: Copyright (c) 2020 Tim Posney  
+- Code from Midi-QOL (Tim Posney) is used to check distance between tokens: Copyright (c) 2020 Tim Posney  
 - Honeybadger (Trioderigon) provided the framework for the Misty Step Animation  
-- Code from FX Master (U~Man) is used to create multiple canvas layers for the animations: Copyright 2021 U~man  
+- Code from FX Master (U-Man) is used to create multiple canvas layers for the animations: Copyright 2021 U~man  
 \
 \
 \
