@@ -6,6 +6,8 @@ MIT and BSD-3 License provided:
 - Code from Midi-QOL (Tim Posney) is used to check distance between tokens: Copyright (c) 2020 Tim Posney  
 - Honeybadger (Trioderigon) provided the framework for the Misty Step Animation  
 - Code from FX Master (U-Man) is used to create multiple canvas layers for the animations: Copyright 2021 U~man  
+- Code from the Magic Items Module was used to help build out the A-A Tab. 
+
 \
 \
 \
