@@ -74,7 +74,6 @@ async function explodeOnTarget(handler) {
         var arrayLength = handler.allTargets.length;
         let loops = handler.animExLoop;
         let level = handler.flags.exAnimLevel;
-        let animLevel = level ? "ground" : "above";
 
         for (var i = 0; i < arrayLength; i++) {
             let target = handler.allTargets[i];
@@ -94,7 +93,7 @@ async function explodeOnTarget(handler) {
                     x: Scale,
                     y: Scale
                 },
-                level: animLevel
+                ground: level
             };
 
             async function SpellAnimation(number) {

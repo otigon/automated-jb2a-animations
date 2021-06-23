@@ -1,5 +1,6 @@
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
+import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -15,7 +16,6 @@ async function bardicInspiration(handler) {
     let colorT;
     let repeat;
     let color;
-    //console.log(handler.bardAnim);
     switch (true) {
         case (handler.bardAnim === "music"):
             obj02 = "music";
@@ -70,14 +70,9 @@ async function bardicInspiration(handler) {
 
     let token = handler.actorToken;
     let target = handler.allTargets[0];
-    let markerScale = canvas.grid.size * 1.5;
     let color02 = handler.bards.markerColor;
     let color02T = handler.bards.markerColorTarget;
-    //console.log(color02);
-    //console.log(color02);
 
-    let markerPath = obj01['bardicinspiration']['marker'][color02];
-    let markerPathTarget = obj01['bardicinspiration']['marker'][color02T];
 
     function randomSpot(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -87,52 +82,18 @@ async function bardicInspiration(handler) {
         return target?.center;
     }
 
-    let centerX = token.center.x;
-    let centerY = token.center.y;
-    let grid = canvas.grid.size;
-    let xMax = centerX + grid / 2;
-    let xMin = centerX - grid / 2;
-    let yMax = centerY;
-    let yMin = centerY - grid / 2;
+    async function markerCreate(tokenMarker, path) {
+        var videoData = await getVideoDimensionsOf(path);
+        let videoHeight = videoData.height;
+        let videoWidth = videoData.width;
+        let duration = videoData.duration * 1000;
 
-    let centerXtarget = target?.center.x;
-    let centerYtarget = target?.center.y;
-    let xMaxtarget = centerXtarget + grid / 2;
-    let xMintarget = centerXtarget - grid / 2;
-    let yMaxtarget = centerYtarget;
-    let yMintarget = centerYtarget - grid / 2;
+        let scaleX = (tokenMarker.w / videoWidth) * 2;
 
-    let tokenScale = (token.w / canvas.grid.size) * 0.5;
-    let targetScale = (target.w / canvas.grid.size) * 0.5;
-    /*
-    async function markerCreate(markerToken) {
-
-        let name = "Bardic Inspiration";
-
-        let textureData = {
-            texturePath: markerPath,
-            scale: "1.5",
-            speed: 0,
-            multiple: 1,
-            rotation: "static",
-            xScale: 0.5,
-            yScale: 0.5,
-            belowToken: true,
-            radius: 2,
-            opacity: 0.85,
-            tint: 16777215,
-            equip: false,
-            lock: false
-        }
-        CTA.addAnimation(markerToken, textureData, false, name, null)
-        //CTA.addAnimation(markerToken, textureData, false, name, null)
-    }
-    */
-    async function markerCreate(markerToken) {
         let spellAnim =
         {
-            file: markerPath,
-            position: token.center,
+            file: path,
+            position: tokenMarker.center,
             anchor: {
                 x: 0.5,
                 y: 0.5
@@ -140,73 +101,36 @@ async function bardicInspiration(handler) {
             angle: 0,
             speed: 0,
             scale: {
-                x: tokenScale,
-                y: tokenScale
+                x: scaleX,
+                y: scaleX
             },
-            level: "ground"
+            below: true
         };
         canvas.autoanimationsG.playVideo(spellAnim);
         game.socket.emit('module.autoanimations', spellAnim);
     }
-    /*
-    async function markerCreateTarget(markerToken) {
 
-        let name = "Bardic Inspiration";
+    async function music(number, token, path) {
 
-        let textureData = {
-            texturePath: markerPathTarget,
-            scale: "1.5",
-            speed: 0,
-            multiple: 1,
-            rotation: "static",
-            xScale: 0.5,
-            yScale: 0.5,
-            belowToken: true,
-            radius: 2,
-            opacity: 0.85,
-            tint: 16777215,
-            equip: false,
-            lock: false
-        }
-        CTA.addAnimation(markerToken, textureData, false, name, null)
-        //CTA.addAnimation(markerToken, textureData, false, name, null)
-    }
-    */
-    async function markerCreateTarget(markerToken) {
-        let spellAnim =
-        {
-            file: markerPathTarget,
-            position: target.center,
-            anchor: {
-                x: 0.5,
-                y: 0.5
-            },
-            angle: 0,
-            speed: 0,
-            scale: {
-                x: targetScale,
-                y: targetScaleS
-            },
-            level: "ground"
-        };
-        canvas.autoanimationsG.playVideo(spellAnim);
-        game.socket.emit('module.autoanimations', spellAnim);
-    }
-    /*
-    async function markerDelete(markerToken) {
-        let name = "Bardic Inspiration";
-        CTA.removeAnimByName(markerToken, name, true, true);
-        //CTA.removeAnimByName(markerToken, name, true, true);
-    }
-    */
-    async function music(number) {
+        var videoData = await getVideoDimensionsOf(path['1']);
+        let videoHeight = videoData.height;
+        let videoWidth = videoData.width;
+        let duration = videoData.duration * 1000;
+
+        let scaleX = (token.w / videoWidth) * 1;
+
+        let centerX = token.center.x;
+        let centerY = token.center.y;
+        let size = token.w;
+        let xMax = centerX + size / 2;
+        let xMin = centerX - size / 2;
+        let yMax = centerY;
+        let yMin = centerY - size / 2;
+
         let x = number
         for (var i = 0; i < x; i++) {
             let ranVar = Math.floor(Math.random() * 7 + 1).toString();
-            //console.log(obj01[obj02][color]);
-            //console.log(obj02);
-            //console.log(color);
-            let filePath = obj01[obj02][color][ranVar];
+            let filePath = path[ranVar];
             let varX = randomSpot(xMin, xMax);
             let varY = randomSpot(yMin, yMax);
 
@@ -223,8 +147,8 @@ async function bardicInspiration(handler) {
                 },
                 angle: 0,
                 scale: {
-                    x: .5,
-                    y: .5
+                    x: scaleX,
+                    y: scaleX
                 }
             };
 
@@ -241,60 +165,28 @@ async function bardicInspiration(handler) {
         }
     }
 
-    async function musicTarget(number) {
-        let x = number
-        for (var i = 0; i < x; i++) {
-            let ranVar = Math.floor(Math.random() * 7 + 1).toString();
-            let filePathTarget = obj01[obj02T][colorT][ranVar];
-            let varXtarget = randomSpot(xMintarget, xMaxtarget);
-            let varYtarget = randomSpot(yMintarget, yMaxtarget);
+    async function bardicInspiration(biToken, path) {
 
-            let targetAnim =
-            {
-                file: filePathTarget,
-                position: {
-                    x: varXtarget,
-                    y: varYtarget
-                },
-                anchor: {
-                    x: 0.5,
-                    y: 0.5
-                },
-                angle: 0,
-                scale: {
-                    x: .5,
-                    y: .5
-                }
-            };
+        var videoData = await getVideoDimensionsOf(path);
+        let videoHeight = videoData.height;
+        let videoWidth = videoData.width;
+        let duration = videoData.duration * 1000;
 
-            async function targetCasting() {
-                canvas.autoanimations.playVideo(targetAnim);
-                game.socket.emit('module.autoanimations', targetAnim);
-            }
+        let scaleX = (biToken.w / videoWidth) * 2;
 
-            if (target && handler.bardTarget) {
-                targetCasting();
-            }
-            await wait(350)
-        }
-    }
-
-    async function bardicInspiration() {
-
-        let filePath = obj01[obj02]['inspire'][color];
 
         let sourceAnim =
         {
-            file: filePath,
-            position: token.center,
+            file: path,
+            position: biToken.center,
             anchor: {
                 x: 0.5,
                 y: 0.5
             },
             angle: 0,
             scale: {
-                x: .5,
-                y: .5
+                x: scaleX,
+                y: scaleX
             }
         };
 
@@ -306,82 +198,65 @@ async function bardicInspiration(handler) {
             selfCasting();
         }
     }
-
-    async function bardicInspirationTarget() {
-
-        let filePathTarget = obj01[obj02T]['inspire'][colorT]
-
-        let varTarget = targetCenter(target);
-
-        let targetAnim =
-        {
-            file: filePathTarget,
-            position: varTarget,
-            anchor: {
-                x: 0.5,
-                y: 0.5
-            },
-            angle: 0,
-            scale: {
-                x: .5,
-                y: .5
-            }
-        };
-
-        async function targetCasting() {
-            canvas.autoanimations.playVideo(targetAnim);
-            game.socket.emit('module.autoanimations', targetAnim);
-        }
-
-        if (target && handler.bardTarget) {
-            targetCasting();
-        }
-    }
-
     //let ctaActive = game.modules.get("Custom-Token-Animations")?.active;
+    let biFileToken;
+    let biFileTarget;
 
-    if (obj02 === "music") {
+    let markerPath;
+    let markerPathTarget;
 
+    let musicTokenPath;
+    let musicTargetPath;
+
+    if (handler.bards.bardSelf) {
+        switch (true) {
+            case obj02 === "music":
+                musicTokenPath = obj01[obj02][color];
+                music(10, token, musicTokenPath);
+                if (handler.bards.marker) {
+                    if (handler.bardSelf) {
+                        markerPath = obj01['bardicinspiration']['marker'][color02];
+                        markerCreate(token, markerPath);
+                    }
+                    await wait(3750);
+                }
+                break;
+            default:
+                biFileToken = obj01[obj02]['inspire'][color];
+                bardicInspiration(token, biFileToken);
+                if (handler.bards.marker) {
+                    if (handler.bardSelf) {
+                        markerPath = obj01['bardicinspiration']['marker'][color02];
+                        markerCreate(token, markerPath);
+                    }
+                    await wait(3750);
+                }
+        }
     }
-
-    switch (true) {
-        case obj02 === "music":
-            music(10);
-            if (handler.bards.marker) {
-                if (handler.bardSelf) {
-                    markerCreate(token);
+    if (handler.bards.bardTarget && target !== undefined) {
+        switch (true) {
+            case obj02T === "music":
+                musicTargetPath = obj01[obj02T][colorT];
+                music(10, target, musicTargetPath);
+                if (handler.bards.marker) {
+                    if (target && handler.bardTarget) {
+                        markerPathTarget = obj01['bardicinspiration']['marker'][color02T];
+                        markerCreate(target, markerPathTarget);
+                    }
+                    await wait(3750);
                 }
-                await wait(3750);
-            }
-            break;
-        default:
-            bardicInspiration();
-            if (handler.bards.marker) {
-                if (handler.bardSelf) {
-                    markerCreate(token);
+                break;
+            default:
+                biFileTarget = obj01[obj02T]['inspire'][colorT];
+                bardicInspiration(target, biFileTarget);
+                if (handler.bards.marker) {
+                    if (target && handler.bardTarget) {
+                        markerPathTarget = obj01['bardicinspiration']['marker'][color02T];
+                        markerCreate(target, markerPathTarget);
+                    }
+                    await wait(3750);
                 }
-                await wait(3750);
-            }
-    }
-
-    switch (true) {
-        case obj02T === "music":
-            musicTarget(10);
-            if (handler.bards.marker) {
-                if (target && handler.bardTarget) {
-                    markerCreateTarget(target);
-                }
-                await wait(3750);
-            }
-            break;
-        default:
-            bardicInspirationTarget();
-            if (handler.bards.marker) {
-                if (target && handler.bardTarget) {
-                    markerCreateTarget(target);
-                }
-                await wait(3750);
-            }
+        }
     }
 }
 export default bardicInspiration;

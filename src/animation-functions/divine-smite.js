@@ -55,7 +55,7 @@ async function divineSmite(handler) {
             x: Scale,
             y: Scale
         },
-        level: "ground"
+        below: true
     }
 
     let targetAnim;

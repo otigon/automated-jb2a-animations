@@ -88,7 +88,6 @@ async function selfCast(handler) {
         //let Scale = ((handler.actorToken.data.width + handler.actorToken.data.height) / 8);
         let Scale = canvas.scene.data.grid / divisor;
         let level = handler.flags.exAnimLevel;
-        let animLevel = level ? "ground" : "above";
 
         let spellAnim =
         {
@@ -104,7 +103,7 @@ async function selfCast(handler) {
                 x: Scale,
                 y: Scale
             },
-            level: animLevel
+            below: level
         };
 
 

@@ -72,7 +72,7 @@ function registerLayer() {
 function activateSocket() {
     game.socket.on("module.autoanimations", (data) => {
         //console.log(data.position);
-        if (data.level === "ground") {
+        if (data.below) {
             canvas.autoanimationsG.playVideo(data);
         } else {
             canvas.autoanimations.playVideo(data);

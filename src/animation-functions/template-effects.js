@@ -106,7 +106,6 @@ async function templateEffects(handler, msg) {
         //console.log(scaleY);
         //console.log(scaleX);
         let level = handler.flags.animLevel;
-        let animLevel = level ? "ground" : "above";
         let spellAnim =
         {
             file: filePath,
@@ -123,7 +122,7 @@ async function templateEffects(handler, msg) {
                 x: scaleX,
                 y: scaleY
             },
-            level: animLevel
+            ground: level
         };
         async function loopAnimation(number) {
             let x = number;

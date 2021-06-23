@@ -79,7 +79,6 @@ async function meleeExplosion(handler, target) {
 
         let Scale = (canvas.scene.data.grid / divisor);
         let level = handler.flags.exAnimLevel;
-        let animLevel = level ? "ground" : "above";
         // Defines the spell template for FXMaster
         let spellAnim =
         {
@@ -94,7 +93,7 @@ async function meleeExplosion(handler, target) {
                 x: Scale,
                 y: Scale
             },
-            level: animLevel
+            ground: level
         };
 
         async function SpellAnimation(number) {

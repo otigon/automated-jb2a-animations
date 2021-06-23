@@ -99,7 +99,7 @@ async function onTargetSpells(handler) {
             //let target = handler.allTargets[i];
             let targetWidth = target.w
             let scaleX = (targetWidth / videoWidth) * 2.25;
-            let animLevel = handler.flags.animLevel ? "ground" : "above";
+            let animLevel = handler.flags.animLevel;
             //console.log(animLevel);
             // Defining spell animation for FX Master
             let spellAnim =
@@ -115,9 +115,9 @@ async function onTargetSpells(handler) {
                     x: scaleX,
                     y: scaleX
                 },
-                level: animLevel
+                below: animLevel
             };
-            if (animLevel === "ground") {
+            if (animLevel) {
                 canvas.autoanimationsG.playVideo(spellAnim);
                 game.socket.emit('module.autoanimations', spellAnim);
             } else {
