@@ -278,5 +278,11 @@
     "AUTOANIM.snowflake": "눈송이 파열",
     "AUTOANIM.outpulse01": "아웃펄스 01",
     "AUTOANIM.outpulse02": "아웃펄스 02",
-    "AUTOANIM.entangle": "얽혀듬"
+    "AUTOANIM.entangle": "얽혀듬",
+
+    "AUTOANIM.customAnim": "커스텀 애니메이션?",
+
+    "AUTOANIM.impact": "임팩트",
+    "AUTOANIM.impactVariant": "임팩트 유형",
+    "AUTOANIM.underToken": "애니메이션을 토큰 아래에서 재생합니까?"
 }
