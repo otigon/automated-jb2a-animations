@@ -2,6 +2,7 @@ import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import meleeExplosion from "./melee-explosion.js";
 import divineSmite from "./divine-smite.js";
+import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -147,6 +148,9 @@ async function unarmedStrike(handler) {
                     break;
             }
 
+            var videoData = await getVideoDimensionsOf(filePath);
+            let duration = videoData.duration * 1000;
+
             // Scaled globally, change divisor to increase/decrease size of animation
             let Scale = canvas.scene.data.grid / 175;
             // randomly mirrors animation
@@ -226,9 +230,9 @@ async function unarmedStrike(handler) {
             */
 
             if (handler.animExplode && handler.animOverride) {
+                await wait(duration-250)
                 meleeExplosion(handler, target);
             }
-
         }
     }
     cast();

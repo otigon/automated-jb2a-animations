@@ -402,11 +402,7 @@ export class AnimationTab {
                 uaStrikeType.hide();
         }
         switch (true) {
-            case (explosion && override &&
-                ((animName.includes(game.i18n.format("AUTOANIM.itemArrow"))) ||
-                    this.itemName.includes("bow") || this.itemName.includes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()) ||
-                    this.itemName.includes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase())) &&
-                animType === "t4"):
+            case (explosion && override && animType === "t4"):
             case (explosion && (animType === "t2") && override):
             case (explosion && (animType === "t3") && override):
                 explosionOptions.show();

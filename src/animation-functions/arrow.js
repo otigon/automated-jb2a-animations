@@ -1,4 +1,5 @@
 import meleeExplosion from "./melee-explosion.js";
+import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -13,8 +14,6 @@ async function arrowOptionExplode(handler) {
     let type01 = "01";
     let tint = "Regular";
     let color = "White";
-    //let tmColor;
-    //let tmMacro;
 
     switch (true) {
         case (handler.itemColorIncludes("green")):
@@ -28,119 +27,6 @@ async function arrowOptionExplode(handler) {
             color = "White";
             break;
     }
-    /*
-        switch (true) {
-            case (handler.itemIncludes("acid")):
-                type02 = "01";
-                color02 = "Green";
-                tmColor = 0x60CC70;
-                break;
-            case (handler.itemIncludes("explosive")):
-                type02 = "01";
-                color02 = "Orange";
-                tmColor = 0xFF9309;
-                break;
-            case (handler.itemIncludes("lightning")):
-                type02 = "01";
-                color02 = "Blue";
-                tmColor = 0x053ABD;
-                break;
-    
-        }
-    */
-    /*
-        let Poison =
-            [{
-                filterType: "field",
-                filterId: "Poisoned",
-                shieldType: 3,
-                gridPadding: 1,
-                color: tmColor,
-                time: 0,
-                blend: 0,
-                intensity: 0.9,
-                lightAlpha: 1,
-                lightSize: 0.7,
-                scale: 1,
-                radius: 1,
-                chromatic: false,
-                zOrder: 512,
-                animated:
-                {
-                    time:
-                    {
-                        active: true,
-                        speed: 0.0015,
-                        animType: "move"
-                    }
-                }
-            }];
-    
-        let letitBurn =
-            [{
-                filterType: "xfire",
-                filterId: "Burning",
-                autoDestroy: true,
-                time: 0,
-                // Can change color in hex format
-                color: tmColor,
-                blend: 1,
-                amplitude: 1,
-                dispersion: 0,
-                chromatic: false,
-                scaleX: 1,
-                scaleY: 1,
-                inlay: false,
-                autoDestroy: true,
-                animated:
-                {
-                    time:
-                    {
-                        loopDuration: 1000,
-                        loops: 2,
-                        active: true,
-                        speed: -0.0015,
-                        animType: "move"
-                    }
-    
-                }
-            }];
-            */
-    /*
-        let Electric =
-            [{
-                filterType: "electric",
-                filterId: "Shocked",
-                color: tmColor,
-                time: 0,
-                blend: 2,
-                intensity: 5,
-                animated:
-                {
-                    time:
-                    {
-                        active: true,
-                        speed: 0.0020,
-                        animType: "move"
-                    }
-    
-                }
-            }];
-            */
-    /*
-        switch (true) {
-            case (handler.itemIncludes("acid")):
-                tmMacro = Poison;
-                break;
-            case (handler.itemIncludes("explosive")):
-                tmMacro = letitBurn;
-                break;
-            case (handler.itemIncludes("lightning")):
-                tmMacro = Electric;
-                break;
-    
-        }
-    */
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
     async function cast() {
@@ -252,6 +138,9 @@ async function arrowOptionExplode(handler) {
                     break;
             }
 
+            var videoData = await getVideoDimensionsOf(anFile);
+            let duration = videoData.duration * 1000;
+
             // Scaling the Height of the animation for consistency across ranges
             let anScale = anDist / anFileSize;
             let anScaleY;
@@ -309,7 +198,7 @@ async function arrowOptionExplode(handler) {
                 case (handler.playOnMiss):
                     switch (true) {
                         case handler.hitTargetsId.includes(target.id):
-                            await wait(boomDelay);
+                            await wait(duration-500);
                             if (handler.animExplode && handler.animOverride) {
                                 meleeExplosion(handler, target);
                             }
@@ -319,7 +208,7 @@ async function arrowOptionExplode(handler) {
                     }
                     break;
                 default:
-                    await wait(boomDelay);
+                    await wait(duration-500);
                     if (handler.animExplode && handler.animOverride) {
                         meleeExplosion(handler, target);
                     }
