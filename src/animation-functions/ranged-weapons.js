@@ -1,5 +1,7 @@
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
+import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
+import meleeExplosion from "./melee-explosion.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -335,7 +337,11 @@ async function rangedWeapons(handler) {
                     }
                     break;
             }
-            console.log(anFile);
+
+            var videoData = await getVideoDimensionsOf(anFile);
+            let duration = videoData.duration * 1000;
+        
+            //console.log(anFile);
             let anScale = anDist / anFileSize;
             let anScaleY = anDist <= 600 ? 0.6 : anScale;
             /*
@@ -385,6 +391,25 @@ async function rangedWeapons(handler) {
                         game.socket.emit('module.autoanimations', spellAnim);
                     }, i * interval);
                 }
+                switch (true) {
+                    case (handler.playOnMiss):
+                        switch (true) {
+                            case handler.hitTargetsId.includes(target.id):
+                                await wait(duration-1000);
+                                if (handler.animExplode && handler.animOverride) {
+                                    meleeExplosion(handler, target);
+                                }
+                                break;
+                            default:
+                                await wait(500);
+                        }
+                        break;
+                    default:
+                        await wait(duration-1000);
+                        if (handler.animExplode && handler.animOverride) {
+                            meleeExplosion(handler, target);
+                        }
+                }    
             }
             SpellAnimation(Repeater)
             if (game.settings.get("autoanimations", "tmfx")) {

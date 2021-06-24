@@ -285,5 +285,8 @@
     "AUTOANIM.impactVariant": "Impact Variant",
     "AUTOANIM.underToken": "Play Animation Underneath Token?",
 
-    "AUTOANIM.markerEnable": "Enable Marker"
+    "AUTOANIM.markerEnable": "Enable Marker",
+
+    "AUTOANIM.colorLightBlue": "Light Blue",
+    "AUTOANIM.colorRainbow": "Rainbow"
 }

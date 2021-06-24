@@ -92,6 +92,21 @@ JB2APATREONDB.eldritchblast = {
         '30': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_LightGreen_30ft_1600x400.webm',
         '60': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_LightGreen_60ft_2800x400.webm',
         '90': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_LightGreen_90ft_4000x400.webm'
+    },
+    'dark green': {
+        '30': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Dark_Green_30ft_1600x400.webm',
+        '60': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Dark_Green_60ft_2800x400.webm',
+        '90': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Dark_Green_90ft_4000x400.webm'
+    },
+    'rainbow': {
+        '30': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Rainbow_30ft_1600x400.webm',
+        '60': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Rainbow_60ft_2800x400.webm',
+        '90': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Rainbow_90ft_4000x400.webm'
+    },
+    'light blue': {
+        '30': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_LightBlue_30ft_1600x400.webm',
+        '60': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_LightBlue_60ft_2800x400.webm',
+        '90': 'modules/jb2a_patreon/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_LightBlue_90ft_4000x400.webm'
     }
 }
 
@@ -1188,11 +1203,13 @@ JB2APATREONDB.divinesmite = {
         'blue yellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm',
         'green yellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm',
         'purple pink': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm',
+        'dark purple': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Dark_Purple_Caster_400x400.webm',
     },
     'target': {
         'blue yellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm',
         'green yellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_GreenYellow_Target_400x400.webm',
         'purple pink': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_PurplePink_Target_400x400.webm',
+        'dark purple': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm',
     }
 }
 

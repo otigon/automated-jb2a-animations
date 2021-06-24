@@ -192,6 +192,9 @@ AUTOANIM.animColorEldritchBlast = {
     "dark red": "AUTOANIM.colorDarkRed",
     "orange": "AUTOANIM.colorOrange",
     "pink": "AUTOANIM.colorPink",
+    "dark green": "AUTOANIM.colorDarkGreen",
+    "light blue": "AUTOANIM.colorLightBlue",
+    "rainbow": "AUTOANIM.colorRainbow",
     "random": "AUTOANIM.colorRandom"
 }
 
@@ -738,6 +741,7 @@ AUTOANIM.dsSelf = {
     'blue yellow': "AUTOANIM.colorYellowBlue",
     'green yellow': "AUTOANIM.colorGreenYellow",
     "purple pink": "AUTOANIM.colorPinkPurple",
+    "dark purple": "AUTOANIM.colorDarkPurple",
 }
 
 AUTOANIM.dsTarget = {
@@ -745,6 +749,7 @@ AUTOANIM.dsTarget = {
     'blue yellow': "AUTOANIM.colorYellowBlue",
     'green yellow': "AUTOANIM.colorGreenYellow",
     "purple pink": "AUTOANIM.colorPinkPurple",
+    "dark purple": "AUTOANIM.colorDarkPurple",
 }
 
 AUTOANIM.animBWType = {

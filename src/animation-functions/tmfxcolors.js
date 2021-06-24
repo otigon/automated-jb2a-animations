@@ -106,5 +106,14 @@ export const TMFXCOLORS = {
     },
     'light green': function () {
         return "pass";
+    },
+    'light blue': function () {
+        return "pass";
+    },
+    'rainbow': function () {
+        return "pass";
+    },
+    'random': function () {
+        return "pass";
     }
 };

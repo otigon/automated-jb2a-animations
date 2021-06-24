@@ -1,3 +1,15 @@
+0.3.81 - 0.3.85
+- Impact Options added to explosions  
+- Random color choice added to nearly all remaining effects  
+- Japanese and Korean Localization updates  
+- Cleared up some Licensing issues  
+- Fixed Bardic Inspiration issues  
+- Most animation effects scale now based on Token Size vs Video metadata, more to come  
+- Fixed Foundry compatible version to 0.8.7  
+- Added Eldritch Blast: Dark Green, Rainbow, and Light Blue. Added Dark Purple Divine Smite (All will be availble on next patreon release, currently only for Rare tier and above)  
+- Explosions now available for all ranged attacks  
+  
+  
 0.3.79 - 0.3.80  
 - Misty Step tweaks (shoudl now work for Firefox, and hopefully everything else)  
 - Added a "ground" layer to the module. Currently settable if using overrides for Healing Spells, Templates, On Target and Self Explosions. This will expand on a future update  
