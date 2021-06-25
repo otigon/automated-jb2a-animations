@@ -523,6 +523,7 @@ function revItUp5eCore(msg) {
     if (handler.animType === "t11" && handler.animOverride) {
         if (game.modules.get("Custom-Token-Animations")?.active) {
             ctaCall(handler);
+            return;
         }
     }
     if (handler.itemNameIncludes("bardic inspiration") || handler.itemNameIncludes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase())) {
