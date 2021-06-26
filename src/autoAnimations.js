@@ -31,6 +31,7 @@ import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
 import mistyStepOld from "./animation-functions/misty-step-old.js";
 import templateEffects from "./animation-functions/template-effects.js";
+import MyFormApplication from "./item-sheet-handlers/animateTab.js";
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
@@ -364,6 +365,14 @@ Hooks.on(`renderItemSheet`, (app, html, data) => {
         return;
     }
     AnimationTab.bind(app, html, data);
+    let title = "A-A";
+    let openBtn = $(`<a class="open-item-effect" title="${title}"><i class="fas fa-biohazard"></i>${title}</a>`);
+    openBtn.click(ev => {
+        new MyFormApplication().render(true);
+    });
+    html.closest('.app').find('.open-item-effect').remove();
+    let titleElement = html.closest('.app').find('.window-title');
+    openBtn.insertAfter(titleElement);
 });
 
 
