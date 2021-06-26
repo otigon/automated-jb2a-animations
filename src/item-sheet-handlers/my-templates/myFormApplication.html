@@ -1,11 +1,68 @@
 <form class="flexcol">
-  <div class="form-group">
-    <label for="exampleInput">Example Input</label>
-    <input type="text" name="exampleInput">
-  </div>
-  <footer class="sheet-footer flexrow">
-    <button type="submit" name="submit">
-        <i class="fa fa-check"></i> OK
-    </button>
-  </footer>
+    <div class="form-group">
+        <label>{{localize "AUTOANIM.menuKillAnim"}}</label>
+        <input type="checkbox" name="flags.autoanimations.killAnim" value="flags.autoanimations.killAnim"
+            data-dtype="{{Boolean}}" {{checked flags.autoanimations.killAnim}} />
+    </div>
+    <div class="animation-not-disabled">
+        <div class="anim-level">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.underToken"}}</label>
+                <input type="checkbox" name="flags.autoanimations.animLevel" value="flags.autoanimations.animLevel"
+                    data-dtype="{{Boolean}}" {{checked flags.autoanimations.animLevel}} />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>{{localize "AUTOANIM.menuOverride"}}</label>
+            <input type="checkbox" name="flags.autoanimations.override" valu="flags.autoanimations.override"
+                data-dtype="{{Boolean}}" {{checked flags.autoanimations.override}} />
+        </div>
+    </div>
+    <div class="animation-type">
+        <div class="form-group">
+            <label>{{localize "AUTOANIM.menuAnimType"}}</label>
+            <div class="form-fields">
+                <select name="flags.autoanimations.animType">
+                    {{#select flags.autoanimations.animType}}
+                    {{#each animationType as |name key|}}
+                    <option value="{{key}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="animation-name">
+        <div class="form-group">
+            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+            <div class="form-fields">
+                <select name="flags.autoanimations.animName">
+                    {{#select flags.autoanimations.animName}}
+                    {{#each animationName as |key name|}}
+                    <option value="{{key}}">{{key}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="animation-color">
+        <div class="form-group">
+            <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+            <div class="form-fields">
+                <select name="flags.autoanimations.color">
+                    {{#select flags.autoanimations.color}}
+                    {{#each animationColor as |name key|}}
+                    <option value="{{key}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        </div>
+    </div>
+    <footer class="sheet-footer flexrow">
+        <button type="submit" name="submit">
+            <i class="fa fa-check"></i> OK
+        </button>
+    </footer>
 </form>
