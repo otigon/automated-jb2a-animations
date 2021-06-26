@@ -241,7 +241,7 @@
     "AUTOANIM.chooseAudio": "Choose Audio File",
     "AUTOANIM.audioDelay": "Delay Audio (milliseconds)",
     "AUTOANIM.audioVolume": "Audio Volume (0 - 100)",
-    "AUTOANIM.markerColor": "Marker Color",
+    "AUTOANIM.markerColor": "Marker Color Self",
     
     "AUTOANIM.colorLightGreen": "Light Green",
     "AUTOANIM.colorGreenYellow": "Green Yellow",

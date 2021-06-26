@@ -253,7 +253,3 @@ export function explosionColors(explosionVariant, patreon) {
     }
     return explosionColor;
 }
-
-function moduleIncludes(test) {
-    return !!game.modules.get(test);
-}
