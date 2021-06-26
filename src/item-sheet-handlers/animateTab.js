@@ -1,4 +1,5 @@
 import { AUTOANIM } from "./config.js";
+import { colorChoices, animationName } from "./tab-options.js";
 
 export class AAFormApplication extends FormApplication {
     constructor() {
@@ -22,19 +23,47 @@ export class AAFormApplication extends FormApplication {
 
     getData() {
         // Send data to the template
+        let itemNameItem = this.object.name?.toLowerCase() ?? "";
+        let itemNameFlag = this.object.data.flags.autoanimations?.animName?.toLowerCase() ?? "";
+        let itemName;
+        let isOverride = this.object.data.flags.autoanimations.override;
+        let animType = this.object.data.flags.autoanimations.animType;
+        let patreon = moduleIncludes("jb2a_patreon");
+        let spellVariant = this.object.data.flags.autoanimations.spellVar;
+        let bardAnimation = this.object.data.flags.autoanimations.bardAnim;
+        switch (true) {
+            case (!isOverride):
+            case isOverride && itemNameFlag === '':
+                itemName = itemNameItem;
+                break;
+            default:
+                itemName = itemNameFlag;
+                break;
+        }
+        console.log("Override is set to " + isOverride);
+        console.log("The Standard Item Name is " + itemNameItem);
+        console.log("The Flag Item Name is " + itemNameFlag);
+        console.log("The Final Item Name is " + itemName);
         return {
-          msg: this.exampleOption,
-          color: 'red',
-          animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
-          animationName: AUTOANIM.localized(AUTOANIM.animNameMeleeWeapon),
-          animationColor: AUTOANIM.localized(AUTOANIM.animColorMelee),
-          flags: this.object.data.flags,
+            msg: this.exampleOption,
+            color: 'red',
+            animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
+            animationNames: animationName(animType, patreon),
+            animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation), //AUTOANIM.localized(AUTOANIM.animColorMelee),
+            flags: this.object.data.flags,
         };
 
     }
 
     activateListeners(html) {
         super.activateListeners(html);
+        html.find('.animation-name').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.animation-type').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+
     }
 
     async _updateObject(event, formData) {
@@ -53,3 +82,7 @@ export class AAFormApplication extends FormApplication {
 }
 
 export default AAFormApplication;
+
+function moduleIncludes(test) {
+    return !!game.modules.get(test);
+}
