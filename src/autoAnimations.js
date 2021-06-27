@@ -364,7 +364,7 @@ Hooks.on(`renderItemSheet`, (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
         return;
     }
-    AnimationTab.bind(app, html, data);
+    //AnimationTab.bind(app, html, data);
 
     let acceptedTypes;
     let typeLoc;

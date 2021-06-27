@@ -19,7 +19,7 @@ export class AAFormApplication extends FormApplication {
             resizable: true,
             width: 600,
             height: "auto",
-            closeOnSubmit: false
+            closeOnSubmit: true
         });
     }
 
@@ -27,23 +27,13 @@ export class AAFormApplication extends FormApplication {
         // Send data to the template
         let flags = this.object.data.flags;
         let AAflags = flags.autoanimations;
-        console.log(AAflags);
+        let patreon = moduleIncludes("jb2a_patreon");
+
+        //console.log(AAflags);
         let itemNameItem = this.object.name?.toLowerCase() ?? "";
         let itemNameFlag = flags.autoanimations?.animName?.toLowerCase() ?? "";
-        let itemName;
         let isOverride = flags.autoanimations?.override;
-        let animType = flags.autoanimations?.animType;
-        let ctaWarning = animType === "t11" ? true : false;
-        let patreon = moduleIncludes("jb2a_patreon");
-        let spellVariant = flags.autoanimations?.spellVar;
-        let bardAnimation = flags.autoanimations?.bards?.bardAnim;
-        let hideAll = flags.autoanimations?.killAnim ? false : true;
-        let override = flags.autoanimations?.override ? true : false;
-        let bardTarget = flags.autoanimations?.bards?.bardTarget ? true : false;
-        let bardSelf = flags.autoanimations?.bards?.bardSelf ? true : false;
-        let bardMarker = flags.autoanimations?.bards?.marker ? true : false;
-        let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
-        let bardMarkerColor = patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree);
+        let itemName;
         switch (true) {
             case (!isOverride):
             case isOverride && itemNameFlag === '':
@@ -53,6 +43,18 @@ export class AAFormApplication extends FormApplication {
                 itemName = itemNameFlag;
                 break;
         }
+
+        let animType = flags.autoanimations?.animType;
+        let ctaWarning = animType === "t11" ? true : false;
+        let spellVariant = flags.autoanimations?.spellVar;
+        let bardAnimation = flags.autoanimations?.bards?.bardAnim;
+        let hideAll = flags.autoanimations?.killAnim ? false : true;
+        let override = flags.autoanimations?.override ? true : false;
+        let bardTarget = flags.autoanimations?.bards?.bardTarget ? true : false;
+        let bardSelf = flags.autoanimations?.bards?.bardSelf ? true : false;
+        let bardMarker = flags.autoanimations?.bards?.marker ? true : false;
+        let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
+        let bardMarkerColor = patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree);
         let bardicOptions = itemName === "bardic inspiration" ? true : false;
         let bardicOptionsFlip = itemName === "bardic inspiration" ? false : true;
 
@@ -69,9 +71,10 @@ export class AAFormApplication extends FormApplication {
         let divineSmite = animType === "t2" || animType === "t3" ? true : false;
         let dsEnabled = flags.autoanimations?.divineSmite?.dsEnable && (animType === "t1" || animType === "t2") ? true : false;
 
+        let addExplosion = animType === "t2" || animType === "t3" || animType === "t4" ? true : false;
         let explosionVariants = animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant);
         let explosionVariant = flags.autoanimations?.explodeVariant;
-        let explosionOptions = animType === "t9" || animType === "t10" ? true : false;
+        let explosionOptions = animType === "t9" || animType === "t10" || flags.autoanimations.explosion ? true : false;
         let explosionFlip = animType === "t9" || animType === "t10" ? false : true;
         let explosionLoops = flags.autoanimations?.explodeLoop ?? 1;
 
@@ -85,10 +88,14 @@ export class AAFormApplication extends FormApplication {
         let templatesFlip = animType === "t8" ? false : true;
         let loopTemplate = flags.autoanimations?.templates?.tempLoop ?? 1;
 
+        let audioEnabled = flags.autoanimations?.allSounds?.item?.enableAudio ? true : false;
+        //console.log(audioEnabled)
+        //console.log(flags.autoanimations.allSounds.item.enableAudio)
+
         let spellVariants;
-        switch (itemName) {
-            case "scorching ray":
-            case "generic healing":
+        switch (true) {
+            case itemName === "scorching ray" && animType === "t6":
+            case itemName === "generic healing"&& animType === "t7":
                 spellVariants = true;
                 break;
             default:
@@ -130,6 +137,7 @@ export class AAFormApplication extends FormApplication {
             divineSmite: divineSmite,
             dsEnabled: dsEnabled,
 
+            addExplosion: addExplosion,
             explosionVariants: explosionVariants,
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             explosionColors: explosionColors(explosionVariant, patreon),
@@ -137,6 +145,11 @@ export class AAFormApplication extends FormApplication {
             explosionLoops: explosionLoops,
             explosionOptions: explosionOptions,
             explosionFlip: explosionFlip,
+
+            explosionAudio: this.object.getFlag("autoanimations", "allSounds.explosion.file") || "",
+            delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
+            volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
+            explosionAudio: this.object.getFlag("autoanimations", "allSounds.explosion.audioExplodeEnabled") || false,
 
             auraRadius: AUTOANIM.selfCastRadius,
             hexColour: flags.autoanimations?.animTint || `#FFFFFF`,
@@ -152,6 +165,14 @@ export class AAFormApplication extends FormApplication {
             templates: templates,
             loopTemplate: loopTemplate,
             templatesFlip: templatesFlip,
+            customTemplatePath: this.object.getFlag("autoanimations", "templates.customPath") || "",
+            customChecked: flags.autoanimations?.templates?.customAnim ? true : false,
+            customCheckedFlip: flags.autoanimations?.templates?.customAnim ? false : true,
+
+            delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
+            volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
+            itemAudio: this.object.getFlag("autoanimations", "allSounds.item.file") || "",
+            audioEnabled: audioEnabled,
 
             flags: this.object.data.flags,
         };
@@ -175,6 +196,14 @@ export class AAFormApplication extends FormApplication {
         html.find('.animation-not-disabled select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        
+        html.find('.audio-checkbox input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.audio-checkbox input[type="Number"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+
         html.find('.animation-not-disabled input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
@@ -187,6 +216,12 @@ export class AAFormApplication extends FormApplication {
         html.find('.bard-options input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        html.find('.files').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        //html.find('button.file-picker').each((i, button) => this._activateFilePicker(button));
+        //html.find('button.file-picker').on("click", this._activateFilePicker.bind(this));
+        //html.find('button.file-picker').click(evt => this._activateFilePicker());
     }
 
     async _updateObject(event, formData) {
