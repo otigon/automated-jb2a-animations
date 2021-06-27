@@ -21,24 +21,24 @@ async function bardicInspiration(handler) {
             obj02 = "music";
             repeat = 10;
             switch (true) {
-                case handler.color === "a1" || handler.color === ``:
-                case !handler.color:
+                case handler.bards.bardSelfColor === "a1" || handler.bards.bardSelfColor === ``:
+                case !handler.bards.bardSelfColor:
                     color = "blue";
                     break;
                 default:
-                    color = handler.color;
+                    color = handler.bards.bardSelfColor;
             }
             break;
         default:
             obj02 = "bardicinspiration";
             repeat = 1;
             switch (true) {
-                case handler.color === "a1" || handler.color === ``:
-                case !handler.color:
+                case handler.bards.bardSelfColor === "a1" || handler.bards.bardSelfColor === ``:
+                case !handler.bards.bardSelfColor:
                     color = "green orange";
                     break;
                 default:
-                    color = handler.color;
+                    color = handler.bards.bardSelfColor;
             }
     }
 
@@ -47,8 +47,8 @@ async function bardicInspiration(handler) {
             obj02T = "music";
             repeat = 10;
             switch (true) {
-                case handler.color === "a1" || handler.color === ``:
-                case !handler.color:
+                case handler.bards.bardTargetColor === "a1" || handler.bards.bardTargetColor === ``:
+                case !handler.bards.bardTargetColor:
                     colorT = "blue";
                     break;
                 default:
@@ -59,8 +59,8 @@ async function bardicInspiration(handler) {
             obj02T = "bardicinspiration";
             repeat = 1;
             switch (true) {
-                case handler.color === "a1" || handler.color === ``:
-                case !handler.color:
+                case handler.bards.bardTargetColor === "a1" || handler.bards.bardTargetColor === ``:
+                case !handler.bards.bardTargetColor:
                     colorT = "green orange";
                     break;
                 default:
