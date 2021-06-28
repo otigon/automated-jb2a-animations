@@ -95,7 +95,7 @@ export class AAFormApplication extends FormApplication {
         let spellVariants;
         switch (true) {
             case itemName === "scorching ray" && animType === "t6":
-            case itemName === "generic healing"&& animType === "t7":
+            case itemName === "generic healing" && animType === "t7":
                 spellVariants = true;
                 break;
             default:
@@ -109,6 +109,7 @@ export class AAFormApplication extends FormApplication {
             hideAll: hideAll,
             ctaWarning: ctaWarning,
             override: override,
+
             bardicOptions: bardicOptions,
             bardTarget: bardTarget,
             bardSelfOptions: bardSelf,
@@ -118,15 +119,19 @@ export class AAFormApplication extends FormApplication {
             bardAnimTarget: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
             bardMarkerColor: bardMarkerColor,
+
             animationLoops: animationLoops,
             loops: loops,
+
             spellVariants: spellVariants,
             spellVariant: AUTOANIM.localized(AUTOANIM.spellVariant),
             animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
             animationNames: animationName(animType, patreon),
             animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation), //AUTOANIM.localized(AUTOANIM.animColorMelee),
+
             unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
             uaStrikes: uaStrikes,
+            
             daggerVariant: daggerVariant,
             daggerVariantShow: daggerVariantShow,
 
