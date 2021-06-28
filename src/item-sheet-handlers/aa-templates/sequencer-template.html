@@ -1,0 +1,76 @@
+<form
+        id="sequencer-form"
+        class="dialog-content"
+        onsubmit="event.preventDefault();"
+        x-data="sequencerApp.setUpSequence()"
+        @sequencer-application-selected-url.window="setFile"
+>
+
+    <style>
+
+        .flexing{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .flexing > div, .flexing > button{
+            margin: 0 5px;
+        }
+
+        .small{
+            width:50px;
+        }
+
+    </style>
+
+    <div>
+        <template x-for="(section, index) in sections">
+            <div class='flexing' :key="index">
+
+                <button class="small" x-show="sections.length > 1" type='button' @click="moveUp(index)">Up</button>
+                <button class="small" x-show="sections.length > 1" type='button' @click="moveDown(index)">Down</button>
+
+                <select x-model="section.type">
+                    <option>Effect</option>
+                    <option>Sound</option>
+                    <option>Wait</option>
+                </select>
+
+                <div x-show="section.type === 'Sound'" class="flexing">
+                    <div><button @click="application.showFilePicker(index, 'audio')" type='button'>Select file</button></div>
+                    <div>Volume: <input type='number' value="0.8" x-model="sections[index].data.volume"></div>
+                </div>
+
+                <div x-show="section.type === 'Effect'" class="flexing">
+                    <div>
+                        <button @click="application.showFilePicker(index, 'imagevideo')" type='button'>Select file</button>
+                    </div>
+                    <div>
+                        On:
+                        <select x-model="section.data.target">
+                            <option value="self">Self</option>
+                            <option value="target">Target(s)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div x-show="section.type === 'Wait'" class="flexing">
+                    <div><input type='number' x-model="section.data.duration" placeholder="Milliseconds"></div>
+                </div>
+
+                <hr>
+
+            </div>
+        </template>
+
+        <button style='width:100%; margin-top:10px;' type='button' @click="addSection(); $nextTick(() => { console.log(sections) });">+</button>
+
+        <hr>
+
+    </div>
+
+    <div class="dialog-buttons">
+        <button class="dialog-button" data-button="confirm">Accept</button>
+    </div>
+
+</form>

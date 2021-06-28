@@ -248,7 +248,7 @@ export class AAItemSettings extends FormApplication {
     }
 }
 
-export default AAFormApplication;
+export default AAItemSettings;
 
 function moduleIncludes(test) {
     return !!game.modules.get(test);

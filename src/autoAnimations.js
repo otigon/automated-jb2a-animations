@@ -31,10 +31,13 @@ import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
 import mistyStepOld from "./animation-functions/misty-step-old.js";
 import templateEffects from "./animation-functions/template-effects.js";
-import AAItemSettings from "./item-sheet-handlers/animateTab.js";
+import AAItemSettingsForm from "./item-sheet-handlers/animateTab.js";
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
+
+import SequencerApplication from "./item-sheet-handlers/sequenceApplication.js";
+import "../lib/alpine.min.js"
 
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
@@ -82,6 +85,8 @@ function activateSocket() {
 }
 
 Hooks.on('init', () => {
+
+    window.sequencerApp = new SequencerApplication();
 
     registerLayer();
     activateSocket();
@@ -364,7 +369,7 @@ Hooks.on(`renderItemSheet`, (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
         return;
     }
-    //AnimationTab.bind(app, html, data);
+    AnimationTab.bind(app, html, data);
 
     let acceptedTypes;
     let typeLoc;
