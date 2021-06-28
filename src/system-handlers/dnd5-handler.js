@@ -1,7 +1,11 @@
 export default class Dnd5Handler {
     constructor(msg) {
-        if (msg.alias === "User Logged In") {return}
-        const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id") || msg.data?.flags?.["midi-qol"]?.itemId;
+        //if (msg.alias === "User Logged In") {return}
+        let msgAtr;
+        if (msg.data.content.includes("data-item-id")) {
+            msgAtr = $(msg.data.content).attr("data-item-id") ?? "";
+        } else {msgAtr = ""}
+        const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || msgAtr || msg.data?.flags?.["midi-qol"]?.itemId;
         const tokenId = msg.data.speaker.token;  
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
 
