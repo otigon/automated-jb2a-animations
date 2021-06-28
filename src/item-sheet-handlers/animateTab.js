@@ -27,7 +27,7 @@ export class AAItemSettings extends FormApplication {
     getData() {
         // Send data to the template
         let flags = this.object.data.flags;
-        let AAflags = flags.autoanimations;
+        //let AAflags = flags.autoanimations;
         let patreon = moduleIncludes("jb2a_patreon");
 
         //console.log(AAflags);
@@ -46,52 +46,52 @@ export class AAItemSettings extends FormApplication {
         }
         let itemName = nameConversion(oldItemName);
         let animType = flags.autoanimations?.animType;
-        let ctaWarning = animType === "t11" ? true : false;
+        //let ctaWarning = animType === "t11" ? true : false;
         let spellVariant = flags.autoanimations?.spellVar;
         let bardAnimation = flags.autoanimations?.bards?.bardAnim;
-        let hideAll = flags.autoanimations?.killAnim ? false : true;
+        //let hideAll = flags.autoanimations?.killAnim ? false : true;
         let override = flags.autoanimations?.override ? true : false;
-        let bardTarget = flags.autoanimations?.bards?.bardTarget ? true : false;
-        let bardSelf = flags.autoanimations?.bards?.bardSelf ? true : false;
-        let bardMarker = flags.autoanimations?.bards?.marker ? true : false;
+        //let bardTarget = flags.autoanimations?.bards?.bardTarget ? true : false;
+        //let bardSelf = flags.autoanimations?.bards?.bardSelf ? true : false;
+        //let bardMarker = flags.autoanimations?.bards?.marker ? true : false;
         let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
-        let bardMarkerColor = patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree);
-        let bardicOptions = itemName === "bardic inspiration" ? true : false;
-        let bardicOptionsFlip = itemName === "bardic inspiration" ? false : true;
+        //let bardMarkerColor = patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree);
+        //let bardicOptions = itemName === "bardic inspiration" ? true : false;
+        //let bardicOptionsFlip = itemName === "bardic inspiration" ? false : true;
 
-        let loops = itemName === "magic missile" ? true : false;
-        let animationLoops = flags.autoanimations?.spellOptions?.spellLoops ?? 1;
+        //let loops = itemName === "magic missile" ? true : false;
+        //let animationLoops = flags.autoanimations?.spellOptions?.spellLoops ?? 1;
 
-        let uaStrikes = itemName === "unarmed strike" || itemName === "flurry of blows" ? true : false;
+        //let uaStrikes = itemName === "unarmed strike" || itemName === "flurry of blows" ? true : false;
 
-        let daggerVariant = patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree);
-        let daggerVariantShow = itemName === "dagger" && animType === "t2" && override ? true : false;
+        //let daggerVariant = patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree);
+        //let daggerVariantShow = itemName === "dagger" && animType === "t2" && override ? true : false;
 
-        let dsDelaySelf = flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1;
-        let dsDelayTarget = flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250;
-        let divineSmite = animType === "t2" || animType === "t3" ? true : false;
-        let dsEnabled = flags.autoanimations?.divineSmite?.dsEnable && (animType === "t1" || animType === "t2") ? true : false;
+        //let dsDelaySelf = flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1;
+        //let dsDelayTarget = flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250;
+        //let divineSmite = animType === "t2" || animType === "t3" ? true : false;
+        //let dsEnabled = flags.autoanimations?.divineSmite?.dsEnable && (animType === "t1" || animType === "t2") ? true : false;
 
-        let addExplosion = animType === "t2" || animType === "t3" || animType === "t4" ? true : false;
-        let explosionVariants = animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant);
+        //let addExplosion = animType === "t2" || animType === "t3" || animType === "t4" ? true : false;
+        //let explosionVariants = animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant);
         let explosionVariant = flags.autoanimations?.explodeVariant;
-        let impactShow = explosionVariant === "impact" ? true : false;
+        //let impactShow = explosionVariant === "impact" ? true : false;
         let impactVariant = flags.autoanimations?.impactVar || "";
-        let explosionOptions = animType === "t9" || animType === "t10" || flags.autoanimations?.explosion ? true : false;
-        let explosionFlip = animType === "t9" || animType === "t10" ? false : true;
-        let explosionLoops = flags.autoanimations?.explodeLoop ?? 1;
+        //let explosionOptions = animType === "t9" || animType === "t10" || flags.autoanimations?.explosion ? true : false;
+        //let explosionFlip = animType === "t9" || animType === "t10" ? false : true;
+        //let explosionLoops = flags.autoanimations?.explodeLoop ?? 1;
 
-        let Aura = animType === "t11" && override ? true : false;
+        //let Aura = animType === "t11" && override ? true : false;
 
-        let teleport = animType === "t12" && override ? true : false;
+        //let teleport = animType === "t12" && override ? true : false;
 
         let templateType = flags.autoanimations?.templates?.tempType ?? "";
         let templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
-        let templates = animType === "t8" ? true : false;
-        let templatesFlip = animType === "t8" ? false : true;
-        let loopTemplate = flags.autoanimations?.templates?.tempLoop ?? 1;
+        //let templates = animType === "t8" ? true : false;
+        //let templatesFlip = animType === "t8" ? false : true;
+        //let loopTemplate = flags.autoanimations?.templates?.tempLoop ?? 1;
 
-        let audioEnabled = flags.autoanimations?.allSounds?.item?.enableAudio ? true : false;
+        //let audioEnabled = flags.autoanimations?.allSounds?.item?.enableAudio ? true : false;
         //console.log(audioEnabled)
         //console.log(flags.autoanimations.allSounds.item.enableAudio)
 
@@ -109,22 +109,22 @@ export class AAItemSettings extends FormApplication {
         console.log("The Flag Item Name is " + itemNameFlag);
         console.log("The Final Item Name is " + oldItemName);
         return {
-            hideAll: hideAll,
-            ctaWarning: ctaWarning,
+            hideAll: flags.autoanimations.killAnim ? false : true,
+            ctaWarning: animType === "t11" ? true : false,
             override: override,
 
-            bardicOptions: bardicOptions,
-            bardTarget: bardTarget,
-            bardSelfOptions: bardSelf,
-            bardicOptionsFlip: bardicOptionsFlip,
-            bardMarker: bardMarker,
+            bardicOptions: itemName === "bardic inspiration" ? true : false,
+            bardTarget: flags.autoanimations?.bards?.bardTarget ? true : false,
+            bardSelfOptions: flags.autoanimations?.bards?.bardSelf ? true : false,
+            bardicOptionsFlip: itemName === "bardic inspiration" ? false : true,
+            bardMarker: flags.autoanimations?.bards?.marker ? true : false,
             bardAnimName: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardAnimTarget: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
-            bardMarkerColor: bardMarkerColor,
+            bardMarkerColor: patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree),
 
-            animationLoops: animationLoops,
-            loops: loops,
+            animationLoops: flags.autoanimations?.spellOptions?.spellLoops ?? 1,
+            loops: itemName === "magic missile" ? true : false,
 
             spellVariants: spellVariants,
             spellVariant: AUTOANIM.localized(AUTOANIM.spellVariant),
@@ -133,55 +133,55 @@ export class AAItemSettings extends FormApplication {
             animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation), //AUTOANIM.localized(AUTOANIM.animColorMelee),
 
             unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
-            uaStrikes: uaStrikes,
+            uaStrikes: itemName === "unarmed strike" || itemName === "flurry of blows" ? true : false,
 
-            daggerVariant: daggerVariant,
-            daggerVariantShow: daggerVariantShow,
+            daggerVariant: patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree),
+            daggerVariantShow: itemName === "dagger" && animType === "t2" && override ? true : false,
 
-            dsDelaySelf: dsDelaySelf,
-            dsDelayTarget: dsDelayTarget,
+            dsDelaySelf: flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1,
+            dsDelayTarget: flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250,
             dsColorSelf: AUTOANIM.localized(AUTOANIM.dsSelf),
             dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
-            divineSmite: divineSmite,
-            dsEnabled: dsEnabled,
+            divineSmite: animType === "t2" || animType === "t3" ? true : false,
+            dsEnabled: flags.autoanimations?.divineSmite?.dsEnable && (animType === "t1" || animType === "t2") ? true : false,
 
-            addExplosion: addExplosion,
-            explosionVariants: explosionVariants,
+            addExplosion: animType === "t2" || animType === "t3" || animType === "t4" ? true : false,
+            explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant),
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
-            impactShow: impactShow,
+            impactShow: flags.autoanimations?.explodeVariant === "impact" ? true : false,
             explosionColors: explosionColors(explosionVariant, patreon, impactVariant),
             explosionRadius: AUTOANIM.localized(AUTOANIM.explosionRadius),
-            explosionLoops: explosionLoops,
-            explosionOptions: explosionOptions,
-            explosionFlip: explosionFlip,
+            explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
+            explosionOptions: animType === "t9" || animType === "t10" || flags.autoanimations?.explosion ? true : false,
+            explosionFlip: animType === "t9" || animType === "t10" ? false : true,
 
-            explosionAudio: this.object.getFlag("autoanimations", "allSounds.explosion.file") || "",
+            explosionAudio: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
             volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
-            explosionAudio: this.object.getFlag("autoanimations", "allSounds.explosion.audioExplodeEnabled") || false,
+            explosionAudio: flags.autoanimations?.allSounds?.explosion?.audioExplodeEnabled || false,
 
             auraRadius: AUTOANIM.selfCastRadius,
             hexColour: flags.autoanimations?.animTint || `#FFFFFF`,
             opacity: flags.autoanimations?.auraOpacity || ".75",
-            Aura: Aura,
+            Aura: animType === "t11" && override ? true : false,
 
             teleRange: flags.autoanimations?.teleDist || "30",
-            teleport: teleport,
+            teleport: animType === "t12" && override ? true : false,
             
             templateTypes: AUTOANIM.localized(AUTOANIM.templateType),
             templateAnimations: animTemplates(templateType),
             templateAnimColors: templateColors(templateType, templateAnimation, patreon),
-            templates: templates,
-            loopTemplate: loopTemplate,
-            templatesFlip: templatesFlip,
-            customTemplatePath: this.object.getFlag("autoanimations", "templates.customPath") || "",
+            templates: animType === "t8" ? true : false,
+            loopTemplate: flags.autoanimations?.templates?.tempLoop ?? 1,
+            templatesFlip: animType === "t8" ? false : true,
+            customTemplatePath: flags.autoanimations?.templates?.customPath || "",
             customChecked: flags.autoanimations?.templates?.customAnim ? true : false,
             customCheckedFlip: flags.autoanimations?.templates?.customAnim ? false : true,
 
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
-            itemAudio: this.object.getFlag("autoanimations", "allSounds.item.file") || "",
-            audioEnabled: audioEnabled,
+            itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
+            audioEnabled: flags.autoanimations?.allSounds?.item?.enableAudio ? true : false,
 
             flags: this.object.data.flags,
         };
@@ -228,9 +228,6 @@ export class AAItemSettings extends FormApplication {
         html.find('.files').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
-        //html.find('button.file-picker').each((i, button) => this._activateFilePicker(button));
-        //html.find('button.file-picker').on("click", this._activateFilePicker.bind(this));
-        //html.find('button.file-picker').click(evt => this._activateFilePicker());
     }
 
     async _updateObject(event, formData) {
@@ -248,7 +245,7 @@ export class AAItemSettings extends FormApplication {
     }
 }
 
-export default AAFormApplication;
+export default AAItemSettings;
 
 function moduleIncludes(test) {
     return !!game.modules.get(test);
