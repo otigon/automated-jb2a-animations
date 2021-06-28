@@ -1,3 +1,28 @@
+<head>
+    <style>
+        .audio-checkbox {
+            border-style: dotted;
+            border-width: 2px;
+            border-color: black;
+            border-radius: 10px;
+        }
+
+        .explosion-options {
+            border-style: dotted;
+            border-width: 2px;
+            border-color: black;
+            border-radius: 10px;
+        }
+
+        .explosion-audio {
+            border-style: dotted;
+            border-width: 2px;
+            border-color: black;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
 <form class="flexcol">
     <div class="kill-animation">
         <div class="form-group">
@@ -252,90 +277,98 @@
         {{/if}}
 
         {{#if addExplosion}}
-        <div class="form-group">
-            <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
-            <input type="checkbox" name="flags.autoanimations.explosion" value="flags.autoanimations.explosion"
-                {{checked flags.autoanimations.explosion}}>
-        </div>
-        {{/if}}
-        {{#if explosionOptions}}
-        <div class="ex-anim-level">
+        <div class="explosion-options">
             <div class="form-group">
-                <label>{{localize "AUTOANIM.underToken"}}</label>
-                <input type="checkbox" name="flags.autoanimations.exAnimLevel" value="flags.autoanimations.exAnimLevel"
-                    {{checked flags.autoanimations.exAnimLevel}}>
+                <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
+                <input type="checkbox" name="flags.autoanimations.explosion" value="flags.autoanimations.explosion"
+                    {{checked flags.autoanimations.explosion}}>
             </div>
-        </div>
-        <div class="form-group">
-            <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
-            <select name="flags.autoanimations.explodeVariant">
-                {{#select flags.autoanimations.explodeVariant}}
-                {{#each explosionVariants as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
-        </div>
-        <div class="impact-variant">
+            {{/if}}
+            {{#if explosionOptions}}
+            <div class="ex-anim-level">
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.underToken"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.exAnimLevel"
+                        value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
+                </div>
+            </div>
             <div class="form-group">
-                <label>{{localize "AUTOANIM.impactVariant"}}</label>
-                <select name="flags.autoanimations.impactVar">
-                    {{#select flags.autoanimations.impactVar}}
-                    {{#each impactVariants as |name key|}}
+                <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
+                <select name="flags.autoanimations.explodeVariant">
+                    {{#select flags.autoanimations.explodeVariant}}
+                    {{#each explosionVariants as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
                 </select>
             </div>
+            {{#if impactShow}}
+            <div class="impact-variant">
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.impactVariant"}}</label>
+                    <select name="flags.autoanimations.impactVar">
+                        {{#select flags.autoanimations.impactVar}}
+                        {{#each impactVariants as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+            {{/if}}
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
+                <select name="flags.autoanimations.explodeColor">
+                    {{#select flags.autoanimations.explodeColor}}
+                    {{#each explosionColors as |name key|}}
+                    <option value="{{key}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.menuExplodeRadius"}}</label>
+                <select name="flags.autoanimations.explodeRadius">
+                    {{#select flags.autoanimations.explodeRadius}}
+                    {{#each explosionRadius as |name key|}}
+                    <option value="{{key}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.menuExplodeLoops"}}</label>
+                <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
+                    data-dtype="Number">
+            </div>
         </div>
-        <div class="form-group">
-            <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
-            <select name="flags.autoanimations.explodeColor">
-                {{#select flags.autoanimations.explodeColor}}
-                {{#each explosionColors as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
-        </div>
-        <div class="form-group">
-            <label>{{localize "AUTOANIM.menuExplodeRadius"}}</label>
-            <select name="flags.autoanimations.explodeRadius">
-                {{#select flags.autoanimations.explodeRadius}}
-                {{#each explosionRadius as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
-        </div>
-        <div class="form-group">
-            <label>{{localize "AUTOANIM.menuExplodeLoops"}}</label>
-            <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}} data-dtype="Number">
-        </div>
-        <div class="form-group">
-            <label>{{localize "AUTOANIM.explosionAudio"}}</label>
-            <input type="checkbox" name="flags.autoanimations.allSounds.explosion.audioExplodeEnabled"
-                value="flags.autoanimations.allSounds.explosion.audioExplodeEnabled" {{checked
-                flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}>
-        </div>
-        {{#if explosionAudio}}
-        <div class="form group">
-            <label>{{localize "AUTOANIM.chooseAudio"}}</label>
-            <input type="text" class="files" name="flags.autoanimations.allSounds.explosion.file"
-                value={{explosionAudio}}>
-            <button class="file-picker" data-type="audio" data-target="flags.autoanimations.allSounds.explosion.file"
-                tabindex="-1" title="Browse Files">
-                <i class="fas fa-music"></i>
-            </button>
-        </div>
-        <div class="form-group">
-            <label>{{localize "AUTOANIM.audioDelay"}}</label>
-            <input type="number" name="flags.autoanimations.allSounds.explosion.delay" min="0" value={{delayExAudio}}>
-        </div>
-        <div class="form-group">
-            <label>{{localize "AUTOANIM.audioVolume"}}</label>
-            <input type="number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10" step="0.01"
-                value={{volumeExAudio}}>
+        <div class="explosion-audio">
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.explosionAudio"}}</label>
+                <input type="checkbox" name="flags.autoanimations.allSounds.explosion.audioExplodeEnabled"
+                    value="flags.autoanimations.allSounds.explosion.audioExplodeEnabled" {{checked
+                    flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}>
+            </div>
+            {{#if explosionAudio}}
+            <div class="form group">
+                <label>{{localize "AUTOANIM.chooseAudio"}}</label>
+                <input type="text" class="files" name="flags.autoanimations.allSounds.explosion.file"
+                    value={{explosionAudio}}>
+                <button class="file-picker" data-type="audio"
+                    data-target="flags.autoanimations.allSounds.explosion.file" tabindex="-1" title="Browse Files">
+                    <i class="fas fa-music"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.audioDelay"}}</label>
+                <input type="number" name="flags.autoanimations.allSounds.explosion.delay" min="0"
+                    value={{delayExAudio}}>
+            </div>
+            <div class="form-group">
+                <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                <input type="number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10" step="0.01"
+                    value={{volumeExAudio}}>
+            </div>
         </div>
         {{/if}}
         {{/if}}

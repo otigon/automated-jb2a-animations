@@ -3,62 +3,40 @@ import { AUTOANIM } from "./config.js";
 
 export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
     let animationColor;
+    console.log("Converted Item Name is " + itemName);
     switch (true) {
-        case itemName.includes("lasersword"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
+        case itemName === "lasersword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorLaserSword) : AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree)
             break;
-        case itemName.includes("dagger"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()):
-        case itemName.includes("greataxe"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase()):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase()):
-        case itemName.includes("greatsword"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
-        case itemName.includes("greatclub"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase()):
-        case itemName.includes("handaxe"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase()):
-        case itemName.includes("mace"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemMace").toLowerCase()):
-        case itemName.includes("maul"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
-        case itemName.includes("rapier"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
-        case itemName.includes("scimitar"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
-        case itemName.includes("spear"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
-        case itemName.includes("sword"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemSword").toLowerCase()):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemShortsword").toLowerCase()):
+        case itemName === "dagger":
+        case itemName === "greataxe":
+        case itemName === "greatsword":
+        case itemName === "greatclub":
+        case itemName === "handaxe":
+        case itemName === "mace":
+        case itemName === "maul":
+        case itemName === "rapier":
+        case itemName === "scimitar":
+        case itemName === "spear":
+        case itemName === "sword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorMelee) : AUTOANIM.localized(AUTOANIM.animColorMeleeFree)
             break;
-        case itemName.includes("cure", "wound"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
+        case itemName === "cure wounds":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorCureWounds) : AUTOANIM.localized(AUTOANIM.animColorCureWoundsFree)
             break;
-        case itemName.includes("guiding bolt"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemGuidingBolt").toLowerCase()):
+        case itemName === "guiding bolt":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.guidingboltColor) : AUTOANIM.localized(AUTOANIM.guidingboltColorFree)
             break;
-        case (itemName.includes("disintegrate")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
+        case itemName === "disintegrate":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorDisintegrate) : AUTOANIM.localized(AUTOANIM.animColorDisintegrateFree)
             break;
-        case (itemName.includes("eldritch blast")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
+        case itemName === "eldritch blast":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorEldritchBlast) : AUTOANIM.localized(AUTOANIM.animColorEldritchBlastFree)
             break;
-        case (itemName.includes("fire bolt")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
+        case itemName === "fire bolt":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorFirebolt) : AUTOANIM.localized(AUTOANIM.animColorFireboltFree)
             break;
-        //case (itemName.includes("generic", "heal")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
-        case (itemName.includes("healing word")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
+        case itemName === "generic healing":
             switch (spellVariant) {
                 case ('01'):
                     animationColor = AUTOANIM.localized(AUTOANIM.animGenHealing01);
@@ -70,16 +48,13 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
                     return;
             }
             break;
-        case (itemName.includes("magic missile")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
+        case itemName === "magic missile":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorMagicMissile) : AUTOANIM.localized(AUTOANIM.animColorMagicMissileFree)
             break;
-        case (itemName.includes("ray of frost")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
+        case itemName === "ray of frost":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorRayFrost) : AUTOANIM.localized(AUTOANIM.animColorRayFrostFree)
             break;
-        case (itemName.includes("scorching ray")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
+        case itemName === "scorching ray":
             if (patreon) {
                 if (spellVariant === "02") {
                     animationColor = AUTOANIM.localized(AUTOANIM.animColorScorchingRay['02'])
@@ -90,69 +65,58 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
                 animationColor = AUTOANIM.localized(AUTOANIM.animColorScorchingRayFree)
             }
             break;
-        case (itemName.includes("witch bolt")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
+        case itemName === "witch bolt":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorWitchbolt) : AUTOANIM.localized(AUTOANIM.animColorWitchboltFree)
             break;
-        case (itemName.includes("thunderwave")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
-        case (itemName.includes("shatter")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemShatter").toLowerCase()):
+        case itemName === "thunderwave":
+        case itemName === "shatter":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorShatterThunder) : AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree)
             break;
-        //case (itemName.includes("arrow")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
-        case itemName.includes("bow"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
+        case itemName === "arrow":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorArrow) : AUTOANIM.localized(AUTOANIM.animColorArrowFree)
             break;
-        case (itemName.includes("laser")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
+        case itemName === "laser blast":
             animationColor = AUTOANIM.localized(AUTOANIM.laserblastColors);
             break;
-        case (itemName.includes("bite")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()):
+        case itemName === "bite":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animBiteColor) : AUTOANIM.localized(AUTOANIM.animBiteColorFree)
             break;
-        case (itemName.includes("claw")):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
+        case itemName === "claw":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animClawColor) : AUTOANIM.localized(AUTOANIM.animClawColorFree)
             break;
+        //add check
         case itemName === "call lightning":
-        case itemName.includes(game.i18n.format("AUTOANIM.animCallLightning").toLowerCase()):
             animationColor = AUTOANIM.localized(AUTOANIM.calllightningColors);
             break;
+        //add check
         case itemName === "sleetstorm":
-        case itemName.includes(game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase()):
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.sleetstormColors) : AUTOANIM.localized(AUTOANIM.sleetstormColorsFree)
             break;
+        //add check
         case itemName === "spirit guardians":
-        case itemName.includes(game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase()):
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.spiritguardianColors) : AUTOANIM.localized(AUTOANIM.spiritguardianColorsFree)
             break;
+        //add check
         case itemName === "wall of force":
-        case itemName.includes(game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase()):
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.wallofforceColors) : AUTOANIM.localized(AUTOANIM.wallofforceColorsFree)
             break;
+        //add check
         case itemName === "whirlwind":
-        case itemName.includes(game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase()):
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.whirlwindColors) : AUTOANIM.localized(AUTOANIM.whirlwindColorsFree)
             break;
+        //add check
         case itemName === "darkness":
-        case itemName.includes(game.i18n.format("AUTOANIM.animDarkness").toLowerCase()):
             animationColor = AUTOANIM.localized(AUTOANIM.darknessColors);
             break;
         case itemName === "hunter's mark":
-        case itemName.includes(game.i18n.format("AUTOANIM.itemHM").toLowerCase()):
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.hmColors) : AUTOANIM.localized(AUTOANIM.hmColorsFree)
             break;
+        //add check
         case itemName === "misty step":
-        case itemName.includes(game.i18n.format("AUTOANIM.itemMistyStep").toLowerCase()):
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.mistystepColor) : AUTOANIM.localized(AUTOANIM.mistystepColorFree)
             break;
+        //add check
         case itemName === "bardic inspiration":
-        case itemName.includes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase()):
             switch (bardAnimation) {
                 case "music":
                     animationColor = patreon ? AUTOANIM.localized(AUTOANIM.musicnoteColor) : AUTOANIM.localized(AUTOANIM.musicnoteColorFree);
@@ -161,10 +125,8 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
                     animationColor = patreon ? AUTOANIM.localized(AUTOANIM.bardicInspirationColors) : AUTOANIM.localized(AUTOANIM.bardicInspirationColorsFree);
             }
             break;
-        case itemName.includes("unarmed strike"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
-        case itemName.includes("flurry of blows"):
-        case itemName.includes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
+        case itemName === "unarmed strike":
+        case itemName === "flurry of blows":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.uaStrikeColor) : AUTOANIM.localized(AUTOANIM.uaStrikeColorFree)
             break;
         default:
@@ -217,7 +179,7 @@ export function daggerVariants(thrownVariant, patreon) {
     return thrownVariant;
 }
 
-export function explosionColors(explosionVariant, patreon) {
+export function explosionColors(explosionVariant, patreon, impactVariant) {
     let explosionColor;
     switch (explosionVariant) {
         case ('01'):
@@ -238,7 +200,7 @@ export function explosionColors(explosionVariant, patreon) {
             explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors0567) : AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
             break;
         case ('impact'):
-            if (this.impactVar === "boulder") {
+            if (impactVariant === "boulder") {
                 return
             } else {
                 explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColorsImpact) : AUTOANIM.localized(AUTOANIM.explosionColorsImpactFree);

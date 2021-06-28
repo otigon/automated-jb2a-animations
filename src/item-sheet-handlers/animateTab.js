@@ -1,6 +1,7 @@
 import { AUTOANIM } from "./config.js";
 import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
+import { nameConversion } from "./name-conversions.js";
 
 export class AAFormApplication extends FormApplication {
     constructor() {
@@ -33,17 +34,17 @@ export class AAFormApplication extends FormApplication {
         let itemNameItem = this.object.name?.toLowerCase() ?? "";
         let itemNameFlag = flags.autoanimations?.animName?.toLowerCase() ?? "";
         let isOverride = flags.autoanimations?.override;
-        let itemName;
+        let oldItemName;
         switch (true) {
             case (!isOverride):
             case isOverride && itemNameFlag === '':
-                itemName = itemNameItem;
+                oldItemName = itemNameItem;
                 break;
             default:
-                itemName = itemNameFlag;
+                oldItemName = itemNameFlag;
                 break;
         }
-
+        let itemName = nameConversion(oldItemName);
         let animType = flags.autoanimations?.animType;
         let ctaWarning = animType === "t11" ? true : false;
         let spellVariant = flags.autoanimations?.spellVar;
@@ -58,13 +59,13 @@ export class AAFormApplication extends FormApplication {
         let bardicOptions = itemName === "bardic inspiration" ? true : false;
         let bardicOptionsFlip = itemName === "bardic inspiration" ? false : true;
 
-        let loops = itemName.includes("magic missile") ? true : false;
+        let loops = itemName === "magic missile" ? true : false;
         let animationLoops = flags.autoanimations?.spellOptions?.spellLoops ?? 1;
 
-        let uaStrikes = itemName.includes("unarmed strike") || itemName.includes ("flurry of blows") ? true : false;
+        let uaStrikes = itemName === "unarmed strike" || itemName === "flurry of blows" ? true : false;
 
         let daggerVariant = patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree);
-        let daggerVariantShow = itemName.includes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()) && animType === "t2" && override ? true : false;
+        let daggerVariantShow = itemName === "dagger" && animType === "t2" && override ? true : false;
 
         let dsDelaySelf = flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1;
         let dsDelayTarget = flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250;
@@ -74,7 +75,9 @@ export class AAFormApplication extends FormApplication {
         let addExplosion = animType === "t2" || animType === "t3" || animType === "t4" ? true : false;
         let explosionVariants = animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant);
         let explosionVariant = flags.autoanimations?.explodeVariant;
-        let explosionOptions = animType === "t9" || animType === "t10" || flags.autoanimations.explosion ? true : false;
+        let impactShow = explosionVariant === "impact" ? true : false;
+        let impactVariant = flags.autoanimations?.impactVar || "";
+        let explosionOptions = animType === "t9" || animType === "t10" || flags.autoanimations?.explosion ? true : false;
         let explosionFlip = animType === "t9" || animType === "t10" ? false : true;
         let explosionLoops = flags.autoanimations?.explodeLoop ?? 1;
 
@@ -104,7 +107,7 @@ export class AAFormApplication extends FormApplication {
         console.log("Override is set to " + isOverride);
         console.log("The Standard Item Name is " + itemNameItem);
         console.log("The Flag Item Name is " + itemNameFlag);
-        console.log("The Final Item Name is " + itemName);
+        console.log("The Final Item Name is " + oldItemName);
         return {
             hideAll: hideAll,
             ctaWarning: ctaWarning,
@@ -131,7 +134,7 @@ export class AAFormApplication extends FormApplication {
 
             unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
             uaStrikes: uaStrikes,
-            
+
             daggerVariant: daggerVariant,
             daggerVariantShow: daggerVariantShow,
 
@@ -145,7 +148,8 @@ export class AAFormApplication extends FormApplication {
             addExplosion: addExplosion,
             explosionVariants: explosionVariants,
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
-            explosionColors: explosionColors(explosionVariant, patreon),
+            impactShow: impactShow,
+            explosionColors: explosionColors(explosionVariant, patreon, impactVariant),
             explosionRadius: AUTOANIM.localized(AUTOANIM.explosionRadius),
             explosionLoops: explosionLoops,
             explosionOptions: explosionOptions,
