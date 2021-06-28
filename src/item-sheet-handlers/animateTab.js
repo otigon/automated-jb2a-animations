@@ -3,7 +3,7 @@ import { colorChoices, animationName, bardColorTarget, explosionColors, animTemp
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 
-export class AAFormApplication extends FormApplication {
+export class AAItemSettings extends FormApplication {
     constructor() {
         super(...arguments);
         this.flags = this.object.data.flags.autoanimations
@@ -14,7 +14,7 @@ export class AAFormApplication extends FormApplication {
         return mergeObject(super.defaultOptions, {
             classes: ['form'],
             popOut: true,
-            template: './modules/autoanimations/src/item-sheet-handlers/my-templates/myFormApplication.html',
+            template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-item-settings.html',
             id: 'AA-form-application',
             title: 'Automated Animations Settings',
             resizable: true,
