@@ -31,7 +31,7 @@ import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
 import mistyStepOld from "./animation-functions/misty-step-old.js";
 import templateEffects from "./animation-functions/template-effects.js";
-import AAItemSettingsForm from "./item-sheet-handlers/animateTab.js";
+import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
@@ -365,30 +365,19 @@ Hooks.on('init', () => {
 let critAnim;
 let critMissAnim;
 
-Hooks.on(`renderItemSheet`, (app, html, data) => {
+Hooks.on(`renderItemSheet`, async (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
         return;
     }
-    AnimationTab.bind(app, html, data);
+    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
+    aaBtn.click(ev => {
+        new AAItemSettings(app.document, {}).render(true);
+    });
+    html.closest('.app').find('.aa-item-settings').remove();
+    let titleElement = html.closest('.app').find('.window-title');
+    aaBtn.insertAfter(titleElement);
+    //AnimationTab.bind(app, html, data);
 
-    let acceptedTypes;
-    let typeLoc;
-    switch (game.system.id) {
-        case ("dnd5e"):
-            acceptedTypes = ['weapon', 'spell', 'consumable', 'feat', 'equipment'];
-            typeLoc = data.item.type;
-            break;
-    }
-    if (acceptedTypes.includes(typeLoc)) {
-        let title = "A-A";
-        let openBtn = $(`<a class="open-item-effect" title="${title}"><i class="fas fa-biohazard"></i>${title}</a>`);
-        openBtn.click(ev => {
-            new AAItemSettings(app.document, {}).render(true);
-        });
-        html.closest('.app').find('.open-item-effect').remove();
-        let titleElement = html.closest('.app').find('.window-title');
-        openBtn.insertAfter(titleElement);
-    }
 });
 
 

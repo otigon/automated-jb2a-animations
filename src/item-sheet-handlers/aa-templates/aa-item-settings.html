@@ -13,13 +13,6 @@
             border-color: black;
             border-radius: 10px;
         }
-
-        .explosion-audio {
-            border-style: dotted;
-            border-width: 2px;
-            border-color: black;
-            border-radius: 10px;
-        }
     </style>
 </head>
 
@@ -342,6 +335,8 @@
                     data-dtype="Number">
             </div>
         </div>
+
+        {{#if addExplosion}}
         <div class="explosion-audio">
             <div class="form-group">
                 <label>{{localize "AUTOANIM.explosionAudio"}}</label>
@@ -349,6 +344,7 @@
                     value="flags.autoanimations.allSounds.explosion.audioExplodeEnabled" {{checked
                     flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}>
             </div>
+            {{/if}}
             {{#if explosionAudio}}
             <div class="form group">
                 <label>{{localize "AUTOANIM.chooseAudio"}}</label>
