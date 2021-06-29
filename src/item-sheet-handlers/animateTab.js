@@ -12,15 +12,16 @@ export class AAItemSettings extends FormApplication {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ['form'],
-            popOut: true,
+            //classes: ['form'],
+            //popOut: true,
             template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-item-settings.html',
-            id: 'AA-form-application',
+            id: 'AA-item-settings',
             title: 'Automated Animations Settings',
             resizable: true,
             width: 600,
             height: "auto",
-            closeOnSubmit: true
+            closeOnSubmit: true,
+            tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
         });
     }
 
@@ -109,7 +110,7 @@ export class AAItemSettings extends FormApplication {
         console.log("The Flag Item Name is " + itemNameFlag);
         console.log("The Final Item Name is " + oldItemName);
         return {
-            hideAll: flags.autoanimations.killAnim ? false : true,
+            hideAll: flags.autoanimations?.killAnim ? false : true,
             ctaWarning: animType === "t11" ? true : false,
             override: override,
 
