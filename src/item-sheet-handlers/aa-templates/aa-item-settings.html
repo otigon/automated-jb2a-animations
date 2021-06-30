@@ -353,12 +353,12 @@
                     </div>
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.audioDelay"}}</label>
-                        <input type="number" name="flags.autoanimations.allSounds.explosion.delay" min="0"
+                        <input type="Number" name="flags.autoanimations.allSounds.explosion.delay" min="0"
                             value={{delayExAudio}}>
                     </div>
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.audioVolume"}}</label>
-                        <input type="number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
+                        <input type="Number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
                             step="0.01" value={{volumeExAudio}}>
                     </div>
                 </div>
@@ -382,7 +382,7 @@
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.auraOpacity"}} </label>
-                    <input type="number" name="flags.autoanimations.auraOpacity" min="0" max="1" step=".01"
+                    <input type="Number" name="flags.autoanimations.auraOpacity" min="0" max="1" step=".01"
                         value={{opacity}}>
                 </div>
                 <div class="form-group">
@@ -394,7 +394,7 @@
                 {{#if teleport}}
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.range"}}</label>
-                    <input type="number" name="flags.autoanimations.teleDist" min="5" max="500" step=".01"
+                    <input type="Number" name="flags.autoanimations.teleDist" min="5" max="500" step=".01"
                         value={{teleRange}}>
                 </div>
                 {{/if}}
@@ -432,7 +432,7 @@
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="number" name="flags.autoanimations.templates.tempLoop" min="0" value={{loopTemplate}}>
+                    <input type="Number" name="flags.autoanimations.templates.tempLoop" min="0" value={{loopTemplate}}>
                 </div>
                 {{/if}}
                 <div class="form-group">
@@ -458,34 +458,107 @@
         </div>
         <!--Audio Options-->
         <div class="tab" data-tab="audio-settings" data-group="sections">
+            <!--Sound 01-->
             <div class="aa-audio-checkbox">
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.itemAudio"}}</label>
-                    <input type="checkbox" name="flags.autoanimations.allSounds.item.enableAudio"
+                    <input type="checkbox" name="flags.autoanimations.allSounds.item.sound01.enableAudio"
                         value="flags.autoanimations.allSounds.item.enableAudio" {{checked
-                        flags.autoanimations.allSounds.item.enableAudio}}>
+                        flags.autoanimations.allSounds.item.sound01.enableAudio}}>
                 </div>
-                {{#if audioEnabled}}
+                {{#if Sound1}}
                 <div class="form-group">
                     <label>Choose a File</label>
-                    <input type="text" class="files" name="flags.autoanimations.allSounds.item.file"
-                        value={{itemAudio}}>
-                    <button class="file-picker" data-type="audio" data-target="flags.autoanimations.allSounds.item.file"
-                        tabindex="-1" title="Browse Files">
+                    <input type="text" class="files" name="flags.autoanimations.allSounds.item.sound01.file"
+                        value={{soundFile01}}>
+                    <button class="file-picker" data-type="audio"
+                        data-target="flags.autoanimations.allSounds.item.sound01.file" tabindex="-1"
+                        title="Browse Files">
                         <i class="fas fa-music fa-sm"></i>
                     </button>
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.audioDelay"}}</label>
-                    <input type="number" name="flags.autoanimations.allSounds.item.delay" min="0" value={{delayAudio}}>
+                    <input type="Number" name="flags.autoanimations.allSounds.item.sound01.delay" min="0"
+                        value={{soundDelay01}}>
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.audioVolume"}}</label>
-                    <input type="number" name="flags.autoanimations.allSounds.item.volume" min="0" max="10" step="0.01"
-                        value={{volumeAudio}}>
+                    <input type="Number" name="flags.autoanimations.allSounds.item.sound01.volume" min="0" max="10"
+                        step="0.01" value={{soundVolume01}}>
+                </div>
+                {{/if}}
+                <!--Sound 02-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.itemAudio"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.allSounds.item.sound02.enableAudio"
+                        value="flags.autoanimations.allSounds.item.enableAudio" {{checked
+                        flags.autoanimations.allSounds.item.sound02.enableAudio}}>
+                </div>
+                {{#if Sound2}}
+                <div class="form-group">
+                    <label>Choose a File</label>
+                    <input type="text" class="files" name="flags.autoanimations.allSounds.item.sound02.file"
+                        value={{soundFile02}}>
+                    <button class="file-picker" data-type="audio"
+                        data-target="flags.autoanimations.allSounds.item.sound02.file" tabindex="-1"
+                        title="Browse Files">
+                        <i class="fas fa-music fa-sm"></i>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.audioDelay"}}</label>
+                    <input type="Number" name="flags.autoanimations.allSounds.item.sound02.delay" min="0"
+                        value={{soundDelay02}}>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                    <input type="Number" name="flags.autoanimations.allSounds.item.sound02.volume" min="0" max="10"
+                        step="0.01" value={{soundVolume02}}>
+                </div>
+                {{/if}}
+                <!--Sound 03-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.itemAudio"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.allSounds.item.sound03.enableAudio"
+                        value="flags.autoanimations.allSounds.item.enableAudio" {{checked
+                        flags.autoanimations.allSounds.item.sound03.enableAudio}}>
+                </div>
+                {{#if Sound3}}
+                <div class="form-group">
+                    <label>Choose a File</label>
+                    <input type="text" class="files" name="flags.autoanimations.allSounds.item.sound03.file"
+                        value={{soundFile03}}>
+                    <button class="file-picker" data-type="audio"
+                        data-target="flags.autoanimations.allSounds.item.sound03.file" tabindex="-1"
+                        title="Browse Files">
+                        <i class="fas fa-music fa-sm"></i>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.audioDelay"}}</label>
+                    <input type="Number" name="flags.autoanimations.allSounds.item.sound03.delay" min="0"
+                        value={{soundDelay03}}>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                    <input type="Number" name="flags.autoanimations.allSounds.item.sound03.volume" min="0" max="10"
+                        step="0.01" value={{soundVolume03}}>
                 </div>
                 {{/if}}
             </div>
+            {{#each SoundTest}}
+            <div class="form-group">
+                <label>Choose a File</label>
+                <input type="text" class="files" name="flags.autoanimations.testSound.{{@index}}.testFile"
+                    value={{testSoundFile}}>
+                <button class="file-picker" data-type="audio"
+                    data-target="flags.autoanimations.testSound.{{@index}}.testFile" 
+                    title="Browse Files">
+                    <i class="fas fa-music fa-sm"></i>
+                </button>
+            </div>
+            {{/each}}
         </div>
         <div class="previews">
         </div>
