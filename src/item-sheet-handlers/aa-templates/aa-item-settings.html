@@ -547,14 +547,13 @@
                 </div>
                 {{/if}}
             </div>
-            {{#each SoundTest}}
+            {{#each flags.autoanimations.testSound as |change i|}}
             <div class="form-group">
                 <label>Choose a File</label>
                 <input type="text" class="files" name="flags.autoanimations.testSound.{{@index}}.testFile"
-                    value={{testSoundFile}}>
+                    value={{audioFile}}>
                 <button class="file-picker" data-type="audio"
-                    data-target="flags.autoanimations.testSound.{{@index}}.testFile" 
-                    title="Browse Files">
+                    data-target="flags.autoanimations.testSound.{{@index}}.testFile" title="Browse Files">
                     <i class="fas fa-music fa-sm"></i>
                 </button>
             </div>

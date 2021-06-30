@@ -24,7 +24,12 @@ export class AAItemSettings extends FormApplication {
             tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
         });
     }
-
+    registerHBHelper() {
+        Handlebars.registerHelper("audioFile", function(index) {
+            return this.object.data.flags.autoanimations.testSound.index.testFile;
+        }) 
+    }
+    registerHBHelper;
     getData() {
         // Send data to the template
         let flags = this.object.data.flags;
@@ -172,7 +177,7 @@ export class AAItemSettings extends FormApplication {
             Sound3: flags.autoanimations?.allSounds?.item?.sound03.enableAudio ? true : false,
 
             SoundTest: flags.autoanimations.testSound,
-            //testSoundFile: gettheData(this.object),
+            testSoundFile: flags.autoanimations.testSound,
 
             flags: this.object.data.flags,
         };
