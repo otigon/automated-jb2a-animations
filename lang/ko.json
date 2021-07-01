@@ -241,7 +241,6 @@
     "AUTOANIM.chooseAudio": "오디오 파일 선택",
     "AUTOANIM.audioDelay": "오디오 딜레이 (milliseconds)",
     "AUTOANIM.audioVolume": "오디오 볼륨 (0 - 100)",
-    "AUTOANIM.markerEnable": "마커 활성화 (CTA 요구)",
     "AUTOANIM.markerColor": "마커 색상",
     
     "AUTOANIM.colorLightGreen": "라이트 그린",
@@ -284,5 +283,16 @@
 
     "AUTOANIM.impact": "임팩트",
     "AUTOANIM.impactVariant": "임팩트 유형",
-    "AUTOANIM.underToken": "애니메이션을 토큰 아래에서 재생합니까?"
+    "AUTOANIM.underToken": "애니메이션을 토큰 아래에서 재생합니까?",
+
+    "AUTOANIM.markerEnable": "마커 활성화",
+
+    "AUTOANIM.colorLightBlue": "라이트 블루",
+    "AUTOANIM.colorRainbow": "레인보우",
+
+    "AUTOANIM.sneakattack": "암습 공격",
+    "AUTOANIM.bullet": "총알",
+    "AUTOANIM.bolt": "쇠뇌살",
+    "AUTOANIM.snipe": "스나이프",
+    "AUTOANIM.damageType": "피해 유형"
 }
