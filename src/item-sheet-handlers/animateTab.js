@@ -25,9 +25,9 @@ export class AAItemSettings extends FormApplication {
         });
     }
     registerHBHelper() {
-        Handlebars.registerHelper("audioFile", function(index) {
+        Handlebars.registerHelper("audioFile", function (index) {
             return this.object.data.flags.autoanimations.testSound.index.testFile;
-        }) 
+        })
     }
     registerHBHelper;
     getData() {
@@ -39,12 +39,12 @@ export class AAItemSettings extends FormApplication {
                 testFile: "",
             }
         }
-        if (this.object.data.flags.autoanimations?.testSound) {} else {
+        if (this.object.data.flags.autoanimations?.testSound) { } else {
             this.object.setFlag("autoanimations", "testSound", sound)
         }
         let testing = this.object.data.flags.autoanimations?.testSound;
         let length = Object.keys(testing).length;
-        console.log(length)
+        //console.log(length)
         /*
         let sound01 = {
             1: {
@@ -55,7 +55,7 @@ export class AAItemSettings extends FormApplication {
         */
         //testing[1] = sound01;
         //mergeObject(this.object.data.flags.autoanimations.testSound, sound01, {overwrite: false})
-        
+
         //console.log(AAflags);
         let itemNameItem = this.object.name?.toLowerCase() ?? "";
         let itemNameFlag = flags.autoanimations?.animName?.toLowerCase() ?? "";
@@ -152,7 +152,7 @@ export class AAItemSettings extends FormApplication {
 
             teleRange: flags.autoanimations?.teleDist || "30",
             teleport: animType === "t12" && override ? true : false,
-            
+
             templateTypes: AUTOANIM.localized(AUTOANIM.templateType),
             templateAnimations: animTemplates(templateType),
             templateAnimColors: templateColors(templateType, templateAnimation, patreon),
@@ -201,7 +201,7 @@ export class AAItemSettings extends FormApplication {
         html.find('.animation-not-disabled select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
-        
+
         html.find('.audio-checkbox input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
@@ -230,11 +230,40 @@ export class AAItemSettings extends FormApplication {
         html.find('.aa-audio-checkbox input[type="Number"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        html.find('button[name ="AAadd_field_button"]').click((e) => {
+            e.preventDefault();
 
+            let field = this.object.data.flags.autoanimations?.testSound;
+            let length = Object.keys(field).length;
+            //console.log(length)
+            var key = length;
+            var obj = {};
+            obj[key] = {
+                testFile: ""
+            }
+            //console.log(obj)
+            mergeObject(this.object.data.flags.autoanimations.testSound, obj, {overwrite: false})
+            this.render();
+        })
+
+        html.find('button[name ="AAremove_field_button"]').click((e) => {
+            e.preventDefault();
+
+            let field = this.object.data.flags.autoanimations?.testSound;
+            let length = Object.keys(field).length;
+            
+            const index = e.delegateTarget.getAttribute('soundIndex');
+            let killFlag = this.object.data.flags.autoanimations.testSound[index]
+            console.log(index)
+            this.object.unsetFlag("autoanimations", killFlag)
+            
+            //allSounds.splice(index, 1);
+            this.render();
+        })
     }
 
     async _updateObject(event, formData) {
-        console.log(formData);
+        //console.log(formData);
         formData = expandObject(formData);
         if (!formData.changes)
             formData.changes = [];

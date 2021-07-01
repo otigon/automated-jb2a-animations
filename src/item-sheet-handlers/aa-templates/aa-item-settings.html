@@ -466,101 +466,22 @@
                         value="flags.autoanimations.allSounds.item.enableAudio" {{checked
                         flags.autoanimations.allSounds.item.sound01.enableAudio}}>
                 </div>
-                {{#if Sound1}}
+                <button type="button" name="AAadd_field_button">Add Field </button>
+                {{#each flags.autoanimations.testSound as |change i|}}
                 <div class="form-group">
                     <label>Choose a File</label>
-                    <input type="text" class="files" name="flags.autoanimations.allSounds.item.sound01.file"
-                        value={{soundFile01}}>
+                    <input type="text" class="files" name="flags.autoanimations.testSound.{{@index}}.testFile"
+                        value={{this.testFile}}>
                     <button class="file-picker" data-type="audio"
-                        data-target="flags.autoanimations.allSounds.item.sound01.file" tabindex="-1"
-                        title="Browse Files">
+                        data-target="flags.autoanimations.testSound.{{@index}}.testFile" title="Browse Files">
                         <i class="fas fa-music fa-sm"></i>
                     </button>
                 </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.audioDelay"}}</label>
-                    <input type="Number" name="flags.autoanimations.allSounds.item.sound01.delay" min="0"
-                        value={{soundDelay01}}>
-                </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.audioVolume"}}</label>
-                    <input type="Number" name="flags.autoanimations.allSounds.item.sound01.volume" min="0" max="10"
-                        step="0.01" value={{soundVolume01}}>
-                </div>
-                {{/if}}
-                <!--Sound 02-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.itemAudio"}}</label>
-                    <input type="checkbox" name="flags.autoanimations.allSounds.item.sound02.enableAudio"
-                        value="flags.autoanimations.allSounds.item.enableAudio" {{checked
-                        flags.autoanimations.allSounds.item.sound02.enableAudio}}>
-                </div>
-                {{#if Sound2}}
-                <div class="form-group">
-                    <label>Choose a File</label>
-                    <input type="text" class="files" name="flags.autoanimations.allSounds.item.sound02.file"
-                        value={{soundFile02}}>
-                    <button class="file-picker" data-type="audio"
-                        data-target="flags.autoanimations.allSounds.item.sound02.file" tabindex="-1"
-                        title="Browse Files">
-                        <i class="fas fa-music fa-sm"></i>
-                    </button>
-                </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.audioDelay"}}</label>
-                    <input type="Number" name="flags.autoanimations.allSounds.item.sound02.delay" min="0"
-                        value={{soundDelay02}}>
-                </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.audioVolume"}}</label>
-                    <input type="Number" name="flags.autoanimations.allSounds.item.sound02.volume" min="0" max="10"
-                        step="0.01" value={{soundVolume02}}>
-                </div>
-                {{/if}}
-                <!--Sound 03-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.itemAudio"}}</label>
-                    <input type="checkbox" name="flags.autoanimations.allSounds.item.sound03.enableAudio"
-                        value="flags.autoanimations.allSounds.item.enableAudio" {{checked
-                        flags.autoanimations.allSounds.item.sound03.enableAudio}}>
-                </div>
-                {{#if Sound3}}
-                <div class="form-group">
-                    <label>Choose a File</label>
-                    <input type="text" class="files" name="flags.autoanimations.allSounds.item.sound03.file"
-                        value={{soundFile03}}>
-                    <button class="file-picker" data-type="audio"
-                        data-target="flags.autoanimations.allSounds.item.sound03.file" tabindex="-1"
-                        title="Browse Files">
-                        <i class="fas fa-music fa-sm"></i>
-                    </button>
-                </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.audioDelay"}}</label>
-                    <input type="Number" name="flags.autoanimations.allSounds.item.sound03.delay" min="0"
-                        value={{soundDelay03}}>
-                </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.audioVolume"}}</label>
-                    <input type="Number" name="flags.autoanimations.allSounds.item.sound03.volume" min="0" max="10"
-                        step="0.01" value={{soundVolume03}}>
-                </div>
-                {{/if}}
+                <button type="button" soundIndex="{{@index}}" name="AAremove_field_button">Remove Field</button>
+                {{/each}}
             </div>
-            {{#each flags.autoanimations.testSound as |change i|}}
-            <div class="form-group">
-                <label>Choose a File</label>
-                <input type="text" class="files" name="flags.autoanimations.testSound.{{@index}}.testFile"
-                    value={{audioFile}}>
-                <button class="file-picker" data-type="audio"
-                    data-target="flags.autoanimations.testSound.{{@index}}.testFile" title="Browse Files">
-                    <i class="fas fa-music fa-sm"></i>
-                </button>
+            <div class="previews">
             </div>
-            {{/each}}
-        </div>
-        <div class="previews">
-        </div>
     </section>
     <footer class="sheet-footer flexrow">
         <button type="submit" name="submit">
