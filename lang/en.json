@@ -288,5 +288,11 @@
     "AUTOANIM.markerEnable": "Enable Marker",
 
     "AUTOANIM.colorLightBlue": "Light Blue",
-    "AUTOANIM.colorRainbow": "Rainbow"
+    "AUTOANIM.colorRainbow": "Rainbow",
+
+    "AUTOANIM.sneakattack": "Sneak Attack",
+    "AUTOANIM.bullet": "Bullet",
+    "AUTOANIM.bolt": "Bolt",
+    "AUTOANIM.snipe": "Snipe",
+    "AUTOANIM.damageType": "Damage Type"
 }

@@ -43,6 +43,7 @@ export default class MidiHandler {
         this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
         this._templates = this._flags.templates ?? "";
+        this._rangedOptions = this._flags.rangedOptions;
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
@@ -289,6 +290,10 @@ export default class MidiHandler {
         return this._flags;
     }
 
+    get rangedOptions() {
+        return this._rangedOptions;
+    }
+    
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {

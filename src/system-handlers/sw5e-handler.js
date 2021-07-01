@@ -48,6 +48,7 @@ export default class SW5eHandler {
         this._divineSmite = this._flags.divineSmite ?? "";
         this._templates = this._flags.templates ?? "";
         this._item = this._actorToken.actor.items?.get(itemId) ?? "";
+        this._rangedOptions = this._flags.rangedOptions;
 
         //console.log(this._animName);
         this._animNameFinal;
@@ -249,6 +250,10 @@ export default class SW5eHandler {
 
     get flags() {
         return this._flags;
+    }
+
+    get rangedOptions() {
+        return this._rangedOptions;
     }
 
     getDistanceTo(target) {

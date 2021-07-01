@@ -76,6 +76,7 @@ async function rangedWeapons(handler) {
     let tmMacro = "pass";
 
     let obj02;
+    let obj03;
     let Delay01 = 900;
     let Delay02 = 900;
     let Delay03 = 900;
@@ -151,15 +152,54 @@ async function rangedWeapons(handler) {
             Delay02 = 1250;
             Delay03 = 1050;
             break;
+        case handler.itemNameIncludes("bolt"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bolt").toLowerCase()):
+            obj02 = "bolt";
+            obj03 = handler.rangedOptions.rangeDmgType;
+            color = handler.color;
+            break;
+        case handler.itemNameIncludes("bullet"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bullet").toLowerCase()):
+            obj02 = "bullet";
+            obj03 = handler.rangedOptions.rangeDmgType;
+            color = handler.color;
+            break;
+        case handler.itemNameIncludes("arrow"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
+        case handler.itemNameIncludes("bow"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
+            obj02 = "arrow";
+            obj03 = handler.rangedOptions.rangeDmgType;
+            color = handler.color;
+            break;
+        case handler.itemNameIncludes("snipe"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.snipe").toLowerCase()):
+            obj02 = "snipe";
+            color = handler.color;
+            break;
+
     }
     let filePath;
     switch (obj02) {
         case "lasershot":
             filePath = obj01[obj02][color]
             break;
+        case "bullet":
+        case "arrow":
+        case "bolt":
+            filePath = obj01[obj02][obj03][color];
+            break;
+        case "snipe":
+            filePath = obj01[obj02][color];
+            break;
         default:
             filePath = obj01[obj02];
     }
+    //console.log(obj01);
+    //console.log(obj02);
+    //console.log(obj03);
+    //console.log(color);
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
@@ -292,6 +332,14 @@ async function rangedWeapons(handler) {
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
                 case (handler.itemNameIncludes("laser")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
+                case handler.itemNameIncludes("bolt"):
+                case handler.itemNameIncludes("bullet"):
+                case handler.itemNameIncludes("arrow"):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
+                case handler.itemNameIncludes("bow"):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
+                case handler.itemNameIncludes("snipe"):
                     switch (true) {
                         case (anDist <= 1200):
                             anFileSize = 1200;
@@ -340,7 +388,7 @@ async function rangedWeapons(handler) {
 
             var videoData = await getVideoDimensionsOf(anFile);
             let duration = videoData.duration * 1000;
-        
+
             //console.log(anFile);
             let anScale = anDist / anFileSize;
             let anScaleY = anDist <= 600 ? 0.6 : anScale;
@@ -395,7 +443,7 @@ async function rangedWeapons(handler) {
                     case (handler.playOnMiss):
                         switch (true) {
                             case handler.hitTargetsId.includes(target.id):
-                                await wait(duration-1000);
+                                await wait(duration - 1000);
                                 if (handler.animExplode && handler.animOverride) {
                                     meleeExplosion(handler, target);
                                 }
@@ -405,11 +453,11 @@ async function rangedWeapons(handler) {
                         }
                         break;
                     default:
-                        await wait(duration-1000);
+                        await wait(duration - 1000);
                         if (handler.animExplode && handler.animOverride) {
                             meleeExplosion(handler, target);
                         }
-                }    
+                }
             }
             SpellAnimation(Repeater)
             if (game.settings.get("autoanimations", "tmfx")) {
