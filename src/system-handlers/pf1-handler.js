@@ -46,7 +46,7 @@ export default class Pf1Handler {
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
         this._templates = this._flags.templates ?? "";
-        this._rangedOptions = this._flags.rangedOptions;
+        this._rangedOptions = this._flags.rangedOptions ?? "";
 
         this._animNameFinal;
         switch (true) {

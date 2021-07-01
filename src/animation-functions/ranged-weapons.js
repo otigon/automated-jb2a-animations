@@ -171,7 +171,13 @@ async function rangedWeapons(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
             obj02 = "arrow";
             obj03 = handler.rangedOptions.rangeDmgType;
+            if (obj03 === "" || !obj03) {
+                obj03 = "physical";
+            }
             color = handler.color;
+            if (color === "" || color === "a1") {
+                color = "blue";
+            }
             break;
         case handler.itemNameIncludes("snipe"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.snipe").toLowerCase()):
@@ -180,6 +186,11 @@ async function rangedWeapons(handler) {
             break;
 
     }
+    console.log(obj01);
+    console.log(obj02);
+    console.log(obj03);
+    console.log(color);
+
     let filePath;
     switch (obj02) {
         case "lasershot":
@@ -196,10 +207,6 @@ async function rangedWeapons(handler) {
         default:
             filePath = obj01[obj02];
     }
-    //console.log(obj01);
-    //console.log(obj02);
-    //console.log(obj03);
-    //console.log(color);
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
