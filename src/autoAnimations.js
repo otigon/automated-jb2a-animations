@@ -785,8 +785,8 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
         case (handler.itemNameIncludes("sling")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSling").toLowerCase()):
-        case handler.itemNameIncludes("bolt"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bolt").toLowerCase()):
+        case handler.animName === "bolt":
+        case handler.animName === game.i18n.format("AUTOANIM.bolt").toLowerCase():
         case handler.itemNameIncludes("bullet"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bullet").toLowerCase()):
         case handler.itemNameIncludes("arrow"):
