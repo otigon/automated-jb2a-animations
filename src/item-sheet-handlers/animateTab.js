@@ -71,15 +71,15 @@ export class AAItemSettings extends FormApplication {
         console.log("The Flag Item Name is " + itemNameFlag);
         console.log("The Final Item Name is " + oldItemName);
         return {
-            hideAll: flags.autoanimations?.killAnim ? false : true,
+            //hideAll: flags.autoanimations?.killAnim ? false : true,
             ctaWarning: animType === "t11" ? true : false,
             override: override,
 
             bardicOptions: itemName === "bardic inspiration" ? true : false,
-            bardTarget: flags.autoanimations?.bards?.bardTarget ? true : false,
-            bardSelfOptions: flags.autoanimations?.bards?.bardSelf ? true : false,
+            //bardTarget: flags.autoanimations?.bards?.bardTarget ? true : false,
+            //bardSelfOptions: flags.autoanimations?.bards?.bardSelf ? true : false,
             bardicOptionsFlip: itemName === "bardic inspiration" ? false : true,
-            bardMarker: flags.autoanimations?.bards?.marker ? true : false,
+            //bardMarker: flags.autoanimations?.bards?.marker ? true : false,
             bardAnimName: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardAnimTarget: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
@@ -116,6 +116,8 @@ export class AAItemSettings extends FormApplication {
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
             //explosionOptions: animType === "t9" || animType === "t10" || flags.autoanimations?.explosion ? true : false,
             explosionFlip: animType === "t9" || animType === "t10" ? false : true,
+            //endExplosions: flags.autoanimations?.explosion ? true : false,
+            showExplosionOptions: animType === "t9" || animType === "t10" ? true : false,
 
             explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
@@ -137,13 +139,13 @@ export class AAItemSettings extends FormApplication {
             loopTemplate: flags.autoanimations?.templates?.tempLoop ?? 1,
             templatesFlip: animType === "t8" ? false : true,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
-            customChecked: flags.autoanimations?.templates?.customAnim ? true : false,
-            customCheckedFlip: flags.autoanimations?.templates?.customAnim ? false : true,
+            //customChecked: flags.autoanimations?.templates?.customAnim ? true : false,
+            //customCheckedFlip: flags.autoanimations?.templates?.customAnim ? false : true,
 
-            enableAudio: flags.autoanimations?.allSounds?.item?.enableAudio || false,
-            itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
-            delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
-            volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
+            //enableAudio: flags.autoanimations?.allSounds?.item?.enableAudio || false,
+            itemAudio: flags.autoanimations?.allSounds?.item?.file,
+            delayAudio: flags.autoanimations?.allSounds?.item?.delay,
+            volumeAudio: flags.autoanimations?.allSounds?.item?.volume,
 
             flags: this.object.data.flags,
         };
