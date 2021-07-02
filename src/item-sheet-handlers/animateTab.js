@@ -34,29 +34,6 @@ export class AAItemSettings extends FormApplication {
         // Send data to the template
         let flags = this.object.data.flags;
         let patreon = moduleIncludes("jb2a_patreon");
-        let sound = {
-            0: {
-                testFile: "",
-            }
-        }
-        if (this.object.data.flags.autoanimations?.testSound) { } else {
-            this.object.setFlag("autoanimations", "testSound", sound)
-        }
-        let testing = this.object.data.flags.autoanimations?.testSound;
-        let length = Object.keys(testing).length;
-        //console.log(length)
-        /*
-        let sound01 = {
-            1: {
-                testFile: "",
-            }
-        }
-        this.object.setFlag("autoanimations", "testSound", sound01)
-        */
-        //testing[1] = sound01;
-        //mergeObject(this.object.data.flags.autoanimations.testSound, sound01, {overwrite: false})
-
-        //console.log(AAflags);
         let itemNameItem = this.object.name?.toLowerCase() ?? "";
         let itemNameFlag = flags.autoanimations?.animName?.toLowerCase() ?? "";
         let isOverride = flags.autoanimations?.override;
@@ -128,7 +105,7 @@ export class AAItemSettings extends FormApplication {
             dsColorSelf: AUTOANIM.localized(AUTOANIM.dsSelf),
             dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
             divineSmite: animType === "t2" || animType === "t3" ? true : false,
-            dsEnabled: flags.autoanimations?.divineSmite?.dsEnable && (animType === "t1" || animType === "t2") ? true : false,
+            //dsEnabled: flags.autoanimations?.divineSmite?.dsEnable && (animType === "t1" || animType === "t2") ? true : false,
 
             addExplosion: animType === "t2" || animType === "t3" || animType === "t4" ? true : false,
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant),
@@ -137,10 +114,10 @@ export class AAItemSettings extends FormApplication {
             explosionColors: explosionColors(explosionVariant, patreon, impactVariant),
             explosionRadius: AUTOANIM.localized(AUTOANIM.explosionRadius),
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
-            explosionOptions: animType === "t9" || animType === "t10" || flags.autoanimations?.explosion ? true : false,
+            //explosionOptions: animType === "t9" || animType === "t10" || flags.autoanimations?.explosion ? true : false,
             explosionFlip: animType === "t9" || animType === "t10" ? false : true,
 
-            explosionAudio: flags.autoanimations?.allSounds?.explosion?.file || "",
+            explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
             volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
             explosionAudio: flags.autoanimations?.allSounds?.explosion?.audioExplodeEnabled || false,
@@ -163,21 +140,10 @@ export class AAItemSettings extends FormApplication {
             customChecked: flags.autoanimations?.templates?.customAnim ? true : false,
             customCheckedFlip: flags.autoanimations?.templates?.customAnim ? false : true,
 
-            soundFile01: flags.autoanimations?.allSounds?.item?.sound01?.file,
-            soundDelay01: flags.autoanimations?.allSounds?.item?.sound01?.delay || 0,
-            soundVolume01: flags.autoanimations?.allSounds?.item?.sound01?.volume || 0.25,
-            soundFile02: flags.autoanimations?.allSounds?.item?.sound02?.file,
-            soundDelay02: flags.autoanimations?.allSounds?.item?.sound02?.delay || 0,
-            soundVolume02: flags.autoanimations?.allSounds?.item?.sound02?.volume || 0.25,
-            soundFile03: flags.autoanimations?.allSounds?.item?.sound03?.file,
-            soundDelay03: flags.autoanimations?.allSounds?.item?.sound03?.delay || 0,
-            soundVolume03: flags.autoanimations?.allSounds?.item?.sound03?.volume || 0.25,
-            Sound1: flags.autoanimations?.allSounds?.item?.sound01.enableAudio ? true : false,
-            Sound2: flags.autoanimations?.allSounds?.item?.sound02.enableAudio ? true : false,
-            Sound3: flags.autoanimations?.allSounds?.item?.sound03.enableAudio ? true : false,
-
-            SoundTest: flags.autoanimations.testSound,
-            testSoundFile: flags.autoanimations.testSound,
+            enableAudio: flags.autoanimations?.allSounds?.item?.enableAudio || false,
+            itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
+            delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
+            volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
 
             flags: this.object.data.flags,
         };
@@ -230,6 +196,8 @@ export class AAItemSettings extends FormApplication {
         html.find('.aa-audio-checkbox input[type="Number"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+
+        /*
         html.find('button[name ="AAadd_field_button"]').click((e) => {
             e.preventDefault();
 
@@ -260,6 +228,7 @@ export class AAItemSettings extends FormApplication {
             //allSounds.splice(index, 1);
             this.render();
         })
+        */
     }
 
     async _updateObject(event, formData) {
