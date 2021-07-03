@@ -301,7 +301,6 @@
                         {{checked flags.autoanimations.explosion}}>
                 </div>
                 {{/if}}
-                {{#if flags.autoanimations.explosion}}
                 {{#if showExplosionOptions}}
                 <!--Play Explosion Under Token?-->
                 <div class="ex-anim-level">
@@ -365,7 +364,6 @@
                     <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
                         data-dtype="Number">
                 </div>
-                {{/if}}
                 <!--Enable Explosion Audio?-->
                 {{#if addExplosion}}
                 <div class="form-group">
@@ -377,7 +375,7 @@
                 {{/if}}
                 {{#if flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}
                 <!--Explosion Audio filePicker and Text Input-->
-                <div class="form group">
+                <div class="form-group">
                     <label>{{localize "AUTOANIM.chooseAudio"}}</label>
                     <input type="text" class="files" name="flags.autoanimations.allSounds.explosion.file"
                         value={{explosionAudioFile}}>

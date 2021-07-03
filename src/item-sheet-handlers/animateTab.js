@@ -117,7 +117,7 @@ export class AAItemSettings extends FormApplication {
             //explosionOptions: animType === "t9" || animType === "t10" || flags.autoanimations?.explosion ? true : false,
             explosionFlip: animType === "t9" || animType === "t10" ? false : true,
             //endExplosions: flags.autoanimations?.explosion ? true : false,
-            showExplosionOptions: animType === "t9" || animType === "t10" ? true : false,
+            showExplosionOptions: (flags.autoanimations.explosion) && override || animType === "t9" || animType === "t10" ? true : false,
 
             explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
