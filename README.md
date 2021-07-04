@@ -49,7 +49,7 @@ Systems in Process for Compatibility:
 - Please log a GitHub request for other systems  
 
 REQUIRED MODULES: 
-- **JB2A** - Jules&Ben's Animated Assets (patreon and/or free version)  
+- **JB2A** - Jules&Ben's Animated Assets (patreon or free version)  
 
 Optional Modules:
 - Token Magic FX  
@@ -99,7 +99,7 @@ Automated Animations reads the data passed through Chat Cards, or Module Hooks, 
 # A-A Tab  
 
 
-![Alt text](pictures/AnimateTab.PNG)  
+![Alt text](pictures/AnimateTabNEW.PNG)  
 
 The **A-A** Tab on Item sheets allow users to customize colors (from the Patreon module), assign a different animation to the item, stop the animation from playing, and enable Sounds to play when the item is used.  
 
