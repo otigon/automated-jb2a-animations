@@ -36,8 +36,8 @@ import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
 
-import SequencerApplication from "./item-sheet-handlers/sequenceApplication.js";
-import "../lib/alpine.min.js"
+//import SequencerApplication from "./item-sheet-handlers/sequenceApplication.js";
+//import "../lib/alpine.min.js"
 
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
@@ -86,7 +86,7 @@ function activateSocket() {
 
 Hooks.on('init', () => {
 
-    window.sequencerApp = new SequencerApplication();
+    //window.sequencerApp = new SequencerApplication();
 
     registerLayer();
     activateSocket();
