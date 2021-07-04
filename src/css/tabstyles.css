@@ -13,3 +13,8 @@
     border-radius: 10px;
 }
 
+.aa-ridged {
+    border: 3px ridge #a1a1a1;
+    padding: 3px;
+    margin-bottom: 5px;
+}

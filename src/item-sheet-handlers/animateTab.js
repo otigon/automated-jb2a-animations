@@ -21,6 +21,7 @@ export class AAItemSettings extends FormApplication {
             width: 600,
             height: "auto",
             closeOnSubmit: true,
+            
             tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
         });
     }
@@ -66,20 +67,23 @@ export class AAItemSettings extends FormApplication {
             default:
                 spellVariants = false;
         }
-        console.log("Override is set to " + isOverride);
-        console.log("The Standard Item Name is " + itemNameItem);
-        console.log("The Flag Item Name is " + itemNameFlag);
-        console.log("The Final Item Name is " + oldItemName);
+        //console.log("Override is set to " + isOverride);
+        //console.log("The Standard Item Name is " + itemNameItem);
+        //console.log("The Flag Item Name is " + itemNameFlag);
+        //console.log("The Final Item Name is " + oldItemName);
         return {
-            //hideAll: flags.autoanimations?.killAnim ? false : true,
-            ctaWarning: animType === "t11" ? true : false,
-            override: override,
+            t2t3: override && (animType === "t2" || animType === "t3"),
+            t4: override && animType === "t4",
+            t5: override && animType === "t5",
+            t6: override && animType === "t6",
+            t7: override && animType === "t7",
+            t8: override && animType === "t8",
+            t9t10: override && (animType === "t9" || animType === "t10"),
+            t11: override && animType === "t11",
+            t12: override && animType === "t12",
+            t13: override && animType === "t13",
 
             bardicOptions: itemName === "bardic inspiration" ? true : false,
-            //bardTarget: flags.autoanimations?.bards?.bardTarget ? true : false,
-            //bardSelfOptions: flags.autoanimations?.bards?.bardSelf ? true : false,
-            bardicOptionsFlip: itemName === "bardic inspiration" ? false : true,
-            //bardMarker: flags.autoanimations?.bards?.marker ? true : false,
             bardAnimName: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardAnimTarget: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
@@ -104,45 +108,33 @@ export class AAItemSettings extends FormApplication {
             dsDelayTarget: flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250,
             dsColorSelf: AUTOANIM.localized(AUTOANIM.dsSelf),
             dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
-            divineSmite: animType === "t2" || animType === "t3" ? true : false,
-            //dsEnabled: flags.autoanimations?.divineSmite?.dsEnable && (animType === "t1" || animType === "t2") ? true : false,
+            divineSmite: override && (animType === "t2" || animType === "t3") ? true : false,
 
-            addExplosion: animType === "t2" || animType === "t3" || animType === "t4" ? true : false,
+            addExplosion: override && (animType === "t2" || animType === "t3" || animType === "t4") ? true : false,
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant),
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             impactShow: flags.autoanimations?.explodeVariant === "impact" ? true : false,
             explosionColors: explosionColors(explosionVariant, patreon, impactVariant),
             explosionRadius: AUTOANIM.localized(AUTOANIM.explosionRadius),
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
-            //explosionOptions: animType === "t9" || animType === "t10" || flags.autoanimations?.explosion ? true : false,
-            explosionFlip: animType === "t9" || animType === "t10" ? false : true,
-            //endExplosions: flags.autoanimations?.explosion ? true : false,
-            showExplosionOptions: (flags.autoanimations.explosion) && override || animType === "t9" || animType === "t10" ? true : false,
+            showExplosionOptions: (flags.autoanimations?.explosion && override && (animType === "t2" || animType === "t3" || animType === "t4")) ? true : false,
 
             explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
             volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
-            explosionAudio: flags.autoanimations?.allSounds?.explosion?.audioExplodeEnabled || false,
 
             auraRadius: AUTOANIM.selfCastRadius,
             hexColour: flags.autoanimations?.animTint || `#FFFFFF`,
             opacity: flags.autoanimations?.auraOpacity || ".75",
-            Aura: animType === "t11" && override ? true : false,
 
             teleRange: flags.autoanimations?.teleDist || "30",
-            teleport: animType === "t12" && override ? true : false,
 
             templateTypes: AUTOANIM.localized(AUTOANIM.templateType),
             templateAnimations: animTemplates(templateType),
             templateAnimColors: templateColors(templateType, templateAnimation, patreon),
-            templates: animType === "t8" ? true : false,
             loopTemplate: flags.autoanimations?.templates?.tempLoop ?? 1,
-            templatesFlip: animType === "t8" ? false : true,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
-            //customChecked: flags.autoanimations?.templates?.customAnim ? true : false,
-            //customCheckedFlip: flags.autoanimations?.templates?.customAnim ? false : true,
 
-            //enableAudio: flags.autoanimations?.allSounds?.item?.enableAudio || false,
             itemAudio: flags.autoanimations?.allSounds?.item?.file,
             delayAudio: flags.autoanimations?.allSounds?.item?.delay,
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume,
@@ -154,29 +146,12 @@ export class AAItemSettings extends FormApplication {
 
     activateListeners(html) {
         super.activateListeners(html);
-        html.find('.animation-name').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.animation-type').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
         html.find('.kill-animation').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.overide').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.animation-not-disabled select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
-
-        html.find('.audio-checkbox input[type="checkbox"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.audio-checkbox input[type="Number"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-
         html.find('.animation-not-disabled input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
@@ -184,9 +159,6 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.animation-not-disabled input[type="color"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.bard-options input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.files').change(evt => {
