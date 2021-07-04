@@ -300,6 +300,21 @@
                         {{/select}}
                     </select>
                 </div>
+                <!--Choose Damage Type-->
+                {{#if rangedType}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.damageType"}}</label>
+                    <div class="form-fields">
+                        <select name="flags.autoanimations.rangedOptions.rangeDmgType" class="animation-colors">
+                            {{#select flags.autoanimations.rangedOptions.rangeDmgType}}
+                            {{#each rangeDmgType as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+                {{/if}}
                 <!--Choose Standard Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
@@ -788,6 +803,19 @@
                         {{/select}}
                     </select>
                 </div>
+                <!--Sneak Attack Options-->
+                {{#if sneakAttack}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                    <select name="flags.autoanimations.color">
+                        {{#select flags.autoanimations.color}}
+                        {{#each animationColor as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                {{/if}}
                 <!--Bardic Inspiration Options-->
                 {{#if bardicOptions}}
                 <!--Bardic Inspiration: Animation on Self?-->

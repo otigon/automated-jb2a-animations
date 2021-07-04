@@ -194,6 +194,9 @@ async function rangedWeapons(handler) {
     let filePath;
     switch (obj02) {
         case "lasershot":
+            console.log(obj01);
+            console.log(obj02);
+            console.log(color);
             filePath = obj01[obj02][color]
             break;
         case "bullet":

@@ -1,9 +1,9 @@
 
 import { AUTOANIM } from "./config.js";
 
-export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
+export function colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType) {
     let animationColor;
-    console.log("Converted Item Name is " + itemName);
+    //console.log("Converted Item Name is " + itemName);
     switch (true) {
         case itemName === "lasersword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorLaserSword) : AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree)
@@ -73,7 +73,11 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorShatterThunder) : AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree)
             break;
         case itemName === "arrow":
-            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorArrow) : AUTOANIM.localized(AUTOANIM.animColorArrowFree)
+            if (damageType === "regular") {
+                animationColor = patreon ? AUTOANIM.localized(AUTOANIM.legacyArrowColors) : AUTOANIM.localized(AUTOANIM.legacyArrowColorsFree)
+            } else {
+                animationColor = patreon ? AUTOANIM.localized(AUTOANIM.arrowColors) : AUTOANIM.localized(AUTOANIM.arrowColorsFree)
+            }
             break;
         case itemName === "lasershot":
             animationColor = AUTOANIM.localized(AUTOANIM.laserblastColors);
@@ -128,6 +132,21 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
         case itemName === "unarmedstrike":
         case itemName === "flurryofblows":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.uaStrikeColor) : AUTOANIM.localized(AUTOANIM.uaStrikeColorFree)
+            break;
+        case itemName === "bolt":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.boltColors) : AUTOANIM.localized(AUTOANIM.boltColorsFree)
+            break;
+        case itemName === "bullet":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.bulletColors) : AUTOANIM.localized(AUTOANIM.bulletColorsFree0102)
+            break;
+        case itemName === "snipe":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.snipeColors) : AUTOANIM.localized(AUTOANIM.snipeColorsFree)
+            break;
+        case itemName === "snipe":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.snipeColors) : AUTOANIM.localized(AUTOANIM.snipeColorsFree)
+            break;
+        case itemName === "sneakattack":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.sneakattackColors) : AUTOANIM.localized(AUTOANIM.sneakattackColorsFree)
             break;
         default:
             animationColor = AUTOANIM.localized(AUTOANIM.animNull);
@@ -314,5 +333,21 @@ export function templateColors(templateType, templateAnimation, patreon) {
             break;
     }
     return templateColor;
+}
+
+export function rangedDamageTypes(itemName) {
+    let damageType;
+    switch (itemName) {
+        case "bullet":
+            damageType = AUTOANIM.localized(AUTOANIM.bulletOptions)
+            break;
+        case "bolt":
+            damageType = AUTOANIM.localized(AUTOANIM.boltOptions)
+            break;
+        case "arrow":
+            damageType = AUTOANIM.localized(AUTOANIM.arrowOptions)
+            break;
+    }
+    return damageType;
 }
 

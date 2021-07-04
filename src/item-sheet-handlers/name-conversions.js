@@ -210,6 +210,22 @@ export function nameConversion(itemName) {
         case game.i18n.format("AUTOANIM.itemMistyStep").toLowerCase():
             newItemName = "mistystep";
             break;
+        case "bolt":
+        case game.i18n.format("AUTOANIM.bolt").toLowerCase():
+            newItemName = "bolt";
+            break;
+        case "bullet":
+        case game.i18n.format("AUTOANIM.bullet").toLowerCase():
+            newItemName = "bullet";
+            break;
+        case "snipe":
+        case game.i18n.format("AUTOANIM.snipe").toLowerCase():
+            newItemName = "snipe";
+            break;
+        case "sneak attack":
+        case game.i18n.format("AUTOANIM.sneakattack").toLowerCase():
+            newItemName = "sneakattack";
+            break;
     }
     if (newItemName === undefined) {
         console.warn("Does not match any automatically recognized name")

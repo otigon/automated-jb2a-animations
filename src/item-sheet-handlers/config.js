@@ -970,6 +970,17 @@ AUTOANIM.arrowColorsFree = {
     "blue": "AUTOANIM.colorBlue",
 }
 
+AUTOANIM.legacyArrowColors = {
+    "a1": "",
+    "regular": "AUTOANIM.colorWhite",
+    "green": "AUTOANIM.colorGreen",
+}
+
+AUTOANIM.legacyArrowColorsFree = {
+    "a1": "",
+    "regular": "AUTOANIM.colorWhite",
+}
+
 AUTOANIM.boltColors = {
     "a1": "",
     "blue": "AUTOANIM.colorBlue",
@@ -1011,8 +1022,18 @@ AUTOANIM.snipeColorsFree = {
     "blue": "AUTOANIM.colorBlue",
 }
 
-AUTOANIM.boltarrowOptions = {
+AUTOANIM.boltOptions = {
     "a1": "",
+    "poison": "AUTOANIM.poison",
+    'fire': "AUTOANIM.dmgTypeFire",
+    "cold": "AUTOANIM.cold",
+    "lightning": "AUTOANIM.dmgTypeLightning",
+    "physical": "AUTOANIM.uaPhysical",
+}
+
+AUTOANIM.arrowOptions = {
+    "a1": "",
+    "regular": "AUTOANIM.colorWhite",
     "poison": "AUTOANIM.poison",
     'fire': "AUTOANIM.dmgTypeFire",
     "cold": "AUTOANIM.cold",

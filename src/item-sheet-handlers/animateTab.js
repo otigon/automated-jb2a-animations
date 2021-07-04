@@ -1,5 +1,5 @@
 import { AUTOANIM } from "./config.js";
-import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors } from "./tab-options.js";
+import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 
@@ -44,6 +44,7 @@ export class AAItemSettings extends FormApplication {
         let animType = flags.autoanimations?.animType;
         let spellVariant = flags.autoanimations?.spellVar;
         let bardAnimation = flags.autoanimations?.bards?.bardAnim;
+        let damageType = flags.autoanimations?.rangedOptions?.rangeDmgType ?? "regular";
         let override = flags.autoanimations?.override ? true : false;
         let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
         let explosionVariant = flags.autoanimations?.explodeVariant;
@@ -60,7 +61,7 @@ export class AAItemSettings extends FormApplication {
                 spellVariants = false;
         }
         let videoPreview = animPreview(flags.autoanimations, itemName);
-        console.log(videoPreview)
+        //console.log(videoPreview)
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
@@ -106,7 +107,7 @@ export class AAItemSettings extends FormApplication {
             spellVariant: AUTOANIM.localized(AUTOANIM.spellVariant),
             animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
             animationNames: animationName(animType, patreon),
-            animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation), //AUTOANIM.localized(AUTOANIM.animColorMelee),
+            animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType), //AUTOANIM.localized(AUTOANIM.animColorMelee),
 
             unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
             uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
@@ -148,6 +149,10 @@ export class AAItemSettings extends FormApplication {
             itemAudio: flags.autoanimations?.allSounds?.item?.file,
             delayAudio: flags.autoanimations?.allSounds?.item?.delay,
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume,
+
+            rangeDmgType: rangedDamageTypes(itemName),
+            rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
+            sneakAttack: itemName === "sneakattack" ? true : false,
 
             flags: this.object.data.flags,
             content: content,

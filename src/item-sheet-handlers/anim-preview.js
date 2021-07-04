@@ -10,13 +10,14 @@ function animPreview(item, name) {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     //let itemName = item.animName.toLowerCase();
     let itemName = name;
-    console.log(item);
+    //console.log(item);
     let color;
     let obj02;
     let tempType;
     let tempAnim;
     let spellVar;
     let preview;
+    let damageType;
     let enabled = item?.override ?? false;
     if (enabled) {
         switch (true) {
@@ -50,12 +51,7 @@ function animPreview(item, name) {
                                 color = item.color;
                         }
                         if (obj01[obj02][color] === undefined) { color = 'white' };
-                        console.log(obj01)
-                        console.log(obj02)
-                        console.log(color)
-
                         preview = obj01[obj02][color];
-                        console.log(preview)
                         break;
                     case "greatclub":
                         obj02 = 'greatclub';
@@ -308,6 +304,20 @@ function animPreview(item, name) {
                         }
                         if (obj01[obj02][color] === undefined) { color = 'blue' };
                         preview = obj01[obj02][color]['30'];
+                        break;
+                    case "arrow":
+                        obj02 = "arrow";
+                        switch (true) {
+                            case item.color === ``:
+                            case item.color === 'a1':
+                            case item.color === 'random':
+                                color = 'physical';
+                                break;
+                            default:
+                                color = item.color;
+                        }
+                        damageType = item.rangedOptions?.rangeDmgType ?? "physical";
+                        preview = obj01[obj02][damageType][color]['30'];
                         break;
                 }
                 break;
@@ -901,7 +911,7 @@ function animPreview(item, name) {
                 }
                 break;
             case item.animType === 't13':
-                switch (item.bards.bardAnim) {
+                switch (item.bards?.bardAnim) {
                     case "bardicinspiration":
                         obj02 = 'bardicinspiration';
                         switch (true) {

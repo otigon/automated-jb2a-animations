@@ -1224,15 +1224,17 @@ JB2APATREONDB.sneakattack = {
 }
 
 JB2APATREONDB.arrow = {
-    'green': {
-        '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_30ft_1600x400.webm',
-        '60': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_60ft_2800x400.webm',
-        '90': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_90ft_4000x400.webm',
-    },
-    'regular': {
-        '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_30ft_1600x400.webm',
-        '60': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_60ft_2800x400.webm',
-        '90': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_90ft_4000x400.webm',
+    "regular": {
+        'green': {
+            '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_30ft_1600x400.webm',
+            '60': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_60ft_2800x400.webm',
+            '90': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_90ft_4000x400.webm',
+        },
+        'regular': {
+            '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_30ft_1600x400.webm',
+            '60': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_60ft_2800x400.webm',
+            '90': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_90ft_4000x400.webm',
+        },
     },
     'poison': {
         'blue': {
