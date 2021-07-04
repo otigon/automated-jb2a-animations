@@ -84,7 +84,7 @@ export function nameConversion(itemName) {
         case game.i18n.format("AUTOANIM.itemThrowingHammer"):
             newItemName = "rangehammer";
             break;
-        case "siege":
+        case "siege boulder":
         case game.i18n.format("AUTOANIM.itemSiegeBoulder"):
             newItemName = "siege";
             break;

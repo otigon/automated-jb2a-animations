@@ -27,10 +27,10 @@ function animPreview(item, name) {
                 switch (itemName) {
                     case "dagger":
                         obj02 = 'meleedagger';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -41,10 +41,10 @@ function animPreview(item, name) {
                         break;
                     case "greataxe":
                         obj02 = 'greataxe';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -55,10 +55,10 @@ function animPreview(item, name) {
                         break;
                     case "greatclub":
                         obj02 = 'greatclub';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -69,10 +69,10 @@ function animPreview(item, name) {
                         break;
                     case "greatsword":
                         obj02 = 'greatsword';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -83,10 +83,10 @@ function animPreview(item, name) {
                         break;
                     case "handaxe":
                         obj02 = 'meleehandaxe';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -97,10 +97,10 @@ function animPreview(item, name) {
                         break;
                     case "lasersword":
                         obj02 = 'lasersword';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -111,10 +111,10 @@ function animPreview(item, name) {
                         break;
                     case "mace":
                         obj02 = 'mace';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -125,10 +125,10 @@ function animPreview(item, name) {
                         break;
                     case "maul":
                         obj02 = 'maul';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -139,10 +139,10 @@ function animPreview(item, name) {
                         break;
                     case "spear":
                         obj02 = 'meleespear';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -153,10 +153,10 @@ function animPreview(item, name) {
                         break;
                     case "sword":
                         obj02 = 'sword';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -167,10 +167,10 @@ function animPreview(item, name) {
                         break;
                     case "rapier":
                         obj02 = 'rapier';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -225,18 +225,18 @@ function animPreview(item, name) {
                         break;
                     case "unarmedstrike":
                         obj02 = 'unarmedstrike';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
                                 color = item.color;
                         }
-                        switch (true) {
-                            case item.uaStrikeType === ``:
-                            case item.uaStrikeType === "physical":
+                        switch (item.uaStrikeType) {
+                            case ``:
+                            case "physical":
                                 if (obj01[obj02]['physical'][color] === undefined) { color = 'blue' };
                                 preview = obj01[obj02]['physical'][color]['1'];
                                 break;
@@ -247,18 +247,18 @@ function animPreview(item, name) {
                         break;
                     case "flurryofblows":
                         obj02 = 'flurryofblows';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
                                 color = item.color;
                         }
-                        switch (true) {
-                            case item.uaStrikeType === ``:
-                            case item.uaStrikeType === "physical":
+                        switch (item.uaStrikeType) {
+                            case ``:
+                            case "physical":
                                 if (obj01[obj02]['physical'][color] === undefined) { color = 'blue' };
                                 preview = obj01[obj02]['physical'][color];
                                 break;
@@ -275,7 +275,7 @@ function animPreview(item, name) {
                         obj02 = 'boulder';
                         preview = obj01[obj02]['30'];
                         break;
-                    case "javelin":
+                    case "rangejavelin":
                         obj02 = 'rangejavelin';
                         preview = obj01[obj02]['30'];
                         break;
@@ -293,31 +293,97 @@ function animPreview(item, name) {
                         break;
                     case "lasershot":
                         obj02 = 'lasershot';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
                                 color = item.color;
                         }
                         if (obj01[obj02][color] === undefined) { color = 'blue' };
-                        preview = obj01[obj02][color]['30'];
+                        try {
+                            return preview = obj01[obj02][color]['30'] || "no preview";;
+                        } catch (exception) {
+                            //console.log("Autoanimations | No path for animation :");
+                            return "no preview";
+                        }
                         break;
                     case "arrow":
                         obj02 = "arrow";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'physical';
                                 break;
                             default:
                                 color = item.color;
                         }
                         damageType = item.rangedOptions?.rangeDmgType ?? "physical";
-                        preview = obj01[obj02][damageType][color]['30'];
+                        try {
+                            return preview = obj01[obj02][damageType][color]['30'] || "no preview";;
+                        } catch (exception) {
+                            //console.log("Autoanimations | No path for animation :");
+                            return "no preview";
+                        }
+                        break;
+                    case "bolt":
+                        obj02 = "bolt";
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
+                                color = 'physical';
+                                break;
+                            default:
+                                color = item.color;
+                        }
+                        damageType = item.rangedOptions?.rangeDmgType ?? "physical";
+                        try {
+                            return preview = obj01[obj02][damageType][color]['30'] || "no preview";;
+                        } catch (exception) {
+                            //console.log("Autoanimations | No path for animation :");
+                            return "no preview";
+                        }
+                        break;
+                    case "bullet":
+                        obj02 = "bullet";
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
+                                color = 'physical';
+                                break;
+                            default:
+                                color = item.color;
+                        }
+                        damageType = item.rangedOptions?.rangeDmgType ?? "physical";
+                        try {
+                            return preview = obj01[obj02][damageType][color]['30'] || "no preview";;
+                        } catch (exception) {
+                            //console.log("Autoanimations | No path for animation :");
+                            return "no preview";
+                        }
+                        break;
+                    case "snipe":
+                        obj02 = "snipe";
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
+                                color = 'physical';
+                                break;
+                            default:
+                                color = item.color;
+                        }
+                        try {
+                            return preview = obj01[obj02][color]['30'] || "no preview";;
+                        } catch (exception) {
+                            //console.log("Autoanimations | No path for animation :");
+                            return "no preview";
+                        }
                         break;
                 }
                 break;
@@ -325,10 +391,10 @@ function animPreview(item, name) {
                 switch (itemName) {
                     case "creaturebite":
                         obj02 = "creaturebite";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'red';
                                 break;
                             default:
@@ -339,10 +405,10 @@ function animPreview(item, name) {
                         break;
                     case "creatureclaw":
                         obj02 = "creatureclaw";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'red';
                                 break;
                             default:
@@ -357,10 +423,10 @@ function animPreview(item, name) {
                 switch (itemName) {
                     case "disintegrate":
                         obj02 = "disintegrate";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'green';
                                 break;
                             default:
@@ -371,10 +437,10 @@ function animPreview(item, name) {
                         break;
                     case "eldritchblast":
                         obj02 = "eldritchblast";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'purple';
                                 break;
                             default:
@@ -385,10 +451,10 @@ function animPreview(item, name) {
                         break;
                     case "firebolt":
                         obj02 = "firebolt";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'orange';
                                 break;
                             default:
@@ -399,10 +465,10 @@ function animPreview(item, name) {
                         break;
                     case "magicmissile":
                         obj02 = "magicmissile";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'purple';
                                 break;
                             default:
@@ -413,10 +479,10 @@ function animPreview(item, name) {
                         break;
                     case "rayoffrost":
                         obj02 = "rayoffrost";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -427,19 +493,19 @@ function animPreview(item, name) {
                         break;
                     case "scorchingray":
                         obj02 = "scorchingray";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'orange';
                                 break;
                             default:
                                 color = item.color;
                         }
-                        switch (true) {
-                            case item.spellVar === ``:
-                            case item.spellVar === 'a1':
-                            case item.spellVar === '01':
+                        switch (item.spellVar) {
+                            case ``:
+                            case 'a1':
+                            case '01':
                                 spellVar = '01';
                                 break;
                             default:
@@ -456,10 +522,10 @@ function animPreview(item, name) {
                         break;
                     case "witchbolt":
                         obj02 = "witchbolt";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -470,10 +536,10 @@ function animPreview(item, name) {
                         break;
                     case "guidingbolt":
                         obj02 = "guidingbolt";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue yellow';
                                 break;
                             default:
@@ -490,10 +556,10 @@ function animPreview(item, name) {
                 switch (itemName) {
                     case "curewounds":
                         obj02 = "curewounds";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -504,19 +570,19 @@ function animPreview(item, name) {
                         break;
                     case "generichealing":
                         obj02 = "generichealing";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
                                 color = item.color;
                         }
-                        switch (true) {
-                            case item.spellVar === ``:
-                            case item.spellVar === 'a1':
-                            case item.spellVar === '01':
+                        switch (item.spellVar) {
+                            case ``:
+                            case 'a1':
+                            case '01':
                                 spellVar = '01';
                                 if (obj01[obj02][spellVar][color] === undefined) { color = 'blue' };
                                 preview = obj01[obj02][spellVar][color]['400'];
@@ -531,23 +597,28 @@ function animPreview(item, name) {
                 break;
             case item.animType === 't8':
                 obj02 = "templates";
-                tempType = item.templates.tempType;
-                color = item.templates.tempColor;
-                tempAnim = item.templates.tempAnim;
-                if (item.templates.customAnim) {
-                    preview = item.templates.customPath;
+                tempType = item.templates?.tempType;
+                color = item.templates?.tempColor;
+                tempAnim = item.templates?.tempAnim;
+                if (item.templates?.customAnim) {
+                    preview = item.templates?.customPath;
                 } else {
-                preview = obj01[obj02][tempType][tempAnim][color];
+                    try {
+                        return preview = obj01[obj02][tempType][tempAnim][color] || "no preview";;
+                    } catch (exception) {
+                        //console.log("Autoanimations | No path for animation :");
+                        return "no preview";
+                    }
                 }
                 break;
             case item.animType === 't9':
                 switch (item.explodeVariant) {
                     case '01':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'orange';
                                 break;
                             default:
@@ -558,10 +629,10 @@ function animPreview(item, name) {
                         break;
                     case '02':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -572,10 +643,10 @@ function animPreview(item, name) {
                         break;
                     case '03':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'yellow blue';
                                 break;
                             default:
@@ -586,10 +657,10 @@ function animPreview(item, name) {
                         break;
                     case '04':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -600,10 +671,10 @@ function animPreview(item, name) {
                         break;
                     case '05':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue white';
                                 break;
                             default:
@@ -614,10 +685,10 @@ function animPreview(item, name) {
                         break;
                     case '06':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue white';
                                 break;
                             default:
@@ -628,10 +699,10 @@ function animPreview(item, name) {
                         break;
                     case '07':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue white';
                                 break;
                             default:
@@ -642,10 +713,10 @@ function animPreview(item, name) {
                         break;
                     case 'shatter':
                         obj02 = "shatter";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -660,10 +731,10 @@ function animPreview(item, name) {
                 switch (item.explodeVariant) {
                     case '01':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'orange';
                                 break;
                             default:
@@ -674,10 +745,10 @@ function animPreview(item, name) {
                         break;
                     case '02':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -688,10 +759,10 @@ function animPreview(item, name) {
                         break;
                     case '03':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'yellow blue';
                                 break;
                             default:
@@ -702,10 +773,10 @@ function animPreview(item, name) {
                         break;
                     case '04':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -716,10 +787,10 @@ function animPreview(item, name) {
                         break;
                     case '05':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue white';
                                 break;
                             default:
@@ -730,10 +801,10 @@ function animPreview(item, name) {
                         break;
                     case '06':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue white';
                                 break;
                             default:
@@ -744,10 +815,10 @@ function animPreview(item, name) {
                         break;
                     case '07':
                         obj02 = "explosion";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue white';
                                 break;
                             default:
@@ -758,10 +829,10 @@ function animPreview(item, name) {
                         break;
                     case 'shatter':
                         obj02 = "shatter";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -776,10 +847,10 @@ function animPreview(item, name) {
                         break;
                     case 'thunderwave':
                         obj02 = "thunderwave";
-                        switch (true) {
-                            case item.explodeColor === ``:
-                            case item.explodeColor === 'a1':
-                            case item.explodeColor === 'random':
+                        switch (item.explodeColor) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -794,10 +865,10 @@ function animPreview(item, name) {
                 switch (itemName) {
                     case "calllightning":
                         obj02 = "calllightning";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -808,10 +879,10 @@ function animPreview(item, name) {
                         break;
                     case "darkness":
                         obj02 = "darkness";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'black';
                                 break;
                             default:
@@ -822,10 +893,10 @@ function animPreview(item, name) {
                         break;
                     case "fogcloud":
                         obj02 = "fogcloud";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'white';
                                 break;
                             default:
@@ -836,10 +907,10 @@ function animPreview(item, name) {
                         break;
                     case "sleetstorm":
                         obj02 = "sleetstorm";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -850,10 +921,10 @@ function animPreview(item, name) {
                         break;
                     case "spiritguardians":
                         obj02 = "spiritguardians";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'yellow blue';
                                 break;
                             default:
@@ -864,10 +935,10 @@ function animPreview(item, name) {
                         break;
                     case "wallofforce":
                         obj02 = "wallofforce";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'grey';
                                 break;
                             default:
@@ -878,10 +949,10 @@ function animPreview(item, name) {
                         break;
                     case "whirlwind":
                         obj02 = "whirlwind";
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue grey';
                                 break;
                             default:
@@ -896,10 +967,10 @@ function animPreview(item, name) {
                 switch (itemName) {
                     case "mistystep":
                         obj02 = 'mistystep';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
                                 color = 'blue';
                                 break;
                             default:
@@ -911,34 +982,52 @@ function animPreview(item, name) {
                 }
                 break;
             case item.animType === 't13':
-                switch (item.bards?.bardAnim) {
+                switch (itemName) {
                     case "bardicinspiration":
-                        obj02 = 'bardicinspiration';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
-                                color = 'green orange';
+                        switch (item.bards?.bardAnim) {
+                            case "bardicinspiration":
+                                obj02 = 'bardicinspiration';
+                                switch (item.bards?.bardSelfColor) {
+                                    case ``:
+                                    case 'a1':
+                                    case 'random':
+                                        color = 'green orange';
+                                        break;
+                                    default:
+                                        color = item.bards?.bardSelfColor;
+                                }
+                                if (obj01[obj02]['inspire'][color] === undefined) { color = 'green orange' };
+                                preview = obj01[obj02]['inspire'][color];
                                 break;
-                            default:
-                                color = item.color;
+                            case "music":
+                                obj02 = 'music';
+                                switch (item.bards?.bardSelfColor) {
+                                    case ``:
+                                    case 'a1':
+                                    case 'random':
+                                        color = 'blue';
+                                        break;
+                                    default:
+                                        color = item.bards?.bardSelfColor;
+                                }
+                                if (obj01[obj02][color] === undefined) { color = 'blue' };
+                                preview = obj01[obj02][color]['1'];
+                                break;
                         }
-                        if (obj01[obj02]['inspire'][color] === undefined) { color = 'green orange' };
-                        preview = obj01[obj02]['inspire'][color];
                         break;
-                    case "music":
-                        obj02 = 'music';
-                        switch (true) {
-                            case item.color === ``:
-                            case item.color === 'a1':
-                            case item.color === 'random':
-                                color = 'blue';
+                    case "sneakattack":
+                        obj02 = "sneakattack";
+                        switch (item.color) {
+                            case ``:
+                            case 'a1':
+                            case 'random':
+                                color = 'dark green';
                                 break;
                             default:
                                 color = item.color;
                         }
-                        if (obj01[obj02][color] === undefined) { color = 'blue' };
-                        preview = obj01[obj02][color]['1'];
+                        if (obj01[obj02][color] === undefined) { color = 'dark green' };
+                        preview = obj01[obj02][color];
                         break;
                 }
                 break;
