@@ -4,14 +4,14 @@ export const AUTOANIM = {}
 
 AUTOANIM.animNameAttackSpell = {
     "a1": ``,
-    "a2": "AUTOANIM.itemDisintegrate",
-    "a3": "AUTOANIM.itemEldritchBlast",
-    "a4": "AUTOANIM.itemFireBolt",
-    "a5": "AUTOANIM.itemMagicMissile",
-    "a6": "AUTOANIM.itemRayFrost",
-    "a7": "AUTOANIM.itemScorchingRay",
-    "a8": "AUTOANIM.itemWitchBolt",
-    "a9": "AUTOANIM.itemGuidingBolt"
+    "disintegrate": "AUTOANIM.itemDisintegrate",
+    "eldritch blast": "AUTOANIM.itemEldritchBlast",
+    "fire bolt": "AUTOANIM.itemFireBolt",
+    "magic missile": "AUTOANIM.itemMagicMissile",
+    "ray of frost": "AUTOANIM.itemRayFrost",
+    "scorching ray": "AUTOANIM.itemScorchingRay",
+    "witch bolt": "AUTOANIM.itemWitchBolt",
+    "guiding bolt": "AUTOANIM.itemGuidingBolt"
 };
 
 AUTOANIM.spellVariant = {

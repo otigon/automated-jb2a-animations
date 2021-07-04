@@ -1,0 +1,22 @@
+
+.aa-audio-checkbox {
+    border: 3px ridge #a1a1a1;
+    padding: 3px;
+    margin-bottom: 5px;
+}
+
+.aa-ridged {
+    border: 3px ridge #a1a1a1;
+    padding: 3px;
+    margin-bottom: 5px;
+}
+
+.aa-video-previews {
+    border: 3px inset #a1a1a1;
+    padding: 3px;
+    margin-bottom: 5px;
+    max-width: 80%;
+    max-height: 80%;
+    display: block;
+    margin: 0 auto;
+}

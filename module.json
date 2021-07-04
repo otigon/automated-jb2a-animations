@@ -7,6 +7,7 @@
     "url": "https://github.com/otigon/automated-jb2a-animations",
     "minimumCoreVersion": "0.7.9",
     "compatibleCoreVersion": "0.8.7",
+    "styles": ["src/css/tabstyles.css"],
     "esmodules": [
         "src/autoAnimations.js",
         "canvas-animation/AutoAnimationsLayer.js"

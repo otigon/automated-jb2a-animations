@@ -5,7 +5,6 @@ import Dnd35Handler from "./system-handlers/dnd35-handler.js";
 import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
 import DemonLordHandler from './system-handlers/demonlord-handler.js';
 import SwadeHandler from './system-handlers/swade-handler.js';
-import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import SW5eHandler from "./system-handlers/sw5e-handler.js";
 import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
@@ -32,9 +31,13 @@ import unarmedStrike from "./animation-functions/unarmed-strike.js";
 import mistyStepOld from "./animation-functions/misty-step-old.js";
 import templateEffects from "./animation-functions/template-effects.js";
 import selfAnimation from "./animation-functions/selfAnimaiton.js";
+import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
+
+import SequencerApplication from "./item-sheet-handlers/sequenceApplication.js";
+import "../lib/alpine.min.js"
 
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
@@ -82,6 +85,8 @@ function activateSocket() {
 }
 
 Hooks.on('init', () => {
+
+    window.sequencerApp = new SequencerApplication();
 
     registerLayer();
     activateSocket();
@@ -360,11 +365,17 @@ Hooks.on('init', () => {
 let critAnim;
 let critMissAnim;
 
-Hooks.on(`renderItemSheet`, (app, html, data) => {
+Hooks.on(`renderItemSheet`, async (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
         return;
     }
-    AnimationTab.bind(app, html, data);
+    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
+    aaBtn.click(ev => {
+        new AAItemSettings(app.document, {}).render(true);
+    });
+    html.closest('.app').find('.aa-item-settings').remove();
+    let titleElement = html.closest('.app').find('.window-title');
+    aaBtn.insertAfter(titleElement);
 });
 
 
