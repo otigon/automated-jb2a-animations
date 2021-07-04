@@ -30,6 +30,7 @@ import mistyStep from "./animation-functions/misty-step.js";
 import unarmedStrike from "./animation-functions/unarmed-strike.js";
 import mistyStepOld from "./animation-functions/misty-step-old.js";
 import templateEffects from "./animation-functions/template-effects.js";
+import selfAnimation from "./animation-functions/selfAnimaiton.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
@@ -774,6 +775,7 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
             meleeRangeSwitch(handler);
             break;
+        /*
         //case handler.itemNameIncludes("arrow"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
         case handler.itemNameIncludes("bow"):
@@ -781,6 +783,7 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
             arrowOptionExplode(handler);
             break;
+        */
         case (handler.itemNameIncludes("throwing hammer")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()):
         case handler.itemNameIncludes("siege"):
@@ -793,6 +796,17 @@ async function revItUp(handler) {
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
         case (handler.itemNameIncludes("sling")):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSling").toLowerCase()):
+        case handler.animName === "bolt":
+        case handler.animName === game.i18n.format("AUTOANIM.bolt").toLowerCase():
+        case handler.itemNameIncludes("bullet"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bullet").toLowerCase()):
+        case handler.itemNameIncludes("arrow"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
+        case handler.itemNameIncludes("bow"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
+        case handler.itemNameIncludes("snipe"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.snipe").toLowerCase()):
             rangedWeapons(handler);
             break;
         case (handler.itemNameIncludes("thunderwave")):
@@ -860,6 +874,10 @@ async function revItUp(handler) {
         case handler.itemNameIncludes("flurry of blows"):
         case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
             unarmedStrike(handler);
+            break;
+        case handler.itemNameIncludes("sneak attack"):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
+            selfAnimation(handler);
             break;
     }
 }

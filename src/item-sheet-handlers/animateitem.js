@@ -63,6 +63,8 @@ export class AnimateItem {
         this.animLevel = this.data.animLevel;
         this.exAnimLevel = this.data.exAnimLevel;
         this.impactVar = this.data.impactVar;
+        this.rangeDmgType = this.data.rangedOptions.rangeDmgType;
+        this.rangeColor = this.data.rangedOptions.rangeColor;
         //this.flagObject = Object.assign({}, this.data);
     }
 
@@ -116,6 +118,10 @@ export class AnimateItem {
             },
             spellOptions: {
                 spellLoops: 1,
+            },
+            rangedOptions: {
+                rangeDmgType: "",
+                rangeColor: "",
             },
             divineSmite: {
                 dsEnable: false,
@@ -302,10 +308,36 @@ export class AnimateItem {
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
                 if (moduleIncludes("jb2a_patreon")) {
-                    return AUTOANIM.localized(AUTOANIM.animColorArrow);
+                    return AUTOANIM.localized(AUTOANIM.arrowColors);
                 } else {
-                    return AUTOANIM.localized(AUTOANIM.animColorArrowFree);
+                    return AUTOANIM.localized(AUTOANIM.arrowColorsFree);
                 }
+                break;
+            case (this.itemName.includes("bolt")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.bolt").toLowerCase()):
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.localized(AUTOANIM.boltColors);
+                } else {
+                    return AUTOANIM.localized(AUTOANIM.boltColorsFree);
+                }
+                break;
+            case (this.itemName.includes("bullet")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.bullet").toLowerCase()):
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.localized(AUTOANIM.bulletColors);
+                } else {
+                    return AUTOANIM.localized(AUTOANIM.bulletColorsFree0102);
+                }
+                break;
+                break;
+            case (this.itemName.includes("snipe")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.snipe").toLowerCase()):
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.localized(AUTOANIM.snipeColors);
+                } else {
+                    return AUTOANIM.localized(AUTOANIM.snipeColorsFree);
+                }
+                break;
                 break;
             case (this.itemName.includes("laser")):
             case this.itemName.includes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
@@ -411,6 +443,14 @@ export class AnimateItem {
                     return AUTOANIM.localized(AUTOANIM.uaStrikeColor);
                 } else {
                     return AUTOANIM.localized(AUTOANIM.uaStrikeColorFree);
+                }
+                break;
+            case this.itemName.includes("sneak attack"):
+            case this.itemName.includes("sneak attack"):
+                if (moduleIncludes("jb2a_patreon")) {
+                    return AUTOANIM.localized(AUTOANIM.sneakattackColors);
+                } else {
+                    return AUTOANIM.localized(AUTOANIM.sneakattackColorsFree);
                 }
                 break;
             default:
@@ -822,6 +862,25 @@ export class AnimateItem {
         return AUTOANIM.localized(AUTOANIM.impactVariant);
     }
 
+    get dmgTypeRange() {
+        switch (true) {
+            case (this.itemName.includes("bullet")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.bullet").toLowerCase()):
+                return AUTOANIM.localized(AUTOANIM.bulletOptions);
+                break;
+            case (this.itemName.includes("bolt")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.bolt").toLowerCase()):
+            case (this.itemName.includes("arrow")):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
+            case this.itemName.includes("bow"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
+                return AUTOANIM.localized(AUTOANIM.boltarrowOptions);
+                break;
+            default:
+                return
+        }
+    }
     /*
     changeFlag(scope, key, value){
         setFlag(scope, key, value)

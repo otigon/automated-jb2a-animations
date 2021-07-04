@@ -214,6 +214,7 @@ export class AnimationTab {
         let stdtempOptions = this.html.find('.standard-template-options');
         let cstmtempOptions = this.html.find('.custom-template-options');
         let impact = this.html.find('.impact-variant');
+        let rangeDmgType = this.html.find('.ranged-dmgtype');
 
         let animName = this.animateItem.animName.toLowerCase();
         let override = this.animateItem.override;
@@ -231,7 +232,18 @@ export class AnimationTab {
             videoPreview.show();
         }
         */
-       
+
+        switch (true) {
+            case animType === "t4":
+            case this.itemName.includes("bow"):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
+            case this.itemName.includes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
+                rangeDmgType.show();
+                break;
+            default:
+                rangeDmgType.hide();
+        }
+
         if (this.animateItem.explodeVariant === "impact") {
             impact.show();
         } else {

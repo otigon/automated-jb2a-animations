@@ -56,6 +56,9 @@ AUTOANIM.animNameRangeWeapon = {
     "siege boulder": "AUTOANIM.itemSiegeBoulder",
     "sling": "AUTOANIM.itemSling",
     "throwing hammer": "AUTOANIM.itemThrowingHammer",
+    "bolt": "AUTOANIM.bolt",
+    "bullet": "AUTOANIM.bullet",
+    "snipe": "AUTOANIM.snipe",
 };
 
 AUTOANIM.animNameRangeWeaponFree = {
@@ -721,7 +724,8 @@ AUTOANIM.bardicMarkerColorsFree = {
 
 AUTOANIM.animNameClassFeatures = {
     'a1': ``,
-    'bardic inspiration': "AUTOANIM.bardicInspiration"
+    'bardic inspiration': "AUTOANIM.bardicInspiration",
+    'sneakattack': "AUTOANIM.sneakattack"
 }
 
 AUTOANIM.bardAnimType = {
@@ -936,6 +940,91 @@ AUTOANIM.entangleColors = {
     "green": "AUTOANIM.colorGreen",
     "yellow": "AUTOANIM.colorYellow",
     "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.sneakattackColors = {
+    "a1": "",
+    "dark green": "AUTOANIM.colorDarkGreen",
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "blue": "AUTOANIM.colorBlue",
+    "orange": "AUTOANIM.colorOrange",
+    "pink": "AUTOANIM.colorPink",
+    "yellow": "AUTOANIM.colorYellow"
+}
+
+AUTOANIM.sneakattackColorsFree = {
+    "a1": "",
+    "dark green": "AUTOANIM.colorDarkGreen",
+}
+
+AUTOANIM.arrowColors = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+}
+
+AUTOANIM.arrowColorsFree = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.boltColors = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+}
+
+AUTOANIM.boltColorsFree = {
+    "a1": "",
+    "orange": "AUTOANIM.colorOrange",
+}
+
+AUTOANIM.bulletColors = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+}
+
+AUTOANIM.bulletColorsFree0102 = {
+    "a1": "",
+    "orange": "AUTOANIM.colorOrange",
+}
+
+AUTOANIM.bulletColorsFree03 = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.snipeColors = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+}
+
+AUTOANIM.snipeColorsFree = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.boltarrowOptions = {
+    "a1": "",
+    "poison": "AUTOANIM.poison",
+    'fire': "AUTOANIM.dmgTypeFire",
+    "cold": "AUTOANIM.cold",
+    "lightning": "AUTOANIM.dmgTypeLightning",
+    "physical": "AUTOANIM.uaPhysical",
+}
+
+AUTOANIM.bulletOptions = {
+    0: "",
+    1: "01",
+    2: "02",
+    3: "03",
 }
 
 AUTOANIM.animTypePick = {

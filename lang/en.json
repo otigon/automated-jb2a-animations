@@ -289,8 +289,14 @@
 
     "AUTOANIM.colorLightBlue": "Light Blue",
     "AUTOANIM.colorRainbow": "Rainbow",
-    "AUTOANIM.tabTitle": "Item Animation Settings",
+
+    "AUTOANIM.sneakattack": "Sneak Attack",
+    "AUTOANIM.bullet": "Bullet",
+    "AUTOANIM.bolt": "Bolt",
+    "AUTOANIM.snipe": "Snipe",
+    "AUTOANIM.damageType": "Damage Type"
+
+     "AUTOANIM.tabTitle": "Item Animation Settings",
     "AUTOANIM.targetAnim": "Target Animation",
     "AUTOANIM.markerColorTarget": "Marker Color Target"
-
 }

@@ -1,7 +1,11 @@
 export default class Dnd5Handler {
     constructor(msg) {
-        if (msg.alias === "User Logged In") {return}
-        const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || $(msg.data.content).attr("data-item-id") || msg.data?.flags?.["midi-qol"]?.itemId;
+        //if (msg.alias === "User Logged In") {return}
+        let msgAtr;
+        if (msg.data.content.includes("data-item-id")) {
+            msgAtr = $(msg.data.content).attr("data-item-id") ?? "";
+        } else {msgAtr = ""}
+        const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || msgAtr || msg.data?.flags?.["midi-qol"]?.itemId;
         const tokenId = msg.data.speaker.token;  
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
 
@@ -49,7 +53,8 @@ export default class Dnd5Handler {
         this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
         this._templates = this._flags.templates ?? "";
-      
+        this._rangedOptions = this._flags.rangedOptions ?? "";
+
         //console.log(this._animName);
         this._animNameFinal;
         switch (true) {
@@ -252,6 +257,10 @@ export default class Dnd5Handler {
         return this._flags;
     }
     
+    get rangedOptions() {
+        return this._rangedOptions;
+    }
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {
