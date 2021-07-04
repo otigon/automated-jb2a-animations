@@ -5,7 +5,6 @@ import Dnd35Handler from "./system-handlers/dnd35-handler.js";
 import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
 import DemonLordHandler from './system-handlers/demonlord-handler.js';
 import SwadeHandler from './system-handlers/swade-handler.js';
-import { AnimationTab } from "./item-sheet-handlers/item-sheet-config.js";
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import SW5eHandler from "./system-handlers/sw5e-handler.js";
 import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
@@ -376,8 +375,6 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
     aaBtn.insertAfter(titleElement);
-    //AnimationTab.bind(app, html, data);
-
 });
 
 

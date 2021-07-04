@@ -14,7 +14,7 @@ export class AAItemSettings extends FormApplication {
         return mergeObject(super.defaultOptions, {
             template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-item-settings.html',
             id: 'AA-item-settings',
-            title: 'Automated Animations Settings',
+            title: game.i18n.localize("AUTOANIM.tabTitle"),
             resizable: true,
             width: 600,
             height: "auto",

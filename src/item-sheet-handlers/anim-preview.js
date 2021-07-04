@@ -17,7 +17,8 @@ function animPreview(item, name) {
     let tempAnim;
     let spellVar;
     let preview;
-    if (item.override) {
+    let enabled = item?.override ?? false;
+    if (enabled) {
         switch (true) {
             case item.animType === 't1':
                 break;

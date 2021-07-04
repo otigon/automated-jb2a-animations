@@ -812,7 +812,7 @@
                     </div>
                     <!--Bardic Inspiration Self Animation Color-->
                     <div class="form-group">
-                        <label>Self Color</label>
+                        <label>{{localize "AUTOANIM.selfColor"}}</label>
                         <select name="flags.autoanimations.bards.bardSelfColor">
                             {{#select flags.autoanimations.bards.bardSelfColor}}
                             {{#each animationColor as |name key|}}
@@ -834,7 +834,7 @@
                     {{#if flags.autoanimations.bards.bardTarget}}
                     <!--Bardic Inspiration: Target Animation-->
                     <div class="form-group">
-                        <label>Target Animation</label>
+                        <label>{{localize "AUTOANIM.targetAnim"}}</label>
                         <select name="flags.autoanimations.bards.bardTargetAnim">
                             {{#select flags.autoanimations.bards.bardTargetAnim}}
                             {{#each bardAnimTarget as |name key|}}
@@ -845,7 +845,7 @@
                     </div>
                     <!--Bardic Inspiration: Target Animation Color-->
                     <div class="form-group">
-                        <label>Target Color</label>
+                        <label>{{localize "AUTOANIM.targetColor"}}</label>
                         <select name="flags.autoanimations.bards.bardTargetColor">
                             {{#select flags.autoanimations.bards.bardTargetColor}}
                             {{#each bardColorTarget as |name key|}}
@@ -879,7 +879,7 @@
                         </div>
                         <!--Target Marker Color-->
                         <div class="form-group">
-                            <label>Marker Color Target</label>
+                            <label>{{localize "AUTOANIM.markerColorTarget"}}</label>
                             <select name="flags.autoanimations.bards.markerColorTarget">
                                 {{#select flags.autoanimations.bards.markerColorTarget}}
                                 {{#each bardMarkerColor as |name key|}}

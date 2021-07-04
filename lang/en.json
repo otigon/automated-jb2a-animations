@@ -288,5 +288,9 @@
     "AUTOANIM.markerEnable": "Enable Marker",
 
     "AUTOANIM.colorLightBlue": "Light Blue",
-    "AUTOANIM.colorRainbow": "Rainbow"
+    "AUTOANIM.colorRainbow": "Rainbow",
+    "AUTOANIM.tabTitle": "Item Animation Settings",
+    "AUTOANIM.targetAnim": "Target Animation",
+    "AUTOANIM.markerColorTarget": "Marker Color Target"
+
 }
