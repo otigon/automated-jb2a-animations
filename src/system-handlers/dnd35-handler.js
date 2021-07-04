@@ -1,19 +1,20 @@
 export default class Dnd35Handler {
     constructor(msg) {
-        const itemId = $(msg.data.content).attr("data-item-id");
+        const itemId = this.extractItemId(msg.data.content);
         const tokenId = msg.data.speaker.token;  
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         this._itemId = itemId;
+        this._item = this._actorToken?.actor.items?.get(itemId) ?? null;
         this._allTargets = Array.from(msg.user.targets);
-        this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
-        this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
-        this._itemType = this._actorToken.actor.items?.get(itemId)?.data?.type?.toLowerCase();
-        this._itemMacro = this._actorToken.actor.items?.get(itemId)?.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._itemName = this._item?.name?.toLowerCase() ?? "";
+        this._itemSource = this._item?.data?.data?.source?.toLowerCase() ?? "";
+        this._itemType = this._item?.data?.type?.toLowerCase();
+        this._itemMacro = this._item?.data?.flags?.itemacro?.macro?.data?.name ?? "";
 
         // getting flag data from Animation Tab
-        this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
+        this._flags = this._item?.data?.flags?.autoanimations ?? "";
         // 
-        this._animColor = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations?.color?.toLowerCase() ?? "";
+        this._animColor = this._item?.data?.flags?.autoanimations?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._animExRadius = this._flags.explodeRadius?.toLowerCase() ?? "";
@@ -75,7 +76,7 @@ export default class Dnd35Handler {
         if (this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
             reach += 5;
         }
-        if (this._actorToken.actor?.items?.get(this._itemId)?.data?.data?.properties?.rch) {
+        if (this._item?.data?.data?.properties?.rch) {
             reach +=5;
         }
         return reach;
@@ -98,7 +99,7 @@ export default class Dnd35Handler {
     }
 
     get itemType() {
-        return this._actorToken.actor.items?.get(itemId).data?.type?.toLowerCase();
+        return this._item?.data?.type?.toLowerCase();
     }
 
     get checkSaves() {
@@ -280,5 +281,13 @@ export default class Dnd35Handler {
     }
     animNameIncludes() {
         return [...arguments].every(a => this._animName?.includes(a));
+    }
+    
+    extractItemId(content) {
+        try {
+            return $(content).attr("data-item-id");
+        } catch (exception) {
+            return null;
+        }
     }
 }
