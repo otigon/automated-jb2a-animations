@@ -12,8 +12,6 @@ export class AAItemSettings extends FormApplication {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            //classes: ['form'],
-            //popOut: true,
             template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-item-settings.html',
             id: 'AA-item-settings',
             title: 'Automated Animations Settings',
@@ -25,14 +23,8 @@ export class AAItemSettings extends FormApplication {
             tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
         });
     }
-    registerHBHelper() {
-        Handlebars.registerHelper("audioFile", function (index) {
-            return this.object.data.flags.autoanimations.testSound.index.testFile;
-        })
-    }
-    registerHBHelper;
+
     getData() {
-        // Send data to the template
         let flags = this.object.data.flags;
         let patreon = moduleIncludes("jb2a_patreon");
         let itemNameItem = this.object.name?.toLowerCase() ?? "";
@@ -60,12 +52,30 @@ export class AAItemSettings extends FormApplication {
         let templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
         let spellVariants;
         switch (true) {
-            case itemName === "scorching ray" && animType === "t6":
-            case itemName === "generic healing" && animType === "t7":
+            case itemName === "scorchingray" && animType === "t6":
+            case itemName === "generichealing" && animType === "t7":
                 spellVariants = true;
                 break;
             default:
                 spellVariants = false;
+        }
+        let videoPreview = animPreview(flags.autoanimations, itemName);
+        console.log(videoPreview)
+        let content = "";
+        switch (true) {
+            case videoPreview === "no preview":
+                break;
+            default:
+                switch (game.settings.get("autoanimations", "videoLoop")) {
+                    case "0":
+                        break;
+                    case "1":
+                        content = `<video class="aa-video-previews" src="${videoPreview}" controls loop> </video>`;
+                        break;
+                    case "2":
+                        content = `<video class="aa-video-previews" src="${videoPreview}" autoplay="autoplay" controls loop> </video>`;
+                        break;
+                }
         }
         //console.log("Override is set to " + isOverride);
         //console.log("The Standard Item Name is " + itemNameItem);
@@ -83,14 +93,14 @@ export class AAItemSettings extends FormApplication {
             t12: override && animType === "t12",
             t13: override && animType === "t13",
 
-            bardicOptions: itemName === "bardic inspiration" ? true : false,
+            bardicOptions: itemName === "bardicinspiration" ? true : false,
             bardAnimName: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardAnimTarget: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
             bardMarkerColor: patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree),
 
             animationLoops: flags.autoanimations?.spellOptions?.spellLoops ?? 1,
-            loops: itemName === "magic missile" ? true : false,
+            loops: itemName === "magicmissile" ? true : false,
 
             spellVariants: spellVariants,
             spellVariant: AUTOANIM.localized(AUTOANIM.spellVariant),
@@ -99,7 +109,7 @@ export class AAItemSettings extends FormApplication {
             animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation), //AUTOANIM.localized(AUTOANIM.animColorMelee),
 
             unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
-            uaStrikes: itemName === "unarmed strike" || itemName === "flurry of blows" ? true : false,
+            uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
 
             daggerVariant: patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree),
             daggerVariantShow: itemName === "dagger" && animType === "t2" && override ? true : false,
@@ -140,6 +150,7 @@ export class AAItemSettings extends FormApplication {
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume,
 
             flags: this.object.data.flags,
+            content: content,
         };
 
     }

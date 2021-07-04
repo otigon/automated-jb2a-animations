@@ -21,22 +21,22 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
         case itemName === "sword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorMelee) : AUTOANIM.localized(AUTOANIM.animColorMeleeFree)
             break;
-        case itemName === "cure wounds":
+        case itemName === "curewounds":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorCureWounds) : AUTOANIM.localized(AUTOANIM.animColorCureWoundsFree)
             break;
-        case itemName === "guiding bolt":
+        case itemName === "guidingbolt":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.guidingboltColor) : AUTOANIM.localized(AUTOANIM.guidingboltColorFree)
             break;
         case itemName === "disintegrate":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorDisintegrate) : AUTOANIM.localized(AUTOANIM.animColorDisintegrateFree)
             break;
-        case itemName === "eldritch blast":
+        case itemName === "eldritchblast":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorEldritchBlast) : AUTOANIM.localized(AUTOANIM.animColorEldritchBlastFree)
             break;
-        case itemName === "fire bolt":
+        case itemName === "firebolt":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorFirebolt) : AUTOANIM.localized(AUTOANIM.animColorFireboltFree)
             break;
-        case itemName === "generic healing":
+        case itemName === "generichealing":
             switch (spellVariant) {
                 case ('01'):
                     animationColor = AUTOANIM.localized(AUTOANIM.animGenHealing01);
@@ -48,13 +48,13 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
                     return;
             }
             break;
-        case itemName === "magic missile":
+        case itemName === "magicmissile":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorMagicMissile) : AUTOANIM.localized(AUTOANIM.animColorMagicMissileFree)
             break;
-        case itemName === "ray of frost":
+        case itemName === "rayoffrost":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorRayFrost) : AUTOANIM.localized(AUTOANIM.animColorRayFrostFree)
             break;
-        case itemName === "scorching ray":
+        case itemName === "scorchingray":
             if (patreon) {
                 if (spellVariant === "02") {
                     animationColor = AUTOANIM.localized(AUTOANIM.animColorScorchingRay['02'])
@@ -65,7 +65,7 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
                 animationColor = AUTOANIM.localized(AUTOANIM.animColorScorchingRayFree)
             }
             break;
-        case itemName === "witch bolt":
+        case itemName === "witchbolt":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorWitchbolt) : AUTOANIM.localized(AUTOANIM.animColorWitchboltFree)
             break;
         case itemName === "thunderwave":
@@ -75,17 +75,17 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
         case itemName === "arrow":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorArrow) : AUTOANIM.localized(AUTOANIM.animColorArrowFree)
             break;
-        case itemName === "laser blast":
+        case itemName === "lasershot":
             animationColor = AUTOANIM.localized(AUTOANIM.laserblastColors);
             break;
-        case itemName === "bite":
+        case itemName === "creaturebite":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animBiteColor) : AUTOANIM.localized(AUTOANIM.animBiteColorFree)
             break;
-        case itemName === "claw":
+        case itemName === "creatureclaw":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animClawColor) : AUTOANIM.localized(AUTOANIM.animClawColorFree)
             break;
         //add check
-        case itemName === "call lightning":
+        case itemName === "calllightning":
             animationColor = AUTOANIM.localized(AUTOANIM.calllightningColors);
             break;
         //add check
@@ -93,11 +93,11 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.sleetstormColors) : AUTOANIM.localized(AUTOANIM.sleetstormColorsFree)
             break;
         //add check
-        case itemName === "spirit guardians":
+        case itemName === "spiritguardians":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.spiritguardianColors) : AUTOANIM.localized(AUTOANIM.spiritguardianColorsFree)
             break;
         //add check
-        case itemName === "wall of force":
+        case itemName === "wallofforce":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.wallofforceColors) : AUTOANIM.localized(AUTOANIM.wallofforceColorsFree)
             break;
         //add check
@@ -108,15 +108,15 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
         case itemName === "darkness":
             animationColor = AUTOANIM.localized(AUTOANIM.darknessColors);
             break;
-        case itemName === "hunter's mark":
+        case itemName === "huntersmark":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.hmColors) : AUTOANIM.localized(AUTOANIM.hmColorsFree)
             break;
         //add check
-        case itemName === "misty step":
+        case itemName === "mistystep":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.mistystepColor) : AUTOANIM.localized(AUTOANIM.mistystepColorFree)
             break;
         //add check
-        case itemName === "bardic inspiration":
+        case itemName === "bardicinspiration":
             switch (bardAnimation) {
                 case "music":
                     animationColor = patreon ? AUTOANIM.localized(AUTOANIM.musicnoteColor) : AUTOANIM.localized(AUTOANIM.musicnoteColorFree);
@@ -125,8 +125,8 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation) {
                     animationColor = patreon ? AUTOANIM.localized(AUTOANIM.bardicInspirationColors) : AUTOANIM.localized(AUTOANIM.bardicInspirationColorsFree);
             }
             break;
-        case itemName === "unarmed strike":
-        case itemName === "flurry of blows":
+        case itemName === "unarmedstrike":
+        case itemName === "flurryofblows":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.uaStrikeColor) : AUTOANIM.localized(AUTOANIM.uaStrikeColorFree)
             break;
         default:

@@ -4,7 +4,7 @@ export function nameConversion(itemName) {
     switch (oldItemName) {
         case "bardic inspiration":
         case game.i18n.format("AUTOANIM.bardicInspiration"):
-            newItemName = "bardic inspiration";
+            newItemName = "bardicinspiration";
             break;
         case "rapier":
         case game.i18n.format("AUTOANIM.itemRapier"):
@@ -44,22 +44,22 @@ export function nameConversion(itemName) {
             newItemName = "maul";
             break;
         case game.i18n.format("AUTOANIM.item1HS"):
-            newItemName = "1 handed slashing";
+            newItemName = "1hs";
             break;
         case game.i18n.format("AUTOANIM.item2HS"):
-            newItemName = "2 handed slashing";
+            newItemName = "2hs";
             break;
         case game.i18n.format("AUTOANIM.item1HB"):
-            newItemName = "1 handed bludgeoning";
+            newItemName = "1hb";
             break;
         case game.i18n.format("AUTOANIM.item2HB"):
-            newItemName = "2 handed bludgeoning";
+            newItemName = "2hb";
             break;
         case game.i18n.format("AUTOANIM.item1HP"):
-            newItemName = "1 handed piercing";
+            newItemName = "1hp";
             break;
         case game.i18n.format("AUTOANIM.item2HP"):
-            newItemName = "2 handed piercing";
+            newItemName = "2hp";
             break;
         case "dagger":
         case game.i18n.format("AUTOANIM.itemDagger"):
@@ -82,11 +82,11 @@ export function nameConversion(itemName) {
             break;
         case "throwing hammer":
         case game.i18n.format("AUTOANIM.itemThrowingHammer"):
-            newItemName = "throwing hammer";
+            newItemName = "rangehammer";
             break;
         case "siege":
         case game.i18n.format("AUTOANIM.itemSiegeBoulder"):
-            newItemName = "siege boulder";
+            newItemName = "siege";
             break;
         case "boulder":
         case game.i18n.format("AUTOANIM.itemBoulder"):
@@ -94,15 +94,15 @@ export function nameConversion(itemName) {
             break;
         case "laser blast":
         case game.i18n.format("AUTOANIM.itemLaserBlast"):
-            newItemName = "laser blast";
+            newItemName = "lasershot";
             break;
         case "javelin":
         case game.i18n.format("AUTOANIM.itemJavelin"):
-            newItemName = "javelin";
+            newItemName = "rangejavelin";
             break;
         case "sling":
         case game.i18n.format("AUTOANIM.itemSling"):
-            newItemName = "sling";
+            newItemName = "rangesling";
             break;
         case "thunderwave":
         case game.i18n.format("AUTOANIM.itemThunderwave"):
@@ -114,37 +114,37 @@ export function nameConversion(itemName) {
             break;
         case "magic missile":
         case game.i18n.format("AUTOANIM.itemMagicMissile"):
-            newItemName = "magic missile";
+            newItemName = "magicmissile";
             break;
         case "cure wounds":
         case game.i18n.format("AUTOANIM.itemCureWounds"):
-            newItemName = "cure wounds";
+            newItemName = "curewounds";
             break;
         case "healing word":
         case "generic healing":
         case game.i18n.format("AUTOANIM.itemHealingWord"):
         case game.i18n.format("AUTOANIM.itemGenericHealing"):
-            newItemName = "generic healing";
+            newItemName = "generichealing";
             break;
         case "fire bolt":
         case game.i18n.format("AUTOANIM.itemFireBolt"):
-            newItemName = "fire bolt";
+            newItemName = "firebolt";
             break;
         case "ray of frost":
         case game.i18n.format("AUTOANIM.itemRayFrost"):
-            newItemName = "ray of frost";
+            newItemName = "rayoffrost";
             break;
         case "witch bolt":
         case game.i18n.format("AUTOANIM.itemWitchBolt"):
-            newItemName = "witch bolt";
+            newItemName = "witchbolt";
             break;
         case "eldritch blast":
         case game.i18n.format("AUTOANIM.itemEldritchBlast"):
-            newItemName = "eldritch blast";
+            newItemName = "eldritchblast";
             break;
         case "scorching ray":
         case game.i18n.format("AUTOANIM.itemScorchingRay"):
-            newItemName = "scorching ray";
+            newItemName = "scorchingray";
             break;
         case "disintegrate":
         case game.i18n.format("AUTOANIM.itemDisintegrate"):
@@ -152,7 +152,7 @@ export function nameConversion(itemName) {
             break;
         case "guiding bolt":
         case game.i18n.format("AUTOANIM.itemGuidingBolt"):
-            newItemName = "guiding bolt";
+            newItemName = "guidingbolt";
             break;
         case "shield":
         case game.i18n.format("AUTOANIM.itemShield"):
@@ -160,27 +160,27 @@ export function nameConversion(itemName) {
             break;
         case "bite":
         case game.i18n.format("AUTOANIM.itemBite"):
-            newItemName = "bite";
+            newItemName = "creaturebite";
             break;
         case "claw":
         case game.i18n.format("AUTOANIM.itemClaw"):
-            newItemName = "claw";
+            newItemName = "creatureclaw";
             break;
         case "hunter's mark":
         case game.i18n.format("AUTOANIM.itemHM"):
-            newItemName = "hunter's mark";
+            newItemName = "huntersmark";
             break;
         case "unarmed strike":
         case game.i18n.format("AUTOANIM.itemUnarmedStrike"):
-            newItemName = "unarmed strike";
+            newItemName = "unarmedstrike";
             break;
         case "flurry of blows":
         case game.i18n.format("AUTOANIM.itemFlurryBlows"):
-            newItemName = "flurry of blows";
+            newItemName = "flurryofblows";
             break;
         case "call lightning":
         case game.i18n.format("AUTOANIM.animCallLightning").toLowerCase():
-            newItemName = "call lightning";
+            newItemName = "calllightning";
             break;
         case "darkness":
         case game.i18n.format("AUTOANIM.animDarkness").toLowerCase():
@@ -188,7 +188,7 @@ export function nameConversion(itemName) {
             break;
         case "fog cloud":
         case game.i18n.format("AUTOANIM.animFogCloud").toLowerCase():
-            newItemName = "fog cloud";
+            newItemName = "fogcloud";
             break;
         case "sleetstorm":
         case game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase():
@@ -196,11 +196,11 @@ export function nameConversion(itemName) {
             break;
         case "spirit guardians":
         case game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase():
-            newItemName = "spirit guardians";
+            newItemName = "spiritguardians";
             break;
         case "wall of force":
         case game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase():
-            newItemName = "wall of force";
+            newItemName = "wallofforce";
             break;
         case "whirlwind":
         case game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase():
@@ -208,7 +208,7 @@ export function nameConversion(itemName) {
             break;
         case "misty step":
         case game.i18n.format("AUTOANIM.itemMistyStep").toLowerCase():
-            newItemName = "misty step";
+            newItemName = "mistystep";
             break;
     }
     if (newItemName === undefined) {
