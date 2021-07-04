@@ -1,10 +1,7 @@
 export default class Dnd5Handler {
     constructor(msg) {
         //if (msg.alias === "User Logged In") {return}
-        let msgAtr;
-        if (msg.data.content.includes("data-item-id")) {
-            msgAtr = $(msg.data.content).attr("data-item-id") ?? "";
-        } else {msgAtr = ""}
+        let msgAtr = this.extractItemId(msg.data.content);
         const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || msgAtr || msg.data?.flags?.["midi-qol"]?.itemId;
         const tokenId = msg.data.speaker.token;  
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
@@ -308,5 +305,14 @@ export default class Dnd5Handler {
     }
     animNameIncludes() {
         return [...arguments].every(a => this._animName?.includes(a));
+    }
+
+    extractItemId(content) {
+        try {
+            return $(content).attr("data-item-id");
+        } catch (exception) {
+            console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
+            return null;
+        }
     }
 }

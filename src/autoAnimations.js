@@ -353,9 +353,9 @@ Hooks.on('init', () => {
                         }
                     }
                     let itemId = extractItemId(msg.data.content);
-                    let tokenId = msg.data.speaker.token;
-                    let sourceToken = canvas.tokens.get(tokenId);
-                    let targets = Array.from(msg.user.targets);
+                    let tokenId;
+                    let sourceToken;
+                    let targets;
                     let item;
                     if (itemId === undefined) {
                         return
@@ -363,6 +363,9 @@ Hooks.on('init', () => {
                         item = sourceToken.actor.items?.get(itemId)
                     }
                     if (!item.hasAttack && !item.hasDamage) {
+                        tokenId = msg.data.speaker.token;
+                        sourceToken = canvas.tokens.get(tokenId);
+                        targets = Array.from(msg.user.targets)
                         AutoAnimations.playAnimation(sourceToken, targets, item)
                     }
                 });
