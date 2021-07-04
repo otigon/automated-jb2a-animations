@@ -287,6 +287,7 @@ export default class Dnd35Handler {
         try {
             return $(content).attr("data-item-id");
         } catch (exception) {
+            console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
             return null;
         }
     }
