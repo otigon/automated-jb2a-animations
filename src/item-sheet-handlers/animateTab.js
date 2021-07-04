@@ -146,9 +146,9 @@ export class AAItemSettings extends FormApplication {
             loopTemplate: flags.autoanimations?.templates?.tempLoop ?? 1,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
 
-            itemAudio: flags.autoanimations?.allSounds?.item?.file,
-            delayAudio: flags.autoanimations?.allSounds?.item?.delay,
-            volumeAudio: flags.autoanimations?.allSounds?.item?.volume,
+            itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
+            delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
+            volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
 
             rangeDmgType: rangedDamageTypes(itemName),
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,

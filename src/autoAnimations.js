@@ -358,7 +358,7 @@ Hooks.on('init', () => {
                     let targets = Array.from(msg.user.targets);
                     let item;
                     if (itemId === undefined) {
-                        return 
+                        return
                     } else {
                         item = sourceToken.actor.items?.get(itemId)
                     }
@@ -430,9 +430,15 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
         return;
     }
     const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    aaBtn.click(ev => {
-        new AAItemSettings(app.document, {}).render(true);
-    });
+    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+        aaBtn.click(ev => {
+            new AAItemSettings(app.entity, {}).render(true);
+        });
+    } else {
+        aaBtn.click(ev => {
+            new AAItemSettings(app.document, {}).render(true);
+        });
+    }
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
     aaBtn.insertAfter(titleElement);
