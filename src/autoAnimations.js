@@ -19,7 +19,7 @@ import thunderwaveAuto from "./animation-functions/thunderwave.js";
 import shatterAuto from "./animation-functions/shatter.js";
 import onTargetSpells from "./animation-functions/healing-spells.js";
 import magicMissile from "./animation-functions/magic-missile.js";
-import arrowOptionExplode from "./animation-functions/arrow.js";
+//import arrowOptionExplode from "./animation-functions/arrow.js";
 import explodeOnTarget from "./animation-functions/explode-ontarget.js";
 import castOnSelf from "./animation-functions/shield.js";
 import selfCast from "./animation-functions/emanations.js";
@@ -173,6 +173,17 @@ Hooks.on('init', () => {
                 })
             }
             break
+        }
+        case "sfrpg": {
+            game.settings.register("autoanimations", "playonDamage", {
+                name: game.i18n.format("AUTOANIM.midiondmg_name"),
+                hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+                onChange: () => { window.location.reload() }
+            });
         }
         case "dnd5e":
         case "sw5e":
@@ -330,8 +341,57 @@ Hooks.on('init', () => {
                 } else {
                     Hooks.on("DL.Action", setupDemonLord);
                 }
-                break;
             }
+                break;
+            case "sfrpg":
+                Hooks.on("createChatMessage", async (msg) => {
+                    function extractItemId(content) {
+                        try {
+                            return $(content).attr("data-item-id");
+                        } catch (exception) {
+                            return null;
+                        }
+                    }
+                    let itemId = extractItemId(msg.data.content);
+                    let tokenId = msg.data.speaker.token;
+                    let sourceToken = canvas.tokens.get(tokenId);
+                    let targets = Array.from(msg.user.targets);
+                    let item;
+                    if (itemId === undefined) {
+                        return 
+                    } else {
+                        item = sourceToken.actor.items?.get(itemId)
+                    }
+                    if (!item.hasAttack && !item.hasDamage) {
+                        AutoAnimations.playAnimation(sourceToken, targets, item)
+                    }
+                });
+                if (game.settings.get("autoanimations", "playonDamage")) {
+                    Hooks.on("damageRolled", async (data) => {
+                        Hooks.once("createChatMessage", async (msg) => {
+                            if (msg.user.id !== game.user.id) { return };
+                            starFinder(data, msg)
+                        });
+                    });
+                } else {
+                    Hooks.on("attackRolled", async (data) => {
+                        Hooks.once("createChatMessage", async (msg) => {
+                            if (msg.user.id !== game.user.id) { return };
+                            starFinder(data, msg)
+                        });
+                    })
+                    Hooks.on("damageRolled", async (data) => {
+                        Hooks.once("createChatMessage", async (msg) => {
+                            if (msg.user.id !== game.user.id) { return };
+                            if (data.item.hasAttack) {
+                                return;
+                            } else {
+                                starFinder(data, msg)
+                            }
+                        });
+                    })
+                }
+                break;
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
                 break;
@@ -441,6 +501,14 @@ function onCreateChatMessage(msg) {
 function swadeData(SwadeActor, SwadeItem) {
     let handler = new SwadeHandler(SwadeActor, SwadeItem);
     revItUp(handler);
+}
+
+function starFinder(data, msg) {
+    let tokenId = msg.data.speaker.token;
+    let sourceToken = canvas.tokens.get(tokenId);
+    let targets = Array.from(msg.user.targets);
+    let item = data.item;
+    AutoAnimations.playAnimation(sourceToken, targets, item)
 }
 
 function revItUpMidi(workflow) {
