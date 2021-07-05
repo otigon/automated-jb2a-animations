@@ -234,7 +234,6 @@
     "AUTOANIM.chooseAudio": "Choisir le fichier audio",
     "AUTOANIM.audioDelay": "Retard audio (millisecondes)",
     "AUTOANIM.audioVolume": "Volume audio (0 - 100)",
-    "AUTOANIM.markerEnable": "Activer le marqueur (CTA requis)",
     "AUTOANIM.markerColor": "Couleur du marqueur",
     
     "AUTOANIM.colorLightGreen": "Vert clair",
