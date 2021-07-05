@@ -3,6 +3,7 @@ import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import { TMFXCOLORS } from "./tmfxcolors.js";
 import divineSmite from "./divine-smite.js";
+import { buildWeaponFile } from "./common-functions/build-filepath.js"
 
 //import drawSpecialToward from "./fxmaster-drawTowards.js"
 
@@ -44,7 +45,6 @@ let hitStutter =
     }];
 
 async function meleeWeapons(handler) {
-
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -57,7 +57,7 @@ async function meleeWeapons(handler) {
     };
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
+    buildWeaponFile(obj01, handler.convertedName, handler.flags)
     let color;
 
     switch (true) {

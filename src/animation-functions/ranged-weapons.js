@@ -2,6 +2,7 @@ import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 import meleeExplosion from "./melee-explosion.js";
+import { buildWeaponFile } from "./common-functions/build-filepath.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -47,7 +48,7 @@ async function rangedWeapons(handler) {
     }
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
+    buildWeaponFile(obj01, handler.convertedName, handler.flags)
     let tmDelay;
     let colorWave =
         [{

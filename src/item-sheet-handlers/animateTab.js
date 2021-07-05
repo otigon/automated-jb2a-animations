@@ -82,6 +82,7 @@ export class AAItemSettings extends FormApplication {
         //console.log("The Standard Item Name is " + itemNameItem);
         //console.log("The Flag Item Name is " + itemNameFlag);
         //console.log("The Final Item Name is " + oldItemName);
+        //console.log("The Converted Name is " + itemName)
         return {
             t2t3: override && (animType === "t2" || animType === "t3"),
             t4: override && animType === "t4",

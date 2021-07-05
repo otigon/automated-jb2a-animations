@@ -33,6 +33,9 @@ import templateEffects from "./animation-functions/template-effects.js";
 import selfAnimation from "./animation-functions/selfAnimaiton.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
+import { AAITEMCHECK } from "./animation-functions/item-arrays.js";
+import { betweenAnimation } from "./animation-functions/betweenAnim.js"
+
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
 
@@ -789,7 +792,7 @@ async function revItUp(handler) {
                 }
         }
     }
-
+    let itemName = handler.convertedName;
     switch (true) {
         // Use xxx in Item Source Field to exclude an item for On-Use customization
         case (handler.itemIncludes("xxx")):
@@ -806,88 +809,19 @@ async function revItUp(handler) {
                 ctaCall(handler);
             }
             break;
-        case handler.itemNameIncludes("bardic inspiration"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase()):
+        case itemName === "bardicinspiration":
             bardicInspiration(handler);
             break;
-        case handler.itemNameIncludes("rapier"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRapier").toLowerCase()):
-        case handler.itemNameIncludes("sword"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSword").toLowerCase()):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase()):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongsword").toLowerCase()):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortsword").toLowerCase()):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()):
-        case handler.itemNameIncludes("greatclub"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase()):
-        case handler.itemNameIncludes("greataxe"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase()):
-        case handler.itemNameIncludes("battleaxe"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase()):
-        case handler.itemNameIncludes("mace"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMace").toLowerCase()):
-        case handler.itemNameIncludes("maul"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMaul").toLowerCase()):
-        case handler.itemNameIncludes("scimitar"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScimitar").toLowerCase()):
-        //case handler.itemNameIncludes("1 handed slashing"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HS").toLowerCase()):
-        //case handler.itemNameIncludes("2 handed slashing"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HS").toLowerCase()):
-        //case handler.itemNameIncludes("1 handed bludgeoning"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HB").toLowerCase()):
-        //case handler.itemNameIncludes("2 handed bludgeoning"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HB").toLowerCase()):
-        //case handler.itemNameIncludes("1 handed piercing"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item1HP").toLowerCase()):
-        //case handler.itemNameIncludes("2 handed piercing"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.item2HP").toLowerCase()):
+            case AAITEMCHECK.melee.includes(itemName):
             meleeWeapons(handler);
             break;
-        case handler.itemNameIncludes("dagger"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDagger").toLowerCase()):
-        case handler.itemNameIncludes("handaxe"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase()):
-        case handler.itemNameIncludes("spear"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSpear").toLowerCase()):
+        case AAITEMCHECK.meleerange.includes(itemName):
             meleeRangeSwitch(handler);
             break;
-        /*
-        //case handler.itemNameIncludes("arrow"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
-        case handler.itemNameIncludes("bow"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
-            arrowOptionExplode(handler);
+        case AAITEMCHECK.ranged.includes(itemName):
+            betweenAnimation(handler);
             break;
-        */
-        case (handler.itemNameIncludes("throwing hammer")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()):
-        case handler.itemNameIncludes("siege"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()):
-        case (handler.itemNameIncludes("boulder")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()):
-        case handler.itemNameIncludes("laser"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
-        case (handler.itemNameIncludes("javelin")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()):
-        case (handler.itemNameIncludes("sling")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemSling").toLowerCase()):
-        case handler.animName === "bolt":
-        case handler.animName === game.i18n.format("AUTOANIM.bolt").toLowerCase():
-        case handler.itemNameIncludes("bullet"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bullet").toLowerCase()):
-        case handler.itemNameIncludes("arrow"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
-        case handler.itemNameIncludes("bow"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
-        case handler.itemNameIncludes("snipe"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.snipe").toLowerCase()):
-            rangedWeapons(handler);
-            break;
-        case (handler.itemNameIncludes("thunderwave")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
+        case itemName == "thunderwave":
             switch (true) {
                 case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
                     console.log(handler.autoDamage);
@@ -900,60 +834,31 @@ async function revItUp(handler) {
                     })
             }
             break;
-        case (handler.itemNameIncludes("shatter")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShatter").toLowerCase()):
+        case itemName == "shatter":
             shatterAuto(handler);
             break;
-        case (handler.itemNameIncludes("magic missile")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
+        case itemName == "magicmissile":
             magicMissile(handler);
             break;
-        case (handler.itemNameIncludes("cure", "wounds")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
-        case (handler.itemNameIncludes("heal", "word")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
-        //case (handler.itemNameIncludes("generic", "heal")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
+        case AAITEMCHECK.healing.includes(itemName):
             onTargetSpells(handler);
             break;
-        case (handler.itemNameIncludes("fire", "bolt")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase()):
-        case (handler.itemNameIncludes("ray", "frost")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()):
-        case (handler.itemNameIncludes("witch", "bolt")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()):
-        case (handler.itemNameIncludes("eldritch blast")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()):
-        case (handler.itemNameIncludes("scorching", "ray")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()):
-        case (handler.itemNameIncludes("disintegrate")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
-        case handler.itemNameIncludes("guiding bolt"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGuidingBolt").toLowerCase()):
-            spellAttacks(handler);
+        case AAITEMCHECK.spellattack.includes(itemName):
+            betweenAnimation(handler);
             break;
-        case (handler.itemNameIncludes("shield")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase()):
+        case itemName == "shield":
             castOnSelf(handler);
             break;
-        case (handler.itemNameIncludes("bite") && !handler.itemNameIncludes("frost")):
-        case (handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemBite").toLowerCase()) && !handler.itemNameIncludes("frost")):
-        case (handler.itemNameIncludes("claw")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemClaw").toLowerCase()):
+        case AAITEMCHECK.creatureattack.includes(itemName):
             creatureAttacks(handler);
             break;
-        case (handler.itemNameIncludes("hunter's mark")):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHM").toLowerCase()):
+        case itemName == "huntersmark":
             huntersMark(handler)
             break;
-        case handler.itemNameIncludes("unarmed strike"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
-        case handler.itemNameIncludes("flurry of blows"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()):
+        case AAITEMCHECK.monk.includes(itemName):
             unarmedStrike(handler);
             break;
-        case handler.itemNameIncludes("sneak attack"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
+        case itemName == "sneakattack":
             selfAnimation(handler);
             break;
     }

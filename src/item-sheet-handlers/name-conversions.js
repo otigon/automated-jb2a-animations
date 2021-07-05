@@ -75,7 +75,7 @@ export function nameConversion(itemName) {
             break;
         case "arrow":
         case game.i18n.format("AUTOANIM.itemArrow").toLowerCase():
-        case "bow":
+        case nameIncludes("bow"):
         case game.i18n.format("AUTOANIM.itemLongbow").toLowerCase():
         case game.i18n.format("AUTOANIM.itemShortbow").toLowerCase():
             newItemName = "arrow";
@@ -232,5 +232,10 @@ export function nameConversion(itemName) {
         return itemName;
     } else {
         return newItemName;
+    }
+    function nameIncludes(test) {
+        if (oldItemName.includes(test)) {
+            return oldItemName;
+        } else {return}
     }
 }

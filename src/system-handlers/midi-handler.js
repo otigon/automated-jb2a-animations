@@ -1,3 +1,5 @@
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+
 export default class MidiHandler {
     constructor(workflow) {
         const item = workflow.item;
@@ -93,6 +95,7 @@ export default class MidiHandler {
                 this._animNameFinal = this._animName;
                 break;
         }
+        this._convertName = nameConversion(this._animNameFinal)
         //console.log(this._animNameFinal);
         this._animColorEffect;
         switch (true) {
@@ -107,6 +110,9 @@ export default class MidiHandler {
 
     }
 
+    get convertedName() {
+        return this._convertName;
+    }
     get itemMacro() {
         return this._itemMacro;
     }
