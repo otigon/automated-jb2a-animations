@@ -19,7 +19,7 @@ export default class MidiHandler {
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
-        this._animExRadius = this._flags.explodeRadius?.toLowerCase() ?? "";
+        this._animExRadius = this._flags.explodeRadius ?? 10;
         this._animExVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
         this._animExLoop = this._flags.explodeLoop ?? "";
         this._animType = this._flags.animType?.toLowerCase() ?? "";

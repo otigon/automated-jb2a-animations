@@ -420,136 +420,140 @@ function animPreview(item, name) {
                 }
                 break;
             case item.animType === 't6':
-                switch (itemName) {
-                    case "disintegrate":
-                        obj02 = "disintegrate";
-                        switch (item.color) {
-                            case ``:
-                            case 'a1':
-                            case 'random':
-                                color = 'green';
-                                break;
-                            default:
-                                color = item.color;
-                        }
-                        if (obj01[obj02][color] === undefined) { color = 'green' };
-                        preview = obj01[obj02][color]['15'];
-                        break;
-                    case "eldritchblast":
-                        obj02 = "eldritchblast";
-                        switch (item.color) {
-                            case ``:
-                            case 'a1':
-                            case 'random':
-                                color = 'purple';
-                                break;
-                            default:
-                                color = item.color;
-                        }
-                        if (obj01[obj02][color] === undefined) { color = 'purple' };
-                        preview = obj01[obj02][color]['30'];
-                        break;
-                    case "firebolt":
-                        obj02 = "firebolt";
-                        switch (item.color) {
-                            case ``:
-                            case 'a1':
-                            case 'random':
-                                color = 'orange';
-                                break;
-                            default:
-                                color = item.color;
-                        }
-                        if (obj01[obj02][color] === undefined) { color = 'orange' };
-                        preview = obj01[obj02][color]['30'];
-                        break;
-                    case "magicmissile":
-                        obj02 = "magicmissile";
-                        switch (item.color) {
-                            case ``:
-                            case 'a1':
-                            case 'random':
-                                color = 'purple';
-                                break;
-                            default:
-                                color = item.color;
-                        }
-                        if (obj01[obj02][color] === undefined) { color = 'purple' };
-                        preview = obj01[obj02][color]['30']['1'];
-                        break;
-                    case "rayoffrost":
-                        obj02 = "rayoffrost";
-                        switch (item.color) {
-                            case ``:
-                            case 'a1':
-                            case 'random':
-                                color = 'blue';
-                                break;
-                            default:
-                                color = item.color;
-                        }
-                        if (obj01[obj02][color] === undefined) { color = 'blue' };
-                        preview = obj01[obj02][color]['15'];
-                        break;
-                    case "scorchingray":
-                        obj02 = "scorchingray";
-                        switch (item.color) {
-                            case ``:
-                            case 'a1':
-                            case 'random':
-                                color = 'orange';
-                                break;
-                            default:
-                                color = item.color;
-                        }
-                        switch (item.spellVar) {
-                            case ``:
-                            case 'a1':
-                            case '01':
-                                spellVar = '01';
-                                break;
-                            default:
-                                spellVar = '02';
-                        }
-                        if (obj01[obj02][spellVar][color] === undefined) { color = 'orange' };
-                        switch (spellVar) {
-                            case '02':
-                                preview = obj01[obj02][spellVar][color]['30']['1'];
-                                break;
-                            default:
-                                preview = obj01[obj02][spellVar][color]['30'];
-                        }
-                        break;
-                    case "witchbolt":
-                        obj02 = "witchbolt";
-                        switch (item.color) {
-                            case ``:
-                            case 'a1':
-                            case 'random':
-                                color = 'blue';
-                                break;
-                            default:
-                                color = item.color;
-                        }
-                        if (obj01[obj02][color] === undefined) { color = 'blue' };
-                        preview = obj01[obj02][color]['15'];
-                        break;
-                    case "guidingbolt":
-                        obj02 = "guidingbolt";
-                        switch (item.color) {
-                            case ``:
-                            case 'a1':
-                            case 'random':
-                                color = 'blue yellow';
-                                break;
-                            default:
-                                color = item.color;
-                        }
-                        if (obj01[obj02][color] === undefined) { color = 'blue yellow' };
-                        preview = obj01[obj02][color]['30'];
-                        break;
-                    default:
-                        preview = "no preview";
+                if (item.options?.enableCustom01) {
+                    preview = item.options?.customPath01
+                } else {
+                    switch (itemName) {
+                        case "disintegrate":
+                            obj02 = "disintegrate";
+                            switch (item.color) {
+                                case ``:
+                                case 'a1':
+                                case 'random':
+                                    color = 'green';
+                                    break;
+                                default:
+                                    color = item.color;
+                            }
+                            if (obj01[obj02][color] === undefined) { color = 'green' };
+                            preview = obj01[obj02][color]['15'];
+                            break;
+                        case "eldritchblast":
+                            obj02 = "eldritchblast";
+                            switch (item.color) {
+                                case ``:
+                                case 'a1':
+                                case 'random':
+                                    color = 'purple';
+                                    break;
+                                default:
+                                    color = item.color;
+                            }
+                            if (obj01[obj02][color] === undefined) { color = 'purple' };
+                            preview = obj01[obj02][color]['30'];
+                            break;
+                        case "firebolt":
+                            obj02 = "firebolt";
+                            switch (item.color) {
+                                case ``:
+                                case 'a1':
+                                case 'random':
+                                    color = 'orange';
+                                    break;
+                                default:
+                                    color = item.color;
+                            }
+                            if (obj01[obj02][color] === undefined) { color = 'orange' };
+                            preview = obj01[obj02][color]['30'];
+                            break;
+                        case "magicmissile":
+                            obj02 = "magicmissile";
+                            switch (item.color) {
+                                case ``:
+                                case 'a1':
+                                case 'random':
+                                    color = 'purple';
+                                    break;
+                                default:
+                                    color = item.color;
+                            }
+                            if (obj01[obj02][color] === undefined) { color = 'purple' };
+                            preview = obj01[obj02][color]['30']['1'];
+                            break;
+                        case "rayoffrost":
+                            obj02 = "rayoffrost";
+                            switch (item.color) {
+                                case ``:
+                                case 'a1':
+                                case 'random':
+                                    color = 'blue';
+                                    break;
+                                default:
+                                    color = item.color;
+                            }
+                            if (obj01[obj02][color] === undefined) { color = 'blue' };
+                            preview = obj01[obj02][color]['15'];
+                            break;
+                        case "scorchingray":
+                            obj02 = "scorchingray";
+                            switch (item.color) {
+                                case ``:
+                                case 'a1':
+                                case 'random':
+                                    color = 'orange';
+                                    break;
+                                default:
+                                    color = item.color;
+                            }
+                            switch (item.spellVar) {
+                                case ``:
+                                case 'a1':
+                                case '01':
+                                    spellVar = '01';
+                                    break;
+                                default:
+                                    spellVar = '02';
+                            }
+                            if (obj01[obj02][spellVar][color] === undefined) { color = 'orange' };
+                            switch (spellVar) {
+                                case '02':
+                                    preview = obj01[obj02][spellVar][color]['30']['1'];
+                                    break;
+                                default:
+                                    preview = obj01[obj02][spellVar][color]['30'];
+                            }
+                            break;
+                        case "witchbolt":
+                            obj02 = "witchbolt";
+                            switch (item.color) {
+                                case ``:
+                                case 'a1':
+                                case 'random':
+                                    color = 'blue';
+                                    break;
+                                default:
+                                    color = item.color;
+                            }
+                            if (obj01[obj02][color] === undefined) { color = 'blue' };
+                            preview = obj01[obj02][color]['15'];
+                            break;
+                        case "guidingbolt":
+                            obj02 = "guidingbolt";
+                            switch (item.color) {
+                                case ``:
+                                case 'a1':
+                                case 'random':
+                                    color = 'blue yellow';
+                                    break;
+                                default:
+                                    color = item.color;
+                            }
+                            if (obj01[obj02][color] === undefined) { color = 'blue yellow' };
+                            preview = obj01[obj02][color]['30'];
+                            break;
+                        default:
+                            preview = "no preview";
+                    }
                 }
                 break;
             case item.animType === 't7':

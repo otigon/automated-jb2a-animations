@@ -101,8 +101,10 @@ export class AAItemSettings extends FormApplication {
             bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
             bardMarkerColor: patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree),
 
-            animationLoops: flags.autoanimations?.spellOptions?.spellLoops ?? 1,
-            loops: itemName === "magicmissile" ? true : false,
+            animationLoops: flags.autoanimations?.options?.loops ?? 1,
+            animationLoopDelay: flags.autoanimations?.options?.loopDelay ?? 250,
+
+            customPath01: flags.autoanimations?.options?.customPath01 || "",
 
             spellVariants: spellVariants,
             spellVariant: AUTOANIM.localized(AUTOANIM.spellVariant),
@@ -122,14 +124,15 @@ export class AAItemSettings extends FormApplication {
             dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
             divineSmite: override && (animType === "t2" || animType === "t3") ? true : false,
 
-            addExplosion: override && (animType === "t2" || animType === "t3" || animType === "t4") ? true : false,
+            addExplosion: override && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t6") ? true : false,
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant),
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             impactShow: flags.autoanimations?.explodeVariant === "impact" ? true : false,
             explosionColors: explosionColors(explosionVariant, patreon, impactVariant),
-            explosionRadius: AUTOANIM.localized(AUTOANIM.explosionRadius),
+            explosionRadius: flags.autoanimations.explodeRadius,
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
-            showExplosionOptions: (flags.autoanimations?.explosion && override && (animType === "t2" || animType === "t3" || animType === "t4")) ? true : false,
+            explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
+            showExplosionOptions: (flags.autoanimations?.explosion && override && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t6")) ? true : false,
 
             explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
