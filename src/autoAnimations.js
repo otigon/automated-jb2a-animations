@@ -953,7 +953,7 @@ async function revItUp(handler) {
             unarmedStrike(handler);
             break;
         case handler.itemNameIncludes("sneak attack"):
-        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()):
+        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.sneakattack").toLowerCase()):
             selfAnimation(handler);
             break;
     }

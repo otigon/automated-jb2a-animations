@@ -293,7 +293,7 @@
     "AUTOANIM.bullet": "Balle",
     "AUTOANIM.bolt": "Carreau",
     "AUTOANIM.snipe": "Snipe",
-    "AUTOANIM.damageType": "Type de dommage"
+    "AUTOANIM.damageType": "Type de dommage",
     
     "AUTOANIM.tabTitle": "Paramètres d'animation des éléments",
     "AUTOANIM.targetAnim": "Animation de la cible",
