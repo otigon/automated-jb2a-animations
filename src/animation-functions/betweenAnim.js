@@ -17,19 +17,20 @@ export async function betweenAnimation(handler) {
     await wait(globalDelay);
 
     // Random Color pull given object path
-    var randomProperty = function (obj) {
-        var keys = Object.keys(obj);
-        var keyLength = keys.length;
-        var ranKey = Math.floor(Math.random() * keyLength);
+    let randomProperty = function (obj) {
+        let keys = Object.keys(obj);
+        let keyLength = keys.length;
+        let ranKey = Math.floor(Math.random() * keyLength);
         return keys[ranKey];
     };
     //Builds standard File Path
-    let filePath;
+    let attack;
     if (AAITEMCHECK.ranged.includes(itemName)) {
-        filePath = buildWeaponFile(obj01, itemName, handler.flags)
+        attack = await buildWeaponFile(obj01, itemName, handler.flags)
     } else {
-        filePath = buildSpellFile(obj01, itemName, handler.flags)
+        attack = await buildSpellFile(obj01, itemName, handler.flags)
     }
+    console.log(attack)
     /*
     if (handler.flags.options.customPath01) {
         filePath = handler.flags.options.customPath01
@@ -37,27 +38,11 @@ export async function betweenAnimation(handler) {
     console.log(filePath);
     */
     let sourceToken = handler.actorToken;
-    //let videoData = await getVideoDimensionsOf(filePath['30']);//get video metadata
-    //let duration = videoData.duration * 1000;//get duration of video file
-    let belowAnim = handler.flags.animLevel//Boolean: above or under tokens
-    //console.log(duration);
-    let videoExData;
-    let videoExWidth;
-    let explosionWidth;
-    let explodeScale;
-    let explodeDelay;
-    let explodeFile;
-    let explodeUnder;
-    //Get explosion add-on information if true
+    let explosion;
     if (handler.flags.explosion) {
-        explodeFile = buildExplosionFile(obj01, handler.flags)//Builds explosion File Path
-        videoExData = await getVideoDimensionsOf(explodeFile);//get video metadata
-        videoExWidth = videoExData.width;//get duration of video file
-        explosionWidth = handler.flags.explodeRadius;//Input Radius
-        explodeScale = (canvas.grid.size * (explosionWidth / canvas.dimensions.distance)) / videoExWidth;//Scale based on pixels and input
-        explodeDelay = handler.flags.explodeDelay;//Tweak the delay for explosion
-        explodeUnder = handler.flags.exAnimLevel; //Boolean: above or under tokens
+        explosion = await buildExplosionFile(obj01, handler.flags);
     }
+    //console.log(explosion)
 
     let loops = handler.flags.options.loops;
     let loopDelay = handler.flags.options.loopDelay;
@@ -70,72 +55,72 @@ export async function betweenAnimation(handler) {
 
             let finalFile;
             if (handler.color === "random") {
-                finalFile = filePath[randomProperty(filePath)]
+                finalFile = attack.file[randomProperty(filePath)]
             } else {
-                finalFile = filePath;
+                finalFile = attack.file;
             }
             let hit;
             if (handler.hitTargetsId.includes(target.id)) {
                 hit = false
             } else { hit = true }
-            
+
             if (handler.flags.explosion) {
                 new Sequence()
                     .effect()
                     .atLocation(sourceToken)
                     .reachTowards(target)
                     .JB2A()
-                    .repeats(loops, loopDelay)
+                    .repeats(attack.loops, attack.loopDelay)
                     .missed(hit)
-                    .belowTokens(belowAnim)
+                    .belowTokens(attack.level)
                     .addOverride(
                         async (effect, data) => {
                             switch (true) {
                                 case data._distance <= 1400:
-                                    data.file = finalFile['30']
+                                    data.file = attack.file['30']
                                     break;
                                 case data._distance > 2600:
-                                    data.file = finalFile['90']
+                                    data.file = attack.file['90']
                                     break;
                                 default:
-                                    data.file = finalFile['60']
+                                    data.file = attack.file['60']
                             }
                             return data
                         }
                     )
                     .effect()
                     .atLocation(target)
-                    .file(explodeFile)
+                    .file(explosion.file)
                     .missed(hit)
-                    .scale(explodeScale)
-                    .delay((duration / 2) + explodeDelay)
+                    .scale(explosion.scale)
+                    .delay(((attack.metadata.duration*1000) / 2) + explosion.delay)
                     .repeats(loops, loopDelay)
-                    .belowTokens(explodeUnder)
+                    .belowTokens(explosion.level)
                     .play()
                 await wait(750)
 
             } else {
-                
+
                 new Sequence()
                     .effect()
                     .atLocation(sourceToken)
                     .reachTowards(target)
                     //.file(filePath)
                     .JB2A()
-                    .repeats(loops, loopDelay)
+                    .repeats(attack.loops, attack.loopDelay)
                     .missed(hit)
                     .belowTokens(belowAnim)
                     .addOverride(
                         async (effect, data) => {
                             switch (true) {
                                 case data._distance <= 1400:
-                                    data.file = finalFile['30']
+                                    data.file = attack.file['30']
                                     break;
                                 case data._distance > 2600:
-                                    data.file = finalFile['90']
+                                    data.file = attack.file['90']
                                     break;
                                 default:
-                                    data.file = finalFile['60']
+                                    data.file = attack.file['60']
                             }
                             return data
                         }

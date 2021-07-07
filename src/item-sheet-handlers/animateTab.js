@@ -104,6 +104,7 @@ export class AAItemSettings extends FormApplication {
             animationLoops: flags.autoanimations?.options?.loops ?? 1,
             animationLoopDelay: flags.autoanimations?.options?.loopDelay ?? 250,
 
+            //enableCustom01: flags.autoanimations?.options?.enableCustom01 === "custom" ? true : false,
             customPath01: flags.autoanimations?.options?.customPath01 || "",
 
             spellVariants: spellVariants,
