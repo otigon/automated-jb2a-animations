@@ -228,7 +228,7 @@ export function nameConversion(itemName) {
             break;
     }
     if (newItemName === undefined) {
-        console.warn("Does not match any automatically recognized name")
+        //console.warn("Does not match any automatically recognized name")
         return itemName;
     } else {
         return newItemName;
