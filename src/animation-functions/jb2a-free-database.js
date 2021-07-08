@@ -484,7 +484,7 @@ JB2AFREEDB.templates = {
             'red': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Red_400x400.webm',
             'blue': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Blue_400x400.webm',
             'green': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Green_400x400.webm',
-            'orange': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Orange_400x400.webm'        
+            'orange': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Orange_400x400.webm'
         }
     },
     'rect': {
@@ -497,10 +497,17 @@ JB2AFREEDB.templates = {
 }
 
 JB2AFREEDB.sneakattack = {
-    'dark green': 'modules/JB2A_DnD5e/Library/1st_Level/Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm',    
+    'dark green': 'modules/JB2A_DnD5e/Library/1st_Level/Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm',
 }
 
-JB2AFREEDB.arrow = {    
+JB2AFREEDB.arrow = {
+    "regular": {
+        'regular': {
+            '30': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_30ft_1600x400.webm',
+            '60': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_60ft_2800x400.webm',
+            '90': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_90ft_4000x400.webm',
+        }
+    },
     'physical': {
         'blue': {
             '05': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_05ft_600x400.webm',
@@ -508,13 +515,13 @@ JB2AFREEDB.arrow = {
             '30': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_30ft_1600x400.webm',
             '60': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_60ft_2800x400.webm',
             '90': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_90ft_4000x400.webm'
-        },    
+        },
     },
-    
+
 }
 
-JB2AFREEDB.bolt = {    
-    'physical': {        
+JB2AFREEDB.bolt = {
+    'physical': {
         'orange': {
             '05': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Physical_05ft_600x400.webm',
             '15': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Physical_15ft_1000x400.webm',
@@ -523,11 +530,11 @@ JB2AFREEDB.bolt = {
             '90': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Physical_90ft_4000x400.webm'
         },
     },
-    
+
 }
 
 JB2AFREEDB.bullet = {
-    '1': {        
+    '1': {
         'orange': {
             '05': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bullet_01_Regular_Orange_05ft_600x400.webm',
             '15': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bullet_01_Regular_Orange_15ft_1000x400.webm',
@@ -536,7 +543,7 @@ JB2AFREEDB.bullet = {
             '90': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bullet_01_Regular_Orange_90ft_4000x400.webm'
         },
     },
-    '2': {        
+    '2': {
         'orange': {
             '05': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bullet_02_Regular_Orange_05ft_600x400.webm',
             '15': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bullet_02_Regular_Orange_15ft_1000x400.webm',
@@ -552,8 +559,8 @@ JB2AFREEDB.bullet = {
             '30': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bullet_03_Regular_Blue_30ft_1600x400.webm',
             '60': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bullet_03_Regular_Blue_60ft_2800x400.webm',
             '90': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Bullet_03_Regular_Blue_90ft_4000x400.webm'
-        },        
-    },    
+        },
+    },
 }
 
 JB2AFREEDB.snipe = {

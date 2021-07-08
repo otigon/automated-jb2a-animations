@@ -150,7 +150,7 @@ export class AAItemSettings extends FormApplication {
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
 
-            rangeDmgType: rangedDamageTypes(itemName),
+            rangeDmgType: rangedDamageTypes(itemName, patreon),
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
             sneakAttack: itemName === "sneakattack" ? true : false,
 

@@ -152,14 +152,9 @@ async function bardicInspiration(handler) {
                 }
             };
 
-            async function selfCasting() {
-                canvas.autoanimations.playVideo(sourceAnim);
-                game.socket.emit('module.autoanimations', sourceAnim);
-            }
+            canvas.autoanimations.playVideo(sourceAnim);
+            game.socket.emit('module.autoanimations', sourceAnim);
 
-            if (handler.bardSelf) {
-                selfCasting();
-            }
 
             await wait(350)
         }
@@ -190,13 +185,8 @@ async function bardicInspiration(handler) {
             }
         };
 
-        async function selfCasting() {
-            canvas.autoanimations.playVideo(sourceAnim);
-            game.socket.emit('module.autoanimations', sourceAnim);
-        }
-        if (handler.bardSelf) {
-            selfCasting();
-        }
+        canvas.autoanimations.playVideo(sourceAnim);
+        game.socket.emit('module.autoanimations', sourceAnim);
     }
     //let ctaActive = game.modules.get("Custom-Token-Animations")?.active;
     let biFileToken;
