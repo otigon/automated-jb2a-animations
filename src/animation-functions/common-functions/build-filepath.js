@@ -58,10 +58,11 @@ export async function buildSpellFile(jb2a, itemName, flags) {
     console.warn(filePath)
 }
 
-export async function buildExplosionFile(jb2a, flags) {
-    let color = flags.explodeColor;
-    let variant = flags.explodeVariant;
-    let impactVariant = flags.impactVar
+export async function buildExplosionFile(jb2a, handler) {
+    let color = handler.explodeColor;
+    let variant = handler.explodeVariant;
+    let impactVariant = handler.impactVar
+    console.log(handler)
     let filePath;
     if (variant === "impact") {
         if (impactVariant === "boulder") {
@@ -74,9 +75,9 @@ export async function buildExplosionFile(jb2a, flags) {
     }
     console.warn(filePath)
     let videoData = await getVideoDimensionsOf(filePath);//get video metadata
-    let scale = (canvas.grid.size * (flags.explodeRadius / canvas.dimensions.distance)) / videoData.width;
-    let delay = flags.explodeDelay;
-    let level = flags.exAnimLevel;
+    let scale = (canvas.grid.size * (handler.explodeRadius / canvas.dimensions.distance)) / videoData.width;
+    let delay = handler.explodeDelay;
+    let level = handler.exAnimLevel;
     //let vidWidth = videoData.width;
     let data = {
         file: filePath,

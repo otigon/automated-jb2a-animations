@@ -10,7 +10,7 @@ export async function betweenAnimation(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-
+    console.log(JB2APATREONDB)
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
@@ -40,7 +40,7 @@ export async function betweenAnimation(handler) {
     let sourceToken = handler.actorToken;
     let explosion;
     if (handler.flags.explosion) {
-        explosion = await buildExplosionFile(obj01, handler.flags);
+        explosion = await buildExplosionFile(obj01, handler);
     }
     //console.log(explosion)
 
@@ -65,38 +65,38 @@ export async function betweenAnimation(handler) {
             } else { hit = true }
 
             if (handler.flags.explosion) {
-                new Sequence()
-                    .effect()
-                    .atLocation(sourceToken)
-                    .reachTowards(target)
-                    .JB2A()
-                    .repeats(attack.loops, attack.loopDelay)
-                    .missed(hit)
-                    .belowTokens(attack.level)
-                    .addOverride(
-                        async (effect, data) => {
-                            switch (true) {
-                                case data._distance <= 1400:
-                                    data.file = attack.file['30']
-                                    break;
-                                case data._distance > 2600:
-                                    data.file = attack.file['90']
-                                    break;
-                                default:
-                                    data.file = attack.file['60']
-                            }
-                            return data
-                        }
-                    )
-                    .effect()
-                    .atLocation(target)
-                    .file(explosion.file)
-                    .missed(hit)
-                    .scale(explosion.scale)
-                    .delay(((attack.metadata.duration*1000) / 2) + explosion.delay)
-                    .repeats(loops, loopDelay)
-                    .belowTokens(explosion.level)
-                    .play()
+new Sequence()
+    .effect()
+        .atLocation(sourceToken)
+        .reachTowards(target)
+        .JB2A()
+        .repeats(attack.loops, attack.loopDelay)
+        .missed(hit)
+        .name("animation")
+        .belowTokens(attack.level)
+        .addOverride(
+            async (effect, data) => {
+                switch (true) {
+                    case data._distance <= 1400:
+                        data.file = attack.file['30']
+                        break;
+                    case data._distance > 2600:
+                        data.file = attack.file['90']
+                        break;
+                    default:
+                        data.file = attack.file['60']
+                }
+                return data
+            }
+        )
+        .effect()
+            .atLocation("animation")
+            .file(explosion.file)
+            .scale(explosion.scale)
+            .delay(((attack.metadata.duration * 1000) / 2) + explosion.delay)
+            .repeats(loops, loopDelay)
+            .belowTokens(explosion.level)
+            .play()
                 await wait(750)
 
             } else {

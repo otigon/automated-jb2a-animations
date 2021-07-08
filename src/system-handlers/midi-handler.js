@@ -18,9 +18,12 @@ export default class MidiHandler {
         //
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
-        this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
-        this._animExRadius = this._flags.explodeRadius ?? 10;
-        this._animExVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
+        this._explodeColor = this._flags.explodeColor?.toLowerCase() ?? "";
+        this._explodeDelay = this._flags.explodeDelay ?? 0;
+        this._exAnimLevel = this._flags.exAnimLevel;
+        this._impactVar = this._flags.impactVar ?? "";
+        this._explodeRadius = this._flags.explodeRadius ?? 10;
+        this._explodeVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
         this._animExLoop = this._flags.explodeLoop ?? "";
         this._animType = this._flags.animType?.toLowerCase() ?? "";
         this._animKill = this._flags.killAnim;
@@ -110,9 +113,21 @@ export default class MidiHandler {
 
     }
 
+    get impactVar() {
+        return this._impactVar;
+    }
+
+    get explodeDelay() {
+        return this._explodeDelay;
+    }
+
+    get exAnimLevel() {
+        return this._exAnimLevel;
+    }
     get convertedName() {
         return this._convertName;
     }
+    
     get itemMacro() {
         return this._itemMacro;
     }
@@ -180,16 +195,16 @@ export default class MidiHandler {
         return this._animNameFinal;
     }
 
-    get animExColor() {
-        return this._animExColor;
+    get explodeColor() {
+        return this._explodeColor;
     }
 
-    get animExRadius() {
-        return this._animExRadius;
+    get explodeRadius() {
+        return this._explodeRadius;
     }
 
-    get animExVariant() {
-        return this._animExVariant;
+    get explodeVariant() {
+        return this._explodeVariant;
     }
 
     get animExLoop() {
