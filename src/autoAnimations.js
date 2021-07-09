@@ -583,11 +583,11 @@ async function specialCaseAnimations(msg) {
 function pf2eReady(msg) {
     let handler = new PF2Handler(msg);
     let spellType = handler.item?.data?.data?.spellType?.value;
-    console.log(handler.item)
+    //console.log(handler.item)
     let spells = ['save', 'heal', 'utility']
     let save = spells.includes(spellType) ? true : false;
-    console.log(save)
-    console.log(handler.animName)
+    //console.log(save)
+    //console.log(handler.animName)
     if (!handler.item) { return }
     //let attacks = ["attack-roll", "spell-attack-roll"];
     if (!game.settings.get("autoanimations", "playonDamageCore")) {
