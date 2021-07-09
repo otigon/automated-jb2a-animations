@@ -112,6 +112,16 @@
                     </select>
                 </div>
                 {{/if}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
+                    <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                        data-dtype="Number">
+                </div>
+                <div class="form-group">
+                    <label>Time Between Loops</label>
+                    <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                        data-dtype="Number">
+                </div>
                 {{#if divineSmite}}
                 <!--Enable Divine Smite?-->
                 <div class="aa-ridged">
@@ -237,10 +247,10 @@
                         <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
                             value={{explosionRadius}} data-type="Number">
                     </div>
-                    <!--Input Explosion Loops-->
+                    <!--Adjust the delay for explosion effect-->
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuExplodeLoops"}}</label>
-                        <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
+                        <label>Adjust Delay (milliseconds)</label>
+                        <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
                             data-dtype="Number">
                     </div>
                     <!--Enable Explosion Audio?-->

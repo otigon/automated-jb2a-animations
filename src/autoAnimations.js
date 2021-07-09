@@ -34,7 +34,8 @@ import selfAnimation from "./animation-functions/selfAnimaiton.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
 import { AAITEMCHECK } from "./animation-functions/item-arrays.js";
-import { betweenAnimation } from "./animation-functions/betweenAnim.js"
+import { betweenTokens } from "./animation-functions/betweenTokens.js";
+import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
@@ -812,14 +813,14 @@ async function revItUp(handler) {
         case itemName === "bardicinspiration":
             bardicInspiration(handler);
             break;
-            case AAITEMCHECK.melee.includes(itemName):
-            meleeWeapons(handler);
+        case AAITEMCHECK.melee.includes(itemName):
+            meleeAnimation(handler);
             break;
         case AAITEMCHECK.meleerange.includes(itemName):
             meleeRangeSwitch(handler);
             break;
         case AAITEMCHECK.ranged.includes(itemName):
-            betweenAnimation(handler);
+            betweenTokens(handler);
             break;
         case itemName == "thunderwave":
             switch (true) {
@@ -844,7 +845,7 @@ async function revItUp(handler) {
             onTargetSpells(handler);
             break;
         case AAITEMCHECK.spellattack.includes(itemName):
-            betweenAnimation(handler);
+            betweenTokens(handler);
             break;
         case itemName == "shield":
             castOnSelf(handler);

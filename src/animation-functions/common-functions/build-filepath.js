@@ -2,10 +2,10 @@
 //import { JB2AFREEDB } from "../jb2a-free-database.js";
 //import getVideoDimensionsOf from ".../canvas-animation/video-metadata.js";
 
-export function buildWeaponFile(jb2a, itemName, flags) {
+export async function buildWeaponFile(jb2a, itemName, handler) {
 
-    let color = flags.color
-    let dmgType = flags.rangedOptions?.rangeDmgType;
+    let color = handler.color
+    let dmgType = handler.rangedOptions?.rangeDmgType;
     let filePath;
     console.log("Build a file Item Name is " + itemName)
     switch (itemName) {
@@ -24,33 +24,47 @@ export function buildWeaponFile(jb2a, itemName, flags) {
         default:
             filePath = jb2a[itemName][color] || jb2a[itemName][Object.keys(jb2a[itemName])[0]]
     }
-    return filePath;
-    console.warn(filePath)
-}
-
-export async function buildSpellFile(jb2a, itemName, flags) {
-
-    let color = flags.color
-
-    let filePath;
-    let variant = flags.spellVar ?? "01";
-    if (itemName === "scorchingray") {
-        if (color === "random") { filePath = jb2a[itemName][variant] } else {
-            filePath = jb2a[itemName][variant][color] || jb2a[itemName][variant][Object.keys(jb2a[itemName][variant])[0]]
-        }
-    } else {
-        if (color === "random") { filePath = jb2a[itemName] } else {
-            filePath = jb2a[itemName][color] || jb2a[itemName][Object.keys(jb2a[itemName])[0]];
-        }
-    }
-    let videoData = await getVideoDimensionsOf(filePath['30']);//get video metadata
-    let level = flags.animLevel;
-    let loops = flags.options.loops;
+    let videoData = await getVideoDimensionsOf(filePath);//get video metadata
     let data = {
         file: filePath,
-        loops: flags.options.loops,
-        loopDelay: flags.options.loopDelay,
-        level: flags.animLevel,
+        loops: handler.animationLoops,
+        loopDelay: handler.loopDelay,
+        level: handler.animLevel,
+        metadata: videoData,
+    }
+    return data;
+}
+
+export async function buildSpellFile(jb2a, itemName, handler) {
+
+    let color = handler.color
+
+    let filePath;
+    let fileData;
+    let variant = handler.spellVariant ?? "01";
+    if (itemName === "scorchingray") {
+        if (color === "random") { 
+            filePath = jb2a[itemName][variant]; 
+            fileData = filePath[Object.keys(jb2a[itemName][variant])[0]] 
+        } else {
+            filePath = jb2a[itemName][variant][color] || jb2a[itemName][variant][Object.keys(jb2a[itemName][variant])[0]];
+            fileData = filePath;
+        }
+    } else {
+        if (color === "random") {
+            filePath = jb2a[itemName];
+            fileData = filePath[Object.keys(jb2a[itemName])[0]]
+        } else {
+            filePath = jb2a[itemName][color] || jb2a[itemName][Object.keys(jb2a[itemName])[0]];
+            fileData = filePath;
+        }
+    }
+    let videoData = await getVideoDimensionsOf(fileData['30']);//get video metadata
+    let data = {
+        file: filePath,
+        loops: handler.animationLoops,
+        loopDelay: handler.loopDelay,
+        level: handler.animLevel,
         metadata: videoData,
     }
     //console.log(data)
@@ -59,8 +73,8 @@ export async function buildSpellFile(jb2a, itemName, flags) {
 }
 
 export async function buildExplosionFile(jb2a, handler) {
-    let color = handler.explodeColor;
-    let variant = handler.explodeVariant;
+    let color = handler.explosionColor;
+    let variant = handler.explosionVariant;
     let impactVariant = handler.impactVar
     console.log(handler)
     let filePath;
@@ -75,7 +89,7 @@ export async function buildExplosionFile(jb2a, handler) {
     }
     console.warn(filePath)
     let videoData = await getVideoDimensionsOf(filePath);//get video metadata
-    let scale = (canvas.grid.size * (handler.explodeRadius / canvas.dimensions.distance)) / videoData.width;
+    let scale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / videoData.width;
     let delay = handler.explodeDelay;
     let level = handler.exAnimLevel;
     //let vidWidth = videoData.width;

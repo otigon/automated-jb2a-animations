@@ -16,11 +16,12 @@ export default class MidiHandler {
         // getting flag data from Animation Tab
         this._flags = item.data?.flags?.autoanimations ?? "";;
         //
+        this._animLevel = this._flags.animLevel ?? false;
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._explodeColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._explodeDelay = this._flags.explodeDelay ?? 0;
-        this._exAnimLevel = this._flags.exAnimLevel;
+        this._exAnimLevel = this._flags.exAnimLevel ?? false;
         this._impactVar = this._flags.impactVar ?? "";
         this._explodeRadius = this._flags.explodeRadius ?? 10;
         this._explodeVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
@@ -49,6 +50,8 @@ export default class MidiHandler {
         this._divineSmite = this._flags.divineSmite ?? "";
         this._templates = this._flags.templates ?? "";
         this._rangedOptions = this._flags.rangedOptions ?? "";
+        this._animLoops = this._flags.options?.loops ?? 1;
+        this._loopDelay = this._flags.options?.loopDelay ?? 250;
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
@@ -113,17 +116,6 @@ export default class MidiHandler {
 
     }
 
-    get impactVar() {
-        return this._impactVar;
-    }
-
-    get explodeDelay() {
-        return this._explodeDelay;
-    }
-
-    get exAnimLevel() {
-        return this._exAnimLevel;
-    }
     get convertedName() {
         return this._convertName;
     }
@@ -195,16 +187,28 @@ export default class MidiHandler {
         return this._animNameFinal;
     }
 
-    get explodeColor() {
+    get impactVar() {
+        return this._impactVar;
+    }
+
+    get explosionColor() {
         return this._explodeColor;
     }
 
-    get explodeRadius() {
+    get explosionRadius() {
         return this._explodeRadius;
     }
 
-    get explodeVariant() {
+    get explosionVariant() {
         return this._explodeVariant;
+    }
+
+    get explosionDelay() {
+        return this._explodeDelay;
+    }
+
+    get explosionLevel() {
+        return this._exAnimLevel;
     }
 
     get animExLoop() {
@@ -313,6 +317,18 @@ export default class MidiHandler {
 
     get rangedOptions() {
         return this._rangedOptions;
+    }
+
+    get animationLoops() {
+        return this._animLoops;
+    }
+
+    get loopDelay() {
+        return this._loopDelay;
+    }
+
+    get animLevel() {
+        return this._animLevel;
     }
     
     getDistanceTo(target) {
