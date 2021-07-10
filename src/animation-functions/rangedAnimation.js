@@ -1,4 +1,4 @@
-import { buildSpellFile, buildWeaponFile, buildExplosionFile } from "./common-functions/build-filepath.js"
+import { buildRangedFile, buildWeaponFile, buildExplosionFile } from "./common-functions/build-filepath.js"
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import { AAITEMCHECK } from "./item-arrays.js";
@@ -6,7 +6,7 @@ import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function betweenTokens(handler) {
+export async function rangedAnimations(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -24,13 +24,8 @@ export async function betweenTokens(handler) {
         return keys[ranKey];
     };
     //Builds standard File Path
-    let attack;
-    if (AAITEMCHECK.ranged.includes(itemName)) {
-        attack = await buildWeaponFile(obj01, itemName, handler.flags)
-    } else {
-        attack = await buildSpellFile(obj01, itemName, handler)
-    }
-    //console.log(attack)
+    let attack = await buildRangedFile(obj01, itemName, handler);
+    console.log(attack)
     /*
     if (handler.flags.options.customPath01) {
         filePath = handler.flags.options.customPath01
@@ -38,7 +33,8 @@ export async function betweenTokens(handler) {
     console.log(filePath);
     */
     let sourceToken = handler.actorToken;
-    let explosion = handler.flags.explosion ? await buildExplosionFile(obj01, handler) : false;
+    let explosion = handler.explosion ? await buildExplosionFile(obj01, handler) : false;
+    console.log(explosion);
     let scale = explosion.scale ?? 1;
 
     async function cast() {
@@ -52,38 +48,32 @@ export async function betweenTokens(handler) {
 
 new Sequence()
     .effect()
+        .file(attack.file)
         .atLocation(sourceToken)
         .reachTowards(target)
         .JB2A()
+        .randomizeMirrorY()
         .repeats(attack.loops, attack.loopDelay)
         .missed(hit)
         .name("animation")
         .belowTokens(attack.level)
         .addOverride(
             async (effect, data) => {
-                switch (true) {
-                    case data._distance <= 1400:
-                        data.file = finalFile['30']
-                        break;
-                    case data._distance > 2600:
-                        data.file = finalFile['90']
-                        break;
-                    default:
-                        data.file = finalFile['60']
-                }
+                console.log(data)
                 return data
             }
         )
+        //.waitUntilFinished(-500 + handler.explosionDelay)
         .effect()
             .atLocation("animation")
             //.file(explosion.file)
             .scale({x: scale, y: scale})
-            .delay(((attack.metadata.duration * 1000) / 2) + handler.explosionDelay)
+            .delay(500 + handler.explosionDelay)
             .repeats(attack.loops, attack.loopDelay)
             .belowTokens(handler.explosionLevel)
-            .playIf(() => {return explosion })
+            .playIf(() => {return handler.explosion })
             .addOverride(async (effect, data) => {
-                if (explosion) {
+                if (handler.explosion) {
                     data.file = explosion.file;
                 }
                 //console.log(data)

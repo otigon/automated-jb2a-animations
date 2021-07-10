@@ -42,27 +42,40 @@ export async function meleeAnimation(handler) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
-
-            let finalFile = handler.color === "random" ? attack.file[randomProperty(attack.file)] : attack.file;
+            //console.log(attack.file)
+            let finalFile = handler.color === "random" ? attack.file[randomProperty(attack.file)] : attack.file[handler.color];
             let hit = handler.hitTargetsId.includes(target.id) ? false : true;
 
 new Sequence()
     .effect()
-        .file(attack.file)
+        .file(finalFile)
         .atLocation(sourceToken)
         .rotateTowards(target)
         //.JB2A()
         .scale(sourceScale * 3.5)
         .repeats(attack.loops, attack.loopDelay)
         .randomizeMirrorY()
-        .addOverride(async (effect, data) => {
-            data.anchor = {x: 0.4, y: 0.5}
-            console.log(data)
-            return data;
-        })
         .missed(hit)
         .name("animation")
         .belowTokens(attack.level)
+        .addOverride(async (effect, data) => {
+            data.anchor = {x: 0.4, y: 0.5}
+            console.log(data._distance)
+            return data;
+        })
+        .playIf(() => { return handler.getDistanceTo(target) <= 5})
+        .effect()
+            .file(finalFile)
+            .atLocation(sourceToken)
+            .moveTowards(target)
+            //.JB2A()
+            .scale(sourceScale * 3.5)
+            .repeats(attack.loops, attack.loopDelay)
+            .randomizeMirrorY()
+            .missed(hit)
+            .name("animation")
+            .belowTokens(attack.level)    
+            .playIf(() => { return handler.getDistanceTo(target) > 5})
         .effect()
             .atLocation("animation")
             //.file(explosion.file)

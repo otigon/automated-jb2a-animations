@@ -29,7 +29,7 @@ export default class MidiHandler {
         this._animType = this._flags.animType?.toLowerCase() ?? "";
         this._animKill = this._flags.killAnim;
         this._animOverride = this._flags.override;
-        this._animExplode = this._flags.explosion;
+        this._explosion = this._flags.explosion;
         this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
         this._selfRadius = this._flags.selfRadius ?? "";
         this._animTint = this._flags.animTint ?? "";
@@ -227,8 +227,8 @@ export default class MidiHandler {
         return this._animOverride;
     }
 
-    get animExplode() {
-        return this._animExplode;
+    get explosion() {
+        return this._explosion;
     }
 
     get animDagThrVar() {

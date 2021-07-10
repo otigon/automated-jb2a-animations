@@ -6,6 +6,7 @@ export async function buildWeaponFile(jb2a, itemName, handler) {
 
     let color = handler.color
     let dmgType = handler.rangedOptions?.rangeDmgType;
+    let uaStrikeType = handler.uaStrikeType;
     let filePath;
     console.log("Build a file Item Name is " + itemName)
     switch (itemName) {
@@ -21,10 +22,20 @@ export async function buildWeaponFile(jb2a, itemName, handler) {
         case 'bullet':
             filePath = jb2a[itemName][dmgType][color] || jb2a[itemName][dmgType][Object.keys(jb2a[itemName][dmgType])[0]]
             break;
+        case 'snipe':
+        case 'lasershot':
+            filePath = jb2a[itemName][color] || jb2a[itemName][Object.keys(jb2a[itemName][dmgType])[0]]
+            break;
+        case 'unarmedstrike':
+        case 'flurryofblows':
+            filePath = jb2a[itemName][uaStrikeType];
+            break;
         default:
-            filePath = jb2a[itemName][color] || jb2a[itemName][Object.keys(jb2a[itemName])[0]]
+            filePath = jb2a[itemName] || jb2a[itemName][Object.keys(jb2a[itemName])[0]]
     }
-    let videoData = await getVideoDimensionsOf(filePath);//get video metadata
+    console.log(filePath)
+    console.log(filePath[Object.keys(filePath)[0]])
+    let videoData = await getVideoDimensionsOf(filePath[Object.keys(filePath)[0]]);//get video metadata
     let data = {
         file: filePath,
         loops: handler.animationLoops,
@@ -35,19 +46,39 @@ export async function buildWeaponFile(jb2a, itemName, handler) {
     return data;
 }
 
-export async function buildSpellFile(jb2a, itemName, handler) {
+export async function buildRangedFile(jb2a, itemName, handler) {
 
     let color = handler.color
-
     let filePath;
     let fileData;
+    let dmgType = handler.rangedOptions?.rangeDmgType;
     let variant = handler.spellVariant ?? "01";
+    switch (itemName) {
+        case "scorchingray":
+            filePath = `autoanimations.${itemName}.${handler.spellVariant}.${color}`;
+            break;
+        case 'boulder':
+        case 'siege':
+        case 'rangejavelin':
+        case 'rangesling':
+        case 'rangehammer':
+            filePath = `autoanimations.${itemName}`;
+            break;
+        case 'arrow':
+        case 'bolt':
+        case 'bullet':
+            filePath = `autoanimations.${itemName}.${dmgType}.${color}`;
+            break;
+        default:
+            filePath = handler.color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
+    }
+    /*
     if (itemName === "scorchingray") {
-        if (color === "random") { 
-            filePath = jb2a[itemName][variant]; 
-            fileData = filePath[Object.keys(jb2a[itemName][variant])[0]] 
+        if (color === "random") {
+            filePath = jb2a[itemName][variant];
+            fileData = filePath[Object.keys(jb2a[itemName][variant])[0]]
         } else {
-            filePath = jb2a[itemName][variant][color] || jb2a[itemName][variant][Object.keys(jb2a[itemName][variant])[0]];
+            filePath = `autoanimations.${itemName}.${handler.spellVariant}.${color}` || jb2a[itemName][variant][Object.keys(jb2a[itemName][variant])[0]];
             fileData = filePath;
         }
     } else {
@@ -55,17 +86,18 @@ export async function buildSpellFile(jb2a, itemName, handler) {
             filePath = jb2a[itemName];
             fileData = filePath[Object.keys(jb2a[itemName])[0]]
         } else {
-            filePath = jb2a[itemName][color] || jb2a[itemName][Object.keys(jb2a[itemName])[0]];
+            filePath = `autoanimations.${itemName}.${color}`;
             fileData = filePath;
         }
     }
-    let videoData = await getVideoDimensionsOf(fileData['30']);//get video metadata
+    */
+    //let videoData = await getVideoDimensionsOf(fileData['30ft']);//get video metadata
     let data = {
         file: filePath,
         loops: handler.animationLoops,
         loopDelay: handler.loopDelay,
         level: handler.animLevel,
-        metadata: videoData,
+        //metadata: videoData,
     }
     //console.log(data)
     return data;
@@ -76,8 +108,9 @@ export async function buildExplosionFile(jb2a, handler) {
     let color = handler.explosionColor;
     let variant = handler.explosionVariant;
     let impactVariant = handler.impactVar
-    console.log(handler)
+    //console.log(handler)
     let filePath;
+    let fileData;
     if (variant === "impact") {
         if (impactVariant === "boulder") {
             filePath = jb2a['explosion'][variant][impactVariant];
@@ -85,19 +118,18 @@ export async function buildExplosionFile(jb2a, handler) {
             filePath = jb2a['explosion'][variant][impactVariant][color];
         }
     } else {
-        filePath = jb2a['explosion'][variant][color]
+        filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${handler.explosionVariant}` : `autoanimations.explosion.${handler.explosionVariant}.${handler.explosionColor}`;
+        fileData = handler.explosionColor === "random" ? jb2a['explosion'][variant][Object.keys(jb2a['explosion'][variant])[0]] : jb2a['explosion'][variant][color]
     }
-    console.warn(filePath)
-    let videoData = await getVideoDimensionsOf(filePath);//get video metadata
+    //console.warn(filePath)
+    let videoData = await getVideoDimensionsOf(fileData);//get video metadata
     let scale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / videoData.width;
-    let delay = handler.explodeDelay;
-    let level = handler.exAnimLevel;
     //let vidWidth = videoData.width;
     let data = {
         file: filePath,
         scale: scale,//Scale based on pixels and input
-        delay: delay,//Tweak the delay for explosion
-        level: level, //Boolean: above or under tokens
+        delay: handler.explosionDelay,//Tweak the delay for explosion
+        level: handler.explosionLevel, //Boolean: above or under tokens
         metadata: videoData,
     }
     //console.log(data);

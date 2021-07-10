@@ -1,7 +1,7 @@
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import { TMFXCOLORS } from "./tmfxcolors.js";
-import { buildSpellFile } from "./common-functions/build-filepath.js"
+//import { buildSpellFile } from "./common-functions/build-filepath.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 

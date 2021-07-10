@@ -1,3 +1,6 @@
+import { JB2APATREONDB } from "./animation-functions/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./animation-functions/jb2a-free-database.js";
+
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
 import Pf1Handler from "./system-handlers/pf1-handler.js";
@@ -34,7 +37,7 @@ import selfAnimation from "./animation-functions/selfAnimaiton.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
 import { AAITEMCHECK } from "./animation-functions/item-arrays.js";
-import { betweenTokens } from "./animation-functions/betweenTokens.js";
+import { rangedAnimations } from "./animation-functions/rangedAnimation.js";
 import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
@@ -453,6 +456,10 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
 
 
 Hooks.once('ready', function () {
+
+    Hooks.on("sequencer.ready", () => {
+        SequencerDatabase.registerEntries("autoanimations", JB2APATREONDB);
+    });
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error(game.i18n.format("AUTOANIM.error"));
     }
@@ -819,9 +826,6 @@ async function revItUp(handler) {
         case AAITEMCHECK.meleerange.includes(itemName):
             meleeRangeSwitch(handler);
             break;
-        case AAITEMCHECK.ranged.includes(itemName):
-            betweenTokens(handler);
-            break;
         case itemName == "thunderwave":
             switch (true) {
                 case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
@@ -838,14 +842,15 @@ async function revItUp(handler) {
         case itemName == "shatter":
             shatterAuto(handler);
             break;
-        case itemName == "magicmissile":
-            magicMissile(handler);
-            break;
+        //case itemName == "magicmissile":
+        //magicMissile(handler);
+        //break;
         case AAITEMCHECK.healing.includes(itemName):
             onTargetSpells(handler);
             break;
         case AAITEMCHECK.spellattack.includes(itemName):
-            betweenTokens(handler);
+        case AAITEMCHECK.ranged.includes(itemName):
+            rangedAnimations(handler);
             break;
         case itemName == "shield":
             castOnSelf(handler);
@@ -857,7 +862,7 @@ async function revItUp(handler) {
             huntersMark(handler)
             break;
         case AAITEMCHECK.monk.includes(itemName):
-            unarmedStrike(handler);
+            meleeAnimation(handler);
             break;
         case itemName == "sneakattack":
             selfAnimation(handler);

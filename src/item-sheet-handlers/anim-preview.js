@@ -273,23 +273,23 @@ function animPreview(item, name) {
                 switch (itemName) {
                     case "boulder":
                         obj02 = 'boulder';
-                        preview = obj01[obj02]['30'];
+                        preview = obj01[obj02]['30ft'];
                         break;
                     case "rangejavelin":
                         obj02 = 'rangejavelin';
-                        preview = obj01[obj02]['30'];
+                        preview = obj01[obj02]['30ft'];
                         break;
                     case "siege":
                         obj02 = 'siege';
-                        preview = obj01[obj02]['30'];
+                        preview = obj01[obj02]['30ft'];
                         break;
                     case "rangesling":
                         obj02 = 'rangesling';
-                        preview = obj01[obj02]['15'];
+                        preview = obj01[obj02]['15ft'];
                         break;
                     case "rangehammer":
                         obj02 = 'rangehammer';
-                        preview = obj01[obj02]['15'];
+                        preview = obj01[obj02]['15ft'];
                         break;
                     case "lasershot":
                         obj02 = 'lasershot';
@@ -304,7 +304,7 @@ function animPreview(item, name) {
                         }
                         if (obj01[obj02][color] === undefined) { color = 'blue' };
                         try {
-                            return preview = obj01[obj02][color]['30'] || "no preview";;
+                            return preview = obj01[obj02][color]['30ft'] || "no preview";;
                         } catch (exception) {
                             //console.log("Autoanimations | No path for animation :");
                             return "no preview";
@@ -323,7 +323,7 @@ function animPreview(item, name) {
                         }
                         damageType = item.rangedOptions?.rangeDmgType ?? "physical";
                         try {
-                            return preview = obj01[obj02][damageType][color]['30'] || "no preview";;
+                            return preview = obj01[obj02][damageType][color]['30ft'] || "no preview";;
                         } catch (exception) {
                             //console.log("Autoanimations | No path for animation :");
                             return "no preview";
@@ -342,7 +342,7 @@ function animPreview(item, name) {
                         }
                         damageType = item.rangedOptions?.rangeDmgType ?? "physical";
                         try {
-                            return preview = obj01[obj02][damageType][color]['30'] || "no preview";;
+                            return preview = obj01[obj02][damageType][color]['30ft'] || "no preview";;
                         } catch (exception) {
                             //console.log("Autoanimations | No path for animation :");
                             return "no preview";
@@ -361,7 +361,7 @@ function animPreview(item, name) {
                         }
                         damageType = item.rangedOptions?.rangeDmgType ?? "physical";
                         try {
-                            return preview = obj01[obj02][damageType][color]['30'] || "no preview";;
+                            return preview = obj01[obj02][damageType][color]['30ft'] || "no preview";;
                         } catch (exception) {
                             //console.log("Autoanimations | No path for animation :");
                             return "no preview";
@@ -379,7 +379,7 @@ function animPreview(item, name) {
                                 color = item.color;
                         }
                         try {
-                            return preview = obj01[obj02][color]['30'] || "no preview";;
+                            return preview = obj01[obj02][color]['30ft'] || "no preview";;
                         } catch (exception) {
                             //console.log("Autoanimations | No path for animation :");
                             return "no preview";
@@ -436,7 +436,7 @@ function animPreview(item, name) {
                                     color = item.color;
                             }
                             if (obj01[obj02][color] === undefined) { color = 'green' };
-                            preview = obj01[obj02][color]['15'];
+                            preview = obj01[obj02][color]['15ft'];
                             break;
                         case "eldritchblast":
                             obj02 = "eldritchblast";
@@ -450,7 +450,7 @@ function animPreview(item, name) {
                                     color = item.color;
                             }
                             if (obj01[obj02][color] === undefined) { color = 'purple' };
-                            preview = obj01[obj02][color]['30'];
+                            preview = obj01[obj02][color]['30ft'];
                             break;
                         case "firebolt":
                             obj02 = "firebolt";
@@ -464,7 +464,7 @@ function animPreview(item, name) {
                                     color = item.color;
                             }
                             if (obj01[obj02][color] === undefined) { color = 'orange' };
-                            preview = obj01[obj02][color]['30'];
+                            preview = obj01[obj02][color]['30ft'];
                             break;
                         case "magicmissile":
                             obj02 = "magicmissile";
@@ -478,7 +478,7 @@ function animPreview(item, name) {
                                     color = item.color;
                             }
                             if (obj01[obj02][color] === undefined) { color = 'purple' };
-                            preview = obj01[obj02][color]['30']['1'];
+                            preview = obj01[obj02][color]['30ft']['1'];
                             break;
                         case "rayoffrost":
                             obj02 = "rayoffrost";
@@ -492,7 +492,7 @@ function animPreview(item, name) {
                                     color = item.color;
                             }
                             if (obj01[obj02][color] === undefined) { color = 'blue' };
-                            preview = obj01[obj02][color]['15'];
+                            preview = obj01[obj02][color]['15ft'];
                             break;
                         case "scorchingray":
                             obj02 = "scorchingray";
@@ -517,10 +517,10 @@ function animPreview(item, name) {
                             if (obj01[obj02][spellVar][color] === undefined) { color = 'orange' };
                             switch (spellVar) {
                                 case '02':
-                                    preview = obj01[obj02][spellVar][color]['30']['1'];
+                                    preview = obj01[obj02][spellVar][color]['30ft']['1'];
                                     break;
                                 default:
-                                    preview = obj01[obj02][spellVar][color]['30'];
+                                    preview = obj01[obj02][spellVar][color]['30ft'];
                             }
                             break;
                         case "witchbolt":
@@ -535,7 +535,7 @@ function animPreview(item, name) {
                                     color = item.color;
                             }
                             if (obj01[obj02][color] === undefined) { color = 'blue' };
-                            preview = obj01[obj02][color]['15'];
+                            preview = obj01[obj02][color]['15ft'];
                             break;
                         case "guidingbolt":
                             obj02 = "guidingbolt";
@@ -549,7 +549,7 @@ function animPreview(item, name) {
                                     color = item.color;
                             }
                             if (obj01[obj02][color] === undefined) { color = 'blue yellow' };
-                            preview = obj01[obj02][color]['30'];
+                            preview = obj01[obj02][color]['30ft'];
                             break;
                         default:
                             preview = "no preview";

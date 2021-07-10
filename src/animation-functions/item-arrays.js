@@ -6,7 +6,7 @@ AAITEMCHECK.meleerange = ['dagger', 'spear', 'handaxe']
 
 AAITEMCHECK.ranged = ['rangehammer', 'siege', 'boulder', 'lasershot', 'rangejavelin', 'rangesling', 'bullet', 'bolt', 'arrow', 'snipe']
 
-AAITEMCHECK.spellattack = ['firebolt', 'rayoffrost', 'witchbolt', 'eldritchblast', 'scorchingray', 'disintegrate', 'guidingbolt']
+AAITEMCHECK.spellattack = ['firebolt', 'rayoffrost', 'witchbolt', 'eldritchblast', 'scorchingray', 'disintegrate', 'guidingbolt', 'magicmissile']
 
 AAITEMCHECK.healing = ['curewounds', 'generichealing']
 
