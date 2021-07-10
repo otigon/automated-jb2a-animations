@@ -14,8 +14,8 @@
     "AUTOANIM.midiondmg_name":"ダメージロール時にのみアニメーションを再生する",
     "AUTOANIM.midiondmg_hint":"【要再読み込み】有効にすると、ダメージロール時にのみアニメーションを再生します。",
     "AUTOANIM.demonlordtrigger_name":"アニメーションのトリガー",
-    "AUTOANIM.demonlordtrigger_hint":"アニメーションを開始するための条件を設定します。",
-    "AUTOANIM.demonlordtrigger_rollattack":"攻撃ロール時のみにアニメーションを再生する",
+    "AUTOANIM.demonlordtrigger_hint":"アニメーションを開始する条件を設定します。",
+    "AUTOANIM.demonlordtrigger_rollattack":"攻撃ロール時にのみアニメーションを再生する",
     "AUTOANIM.demonlordtrigger_hits":"ヒット時のみアニメーションを再生する",
     "AUTOANIM.demonlordtrigger_misses": "ヒットとミスでアニメーションを再生する",
     "AUTOANIM.demonlordtrigger_rolldamage":"ダメージロール時にのみアニメーションを再生する",
@@ -195,7 +195,7 @@
     "AUTOANIM.colorBlack": "ブラック",
     "AUTOANIM.itemHM": "ハンターズ・マーク",
     "AUTOANIM.hmAnim": "ハンターズ・マーク アニメーション",
-    "AUTOANIM.ctaRequired": "オーラにはモジュール「Custom Token Animations」が必要です。",
+    "AUTOANIM.ctaRequired": "オーラにはモジュール「Custom Token Animations（CTA）」が必要です。",
     "AUTOANIM.tabName": "演出",
     "AUTOANIM.crithit_name": "クリティカルヒット",
     "AUTOANIM.crithit_hint": "自身のコマでクリティカルヒットのアニメーションを再生します。",
@@ -230,8 +230,8 @@
     "AUTOANIM.bardicInspiration": "バードの声援",
     "AUTOANIM.musicNotes": "音符",
     "AUTOANIM.bardAnimation": "バードのアニメーション",
-    "AUTOANIM.bardTarget": "ターゲットのアニメーション？",
-    "AUTOANIM.bardSelf": "自身のアニメーション？",
+    "AUTOANIM.bardTarget": "対象のアニメーションを有効にする？",
+    "AUTOANIM.bardSelf": "自身のアニメーションを有効にする？",
 
     "AUTOANIM.typeExplosiveSelf": "爆発（自身）",
     "AUTOANIM.spellLoops": "アニメーションのループ（1-10）",
@@ -240,9 +240,7 @@
     "AUTOANIM.explosionAudio": "爆発音の有効化",
     "AUTOANIM.chooseAudio": "サウンドファイル選択",
     "AUTOANIM.audioDelay": "サウンド遅延 (ミリ秒)",
-    "AUTOANIM.audioVolume": "音量 (0 - 100)",
-    "AUTOANIM.markerEnable": "マーカーの有効化（要Custom Token Animations）",
-    "AUTOANIM.markerColor": "マーカーの色",
+    "AUTOANIM.markerColor": "マーカーの色（自身）",
 
     "AUTOANIM.colorLightGreen": "ライト・グリーン",
     "AUTOANIM.colorGreenYellow": "グリーン・イエロー",
@@ -253,8 +251,8 @@
     "AUTOANIM.bwWarning": "30フィートの円錐テンプレ時",
     "AUTOANIM.dsEffect": "神聖なる一撃",
     "AUTOANIM.delay": "ディレイ (ミリ秒)",
-    "AUTOANIM.selfColor": "自アニメーションの色",
-    "AUTOANIM.targetColor": "対象アニメーション色",
+    "AUTOANIM.selfColor": "アニメーションの色（自身）",
+    "AUTOANIM.targetColor": "アニメーション色（対象）",
     "AUTOANIM.ctaStatic": "CTAを静止画にする",
 
     "AUTOANIM.templates": "テンプレート",
@@ -276,11 +274,29 @@
     "AUTOANIM.explosion03": "爆発 03",
     "AUTOANIM.explosion04": "爆発 04",
     "AUTOANIM.snowflake": "雪 バースト",
-    "AUTOANIM.outpulse01": "波形（外向き）） 01",
-    "AUTOANIM.outpulse02": "波形（外向き） 02",
+    "AUTOANIM.outpulse01": "波形（外向き）01",
+    "AUTOANIM.outpulse02": "波形（外向き）02",
     "AUTOANIM.entangle": "エンタングル",
 
-    "AUTOANIM.customAnim": "カスタム・アニメーション?",
+    "AUTOANIM.customAnim": "カスタム・アニメーション？",
 
-    "AUTOANIM.impact": "衝撃"
+    "AUTOANIM.impact": "衝撃",
+    "AUTOANIM.impactVariant": "衝撃の種類",
+    "AUTOANIM.underToken": "コマの下でアニメーションを再生する？",
+
+    "AUTOANIM.markerEnable": "マーカーの有効化",
+
+    "AUTOANIM.colorLightBlue": "ライト・ブルー",
+    "AUTOANIM.colorRainbow": "レインボー",
+
+    "AUTOANIM.sneakattack": "急所攻撃",
+    "AUTOANIM.bullet": "弾丸",
+    "AUTOANIM.bolt": "ボルト",
+    "AUTOANIM.snipe": "狙撃",
+    "AUTOANIM.damageType": "ダメージ種別",
+
+    "AUTOANIM.tabTitle": "アイテムのアニメーション設定",
+    "AUTOANIM.targetAnim": "対象のアニメーション",
+    "AUTOANIM.markerColorTarget": "マーカーの色（対象）",
+    "AUTOANIM.audioVolumeNEW": "音量（0-10）"
 }
