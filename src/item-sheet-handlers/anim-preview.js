@@ -8,6 +8,7 @@ function animPreview(item, name) {
     }
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    let jb2a = moduleIncludes("jb2a_patreon") === true ? true : false;
     //let itemName = item.animName.toLowerCase();
     let itemName = name;
     //console.log(item);
@@ -277,7 +278,7 @@ function animPreview(item, name) {
                         break;
                     case "rangejavelin":
                         obj02 = 'rangejavelin';
-                        preview = obj01[obj02]['30'];
+                        preview = jb2a ? obj01[obj02]['30'] : "";
                         break;
                     case "siege":
                         obj02 = 'siege';
@@ -285,7 +286,7 @@ function animPreview(item, name) {
                         break;
                     case "rangesling":
                         obj02 = 'rangesling';
-                        preview = obj01[obj02]['15'];
+                        preview = jb2a ? obj01[obj02]['15'] : "";
                         break;
                     case "rangehammer":
                         obj02 = 'rangehammer';
