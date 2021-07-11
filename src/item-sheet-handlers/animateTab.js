@@ -103,6 +103,7 @@ export class AAItemSettings extends FormApplication {
 
             animationLoops: flags.autoanimations?.options?.loops ?? 1,
             animationLoopDelay: flags.autoanimations?.options?.loopDelay ?? 250,
+            scale: flags.autoanimations?.options?.scale ?? 1,
 
             //enableCustom01: flags.autoanimations?.options?.enableCustom01 === "custom" ? true : false,
             customPath01: flags.autoanimations?.options?.customPath01 || "",
@@ -130,7 +131,7 @@ export class AAItemSettings extends FormApplication {
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             impactShow: flags.autoanimations?.explodeVariant === "impact" ? true : false,
             explosionColors: explosionColors(explosionVariant, patreon, impactVariant),
-            explosionRadius: flags.autoanimations.explodeRadius,
+            explosionRadius: flags.autoanimations?.explodeRadius,
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
             explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
             showExplosionOptions: (flags.autoanimations?.explosion && override && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t6")) ? true : false,

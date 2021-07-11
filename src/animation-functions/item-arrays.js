@@ -1,6 +1,6 @@
 export const AAITEMCHECK = {};
 
-AAITEMCHECK.melee = ['rapier', 'sword', 'greatsword', 'lasersword', 'greatclub', 'greataxe', 'mace', 'maul', '1hs', '2hs', '1hb', '2hb', '1hp', '2hs']
+AAITEMCHECK.melee = ['dagger', 'handaxe', 'rapier', 'sword', 'greatsword', 'lasersword', 'greatclub', 'greataxe', 'mace', 'spear', 'maul', '1hs', '2hs', '1hb', '2hb', '1hp', '2hs']
 
 AAITEMCHECK.meleerange = ['dagger', 'spear', 'handaxe']
 

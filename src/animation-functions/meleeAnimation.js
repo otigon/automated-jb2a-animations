@@ -1,6 +1,7 @@
-import { buildWeaponFile, buildExplosionFile } from "./common-functions/build-filepath.js"
+import { buildWeaponFile, buildAfterFile } from "./common-functions/build-filepath.js"
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { rangedAnimations } from "./rangedAnimation.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 //import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
@@ -10,9 +11,23 @@ export async function meleeAnimation(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
+    let itemName = handler.convertedName;
+    console.log(handler.getDistanceTo)
+    switch (handler.convertedName) {
+        case "dagger":
+        case "handaxe":
+        case "spear":
+            if (handler.getDistanceTo > 5) {
+                rangedAnimations(handler)
+                return;                
+            } else {
+                itemName = "melee" + itemName;
+                console.log(itemName)
+            }
+            break;
+    }
     //console.log(JB2APATREONDB)
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let itemName = handler.convertedName;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
@@ -33,8 +48,9 @@ export async function meleeAnimation(handler) {
     console.log(filePath);
     */
     let sourceToken = handler.actorToken;
-    let sourceScale = sourceToken.w / attack.metadata.width
-    let explosion = handler.flags.explosion ? await buildExplosionFile(obj01, handler) : false;
+    //let sourceScale = sourceToken.w / attack.metadata.width
+    let sourceScale = itemName === "unarmedstrike" || itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
+    let explosion = handler.flags.explosion ? await buildAfterFile(obj01, handler) : false;
     let scale = explosion.scale ?? 1;
 
     async function cast() {
@@ -42,17 +58,29 @@ export async function meleeAnimation(handler) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
+
+            switch (handler.convertedName) {
+                case "dagger":
+                case "handaxe":
+                case "spear":
+                    if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
+                        rangedAnimations(handler)
+                        return;                
+                    }
+                    break;
+            }
+        
             //console.log(attack.file)
-            let finalFile = handler.color === "random" ? attack.file[randomProperty(attack.file)] : attack.file[handler.color];
+            //let finalFile = handler.color === "random" ? attack.file[randomProperty(attack.file)] : attack.file[handler.color];
             let hit = handler.hitTargetsId.includes(target.id) ? false : true;
 
 new Sequence()
     .effect()
-        .file(finalFile)
+        .file(attack.file)
         .atLocation(sourceToken)
         .rotateTowards(target)
         //.JB2A()
-        .scale(sourceScale * 3.5)
+        .scale(sourceScale * handler.scale)
         .repeats(attack.loops, attack.loopDelay)
         .randomizeMirrorY()
         .missed(hit)
@@ -65,11 +93,11 @@ new Sequence()
         })
         .playIf(() => { return handler.getDistanceTo(target) <= 5})
         .effect()
-            .file(finalFile)
+            .file(attack.file)
             .atLocation(sourceToken)
             .moveTowards(target)
             //.JB2A()
-            .scale(sourceScale * 3.5)
+            .scale(sourceScale * handler.scale)
             .repeats(attack.loops, attack.loopDelay)
             .randomizeMirrorY()
             .missed(hit)
@@ -80,7 +108,7 @@ new Sequence()
             .atLocation("animation")
             //.file(explosion.file)
             .scale({x: scale, y: scale})
-            .delay(((attack.metadata.duration * 1000) / 2) + handler.explosionDelay)
+            .delay(500 + handler.explosionDelay)
             .repeats(attack.loops, attack.loopDelay)
             .belowTokens(handler.explosionLevel)
             .playIf(() => {return explosion })

@@ -39,7 +39,8 @@ import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import { AAITEMCHECK } from "./animation-functions/item-arrays.js";
 import { rangedAnimations } from "./animation-functions/rangedAnimation.js";
 import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
-
+import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
+ 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
 
@@ -821,11 +822,12 @@ async function revItUp(handler) {
             bardicInspiration(handler);
             break;
         case AAITEMCHECK.melee.includes(itemName):
+        case AAITEMCHECK.monk.includes(itemName):
             meleeAnimation(handler);
             break;
-        case AAITEMCHECK.meleerange.includes(itemName):
-            meleeRangeSwitch(handler);
-            break;
+        //case AAITEMCHECK.meleerange.includes(itemName):
+        //meleeRangeSwitch(handler);
+        //break;
         case itemName == "thunderwave":
             switch (true) {
                 case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
@@ -846,7 +848,8 @@ async function revItUp(handler) {
         //magicMissile(handler);
         //break;
         case AAITEMCHECK.healing.includes(itemName):
-            onTargetSpells(handler);
+            console.log("PRESTART")
+            onTokenAnimation(handler);
             break;
         case AAITEMCHECK.spellattack.includes(itemName):
         case AAITEMCHECK.ranged.includes(itemName):
@@ -860,9 +863,6 @@ async function revItUp(handler) {
             break;
         case itemName == "huntersmark":
             huntersMark(handler)
-            break;
-        case AAITEMCHECK.monk.includes(itemName):
-            meleeAnimation(handler);
             break;
         case itemName == "sneakattack":
             selfAnimation(handler);

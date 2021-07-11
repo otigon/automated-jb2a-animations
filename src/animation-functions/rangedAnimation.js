@@ -1,8 +1,7 @@
-import { buildRangedFile, buildWeaponFile, buildExplosionFile } from "./common-functions/build-filepath.js"
+import { buildRangedFile, buildAfterFile } from "./common-functions/build-filepath.js"
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
-import { AAITEMCHECK } from "./item-arrays.js";
-//import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
+//import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -10,21 +9,23 @@ export async function rangedAnimations(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
+    
     //console.log(JB2APATREONDB)
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
+    switch (handler.convertedName) {
+        case "dagger":
+        case "handaxe":
+        case "spear":
+            itemName = "range" + itemName;
+            console.log("adjusted name is " + itemName);
+            break;
+    }
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    // Random Color pull given object path
-    let randomProperty = function (obj) {
-        let keys = Object.keys(obj);
-        let keyLength = keys.length;
-        let ranKey = Math.floor(Math.random() * keyLength);
-        return keys[ranKey];
-    };
     //Builds standard File Path
-    let attack = await buildRangedFile(obj01, itemName, handler);
+    let attack = await buildRangedFile(jb2a, itemName, handler);
     console.log(attack)
     /*
     if (handler.flags.options.customPath01) {
@@ -33,7 +34,8 @@ export async function rangedAnimations(handler) {
     console.log(filePath);
     */
     let sourceToken = handler.actorToken;
-    let explosion = handler.explosion ? await buildExplosionFile(obj01, handler) : false;
+    //Builds after effect File Path
+    let explosion = handler.explosion ? await buildAfterFile(jb2a, handler) : false;
     console.log(explosion);
     let scale = explosion.scale ?? 1;
 
@@ -43,7 +45,6 @@ export async function rangedAnimations(handler) {
 
             let target = handler.allTargets[i];
 
-            let finalFile = handler.color === "random" ? attack.file[randomProperty(attack.file)] : attack.file;
             let hit = handler.hitTargetsId.includes(target.id) ? false : true;
 
 new Sequence()

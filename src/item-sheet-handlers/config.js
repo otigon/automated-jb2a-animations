@@ -144,8 +144,8 @@ AUTOANIM.animColorMeleeFree = {
 
 AUTOANIM.daggerVariant = {
     "dt1": ``,
-    "dagger01": "AUTOANIM.itemDagger01",
-    "dagger02": "AUTOANIM.itemDagger02",
+    "01": "AUTOANIM.itemDagger01",
+    "02": "AUTOANIM.itemDagger02",
     "kunai": "AUTOANIM.itemKunai",
 }
 
@@ -950,7 +950,8 @@ AUTOANIM.sneakattackColors = {
     "blue": "AUTOANIM.colorBlue",
     "orange": "AUTOANIM.colorOrange",
     "pink": "AUTOANIM.colorPink",
-    "yellow": "AUTOANIM.colorYellow"
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.sneakattackColorsFree = {
@@ -963,6 +964,7 @@ AUTOANIM.arrowColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.arrowColorsFree = {
@@ -974,6 +976,7 @@ AUTOANIM.legacyArrowColors = {
     "a1": "",
     "regular": "AUTOANIM.colorWhite",
     "green": "AUTOANIM.colorGreen",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.legacyArrowColorsFree = {
@@ -986,6 +989,7 @@ AUTOANIM.boltColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.boltColorsFree = {
@@ -998,6 +1002,7 @@ AUTOANIM.bulletColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.bulletColorsFree0102 = {
@@ -1015,6 +1020,7 @@ AUTOANIM.snipeColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.snipeColorsFree = {

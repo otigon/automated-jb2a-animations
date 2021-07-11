@@ -30,7 +30,7 @@ export default class MidiHandler {
         this._animKill = this._flags.killAnim;
         this._animOverride = this._flags.override;
         this._explosion = this._flags.explosion;
-        this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
+        this._dtvar = this._flags.dtvar?.toLowerCase() ?? "";
         this._selfRadius = this._flags.selfRadius ?? "";
         this._animTint = this._flags.animTint ?? "";
         this._auraOpacity = this._flags.auraOpacity ?? "";
@@ -52,6 +52,7 @@ export default class MidiHandler {
         this._rangedOptions = this._flags.rangedOptions ?? "";
         this._animLoops = this._flags.options?.loops ?? 1;
         this._loopDelay = this._flags.options?.loopDelay ?? 250;
+        this._scale = this._flags.options?.scale ?? 1;
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
@@ -231,8 +232,8 @@ export default class MidiHandler {
         return this._explosion;
     }
 
-    get animDagThrVar() {
-        return this._animDgThrVar;
+    get dtvar() {
+        return this._dtvar;
     }
 
     get selfRadius() {
@@ -327,6 +328,9 @@ export default class MidiHandler {
         return this._loopDelay;
     }
 
+    get scale() {
+        return this._scale;
+    }
     get animLevel() {
         return this._animLevel;
     }
