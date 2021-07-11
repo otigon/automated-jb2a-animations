@@ -581,6 +581,7 @@ async function specialCaseAnimations(msg) {
     }
 }
 function pf2eReady(msg) {
+    if (game.user.id !== msg.user.id) {return;}
     let handler = new PF2Handler(msg);
     let spellType = handler.item?.data?.data?.spellType?.value;
     //console.log(handler.item)
