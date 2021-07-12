@@ -343,13 +343,16 @@ async function rangedWeapons(handler) {
                 case (handler.itemNameIncludes("laser")):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()):
                 case handler.itemNameIncludes("bolt"):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bolt").toLowerCase()):
                 case handler.itemNameIncludes("bullet"):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.bullet").toLowerCase()):
                 case handler.itemNameIncludes("arrow"):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemArrow").toLowerCase()):
                 case handler.itemNameIncludes("bow"):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemLongbow").toLowerCase()):
                 case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()):
                 case handler.itemNameIncludes("snipe"):
+                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.snipe").toLowerCase()):
                     switch (true) {
                         case (anDist <= 1200):
                             anFileSize = 1200;

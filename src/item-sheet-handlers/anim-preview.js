@@ -20,6 +20,7 @@ function animPreview(item, name) {
     let preview;
     let damageType;
     let enabled = item?.override ?? false;
+    let file;
     if (enabled) {
         switch (true) {
             case item.animType === 't1':
@@ -504,14 +505,16 @@ function animPreview(item, name) {
                                 color = item.color;
                         }
                         switch (item.spellVar) {
-                            case ``:
-                            case 'a1':
-                            case '01':
-                                spellVar = '01';
+                            case '02':
+                                spellVar = '02';
                                 break;
                             default:
-                                spellVar = '02';
+                                spellVar = '01';
                         }
+                        console.log(obj01)
+                        console.log(obj02)
+                        console.log(spellVar)
+                        console.log(color)
                         if (obj01[obj02][spellVar][color] === undefined) { color = 'orange' };
                         switch (spellVar) {
                             case '02':
@@ -1036,5 +1039,13 @@ function animPreview(item, name) {
     }
     //console.log(preview);
     if (preview === undefined) { return "no preview" } else { return preview }
+}
+function checkPath(content) {
+    try {
+        return content;
+    } catch (exception) {
+        //console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
+        return null;
+    }
 }
 export default animPreview;
