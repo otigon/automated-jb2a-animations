@@ -45,21 +45,24 @@
                         {{/select}}
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
-                        data-dtype="Number">
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>Loops</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Loop Delay</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Scale</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Loop Delay</label>
-                    <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
-                        data-dtype="Number">
-                </div>
-                <div class="form-group">
-                    <label>Scale Animation</label>
-                    <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
-                        data-dtype="Number">
-                </div>
+
                 {{/unless}}
                 {{#if flags.autoanimations.override}}
                 <!--Choose the Animation Type-->
@@ -127,20 +130,22 @@
                     </select>
                 </div>
                 {{/if}}
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
-                        data-dtype="Number">
-                </div>
-                <div class="form-group">
-                    <label>Loop Delay</label>
-                    <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
-                        data-dtype="Number">
-                </div>
-                <div class="form-group">
-                    <label>Scale Animation</label>
-                    <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
-                        data-dtype="Number">
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>Loops</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Loop Delay</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Scale Animation</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
                 </div>
                 {{#if divineSmite}}
                 <!--Enable Divine Smite?-->
@@ -351,15 +356,17 @@
                         {{/select}}
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
-                        data-dtype="Number">
-                </div>
-                <div class="form-group">
-                    <label>Time Between Loops</label>
-                    <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
-                        data-dtype="Number">
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>Loops</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Loop Delay</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
                 </div>
                 <!--Enable Explosion? Checkbox-->
                 <div class="aa-ridged">
@@ -491,20 +498,22 @@
                         {{/select}}
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
-                        data-dtype="Number">
-                </div>
-                <div class="form-group">
-                    <label>Loop Delay</label>
-                    <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
-                        data-dtype="Number">
-                </div>
-                <div class="form-group">
-                    <label>Scale Animation</label>
-                    <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
-                        data-dtype="Number">
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>Loops</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Loop Delay</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Scale</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
                 </div>
                 {{/if}}
 
@@ -551,15 +560,17 @@
                 </div>
                 {{/unless}}
                 <!--Input Loops for Animation-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
-                        data-dtype="Number">
-                </div>
-                <div class="form-group">
-                    <label>Time Between Loops</label>
-                    <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
-                        data-dtype="Number">
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>Loops</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Loop Delay</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
                 </div>
                 <!--Choose Custom Animation?-->
                 <div class="aa-ridged">
@@ -724,20 +735,22 @@
                         {{/select}}
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
-                        data-dtype="Number">
-                </div>
-                <div class="form-group">
-                    <label>Loop Delay</label>
-                    <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
-                        data-dtype="Number">
-                </div>
-                <div class="form-group">
-                    <label>Scale Animation</label>
-                    <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
-                        data-dtype="Number">
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>Loops</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Loop Delay</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Scale</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
                 </div>
                 {{/if}}
 
@@ -905,8 +918,8 @@
                 <!--Aura Choose Radius-->
                 <div class="form-group">
                     <label>Set Radius</label>
-                    <input type="Number" name="flags.autoanimations.selfRadius" min="0" step=".01"
-                        value={{auraRadius}} data-type="Number">
+                    <input type="Number" name="flags.autoanimations.selfRadius" min="0" step=".01" value={{auraRadius}}
+                        data-type="Number">
                 </div>
                 <!--Set Aura Tint-->
                 <div class="form-group">
