@@ -162,6 +162,8 @@ export class AAItemSettings extends FormApplication {
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
             sneakAttack: itemName === "sneakattack" ? true : false,
 
+            auraRadius: flags.autoanimations?.selfRadius ?? 17.5,
+
             flags: this.object.data.flags,
             content: content,
         };

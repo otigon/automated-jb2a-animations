@@ -6,8 +6,6 @@ import { JB2AFREEDB } from "./jb2a-free-database.js";
 import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 import { buildTokenAnimationFile } from "./common-functions/build-filepath.js"
 
-const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-
 export async function teleportation(handler) {
 
 
@@ -15,58 +13,27 @@ export async function teleportation(handler) {
         console.log("A-A Misty Step will not work with DAE SRD Misty Step");
         return;
     }
-
-    let audio = handler.allSounds.item;
-    let audioEnabled = handler.itemSound;
-
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName
-    console.log(itemName)
+    //console.log(itemName)
     let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
-
-    let obj02;
-    switch (true) {
-        case (handler.animName.includes(game.i18n.format("AUTOANIM.itemMistyStep").toLowerCase())):
-            obj02 = 'mistystep';
-            break;
-    }
-    let color;
-    switch (true) {
-        case handler.color === "a1" || handler.color === ``:
-        case !handler.color:
-            color = "blue";
-            break;
-        default:
-            color = handler.color;
-    }
 
     const token = handler.actorToken;
     const actor = handler.actor;
-    let anFile1 = obj01[obj02]['01'][color];
-    let anFile2 = obj01[obj02]['02'][color];
 
-    var videoData = await getVideoDimensionsOf(anFile1);
-    var videoData2 = await getVideoDimensionsOf(anFile2);
-    let videoWidth = videoData.width;
-    //let duration = videoData.duration * 1000;
-    let videoWidth2 = videoData2.width;
-    let tokenWidth = token.w
-    let Scale = (tokenWidth / videoWidth) * 1.5;
-    //let Scale2 = (tokenWidth / videoWidth2) * 1.5;
+    let Scale = (token.w / onToken.metadata.width) * 1.5;
 
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-    var templateRange = handler.teleRange;
-    let range = await canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [{
+    let range = MeasuredTemplate.create({
         t: "circle",
         user: game.user.id,
         x: token.x + canvas.grid.size / 2,
         y: token.y + canvas.grid.size / 2,
         direction: 0,
-        distance: templateRange,
+        distance: handler.teleRange,
         borderColor: "#FF0000",
         flags: {
             world: {
@@ -75,9 +42,7 @@ export async function teleportation(handler) {
                 }
             }
         }    
-    }]);
-
-    range;
+    });
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {

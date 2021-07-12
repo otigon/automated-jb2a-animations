@@ -573,6 +573,7 @@ async function specialCaseAnimations(msg) {
     }
     let handler = new Dnd5Handler(msg);
     switch (true) {
+        /*
         case ((handler.animType === "t12") && (handler.animOverride)):
             if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
                 mistyStepOld(handler);
@@ -581,6 +582,7 @@ async function specialCaseAnimations(msg) {
                 teleportation(handler);
             }
             break;
+            */
         case (handler.animType === "t8" && handler.animOverride):
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateEffects(handler, msg);
@@ -817,6 +819,14 @@ async function revItUp(handler) {
         case ((handler.animType === "t11") && handler.animOverride):
             if (game.modules.get("Custom-Token-Animations")?.active) {
                 ctaCall(handler);
+            }
+            break;
+        case ((handler.animType === "t12") && (handler.animOverride)):
+            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                mistyStepOld(handler);
+
+            } else {
+                teleportation(handler);
             }
             break;
         case itemName === "bardicinspiration":

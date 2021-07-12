@@ -153,7 +153,7 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
             if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
             filePath = color === "random" ? `autoanimations.${itemName}.01` : `autoanimations.${itemName}.01.${color}`;
             filePath2 = color === "random" ? `autoanimations.${itemName}.02` : `autoanimations.${itemName}.02.${color}`;
-            fileData = jb2a[itemName]["01"][Object.keys(jb2a[itemName])[0]]
+            fileData = jb2a[itemName]["01"][Object.keys(jb2a[itemName]["01"])[0]]
             break;
         default:
             if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
@@ -171,6 +171,7 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
         level: handler.animLevel,
         metadata: videoData,        
     }
+    console.log(data)
     return data;
 }
 

@@ -904,14 +904,9 @@
                 </div>
                 <!--Aura Choose Radius-->
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuChooseRadius"}}</label>
-                    <select name="flags.autoanimations.selfRadius">
-                        {{#select flags.autoanimations.selfRadius}}
-                        {{#each auraRadius as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
+                    <label>Set Radius</label>
+                    <input type="Number" name="flags.autoanimations.selfRadius" min="0" step=".01"
+                        value={{auraRadius}} data-type="Number">
                 </div>
                 <!--Set Aura Tint-->
                 <div class="form-group">

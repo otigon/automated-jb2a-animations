@@ -636,7 +636,8 @@ AUTOANIM.mistystepColor = {
     'orange': "AUTOANIM.colorOrange",
     'purple': "AUTOANIM.colorPurple",
     'dark green': "AUTOANIM.colorDarkGreen",
-    'dark red': "AUTOANIM.colorDarkRed"
+    'dark red': "AUTOANIM.colorDarkRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.mistystepColorFree = {
