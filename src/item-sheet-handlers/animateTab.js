@@ -2,6 +2,7 @@ import { AUTOANIM } from "./config.js";
 import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
+import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 
 export class AAItemSettings extends FormApplication {
     constructor() {
@@ -40,7 +41,8 @@ export class AAItemSettings extends FormApplication {
                 oldItemName = itemNameFlag;
                 break;
         }
-        let itemName = nameConversion(oldItemName);
+        let conversion = nameConversion(oldItemName)
+        let itemName = conversion[0];
         let animType = flags.autoanimations?.animType;
         let spellVariant = flags.autoanimations?.spellVar;
         let bardAnimation = flags.autoanimations?.bards?.bardAnim;
@@ -87,7 +89,7 @@ export class AAItemSettings extends FormApplication {
             t2t3: override && (animType === "t2" || animType === "t3"),
             t4: override && animType === "t4",
             t5: override && animType === "t5",
-            t6: override && animType === "t6",
+            t6: /*override &&*/ animType === "t6" || AAITEMCHECK.spellattack.includes(itemName),
             t7: override && animType === "t7",
             t8: override && animType === "t8",
             t9t10: override && (animType === "t9" || animType === "t10"),
@@ -126,7 +128,7 @@ export class AAItemSettings extends FormApplication {
             dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
             divineSmite: override && (animType === "t2" || animType === "t3") ? true : false,
 
-            addExplosion: override && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t6") ? true : false,
+            addExplosion: /*override &&*/ (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t6") ? true : false,
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant),
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             impactShow: flags.autoanimations?.explodeVariant === "impact" ? true : false,
@@ -134,7 +136,7 @@ export class AAItemSettings extends FormApplication {
             explosionRadius: flags.autoanimations?.explodeRadius,
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
             explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
-            showExplosionOptions: (flags.autoanimations?.explosion && override && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t6")) ? true : false,
+            showExplosionOptions: (flags.autoanimations?.explosion /*&& override*/ && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t6")) ? true : false,
 
             explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,

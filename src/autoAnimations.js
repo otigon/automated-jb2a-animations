@@ -40,7 +40,8 @@ import { AAITEMCHECK } from "./animation-functions/item-arrays.js";
 import { rangedAnimations } from "./animation-functions/rangedAnimation.js";
 import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
 import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
- 
+import { teleportation } from "./animation-functions/teleportation.js"
+
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
 
@@ -455,11 +456,11 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
     aaBtn.insertAfter(titleElement);
 });
 
-
 Hooks.once('ready', function () {
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
     Hooks.on("sequencer.ready", () => {
-        SequencerDatabase.registerEntries("autoanimations", JB2APATREONDB);
+        SequencerDatabase.registerEntries("autoanimations", obj01);
     });
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error(game.i18n.format("AUTOANIM.error"));
@@ -577,7 +578,7 @@ async function specialCaseAnimations(msg) {
                 mistyStepOld(handler);
 
             } else {
-                mistyStep(handler);
+                teleportation(handler);
             }
             break;
         case (handler.animType === "t8" && handler.animOverride):
@@ -848,6 +849,7 @@ async function revItUp(handler) {
         //magicMissile(handler);
         //break;
         case AAITEMCHECK.healing.includes(itemName):
+        case AAITEMCHECK.creatureattack.includes(itemName):
             console.log("PRESTART")
             onTokenAnimation(handler);
             break;
@@ -857,9 +859,6 @@ async function revItUp(handler) {
             break;
         case itemName == "shield":
             castOnSelf(handler);
-            break;
-        case AAITEMCHECK.creatureattack.includes(itemName):
-            creatureAttacks(handler);
             break;
         case itemName == "huntersmark":
             huntersMark(handler)

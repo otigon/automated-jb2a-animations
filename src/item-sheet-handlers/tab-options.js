@@ -3,7 +3,7 @@ import { AUTOANIM } from "./config.js";
 
 export function colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType) {
     let animationColor;
-    //console.log("Converted Item Name is " + itemName);
+    console.log("Converted Item Name is " + itemName);
     switch (true) {
         case itemName === "lasersword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorLaserSword) : AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree)

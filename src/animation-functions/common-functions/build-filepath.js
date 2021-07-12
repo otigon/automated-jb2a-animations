@@ -69,6 +69,7 @@ export async function buildRangedFile(jb2a, itemName, handler) {
             filePath = handler.color === "random" ? `autoanimations.${itemName}.${dmgType}` : `autoanimations.${itemName}.${dmgType}.${color}`;
             break;
         default:
+            if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
             filePath = handler.color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
     }
     /*
@@ -139,21 +140,32 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
     let color = handler.color;
     let variant = handler.spellVariant ?? "01";
     let filePath;
+    let filePath2;
     let fileData;
+    console.log("Item Name for file build is " + itemName)
     switch (itemName) {
-        case "curewounds":
-            filePath = color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
-            fileData = jb2a.curewounds[Object.keys(jb2a.curewounds)[0]]
-            console.log(fileData)
-            break;
         case "generichealing":
+            if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
             filePath = color === "random" ? `autoanimations.${itemName}.${variant}` : `autoanimations.${itemName}.${variant}.${color}`;
             fileData = jb2a["generichealing"][variant][Object.keys(jb2a["generichealing"][variant])[0]]
+            break;
+        case "mistystep":
+            if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
+            filePath = color === "random" ? `autoanimations.${itemName}.01` : `autoanimations.${itemName}.01.${color}`;
+            filePath2 = color === "random" ? `autoanimations.${itemName}.02` : `autoanimations.${itemName}.02.${color}`;
+            fileData = jb2a[itemName]["01"][Object.keys(jb2a[itemName])[0]]
+            break;
+        default:
+            if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
+            filePath = color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
+            fileData = jb2a[itemName][Object.keys(jb2a[itemName])[0]]
+            console.log(fileData)
             break;
     }
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
     let data = {
         file: filePath,
+        file2: filePath2,
         loops: handler.animationLoops,
         loopDelay: handler.loopDelay,
         level: handler.animLevel,

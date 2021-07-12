@@ -45,6 +45,21 @@
                         {{/select}}
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
+                    <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                        data-dtype="Number">
+                </div>
+                <div class="form-group">
+                    <label>Loop Delay</label>
+                    <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                        data-dtype="Number">
+                </div>
+                <div class="form-group">
+                    <label>Scale Animation</label>
+                    <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                        data-dtype="Number">
+                </div>
                 {{/unless}}
                 {{#if flags.autoanimations.override}}
                 <!--Choose the Animation Type-->
@@ -475,6 +490,21 @@
                         {{/each}}
                         {{/select}}
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
+                    <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                        data-dtype="Number">
+                </div>
+                <div class="form-group">
+                    <label>Loop Delay</label>
+                    <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                        data-dtype="Number">
+                </div>
+                <div class="form-group">
+                    <label>Scale Animation</label>
+                    <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                        data-dtype="Number">
                 </div>
                 {{/if}}
 

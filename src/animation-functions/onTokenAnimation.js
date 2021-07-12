@@ -14,14 +14,6 @@ export async function onTokenAnimation(handler) {
     //console.log(JB2APATREONDB)
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
-    switch (handler.convertedName) {
-        case "dagger":
-        case "handaxe":
-        case "spear":
-            itemName = "range" + itemName;
-            console.log("adjusted name is " + itemName);
-            break;
-    }
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
@@ -39,6 +31,7 @@ export async function onTokenAnimation(handler) {
     let explosion = handler.explosion ? await buildAfterFile(obj01, handler) : false;
     //console.log(explosion);
     let animWidth = onToken.metadata.width;
+    if (handler.allTargets.length === 0 && (itemName === "curewounds" || itemName === "generichealing")) {
     new Sequence()
         .effect()
         .file(onToken.file)
@@ -55,6 +48,7 @@ export async function onTokenAnimation(handler) {
             }
         )
         .play()
+    }
     //.waitUntilFinished(-500 + handler.explosionDelay)
 
     async function cast() {
@@ -62,16 +56,16 @@ export async function onTokenAnimation(handler) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
-
+            let scale = itemName.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
             let hit = handler.hitTargetsId.includes(target.id) ? false : true;
 
             new Sequence()
                 .effect()
                 .file(onToken.file)
                 .atLocation(target)
-                .randomizeMirrorY()
+                //.randomizeMirrorY()
                 .repeats(onToken.loops, onToken.loopDelay)
-                .scale(((target.w / animWidth) * 1.75) * handler.scale)
+                .scale(scale * handler.scale)
                 .belowTokens(onToken.level)
                 .playIf(() => { return arrayLength })
                 .addOverride(async (effect, data) => {

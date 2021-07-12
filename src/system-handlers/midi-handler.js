@@ -102,7 +102,13 @@ export default class MidiHandler {
                 this._animNameFinal = this._animName;
                 break;
         }
-        this._convertName = nameConversion(this._animNameFinal)
+        this._convert = nameConversion(this._animNameFinal)
+        this._convertName = this._convert[0];
+        this._defaultColor = this._convert[1]
+        console.log(this._convert)
+        console.log(this._convertName)
+        console.log(this._defaultColor)
+
         //console.log(this._animNameFinal);
         this._animColorEffect;
         switch (true) {
@@ -182,6 +188,10 @@ export default class MidiHandler {
 
     get color() {
         return this._animColor;
+    }
+
+    get defaultColor() {
+        return this._defaultColor;
     }
 
     get animName() {

@@ -21,7 +21,7 @@ export default class Dnd5Handler {
         // getting flag data from Animation Tab
         this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
         // 
-        this._animColor = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations?.color?.toLowerCase() ?? "";
+        this._animColor = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations?.color ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._animExRadius = this._flags.explodeRadius ?? 10;
