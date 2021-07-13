@@ -42,7 +42,9 @@ import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
 import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
 import { explodeOnToken } from "./animation-functions/explodeOnToken.js";
 import { teleportation } from "./animation-functions/teleportation.js";
-import { templateAnimation } from "./animation-functions/templateAnimation.js"
+import { templateAnimation } from "./animation-functions/templateAnimation.js";
+import { setupSocket } from "./socketset.js";
+
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
@@ -94,6 +96,9 @@ function activateSocket() {
         }
     });
 }
+Hooks.once('setup', function () {
+    setupSocket();
+});
 
 Hooks.on('init', () => {
 

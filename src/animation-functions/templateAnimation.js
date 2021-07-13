@@ -1,6 +1,7 @@
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
-import { buildTemplateFile } from "./common-functions/build-filepath.js"
+import { buildTemplateFile } from "./common-functions/build-filepath.js";
+import { socketlibSocket } from "../socketset.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -93,6 +94,7 @@ export async function templateAnimation(handler, msg) {
                 break;
         }
         console.log(handler.templatePersist)
+        console.log(handler.templateOpacity)
         if (handler.templatePersist && (handler.templates.tempType === "circle" || handler.templates.tempType === "rect")) {
             let data;
             if (handler.templates.overhead) {
@@ -133,8 +135,8 @@ export async function templateAnimation(handler, msg) {
                 z: 100,
                 }
     }
-        
-        const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
+        socketlibSocket.executeAsGM("placeTile", data)
+        //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
         } else {
         new Sequence()
             .effect()
@@ -156,74 +158,3 @@ export async function templateAnimation(handler, msg) {
     cast();
 
 }
-/*
-const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-
-async function test() {
-
-let data = {
-    height: 400,
-    img: "modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm",
-    // false sets it in canvas.background. true sets it to canvas.foreground
-    overhead: false,
-    video: {
-        autoplay: true,
-        loop: true,
-        volume: 0,
-    },
-    x: 2100,
-    y: 1000,
-    width: 400,
-    z: 100,
-}
-
-const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);
-//console.log(newTile);
-// change background to foreground if you created the tile as an Overhead tile (overhead: true)
-let length = canvas.background.placeables.length;
-
-let tile = canvas.background.placeables[length-1];
-let tileId = tile.id;
-console.log(tile);
-console.log(tileId);
-
-await wait(2000);
-// update data to change the tile. Put anything here you wish to update
-let newData = [
-   {
-   "_id": tileId,
-   //img: "modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_PurplePink_400x400.webm",
-   autoplay: false,
-   tint: "#0000FF"
-   }
-];
-let pauseTile = {
-
-   // loop false seems required to pause the video tile
-   loop: false,
-   // not sure of the function of the offset, but it isn't required to pause
-   offset: 0,
-   // volume is irrelevant to pause
-   //volume: 0,
-
-}
-
-// seems you need to use play() to pause? and you need to pass the array, it seems offset is important
-// you can define offset: number in the data passed to pause at a particular frame
-//tile.play(pause, pauseTile);
-
-// easy to restart the video
-//await wait(2000)
-//tile.play()
-
-let deleteData = {
-   "_id": tileId,
-   autoplay: false,
-}
-//update tile call for updateEmbeddedDocments
-//canvas.scene.updateEmbeddedDocuments("Tile", newData)
-//delete tile call through deleteEmbeddedDocuments
-canvas.scene.deleteEmbeddedDocuments("Tile", [deleteData]);
-}
-test();
-*/

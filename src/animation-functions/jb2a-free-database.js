@@ -499,13 +499,13 @@ JB2AFREEDB.templates = {
             "green": 'modules/JB2A_DnD5e/Library/2nd_Level/Darkness/Darkness_01_Green_600x600.webm'
         },
         "calllightning": {
-            "blue": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Blue_1000x1000.webm',
-            "blue orange": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_BlueOrange_1000x1000.webm',
-            "green": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Green_1000x1000.webm',
-            "pink yellow": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_PinkYellow_1000x1000.webm',
-            "purple": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Purple_1000x1000.webm',
-            "red": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Red_1000x1000.webm',
-            "yellow": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/CallLightning_01_Yellow_1000x1000.webm'
+            "blue": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Blue_75OPA_1000x1000.webm',
+            "blue orange": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_BlueOrange_75OPA_1000x1000.webm',
+            "green": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Green_75OPA_1000x1000.webm',
+            "pink yellow": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_PinkYellow_75OPA_1000x1000.webm',
+            "purple": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Purple_75OPA_1000x1000.webm',
+            "red": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Red_75OPA_1000x1000.webm',
+            "yellow": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Yellow_75OPA_1000x1000.webm'
         },
         "sleetstorm": {
             "blue": 'modules/JB2A_DnD5e/Library/3rd_Level/Sleet_Storm/SleetStorm_01_Blue_800x800.webm',

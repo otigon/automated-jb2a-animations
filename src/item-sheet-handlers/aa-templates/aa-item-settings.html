@@ -1,13 +1,13 @@
 <form class="flexcol" autocomplete="off" novalidate>
-    <nav class="tabs" data-group="primary-tabs">
-        <a class="item" data-tab="animations"><i class="fas fa-bomb"></i> ANIMATIONS </a>
-        <a class="audioSetting" data-tab="audio-settings"><i class="fas fa-guitar"></i> AUDIO </a>
-        <a class="tokenAnimations" data-tab="token-animations"><i class="fas fa-user-plus"></i> TokenFX </a>
+    <nav class="flexrow tabs" data-group="sections">
+        <a class="aa-options" data-tab="animations"><i class="fas fa-bomb"></i> ANIMATIONS </a>
+        <a class="aa-options" data-tab="audio"><i class="fas fa-guitar"></i> AUDIO </a>
+        <a class="aa-options" data-tab="tokenfx"><i class="fas fa-user-plus"></i> TokenFX </a>
     </nav>
 
     <section class="content">
         <!--Animation Settings-->
-        <div class="tab" data-tab="animations" data-group="primary-tabs">
+        <div class="tab" data-tab="animations" data-group="sections">
             <!--Disable Animaton Button-->
             <div class="kill-animation">
                 <div class="form-group">
@@ -816,6 +816,12 @@
                     </button>
                 </div>
                 {{/if}}
+                <div class="form-group">
+                    <label>Remove Template after Placement?</label>
+                    <input type="checkbox" name="flags.autoanimations.templates.removeTemplate"
+                        value="flags.autoanimations.templates.removeTemplate" {{checked
+                        flags.autoanimations.templates.removeTemplate}}>
+                </div>
                 {{#if makePersistent}}
                 <!--Make effect a Tile on Canvas-->
                 <div class="form-group">
@@ -824,8 +830,12 @@
                         value="flags.autoanimations.templates.persistent" {{checked
                         flags.autoanimations.templates.persistent}}>
                 </div>
+                <label class="aa-hint-text">REQUIRES THE SOCKETLIB MODULE TO BE ACTIVE</label>
                 {{/if}}
                 {{#if persistent}}
+                <div class="form-group">
+                    <label class="socketlibWarn">REQUIRES THE SOCKETLIB MODULE TO BE ACTIVE</label>
+                </div>
                 <!--Set Tile Opacity-->
                 <div class="form-group">
                     <label>Opacity</label>
@@ -839,12 +849,6 @@
                         flags.autoanimations.templates.overhead}}>
                 </div>
                 {{/if}}
-                <div class="form-group">
-                    <label>Remove Template after Placement?</label>
-                    <input type="checkbox" name="flags.autoanimations.templates.removeTemplate"
-                        value="flags.autoanimations.templates.removeTemplate" {{checked
-                        flags.autoanimations.templates.removeTemplate}}>
-                </div>
                 {{#unless persistent}}
                 <div class="flexrow">
                     <div class="aa-column">
@@ -1170,7 +1174,7 @@
 
 
         <!--Audio Settings-->
-        <div class="tab" data-tab="audio-settings" data-group="primary-tabs">
+        <div class="tab" data-tab="audio" data-group="sections">
             <div class="aa-audio-checkbox">
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.itemAudio"}}</label>
@@ -1202,7 +1206,7 @@
 
 
 
-        <div class="tab" data-tab="token-animations" data-group="primary-tabs">
+        <div class="tab" data-tab="tokenfx" data-group="sections">
             <!--SourceToken and Target Animation Options, including Token Magic FX Dropdown-->
             <!--To be played BEFORE Primary animation (or at same time), followed by Target Animation AFTER Primary animation has played-->
             <!--Options: File Picker, Delay, Etc Etc Etc. Look at using Sequencer Menu from Wasp-->

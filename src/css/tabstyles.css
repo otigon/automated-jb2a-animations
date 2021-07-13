@@ -24,5 +24,26 @@
 .aa-column {
     padding: 10px;
     text-align: center;
-  }
+}
+
+.aa-options {
+    text-align: center;
+    font-size: 12px;
+    line-height: 12px;
+    margin: 0;
+    border: 3px ridge #a1a1a1;
+    padding: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.socketlibWarn {
+    font-weight: bold;
+    text-align:center;
+}
+
+.aa-hint-text {
+    font-size: 10px;
+    color: grey
+}
   
