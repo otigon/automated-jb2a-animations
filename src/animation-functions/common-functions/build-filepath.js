@@ -198,6 +198,23 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
     return data;
 }
 
+export async function buildTemplateFile(jb2a, handler) {
+    let flags = handler.templates;
+    let filePath = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${flags.tempColor}`;
+    let fileData = jb2a['templates'][flags.tempType][flags.tempAnim][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim])[0]]
+    let videoData = await getVideoDimensionsOf(fileData);//get video metadata
+
+    let data = {
+        file: filePath,
+        loops: handler.templates.tempLoop,
+        delay: handler.templates.loopDelay,
+        level: handler.animLevel,
+        metadata: videoData
+    }
+    console.log(data)
+    return data;
+}
+
 var randomProperty = function (obj) {
     var keys = Object.keys(obj);
     var keyLength = keys.length;

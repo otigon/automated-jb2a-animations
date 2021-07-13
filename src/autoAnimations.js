@@ -42,6 +42,7 @@ import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
 import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
 import { explodeOnToken } from "./animation-functions/explodeOnToken.js";
 import { teleportation } from "./animation-functions/teleportation.js";
+import { templateAnimation } from "./animation-functions/templateAnimation.js"
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
@@ -586,7 +587,7 @@ async function specialCaseAnimations(msg) {
             */
         case (handler.animType === "t8" && handler.animOverride):
             Hooks.once("createMeasuredTemplate", (msg) => {
-                templateEffects(handler, msg);
+                templateAnimation(handler, msg);
             })
             break;
     }

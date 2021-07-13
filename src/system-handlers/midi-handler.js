@@ -48,11 +48,11 @@ export default class MidiHandler {
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
-        this._templates = this._flags.templates ?? "";
         this._rangedOptions = this._flags.rangedOptions ?? "";
         this._animLoops = this._flags.options?.loops ?? 1;
         this._loopDelay = this._flags.options?.loopDelay ?? 250;
         this._scale = this._flags.options?.scale ?? 1;
+        this._templates = this._flags.templates ?? "";
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
@@ -314,9 +314,6 @@ export default class MidiHandler {
         return this._divineSmite;
     }
 
-    get templates() {
-        return this._templates;
-    }
 
     get autoDamage() {
         return game.user.isGM ? this._gmAD : this._userAD;
@@ -344,6 +341,11 @@ export default class MidiHandler {
     get animLevel() {
         return this._animLevel;
     }
+
+    get templates() {
+        return this._templates;
+    }
+
     
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
