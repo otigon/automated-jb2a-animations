@@ -69,7 +69,7 @@ export async function buildRangedFile(jb2a, itemName, handler) {
             filePath = handler.color === "random" ? `autoanimations.${itemName}.${dmgType}` : `autoanimations.${itemName}.${dmgType}.${color}`;
             break;
         default:
-            if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
+            if (!handler.color || handler.color === "a1") { color = handler.defaultColor }
             filePath = handler.color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
     }
     /*
@@ -107,20 +107,42 @@ export async function buildRangedFile(jb2a, itemName, handler) {
 export async function buildAfterFile(jb2a, handler) {
     let color = handler.explosionColor;
     let variant = handler.explosionVariant;
-    let impactVariant = handler.impactVar
+    let impactVariant = handler.impactVar;
     //console.log(handler)
     let filePath;
     let fileData;
+    switch (true) {
+        case variant === "impact":
+            if (impactVariant === "boulder") {
+                filePath = `autoanimations.explosion.${variant}.${impactVariant}`;
+                fileData = jb2a['explosion'][variant][impactVariant];
+            } else {
+                filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${variant}.${impactVariant}` : `autoanimations.explosion.${variant}.${impactVariant}.${color}`;
+                fileData = jb2a['explosion'][variant][impactVariant][Object.keys(jb2a['explosion'][variant][impactVariant])[0]];
+            }
+            break;
+        case variant === "antilife-shell":
+            filePath = `autoanimations.explosion.antilifeshell`;
+            fileData = jb2a['explosion']['antilifeshell'];
+            break;
+        default:
+            filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${handler.explosionVariant}` : `autoanimations.explosion.${handler.explosionVariant}.${handler.explosionColor}`;
+            fileData = handler.explosionColor === "random" ? jb2a['explosion'][variant][Object.keys(jb2a['explosion'][variant])[0]] : jb2a['explosion'][variant][color]
+    }
+    /*
     if (variant === "impact") {
         if (impactVariant === "boulder") {
-            filePath = jb2a['explosion'][variant][impactVariant];
+            filePath = `autoanimations.explosion.${variant}.${impactVariant}`;
+            fileData = jb2a['explosion'][variant][impactVariant];
         } else {
-            filePath = jb2a['explosion'][variant][impactVariant][color];
+            filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${variant}.${impactVariant}` : `autoanimations.explosion.${variant}.${impactVariant}.${color}`;
+            fileData = jb2a['explosion'][variant][impactVariant][Object.keys(jb2a['explosion'][variant][impactVariant])[0]];
         }
     } else {
         filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${handler.explosionVariant}` : `autoanimations.explosion.${handler.explosionVariant}.${handler.explosionColor}`;
         fileData = handler.explosionColor === "random" ? jb2a['explosion'][variant][Object.keys(jb2a['explosion'][variant])[0]] : jb2a['explosion'][variant][color]
     }
+    */
     //console.warn(filePath)
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
     let scale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / videoData.width;
@@ -128,6 +150,7 @@ export async function buildAfterFile(jb2a, handler) {
     let data = {
         file: filePath,
         scale: scale,//Scale based on pixels and input
+        loops: handler.explosionLoops,
         delay: handler.explosionDelay,//Tweak the delay for explosion
         level: handler.explosionLevel, //Boolean: above or under tokens
         metadata: videoData,
@@ -145,18 +168,18 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
     console.log("Item Name for file build is " + itemName)
     switch (itemName) {
         case "generichealing":
-            if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
+            if (!handler.color || handler.color === "a1") { color = handler.defaultColor }
             filePath = color === "random" ? `autoanimations.${itemName}.${variant}` : `autoanimations.${itemName}.${variant}.${color}`;
             fileData = jb2a["generichealing"][variant][Object.keys(jb2a["generichealing"][variant])[0]]
             break;
         case "mistystep":
-            if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
+            if (!handler.color || handler.color === "a1") { color = handler.defaultColor }
             filePath = color === "random" ? `autoanimations.${itemName}.01` : `autoanimations.${itemName}.01.${color}`;
             filePath2 = color === "random" ? `autoanimations.${itemName}.02` : `autoanimations.${itemName}.02.${color}`;
             fileData = jb2a[itemName]["01"][Object.keys(jb2a[itemName]["01"])[0]]
             break;
         default:
-            if (!handler.color || handler.color === "a1") {color = handler.defaultColor}
+            if (!handler.color || handler.color === "a1") { color = handler.defaultColor }
             filePath = color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
             fileData = jb2a[itemName][Object.keys(jb2a[itemName])[0]]
             console.log(fileData)
@@ -169,7 +192,7 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
         loops: handler.animationLoops,
         loopDelay: handler.loopDelay,
         level: handler.animLevel,
-        metadata: videoData,        
+        metadata: videoData,
     }
     console.log(data)
     return data;

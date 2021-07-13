@@ -222,7 +222,7 @@ export default class MidiHandler {
         return this._exAnimLevel;
     }
 
-    get animExLoop() {
+    get explosionLoops() {
         return this._animExLoop;
     }
 

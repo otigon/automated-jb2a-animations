@@ -266,17 +266,19 @@
                             {{/select}}
                         </select>
                     </div>
-                    <!--Choose Explosion Radius-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuExplodeRadius"}}</label>
-                        <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
-                            value={{explosionRadius}} data-type="Number">
-                    </div>
-                    <!--Adjust the delay for explosion effect-->
-                    <div class="form-group">
-                        <label>Adjust Delay (milliseconds)</label>
-                        <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
-                            data-dtype="Number">
+                    <div class="flexrow">
+                        <!--Choose Explosion Radius-->
+                        <div class="aa-column">
+                            <label>Explosion Radius</label>
+                            <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
+                                value={{explosionRadius}} data-type="Number">
+                        </div>
+                        <!--Adjust the delay for explosion effect-->
+                        <div class="aa-column">
+                            <label>Adjust Delay (ms)</label>
+                            <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                                data-dtype="Number">
+                        </div>
                     </div>
                     <!--Enable Explosion Audio?-->
                     <div class="form-group">
@@ -793,11 +795,6 @@
                         {{/select}}
                     </select>
                 </div>
-                <!--Input Template Animation Loops-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.templates.tempLoop" min="0" value={{loopTemplate}}>
-                </div>
                 {{/unless}}
                 <!--Choose Custom Animation?-->
                 <div class="form-group">
@@ -818,6 +815,18 @@
                     </button>
                 </div>
                 {{/if}}
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>Loops</label>
+                        <input type="Number" name="flags.autoanimations.templates.tempLoop" value={{loopTemplate}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Loop Delay</label>
+                        <input type="Number" name="flags.autoanimations.templates.loopDelay" value={{templateLoopDelay}}
+                            data-dtype="Number">
+                    </div>
+                </div>
                 {{/if}}
 
 
@@ -870,17 +879,24 @@
                         {{/select}}
                     </select>
                 </div>
-                <!--Choose Explosion Radius-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuExplodeRadius"}}</label>
-                    <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
-                        value={{explosionRadius}} data-type="Number">
-                </div>
-                <!--Set Explosion Loops-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuExplodeLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
-                        data-dtype="Number">
+                <div class="flexrow">
+                    <!--Choose Explosion Radius-->
+                    <div class="aa-column">
+                        <label>Radius</label>
+                        <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
+                            value={{explosionRadius}} data-type="Number">
+                    </div>
+                    <!--Set Explosion Loops-->
+                    <div class="aa-column">
+                        <label>Loops</label>
+                        <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>Loop Delay</label>
+                        <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                            data-dtype="Number">
+                    </div>
                 </div>
                 {{/if}}
 

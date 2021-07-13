@@ -40,7 +40,8 @@ import { AAITEMCHECK } from "./animation-functions/item-arrays.js";
 import { rangedAnimations } from "./animation-functions/rangedAnimation.js";
 import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
 import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
-import { teleportation } from "./animation-functions/teleportation.js"
+import { explodeOnToken } from "./animation-functions/explodeOnToken.js";
+import { teleportation } from "./animation-functions/teleportation.js";
 
 import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
@@ -811,10 +812,8 @@ async function revItUp(handler) {
         case (handler.animKill):
             break;
         case ((handler.animType === "t9") && handler.animOverride):
-            explodeOnTarget(handler);
-            break;
         case ((handler.animType === "t10") && handler.animOverride):
-            selfCast(handler);
+            explodeOnToken(handler);
             break;
         case ((handler.animType === "t11") && handler.animOverride):
             if (game.modules.get("Custom-Token-Animations")?.active) {

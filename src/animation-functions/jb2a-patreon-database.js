@@ -684,7 +684,22 @@ JB2APATREONDB.explosion = {
             "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Green_400x400.webm',
             "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Yellow_400x400.webm'
         },
-    }
+    },
+    "shatter": {
+        'purple': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Purple_400x400.webm',
+        'red': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Red_400x400.webm',
+        'blue': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Blue_400x400.webm',
+        'green': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Green_400x400.webm',
+        'orange': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Orange_400x400.webm'
+    },
+    "thunderwave": {
+        'green': 'modules/jb2a_patreon/Library/1st_Level/Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm',
+        'orange': 'modules/jb2a_patreon/Library/1st_Level/Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm',
+        'purple': 'modules/jb2a_patreon/Library/1st_Level/Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm',
+        'red': 'modules/jb2a_patreon/Library/1st_Level/Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm',
+        'blue': 'modules/jb2a_patreon/Library/1st_Level/Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm',
+    },
+    'antilifeshell': 'modules/jb2a_patreon/Library/5th_Level/Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm'
 }
 
 JB2APATREONDB.huntersmark = {

@@ -152,6 +152,7 @@ export class AAItemSettings extends FormApplication {
             templateAnimations: animTemplates(templateType),
             templateAnimColors: templateColors(templateType, templateAnimation, patreon),
             loopTemplate: flags.autoanimations?.templates?.tempLoop ?? 1,
+            templateLoopDelay: flags.autoanimations?.templates?.loopDelay ?? 250,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
