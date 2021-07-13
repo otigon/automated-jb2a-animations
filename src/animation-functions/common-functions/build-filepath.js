@@ -200,12 +200,22 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
 
 export async function buildTemplateFile(jb2a, handler) {
     let flags = handler.templates;
-    let filePath = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${flags.tempColor}`;
-    let fileData = jb2a['templates'][flags.tempType][flags.tempAnim][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim])[0]]
+    let filePath;
+    let fileData;
+    switch (handler.templates?.tempAnim) {
+        case "fogcloud":
+            filePath = `autoanimations.templates.${flags.tempType}.${flags.tempAnim}`;
+            fileData = jb2a['templates'][flags.tempType][flags.tempAnim];
+            break;
+        default:
+            filePath = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${flags.tempColor}`;
+            fileData = flags.tempColor === "random" ? jb2a['templates'][flags.tempType][flags.tempAnim][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][flags.tempColor];
+    }
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
 
     let data = {
         file: filePath,
+        file2: fileData,
         loops: handler.templates.tempLoop,
         delay: handler.templates.loopDelay,
         level: handler.animLevel,

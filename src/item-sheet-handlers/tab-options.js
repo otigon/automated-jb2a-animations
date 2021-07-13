@@ -303,26 +303,40 @@ export function templateColors(templateType, templateAnimation, patreon) {
             break;
         case "circle":
             switch (templateAnimation) {
-                case ('ex01'):
+                case 'ex01':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
                     break;
-                case ('ex02'):
+                case 'ex02':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
                     break;
-                case ('ex03'):
+                case 'ex03':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors03) : AUTOANIM.localized(AUTOANIM.explosionColorsFree03);
                     break;
-                case ('ex04'):
+                case 'ex04':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors04) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
                     break;
-                case ('snowflake'):
-                case ('outpulse01'):
-                case ('outpulse02'):
+                case 'snowflake':
+                case 'outpulse01':
+                case 'outpulse02':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors0567) : AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
                     break;
-                case ('shatter'):
-                case ('thunderwave'):
+                case 'shatter':
+                case 'thunderwave':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorShatterThunder) : AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree);
+                    break;
+                /*
+                case 'fogcloud':
+                    templateColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorShatterThunder) : AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree)
+                    break;
+                */
+                case 'darkness':
+                    templateColor = AUTOANIM.localized(AUTOANIM.darknessColors)
+                    break;
+                case 'calllightning':
+                    templateColor = AUTOANIM.localized(AUTOANIM.calllightningColors)
+                    break;
+                case 'sleetstorm':
+                    templateColor = patreon ? AUTOANIM.localized(AUTOANIM.sleetstormColors) : AUTOANIM.localized(AUTOANIM.sleetstormColorsFree)
                     break;
                 default:
                     return;

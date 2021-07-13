@@ -53,6 +53,8 @@ export default class MidiHandler {
         this._loopDelay = this._flags.options?.loopDelay ?? 250;
         this._scale = this._flags.options?.scale ?? 1;
         this._templates = this._flags.templates ?? "";
+        this._templatePersist = this._flags.templates?.persistent ?? false;
+        this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
@@ -346,7 +348,14 @@ export default class MidiHandler {
         return this._templates;
     }
 
-    
+    get templatePersist() {
+        return this._templatePersist
+    }
+
+    get templateOpacity() {
+        return this._templateOpacity
+    }
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {

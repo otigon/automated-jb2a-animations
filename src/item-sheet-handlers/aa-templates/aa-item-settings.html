@@ -2,6 +2,7 @@
     <nav class="tabs" data-group="primary-tabs">
         <a class="item" data-tab="animations"><i class="fas fa-bomb"></i> ANIMATIONS </a>
         <a class="audioSetting" data-tab="audio-settings"><i class="fas fa-guitar"></i> AUDIO </a>
+        <a class="tokenAnimations" data-tab="token-animations"><i class="fas fa-user-plus"></i> TokenFX </a>
     </nav>
 
     <section class="content">
@@ -815,6 +816,36 @@
                     </button>
                 </div>
                 {{/if}}
+                {{#if makePersistent}}
+                <!--Make effect a Tile on Canvas-->
+                <div class="form-group">
+                    <label>Make Persistent?</label>
+                    <input type="checkbox" name="flags.autoanimations.templates.persistent"
+                        value="flags.autoanimations.templates.persistent" {{checked
+                        flags.autoanimations.templates.persistent}}>
+                </div>
+                {{/if}}
+                {{#if persistent}}
+                <!--Set Tile Opacity-->
+                <div class="form-group">
+                    <label>Opacity</label>
+                    <input type="Number" name="flags.autoanimations.templates.opacity" min="0" max="1" step=".01"
+                        value={{templateOpacity}}>
+                </div>
+                <div class="form-group">
+                    <label>Is Overhead?</label>
+                    <input type="checkbox" name="flags.autoanimations.templates.overhead"
+                        value="flags.autoanimations.templates.overhead" {{checked
+                        flags.autoanimations.templates.overhead}}>
+                </div>
+                {{/if}}
+                <div class="form-group">
+                    <label>Remove Template after Placement?</label>
+                    <input type="checkbox" name="flags.autoanimations.templates.removeTemplate"
+                        value="flags.autoanimations.templates.removeTemplate" {{checked
+                        flags.autoanimations.templates.removeTemplate}}>
+                </div>
+                {{#unless persistent}}
                 <div class="flexrow">
                     <div class="aa-column">
                         <label>Loops</label>
@@ -827,6 +858,7 @@
                             data-dtype="Number">
                     </div>
                 </div>
+                {{/unless}}
                 {{/if}}
 
 
@@ -1167,6 +1199,17 @@
                 {{/if}}
             </div>
         </div>
+
+
+
+        <div class="tab" data-tab="token-animations" data-group="primary-tabs">
+            <!--SourceToken and Target Animation Options, including Token Magic FX Dropdown-->
+            <!--To be played BEFORE Primary animation (or at same time), followed by Target Animation AFTER Primary animation has played-->
+            <!--Options: File Picker, Delay, Etc Etc Etc. Look at using Sequencer Menu from Wasp-->
+        </div>
+
+
+
     </section>
     <footer class="sheet-footer flexrow">
         <button type="submit" name="submit">

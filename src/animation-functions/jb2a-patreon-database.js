@@ -1170,6 +1170,26 @@ JB2APATREONDB.templates = {
             'blue': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Blue_400x400.webm',
             'green': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Green_400x400.webm',
             'orange': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Orange_400x400.webm'
+        },
+        "fogcloud": 'modules/jb2a_patreon/Library/1st_Level/Fog_Cloud/FogCloud_01_White_800x800.webm',
+        "darkness": {
+            "black": 'modules/jb2a_patreon/Library/2nd_Level/Darkness/Darkness_01_Black_600x600.webm',
+            "green": 'modules/jb2a_patreon/Library/2nd_Level/Darkness/Darkness_01_Green_600x600.webm'
+        },
+        "calllightning": {
+            "blue": 'modules/jb2a_patreon/Library/3rd_Level/Call_Lightning/CallLightning_01_Blue_1000x1000.webm',
+            "blue orange": 'modules/jb2a_patreon/Library/3rd_Level/Call_Lightning/CallLightning_01_BlueOrange_1000x1000.webm',
+            "green": 'modules/jb2a_patreon/Library/3rd_Level/Call_Lightning/CallLightning_01_Green_1000x1000.webm',
+            "pink yellow": 'modules/jb2a_patreon/Library/3rd_Level/Call_Lightning/CallLightning_01_PinkYellow_1000x1000.webm',
+            "purple": 'modules/jb2a_patreon/Library/3rd_Level/Call_Lightning/CallLightning_01_Purple_1000x1000.webm',
+            "red": 'modules/jb2a_patreon/Library/3rd_Level/Call_Lightning/CallLightning_01_Red_1000x1000.webm',
+            "yellow": 'modules/jb2a_patreon/Library/3rd_Level/Call_Lightning/CallLightning_01_Yellow_1000x1000.webm'
+        },
+        "sleetstorm": {
+            "blue": 'modules/jb2a_patreon/Library/3rd_Level/Sleet_Storm/SleetStorm_01_Blue_800x800.webm',
+            "green": 'modules/jb2a_patreon/Library/3rd_Level/Sleet_Storm/SleetStorm_01_Green_800x800.webm',
+            "purple": 'modules/jb2a_patreon/Library/3rd_Level/Sleet_Storm/SleetStorm_01_Purple_800x800.webm',
+            "teal yellow": 'modules/jb2a_patreon/Library/3rd_Level/Sleet_Storm/SleetStorm_01_TealYellow_800x800.webm'
         }
     },
     'rect': {

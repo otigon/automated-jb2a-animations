@@ -21,17 +21,21 @@ export default class Dnd5Handler {
         // getting flag data from Animation Tab
         this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
         // 
-        this._animColor = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations?.color ?? "";
+        this._animLevel = this._flags.animLevel ?? false;
+        this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
-        this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
-        this._animExRadius = this._flags.explodeRadius ?? 10;
-        this._animExVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
+        this._explodeColor = this._flags.explodeColor?.toLowerCase() ?? "";
+        this._explodeDelay = this._flags.explodeDelay ?? 0;
+        this._exAnimLevel = this._flags.exAnimLevel ?? false;
+        this._impactVar = this._flags.impactVar ?? "";
+        this._explodeRadius = this._flags.explodeRadius ?? 10;
+        this._explodeVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
         this._animExLoop = this._flags.explodeLoop ?? "";
         this._animType = this._flags.animType?.toLowerCase() ?? "";
         this._animKill = this._flags.killAnim;
         this._animOverride = this._flags.override;
-        this._animExplode = this._flags.explosion;
-        this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
+        this._explosion = this._flags.explosion;
+        this._dtvar = this._flags.dtvar?.toLowerCase() ?? "";
         this._selfRadius = this._flags.selfRadius ?? "";
         this._animTint = this._flags.animTint ?? "";
         this._auraOpacity = this._flags.auraOpacity ?? "";
@@ -47,10 +51,15 @@ export default class Dnd5Handler {
         this._allSounds = this._flags.allSounds ?? "";
         this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
-        this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
+        this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
-        this._templates = this._flags.templates ?? "";
         this._rangedOptions = this._flags.rangedOptions ?? "";
+        this._animLoops = this._flags.options?.loops ?? 1;
+        this._loopDelay = this._flags.options?.loopDelay ?? 250;
+        this._scale = this._flags.options?.scale ?? 1;
+        this._templates = this._flags.templates ?? "";
+        this._templatePersist = this._flags.templates?.persistent ?? false;
+        this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
 
         //console.log(this._animName);
         this._animNameFinal;
@@ -134,23 +143,39 @@ export default class Dnd5Handler {
         return this._animColor;
     }
 
+    get defaultColor() {
+        return this._defaultColor;
+    }
+
     get animName() {
         return this._animNameFinal;
     }
 
-    get animExColor() {
-        return this._animExColor;
+    get impactVar() {
+        return this._impactVar;
     }
 
-    get animExRadius() {
-        return this._animExRadius;
+    get explosionColor() {
+        return this._explodeColor;
     }
 
-    get animExVariant() {
-        return this._animExVariant;
+    get explosionRadius() {
+        return this._explodeRadius;
     }
 
-    get animExLoop() {
+    get explosionVariant() {
+        return this._explodeVariant;
+    }
+
+    get explosionDelay() {
+        return this._explodeDelay;
+    }
+
+    get explosionLevel() {
+        return this._exAnimLevel;
+    }
+
+    get explosionLoops() {
         return this._animExLoop;
     }
 
@@ -166,12 +191,12 @@ export default class Dnd5Handler {
         return this._animOverride;
     }
 
-    get animExplode() {
-        return this._animExplode;
+    get explosion() {
+        return this._explosion;
     }
 
-    get animDagThrVar() {
-        return this._animDgThrVar;
+    get dtvar() {
+        return this._dtvar;
     }
 
     get selfRadius() {
@@ -242,10 +267,6 @@ export default class Dnd5Handler {
         return this._divineSmite;
     }
 
-    get templates() {
-        return this._templates;
-    }
-
     get hasAttack() {
         return this._item.hasAttack;
     }
@@ -256,6 +277,33 @@ export default class Dnd5Handler {
     
     get rangedOptions() {
         return this._rangedOptions;
+    }
+
+    get animationLoops() {
+        return this._animLoops;
+    }
+
+    get loopDelay() {
+        return this._loopDelay;
+    }
+
+    get scale() {
+        return this._scale;
+    }
+    get animLevel() {
+        return this._animLevel;
+    }
+
+    get templates() {
+        return this._templates;
+    }
+
+    get templatePersist() {
+        return this._templatePersist
+    }
+
+    get templateOpacity() {
+        return this._templateOpacity
     }
 
     getDistanceTo(target) {

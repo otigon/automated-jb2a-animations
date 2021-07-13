@@ -928,6 +928,10 @@ AUTOANIM.circleAnimations = {
     "outpulse01": "AUTOANIM.outpulse01",
     "outpulse02": "AUTOANIM.outpulse02",
     "shatter": "AUTOANIM.itemShatter",
+    "fogcloud": "AUTOANIM.animFogCloud",
+    "darkness": "AUTOANIM.animDarkness",
+    "calllightning": "AUTOANIM.animCallLightning",
+    "sleetstorm": "AUTOANIM.animSleetstorm",
 }
 
 AUTOANIM.rectangleAnimations = {

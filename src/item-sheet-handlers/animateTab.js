@@ -154,6 +154,9 @@ export class AAItemSettings extends FormApplication {
             loopTemplate: flags.autoanimations?.templates?.tempLoop ?? 1,
             templateLoopDelay: flags.autoanimations?.templates?.loopDelay ?? 250,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
+            templateOpacity: flags.autoanimations?.templates?.opacity ?? 0.75,
+            makePersistent: templateType === "circle" || templateType === "rect",
+            persistent: flags.autoanimations?.templates?.persistent && (templateType === "circle" || templateType === "rect"),
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
