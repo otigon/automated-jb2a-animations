@@ -41,15 +41,23 @@ export async function teleportation(handler) {
                     ActorId: actor.id
                 }
             }
-        }    
+        }
     });
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
-        deleteTemplatesAndMove();
-        canvas.app.stage.removeListener('pointerdown');
+        let ray = new Ray(token.center, pos)
+        console.log(ray.distance)
+        console.log(((canvas.grid.size * (handler.teleRange / canvas.dimensions.distance)) + (canvas.grid.size / 2)))
+        console.log(canvas.grid.distance)
+        if (ray.distance > ((canvas.grid.size * (handler.teleRange / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
+            ui.notifications.error("You selected a point out of range, choose again")
+        } else {
+            deleteTemplatesAndMove();
+            canvas.app.stage.removeListener('pointerdown');
+        }
     });
 
     async function deleteTemplatesAndMove() {
@@ -58,15 +66,15 @@ export async function teleportation(handler) {
 
         let removeTemplates = canvas.templates.placeables.filter(i => i.data.flags.world?.Teleportation?.ActorId === actor.id);
         removeTemplates = removeTemplates.map(template => template.id);
-        if(removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
+        if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
 
         new Sequence()
             .effect()
-                .file(onToken.file)
-                .atLocation(token)
-                .JB2A()
-                .scale(Scale)
-                .randomRotation()
+            .file(onToken.file)
+            .atLocation(token)
+            .JB2A()
+            .scale(Scale)
+            .randomRotation()
             .wait(750)
             .thenDo(async () => {
                 await token.document.update({
@@ -76,11 +84,11 @@ export async function teleportation(handler) {
                 }, { animate: false });
             })
             .effect()
-                .file(onToken.file2)
-                .atLocation(token)
-                .JB2A()
-                .scale(Scale)
-                .randomRotation()
+            .file(onToken.file2)
+            .atLocation(token)
+            .JB2A()
+            .scale(Scale)
+            .randomRotation()
             .wait(1500)
             .thenDo(async () => {
                 await token.document.update({
@@ -88,7 +96,7 @@ export async function teleportation(handler) {
                 }, { animate: false });
             })
             .play();
-                
+
     };
 
 

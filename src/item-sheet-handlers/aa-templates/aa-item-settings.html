@@ -63,11 +63,13 @@
                         <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
                             data-dtype="Number">
                     </div>
+                    {{#if defaultCheck}}
                     <div class="aa-column">
                         <label>Scale</label>
                         <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
                             data-dtype="Number">
                     </div>
+                    {{/if}}
                 </div>
 
                 {{/unless}}

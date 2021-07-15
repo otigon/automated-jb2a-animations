@@ -97,14 +97,14 @@ export class AAItemSettings extends FormApplication {
         //console.log("The Final Item Name is " + oldItemName);
         //console.log("The Converted Name is " + itemName)
         return {
-
+            defaultCheck: AAITEMCHECK.default.includes(itemName),
             OldName: oldName,
             convertedName: conversion[2],
             autoRecognized: conversion[2] === undefined ? false : true,
             t2t3: override && (animType === "t2" || animType === "t3"),
             t4: override && animType === "t4",
             t5: override && animType === "t5",
-            t6: /*override &&*/ animType === "t6" || AAITEMCHECK.spellattack.includes(itemName),
+            t6: override && animType === "t6",
             t7: override && animType === "t7",
             t8: override && animType === "t8",
             t9t10: override && (animType === "t9" || animType === "t10"),
