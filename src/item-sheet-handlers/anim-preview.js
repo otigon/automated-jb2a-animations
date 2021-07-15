@@ -1,7 +1,7 @@
 import { JB2APATREONDB } from "../animation-functions/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../animation-functions/jb2a-free-database.js";
 
-function animPreview(item, name) {
+function animPreview(flags, name) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
@@ -10,6 +10,7 @@ function animPreview(item, name) {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     //let itemName = item.animName.toLowerCase();
     let itemName = name;
+    let item = flags.autoanimations ?? "";
     //console.log(item);
     let color;
     let obj02;
@@ -506,13 +507,11 @@ function animPreview(item, name) {
                                     color = item.color;
                             }
                             switch (item.spellVar) {
-                                case ``:
-                                case 'a1':
-                                case '01':
-                                    spellVar = '01';
+                                case '02':
+                                    spellVar = '02';
                                     break;
                                 default:
-                                    spellVar = '02';
+                                    spellVar = '01';
                             }
                             if (obj01[obj02][spellVar][color] === undefined) { color = 'orange' };
                             switch (spellVar) {

@@ -1,7 +1,7 @@
 <form class="flexcol" autocomplete="off" novalidate>
     <nav class="flexrow tabs" data-group="sections">
-        <a class="aa-options" data-tab="animations"><i class="fas fa-bomb"></i> ANIMATIONS </a>
-        <a class="aa-options" data-tab="audio"><i class="fas fa-guitar"></i> AUDIO </a>
+        <a class="aa-options" data-tab="animations"><i class="fas fa-bomb"></i> Animations </a>
+        <a class="aa-options" data-tab="audio"><i class="fas fa-guitar"></i> Audio </a>
         <a class="aa-options" data-tab="tokenfx"><i class="fas fa-user-plus"></i> TokenFX </a>
     </nav>
 
@@ -35,6 +35,12 @@
                     </div>
                 </div>
                 {{#unless flags.autoanimations.override}}
+                {{#if autoRecognized}}
+                <!--If auto-recognized, Animation name will be listed here-->
+                <div class="form-group">
+                    <label class="auto-recognized"><strong>{{OldName}}</strong> is recognized as the <strong>{{convertedName}}</strong> animation</label>
+                </div>
+                {{/if}}
                 <!--Choose Standard Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>

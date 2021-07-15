@@ -29,6 +29,7 @@ export class AAItemSettings extends FormApplication {
         let flags = this.object.data.flags;
         let patreon = moduleIncludes("jb2a_patreon");
         let itemNameItem = this.object.name?.toLowerCase() ?? "";
+        let oldName = this.object.name;
         let itemNameFlag = flags.autoanimations?.animName?.toLowerCase() ?? "";
         let isOverride = flags.autoanimations?.override;
         let oldItemName;
@@ -42,6 +43,13 @@ export class AAItemSettings extends FormApplication {
                 break;
         }
         let conversion = nameConversion(oldItemName)
+        /*
+        if (flags.autoanimations === undefined) {
+            this.object.setFlag("autoanimations", "animName", conversion[2]);
+            this.object.setFlag("autoanimations", "color", conversion[1]);
+            this.render();
+        }
+        */
         let itemName = conversion[0];
         let animType = flags.autoanimations?.animType;
         let spellVariant = flags.autoanimations?.spellVar;
@@ -62,8 +70,11 @@ export class AAItemSettings extends FormApplication {
             default:
                 spellVariants = false;
         }
-        let videoPreview = animPreview(flags.autoanimations, itemName);
-        //console.log(videoPreview)
+        console.log("conversion 3 is " + conversion[3])
+        let videoPreview = animPreview(flags, itemName);
+        console.log("Pre video check is " + videoPreview)
+        if (videoPreview === "no preview") {videoPreview = conversion[3]}
+        console.log("Post video check is " + videoPreview)
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
@@ -86,6 +97,10 @@ export class AAItemSettings extends FormApplication {
         //console.log("The Final Item Name is " + oldItemName);
         //console.log("The Converted Name is " + itemName)
         return {
+
+            OldName: oldName,
+            convertedName: conversion[2],
+            autoRecognized: conversion[2] === undefined ? false : true,
             t2t3: override && (animType === "t2" || animType === "t3"),
             t4: override && animType === "t4",
             t5: override && animType === "t5",

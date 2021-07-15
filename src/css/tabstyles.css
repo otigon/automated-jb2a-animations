@@ -46,4 +46,14 @@
     font-size: 10px;
     color: grey
 }
+
+.auto-recognized {
+    font-size: 15px;
+    text-align: center;
+    border: 3px ridge #a1a1a1;
+    padding: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: rgb(206, 206, 206)
+}
   
