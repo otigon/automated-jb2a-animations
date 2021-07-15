@@ -1,4 +1,7 @@
+import AUTORECOG from "./auto-recognition.js";
+
 export function nameConversion(itemName) {
+    let itemAutoRec = new AUTORECOG;
     let oldItemName = itemName.toLowerCase();
     console.log("old item name is " + oldItemName)
     let defaultColor;
@@ -6,68 +9,57 @@ export function nameConversion(itemName) {
     let autoRec;
     let jb2a = moduleIncludes("jb2a_patreon") === true ? "jb2a_patreon" : "JB2A_DnD5e";
     let autoPreview = "no preview";
-    switch (oldItemName) {
-        case "bardic inspiration":
-        case game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase():
+    switch (true) {
+        /*
+        case oldItemName.includes("bardic inspiration"):
+        case oldItemName.includes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase()):
             newItemName = "bardicinspiration";
             defaultColor = "green orange";
             break;
-        case "rapier":
-        case game.i18n.format("AUTOANIM.itemRapier").toLowerCase():
+        */
+        case itemAutoRec.rapier.some(el => oldItemName.includes(el)):
             newItemName = "rapier";
             defaultColor = "white";
             autoRec = game.i18n.format("AUTOANIM.itemRapier");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/Rapier01_01_Regular_White_800x600.webm`;
             break;
-        case "greatsword":
-        case game.i18n.format("AUTOANIM.itemGreatsword").toLowerCase():
-            newItemName = "greatsword";
-            defaultColor = "white";
-            autoRec = game.i18n.format("AUTOANIM.itemGreatsword");
-            autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/GreatSword01_01_Regular_White_800x600.webm`;
-            break;
-        case game.i18n.format("AUTOANIM.itemSword").toLowerCase():
-        case game.i18n.format("AUTOANIM.itemLongsword").toLowerCase():
-        case game.i18n.format("AUTOANIM.itemShortsword").toLowerCase():
-        case "scimitar":
-        case game.i18n.format("AUTOANIM.itemScimitar").toLowerCase():
-            newItemName = "sword";
-            defaultColor = "white";
-            autoRec = game.i18n.format("AUTOANIM.itemSword");
-            autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/Sword01_01_Regular_White_800x600.webm`;
-            break;
-        case "lasersword":
-        case game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase():
+        case itemAutoRec.lasersword.some(el => oldItemName.includes(el)):
             newItemName = "lasersword";
             defaultColor = "blue";
             autoRec = game.i18n.format("AUTOANIM.itemLaserSword");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/LaserSword01_01_Regular_Blue_800x600.webm`;
             break;
-        case "greatclub":
-        case game.i18n.format("AUTOANIM.itemGreatclub").toLowerCase():
+        case itemAutoRec.greatsword.some(el => oldItemName.includes(el)):
+            newItemName = "greatsword";
+            defaultColor = "white";
+            autoRec = game.i18n.format("AUTOANIM.itemGreatsword");
+            autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/GreatSword01_01_Regular_White_800x600.webm`;
+            break;
+        case itemAutoRec.sword.some(el => oldItemName.includes(el)):
+            newItemName = "sword";
+            defaultColor = "white";
+            autoRec = game.i18n.format("AUTOANIM.itemSword");
+            autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/Sword01_01_Regular_White_800x600.webm`;
+            break;
+        case itemAutoRec.greatclub.some(el => oldItemName.includes(el)):
             newItemName = "greatclub";
             defaultColor = "white";
             autoRec = game.i18n.format("AUTOANIM.itemGreatclub");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/GreatClub01_01_Regular_White_800x600.webm`;
             break;
-        case "greataxe":
-        case game.i18n.format("AUTOANIM.itemGreataxe").toLowerCase():
-        case "battleaxe":
-        case game.i18n.format("AUTOANIM.itemBattleaxe").toLowerCase():
+        case itemAutoRec.greataxe.some(el => oldItemName.includes(el)):
             newItemName = "greataxe";
             defaultColor = "white";
             autoRec = game.i18n.format("AUTOANIM.itemGreataxe");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/GreatAxe01_01_Regular_White_800x600.webm`;
             break;
-        case "mace":
-        case game.i18n.format("AUTOANIM.itemMace").toLowerCase():
+        case itemAutoRec.mace.some(el => oldItemName.includes(el)):
             newItemName = "mace";
             defaultColor = "white";
             autoRec = game.i18n.format("AUTOANIM.itemMace");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/Mace01_01_Regular_White_800x600.webm`;
             break;
-        case "maul":
-        case game.i18n.format("AUTOANIM.itemMaul").toLowerCase():
+        case itemAutoRec.maul.some(el => oldItemName.includes(el)):
             newItemName = "maul";
             defaultColor = "white";
             autoRec = game.i18n.format("AUTOANIM.itemMaul");
@@ -91,249 +83,204 @@ export function nameConversion(itemName) {
         case game.i18n.format("AUTOANIM.item2HP").toLowerCase():
             newItemName = "2hp";
             break;
-        case "dagger":
-        case game.i18n.format("AUTOANIM.itemDagger").toLowerCase():
+        case itemAutoRec.dagger.some(el => oldItemName.includes(el)):
             newItemName = "dagger";
             defaultColor = "white";
             autoRec = game.i18n.format("AUTOANIM.itemDagger");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/Dagger02_01_Regular_White_800x600.webm`;
             break;
-        case "handaxe":
-        case game.i18n.format("AUTOANIM.itemHandaxe").toLowerCase():
+        case itemAutoRec.handaxe.some(el => oldItemName.includes(el)):
             newItemName = "handaxe";
             autoRec = game.i18n.format("AUTOANIM.itemHandaxe");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/HandAxe02_01_Regular_White_800x600.webm`;
             break;
-        case "spear":
-        case game.i18n.format("AUTOANIM.itemSpear").toLowerCase():
+        case itemAutoRec.spear.some(el => oldItemName.includes(el)):
             newItemName = "spear";
             defaultColor = "white";
             autoRec = game.i18n.format("AUTOANIM.itemSpear");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm`;
             break;
-        case "arrow":
-        case game.i18n.format("AUTOANIM.itemArrow").toLowerCase():
-        case nameIncludes("bow"):
-        case game.i18n.format("AUTOANIM.itemLongbow").toLowerCase():
-        case game.i18n.format("AUTOANIM.itemShortbow").toLowerCase():
+        case itemAutoRec.arrow.some(el => oldItemName.includes(el)):
             newItemName = "arrow";
             defaultColor = "regular";
             autoRec = game.i18n.format("AUTOANIM.itemArrow");
             autoPreview = `modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_15ft_1000x400.webm`;
             break;
-        case "throwing hammer":
-        case game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase():
+        case itemAutoRec.rangehammer.some(el => oldItemName.includes(el)):
             newItemName = "rangehammer";
             break;
-        case "siege boulder":
-        case game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase():
+        case itemAutoRec.siege.some(el => oldItemName.includes(el)):
             newItemName = "siege";
             autoRec = game.i18n.format("AUTOANIM.itemSiegeBoulder");
             autoPreview = ``;
             break;
-        case "boulder":
-        case game.i18n.format("AUTOANIM.itemBoulder").toLowerCase():
+        case itemAutoRec.boulder.some(el => oldItemName.includes(el)):
             newItemName = "boulder";
             autoRec = game.i18n.format("AUTOANIM.itemBoulder");
             autoPreview = ``;
             break;
-        case "laser blast":
-        case game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase():
+        case itemAutoRec.lasershot.some(el => oldItemName.includes(el)):
             newItemName = "lasershot";
             defaultColor = "blue";
             autoRec = game.i18n.format("AUTOANIM.itemLaserBlast");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Blue_30ft_1600x400.webm`;
             break;
-        case "javelin":
-        case game.i18n.format("AUTOANIM.itemJavelin").toLowerCase():
+        case itemAutoRec.rangejavelin.some(el => oldItemName.includes(el)):
             newItemName = "rangejavelin";
             autoRec = game.i18n.format("AUTOANIM.itemJavelin");
             autoPreview = ``;
             break;
-        case "sling":
-        case game.i18n.format("AUTOANIM.itemSling").toLowerCase():
+        case itemAutoRec.rangesling.some(el => oldItemName.includes(el)):
             newItemName = "rangesling";
             autoRec = game.i18n.format("AUTOANIM.itemSling");
             autoPreview = ``;
             break;
-        case "thunderwave":
-        case game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase():
+        case itemAutoRec.thunderwave.some(el => oldItemName.includes(el)):
             newItemName = "thunderwave";
             defaultColor = "blue";
             break;
-        case "shatter":
-        case game.i18n.format("AUTOANIM.itemShatter").toLowerCase():
+        case itemAutoRec.shatter.some(el => oldItemName.includes(el)):
             newItemName = "shatter";
             defaultColor = "blue";
             break;
-        case "magic missile":
-        case game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase():
+        case itemAutoRec.magicmissile.some(el => oldItemName.includes(el)):
             newItemName = "magicmissile";
             defaultColor = "purple";
             autoRec = game.i18n.format("AUTOANIM.itemMagicMissile");
             autoPreview = `modules/${jb2a}/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_01_1600x400.webm`;
             break;
-        case "cure wounds":
-        case game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase():
+        case itemAutoRec.curewounds.some(el => oldItemName.includes(el)):
             newItemName = "curewounds";
             defaultColor = "blue";
             autoRec = game.i18n.format("AUTOANIM.itemCureWounds");
             autoPreview = ``;
             break;
-        case "healing word":
-        case "generic healing":
-        case game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase():
-        case game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase():
+        case itemAutoRec.generichealing.some(el => oldItemName.includes(el)):
             newItemName = "generichealing";
             defaultColor = "blue";
             autoRec = game.i18n.format("AUTOANIM.itemGenericHealing");
             autoPreview = `modules/${jb2a}/Library/1st_Level/Cure_Wounds/CureWounds_01_Blue_200x200.webm`;
             break;
-        case "fire bolt":
-        case game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase():
+        case itemAutoRec.firebolt.some(el => oldItemName.includes(el)):
             newItemName = "firebolt";
             defaultColor = "orange";
             autoRec = game.i18n.format("AUTOANIM.itemFireBolt");
             autoPreview = `modules/${jb2a}/Library/Cantrip/Fire_Bolt/FireBolt_01_Regular_Orange_30ft_1600x400.webm`;
             break;
-        case "ray of frost":
-        case game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase():
+        case itemAutoRec.rayoffrost.some(el => oldItemName.includes(el)):
             newItemName = "rayoffrost";
             defaultColor = "blue";
             autoRec = game.i18n.format("AUTOANIM.itemRayFrost");
             autoPreview = `modules/${jb2a}/Library/Cantrip/Ray_Of_Frost/RayOfFrost_01_Regular_Blue_15ft_1000x400.webm`;
             break;
-        case "witch bolt":
-        case game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase():
+        case itemAutoRec.witchbolt.some(el => oldItemName.includes(el)):
             newItemName = "witchbolt";
             defaultColor = "blue";
             autoRec = game.i18n.format("AUTOANIM.itemWitchBolt");
             autoPreview = `modules/${jb2a}/Library/1st_Level/Witch_Bolt/WitchBolt_01_Regular_Blue_15ft_1000x400.webm`;
             break;
-        case "eldritch blast":
-        case game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase():
+        case itemAutoRec.eldritchblast.some(el => oldItemName.includes(el)):
             newItemName = "eldritchblast";
             defaultColor = "purple";
             autoRec = game.i18n.format("AUTOANIM.itemEldritchBlast");
             autoPreview = `modules/${jb2a}/Library/Cantrip/Eldritch_Blast/EldritchBlast_01_Regular_Purple_30ft_1600x400.webm`;
             break;
-        case "scorching ray":
-        case game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase():
+        case itemAutoRec.scorchingray.some(el => oldItemName.includes(el)):
             newItemName = "scorchingray";
             defaultColor = "orange";
             autoRec = game.i18n.format("AUTOANIM.itemScorchingRay");
             autoPreview = `modules/${jb2a}/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_30ft_1600x400.webm`;
             break;
-        case "disintegrate":
-        case game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase():
+        case itemAutoRec.disintegrate.some(el => oldItemName.includes(el)):
             newItemName = "disintegrate";
             defaultColor = "green";
             autoRec = game.i18n.format("AUTOANIM.itemDisintegrate");
             autoPreview = `modules/${jb2a}/Library/6th_Level/Disintegrate/Disintegrate_01_Regular_Green01_15ft_1000x400.webm`;
             break;
-        case "guiding bolt":
-        case game.i18n.format("AUTOANIM.itemGuidingBolt").toLowerCase():
+        case itemAutoRec.guidingbolt.some(el => oldItemName.includes(el)):
             newItemName = "guidingbolt";
             defaultColor = "blue yellow";
             autoRec = game.i18n.format("AUTOANIM.itemGuidingBolt");
             autoPreview = `modules/${jb2a}/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_30ft_1600x400.webm`;
             break;
-        case "shield":
-        case game.i18n.format("AUTOANIM.itemShield").toLowerCase():
+        case itemAutoRec.shield.some(el => oldItemName.includes(el)):
             newItemName = "shield";
             break;
-        case "bite":
-        case game.i18n.format("AUTOANIM.itemBite").toLowerCase():
+        case itemAutoRec.creaturebite.some(el => oldItemName.includes(el)):
             newItemName = "creaturebite";
             defaultColor = "red";
             autoRec = game.i18n.format("AUTOANIM.itemBite");
             autoPreview = `modules/${jb2a}/Library/Generic/Creature/Bite_01_Regular_Red_400x400.webm`;
             break;
-        case "claws":
-        case game.i18n.format("AUTOANIM.itemClaw").toLowerCase():
+        case itemAutoRec.creatureclaw.some(el => oldItemName.includes(el)):
             newItemName = "creatureclaw";
             defaultColor = "red";
             autoRec = game.i18n.format("AUTOANIM.itemClaw");
             autoPreview = `modules/${jb2a}/Library/Generic/Creature/Claws_01_Regular_Red_400x400.webm`;
             break;
-        case "hunter's mark":
-        case game.i18n.format("AUTOANIM.itemHM").toLowerCase():
+        case itemAutoRec.huntersmark.some(el => oldItemName.includes(el)):
             newItemName = "huntersmark";
             defaultColor = "green";
             break;
-        case "unarmed strike":
-        case game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase():
+        case itemAutoRec.unarmedstrike.some(el => oldItemName.includes(el)):
             newItemName = "unarmedstrike";
             defaultColor = "blue";
             autoRec = game.i18n.format("AUTOANIM.itemUnarmedStrike");
             autoPreview = `modules/${jb2a}/Library/Generic/Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Regular_Blue_Physical01_800x600.webm`;
             break;
-        case "flurry of blows":
-        case game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase():
+        case itemAutoRec.flurryofblows.some(el => oldItemName.includes(el)):
             newItemName = "flurryofblows";
             defaultColor = "blue";
             autoRec = game.i18n.format("AUTOANIM.itemFlurryBlows");
             autoPreview = `modules/${jb2a}/Library/Generic/Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Blue_Physical01_800x600.webm`;
             break;
-        case "call lightning":
-        case game.i18n.format("AUTOANIM.animCallLightning").toLowerCase():
+        case itemAutoRec.calllightning.some(el => oldItemName.includes(el)):
             newItemName = "calllightning";
             defaultColor = "blue";
             break;
-        case "darkness":
-        case game.i18n.format("AUTOANIM.animDarkness").toLowerCase():
+        case itemAutoRec.darkness.some(el => oldItemName.includes(el)):
             newItemName = "darkness";
             defaultColor = "black";
             break;
-        case "fog cloud":
-        case game.i18n.format("AUTOANIM.animFogCloud").toLowerCase():
+        case itemAutoRec.fogcloud.some(el => oldItemName.includes(el)):
             newItemName = "fogcloud";
             defaultColor = "white";
             break;
-        case "sleetstorm":
-        case game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase():
+        case itemAutoRec.sleetstorm.some(el => oldItemName.includes(el)):
             newItemName = "sleetstorm";
             defaultColor = "blue";
             break;
-        case "spirit guardians":
-        case game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase():
+        case itemAutoRec.spiritguardians.some(el => oldItemName.includes(el)):
             newItemName = "spiritguardians";
             defaultColor = "yellow blue";
             break;
-        case "wall of force":
-        case game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase():
+        case itemAutoRec.wallofforce.some(el => oldItemName.includes(el)):
             newItemName = "wallofforce";
             defaultColor = "grey";
             break;
-        case "whirlwind":
-        case game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase():
+        case itemAutoRec.whirlwind.some(el => oldItemName.includes(el)):
             newItemName = "whirlwind";
             defaultColor = "blue grey";
             break;
-        case "misty step":
-        case game.i18n.format("AUTOANIM.itemMistyStep").toLowerCase():
+        case itemAutoRec.mistystep.some(el => oldItemName.includes(el)):
             newItemName = "mistystep";
             defaultColor = "blue";
             break;
-        case "bolt":
-        case game.i18n.format("AUTOANIM.bolt").toLowerCase():
+        case itemAutoRec.bolt.some(el => oldItemName.includes(el)):
             newItemName = "bolt";
             defaultColor = "orange";
             autoRec = game.i18n.format("AUTOANIM.bolt");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Physical_15ft_1000x400.webm`;
             break;
-        case "bullet":
-        case game.i18n.format("AUTOANIM.bullet").toLowerCase():
+        case itemAutoRec.bullet.some(el => oldItemName.includes(el)):
             newItemName = "bullet";
             defaultColor = "orange";
             break;
-        case "snipe":
-        case game.i18n.format("AUTOANIM.snipe").toLowerCase():
+        case itemAutoRec.snipe.some(el => oldItemName.includes(el)):
             newItemName = "snipe";
             defaultColor = "blue";
             break;
-        case "sneak attack":
-        case game.i18n.format("AUTOANIM.sneakattack").toLowerCase():
+        case itemAutoRec.sneakattack.some(el => oldItemName.includes(el)):
             newItemName = "sneakattack";
             break;
     }
@@ -342,9 +289,16 @@ export function nameConversion(itemName) {
     }
     return [newItemName, defaultColor, autoRec, autoPreview];
     function nameIncludes(test) {
-        if (oldItemName.includes(test)) {
-            return oldItemName;
-        } else { return }
+        let length = test.length;
+        console.log(length)
+        for (var i = 0; i < length; i++) {
+            if (oldItemName.includes(test[i])) {
+                console.log("SUCCESS")
+                return true;
+            } else {
+                console.log("NOPE")
+            }
+        }
     }
     function moduleIncludes(test) {
         return !!game.modules.get(test);

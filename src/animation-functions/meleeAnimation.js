@@ -12,7 +12,7 @@ export async function meleeAnimation(handler) {
         return !!game.modules.get(test);
     }
     let itemName = handler.convertedName;
-    console.log(handler.getDistanceTo)
+    //console.log(handler.getDistanceTo)
     switch (handler.convertedName) {
         case "dagger":
         case "handaxe":

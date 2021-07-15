@@ -4,7 +4,8 @@
 
 export async function buildWeaponFile(jb2a, itemName, handler) {
 
-    let color = handler.color
+    let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color
+    //if (!color || color === "a1") { color = handler.defaultColor }
     let uaStrikeType = handler.uaStrikeType;
     let filePath;
     console.log("Build a file Item Name is " + itemName)
@@ -24,7 +25,7 @@ export async function buildWeaponFile(jb2a, itemName, handler) {
         default:
             filePath = handler.color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`
     }
-    //console.log(filePath)
+    console.log(filePath)
     //console.log(filePath[Object.keys(filePath)[0]])
     //let videoData = await getVideoDimensionsOf(filePath[Object.keys(filePath)[0]]);//get video metadata
     let data = {
