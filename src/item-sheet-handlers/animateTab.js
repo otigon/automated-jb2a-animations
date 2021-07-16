@@ -185,6 +185,23 @@ export class AAItemSettings extends FormApplication {
 
             flags: this.object.data.flags,
             content: content,
+
+            sourceCustom: flags.autoanimations?.sourceToken?.customPath ?? "",
+            sourceLoops: flags.autoanimations?.sourceToken?.loops ?? 1,
+            sourceLoopDelay: flags.autoanimations?.sourceToken?.loopDelay ?? 250,
+            sourceScale: flags.autoanimations?.sourceToken?.scale ?? 1,
+            sourceDelayAfter: flags.autoanimations?.sourceToken?.delayAfter ?? 500,
+            sourceAnimations: AUTOANIM.tokenAnimations,
+            sourceColor: flags.autoanimations?.sourceToken?.color ?? "",
+
+            targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
+            targetLoops: flags.autoanimations?.targetToken?.loops ?? 1,
+            targetLoopDelay: flags.autoanimations?.targetToken?.loopDelay ?? 250,
+            targetScale: flags.autoanimations?.targetToken?.scale ?? 1,
+            targetDelayStart: flags.autoanimations?.targetToken?.delayStart ?? 500,
+            targetAnimations: AUTOANIM.tokenAnimations,
+            targetColor: flags.autoanimations?.targetToken?.color ?? "",
+
         };
 
     }
@@ -213,6 +230,15 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.aa-audio-checkbox input[type="Number"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.sourceOptions input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.sourceOptions select').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.sourceOptions input[type="Number"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
 

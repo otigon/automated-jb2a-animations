@@ -53,6 +53,9 @@ export async function meleeAnimation(handler) {
     let explosion = handler.flags.explosion ? await buildAfterFile(obj01, handler) : false;
     let scale = explosion.scale ?? 1;
 
+    let sourceOptions = handler.flags?.sourceToken ?? "";
+    let targetOptions = handler.flags?.targetToken ?? "";
+
     async function cast() {
         let arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
@@ -76,6 +79,15 @@ export async function meleeAnimation(handler) {
 
 new Sequence()
     .effect()
+        .file("modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm")
+        .atLocation(sourceToken)
+        .scale(sourceOptions.scale)
+        //.repeats(sourceOptions.loops, sourceOptions.loopDelay)
+        .belowTokens(sourceOptions.animLevel)
+        .waitUntilFinished(sourceOptions.delayAfter)
+        .playIf(sourceOptions.enable)
+    .effect()
+        //.delay(sourceOptions.delayAfter)
         .file(attack.file)
         .atLocation(sourceToken)
         .rotateTowards(target)
@@ -92,35 +104,43 @@ new Sequence()
             return data;
         })
         .playIf(() => { return handler.getDistanceTo(target) <= 5})
-        .effect()
-            .file(attack.file)
-            .atLocation(sourceToken)
-            .moveTowards(target)
-            //.JB2A()
-            .scale(sourceScale * handler.scale)
-            .repeats(attack.loops, attack.loopDelay)
-            .randomizeMirrorY()
-            .missed(hit)
-            .name("animation")
-            .belowTokens(attack.level)    
-            .playIf(() => { return handler.getDistanceTo(target) > 5})
-        .effect()
-            .atLocation("animation")
-            //.file(explosion.file)
-            .scale({x: scale, y: scale})
-            .delay(500 + handler.explosionDelay)
-            .repeats(attack.loops, attack.loopDelay)
-            .belowTokens(handler.explosionLevel)
-            .playIf(() => {return explosion })
-            .addOverride(async (effect, data) => {
-                if (explosion) {
-                    data.file = explosion.file;
-                }
-                //console.log(data)
-                return data;
-            })
-            .play()
-                await wait(750)
+    .effect()
+        .file(attack.file)
+        .atLocation(sourceToken)
+        .moveTowards(target)
+        //.JB2A()
+        .scale(sourceScale * handler.scale)
+        .repeats(attack.loops, attack.loopDelay)
+        .randomizeMirrorY()
+        .missed(hit)
+        .name("animation")
+        .belowTokens(attack.level)    
+        .playIf(() => { return handler.getDistanceTo(target) > 5})
+    .effect()
+        .atLocation("animation")
+        //.file(explosion.file)
+        .scale({x: scale, y: scale})
+        .delay(500 + handler.explosionDelay)
+        .repeats(attack.loops, attack.loopDelay)
+        .belowTokens(handler.explosionLevel)
+        .playIf(() => {return explosion })
+        .addOverride(async (effect, data) => {
+            if (explosion) {
+                data.file = explosion.file;
+            }
+            //console.log(data)
+            return data;
+        })
+    .effect()
+        .delay(targetOptions.delayStart)
+        .file("modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm")
+        .atLocation(target)
+        .scale(targetOptions.scale)
+        //.repeats(targetOptions.loops, targetOptions.loopDelay)
+        .belowTokens(targetOptions.animLevel)
+        .playIf(targetOptions.enable)
+        .play()
+            await wait(750)
         }
     }
     cast()

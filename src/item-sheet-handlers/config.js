@@ -1079,6 +1079,11 @@ AUTOANIM.animNull = {
     "n1": ``,
 }
 
+AUTOANIM.tokenAnimations = {
+    "a1": ``,
+    "windup": "Wind-up",
+}
+
 
 AUTOANIM.localized = function (cfg) {
     return Object.keys(cfg).reduce((i18nCfg, key) => {

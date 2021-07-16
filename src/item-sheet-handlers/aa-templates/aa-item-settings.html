@@ -2,7 +2,7 @@
     <nav class="flexrow tabs" data-group="sections">
         <a class="aa-options" data-tab="animations"><i class="fas fa-bomb"></i> Animations </a>
         <a class="aa-options" data-tab="audio"><i class="fas fa-guitar"></i> Audio </a>
-        <a class="aa-options" data-tab="tokenfx"><i class="fas fa-user-plus"></i> TokenFX </a>
+        <a class="aa-options" data-tab="sourceTokenFX"><i class="fas fa-user-plus"></i> TokenFX </a>
     </nav>
 
     <section class="content">
@@ -38,7 +38,8 @@
                 {{#if autoRecognized}}
                 <!--If auto-recognized, Animation name will be listed here-->
                 <div class="form-group">
-                    <label class="auto-recognized"><strong>{{OldName}}</strong> is recognized as the <strong>{{convertedName}}</strong> animation</label>
+                    <label class="auto-recognized"><strong>{{OldName}}</strong> is recognized as the
+                        <strong>{{convertedName}}</strong> animation</label>
                 </div>
                 {{/if}}
                 <!--Choose Standard Animation Color-->
@@ -1212,12 +1213,172 @@
             </div>
         </div>
 
+        <!--Token Animation Options-->
 
-
-        <div class="tab" data-tab="tokenfx" data-group="sections">
-            <!--SourceToken and Target Animation Options, including Token Magic FX Dropdown-->
-            <!--To be played BEFORE Primary animation (or at same time), followed by Target Animation AFTER Primary animation has played-->
-            <!--Options: File Picker, Delay, Etc Etc Etc. Look at using Sequencer Menu from Wasp-->
+        <div class="tab" data-tab="sourceTokenFX" data-group="sections">
+            <div class="sourceOptions">
+                <!--Source Token Animation Options-->
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>Enable Source Token Animation</label>
+                        <input type="checkbox" name="flags.autoanimations.sourceToken.enable"
+                            value="flags.autoanimations.sourceToken.enable" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.sourceToken.enable}} />
+                    </div>
+                    {{#if flags.autoanimations.sourceToken.enable}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.underToken"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.sourceToken.animLevel"
+                            value="flags.autoanimations.sourceToken.animLevel" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.sourceToken.animLevel}} />
+                    </div>
+                    {{#unless flags.autoanimations.sourceToken.enableCustom}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <select name="flags.autoanimations.sourceToken.name">
+                            {{#select flags.autoanimations.sourceToken.name}}
+                            {{#each sourceAnimations as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                        <select name="flags.autoanimations.sourceToken.color">
+                            {{#select flags.autoanimations.sourceToken.color}}
+                            {{#each sourceColor as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>    
+                    {{/unless}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.customAnim"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.sourceToken.enableCustom"
+                            value="flags.autoanimations.sourceToken.enableCustom" {{checked
+                            flags.autoanimations.sourceToken.enableCustom}}>
+                    </div>
+                    {{#if flags.autoanimations.sourceToken.enableCustom}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.sourceToken.customPath"
+                            value={{sourceCustom}}>
+                        <button type="button" class="file-picker" data-type="video"
+                            data-target="flags.autoanimations.sourceToken.customPath" tabindex="-1"
+                            title="Browse Files">
+                            <i class="fas fa-file-video"></i>
+                        </button>
+                    </div>
+                    {{/if}}
+                    <div class="flexrow">
+                        <div class="aa-column">
+                            <label>Loops</label>
+                            <input type="Number" name="flags.autoanimations.sourceToken.loops" value={{sourceLoops}}
+                                data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>Loop Delay</label>
+                            <input type="Number" name="flags.autoanimations.sourceToken.loopDelay"
+                                value={{sourceLoopDelay}} data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>Scale</label>
+                            <input type="Number" name="flags.autoanimations.sourceToken.scale" value={{sourceScale}}
+                                data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>Delay After</label>
+                            <input type="Number" name="flags.autoanimations.sourceToken.delayAfter"
+                                value={{sourceDelayAfter}} data-dtype="Number">
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="form-group">
+                    <img src="modules/autoanimations/pictures/Sequence.webp" alt="Tips4Sequence">
+                </div>
+                <!--Target Token Animation Options-->
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>Enable Source Token Animation</label>
+                        <input type="checkbox" name="flags.autoanimations.targetToken.enable"
+                            value="flags.autoanimations.targetToken.enable" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.targetToken.enable}} />
+                    </div>
+                    {{#if flags.autoanimations.targetToken.enable}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.underToken"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.targetToken.animLevel"
+                            value="flags.autoanimations.targetToken.animLevel" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.targetToken.animLevel}} />
+                    </div>
+                    {{#unless flags.autoanimations.targetToken.enableCustom}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <select name="flags.autoanimations.targetToken.name">
+                            {{#select flags.autoanimations.targetToken.name}}
+                            {{#each targetAnimations as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                        <select name="flags.autoanimations.targetToken.color">
+                            {{#select flags.autoanimations.targetToken.color}}
+                            {{#each targetColor as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>    
+                    {{/unless}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.customAnim"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.targetToken.enableCustom"
+                            value="flags.autoanimations.targetToken.enableCustom" {{checked
+                            flags.autoanimations.targetToken.enableCustom}}>
+                    </div>
+                    {{#if flags.autoanimations.targetToken.enableCustom}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.targetToken.customPath"
+                            value={{targetCustom}}>
+                        <button type="button" class="file-picker" data-type="video"
+                            data-target="flags.autoanimations.targetToken.customPath" tabindex="-1"
+                            title="Browse Files">
+                            <i class="fas fa-file-video"></i>
+                        </button>
+                    </div>
+                    {{/if}}
+                    <div class="flexrow">
+                        <div class="aa-column">
+                            <label>Delay Start</label>
+                            <input type="Number" name="flags.autoanimations.targetToken.delayStart"
+                                value={{targetDelayStart}} data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>Loops</label>
+                            <input type="Number" name="flags.autoanimations.targetToken.loops" value={{targetLoops}}
+                                data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>Loop Delay</label>
+                            <input type="Number" name="flags.autoanimations.targetToken.loopDelay"
+                                value={{targetLoopDelay}} data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>Scale</label>
+                            <input type="Number" name="flags.autoanimations.targetToken.scale" value={{targetScale}}
+                                data-dtype="Number">
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
         </div>
 
 

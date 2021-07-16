@@ -365,3 +365,7 @@ export function rangedDamageTypes(itemName) {
     return damageType;
 }
 
+export function tokenAnimations() {
+    return AUTOANIM.tokenAnimations
+}
+
