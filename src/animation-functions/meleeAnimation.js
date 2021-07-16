@@ -53,9 +53,6 @@ export async function meleeAnimation(handler) {
     let explosion = handler.flags.explosion ? await buildAfterFile(obj01, handler) : false;
     let scale = explosion.scale ?? 1;
 
-    let sourceOptions = handler.flags?.sourceToken ?? "";
-    let targetOptions = handler.flags?.targetToken ?? "";
-
     async function cast() {
         let arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
@@ -81,11 +78,11 @@ new Sequence()
     .effect()
         .file("modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm")
         .atLocation(sourceToken)
-        .scale(sourceOptions.scale)
-        //.repeats(sourceOptions.loops, sourceOptions.loopDelay)
-        .belowTokens(sourceOptions.animLevel)
-        .waitUntilFinished(sourceOptions.delayAfter)
-        .playIf(sourceOptions.enable)
+        .scale(handler.sourceScale)
+        //.repeats(handler.sourceLoops, handler.sourceLoopDelay)
+        .belowTokens(handler.sourceLevel)
+        .waitUntilFinished(handler.sourceDelay)
+        .playIf(handler.sourceEnable)
     .effect()
         //.delay(sourceOptions.delayAfter)
         .file(attack.file)
@@ -132,13 +129,13 @@ new Sequence()
             return data;
         })
     .effect()
-        .delay(targetOptions.delayStart)
+        .delay(handler.targetDelay)
         .file("modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm")
         .atLocation(target)
-        .scale(targetOptions.scale)
-        //.repeats(targetOptions.loops, targetOptions.loopDelay)
-        .belowTokens(targetOptions.animLevel)
-        .playIf(targetOptions.enable)
+        .scale(handler.targetScale)
+        //.repeats(handler.targetLoops, handler.targetLoopDelay)
+        .belowTokens(handler.targetLevel)
+        .playIf(handler.targetEnable)
         .play()
             await wait(750)
         }

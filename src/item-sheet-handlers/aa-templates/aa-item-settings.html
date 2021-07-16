@@ -1296,13 +1296,30 @@
                     </div>
                     {{/if}}
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <img src="modules/autoanimations/pictures/Sequence.webp" alt="Tips4Sequence">
+                </div>-->
+                <div class="flexrow">
+                    <div class="AA-flow-chart">
+                        <label>Source Animation</label>
+                    </div>
+                    <div class="aa-flow-arrow">
+                        <i class="fas fa-angle-double-right fa-3x"></i>
+                    </div>
+                    <div class="AA-flow-chart">
+                        <label>Primary Animation</label>
+                    </div>
+                    <div class="aa-flow-arrow">
+                        <i class="fas fa-angle-double-right fa-3x"></i>
+                    </div>
+                    <div class="AA-flow-chart">
+                        <label>Target Animation</label>
+                    </div>
                 </div>
                 <!--Target Token Animation Options-->
                 <div class="aa-ridged">
                     <div class="form-group">
-                        <label>Enable Source Token Animation</label>
+                        <label>Enable Target Token Animation</label>
                         <input type="checkbox" name="flags.autoanimations.targetToken.enable"
                             value="flags.autoanimations.targetToken.enable" data-dtype="{{Boolean}}" {{checked
                             flags.autoanimations.targetToken.enable}} />

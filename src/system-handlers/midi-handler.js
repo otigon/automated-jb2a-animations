@@ -56,6 +56,30 @@ export default class MidiHandler {
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
 
+        this._sourceToken = this.flags.sourceToken ?? "";
+        this._sourceEnable = this._sourceToken.enable ?? false;
+        this._sourceLevel = this._sourceToken.animLevel ?? false;
+        this._sourceName = this._sourceToken.name ?? "";
+        this._sourceColor = this._sourceToken.color ?? "";
+        this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;
+        this._sourceCustomPath = this._sourceToken.customPath ?? "";
+        this._sourceLoops = this._sourceToken.loops ?? 1,
+        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
+        this._sourceScale = this._sourceToken.scale ?? 1,
+        this._sourceDelay = this._sourceToken.delayAfter ?? 500,
+
+        this._targetToken = this.flags.targetToken ?? "";
+        this._targetEnable = this._targetToken.enable ?? false;
+        this._targetLevel = this._targetToken.animLevel ?? false;
+        this._targetName = this._targetToken.name ?? "";
+        this._targetColor = this._targetToken.color ?? "";
+        this._targetCustomEnable = this._targetToken.enableCustom ?? false;
+        this._targetCustomPath = this._targetToken.customPath ?? "";
+        this._targetLoops = this._targetToken.loops ?? 1,
+        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
+        this._targetScale = this._targetToken.scale ?? 1,
+        this._targetDelay = this._targetToken.delayAfter ?? 500,
+
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
 
@@ -111,35 +135,15 @@ export default class MidiHandler {
         console.log(this._convertName)
         console.log(this._defaultColor)
 
-        //console.log(this._animNameFinal);
-        this._animColorEffect;
-        switch (true) {
-            case (this._animColor === ``):
-                this._animColorEffect = this._itemSource;
-                break;
-            default:
-                this._animColorEffect = this._animColor;
-                break;
-        }
-
-
     }
 
-    get convertedName() {
-        return this._convertName;
-    }
+    get convertedName() {return this._convertName;}
     
-    get itemMacro() {
-        return this._itemMacro;
-    }
+    get itemMacro() {return this._itemMacro;}
 
-    get playOnMiss() {
-        return this._playOnMiss;
-    }
+    get playOnMiss() {return this._playOnMiss;}
 
-    get actor() {
-        return this._actor;
-    }
+    get actor() {return this._actor;}
 
     get reachCheck() {
         let reach = 0;
@@ -152,209 +156,91 @@ export default class MidiHandler {
         return reach;
     }
 
-    get actorToken() {
-        return this._actorToken;
-    }
+    get actorToken() {return this._actorToken;}
+    get allTargets() {return this._allTargets;}
+    get hitTargetsId() {return this._hitTargetsId;}
+    get targetsId() {return this._targetsId;}
 
-    get allTargets() {
-        return this._allTargets;
-    }
+    get targetAssistant() {return this._targetAssistant;}
 
-    get hitTargetsId() {
-        return this._hitTargetsId;
-    }
+    get isValid() {return !!(this._item && this._actor);}
+    get itemType() {return this._item.data.type.toLowerCase();}
 
-    get targetsId() {
-        return this._targetsId;
-    }
+    get checkSaves() {return this._checkSaves;}
 
-    get targetAssistant() {
-        return this._targetAssistant;
-    }
+    get animKill() {return this._animKill;}
+    get animOverride() {return this._animOverride;}
+    get animType() {return this._animType;}
+    get color() {return this._animColor;}
+    get defaultColor() {return this._defaultColor;}
+    get animName() {return this._animNameFinal;}
 
-    get isValid() {
-        return !!(this._item && this._actor);
-    }
+    get explosion() {return this._explosion;}
+    get impactVar() {return this._impactVar;}
+    get explosionColor() {return this._explodeColor;}
+    get explosionRadius() {return this._explodeRadius;}
+    get explosionVariant() {return this._explodeVariant;}
+    get explosionDelay() {return this._explodeDelay;}
+    get explosionLevel() {return this._exAnimLevel;}
+    get explosionLoops() {return this._animExLoop;}
 
-    get itemType() {
-        return this._item.data.type.toLowerCase();
-    }
+    get dtvar() {return this._dtvar;}
+    get selfRadius() {return this._selfRadius;}
 
-    get checkSaves() {
-        return this._checkSaves;
-    }
+    get animTint() {return this._animTint;}
+    get auraOpacity() {return this._auraOpacity;}
+    get ctaOption() {return this._ctaOption;}
 
-    get animColor() {
-        return this._animColorEffect;
-    }
+    get hmAnim() {return this._hmAnim;}
+    get uaStrikeType() {return this._uaStrikeType;}
+    get teleRange() {return this._teleDist;}
+    get spellVariant() {return this._spellVar;}
 
-    get color() {
-        return this._animColor;
-    }
+    get bardTarget() {return this._bardTarget;}
+    get bardSelf() {return this._bardSelf;}
+    get bardAnim() {return this._bardAnim;}
+    get bards() {return this._bards;}
 
-    get defaultColor() {
-        return this._defaultColor;
-    }
+    get allSounds() {return this._allSounds;}
+    get itemSound() {return this._itemSound;}
+    get explodeSound() {return this._explodeSound}
 
-    get animName() {
-        return this._animNameFinal;
-    }
+    get spellLoops() {return this._spellLoops;}
+    get divineSmite() {return this._divineSmite;}
+    get autoDamage() {return game.user.isGM ? this._gmAD : this._userAD;}
+    get flags() {return this._flags;}
 
-    get impactVar() {
-        return this._impactVar;
-    }
+    get rangedOptions() {return this._rangedOptions;}
+    get animationLoops() {return this._animLoops;}
+    get loopDelay() {return this._loopDelay;}
+    get scale() {return this._scale;}
+    get animLevel() {return this._animLevel;}
 
-    get explosionColor() {
-        return this._explodeColor;
-    }
+    get templates() {return this._templates;}
+    get templatePersist() {return this._templatePersist}
+    get templateOpacity() {return this._templateOpacity}
 
-    get explosionRadius() {
-        return this._explodeRadius;
-    }
+    get sourceEnable() {return this._sourceEnable;}
+    get sourceLevel() {return this._sourceLevel;}
+    get sourceName() {return this._sourceName;}
+    get sourceColor() {return this._sourceColor;}
+    get sourceCustomEnable() {return this._sourceCustomEnable;}
+    get sourceCustomPath() {return this._sourceCustomPath;}
+    get sourceLoops() {return this._sourceLoops;}
+    get sourceLoopDelay() {return this._sourceLoopDelay}
+    get sourceScale() {return this._sourceScale;}
+    get sourceDelay() {return this._sourceDelay;}
 
-    get explosionVariant() {
-        return this._explodeVariant;
-    }
-
-    get explosionDelay() {
-        return this._explodeDelay;
-    }
-
-    get explosionLevel() {
-        return this._exAnimLevel;
-    }
-
-    get explosionLoops() {
-        return this._animExLoop;
-    }
-
-    get animType() {
-        return this._animType;
-    }
-
-    get animKill() {
-        return this._animKill;
-    }
-
-    get animOverride() {
-        return this._animOverride;
-    }
-
-    get explosion() {
-        return this._explosion;
-    }
-
-    get dtvar() {
-        return this._dtvar;
-    }
-
-    get selfRadius() {
-        return this._selfRadius;
-    }
-
-    get animTint() {
-        return this._animTint;
-    }
-
-    get auraOpacity() {
-        return this._auraOpacity;
-    }
-
-    get ctaOption() {
-        return this._ctaOption;
-    }
-
-    get hmAnim() {
-        return this._hmAnim;
-    }
-
-    get uaStrikeType() {
-        return this._uaStrikeType;
-    }
-
-    get teleRange() {
-        return this._teleDist;
-    }
-
-    get spellVariant() {
-        return this._spellVar;
-    }
-
-    get bardTarget() {
-        return this._bardTarget;
-    }
-
-    get bardSelf() {
-        return this._bardSelf;
-    }
-
-    get bardAnim() {
-        return this._bardAnim;
-    }
-
-    get bards() {
-        return this._bards;
-    }
-
-    get allSounds() {
-        return this._allSounds;
-    }
-
-    get itemSound() {
-        return this._itemSound;
-    }
-
-    get explodeSound() {
-        return this._explodeSound
-    }
-
-    get spellLoops() {
-        return this._spellLoops;
-    }
-
-    get divineSmite() {
-        return this._divineSmite;
-    }
-
-
-    get autoDamage() {
-        return game.user.isGM ? this._gmAD : this._userAD;
-    }
-
-    get flags() {
-        return this._flags;
-    }
-
-    get rangedOptions() {
-        return this._rangedOptions;
-    }
-
-    get animationLoops() {
-        return this._animLoops;
-    }
-
-    get loopDelay() {
-        return this._loopDelay;
-    }
-
-    get scale() {
-        return this._scale;
-    }
-    get animLevel() {
-        return this._animLevel;
-    }
-
-    get templates() {
-        return this._templates;
-    }
-
-    get templatePersist() {
-        return this._templatePersist
-    }
-
-    get templateOpacity() {
-        return this._templateOpacity
-    }
+    get targetEnable() {return this._targetEnable;}
+    get targetLevel() {return this._targetLevel;}
+    get targetName() {return this._targetName;}
+    get targetColor() {return this._targetColor;}
+    get targetCustomEnable() {return this._targetCustomEnable;}
+    get targetCustomPath() {return this._targetCustomPath;}
+    get targetLoops() {return this._targetLoops;}
+    get targetLoopDelay() {return this._targetLoopDelay}
+    get targetScale() {return this._targetScale;}
+    get targetDelay() {return this._targetDelay;}
 
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;

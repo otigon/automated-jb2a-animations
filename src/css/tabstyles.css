@@ -56,4 +56,21 @@
     padding-bottom: 4px;
     background-color: rgb(206, 206, 206)
 }
+
+.AA-flow-chart {
+    text-align: center;
+    font-size: 20px;
+    border: 5px solid black;
+    border-radius: 10px;
+    margin: 5px;
+    width: 25%;
+    font-weight: bold;
+    background-color: rgb(169, 216, 255);
+}
+
+.aa-flow-arrow {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
   
