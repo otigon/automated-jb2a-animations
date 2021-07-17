@@ -147,8 +147,8 @@ export default class MidiHandler {
         //this._convertName = this._convert[0];
         //this._defaultColor = this._convert[1]
         //console.log(this._convert)
-        console.log("default saved name is " + this._convertName)
-        console.log("default saved color is " +this._defaultColor)
+        //console.log("default saved name is " + this._convertName)
+        //console.log("default saved color is " +this._defaultColor)
 
     }
 

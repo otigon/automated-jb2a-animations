@@ -589,3 +589,54 @@ JB2AFREEDB.snipe = {
         '90': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_90ft_4000x400.webm'
     },
 }
+
+JB2APATREONDB.tokenEffect = {
+    explosion01: {
+        "orange": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
+    },
+    explosion02: {
+        "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
+    },
+    explosion03: {
+        "yellow blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm',
+    },
+    explosion04: {
+        "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
+    },
+    dizzyStars: {
+        "blue orange": "modules/JB2A_DnD5e/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm",
+    },
+    iceSpikes: {
+        "white": "modules/JB2A_DnD5e/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm"
+    },
+    snowflakes: {
+        "blue white": 'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+    },
+    impact: {
+        "01": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
+        },
+        "02": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
+        },
+        "03": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
+        },
+        "04": {
+            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
+        },
+    },
+    magicSign: {
+        "blue": "modules/JB2A_DnD5e/Library/Generic/Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm",
+        "yellow": "modules/JB2A_DnD5e/Library/Generic/Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm",
+        "light blue": "modules/JB2A_DnD5e/Library/Generic/Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm",
+    },
+    marker: {
+        marker01: {
+            "blue yellow": "modules/JB2A_DnD5e/Library/Generic/Marker/Marker_01_Regular_BlueYellow_400x400.webm",
+        },
+        musicMarker: {
+            "green orange": "modules/JB2A_DnD5e/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm",
+        }
+    },
+}
