@@ -128,12 +128,25 @@ export default class MidiHandler {
                 this._animNameFinal = this._animName;
                 break;
         }
-        this._convert = nameConversion(this._animNameFinal)
-        this._convertName = this._convert[0];
-        this._defaultColor = this._convert[1]
-        console.log(this._convert)
-        console.log(this._convertName)
-        console.log(this._defaultColor)
+        //this._defaultColor;
+        //this._convertName;
+        if (!this._flags.defaults) {
+            this._convert = nameConversion(this._animNameFinal)
+            this._convertName = this._convert[0]
+            this._item.setFlag("autoanimations", "defaults.name", this._convertName)
+            this._defaultColor = this._convert[1]
+            this._item.setFlag("autoanimations", "defaults.color", this._defaultColor)
+        } else {
+            this._convertName = this._flags.defaults.name;
+            this._defaultColor = this._flags.defaults.color;
+        }
+
+        //this._convert = nameConversion(this._animNameFinal)
+        //this._convertName = this._convert[0];
+        //this._defaultColor = this._convert[1]
+        //console.log(this._convert)
+        console.log("default saved name is " + this._convertName)
+        console.log("default saved color is " +this._defaultColor)
 
     }
 
@@ -156,6 +169,7 @@ export default class MidiHandler {
         return reach;
     }
 
+    get item() {return this._item}
     get actorToken() {return this._actorToken;}
     get allTargets() {return this._allTargets;}
     get hitTargetsId() {return this._hitTargetsId;}

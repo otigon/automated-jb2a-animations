@@ -20,12 +20,13 @@ export class AAItemSettings extends FormApplication {
             width: 600,
             height: "auto",
             closeOnSubmit: true,
-            
+
             tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
         });
     }
 
     getData() {
+        this.object.unsetFlag("autoanimations", "defaults")
         let flags = this.object.data.flags;
         let patreon = moduleIncludes("jb2a_patreon");
         let itemNameItem = this.object.name?.toLowerCase() ?? "";
@@ -73,7 +74,7 @@ export class AAItemSettings extends FormApplication {
         console.log("conversion 3 is " + conversion[3])
         let videoPreview = animPreview(flags, itemName);
         console.log("Pre video check is " + videoPreview)
-        if (videoPreview === "no preview") {videoPreview = conversion[3]}
+        if (videoPreview === "no preview") { videoPreview = conversion[3] }
         console.log("Post video check is " + videoPreview)
         let content = "";
         switch (true) {

@@ -12,7 +12,6 @@ export async function meleeAnimation(handler) {
         return !!game.modules.get(test);
     }
     let itemName = handler.convertedName;
-    //console.log(handler.getDistanceTo)
     switch (handler.convertedName) {
         case "dagger":
         case "handaxe":
@@ -26,32 +25,26 @@ export async function meleeAnimation(handler) {
             }
             break;
     }
-    //console.log(JB2APATREONDB)
+    // Sets JB2A database and Global Delay
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    // Random Color pull given object path
-    let randomProperty = function (obj) {
-        let keys = Object.keys(obj);
-        let keyLength = keys.length;
-        let ranKey = Math.floor(Math.random() * keyLength);
-        return keys[ranKey];
-    };
-    //Builds standard File Path
-    let attack = await buildWeaponFile(obj01, itemName, handler)
+    //Builds Primary File Path and Pulls from flags if already set
+    let attack = handler.flags.defaults?.primary !== undefined ? handler.flags.defaults.primary : await buildWeaponFile(obj01, itemName, handler)
     //console.log(attack)
-    /*
-    if (handler.flags.options.customPath01) {
-        filePath = handler.flags.options.customPath01
-    }
-    console.log(filePath);
-    */
     let sourceToken = handler.actorToken;
-    //let sourceScale = sourceToken.w / attack.metadata.width
     let sourceScale = itemName === "unarmedstrike" || itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
-    let explosion = handler.flags.explosion ? await buildAfterFile(obj01, handler) : false;
-    let scale = explosion.scale ?? 1;
+
+    //Builds Explosion File Path if Enabled, and pulls from flags if already set
+    let explosion;
+    if (handler.flags.explosion) {
+        explosion = handler.flags.defaults?.explosion !== undefined ? handler.flags.defaults.explosion : await buildAfterFile(obj01, handler)
+    }
+    //console.log(explosion)
+
+    //logging explosion Scale
+    let scale = explosion?.scale ?? 1;
 
     async function cast() {
         let arrayLength = handler.allTargets.length;
@@ -59,20 +52,23 @@ export async function meleeAnimation(handler) {
 
             let target = handler.allTargets[i];
 
+            //Checks Range and sends it to Range Builder if true
             switch (handler.convertedName) {
                 case "dagger":
                 case "handaxe":
                 case "spear":
                     if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
                         rangedAnimations(handler)
-                        return;                
+                        return;
                     }
                     break;
             }
-        
-            //console.log(attack.file)
-            //let finalFile = handler.color === "random" ? attack.file[randomProperty(attack.file)] : attack.file[handler.color];
-            let hit = handler.hitTargetsId.includes(target.id) ? false : true;
+            let hit;
+            if (handler.playOnMiss) {
+                hit = handler.hitTargetsId.includes(target.id) ? false : true;
+            } else {
+                hit = false;
+            }
 
 new Sequence()
     .effect()
@@ -90,11 +86,11 @@ new Sequence()
         .rotateTowards(target)
         //.JB2A()
         .scale(sourceScale * handler.scale)
-        .repeats(attack.loops, attack.loopDelay)
+        .repeats(handler.animationLoops, handler.loopDelay)
         .randomizeMirrorY()
         .missed(hit)
         .name("animation")
-        .belowTokens(attack.level)
+        .belowTokens(handler.animLevel)
         .addOverride(async (effect, data) => {
             data.anchor = {x: 0.4, y: 0.5}
             console.log(data._distance)
@@ -107,18 +103,18 @@ new Sequence()
         .moveTowards(target)
         //.JB2A()
         .scale(sourceScale * handler.scale)
-        .repeats(attack.loops, attack.loopDelay)
+        .repeats(handler.animationLoops, handler.loopDelay)
         .randomizeMirrorY()
         .missed(hit)
         .name("animation")
-        .belowTokens(attack.level)    
+        .belowTokens(handler.animLevel)    
         .playIf(() => { return handler.getDistanceTo(target) > 5})
     .effect()
         .atLocation("animation")
         //.file(explosion.file)
         .scale({x: scale, y: scale})
         .delay(500 + handler.explosionDelay)
-        .repeats(attack.loops, attack.loopDelay)
+        .repeats(handler.animationLoops, handler.loopDelay)
         .belowTokens(handler.explosionLevel)
         .playIf(() => {return explosion })
         .addOverride(async (effect, data) => {
@@ -136,8 +132,8 @@ new Sequence()
         //.repeats(handler.targetLoops, handler.targetLoopDelay)
         .belowTokens(handler.targetLevel)
         .playIf(handler.targetEnable)
-        .play()
-            await wait(750)
+    .play()
+        await wait(750)
         }
     }
     cast()

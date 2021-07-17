@@ -26,14 +26,11 @@ export async function buildWeaponFile(jb2a, itemName, handler) {
             filePath = handler.color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`
     }
     console.log(filePath)
-    //console.log(filePath[Object.keys(filePath)[0]])
     //let videoData = await getVideoDimensionsOf(filePath[Object.keys(filePath)[0]]);//get video metadata
+    handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
+
     let data = {
         file: filePath,
-        loops: handler.animationLoops,
-        loopDelay: handler.loopDelay,
-        level: handler.animLevel,
-        //metadata: videoData,
     }
     return data;
 }
@@ -73,31 +70,11 @@ export async function buildRangedFile(jb2a, itemName, handler) {
             if (!handler.color || handler.color === "a1") { color = handler.defaultColor }
             filePath = handler.color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
     }
-    /*
-    if (itemName === "scorchingray") {
-        if (color === "random") {
-            filePath = jb2a[itemName][variant];
-            fileData = filePath[Object.keys(jb2a[itemName][variant])[0]]
-        } else {
-            filePath = `autoanimations.${itemName}.${handler.spellVariant}.${color}` || jb2a[itemName][variant][Object.keys(jb2a[itemName][variant])[0]];
-            fileData = filePath;
-        }
-    } else {
-        if (color === "random") {
-            filePath = jb2a[itemName];
-            fileData = filePath[Object.keys(jb2a[itemName])[0]]
-        } else {
-            filePath = `autoanimations.${itemName}.${color}`;
-            fileData = filePath;
-        }
-    }
-    */
     //let videoData = await getVideoDimensionsOf(fileData['30ft']);//get video metadata
+    handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
+
     let data = {
         file: filePath,
-        loops: handler.animationLoops,
-        loopDelay: handler.loopDelay,
-        level: handler.animLevel,
         //metadata: videoData,
     }
     //console.log(data)
@@ -130,30 +107,17 @@ export async function buildAfterFile(jb2a, handler) {
             filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${handler.explosionVariant}` : `autoanimations.explosion.${handler.explosionVariant}.${handler.explosionColor}`;
             fileData = handler.explosionColor === "random" ? jb2a['explosion'][variant][Object.keys(jb2a['explosion'][variant])[0]] : jb2a['explosion'][variant][color]
     }
-    /*
-    if (variant === "impact") {
-        if (impactVariant === "boulder") {
-            filePath = `autoanimations.explosion.${variant}.${impactVariant}`;
-            fileData = jb2a['explosion'][variant][impactVariant];
-        } else {
-            filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${variant}.${impactVariant}` : `autoanimations.explosion.${variant}.${impactVariant}.${color}`;
-            fileData = jb2a['explosion'][variant][impactVariant][Object.keys(jb2a['explosion'][variant][impactVariant])[0]];
-        }
-    } else {
-        filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${handler.explosionVariant}` : `autoanimations.explosion.${handler.explosionVariant}.${handler.explosionColor}`;
-        fileData = handler.explosionColor === "random" ? jb2a['explosion'][variant][Object.keys(jb2a['explosion'][variant])[0]] : jb2a['explosion'][variant][color]
-    }
-    */
     //console.warn(filePath)
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
     let scale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / videoData.width;
+
+    handler.item.setFlag("autoanimations", "defaults.explosion.file", filePath)
+    handler.item.setFlag("autoanimations", "defaults.explosion.scale", scale)
+    handler.item.setFlag("autoanimations", "defaults.explosion.metadata", videoData)
     //let vidWidth = videoData.width;
     let data = {
         file: filePath,
         scale: scale,//Scale based on pixels and input
-        loops: handler.explosionLoops,
-        delay: handler.explosionDelay,//Tweak the delay for explosion
-        level: handler.explosionLevel, //Boolean: above or under tokens
         metadata: videoData,
     }
     //console.log(data);
@@ -187,12 +151,16 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
             break;
     }
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
+    handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
+    handler.item.setFlag("autoanimations", "defaults.primary.file2", filePath2)
+    handler.item.setFlag("autoanimations", "defaults.primary.metadata", videoData)
+
     let data = {
         file: filePath,
         file2: filePath2,
-        loops: handler.animationLoops,
-        loopDelay: handler.loopDelay,
-        level: handler.animLevel,
+        //loops: handler.animationLoops,
+        //loopDelay: handler.loopDelay,
+        //level: handler.animLevel,
         metadata: videoData,
     }
     console.log(data)
@@ -213,6 +181,10 @@ export async function buildTemplateFile(jb2a, handler) {
             fileData = flags.tempColor === "random" ? jb2a['templates'][flags.tempType][flags.tempAnim][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][flags.tempColor];
     }
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
+    handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
+    handler.item.setFlag("autoanimations", "defaults.primary.fileData", fileData)
+    handler.item.setFlag("autoanimations", "defaults.primary.metadata", videoData)
+
 
     let data = {
         file: filePath,

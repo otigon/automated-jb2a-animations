@@ -20,7 +20,7 @@ export async function teleportation(handler) {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName
     //console.log(itemName)
-    let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
+    let onToken = handler.flags.defaults?.primary !== undefined ? handler.flags.defaults.primary : await buildTokenAnimationFile(obj01, itemName, handler);
 
     const token = handler.actorToken;
     const actor = handler.actor;
@@ -49,9 +49,9 @@ export async function teleportation(handler) {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
         let ray = new Ray(token.center, pos)
-        console.log(ray.distance)
-        console.log(((canvas.grid.size * (handler.teleRange / canvas.dimensions.distance)) + (canvas.grid.size / 2)))
-        console.log(canvas.grid.distance)
+        //console.log(ray.distance)
+        //console.log(((canvas.grid.size * (handler.teleRange / canvas.dimensions.distance)) + (canvas.grid.size / 2)))
+        //console.log(canvas.grid.distance)
         if (ray.distance > ((canvas.grid.size * (handler.teleRange / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
             ui.notifications.error("You selected a point out of range, choose again")
         } else {

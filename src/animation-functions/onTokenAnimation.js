@@ -19,7 +19,7 @@ export async function onTokenAnimation(handler) {
 
     // Random Color pull given object path
     //Builds standard File Path
-    let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
+    let onToken = handler.flags.defaults?.primary !== undefined ? handler.flags.defaults.primary : await buildTokenAnimationFile(obj01, itemName, handler);
     console.log(onToken)
     /*
     if (handler.flags.options.customPath01) {
@@ -28,7 +28,10 @@ export async function onTokenAnimation(handler) {
     console.log(filePath);
     */
     let sourceToken = handler.actorToken;
-    let explosion = handler.explosion ? await buildAfterFile(obj01, handler) : false;
+    let explosion;
+    if (handler.flags.explosion) {
+        explosion = handler.flags.defaults?.explosion !== undefined ? handler.flags.defaults.explosion : await buildAfterFile(obj01, handler)
+    }
     //console.log(explosion);
     let animWidth = onToken.metadata.width;
     if (handler.allTargets.length === 0 && (itemName === "curewounds" || itemName === "generichealing")) {
@@ -37,10 +40,10 @@ export async function onTokenAnimation(handler) {
         .file(onToken.file)
         .atLocation(sourceToken)
         .randomizeMirrorY()
-        .repeats(onToken.loops, onToken.loopDelay)
+        .repeats(handler.animationLoops, handler.loopDelay)
         //.missed(hit)
         .scale(((sourceToken.w / animWidth) * 1.5) * handler.scale)
-        .belowTokens(onToken.level)
+        .belowTokens(handler.animLevel)
         .addOverride(
             async (effect, data) => {
                 console.log(data)
@@ -57,16 +60,22 @@ export async function onTokenAnimation(handler) {
 
             let target = handler.allTargets[i];
             let scale = itemName.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
-            let hit = handler.hitTargetsId.includes(target.id) ? false : true;
+
+            let hit;
+            if (handler.playOnMiss) {
+                hit = handler.hitTargetsId.includes(target.id) ? false : true;
+            } else {
+                hit = false;
+            }
 
             new Sequence()
                 .effect()
                 .file(onToken.file)
                 .atLocation(target)
                 //.randomizeMirrorY()
-                .repeats(onToken.loops, onToken.loopDelay)
+                .repeats(handler.animationLoops, handler.loopDelay)
                 .scale(scale * handler.scale)
-                .belowTokens(onToken.level)
+                .belowTokens(handler.animLevel)
                 .playIf(() => { return arrayLength })
                 .addOverride(async (effect, data) => {
                     if (handler.explosion) {

@@ -24,18 +24,20 @@ export async function explodeOnToken(handler) {
     console.log(filePath);
     */
     let sourceToken = handler.actorToken;
-    let explosion = await buildAfterFile(obj01, handler);
-    console.log(explosion);
+    let explosion = handler.flags.defaults?.explosion !== undefined ? handler.flags.defaults.explosion : await buildAfterFile(obj01, handler)
+    let scale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / explosion.metadata.width;
+
+    //console.log(explosion);
     if (handler.animType === "t10") {
         new Sequence()
             .effect()
             .file(explosion.file)
             .atLocation(sourceToken)
             .randomizeMirrorY()
-            .repeats(explosion.loops, explosion.delay)
+            .repeats(handler.explosionLoops, handler.explosionDelay)
             //.missed(hit)
-            .scale(explosion.scale)
-            .belowTokens(explosion.level)
+            .scale(scale)
+            .belowTokens(handler.explosionLevel)
             .addOverride(
                 async (effect, data) => {
                     console.log(data)
@@ -52,16 +54,22 @@ export async function explodeOnToken(handler) {
             for (var i = 0; i < arrayLength; i++) {
 
                 let target = handler.allTargets[i];
-                let hit = handler.hitTargetsId.includes(target.id) ? false : true;
+
+            let hit;
+            if (handler.playOnMiss) {
+                hit = handler.hitTargetsId.includes(target.id) ? false : true;
+            } else {
+                hit = false;
+            }
 
                 new Sequence()
                     .effect()
                     .file(explosion.file)
                     .atLocation(target)
                     //.randomizeMirrorY()
-                    .repeats(explosion.loops, explosion.delay)
-                    .scale(explosion.scale)
-                    .belowTokens(explosion.level)
+                    .repeats(handler.explosionLoops, handler.explosionDelay)
+                    .scale(scale)
+                    .belowTokens(handler.explosionLevel)
                     .playIf(() => { return arrayLength })
                     .play()
                 //await wait(250)
