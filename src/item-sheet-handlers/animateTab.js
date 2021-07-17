@@ -1,5 +1,5 @@
 import { AUTOANIM } from "./config.js";
-import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes } from "./tab-options.js";
+import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -52,6 +52,10 @@ export class AAItemSettings extends FormApplication {
         }
         */
         let itemName = conversion[0];
+        let sourceName = flags.autoanimations?.sourceToken?.name ?? "";
+        let sourceVariant = flags.autoanimations?.sourceToken?.variant ?? "";
+        let targetName = flags.autoanimations?.targetToken?.name ?? "";
+        let targetVariant = flags.autoanimations?.targetToken?.variant ?? "";
         let animType = flags.autoanimations?.animType;
         let spellVariant = flags.autoanimations?.spellVar;
         let bardAnimation = flags.autoanimations?.bards?.bardAnim;
@@ -194,6 +198,9 @@ export class AAItemSettings extends FormApplication {
             sourceDelayAfter: flags.autoanimations?.sourceToken?.delayAfter ?? 500,
             sourceAnimations: AUTOANIM.tokenAnimations,
             sourceColor: flags.autoanimations?.sourceToken?.color ?? "",
+            sourceColors: tokenColors(patreon, sourceName, sourceVariant),
+            sourceImpact: flags.autoanimations?.sourceToken?.name === "impact" ? true : false,
+            sourceMarker:  flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
 
             targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
             targetLoops: flags.autoanimations?.targetToken?.loops ?? 1,
@@ -202,6 +209,11 @@ export class AAItemSettings extends FormApplication {
             targetDelayStart: flags.autoanimations?.targetToken?.delayStart ?? 500,
             targetAnimations: AUTOANIM.tokenAnimations,
             targetColor: flags.autoanimations?.targetToken?.color ?? "",
+            targetColors: tokenColors(patreon, targetName, targetVariant),
+            targetImpact: flags.autoanimations?.targetToken?.name === "impact" ? true : false,
+            targetMarker:  flags.autoanimations?.targetToken?.name === "marker" ? true : false,
+
+            markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
 
         };
 

@@ -298,6 +298,7 @@
     "AUTOANIM.tabTitle": "Item Animation Settings",
     "AUTOANIM.targetAnim": "Target Animation",
     "AUTOANIM.markerColorTarget": "Marker Color Target",
-    "AUTOANIM.audioVolumeNEW": "Audio Volume (0 - 10)"
+    "AUTOANIM.audioVolumeNEW": "Audio Volume (0 - 10)",
 
+    "AUTOANIM.musicMarker": "Music"
 }

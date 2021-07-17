@@ -1571,3 +1571,111 @@ JB2APATREONDB.snipe = {
     },
 
 }
+
+JB2APATREONDB.tokenEffect = {
+    explosion01: {
+        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Blue_400x400.webm',
+        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Green_400x400.webm',
+        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
+        "purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Purple_400x400.webm',
+        "yellow": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Yellow_400x400.webm'
+    },
+    explosion02: {
+        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
+        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Green_400x400.webm',
+        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Orange_400x400.webm',
+        "purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Purple_400x400.webm',
+        "yellow": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Yellow_400x400.webm'
+    },
+    explosion03: {
+        "yellow blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm',
+        "green orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_GreenOrange_400x400.webm',
+        "purple pink": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_PurplePink_400x400.webm',
+        "blue white": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Dark_BlueWhite_400x400.webm',
+        "pink": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_Pink_400x400.webm',
+    },
+    explosion04: {
+        "dark purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Purple_400x400.webm',
+        "dark red": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Red_400x400.webm',
+        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
+        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Green_400x400.webm',
+        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Orange_400x400.webm',
+    },
+    dizzyStars: {
+        "black": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Black_400x400.webm",
+        "blue orange": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm",
+        "green": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Green_400x400.webm",
+        "orange": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Orange_400x400.webm",
+        "pink": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Pink_400x400.webm",
+        "purple": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Purple_400x400.webm",
+        "red": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Red_400x400.webm",
+        "white": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_White_400x400.webm",
+        "yellow": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Yellow_400x400.webm"
+    },
+    iceSpikes: {
+        "blue": "modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_Blue_1000x1000.webm",
+        "red": "modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_Red_1000x1000.webm",
+        "white": "modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm"
+    },
+    snowflakes: {
+        "blue white": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+        "green orange": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm',
+        "purple pink": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm',
+        "teal yellow": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm',
+    },
+    impact: {
+        "boulder": "modules/jb2a_patreon/Library/Generic/Impact/BoulderImpact_01_Regular_White_500x500.webm",
+        "01": {
+            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Dark_Red_400x400.webm',
+            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
+            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Green_400x400.webm',
+            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Yellow_400x400.webm',
+        },
+        "02": {
+            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Dark_Red_400x400.webm',
+            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
+            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Green_400x400.webm',
+            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Yellow_400x400.webm',
+        },
+        "03": {
+            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Dark_Red_400x400.webm',
+            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
+            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Green_400x400.webm',
+            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Yellow_400x400.webm',
+        },
+        "04": {
+            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Dark_Red_400x400.webm',
+            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
+            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Green_400x400.webm',
+            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Yellow_400x400.webm'
+        },
+    },
+    magicSign: {
+        "blue": "modules/jb2a_patreon/Library/Generic/Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm",
+        "yellow": "modules/jb2a_patreon/Library/Generic/Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm",
+        "light blue": "modules/jb2a_patreon/Library/Generic/Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm",
+    },
+    marker: {
+        marker01: {
+            "blue white": "modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Dark_BlueWhite_400x400.webm",
+            "blue yellow": "modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_BlueYellow_400x400.webm",
+            "green orange": "modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_GreenOrange_400x400.webm",
+            "pink": "modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_Pink_400x400.webm",
+            "purple pink": "modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_PurplePink_400x400.webm",
+        },
+        marker02: {
+            "blue white": "modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Dark_BlueWhite_400x400.webm",
+            "blue yellow": "modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_BlueYellow_400x400.webm",
+            "green orange": "modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_GreenOrange_400x400.webm",
+            "pink": "modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_Pink_400x400.webm",
+            "purple pink": "modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_PurplePink_400x400.webm",
+        },
+        musicMarker: {
+            "dark red": "modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Dark_Red_400x400.webm",
+            "blue yellow": "modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm",
+            "green orange": "modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm",
+            "purple pink": "modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_PurplePink_400x400.webm",
+        }
+    },
+
+}

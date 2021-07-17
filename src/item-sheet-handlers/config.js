@@ -1081,9 +1081,96 @@ AUTOANIM.animNull = {
 
 AUTOANIM.tokenAnimations = {
     "a1": ``,
-    "windup": "Wind-up",
+    "explosion01": "Explosion 01",
+    "explosion02": "Explosion 02",
+    "explosion03": "Explosion 03",
+    "explosion04": "Explosion 04",
+    "dizzyStars": "Stars",
+    "iceSpikes": "Ice Spikes",
+    "impact": "Impact",
+    "magicSign": "Magic Sign",
+    "marker": "Marker",
+    "snowflakes": "Snowflakes",
 }
 
+AUTOANIM.dizzyStarsColors = {
+    "a1": ``,
+    "black": "AUTOANIM.colorBlack",
+    "blue orange": "AUTOANIM.colorBlueOrange",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "pink": "AUTOANIM.colorPink",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "white": `AUTOANIM.colorWhite`,
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.dizzyStarsColorsFree = {
+    "a1": ``,
+    "blue orange": "AUTOANIM.colorBlueOrange",
+}
+
+AUTOANIM.iceSpikesColors = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "red": "AUTOANIM.colorRed",
+    "white": `AUTOANIM.colorWhite`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.iceSpikesColorsFree = {
+    "a1": ``,
+    "white": `AUTOANIM.colorWhite`,
+}
+
+AUTOANIM.magicSignColors = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "yellow": "AUTOANIM.colorYellow",
+    "light blue": "AUTOANIM.colorLightBlue",
+}
+
+AUTOANIM.markerOptions = {
+    "a1": ``,
+    "marker01": "01",
+    "marker02": "02",
+    "musicMarker": "AUTOANIM.musicMarker"
+}
+
+AUTOANIM.markerOptionsFree = {
+    "a1": ``,
+    "marker01": "01",
+    "musicMarker": "AUTOANIM.musicMarker"
+}
+
+AUTOANIM.marker01Colors = {
+    "a1": ``,
+    "blue white": "AUTOANIM.colorWhiteBlue",
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "pink": "AUTOANIM.colorPink",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+}
+
+AUTOANIM.marker01ColorsFree = {
+    "a1": ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+}
+
+AUTOANIM.marker02Colors = {
+    "a1": ``,
+    "blue white": "AUTOANIM.colorWhiteBlue",
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "pink": "AUTOANIM.colorPink",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+}
+
+AUTOANIM.marker02Colors = {
+    "a1": ``,
+}
 
 AUTOANIM.localized = function (cfg) {
     return Object.keys(cfg).reduce((i18nCfg, key) => {

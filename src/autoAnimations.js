@@ -12,18 +12,11 @@ import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import SW5eHandler from "./system-handlers/sw5e-handler.js";
 import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
 
-//import randomGenDmg from "./animation-functions/generic-damage.js";
 import thunderwaveAuto from "./animation-functions/thunderwave.js";
-import shatterAuto from "./animation-functions/shatter.js";
-//import arrowOptionExplode from "./animation-functions/arrow.js";
-//import castOnSelf from "./animation-functions/shield.js";
 import ctaCall from "./animation-functions/CTAcall.js";
 import huntersMark from "./animation-functions/hunters-mark.js";
 import bardicInspiration from "./animation-functions/bardic-inspiration.js";
-//import mistyStep from "./animation-functions/misty-step.js";
 import mistyStepOld from "./animation-functions/misty-step-old.js";
-//import templateEffects from "./animation-functions/template-effects.js";
-import selfAnimation from "./animation-functions/selfAnimaiton.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
 import { AAITEMCHECK } from "./animation-functions/item-arrays.js";
@@ -778,6 +771,7 @@ async function revItUp(handler) {
     if (handler.itemSound) {
         itemSound(handler);
     }
+    if (handler.animKill) {return}
 
     if (game.modules.get("midi-qol")?.active) { } else {
         switch (game.system.id) {
@@ -803,10 +797,6 @@ async function revItUp(handler) {
     }
     let itemName = handler.convertedName;
     switch (true) {
-        // Use xxx in Item Source Field to exclude an item for On-Use customization
-        case (handler.itemIncludes("xxx")):
-        case (handler.animKill):
-            break;
         case ((handler.animType === "t9") && handler.animOverride):
         case ((handler.animType === "t10") && handler.animOverride):
             explodeOnToken(handler);
@@ -814,12 +804,11 @@ async function revItUp(handler) {
         case ((handler.animType === "t11") && handler.animOverride):
             if (game.modules.get("Custom-Token-Animations")?.active) {
                 ctaCall(handler);
-            }
+            } else {ui.notifications.error("Custom Token Animations module must be Active")}
             break;
         case ((handler.animType === "t12") && (handler.animOverride)):
             if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
                 mistyStepOld(handler);
-
             } else {
                 teleportation(handler);
             }
@@ -831,9 +820,6 @@ async function revItUp(handler) {
         case AAITEMCHECK.monk.includes(itemName):
             meleeAnimation(handler);
             break;
-        //case AAITEMCHECK.meleerange.includes(itemName):
-        //meleeRangeSwitch(handler);
-        //break;
         case itemName == "thunderwave":
             switch (true) {
                 case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
@@ -847,12 +833,6 @@ async function revItUp(handler) {
                     })
             }
             break;
-        case itemName == "shatter":
-            shatterAuto(handler);
-            break;
-        //case itemName == "magicmissile":
-        //magicMissile(handler);
-        //break;
         case AAITEMCHECK.healing.includes(itemName):
         case AAITEMCHECK.creatureattack.includes(itemName):
             console.log("PRESTART")
@@ -862,14 +842,8 @@ async function revItUp(handler) {
         case AAITEMCHECK.ranged.includes(itemName):
             rangedAnimations(handler);
             break;
-        case itemName == "shield":
-            castOnSelf(handler);
-            break;
         case itemName == "huntersmark":
             huntersMark(handler)
-            break;
-        case itemName == "sneakattack":
-            selfAnimation(handler);
             break;
     }
 }

@@ -1,4 +1,4 @@
-import { buildTokenAnimationFile, buildAfterFile } from "./common-functions/build-filepath.js"
+import { buildTokenAnimationFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./common-functions/build-filepath.js"
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
@@ -21,6 +21,17 @@ export async function onTokenAnimation(handler) {
     //Builds standard File Path
     let onToken = handler.flags.defaults?.primary !== undefined ? handler.flags.defaults.primary : await buildTokenAnimationFile(obj01, itemName, handler);
     console.log(onToken)
+    // builds Source Token file if Enabled, and pulls from flags if already set
+    let sourceFX;
+    if (handler.sourceEnable) {
+        sourceFX = handler.flags.defaults?.source !== undefined ? handler.flags.defaults.source : await buildSourceTokenFile(obj01, handler.sourceName, handler)
+    }
+    // builds Target Token file if Enabled, and pulls from flags if already set
+    let targetFX;
+    if (handler.targetEnable) {
+        targetFX = handler.flags.defaults?.target !== undefined ? handler.flags.defaults.target : await buildTargetTokenFile(obj01, handler.targetName, handler)
+    }
+
     /*
     if (handler.flags.options.customPath01) {
         filePath = handler.flags.options.customPath01
@@ -37,19 +48,32 @@ export async function onTokenAnimation(handler) {
     if (handler.allTargets.length === 0 && (itemName === "curewounds" || itemName === "generichealing")) {
     new Sequence()
         .effect()
-        .file(onToken.file)
-        .atLocation(sourceToken)
-        .randomizeMirrorY()
-        .repeats(handler.animationLoops, handler.loopDelay)
-        //.missed(hit)
-        .scale(((sourceToken.w / animWidth) * 1.5) * handler.scale)
-        .belowTokens(handler.animLevel)
-        .addOverride(
-            async (effect, data) => {
-                console.log(data)
-                return data
-            }
-        )
+            .atLocation(sourceToken)
+            .scale(handler.sourceScale)
+            .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+            .belowTokens(handler.sourceLevel)
+            .waitUntilFinished(handler.sourceDelay)
+            .playIf(handler.sourceEnable)
+            .addOverride(async (effect, data) => {
+                if (handler.sourceEnable) {
+                    data.file = sourceFX.file;
+                }
+             //console.log(data)
+                return data;
+            })            
+        .effect()
+            .file(onToken.file)
+            .atLocation(sourceToken)
+            .randomizeMirrorY()
+            .repeats(handler.animationLoops, handler.loopDelay)
+            //.missed(hit)
+            .scale(((sourceToken.w / animWidth) * 1.5) * handler.scale)
+            .belowTokens(handler.animLevel)
+            .addOverride(
+                async (effect, data) => {
+                    console.log(data)
+                    return data
+                })
         .play()
     }
     //.waitUntilFinished(-500 + handler.explosionDelay)
@@ -69,21 +93,49 @@ export async function onTokenAnimation(handler) {
             }
 
             new Sequence()
+                    .effect()
+                    .atLocation(sourceToken)
+                    .scale(handler.sourceScale)
+                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                    .belowTokens(handler.sourceLevel)
+                    .waitUntilFinished(handler.sourceDelay)
+                    .playIf(handler.sourceEnable)
+                    .addOverride(async (effect, data) => {
+                        if (handler.sourceEnable) {
+                            data.file = sourceFX.file;
+                        }
+                        //console.log(data)
+                        return data;
+                    })            
                 .effect()
-                .file(onToken.file)
-                .atLocation(target)
-                //.randomizeMirrorY()
-                .repeats(handler.animationLoops, handler.loopDelay)
-                .scale(scale * handler.scale)
-                .belowTokens(handler.animLevel)
-                .playIf(() => { return arrayLength })
-                .addOverride(async (effect, data) => {
-                    if (handler.explosion) {
-                        data.file = explosion.file;
-                    }
-                    //console.log(data)
-                    return data;
-                })
+                    .file(onToken.file)
+                    .atLocation(target)
+                    //.randomizeMirrorY()
+                    .repeats(handler.animationLoops, handler.loopDelay)
+                    .scale(scale * handler.scale)
+                    .belowTokens(handler.animLevel)
+                    .playIf(() => { return arrayLength })
+                    .addOverride(async (effect, data) => {
+                        if (handler.explosion) {
+                            data.file = explosion.file;
+                        }
+                        //console.log(data)
+                        return data;
+                    })
+                .effect()
+                    .delay(handler.targetDelay)
+                    .atLocation(target)
+                    .scale(handler.targetScale)
+                    .repeats(handler.targetLoops, handler.targetLoopDelay)
+                    .belowTokens(handler.targetLevel)
+                    .playIf(handler.targetEnable)
+                    .addOverride(async (effect, data) => {
+                        if (handler.targetEnable) {
+                            data.file = targetFX.file;
+                        }
+                        //console.log(data)
+                        return data;
+                    })            
                 .play()
             //await wait(250)
         }

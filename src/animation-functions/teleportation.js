@@ -4,7 +4,7 @@ The framework for the code below originated from Honeybadger (Trioderigon) for c
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
-import { buildTokenAnimationFile } from "./common-functions/build-filepath.js"
+import { buildTokenAnimationFile, buildSourceTokenFile } from "./common-functions/build-filepath.js"
 
 export async function teleportation(handler) {
 
@@ -70,31 +70,45 @@ export async function teleportation(handler) {
 
         new Sequence()
             .effect()
-            .file(onToken.file)
-            .atLocation(token)
-            .JB2A()
-            .scale(Scale)
-            .randomRotation()
-            .wait(750)
-            .thenDo(async () => {
-                await token.document.update({
-                    x: gridPos[0],
-                    y: gridPos[1],
-                    hidden: true
-                }, { animate: false });
-            })
+                .atLocation(sourceToken)
+                .scale(handler.sourceScale)
+                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                .belowTokens(handler.sourceLevel)
+                .waitUntilFinished(handler.sourceDelay)
+                .playIf(handler.sourceEnable)
+                .addOverride(async (effect, data) => {
+                    if (handler.sourceEnable) {
+                        data.file = sourceFX.file;
+                    }
+                    //console.log(data)
+                    return data;
+                })            
             .effect()
-            .file(onToken.file2)
-            .atLocation(token)
-            .JB2A()
-            .scale(Scale)
-            .randomRotation()
-            .wait(1500)
-            .thenDo(async () => {
-                await token.document.update({
-                    hidden: false
-                }, { animate: false });
-            })
+                .file(onToken.file)
+                .atLocation(token)
+                .JB2A()
+                .scale(Scale)
+                .randomRotation()
+                .wait(750)
+                .thenDo(async () => {
+                    await token.document.update({
+                        x: gridPos[0],
+                        y: gridPos[1],
+                        hidden: true
+                    }, { animate: false });
+                })
+            .effect()
+                .file(onToken.file2)
+                .atLocation(token)
+                .JB2A()
+                .scale(Scale)
+                .randomRotation()
+                .wait(1500)
+                .thenDo(async () => {
+                    await token.document.update({
+                        hidden: false
+                    }, { animate: false });
+                })
             .play();
 
     };

@@ -185,7 +185,6 @@ export async function buildTemplateFile(jb2a, handler) {
     handler.item.setFlag("autoanimations", "defaults.primary.fileData", fileData)
     handler.item.setFlag("autoanimations", "defaults.primary.metadata", videoData)
 
-
     let data = {
         file: filePath,
         file2: fileData,
@@ -198,12 +197,65 @@ export async function buildTemplateFile(jb2a, handler) {
     return data;
 }
 
-var randomProperty = function (obj) {
-    var keys = Object.keys(obj);
-    var keyLength = keys.length;
-    var ranKey = Math.floor(Math.random() * keyLength);
-    return keys[ranKey];
-};
+export async function buildSourceTokenFile(jb2a, animName, handler) {
+    let filePath;
+    let fileData;
+    let color = handler.flags.sourceToken?.color ?? "";
+    switch (animName) {
+        case "impact":
+        case "marker":
+            if (handler.sourceVariant === "boulder") {
+                filePath = `autoanimations.tokenEffect.${animName}.${handler.sourceVariant}`;
+                fileData = jb2a['tokenEffect'][animName][handler.sourceVariant];
+            } else {
+                filePath = handler.sourceColor === "random" ? `autoanimations.tokenEffect.${animName}.${handler.sourceVariant}` : `autoanimations.tokenEffect.${animName}.${handler.sourceVariant}.${color}`;
+                fileData = handler.sourceColor === "random" ? jb2a['tokenEffect'][animName][handler.sourceVariant][Object.keys(jb2a['tokenEffect'][animName][handler.sourceVariant])[0]] : jb2a['tokenEffect'][animName][handler.sourceVariant][color]
+            }
+            break;
+        default:
+            filePath = handler.sourceColor === "random" ? `autoanimations.tokenEffect.${animName}` : `autoanimations.tokenEffect.${animName}.${color}`;
+            fileData = handler.sourceColor === "random" ? jb2a['tokenEffect'][animName][Object.keys(jb2a['tokenEffect'][animName][handler.sourceVariant])[0]] : jb2a['tokenEffect'][animName][color]
+    }
+    let videoData = await getVideoDimensionsOf(fileData);//get video metadata
+    handler.item.setFlag("autoanimations", "defaults.source.file", filePath)
+    handler.item.setFlag("autoanimations", "defaults.source.metadata", videoData)
+
+    let data = {
+        file: filePath,
+        metadata: videoData
+    }
+    return data;
+}
+
+export async function buildTargetTokenFile(jb2a, animName, handler) {
+    let filePath;
+    let fileData;
+    let color = handler.flags.targetToken?.color ?? "";
+    switch (animName) {
+        case "impact":
+        case "marker":
+            if (handler.targetVariant === "boulder") {
+                filePath = `autoanimations.tokenEffect.${animName}.${handler.targetVariant}`;
+                fileData = jb2a['tokenEffect'][animName][handler.targetVariant];
+            } else {
+                filePath = handler.targetColor === "random" ? `autoanimations.tokenEffect.${animName}.${handler.targetVariant}` : `autoanimations.tokenEffect.${animName}.${handler.targetVariant}.${color}`;
+                fileData = handler.targetColor === "random" ? jb2a['tokenEffect'][animName][handler.targetVariant][Object.keys(jb2a['tokenEffect'][animName][handler.targetVariant])[0]] : jb2a['tokenEffect'][animName][handler.targetVariant][color]
+            }
+            break;
+        default:
+            filePath = handler.targetColor === "random" ? `autoanimations.tokenEffect.${animName}` : `autoanimations.tokenEffect.${animName}.${color}`;
+            fileData = handler.targetColor === "random" ? jb2a['tokenEffect'][animName][Object.keys(jb2a['tokenEffect'][animName][handler.targetVariant])[0]] : jb2a['tokenEffect'][animName][color]
+    }
+    let videoData = await getVideoDimensionsOf(fileData);//get video metadata
+    handler.item.setFlag("autoanimations", "defaults.target.file", filePath)
+    handler.item.setFlag("autoanimations", "defaults.target.metadata", videoData)
+
+    let data = {
+        file: filePath,
+        metadata: videoData
+    }
+    return data;
+}
 
 function getVideoDimensionsOf(url) {
     return new Promise(resolve => {

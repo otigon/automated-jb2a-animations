@@ -369,3 +369,53 @@ export function tokenAnimations() {
     return AUTOANIM.tokenAnimations
 }
 
+export function tokenColors(patreon, name, variant) {
+    let color;
+    switch (name) {
+        case "explosion01":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
+            break;
+        case "explosion02":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
+            break;
+        case "explosion03":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors03) : AUTOANIM.localized(AUTOANIM.explosionColorsFree03);
+            break;
+        case "explosion04":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors04) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
+            break;
+        case "dizzyStars":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.dizzyStarsColors) : AUTOANIM.localized(AUTOANIM.dizzyStarsColorsFree);
+            break;
+        case "iceSpikes":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.iceSpikesColors) : AUTOANIM.localized(AUTOANIM.iceSpikesColorsFree);
+            break;
+        case "impact":
+            if (variant === "boulder") {
+                return
+            } else {
+                color = patreon ? AUTOANIM.localized(AUTOANIM.explosionColorsImpact) : AUTOANIM.localized(AUTOANIM.explosionColorsImpactFree);
+            }
+            break;
+        case "magicSign":
+            color = AUTOANIM.localized(AUTOANIM.magicSignColors);
+            break;
+        case "marker":
+            switch(variant) {
+                case "marker01":
+                    color = patreon ? AUTOANIM.localized(AUTOANIM.marker01Colors) : AUTOANIM.localized(AUTOANIM.marker01ColorsFree);
+                    break;
+                case "marker02":
+                    color = patreon ? AUTOANIM.localized(AUTOANIM.marker02Colors) : AUTOANIM.localized(AUTOANIM.marker02Colors);
+                    break;
+                default:
+                    color = patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree);
+                }
+            break;
+        case "snowflakes":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors0567) : AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
+            break;
+    }
+    return color;
+}
+

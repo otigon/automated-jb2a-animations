@@ -157,70 +157,6 @@
                             data-dtype="Number">
                     </div>
                 </div>
-                {{#if divineSmite}}
-                <!--Enable Divine Smite?-->
-                <div class="aa-ridged">
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.dsEffect"}}</label>
-                        <input type="checkbox" name="flags.autoanimations.divineSmite.dsEnable"
-                            value="flags.autoanimations.divineSmite.dsEnable" {{checked
-                            flags.autoanimations.divineSmite.dsEnable}}>
-                    </div>
-                    {{#if flags.autoanimations.divineSmite.dsEnable}}
-                    <!--Divine Smite Animate on Self?-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.bardSelf"}}</label>
-                        <input type="checkbox" name="flags.autoanimations.divineSmite.dsSelf"
-                            name="flags.autoanimations.divineSmite.dsSelf" {{checked
-                            flags.autoanimations.divineSmite.dsSelf}}>
-                    </div>
-                    {{#if flags.autoanimations.divineSmite.dsSelf}}
-                    <!--Divine Smite Self Delay-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="number" name="flags.autoanimations.divineSmite.dsSelfDelay" value={{dsDelaySelf}}>
-                    </div>
-                    <!--Divine Smite Self Color-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.selfColor"}}</label>
-                        <select name="flags.autoanimations.divineSmite.dsSelfColor">
-                            {{#select flags.autoanimations.divineSmite.dsSelfColor}}
-                            {{#each dsColorSelf as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
-                    </div>
-                    {{/if}}
-                    <!--Divine Smite Animate on Target?-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.bardTarget"}}</label>
-                        <input type="checkbox" name="flags.autoanimations.divineSmite.dsTarget"
-                            value="flags.autoanimations.divineSmite.dsTarget" {{checked
-                            flags.autoanimations.divineSmite.dsTarget}}>
-                    </div>
-                    {{#if flags.autoanimations.divineSmite.dsTarget}}
-                    <!--Divine Smite Target Delay-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="number" name="flags.autoanimations.divineSmite.dsTargetDelay"
-                            value={{dsDelayTarget}}>
-                    </div>
-                    <div class="form-group">
-                        <!--Divine Smite Target Color-->
-                        <label>{{localize "AUTOANIM.targetColor"}}</label>
-                        <select name="flags.autoanimations.divineSmite.dsTargetColor">
-                            {{#select flags.autoanimations.divineSmite.dsTargetColor}}
-                            {{#each dsColorTarget as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
-                    </div>
-                    {{/if}}
-                    {{/if}}
-                    {{/if}}
-                </div>
                 <!--Enable Explosion? Checkbox-->
                 <div class="aa-ridged">
                     {{#if addExplosion}}
@@ -1243,16 +1179,46 @@
                             {{/select}}
                         </select>
                     </div>
+                    {{#if sourceImpact}}
+                    <div class="impact-variant">
+                        <!--Choose Impact Variant-->
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                            <select name="flags.autoanimations.sourceToken.variant">
+                                {{#select flags.autoanimations.sourceToken.variant}}
+                                {{#each impactVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
+                    {{#if sourceMarker}}
+                    <div class="impact-variant">
+                        <!--Choose Impact Variant-->
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                            <select name="flags.autoanimations.sourceToken.variant">
+                                {{#select flags.autoanimations.sourceToken.variant}}
+                                {{#each markerVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                         <select name="flags.autoanimations.sourceToken.color">
                             {{#select flags.autoanimations.sourceToken.color}}
-                            {{#each sourceColor as |name key|}}
+                            {{#each sourceColors as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
                         </select>
-                    </div>    
+                    </div>
                     {{/unless}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.customAnim"}}</label>
@@ -1300,19 +1266,19 @@
                     <img src="modules/autoanimations/pictures/Sequence.webp" alt="Tips4Sequence">
                 </div>-->
                 <div class="flexrow">
-                    <div class="AA-flow-chart">
+                    <div class="AA-flow-chart-Source">
                         <label>Source Animation</label>
                     </div>
                     <div class="aa-flow-arrow">
                         <i class="fas fa-angle-double-right fa-3x"></i>
                     </div>
-                    <div class="AA-flow-chart">
+                    <div class="AA-flow-chart-Primary">
                         <label>Primary Animation</label>
                     </div>
                     <div class="aa-flow-arrow">
                         <i class="fas fa-angle-double-right fa-3x"></i>
                     </div>
-                    <div class="AA-flow-chart">
+                    <div class="AA-flow-chart-Target">
                         <label>Target Animation</label>
                     </div>
                 </div>
@@ -1342,16 +1308,46 @@
                             {{/select}}
                         </select>
                     </div>
+                    {{#if targetImpact}}
+                    <div class="impact-variant">
+                        <!--Choose Impact Variant-->
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                            <select name="flags.autoanimations.targetToken.impactVar">
+                                {{#select flags.autoanimations.targetToken.impactVar}}
+                                {{#each impactVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
+                    {{#if targetMarker}}
+                    <div class="impact-variant">
+                        <!--Choose Impact Variant-->
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                            <select name="flags.autoanimations.targetToken.variant">
+                                {{#select flags.autoanimations.targetToken.variant}}
+                                {{#each markerVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                         <select name="flags.autoanimations.targetToken.color">
                             {{#select flags.autoanimations.targetToken.color}}
-                            {{#each targetColor as |name key|}}
+                            {{#each targetColors as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
                         </select>
-                    </div>    
+                    </div>
                     {{/unless}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.customAnim"}}</label>

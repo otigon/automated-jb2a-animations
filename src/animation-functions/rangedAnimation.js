@@ -1,4 +1,4 @@
-import { buildRangedFile, buildAfterFile } from "./common-functions/build-filepath.js"
+import { buildRangedFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./common-functions/build-filepath.js"
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
@@ -9,7 +9,7 @@ export async function rangedAnimations(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    
+
     // Sets JB2A database and Global Delay
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
@@ -41,6 +41,17 @@ export async function rangedAnimations(handler) {
         explosion = handler.flags.defaults?.explosion !== undefined ? handler.flags.defaults.explosion : await buildAfterFile(jb2a, handler)
     }
 
+    // builds Source Token file if Enabled, and pulls from flags if already set
+    let sourceFX;
+    if (handler.sourceEnable) {
+        sourceFX = handler.flags.defaults?.source !== undefined ? handler.flags.defaults.source : await buildSourceTokenFile(obj01, handler.sourceName, handler)
+    }
+    // builds Target Token file if Enabled, and pulls from flags if already set
+    let targetFX;
+    if (handler.targetEnable) {
+        targetFX = handler.flags.defaults?.target !== undefined ? handler.flags.defaults.target : await buildTargetTokenFile(obj01, handler.targetName, handler)
+    }
+
     //logging explosion Scale
     let scale = explosion?.scale ?? 1;
 
@@ -58,57 +69,68 @@ export async function rangedAnimations(handler) {
                 hit = false;
             }
 
-new Sequence()
-    .effect()
-        .file("modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm")
-        .atLocation(sourceToken)
-        .scale(handler.sourceScale)
-        //.repeats(handler.sourceLoops, handler.sourceLoopDelay)
-        .belowTokens(handler.sourceLevel)
-        .waitUntilFinished(handler.sourceDelay)
-        .playIf(handler.sourceEnable)
-    .effect()
-        .file(attack.file)
-        .atLocation(sourceToken)
-        .reachTowards(target)
-        .JB2A()
-        .randomizeMirrorY()
-        .repeats(handler.animationLoops, handler.loopDelay)
-        .missed(hit)
-        .name("animation")
-        .belowTokens(handler.animLevel)
-        .addOverride(
-            async (effect, data) => {
-                console.log(data)
-                return data
-            }
-        )
-        //.waitUntilFinished(-500 + handler.explosionDelay)
-    .effect()
-        .atLocation("animation")
-        //.file(explosion.file)
-        .scale({x: scale, y: scale})
-        .delay(500 + handler.explosionDelay)
-        .repeats(handler.animationLoops, handler.loopDelay)
-        .belowTokens(handler.explosionLevel)
-        .playIf(() => {return handler.explosion })
-        .addOverride(async (effect, data) => {
-            if (handler.explosion) {
-                data.file = explosion.file;
-            }
-            //console.log(data)
-            return data;
-        })
-    .effect()
-        .delay(handler.targetDelay)
-        .file("modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm")
-        .atLocation(target)
-        .scale(handler.targetScale)
-        //.repeats(handler.targetLoops, handler.targetLoopDelay)
-        .belowTokens(handler.targetLevel)
-        .playIf(handler.targetEnable)
-    .play()
-    await wait(750)
+            new Sequence()
+                .effect()
+                    .atLocation(sourceToken)
+                    .scale(handler.sourceScale)
+                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                    .belowTokens(handler.sourceLevel)
+                    .waitUntilFinished(handler.sourceDelay)
+                    .playIf(handler.sourceEnable)
+                    .addOverride(async (effect, data) => {
+                        if (handler.sourceEnable) {
+                            data.file = sourceFX.file;
+                        }
+                        //console.log(data)
+                        return data;
+                    })            
+                .effect()
+                    .file(attack.file)
+                    .atLocation(sourceToken)
+                    .reachTowards(target)
+                    .JB2A()
+                    .randomizeMirrorY()
+                    .repeats(handler.animationLoops, handler.loopDelay)
+                    .missed(hit)
+                    .name("animation")
+                    .belowTokens(handler.animLevel)
+                    .addOverride(
+                        async (effect, data) => {
+                            console.log(data)
+                            return data
+                        })
+                    //.waitUntilFinished(-500 + handler.explosionDelay)
+                .effect()
+                    .atLocation("animation")
+                    //.file(explosion.file)
+                    .scale({ x: scale, y: scale })
+                    .delay(500 + handler.explosionDelay)
+                    .repeats(handler.animationLoops, handler.loopDelay)
+                    .belowTokens(handler.explosionLevel)
+                    .playIf(() => { return handler.explosion })
+                    .addOverride(async (effect, data) => {
+                        if (handler.explosion) {
+                            data.file = explosion.file;
+                        }
+                        //console.log(data)
+                        return data;
+                    })
+                .effect()
+                    .delay(handler.targetDelay)
+                    .atLocation(target)
+                    .scale(handler.targetScale)
+                    .repeats(handler.targetLoops, handler.targetLoopDelay)
+                    .belowTokens(handler.targetLevel)
+                    .playIf(handler.targetEnable)
+                    .addOverride(async (effect, data) => {
+                        if (handler.targetEnable) {
+                            data.file = targetFX.file;
+                        }
+                        //console.log(data)
+                        return data;
+                    })            
+                .play()
+            await wait(750)
         }
     }
     cast()

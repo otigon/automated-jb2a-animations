@@ -1,4 +1,4 @@
-import { buildTokenAnimationFile, buildAfterFile } from "./common-functions/build-filepath.js"
+import { buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./common-functions/build-filepath.js"
 import { JB2APATREONDB } from "./jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
@@ -27,23 +27,48 @@ export async function explodeOnToken(handler) {
     let explosion = handler.flags.defaults?.explosion !== undefined ? handler.flags.defaults.explosion : await buildAfterFile(obj01, handler)
     let scale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / explosion.metadata.width;
 
+    // builds Source Token file if Enabled, and pulls from flags if already set
+    let sourceFX;
+    if (handler.sourceEnable) {
+        sourceFX = handler.flags.defaults?.source !== undefined ? handler.flags.defaults.source : await buildSourceTokenFile(obj01, handler.sourceName, handler)
+    }
+    // builds Target Token file if Enabled, and pulls from flags if already set
+    let targetFX;
+    if (handler.targetEnable) {
+        targetFX = handler.flags.defaults?.target !== undefined ? handler.flags.defaults.target : await buildTargetTokenFile(obj01, handler.targetName, handler)
+    }
+    
+
     //console.log(explosion);
     if (handler.animType === "t10") {
         new Sequence()
             .effect()
-            .file(explosion.file)
-            .atLocation(sourceToken)
-            .randomizeMirrorY()
-            .repeats(handler.explosionLoops, handler.explosionDelay)
-            //.missed(hit)
-            .scale(scale)
-            .belowTokens(handler.explosionLevel)
-            .addOverride(
-                async (effect, data) => {
-                    console.log(data)
-                    return data
+                .atLocation(sourceToken)
+                .scale(handler.sourceScale)
+                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                .belowTokens(handler.sourceLevel)
+                .waitUntilFinished(handler.sourceDelay)
+                .playIf(handler.sourceEnable)
+                .addOverride(async (effect, data) => {
+                    if (handler.sourceEnable) {
+                    data.file = sourceFX.file;
                 }
-            )
+                //console.log(data)
+                return data;
+                })            
+            .effect()
+                .file(explosion.file)
+                .atLocation(sourceToken)
+                .randomizeMirrorY()
+                .repeats(handler.explosionLoops, handler.explosionDelay)
+                //.missed(hit)
+                .scale(scale)
+                .belowTokens(handler.explosionLevel)
+                .addOverride(
+                    async (effect, data) => {
+                        console.log(data)
+                        return data
+                    })
             .play()
         return
     } else {
@@ -64,14 +89,42 @@ export async function explodeOnToken(handler) {
 
                 new Sequence()
                     .effect()
-                    .file(explosion.file)
-                    .atLocation(target)
-                    //.randomizeMirrorY()
-                    .repeats(handler.explosionLoops, handler.explosionDelay)
-                    .scale(scale)
-                    .belowTokens(handler.explosionLevel)
-                    .playIf(() => { return arrayLength })
-                    .play()
+                        .atLocation(sourceToken)
+                        .scale(handler.sourceScale)
+                        .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                        .belowTokens(handler.sourceLevel)
+                        .waitUntilFinished(handler.sourceDelay)
+                        .playIf(handler.sourceEnable)
+                        .addOverride(async (effect, data) => {
+                            if (handler.sourceEnable) {
+                            data.file = sourceFX.file;
+                            }
+                            //console.log(data)
+                            return data;
+                            })            
+                    .effect()
+                        .file(explosion.file)
+                        .atLocation(target)
+                        //.randomizeMirrorY()
+                        .repeats(handler.explosionLoops, handler.explosionDelay)
+                        .scale(scale)
+                        .belowTokens(handler.explosionLevel)
+                        .playIf(() => { return arrayLength })
+                    .effect()
+                        .delay(handler.targetDelay)
+                        .atLocation(target)
+                        .scale(handler.targetScale)
+                        .repeats(handler.targetLoops, handler.targetLoopDelay)
+                        .belowTokens(handler.targetLevel)
+                        .playIf(handler.targetEnable)
+                        .addOverride(async (effect, data) => {
+                            if (handler.targetEnable) {
+                                data.file = targetFX.file;
+                            }
+                            //console.log(data)
+                            return data;
+                        })                
+                        .play()
                 //await wait(250)
             }
         }

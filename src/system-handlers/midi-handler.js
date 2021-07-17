@@ -67,6 +67,7 @@ export default class MidiHandler {
         this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
         this._sourceScale = this._sourceToken.scale ?? 1,
         this._sourceDelay = this._sourceToken.delayAfter ?? 500,
+        this._sourceVariant = this._sourceToken.variant ?? "",
 
         this._targetToken = this.flags.targetToken ?? "";
         this._targetEnable = this._targetToken.enable ?? false;
@@ -79,6 +80,7 @@ export default class MidiHandler {
         this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
         this._targetScale = this._targetToken.scale ?? 1,
         this._targetDelay = this._targetToken.delayAfter ?? 500,
+        this._targetVariant = this._targetToken.variant ?? "",
 
         this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
@@ -244,6 +246,7 @@ export default class MidiHandler {
     get sourceLoopDelay() {return this._sourceLoopDelay}
     get sourceScale() {return this._sourceScale;}
     get sourceDelay() {return this._sourceDelay;}
+    get sourceVariant() {return this._sourceVariant;}
 
     get targetEnable() {return this._targetEnable;}
     get targetLevel() {return this._targetLevel;}
@@ -255,6 +258,7 @@ export default class MidiHandler {
     get targetLoopDelay() {return this._targetLoopDelay}
     get targetScale() {return this._targetScale;}
     get targetDelay() {return this._targetDelay;}
+    get targetVariant() { return this._targetVariant;}
 
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
