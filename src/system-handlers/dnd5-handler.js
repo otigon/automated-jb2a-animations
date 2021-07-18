@@ -1,3 +1,5 @@
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+
 export default class Dnd5Handler {
     constructor(msg) {
         let msgAtr = this.extractItemId(msg.data.content);

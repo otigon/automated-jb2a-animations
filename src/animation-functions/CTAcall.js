@@ -1,5 +1,5 @@
-import { JB2APATREONDB } from "./jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 

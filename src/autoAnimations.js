@@ -1,5 +1,5 @@
-import { JB2APATREONDB } from "./animation-functions/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./animation-functions/jb2a-free-database.js";
+import { JB2APATREONDB } from "./animation-functions/jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./animation-functions/jb2a-database.js/jb2a-free-database.js";
 
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
@@ -16,7 +16,6 @@ import thunderwaveAuto from "./animation-functions/thunderwave.js";
 import ctaCall from "./animation-functions/CTAcall.js";
 import huntersMark from "./animation-functions/hunters-mark.js";
 import bardicInspiration from "./animation-functions/bardic-inspiration.js";
-import mistyStepOld from "./animation-functions/misty-step-old.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
 import { AAITEMCHECK } from "./animation-functions/item-arrays.js";
@@ -498,12 +497,7 @@ function onCreateChatMessage(msg) {
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    mistyStepOld(handler);
-
-                } else {
-                    mistyStep(handler);
-                }
+                teleportation(handler);
                 break;
         }
     }
@@ -537,12 +531,7 @@ function setupTormenta20(msg) {
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    mistyStepOld(handler);
-
-                } else {
-                    mistyStep(handler);
-                }
+                teleportation(handler);
                 break;
         }
     }
@@ -565,12 +554,7 @@ async function specialCaseAnimations(msg) {
     switch (true) {
         /*
         case ((handler.animType === "t12") && (handler.animOverride)):
-            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                mistyStepOld(handler);
-
-            } else {
                 teleportation(handler);
-            }
             break;
             */
         case (handler.animType === "t8" && handler.animOverride):
@@ -602,12 +586,7 @@ function revItUp5eCore(msg) {
         if (game.user.id === msg.user.id) {
             switch (true) {
                 case ((handler.animType === "t12") && (handler.animOverride)):
-                    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                        mistyStepOld(handler);
-
-                    } else {
-                        mistyStep(handler);
-                    }
+                    teleportation(handler);
                     break;
             }
         }
@@ -634,12 +613,7 @@ function revItUp5eCore(msg) {
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    mistyStepOld(handler);
-
-                } else {
-                    mistyStep(handler);
-                }
+                teleportation(handler);
                 break;
         }
     }
@@ -659,16 +633,10 @@ function revItUp5eCore(msg) {
                     switch (game.settings.get("mre-dnd5e", "autoDamage")) {
                         case (true):
                             switch (true) {
-                                case (handler.itemNameIncludes("thunderwave")):
-                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
+                                case handler.convertedName.includes("thunderwave"):
+                                case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
                                     Hooks.once("createMeasuredTemplate", () => {
                                         thunderwaveAuto(handler);
-                                    })
-                                    break;
-                                case (handler.itemNameIncludes("shatter")):
-                                case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShatter").toLowerCase()):
-                                    Hooks.once("createMeasuredTemplate", () => {
-                                        shatterAuto(handler);
                                     })
                                     break;
                             }
@@ -680,11 +648,6 @@ function revItUp5eCore(msg) {
                 }
 
             } else { log("MRE is NOT active"); revItUp(handler); }
-        }
-        switch (true) {
-            case (handler.itemTypeIncludes("spell") && handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase())):
-                castOnSelf(handler);
-                break;
         }
     }
     if (!game.settings.get("autoanimations", "playonDamageCore")) {
@@ -709,48 +672,10 @@ function revItUp5eCore(msg) {
                         itemSound(handler);
                     }
                     switch (true) {
-                        /*
-                        case (handler.itemNameIncludes("cure", "wound")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()):
-                        case (handler.itemNameIncludes("heal", "word")):
-                        case (handler.itemNameIncludes("generic", "heal")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase()):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()):
-                            onTargetSpells(handler);
-                            break;
-                        case (handler.itemNameIncludes("disintegrate")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()):
-                            spellAttacks(handler);
-                            break;
-                        case (handler.itemNameIncludes("magic", "missile")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()):
-                            magicMissile(handler);
-                            break;
-                        case (handler.itemNameIncludes("shield")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShield").toLowerCase()):
-                            //case (handler.itemNameIncludes("second", "wind")):
-                            //case (handler.itemNameIncludes("potion", "heal")):
-                            castOnSelf(handler);
-                            break;
-                        case (handler.itemNameIncludes("catapult")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemCatapult").toLowerCase()):
-                            rangedWeapons(handler);
-                            break;
-                        //case (handler.itemNameIncludes("boulder")):
-                        //case (handler.itemNameIncludes("siege")):
-                        //rangedWeapons(handler)
-                        //break;
-                        */
-                        case (handler.itemNameIncludes("thunderwave")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
+                        case handler.convertedName.includes("thunderwave"):
+                        case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
                             Hooks.once("createMeasuredTemplate", () => {
                                 thunderwaveAuto(handler);
-                            })
-                            break;
-                        case (handler.itemNameIncludes("shatter")):
-                        case handler.itemNameIncludes(game.i18n.format("AUTOANIM.itemShatter").toLowerCase()):
-                            Hooks.once("createMeasuredTemplate", () => {
-                                shatterAuto(handler);
                             })
                             break;
                     }
@@ -771,7 +696,7 @@ async function revItUp(handler) {
     if (handler.itemSound) {
         itemSound(handler);
     }
-    if (handler.animKill) {return}
+    if (handler.animKill) { return }
 
     if (game.modules.get("midi-qol")?.active) { } else {
         switch (game.system.id) {
@@ -804,14 +729,10 @@ async function revItUp(handler) {
         case ((handler.animType === "t11") && handler.animOverride):
             if (game.modules.get("Custom-Token-Animations")?.active) {
                 ctaCall(handler);
-            } else {ui.notifications.error("Custom Token Animations module must be Active")}
+            } else { ui.notifications.error("Custom Token Animations module must be Active") }
             break;
         case ((handler.animType === "t12") && (handler.animOverride)):
-            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                mistyStepOld(handler);
-            } else {
-                teleportation(handler);
-            }
+            teleportation(handler);
             break;
         case itemName === "bardicinspiration":
             bardicInspiration(handler);
@@ -916,12 +837,7 @@ function wfrpWeapon(data, targets, info) {
     let handler = new WFRP4eHandler(item, allTargets);
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
-            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                mistyStepOld(handler);
-
-            } else {
-                mistyStep(handler);
-            }
+            teleportation(handler);
             break;
         default:
             revItUp(handler);
@@ -934,12 +850,7 @@ function wfrpPrayer(data, targets, info) {
     let handler = new WFRP4eHandler(item, allTargets);
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
-            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                mistyStepOld(handler);
-
-            } else {
-                mistyStep(handler);
-            }
+            teleportation(handler);
             break;
         default:
             revItUp(handler);
@@ -952,12 +863,7 @@ function wfrpCast(data, targets, info) {
     let handler = new WFRP4eHandler(item, allTargets);
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
-            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                mistyStepOld(handler);
-
-            } else {
-                mistyStep(handler);
-            }
+            teleportation(handler);
             break;
         default:
             revItUp(handler);
@@ -970,12 +876,7 @@ function wfrpTrait(data, targets, info) {
     let handler = new WFRP4eHandler(item, allTargets);
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
-            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                mistyStepOld(handler);
-
-            } else {
-                mistyStep(handler);
-            }
+            teleportation(handler);
             break;
         default:
             revItUp(handler);
@@ -988,12 +889,7 @@ function wfrpSkill(data, targets, info) {
     let handler = new WFRP4eHandler(item, allTargets);
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
-            if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                mistyStepOld(handler);
-
-            } else {
-                mistyStep(handler);
-            }
+            teleportation(handler);
             break;
         default:
             revItUp(handler);

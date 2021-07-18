@@ -38,7 +38,7 @@ export default class MidiHandler {
         this._hmAnim = this._flags.hmAnim ?? "";
         this._uaStrikeType = this._flags.uaStrikeType ?? "";
         this._teleDist = this._flags.teleDist ?? "";
-        this._spellVar = this._flags.spellVar ?? "";
+        this._spellVar = this._flags.spellVar ?? "01";
         this._bardTarget = this._flags.bards?.bardTarget ?? true;
         this._bardSelf = this._flags.bards?.bardSelf ?? true;
         this._bardAnim = this._flags.bards?.bardAnim ?? "";
@@ -52,6 +52,8 @@ export default class MidiHandler {
         this._animLoops = this._flags.options?.loops ?? 1;
         this._loopDelay = this._flags.options?.loopDelay ?? 250;
         this._scale = this._flags.options?.scale ?? 1;
+        this._custom01 = this._flags.options?.customPath01 ?? ""
+        this._enableCustom01 = this._flags.options?.enableCustom01 ?? false;
         this._templates = this._flags.templates ?? "";
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
@@ -231,6 +233,8 @@ export default class MidiHandler {
     get loopDelay() {return this._loopDelay;}
     get scale() {return this._scale;}
     get animLevel() {return this._animLevel;}
+    get custom01() {return this._custom01}
+    get enableCustom01() {return this._enableCustom01}
 
     get templates() {return this._templates;}
     get templatePersist() {return this._templatePersist}

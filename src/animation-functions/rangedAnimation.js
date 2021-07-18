@@ -1,6 +1,6 @@
-import { buildRangedFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./common-functions/build-filepath.js"
-import { JB2APATREONDB } from "./jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { buildRangedFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -25,31 +25,24 @@ export async function rangedAnimations(handler) {
     await wait(globalDelay);
 
     //Builds Primary File Path and Pulls from flags if already set
-    let attack = handler.flags.defaults?.primary !== undefined ? handler.flags.defaults.primary : await buildRangedFile(jb2a, itemName, handler);
-    //console.log(attack)
-    /*
-    if (handler.flags.options.customPath01) {
-        filePath = handler.flags.options.customPath01
-    }
-    console.log(filePath);
-    */
+    let attack =  await buildRangedFile(jb2a, itemName, handler);
     let sourceToken = handler.actorToken;
 
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
     let explosion;
     if (handler.flags.explosion) {
-        explosion = handler.flags.defaults?.explosion !== undefined ? handler.flags.defaults.explosion : await buildAfterFile(jb2a, handler)
+        explosion = await buildAfterFile(jb2a, handler)
     }
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {
-        sourceFX = handler.flags.defaults?.source !== undefined ? handler.flags.defaults.source : await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     if (handler.targetEnable) {
-        targetFX = handler.flags.defaults?.target !== undefined ? handler.flags.defaults.target : await buildTargetTokenFile(obj01, handler.targetName, handler)
+        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
 
     //logging explosion Scale

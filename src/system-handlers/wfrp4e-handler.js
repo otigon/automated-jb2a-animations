@@ -1,3 +1,5 @@
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+
 export default class WFRP4eHandler {
     constructor(item, targets) {
         const itemId = item._id;

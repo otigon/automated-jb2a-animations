@@ -1,6 +1,6 @@
-import { buildTokenAnimationFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./common-functions/build-filepath.js"
-import { JB2APATREONDB } from "./jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { buildTokenAnimationFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 //import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
@@ -19,17 +19,17 @@ export async function onTokenAnimation(handler) {
 
     // Random Color pull given object path
     //Builds standard File Path
-    let onToken = handler.flags.defaults?.primary !== undefined ? handler.flags.defaults.primary : await buildTokenAnimationFile(obj01, itemName, handler);
+    let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
     console.log(onToken)
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {
-        sourceFX = handler.flags.defaults?.source !== undefined ? handler.flags.defaults.source : await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     if (handler.targetEnable) {
-        targetFX = handler.flags.defaults?.target !== undefined ? handler.flags.defaults.target : await buildTargetTokenFile(obj01, handler.targetName, handler)
+        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
 
     /*
@@ -41,7 +41,7 @@ export async function onTokenAnimation(handler) {
     let sourceToken = handler.actorToken;
     let explosion;
     if (handler.flags.explosion) {
-        explosion = handler.flags.defaults?.explosion !== undefined ? handler.flags.defaults.explosion : await buildAfterFile(obj01, handler)
+        explosion = await buildAfterFile(obj01, handler)
     }
     //console.log(explosion);
     let animWidth = onToken.metadata.width;

@@ -1,3 +1,5 @@
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+
 export default class Tormenta20Handler {
     constructor(msg) {
         const itemId = $(msg.data.content).attr("data-item-id");

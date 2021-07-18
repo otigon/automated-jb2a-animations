@@ -1,6 +1,6 @@
-import { buildWeaponFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./common-functions/build-filepath.js"
-import { JB2APATREONDB } from "./jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { buildWeaponFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
 import { rangedAnimations } from "./rangedAnimation.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 //import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
@@ -21,7 +21,7 @@ export async function meleeAnimation(handler) {
                 return;                
             } else {
                 itemName = "melee" + itemName;
-                console.log(itemName)
+                //console.log(itemName)
             }
             break;
     }
@@ -31,7 +31,7 @@ export async function meleeAnimation(handler) {
     await wait(globalDelay);
 
     //Builds Primary File Path and Pulls from flags if already set
-    let attack = handler.flags.defaults?.primary !== undefined ? handler.flags.defaults.primary : await buildWeaponFile(obj01, itemName, handler)
+    let attack = await buildWeaponFile(obj01, itemName, handler)
     //console.log(attack)
     let sourceToken = handler.actorToken;
     let sourceScale = itemName === "unarmedstrike" || itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
@@ -39,18 +39,18 @@ export async function meleeAnimation(handler) {
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
     let explosion;
     if (handler.flags.explosion) {
-        explosion = handler.flags.defaults?.explosion !== undefined ? handler.flags.defaults.explosion : await buildAfterFile(obj01, handler)
+        explosion = await buildAfterFile(obj01, handler)
     }
     //console.log(explosion)
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {
-        sourceFX = handler.flags.defaults?.source !== undefined ? handler.flags.defaults.source : await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     if (handler.targetEnable) {
-        targetFX = handler.flags.defaults?.target !== undefined ? handler.flags.defaults.target : await buildTargetTokenFile(obj01, handler.targetName, handler)
+        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
 
     //logging explosion Scale
@@ -108,7 +108,7 @@ new Sequence()
         .belowTokens(handler.animLevel)
         .addOverride(async (effect, data) => {
             data.anchor = {x: 0.4, y: 0.5}
-            console.log(data._distance)
+            //console.log(data._distance)
             return data;
         })
         .playIf(() => { return handler.getDistanceTo(target) <= 5})

@@ -1,3 +1,5 @@
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+
 export default class Pf1Handler {
     constructor(message) {
         const item = message?.itemSource;

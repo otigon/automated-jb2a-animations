@@ -1,10 +1,10 @@
 /*
 The framework for the code below originated from Honeybadger (Trioderigon) for creating/deleting the Template and movingt the Token around.
 */
-import { JB2APATREONDB } from "./jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
 import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
-import { buildTokenAnimationFile, buildSourceTokenFile } from "./common-functions/build-filepath.js"
+import { buildTokenAnimationFile, buildSourceTokenFile } from "./file-builder/build-filepath.js"
 
 export async function teleportation(handler) {
 
@@ -20,12 +20,17 @@ export async function teleportation(handler) {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName
     //console.log(itemName)
-    let onToken = handler.flags.defaults?.primary !== undefined ? handler.flags.defaults.primary : await buildTokenAnimationFile(obj01, itemName, handler);
+    let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
+
+    let sourceFX;
+    if (handler.sourceEnable) {
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
+    }
 
     const token = handler.actorToken;
     const actor = handler.actor;
 
-    let Scale = (token.w / onToken.metadata.width) * 1.5;
+    let Scale = (token.w / onToken.metadata.width) * handler.scale;
 
     let range = MeasuredTemplate.create({
         t: "circle",
@@ -49,9 +54,6 @@ export async function teleportation(handler) {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
         let ray = new Ray(token.center, pos)
-        //console.log(ray.distance)
-        //console.log(((canvas.grid.size * (handler.teleRange / canvas.dimensions.distance)) + (canvas.grid.size / 2)))
-        //console.log(canvas.grid.distance)
         if (ray.distance > ((canvas.grid.size * (handler.teleRange / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
             ui.notifications.error("You selected a point out of range, choose again")
         } else {
@@ -66,11 +68,15 @@ export async function teleportation(handler) {
 
         let removeTemplates = canvas.templates.placeables.filter(i => i.data.flags.world?.Teleportation?.ActorId === actor.id);
         removeTemplates = removeTemplates.map(template => template.id);
-        if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
+        if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+            await canvas.templates.get(removeTemplates).delete()
+        } else {
+            if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
+        }
 
         new Sequence()
             .effect()
-                .atLocation(sourceToken)
+                .atLocation(token)
                 .scale(handler.sourceScale)
                 .repeats(handler.sourceLoops, handler.sourceLoopDelay)
                 .belowTokens(handler.sourceLevel)
@@ -86,28 +92,40 @@ export async function teleportation(handler) {
             .effect()
                 .file(onToken.file)
                 .atLocation(token)
-                .JB2A()
                 .scale(Scale)
                 .randomRotation()
                 .wait(750)
                 .thenDo(async () => {
-                    await token.document.update({
-                        x: gridPos[0],
-                        y: gridPos[1],
-                        hidden: true
-                    }, { animate: false });
+                    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                        await token.update({
+                            x: gridPos[0],
+                            y: gridPos[1],
+                            hidden: true
+                        }, { animate: false });
+                    } else {
+                        await token.document.update({
+                            x: gridPos[0],
+                            y: gridPos[1],
+                            hidden: true
+                        }, { animate: false });
+                    }
                 })
             .effect()
-                .file(onToken.file2)
+                .file(onToken.msFile)
                 .atLocation(token)
-                .JB2A()
                 .scale(Scale)
                 .randomRotation()
                 .wait(1500)
                 .thenDo(async () => {
-                    await token.document.update({
-                        hidden: false
-                    }, { animate: false });
+                    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                        await token.update({
+                            hidden: false
+                        }, { animate: false });
+            0        } else {
+                        await token.document.update({
+                            hidden: false
+                        }, { animate: false });
+                    }
                 })
             .play();
 

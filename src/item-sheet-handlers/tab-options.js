@@ -384,6 +384,12 @@ export function tokenColors(patreon, name, variant) {
         case "explosion04":
             color = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors04) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
             break;
+        case "divinesmite":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.dsSelf) : AUTOANIM.localized(AUTOANIM.dsSelfFree);
+            break;
+        case "sneakattack":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.sneakattackColors) : AUTOANIM.localized(AUTOANIM.sneakattackColorsFree);
+            break;
         case "dizzyStars":
             color = patreon ? AUTOANIM.localized(AUTOANIM.dizzyStarsColors) : AUTOANIM.localized(AUTOANIM.dizzyStarsColorsFree);
             break;

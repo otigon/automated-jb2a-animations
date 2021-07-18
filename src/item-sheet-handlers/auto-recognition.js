@@ -88,7 +88,7 @@ export default class AUTORECOG {
         
         this._mistystep = ["misty step", game.i18n.format("AUTOANIM.itemMistyStep").toLowerCase()]
         
-        this._bolt = ["bolt", game.i18n.format("AUTOANIM.bolt").toLowerCase()]
+        this._bolt = ["bolt", game.i18n.format("AUTOANIM.bolt").toLowerCase(), "crossbow", game.i18n.format("AUTOANIM.crossbow").toLowerCase()]
         
         this._bullet = ["bullet", game.i18n.format("AUTOANIM.bullet").toLowerCase()]
         

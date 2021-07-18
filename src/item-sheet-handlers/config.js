@@ -441,6 +441,7 @@ AUTOANIM.laserblastColors = {
     "pink": "AUTOANIM.colorPink",
     "purple": "AUTOANIM.colorPurple",
     "red": "AUTOANIM.colorRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 
@@ -749,12 +750,22 @@ AUTOANIM.dsSelf = {
     "dark purple": "AUTOANIM.colorDarkPurple",
 }
 
+AUTOANIM.dsSelfFree = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+}
+
 AUTOANIM.dsTarget = {
     'a1': ``,
     'blue yellow': "AUTOANIM.colorYellowBlue",
     'green yellow': "AUTOANIM.colorGreenYellow",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark purple": "AUTOANIM.colorDarkPurple",
+}
+
+AUTOANIM.dsTargetFree = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
 }
 
 AUTOANIM.animBWType = {
@@ -1085,12 +1096,14 @@ AUTOANIM.tokenAnimations = {
     "explosion02": "Explosion 02",
     "explosion03": "Explosion 03",
     "explosion04": "Explosion 04",
+    "divinesmite": "Divine Smite",
     "dizzyStars": "Stars",
     "iceSpikes": "Ice Spikes",
     "impact": "Impact",
     "magicSign": "Magic Sign",
     "marker": "Marker",
     "snowflakes": "Snowflakes",
+    "sneakattack": "Sneak Attack",
 }
 
 AUTOANIM.dizzyStarsColors = {

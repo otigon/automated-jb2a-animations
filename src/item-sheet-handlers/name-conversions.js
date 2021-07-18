@@ -65,22 +65,22 @@ export function nameConversion(itemName) {
             autoRec = game.i18n.format("AUTOANIM.itemMaul");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/Maul01_01_Regular_White_800x600.webm`;
             break;
-        case game.i18n.format("AUTOANIM.item1HS").toLowerCase():
+        case oldItemName === game.i18n.format("AUTOANIM.item1HS").toLowerCase():
             newItemName = "1hs";
             break;
-        case game.i18n.format("AUTOANIM.item2HS").toLowerCase():
+        case oldItemName === game.i18n.format("AUTOANIM.item2HS").toLowerCase():
             newItemName = "2hs";
             break;
-        case game.i18n.format("AUTOANIM.item1HB").toLowerCase():
+        case oldItemName === game.i18n.format("AUTOANIM.item1HB").toLowerCase():
             newItemName = "1hb";
             break;
-        case game.i18n.format("AUTOANIM.item2HB").toLowerCase():
+        case oldItemName === game.i18n.format("AUTOANIM.item2HB").toLowerCase():
             newItemName = "2hb";
             break;
-        case game.i18n.format("AUTOANIM.item1HP").toLowerCase():
+        case oldItemName === game.i18n.format("AUTOANIM.item1HP").toLowerCase():
             newItemName = "1hp";
             break;
-        case game.i18n.format("AUTOANIM.item2HP").toLowerCase():
+        case oldItemName === game.i18n.format("AUTOANIM.item2HP").toLowerCase():
             newItemName = "2hp";
             break;
         case itemAutoRec.dagger.some(el => oldItemName.includes(el)):
@@ -287,6 +287,7 @@ export function nameConversion(itemName) {
     if (newItemName === undefined) {
         console.warn("Does not match any automatically recognized name")
     }
+    console.log(newItemName)
     return [newItemName, defaultColor, autoRec, autoPreview];
     function nameIncludes(test) {
         let length = test.length;

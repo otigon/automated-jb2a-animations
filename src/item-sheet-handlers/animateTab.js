@@ -148,15 +148,15 @@ export class AAItemSettings extends FormApplication {
             dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
             divineSmite: override && (animType === "t2" || animType === "t3") ? true : false,
 
-            addExplosion: /*override &&*/ (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t6") ? true : false,
+            addExplosion: (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7") ? true : false,
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant),
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             impactShow: flags.autoanimations?.explodeVariant === "impact" ? true : false,
             explosionColors: explosionColors(explosionVariant, patreon, impactVariant),
-            explosionRadius: flags.autoanimations?.explodeRadius,
+            explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
             explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
-            showExplosionOptions: (flags.autoanimations?.explosion /*&& override*/ && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t6")) ? true : false,
+            showExplosionOptions: (flags.autoanimations?.explosion /*&& override*/ && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7")) ? true : false,
 
             explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,

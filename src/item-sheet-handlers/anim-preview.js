@@ -1,5 +1,5 @@
-import { JB2APATREONDB } from "../animation-functions/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../animation-functions/jb2a-free-database.js";
+import { JB2APATREONDB } from "../animation-functions/jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "../animation-functions/jb2a-database.js/jb2a-free-database.js";
 
 function animPreview(flags, name) {
 

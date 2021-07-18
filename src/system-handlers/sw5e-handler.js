@@ -1,3 +1,5 @@
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+
 export default class SW5eHandler {
     constructor(msg) {
         const itemId = msg.data?.flags?.sw5e?.roll?.itemId;
