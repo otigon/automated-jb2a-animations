@@ -101,8 +101,8 @@
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -454,8 +454,8 @@
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -623,8 +623,8 @@
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -780,8 +780,8 @@
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -1167,8 +1167,8 @@
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -1221,8 +1221,8 @@
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -1427,11 +1427,39 @@
                     {{/if}}
                 </div>
                 {{/if}}
+                <!--Hunters Mark Options-->
+                {{#if huntersMark}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.hmAnim"}}</label>
+                    <div class="form-fields">
+                        <select name="flags.autoanimations.hmAnim">
+                            {{#select flags.autoanimations.hmAnim}}
+                            {{#each huntermarkAnim as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                    <select name="flags.autoanimations.color">
+                        {{#select flags.autoanimations.color}}
+                        {{#each animationColor as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.ctaStatic"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked ctaOption}}>
+                </div>
                 <div class="aa-column">
                     <label>{{localize "AUTOANIM.scale"}}</label>
-                    <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
-                        data-dtype="Number">
+                    <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
                 </div>
+                {{/if}}
                 {{/if}}
             </div>
             <div class="aa-video">

@@ -323,6 +323,8 @@
     "AUTOANIM.customSequences": "Custom Sequences",
     "AUTOANIM.explode": "Explode",
     "AUTOANIM.fade": "Fade",
-    "AUTOANIM.itemLaserSwordDB": "Double Lasersword"
+    "AUTOANIM.itemLaserSwordDB": "Double Lasersword",
+    "AUTOANIM.eye": "Eye",
+    "AUTOANIM.paw": "Paw"
 
 }

@@ -723,7 +723,8 @@ AUTOANIM.hmColors = {
     "a1": ``,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
-    "purple": "AUTOANIM.colorPurple"
+    "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.hmColorsFree = {
@@ -733,13 +734,13 @@ AUTOANIM.hmColorsFree = {
 
 AUTOANIM.hmAnim = {
     "a1": ``,
-    "01": "Eye",
-    "02": "Paw"
+    "eye": "AUTOANIM.eye",
+    "paw": "AUTOANIM.paw"
 }
 
 AUTOANIM.hmAnimFree = {
     "a1": ``,
-    "01": "Eye",
+    "eye": "Eye",
 }
 
 AUTOANIM.mistystepColor = {
@@ -840,6 +841,7 @@ AUTOANIM.animNameClassFeatures = {
     'a1': ``,
     'bardicinspiration': "AUTOANIM.bardicInspiration",
     "shieldspell": "AUTOANIM.itemShield",
+    "huntersmark": "AUTOANIM.itemHM"
 }
 
 AUTOANIM.bardAnimType = {

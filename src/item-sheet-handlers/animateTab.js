@@ -124,6 +124,8 @@ export class AAItemSettings extends FormApplication {
             bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
             bardMarkerColor: patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree),
 
+            huntermarkAnim: patreon ? AUTOANIM.localized(AUTOANIM.hmAnim) : AUTOANIM.localized(AUTOANIM.hmAnimFree),
+
             animationLoops: flags.autoanimations?.options?.loops ?? 1,
             animationLoopDelay: flags.autoanimations?.options?.loopDelay ?? 250,
             scale: flags.autoanimations?.options?.scale ?? 1,
@@ -215,7 +217,8 @@ export class AAItemSettings extends FormApplication {
             targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
 
             markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
-            shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro)
+            shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
+            huntersMark: itemName === "huntersmark"
 
         };
 

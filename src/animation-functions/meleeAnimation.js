@@ -3,7 +3,6 @@ import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
 import { rangedAnimations } from "./rangedAnimation.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
-//import getVideoDimensionsOf from "../canvas-animation/video-metadata.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 

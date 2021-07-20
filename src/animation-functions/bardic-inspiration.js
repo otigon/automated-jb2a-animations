@@ -156,7 +156,7 @@ async function bardicInspiration(handler) {
                 canvas.autoanimations.playVideo(sourceAnim);
                 game.socket.emit('module.autoanimations', sourceAnim);
             }
-
+            
             if (handler.bardSelf) {
                 selfCasting();
             }

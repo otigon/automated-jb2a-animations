@@ -1,6 +1,5 @@
 //import { JB2APATREONDB } from "../jb2a-patreon-database.js";
 //import { JB2AFREEDB } from "../jb2a-free-database.js";
-//import getVideoDimensionsOf from ".../canvas-animation/video-metadata.js";
 
 export async function buildWeaponFile(jb2a, itemName, handler) {
 
@@ -46,8 +45,8 @@ export async function buildRangedFile(jb2a, itemName, handler) {
     }
     let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color
     let filePath;
-    let fileData;
-    let variant = handler.spellVariant ?? "01";
+    //let fileData;
+    //let variant = handler.spellVariant ?? "01";
     let dtvar = handler.dtvar;
     switch (itemName) {
         case "scorchingray":
@@ -315,6 +314,20 @@ export async function buildShieldFile(jb2a, handler) {
         metadata: videoData
     }
     return data
+}
+
+export async function buildHMFile(jb2a, handler) {
+    let filePath01 = `autoanimations.huntersmark.${handler.hmAnim}.pulse.${handler.color}`;
+    //let fileData01 = jb2a['huntersmark'][handler.hmAnim]['pulse']['green']
+    let filePath02 = jb2a['huntersmark'][handler.hmAnim]['loop'][handler.color];
+    //let videoData = await getVideoDimensionsOf(filePath02);
+
+    let data = {
+        file01: filePath01,
+        file02: filePath02,
+        //metadata: videoData,
+    }
+    return data;
 }
 
 function getVideoDimensionsOf(url) {

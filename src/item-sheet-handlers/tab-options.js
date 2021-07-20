@@ -8,6 +8,9 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
         case itemName === "lasersword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorLaserSword) : AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree)
             break;
+        case itemName === "huntersmark":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.hmColors) : AUTOANIM.localized(AUTOANIM.hmColorsFree)
+            break;
         case itemName === "dagger":
         case itemName === "greataxe":
         case itemName === "greatsword":

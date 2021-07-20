@@ -66,7 +66,7 @@ export default class AUTORECOG {
         
         this._creatureclaw = ["claws", game.i18n.format("AUTOANIM.itemClaw").toLowerCase()]
         
-        this._huntersmark = ["hunter's mark", game.i18n.format("AUTOANIM.itemHM").toLowerCase()]
+        this._huntersmark = ["hunter's mark", game.i18n.format("AUTOANIM.itemHM").toLowerCase(), "huntersmark"]
         
         this._unarmedstrike = ["unarmed strike", game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()]
         

@@ -901,7 +901,7 @@ JB2APATREONDB.explosion = {
 }
 
 JB2APATREONDB.huntersmark = {
-    '01': {
+    'eye': {
         'loop': {
             'blue': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Blue_Loop_200x200.webm',
             'green': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Green_Loop_200x200.webm',
@@ -913,7 +913,7 @@ JB2APATREONDB.huntersmark = {
             'purple': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_01_Regular_Purple_Pulse_200x200.webm',
         }
     },
-    '02': {
+    'paw': {
         'loop': {
             'blue': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_02_Regular_Blue_Loop_200x200.webm',
             'green': 'modules/jb2a_patreon/Library/1st_Level/Hunters_Mark/HuntersMark_02_Regular_Green_Loop_200x200.webm',
