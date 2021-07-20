@@ -9,8 +9,7 @@
     "compatibleCoreVersion": "0.8.7",
     "styles": ["src/css/tabstyles.css"],
     "esmodules": [
-        "src/autoAnimations.js",
-        "canvas-animation/AutoAnimationsLayer.js"
+        "src/autoAnimations.js"
     ],
     "scripts": [
         "src/initial_warning.js"

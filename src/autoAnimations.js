@@ -28,8 +28,6 @@ import { templateAnimation } from "./animation-functions/templateAnimation.js";
 import { shieldSpell } from "./animation-functions/shield.js";
 import { setupSocket } from "./socketset.js";
 
-
-import { AALayer, AAGroundLayer } from "./canvas-animation/AutoAnimationsLayer.js";
 import ImagePicker from "./ImagePicker.js";
 
 import SequencerApplication from "./item-sheet-handlers/sequenceApplication.js";
@@ -39,46 +37,6 @@ import "../lib/alpine.min.js"
 //const log = console.log.bind(window.console);
 const log = () => { };
 
-function registerLayer() {
-    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-        const layers = mergeObject(Canvas.layers, {
-            autoanimations: AALayer,
-            autoanimationsG: AAGroundLayer
-        });
-        Object.defineProperty(Canvas, 'layers', {
-            get: function () {
-                return layers
-            }
-        });
-    } else {
-        CONFIG.Canvas.layers = foundry.utils.mergeObject(CONFIG.Canvas.layers, {
-            autoanimations: AALayer,
-            autoanimationsG: AAGroundLayer
-        });
-        if (!Object.is(Canvas.layers, CONFIG.Canvas.layers)) {
-            console.error('Possible incomplete layer injection by other module detected! Trying workaround...')
-
-            const layers = Canvas.layers
-            Object.defineProperty(Canvas, 'layers', {
-                get: function () {
-                    return foundry.utils.mergeObject(layers, CONFIG.Canvas.layers)
-                }
-            })
-        }
-    }
-
-    // workaround for other modules
-}
-function activateSocket() {
-    game.socket.on("module.autoanimations", (data) => {
-        //console.log(data.position);
-        if (data.below) {
-            canvas.autoanimationsG.playVideo(data);
-        } else {
-            canvas.autoanimations.playVideo(data);
-        }
-    });
-}
 Hooks.once('setup', function () {
     setupSocket();
 });
@@ -86,9 +44,6 @@ Hooks.once('setup', function () {
 Hooks.on('init', () => {
 
     window.sequencerApp = new SequencerApplication();
-
-    registerLayer();
-    activateSocket();
 
     game.settings.register("autoanimations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
         name: game.i18n.format("AUTOANIM.initpopup_name"),                  // Register a module setting with checkbox

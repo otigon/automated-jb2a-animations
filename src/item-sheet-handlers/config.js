@@ -765,6 +765,7 @@ AUTOANIM.musicnoteColor = {
     'green': "AUTOANIM.colorGreen",
     'orange': "AUTOANIM.colorOrange",
     'purple': "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.musicnoteColorFree = {
@@ -817,6 +818,7 @@ AUTOANIM.bardicInspirationColors = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark red": "AUTOANIM.colorDarkRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.bardicInspirationColorsFree = {
@@ -830,6 +832,7 @@ AUTOANIM.bardicMarkerColors = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark red": "AUTOANIM.colorDarkRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.bardicMarkerColorsFree = {
