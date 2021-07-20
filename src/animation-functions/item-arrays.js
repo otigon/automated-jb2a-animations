@@ -4,7 +4,7 @@ AAITEMCHECK.melee = ['dagger', 'handaxe', 'rapier', 'sword', 'greatsword', 'lase
 
 AAITEMCHECK.meleerange = ['dagger', 'spear', 'handaxe']
 
-AAITEMCHECK.ranged = ['rangehammer', 'siege', 'boulder', 'lasershot', 'rangejavelin', 'rangesling', 'bullet', 'bolt', 'arrow', 'snipe']
+AAITEMCHECK.ranged = ['rangehammer', 'siege', 'boulder', 'lasershot', 'rangejavelin', 'rangesling', 'bullet', 'bolt', 'arrow', 'snipe', 'rangesword', 'rangemace', 'rangelasersword', 'rangelasersworddb', 'rangegreataxe', 'rangegreatsword']
 
 AAITEMCHECK.spellattack = ['firebolt', 'rayoffrost', 'witchbolt', 'eldritchblast', 'scorchingray', 'disintegrate', 'guidingbolt', 'magicmissile']
 

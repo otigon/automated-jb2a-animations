@@ -14,11 +14,12 @@ async function huntersMark(handler) {
 
 
     let obj03 = handler.hmAnim;
-    if (obj03 === "a1") { obj03 = "01" };
+    if (obj03 === "a1" || !obj03) { obj03 = "01" };
     let color;
     switch (handler.color) {
         case "a1":
         case ``:
+        case !handler.color:
             color = 'green';
             break;
         default:
@@ -121,11 +122,20 @@ async function huntersMark(handler) {
 
     let tokenName = target.name;
 
+    new Sequence()
+        .effect()
+            .file(hmPulse)
+            .atLocation(myToken)
+        .effect()
+            .file(hmPulse)
+            .atLocation(target)
+        .play()
+        /*
     canvas.autoanimations.playVideo(hmAnimPulseSelf);
     game.socket.emit('module.autoanimations', hmAnimPulseSelf)
     canvas.autoanimations.playVideo(hmAnimPulseTarget);
     game.socket.emit('module.autoanimations', hmAnimPulseTarget)
-
+        */
     if (game.modules.get("Custom-Token-Animations")?.active) {
         await wait(3000);
 

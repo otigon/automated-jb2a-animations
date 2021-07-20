@@ -20,6 +20,23 @@ AUTOANIM.spellVariant = {
     "02": "AUTOANIM.variant02",
 }
 
+AUTOANIM.shieldVariant = {
+    'a1': ``,
+    "01": "01",
+    "02": "02",
+    "03": "03",
+}
+
+AUTOANIM.shieldVariantFree = {
+    'a1': ``,
+    "01": "01",
+}
+
+AUTOANIM.shieldOutro = {
+    'outro_explode': "AUTOANIM.explode",
+    'outro_fade': "AUTOANIM.fade"
+}
+
 AUTOANIM.animNameHealSpell = {
     "a1": ``,
     "cure wounds": "AUTOANIM.itemCureWounds",
@@ -50,15 +67,21 @@ AUTOANIM.animNameMeleeWeapon = {
 AUTOANIM.animNameRangeWeapon = {
     "a1": ``,
     "arrow": "AUTOANIM.itemArrow",
+    "bolt": "AUTOANIM.bolt",
     "boulder": "AUTOANIM.itemBoulder",
+    "bullet": "AUTOANIM.bullet",
+    "rangegreataxe": "AUTOANIM.itemGreataxe",
+    "rangegreatsword": "AUTOANIM.itemGreatsword",
     "javelin": "AUTOANIM.itemJavelin",
     "laser blast": "AUTOANIM.itemLaserBlast",
+    "rangelasersword": "AUTOANIM.itemLaserSword",
+    "rangelasersworddb": "AUTOANIM.itemLaserSwordDB",
+    "rangemace": "AUTOANIM.itemMace",
     "siege boulder": "AUTOANIM.itemSiegeBoulder",
     "sling": "AUTOANIM.itemSling",
-    "throwing hammer": "AUTOANIM.itemThrowingHammer",
-    "bolt": "AUTOANIM.bolt",
-    "bullet": "AUTOANIM.bullet",
     "snipe": "AUTOANIM.snipe",
+    "rangesword": "AUTOANIM.itemSword",
+    "throwing hammer": "AUTOANIM.itemThrowingHammer",
 };
 
 AUTOANIM.animNameRangeWeaponFree = {
@@ -137,21 +160,49 @@ AUTOANIM.animColorMelee = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.rangeSwordColor = {
+    "a1": ``,
+    "white": `AUTOANIM.colorWhite`,
+    "blue": "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.rangeLaserSwordColor = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
+}
+
 AUTOANIM.animColorMeleeFree = {
     "a1": ``,
     "white": `AUTOANIM.colorWhite`,
 }
 
 AUTOANIM.daggerVariant = {
-    "dt1": ``,
+    "a1": ``,
     "01": "AUTOANIM.itemDagger01",
     "02": "AUTOANIM.itemDagger02",
     "kunai": "AUTOANIM.itemKunai",
 }
 
 AUTOANIM.daggerVariantFree = {
-    "dt1": ``,
+    "a1": ``,
     "dagger01": "AUTOANIM.itemDagger01",
+}
+
+AUTOANIM.handaxeVariant = {
+    "a1": ``,
+    "01": "01",
+    "02": "02"
+}
+
+AUTOANIM.handaxeVariantFree = {
+    "a1": ``,
+    "01": "01",
 }
 
 AUTOANIM.animColorLaserSword = {
@@ -402,6 +453,61 @@ AUTOANIM.explosionColorsImpact = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.impactColors05 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColors06 = {
+    "ec1": ``,
+    "yellow": "AUTOANIM.colorYellow",
+}
+
+AUTOANIM.impactColors07 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "yellow": "AUTOANIM.colorYellow",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColors08 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColors09 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColors10 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColor06Free = {
+    "ec1": ``,
+    "white": `AUTOANIM.white`,
+}
 AUTOANIM.impactVariant = {
     "a1" : ``,
     "boulder": "AUTOANIM.itemBoulder",
@@ -409,6 +515,12 @@ AUTOANIM.impactVariant = {
     "02" : "02",
     "03" : "03",
     "04" : "04",
+    "05" : "05",
+    "06" : "06",
+    "07" : "07",
+    "08" : "08",
+    "09" : "09",
+    "010" : "10",
 }
 
 AUTOANIM.explosionColorsImpactFree = {
@@ -726,8 +838,8 @@ AUTOANIM.bardicMarkerColorsFree = {
 
 AUTOANIM.animNameClassFeatures = {
     'a1': ``,
-    'bardic inspiration': "AUTOANIM.bardicInspiration",
-    'sneakattack': "AUTOANIM.sneakattack"
+    'bardicinspiration': "AUTOANIM.bardicInspiration",
+    "shieldspell": "AUTOANIM.itemShield",
 }
 
 AUTOANIM.bardAnimType = {
@@ -748,6 +860,7 @@ AUTOANIM.dsSelf = {
     'green yellow': "AUTOANIM.colorGreenYellow",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark purple": "AUTOANIM.colorDarkPurple",
+    "yellow white": "AUTOANIM.white"
 }
 
 AUTOANIM.dsSelfFree = {
@@ -761,6 +874,7 @@ AUTOANIM.dsTarget = {
     'green yellow': "AUTOANIM.colorGreenYellow",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark purple": "AUTOANIM.colorDarkPurple",
+    "yellow white": "AUTOANIM.white"
 }
 
 AUTOANIM.dsTargetFree = {
@@ -983,6 +1097,15 @@ AUTOANIM.arrowColors = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.arrowColorsPys = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom",
+}
+
 AUTOANIM.arrowColorsFree = {
     "a1": "",
     "blue": "AUTOANIM.colorBlue",
@@ -1083,11 +1206,11 @@ AUTOANIM.animTypePick = {
     "t10": "AUTOANIM.typeExplosiveSelf",
     "t11": "AUTOANIM.typeAuras",
     "t12": "AUTOANIM.animTeleportation",
-    "t13": "AUTOANIM.classFeatures",
+    "t13": "AUTOANIM.customSequences",
 }
 
 AUTOANIM.animNull = {
-    "n1": ``,
+    "a1": ``,
 }
 
 AUTOANIM.tokenAnimations = {
@@ -1179,6 +1302,20 @@ AUTOANIM.marker02Colors = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "pink": "AUTOANIM.colorPink",
     "purple pink": "AUTOANIM.colorPinkPurple",
+}
+
+AUTOANIM.shieldspellColors = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow",
+}
+
+AUTOANIM.shieldspellColorsFree = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
 }
 
 AUTOANIM.marker02Colors = {

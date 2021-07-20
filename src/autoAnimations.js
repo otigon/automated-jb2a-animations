@@ -25,6 +25,7 @@ import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
 import { explodeOnToken } from "./animation-functions/explodeOnToken.js";
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
+import { shieldSpell } from "./animation-functions/shield.js";
 import { setupSocket } from "./socketset.js";
 
 
@@ -733,6 +734,9 @@ async function revItUp(handler) {
             break;
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
+            break;
+        case ((handler.animName === "shieldspell")):
+            shieldSpell(handler);
             break;
         case itemName === "bardicinspiration":
             bardicInspiration(handler);

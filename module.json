@@ -52,6 +52,12 @@
             "path": "lang/de.json"
         }  
     ],
+    "dependencies" : [
+        {
+          "name": "sequencer",
+          "manifest": "https://github.com/Haxxer/FoundryVTT-Sequencer/releases/latest/download/manifest.json"
+        }
+    ],
     "socket": true,
     "manifest": "https://raw.githubusercontent.com/otigon/automated-jb2a-animations/main/module.json",
     "download": "https://github.com/otigon/automated-jb2a-animations/archive/main.zip"

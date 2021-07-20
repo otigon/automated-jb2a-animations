@@ -250,7 +250,6 @@
     "AUTOANIM.dmgTypeLightning": "Lightning",
     "AUTOANIM.bwWarning": "Assumes 30 foot Line Template",
     "AUTOANIM.dsEffect": "Divine Smite Effect",
-    "AUTOANIM.delay": "Delay (milliseconds)",
     "AUTOANIM.selfColor": "Self Animation Color",
     "AUTOANIM.targetColor": "Target Animation Color",
     "AUTOANIM.ctaStatic": "Enable to make CTA image Static",
@@ -301,5 +300,29 @@
     "AUTOANIM.audioVolumeNEW": "Audio Volume (0 - 10)",
 
     "AUTOANIM.musicMarker": "Music",
-    "AUTOANIM.crossbow": "Crossbow"
+    "AUTOANIM.crossbow": "Crossbow",
+    "AUTOANIM.loops": "Loops",
+    "AUTOANIM.loopDelay": "Loop Delay",
+    "AUTOANIM.scale": "Scale",
+    "AUTOANIM.radius": "Radius",
+    "AUTOANIM.delayMS": "Delay (ms)",
+    "AUTOANIM.placeTile": "Place as Tile",
+    "AUTOANIM.socketLibAA": "module required",
+    "AUTOANIM.opacity": "Opacity",
+    "AUTOANIM.overhead": "Make Overhead",
+    "AUTOANIM.sourceToken": "Activate Source Token Animation",
+    "AUTOANIM.targetToken": "Activate Target Token Animation",
+    "AUTOANIM.after": "After",
+    "AUTOANIM.animation": "Animation",
+    "AUTOANIM.source": "Source",
+    "AUTOANIM.target": "Target",
+    "AUTOANIM.primary": "Primary",
+    "AUTOANIM.start": "Start",
+    "AUTOANIM.thrown": "Thrown",
+    "AUTOANIM.white": "White",
+    "AUTOANIM.customSequences": "Custom Sequences",
+    "AUTOANIM.explode": "Explode",
+    "AUTOANIM.fade": "Fade",
+    "AUTOANIM.itemLaserSwordDB": "Double Lasersword"
+
 }

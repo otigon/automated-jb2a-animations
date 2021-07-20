@@ -1,5 +1,5 @@
 import { AUTOANIM } from "./config.js";
-import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors } from "./tab-options.js";
+import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -70,6 +70,7 @@ export class AAItemSettings extends FormApplication {
         switch (true) {
             case itemName === "scorchingray" && animType === "t6":
             case itemName === "generichealing" && animType === "t7":
+            case itemName === "shieldspell" && animType === "t13":
                 spellVariants = true;
                 break;
             default:
@@ -131,7 +132,7 @@ export class AAItemSettings extends FormApplication {
             customPath01: flags.autoanimations?.options?.customPath01 || "",
 
             spellVariants: spellVariants,
-            spellVariant: AUTOANIM.localized(AUTOANIM.spellVariant),
+            spellVariant: variantSpell(itemName, patreon),
             animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
             animationNames: animationName(animType, patreon),
             animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType), //AUTOANIM.localized(AUTOANIM.animColorMelee),
@@ -139,8 +140,8 @@ export class AAItemSettings extends FormApplication {
             unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
             uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
 
-            daggerVariant: patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree),
-            daggerVariantShow: itemName === "dagger" && animType === "t2" && override ? true : false,
+            thrownVariant: thrownVariants(itemName, patreon),
+            thrownVariantShow: (itemName === "dagger" || itemName === "handaxe") && animType === "t2" && override ? true : false,
 
             dsDelaySelf: flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1,
             dsDelayTarget: flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250,
@@ -200,7 +201,7 @@ export class AAItemSettings extends FormApplication {
             sourceColor: flags.autoanimations?.sourceToken?.color ?? "",
             sourceColors: tokenColors(patreon, sourceName, sourceVariant),
             sourceImpact: flags.autoanimations?.sourceToken?.name === "impact" ? true : false,
-            sourceMarker:  flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
+            sourceMarker: flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
 
             targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
             targetLoops: flags.autoanimations?.targetToken?.loops ?? 1,
@@ -211,9 +212,10 @@ export class AAItemSettings extends FormApplication {
             targetColor: flags.autoanimations?.targetToken?.color ?? "",
             targetColors: tokenColors(patreon, targetName, targetVariant),
             targetImpact: flags.autoanimations?.targetToken?.name === "impact" ? true : false,
-            targetMarker:  flags.autoanimations?.targetToken?.name === "marker" ? true : false,
+            targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
 
             markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
+            shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro)
 
         };
 

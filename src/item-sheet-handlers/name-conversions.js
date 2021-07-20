@@ -5,18 +5,30 @@ export function nameConversion(itemName) {
     let oldItemName = itemName.toLowerCase();
     console.log("old item name is " + oldItemName)
     let defaultColor;
-    let newItemName;
+    let newItemName = "pass";
     let autoRec;
     let jb2a = moduleIncludes("jb2a_patreon") === true ? "jb2a_patreon" : "JB2A_DnD5e";
     let autoPreview = "no preview";
     switch (true) {
-        /*
-        case oldItemName.includes("bardic inspiration"):
-        case oldItemName.includes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase()):
+        case oldItemName === "rangesword":
+        case oldItemName === "rangegreatsword":
+        case oldItemName === "rangegreataxe":
+        case oldItemName === "rangemace":
+            newItemName = oldItemName;
+            defaultColor = "white";
+            break;
+        case oldItemName === "rangelasersword":
+            newItemName = oldItemName;
+            defaultColor = "blue";
+            break;
+        case oldItemName === "rangelasersworddb":
+            newItemName = oldItemName;
+            defaultColor = "red";
+            break;
+        case oldItemName.includes("bardicinspiration"):
             newItemName = "bardicinspiration";
             defaultColor = "green orange";
             break;
-        */
         case itemAutoRec.rapier.some(el => oldItemName.includes(el)):
             newItemName = "rapier";
             defaultColor = "white";
@@ -203,8 +215,8 @@ export function nameConversion(itemName) {
             autoRec = game.i18n.format("AUTOANIM.itemGuidingBolt");
             autoPreview = `modules/${jb2a}/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_30ft_1600x400.webm`;
             break;
-        case itemAutoRec.shield.some(el => oldItemName.includes(el)):
-            newItemName = "shield";
+        case oldItemName === "shieldspell":
+            newItemName = "shieldspell";
             break;
         case itemAutoRec.creaturebite.some(el => oldItemName.includes(el)):
             newItemName = "creaturebite";
@@ -304,4 +316,8 @@ export function nameConversion(itemName) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
+}
+
+export function removeDefaults(item) {
+    item.unsetFlag("autoanimations", "defaults")
 }

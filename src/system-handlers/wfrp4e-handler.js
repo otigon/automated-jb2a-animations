@@ -94,16 +94,13 @@ export default class WFRP4eHandler {
                 break;
         }
 
-        if (!this._flags.defaults) {
-            this._convert = nameConversion(this._animNameFinal)
-            this._convertName = this._convert[0]
-            this._item.setFlag("autoanimations", "defaults.name", this._convertName)
-            this._defaultColor = this._convert[1]
-            this._item.setFlag("autoanimations", "defaults.color", this._defaultColor)
-        } else {
-            this._convertName = this._flags.defaults.name;
-            this._defaultColor = this._flags.defaults.color;
+        this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
+        if (this._convert[0] !== "pass") {
+            this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
+            this._item.setFlag("autoanimations", "defaults.color", this._convert[1])
         }
+        this._convertName = this._flags.defaults ? this._flags.defaults.name : "pass";
+        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : "pass";
 
     }
 
