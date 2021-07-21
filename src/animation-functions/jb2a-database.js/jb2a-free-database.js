@@ -348,41 +348,41 @@ JB2AFREEDB.huntersmark = {
 
 JB2AFREEDB.magicmissile = {
     'purple': {
-        '30ft': {
-            '1': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_01_1600x400.webm',
-            '2': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_02_1600x400.webm',
-            '3': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_03_1600x400.webm',
-            '4': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_04_1600x400.webm',
-            '5': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_05_1600x400.webm',
-            '6': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_06_1600x400.webm',
-            '7': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_07_1600x400.webm',
-            '8': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_08_1600x400.webm',
-            '9': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_09_1600x400.webm',
-        },
-        '60ft': {
-            '1': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_01_2800x400.webm',
-            '2': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_02_2800x400.webm',
-            '3': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_03_2800x400.webm',
-            '4': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_04_2800x400.webm',
-            '5': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_05_2800x400.webm',
-            '6': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_06_2800x400.webm',
-            '7': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_07_2800x400.webm',
-            '8': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_08_2800x400.webm',
-            '9': 'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_09_2800x400.webm',
-        }
+        '30ft': [
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_01_1600x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_02_1600x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_03_1600x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_04_1600x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_05_1600x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_06_1600x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_07_1600x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_08_1600x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_30ft_09_1600x400.webm',
+        ],
+        '60ft': [
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_01_2800x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_02_2800x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_03_2800x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_04_2800x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_05_2800x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_06_2800x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_07_2800x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_08_2800x400.webm',
+            'modules/JB2A_DnD5e/Library/1st_Level/Magic_Missile/MagicMissile_01_Regular_Purple_60ft_09_2800x400.webm',
+        ]
     }
 }
 
 JB2AFREEDB.music = {
-    'blue': {
-        '1': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/BassClef_01_Regular_Blue_200x200.webm',
-        '2': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/BeamedQuavers_01_Regular_Blue_200x200.webm',
-        '3': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Crotchet_01_Regular_Blue_200x200.webm',
-        '4': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Flat_01_Regular_Blue_200x200.webm',
-        '5': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Quaver_01_Regular_Blue_200x200.webm',
-        '6': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Sharp_01_Regular_Blue_200x200.webm',
-        '7': 'modules/JB2A_DnD5e/Library/Generic/Music_Notation/TrebleClef_01_Regular_Blue_200x200.webm'
-    }
+    'blue': [
+        'modules/JB2A_DnD5e/Library/Generic/Music_Notation/BassClef_01_Regular_Blue_200x200.webm',
+        'modules/JB2A_DnD5e/Library/Generic/Music_Notation/BeamedQuavers_01_Regular_Blue_200x200.webm',
+        'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Crotchet_01_Regular_Blue_200x200.webm',
+        'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Flat_01_Regular_Blue_200x200.webm',
+        'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Quaver_01_Regular_Blue_200x200.webm',
+        'modules/JB2A_DnD5e/Library/Generic/Music_Notation/Sharp_01_Regular_Blue_200x200.webm',
+        'modules/JB2A_DnD5e/Library/Generic/Music_Notation/TrebleClef_01_Regular_Blue_200x200.webm'
+    ],
 }
 
 JB2AFREEDB.mistystep = {

@@ -291,25 +291,5 @@ export default class MidiHandler {
     itemTypeIncludes() {
         return [...arguments].every(a => this._itemType?.includes(a));
     }
-    async itemConversion(name) {
-        let convert;
-        let convertName;
-        let defaultColor;
-        if (!this._flags.defaults) {
-            convertName = nameConversion(name)
-            if (convert[0] === "pass") {
-                return ["pass"]
-            }
-            else {
-                convertName = convert[0];
-                await this._item.setFlag("autoanimations", "defaults.name", convertName)
-                defaultColor = convert[1];
-                await this._item.setFlag("autoanimations", "defaults.color", defaultColor)
-            }
-            return [convertName, defaultColor]
-        } else {
-            return ["pass"]
-        }
-    }
 }
 

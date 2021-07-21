@@ -561,7 +561,7 @@ function revItUp5eCore(msg) {
 
     if (handler.animType === "t8" && handler.animOverride) {
         Hooks.once("createMeasuredTemplate", (msg) => {
-            templateEffects(handler, msg);
+            templateAnimation(handler, msg);
         });
         return;
     }
@@ -659,19 +659,19 @@ async function revItUp(handler) {
             case "dnd5e":
                 if (game.modules.get("mars-5e")?.active) {
                     if (handler.animType === "t8" && handler.animOverride) {
-                        templateEffects(handler);
+                        templateAnimation(handler);
                         return;
                     }
                 } else if (handler.animType === "t8" && handler.animOverride) {
                     Hooks.once("createMeasuredTemplate", (msg) => {
-                        templateEffects(handler, msg);
+                        templateAnimation(handler, msg);
                     });
                     return;
                 }
                 break;
             default:
                 if (handler.animType === "t8" && handler.animOverride) {
-                    templateEffects(handler);
+                    templateAnimation(handler);
                     return;
                 }
         }
