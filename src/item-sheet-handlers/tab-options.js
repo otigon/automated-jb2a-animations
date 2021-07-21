@@ -215,9 +215,11 @@ export function thrownVariants(itemName, patreon) {
     let thrownVariant;
     switch (itemName) {
         case "dagger":
+        case "rangedagger":
             thrownVariant = patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree);
             break;
         case "handaxe":
+        case "rangehandaxe":
             thrownVariant = patreon ? AUTOANIM.localized(AUTOANIM.handaxeVariant) : AUTOANIM.localized(AUTOANIM.handaxeVariantFree);
             break;
     }

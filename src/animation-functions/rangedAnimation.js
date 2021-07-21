@@ -37,12 +37,12 @@ export async function rangedAnimations(handler) {
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildSourceTokenFile(jb2a, handler.sourceName, handler)
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
+        targetFX = await buildTargetTokenFile(jb2a, handler.targetName, handler)
     }
 
     //logging explosion Scale
@@ -89,7 +89,6 @@ export async function rangedAnimations(handler) {
                     .belowTokens(handler.animLevel)
                     .addOverride(
                         async (effect, data) => {
-                            console.log(data)
                             return data
                         })
                     //.waitUntilFinished(-500 + handler.explosionDelay)

@@ -60,6 +60,7 @@ export async function buildRangedFile(jb2a, itemName, handler) {
             break;
         case 'rangehammer':
         case "rangedagger":
+        case "rangehandaxe":
             if (!handler.dtvar || handler.dtvar === "a1") (dtvar = "01")
             filePath = `autoanimations.${itemName}.${dtvar}`;
             break;
@@ -285,7 +286,7 @@ export async function buildTargetTokenFile(jb2a, animName, handler) {
                 break;
             default:
                 filePath = handler.targetColor === "random" ? `autoanimations.tokenEffect.${animName}` : `autoanimations.tokenEffect.${animName}.${color}`;
-                fileData = handler.targetColor === "random" ? jb2a['tokenEffect'][animName][Object.keys(jb2a['tokenEffect'][animName][handler.targetVariant])[0]] : jb2a['tokenEffect'][animName][color]
+                fileData = handler.targetColor === "random" ? jb2a['tokenEffect'][animName][Object.keys(jb2a['tokenEffect'][animName])[0]] : jb2a['tokenEffect'][animName][color]
         }
     }
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
@@ -304,7 +305,7 @@ export async function buildShieldFile(jb2a, handler) {
     let filePath02 = `autoanimations.shield.${handler.spellVariant}.${handler.color}.loop`;
     let filePath03 = `autoanimations.shield.${handler.spellVariant}.${handler.color}.${handler.options.shieldVar}`;
     let fileData = jb2a["shield"]["01"]["blue"]["intro"];
-    
+
     let videoData = await getVideoDimensionsOf(fileData);
 
     let data = {

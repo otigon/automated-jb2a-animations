@@ -9,19 +9,11 @@ export async function explodeOnToken(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    console.log("START")
-    console.log(handler)
     //console.log(JB2APATREONDB)
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    /*
-    if (handler.flags.options.customPath01) {
-        filePath = handler.flags.options.customPath01
-    }
-    console.log(filePath);
-    */
     let sourceToken = handler.actorToken;
     let explosion = await buildAfterFile(obj01, handler)
     let scale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / explosion.metadata.width;
@@ -65,7 +57,6 @@ export async function explodeOnToken(handler) {
                 .belowTokens(handler.explosionLevel)
                 .addOverride(
                     async (effect, data) => {
-                        console.log(data)
                         return data
                     })
             .play()

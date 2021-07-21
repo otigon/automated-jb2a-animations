@@ -17,7 +17,7 @@ export default class MidiHandler {
         this._flags = item.data?.flags?.autoanimations ?? "";;
         //
         this._animLevel = this._flags.animLevel ?? false;
-        this._animColor = this._flags?.color?.toLowerCase() ?? "";
+        this._animColor = this._flags.color ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._explodeColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._explodeDelay = this._flags.explodeDelay ?? 0;
@@ -36,7 +36,7 @@ export default class MidiHandler {
         this._auraOpacity = this._flags.auraOpacity ?? "";
         this._ctaOption = this._flags.ctaOption ?? "";
         this._hmAnim = this._flags.hmAnim ?? "";
-        this._uaStrikeType = this._flags.uaStrikeType ?? "";
+        this._uaStrikeType = this._flags.uaStrikeType ?? "physical";
         this._teleDist = this._flags.teleDist ?? "";
         this._spellVar = this._flags.spellVar ?? "01";
         this._bardTarget = this._flags.bards?.bardTarget ?? true;
@@ -66,26 +66,26 @@ export default class MidiHandler {
         this._sourceColor = this._sourceToken.color ?? "";
         this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;
         this._sourceCustomPath = this._sourceToken.customPath ?? "";
-        this._sourceLoops = this._sourceToken.loops ?? 1,
-            this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
-        this._sourceScale = this._sourceToken.scale ?? 1,
-            this._sourceDelay = this._sourceToken.delayAfter ?? 500,
-            this._sourceVariant = this._sourceToken.variant ?? "",
+        this._sourceLoops = this._sourceToken.loops ?? 1;
+        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
+        this._sourceScale = this._sourceToken.scale ?? 1;
+        this._sourceDelay = this._sourceToken.delayAfter ?? 500;
+        this._sourceVariant = this._sourceToken.variant ?? "";
 
-            this._targetToken = this.flags.targetToken ?? "";
+        this._targetToken = this.flags.targetToken ?? "";
         this._targetEnable = this._targetToken.enable ?? false;
         this._targetLevel = this._targetToken.animLevel ?? false;
         this._targetName = this._targetToken.name ?? "";
         this._targetColor = this._targetToken.color ?? "";
         this._targetCustomEnable = this._targetToken.enableCustom ?? false;
         this._targetCustomPath = this._targetToken.customPath ?? "";
-        this._targetLoops = this._targetToken.loops ?? 1,
-            this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
-        this._targetScale = this._targetToken.scale ?? 1,
-            this._targetDelay = this._targetToken.delayAfter ?? 500,
-            this._targetVariant = this._targetToken.variant ?? "",
+        this._targetLoops = this._targetToken.loops ?? 1;
+        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
+        this._targetScale = this._targetToken.scale ?? 1;
+        this._targetDelay = this._targetToken.delayStart ?? 500;
+        this._targetVariant = this._targetToken.variant ?? "";
 
-            this._checkSave = Array.from(workflow.saves);
+        this._checkSave = Array.from(workflow.saves);
         this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
 
         this._hitTargets = Array.from(workflow.hitTargets);

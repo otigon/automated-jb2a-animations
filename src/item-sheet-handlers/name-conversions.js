@@ -14,6 +14,9 @@ export function nameConversion(itemName) {
         case oldItemName === "rangegreatsword":
         case oldItemName === "rangegreataxe":
         case oldItemName === "rangemace":
+        case oldItemName === "rangedagger":
+        case oldItemName === "rangespear":
+        case oldItemName === "rangehandaxe":
             newItemName = oldItemName;
             defaultColor = "white";
             break;
@@ -299,20 +302,7 @@ export function nameConversion(itemName) {
     if (newItemName === undefined) {
         console.warn("Does not match any automatically recognized name")
     }
-    console.log(newItemName)
     return [newItemName, defaultColor, autoRec, autoPreview];
-    function nameIncludes(test) {
-        let length = test.length;
-        console.log(length)
-        for (var i = 0; i < length; i++) {
-            if (oldItemName.includes(test[i])) {
-                console.log("SUCCESS")
-                return true;
-            } else {
-                console.log("NOPE")
-            }
-        }
-    }
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }

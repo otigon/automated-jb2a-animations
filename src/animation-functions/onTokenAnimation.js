@@ -9,8 +9,6 @@ export async function onTokenAnimation(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    console.log("START")
-    //console.log(JB2APATREONDB)
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
@@ -19,7 +17,6 @@ export async function onTokenAnimation(handler) {
     // Random Color pull given object path
     //Builds standard File Path
     let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
-    console.log(onToken)
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {
@@ -31,18 +28,13 @@ export async function onTokenAnimation(handler) {
         targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
 
-    /*
-    if (handler.flags.options.customPath01) {
-        filePath = handler.flags.options.customPath01
-    }
-    console.log(filePath);
-    */
     let sourceToken = handler.actorToken;
     let explosion;
+    let exScale;
     if (handler.flags.explosion) {
-        explosion = await buildAfterFile(obj01, handler)
+        explosion = await buildAfterFile(obj01, handler);
+        exScale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / explosion.metadata.width;
     }
-    //console.log(explosion);
     let animWidth = onToken.metadata.width;
     if (handler.allTargets.length === 0 && (itemName === "curewounds" || itemName === "generichealing")) {
     new Sequence()
@@ -57,7 +49,6 @@ export async function onTokenAnimation(handler) {
                 if (handler.sourceEnable) {
                     data.file = sourceFX.file;
                 }
-             //console.log(data)
                 return data;
             })            
         .effect()
@@ -70,7 +61,6 @@ export async function onTokenAnimation(handler) {
             .belowTokens(handler.animLevel)
             .addOverride(
                 async (effect, data) => {
-                    console.log(data)
                     return data
                 })
         .play()
@@ -83,7 +73,6 @@ export async function onTokenAnimation(handler) {
 
             let target = handler.allTargets[i];
             let scale = itemName.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
-
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? false : true;
@@ -103,9 +92,8 @@ export async function onTokenAnimation(handler) {
                         if (handler.sourceEnable) {
                             data.file = sourceFX.file;
                         }
-                        //console.log(data)
                         return data;
-                    })            
+                    })
                 .effect()
                     .file(onToken.file)
                     .atLocation(target)
@@ -113,17 +101,26 @@ export async function onTokenAnimation(handler) {
                     .repeats(handler.animationLoops, handler.loopDelay)
                     .scale(scale * handler.scale)
                     .belowTokens(handler.animLevel)
+                    .name("animation")
+                    .playIf(() => { return arrayLength })
+                .effect()
+                    .file(onToken.file)
+                    .delay(handler.explosionDelay)
+                    .atLocation("animation")
+                    //.randomizeMirrorY()
+                    .repeats(handler.animationLoops, handler.loopDelay)
+                    .scale(exScale)
+                    .belowTokens(handler.explosion)
                     .playIf(() => { return arrayLength })
                     .addOverride(async (effect, data) => {
                         if (handler.explosion) {
                             data.file = explosion.file;
                         }
-                        //console.log(data)
                         return data;
                     })
                 .effect()
                     .delay(handler.targetDelay)
-                    .atLocation(target)
+                    .atLocation("animation")
                     .scale(handler.targetScale)
                     .repeats(handler.targetLoops, handler.targetLoopDelay)
                     .belowTokens(handler.targetLevel)
@@ -132,7 +129,6 @@ export async function onTokenAnimation(handler) {
                         if (handler.targetEnable) {
                             data.file = targetFX.file;
                         }
-                        //console.log(data)
                         return data;
                     })            
                 .play()

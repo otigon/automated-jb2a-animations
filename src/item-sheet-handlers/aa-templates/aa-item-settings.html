@@ -317,6 +317,19 @@
                     </div>
                 </div>
                 {{/if}}
+                {{#if thrownVariantShow}}
+                <!--Choose a Thrown Dagger Variant-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuThrownVariant"}}</label>
+                    <select name="flags.autoanimations.dtvar" class="dagger-variants">
+                        {{#select flags.autoanimations.dtvar}}
+                        {{#each thrownVariant as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                {{/if}}
                 <!--Choose Standard Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>

@@ -672,11 +672,11 @@ JB2APATREONDB.rangehammer = {
 }
 
 JB2APATREONDB.rangesling = {
-    '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot01_01_Regular_White_05ft_600x400.webm',
-    '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot01_01_Regular_White_15ft_1000x400.webm',
-    '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot01_01_Regular_White_30ft_1600x400.webm',
-    '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot01_01_Regular_White_60ft_2800x400.webm',
-    '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot01_01_Regular_White_90ft_4000x400.webm'
+    '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_05ft_600x400.webm',
+    '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_15ft_1000x400.webm',
+    '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_30ft_1600x400.webm',
+    '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_60ft_2800x400.webm',
+    '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_90ft_4000x400.webm'
 }
 
 JB2APATREONDB.rangejavelin = {
@@ -687,11 +687,11 @@ JB2APATREONDB.rangejavelin = {
 }
 
 JB2APATREONDB.boulder = {
-    '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss01_01_Regular_White_05ft_600x500.webm',
-    '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss01_01_Regular_White_15ft_1000x500.webm',
-    '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss01_01_Regular_White_30ft_1600x500.webm',
-    '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss01_01_Regular_White_60ft_2800x500.webm',
-    '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss01_01_Regular_White_90ft_4000x500.webm'
+    '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_05ft_600x500.webm',
+    '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_15ft_1000x500.webm',
+    '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_30ft_1600x500.webm',
+    '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_60ft_2800x500.webm',
+    '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_90ft_4000x500.webm'
 }
 
 JB2APATREONDB.siege = {

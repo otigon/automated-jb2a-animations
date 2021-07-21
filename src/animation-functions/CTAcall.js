@@ -94,7 +94,6 @@ async function ctaCall(handler) {
     }
 
     let filePath = obj01[obj02][color];
-    console.log(filePath);
     let scale;
     let tokenSize = handler.actorToken.actor.data.data.traits.size;
 

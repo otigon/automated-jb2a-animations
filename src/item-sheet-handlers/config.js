@@ -70,8 +70,10 @@ AUTOANIM.animNameRangeWeapon = {
     "bolt": "AUTOANIM.bolt",
     "boulder": "AUTOANIM.itemBoulder",
     "bullet": "AUTOANIM.bullet",
+    "rangedagger": "AUTOANIM.itemDagger",
     "rangegreataxe": "AUTOANIM.itemGreataxe",
     "rangegreatsword": "AUTOANIM.itemGreatsword",
+    "rangehandaxe": "AUTOANIM.itemHandaxe",
     "javelin": "AUTOANIM.itemJavelin",
     "laser blast": "AUTOANIM.itemLaserBlast",
     "rangelasersword": "AUTOANIM.itemLaserSword",
@@ -80,6 +82,7 @@ AUTOANIM.animNameRangeWeapon = {
     "siege boulder": "AUTOANIM.itemSiegeBoulder",
     "sling": "AUTOANIM.itemSling",
     "snipe": "AUTOANIM.snipe",
+    "rangespear": "AUTOANIM.itemSpear",
     "rangesword": "AUTOANIM.itemSword",
     "throwing hammer": "AUTOANIM.itemThrowingHammer",
 };
@@ -865,7 +868,8 @@ AUTOANIM.dsSelf = {
     'green yellow': "AUTOANIM.colorGreenYellow",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark purple": "AUTOANIM.colorDarkPurple",
-    "yellow white": "AUTOANIM.white"
+    "yellow white": "AUTOANIM.white",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.dsSelfFree = {
@@ -879,7 +883,8 @@ AUTOANIM.dsTarget = {
     'green yellow': "AUTOANIM.colorGreenYellow",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark purple": "AUTOANIM.colorDarkPurple",
-    "yellow white": "AUTOANIM.white"
+    "yellow white": "AUTOANIM.white",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.dsTargetFree = {
@@ -1243,7 +1248,7 @@ AUTOANIM.dizzyStarsColors = {
     "pink": "AUTOANIM.colorPink",
     "purple": "AUTOANIM.colorPurple",
     "red": "AUTOANIM.colorRed",
-    "white": `AUTOANIM.colorWhite`,
+    "white": `AUTOANIM.white`,
     "yellow": "AUTOANIM.colorYellow",
     "random": "AUTOANIM.colorRandom"
 }
@@ -1257,13 +1262,13 @@ AUTOANIM.iceSpikesColors = {
     "a1": ``,
     "blue": "AUTOANIM.colorBlue",
     "red": "AUTOANIM.colorRed",
-    "white": `AUTOANIM.colorWhite`,
+    "white": `AUTOANIM.white`,
     "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.iceSpikesColorsFree = {
     "a1": ``,
-    "white": `AUTOANIM.colorWhite`,
+    "white": `AUTOANIM.white`,
 }
 
 AUTOANIM.magicSignColors = {

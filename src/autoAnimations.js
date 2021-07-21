@@ -415,9 +415,7 @@ Hooks.once('ready', function () {
     }
     if (game.modules.get("midi-qol")?.active) {
         critAnim = game.settings.get("autoanimations", "CriticalAnimation");
-        console.log(critAnim);
         critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
-        console.log(critMissAnim)
     }
 });
 
@@ -703,19 +701,16 @@ async function revItUp(handler) {
         case itemName == "thunderwave":
             switch (true) {
                 case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
-                    console.log(handler.autoDamage);
                     thunderwaveAuto(handler);
                     break;
                 default:
                     Hooks.once("createMeasuredTemplate", () => {
-                        console.log(handler.autoDamage);
                         thunderwaveAuto(handler);
                     })
             }
             break;
         case AAITEMCHECK.healing.includes(itemName):
         case AAITEMCHECK.creatureattack.includes(itemName):
-            console.log("PRESTART")
             onTokenAnimation(handler);
             break;
         case AAITEMCHECK.spellattack.includes(itemName):

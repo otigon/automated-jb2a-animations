@@ -76,11 +76,8 @@ export class AAItemSettings extends FormApplication {
             default:
                 spellVariants = false;
         }
-        console.log("conversion 3 is " + conversion[3])
         let videoPreview = animPreview(flags, itemName);
-        console.log("Pre video check is " + videoPreview)
         if (videoPreview === "no preview") { videoPreview = conversion[3] }
-        console.log("Post video check is " + videoPreview)
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
@@ -143,7 +140,7 @@ export class AAItemSettings extends FormApplication {
             uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
 
             thrownVariant: thrownVariants(itemName, patreon),
-            thrownVariantShow: (itemName === "dagger" || itemName === "handaxe") && animType === "t2" && override ? true : false,
+            thrownVariantShow: (itemName.includes("dagger") || itemName.includes("handaxe")) && (animType === "t2" || animType === "t4") && override ? true : false,
 
             dsDelaySelf: flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1,
             dsDelayTarget: flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250,

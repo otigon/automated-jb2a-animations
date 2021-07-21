@@ -7,7 +7,6 @@ export default class GeneralAnimHandler {
         this._item = item;
 
         this._allTargets = targets;
-        console.log(targets);
         
         this._flags = this._item.data?.flags?.autoanimations ?? "";
 
