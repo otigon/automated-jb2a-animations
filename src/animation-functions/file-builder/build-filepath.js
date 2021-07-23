@@ -100,14 +100,14 @@ export async function buildAfterFile(jb2a, handler) {
         fileData = filePath
     } else {
         switch (true) {
-            case variant === "impact":
-                if (impactVariant === "boulder") {
-                    filePath = `autoanimations.explosion.${variant}.${impactVariant}`;
-                    fileData = jb2a['explosion'][variant][impactVariant];
-                } else {
-                    filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${variant}.${impactVariant}` : `autoanimations.explosion.${variant}.${impactVariant}.${color}`;
-                    fileData = jb2a['explosion'][variant][impactVariant][Object.keys(jb2a['explosion'][variant][impactVariant])[0]];
-                }
+            case variant === "shatter":
+            case variant === "thunderwave":
+                filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${variant}` : `autoanimations.explosion.${variant}.${color}`;
+                fileData = jb2a.explosion[variant][Object.keys(jb2a.explosion[variant])[0]]
+                break;
+            case variant === "boulder":
+                filePath = `autoanimations.explosion.${variant}`;
+                fileData = jb2a['explosion'][variant];
                 break;
             case variant === "antilife-shell":
                 filePath = `autoanimations.explosion.antilifeshell`;
@@ -115,11 +115,11 @@ export async function buildAfterFile(jb2a, handler) {
                 break;
             default:
                 filePath = handler.explosionColor === "random" ? `autoanimations.explosion.${handler.explosionVariant}` : `autoanimations.explosion.${handler.explosionVariant}.${handler.explosionColor}`;
-                fileData = handler.explosionColor === "random" ? jb2a['explosion'][variant][Object.keys(jb2a['explosion'][variant])[0]] : jb2a['explosion'][variant][color]
+                fileData = jb2a['explosion'][variant][Object.keys(jb2a['explosion'][variant])[0]][0]
         }
     }
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
-    let scale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / videoData.width;
+    let scale = ((canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / videoData.width) * 2;
 
     //handler.item.setFlag("autoanimations", "defaults.explosion.file", filePath)
     //handler.item.setFlag("autoanimations", "defaults.explosion.scale", scale)

@@ -226,51 +226,19 @@ export function thrownVariants(itemName, patreon) {
     return thrownVariant;
 }
 
-export function explosionColors(explosionVariant, patreon, impactVariant) {
+export function explosionColors(explosionVariant, patreon) {
     let explosionColor;
     switch (explosionVariant) {
-        case ('01'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
-            break;
-        case ('02'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
-            break;
-        case ('03'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors03) : AUTOANIM.localized(AUTOANIM.explosionColorsFree03);
-            break;
-        case ('04'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors04) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
-            break;
-        case ('05'):
-        case ('06'):
-        case ('07'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors0567) : AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
+        case "explosion":
+            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explodeColors) : AUTOANIM.localized(AUTOANIM.explodeColorsFree)
             break;
         case ('impact'):
-            switch (impactVariant) {
-                case "boulder":
-                    break;
-                case "05":
-                    explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.impactColors05) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
-                    break;
-                case "06":
-                    explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.impactColors06) : AUTOANIM.localized(AUTOANIM.impactColor06Free);
-                    break;
-                case "07":
-                    explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.impactColors07) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
-                    break;
-                case "08":
-                    explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.impactColors08) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
-                    break;
-                case "09":
-                    explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.impactColors09) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
-                    break;
-                case "010":
-                    explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.impactColors10) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
-                    break;
-                default:
-                    explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColorsImpact) : AUTOANIM.localized(AUTOANIM.explosionColorsImpactFree);
-            }
+            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.impactColors) : AUTOANIM.localized(AUTOANIM.impactColorsFree)
+            break;
+        case 'snowflake':
+        case 'outpulse01':
+        case 'outpulse02':
+            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors0567) : AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
             break;
         case ('shatter'):
         case ('thunderwave'):

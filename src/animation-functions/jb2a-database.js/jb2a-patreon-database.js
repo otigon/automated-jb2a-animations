@@ -776,113 +776,151 @@ JB2APATREONDB.fogcloud = {
 }
 
 JB2APATREONDB.explosion = {
-    "01": {
-        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Blue_400x400.webm',
-        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Green_400x400.webm',
-        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
-        "purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Purple_400x400.webm',
-        "yellow": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Yellow_400x400.webm'
+    "explosion": {
+        "blue": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
+        ],
+        "green": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Green_400x400.webm',
+        ],
+        "orange": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Orange_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Orange_400x400.webm',
+        ],
+        "purple": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Purple_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Purple_400x400.webm',
+        ],
+        "yellow": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Yellow_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Yellow_400x400.webm',
+        ],
+        "yellow blue": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm',
+        ],
+        "green orange": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_GreenOrange_400x400.webm',
+        ],
+        "purple pink": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_PurplePink_400x400.webm',
+        ],
+        "blue white": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Dark_BlueWhite_400x400.webm',
+        ],
+        "pink": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_Pink_400x400.webm',
+        ],
+        "dark purple": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Purple_400x400.webm',
+        ],
+        "dark red": [
+            'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Red_400x400.webm',
+        ],
     },
-    "02": {
-        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
-        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Green_400x400.webm',
-        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Orange_400x400.webm',
-        "purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Purple_400x400.webm',
-        "yellow": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Yellow_400x400.webm'
+    "snowflake": {
+        "blue white": [
+            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+        ],
+        "green orange": [
+            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm',
+        ],
+        "purple pink": [
+            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm',
+        ],
+        "teal yellow": [
+            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm',
+        ],
     },
-    "03": {
-        "yellow blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm',
-        "green orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_GreenOrange_400x400.webm',
-        "purple pink": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_PurplePink_400x400.webm',
-        "blue white": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Dark_BlueWhite_400x400.webm',
-        "pink": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_Pink_400x400.webm',
+    "outpulse01": {
+        "blue white": [
+            'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
+        ],
+        "green orange": [
+            'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm',
+        ],
+        "purple pink": [
+            'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm',
+        ],
+        "teal yellow": [
+            'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm',
+        ],
     },
-    "04": {
-        "dark purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Purple_400x400.webm',
-        "dark red": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Red_400x400.webm',
-        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
-        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Green_400x400.webm',
-        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Orange_400x400.webm',
-    },
-    "05": {
-        "blue white": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
-        "green orange": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm',
-        "purple pink": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm',
-        "teal yellow": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm',
-    },
-    "06": {
-        "blue white": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
-        "green orange": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm',
-        "purple pink": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm',
-        "teal yellow": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm',
-    },
-    "07": {
-        "blue white": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
-        "green orange": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm',
-        "purple pink": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm',
-        "teal yellow": 'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm',
+    "outpulse02": {
+        "blue white": [
+            'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
+        ],
+        "green orange": [
+            'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm',
+        ],
+        "purple pink": [
+            'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm',
+        ],
+        "teal yellow": [
+            'modules/jb2a_patreon/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm',
+        ],
     },
     "impact": {
-        "boulder": "modules/jb2a_patreon/Library/Generic/Impact/BoulderImpact_01_Regular_White_500x500.webm",
-        "01": {
-            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Dark_Red_400x400.webm',
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Green_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Yellow_400x400.webm',
-        },
-        "02": {
-            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Dark_Red_400x400.webm',
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Green_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Yellow_400x400.webm',
-        },
-        "03": {
-            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Dark_Red_400x400.webm',
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Green_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Yellow_400x400.webm',
-        },
-        "04": {
-            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Dark_Red_400x400.webm',
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Green_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Yellow_400x400.webm'
-        },
-        "05": {
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Green_400x400.webm',
-            "orange": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Orange_400x400.webm',
-            "purple": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Purple_400x400.webm',
-            "red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Red_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Yellow_400x400.webm'
-        },
-        "06": {
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_06_Regular_Yellow_400x400.webm'
-        },
-        "07": {
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_Green_400x400.webm',
-            "orange": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_Orange_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_Yellow_400x400.webm',
-            "white": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_White_400x400.webm',
-        },
-        "08": {
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_08_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_08_Regular_Green_400x400.webm',
-            "orange": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_08_Regular_Orange_400x400.webm',
-        },
-        "09": {
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_09_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_09_Regular_Green_400x400.webm',
-            "orange": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_09_Regular_Orange_400x400.webm',
-            "white": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_09_Regular_White_400x400.webm',
-        },
-        "10": {
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_10_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_10_Regular_Green_400x400.webm',
-            "orange": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_10_Regular_Orange_400x400.webm'
-        }
+        "dark red": [
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Dark_Red_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Dark_Red_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Dark_Red_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Dark_Red_400x400.webm',
+        ],
+        "blue": [
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_08_Regular_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_09_Regular_Blue_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_10_Regular_Blue_400x400.webm',
+        ],
+        "green": [
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_08_Regular_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_09_Regular_Green_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_10_Regular_Green_400x400.webm',
+        ],
+        "yellow": [
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Yellow_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Yellow_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Yellow_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Yellow_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Yellow_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_06_Regular_Yellow_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_Yellow_400x400.webm',
+        ],
+        "orange": [
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Orange_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_Orange_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_08_Regular_Orange_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_09_Regular_Orange_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_10_Regular_Orange_400x400.webm',
+        ],
+        "purple": [
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Purple_400x400.webm',
+        ],
+        "red": [
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_05_Regular_Red_400x400.webm',
+        ],
+        "white": [
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_07_Regular_White_400x400.webm',
+            'modules/jb2a_patreon/Library/Generic/Impact/Impact_09_Regular_White_400x400.webm',
+        ],
     },
+    "boulder": "modules/jb2a_patreon/Library/Generic/Impact/BoulderImpact_01_Regular_White_500x500.webm",
     "shatter": {
         'purple': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Purple_400x400.webm',
         'red': 'modules/jb2a_patreon/Library/2nd_Level/Shatter/Shatter_01_Red_400x400.webm',

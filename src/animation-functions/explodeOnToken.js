@@ -16,7 +16,6 @@ export async function explodeOnToken(handler) {
 
     let sourceToken = handler.actorToken;
     let explosion = await buildAfterFile(obj01, handler)
-    let scale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / explosion.metadata.width;
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
@@ -53,7 +52,7 @@ export async function explodeOnToken(handler) {
                 .randomizeMirrorY()
                 .repeats(handler.explosionLoops, handler.explosionDelay)
                 //.missed(hit)
-                .scale(scale)
+                .scale(explosion.scale)
                 .belowTokens(handler.explosionLevel)
                 .addOverride(
                     async (effect, data) => {
@@ -97,7 +96,7 @@ export async function explodeOnToken(handler) {
                         .atLocation(target)
                         //.randomizeMirrorY()
                         .repeats(handler.explosionLoops, handler.explosionDelay)
-                        .scale(scale)
+                        .scale(explosion.scale)
                         .belowTokens(handler.explosionLevel)
                         .playIf(() => { return arrayLength })
                     .effect()

@@ -447,6 +447,52 @@ AUTOANIM.explosionColors0567 = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.impactColors = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "yellow": "AUTOANIM.colorYellow",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColorsFree = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "orange": "AUTOANIM.colorOrange",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.explodeColors = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "pink": "AUTOANIM.colorPink",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow",
+    "blue white": "AUTOANIM.colorWhiteBlue",
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+    "yellow blue": "AUTOANIM.colorYellowBlue",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.explodeColorsFree = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "orange": "AUTOANIM.colorOrange",
+    "yellow blue": "AUTOANIM.colorYellowBlue",
+    "random": "AUTOANIM.colorRandom"
+}
+
 AUTOANIM.explosionColorsImpact = {
     "ec1": ``,
     "dark red": "AUTOANIM.colorDarkRed",
@@ -596,6 +642,28 @@ AUTOANIM.explosionVariant = {
     "shatter": "AUTOANIM.itemShatter",
     "impact": "AUTOANIM.impact",
 }
+AUTOANIM.explodeVariant = {
+    "ex1": ``,
+    "explosion": "AUTOANIM.explosion",
+    "snowflake": "AUTOANIM.snowflake",
+    "outpulse01": "AUTOANIM.outpulse01",
+    "outpulse02": "AUTOANIM.outpulse02",
+    "impact": "AUTOANIM.impact",
+    "boulder": "AUTOANIM.itemBoulder",
+    "shatter": "AUTOANIM.itemShatter",
+    "thunderwave": "AUTOANIM.itemThunderwave",
+}
+
+AUTOANIM.explodeVariantFree = {
+    "ex1": ``,
+    "explosion": "AUTOANIM.explosion",
+    "snowflake": "AUTOANIM.snowflake",
+    "outpulse01": "AUTOANIM.outpulse01",
+    "outpulse02": "AUTOANIM.outpulse02",
+    "impact": "AUTOANIM.impact",
+    "shatter": "AUTOANIM.itemShatter",
+    "thunderwave": "AUTOANIM.itemThunderwave",
+}
 
 AUTOANIM.explosionVariantFree = {
     "ev1": ``,
@@ -612,17 +680,15 @@ AUTOANIM.explosionVariantFree = {
 
 AUTOANIM.selfemanation = {
     "a1": ``,
-    "01": "AUTOANIM.variant01",
-    "02": "AUTOANIM.variant02",
-    "03": "AUTOANIM.variant03",
-    "04": "AUTOANIM.variant04",
-    "05": "AUTOANIM.variant05",
-    "06": "AUTOANIM.variant06",
-    "07": "AUTOANIM.variant07",
-    "antilife-shell": "AUTOANIM.animAntiLifeShell",
+    "boulder": "AUTOANIM.itemBoulder",
+    "impact": "AUTOANIM.impact",
+    "explosion": "AUTOANIM.explosion",
+    "outpulse01": "AUTOANIM.outpulse01",
+    "outpulse02": "AUTOANIM.outpulse02",
+    "snowflake": "AUTOANIM.snowflake",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
-    "impact": "AUTOANIM.impact"
+    "antilife-shell": "AUTOANIM.animAntiLifeShell",
 }
 
 AUTOANIM.selfCastRadius = {
@@ -1212,8 +1278,8 @@ AUTOANIM.animTypePick = {
     "t6": "AUTOANIM.typeAttackSpell",
     "t7": "AUTOANIM.typeHealingSpell",
     "t8": "AUTOANIM.templates",
-    "t9": "AUTOANIM.typeExplosiveOT",
-    "t10": "AUTOANIM.typeExplosiveSelf",
+    "t9": "AUTOANIM.targetEffect",
+    "t10": "AUTOANIM.selfEffect",
     "t11": "AUTOANIM.typeAuras",
     "t12": "AUTOANIM.animTeleportation",
     "t13": "AUTOANIM.customSequences",

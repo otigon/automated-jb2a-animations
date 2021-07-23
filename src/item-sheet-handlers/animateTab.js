@@ -77,10 +77,12 @@ export class AAItemSettings extends FormApplication {
                 spellVariants = false;
         }
         let videoPreview = animPreview(flags, itemName);
-        if (videoPreview === "no preview") { videoPreview = conversion[3] }
+        console.log("videoPreview is set to " + videoPreview)
+        if (videoPreview === "no preview" && !isOverride) { videoPreview = conversion[3] }
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
+            case !videoPreview:
                 break;
             default:
                 switch (game.settings.get("autoanimations", "videoLoop")) {
@@ -149,10 +151,10 @@ export class AAItemSettings extends FormApplication {
             divineSmite: override && (animType === "t2" || animType === "t3") ? true : false,
 
             addExplosion: (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7") ? true : false,
-            explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant),
+            explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explodeVariant),
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             impactShow: flags.autoanimations?.explodeVariant === "impact" ? true : false,
-            explosionColors: explosionColors(explosionVariant, patreon, impactVariant),
+            explosionColors: explosionColors(explosionVariant, patreon),
             explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
             explosionDelay: flags.autoanimations?.explodeDelay ?? 0,

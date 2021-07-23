@@ -30,11 +30,10 @@ export async function onTokenAnimation(handler) {
 
     let sourceToken = handler.actorToken;
     let explosion;
-    let exScale;
-    if (handler.flags.explosion) {
+    if (handler.explosion) {
         explosion = await buildAfterFile(obj01, handler);
-        exScale = (canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / explosion.metadata.width;
     }
+    let exScale = explosion?.scale ?? 1;
     let animWidth = onToken.metadata.width;
     if (handler.allTargets.length === 0 && (itemName === "curewounds" || itemName === "generichealing")) {
     new Sequence()
@@ -104,16 +103,15 @@ export async function onTokenAnimation(handler) {
                     .name("animation")
                     .playIf(() => { return arrayLength })
                 .effect()
-                    .file(onToken.file)
-                    .delay(handler.explosionDelay)
                     .atLocation("animation")
+                    .scale(exScale)
+                    .delay(handler.explosionDelay)
                     //.randomizeMirrorY()
                     .repeats(handler.animationLoops, handler.loopDelay)
-                    .scale(exScale)
-                    .belowTokens(handler.explosion)
-                    .playIf(() => { return arrayLength })
+                    .belowTokens(handler.explosionLevel)
+                    .playIf(() => {return explosion})
                     .addOverride(async (effect, data) => {
-                        if (handler.explosion) {
+                        if (explosion) {
                             data.file = explosion.file;
                         }
                         return data;

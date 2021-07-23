@@ -273,58 +273,51 @@ JB2AFREEDB.fogcloud = {
 }
 
 JB2AFREEDB.explosion = {
-    "01": {
-        "orange": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
+    "explosion": {
+        "blue": [
+            'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
+        ],
+        "orange": [
+            'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
+        ],
+        "yellow blue": [
+            'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm'
+        ],
     },
-    "02": {
-        "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
+    "snowflake": {
+        "blue white": [
+            'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+        ]
     },
-    "03": {
-        "yellow blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm'
+    "outpulse01": {
+        "blue white": [
+            'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
+        ]
     },
-    "04": {
-        "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
-    },
-    "05": {
-        "blue white": 'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
-    },
-    "06": {
-        "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
-    },
-    "07": {
-        "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
+    "outpulse02": {
+        "blue white": [
+            'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
+        ]
     },
     "impact": {
-        "01": {
-            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
-        },
-        "02": {
-            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
-        },
-        "03": {
-            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
-        },
-        "04": {
-            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
-        },
-        "05": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_05_Regular_Orange_400x400.webm',
-        },
-        "06": {
-            "white": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_06_Regular_White_400x400.webm'
-        },
-        "07": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_07_Regular_Orange_400x400.webm',
-        },
-        "08": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_08_Regular_Orange_400x400.webm',
-        },
-        "09": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_09_Regular_Orange_400x400.webm',
-        },
-        "10": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_10_Regular_Orange_400x400.webm'
-        }
+        "blue": [
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
+        ],
+        "orange": [
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_05_Regular_Orange_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_07_Regular_Orange_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_08_Regular_Orange_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_09_Regular_Orange_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_10_Regular_Orange_400x400.webm',
+        ],
+        "white": [
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_07_Regular_White_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_09_Regular_White_400x400.webm',
+        ],
     },
     "shatter": {
         'blue': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Blue_400x400.webm'

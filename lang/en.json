@@ -195,7 +195,6 @@
     "AUTOANIM.colorBlack": "Black",
     "AUTOANIM.itemHM": "Hunter's Mark",
     "AUTOANIM.hmAnim": "Hunter's Mark Animation",
-    "AUTOANIM.ctaRequired": "Custom Token Animations is Required for Auras",
     "AUTOANIM.tabName": "Animate",
     "AUTOANIM.crithit_name": "Critical Hits",
     "AUTOANIM.crithit_hint": "Enable for Critical Hit Animations to play on Source Token",
@@ -325,6 +324,9 @@
     "AUTOANIM.fade": "Fade",
     "AUTOANIM.itemLaserSwordDB": "Double Lasersword",
     "AUTOANIM.eye": "Eye",
-    "AUTOANIM.paw": "Paw"
+    "AUTOANIM.paw": "Paw",
+    "AUTOANIM.explosion": "Explosion",
+    "AUTOANIM.selfEffect": "Self Effects",
+    "AUTOANIM.targetEffect": "Target Effects"
 
 }
