@@ -29,7 +29,7 @@ export async function explodeOnToken(handler) {
     }
     
 
-    //console.log(explosion);
+    console.log(explosion.scale);
     if (handler.animType === "t10") {
         new Sequence()
             .effect()
@@ -56,6 +56,7 @@ export async function explodeOnToken(handler) {
                 .belowTokens(handler.explosionLevel)
                 .addOverride(
                     async (effect, data) => {
+                        console.log(data)
                         return data
                     })
             .play()

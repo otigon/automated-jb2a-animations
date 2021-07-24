@@ -132,6 +132,7 @@ export class AAItemSettings extends FormApplication {
 
             //enableCustom01: flags.autoanimations?.options?.enableCustom01 === "custom" ? true : false,
             customPath01: flags.autoanimations?.options?.customPath01 || "",
+            customExplosion: flags.autoanimations?.options?.customExplosion ?? "",
 
             spellVariants: spellVariants,
             spellVariant: variantSpell(itemName, patreon),

@@ -44,12 +44,12 @@ export async function templateAnimation(handler, msg) {
         let tileHeight;
         let tileX;
         let tileY;
-
+        //let scale = ((200 * handler.explosionRadius) / (canvas.dimensions.distance * videoData.width))
         switch (templateType) {
             case "ray":
                 templateW = template.data.distance;
                 templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                scaleX = templateLength / videoWidth;
+                scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
                 scaleY = 1;
                 rotate = -template.data.direction;
                 xAnchor = 0;
@@ -58,7 +58,7 @@ export async function templateAnimation(handler, msg) {
             case "rect":
                 templateW = template.data.width;
                 templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                scaleX = templateLength / videoWidth;
+                scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
                 scaleY = scaleX;
                 rotate = 0;
                 xAnchor = 0;
@@ -71,7 +71,7 @@ export async function templateAnimation(handler, msg) {
             case "circle":
                 templateW = template.data.distance * 2;
                 templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                scaleX = templateLength / videoWidth;
+                scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
                 scaleY = scaleX;
                 rotate = -template.data.direction;
                 xAnchor = 0.5;
@@ -84,7 +84,7 @@ export async function templateAnimation(handler, msg) {
             case "cone":
                 templateW = template.data.distance;
                 templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                scaleX = templateLength / videoWidth;
+                scaleX = (100 / canvas.grid.size) * (templateLength / videoWidth);
                 scaleY = scaleX * (template.data.angle * 0.026);
                 rotate = -template.data.direction;
                 xAnchor = 0;

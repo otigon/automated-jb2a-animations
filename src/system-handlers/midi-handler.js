@@ -62,6 +62,9 @@ export default class MidiHandler {
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
 
+        this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
+        this._customExplode = this._flags.options?.customExplosion ?? "";
+
         this._sourceToken = this.flags.sourceToken ?? "";
         this._sourceEnable = this._sourceToken.enable ?? false;
         this._sourceLevel = this._sourceToken.animLevel ?? false;
@@ -233,6 +236,8 @@ export default class MidiHandler {
     get custom01() { return this._custom01 }
     get enableCustom01() { return this._enableCustom01 }
     get options() { return this._options }
+    get customExplode() { return this._enableCustomExplosion}
+    get customExplosionPath() { return this._customExplode}
 
     get templates() { return this._templates; }
     get templatePersist() { return this._templatePersist }

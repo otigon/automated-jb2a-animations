@@ -95,8 +95,8 @@ export async function buildAfterFile(jb2a, handler) {
     //console.log(handler)
     let filePath;
     let fileData;
-    if (handler.enableCustom01) {
-        filePath = handler.custom01
+    if (handler.customExplode) {
+        filePath = handler.customExplosionPath
         fileData = filePath
     } else {
         switch (true) {
@@ -119,7 +119,7 @@ export async function buildAfterFile(jb2a, handler) {
         }
     }
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
-    let scale = ((canvas.grid.size * (handler.explosionRadius / canvas.dimensions.distance)) / videoData.width) * 2;
+    let scale = ((200 * handler.explosionRadius) / (canvas.dimensions.distance * videoData.width))
 
     //handler.item.setFlag("autoanimations", "defaults.explosion.file", filePath)
     //handler.item.setFlag("autoanimations", "defaults.explosion.scale", scale)

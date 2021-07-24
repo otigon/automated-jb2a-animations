@@ -30,7 +30,7 @@
                     </div>
                     {{/unless}}
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuOverride"}}</label>
+                        <label>{{localize "AUTOANIM.customize"}} {{localize "AUTOANIM.animation"}}</label>
                         <input type="checkbox" name="flags.autoanimations.override"
                             value="flags.autoanimations.override" data-dtype="{{Boolean}}" {{checked
                             flags.autoanimations.override}} />
@@ -199,6 +199,7 @@
                                 value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
                         </div>
                     </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
                     <!--Choose Explosion Variant-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
@@ -220,6 +221,26 @@
                             {{/each}}
                             {{/select}}
                         </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
                     </div>
                     <div class="flexrow">
                         <!--Choose Explosion Radius-->
@@ -356,6 +377,7 @@
                                 value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
                         </div>
                     </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
                     <!--Choose Explosion Variant-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
@@ -392,6 +414,26 @@
                             {{/each}}
                             {{/select}}
                         </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
                     </div>
                     <div class="flexrow">
                         <!--Choose Explosion Radius-->
@@ -526,6 +568,7 @@
                                 value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
                         </div>
                     </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
                     <!--Choose Explosion Variant-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
@@ -562,6 +605,26 @@
                             {{/each}}
                             {{/select}}
                         </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
                     </div>
                     <div class="flexrow">
                         <!--Choose Explosion Radius-->
@@ -683,6 +746,7 @@
                                 value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
                         </div>
                     </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
                     <!--Choose Explosion Variant-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
@@ -719,6 +783,26 @@
                             {{/each}}
                             {{/select}}
                         </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
                     </div>
                     <div class="flexrow">
                         <!--Choose Explosion Radius-->
@@ -867,6 +951,7 @@
                                 value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
                         </div>
                     </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
                     <!--Choose Explosion Variant-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
@@ -903,6 +988,26 @@
                             {{/each}}
                             {{/select}}
                         </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
                     </div>
                     <div class="flexrow">
                         <!--Choose Explosion Radius-->
