@@ -320,28 +320,48 @@ JB2APATREONDB.meleedagger = {
 
 JB2APATREONDB.rangedagger = {
     '01': {
-        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
-        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_60ft_2800x400.webm',
-        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_90ft_4000x400.webm'
+        },
+        'dark purple': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_90ft_4000x400.webm'
+        }
     },
     '01 return': {
-        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm',
-        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm',
-        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm',
-        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm'
+        }
     },
     '02': {
-        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_30ft_1600x400.webm',
-        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_60ft_2800x400.webm',
-        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Regular_White_90ft_4000x400.webm'
+        },
+        'dark purple': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_90ft_4000x400.webm'
+        }
     },
     'kunai': {
-        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_30ft_1600x400.webm',
-        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_60ft_2800x400.webm',
-        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Kunai01_01_Regular_White_90ft_4000x400.webm'
+        }
     },
 }
 
@@ -362,6 +382,12 @@ JB2APATREONDB.rangegreataxe = {
         '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/GreatAxe01_01_Regular_White_30ft_1600x600.webm',
         '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/GreatAxe01_01_Regular_White_60ft_2800x600.webm',
         '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/GreatAxe01_01_Regular_White_90ft_4000x600.webm'
+    },
+    'blue': {
+        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/GreatAxe01_01_Regular_Blue_15ft_1000x600.webm',
+        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/GreatAxe01_01_Regular_Blue_30ft_1600x600.webm',
+        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/GreatAxe01_01_Regular_Blue_60ft_2800x600.webm',
+        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/GreatAxe01_01_Regular_Blue_90ft_4000x600.webm'
     }
 }
 
@@ -409,16 +435,20 @@ JB2APATREONDB.meleehandaxe = {
 
 JB2APATREONDB.rangehandaxe = {
     '01': {
-        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_30ft_1600x400.webm',
-        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_60ft_2800x400.webm',
-        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe01_01_Regular_White_90ft_4000x400.webm'
+        }
     },
     '02': {
-        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe02_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe02_01_Regular_White_30ft_1600x400.webm',
-        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe02_01_Regular_White_60ft_2800x400.webm',
-        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe02_01_Regular_White_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe02_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe02_01_Regular_White_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe02_01_Regular_White_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/HandAxe02_01_Regular_White_90ft_4000x400.webm'
+        }
     }
 }
 
@@ -580,10 +610,12 @@ JB2APATREONDB.meleespear = {
 
 JB2APATREONDB.rangespear = {
     '01': {
-        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_30ft_1600x400.webm',
-        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_60ft_2800x400.webm',
-        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Spear01_01_Regular_White_90ft_4000x400.webm'
+        }
     }
 }
 
@@ -658,48 +690,60 @@ JB2APATREONDB.lasershot = {
 
 JB2APATREONDB.rangehammer = {
     '01': {
-        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_30ft_1600x400.webm',
-        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_60ft_2800x400.webm',
-        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_90ft_4000x400.webm'
+        }
     },
     '01 return': {
-        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_15ft_1000x400.webm',
-        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_30ft_1600x400.webm',
-        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_60ft_2800x400.webm',
-        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_15ft_1000x400.webm',
+            '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_30ft_1600x400.webm',
+            '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_60ft_2800x400.webm',
+            '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_90ft_4000x400.webm'
+        }
     }
 }
 
 JB2APATREONDB.rangesling = {
-    '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_05ft_600x400.webm',
-    '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_15ft_1000x400.webm',
-    '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_30ft_1600x400.webm',
-    '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_60ft_2800x400.webm',
-    '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_90ft_4000x400.webm'
+    'white': {
+        '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_05ft_600x400.webm',
+        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_15ft_1000x400.webm',
+        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_30ft_1600x400.webm',
+        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_60ft_2800x400.webm',
+        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SlingShot_01_Regular_White_90ft_4000x400.webm'
+    }
 }
 
 JB2APATREONDB.rangejavelin = {
-    '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_15ft_1000x400.webm',
-    '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_30ft_1600x400.webm',
-    '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_60ft_2800x400.webm',
-    '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_90ft_4000x400.webm',
+    'white': {
+        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_15ft_1000x400.webm',
+        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_30ft_1600x400.webm',
+        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_60ft_2800x400.webm',
+        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Javelin01_01_Regular_White_90ft_4000x400.webm',
+    }
 }
 
 JB2APATREONDB.boulder = {
-    '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_05ft_600x500.webm',
-    '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_15ft_1000x500.webm',
-    '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_30ft_1600x500.webm',
-    '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_60ft_2800x500.webm',
-    '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_90ft_4000x500.webm'
+    'white': {
+        '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_05ft_600x500.webm',
+        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_15ft_1000x500.webm',
+        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_30ft_1600x500.webm',
+        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_60ft_2800x500.webm',
+        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/BoulderToss_01_Regular_White_90ft_4000x500.webm'
+    }
 }
 
 JB2APATREONDB.siege = {
-    '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_05ft_600x500.webm',
-    '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_15ft_1000x500.webm',
-    '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_30ft_1600x500.webm',
-    '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_60ft_2800x500.webm',
-    '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_90ft_4000x500.webm'
+    'white': {
+        '05ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_05ft_600x500.webm',
+        '15ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_15ft_1000x500.webm',
+        '30ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_30ft_1600x500.webm',
+        '60ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_60ft_2800x500.webm',
+        '90ft': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_90ft_4000x500.webm'
+    }
 }
 
 JB2APATREONDB.creaturebite = {
@@ -1831,35 +1875,21 @@ JB2APATREONDB.snipe = {
 }
 
 JB2APATREONDB.tokenEffect = {
-    explosion01: {
-        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Blue_400x400.webm',
-        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Green_400x400.webm',
-        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
-        "purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Purple_400x400.webm',
-        "yellow": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_01_Yellow_400x400.webm'
+    snowflake: {
+        "blue white": [
+            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+        ],
+        "green orange": [
+            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm',
+        ],
+        "purple pink": [
+            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm',
+        ],
+        "teal yellow": [
+            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm',
+        ],
     },
-    explosion02: {
-        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
-        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Green_400x400.webm',
-        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Orange_400x400.webm',
-        "purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Purple_400x400.webm',
-        "yellow": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_02_Yellow_400x400.webm'
-    },
-    explosion03: {
-        "yellow blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm',
-        "green orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_GreenOrange_400x400.webm',
-        "purple pink": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_PurplePink_400x400.webm',
-        "blue white": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Dark_BlueWhite_400x400.webm',
-        "pink": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_03_Regular_Pink_400x400.webm',
-    },
-    explosion04: {
-        "dark purple": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Purple_400x400.webm',
-        "dark red": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Dark_Red_400x400.webm',
-        "blue": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
-        "green": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Green_400x400.webm',
-        "orange": 'modules/jb2a_patreon/Library/Generic/Explosion/Explosion_04_Regular_Orange_400x400.webm',
-    },
-    dizzyStars: {
+    dizzystars: {
         "black": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Black_400x400.webm",
         "blue orange": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm",
         "green": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Green_400x400.webm",
@@ -1870,43 +1900,10 @@ JB2APATREONDB.tokenEffect = {
         "white": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_White_400x400.webm",
         "yellow": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Yellow_400x400.webm"
     },
-    iceSpikes: {
+    icespikes: {
         "blue": "modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_Blue_1000x1000.webm",
         "red": "modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_Red_1000x1000.webm",
         "white": "modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm"
-    },
-    snowflakes: {
-        "blue white": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
-        "green orange": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm',
-        "purple pink": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm',
-        "teal yellow": 'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm',
-    },
-    impact: {
-        "boulder": "modules/jb2a_patreon/Library/Generic/Impact/BoulderImpact_01_Regular_White_500x500.webm",
-        "01": {
-            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Dark_Red_400x400.webm',
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Green_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_01_Regular_Yellow_400x400.webm',
-        },
-        "02": {
-            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Dark_Red_400x400.webm',
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Green_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_02_Regular_Yellow_400x400.webm',
-        },
-        "03": {
-            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Dark_Red_400x400.webm',
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Green_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_03_Regular_Yellow_400x400.webm',
-        },
-        "04": {
-            "dark red": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Dark_Red_400x400.webm',
-            "blue": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
-            "green": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Green_400x400.webm',
-            "yellow": 'modules/jb2a_patreon/Library/Generic/Impact/Impact_04_Regular_Yellow_400x400.webm'
-        },
     },
     magicSign: {
         "blue": "modules/jb2a_patreon/Library/Generic/Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm",

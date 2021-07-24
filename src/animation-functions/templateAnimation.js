@@ -2,6 +2,7 @@ import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
 import { buildTemplateFile } from "./file-builder/build-filepath.js";
 import { socketlibSocket } from "../socketset.js"
+import { buildTokenAnimationFile, buildSourceTokenFile } from "./file-builder/build-filepath.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -13,6 +14,10 @@ export async function templateAnimation(handler, msg) {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let templateType = msg?.data?.t ?? type;
     let tempAnimation = await buildTemplateFile(obj01, handler)
+    let sourceFX;
+    if (handler.sourceEnable) {
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
+    }
 
     let videoWidth = tempAnimation.metadata.width;
     let videoHeight = tempAnimation.metadata.height;
@@ -80,7 +85,7 @@ export async function templateAnimation(handler, msg) {
                 templateW = template.data.distance;
                 templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
                 scaleX = templateLength / videoWidth;
-                scaleY = scaleX * (template.data.angle * 0.0223);
+                scaleY = scaleX * (template.data.angle * 0.026);
                 rotate = -template.data.direction;
                 xAnchor = 0;
                 yAnchor = 0.5;
@@ -131,14 +136,28 @@ export async function templateAnimation(handler, msg) {
         } else {
             new Sequence()
                 .effect()
-                .file(tempAnimation.file)
-                .atLocation({ x: template.data.x, y: template.data.y })
-                .anchor({ x: xAnchor, y: yAnchor })
-                .rotate(rotate)
-                .scale({ x: scaleX, y: scaleY })
-                .belowTokens(false)
-                .repeats(tempAnimation.loops, tempAnimation.delay)
-                .play()
+                    .atLocation(handler.actorToken)
+                    .scale(handler.sourceScale)
+                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                    .belowTokens(handler.sourceLevel)
+                    .waitUntilFinished(handler.sourceDelay)
+                    .playIf(handler.sourceEnable)
+                    .addOverride(async (effect, data) => {
+                        if (handler.sourceEnable) {
+                            data.file = sourceFX.file;
+                        }
+                        //console.log(data)
+                        return data;
+                    })            
+                .effect()
+                    .file(tempAnimation.file)
+                    .atLocation({ x: template.data.x, y: template.data.y })
+                    .anchor({ x: xAnchor, y: yAnchor })
+                    .rotate(rotate)
+                    .scale({ x: scaleX, y: scaleY })
+                    .belowTokens(false)
+                    .repeats(tempAnimation.loops, tempAnimation.delay)
+                    .play()
         }
 
         if (handler.templates.removeTemplate) {

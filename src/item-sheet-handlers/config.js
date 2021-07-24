@@ -197,6 +197,16 @@ AUTOANIM.daggerVariantFree = {
     "dagger01": "AUTOANIM.itemDagger01",
 }
 
+AUTOANIM.daggerColor = {
+    "a1": ``,
+    'white': "AUTOANIM.white",
+    "dark purple": "AUTOANIM.colorDarkPurple",
+}
+
+AUTOANIM.justWhite = {
+    "a1": ``,
+    'white': "AUTOANIM.white",
+}
 AUTOANIM.handaxeVariant = {
     "a1": ``,
     "01": "01",
@@ -1291,18 +1301,15 @@ AUTOANIM.animNull = {
 
 AUTOANIM.tokenAnimations = {
     "a1": ``,
-    "explosion01": "Explosion 01",
-    "explosion02": "Explosion 02",
-    "explosion03": "Explosion 03",
-    "explosion04": "Explosion 04",
-    "divinesmite": "Divine Smite",
-    "dizzyStars": "Stars",
-    "iceSpikes": "Ice Spikes",
-    "impact": "Impact",
-    "magicSign": "Magic Sign",
-    "marker": "Marker",
-    "snowflakes": "Snowflakes",
-    "sneakattack": "Sneak Attack",
+    "divinesmite": "AUTOANIM.divineSmite",
+    "dizzystars": "AUTOANIM.stars",
+    "explosion": "AUTOANIM.explosion",
+    "icespikes": "AUTOANIM.iceSpikes",
+    "impact": "AUTOANIM.impact",
+    "magicSign": "AUTOANIM.magicSign",
+    "marker": "AUTOANIM.marker",
+    "snowflake": "AUTOANIM.snowflake",
+    "sneakattack": "AUTOANIM.sneakattack",
 }
 
 AUTOANIM.dizzyStarsColors = {
@@ -1364,6 +1371,7 @@ AUTOANIM.marker01Colors = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "pink": "AUTOANIM.colorPink",
     "purple pink": "AUTOANIM.colorPinkPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.marker01ColorsFree = {
@@ -1378,6 +1386,7 @@ AUTOANIM.marker02Colors = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "pink": "AUTOANIM.colorPink",
     "purple pink": "AUTOANIM.colorPinkPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.shieldspellColors = {
@@ -1392,10 +1401,6 @@ AUTOANIM.shieldspellColors = {
 AUTOANIM.shieldspellColorsFree = {
     "a1": "",
     "blue": "AUTOANIM.colorBlue",
-}
-
-AUTOANIM.marker02Colors = {
-    "a1": ``,
 }
 
 AUTOANIM.localized = function (cfg) {

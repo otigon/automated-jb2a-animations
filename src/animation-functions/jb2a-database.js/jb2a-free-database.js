@@ -105,32 +105,40 @@ JB2AFREEDB.meleedagger = {
 
 JB2AFREEDB.rangedagger = {
     '01': {
-        '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
-        '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_60ft_2800x400.webm',
-        '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
+            '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_60ft_2800x400.webm',
+            '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_90ft_4000x400.webm'
+        }
     },
     '01 return': {
-        '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm',
-        '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm',
-        '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm',
-        '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm'
+        'white': {
+            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm',
+            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm',
+            '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm',
+            '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm'
+        }
     },
 }
 
 JB2AFREEDB.rangehandaxe = {
     '01': {
-        '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
-        '45ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
+        'white': {
+            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
+            '45ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
+        }
     }
 }
 
 JB2AFREEDB.rangespear = {
     '01': {
-        '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
-        '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
-        '45ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
+        'white': {
+            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
+            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
+            '45ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
+        }
     }
 }
 
@@ -642,58 +650,14 @@ JB2AFREEDB.snipe = {
 }
 
 JB2AFREEDB.tokenEffect = {
-    explosion01: {
-        "orange": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
-    },
-    explosion02: {
-        "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
-    },
-    explosion03: {
-        "yellow blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm',
-    },
-    explosion04: {
-        "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
-    },
-    dizzyStars: {
+    dizzystars: {
         "blue orange": "modules/JB2A_DnD5e/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm",
     },
-    iceSpikes: {
+    icespikes: {
         "white": "modules/JB2A_DnD5e/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm"
     },
-    snowflakes: {
+    snowflake: {
         "blue white": 'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
-    },
-    impact: {
-        "01": {
-            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_01_Regular_Blue_400x400.webm',
-        },
-        "02": {
-            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_02_Regular_Blue_400x400.webm',
-        },
-        "03": {
-            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_03_Regular_Blue_400x400.webm',
-        },
-        "04": {
-            "blue": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_04_Regular_Blue_400x400.webm',
-        },
-        "05": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_05_Regular_Orange_400x400.webm',
-        },
-        "06": {
-            "white": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_06_Regular_White_400x400.webm'
-        },
-        "07": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_07_Regular_Orange_400x400.webm',
-        },
-        "08": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_08_Regular_Orange_400x400.webm',
-        },
-        "09": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_09_Regular_Orange_400x400.webm',
-        },
-        "10": {
-            "orange": 'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_10_Regular_Orange_400x400.webm'
-        }
     },
     magicSign: {
         "blue": "modules/JB2A_DnD5e/Library/Generic/Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm",

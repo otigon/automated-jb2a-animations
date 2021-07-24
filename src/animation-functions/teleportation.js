@@ -29,7 +29,7 @@ export async function teleportation(handler) {
     const token = handler.actorToken;
     const actor = handler.actor;
 
-    let Scale = (token.w / onToken.metadata.width) * handler.scale;
+    let Scale = ((token.w / onToken.metadata.width) * handler.scale) *1.75;
 
     let range = MeasuredTemplate.create({
         t: "circle",

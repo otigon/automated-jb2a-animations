@@ -58,6 +58,7 @@ export class AAItemSettings extends FormApplication {
         let targetVariant = flags.autoanimations?.targetToken?.variant ?? "";
         let animType = flags.autoanimations?.animType;
         let spellVariant = flags.autoanimations?.spellVar;
+        let variant = flags.autoanimations?.dtvar ?? "01";
         let bardAnimation = flags.autoanimations?.bards?.bardAnim;
         let damageType = flags.autoanimations?.rangedOptions?.rangeDmgType ?? "regular";
         let override = flags.autoanimations?.override ? true : false;
@@ -136,7 +137,7 @@ export class AAItemSettings extends FormApplication {
             spellVariant: variantSpell(itemName, patreon),
             animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
             animationNames: animationName(animType, patreon),
-            animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType), //AUTOANIM.localized(AUTOANIM.animColorMelee),
+            animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType, variant), //AUTOANIM.localized(AUTOANIM.animColorMelee),
 
             unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
             uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
@@ -198,10 +199,9 @@ export class AAItemSettings extends FormApplication {
             sourceLoopDelay: flags.autoanimations?.sourceToken?.loopDelay ?? 250,
             sourceScale: flags.autoanimations?.sourceToken?.scale ?? 1,
             sourceDelayAfter: flags.autoanimations?.sourceToken?.delayAfter ?? 500,
-            sourceAnimations: AUTOANIM.tokenAnimations,
+            sourceAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
             sourceColor: flags.autoanimations?.sourceToken?.color ?? "",
             sourceColors: tokenColors(patreon, sourceName, sourceVariant),
-            sourceImpact: flags.autoanimations?.sourceToken?.name === "impact" ? true : false,
             sourceMarker: flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
 
             targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
@@ -209,15 +209,16 @@ export class AAItemSettings extends FormApplication {
             targetLoopDelay: flags.autoanimations?.targetToken?.loopDelay ?? 250,
             targetScale: flags.autoanimations?.targetToken?.scale ?? 1,
             targetDelayStart: flags.autoanimations?.targetToken?.delayStart ?? 500,
-            targetAnimations: AUTOANIM.tokenAnimations,
+            targetAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
             targetColor: flags.autoanimations?.targetToken?.color ?? "",
             targetColors: tokenColors(patreon, targetName, targetVariant),
-            targetImpact: flags.autoanimations?.targetToken?.name === "impact" ? true : false,
             targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
 
             markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
             shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
-            huntersMark: itemName === "huntersmark"
+            huntersMark: itemName === "huntersmark",
+
+            dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12',
 
         };
 

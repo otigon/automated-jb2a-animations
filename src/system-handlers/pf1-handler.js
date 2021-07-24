@@ -55,6 +55,9 @@ export default class Pf1Handler {
         this._animLoops = this._flags.options?.loops ?? 1;
         this._loopDelay = this._flags.options?.loopDelay ?? 250;
         this._scale = this._flags.options?.scale ?? 1;
+        this._custom01 = this._flags.options?.customPath01 ?? "";
+        this._options = this._flags.options ?? "";
+        this._enableCustom01 = this._flags.options?.enableCustom01 ?? false;
         this._templates = this._flags.templates ?? "";
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
@@ -183,6 +186,9 @@ export default class Pf1Handler {
     get loopDelay() {return this._loopDelay;}
     get scale() {return this._scale;}
     get animLevel() {return this._animLevel;}
+    get custom01() { return this._custom01 }
+    get enableCustom01() { return this._enableCustom01 }
+    get options() { return this._options }
 
     get templates() {return this._templates;}
     get templatePersist() {return this._templatePersist}

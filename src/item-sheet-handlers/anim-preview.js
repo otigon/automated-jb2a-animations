@@ -88,6 +88,7 @@ function animPreview(flags, name) {
                     case "rangelasersword":
                     case "rangelasersworddb":
                     case "rangesword":
+                    case "rangegreataxe":
                         try { preview = obj01[itemName][color]['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;

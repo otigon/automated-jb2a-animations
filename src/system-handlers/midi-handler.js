@@ -55,6 +55,9 @@ export default class MidiHandler {
         this._custom01 = this._flags.options?.customPath01 ?? "";
         this._options = this._flags.options ?? "";
         this._enableCustom01 = this._flags.options?.enableCustom01 ?? false;
+        this._custom01 = this._flags.options?.customPath01 ?? "";
+        this._options = this._flags.options ?? "";
+        this._enableCustom01 = this._flags.options?.enableCustom01 ?? false;
         this._templates = this._flags.templates ?? "";
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;

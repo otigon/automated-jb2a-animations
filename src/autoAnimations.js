@@ -45,13 +45,13 @@ Hooks.on('init', () => {
 
     window.sequencerApp = new SequencerApplication();
 
-    game.settings.register("autoanimations", "runonlyonce", { // game.setting.register("NameOfTheModule", "VariableName",
-        name: game.i18n.format("AUTOANIM.initpopup_name"),                  // Register a module setting with checkbox
-        hint: game.i18n.format("AUTOANIM.initpopup_hint"),               // Description of the settings
-        scope: "world",                                    // This specifies a client-stored setting
-        config: true,                                       // This specifies that the setting appears in the configuration view
+    game.settings.register("autoanimations", "runonlyonce", {
+        name: game.i18n.format("AUTOANIM.initpopup_name"),
+        hint: game.i18n.format("AUTOANIM.initpopup_hint"),
+        scope: "world",
+        config: true,
         type: Boolean,
-        default: false,                                     // The default value for the setting
+        default: false,
     });
     game.settings.register("autoanimations", "globaldelay", {
         name: game.i18n.format("AUTOANIM.globaldelay_name"),
@@ -61,18 +61,9 @@ Hooks.on('init', () => {
         default: 100,
         type: Number
     })
-    game.settings.register("autoanimations", "animateLayer", {
-        name: "Animations play above Overhead Tiles",
-        hint: "Check to enable animations playing above Overhead Tiles (Requires a Refressh)",
-        scope: "world",
-        config: true,
-        type: Boolean,
-        default: false,
-        onChange: () => { window.location.reload() }
-    })
     game.settings.register("autoanimations", "videoLoop", {
-        name: "Autoplay Video previews in A-A Tab?",
-        hint: "Check this box to autoplay video previews",
+        name: game.i18n.format("AUTOANIM.animPreview"),
+        hint: game.i18n.format("AUTOANIM.animPreviewHint"),
         scope: "world",
         type: String,
         choices: {
@@ -83,29 +74,13 @@ Hooks.on('init', () => {
         default: "0",
         config: true
     })
-    game.settings.register("autoanimations", "hideFromPlayers", { // game.setting.register("NameOfTheModule", "VariableName",
-        name: game.i18n.format("AUTOANIM.animtab_name"),                  // Register a module setting with checkbox
-        hint: game.i18n.format("AUTOANIM.animtab_hint"),               // Description of the settings
-        scope: "world",                                    // This specifies a client-stored setting
-        config: true,                                       // This specifies that the setting appears in the configuration view
-        type: Boolean,
-        default: false,                                     // The default value for the setting
-    });
-    game.settings.register("autoanimations", "targetingAssist", {
-        name: game.i18n.format("AUTOANIM.tarassist_name"),
-        hint: game.i18n.format("AUTOANIM.tarassist_hint"),
+    game.settings.register("autoanimations", "hideFromPlayers", {
+        name: game.i18n.format("AUTOANIM.animtab_name"),
+        hint: game.i18n.format("AUTOANIM.animtab_hint"),
         scope: "world",
         config: true,
         type: Boolean,
         default: false,
-    });
-    game.settings.register("autoanimations", "tmfx", {
-        name: game.i18n.format("AUTOANIM.tfmxenable_name"),
-        hint: game.i18n.format("AUTOANIM.tfmxenable_hint"),
-        scope: 'world',
-        type: Boolean,
-        default: false,
-        config: true,
     });
     switch (game.system.id) {
         case "demonlord": {
@@ -249,14 +224,6 @@ Hooks.on('init', () => {
             }
             break;
     }
-    game.settings.register("autoanimations", "EnableShield", {
-        name: game.i18n.format("AUTOANIM.enableshield_name"),
-        hint: game.i18n.format("AUTOANIM.enableshield_hint"),
-        scope: 'world',
-        type: Boolean,
-        default: false,
-        config: true,
-    });
 
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
@@ -271,7 +238,7 @@ Hooks.on('init', () => {
                 break;
         }
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
-            Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalChecks(workflow) })
+            Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
         }
 
     } else {
@@ -377,11 +344,8 @@ Hooks.on('init', () => {
         }
         //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
-    path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
 })
-let critAnim;
-let critMissAnim;
-
+// sets the A-A button on the Item Sheet title bar
 Hooks.on(`renderItemSheet`, async (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
         return;
@@ -400,7 +364,7 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
     let titleElement = html.closest('.app').find('.window-title');
     aaBtn.insertAfter(titleElement);
 });
-
+// Registers Database with Sequencer
 Hooks.once('ready', function () {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
@@ -410,32 +374,28 @@ Hooks.once('ready', function () {
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error(game.i18n.format("AUTOANIM.error"));
     }
-    if (game.user.isGM && game.modules.get("tokenmagic")?.active) {
-        game.settings.set("tokenmagic", "fxPlayerPermission", true);
-    }
-    if (game.modules.get("midi-qol")?.active) {
-        critAnim = game.settings.get("autoanimations", "CriticalAnimation");
-        critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
-    }
 });
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-var path00;
-
+/* External call for animations
+* sourcToken as the originating token
+* targets as an array from the user
+* item as the item instance being used
+*/
 class AutoAnimations {
     static playAnimation(sourceToken, targets, item) {
         let handler = new GeneralAnimHandler(sourceToken, targets, item);
         revItUp(handler);
     }
 }
-
 window.AutoAnimations = AutoAnimations;
 
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
 
+// sets Handler for PF1 and DnD3.5
 function onCreateChatMessage(msg) {
     if (msg.user.id !== game.user.id) { return };
     log('onCreateChatMessage', msg);
@@ -458,11 +418,13 @@ function onCreateChatMessage(msg) {
     revItUp(handler)
 }
 
+// Sets Handler for SWADE
 function swadeData(SwadeActor, SwadeItem) {
     let handler = new SwadeHandler(SwadeActor, SwadeItem);
     revItUp(handler);
 }
 
+// Sets Handler for Starfinder
 function starFinder(data, msg) {
     let tokenId = msg.data.speaker.token;
     let sourceToken = canvas.tokens.get(tokenId);
@@ -471,15 +433,13 @@ function starFinder(data, msg) {
     AutoAnimations.playAnimation(sourceToken, targets, item)
 }
 
+// Sets Handler for DnD5e or SW5e if using Midi
 function revItUpMidi(workflow) {
     let handler = new MidiHandler(workflow);
     revItUp(handler);
 }
 
-function criticalChecks(workflow) {
-    criticalCheck(workflow);
-}
-
+// Sets Handler for Tormenta 20
 function setupTormenta20(msg) {
     let handler = new Tormenta20Handler(msg);
     if (game.user.id === msg.user.id) {
@@ -495,11 +455,13 @@ function setupTormenta20(msg) {
     revItUp(handler);
 }
 
+// Sets Handler for Demon Lord
 function setupDemonLord(data) {
     let handler = new DemonLordHandler(data);
     revItUp(handler);
 }
 
+// Special cases required when using Midi-QOL
 async function specialCaseAnimations(msg) {
     if (game.user.id !== msg.user.id) {
         return;
@@ -519,9 +481,10 @@ async function specialCaseAnimations(msg) {
     }
 }
 
+// DnD5e and SW5e CORE (NON MIDI) Traffic Cop
 function revItUp5eCore(msg) {
     if (msg.user.id !== game.user.id) { return };
-    if (msg.data?.flavor?.includes("Long Rest")) { return };
+    //if (msg.data?.flavor?.includes("Long Rest")) { return };
     let handler;
     let rollType;
     switch (game.system.id) {
@@ -536,6 +499,7 @@ function revItUp5eCore(msg) {
     }
     if (!handler.item) { return }
 
+    // Teleportation if MARS 5e is active
     if (game.modules.get("mars-5e")?.active) {
         if (game.user.id === msg.user.id) {
             switch (true) {
@@ -546,24 +510,25 @@ function revItUp5eCore(msg) {
         }
         return;
     }
-
+    // AURAS option if CTA is active
     if (handler.animType === "t11" && handler.animOverride) {
         if (game.modules.get("Custom-Token-Animations")?.active) {
             ctaCall(handler);
             return;
         }
     }
+    // Bardic Inspiration call, Can we bypass by checking no attack/damage?
     if (handler.itemNameIncludes("bardic inspiration") || handler.itemNameIncludes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase())) {
         bardicInspiration(handler);
     }
-
+    // Templates section, Hooks once on createMeasuredTemplate
     if (handler.animType === "t8" && handler.animOverride) {
         Hooks.once("createMeasuredTemplate", (msg) => {
             templateAnimation(handler, msg);
         });
         return;
     }
-
+    // Teleportation option, Can we bypass by checking no attack/damage?
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
@@ -587,8 +552,8 @@ function revItUp5eCore(msg) {
                     switch (game.settings.get("mre-dnd5e", "autoDamage")) {
                         case (true):
                             switch (true) {
-                                case handler.convertedName.includes("thunderwave"):
-                                case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
+                                case handler.convertedName === "thunderwave":
+                                    //case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
                                     Hooks.once("createMeasuredTemplate", () => {
                                         thunderwaveAuto(handler);
                                     })
@@ -600,42 +565,38 @@ function revItUp5eCore(msg) {
                             break;
                     }
                 }
-
             } else { log("MRE is NOT active"); revItUp(handler); }
         }
     }
     if (!game.settings.get("autoanimations", "playonDamageCore")) {
         if (rollType.includes("damage")) {
             log("damage roll");
-        } else
-            if (rollType.includes("attack") || !handler.hasAttack) {
-                if (handler.itemSound) {
-                    itemSound(handler);
-                }
-                revItUp(handler)
-            } else /*if (game.settings.get("autoanimations", "playonDamageCore") == false)*/ {
-                if (handler.itemSound) {
-                    itemSound(handler);
-                }
-                if (handler.itemIncludes("xxx") || handler.animKill) {
-                    return;
-                }
-
-                else {
-                    if (handler.itemSound) {
-                        itemSound(handler);
-                    }
-                    switch (true) {
-                        case handler.convertedName.includes("thunderwave"):
-                        case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
-                            Hooks.once("createMeasuredTemplate", () => {
-                                thunderwaveAuto(handler);
-                            })
-                            break;
-                    }
-                }
-
+        } else if (rollType.includes("attack") || !handler.hasAttack) {
+            if (handler.itemSound) {
+                itemSound(handler);
             }
+            revItUp(handler)
+        } else /*if (game.settings.get("autoanimations", "playonDamageCore") == false)*/ {
+            if (handler.itemSound) {
+                itemSound(handler);
+            }
+            if (handler.animKill) {
+                return;
+            }
+            else {
+                if (handler.itemSound) {
+                    itemSound(handler);
+                }
+                switch (true) {
+                    case handler.convertedName === "thunderwave":
+                        //case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
+                        Hooks.once("createMeasuredTemplate", () => {
+                            thunderwaveAuto(handler);
+                        })
+                        break;
+                }
+            }
+        }
     }
 
 }
@@ -651,7 +612,6 @@ async function revItUp(handler) {
         itemSound(handler);
     }
     if (handler.animKill) { return }
-
     if (game.modules.get("midi-qol")?.active) { } else {
         switch (game.system.id) {
             case "dnd5e":
@@ -723,64 +683,33 @@ async function revItUp(handler) {
     }
 }
 async function criticalCheck(workflow) {
-
     if (!workflow.isCritical && !workflow.isFumble) { return; }
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
 
     let token;
-    let Anim;
+
+    let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
+    let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
 
     switch (true) {
         case (game.settings.get("autoanimations", "EnableCritical") && critical):
             token = canvas.tokens.get(workflow.tokenId);
-            Anim =
-            {
-                file: critAnim,
-                position: token.center,
-                anchor: {
-                    x: 0.5,
-                    y: 0.5
-                },
-                angle: 0,
-                scale: {
-                    x: 1,
-                    y: 1
-                }
-            };
-            canvas.autoanimations.playVideo(Anim);
-            game.socket.emit('module.autoanimations', Anim);
+            new Sequence()
+                .effect()
+                .file(critAnim)
+                .atLocation(token)
+                .play()
             break;
         case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
             token = canvas.tokens.get(workflow.tokenId);
-            Anim =
-            {
-                file: critMissAnim,
-                position: token.center,
-                anchor: {
-                    x: 0.5,
-                    y: 0.5
-                },
-                angle: 0,
-                scale: {
-                    x: 1,
-                    y: 1
-                }
-            };
-            canvas.autoanimations.playVideo(Anim);
-            game.socket.emit('module.autoanimations', Anim);
+            new Sequence()
+                .effect()
+                .file(critMissAnim)
+                .atLocation(token)
+                .play()
             break;
     }
-    /*
-    Hooks.on("preCreateChatMessage", async (msg, options, userId) => {
-        let rollData = JSON.parse(msg.roll)
-        const critMin = rollData.terms[0].options.critical
-        const rollTotal = rollData.terms[0].results.find(i => i.active).result
-
-        if (rollTotal >= critMin) { stuff }
-    })
-    */
-
 }
 
 //WFRP Functions
