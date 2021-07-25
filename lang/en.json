@@ -301,7 +301,7 @@
     "AUTOANIM.loops": "Loops",
     "AUTOANIM.loopDelay": "Loop Delay",
     "AUTOANIM.scale": "Scale",
-    "AUTOANIM.radius": "Radius",
+    "AUTOANIM.radius": "Radius (grid squares)",
     "AUTOANIM.delayMS": "Delay (ms)",
     "AUTOANIM.placeTile": "Place as Tile",
     "AUTOANIM.socketLibAA": "module required",

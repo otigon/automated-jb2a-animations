@@ -120,7 +120,7 @@ export function nameConversion(itemName) {
             newItemName = "arrow";
             defaultColor = "regular";
             autoRec = game.i18n.format("AUTOANIM.itemArrow");
-            autoPreview = `modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_15ft_1000x400.webm`;
+            autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_15ft_1000x400.webm`;
             break;
         case itemAutoRec.rangehammer.some(el => oldItemName.includes(el)):
             newItemName = "rangehammer";

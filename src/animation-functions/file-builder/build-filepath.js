@@ -119,7 +119,7 @@ export async function buildAfterFile(jb2a, handler) {
         }
     }
     let videoData = await getVideoDimensionsOf(fileData);//get video metadata
-    let scale = ((200 * handler.explosionRadius) / (canvas.dimensions.distance * videoData.width))
+    let scale = ((200 * handler.explosionRadius) / (videoData.width))
 
     //handler.item.setFlag("autoanimations", "defaults.explosion.file", filePath)
     //handler.item.setFlag("autoanimations", "defaults.explosion.scale", scale)
