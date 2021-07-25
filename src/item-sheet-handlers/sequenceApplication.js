@@ -1,5 +1,5 @@
 export default class SequencerApplication extends FormApplication {
-/*
+
     constructor() {
         super();
     }
@@ -38,9 +38,9 @@ export default class SequencerApplication extends FormApplication {
         }
         return this.sequence;
     }
-*/
+
     /** @override */
-    /*
+    
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             title: "Sequencer",
@@ -66,12 +66,12 @@ export default class SequencerApplication extends FormApplication {
             }
         }).browse();
     }
-*/
+
     /* -------------------------------------------- */
 
-/*
+
     async _updateObject(event, formData) {
         console.log(this.sequence.freshData);
     }
-*/
+
 }

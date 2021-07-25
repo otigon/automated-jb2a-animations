@@ -1,5 +1,5 @@
-import { JB2APATREONDB } from "./jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -27,8 +27,8 @@ async function thunderwaveAuto(handler) {
     let Scale = canvas.scene.data.grid / 200;
     let xPos = handler.actorToken.data.x;
     let yPos = handler.actorToken.data.y;
-    let tempY = template.y;
-    let tempX = template.x;
+    let tempY = template.data.y;
+    let tempX = template.data.x;
 
     let filePath = obj01['thunderwave'][color];
     let ang = 0;
@@ -68,67 +68,22 @@ async function thunderwaveAuto(handler) {
             break;
     }
 
-    let spellAnim =
-    {
-        file: anFile,
-        position: {
-            x: (tempX + (gridSize * 1.5)),
-            y: (tempY + (gridSize * 1.5))
-        },
-        anchor: {
-            x: 0.5,
-            y: 0.5
-        },
-        angle: ang,
-        scale: {
-            x: Scale,
-            y: Scale
-        }
-    };
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
+        new Sequence()
+            .effect()
+                .file(anFile)
+                .atLocation({x: tempX + (gridSize * 1.5), y: tempY + (gridSize * 1.5)})
+                .scale(Scale)
+                .rotate(ang)
+                .anchor({x: 0.5, y: 0.5})
+                .repeats(5, 500)
+            .play()
+    async function cast() {
 
-    async function spellAnimation(number) {
 
-        let x = number;
-        // This is the interval in between the start of each animation on the loop in milliseconds
-        let interval = 750;
-        for (var i = 0; i < x; i++) {
-            setTimeout(function () {
-                canvas.autoanimations.playVideo(spellAnim);
-                game.socket.emit('module.autoanimations', spellAnim);
-            }, i * interval);
-        }
     }
-    spellAnimation(5);
-
-    let shockWave =
-        [{
-            filterType: "wave",
-            filterId: "shockWave",
-            autoDestroy: true,
-            time: 0,
-            strength: 0.03,
-            frequency: 10,
-            maxIntensity: 2.0,
-            minIntensity: 0.5,
-            padding: 25,
-            animated:
-            {
-                time:
-                {
-                    loopDuration: 900,
-                    loops: 5,
-                    active: true,
-                    speed: 0.0180,
-                    animType: "move",
-                }
-            }
-        }];
-    if (game.settings.get("autoanimations", "tmfx")) {
-        await wait(500);
-        TokenMagic.addUpdateFiltersOnTargeted(shockWave);
-    }
+    cast();
 }
 
 export default thunderwaveAuto;

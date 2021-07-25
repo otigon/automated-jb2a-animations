@@ -1,7 +1,8 @@
 import { AUTOANIM } from "./config.js";
-import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes } from "./tab-options.js";
+import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
+import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 
 export class AAItemSettings extends FormApplication {
     constructor() {
@@ -19,15 +20,17 @@ export class AAItemSettings extends FormApplication {
             width: 600,
             height: "auto",
             closeOnSubmit: true,
-            
+
             tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
         });
     }
 
     getData() {
+        this.object.unsetFlag("autoanimations", "defaults")
         let flags = this.object.data.flags;
         let patreon = moduleIncludes("jb2a_patreon");
         let itemNameItem = this.object.name?.toLowerCase() ?? "";
+        let oldName = this.object.name;
         let itemNameFlag = flags.autoanimations?.animName?.toLowerCase() ?? "";
         let isOverride = flags.autoanimations?.override;
         let oldItemName;
@@ -40,9 +43,22 @@ export class AAItemSettings extends FormApplication {
                 oldItemName = itemNameFlag;
                 break;
         }
-        let itemName = nameConversion(oldItemName);
+        let conversion = nameConversion(oldItemName)
+        /*
+        if (flags.autoanimations === undefined) {
+            this.object.setFlag("autoanimations", "animName", conversion[2]);
+            this.object.setFlag("autoanimations", "color", conversion[1]);
+            this.render();
+        }
+        */
+        let itemName = conversion[0];
+        let sourceName = flags.autoanimations?.sourceToken?.name ?? "";
+        let sourceVariant = flags.autoanimations?.sourceToken?.variant ?? "";
+        let targetName = flags.autoanimations?.targetToken?.name ?? "";
+        let targetVariant = flags.autoanimations?.targetToken?.variant ?? "";
         let animType = flags.autoanimations?.animType;
         let spellVariant = flags.autoanimations?.spellVar;
+        let variant = flags.autoanimations?.dtvar ?? "01";
         let bardAnimation = flags.autoanimations?.bards?.bardAnim;
         let damageType = flags.autoanimations?.rangedOptions?.rangeDmgType ?? "regular";
         let override = flags.autoanimations?.override ? true : false;
@@ -55,16 +71,19 @@ export class AAItemSettings extends FormApplication {
         switch (true) {
             case itemName === "scorchingray" && animType === "t6":
             case itemName === "generichealing" && animType === "t7":
+            case itemName === "shieldspell" && animType === "t13":
                 spellVariants = true;
                 break;
             default:
                 spellVariants = false;
         }
-        let videoPreview = animPreview(flags.autoanimations, itemName);
-        //console.log(videoPreview)
+        let videoPreview = animPreview(flags, itemName);
+        console.log("videoPreview is set to " + videoPreview)
+        if (videoPreview === "no preview" && !isOverride) { videoPreview = conversion[3] }
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
+            case !videoPreview:
                 break;
             default:
                 switch (game.settings.get("autoanimations", "videoLoop")) {
@@ -82,7 +101,12 @@ export class AAItemSettings extends FormApplication {
         //console.log("The Standard Item Name is " + itemNameItem);
         //console.log("The Flag Item Name is " + itemNameFlag);
         //console.log("The Final Item Name is " + oldItemName);
+        //console.log("The Converted Name is " + itemName)
         return {
+            defaultCheck: AAITEMCHECK.default.includes(itemName),
+            OldName: oldName,
+            convertedName: conversion[2],
+            autoRecognized: conversion[2] === undefined ? false : true,
             t2t3: override && (animType === "t2" || animType === "t3"),
             t4: override && animType === "t4",
             t5: override && animType === "t5",
@@ -100,20 +124,27 @@ export class AAItemSettings extends FormApplication {
             bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
             bardMarkerColor: patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree),
 
-            animationLoops: flags.autoanimations?.spellOptions?.spellLoops ?? 1,
-            loops: itemName === "magicmissile" ? true : false,
+            huntermarkAnim: patreon ? AUTOANIM.localized(AUTOANIM.hmAnim) : AUTOANIM.localized(AUTOANIM.hmAnimFree),
+
+            animationLoops: flags.autoanimations?.options?.loops ?? 1,
+            animationLoopDelay: flags.autoanimations?.options?.loopDelay ?? 250,
+            scale: flags.autoanimations?.options?.scale ?? 1,
+
+            //enableCustom01: flags.autoanimations?.options?.enableCustom01 === "custom" ? true : false,
+            customPath01: flags.autoanimations?.options?.customPath01 || "",
+            customExplosion: flags.autoanimations?.options?.customExplosion ?? "",
 
             spellVariants: spellVariants,
-            spellVariant: AUTOANIM.localized(AUTOANIM.spellVariant),
+            spellVariant: variantSpell(itemName, patreon),
             animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
             animationNames: animationName(animType, patreon),
-            animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType), //AUTOANIM.localized(AUTOANIM.animColorMelee),
+            animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType, variant), //AUTOANIM.localized(AUTOANIM.animColorMelee),
 
             unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
             uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
 
-            daggerVariant: patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree),
-            daggerVariantShow: itemName === "dagger" && animType === "t2" && override ? true : false,
+            thrownVariant: thrownVariants(itemName, patreon),
+            thrownVariantShow: (itemName.includes("dagger") || itemName.includes("handaxe")) && (animType === "t2" || animType === "t4") && override ? true : false,
 
             dsDelaySelf: flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1,
             dsDelayTarget: flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250,
@@ -121,14 +152,15 @@ export class AAItemSettings extends FormApplication {
             dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
             divineSmite: override && (animType === "t2" || animType === "t3") ? true : false,
 
-            addExplosion: override && (animType === "t2" || animType === "t3" || animType === "t4") ? true : false,
-            explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explosionVariant),
+            addExplosion: (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7") ? true : false,
+            explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explodeVariant),
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             impactShow: flags.autoanimations?.explodeVariant === "impact" ? true : false,
-            explosionColors: explosionColors(explosionVariant, patreon, impactVariant),
-            explosionRadius: AUTOANIM.localized(AUTOANIM.explosionRadius),
+            explosionColors: explosionColors(explosionVariant, patreon),
+            explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
-            showExplosionOptions: (flags.autoanimations?.explosion && override && (animType === "t2" || animType === "t3" || animType === "t4")) ? true : false,
+            explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
+            showExplosionOptions: (flags.autoanimations?.explosion /*&& override*/ && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7")) ? true : false,
 
             explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
@@ -144,7 +176,11 @@ export class AAItemSettings extends FormApplication {
             templateAnimations: animTemplates(templateType),
             templateAnimColors: templateColors(templateType, templateAnimation, patreon),
             loopTemplate: flags.autoanimations?.templates?.tempLoop ?? 1,
+            templateLoopDelay: flags.autoanimations?.templates?.loopDelay ?? 250,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
+            templateOpacity: flags.autoanimations?.templates?.opacity ?? 0.75,
+            makePersistent: templateType === "circle" || templateType === "rect",
+            persistent: flags.autoanimations?.templates?.persistent && (templateType === "circle" || templateType === "rect"),
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
@@ -154,8 +190,37 @@ export class AAItemSettings extends FormApplication {
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
             sneakAttack: itemName === "sneakattack" ? true : false,
 
+            auraRadius: flags.autoanimations?.selfRadius ?? 17.5,
+
             flags: this.object.data.flags,
             content: content,
+
+            sourceCustom: flags.autoanimations?.sourceToken?.customPath ?? "",
+            sourceLoops: flags.autoanimations?.sourceToken?.loops ?? 1,
+            sourceLoopDelay: flags.autoanimations?.sourceToken?.loopDelay ?? 250,
+            sourceScale: flags.autoanimations?.sourceToken?.scale ?? 1,
+            sourceDelayAfter: flags.autoanimations?.sourceToken?.delayAfter ?? 500,
+            sourceAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
+            sourceColor: flags.autoanimations?.sourceToken?.color ?? "",
+            sourceColors: tokenColors(patreon, sourceName, sourceVariant),
+            sourceMarker: flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
+
+            targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
+            targetLoops: flags.autoanimations?.targetToken?.loops ?? 1,
+            targetLoopDelay: flags.autoanimations?.targetToken?.loopDelay ?? 250,
+            targetScale: flags.autoanimations?.targetToken?.scale ?? 1,
+            targetDelayStart: flags.autoanimations?.targetToken?.delayStart ?? 500,
+            targetAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
+            targetColor: flags.autoanimations?.targetToken?.color ?? "",
+            targetColors: tokenColors(patreon, targetName, targetVariant),
+            targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
+
+            markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
+            shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
+            huntersMark: itemName === "huntersmark",
+
+            dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12',
+
         };
 
     }
@@ -184,6 +249,15 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.aa-audio-checkbox input[type="Number"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.sourceOptions input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.sourceOptions select').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.sourceOptions input[type="Number"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
 

@@ -1,3 +1,5 @@
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+
 export default class Pf1Handler {
     constructor(message) {
         const item = message?.itemSource;
@@ -17,17 +19,21 @@ export default class Pf1Handler {
         // getting flag data from Animation Tab
         this._flags = item?.data?.flags?.autoanimations ?? "";;
         // 
-        this._animColor = this._flags.color?.toLowerCase() ?? "";
+        this._animLevel = this._flags.animLevel ?? false;
+        this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
-        this._animExColor = this._flags.explodeColor?.toLowerCase() ?? "";
-        this._animExRadius = this._flags.explodeRadius?.toLowerCase() ?? "";
-        this._animExVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
+        this._explodeColor = this._flags.explodeColor?.toLowerCase() ?? "";
+        this._explodeDelay = this._flags.explodeDelay ?? 0;
+        this._exAnimLevel = this._flags.exAnimLevel ?? false;
+        this._impactVar = this._flags.impactVar ?? "";
+        this._explodeRadius = this._flags.explodeRadius ?? 10;
+        this._explodeVariant = this._flags.explodeVariant?.toLowerCase() ?? "";
         this._animExLoop = this._flags.explodeLoop ?? "";
         this._animType = this._flags.animType?.toLowerCase() ?? "";
         this._animKill = this._flags.killAnim;
         this._animOverride = this._flags.override;
-        this._animExplode = this._flags.explosion;
-        this._animDgThrVar = this._flags.dtvar?.toLowerCase() ?? "";
+        this._explosion = this._flags.explosion;
+        this._dtvar = this._flags.dtvar?.toLowerCase() ?? "";
         this._selfRadius = this._flags.selfRadius ?? "";
         this._animTint = this._flags.animTint ?? "";
         this._auraOpacity = this._flags.auraOpacity ?? "";
@@ -43,11 +49,46 @@ export default class Pf1Handler {
         this._allSounds = this._flags.allSounds ?? "";
         this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
-        this._spellLoops = this._flags?.spellOptions?.spellLoops ?? 1;
+        this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
         this._divineSmite = this._flags.divineSmite ?? "";
-        this._templates = this._flags.templates ?? "";
         this._rangedOptions = this._flags.rangedOptions ?? "";
+        this._animLoops = this._flags.options?.loops ?? 1;
+        this._loopDelay = this._flags.options?.loopDelay ?? 250;
+        this._scale = this._flags.options?.scale ?? 1;
+        this._custom01 = this._flags.options?.customPath01 ?? "";
+        this._options = this._flags.options ?? "";
+        this._enableCustom01 = this._flags.options?.enableCustom01 ?? false;
+        this._templates = this._flags.templates ?? "";
+        this._templatePersist = this._flags.templates?.persistent ?? false;
+        this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
 
+        this._sourceToken = this.flags.sourceToken ?? "";
+        this._sourceEnable = this._sourceToken.enable ?? false;
+        this._sourceLevel = this._sourceToken.animLevel ?? false;
+        this._sourceName = this._sourceToken.name ?? "";
+        this._sourceColor = this._sourceToken.color ?? "";
+        this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;
+        this._sourceCustomPath = this._sourceToken.customPath ?? "";
+        this._sourceLoops = this._sourceToken.loops ?? 1,
+        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
+        this._sourceScale = this._sourceToken.scale ?? 1,
+        this._sourceDelay = this._sourceToken.delayAfter ?? 500,
+        this._sourceVariant = this._sourceToken.variant ?? "",
+
+        this._targetToken = this.flags.targetToken ?? "";
+        this._targetEnable = this._targetToken.enable ?? false;
+        this._targetLevel = this._targetToken.animLevel ?? false;
+        this._targetName = this._targetToken.name ?? "";
+        this._targetColor = this._targetToken.color ?? "";
+        this._targetCustomEnable = this._targetToken.enableCustom ?? false;
+        this._targetCustomPath = this._targetToken.customPath ?? "";
+        this._targetLoops = this._targetToken.loops ?? 1,
+        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
+        this._targetScale = this._targetToken.scale ?? 1,
+        this._targetDelay = this._targetToken.delayAfter ?? 500,
+        this._targetVariant = this._targetToken.variant ?? "",
+
+        //console.log(this._animName);
         this._animNameFinal;
         switch (true) {
             case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
@@ -58,24 +99,23 @@ export default class Pf1Handler {
                 break;
         }
 
+        this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
+        if (this._convert[0] !== "pass") {
+            this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
+            this._item.setFlag("autoanimations", "defaults.color", this._convert[1])
+        }
+        this._convertName = this._flags.defaults ? this._flags.defaults.name : "pass";
+        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : "pass";
+
     }
 
-    get itemMacro () {
-        return "";
-    }
+    get convertedName() {return this._convertName;}
     
-    get playOnMiss() {
-        return false;
-    }
+    get itemMacro() {return this._itemMacro;}
 
-    get actor() {
-        return this._actor;
-    }
+    get playOnMiss() {return false}
 
-    get actorRace() {
-        // todo
-        return "";
-    }
+    get actor() {return this._actor;}
 
     get reachCheck() {
         let reach = 0;
@@ -86,157 +126,97 @@ export default class Pf1Handler {
         return reach;
     }
 
-    get actorToken() {
-        return this._actorToken;
-    }
+    get item() {return this._item}
+    get actorToken() {return this._actorToken;}
+    get allTargets() {return this._allTargets;}
+    get hitTargetsId() {return this._hitTargetsId;}
+    get targetsId() {return this._targetsId;}
 
-    get allTargets() {
-        return this._allTargets;
-    }
+    get targetAssistant() {return this._targetAssistant;}
 
-    get targetAssistant() {
-        return this._allTargets;
-    }
+    get isValid() {return !!(this._item && this._actor);}
+    get itemType() {return this._item.data.type.toLowerCase();}
 
-    get isValid() {
-        return !!(this._item && this._actor);
-    }
+    get checkSaves() {return}
 
-    get itemType() {
-        return this._actor.items.get(this._item.id).data.type.toLowerCase();
-    }
+    get animKill() {return this._animKill;}
+    get animOverride() {return this._animOverride;}
+    get animType() {return this._animType;}
+    get color() {return this._animColor;}
+    get defaultColor() {return this._defaultColor;}
+    get animName() {return this._animNameFinal;}
 
-    get checkSaves() {
-        return;
-    }
+    get explosion() {return this._explosion;}
+    get impactVar() {return this._impactVar;}
+    get explosionColor() {return this._explodeColor;}
+    get explosionRadius() {return this._explodeRadius;}
+    get explosionVariant() {return this._explodeVariant;}
+    get explosionDelay() {return this._explodeDelay;}
+    get explosionLevel() {return this._exAnimLevel;}
+    get explosionLoops() {return this._animExLoop;}
 
-    get animColor() {
-        return this._animColor;
-    }
-            
-    get color () {
-        return this._animColor;
-    }
+    get dtvar() {return this._dtvar;}
+    get selfRadius() {return this._selfRadius;}
 
-    get animName() {
-        return this._animNameFinal;
-    }
+    get animTint() {return this._animTint;}
+    get auraOpacity() {return this._auraOpacity;}
+    get ctaOption() {return this._ctaOption;}
 
-    get animExColor() {
-        return this._animExColor;
-    }
+    get hmAnim() {return this._hmAnim;}
+    get uaStrikeType() {return this._uaStrikeType;}
+    get teleRange() {return this._teleDist;}
+    get spellVariant() {return this._spellVar;}
 
-    get animExRadius() {
-        return this._animExRadius;
-    }
+    get bardTarget() {return this._bardTarget;}
+    get bardSelf() {return this._bardSelf;}
+    get bardAnim() {return this._bardAnim;}
+    get bards() {return this._bards;}
 
-    get animExVariant() {
-        return this._animExVariant;
-    }
+    get allSounds() {return this._allSounds;}
+    get itemSound() {return this._itemSound;}
+    get explodeSound() {return this._explodeSound}
 
-    get animExLoop() {
-        return this._animExLoop;
-    }
+    get spellLoops() {return this._spellLoops;}
+    get divineSmite() {return this._divineSmite;}
+    get autoDamage() {return game.user.isGM ? this._gmAD : this._userAD;}
+    get flags() {return this._flags;}
 
-    get animType() {
-        return this._animType;
-    }
+    get rangedOptions() {return this._rangedOptions;}
+    get animationLoops() {return this._animLoops;}
+    get loopDelay() {return this._loopDelay;}
+    get scale() {return this._scale;}
+    get animLevel() {return this._animLevel;}
+    get custom01() { return this._custom01 }
+    get enableCustom01() { return this._enableCustom01 }
+    get options() { return this._options }
 
-    get animKill() {
-        return this._animKill;
-    }
+    get templates() {return this._templates;}
+    get templatePersist() {return this._templatePersist}
+    get templateOpacity() {return this._templateOpacity}
 
-    get animOverride() {
-        return this._animOverride;
-    }
+    get sourceEnable() {return this._sourceEnable;}
+    get sourceLevel() {return this._sourceLevel;}
+    get sourceName() {return this._sourceName;}
+    get sourceColor() {return this._sourceColor;}
+    get sourceCustomEnable() {return this._sourceCustomEnable;}
+    get sourceCustomPath() {return this._sourceCustomPath;}
+    get sourceLoops() {return this._sourceLoops;}
+    get sourceLoopDelay() {return this._sourceLoopDelay}
+    get sourceScale() {return this._sourceScale;}
+    get sourceDelay() {return this._sourceDelay;}
+    get sourceVariant() {return this._sourceVariant;}
 
-    get animExplode() {
-        return this._animExplode;
-    }
-
-    get animDagThrVar() {
-        return this._animDgThrVar;
-    }
-
-    get selfRadius() {
-        return this._selfRadius;
-    }
-
-    get animTint() {
-        return this._animTint;
-    }
-
-    get auraOpacity() {
-        return this._auraOpacity;
-    }
-
-    get ctaOption() {
-        return this._ctaOption;
-    }
-
-    get hmAnim() {
-        return this._hmAnim;
-    }
-
-    get uaStrikeType() {
-        return this._uaStrikeType;
-    }
-
-    get teleRange() {
-        return this._teleDist;
-    }
-
-    get spellVariant() {
-        return this._spellVar;
-    }
-
-    get bardTarget() {
-        return this._bardTarget;
-    }
-
-    get bardSelf() {
-        return this._bardSelf;
-    }
-
-    get bardAnim() {
-        return this._bardAnim;
-    }
-    
-    get bards() {
-        return this._bards;
-    }
-
-    get allSounds() {
-        return this._allSounds;
-    }
-
-    get itemSound() {
-        return this._itemSound;
-    }
-
-    get explodeSound() {
-        return this._explodeSound
-    }
-  
-    get spellLoops() {
-        return this._spellLoops;
-    }
-
-    get divineSmite() {
-        return this._divineSmite;
-    }
-    
-    get templates() {
-        return this._templates;
-    }
-
-    get flags() {
-        return this._flags;
-    }
-
-    get rangedOptions() {
-        return this._rangedOptions;
-    }
+    get targetEnable() {return this._targetEnable;}
+    get targetLevel() {return this._targetLevel;}
+    get targetName() {return this._targetName;}
+    get targetColor() {return this._targetColor;}
+    get targetCustomEnable() {return this._targetCustomEnable;}
+    get targetCustomPath() {return this._targetCustomPath;}
+    get targetLoops() {return this._targetLoops;}
+    get targetLoopDelay() {return this._targetLoopDelay}
+    get targetScale() {return this._targetScale;}
+    get targetDelay() {return this._targetDelay;}
+    get targetVariant() { return this._targetVariant;}
 
     getDistanceTo(target) {
         const scene = game.scenes.active;
@@ -276,24 +256,10 @@ export default class Pf1Handler {
         return distance;
     }
 
-    itemIncludes() {
-        return [...arguments].every(a => this._itemName?.includes(a));
-    }
-
-    itemSourceIncludes() {
-        return [...arguments].every(a => this._itemSource?.includes(a));
-    }
-    itemColorIncludes() {
-        return [...arguments].every(a => this._animColor?.includes(a));
-    }
     itemNameIncludes() {
         return [...arguments].every(a => this._animNameFinal?.includes(a));
     }
     itemTypeIncludes() {
         return [...arguments].every(a => this._itemType?.includes(a));
     }
-    animNameIncludes() {
-        return [...arguments].every(a => this._animName?.includes(a));
-    }
-
 }

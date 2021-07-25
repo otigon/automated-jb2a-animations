@@ -1,12 +1,13 @@
 <form class="flexcol" autocomplete="off" novalidate>
-    <nav class="tabs" data-group="primary-tabs">
-        <a class="item" data-tab="animations"><i class="fas fa-bomb"></i> ANIMATIONS </a>
-        <a class="audioSetting" data-tab="audio-settings"><i class="fas fa-guitar"></i> AUDIO </a>
+    <nav class="flexrow tabs" data-group="sections">
+        <a class="aa-options" data-tab="animations"><i class="fas fa-bomb"></i> Animations </a>
+        <a class="aa-options" data-tab="audio"><i class="fas fa-guitar"></i> Audio </a>
+        <a class="aa-options" data-tab="sourceTokenFX"><i class="fas fa-user-plus"></i> TokenFX </a>
     </nav>
 
     <section class="content">
         <!--Animation Settings-->
-        <div class="tab" data-tab="animations" data-group="primary-tabs">
+        <div class="tab" data-tab="animations" data-group="sections">
             <!--Disable Animaton Button-->
             <div class="kill-animation">
                 <div class="form-group">
@@ -20,20 +21,29 @@
             <div class="animation-not-disabled">
                 <div>
                     <!--Play Animations Below Tokens Button-->
+                    {{#unless t9t10}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.underToken"}}</label>
                         <input type="checkbox" name="flags.autoanimations.animLevel"
                             value="flags.autoanimations.animLevel" data-dtype="{{Boolean}}" {{checked
                             flags.autoanimations.animLevel}} />
                     </div>
+                    {{/unless}}
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuOverride"}}</label>
+                        <label>{{localize "AUTOANIM.customize"}} {{localize "AUTOANIM.animation"}}</label>
                         <input type="checkbox" name="flags.autoanimations.override"
                             value="flags.autoanimations.override" data-dtype="{{Boolean}}" {{checked
                             flags.autoanimations.override}} />
                     </div>
                 </div>
                 {{#unless flags.autoanimations.override}}
+                {{#if autoRecognized}}
+                <!--If auto-recognized, Animation name will be listed here-->
+                <div class="form-group">
+                    <label class="auto-recognized"><strong>{{OldName}}</strong> is recognized as the
+                        <strong>{{convertedName}}</strong> animation</label>
+                </div>
+                {{/if}}
                 <!--Choose Standard Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
@@ -45,6 +55,26 @@
                         {{/select}}
                     </select>
                 </div>
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
+                    {{#if defaultCheck}}
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.scale"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
+                    {{/if}}
+                </div>
+
                 {{/unless}}
                 {{#if flags.autoanimations.override}}
                 <!--Choose the Animation Type-->
@@ -65,13 +95,14 @@
 
 
                 {{#if t2t3}}
+                {{#unless flags.autoanimations.options.enableCustom01}}
                 <!--Choose Animation by Name-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -99,82 +130,56 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if daggerVariantShow}}
+                {{#if thrownVariantShow}}
                 <!--Choose a Thrown Dagger Variant-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuThrownVariant"}}</label>
                     <select name="flags.autoanimations.dtvar" class="dagger-variants">
                         {{#select flags.autoanimations.dtvar}}
-                        {{#each daggerVariant as |name key|}}
+                        {{#each thrownVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
                 </div>
                 {{/if}}
-                {{#if divineSmite}}
-                <!--Enable Divine Smite?-->
+                {{/unless}}
+                <!--Add Custom Animation-->
                 <div class="aa-ridged">
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.dsEffect"}}</label>
-                        <input type="checkbox" name="flags.autoanimations.divineSmite.dsEnable"
-                            value="flags.autoanimations.divineSmite.dsEnable" {{checked
-                            flags.autoanimations.divineSmite.dsEnable}}>
+                        <label>{{localize "AUTOANIM.customAnim"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
+                            value="flags.autoanimations.options.enableCustom01" {{checked
+                            flags.autoanimations.options.enableCustom01}}>
                     </div>
-                    {{#if flags.autoanimations.divineSmite.dsEnable}}
-                    <!--Divine Smite Animate on Self?-->
+                    {{#if flags.autoanimations.options.enableCustom01}}
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.bardSelf"}}</label>
-                        <input type="checkbox" name="flags.autoanimations.divineSmite.dsSelf"
-                            name="flags.autoanimations.divineSmite.dsSelf" {{checked
-                            flags.autoanimations.divineSmite.dsSelf}}>
-                    </div>
-                    {{#if flags.autoanimations.divineSmite.dsSelf}}
-                    <!--Divine Smite Self Delay-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="number" name="flags.autoanimations.divineSmite.dsSelfDelay" value={{dsDelaySelf}}>
-                    </div>
-                    <!--Divine Smite Self Color-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.selfColor"}}</label>
-                        <select name="flags.autoanimations.divineSmite.dsSelfColor">
-                            {{#select flags.autoanimations.divineSmite.dsSelfColor}}
-                            {{#each dsColorSelf as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.options.customPath01"
+                            value={{customPath01}}>
+                        <button type="button" class="file-picker" data-type="video"
+                            data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
+                            <i class="fas fa-file-video"></i>
+                        </button>
                     </div>
                     {{/if}}
-                    <!--Divine Smite Animate on Target?-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.bardTarget"}}</label>
-                        <input type="checkbox" name="flags.autoanimations.divineSmite.dsTarget"
-                            value="flags.autoanimations.divineSmite.dsTarget" {{checked
-                            flags.autoanimations.divineSmite.dsTarget}}>
+                </div>
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
                     </div>
-                    {{#if flags.autoanimations.divineSmite.dsTarget}}
-                    <!--Divine Smite Target Delay-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="number" name="flags.autoanimations.divineSmite.dsTargetDelay"
-                            value={{dsDelayTarget}}>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
                     </div>
-                    <div class="form-group">
-                        <!--Divine Smite Target Color-->
-                        <label>{{localize "AUTOANIM.targetColor"}}</label>
-                        <select name="flags.autoanimations.divineSmite.dsTargetColor">
-                            {{#select flags.autoanimations.divineSmite.dsTargetColor}}
-                            {{#each dsColorTarget as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.scale"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
                     </div>
-                    {{/if}}
-                    {{/if}}
-                    {{/if}}
                 </div>
                 <!--Enable Explosion? Checkbox-->
                 <div class="aa-ridged">
@@ -194,6 +199,7 @@
                                 value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
                         </div>
                     </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
                     <!--Choose Explosion Variant-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
@@ -205,21 +211,6 @@
                             {{/select}}
                         </select>
                     </div>
-                    {{#if impactShow}}
-                    <div class="impact-variant">
-                        <!--Choose Impact Variant-->
-                        <div class="form-group">
-                            <label>{{localize "AUTOANIM.impactVariant"}}</label>
-                            <select name="flags.autoanimations.impactVar">
-                                {{#select flags.autoanimations.impactVar}}
-                                {{#each impactVariants as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                    </div>
-                    {{/if}}
                     <!--Choose Explosion Color-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
@@ -231,22 +222,39 @@
                             {{/select}}
                         </select>
                     </div>
-                    <!--Choose Explosion Radius-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuExplodeRadius"}}</label>
-                        <select name="flags.autoanimations.explodeRadius">
-                            {{#select flags.autoanimations.explodeRadius}}
-                            {{#each explosionRadius as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
                     </div>
-                    <!--Input Explosion Loops-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuExplodeLoops"}}</label>
-                        <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
-                            data-dtype="Number">
+                    <div class="flexrow">
+                        <!--Choose Explosion Radius-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.radius"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
+                                value={{explosionRadius}} data-type="Number">
+                        </div>
+                        <!--Adjust the delay for explosion effect-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.delayMS"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                                data-dtype="Number">
+                        </div>
                     </div>
                     <!--Enable Explosion Audio?-->
                     <div class="form-group">
@@ -294,8 +302,8 @@
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -315,6 +323,19 @@
                     </div>
                 </div>
                 {{/if}}
+                {{#if thrownVariantShow}}
+                <!--Choose a Thrown Dagger Variant-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuThrownVariant"}}</label>
+                    <select name="flags.autoanimations.dtvar" class="dagger-variants">
+                        {{#select flags.autoanimations.dtvar}}
+                        {{#each thrownVariant as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                {{/if}}
                 <!--Choose Standard Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
@@ -325,6 +346,18 @@
                         {{/each}}
                         {{/select}}
                     </select>
+                </div>
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
                 </div>
                 <!--Enable Explosion? Checkbox-->
                 <div class="aa-ridged">
@@ -344,6 +377,7 @@
                                 value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
                         </div>
                     </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
                     <!--Choose Explosion Variant-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
@@ -381,22 +415,39 @@
                             {{/select}}
                         </select>
                     </div>
-                    <!--Choose Explosion Radius-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuExplodeRadius"}}</label>
-                        <select name="flags.autoanimations.explodeRadius">
-                            {{#select flags.autoanimations.explodeRadius}}
-                            {{#each explosionRadius as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
                     </div>
-                    <!--Input Explosion Loops-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuExplodeLoops"}}</label>
-                        <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
-                            data-dtype="Number">
+                    <div class="flexrow">
+                        <!--Choose Explosion Radius-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.radius"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
+                                value={{explosionRadius}} data-type="Number">
+                        </div>
+                        <!--Adjust the delay for explosion effect-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.delayMS"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                                data-dtype="Number">
+                        </div>
                     </div>
                     <!--Enable Explosion Audio?-->
                     <div class="form-group">
@@ -439,13 +490,14 @@
                 <!-- T5 Options-->
 
                 {{#if t5}}
+                {{#unless flags.autoanimations.options.enableCustom01}}
                 <!--Choose Animation by Name-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -460,6 +512,167 @@
                         {{/each}}
                         {{/select}}
                     </select>
+                </div>
+                {{/unless}}
+                <!--Add Custom Animation-->
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.customAnim"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
+                            value="flags.autoanimations.options.enableCustom01" {{checked
+                            flags.autoanimations.options.enableCustom01}}>
+                    </div>
+                    {{#if flags.autoanimations.options.enableCustom01}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.options.customPath01"
+                            value={{customPath01}}>
+                        <button type="button" class="file-picker" data-type="video"
+                            data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
+                            <i class="fas fa-file-video"></i>
+                        </button>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.scale"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
+                </div>
+                <div class="aa-ridged">
+                    {{#if addExplosion}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.explosion"
+                            value="flags.autoanimations.explosion" {{checked flags.autoanimations.explosion}}>
+                    </div>
+                    {{/if}}
+                    {{#if showExplosionOptions}}
+                    <!--Play Explosion Under Token?-->
+                    <div class="ex-anim-level">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.underToken"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.exAnimLevel"
+                                value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
+                        </div>
+                    </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
+                    <!--Choose Explosion Variant-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
+                        <select name="flags.autoanimations.explodeVariant">
+                            {{#select flags.autoanimations.explodeVariant}}
+                            {{#each explosionVariants as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{#if impactShow}}
+                    <div class="impact-variant">
+                        <!--Choose Impact Variant-->
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.impactVariant"}}</label>
+                            <select name="flags.autoanimations.impactVar">
+                                {{#select flags.autoanimations.impactVar}}
+                                {{#each impactVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
+                    <!--Choose Explosion Color-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
+                        <select name="flags.autoanimations.explodeColor">
+                            {{#select flags.autoanimations.explodeColor}}
+                            {{#each explosionColors as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
+                    </div>
+                    <div class="flexrow">
+                        <!--Choose Explosion Radius-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.radius"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
+                                value={{explosionRadius}} data-type="Number">
+                        </div>
+                        <!--Adjust the delay for explosion effect-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.delayMS"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                                data-dtype="Number">
+                        </div>
+                    </div>
+                    <!--Enable Explosion Audio?-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.explosionAudio"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.allSounds.explosion.audioExplodeEnabled"
+                            value="flags.autoanimations.allSounds.explosion.audioExplodeEnabled" {{checked
+                            flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}>
+                    </div>
+                    {{#if flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}
+                    <!--Explosion Audio filePicker and Text Input-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.chooseAudio"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.allSounds.explosion.file"
+                            value={{explosionAudioFile}}>
+                        <button type="button" class="file-picker" data-type="audio"
+                            data-target="flags.autoanimations.allSounds.explosion.file" tabindex="-1"
+                            title="Browse Files">
+                            <i class="fas fa-music"></i>
+                        </button>
+                    </div>
+                    <!--Explosion Audio Delay-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.audioDelay"}}</label>
+                        <input type="Number" name="flags.autoanimations.allSounds.explosion.delay" min="0"
+                            value={{delayExAudio}}>
+                    </div>
+                    <!--Explosion Audio Volume-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                        <input type="Number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
+                            step="0.01" value={{volumeExAudio}}>
+                    </div>
+                    {{/if}}
+                    {{/if}}
                 </div>
                 {{/if}}
 
@@ -473,8 +686,8 @@
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -503,14 +716,143 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if loops}}
                 <!--Input Loops for Animation-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.spellOptions.spellLoops" value={{animationLoops}}
-                        data-dtype="Number">
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
                 </div>
-                {{/if}}
+                <div class="aa-ridged">
+                    {{#if addExplosion}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.explosion"
+                            value="flags.autoanimations.explosion" {{checked flags.autoanimations.explosion}}>
+                    </div>
+                    {{/if}}
+                    {{#if showExplosionOptions}}
+                    <!--Play Explosion Under Token?-->
+                    <div class="ex-anim-level">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.underToken"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.exAnimLevel"
+                                value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
+                        </div>
+                    </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
+                    <!--Choose Explosion Variant-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
+                        <select name="flags.autoanimations.explodeVariant">
+                            {{#select flags.autoanimations.explodeVariant}}
+                            {{#each explosionVariants as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{#if impactShow}}
+                    <div class="impact-variant">
+                        <!--Choose Impact Variant-->
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.impactVariant"}}</label>
+                            <select name="flags.autoanimations.impactVar">
+                                {{#select flags.autoanimations.impactVar}}
+                                {{#each impactVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
+                    <!--Choose Explosion Color-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
+                        <select name="flags.autoanimations.explodeColor">
+                            {{#select flags.autoanimations.explodeColor}}
+                            {{#each explosionColors as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
+                    </div>
+                    <div class="flexrow">
+                        <!--Choose Explosion Radius-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.radius"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
+                                value={{explosionRadius}} data-type="Number">
+                        </div>
+                        <!--Adjust the delay for explosion effect-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.delayMS"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                                data-dtype="Number">
+                        </div>
+                    </div>
+                    <!--Enable Explosion Audio?-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.explosionAudio"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.allSounds.explosion.audioExplodeEnabled"
+                            value="flags.autoanimations.allSounds.explosion.audioExplodeEnabled" {{checked
+                            flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}>
+                    </div>
+                    {{#if flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}
+                    <!--Explosion Audio filePicker and Text Input-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.chooseAudio"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.allSounds.explosion.file"
+                            value={{explosionAudioFile}}>
+                        <button type="button" class="file-picker" data-type="audio"
+                            data-target="flags.autoanimations.allSounds.explosion.file" tabindex="-1"
+                            title="Browse Files">
+                            <i class="fas fa-music"></i>
+                        </button>
+                    </div>
+                    <!--Explosion Audio Delay-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.audioDelay"}}</label>
+                        <input type="Number" name="flags.autoanimations.allSounds.explosion.delay" min="0"
+                            value={{delayExAudio}}>
+                    </div>
+                    <!--Explosion Audio Volume-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                        <input type="Number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
+                            step="0.01" value={{volumeExAudio}}>
+                    </div>
+                    {{/if}}
+                    {{/if}}
+                </div>
+
                 {{/if}}
 
 
@@ -518,13 +860,14 @@
 
 
                 {{#if t7}}
+                {{#unless flags.autoanimations.options.enableCustom01}}
                 <!--Choose Animation by Name-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -552,6 +895,167 @@
                         {{/each}}
                         {{/select}}
                     </select>
+                </div>
+                {{/unless}}
+                <!--Add Custom Animation-->
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.customAnim"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
+                            value="flags.autoanimations.options.enableCustom01" {{checked
+                            flags.autoanimations.options.enableCustom01}}>
+                    </div>
+                    {{#if flags.autoanimations.options.enableCustom01}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.options.customPath01"
+                            value={{customPath01}}>
+                        <button type="button" class="file-picker" data-type="video"
+                            data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
+                            <i class="fas fa-file-video"></i>
+                        </button>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.scale"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
+                </div>
+                <div class="aa-ridged">
+                    {{#if addExplosion}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.explosion"
+                            value="flags.autoanimations.explosion" {{checked flags.autoanimations.explosion}}>
+                    </div>
+                    {{/if}}
+                    {{#if showExplosionOptions}}
+                    <!--Play Explosion Under Token?-->
+                    <div class="ex-anim-level">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.underToken"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.exAnimLevel"
+                                value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
+                        </div>
+                    </div>
+                    {{#unless flags.autoanimations.options.enableCustomExplosion}}
+                    <!--Choose Explosion Variant-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
+                        <select name="flags.autoanimations.explodeVariant">
+                            {{#select flags.autoanimations.explodeVariant}}
+                            {{#each explosionVariants as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{#if impactShow}}
+                    <div class="impact-variant">
+                        <!--Choose Impact Variant-->
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.impactVariant"}}</label>
+                            <select name="flags.autoanimations.impactVar">
+                                {{#select flags.autoanimations.impactVar}}
+                                {{#each impactVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
+                    <!--Choose Explosion Color-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
+                        <select name="flags.autoanimations.explodeColor">
+                            {{#select flags.autoanimations.explodeColor}}
+                            {{#each explosionColors as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
+                                value="flags.autoanimations.options.enableCustomExplosion" {{checked
+                                flags.autoanimations.options.enableCustomExplosion}}>
+                        </div>
+                        {{#if flags.autoanimations.options.enableCustomExplosion}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
+                                value={{customExplosion}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
+                    </div>
+                    <div class="flexrow">
+                        <!--Choose Explosion Radius-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.radius"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
+                                value={{explosionRadius}} data-type="Number">
+                        </div>
+                        <!--Adjust the delay for explosion effect-->
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.delayMS"}}</label>
+                            <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                                data-dtype="Number">
+                        </div>
+                    </div>
+                    <!--Enable Explosion Audio?-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.explosionAudio"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.allSounds.explosion.audioExplodeEnabled"
+                            value="flags.autoanimations.allSounds.explosion.audioExplodeEnabled" {{checked
+                            flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}>
+                    </div>
+                    {{#if flags.autoanimations.allSounds.explosion.audioExplodeEnabled}}
+                    <!--Explosion Audio filePicker and Text Input-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.chooseAudio"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.allSounds.explosion.file"
+                            value={{explosionAudioFile}}>
+                        <button type="button" class="file-picker" data-type="audio"
+                            data-target="flags.autoanimations.allSounds.explosion.file" tabindex="-1"
+                            title="Browse Files">
+                            <i class="fas fa-music"></i>
+                        </button>
+                    </div>
+                    <!--Explosion Audio Delay-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.audioDelay"}}</label>
+                        <input type="Number" name="flags.autoanimations.allSounds.explosion.delay" min="0"
+                            value={{delayExAudio}}>
+                    </div>
+                    <!--Explosion Audio Volume-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                        <input type="Number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
+                            step="0.01" value={{volumeExAudio}}>
+                    </div>
+                    {{/if}}
+                    {{/if}}
                 </div>
                 {{/if}}
 
@@ -594,11 +1098,6 @@
                         {{/select}}
                     </select>
                 </div>
-                <!--Input Template Animation Loops-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.spellLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.templates.tempLoop" min="0" value={{loopTemplate}}>
-                </div>
                 {{/unless}}
                 <!--Choose Custom Animation?-->
                 <div class="form-group">
@@ -619,6 +1118,53 @@
                     </button>
                 </div>
                 {{/if}}
+                <div class="form-group">
+                    <label>Remove Template after Placement?</label>
+                    <input type="checkbox" name="flags.autoanimations.templates.removeTemplate"
+                        value="flags.autoanimations.templates.removeTemplate" {{checked
+                        flags.autoanimations.templates.removeTemplate}}>
+                </div>
+                {{#if makePersistent}}
+                <!--Make effect a Tile on Canvas-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.placeTile"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.templates.persistent"
+                        value="flags.autoanimations.templates.persistent" {{checked
+                        flags.autoanimations.templates.persistent}}>
+                </div>
+                <label class="aa-hint-text">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+                {{/if}}
+                {{#if persistent}}
+                <div class="form-group">
+                    <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+                </div>
+                <!--Set Tile Opacity-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.opacity"}}</label>
+                    <input type="Number" name="flags.autoanimations.templates.opacity" min="0" max="1" step=".01"
+                        value={{templateOpacity}}>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.overhead"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.templates.overhead"
+                        value="flags.autoanimations.templates.overhead" {{checked
+                        flags.autoanimations.templates.overhead}}>
+                </div>
+                {{/if}}
+                {{#unless persistent}}
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.templates.tempLoop" value={{loopTemplate}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.templates.loopDelay" value={{templateLoopDelay}}
+                            data-dtype="Number">
+                    </div>
+                </div>
+                {{/unless}}
                 {{/if}}
 
 
@@ -634,6 +1180,7 @@
                             value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
                     </div>
                 </div>
+                {{#unless flags.autoanimations.options.enableCustom01}}
                 <!--Choose Explosion Variant-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
@@ -645,21 +1192,6 @@
                         {{/select}}
                     </select>
                 </div>
-                <!--Impact Variants-->
-                {{#if impactShow}}
-                <div class="impact-variant">
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.impactVariant"}}</label>
-                        <select name="flags.autoanimations.impactVar">
-                            {{#select flags.autoanimations.impactVar}}
-                            {{#each impactVariants as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
-                    </div>
-                </div>
-                {{/if}}
                 <!--Choose Explosion Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
@@ -671,22 +1203,45 @@
                         {{/select}}
                     </select>
                 </div>
-                <!--Choose Explosion Radius-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuExplodeRadius"}}</label>
-                    <select name="flags.autoanimations.explodeRadius">
-                        {{#select flags.autoanimations.explodeRadius}}
-                        {{#each explosionRadius as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
+                {{/unless}}
+                <div class="flexrow">
+                    <!--Choose Explosion Radius-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.radius"}}</label>
+                        <input type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
+                            value={{explosionRadius}} data-type="Number">
+                    </div>
+                    <!--Set Explosion Loops-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                            data-dtype="Number">
+                    </div>
                 </div>
-                <!--Set Explosion Loops-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuExplodeLoops"}}</label>
-                    <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
-                        data-dtype="Number">
+                <!--Add Custom Animation-->
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.customAnim"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
+                            value="flags.autoanimations.options.enableCustom01" {{checked
+                            flags.autoanimations.options.enableCustom01}}>
+                    </div>
+                    {{#if flags.autoanimations.options.enableCustom01}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.options.customPath01"
+                            value={{customPath01}}>
+                        <button type="button" class="file-picker" data-type="video"
+                            data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
+                            <i class="fas fa-file-video"></i>
+                        </button>
+                    </div>
+                    {{/if}}
                 </div>
                 {{/if}}
 
@@ -698,14 +1253,14 @@
                 <!--Choose Animation by Name-->
                 <!--Warning if CTA is required-->
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.ctaRequired"}}</label>
+                    <label class="socketlibWarn">Custom Token Animations {{localize "AUTOANIM.socketLibAA"}}</label>
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -723,14 +1278,9 @@
                 </div>
                 <!--Aura Choose Radius-->
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuChooseRadius"}}</label>
-                    <select name="flags.autoanimations.selfRadius">
-                        {{#select flags.autoanimations.selfRadius}}
-                        {{#each auraRadius as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
+                    <label>{{localize "AUTOANIM.radius"}}</label>
+                    <input type="Number" name="flags.autoanimations.selfRadius" min="0" step=".01" value={{auraRadius}}
+                        data-type="Number">
                 </div>
                 <!--Set Aura Tint-->
                 <div class="form-group">
@@ -757,13 +1307,14 @@
 
 
                 {{#if t12}}
+                {{#unless flags.autoanimations.options.enableCustom01}}
                 <!--Choose Animation by Name-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -779,11 +1330,39 @@
                         {{/select}}
                     </select>
                 </div>
+                {{/unless}}
                 <!--Input Distance for Template Size-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.range"}}</label>
                     <input type="Number" name="flags.autoanimations.teleDist" min="5" max="500" step=".01"
                         value={{teleRange}}>
+                </div>
+                <!--Add Custom Animation-->
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.customAnim"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
+                            value="flags.autoanimations.options.enableCustom01" {{checked
+                            flags.autoanimations.options.enableCustom01}}>
+                    </div>
+                    {{#if flags.autoanimations.options.enableCustom01}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.options.customPath01"
+                            value={{customPath01}}>
+                        <button type="button" class="file-picker" data-type="video"
+                            data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
+                            <i class="fas fa-file-video"></i>
+                        </button>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.scale"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
                 </div>
                 {{/if}}
 
@@ -797,14 +1376,34 @@
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
                         {{#select flags.autoanimations.animName}}
-                        {{#each animationNames as |key name|}}
-                        <option value="{{key}}">{{key}}</option>
+                        {{#each animationNames as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
                 </div>
-                <!--Sneak Attack Options-->
-                {{#if sneakAttack}}
+                {{#if spellVariants}}
+                <!--Spell Variant Option-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                    <select name="flags.autoanimations.spellVar">
+                        {{#select flags.autoanimations.spellVar}}
+                        {{#each spellVariant as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>End Effect</label>
+                    <select name="flags.autoanimations.options.shieldVar">
+                        {{#select flags.autoanimations.options.shieldVar}}
+                        {{#each shieldOutro as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
@@ -920,6 +1519,39 @@
                     {{/if}}
                 </div>
                 {{/if}}
+                <!--Hunters Mark Options-->
+                {{#if huntersMark}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.hmAnim"}}</label>
+                    <div class="form-fields">
+                        <select name="flags.autoanimations.hmAnim">
+                            {{#select flags.autoanimations.hmAnim}}
+                            {{#each huntermarkAnim as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                    <select name="flags.autoanimations.color">
+                        {{#select flags.autoanimations.color}}
+                        {{#each animationColor as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.ctaStatic"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked ctaOption}}>
+                </div>
+                <div class="aa-column">
+                    <label>{{localize "AUTOANIM.scale"}}</label>
+                    <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
+                </div>
+                {{/if}}
                 {{/if}}
             </div>
             <div class="aa-video">
@@ -933,7 +1565,7 @@
 
 
         <!--Audio Settings-->
-        <div class="tab" data-tab="audio-settings" data-group="primary-tabs">
+        <div class="tab" data-tab="audio" data-group="sections">
             <div class="aa-audio-checkbox">
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.itemAudio"}}</label>
@@ -952,8 +1584,7 @@
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.audioDelay"}}</label>
-                    <input type="Number" name="flags.autoanimations.allSounds.item.delay" min="0"
-                        value={{delayAudio}}>
+                    <input type="Number" name="flags.autoanimations.allSounds.item.delay" min="0" value={{delayAudio}}>
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.audioVolumeNEW"}}</label>
@@ -963,6 +1594,232 @@
                 {{/if}}
             </div>
         </div>
+
+        <!--Token Animation Options-->
+
+        <div class="tab" data-tab="sourceTokenFX" data-group="sections">
+            <div class="sourceOptions">
+                <!--Source Token Animation Options-->
+                {{#unless t11}}
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.sourceToken"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.sourceToken.enable"
+                            value="flags.autoanimations.sourceToken.enable" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.sourceToken.enable}} />
+                    </div>
+                    {{#if flags.autoanimations.sourceToken.enable}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.underToken"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.sourceToken.animLevel"
+                            value="flags.autoanimations.sourceToken.animLevel" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.sourceToken.animLevel}} />
+                    </div>
+                    {{#unless flags.autoanimations.sourceToken.enableCustom}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <select name="flags.autoanimations.sourceToken.name">
+                            {{#select flags.autoanimations.sourceToken.name}}
+                            {{#each sourceAnimations as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{#if sourceMarker}}
+                    <div class="impact-variant">
+                        <!--Choose Impact Variant-->
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                            <select name="flags.autoanimations.sourceToken.variant">
+                                {{#select flags.autoanimations.sourceToken.variant}}
+                                {{#each markerVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                        <select name="flags.autoanimations.sourceToken.color">
+                            {{#select flags.autoanimations.sourceToken.color}}
+                            {{#each sourceColors as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.sourceToken.enableCustom"
+                                value="flags.autoanimations.sourceToken.enableCustom" {{checked
+                                flags.autoanimations.sourceToken.enableCustom}}>
+                        </div>
+                        {{#if flags.autoanimations.sourceToken.enableCustom}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.sourceToken.customPath"
+                                value={{sourceCustom}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.sourceToken.customPath" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
+                    </div>
+                    <div class="flexrow">
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.loops"}}</label>
+                            <input type="Number" name="flags.autoanimations.sourceToken.loops" value={{sourceLoops}}
+                                data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                            <input type="Number" name="flags.autoanimations.sourceToken.loopDelay"
+                                value={{sourceLoopDelay}} data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.scale"}}</label>
+                            <input type="Number" name="flags.autoanimations.sourceToken.scale" value={{sourceScale}}
+                                data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.delayMS"}} {{localize "AUTOANIM.after"}}</label>
+                            <input type="Number" name="flags.autoanimations.sourceToken.delayAfter"
+                                value={{sourceDelayAfter}} data-dtype="Number">
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/unless}}
+                <!--<div class="form-group">
+                    <img src="modules/autoanimations/pictures/Sequence.webp" alt="Tips4Sequence">
+                </div>-->
+                <div class="flexrow">
+                    <div class="AA-flow-chart-Source">
+                        <label>{{localize "AUTOANIM.source"}} {{localize "AUTOANIM.animation"}}</label>
+                    </div>
+                    <div class="aa-flow-arrow">
+                        <i class="fas fa-angle-double-right fa-3x"></i>
+                    </div>
+                    <div class="AA-flow-chart-Primary">
+                        <label>{{localize "AUTOANIM.primary"}} {{localize "AUTOANIM.animation"}}</label>
+                    </div>
+                    <div class="aa-flow-arrow">
+                        <i class="fas fa-angle-double-right fa-3x"></i>
+                    </div>
+                    <div class="AA-flow-chart-Target">
+                        <label>{{localize "AUTOANIM.target"}} {{localize "AUTOANIM.animation"}}</label>
+                    </div>
+                </div>
+                {{#unless dontShowTarget}}
+                <!--Target Token Animation Options-->
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.targetToken"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.targetToken.enable"
+                            value="flags.autoanimations.targetToken.enable" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.targetToken.enable}} />
+                    </div>
+                    {{#if flags.autoanimations.targetToken.enable}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.underToken"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.targetToken.animLevel"
+                            value="flags.autoanimations.targetToken.animLevel" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.targetToken.animLevel}} />
+                    </div>
+                    {{#unless flags.autoanimations.targetToken.enableCustom}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <select name="flags.autoanimations.targetToken.name">
+                            {{#select flags.autoanimations.targetToken.name}}
+                            {{#each targetAnimations as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{#if targetMarker}}
+                    <div class="impact-variant">
+                        <!--Choose Impact Variant-->
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                            <select name="flags.autoanimations.targetToken.variant">
+                                {{#select flags.autoanimations.targetToken.variant}}
+                                {{#each markerVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                        <select name="flags.autoanimations.targetToken.color">
+                            {{#select flags.autoanimations.targetToken.color}}
+                            {{#each targetColors as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{/unless}}
+                    <div class="aa-ridged">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.customAnim"}}</label>
+                            <input type="checkbox" name="flags.autoanimations.targetToken.enableCustom"
+                                value="flags.autoanimations.targetToken.enableCustom" {{checked
+                                flags.autoanimations.targetToken.enableCustom}}>
+                        </div>
+                        {{#if flags.autoanimations.targetToken.enableCustom}}
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                            <input type="text" class="files" name="flags.autoanimations.targetToken.customPath"
+                                value={{targetCustom}}>
+                            <button type="button" class="file-picker" data-type="video"
+                                data-target="flags.autoanimations.targetToken.customPath" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
+                        </div>
+                        {{/if}}
+                    </div>
+                    <div class="flexrow">
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.delayMS"}} {{localize "AUTOANIM.start"}}</label>
+                            <input type="Number" name="flags.autoanimations.targetToken.delayStart"
+                                value={{targetDelayStart}} data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.loops"}}</label>
+                            <input type="Number" name="flags.autoanimations.targetToken.loops" value={{targetLoops}}
+                                data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                            <input type="Number" name="flags.autoanimations.targetToken.loopDelay"
+                                value={{targetLoopDelay}} data-dtype="Number">
+                        </div>
+                        <div class="aa-column">
+                            <label>{{localize "AUTOANIM.scale"}}</label>
+                            <input type="Number" name="flags.autoanimations.targetToken.scale" value={{targetScale}}
+                                data-dtype="Number">
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/unless}}
+            </div>
+        </div>
+
+
+
     </section>
     <footer class="sheet-footer flexrow">
         <button type="submit" name="submit">

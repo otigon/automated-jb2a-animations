@@ -20,6 +20,23 @@ AUTOANIM.spellVariant = {
     "02": "AUTOANIM.variant02",
 }
 
+AUTOANIM.shieldVariant = {
+    'a1': ``,
+    "01": "01",
+    "02": "02",
+    "03": "03",
+}
+
+AUTOANIM.shieldVariantFree = {
+    'a1': ``,
+    "01": "01",
+}
+
+AUTOANIM.shieldOutro = {
+    'outro_explode': "AUTOANIM.explode",
+    'outro_fade': "AUTOANIM.fade"
+}
+
 AUTOANIM.animNameHealSpell = {
     "a1": ``,
     "cure wounds": "AUTOANIM.itemCureWounds",
@@ -50,15 +67,24 @@ AUTOANIM.animNameMeleeWeapon = {
 AUTOANIM.animNameRangeWeapon = {
     "a1": ``,
     "arrow": "AUTOANIM.itemArrow",
+    "bolt": "AUTOANIM.bolt",
     "boulder": "AUTOANIM.itemBoulder",
+    "bullet": "AUTOANIM.bullet",
+    "rangedagger": "AUTOANIM.itemDagger",
+    "rangegreataxe": "AUTOANIM.itemGreataxe",
+    "rangegreatsword": "AUTOANIM.itemGreatsword",
+    "rangehandaxe": "AUTOANIM.itemHandaxe",
     "javelin": "AUTOANIM.itemJavelin",
     "laser blast": "AUTOANIM.itemLaserBlast",
+    "rangelasersword": "AUTOANIM.itemLaserSword",
+    "rangelasersworddb": "AUTOANIM.itemLaserSwordDB",
+    "rangemace": "AUTOANIM.itemMace",
     "siege boulder": "AUTOANIM.itemSiegeBoulder",
     "sling": "AUTOANIM.itemSling",
-    "throwing hammer": "AUTOANIM.itemThrowingHammer",
-    "bolt": "AUTOANIM.bolt",
-    "bullet": "AUTOANIM.bullet",
     "snipe": "AUTOANIM.snipe",
+    "rangespear": "AUTOANIM.itemSpear",
+    "rangesword": "AUTOANIM.itemSword",
+    "throwing hammer": "AUTOANIM.itemThrowingHammer",
 };
 
 AUTOANIM.animNameRangeWeaponFree = {
@@ -140,21 +166,59 @@ AUTOANIM.animColorMelee = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.rangeSwordColor = {
+    "a1": ``,
+    "white": `AUTOANIM.colorWhite`,
+    "blue": "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.rangeLaserSwordColor = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
+}
+
 AUTOANIM.animColorMeleeFree = {
     "a1": ``,
     "white": `AUTOANIM.colorWhite`,
 }
 
 AUTOANIM.daggerVariant = {
-    "dt1": ``,
-    "dagger01": "AUTOANIM.itemDagger01",
-    "dagger02": "AUTOANIM.itemDagger02",
+    "a1": ``,
+    "01": "AUTOANIM.itemDagger01",
+    "02": "AUTOANIM.itemDagger02",
     "kunai": "AUTOANIM.itemKunai",
 }
 
 AUTOANIM.daggerVariantFree = {
-    "dt1": ``,
+    "a1": ``,
     "dagger01": "AUTOANIM.itemDagger01",
+}
+
+AUTOANIM.daggerColor = {
+    "a1": ``,
+    'white': "AUTOANIM.white",
+    "dark purple": "AUTOANIM.colorDarkPurple",
+}
+
+AUTOANIM.justWhite = {
+    "a1": ``,
+    'white': "AUTOANIM.white",
+}
+AUTOANIM.handaxeVariant = {
+    "a1": ``,
+    "01": "01",
+    "02": "02"
+}
+
+AUTOANIM.handaxeVariantFree = {
+    "a1": ``,
+    "01": "01",
 }
 
 AUTOANIM.animColorLaserSword = {
@@ -396,6 +460,52 @@ AUTOANIM.explosionColors0567 = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.impactColors = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "yellow": "AUTOANIM.colorYellow",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColorsFree = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "orange": "AUTOANIM.colorOrange",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.explodeColors = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "pink": "AUTOANIM.colorPink",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow",
+    "blue white": "AUTOANIM.colorWhiteBlue",
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+    "yellow blue": "AUTOANIM.colorYellowBlue",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.explodeColorsFree = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "orange": "AUTOANIM.colorOrange",
+    "yellow blue": "AUTOANIM.colorYellowBlue",
+    "random": "AUTOANIM.colorRandom"
+}
+
 AUTOANIM.explosionColorsImpact = {
     "ec1": ``,
     "dark red": "AUTOANIM.colorDarkRed",
@@ -405,6 +515,61 @@ AUTOANIM.explosionColorsImpact = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.impactColors05 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColors06 = {
+    "ec1": ``,
+    "yellow": "AUTOANIM.colorYellow",
+}
+
+AUTOANIM.impactColors07 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "yellow": "AUTOANIM.colorYellow",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColors08 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColors09 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColors10 = {
+    "ec1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.impactColor06Free = {
+    "ec1": ``,
+    "white": `AUTOANIM.white`,
+}
 AUTOANIM.impactVariant = {
     "a1" : ``,
     "boulder": "AUTOANIM.itemBoulder",
@@ -412,6 +577,12 @@ AUTOANIM.impactVariant = {
     "02" : "02",
     "03" : "03",
     "04" : "04",
+    "05" : "05",
+    "06" : "06",
+    "07" : "07",
+    "08" : "08",
+    "09" : "09",
+    "010" : "10",
 }
 
 AUTOANIM.explosionColorsImpactFree = {
@@ -444,6 +615,7 @@ AUTOANIM.laserblastColors = {
     "pink": "AUTOANIM.colorPink",
     "purple": "AUTOANIM.colorPurple",
     "red": "AUTOANIM.colorRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 
@@ -483,6 +655,28 @@ AUTOANIM.explosionVariant = {
     "shatter": "AUTOANIM.itemShatter",
     "impact": "AUTOANIM.impact",
 }
+AUTOANIM.explodeVariant = {
+    "ex1": ``,
+    "explosion": "AUTOANIM.explosion",
+    "snowflake": "AUTOANIM.snowflake",
+    "outpulse01": "AUTOANIM.outpulse01",
+    "outpulse02": "AUTOANIM.outpulse02",
+    "impact": "AUTOANIM.impact",
+    "boulder": "AUTOANIM.itemBoulder",
+    "shatter": "AUTOANIM.itemShatter",
+    "thunderwave": "AUTOANIM.itemThunderwave",
+}
+
+AUTOANIM.explodeVariantFree = {
+    "ex1": ``,
+    "explosion": "AUTOANIM.explosion",
+    "snowflake": "AUTOANIM.snowflake",
+    "outpulse01": "AUTOANIM.outpulse01",
+    "outpulse02": "AUTOANIM.outpulse02",
+    "impact": "AUTOANIM.impact",
+    "shatter": "AUTOANIM.itemShatter",
+    "thunderwave": "AUTOANIM.itemThunderwave",
+}
 
 AUTOANIM.explosionVariantFree = {
     "ev1": ``,
@@ -499,17 +693,15 @@ AUTOANIM.explosionVariantFree = {
 
 AUTOANIM.selfemanation = {
     "a1": ``,
-    "01": "AUTOANIM.variant01",
-    "02": "AUTOANIM.variant02",
-    "03": "AUTOANIM.variant03",
-    "04": "AUTOANIM.variant04",
-    "05": "AUTOANIM.variant05",
-    "06": "AUTOANIM.variant06",
-    "07": "AUTOANIM.variant07",
-    "antilife-shell": "AUTOANIM.animAntiLifeShell",
+    "boulder": "AUTOANIM.itemBoulder",
+    "impact": "AUTOANIM.impact",
+    "explosion": "AUTOANIM.explosion",
+    "outpulse01": "AUTOANIM.outpulse01",
+    "outpulse02": "AUTOANIM.outpulse02",
+    "snowflake": "AUTOANIM.snowflake",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
-    "impact": "AUTOANIM.impact"
+    "antilife-shell": "AUTOANIM.animAntiLifeShell",
 }
 
 AUTOANIM.selfCastRadius = {
@@ -613,7 +805,8 @@ AUTOANIM.hmColors = {
     "a1": ``,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
-    "purple": "AUTOANIM.colorPurple"
+    "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.hmColorsFree = {
@@ -623,13 +816,13 @@ AUTOANIM.hmColorsFree = {
 
 AUTOANIM.hmAnim = {
     "a1": ``,
-    "01": "Eye",
-    "02": "Paw"
+    "eye": "AUTOANIM.eye",
+    "paw": "AUTOANIM.paw"
 }
 
 AUTOANIM.hmAnimFree = {
     "a1": ``,
-    "01": "Eye",
+    "eye": "Eye",
 }
 
 AUTOANIM.mistystepColor = {
@@ -639,7 +832,8 @@ AUTOANIM.mistystepColor = {
     'orange': "AUTOANIM.colorOrange",
     'purple': "AUTOANIM.colorPurple",
     'dark green': "AUTOANIM.colorDarkGreen",
-    'dark red': "AUTOANIM.colorDarkRed"
+    'dark red': "AUTOANIM.colorDarkRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.mistystepColorFree = {
@@ -653,6 +847,7 @@ AUTOANIM.musicnoteColor = {
     'green': "AUTOANIM.colorGreen",
     'orange': "AUTOANIM.colorOrange",
     'purple': "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.musicnoteColorFree = {
@@ -705,6 +900,7 @@ AUTOANIM.bardicInspirationColors = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark red": "AUTOANIM.colorDarkRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.bardicInspirationColorsFree = {
@@ -718,6 +914,7 @@ AUTOANIM.bardicMarkerColors = {
     "green orange": "AUTOANIM.colorGreenOrange",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark red": "AUTOANIM.colorDarkRed",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.bardicMarkerColorsFree = {
@@ -727,8 +924,9 @@ AUTOANIM.bardicMarkerColorsFree = {
 
 AUTOANIM.animNameClassFeatures = {
     'a1': ``,
-    'bardic inspiration': "AUTOANIM.bardicInspiration",
-    'sneakattack': "AUTOANIM.sneakattack"
+    'bardicinspiration': "AUTOANIM.bardicInspiration",
+    "shieldspell": "AUTOANIM.itemShield",
+    "huntersmark": "AUTOANIM.itemHM"
 }
 
 AUTOANIM.bardAnimType = {
@@ -749,6 +947,13 @@ AUTOANIM.dsSelf = {
     'green yellow': "AUTOANIM.colorGreenYellow",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark purple": "AUTOANIM.colorDarkPurple",
+    "yellow white": "AUTOANIM.white",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.dsSelfFree = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
 }
 
 AUTOANIM.dsTarget = {
@@ -757,6 +962,13 @@ AUTOANIM.dsTarget = {
     'green yellow': "AUTOANIM.colorGreenYellow",
     "purple pink": "AUTOANIM.colorPinkPurple",
     "dark purple": "AUTOANIM.colorDarkPurple",
+    "yellow white": "AUTOANIM.white",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.dsTargetFree = {
+    'a1': ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
 }
 
 AUTOANIM.animBWType = {
@@ -930,6 +1142,10 @@ AUTOANIM.circleAnimations = {
     "outpulse01": "AUTOANIM.outpulse01",
     "outpulse02": "AUTOANIM.outpulse02",
     "shatter": "AUTOANIM.itemShatter",
+    "fogcloud": "AUTOANIM.animFogCloud",
+    "darkness": "AUTOANIM.animDarkness",
+    "calllightning": "AUTOANIM.animCallLightning",
+    "sleetstorm": "AUTOANIM.animSleetstorm",
 }
 
 AUTOANIM.rectangleAnimations = {
@@ -953,7 +1169,8 @@ AUTOANIM.sneakattackColors = {
     "blue": "AUTOANIM.colorBlue",
     "orange": "AUTOANIM.colorOrange",
     "pink": "AUTOANIM.colorPink",
-    "yellow": "AUTOANIM.colorYellow"
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.sneakattackColorsFree = {
@@ -966,6 +1183,16 @@ AUTOANIM.arrowColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.arrowColorsPys = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom",
 }
 
 AUTOANIM.arrowColorsFree = {
@@ -977,6 +1204,7 @@ AUTOANIM.legacyArrowColors = {
     "a1": "",
     "regular": "AUTOANIM.colorWhite",
     "green": "AUTOANIM.colorGreen",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.legacyArrowColorsFree = {
@@ -989,6 +1217,7 @@ AUTOANIM.boltColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.boltColorsFree = {
@@ -1001,6 +1230,7 @@ AUTOANIM.bulletColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.bulletColorsFree0102 = {
@@ -1018,6 +1248,7 @@ AUTOANIM.snipeColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.snipeColorsFree = {
@@ -1071,17 +1302,120 @@ AUTOANIM.animTypePick = {
     "t6": "AUTOANIM.typeAttackSpell",
     "t7": "AUTOANIM.typeHealingSpell",
     "t8": "AUTOANIM.templates",
-    "t9": "AUTOANIM.typeExplosiveOT",
-    "t10": "AUTOANIM.typeExplosiveSelf",
+    "t9": "AUTOANIM.targetEffect",
+    "t10": "AUTOANIM.selfEffect",
     "t11": "AUTOANIM.typeAuras",
     "t12": "AUTOANIM.animTeleportation",
-    "t13": "AUTOANIM.classFeatures",
+    "t13": "AUTOANIM.customSequences",
 }
 
 AUTOANIM.animNull = {
-    "n1": ``,
+    "a1": ``,
 }
 
+AUTOANIM.tokenAnimations = {
+    "a1": ``,
+    "divinesmite": "AUTOANIM.divineSmite",
+    "dizzystars": "AUTOANIM.stars",
+    "explosion": "AUTOANIM.explosion",
+    "icespikes": "AUTOANIM.iceSpikes",
+    "impact": "AUTOANIM.impact",
+    "magicSign": "AUTOANIM.magicSign",
+    "marker": "AUTOANIM.marker",
+    "snowflake": "AUTOANIM.snowflake",
+    "sneakattack": "AUTOANIM.sneakattack",
+}
+
+AUTOANIM.dizzyStarsColors = {
+    "a1": ``,
+    "black": "AUTOANIM.colorBlack",
+    "blue orange": "AUTOANIM.colorBlueOrange",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "pink": "AUTOANIM.colorPink",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "white": `AUTOANIM.white`,
+    "yellow": "AUTOANIM.colorYellow",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.dizzyStarsColorsFree = {
+    "a1": ``,
+    "blue orange": "AUTOANIM.colorBlueOrange",
+}
+
+AUTOANIM.iceSpikesColors = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "red": "AUTOANIM.colorRed",
+    "white": `AUTOANIM.white`,
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.iceSpikesColorsFree = {
+    "a1": ``,
+    "white": `AUTOANIM.white`,
+}
+
+AUTOANIM.magicSignColors = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "yellow": "AUTOANIM.colorYellow",
+    "light blue": "AUTOANIM.colorLightBlue",
+}
+
+AUTOANIM.markerOptions = {
+    "a1": ``,
+    "marker01": "01",
+    "marker02": "02",
+    "musicMarker": "AUTOANIM.musicMarker"
+}
+
+AUTOANIM.markerOptionsFree = {
+    "a1": ``,
+    "marker01": "01",
+    "musicMarker": "AUTOANIM.musicMarker"
+}
+
+AUTOANIM.marker01Colors = {
+    "a1": ``,
+    "blue white": "AUTOANIM.colorWhiteBlue",
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "pink": "AUTOANIM.colorPink",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.marker01ColorsFree = {
+    "a1": ``,
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+}
+
+AUTOANIM.marker02Colors = {
+    "a1": ``,
+    "blue white": "AUTOANIM.colorWhiteBlue",
+    'blue yellow': "AUTOANIM.colorYellowBlue",
+    "green orange": "AUTOANIM.colorGreenOrange",
+    "pink": "AUTOANIM.colorPink",
+    "purple pink": "AUTOANIM.colorPinkPurple",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.shieldspellColors = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow",
+}
+
+AUTOANIM.shieldspellColorsFree = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+}
 
 AUTOANIM.localized = function (cfg) {
     return Object.keys(cfg).reduce((i18nCfg, key) => {

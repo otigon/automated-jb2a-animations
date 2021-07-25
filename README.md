@@ -1,19 +1,17 @@
-## NOTE: 0.4.00 Introduces a new method for Animation Settings. There is now a button at the TOP of the Item Sheet rather than an Additional Tab  
+## NOTE: 0.5.0 now requires the SEQUENCER module as a dependency 
 If you enjoy Automated Animations, consider sending some love on Patreon
 ### Patreon Link: https://www.patreon.com/otigon : Not required, but appreciated  
 
-MIT and BSD-3 License provided:  
+MIT License provided:  
 - Code from Midi-QOL (Tim Posney) is used to check distance between tokens: Copyright (c) 2020 Tim Posney  
 - Honeybadger (Trioderigon) provided the framework for the Misty Step Animation  
-- Code from FX Master (U-Man) is used to create multiple canvas layers for the animations: Copyright 2021 U~man  
-
-\
-\
-\
+- The SEQUENCER module is now a dependancy of Automated Animations.  
+Many thanks to WASP for creating a great animation framework with the SEQUENCER Module. Check out his website at https://app.fantasy-calendar.com/  
+<br>
+<br>
 
 # Automated Animations
 **No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
-**Exception**: The No Target Animation used by this module was provided by JB2A  
 
 I am not affiliated with JB2A, and am working on this only as a side project to make these great animation more easily accesible. 
 
@@ -23,37 +21,31 @@ https://github.com/otigon/automated-jb2a-animations/blob/main/Animations/Availab
 
 # Introduction
 
-Time to ditch those animation macros! This module is designed to implement all of the "instant" duration animations like:
-
-- Weapon Attacks
-- Attack Spells
-- Explosions
-- Healing Spells  
-**Now implementing:**
-- Instant Template Effects
-- Class Features  
-- Aura Effects with the **Custom Token Animations** module by Kandashi
-- Sound Effect options
+At its core, Automated Animations is centered around the use of "instant" effects such as Weapon Attacks and Spell Effects. There are some areas that branch off from this concept and will be explained in the Wiki.
 
 Current System Compatibility:  
 - DnD 5e  
+- Star Wars 5e
+- DnD 3.5e
 - PF1  
+- PF2e  
 - Shadow of the Demon Lord  
 - Tormenta 20  
+- Starfinder  
+- Warhammer 4e
 - Swade (WIP, it seems to broken atm)  
 
-Systems in Process for Compatibility:  
-- Starfinder (in process)  
-- Warhammer  (awaiting 0.8 system release)  
-- DnD 3.5 (in process)  
+Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  
 
 REQUIRED MODULES: 
 - **JB2A** - Jules&Ben's Animated Assets (patreon or free version)  
+- **Sequencer** by Wasp
 
 Optional Modules:
 - Token Magic FX  
 - Custom Token Animations by Kandashi (For Aura effects)  
+- Socketlib (for placing Tile effects *see Wiki*)
 
 Supported Modules for DnD5e (Those that mess with rolling):  
 - CORE  
@@ -73,7 +65,7 @@ Supported Modules for DnD5e (Those that mess with rolling):
 # Overview
 ## Attack Spells and Melee attacks require a token(s) to be Targeted
 
-This module functions similarly to calling On-Use Macros through Midi-QOL or Item Macro. However, this will run all of the animations behind the scenes without fussing with macros.  
+As of release 0.5.0, Automated Animations has implemented the SEQUENCER module as a Dependancy. You can now think of A-A as a *lightweight* Sequence builder. For more customized animation sequences, use the the Sequencer module is highly recommended.   
 
 Automated Animations reads the data passed through Chat Cards, or Module Hooks, to get the required information. Items (Spells, Weapons, etc) that have a **name** matching a **JB2A animation** will automatically play an animation on use. This generally occurs on the Attack Roll, with options for playing Animations on Damage Rolls. All **default** colors for available animations are based on the **Free** JB2A Module. To use color variants, you need to have the **Patreon** version of the JB2A Module.  
 # Module Settings  
