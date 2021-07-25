@@ -11,6 +11,7 @@ import SwadeHandler from './system-handlers/swade-handler.js';
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import SW5eHandler from "./system-handlers/sw5e-handler.js";
 import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
+import PF2Handler from "./system-handlers/pf2-handler.js";
 
 import thunderwaveAuto from "./animation-functions/thunderwave.js";
 import ctaCall from "./animation-functions/CTAcall.js";
@@ -116,6 +117,7 @@ Hooks.on('init', () => {
         }
         case "dnd5e":
         case "sw5e":
+        case "pf2e":
             if (game.modules.get("midi-qol")?.active) {
                 game.settings.register("autoanimations", "playonhit", {
                     name: game.i18n.format("AUTOANIM.midionhit_name"),
@@ -263,6 +265,9 @@ Hooks.on('init', () => {
                     Hooks.on("DL.Action", setupDemonLord);
                 }
             }
+                break;
+            case "pf2e":
+                Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
                 break;
             case "sfrpg":
                 Hooks.on("createChatMessage", async (msg) => {
@@ -480,6 +485,26 @@ async function specialCaseAnimations(msg) {
             break;
     }
 }
+function pf2eReady(msg) {
+    if (game.user.id !== msg.user.id) {return;}
+    let handler = new PF2Handler(msg);
+    let spellType = handler.item?.data?.data?.spellType?.value;
+    //console.log(handler.item)
+    let spells = ['save', 'heal', 'utility']
+    let save = spells.includes(spellType) ? true : false;
+    //console.log(save)
+    //console.log(handler.animName)
+    if (!handler.item) { return }
+    //let attacks = ["attack-roll", "spell-attack-roll"];
+    if (!game.settings.get("autoanimations", "playonDamageCore")) {
+        if (msg.data.flags.pf2e?.context?.type.includes("attack") || save) {
+            revItUp(handler);
+        } else { return }
+    } else {
+        if (msg.data.flavor.toLowerCase().includes("damage") || save) {
+            revItUp(handler);
+        }
+    }
 
 // DnD5e and SW5e CORE (NON MIDI) Traffic Cop
 function revItUp5eCore(msg) {

@@ -9,6 +9,7 @@ function animPreview(flags, name) {
     }
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    let jb2a = moduleIncludes("jb2a_patreon") === true ? true : false;
     //let itemName = item.animName.toLowerCase();
     let itemName = name;
     let item = flags.autoanimations ?? "";
@@ -21,6 +22,7 @@ function animPreview(flags, name) {
     let preview = "no preview";
     let damageType;
     let enabled = item?.override ?? false;
+    let file;
     if (enabled) {
         switch (true) {
             case item.animType === 't1':
@@ -262,6 +264,14 @@ function animPreview(flags, name) {
             console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
             return undefined;
         }
+    }
+}
+function checkPath(content) {
+    try {
+        return content;
+    } catch (exception) {
+        //console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
+        return null;
     }
 }
 export default animPreview;

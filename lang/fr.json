@@ -9,8 +9,17 @@
     "AUTOANIM.tfmxenable_hint":"Active tous les effets de Token Magic avec les animations",
     "AUTOANIM.midionhit_name":"Jouer les animations uniquement si la cible est touchée",
     "AUTOANIM.midionhit_hint":"Nécessite Midi-QOL Workflow option pour vérifier si les attaques ont touchées",
+    "AUTOANIM.midionmiss_name": "Jouer des animations sur les succès et les échecs",
+    "AUTOANIM.midionmiss_hint": "En cas d'échec, l'animation déviera de sa cible. Requière MIDI Workflow pour vérifier les résultats",
     "AUTOANIM.midiondmg_name":"Ne jouer les animations que sur les jets de dégâts",
     "AUTOANIM.midiondmg_hint":"NÉCESSITE UN RAFRAÎCHISSEMENT. Lorsque cette option est activée, les animations ne sont jouées QUE sur le jet de dégâts.",
+    "AUTOANIM.demonlordtrigger_name":"Trigger to play animations",
+    "AUTOANIM.demonlordtrigger_hint":"Choose the condition for play animations",
+    "AUTOANIM.demonlordtrigger_rollattack":"Play animations on roll attack",
+    "AUTOANIM.demonlordtrigger_hits":"Play animations on hits",
+    "AUTOANIM.demonlordtrigger_misses": "Play animations on hits and misses",
+    "AUTOANIM.demonlordtrigger_rolldamage":"Play animations on roll damage",
+    "AUTOANIM.demonlordtrigger_applydamage":"Play animations on apply damage",
     "AUTOANIM.coreondmg_name":"Jouer les animations d'attaque uniquement sur les jets de dégâts",
     "AUTOANIM.coreondmg_hint":"Par défaut, les animations sont jouées sur les jets d'attaque.",
     "AUTOANIM.enableshield_name":"Activer l'animation du sort Bouclier",
@@ -194,8 +203,6 @@
     "AUTOANIM.critmiss_name": "Echec  critiques",
     "AUTOANIM.critmiss_hint": "Activation  des animations d'échec critique sur le jeton source.",
     "AUTOANIM.critmissAnim_name": "Animation d'échec critique",
-    "AUTOANIM.midionmiss_name": "Jouer des animations sur les succès et les échecs",
-    "AUTOANIM.midionmiss_hint": "En cas d'échec, l'animation déviera de sa cible. Requière MIDI Workflow pour vérifier les résultats",
 
     "AUTOANIM.globaldelay_name": "Délai global",
     "AUTOANIM.globaldelay_hint": "Retarder le début de toutes les animations en millisecondes",
@@ -233,7 +240,6 @@
     "AUTOANIM.explosionAudio": "Activer l'explosion audio",
     "AUTOANIM.chooseAudio": "Choisir le fichier audio",
     "AUTOANIM.audioDelay": "Retard audio (millisecondes)",
-    "AUTOANIM.audioVolume": "Volume audio (0 - 100)",
     "AUTOANIM.markerColor": "Couleur du marqueur",
     
     "AUTOANIM.colorLightGreen": "Vert clair",
@@ -287,6 +293,11 @@
     "AUTOANIM.bullet": "Balle",
     "AUTOANIM.bolt": "Carreau",
     "AUTOANIM.snipe": "Snipe",
-    "AUTOANIM.damageType": "Type de dommage"
+    "AUTOANIM.damageType": "Type de dommage",
+    
+    "AUTOANIM.tabTitle": "Paramètres d'animation des éléments",
+    "AUTOANIM.targetAnim": "Animation de la cible",
+    "AUTOANIM.markerColorTarget": "Couleur du marqueur Cible",
+    "AUTOANIM.audioVolumeNEW": "Volume audio (0 - 10)"
 
 }

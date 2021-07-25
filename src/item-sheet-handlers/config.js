@@ -90,6 +90,9 @@ AUTOANIM.animNameRangeWeapon = {
 AUTOANIM.animNameRangeWeaponFree = {
     "a1": ``,
     "arrow": "AUTOANIM.itemArrow",
+    "bolt": "AUTOANIM.bolt",
+    "bullet": "AUTOANIM.bullet",
+    "snipe": "AUTOANIM.snipe",
     "laser blast": "AUTOANIM.itemLaserBlast",
 };
 
@@ -1262,6 +1265,11 @@ AUTOANIM.boltOptions = {
     "physical": "AUTOANIM.uaPhysical",
 }
 
+AUTOANIM.boltOptionsFree = {
+    "a1": "",
+    "physical": "AUTOANIM.uaPhysical",
+}
+
 AUTOANIM.arrowOptions = {
     "a1": "",
     "regular": "AUTOANIM.colorWhite",
@@ -1269,6 +1277,12 @@ AUTOANIM.arrowOptions = {
     'fire': "AUTOANIM.dmgTypeFire",
     "cold": "AUTOANIM.cold",
     "lightning": "AUTOANIM.dmgTypeLightning",
+    "physical": "AUTOANIM.uaPhysical",
+}
+
+AUTOANIM.arrowOptionsFree = {
+    "a1": "",
+    "regular": "AUTOANIM.colorWhite",
     "physical": "AUTOANIM.uaPhysical",
 }
 
