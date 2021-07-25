@@ -505,7 +505,7 @@ function pf2eReady(msg) {
             revItUp(handler);
         }
     }
-
+}
 // DnD5e and SW5e CORE (NON MIDI) Traffic Cop
 function revItUp5eCore(msg) {
     if (msg.user.id !== game.user.id) { return };
