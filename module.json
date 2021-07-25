@@ -51,7 +51,7 @@
     "dependencies" : [
         {
           "name": "sequencer",
-          "manifest": "https://github.com/Haxxer/FoundryVTT-Sequencer/releases/latest/download/manifest.json"
+          "manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json"
         }
     ],
     "socket": true,
