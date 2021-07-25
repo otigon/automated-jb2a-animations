@@ -17,7 +17,7 @@ I am not affiliated with JB2A, and am working on this only as a side project to 
 
 Tutorial Video: https://www.youtube.com/watch?v=ZU2IbyEzias 
   
-[**DOCUMENTATION is on the Wiki Page**](https://github.com/otigon/automated-jb2a-animations/wiki)
+##[**DOCUMENTATION is on the Wiki Page**](https://github.com/otigon/automated-jb2a-animations/wiki)
 # Introduction
 
 At its core, Automated Animations is centered around the use of "instant" effects such as Weapon Attacks and Spell Effects. There are some areas that branch off from this concept and will be explained in the Wiki.
