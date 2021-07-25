@@ -6,7 +6,8 @@ MIT License provided:
 - Code from Midi-QOL (Tim Posney) is used to check distance between tokens: Copyright (c) 2020 Tim Posney  
 - Honeybadger (Trioderigon) provided the framework for the Misty Step Animation  
 - The SEQUENCER module is now a dependancy of Automated Animations.  
-Many thanks to WASP for creating a great animation framework with the **SEQUENCER** Module. Check out his website at https://app.fantasy-calendar.com/  
+Many thanks to WASP for creating a great animation framework with the **SEQUENCER** Module. Check out his website [**here**](https://app.fantasy-calendar.com/) 
+
 <br>
 <br>
 
