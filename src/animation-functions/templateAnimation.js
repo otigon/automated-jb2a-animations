@@ -12,7 +12,6 @@ export async function templateAnimation(handler, msg) {
         return !!game.modules.get(test);
     }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let templateType = msg?.data?.t ?? type;
     let tempAnimation = await buildTemplateFile(obj01, handler)
     let sourceFX;
     if (handler.sourceEnable) {
@@ -33,6 +32,8 @@ export async function templateAnimation(handler, msg) {
         } else {
             template = await canvas.templates.documentCollection.get(templateID);
         }
+        let templateType = template.data?.t;
+        console.log(template)
         let templateW;
         let templateLength;
         let scaleX;
@@ -91,6 +92,7 @@ export async function templateAnimation(handler, msg) {
                 yAnchor = 0.5;
                 break;
         }
+        console.log(rotate)
         if (handler.templatePersist && (handler.templates.tempType === "circle" || handler.templates.tempType === "rect")) {
             let data;
             if (handler.templates.overhead) {

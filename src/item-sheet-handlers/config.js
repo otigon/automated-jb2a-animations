@@ -20,6 +20,11 @@ AUTOANIM.spellVariant = {
     "02": "AUTOANIM.variant02",
 }
 
+AUTOANIM.spellVariantFree = {
+    'a1': ``,
+    "01": "AUTOANIM.variant01",
+}
+
 AUTOANIM.shieldVariant = {
     'a1': ``,
     "01": "01",
@@ -197,7 +202,7 @@ AUTOANIM.daggerVariant = {
 
 AUTOANIM.daggerVariantFree = {
     "a1": ``,
-    "dagger01": "AUTOANIM.itemDagger01",
+    "01": "AUTOANIM.itemDagger01",
 }
 
 AUTOANIM.daggerColor = {
@@ -477,7 +482,7 @@ AUTOANIM.impactColorsFree = {
     "a1": ``,
     "blue": "AUTOANIM.colorBlue",
     "orange": "AUTOANIM.colorOrange",
-    "white": `AUTOANIM.white`,
+    "yellow": "AUTOANIM.colorYellow",
     "random": "AUTOANIM.colorRandom"
 }
 

@@ -54,7 +54,7 @@ export async function teleportation(handler) {
         pos = event.data.getLocalPosition(canvas.app.stage);
         let ray = new Ray(token.center, pos)
         if (ray.distance > ((canvas.grid.size * (handler.teleRange / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
-            ui.notifications.error("You selected a point out of range, choose again")
+            ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
         } else {
             deleteTemplatesAndMove();
             canvas.app.stage.removeListener('pointerdown');

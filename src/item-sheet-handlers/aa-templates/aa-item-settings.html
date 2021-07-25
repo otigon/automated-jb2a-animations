@@ -21,14 +21,12 @@
             <div class="animation-not-disabled">
                 <div>
                     <!--Play Animations Below Tokens Button-->
-                    {{#unless t9t10}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.underToken"}}</label>
                         <input type="checkbox" name="flags.autoanimations.animLevel"
                             value="flags.autoanimations.animLevel" data-dtype="{{Boolean}}" {{checked
                             flags.autoanimations.animLevel}} />
                     </div>
-                    {{/unless}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.customize"}} {{localize "AUTOANIM.animation"}}</label>
                         <input type="checkbox" name="flags.autoanimations.override"
@@ -236,7 +234,8 @@
                             <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
                                 value={{customExplosion}}>
                             <button type="button" class="file-picker" data-type="video"
-                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1"
+                                title="Browse Files">
                                 <i class="fas fa-file-video"></i>
                             </button>
                         </div>
@@ -283,7 +282,7 @@
                     </div>
                     <!--Explosion Audio Volume-->
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                        <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
                             step="0.01" value={{volumeExAudio}}>
                     </div>
@@ -429,7 +428,8 @@
                             <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
                                 value={{customExplosion}}>
                             <button type="button" class="file-picker" data-type="video"
-                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1"
+                                title="Browse Files">
                                 <i class="fas fa-file-video"></i>
                             </button>
                         </div>
@@ -476,7 +476,7 @@
                     </div>
                     <!--Explosion Audio Volume-->
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                        <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
                             step="0.01" value={{volumeExAudio}}>
                     </div>
@@ -620,7 +620,8 @@
                             <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
                                 value={{customExplosion}}>
                             <button type="button" class="file-picker" data-type="video"
-                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1"
+                                title="Browse Files">
                                 <i class="fas fa-file-video"></i>
                             </button>
                         </div>
@@ -667,7 +668,7 @@
                     </div>
                     <!--Explosion Audio Volume-->
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                        <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
                             step="0.01" value={{volumeExAudio}}>
                     </div>
@@ -798,7 +799,8 @@
                             <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
                                 value={{customExplosion}}>
                             <button type="button" class="file-picker" data-type="video"
-                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1"
+                                title="Browse Files">
                                 <i class="fas fa-file-video"></i>
                             </button>
                         </div>
@@ -845,7 +847,7 @@
                     </div>
                     <!--Explosion Audio Volume-->
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                        <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
                             step="0.01" value={{volumeExAudio}}>
                     </div>
@@ -1003,7 +1005,8 @@
                             <input type="text" class="files" name="flags.autoanimations.options.customExplosion"
                                 value={{customExplosion}}>
                             <button type="button" class="file-picker" data-type="video"
-                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+                                data-target="flags.autoanimations.options.customExplosion" tabindex="-1"
+                                title="Browse Files">
                                 <i class="fas fa-file-video"></i>
                             </button>
                         </div>
@@ -1050,7 +1053,7 @@
                     </div>
                     <!--Explosion Audio Volume-->
                     <div class="form-group">
-                        <label>{{localize "AUTOANIM.audioVolume"}}</label>
+                        <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="flags.autoanimations.allSounds.explosion.volume" min="0" max="10"
                             step="0.01" value={{volumeExAudio}}>
                     </div>
@@ -1172,14 +1175,6 @@
 
 
                 {{#if t9t10}}
-                <!--Play Animations Below Tokens Button-->
-                <div class="ex-anim-level">
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.underToken"}}</label>
-                        <input type="checkbox" name="flags.autoanimations.exAnimLevel"
-                            value="flags.autoanimations.exAnimLevel" {{checked flags.autoanimations.exAnimLevel}}>
-                    </div>
-                </div>
                 {{#unless flags.autoanimations.options.enableCustom01}}
                 <!--Choose Explosion Variant-->
                 <div class="form-group">
@@ -1278,10 +1273,11 @@
                 </div>
                 <!--Aura Choose Radius-->
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.radius"}}</label>
+                    <label>{{localize "AUTOANIM.scale"}}</label>
                     <input type="Number" name="flags.autoanimations.selfRadius" min="0" step=".01" value={{auraRadius}}
                         data-type="Number">
                 </div>
+                <label class="aa-hint-text">Compared to Token Size</label>
                 <!--Set Aura Tint-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.auraTint"}} </label>
@@ -1587,7 +1583,7 @@
                     <input type="Number" name="flags.autoanimations.allSounds.item.delay" min="0" value={{delayAudio}}>
                 </div>
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.audioVolumeNEW"}}</label>
+                    <label>{{localize "AUTOANIM.volume"}}</label>
                     <input type="Number" name="flags.autoanimations.allSounds.item.volume" min="0" max="10" step="0.01"
                         value={{volumeAudio}}>
                 </div>

@@ -29,7 +29,7 @@ export async function explodeOnToken(handler) {
     }
     
 
-    console.log(explosion.scale);
+    console.log(handler.animLevel);
     if (handler.animType === "t10") {
         new Sequence()
             .effect()
@@ -53,7 +53,7 @@ export async function explodeOnToken(handler) {
                 .repeats(handler.explosionLoops, handler.explosionDelay)
                 //.missed(hit)
                 .scale(explosion.scale)
-                .belowTokens(handler.explosionLevel)
+                .belowTokens(handler.animLevel)
                 .addOverride(
                     async (effect, data) => {
                         console.log(data)
@@ -98,7 +98,7 @@ export async function explodeOnToken(handler) {
                         //.randomizeMirrorY()
                         .repeats(handler.explosionLoops, handler.explosionDelay)
                         .scale(explosion.scale)
-                        .belowTokens(handler.explosionLevel)
+                        .belowTokens(handler.animLevel)
                         .playIf(() => { return arrayLength })
                     .effect()
                         .delay(handler.targetDelay)

@@ -295,7 +295,6 @@
     "AUTOANIM.tabTitle": "Item Animation Settings",
     "AUTOANIM.targetAnim": "Target Animation",
     "AUTOANIM.markerColorTarget": "Marker Color Target",
-    "AUTOANIM.audioVolumeNEW": "Audio Volume (0 - 10)",
 
     "AUTOANIM.musicMarker": "Music",
     "AUTOANIM.crossbow": "Crossbow",
@@ -334,5 +333,8 @@
     "AUTOANIM.stars": "Stars",
     "AUTOANIM.marker": "Marker",
     "AUTOANIM.magicSign": "Magic Sign",
-    "AUTOANIM.customize": "Customize"
+    "AUTOANIM.customize": "Customize",
+    "AUTOANIM.ctaScale": "Scale",
+    "AUTOANIM.volume": "Volume (0-1)",
+    "AUTOANIM.teleport": "You selected a Spot out of range. Choose Again"
 }

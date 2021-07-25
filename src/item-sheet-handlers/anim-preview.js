@@ -52,11 +52,11 @@ function animPreview(flags, name) {
                         switch (item.uaStrikeType) {
                             case ``:
                             case "physical":
-                                try { preview = obj01[itemName]['physical'][color] }
+                                try { preview = obj01[itemName]['physical'][color]['1'] }
                                 catch (exception) { preview = "no preview" }
                                 break;
                             default:
-                                try { preview = obj01[itemName]['magical'][color] }
+                                try { preview = obj01[itemName]['magical'][color]['1'] }
                                 catch (exception) { preview = "no preview" }
                         }
                         break;

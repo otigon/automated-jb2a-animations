@@ -25,35 +25,18 @@ JB2AFREEDB.eldritchblast = {
 }
 
 JB2AFREEDB.curewounds = {
-    'blue': {
-        '200': 'modules/JB2A_DnD5e/Library/1st_Level/Cure_Wounds/CureWounds_01_Blue_200x200.webm',
-        '400': 'modules/JB2A_DnD5e/Library/1st_Level/Cure_Wounds/CureWounds_01_Blue_400x400.webm'
-    }
+    'blue': 'modules/JB2A_DnD5e/Library/1st_Level/Cure_Wounds/CureWounds_01_Blue_400x400.webm'
 }
 
 JB2AFREEDB.generichealing = {
     '01': {
-        'blue': {
-            '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Blue_200x200.webm',
-            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Blue_400x400.webm',
-        },
-        'green': {
-            '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Green_200x200.webm',
-            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Green_400x400.webm',
-        },
-        'purple': {
-            '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Purple_200x200.webm',
-            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Purple_400x400.webm',
-        },
-        'yellow': {
-            '200': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_200x200.webm',
-            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_400x400.webm',
-        }
+        'blue': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Blue_400x400.webm',
+        'green': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Green_400x400.webm',
+        'purple': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Purple_400x400.webm',
+        'yellow': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_400x400.webm',
     },
     '02': {
-        'green orange': {
-            '400': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm',
-        },
+        'green orange': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm',
     }
 
 }
@@ -322,9 +305,9 @@ JB2AFREEDB.explosion = {
             'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_09_Regular_Orange_400x400.webm',
             'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_10_Regular_Orange_400x400.webm',
         ],
-        "white": [
-            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_07_Regular_White_400x400.webm',
-            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_09_Regular_White_400x400.webm',
+        "yellow": [
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_06_Regular_Yellow_400x400.webm',
+            'modules/JB2A_DnD5e/Library/Generic/Impact/Impact_07_Regular_Yellow_400x400.webm',
         ],
     },
     "shatter": {
@@ -412,14 +395,15 @@ JB2AFREEDB.unarmedstrike = {
 
 JB2AFREEDB.flurryofblows = {
     'magical': {
-
         'blue': {
             '1': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Blue_Magical01_800x600.webm',
             '2': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Blue_Magical02_800x600.webm'
         }
     },
     'physical': {
-        'blue': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Blue_Physical01_800x600.webm'
+        'blue': {
+            '1': 'modules/JB2A_DnD5e/Library/Generic/Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Blue_Physical01_800x600.webm'
+        }
     }
 }
 
@@ -578,11 +562,11 @@ JB2AFREEDB.arrow = {
             '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_White_90ft_4000x400.webm'
         },
         'green': {
-            '05ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_05ft_600x400.webm',
-            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_15ft_1000x400.webm',
-            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_30ft_1600x400.webm',
-            '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_60ft_2800x400.webm',
-            '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_90ft_4000x400.webm'
+            '05ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_Green_05ft_600x400.webm',
+            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_Green_15ft_1000x400.webm',
+            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_Green_30ft_1600x400.webm',
+            '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_Green_60ft_2800x400.webm',
+            '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Arrow01_01_Regular_Green_90ft_4000x400.webm'
         },
     },
     'physical': {

@@ -106,6 +106,7 @@ export function nameConversion(itemName) {
             break;
         case itemAutoRec.handaxe.some(el => oldItemName.includes(el)):
             newItemName = "handaxe";
+            defaultColor = "white";
             autoRec = game.i18n.format("AUTOANIM.itemHandaxe");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/HandAxe02_01_Regular_White_800x600.webm`;
             break;

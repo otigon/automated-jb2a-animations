@@ -31,9 +31,6 @@ import { setupSocket } from "./socketset.js";
 
 import ImagePicker from "./ImagePicker.js";
 
-import SequencerApplication from "./item-sheet-handlers/sequenceApplication.js";
-import "../lib/alpine.min.js"
-
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
 const log = () => { };
@@ -44,16 +41,6 @@ Hooks.once('setup', function () {
 
 Hooks.on('init', () => {
 
-    window.sequencerApp = new SequencerApplication();
-
-    game.settings.register("autoanimations", "runonlyonce", {
-        name: game.i18n.format("AUTOANIM.initpopup_name"),
-        hint: game.i18n.format("AUTOANIM.initpopup_hint"),
-        scope: "world",
-        config: true,
-        type: Boolean,
-        default: false,
-    });
     game.settings.register("autoanimations", "globaldelay", {
         name: game.i18n.format("AUTOANIM.globaldelay_name"),
         hint: game.i18n.format("AUTOANIM.globaldelay_hint"),

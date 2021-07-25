@@ -453,7 +453,7 @@ export function variantSpell(itemName, patreon) {
             variants = patreon ? AUTOANIM.shieldVariant : AUTOANIM.shieldVariantFree;
             break;
         default:
-            variants = patreon ? AUTOANIM.localized(AUTOANIM.spellVariant) : AUTOANIM.localized(AUTOANIM.spellVariant);
+            variants = patreon ? AUTOANIM.localized(AUTOANIM.spellVariant) : AUTOANIM.localized(AUTOANIM.spellVariantFree);
     }
     return variants;
 }
