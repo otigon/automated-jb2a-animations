@@ -78,7 +78,7 @@ export class AAItemSettings extends FormApplication {
                 spellVariants = false;
         }
         let videoPreview = animPreview(flags, itemName);
-        console.log("videoPreview is set to " + videoPreview)
+        //console.log("videoPreview is set to " + videoPreview)
         if (videoPreview === "no preview" && !isOverride) { videoPreview = conversion[3] }
         let content = "";
         switch (true) {

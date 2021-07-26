@@ -61,6 +61,8 @@ export async function buildRangedFile(jb2a, itemName, handler) {
         case 'rangehammer':
         case "rangedagger":
         case "rangehandaxe":
+            // Just a patch until I separate range/melee animations
+            if (color !== "dark purple" || color !== "white") (color = "white")
             if (!handler.dtvar || handler.dtvar === "a1") (dtvar = "01")
             filePath = `autoanimations.${itemName}.${dtvar}.${color}`;
             break;
@@ -265,8 +267,8 @@ export async function buildTargetTokenFile(jb2a, animName, handler) {
     let filePath;
     let fileData;
     let color = handler.flags.targetToken?.color ?? "";
-    console.log("animation name is " + animName)
-    console.log(handler.targetVariant)
+    //console.log("animation name is " + animName)
+    //console.log(handler.targetVariant)
     if (handler.targetCustomEnable) {
         filePath = handler.targetCustomPath
         fileData = filePath

@@ -3,7 +3,7 @@ import AUTORECOG from "./auto-recognition.js";
 export function nameConversion(itemName) {
     let itemAutoRec = new AUTORECOG;
     let oldItemName = itemName.toLowerCase();
-    console.log("old item name is " + oldItemName)
+    //console.log("old item name is " + oldItemName)
     let defaultColor;
     let newItemName = "pass";
     let autoRec;

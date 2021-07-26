@@ -33,7 +33,7 @@ export async function templateAnimation(handler, msg) {
             template = await canvas.templates.documentCollection.get(templateID);
         }
         let templateType = template.data?.t;
-        console.log(template)
+        //console.log(template)
         let templateW;
         let templateLength;
         let scaleX;
@@ -92,7 +92,7 @@ export async function templateAnimation(handler, msg) {
                 yAnchor = 0.5;
                 break;
         }
-        console.log(rotate)
+        //console.log(rotate)
         if (handler.templatePersist && (handler.templates.tempType === "circle" || handler.templates.tempType === "rect")) {
             let data;
             if (handler.templates.overhead) {

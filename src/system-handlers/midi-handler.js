@@ -145,8 +145,8 @@ export default class MidiHandler {
             this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
             this._item.setFlag("autoanimations", "defaults.color", this._convert[1])
         }
-        this._convertName = this._flags.defaults ? this._flags.defaults.name : "pass";
-        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : "pass";
+        this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
+        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
 
         //console.log(this._convert)
         //console.log("default saved name is " + this._convertName)

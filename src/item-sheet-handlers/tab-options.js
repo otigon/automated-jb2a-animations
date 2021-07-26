@@ -3,7 +3,7 @@ import { AUTOANIM } from "./config.js";
 
 export function colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType, variant) {
     let animationColor;
-    console.log("Converted Item Name is " + itemName);
+    //console.log("Converted Item Name is " + itemName);
     switch (true) {
         case itemName === "lasersword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorLaserSword) : AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree)
@@ -157,7 +157,7 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.boltColors) : AUTOANIM.localized(AUTOANIM.boltColorsFree)
             break;
         case itemName === "bullet":
-            console.log(damageType)
+            //console.log(damageType)
             if (damageType === "3") {
                 animationColor = patreon ? AUTOANIM.localized(AUTOANIM.bulletColors) : AUTOANIM.localized(AUTOANIM.bulletColorsFree03)
             } else {
@@ -404,7 +404,7 @@ export function tokenAnimations() {
 
 export function tokenColors(patreon, name, variant) {
     let color;
-    console.log("passed variant is " + variant)
+    //console.log("passed variant is " + variant)
     switch (name) {
         case "explosion":
             color = patreon ? AUTOANIM.localized(AUTOANIM.explodeColors) : AUTOANIM.localized(AUTOANIM.explodeColorsFree)
