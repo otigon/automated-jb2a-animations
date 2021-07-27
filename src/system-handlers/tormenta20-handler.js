@@ -57,6 +57,9 @@ export default class Tormenta20Handler {
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
 
+        this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
+        this._customExplode = this._flags.options?.customExplosion ?? "";
+
         this._sourceToken = this.flags.sourceToken ?? "";
         this._sourceEnable = this._sourceToken.enable ?? false;
         this._sourceLevel = this._sourceToken.animLevel ?? false;
@@ -93,7 +96,7 @@ export default class Tormenta20Handler {
                 this._animNameFinal = this._animName;
                 break;
         }
-
+        /* For storing nameConversions, disabling for now
         this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
         if (this._convert[0] !== "pass") {
             this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
@@ -101,6 +104,10 @@ export default class Tormenta20Handler {
         }
         this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
         this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
+        */
+        this._convert = nameConversion(this._animNameFinal);
+        this._convertName = this._convert[0];
+        this._defaultColor = this._convert[1];
 
     }
 
@@ -183,6 +190,8 @@ export default class Tormenta20Handler {
     get custom01() { return this._custom01 }
     get enableCustom01() { return this._enableCustom01 }
     get options() { return this._options }
+    get customExplode() { return this._enableCustomExplosion}
+    get customExplosionPath() { return this._customExplode}
 
     get templates() {return this._templates;}
     get templatePersist() {return this._templatePersist}

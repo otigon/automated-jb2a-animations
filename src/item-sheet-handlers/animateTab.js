@@ -155,7 +155,6 @@ export class AAItemSettings extends FormApplication {
             addExplosion: (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7") ? true : false,
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explodeVariant),
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
-            impactShow: flags.autoanimations?.explodeVariant === "impact" ? true : false,
             explosionColors: explosionColors(explosionVariant, patreon),
             explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
             explosionLoops: flags.autoanimations?.explodeLoop ?? 1,

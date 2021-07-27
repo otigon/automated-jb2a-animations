@@ -55,9 +55,6 @@ export default class MidiHandler {
         this._custom01 = this._flags.options?.customPath01 ?? "";
         this._options = this._flags.options ?? "";
         this._enableCustom01 = this._flags.options?.enableCustom01 ?? false;
-        this._custom01 = this._flags.options?.customPath01 ?? "";
-        this._options = this._flags.options ?? "";
-        this._enableCustom01 = this._flags.options?.enableCustom01 ?? false;
         this._templates = this._flags.templates ?? "";
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
@@ -139,7 +136,7 @@ export default class MidiHandler {
                 this._animNameFinal = this._animName;
                 break;
         }
-
+        /* For storing nameConversions, disabling for now
         this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
         if (this._convert[0] !== "pass") {
             this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
@@ -147,7 +144,10 @@ export default class MidiHandler {
         }
         this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
         this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
-
+        */
+        this._convert = nameConversion(this._animNameFinal);
+        this._convertName = this._convert[0];
+        this._defaultColor = this._convert[1];
         //console.log(this._convert)
         //console.log("default saved name is " + this._convertName)
         //console.log("default saved color is " + this._defaultColor)

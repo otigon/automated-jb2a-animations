@@ -1,4 +1,4 @@
-<form class="flexcol" autocomplete="off" novalidate>
+<form class="flexcol" id="AAItemSettings" autocomplete="off" novalidate>
     <nav class="flexrow tabs" data-group="sections">
         <a class="aa-options" data-tab="animations"><i class="fas fa-bomb"></i> Animations </a>
         <a class="aa-options" data-tab="audio"><i class="fas fa-guitar"></i> Audio </a>
@@ -388,21 +388,6 @@
                             {{/select}}
                         </select>
                     </div>
-                    {{#if impactShow}}
-                    <div class="impact-variant">
-                        <!--Choose Impact Variant-->
-                        <div class="form-group">
-                            <label>{{localize "AUTOANIM.impactVariant"}}</label>
-                            <select name="flags.autoanimations.impactVar">
-                                {{#select flags.autoanimations.impactVar}}
-                                {{#each impactVariants as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                    </div>
-                    {{/if}}
                     <!--Choose Explosion Color-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
@@ -580,21 +565,6 @@
                             {{/select}}
                         </select>
                     </div>
-                    {{#if impactShow}}
-                    <div class="impact-variant">
-                        <!--Choose Impact Variant-->
-                        <div class="form-group">
-                            <label>{{localize "AUTOANIM.impactVariant"}}</label>
-                            <select name="flags.autoanimations.impactVar">
-                                {{#select flags.autoanimations.impactVar}}
-                                {{#each impactVariants as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                    </div>
-                    {{/if}}
                     <!--Choose Explosion Color-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
@@ -759,21 +729,6 @@
                             {{/select}}
                         </select>
                     </div>
-                    {{#if impactShow}}
-                    <div class="impact-variant">
-                        <!--Choose Impact Variant-->
-                        <div class="form-group">
-                            <label>{{localize "AUTOANIM.impactVariant"}}</label>
-                            <select name="flags.autoanimations.impactVar">
-                                {{#select flags.autoanimations.impactVar}}
-                                {{#each impactVariants as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                    </div>
-                    {{/if}}
                     <!--Choose Explosion Color-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
@@ -965,21 +920,6 @@
                             {{/select}}
                         </select>
                     </div>
-                    {{#if impactShow}}
-                    <div class="impact-variant">
-                        <!--Choose Impact Variant-->
-                        <div class="form-group">
-                            <label>{{localize "AUTOANIM.impactVariant"}}</label>
-                            <select name="flags.autoanimations.impactVar">
-                                {{#select flags.autoanimations.impactVar}}
-                                {{#each impactVariants as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                    </div>
-                    {{/if}}
                     <!--Choose Explosion Color-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
