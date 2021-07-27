@@ -5,7 +5,7 @@ export async function buildWeaponFile(jb2a, itemName, handler) {
 
     let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color
     //if (!color || color === "a1") { color = handler.defaultColor }
-    let uaStrikeType = handler.uaStrikeType;
+    let uaStrikeType = handler.uaStrikeType || "physical";
     let filePath;
     //console.log("Build a file Item Name is " + itemName)
     if (handler.enableCustom01) {
@@ -41,16 +41,17 @@ export async function buildRangedFile(jb2a, itemName, handler) {
 
     let dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
     if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-        dmgType = handler.rangedOptions?.rangeDmgType ?? "physical"
+        dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
     }
-    let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color
+    let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color;
     let filePath;
     //let fileData;
     //let variant = handler.spellVariant ?? "01";
     let dtvar = handler.dtvar;
     switch (itemName) {
         case "scorchingray":
-            filePath = handler.color === "random" ? `autoanimations.${itemName}.${handler.spellVariant}` : `autoanimations.${itemName}.${handler.spellVariant}.${color}`;
+            const spellVariant = handler.spellVariant || "01";
+            filePath = handler.color === "random" ? `autoanimations.${itemName}.${spellVariant}` : `autoanimations.${itemName}.${spellVariant}.${color}`;
             break;
         case 'boulder':
         case 'siege':
@@ -313,20 +314,18 @@ export async function buildTargetTokenFile(jb2a, animName, handler) {
 }
 
 export async function buildShieldFile(jb2a, handler) {
-    let filePath01 = `autoanimations.shield.${handler.spellVariant}.${handler.color}.intro`;
-    let filePath02 = `autoanimations.shield.${handler.spellVariant}.${handler.color}.loop`;
-    let filePath03 = `autoanimations.shield.${handler.spellVariant}.${handler.color}.${handler.options.shieldVar}`;
-    let fileData = jb2a["shield"]["01"]["blue"]["intro"];
+    const spellVariant = handler.spellVariant || "01";
+    const color = handler.color || "blue";
+    const shieldVar = handler.options.shieldVar || "outro_fade";
 
-    let videoData = await getVideoDimensionsOf(fileData);
+    const file01 = `autoanimations.shield.${spellVariant}.${color}.intro`;
+    const file02 = `autoanimations.shield.${spellVariant}.${color}.loop`;
+    const file03 = `autoanimations.shield.${spellVariant}.${color}.${shieldVar}`;
 
-    let data = {
-        file01: filePath01,
-        file02: filePath02,
-        file03: filePath03,
-        metadata: videoData
-    }
-    return data
+    const fileData = jb2a["shield"]["01"]["blue"]["intro"];
+    const metadata = await getVideoDimensionsOf(fileData);
+
+    return { file01, file02, file03, metadata };
 }
 
 export async function buildHMFile(jb2a, handler) {

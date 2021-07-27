@@ -2,36 +2,32 @@ import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
 
 export default class PF2Handler {
     constructor(msg) {
-        //if (msg.alias === "User Logged In") {return}
-        //console.log(msg.data.flags.pf2e.origin.uuid)
-        const itemtype = msg.data?.flags?.pf2e?.origin?.type;
-        //console.log(itemtype);
-        let parts = msg.data?.flags?.pf2e?.origin?.uuid.split('.');
-        if (!parts) {return}
-        const itemId = parts[parts.length-1];
+        const item = msg.item;
+        const itemtype = item?.type;
+        const itemId = item?.id;
 
-        //console.log(itemId);
-        const tokenId = msg.data.speaker.token;  
-        this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
-        //console.log(this._actorToken)
+        this._actorToken = msg.token;
+        this._actor = item?.actor;
 
-        if (!itemId || !this._actorToken) {
+        if (!item || !this._actorToken) {
             return;
         }
 
-        this._itemId = itemId;
+        this._itemId = item.id;
         this._allTargets = Array.from(msg.user.targets);
-        this._itemName = this._actorToken.actor?.items?.get(itemId)?.name?.toLowerCase() ?? "";
-        //this._itemSource = this._actorToken.actor.items.get(itemId)?.data?.data?.source?.toLowerCase() ?? "";
+        const actualName = item.name.toLowerCase();
+        this._itemName = (item.type === "weapon" ? item.baseType : (item.slug ?? actualName)).replace(/-/g, " ");
+        if (item.type === "spell" && this._itemName === "shield") this._itemName = "shieldspell";
+
         this._itemType = itemtype;
-        this._itemMacro = this._actorToken.actor.items?.get(itemId)?.data?.flags?.itemacro?.macro?.data?.name ?? "";
-        this._item = this._actorToken.actor.items?.get(itemId) ?? "";
+        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._item = item;
 
         // getting flag data from Animation Tab
-        this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
-        // 
+        this._flags = item.data.flags.autoanimations ?? {};
+
         this._animLevel = this._flags.animLevel ?? false;
-        this._animColor = this._flags?.color?.toLowerCase() ?? "";
+        this._animColor = this._flags.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._explodeColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._explodeDelay = this._flags.explodeDelay ?? 0;
@@ -100,23 +96,16 @@ export default class PF2Handler {
         this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
         this._targetScale = this._targetToken.scale ?? 1,
         this._targetDelay = this._targetToken.delayAfter ?? 500,
-        this._targetVariant = this._targetToken.variant ?? "",
+        this._targetVariant = this._targetToken.variant ?? "";
 
-        //console.log(this._animName);
-        this._animNameFinal;
-        switch (true) {
-            case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
-                this._animNameFinal = this._itemName;
-                break;
-            default:
-                this._animNameFinal = this._animName;
-                break;
-        }
+        this._animNameFinal = (!this._animOverride) || ((this._animOverride) && (this._animName === ``))
+            ? this._itemName
+            : this._animName;
         /* For storing nameConversions, disabling for now
         this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
         if (this._convert[0] !== "pass") {
             this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
-            this._item.setFlag("autoanimations", "defaults.color", this._convert[1])
+            this._item.setFlag("autoanimations", "defaults.color", this._convert[1]);
         }
         this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
         this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1]
@@ -124,29 +113,37 @@ export default class PF2Handler {
         this._convert = nameConversion(this._animNameFinal);
         this._convertName = this._convert[0];
         this._defaultColor = this._convert[1];
-
     }
 
     get convertedName() {return this._convertName;}
-    
+
     get itemMacro() {return this._itemMacro;}
 
-    get playOnMiss() {return false}
+    get playOnMiss() {return false;}
 
     get actor() {return this._actor;}
 
     get reachCheck() {
-        let reach = 0;
-        if (this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
-            reach += 5;
-        }
-        if (this._item.data?.data?.properties?.rch) {
-            reach += 5;
-        }
-        return reach;
+        const naturalReach = {
+            tiny: 0,
+            sm: 0,
+            med: 0,
+            lg: 5,
+            huge: 10,
+            grg: 15,
+        }[this.actor.size] ?? 0;
+        const traits = this.item.traits;
+        const weaponReach = traits.has("reach")
+              ? 5
+              : Number(
+                  [...traits].find((trait) => trait.startsWith("reach"))?.replace(/^reach-/, "")
+              );
+        const extendedReach = naturalReach && weaponReach ? naturalReach + weaponReach : NaN;
+
+        return [extendedReach, weaponReach, naturalReach].find((reach) => Number.isInteger(reach));
     }
 
-    get item() {return this._item}
+    get item() {return this._item;}
     get actorToken() {return this._actorToken;}
     get allTargets() {return this._allTargets;}
     get hitTargetsId() {return this._hitTargetsId;}
@@ -157,7 +154,7 @@ export default class PF2Handler {
     get isValid() {return !!(this._item && this._actor);}
     get itemType() {return this._item.data.type.toLowerCase();}
 
-    get checkSaves() {return}
+    get checkSaves() {return;}
 
     get animKill() {return this._animKill;}
     get animOverride() {return this._animOverride;}
@@ -239,7 +236,7 @@ export default class PF2Handler {
     get targetScale() {return this._targetScale;}
     get targetDelay() {return this._targetDelay;}
     get targetVariant() { return this._targetVariant;}
-  
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {
