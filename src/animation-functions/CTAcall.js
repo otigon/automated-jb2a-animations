@@ -1,5 +1,5 @@
-import { JB2APATREONDB } from "./jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -94,85 +94,6 @@ async function ctaCall(handler) {
     }
 
     let filePath = obj01[obj02][color];
-    console.log(filePath);
-    let scale;
-    let tokenSize = handler.actorToken.actor.data.data.traits.size;
-
-    switch (true) {
-        case handler.selfRadius === "5":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    scale = 2;
-                    break;
-                case (tokenSize === "huge"):
-                    scale = 1.7;
-                    break;
-                default:
-                    scale = 3;
-            }
-            break;
-        case handler.selfRadius === "10":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    scale = 3;
-                    break;
-                case (tokenSize === "huge"):
-                    scale = 2.4;
-                    break;
-                default:
-                    scale = 5;
-            }
-            break;
-        case handler.selfRadius === "15":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    scale = 4;
-                    break;
-                case (tokenSize === "huge"):
-                    scale = 3;
-                    break;
-                default:
-                    scale = 7;
-            }
-            break;
-        case handler.selfRadius === "20":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    scale = 5;
-                    break;
-                case (tokenSize === "huge"):
-                    scale = 3.7;
-                    break;
-                default:
-                    scale = 9;
-            }
-            break;
-        case handler.selfRadius === "25":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    scale = 6;
-                    break;
-                case (tokenSize === "huge"):
-                    scale = 4.4;
-                    break;
-                default:
-                    scale = 11;
-            }
-            break;
-        case handler.selfRadius === "30":
-            switch (true) {
-                case (tokenSize === "lg"):
-                    scale = 7;
-                    break;
-                case tokenSize === "huge":
-                    scale = 5.1;
-                    break;
-                default:
-                    scale = 13;
-                    break;
-            }
-            break;
-    }
 
     let token = handler.actorToken;
     let tintPre = handler.animTint;
@@ -184,7 +105,7 @@ async function ctaCall(handler) {
         opacity: auraOpacity,
         radius: 2,
         rotation: "static",
-        scale: scale,
+        scale: handler.selfRadius,
         speed: 0,
         texturePath: filePath,
         tint: tintPost,

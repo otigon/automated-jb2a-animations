@@ -1,60 +1,68 @@
+import { buildShieldFile, buildSourceTokenFile } from "./file-builder/build-filepath.js"
+import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
+//import { AAITEMCHECK } from "./item-arrays.js";
+
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function castOnSelf(handler) {
-
+export async function shieldSpell(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-
-    let path00 = moduleIncludes("jb2a_patreon") === true ? `jb2a_patreon` : `JB2A_DnD5e`;
-
-    let path01 = "5th_Level";
-    let path02 = "Antilife_Shell";
-    let path03 = "AntilifeShell_01_Blue_NoCircle";
-
-    let tokenSize = handler.actorToken.actor.data.data.traits.size;
-    let divisor = 375;
-    switch (true) {
-        case (tokenSize === "lg"):
-            divisor = 187;
-            break;
-        case (tokenSize === "huge"):
-            divisor = 125;
-            break;
-        case (tokenSize === "sm"):
-        case (tokenSize === "med"):
-        default:
-            divisor = 375;
-            break;
-    }
-
+    //console.log(JB2APATREONDB)
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    let itemName = handler.convertedName;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    async function cast() {
-
-        //let Scale = ((handler.actorToken.data.width + handler.actorToken.data.height) / 8);
-        let Scale = canvas.scene.data.grid / divisor;
-        let spellAnim =
-        {
-            file: `modules/${path00}/Library/${path01}/${path02}/${path03}_400x400.webm`,
-            position: handler.actorToken.center,
-            anchor: {
-                x: 0.5,
-                y: 0.5
-            },
-            angle: 0,
-            speed: 0,
-            scale: {
-                x: Scale,
-                y: Scale
-            }
-        };
-
-        canvas.autoanimations.playVideo(spellAnim);
-        game.socket.emit('module.autoanimations', spellAnim);
+    // Random Color pull given object path
+    //Builds standard File Path
+    let onToken = await buildShieldFile(obj01, handler);
+    //console.log(onToken)
+    // builds Source Token file if Enabled, and pulls from flags if already set
+    let sourceFX;
+    if (handler.sourceEnable) {
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
     }
-    cast();
-}
 
-export default castOnSelf;
+    let sourceToken = handler.actorToken;
+    //let animWidth = onToken.metadata.width;
+    let scale = ((sourceToken.w / onToken.metadata.width) * 1.75) * handler.scale
+
+    async function cast() {
+            new Sequence()
+                .effect()
+                    .atLocation(sourceToken)
+                    .scale(handler.sourceScale)
+                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                    .belowTokens(handler.sourceLevel)
+                    .waitUntilFinished(handler.sourceDelay)
+                    .playIf(handler.sourceEnable)
+                    .addOverride(async (effect, data) => {
+                        if (handler.sourceEnable) {
+                            data.file = sourceFX.file;
+                        }
+                        //console.log(data)
+                        return data;
+                    })
+                .effect()
+                    .file(onToken.file01)
+                    .scale(scale)
+                    .atLocation(sourceToken)
+                    .waitUntilFinished(-500)        
+                .effect()
+                    .file(onToken.file02)
+                    .scale(scale)
+                    .atLocation(sourceToken)
+                    .fadeIn(300)
+                    .fadeOut(300)
+                    .waitUntilFinished(-500)
+                .effect()
+                    .file(onToken.file03)
+                    .scale(scale)
+                    .atLocation(sourceToken)                          
+                .play()
+            //await wait(250)
+    }
+    cast()
+}

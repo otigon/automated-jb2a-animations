@@ -1,5 +1,6 @@
-import { JB2APATREONDB } from "./jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-free-database.js";
+import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
+import { buildHMFile } from "./file-builder/build-filepath.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -10,74 +11,18 @@ async function huntersMark(handler) {
     }
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let obj02 = 'huntersmark';
 
-
-    let obj03 = handler.hmAnim;
-    if (obj03 === "a1") { obj03 = "01" };
-    let color;
-    switch (handler.color) {
-        case "a1":
-        case ``:
-            color = 'green';
-            break;
-        default:
-            color = handler.color;
-    }
-
+    let hmAnim = await buildHMFile(obj01, handler)
     let myToken = handler.actorToken;
     let target = handler.allTargets[0];
 
-    let hmLoop = obj01[obj02][obj03]['loop'][color];
-    let hmPulse = obj01[obj02][obj03]['pulse'][color];
+    let hmPulse = hmAnim.file01;
+    let hmLoop = hmAnim.file02;
 
-    let hmAnimPulseSelf = {
-        file: hmPulse,
-        position: myToken.center,
-        anchor: {
-            x: 0.5,
-            y: 0.5
-        },
-        angle: 0,
-        scale: {
-            x: 1,
-            y: 1
-        }
-    };
-
-    let hmAnimPulseTarget = {
-        file: hmPulse,
-        position: target.center,
-        anchor: {
-            x: 0.5,
-            y: 0.5
-        },
-        angle: 0,
-        scale: {
-            x: 1,
-            y: 1
-        }
-    };
-
-    let targetScale = target.actor.data.data.traits.size;
-    let Scale;
-    switch (true) {
-        case targetScale === "lg":
-            Scale = 0.4;
-            break;
-        case targetScale === "huge":
-            Scale = 0.3;
-            break;
-        case targetScale === "grg":
-            Scale = 0.3;
-            break;
-        default:
-            Scale = 0.5;
-    }
+    let Scale = 0.5 //(target.w / hmAnim.metadata.width);
 
     let tintPre = "#FFFFFF";
     let tintPost = parseInt(tintPre.substr(1), 16);
-    console.log(tintPost);
     let rotationData = {
         texturePath: hmLoop,
         scale: Scale,
@@ -121,12 +66,16 @@ async function huntersMark(handler) {
 
     let tokenName = target.name;
 
-    canvas.autoanimations.playVideo(hmAnimPulseSelf);
-    game.socket.emit('module.autoanimations', hmAnimPulseSelf)
-    canvas.autoanimations.playVideo(hmAnimPulseTarget);
-    game.socket.emit('module.autoanimations', hmAnimPulseTarget)
+    new Sequence()
+        .effect()
+            .file(hmPulse)
+            .atLocation(myToken)
+        .effect()
+            .file(hmPulse)
+            .atLocation(target)
+        .play()
 
-    if (game.modules.get("Custom-Token-Animations")?.active) {
+        if (game.modules.get("Custom-Token-Animations")?.active) {
         await wait(3000);
 
         CTA.addAnimation(target, textureData, pushActor, name)

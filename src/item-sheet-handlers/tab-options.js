@@ -1,12 +1,15 @@
 
 import { AUTOANIM } from "./config.js";
 
-export function colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType) {
+export function colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType, variant) {
     let animationColor;
     //console.log("Converted Item Name is " + itemName);
     switch (true) {
         case itemName === "lasersword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorLaserSword) : AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree)
+            break;
+        case itemName === "huntersmark":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.hmColors) : AUTOANIM.localized(AUTOANIM.hmColorsFree)
             break;
         case itemName === "dagger":
         case itemName === "greataxe":
@@ -20,6 +23,18 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
         case itemName === "spear":
         case itemName === "sword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorMelee) : AUTOANIM.localized(AUTOANIM.animColorMeleeFree)
+            break;
+        case itemName === "rangedagger":
+            animationColor = variant === "kunai" ? AUTOANIM.localized(AUTOANIM.justWhite) : AUTOANIM.localized(AUTOANIM.daggerColor);
+            break;
+        case itemName === "rangedagger":
+        case itemName === "rangespear":
+        case itemName === "rangegreatsword":
+        case itemName === "rangehandaxe":
+        case itemName === "rangemace":
+        case itemName === "rangehammer":
+        case itemName === "rangejavelin":
+            animationColor = AUTOANIM.localized(AUTOANIM.justWhite);
             break;
         case itemName === "curewounds":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorCureWounds) : AUTOANIM.localized(AUTOANIM.animColorCureWoundsFree)
@@ -73,10 +88,15 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorShatterThunder) : AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree)
             break;
         case itemName === "arrow":
-            if (damageType === "regular") {
-                animationColor = patreon ? AUTOANIM.localized(AUTOANIM.legacyArrowColors) : AUTOANIM.localized(AUTOANIM.legacyArrowColorsFree)
-            } else {
-                animationColor = patreon ? AUTOANIM.localized(AUTOANIM.arrowColors) : AUTOANIM.localized(AUTOANIM.arrowColorsFree)
+            switch (damageType) {
+                case "regular":
+                    animationColor = patreon ? AUTOANIM.localized(AUTOANIM.legacyArrowColors) : AUTOANIM.localized(AUTOANIM.legacyArrowColors)
+                    break;
+                case "physical":
+                    animationColor = patreon ? AUTOANIM.localized(AUTOANIM.arrowColorsPys) : AUTOANIM.localized(AUTOANIM.arrowColorsFree)
+                    break;
+                default:
+                    animationColor = patreon ? AUTOANIM.localized(AUTOANIM.arrowColors) : AUTOANIM.localized(AUTOANIM.arrowColorsFree)
             }
             break;
         case itemName === "lasershot":
@@ -137,7 +157,7 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.boltColors) : AUTOANIM.localized(AUTOANIM.boltColorsFree)
             break;
         case itemName === "bullet":
-            console.log(damageType)
+            //console.log(damageType)
             if (damageType === "3") {
                 animationColor = patreon ? AUTOANIM.localized(AUTOANIM.bulletColors) : AUTOANIM.localized(AUTOANIM.bulletColorsFree03)
             } else {
@@ -152,6 +172,17 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             break;
         case itemName === "sneakattack":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.sneakattackColors) : AUTOANIM.localized(AUTOANIM.sneakattackColorsFree)
+            break;
+        case itemName === "shieldspell":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.shieldspellColors) : AUTOANIM.localized(AUTOANIM.shieldspellColorsFree)
+            break;
+        case itemName === "rangesword":
+        case itemName === "rangegreataxe":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.rangeSwordColor) : AUTOANIM.localized(AUTOANIM.justWhite)
+            break;
+        case itemName === "rangelasersword":
+        case itemName === "rangelasersworddb":
+            animationColor = AUTOANIM.localized(AUTOANIM.rangeLaserSwordColor)
             break;
         default:
             animationColor = AUTOANIM.localized(AUTOANIM.animNull);
@@ -198,37 +229,34 @@ export function animationName(animType, patreon) {
     return animationNames;
 }
 
-export function daggerVariants(thrownVariant, patreon) {
-    thrownVariant = patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree);
+export function thrownVariants(itemName, patreon) {
+    let thrownVariant;
+    switch (itemName) {
+        case "dagger":
+        case "rangedagger":
+            thrownVariant = patreon ? AUTOANIM.localized(AUTOANIM.daggerVariant) : AUTOANIM.localized(AUTOANIM.daggerVariantFree);
+            break;
+        case "handaxe":
+        case "rangehandaxe":
+            thrownVariant = patreon ? AUTOANIM.localized(AUTOANIM.handaxeVariant) : AUTOANIM.localized(AUTOANIM.handaxeVariantFree);
+            break;
+    }
     return thrownVariant;
 }
 
-export function explosionColors(explosionVariant, patreon, impactVariant) {
+export function explosionColors(explosionVariant, patreon) {
     let explosionColor;
     switch (explosionVariant) {
-        case ('01'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
-            break;
-        case ('02'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
-            break;
-        case ('03'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors03) : AUTOANIM.localized(AUTOANIM.explosionColorsFree03);
-            break;
-        case ('04'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors04) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
-            break;
-        case ('05'):
-        case ('06'):
-        case ('07'):
-            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors0567) : AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
+        case "explosion":
+            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explodeColors) : AUTOANIM.localized(AUTOANIM.explodeColorsFree)
             break;
         case ('impact'):
-            if (impactVariant === "boulder") {
-                return
-            } else {
-                explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColorsImpact) : AUTOANIM.localized(AUTOANIM.explosionColorsImpactFree);
-            }
+            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.impactColors) : AUTOANIM.localized(AUTOANIM.impactColorsFree)
+            break;
+        case 'snowflake':
+        case 'outpulse01':
+        case 'outpulse02':
+            explosionColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors0567) : AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
             break;
         case ('shatter'):
         case ('thunderwave'):
@@ -308,26 +336,40 @@ export function templateColors(templateType, templateAnimation, patreon) {
             break;
         case "circle":
             switch (templateAnimation) {
-                case ('ex01'):
+                case 'ex01':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree01);
                     break;
-                case ('ex02'):
+                case 'ex02':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors012) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
                     break;
-                case ('ex03'):
+                case 'ex03':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors03) : AUTOANIM.localized(AUTOANIM.explosionColorsFree03);
                     break;
-                case ('ex04'):
+                case 'ex04':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors04) : AUTOANIM.localized(AUTOANIM.explosionColorsFree024);
                     break;
-                case ('snowflake'):
-                case ('outpulse01'):
-                case ('outpulse02'):
+                case 'snowflake':
+                case 'outpulse01':
+                case 'outpulse02':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors0567) : AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
                     break;
-                case ('shatter'):
-                case ('thunderwave'):
+                case 'shatter':
+                case 'thunderwave':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorShatterThunder) : AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree);
+                    break;
+                /*
+                case 'fogcloud':
+                    templateColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorShatterThunder) : AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree)
+                    break;
+                */
+                case 'darkness':
+                    templateColor = AUTOANIM.localized(AUTOANIM.darknessColors)
+                    break;
+                case 'calllightning':
+                    templateColor = AUTOANIM.localized(AUTOANIM.calllightningColors)
+                    break;
+                case 'sleetstorm':
+                    templateColor = patreon ? AUTOANIM.localized(AUTOANIM.sleetstormColors) : AUTOANIM.localized(AUTOANIM.sleetstormColorsFree)
                     break;
                 default:
                     return;
@@ -354,5 +396,65 @@ export function rangedDamageTypes(itemName, patreon) {
             break;
     }
     return damageType;
+}
+
+export function tokenAnimations() {
+    return AUTOANIM.tokenAnimations
+}
+
+export function tokenColors(patreon, name, variant) {
+    let color;
+    //console.log("passed variant is " + variant)
+    switch (name) {
+        case "explosion":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.explodeColors) : AUTOANIM.localized(AUTOANIM.explodeColorsFree)
+            break;
+        case ('impact'):
+            color = patreon ? AUTOANIM.localized(AUTOANIM.impactColors) : AUTOANIM.localized(AUTOANIM.impactColorsFree)
+            break;
+        case 'snowflake':
+            color = patreon ? AUTOANIM.localized(AUTOANIM.explosionColors0567) : AUTOANIM.localized(AUTOANIM.explosionColorsFree0567);
+            break;
+        case "divinesmite":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.dsSelf) : AUTOANIM.localized(AUTOANIM.dsSelfFree);
+            break;
+        case "sneakattack":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.sneakattackColors) : AUTOANIM.localized(AUTOANIM.sneakattackColorsFree);
+            break;
+        case "dizzystars":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.dizzyStarsColors) : AUTOANIM.localized(AUTOANIM.dizzyStarsColorsFree);
+            break;
+        case "icespikes":
+            color = patreon ? AUTOANIM.localized(AUTOANIM.iceSpikesColors) : AUTOANIM.localized(AUTOANIM.iceSpikesColorsFree);
+            break;
+        case "magicSign":
+            color = AUTOANIM.localized(AUTOANIM.magicSignColors);
+            break;
+        case "marker":
+            switch (variant) {
+                case "marker01":
+                    color = patreon ? AUTOANIM.localized(AUTOANIM.marker01Colors) : AUTOANIM.localized(AUTOANIM.marker01ColorsFree);
+                    break;
+                case "marker02":
+                    color = patreon ? AUTOANIM.localized(AUTOANIM.marker02Colors) : AUTOANIM.localized(AUTOANIM.marker02Colors);
+                    break;
+                default:
+                    color = patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree);
+            }
+            break;
+    }
+    return color;
+}
+
+export function variantSpell(itemName, patreon) {
+    let variants;
+    switch (itemName) {
+        case "shieldspell":
+            variants = patreon ? AUTOANIM.shieldVariant : AUTOANIM.shieldVariantFree;
+            break;
+        default:
+            variants = patreon ? AUTOANIM.localized(AUTOANIM.spellVariant) : AUTOANIM.localized(AUTOANIM.spellVariantFree);
+    }
+    return variants;
 }
 

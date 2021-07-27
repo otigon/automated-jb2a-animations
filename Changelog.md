@@ -1,3 +1,16 @@
+0.5.0  
+* BREAKING: SEQUENCER module is now a Dependency of Automated Animations. You MUST have it installed and ACTIVE
+* BREAKING: Weapon Animations with Explosions added will need to be reconfigured. Explosion options changed slightly
+* BREAKING: Removed Token Magic FX support. This will be added back in on a future update with more customizable options
+* BREAKING: Removed the Targetting Assistant in the module settings. This may or may not make it back in later
+* BREAKING: Most currently set animations/items will work. There may be some instances where a custom configured item will need to be reconfigured. I did my best to limit the amount of breaking in this update
+* Standardized all options across most Animation Types. Most options can now use a Custom Animation through a File Picker
+* Options available for all are Looping and Loop Delay. Set the Loops for animations as well as the delay between each loop
+* Options: Some now have the availability to scale the animation on a per item basis. Those with that option automatically scale with the Token size, and can be tweaked
+* SELF and TARGET Explosion options are now SELF and TARGET Effects
+* Replaced Class Features with Custom Sequences
+* NEW: Added Source and Target Token effects in a new Tab. Source effects play before the Primary Animation, and Target effects play after. All can be adjusted with the Delay setting, either a positive or negative number.
+  
 0.3.81 - 0.3.85
 - Impact Options added to explosions  
 - Random color choice added to nearly all remaining effects  
