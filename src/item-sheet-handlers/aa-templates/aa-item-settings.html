@@ -1488,6 +1488,18 @@
                     <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
                 </div>
                 {{/if}}
+                {{#if sneakAttack}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                    <select name="flags.autoanimations.color">
+                        {{#select flags.autoanimations.color}}
+                        {{#each animationColor as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                {{/if}}
                 {{/if}}
             </div>
             <div class="aa-video">

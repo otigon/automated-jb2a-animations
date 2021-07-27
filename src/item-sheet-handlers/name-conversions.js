@@ -298,6 +298,7 @@ export function nameConversion(itemName) {
             break;
         case itemAutoRec.sneakattack.some(el => oldItemName.includes(el)):
             newItemName = "sneakattack";
+            defaultColor = "dark green";
             break;
     }
     if (newItemName === undefined) {

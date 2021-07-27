@@ -94,7 +94,7 @@ export default class AUTORECOG {
         
         this._snipe = ["snipe", game.i18n.format("AUTOANIM.snipe").toLowerCase()]
         
-        this._sneakattack = ["sneak attack", game.i18n.format("AUTOANIM.sneakattack").toLowerCase()]
+        this._sneakattack = ["sneakattack", "sneak attack", game.i18n.format("AUTOANIM.sneakattack").toLowerCase()]
     }
 
     get rapier()            {return this._rapier;}

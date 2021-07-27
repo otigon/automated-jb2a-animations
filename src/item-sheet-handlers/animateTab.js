@@ -217,8 +217,9 @@ export class AAItemSettings extends FormApplication {
             markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
             shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
             huntersMark: itemName === "huntersmark",
+            sneakAttack: itemName === "sneakattack",
 
-            dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12',
+            dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
 
         };
 

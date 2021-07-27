@@ -27,6 +27,7 @@ import { explodeOnToken } from "./animation-functions/explodeOnToken.js";
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
 import { shieldSpell } from "./animation-functions/shield.js";
+import { sneakAttack } from "./animation-functions/sneak-Attack.js";
 import { setupSocket } from "./socketset.js";
 
 import ImagePicker from "./ImagePicker.js";
@@ -665,6 +666,9 @@ async function revItUp(handler) {
             break;
         case itemName === "bardicinspiration":
             bardicInspiration(handler);
+            break;
+        case itemName === "sneakattack":
+            sneakAttack(handler);
             break;
         case AAITEMCHECK.melee.includes(itemName):
         case AAITEMCHECK.monk.includes(itemName):

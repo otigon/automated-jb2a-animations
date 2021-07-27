@@ -931,7 +931,8 @@ AUTOANIM.animNameClassFeatures = {
     'a1': ``,
     'bardicinspiration': "AUTOANIM.bardicInspiration",
     "shieldspell": "AUTOANIM.itemShield",
-    "huntersmark": "AUTOANIM.itemHM"
+    "huntersmark": "AUTOANIM.itemHM",
+    "sneakattack": "AUTOANIM.sneakattack"
 }
 
 AUTOANIM.bardAnimType = {
