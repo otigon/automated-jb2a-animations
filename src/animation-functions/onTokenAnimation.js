@@ -13,22 +13,25 @@ export async function onTokenAnimation(handler) {
     let itemName = handler.convertedName;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
+    let sourceToken = handler.actorToken;
 
     // Random Color pull given object path
     //Builds standard File Path
     let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
+    let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
+    let tFXScale;
     if (handler.targetEnable) {
         targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
 
-    let sourceToken = handler.actorToken;
     let explosion;
     if (handler.explosion) {
         explosion = await buildAfterFile(obj01, handler);
@@ -39,7 +42,7 @@ export async function onTokenAnimation(handler) {
     new Sequence()
         .effect()
             .atLocation(sourceToken)
-            .scale(handler.sourceScale)
+            .scale(sFXScale * handler.sourceScale)
             .repeats(handler.sourceLoops, handler.sourceLoopDelay)
             .belowTokens(handler.sourceLevel)
             .waitUntilFinished(handler.sourceDelay)
@@ -71,6 +74,10 @@ export async function onTokenAnimation(handler) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
+            if (handler.targetEnable) {
+                tFXScale = 2 * target.w / targetFX.metadata.width;
+            }        
+
             let scale = itemName.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
             let hit;
             if (handler.playOnMiss) {
@@ -82,7 +89,7 @@ export async function onTokenAnimation(handler) {
             new Sequence()
                     .effect()
                     .atLocation(sourceToken)
-                    .scale(handler.sourceScale)
+                    .scale(sFXScale * handler.sourceScale)
                     .repeats(handler.sourceLoops, handler.sourceLoopDelay)
                     .belowTokens(handler.sourceLevel)
                     .waitUntilFinished(handler.sourceDelay)
@@ -119,7 +126,7 @@ export async function onTokenAnimation(handler) {
                 .effect()
                     .delay(handler.targetDelay)
                     .atLocation("animation")
-                    .scale(handler.targetScale)
+                    .scale(tFXScale * handler.targetScale)
                     .repeats(handler.targetLoops, handler.targetLoopDelay)
                     .belowTokens(handler.targetLevel)
                     .playIf(handler.targetEnable)

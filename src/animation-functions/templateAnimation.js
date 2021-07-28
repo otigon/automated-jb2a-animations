@@ -12,10 +12,13 @@ export async function templateAnimation(handler, msg) {
         return !!game.modules.get(test);
     }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    const sourceToken = handler.actorToken;
     let tempAnimation = await buildTemplateFile(obj01, handler)
     let sourceFX;
+    let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
 
     let videoWidth = tempAnimation.metadata.width;
@@ -138,8 +141,8 @@ export async function templateAnimation(handler, msg) {
         } else {
             new Sequence()
                 .effect()
-                    .atLocation(handler.actorToken)
-                    .scale(handler.sourceScale)
+                    .atLocation(sourceToken)
+                    .scale(sFXScale * handler.sourceScale)
                     .repeats(handler.sourceLoops, handler.sourceLoopDelay)
                     .belowTokens(handler.sourceLevel)
                     .waitUntilFinished(handler.sourceDelay)

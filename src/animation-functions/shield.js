@@ -11,14 +11,14 @@ export async function shieldSpell(handler) {
     }
     //console.log(JB2APATREONDB)
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let itemName = handler.convertedName;
+    //let itemName = handler.convertedName;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     // Random Color pull given object path
     //Builds standard File Path
     let onToken = await buildShieldFile(obj01, handler);
-    //console.log(onToken)
+    console.log(onToken)
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {

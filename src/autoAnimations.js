@@ -542,6 +542,7 @@ function revItUp5eCore(msg) {
         return;
     }
     // Teleportation option, Can we bypass by checking no attack/damage?
+    /*
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
@@ -549,7 +550,7 @@ function revItUp5eCore(msg) {
                 break;
         }
     }
-
+    */
     //const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
     if (game.settings.get("autoanimations", "playonDamageCore")) {
         if (rollType.includes("damage")) {

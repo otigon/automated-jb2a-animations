@@ -12,25 +12,29 @@ export async function sneakAttack(handler) {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
     let sneak = await buildTokenAnimationFile(obj01, itemName, handler)
+    let sourceToken = handler.actorToken;
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
+    let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
+    /*
     let targetFX;
     if (handler.targetEnable) {
         targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
+    */
 
-    let sourceToken = handler.actorToken;
 
     async function cast() {
         new Sequence()
             .effect()
             .atLocation(sourceToken)
-            .scale(handler.sourceScale)
+            .scale(sFXScale * handler.sourceScale)
             .repeats(handler.sourceLoops, handler.sourceLoopDelay)
             .belowTokens(handler.sourceLevel)
             .waitUntilFinished(handler.sourceDelay)

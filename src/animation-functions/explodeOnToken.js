@@ -19,11 +19,14 @@ export async function explodeOnToken(handler) {
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
+    let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
+    let tFXScale;
     if (handler.targetEnable) {
         targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
@@ -34,7 +37,7 @@ export async function explodeOnToken(handler) {
         new Sequence()
             .effect()
                 .atLocation(sourceToken)
-                .scale(handler.sourceScale)
+                .scale(sFXScale * handler.sourceScale)
                 .repeats(handler.sourceLoops, handler.sourceLoopDelay)
                 .belowTokens(handler.sourceLevel)
                 .waitUntilFinished(handler.sourceDelay)
@@ -69,7 +72,10 @@ export async function explodeOnToken(handler) {
             for (var i = 0; i < arrayLength; i++) {
 
                 let target = handler.allTargets[i];
-
+                if (handler.targetEnable) {
+                    tFXScale = 2 * target.w / targetFX.metadata.width;
+                }        
+    
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? false : true;
@@ -80,7 +86,7 @@ export async function explodeOnToken(handler) {
                 new Sequence()
                     .effect()
                         .atLocation(sourceToken)
-                        .scale(handler.sourceScale)
+                        .scale(sFXScale * handler.sourceScale)
                         .repeats(handler.sourceLoops, handler.sourceLoopDelay)
                         .belowTokens(handler.sourceLevel)
                         .waitUntilFinished(handler.sourceDelay)
@@ -103,7 +109,7 @@ export async function explodeOnToken(handler) {
                     .effect()
                         .delay(handler.targetDelay)
                         .atLocation(target)
-                        .scale(handler.targetScale)
+                        .scale(tFXScale * handler.targetScale)
                         .repeats(handler.targetLoops, handler.targetLoopDelay)
                         .belowTokens(handler.targetLevel)
                         .playIf(handler.targetEnable)
