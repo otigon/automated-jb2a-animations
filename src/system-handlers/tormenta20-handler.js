@@ -5,6 +5,8 @@ export default class Tormenta20Handler {
         const itemId = $(msg.data.content).attr("data-item-id");
         const tokenId = msg.data.speaker.token;
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
+        this._actor = this._actorToken.actor;
+
         this._itemId = itemId;
 
         this._item = this._actorToken.actor.items?.get(itemId) ?? "";

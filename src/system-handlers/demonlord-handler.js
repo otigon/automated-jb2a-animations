@@ -27,46 +27,13 @@ export default class DemonLordHandler {
             return
         }
 
-        switch (this._actorToken.actor.data.data.characteristics.size) {
-            case "1/8":
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "tiny"
-                }
-                break;
-            case "1/4":
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "sm"
-                }
-                break;
-            case "2":
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "lg"
-                }
-                break;
-            case "4":
-                    this._actorToken.actor.data.data["traits"] = {
-                        size: "huge"
-                    }
-                    break;
-            case "10":
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "grg"
-                }
-                break;
-            case "1":
-            default:
-                this._actorToken.actor.data.data["traits"] = {
-                    size: "med"
-                }
-                break;
-        }
-
         const getTargets = () => {
             if (game.settings.get("autoanimations", "playtrigger") === "hits") {
                 return Array.from(hitTargets);
             }
             return Array.from(targets);
         }
+        this._actor = this._actorToken.actor;
 
         this._hitTargets = Array.from(hitTargets);
         this._allTargets = getTargets()

@@ -9,7 +9,7 @@ export default class WFRP4eHandler {
         if (!this._actorToken) {
             return;
         }
-
+        this._actor = this._actorToken.actor;
         this._itemId = itemId;
         this._allTargets = targets; // How to get Targets?
         this._item = this._actorToken.actor.items?.get(itemId) ?? "";

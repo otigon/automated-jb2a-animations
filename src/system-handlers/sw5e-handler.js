@@ -9,6 +9,7 @@ export default class SW5eHandler {
         if (!itemId || !this._actorToken) {
             return;
         }
+        this._actor = this._actorToken.actor;
 
         this._itemId = itemId;
         this._allTargets = Array.from(msg.user.targets);

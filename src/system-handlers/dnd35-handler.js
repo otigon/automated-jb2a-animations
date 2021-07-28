@@ -8,6 +8,7 @@ export default class Dnd35Handler {
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         this._itemId = itemId;
         if (!itemId || !this._actorToken) {return;}
+        this._actor = this._actorToken.actor;
 
         this._item = this._actorToken?.actor.items?.get(itemId) ?? null;
         this._allTargets = Array.from(msg.user.targets);

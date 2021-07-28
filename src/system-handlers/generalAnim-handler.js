@@ -4,6 +4,7 @@ export default class GeneralAnimHandler {
     constructor(sourceToken, targets, item) {
         
         this._actorToken = sourceToken;
+        this._actor = this._actorToken.actor;
         this._item = item;
 
         this._allTargets = targets;
