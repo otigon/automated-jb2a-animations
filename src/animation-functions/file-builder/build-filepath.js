@@ -91,7 +91,7 @@ export async function buildAfterFile(jb2a, handler) {
     let fileData;
     if (handler.customExplode) {
         file = handler.customExplosionPath
-        fileData = filePath
+        fileData = file
     } else {
         switch (true) {
             case variant === "shatter":
@@ -253,7 +253,7 @@ export async function buildTargetTokenFile(jb2a, animName, handler) {
                     file = `autoanimations.tokenEffect.${animName}.${handler.targetVariant}`;
                     fileData = jb2a['tokenEffect'][animName][handler.targetVariant];
                 } else {
-                    filePath = handler.targetColor === "random" ? `autoanimations.tokenEffect.${animName}.${handler.targetVariant}` : `autoanimations.tokenEffect.${animName}.${handler.targetVariant}.${color}`;
+                    file = handler.targetColor === "random" ? `autoanimations.tokenEffect.${animName}.${handler.targetVariant}` : `autoanimations.tokenEffect.${animName}.${handler.targetVariant}.${color}`;
                     fileData = handler.targetColor === "random" ? jb2a['tokenEffect'][animName][handler.targetVariant][Object.keys(jb2a['tokenEffect'][animName][handler.targetVariant])[0]] : jb2a['tokenEffect'][animName][handler.targetVariant][color]
                 }
                 break;
