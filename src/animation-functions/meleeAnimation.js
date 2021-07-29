@@ -39,6 +39,18 @@ export async function meleeAnimation(handler) {
     if (handler.flags.explosion) {
         explosion = await buildAfterFile(obj01, handler)
     }
+
+    let explosionSound = handler.allSounds?.explosion;
+    let explosionVolume = 0.25;
+    let explosionDelay = 1;
+    let explosionFile = "";
+    let playExSound = explosion && handler.explodeSound
+    console.log(playExSound)
+    if (handler.explodeSound){
+        explosionVolume = explosionSound?.volume || 0.25;
+        explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
+        explosionFile = explosionSound?.file;
+    }
     //console.log(explosion)
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
@@ -143,6 +155,13 @@ new Sequence()
             //console.log(data)
             return data;
         })
+        //.waitUntilFinished(explosionDelay)
+    .sound()
+        .file(explosionFile)
+        .playIf(() => {return explosion && handler.explodeSound})
+        .delay(explosionDelay)
+        .volume(explosionVolume)
+        .repeats(handler.animationLoops, handler.loopDelay)
     .effect()
         .delay(handler.targetDelay)
         .atLocation(target)

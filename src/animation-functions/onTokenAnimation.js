@@ -36,6 +36,19 @@ export async function onTokenAnimation(handler) {
     if (handler.explosion) {
         explosion = await buildAfterFile(obj01, handler);
     }
+
+    let explosionSound = handler.allSounds?.explosion;
+    let explosionVolume = 0.25;
+    let explosionDelay = 1;
+    let explosionFile = "";
+    let playExSound = explosion && handler.explodeSound
+    console.log(playExSound)
+    if (handler.explodeSound){
+        explosionVolume = explosionSound?.volume || 0.25;
+        explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
+        explosionFile = explosionSound?.file;
+    }
+
     let exScale = explosion?.scale ?? 1;
     let animWidth = onToken.metadata.width;
     if (handler.allTargets.length === 0 && (itemName === "curewounds" || itemName === "generichealing")) {
@@ -52,7 +65,27 @@ export async function onTokenAnimation(handler) {
                     data.file = sourceFX.file;
                 }
                 return data;
-            })            
+            })
+        .effect()
+            .atLocation(sourceToken)
+            .scale(exScale)
+            .delay(handler.explosionDelay)
+            //.randomizeMirrorY()
+            .repeats(handler.animationLoops, handler.loopDelay)
+            .belowTokens(handler.explosionLevel)
+            .playIf(() => {return explosion})
+            .addOverride(async (effect, data) => {
+                if (explosion) {
+                    data.file = explosion.file;
+                }
+                return data;
+            })
+        .sound()
+            .file(explosionFile)
+            .playIf(() => {return explosion && handler.explodeSound})
+            .delay(explosionDelay)
+            .volume(explosionVolume)
+            .repeats(handler.animationLoops, handler.loopDelay)
         .effect()
             .file(onToken.file)
             .atLocation(sourceToken)
@@ -87,7 +120,7 @@ export async function onTokenAnimation(handler) {
             }
 
             new Sequence()
-                    .effect()
+                .effect()
                     .atLocation(sourceToken)
                     .scale(sFXScale * handler.sourceScale)
                     .repeats(handler.sourceLoops, handler.sourceLoopDelay)
@@ -123,6 +156,12 @@ export async function onTokenAnimation(handler) {
                         }
                         return data;
                     })
+                .sound()
+                    .file(explosionFile)
+                    .playIf(() => {return explosion && handler.explodeSound})
+                    .delay(explosionDelay)
+                    .volume(explosionVolume)
+                    .repeats(handler.animationLoops, handler.loopDelay)
                 .effect()
                     .delay(handler.targetDelay)
                     .atLocation("animation")

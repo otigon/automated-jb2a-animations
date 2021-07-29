@@ -34,6 +34,18 @@ export async function rangedAnimations(handler) {
         explosion = await buildAfterFile(jb2a, handler)
     }
 
+    let explosionSound = handler.allSounds?.explosion;
+    let explosionVolume = 0.25;
+    let explosionDelay = 1;
+    let explosionFile = "";
+    let playExSound = explosion && handler.explodeSound
+    console.log(playExSound)
+    if (handler.explodeSound){
+        explosionVolume = explosionSound?.volume || 0.25;
+        explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
+        explosionFile = explosionSound?.file;
+    }
+
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     let sFXScale;
@@ -113,6 +125,12 @@ export async function rangedAnimations(handler) {
                         //console.log(data)
                         return data;
                     })
+                .sound()
+                    .file(explosionFile)
+                    .playIf(() => {return explosion && handler.explodeSound})
+                    .delay(explosionDelay)
+                    .volume(explosionVolume)
+                    .repeats(handler.animationLoops, handler.loopDelay)
                 .effect()
                     .delay(handler.targetDelay)
                     .atLocation(target)
