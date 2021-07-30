@@ -55,12 +55,14 @@ Supported Modules for DnD5e (Those that mess with rolling):
 - Minimal Rolling Enhancements  
 - Mars 5e  
 
-## Roadmap (subject to change):  
+## Roadmap (subject to change) in no particular Order yet:  
      
 1. Extending support to more systems  -- In Process
 2. Adding customizable TMFX options on a per item basis (versus a global on/off setting currently)  
 3. Adding "Summon" effects for spells/features  
 4. Enhancing Item Sounds to use a wildcard feature  
+5. Global level Automatic Recognition that can be set by the GM and offer a certain level of customization. Configured from the module settings menu  
+6. Audio Revamp for better play of sounds, wildcard feature, linking the sound directly to a particular animation, etc.  
 
 # Overview
 ## Attack Spells and Melee attacks require a token(s) to be Targeted
