@@ -13,6 +13,7 @@ export async function rangedAnimations(handler) {
     // Sets JB2A database and Global Delay
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
+    /*
     switch (handler.convertedName) {
         case "dagger":
         case "handaxe":
@@ -21,6 +22,7 @@ export async function rangedAnimations(handler) {
             console.log("adjusted name is " + itemName);
             break;
     }
+    */
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 

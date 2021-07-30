@@ -65,6 +65,14 @@ export default class SW5eHandler {
         this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
         this._customExplode = this._flags.options?.customExplosion ?? "";
 
+        this._meleeSwitch = this._flags.meleeSwitch;
+        this._switchType = this._meleeSwitch?.switchType ?? "on";
+        this._switchName = this._meleeSwitch?.animName ?? "";
+        this._switchDmgType = this._meleeSwitch?.rangeDmgType ?? "physical";
+        this._switchVariant = this._meleeSwitch?.rangeVar ?? "01";
+        this._switchColor = this._meleeSwitch?.color ?? "white";
+        this._switchDetect = this._meleeSwitch?.detect ?? "auto";
+
         this._sourceToken = this.flags.sourceToken ?? "";
         this._sourceEnable = this._sourceToken.enable ?? false;
         this._sourceLevel = this._sourceToken.animLevel ?? false;
@@ -204,6 +212,13 @@ export default class SW5eHandler {
     get templates() {return this._templates;}
     get templatePersist() {return this._templatePersist}
     get templateOpacity() {return this._templateOpacity}
+
+    get switchType() { return this._switchType }
+    get switchName() { return this._switchName }
+    get switchDmgType() { return this._switchDmgType }
+    get switchVariant() { return this._switchVariant }
+    get switchColor() { return this._switchColor }
+    get switchDetect() { return this._switchDetect }
 
     get sourceEnable() {return this._sourceEnable;}
     get sourceLevel() {return this._sourceLevel;}

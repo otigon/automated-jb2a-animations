@@ -52,6 +52,7 @@ export class AAItemSettings extends FormApplication {
         }
         */
         let itemName = conversion[0];
+        let switchName = flags.autoanimations?.meleeSwitch?.animName ?? "";
         let sourceName = flags.autoanimations?.sourceToken?.name ?? "";
         let sourceVariant = flags.autoanimations?.sourceToken?.variant ?? "";
         let targetName = flags.autoanimations?.targetToken?.name ?? "";
@@ -59,8 +60,11 @@ export class AAItemSettings extends FormApplication {
         let animType = flags.autoanimations?.animType;
         let spellVariant = flags.autoanimations?.spellVar;
         let variant = flags.autoanimations?.dtvar ?? "01";
+        let switchVariant = flags.autoanimations?.variant ?? "01";
+        let rangeSwitchType = flags.autoanimations?.meleeSwitch?.switchType || "on";
         let bardAnimation = flags.autoanimations?.bards?.bardAnim;
         let damageType = flags.autoanimations?.rangedOptions?.rangeDmgType ?? "regular";
+        let switchDamageType = flags.autoanimations?.meleeSwitch?.rangeDmgType ?? "regular";
         let override = flags.autoanimations?.override ? true : false;
         let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
         let explosionVariant = flags.autoanimations?.explodeVariant;
@@ -184,6 +188,16 @@ export class AAItemSettings extends FormApplication {
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
+
+            rangeSwitch: patreon ? AUTOANIM.localized(AUTOANIM.animNameRangeWeapon) : AUTOANIM.localized(AUTOANIM.animNameRangeWeaponFree),
+            rangeSwitchDmgType: rangedDamageTypes(switchName, patreon),
+            rangeSwitchColor: colorChoices(switchName, patreon, spellVariant, bardAnimation, switchDamageType, switchVariant),
+            rangeSwitchVariant: thrownVariants(switchName, patreon),
+            showRSVariant: (switchName === "rangedagger" || switchName === "rangehandaxe") && animType === "t2" && override ? true : false,
+            switchType: switchName === "bolt" || switchName === "bullet" || switchName === "arrow" ? true : false,
+            switchRange: flags.autoanimations?.meleeSwitch?.range ?? 2,
+            switchManual: flags.autoanimations?.meleeSwitch?.detect === "manual" ? true : false,
+            rangeSwitchType: flags.autoanimations?.meleeSwitch?.switchType === "custom",//rangeSwitchType === "custom",
 
             rangeDmgType: rangedDamageTypes(itemName, patreon),
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,

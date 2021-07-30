@@ -25,7 +25,7 @@ export async function buildWeaponFile(jb2a, itemName, handler) {
                 file = handler.color === "random" ? `autoanimations.${itemName}.${uaStrikeType}` : `autoanimations.${itemName}.${uaStrikeType}.${color}`;
                 break;
             default:
-                file = handler.color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`
+                file = handler.color === "random" ? `autoanimations.${itemName}.melee.01` : `autoanimations.${itemName}.melee.01.${color}`
         }
     }
     //let videoData = await getVideoDimensionsOf(filePath[Object.keys(filePath)[0]]);//get video metadata
@@ -55,13 +55,16 @@ export async function buildRangedFile(jb2a, itemName, handler) {
         case 'rangesling':
             file = `autoanimations.${itemName}`;
             break;
-        case 'rangehammer':
-        case "rangedagger":
-        case "rangehandaxe":
+        case 'greataxe':
+            file = `autoanimations.${itemName}.range.01.${color}`;
+            break;
+        case 'hammer':
+        case "dagger":
+        case "handaxe":
             // Just a patch until I separate range/melee animations
             if (color !== "dark purple" || color !== "white") (color = "white")
             if (!handler.dtvar || handler.dtvar === "a1") (dtvar = "01")
-            file = `autoanimations.${itemName}.${dtvar}.${color}`;
+            file = `autoanimations.${itemName}.range.${dtvar}.${color}`;
             break;
         case "rangehandaxe":
         case "rangespear":

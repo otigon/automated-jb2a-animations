@@ -11,19 +11,16 @@ export async function meleeAnimation(handler) {
         return !!game.modules.get(test);
     }
     let itemName = handler.convertedName;
+    /*
     switch (handler.convertedName) {
         case "dagger":
         case "handaxe":
         case "spear":
-            if (handler.getDistanceTo > 5) {
-                rangedAnimations(handler)
-                return;                
-            } else {
-                itemName = "melee" + itemName;
-                //console.log(itemName)
-            }
+            itemName = "melee" + itemName;
+            //console.log(itemName)
             break;
     }
+    */
     // Sets JB2A database and Global Delay
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
@@ -46,7 +43,7 @@ export async function meleeAnimation(handler) {
     let explosionFile = "";
     let playExSound = explosion && handler.explodeSound
     console.log(playExSound)
-    if (handler.explodeSound){
+    if (handler.explodeSound) {
         explosionVolume = explosionSound?.volume || 0.25;
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
         explosionFile = explosionSound?.file;
@@ -74,10 +71,33 @@ export async function meleeAnimation(handler) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
+
+            const switchName = handler.switchName
+            if (handler.switchType === "on") {
+                switch (handler.convertedName) {
+                    case "greataxe":
+                    case "dagger":
+                    case "handaxe":
+                    case "spear":
+                    case "greatsword":
+                    case "lasersword":
+                    case "mace":
+                    case "sword":
+                        if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
+                            rangedAnimations(handler)
+                            return;
+                        }
+                        break;
+                }
+            } else if (handler.switchType === "custom") {
+
+            }
+
             if (handler.targetEnable) {
                 tFXScale = 2 * target.w / targetFX.metadata.width;
-            }        
+            }
 
+            /*
             //Checks Range and sends it to Range Builder if true
             switch (handler.convertedName) {
                 case "dagger":
@@ -89,95 +109,96 @@ export async function meleeAnimation(handler) {
                     }
                     break;
             }
+            */
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? false : true;
             } else {
                 hit = false;
             }
-new Sequence()
-    .effect()
-        .atLocation(sourceToken)
-        .scale(sFXScale * handler.sourceScale)
-        .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-        .belowTokens(handler.sourceLevel)
-        .waitUntilFinished(handler.sourceDelay)
-        .playIf(handler.sourceEnable)
-        .addOverride(async (effect, data) => {
-            if (handler.sourceEnable) {
-                data.file = sourceFX.file;
-            }
-            //console.log(data)
-            return data;
-        })
-    .effect()
-        //.delay(sourceOptions.delayAfter)
-        .file(attack.file)
-        .atLocation(sourceToken)
-        .rotateTowards(target)
-        //.JB2A()
-        .scale(sourceScale * handler.scale)
-        .repeats(handler.animationLoops, handler.loopDelay)
-        .randomizeMirrorY()
-        .missed(hit)
-        .name("animation")
-        .belowTokens(handler.animLevel)
-        .addOverride(async (effect, data) => {
-            data.anchor = {x: 0.4, y: 0.5}
-            //console.log(data._distance)
-            return data;
-        })
-        .playIf(() => { return handler.getDistanceTo(target) <= 5})
-    .effect()
-        .file(attack.file)
-        .atLocation(sourceToken)
-        .moveTowards(target)
-        //.JB2A()
-        .scale(sourceScale * handler.scale)
-        .repeats(handler.animationLoops, handler.loopDelay)
-        .randomizeMirrorY()
-        .missed(hit)
-        .name("animation")
-        .belowTokens(handler.animLevel)    
-        .playIf(() => { return handler.getDistanceTo(target) > 5})
-    .effect()
-        .atLocation("animation")
-        //.file(explosion.file)
-        .scale({x: scale, y: scale})
-        .delay(500 + handler.explosionDelay)
-        .repeats(handler.animationLoops, handler.loopDelay)
-        .belowTokens(handler.explosionLevel)
-        .playIf(() => {return explosion })
-        .addOverride(async (effect, data) => {
-            if (explosion) {
-                data.file = explosion.file;
-            }
-            //console.log(data)
-            return data;
-        })
-        //.waitUntilFinished(explosionDelay)
-    .sound()
-        .file(explosionFile)
-        .playIf(() => {return explosion && handler.explodeSound})
-        .delay(explosionDelay)
-        .volume(explosionVolume)
-        .repeats(handler.animationLoops, handler.loopDelay)
-    .effect()
-        .delay(handler.targetDelay)
-        .atLocation(target)
-        .scale(tFXScale * handler.targetScale)
-        .repeats(handler.targetLoops, handler.targetLoopDelay)
-        .belowTokens(handler.targetLevel)
-        .playIf(handler.targetEnable)
-        .addOverride(async (effect, data) => {
-            if (handler.targetEnable) {
-                data.file = targetFX.file;
-            }
-            //console.log(data)
-            return data;
-        })
-    .play()
-        await wait(750)
+            new Sequence()
+                .effect()
+                .atLocation(sourceToken)
+                .scale(sFXScale * handler.sourceScale)
+                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                .belowTokens(handler.sourceLevel)
+                .waitUntilFinished(handler.sourceDelay)
+                .playIf(handler.sourceEnable)
+                .addOverride(async (effect, data) => {
+                    if (handler.sourceEnable) {
+                        data.file = sourceFX.file;
+                    }
+                    //console.log(data)
+                    return data;
+                })
+                .effect()
+                //.delay(sourceOptions.delayAfter)
+                .file(attack.file)
+                .atLocation(sourceToken)
+                .rotateTowards(target)
+                //.JB2A()
+                .scale(sourceScale * handler.scale)
+                .repeats(handler.animationLoops, handler.loopDelay)
+                .randomizeMirrorY()
+                .missed(hit)
+                .name("animation")
+                .belowTokens(handler.animLevel)
+                .addOverride(async (effect, data) => {
+                    data.anchor = { x: 0.4, y: 0.5 }
+                    //console.log(data._distance)
+                    return data;
+                })
+                .playIf(() => { return handler.getDistanceTo(target) <= 5 })
+                .effect()
+                .file(attack.file)
+                .atLocation(sourceToken)
+                .moveTowards(target)
+                //.JB2A()
+                .scale(sourceScale * handler.scale)
+                .repeats(handler.animationLoops, handler.loopDelay)
+                .randomizeMirrorY()
+                .missed(hit)
+                .name("animation")
+                .belowTokens(handler.animLevel)
+                .playIf(() => { return handler.getDistanceTo(target) > 5 })
+                .effect()
+                .atLocation("animation")
+                //.file(explosion.file)
+                .scale({ x: scale, y: scale })
+                .delay(500 + handler.explosionDelay)
+                .repeats(handler.animationLoops, handler.loopDelay)
+                .belowTokens(handler.explosionLevel)
+                .playIf(() => { return explosion })
+                .addOverride(async (effect, data) => {
+                    if (explosion) {
+                        data.file = explosion.file;
+                    }
+                    //console.log(data)
+                    return data;
+                })
+                //.waitUntilFinished(explosionDelay)
+                .sound()
+                .file(explosionFile)
+                .playIf(() => { return explosion && handler.explodeSound })
+                .delay(explosionDelay)
+                .volume(explosionVolume)
+                .repeats(handler.animationLoops, handler.loopDelay)
+                .effect()
+                .delay(handler.targetDelay)
+                .atLocation(target)
+                .scale(tFXScale * handler.targetScale)
+                .repeats(handler.targetLoops, handler.targetLoopDelay)
+                .belowTokens(handler.targetLevel)
+                .playIf(handler.targetEnable)
+                .addOverride(async (effect, data) => {
+                    if (handler.targetEnable) {
+                        data.file = targetFX.file;
+                    }
+                    //console.log(data)
+                    return data;
+                })
+                .play()
+            await wait(750)
         }
     }
     cast()
