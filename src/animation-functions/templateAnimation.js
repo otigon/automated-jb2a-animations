@@ -1,5 +1,5 @@
-import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
+import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { buildTemplateFile } from "./file-builder/build-filepath.js";
 import { socketlibSocket } from "../socketset.js"
 import { buildTokenAnimationFile, buildSourceTokenFile } from "./file-builder/build-filepath.js"

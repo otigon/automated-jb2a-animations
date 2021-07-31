@@ -1,8 +1,8 @@
 /*
 The framework for the code below originated from Honeybadger (Trioderigon) for creating/deleting the Template and movingt the Token around.
 */
-import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
+import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { buildTokenAnimationFile, buildSourceTokenFile } from "./file-builder/build-filepath.js"
 
 export async function teleportation(handler) {

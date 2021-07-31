@@ -1,6 +1,6 @@
 import { buildWeaponFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
-import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
+import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { rangedAnimations } from "./rangedAnimation.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
