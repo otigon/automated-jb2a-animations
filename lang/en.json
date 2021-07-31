@@ -339,5 +339,13 @@
     "AUTOANIM.teleport": "You selected a Spot out of range. Choose Again",
 
     "AUTOANIM.cloudOfDaggers": "Cloud of Daggers",
-    "AUTOANIM.auraScale": "Compared to Token Size"
+    "AUTOANIM.auraScale": "Compared to Token Size",
+    "AUTOANIM.removeTemplate": "Remove Template after Placement?",
+    "AUTOANIM.occlusionMode": "Occlusion Mode",
+    "AUTOANIM.occlusion01": "Fade (Entire Tile)",
+    "AUTOANIM.occlusion02": "Roof (Blocks Vision and Lighting)",
+    "AUTOANIM.occlusion03": "Radial (Surrounding Token)",
+    "AUTOANIM.occlusion00": "None (Always Visible)",
+    "AUTOANIM.occlusionAlpha": "Occlusion Alpha"
+
 }

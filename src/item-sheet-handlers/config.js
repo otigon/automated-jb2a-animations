@@ -1178,6 +1178,7 @@ AUTOANIM.circleAnimations = {
     "darkness": "AUTOANIM.animDarkness",
     "calllightning": "AUTOANIM.animCallLightning",
     "sleetstorm": "AUTOANIM.animSleetstorm",
+    "cloudofdaggers": "AUTOANIM.cloudOfDaggers"
 }
 
 AUTOANIM.rectangleAnimations = {

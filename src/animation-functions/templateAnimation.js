@@ -95,6 +95,10 @@ export async function templateAnimation(handler, msg) {
                 yAnchor = 0.5;
                 break;
         }
+        let mode = handler.templates?.occlusionMode ?? "3";
+        const occlusionMode = parseInt(mode)
+        let occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
+        //const occlusionAlpha = parseInt(alpha);
         //console.log(rotate)
         if (handler.templatePersist && (handler.templates.tempType === "circle" || handler.templates.tempType === "rect")) {
             let data;
@@ -107,7 +111,8 @@ export async function templateAnimation(handler, msg) {
                     // false sets it in canvas.background. true sets it to canvas.foreground
                     overhead: true,
                     occlusion: {
-                        mode: 3,
+                        alpha: occlusionAlpha,
+                        mode: occlusionMode,
                     },
                     video: {
                         autoplay: true,

@@ -1030,6 +1030,18 @@
                         {{/select}}
                     </select>
                 </div>
+                {{#if templateVariants}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                    <select name="flags.autoanimations.spellVar">
+                        {{#select flags.autoanimations.spellVar}}
+                        {{#each templateVariant as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                {{/if}}
                 <!--Choose Template Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
@@ -1093,6 +1105,27 @@
                         value="flags.autoanimations.templates.overhead" {{checked
                         flags.autoanimations.templates.overhead}}>
                 </div>
+                {{#if flags.autoanimations.templates.overhead}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.occlusionMode"}}</label>
+                    <select name="flags.autoanimations.templates.occlusionMode">
+                        {{#select flags.autoanimations.templates.occlusionMode}}
+                        <option value="3">{{localize "AUTOANIM.occlusion03"}}</option>
+                        <option value="1">{{localize "AUTOANIM.occlusion01"}}</option>
+                        <option value="2">{{localize "AUTOANIM.occlusion02"}}</option>
+                        <option value="0">{{localize "AUTOANIM.occlusion00"}}</option>
+                        {{/select}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
+                    <div class="form-fields">
+                        <input type="range" name="flags.autoanimations.templates.occlusionAlpha"
+                            value={{occlusionAlpha}} min="0" max="1" step="0.05">
+                        <span class="range-value">{{occlusionAlpha}}</span>
+                    </div>
+                </div>
+                {{/if}}
                 {{/if}}
                 {{#unless persistent}}
                 <div class="flexrow">

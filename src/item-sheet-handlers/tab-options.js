@@ -374,6 +374,9 @@ export function templateColors(templateType, templateAnimation, patreon) {
                 case 'sleetstorm':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.sleetstormColors) : AUTOANIM.localized(AUTOANIM.sleetstormColorsFree)
                     break;
+                case "cloudofdaggers":
+                    templateColor = patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerColors) : AUTOANIM.localized(AUTOANIM.cloudDaggerColorsFree);
+                    break;
                 default:
                     return;
             }

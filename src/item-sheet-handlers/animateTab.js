@@ -181,6 +181,9 @@ export class AAItemSettings extends FormApplication {
             templateOpacity: flags.autoanimations?.templates?.opacity ?? 0.75,
             makePersistent: templateType === "circle" || templateType === "rect",
             persistent: flags.autoanimations?.templates?.persistent && (templateType === "circle" || templateType === "rect"),
+            occlusionAlpha: flags.autoanimations?.templates?.occlusionAlpha ?? "0",
+            templateVariants: flags.autoanimations?.templates?.tempAnim === "cloudofdaggers" ? true : false,
+            templateVariant: patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerVariant) : AUTOANIM.localized(AUTOANIM.cloudDaggerVariantFree),
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,

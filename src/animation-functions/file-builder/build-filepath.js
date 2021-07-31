@@ -164,6 +164,7 @@ export async function buildTemplateFile(jb2a, handler) {
     let flags = handler.templates;
     let file;
     let file2;
+    const variant = handler.spellVariant || "01";
     if (handler.templates.customAnim) {
         file = handler.templates.customPath
         file2 = file
@@ -172,6 +173,10 @@ export async function buildTemplateFile(jb2a, handler) {
             case "fogcloud":
                 file = `autoanimations.templates.${flags.tempType}.${flags.tempAnim}`;
                 file2 = jb2a['templates'][flags.tempType][flags.tempAnim];
+                break;
+            case "cloudofdaggers":
+                file = `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${flags.tempColor}`;
+                file2 = jb2a['templates'][flags.tempType][flags.tempAnim][variant][flags.tempColor];
                 break;
             default:
                 file = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${flags.tempColor}`;
