@@ -9,7 +9,7 @@ export async function buildWeaponFile(jb2a, itemName, handler) {
     let file;
     //console.log("Build a file Item Name is " + itemName)
     if (handler.enableCustom01) {
-        file = handler.templates.customPath
+        file = handler.custom01
     } else {
         switch (itemName) {
             case "1hs":
@@ -30,7 +30,7 @@ export async function buildWeaponFile(jb2a, itemName, handler) {
     }
     //let videoData = await getVideoDimensionsOf(filePath[Object.keys(filePath)[0]]);//get video metadata
     //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
-    return {file};
+    return { file };
 }
 
 export async function buildRangedFile(jb2a, itemName, handler) {
@@ -118,7 +118,7 @@ export async function buildAfterFile(jb2a, handler) {
     //handler.item.setFlag("autoanimations", "defaults.explosion.file", filePath)
     //handler.item.setFlag("autoanimations", "defaults.explosion.scale", scale)
     //handler.item.setFlag("autoanimations", "defaults.explosion.metadata", videoData)
-    return { file, scale, metadata};
+    return { file, scale, metadata };
 }
 
 export async function buildTokenAnimationFile(jb2a, itemName, handler) {
@@ -157,7 +157,7 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
     //handler.item.setFlag("autoanimations", "defaults.primary.msFile", filePath02)
     //handler.item.setFlag("autoanimations", "defaults.primary.metadata", videoData)
 
-    return {file, msFile, metadata};
+    return { file, msFile, metadata };
 }
 
 export async function buildTemplateFile(jb2a, handler) {
@@ -186,7 +186,7 @@ export async function buildTemplateFile(jb2a, handler) {
     let delay = handler.templates.loopDelay;
     let level = handler.animLevel;
 
-    return {file, file2, loops, delay, level, metadata};
+    return { file, file2, loops, delay, level, metadata };
 }
 
 export async function buildSourceTokenFile(jb2a, animName, handler) {
@@ -229,7 +229,7 @@ export async function buildSourceTokenFile(jb2a, animName, handler) {
     //handler.item.setFlag("autoanimations", "defaults.source.file", filePath)
     //handler.item.setFlag("autoanimations", "defaults.source.metadata", videoData)
 
-    return {file, metadata};
+    return { file, metadata };
 }
 
 export async function buildTargetTokenFile(jb2a, animName, handler) {
@@ -274,7 +274,7 @@ export async function buildTargetTokenFile(jb2a, animName, handler) {
     //handler.item.setFlag("autoanimations", "defaults.target.file", filePath)
     //handler.item.setFlag("autoanimations", "defaults.target.metadata", videoData)
 
-    return {file, metadata};
+    return { file, metadata };
 }
 
 export async function buildShieldFile(jb2a, handler) {
@@ -298,7 +298,32 @@ export async function buildHMFile(jb2a, handler) {
     let file02 = jb2a['huntersmark'][handler.hmAnim]['loop'][handler.color];
     //let videoData = await getVideoDimensionsOf(filePath02);
 
-    return {file01, file02};
+    return { file01, file02 };
+}
+
+export async function buildAuraFile(jb2a, handler) {
+    let namePrior = handler.animName;
+    const name = namePrior.replace(/\s+/g, '');
+    const variant = handler.spellVariant || "01";
+    let color;
+    let file;
+    if (handler.enableCustom01) {
+        file = handler.custom01
+    } else {
+        switch (name) {
+            case "fogcloud":
+                color = "white";
+                break;
+            case "antilifeshell":
+                color = "blue";
+                break;
+            default:
+                color = handler.color
+        }
+        file = name === "cloudofdaggers" ? jb2a[name][variant][color] : jb2a[name][color];
+    }
+
+    return { file }
 }
 
 function getVideoDimensionsOf(url) {

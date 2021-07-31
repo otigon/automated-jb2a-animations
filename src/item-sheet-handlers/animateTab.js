@@ -72,6 +72,7 @@ export class AAItemSettings extends FormApplication {
             case itemName === "scorchingray" && animType === "t6":
             case itemName === "generichealing" && animType === "t7":
             case itemName === "shieldspell" && animType === "t13":
+            case itemName === "cloudofdaggers" && animType === "t11":
                 spellVariants = true;
                 break;
             default:
@@ -165,7 +166,7 @@ export class AAItemSettings extends FormApplication {
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
             volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
 
-            auraRadius: AUTOANIM.selfCastRadius,
+            auraRadius: flags.autoanimations?.selfRadius || 5,
             hexColour: flags.autoanimations?.animTint || `#FFFFFF`,
             opacity: flags.autoanimations?.auraOpacity || ".75",
 
@@ -188,8 +189,6 @@ export class AAItemSettings extends FormApplication {
             rangeDmgType: rangedDamageTypes(itemName, patreon),
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
             sneakAttack: itemName === "sneakattack" ? true : false,
-
-            auraRadius: flags.autoanimations?.selfRadius ?? 17.5,
 
             flags: this.object.data.flags,
             content: content,

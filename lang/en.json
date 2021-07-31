@@ -336,5 +336,8 @@
     "AUTOANIM.customize": "Customize",
     "AUTOANIM.ctaScale": "Scale",
     "AUTOANIM.volume": "Volume (0-1)",
-    "AUTOANIM.teleport": "You selected a Spot out of range. Choose Again"
+    "AUTOANIM.teleport": "You selected a Spot out of range. Choose Again",
+
+    "AUTOANIM.cloudOfDaggers": "Cloud of Daggers",
+    "AUTOANIM.auraScale": "Compared to Token Size"
 }

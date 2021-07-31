@@ -19,7 +19,7 @@ import huntersMark from "./animation-functions/hunters-mark.js";
 import bardicInspiration from "./animation-functions/bardic-inspiration.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
-import { AAITEMCHECK } from "./animation-functions/item-arrays.js";
+import { AAITEMCHECK, AAITEMCHECKFREE } from "./animation-functions/item-arrays.js";
 import { rangedAnimations } from "./animation-functions/rangedAnimation.js";
 import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
 import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
@@ -387,7 +387,6 @@ window.AutoAnimations = AutoAnimations;
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
-
 // sets Handler for PF1 and DnD3.5
 function onCreateChatMessage(msg) {
     if (msg.user.id !== game.user.id) { return };
@@ -461,11 +460,12 @@ async function specialCaseAnimations(msg) {
     }
     let handler = new Dnd5Handler(msg);
     switch (true) {
-        /*
+
         case ((handler.animType === "t12") && (handler.animOverride)):
+            if (game.settings.get("autoanimations", "playonDamage")) {
                 teleportation(handler);
+            }
             break;
-            */
         case (handler.animType === "t8" && handler.animOverride):
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler, msg);
@@ -474,7 +474,7 @@ async function specialCaseAnimations(msg) {
     }
 }
 async function pf2eReady(msg) {
-    if (game.user.id !== msg.user.id) {return;}
+    if (game.user.id !== msg.user.id) { return; }
     let handler = await new PF2Handler(msg);
     let spellType = handler.item?.data?.data?.spellType?.value;
     //console.log(handler.item)
@@ -586,9 +586,6 @@ function revItUp5eCore(msg) {
         if (rollType.includes("damage")) {
             log("damage roll");
         } else if (rollType.includes("attack") || !handler.hasAttack) {
-            if (handler.itemSound) {
-                itemSound(handler);
-            }
             revItUp(handler)
         } else /*if (game.settings.get("autoanimations", "playonDamageCore") == false)*/ {
             if (handler.itemSound) {
@@ -622,6 +619,7 @@ async function itemSound(handler) {
     }
 }
 async function revItUp(handler) {
+    const itemArray = moduleIncludes("jb2a_patreon") ? AAITEMCHECK : AAITEMCHECKFREE;
     if (handler.itemSound) {
         itemSound(handler);
     }
@@ -671,8 +669,8 @@ async function revItUp(handler) {
         case itemName === "sneakattack":
             sneakAttack(handler);
             break;
-        case AAITEMCHECK.melee.includes(itemName):
-        case AAITEMCHECK.monk.includes(itemName):
+        case itemArray.melee.includes(itemName):
+        case itemArray.monk.includes(itemName):
             meleeAnimation(handler);
             break;
         case itemName == "thunderwave":
@@ -686,12 +684,12 @@ async function revItUp(handler) {
                     })
             }
             break;
-        case AAITEMCHECK.healing.includes(itemName):
-        case AAITEMCHECK.creatureattack.includes(itemName):
+        case itemArray.healing.includes(itemName):
+        case itemArray.creatureattack.includes(itemName):
             onTokenAnimation(handler);
             break;
-        case AAITEMCHECK.spellattack.includes(itemName):
-        case AAITEMCHECK.ranged.includes(itemName):
+        case itemArray.spellattack.includes(itemName):
+        case itemArray.ranged.includes(itemName):
             rangedAnimations(handler);
             break;
         case itemName == "huntersmark":

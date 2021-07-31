@@ -200,7 +200,18 @@ AUTOANIM.daggerVariant = {
     "kunai": "AUTOANIM.itemKunai",
 }
 
+AUTOANIM.cloudDaggerVariant = {
+    "a1": ``,
+    "01": "AUTOANIM.itemDagger01",
+    "kunai": "AUTOANIM.itemKunai",
+}
+
 AUTOANIM.daggerVariantFree = {
+    "a1": ``,
+    "01": "AUTOANIM.itemDagger01",
+}
+
+AUTOANIM.cloudDaggerVariantFree = {
     "a1": ``,
     "01": "AUTOANIM.itemDagger01",
 }
@@ -709,16 +720,6 @@ AUTOANIM.selfemanation = {
     "antilife-shell": "AUTOANIM.animAntiLifeShell",
 }
 
-AUTOANIM.selfCastRadius = {
-    "a1": ``,
-    "5": "5",
-    "10": "10",
-    "15": "15",
-    "20": "20",
-    "25": "25",
-    "30": "30"
-}
-
 AUTOANIM.aura = {
     "a1": "",
     "call lightning": "AUTOANIM.animCallLightning",
@@ -727,7 +728,32 @@ AUTOANIM.aura = {
     "sleetstorm": "AUTOANIM.animSleetstorm",
     "spirit guardians": "AUTOANIM.animSpiritGuardians",
     "wall of force": "AUTOANIM.animWallOfForce",
-    "whirlwind": "AUTOANIM.animWhirlwind"
+    "whirlwind": "AUTOANIM.animWhirlwind",
+    "antilifeshell": "AUTOANIM.animAntiLifeShell",
+    "cloudofdaggers": "AUTOANIM.cloudOfDaggers"
+}
+
+AUTOANIM.cloudDaggerColors = {
+    "a1": ``,
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow"
+
+}
+
+AUTOANIM.cloudDaggerColorsFree = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow"
 }
 
 AUTOANIM.spiritguardianColors = {

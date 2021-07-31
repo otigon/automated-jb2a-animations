@@ -20,6 +20,9 @@ export function nameConversion(itemName) {
             newItemName = oldItemName;
             defaultColor = "white";
             break;
+        case oldItemName === "cloudofdaggers":
+            newItemName = "cloudofdaggers";
+            break;
         case oldItemName === "rangelasersword":
             newItemName = oldItemName;
             defaultColor = "blue";
@@ -304,6 +307,7 @@ export function nameConversion(itemName) {
     if (newItemName === undefined) {
         console.warn("Does not match any automatically recognized name")
     }
+    console.log("new item name is " + newItemName)
     return [newItemName, defaultColor, autoRec, autoPreview];
     function moduleIncludes(test) {
         return !!game.modules.get(test);

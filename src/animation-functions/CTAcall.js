@@ -1,5 +1,6 @@
 import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
+import { buildAuraFile } from "./file-builder/build-filepath.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -11,90 +12,8 @@ async function ctaCall(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let obj02;
-    let color;
-    switch (handler.animName) {
-        case "call lightning": 
-        case game.i18n.format("AUTOANIM.animCallLightning").toLowerCase():
-            obj02 = "calllightning";
-            switch (true) {
-                case handler.color === "a1" || ``:
-                case !handler.color:
-                    color = "blue";
-                    break;
-                default:
-                    color = handler.color;
-            }
-            break;
-        case "darkness": 
-        case game.i18n.format("AUTOANIM.animDarkness").toLowerCase():
-            obj02 = "darkness";
-            switch (true) {
-                case handler.color === "a1" || ``:
-                case !handler.color:
-                    color = "black";
-                    break;
-                default:
-                    color = handler.color;
-            }
-            break;
-        case "fog cloud": 
-        case game.i18n.format("AUTOANIM.animFogCloud").toLowerCase():
-            obj02 = "fogcloud";
-            color = "white";
-            break;
-        case "sleetstorm": 
-        case game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase():
-            obj02 = "sleetstorm";
-            switch (true) {
-                case handler.color === "a1" || ``:
-                case !handler.color:
-                    color = "blue";
-                    break;
-                default:
-                    color = handler.color;
-            }
-            break;
-        case "spirit guardians": 
-        case game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase():
-            obj02 = "spiritguardians";
-            switch (true) {
-                case handler.color === "a1" || ``:
-                case !handler.color:
-                    color = "yellow blue";
-                    break;
-                default:
-                    color = handler.color;
-            }
-            break;
-        case "wall of force": 
-        case game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase():
-            obj02 = "wallofforce";
-            switch (true) {
-                case handler.color === "a1" || ``:
-                case !handler.color:
-                    color = "grey";
-                    break;
-                default:
-                    color = handler.color;
-            }
-            break;
-        case "whirlwind": 
-        case game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase():
-            obj02 = "whirlwind";
-            switch (true) {
-                case handler.color === "a1" || ``:
-                case !handler.color:
-                    color = "blue grey";
-                    break;
-                default:
-                    color = handler.color;
-            }
-            break;
-    }
-
-    let filePath = obj01[obj02][color];
-
+    const aura = await buildAuraFile(obj01, handler);
+    
     let token = handler.actorToken;
     let tintPre = handler.animTint;
     let tintPost = parseInt(tintPre.substr(1), 16);
@@ -107,7 +26,7 @@ async function ctaCall(handler) {
         rotation: "static",
         scale: handler.selfRadius,
         speed: 0,
-        texturePath: filePath,
+        texturePath: aura.file,
         tint: tintPost,
         xScale: 0.5,
         yScale: 0.5

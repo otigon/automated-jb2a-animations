@@ -36,6 +36,9 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
         case itemName === "rangejavelin":
             animationColor = AUTOANIM.localized(AUTOANIM.justWhite);
             break;
+        case itemName === "cloudofdaggers":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerColors) : AUTOANIM.localized(AUTOANIM.cloudDaggerColorsFree);
+            break;
         case itemName === "curewounds":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorCureWounds) : AUTOANIM.localized(AUTOANIM.animColorCureWoundsFree)
             break;
@@ -451,6 +454,9 @@ export function variantSpell(itemName, patreon) {
     switch (itemName) {
         case "shieldspell":
             variants = patreon ? AUTOANIM.shieldVariant : AUTOANIM.shieldVariantFree;
+            break;
+        case "cloudofdaggers":
+            variants = patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerVariant) : AUTOANIM.localized(AUTOANIM.cloudDaggerVariantFree);
             break;
         default:
             variants = patreon ? AUTOANIM.localized(AUTOANIM.spellVariant) : AUTOANIM.localized(AUTOANIM.spellVariantFree);
