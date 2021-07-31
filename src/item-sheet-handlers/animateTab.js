@@ -67,12 +67,22 @@ export class AAItemSettings extends FormApplication {
         let impactVariant = flags.autoanimations?.impactVar || "";
         let templateType = flags.autoanimations?.templates?.tempType ?? "";
         let templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
+        let templateVariants;
+        switch (templateAnimation) {
+            case "cloudofdaggers":
+            case "lightningbolt":
+                templateVariants = true;
+                break;
+            default:
+                templateVariants = false;
+        }
         let spellVariants;
         switch (true) {
             case itemName === "scorchingray" && animType === "t6":
             case itemName === "generichealing" && animType === "t7":
             case itemName === "shieldspell" && animType === "t13":
             case itemName === "cloudofdaggers" && animType === "t11":
+            case itemName === "guidingbolt":
                 spellVariants = true;
                 break;
             default:
@@ -182,8 +192,8 @@ export class AAItemSettings extends FormApplication {
             makePersistent: templateType === "circle" || templateType === "rect",
             persistent: flags.autoanimations?.templates?.persistent && (templateType === "circle" || templateType === "rect"),
             occlusionAlpha: flags.autoanimations?.templates?.occlusionAlpha ?? "0",
-            templateVariants: flags.autoanimations?.templates?.tempAnim === "cloudofdaggers" ? true : false,
-            templateVariant: patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerVariant) : AUTOANIM.localized(AUTOANIM.cloudDaggerVariantFree),
+            templateVariants: templateVariants,
+            templateVariant: variantSpell(templateAnimation, patreon),
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,

@@ -75,6 +75,7 @@ AUTOANIM.animNameRangeWeapon = {
     "bolt": "AUTOANIM.bolt",
     "boulder": "AUTOANIM.itemBoulder",
     "bullet": "AUTOANIM.bullet",
+    "chakram": "AUTOANIM.chakram",
     "rangedagger": "AUTOANIM.itemDagger",
     "rangegreataxe": "AUTOANIM.itemGreataxe",
     "rangegreatsword": "AUTOANIM.itemGreatsword",
@@ -171,6 +172,19 @@ AUTOANIM.animColorMelee = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.animDaggerColor = {
+    "a1": ``,
+    "white": `AUTOANIM.colorWhite`,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
+    "purple": "AUTOANIM.colorPurple",
+    "pink": "AUTOANIM.colorPink",
+    "yellow": "AUTOANIM.colorYellow",
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "random": "AUTOANIM.colorRandom"
+}
 AUTOANIM.rangeSwordColor = {
     "a1": ``,
     "white": `AUTOANIM.colorWhite`,
@@ -1119,7 +1133,23 @@ AUTOANIM.rayAnimations = {
     "a1": ``,
     "acid": "AUTOANIM.dmgTypeAcid",
     "fire": "AUTOANIM.dmgTypeFire",
-    "lightning": "AUTOANIM.dmgTypeLightning"
+    "lightning": "AUTOANIM.dmgTypeLightning",
+    "lightningbolt": "AUTOANIM.lightningbolt"
+}
+
+AUTOANIM.lightningBoltColor = {
+    "a1": ``,
+    "dark blue": "AUTOANIM.colorDarkBlue",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.lbVariant = {
+    "a1": ``,
+    "01": "01",
+    "02": "02",
 }
 
 AUTOANIM.rayFireColor = {

@@ -346,6 +346,9 @@
     "AUTOANIM.occlusion02": "Roof (Blocks Vision and Lighting)",
     "AUTOANIM.occlusion03": "Radial (Surrounding Token)",
     "AUTOANIM.occlusion00": "None (Always Visible)",
-    "AUTOANIM.occlusionAlpha": "Occlusion Alpha"
+    "AUTOANIM.occlusionAlpha": "Occlusion Alpha",
+
+    "AUTOANIM.lightningbolt": "Lightning Bolt",
+    "AUTOANIM.chakram": "Chakram"
 
 }

@@ -46,6 +46,7 @@ export async function buildRangedFile(jb2a, itemName, handler) {
     let dtvar = handler.dtvar;
     switch (itemName) {
         case "scorchingray":
+        case "guidingbolt":
             const spellVariant = handler.spellVariant || "01";
             file = handler.color === "random" ? `autoanimations.${itemName}.${spellVariant}` : `autoanimations.${itemName}.${spellVariant}.${color}`;
             break;
@@ -53,13 +54,14 @@ export async function buildRangedFile(jb2a, itemName, handler) {
         case 'siege':
         case 'rangejavelin':
         case 'rangesling':
+        case 'chakram':
             file = `autoanimations.${itemName}`;
             break;
         case 'rangehammer':
         case "rangedagger":
         case "rangehandaxe":
             // Just a patch until I separate range/melee animations
-            if (color !== "dark purple" || color !== "white") (color = "white")
+            if (color !== "dark purple") (color = "white")
             if (!handler.dtvar || handler.dtvar === "a1") (dtvar = "01")
             file = `autoanimations.${itemName}.${dtvar}.${color}`;
             break;
@@ -177,6 +179,10 @@ export async function buildTemplateFile(jb2a, handler) {
             case "cloudofdaggers":
                 file = `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${flags.tempColor}`;
                 file2 = jb2a['templates'][flags.tempType][flags.tempAnim][variant][flags.tempColor];
+                break;
+            case "lightningbolt":
+                file = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${flags.tempColor}`;
+                file2 = flags.tempColor === "random" ?  jb2a['templates'][flags.tempType][flags.tempAnim][variant][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim][variant])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][variant][flags.tempColor];
                 break;
             default:
                 file = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${flags.tempColor}`;

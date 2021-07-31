@@ -12,6 +12,8 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.hmColors) : AUTOANIM.localized(AUTOANIM.hmColorsFree)
             break;
         case itemName === "dagger":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animDaggerColor) : AUTOANIM.localized(AUTOANIM.animColorMeleeFree);
+            break;
         case itemName === "greataxe":
         case itemName === "greatsword":
         case itemName === "greatclub":
@@ -460,6 +462,9 @@ export function variantSpell(itemName, patreon) {
             break;
         case "cloudofdaggers":
             variants = patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerVariant) : AUTOANIM.localized(AUTOANIM.cloudDaggerVariantFree);
+            break;
+        case "lightningbolt":
+            variants = AUTOANIM.localized(AUTOANIM.lbVariant);
             break;
         default:
             variants = patreon ? AUTOANIM.localized(AUTOANIM.spellVariant) : AUTOANIM.localized(AUTOANIM.spellVariantFree);

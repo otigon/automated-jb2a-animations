@@ -35,6 +35,11 @@ export function nameConversion(itemName) {
             newItemName = "bardicinspiration";
             defaultColor = "green orange";
             break;
+        case itemAutoRec.chakram.some(el => oldItemName.includes(el)):
+            newItemName = "chakram";
+            autoRec = game.i18n.format("AUTOANIM.chakram");
+            autoPreview = `modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Chakram01_01_Regular_White_15ft_1000x400.webm`;
+            break;
         case itemAutoRec.rapier.some(el => oldItemName.includes(el)):
             newItemName = "rapier";
             defaultColor = "white";
@@ -307,7 +312,7 @@ export function nameConversion(itemName) {
     if (newItemName === undefined) {
         console.warn("Does not match any automatically recognized name")
     }
-    console.log("new item name is " + newItemName)
+    //console.log("new item name is " + newItemName)
     return [newItemName, defaultColor, autoRec, autoPreview];
     function moduleIncludes(test) {
         return !!game.modules.get(test);
