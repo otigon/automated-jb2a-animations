@@ -13,6 +13,7 @@ export async function templateAnimation(handler, msg) {
     }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     const sourceToken = handler.actorToken;
+    console.log(handler.item);
     let tempAnimation = await buildTemplateFile(obj01, handler)
     let sourceFX;
     let sFXScale;
@@ -48,6 +49,7 @@ export async function templateAnimation(handler, msg) {
         let tileHeight;
         let tileX;
         let tileY;
+        let dnd5eHelper;
         //let scale = ((200 * handler.explosionRadius) / (canvas.dimensions.distance * videoData.width))
         switch (templateType) {
             case "ray":
@@ -60,17 +62,34 @@ export async function templateAnimation(handler, msg) {
                 yAnchor = 0.5;
                 break;
             case "rect":
-                templateW = template.data.width;
-                templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
-                scaleY = scaleX;
-                rotate = 0;
-                xAnchor = 0;
-                yAnchor = 0;
-                tileWidth = videoWidth * (templateLength / videoWidth);
-                tileHeight = videoHeight * (templateLength / videoHeight);
-                tileX = template.data.x;
-                tileY = template.data.y;
+                if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && handler.item.data.data.target.type === "sphere") {
+                    console.log("5e Helpers is active")
+                    console.log("Template Switch is Active")
+                    templateW = Math.sqrt(Math.pow(template.data.distance, 2) - Math.pow((handler.item.data.data.target.value * 2), 2));
+                    console.log(templateW)
+                    templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
+                    scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
+                    scaleY = scaleX;
+                    rotate = 0;
+                    xAnchor = 0;
+                    yAnchor = 0;
+                    tileWidth = videoWidth * (templateLength / videoWidth);
+                    tileHeight = videoHeight * (templateLength / videoHeight);
+                    tileX = template.data.x;
+                    tileY = template.data.y;
+                } else {
+                    templateW = template.data.width;
+                    templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
+                    scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
+                    scaleY = scaleX;
+                    rotate = 0;
+                    xAnchor = 0;
+                    yAnchor = 0;
+                    tileWidth = videoWidth * (templateLength / videoWidth);
+                    tileHeight = videoHeight * (templateLength / videoHeight);
+                    tileX = template.data.x;
+                    tileY = template.data.y;
+                }
                 break;
             case "circle":
                 templateW = template.data.distance * 2;
@@ -146,28 +165,28 @@ export async function templateAnimation(handler, msg) {
         } else {
             new Sequence()
                 .effect()
-                    .atLocation(sourceToken)
-                    .scale(sFXScale * handler.sourceScale)
-                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                    .belowTokens(handler.sourceLevel)
-                    .waitUntilFinished(handler.sourceDelay)
-                    .playIf(handler.sourceEnable)
-                    .addOverride(async (effect, data) => {
-                        if (handler.sourceEnable) {
-                            data.file = sourceFX.file;
-                        }
-                        //console.log(data)
-                        return data;
-                    })            
+                .atLocation(sourceToken)
+                .scale(sFXScale * handler.sourceScale)
+                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                .belowTokens(handler.sourceLevel)
+                .waitUntilFinished(handler.sourceDelay)
+                .playIf(handler.sourceEnable)
+                .addOverride(async (effect, data) => {
+                    if (handler.sourceEnable) {
+                        data.file = sourceFX.file;
+                    }
+                    //console.log(data)
+                    return data;
+                })
                 .effect()
-                    .file(tempAnimation.file)
-                    .atLocation({ x: template.data.x, y: template.data.y })
-                    .anchor({ x: xAnchor, y: yAnchor })
-                    .rotate(rotate)
-                    .scale({ x: scaleX, y: scaleY })
-                    .belowTokens(false)
-                    .repeats(tempAnimation.loops, tempAnimation.delay)
-                    .play()
+                .file(tempAnimation.file)
+                .atLocation({ x: template.data.x, y: template.data.y })
+                .anchor({ x: xAnchor, y: yAnchor })
+                .rotate(rotate)
+                .scale({ x: scaleX, y: scaleY })
+                .belowTokens(false)
+                .repeats(tempAnimation.loops, tempAnimation.delay)
+                .play()
         }
 
         if (handler.templates.removeTemplate) {
