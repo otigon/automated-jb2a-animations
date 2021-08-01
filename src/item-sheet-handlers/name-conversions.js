@@ -10,6 +10,11 @@ export function nameConversion(itemName) {
     let jb2a = moduleIncludes("jb2a_patreon") === true ? "jb2a_patreon" : "JB2A_DnD5e";
     let autoPreview = "no preview";
     switch (true) {
+        //need to rework some of this or provide a way to exit out based on certain animation types
+        case oldItemName === "lightning bolt":
+        case oldItemName === game.i18n.format("AUTOANIM.lightningbolt"):
+            newItemName = "lightningbolt";
+            break;
         case oldItemName === "rangesword":
         case oldItemName === "rangegreatsword":
         case oldItemName === "rangegreataxe":

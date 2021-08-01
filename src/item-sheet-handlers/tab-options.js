@@ -336,8 +336,10 @@ export function templateColors(templateType, templateAnimation, patreon) {
                 case "lightning":
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.rayLightningColor) : AUTOANIM.localized(AUTOANIM.rayLightningColorFree);
                     break;
+                case "lightningbolt":
+                    templateColor = patreon ? AUTOANIM.localized(AUTOANIM.lightningBoltColor) : AUTOANIM.localized(AUTOANIM.lightningBoltColorFree);
+                    break;
             }
-            return AUTOANIM.localized(AUTOANIM.coneColdColor);
             break;
         case "circle":
             switch (templateAnimation) {

@@ -1146,6 +1146,11 @@ AUTOANIM.lightningBoltColor = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.lightningBoltColorFree = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+}
+
 AUTOANIM.lbVariant = {
     "a1": ``,
     "01": "01",
