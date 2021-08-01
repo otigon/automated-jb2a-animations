@@ -474,7 +474,7 @@ async function specialCaseAnimations(msg) {
             })
             break;
         default:
-            if (!handler.hasAttack && !handler.hasDamage)
+            if (!handler.hasAttack && !handler.hasDamage && game.settings.get("autoanimations", "playonDamage"))
                 revItUp(handler);
     }
 }
