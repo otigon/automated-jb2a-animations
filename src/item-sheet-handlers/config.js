@@ -972,7 +972,8 @@ AUTOANIM.animNameClassFeatures = {
     'bardicinspiration': "AUTOANIM.bardicInspiration",
     "shieldspell": "AUTOANIM.itemShield",
     "huntersmark": "AUTOANIM.itemHM",
-    "sneakattack": "AUTOANIM.sneakattack"
+    "sneakattack": "AUTOANIM.sneakattack",
+    "bless": "AUTOANIM.bless"
 }
 
 AUTOANIM.bardAnimType = {
@@ -1483,6 +1484,19 @@ AUTOANIM.shieldspellColors = {
 AUTOANIM.shieldspellColorsFree = {
     "a1": "",
     "blue": "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.blessColors = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow",
+}
+
+AUTOANIM.blessColorsFree = {
+    "a1": "",
+    "yellow": "AUTOANIM.colorYellow",
 }
 
 AUTOANIM.localized = function (cfg) {

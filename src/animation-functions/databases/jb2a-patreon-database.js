@@ -1554,7 +1554,7 @@ JB2APATREONDB.templates = {
                 'green': "modules/jb2a_patreon/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Regular_Green_4000x400.webm",
                 'purple': "modules/jb2a_patreon/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Regular_Purple_4000x400.webm"
             }
-        }        
+        }
     },
 
     'cone': {
@@ -2287,14 +2287,14 @@ JB2APATREONDB.cloudofdaggers = {
     }
 }
 
-JB2APATREONDB.chakram= {
+JB2APATREONDB.chakram = {
     '15ft': "modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Chakram01_01_Regular_White_15ft_1000x400.webm",
     '30ft': "modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Chakram01_01_Regular_White_30ft_1600x400.webm",
     '60ft': "modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Chakram01_01_Regular_White_60ft_2800x400.webm",
     '90ft': "modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Chakram01_01_Regular_White_90ft_4000x400.webm",
 }
 
-JB2APATREONDB.lightningbolt= {
+JB2APATREONDB.lightningbolt = {
     '01': {
         'dark_blue': "modules/jb2a_patreon/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Dark_Blue_4000x200.webm",
         'blue': "modules/jb2a_patreon/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x200.webm",
@@ -2309,41 +2309,21 @@ JB2APATREONDB.lightningbolt= {
     }
 }
 
-JB2APATREONDB.bless= {
-    '400px': {
-        'blue': {
-            'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Blue_Intro_400x400.webm",
-            'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Blue_Loop_400x400.webm",
-        },
-        'green': {
-            'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Green_Intro_400x400.webm",
-            'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Green_Loop_400x400.webm",
-        },
-        'purple': {
-            'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Purple_Intro_400x400.webm",
-            'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Purple_Loop_400x400.webm",
-        },
-        'yellow': {
-            'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Yellow_Intro_400x400.webm",
-            'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Yellow_Loop_400x400.webm",
-        }
+JB2APATREONDB.bless = {
+    'blue': {
+        'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Blue_Intro_400x400.webm",
+        'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Blue_Loop_400x400.webm",
     },
-    '200px': {
-        'blue': {
-            'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Blue_Intro_200x200.webm",
-            'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Blue_Loop_200x200.webm",
-        },
-        'green': {
-            'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Green_Intro_200x200.webm",
-            'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Green_Loop_200x200.webm",
-        },
-        'purple': {
-            'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Purple_Intro_200x200.webm",
-            'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Purple_Loop_200x200.webm",
-        },
-        'yellow': {
-            'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Yellow_Intro_200x200.webm",
-            'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Yellow_Loop_200x200.webm",
-        }
+    'green': {
+        'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Green_Intro_400x400.webm",
+        'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Green_Loop_400x400.webm",
+    },
+    'purple': {
+        'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Purple_Intro_400x400.webm",
+        'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Purple_Loop_400x400.webm",
+    },
+    'yellow': {
+        'intro': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Yellow_Intro_400x400.webm",
+        'loop': "modules/jb2a_patreon/Library/1st_Level/Bless/Bless_01_Regular_Yellow_Loop_400x400.webm",
     }
 }

@@ -1418,6 +1418,7 @@
                     </select>
                 </div>
                 {{/if}}
+
                 <!--Bardic Inspiration Options-->
                 {{#if bardicOptions}}
                 <!--Bardic Inspiration: Animation on Self?-->
@@ -1522,6 +1523,7 @@
                     {{/if}}
                 </div>
                 {{/if}}
+
                 <!--Hunters Mark Options-->
                 {{#if huntersMark}}
                 <div class="form-group">
@@ -1567,6 +1569,37 @@
                     </select>
                 </div>
                 {{/if}}
+                {{/if}}
+
+                <!--Bless Options-->
+                {{#if bless}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                    <select name="flags.autoanimations.color">
+                        {{#select flags.autoanimations.color}}
+                        {{#each animationColor as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Add CTA Effect on Token</label>
+                    <input type="checkbox" name="flags.autoanimations.options.addCTA" {{checked
+                        flags.autoanimations.options.addCTA}}>
+                </div>
+                {{#if flags.autoanimations.options.addCTA}}
+                <div class="form-group">
+                    <label class="socketlibWarn">Custom Token Animations {{localize "AUTOANIM.socketLibAA"}}</label>
+                </div>
+                {{/if}}
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.scale"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
+                </div>
                 {{/if}}
             </div>
             <div class="aa-video">

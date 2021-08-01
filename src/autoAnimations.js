@@ -15,8 +15,8 @@ import PF2Handler from "./system-handlers/pf2-handler.js";
 
 import thunderwaveAuto from "./animation-functions/thunderwave.js";
 import ctaCall from "./animation-functions/CTAcall.js";
-import huntersMark from "./animation-functions/hunters-mark.js";
-import bardicInspiration from "./animation-functions/bardic-inspiration.js";
+import huntersMark from "./animation-functions/custom-sequences/hunters-mark.js";
+import bardicInspiration from "./animation-functions/custom-sequences/bardic-inspiration.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
 import { AAITEMCHECK, AAITEMCHECKFREE } from "./animation-functions/item-arrays.js";
@@ -26,8 +26,9 @@ import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
 import { explodeOnToken } from "./animation-functions/explodeOnToken.js";
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
-import { shieldSpell } from "./animation-functions/shield.js";
-import { sneakAttack } from "./animation-functions/sneak-Attack.js";
+import { shieldSpell } from "./animation-functions/custom-sequences/shield.js";
+import { sneakAttack } from "./animation-functions/custom-sequences/sneak-Attack.js";
+import { bless } from "./animation-functions/custom-sequences/bless.js";
 import { setupSocket } from "./socketset.js";
 
 import ImagePicker from "./ImagePicker.js";
@@ -406,8 +407,9 @@ function onCreateChatMessage(msg) {
                 teleportation(handler);
                 break;
         }
+    } else {
+        revItUp(handler)
     }
-    revItUp(handler)
 }
 
 // Sets Handler for SWADE
@@ -459,8 +461,8 @@ async function specialCaseAnimations(msg) {
         return;
     }
     let handler = new Dnd5Handler(msg);
-    switch (true) {
 
+    switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             if (game.settings.get("autoanimations", "playonDamage")) {
                 teleportation(handler);
@@ -471,6 +473,9 @@ async function specialCaseAnimations(msg) {
                 templateAnimation(handler, msg);
             })
             break;
+        default:
+            if (!handler.hasAttack && !handler.hasDamage)
+                revItUp(handler);
     }
 }
 async function pf2eReady(msg) {
@@ -552,6 +557,7 @@ function revItUp5eCore(msg) {
     }
     */
     //const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
+    if (!handler.hasAttack && !handler.hasDamage) { revItUp(handler) }
     if (game.settings.get("autoanimations", "playonDamageCore")) {
         if (rollType.includes("damage")) {
             //const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
@@ -647,6 +653,7 @@ async function revItUp(handler) {
         }
     }
     let itemName = handler.convertedName;
+    console.log(itemName)
     switch (true) {
         case ((handler.animType === "t9") && handler.animOverride):
         case ((handler.animType === "t10") && handler.animOverride):
@@ -662,6 +669,9 @@ async function revItUp(handler) {
             break;
         case ((handler.animName === "shieldspell")):
             shieldSpell(handler);
+            break;
+        case itemName === "bless":
+            bless(handler);
             break;
         case itemName === "bardicinspiration":
             bardicInspiration(handler);

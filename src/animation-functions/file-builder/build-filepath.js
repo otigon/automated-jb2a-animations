@@ -182,7 +182,7 @@ export async function buildTemplateFile(jb2a, handler) {
                 break;
             case "lightningbolt":
                 file = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${flags.tempColor}`;
-                file2 = flags.tempColor === "random" ?  jb2a['templates'][flags.tempType][flags.tempAnim][variant][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim][variant])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][variant][flags.tempColor];
+                file2 = flags.tempColor === "random" ? jb2a['templates'][flags.tempType][flags.tempAnim][variant][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim][variant])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][variant][flags.tempColor];
                 break;
             default:
                 file = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${flags.tempColor}`;
@@ -301,6 +301,19 @@ export async function buildShieldFile(jb2a, handler) {
     const metadata = await getVideoDimensionsOf(fileData);
 
     return { file01, file02, file03, metadata };
+}
+
+export async function buildBlessFile(jb2a, handler) {
+    const color = handler.color || "yellow";
+    const file01 = `autoanimations.bless.${color}.intro`;
+    const file02 = `autoanimations.bless.${color}.loop`;
+    const ctaFile01 = jb2a.bless[color]["intro"];
+    const ctaFile02 = jb2a.bless[color]["loop"];
+
+    let metadata = await getVideoDimensionsOf(ctaFile01);
+    let metadata2 = await getVideoDimensionsOf(ctaFile02);
+
+    return { file01, file02, ctaFile01, ctaFile02, metadata, metadata2 }
 }
 
 export async function buildHMFile(jb2a, handler) {

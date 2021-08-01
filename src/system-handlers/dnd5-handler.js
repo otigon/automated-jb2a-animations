@@ -228,6 +228,7 @@ export default class Dnd5Handler {
     get targetVariant() { return this._targetVariant;}
   
     get hasAttack() {return this._item.hasAttack;}
+    get hasDamage() {return this._item.hadDamage;}
 
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;

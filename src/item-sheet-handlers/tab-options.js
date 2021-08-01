@@ -189,6 +189,9 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
         case itemName === "rangelasersworddb":
             animationColor = AUTOANIM.localized(AUTOANIM.rangeLaserSwordColor)
             break;
+        case itemName === "bless":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.blessColors) : AUTOANIM.localized(AUTOANIM.blessColorsFree)
+            break;
         default:
             animationColor = AUTOANIM.localized(AUTOANIM.animNull);
             break;

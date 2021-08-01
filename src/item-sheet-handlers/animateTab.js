@@ -230,6 +230,7 @@ export class AAItemSettings extends FormApplication {
             shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
             huntersMark: itemName === "huntersmark",
             sneakAttack: itemName === "sneakattack",
+            bless: itemName === "bless",
 
             dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
 

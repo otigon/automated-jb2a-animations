@@ -1,6 +1,6 @@
-import { buildShieldFile, buildSourceTokenFile } from "./file-builder/build-filepath.js"
-import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
+import { buildShieldFile, buildSourceTokenFile } from "../file-builder/build-filepath.js"
+import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));

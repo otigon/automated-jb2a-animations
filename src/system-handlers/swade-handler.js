@@ -15,7 +15,8 @@ export default class SwadeHandler {
         this._allTargets = Array.from(game.user.targets);
         this._itemName = item.name?.toLowerCase();
         this._flags = item?.data?.flags?.autoanimations ?? "";;
-        
+        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+
         this._animLevel = this._flags.animLevel ?? false;
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
