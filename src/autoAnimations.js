@@ -463,6 +463,10 @@ async function specialCaseAnimations(msg) {
         return;
     }
     let handler = new Dnd5Handler(msg);
+    
+    if(!handler.hasAttack && !handler.hasDamage && handler.itemSound) {
+        itemSound(handler);
+    }
 
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
