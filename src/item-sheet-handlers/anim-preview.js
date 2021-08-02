@@ -264,7 +264,7 @@ function animPreview(flags, name) {
                 break;
         }
     }
-    console.log(preview);
+    //console.log(preview);
     return preview
 
     function testPath(path) {

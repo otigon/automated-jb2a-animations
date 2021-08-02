@@ -401,15 +401,16 @@ function onCreateChatMessage(msg) {
             handler = new Dnd35Handler(msg);
             break;
     }
+    /*
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
                 teleportation(handler);
                 break;
         }
-    } else {
-        revItUp(handler)
     }
+    */
+    revItUp(handler)
 }
 
 // Sets Handler for SWADE
@@ -472,10 +473,15 @@ async function specialCaseAnimations(msg) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler, msg);
             })
+            break;  
+        case handler.animName === "bless":
+            bless(handler)  
             break;
+        /*
         default:
             if (!handler.hasAttack && !handler.hasDamage && game.settings.get("autoanimations", "playonDamage"))
                 revItUp(handler);
+        */
     }
 }
 async function pf2eReady(msg) {
@@ -557,7 +563,7 @@ function revItUp5eCore(msg) {
     }
     */
     //const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
-    if (!handler.hasAttack && !handler.hasDamage) { revItUp(handler) }
+    if (!handler.hasAttack && !handler.hasDamage) { revItUp(handler); return; }
     if (game.settings.get("autoanimations", "playonDamageCore")) {
         if (rollType.includes("damage")) {
             //const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
