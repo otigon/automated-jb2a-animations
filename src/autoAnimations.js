@@ -1,5 +1,6 @@
 import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
+import { trafficCop } from "./router/traffic-cop.js";
 
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
