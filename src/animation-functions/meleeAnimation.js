@@ -45,7 +45,7 @@ export async function meleeAnimation(handler) {
     let explosionDelay = 1;
     let explosionFile = "";
     let playExSound = explosion && handler.explodeSound
-    console.log(playExSound)
+    //console.log(playExSound)
     if (handler.explodeSound){
         explosionVolume = explosionSound?.volume || 0.25;
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;

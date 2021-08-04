@@ -13,7 +13,7 @@ export async function templateAnimation(handler, msg) {
     }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     const sourceToken = handler.actorToken;
-    console.log(handler.item);
+    //console.log(handler.item);
     let tempAnimation = await buildTemplateFile(obj01, handler)
     let sourceFX;
     let sFXScale;
