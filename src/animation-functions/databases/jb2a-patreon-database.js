@@ -253,57 +253,57 @@ JB2APATREONDB.witchbolt = {
 JB2APATREONDB.scorchingray = {
     '01': {
         'orange': {
-            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_30ft_600x400.webm",
-            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_30ft_1000x400.webm",
+            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_05ft_600x400.webm",
+            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_15ft_1000x400.webm",
             '30ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_30ft_1600x400.webm',
             '60ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_60ft_2800x400.webm',
             '90ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_90ft_4000x400.webm'
         },
         'blue': {
-            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Blue_30ft_600x400.webm",
-            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Blue_30ft_1000x400.webm",
+            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Blue_05ft_600x400.webm",
+            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Blue_15ft_1000x400.webm",
             '30ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Blue_30ft_1600x400.webm',
             '60ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Blue_60ft_2800x400.webm',
             '90ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Blue_90ft_4000x400.webm'
         },
         'green': {
-            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Green_30ft_600x400.webm",
-            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Green_30ft_1000x400.webm",
+            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Green_05ft_600x400.webm",
+            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Green_15ft_1000x400.webm",
             '30ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Green_30ft_1600x400.webm',
             '60ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Green_60ft_2800x400.webm',
             '90ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Green_90ft_4000x400.webm'
         },
         'purple': {
-            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Purple_30ft_600x400.webm",
-            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Purple_30ft_1000x400.webm",
+            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Purple_05ft_600x400.webm",
+            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Purple_15ft_1000x400.webm",
             '30ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Purple_30ft_1600x400.webm',
             '60ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Purple_60ft_2800x400.webm',
             '90ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Purple_90ft_4000x400.webm'
         },
         'red': {
-            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Red_30ft_600x400.webm",
-            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Red_30ft_1000x400.webm",
+            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Red_05ft_600x400.webm",
+            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Red_15ft_1000x400.webm",
             '30ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Red_30ft_1600x400.webm',
             '60ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Red_60ft_2800x400.webm',
             '90ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Red_90ft_4000x400.webm'
         },
         'yellow': {
-            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_30ft_600x400.webm",
-            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_30ft_1000x400.webm",
+            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_05ft_600x400.webm",
+            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_15ft_1000x400.webm",
             '30ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_30ft_1600x400.webm',
             '60ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_60ft_2800x400.webm',
             '90ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Yellow_90ft_4000x400.webm'
         },
         'rainbow01': {
-            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_30ft_600x400.webm",
-            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_30ft_1000x400.webm",
+            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_05ft_600x400.webm",
+            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_15ft_1000x400.webm",
             '30ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_30ft_1600x400.webm',
             '60ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_60ft_2800x400.webm',
             '90ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow01_90ft_4000x400.webm'
         },
         'rainbow02': {
-            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_30ft_600x400.webm",
-            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_30ft_1000x400.webm",
+            '05ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_05ft_600x400.webm",
+            '15ft': "modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_15ft_1000x400.webm",
             '30ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_30ft_1600x400.webm',
             '60ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_60ft_2800x400.webm',
             '90ft': 'modules/jb2a_patreon/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Rainbow02_90ft_4000x400.webm'

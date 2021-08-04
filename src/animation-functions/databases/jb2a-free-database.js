@@ -68,8 +68,8 @@ JB2AFREEDB.witchbolt = {
 JB2AFREEDB.scorchingray = {
     '01': {
         'orange': {
-            '05ft': "modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_30ft_600x400.webm",
-            '15ft': "modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_30ft_1000x400.webm",
+            '05ft': "modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_05ft_600x400.webm",
+            '15ft': "modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_15ft_1000x400.webm",
             '30ft': "modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_30ft_1600x400.webm",
             '60ft': "modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_60ft_2800x400.webm",
             '90ft': "modules/JB2A_DnD5e/Library/2nd_Level/Scorching_Ray/ScorchingRay_01_Regular_Orange_90ft_4000x400.webm"
@@ -481,6 +481,14 @@ JB2AFREEDB.templates = {
         },
         'lightning': {
             'blue': 'modules/JB2A_DnD5e/Library/Generic/Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Blue_30ft_Line_Burst_1200x200.webm',
+        },
+        "lightningbolt": {
+            '01': {
+                'blue': "modules/JB2A_DnD5e/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x200.webm",
+            },
+            '02': {
+                'blue': "modules/JB2A_DnD5e/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x400.webm",
+            }
         }
     },
 
