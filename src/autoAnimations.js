@@ -564,7 +564,7 @@ function setupDemonLord(data) {
 }
 
 /*
-/ Sets Handler for Pathfinder 2e
+/ Sets Handler for Pathfinder 2e and routes to animations
 */
 async function pf2eReady(msg) {
     if (game.user.id !== msg.user.id) { return; }
