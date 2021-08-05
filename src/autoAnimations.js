@@ -401,7 +401,6 @@ function moduleIncludes(test) {
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 function setUpMidi(workflow) {
-    if (workflow.item?.data?.flags?.autoanimations?.animType) {return;}
     let handler = new MidiHandler(workflow);
     if (handler.animType === "t8" && handler.animOverride) {return;}
     trafficCop(handler);

@@ -1,4 +1,4 @@
-import { nameConversion, removeDefaults } from "../item-sheet-handlers/name-conversions.js";
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
 
 export default class MidiHandler {
     constructor(workflow) {
