@@ -401,19 +401,23 @@ function moduleIncludes(test) {
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 function setUpMidi(workflow) {
+    if (workflow.item?.data?.flags?.autoanimations?.animType) {return;}
     let handler = new MidiHandler(workflow);
+    if (handler.animType === "t8" && handler.animOverride) {return;}
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
 function setUpMidiNoAD(workflow) {
     if (workflow.item.hasAttack && workflow.item.hasDamage) { return; }
     let handler = new MidiHandler(workflow);
+    if (handler.animType === "t8" && handler.animOverride) {return;}
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
 function setUpMidiNoA(workflow) {
     if (workflow.item.hasAttack) { return; }
     let handler = new MidiHandler(workflow);
+    if (handler.animType === "t8" && handler.animOverride) {return;}
     trafficCop(handler)
 }
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now

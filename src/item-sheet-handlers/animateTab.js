@@ -88,6 +88,11 @@ export class AAItemSettings extends FormApplication {
             default:
                 spellVariants = false;
         }
+
+        let animationLoops = flags.autoanimations?.options?.loops > 50 ? 50 : flags.autoanimations?.options?.loops;
+        let loopTemplate =  flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
+        let explosionLoops = flags.autoanimations?.explodeLoop > 50 ? 50 : flags.autoanimations?.explodeLoop;
+
         let videoPreview = animPreview(flags, itemName);
         //console.log("videoPreview is set to " + videoPreview)
         if (videoPreview === "no preview" && !isOverride) { videoPreview = conversion[3] }
@@ -137,7 +142,7 @@ export class AAItemSettings extends FormApplication {
 
             huntermarkAnim: patreon ? AUTOANIM.localized(AUTOANIM.hmAnim) : AUTOANIM.localized(AUTOANIM.hmAnimFree),
 
-            animationLoops: flags.autoanimations?.options?.loops ?? 1,
+            animationLoops: animationLoops || 1,
             animationLoopDelay: flags.autoanimations?.options?.loopDelay ?? 250,
             scale: flags.autoanimations?.options?.scale ?? 1,
 
@@ -168,7 +173,7 @@ export class AAItemSettings extends FormApplication {
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             explosionColors: explosionColors(explosionVariant, patreon),
             explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
-            explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
+            explosionLoops: explosionLoops || 1,
             explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
             showExplosionOptions: (flags.autoanimations?.explosion /*&& override*/ && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7")) ? true : false,
 
@@ -185,7 +190,7 @@ export class AAItemSettings extends FormApplication {
             templateTypes: AUTOANIM.localized(AUTOANIM.templateType),
             templateAnimations: animTemplates(templateType),
             templateAnimColors: templateColors(templateType, templateAnimation, patreon),
-            loopTemplate: flags.autoanimations?.templates?.tempLoop ?? 1,
+            loopTemplate: loopTemplate || 1,
             templateLoopDelay: flags.autoanimations?.templates?.loopDelay ?? 250,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
             templateOpacity: flags.autoanimations?.templates?.opacity ?? 0.75,

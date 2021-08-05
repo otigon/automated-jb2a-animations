@@ -1,3 +1,5 @@
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+
 export default class DemonLordHandler {
     constructor({
         type: eventType,
