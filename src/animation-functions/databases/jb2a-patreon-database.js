@@ -904,7 +904,7 @@ JB2APATREONDB.creatureclaw = {
     "orange": 'modules/jb2a_patreon/Library/Generic/Creature/Claws_01_Bright_Orange_400x400.webm',
     "purple": 'modules/jb2a_patreon/Library/Generic/Creature/Claws_01_Bright_Purple_400x400.webm',
     "yellow": 'modules/jb2a_patreon/Library/Generic/Creature/Claws_01_Bright_Yellow_400x400.webm',
-    "darkred": 'modules/jb2a_patreon/Library/Generic/Creature/Claws_01_Dark_Red_400x400.webm'
+    "dark red": 'modules/jb2a_patreon/Library/Generic/Creature/Claws_01_Dark_Red_400x400.webm'
 }
 
 JB2APATREONDB.calllightning = {

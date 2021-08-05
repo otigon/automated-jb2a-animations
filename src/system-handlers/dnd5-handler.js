@@ -227,8 +227,8 @@ export default class Dnd5Handler {
     get targetDelay() {return this._targetDelay;}
     get targetVariant() { return this._targetVariant;}
   
-    get hasAttack() {return this._item.hasAttack ?? false;}
-    get hasDamage() {return this._item.hadDamage ?? false;}
+    get hasAttack() {return this._item?.hasAttack ?? false;}
+    get hasDamage() {return this._item?.hasDamage ?? false;}
 
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;

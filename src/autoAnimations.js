@@ -1,5 +1,6 @@
 import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
+import { trafficCop } from "./router/traffic-cop.js";
 
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
@@ -220,11 +221,13 @@ Hooks.on('init', () => {
         log("midi IS active");
         switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
-                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { revItUpMidi(workflow) });
+                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
                 Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAD(workflow) });
                 break;
             case (false):
-                Hooks.on("midi-qol.RollComplete", (workflow) => { revItUpMidi(workflow) });
+                Hooks.on("midi-qol.AttackRollComplete", (workflow) => { setUpMidi(workflow) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoA(workflow) });
                 Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
                 break;
         }
@@ -240,7 +243,11 @@ Hooks.on('init', () => {
                 break;
             case "dnd5e":
             case "sw5e":
-                Hooks.on("createChatMessage", async (msg) => { revItUp5eCore(msg) });
+                Hooks.on("createChatMessage", async (msg) => {
+                    setUp5eCore
+                        (msg);
+                    //specialCaseAnimations(msg);
+                });
                 //Hooks.on("preCreateChatMessage", async (msg, options, userId) => {dnd5ecrits(msg)});
                 break;
             case "tormenta20":
@@ -380,7 +387,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 class AutoAnimations {
     static playAnimation(sourceToken, targets, item) {
         let handler = new GeneralAnimHandler(sourceToken, targets, item);
-        revItUp(handler);
+        trafficCop(handler);
     }
 }
 window.AutoAnimations = AutoAnimations;
@@ -388,7 +395,109 @@ window.AutoAnimations = AutoAnimations;
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
-// sets Handler for PF1 and DnD3.5
+
+/*
+/ Midi-QOL Functions for DnD 5e and Star Wars 5e
+*/
+// setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
+function setUpMidi(workflow) {
+    if (workflow.item?.data?.flags?.autoanimations?.animType) {return;}
+    let handler = new MidiHandler(workflow);
+    if (handler.animType === "t8" && handler.animOverride) {return;}
+    trafficCop(handler);
+}
+// setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
+function setUpMidiNoAD(workflow) {
+    if (workflow.item.hasAttack && workflow.item.hasDamage) { return; }
+    let handler = new MidiHandler(workflow);
+    if (handler.animType === "t8" && handler.animOverride) {return;}
+    trafficCop(handler)
+}
+// setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
+function setUpMidiNoA(workflow) {
+    if (workflow.item.hasAttack) { return; }
+    let handler = new MidiHandler(workflow);
+    if (handler.animType === "t8" && handler.animOverride) {return;}
+    trafficCop(handler)
+}
+// Special cases required when using Midi-QOL. Houses only the Template Animations right now
+async function specialCaseAnimations(msg) {
+    if (game.user.id !== msg.user.id) {
+        return;
+    }
+    let handler = new Dnd5Handler(msg);
+    if (handler.animType === "t8" && handler.animOverride) {
+        Hooks.once("createMeasuredTemplate", (msg) => {
+            templateAnimation(handler, msg);
+        })
+    }
+}
+
+/*
+/ Set up DnD5e and SW5e CORE (NON MIDI)
+*/
+function setUp5eCore(msg) {
+    if (msg.user.id !== game.user.id) { return };
+
+    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
+    let handler;
+    let rollType;
+    switch (game.system.id) {
+        case "dnd5e":
+            handler = new Dnd5Handler(msg);
+            rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
+            break;
+        case "sw5e":
+            handler = new SW5eHandler(msg);
+            rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
+            break;
+    }
+
+    if (!handler.item || handler.animKill) { return }
+    switch (true) {
+        case !handler.hasAttack && !handler.hasDamage:
+            trafficCop(handler);
+            break;
+        case handler.animType === "t8" && !rollType.includes("damage"):
+            trafficCop(handler);
+            break;
+        case animationNow:
+            if (rollType.includes("damage")) {
+                if (handler.animType === "t8") { return; }
+                if (game.modules.get("mre-dnd5e")?.active) {
+                    switch (game.settings.get("mre-dnd5e", "autoDamage")) {
+                        case (true):
+                            switch (true) {
+                                case handler.convertedName === "thunderwave":
+                                    //case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
+                                    Hooks.once("createMeasuredTemplate", () => {
+                                        thunderwaveAuto(handler);
+                                    })
+                                    break;
+                            }
+                            break;
+                        case (false):
+                            trafficCop(handler);
+                            break;
+                    }
+                } else { trafficCop(handler); }
+            }
+            break;
+        case !animationNow:
+            switch (true) {
+                case rollType.includes("damage") && !handler.hasAttack:
+                case rollType.includes('attack'):
+                    if (handler.animType === "t8") { return; }
+                    trafficCop(handler);
+                    break;
+            }
+            break;
+    }
+}
+
+/*
+/ sets Handler for PF1 and DnD3.5
+*/
 function onCreateChatMessage(msg) {
     if (msg.user.id !== game.user.id) { return };
     log('onCreateChatMessage', msg);
@@ -410,16 +519,20 @@ function onCreateChatMessage(msg) {
         }
     }
     */
-    revItUp(handler)
+    trafficCop(handler)
 }
 
-// Sets Handler for SWADE
+/*
+/ Sets Handler for SWADE
+*/
 function swadeData(SwadeActor, SwadeItem) {
     let handler = new SwadeHandler(SwadeActor, SwadeItem);
-    revItUp(handler);
+    trafficCop(handler);
 }
 
-// Sets Handler for Starfinder
+/*
+/ Sets Handler for Starfinder
+*/
 function starFinder(data, msg) {
     let tokenId = msg.data.speaker.token;
     let sourceToken = canvas.tokens.get(tokenId);
@@ -428,13 +541,9 @@ function starFinder(data, msg) {
     AutoAnimations.playAnimation(sourceToken, targets, item)
 }
 
-// Sets Handler for DnD5e or SW5e if using Midi
-function revItUpMidi(workflow) {
-    let handler = new MidiHandler(workflow);
-    revItUp(handler);
-}
-
-// Sets Handler for Tormenta 20
+/*
+/ Sets Handler for Tormenta 20
+*/
 function setupTormenta20(msg) {
     let handler = new Tormenta20Handler(msg);
     if (game.user.id === msg.user.id) {
@@ -447,274 +556,97 @@ function setupTormenta20(msg) {
     if (game.user.id === msg.user.id) {
         return;
     }
-    revItUp(handler);
+    trafficCop(handler);
 }
 
-// Sets Handler for Demon Lord
+/*
+/ Sets Handler for Demon Lord
+*/
 function setupDemonLord(data) {
     let handler = new DemonLordHandler(data);
-    revItUp(handler);
+    trafficCop(handler);
 }
 
-// Special cases required when using Midi-QOL
-async function specialCaseAnimations(msg) {
-    if (game.user.id !== msg.user.id) {
-        return;
-    }
-    let handler = new Dnd5Handler(msg);
-    
-    if(!handler.hasAttack && !handler.hasDamage && handler.itemSound) {
-        itemSound(handler);
-    }
-
-    switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
-            if (game.settings.get("autoanimations", "playonDamage")) {
-                teleportation(handler);
-            }
-            break;
-        case (handler.animType === "t8" && handler.animOverride):
-            Hooks.once("createMeasuredTemplate", (msg) => {
-                templateAnimation(handler, msg);
-            })
-            break;  
-        case handler.animName === "bless":
-            bless(handler)  
-            break;
-        /*
-        default:
-            if (!handler.hasAttack && !handler.hasDamage && game.settings.get("autoanimations", "playonDamage"))
-                revItUp(handler);
-        */
-    }
-}
+/*
+/ Sets Handler for Pathfinder 2e and routes to animations
+*/
 async function pf2eReady(msg) {
     if (game.user.id !== msg.user.id) { return; }
-    let handler = await new PF2Handler(msg);
-    let spellType = handler.item?.data?.data?.spellType?.value;
-    //console.log(handler.item)
-    let spells = ['save', 'heal', 'utility']
-    let save = spells.includes(spellType) ? true : false;
-    //console.log(save)
-    //console.log(handler.animName)
-    if (!handler.item) { return }
-    //let attacks = ["attack-roll", "spell-attack-roll"];
-    if (!game.settings.get("autoanimations", "playonDamageCore")) {
-        if (msg.data.flags.pf2e?.context?.type.includes("attack") || save) {
-            revItUp(handler);
-        } else { return }
-    } else {
-        if (msg.data.flavor.toLowerCase().includes("damage") || save) {
-            revItUp(handler);
-        }
-    }
-}
-// DnD5e and SW5e CORE (NON MIDI) Traffic Cop
-function revItUp5eCore(msg) {
-    if (msg.user.id !== game.user.id) { return };
-    //if (msg.data?.flavor?.includes("Long Rest")) { return };
-    let handler;
-    let rollType;
-    switch (game.system.id) {
-        case "dnd5e":
-            handler = new Dnd5Handler(msg);
-            rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
-            break;
-        case "sw5e":
-            handler = new SW5eHandler(msg);
-            rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
-            break;
-    }
-    if (!handler.item) { return }
-
-    // Teleportation if MARS 5e is active
-    if (game.modules.get("mars-5e")?.active) {
-        if (game.user.id === msg.user.id) {
-            switch (true) {
-                case ((handler.animType === "t12") && (handler.animOverride)):
-                    teleportation(handler);
-                    break;
-            }
-        }
+    const handler = new PF2Handler(msg);
+    if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
-    // AURAS option if CTA is active
-    if (handler.animType === "t11" && handler.animOverride) {
-        if (game.modules.get("Custom-Token-Animations")?.active) {
-            ctaCall(handler);
-            return;
-        }
-    }
-    // Bardic Inspiration call, Can we bypass by checking no attack/damage?
-    if (handler.itemNameIncludes("bardic inspiration") || handler.itemNameIncludes(game.i18n.format("AUTOANIM.bardicInspiration").toLowerCase())) {
-        bardicInspiration(handler);
-    }
-    // Templates section, Hooks once on createMeasuredTemplate
+    const itemType = handler.itemType;
+    const damage = handler.item.damageValue;
+    const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
+    const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
     if (handler.animType === "t8" && handler.animOverride) {
-        Hooks.once("createMeasuredTemplate", (msg) => {
-            templateAnimation(handler, msg);
-        });
+        if (msg.data.flavor?.toLowerCase().includes("damage")) { return; }
+        trafficCop(handler);
         return;
     }
-    // Teleportation option, Can we bypass by checking no attack/damage?
-    /*
-    if (game.user.id === msg.user.id) {
-        switch (true) {
-            case ((handler.animType === "t12") && (handler.animOverride)):
-                teleportation(handler);
-                break;
-        }
-    }
-    */
-    //const rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
-    if (!handler.hasAttack && !handler.hasDamage) { revItUp(handler); return; }
-    if (game.settings.get("autoanimations", "playonDamageCore")) {
-        if (rollType.includes("damage")) {
-            //const itemType = myToken.actor.items.get(itemId).data.type.toLowerCase();
-            if (handler.itemSound) {
-                itemSound(handler);
-            }
-            if (game.modules.get("mre-dnd5e")?.active) {
-                log("MRE is active");
-                if (handler.itemIncludes("xxx") || handler.animKill) {
-                    return;
-                } else {
-                    switch (game.settings.get("mre-dnd5e", "autoDamage")) {
-                        case (true):
-                            switch (true) {
-                                case handler.convertedName === "thunderwave":
-                                    //case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
-                                    Hooks.once("createMeasuredTemplate", () => {
-                                        thunderwaveAuto(handler);
-                                    })
-                                    break;
+    switch (itemType) {
+        case "spell":
+            switch (spellType) {
+                case "utility":
+                    trafficCop(handler);
+                    break;
+                case "save":
+                    if (!damage) {
+                        trafficCop(handler);
+                    } else if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                        trafficCop(handler);
+                    }
+                    break;
+                case "heal":
+                    if (msg.data.flavor?.toLowerCase().includes('healing')) {
+                        trafficCop(handler);
+                    }
+                    break;
+                case "attack":
+                    switch (playOnDmg) {
+                        case true:
+                            if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                                trafficCop(handler);
                             }
                             break;
-                        case (false):
-                            revItUp(handler);
-                            break;
+                        default:
+                            if (msg.data.flags.pf2e?.context?.type.includes("attack")) {
+                                trafficCop(handler);
+                            }
                     }
-                }
-            } else { log("MRE is NOT active"); revItUp(handler); }
-        }
+                    break;
+            }
+            break;
+        case "melee":
+        case "weapon":
+            switch (true) {
+                case playOnDmg:
+                    if (msg.data.flags.pf2e?.damageRoll /*msg.data.flavor?.toLowerCase().includes("damage")*/) {
+                        trafficCop(handler);
+                    }
+                    break;
+                default:
+                    if (msg.data.flags.pf2e?.context?.type.includes("attack")) {
+                        trafficCop(handler);
+                    }
+            }
+            break;
+        case "consumable":
+        case "armor":
+        case "feat":
+        case "action":
+        case "effect":
+            trafficCop(handler);
+            break;
     }
-    if (!game.settings.get("autoanimations", "playonDamageCore")) {
-        if (rollType.includes("damage")) {
-            log("damage roll");
-        } else if (rollType.includes("attack") || !handler.hasAttack) {
-            revItUp(handler)
-        } else /*if (game.settings.get("autoanimations", "playonDamageCore") == false)*/ {
-            if (handler.itemSound) {
-                itemSound(handler);
-            }
-            if (handler.animKill) {
-                return;
-            }
-            else {
-                if (handler.itemSound) {
-                    itemSound(handler);
-                }
-                switch (true) {
-                    case handler.convertedName === "thunderwave":
-                        //case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
-                        Hooks.once("createMeasuredTemplate", () => {
-                            thunderwaveAuto(handler);
-                        })
-                        break;
-                }
-            }
-        }
-    }
-
 }
+
 async function itemSound(handler) {
     let audio = handler.allSounds.item;
     if (handler.itemSound) {
         await wait(audio.delay);
         AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-    }
-}
-async function revItUp(handler) {
-    const itemArray = moduleIncludes("jb2a_patreon") ? AAITEMCHECK : AAITEMCHECKFREE;
-    if (handler.itemSound) {
-        itemSound(handler);
-    }
-    if (handler.animKill) { return }
-    if (game.modules.get("midi-qol")?.active) { } else {
-        switch (game.system.id) {
-            case "dnd5e":
-                if (game.modules.get("mars-5e")?.active) {
-                    if (handler.animType === "t8" && handler.animOverride) {
-                        templateAnimation(handler);
-                        return;
-                    }
-                } else if (handler.animType === "t8" && handler.animOverride) {
-                    Hooks.once("createMeasuredTemplate", (msg) => {
-                        templateAnimation(handler, msg);
-                    });
-                    return;
-                }
-                break;
-            default:
-                if (handler.animType === "t8" && handler.animOverride) {
-                    templateAnimation(handler);
-                    return;
-                }
-        }
-    }
-    let itemName = handler.convertedName;
-    console.log(itemName)
-    switch (true) {
-        case ((handler.animType === "t9") && handler.animOverride):
-        case ((handler.animType === "t10") && handler.animOverride):
-            explodeOnToken(handler);
-            break;
-        case ((handler.animType === "t11") && handler.animOverride):
-            if (game.modules.get("Custom-Token-Animations")?.active) {
-                ctaCall(handler);
-            } else { ui.notifications.error("Custom Token Animations module must be Active") }
-            break;
-        case ((handler.animType === "t12") && (handler.animOverride)):
-            teleportation(handler);
-            break;
-        case ((handler.animName === "shieldspell")):
-            shieldSpell(handler);
-            break;
-        case itemName === "bless":
-            bless(handler);
-            break;
-        case itemName === "bardicinspiration":
-            bardicInspiration(handler);
-            break;
-        case itemName === "sneakattack":
-            sneakAttack(handler);
-            break;
-        case itemArray.melee.includes(itemName):
-        case itemArray.monk.includes(itemName):
-            meleeAnimation(handler);
-            break;
-        case itemName == "thunderwave":
-            switch (true) {
-                case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
-                    thunderwaveAuto(handler);
-                    break;
-                default:
-                    Hooks.once("createMeasuredTemplate", () => {
-                        thunderwaveAuto(handler);
-                    })
-            }
-            break;
-        case itemArray.healing.includes(itemName):
-        case itemArray.creatureattack.includes(itemName):
-            onTokenAnimation(handler);
-            break;
-        case itemArray.spellattack.includes(itemName):
-        case itemArray.ranged.includes(itemName):
-            rangedAnimations(handler);
-            break;
-        case itemName == "huntersmark":
-            huntersMark(handler)
-            break;
     }
 }
 async function criticalCheck(workflow) {
@@ -746,8 +678,9 @@ async function criticalCheck(workflow) {
             break;
     }
 }
-
-//WFRP Functions
+/*
+/ WFRP Functions
+*/
 function wfrpWeapon(data, targets, info) {
     if (game.user.id !== info.user) { return }
     let item = data.weapon;
@@ -758,7 +691,7 @@ function wfrpWeapon(data, targets, info) {
             teleportation(handler);
             break;
         default:
-            revItUp(handler);
+            trafficCop(handler);
     }
 }
 function wfrpPrayer(data, targets, info) {
@@ -771,7 +704,7 @@ function wfrpPrayer(data, targets, info) {
             teleportation(handler);
             break;
         default:
-            revItUp(handler);
+            trafficCop(handler);
     }
 }
 function wfrpCast(data, targets, info) {
@@ -784,7 +717,7 @@ function wfrpCast(data, targets, info) {
             teleportation(handler);
             break;
         default:
-            revItUp(handler);
+            trafficCop(handler);
     }
 }
 function wfrpTrait(data, targets, info) {
@@ -797,7 +730,7 @@ function wfrpTrait(data, targets, info) {
             teleportation(handler);
             break;
         default:
-            revItUp(handler);
+            trafficCop(handler);
     }
 }
 function wfrpSkill(data, targets, info) {
@@ -810,7 +743,7 @@ function wfrpSkill(data, targets, info) {
             teleportation(handler);
             break;
         default:
-            revItUp(handler);
+            trafficCop(handler);
     }
 }
 

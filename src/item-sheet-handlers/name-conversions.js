@@ -321,8 +321,8 @@ export function nameConversion(itemName) {
     if (newItemName === undefined) {
         console.warn("Does not match any automatically recognized name")
     }
-    console.log("old item name is " + oldItemName)
-    console.log("new item name is " + newItemName)
+    //console.log("old item name is " + oldItemName)
+    //console.log("new item name is " + newItemName)
     return [newItemName, defaultColor, autoRec, autoPreview];
     function moduleIncludes(test) {
         return !!game.modules.get(test);
