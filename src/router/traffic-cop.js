@@ -33,27 +33,18 @@ export async function trafficCop(handler) {
     }
     if (handler.animKill) { return; }
     const itemName = handler.convertedName;
+    console.log("Converted name is " + itemName)
     const animName = handler.animName;
     const animType = handler.animType;
     const override = handler.animOverride;
     //console.log(itemName)
     switch (true) {
-        case itemArray.melee.includes(itemName):
-            meleeAnimation(handler);
-            break;
-        case itemArray.spellattack.includes(itemName):
-        case itemArray.ranged.includes(itemName):
-            rangedAnimations(handler);
-            break;
-        case itemArray.healing.includes(itemName):
-        case itemArray.creatureattack.includes(itemName):
-            onTokenAnimation(handler);
-            break;
         case animType === "t8" && override:
             if (game.modules.get("midi-qol")?.active) { return; }
             //some do not need hook on template, depends on when damage is rolled
             switch (game.system.id) {
                 case "dnd5e":
+                case "pf2e":
                     if (game.modules.get("mars-5e")?.active) {
                         templateAnimation(handler);
                     } else {
@@ -61,11 +52,6 @@ export async function trafficCop(handler) {
                             templateAnimation(handler);
                         });
                     }
-                    break;
-                case "pf2e":
-                    Hooks.once("createMeasuredTemplate", () => {
-                        templateAnimation(handler);
-                    });
                     break;
                 default:
                     templateAnimation(handler);
@@ -102,7 +88,7 @@ export async function trafficCop(handler) {
                     break;
             }
             break;
-        case itemName == "thunderwave":
+        case itemName === "thunderwave":
             switch (true) {
                 case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
                     thunderwaveAuto(handler);
@@ -113,6 +99,18 @@ export async function trafficCop(handler) {
                     })
             }
             break;
+        case itemArray.melee.includes(itemName):
+            meleeAnimation(handler);
+            break;
+        case itemArray.spellattack.includes(itemName):
+        case itemArray.ranged.includes(itemName):
+            rangedAnimations(handler);
+            break;
+        case itemArray.healing.includes(itemName):
+        case itemArray.creatureattack.includes(itemName):
+            onTokenAnimation(handler);
+            break;
+
         //case handler.itemSound:
         //itemSound(handler);
         //break;
