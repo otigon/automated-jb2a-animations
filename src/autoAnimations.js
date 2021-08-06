@@ -407,14 +407,14 @@ function setUpMidi(workflow) {
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
 function setUpMidiNoAD(workflow) {
-    if (workflow.item.hasAttack && workflow.item.hasDamage) { return; }
+    if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = new MidiHandler(workflow);
     if (handler.animType === "t8" && handler.animOverride) {return;}
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
 function setUpMidiNoA(workflow) {
-    if (workflow.item.hasAttack) { return; }
+    if (workflow.item?.hasAttack) { return; }
     let handler = new MidiHandler(workflow);
     if (handler.animType === "t8" && handler.animOverride) {return;}
     trafficCop(handler)
