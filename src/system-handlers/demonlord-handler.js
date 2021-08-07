@@ -1,3 +1,5 @@
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+
 export default class DemonLordHandler {
     constructor({
         type: eventType,
@@ -45,6 +47,8 @@ export default class DemonLordHandler {
         // getting flag data from Animation Tab
         this._flags = item?.data?.flags?.autoanimations ?? "";
         // 
+        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+
         this._animLevel = this._flags.animLevel ?? false;
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";

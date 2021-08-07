@@ -1,5 +1,5 @@
-import { JB2APATREONDB } from "../animation-functions/jb2a-database.js/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../animation-functions/jb2a-database.js/jb2a-free-database.js";
+import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js";
 import { buildTargetTokenFile } from "../animation-functions/file-builder/build-filepath.js";
 
 function animPreview(flags, name) {
@@ -165,12 +165,12 @@ function animPreview(flags, name) {
                             case '02':
                                 spellVar = '02';
                                 try { preview = obj01[itemName][spellVar][color] }
-                                catch (exception) { preview = "no preview"; }        
+                                catch (exception) { preview = "no preview"; }
                                 break;
                             default:
                                 spellVar = '01';
                                 try { preview = obj01[itemName][spellVar][color] }
-                                catch (exception) { preview = "no preview"; }        
+                                catch (exception) { preview = "no preview"; }
                         }
                         break;
                 }
@@ -180,11 +180,21 @@ function animPreview(flags, name) {
                 tempType = item.templates?.tempType;
                 color = item.templates?.tempColor;
                 tempAnim = item.templates?.tempAnim;
+                console.log(tempAnim)
+                spellVar = item.spellVar || "01";
+                console.log(spellVar)
                 if (item.templates?.customAnim) {
                     preview = item.templates?.customPath;
                 } else {
-                    try {preview = obj01[obj02][tempType][tempAnim][color]} 
-                    catch (exception) {"no preview"}
+                    switch (tempAnim) {
+                        case "lightningbolt":
+                            try { preview = obj01[obj02][tempType][tempAnim][spellVar][color] }
+                            catch (exception) { "no preview" }
+                            break;
+                        default:
+                            try { preview = obj01[obj02][tempType][tempAnim][color] }
+                            catch (exception) { "no preview" }
+                    }
                 }
                 break;
             case item.animType === 't9':
@@ -231,7 +241,7 @@ function animPreview(flags, name) {
                 switch (itemName) {
                     case "mistystep":
                         try { preview = obj01[itemName]['01'][color] }
-                        catch (exception) { preview = "no preview"; }        
+                        catch (exception) { preview = "no preview"; }
                         break;
                 }
                 break;
@@ -242,11 +252,11 @@ function animPreview(flags, name) {
                         switch (item.bards?.bardAnim) {
                             case "bardicinspiration":
                                 try { preview = obj01[itemName]['inspire'][color] }
-                                catch (exception) { preview = "no preview"; }                
+                                catch (exception) { preview = "no preview"; }
                                 break;
                             case "music":
                                 try { preview = obj01[itemName][color] }
-                                catch (exception) { preview = "no preview"; }                
+                                catch (exception) { preview = "no preview"; }
                                 break;
                         }
                         break;

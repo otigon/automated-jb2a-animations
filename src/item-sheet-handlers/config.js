@@ -75,6 +75,7 @@ AUTOANIM.animNameRangeWeapon = {
     "bolt": "AUTOANIM.bolt",
     "boulder": "AUTOANIM.itemBoulder",
     "bullet": "AUTOANIM.bullet",
+    "chakram": "AUTOANIM.chakram",
     "rangedagger": "AUTOANIM.itemDagger",
     "rangegreataxe": "AUTOANIM.itemGreataxe",
     "rangegreatsword": "AUTOANIM.itemGreatsword",
@@ -171,6 +172,19 @@ AUTOANIM.animColorMelee = {
     "random": "AUTOANIM.colorRandom"
 }
 
+AUTOANIM.animDaggerColor = {
+    "a1": ``,
+    "white": `AUTOANIM.colorWhite`,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
+    "purple": "AUTOANIM.colorPurple",
+    "pink": "AUTOANIM.colorPink",
+    "yellow": "AUTOANIM.colorYellow",
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "random": "AUTOANIM.colorRandom"
+}
 AUTOANIM.rangeSwordColor = {
     "a1": ``,
     "white": `AUTOANIM.colorWhite`,
@@ -200,7 +214,18 @@ AUTOANIM.daggerVariant = {
     "kunai": "AUTOANIM.itemKunai",
 }
 
+AUTOANIM.cloudDaggerVariant = {
+    "a1": ``,
+    "01": "AUTOANIM.itemDagger01",
+    "kunai": "AUTOANIM.itemKunai",
+}
+
 AUTOANIM.daggerVariantFree = {
+    "a1": ``,
+    "01": "AUTOANIM.itemDagger01",
+}
+
+AUTOANIM.cloudDaggerVariantFree = {
     "a1": ``,
     "01": "AUTOANIM.itemDagger01",
 }
@@ -709,16 +734,6 @@ AUTOANIM.selfemanation = {
     "antilife-shell": "AUTOANIM.animAntiLifeShell",
 }
 
-AUTOANIM.selfCastRadius = {
-    "a1": ``,
-    "5": "5",
-    "10": "10",
-    "15": "15",
-    "20": "20",
-    "25": "25",
-    "30": "30"
-}
-
 AUTOANIM.aura = {
     "a1": "",
     "call lightning": "AUTOANIM.animCallLightning",
@@ -727,7 +742,32 @@ AUTOANIM.aura = {
     "sleetstorm": "AUTOANIM.animSleetstorm",
     "spirit guardians": "AUTOANIM.animSpiritGuardians",
     "wall of force": "AUTOANIM.animWallOfForce",
-    "whirlwind": "AUTOANIM.animWhirlwind"
+    "whirlwind": "AUTOANIM.animWhirlwind",
+    "antilifeshell": "AUTOANIM.animAntiLifeShell",
+    "cloudofdaggers": "AUTOANIM.cloudOfDaggers"
+}
+
+AUTOANIM.cloudDaggerColors = {
+    "a1": ``,
+    "dark purple": "AUTOANIM.colorDarkPurple",
+    "dark red": "AUTOANIM.colorDarkRed",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow"
+
+}
+
+AUTOANIM.cloudDaggerColorsFree = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "orange": "AUTOANIM.colorOrange",
+    "purple": "AUTOANIM.colorPurple",
+    "red": "AUTOANIM.colorRed",
+    "yellow": "AUTOANIM.colorYellow"
 }
 
 AUTOANIM.spiritguardianColors = {
@@ -932,7 +972,8 @@ AUTOANIM.animNameClassFeatures = {
     'bardicinspiration': "AUTOANIM.bardicInspiration",
     "shieldspell": "AUTOANIM.itemShield",
     "huntersmark": "AUTOANIM.itemHM",
-    "sneakattack": "AUTOANIM.sneakattack"
+    "sneakattack": "AUTOANIM.sneakattack",
+    "bless": "AUTOANIM.bless"
 }
 
 AUTOANIM.bardAnimType = {
@@ -1093,7 +1134,28 @@ AUTOANIM.rayAnimations = {
     "a1": ``,
     "acid": "AUTOANIM.dmgTypeAcid",
     "fire": "AUTOANIM.dmgTypeFire",
-    "lightning": "AUTOANIM.dmgTypeLightning"
+    "lightning": "AUTOANIM.dmgTypeLightning",
+    "lightningbolt": "AUTOANIM.lightningbolt"
+}
+
+AUTOANIM.lightningBoltColor = {
+    "a1": ``,
+    "dark blue": "AUTOANIM.colorDarkBlue",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple": "AUTOANIM.colorPurple",
+    "random": "AUTOANIM.colorRandom"
+}
+
+AUTOANIM.lightningBoltColorFree = {
+    "a1": ``,
+    "blue": "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.lbVariant = {
+    "a1": ``,
+    "01": "01",
+    "02": "02",
 }
 
 AUTOANIM.rayFireColor = {
@@ -1152,6 +1214,7 @@ AUTOANIM.circleAnimations = {
     "darkness": "AUTOANIM.animDarkness",
     "calllightning": "AUTOANIM.animCallLightning",
     "sleetstorm": "AUTOANIM.animSleetstorm",
+    "cloudofdaggers": "AUTOANIM.cloudOfDaggers"
 }
 
 AUTOANIM.rectangleAnimations = {
@@ -1421,6 +1484,19 @@ AUTOANIM.shieldspellColors = {
 AUTOANIM.shieldspellColorsFree = {
     "a1": "",
     "blue": "AUTOANIM.colorBlue",
+}
+
+AUTOANIM.blessColors = {
+    "a1": "",
+    "blue": "AUTOANIM.colorBlue",
+    "green": "AUTOANIM.colorGreen",
+    "purple": "AUTOANIM.colorPurple",
+    "yellow": "AUTOANIM.colorYellow",
+}
+
+AUTOANIM.blessColorsFree = {
+    "a1": "",
+    "yellow": "AUTOANIM.colorYellow",
 }
 
 AUTOANIM.localized = function (cfg) {

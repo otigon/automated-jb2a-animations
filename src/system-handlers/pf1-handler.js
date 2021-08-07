@@ -15,7 +15,7 @@ export default class Pf1Handler {
         this._allTargets = Array.from(message.user.targets);
 
         this._itemName = item.name?.toLowerCase();
-
+        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
         // getting flag data from Animation Tab
         this._flags = item?.data?.flags?.autoanimations ?? "";;
         // 

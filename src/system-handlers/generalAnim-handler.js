@@ -10,6 +10,7 @@ export default class GeneralAnimHandler {
         this._allTargets = targets;
         
         this._flags = this._item.data?.flags?.autoanimations ?? "";
+        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
 
         this._animLevel = this._flags.animLevel ?? false;
         this._animColor = this._flags?.color?.toLowerCase() ?? "";

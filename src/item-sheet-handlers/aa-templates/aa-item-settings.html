@@ -1096,6 +1096,18 @@
                         {{/select}}
                     </select>
                 </div>
+                {{#if templateVariants}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                    <select name="flags.autoanimations.spellVar">
+                        {{#select flags.autoanimations.spellVar}}
+                        {{#each templateVariant as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                {{/if}}
                 <!--Choose Template Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
@@ -1159,6 +1171,27 @@
                         value="flags.autoanimations.templates.overhead" {{checked
                         flags.autoanimations.templates.overhead}}>
                 </div>
+                {{#if flags.autoanimations.templates.overhead}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.occlusionMode"}}</label>
+                    <select name="flags.autoanimations.templates.occlusionMode">
+                        {{#select flags.autoanimations.templates.occlusionMode}}
+                        <option value="3">{{localize "AUTOANIM.occlusion03"}}</option>
+                        <option value="1">{{localize "AUTOANIM.occlusion01"}}</option>
+                        <option value="2">{{localize "AUTOANIM.occlusion02"}}</option>
+                        <option value="0">{{localize "AUTOANIM.occlusion00"}}</option>
+                        {{/select}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
+                    <div class="form-fields">
+                        <input type="range" name="flags.autoanimations.templates.occlusionAlpha"
+                            value={{occlusionAlpha}} min="0" max="1" step="0.05">
+                        <span class="range-value">{{occlusionAlpha}}</span>
+                    </div>
+                </div>
+                {{/if}}
                 {{/if}}
                 {{#unless persistent}}
                 <div class="flexrow">
@@ -1257,6 +1290,7 @@
                 <div class="form-group">
                     <label class="socketlibWarn">Custom Token Animations {{localize "AUTOANIM.socketLibAA"}}</label>
                 </div>
+                {{#unless flags.autoanimations.options.enableCustom01}}
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.animName">
@@ -1267,6 +1301,18 @@
                         {{/select}}
                     </select>
                 </div>
+                {{#if spellVariants}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                    <select name="flags.autoanimations.spellVar">
+                        {{#select flags.autoanimations.spellVar}}
+                        {{#each spellVariant as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                {{/if}}
                 <!--Choose Standard Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
@@ -1278,13 +1324,33 @@
                         {{/select}}
                     </select>
                 </div>
+                {{/unless}}
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.customAnim"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
+                            value="flags.autoanimations.options.enableCustom01" {{checked
+                            flags.autoanimations.options.enableCustom01}}>
+                    </div>
+                    {{#if flags.autoanimations.options.enableCustom01}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <input type="text" class="files" name="flags.autoanimations.options.customPath01"
+                            value={{customPath01}}>
+                        <button type="button" class="file-picker" data-type="video"
+                            data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
+                            <i class="fas fa-file-video"></i>
+                        </button>
+                    </div>
+                    {{/if}}
+                </div>
                 <!--Aura Choose Radius-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.scale"}}</label>
                     <input type="Number" name="flags.autoanimations.selfRadius" min="0" step=".01" value={{auraRadius}}
                         data-type="Number">
                 </div>
-                <label class="aa-hint-text">Compared to Token Size</label>
+                <label class="aa-hint-text">{{localize "AUTOANIM.auraScale"}}</label>
                 <!--Set Aura Tint-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.auraTint"}} </label>
@@ -1418,6 +1484,7 @@
                     </select>
                 </div>
                 {{/if}}
+
                 <!--Bardic Inspiration Options-->
                 {{#if bardicOptions}}
                 <!--Bardic Inspiration: Animation on Self?-->
@@ -1522,6 +1589,7 @@
                     {{/if}}
                 </div>
                 {{/if}}
+
                 <!--Hunters Mark Options-->
                 {{#if huntersMark}}
                 <div class="form-group">
@@ -1567,6 +1635,37 @@
                     </select>
                 </div>
                 {{/if}}
+                {{/if}}
+
+                <!--Bless Options-->
+                {{#if bless}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                    <select name="flags.autoanimations.color">
+                        {{#select flags.autoanimations.color}}
+                        {{#each animationColor as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Add CTA Effect on Token</label>
+                    <input type="checkbox" name="flags.autoanimations.options.addCTA" {{checked
+                        flags.autoanimations.options.addCTA}}>
+                </div>
+                {{#if flags.autoanimations.options.addCTA}}
+                <div class="form-group">
+                    <label class="socketlibWarn">Custom Token Animations {{localize "AUTOANIM.socketLibAA"}}</label>
+                </div>
+                {{/if}}
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.scale"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                            data-dtype="Number">
+                    </div>
+                </div>
                 {{/if}}
             </div>
             <div class="aa-video">

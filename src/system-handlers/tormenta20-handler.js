@@ -15,7 +15,8 @@ export default class Tormenta20Handler {
         this._itemSource = this._item.data?.data?.source?.toLowerCase() ?? "";
         this._itemType = this._item.data?.type?.toLowerCase();
         this._flags = this._actorToken.actor.items?.get(itemId)?.data?.flags?.autoanimations ?? "";
-        
+        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+
         this._animLevel = this._flags.animLevel ?? false;
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";

@@ -1,5 +1,7 @@
 export default class AUTORECOG {
     constructor () {
+        this._chakram = ["chakram", game.i18n.format("AUTOANIM.chakram").toLowerCase()];
+
         this._rapier = ["rapier", game.i18n.format("AUTOANIM.itemRapier").toLowerCase()];
 
         this._lasersword = ["lasersword", game.i18n.format("AUTOANIM.itemLaserSword").toLowerCase()];
@@ -64,7 +66,7 @@ export default class AUTORECOG {
 
         this._creaturebite = ["bite", "jaw", game.i18n.format("AUTOANIM.itemBite").toLowerCase()];
 
-        this._creatureclaw = ["claws", game.i18n.format("AUTOANIM.itemClaw").toLowerCase()];
+        this._creatureclaw = ["claw", game.i18n.format("AUTOANIM.itemClaw").toLowerCase()];
 
         this._huntersmark = ["hunter's mark", game.i18n.format("AUTOANIM.itemHM").toLowerCase(), "huntersmark"]
 
@@ -97,6 +99,7 @@ export default class AUTORECOG {
         this._sneakattack = ["sneakattack", "sneak attack", game.i18n.format("AUTOANIM.sneakattack").toLowerCase()]
     }
 
+    get chakram()           {return this._chakram;}
     get rapier()            {return this._rapier;}
     get lasersword()        {return this._lasersword;}
     get greatsword()        {return this._greatsword;}

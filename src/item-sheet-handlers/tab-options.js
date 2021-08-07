@@ -12,6 +12,8 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.hmColors) : AUTOANIM.localized(AUTOANIM.hmColorsFree)
             break;
         case itemName === "dagger":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animDaggerColor) : AUTOANIM.localized(AUTOANIM.animColorMeleeFree);
+            break;
         case itemName === "greataxe":
         case itemName === "greatsword":
         case itemName === "greatclub":
@@ -35,6 +37,9 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
         case itemName === "rangehammer":
         case itemName === "rangejavelin":
             animationColor = AUTOANIM.localized(AUTOANIM.justWhite);
+            break;
+        case itemName === "cloudofdaggers":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerColors) : AUTOANIM.localized(AUTOANIM.cloudDaggerColorsFree);
             break;
         case itemName === "curewounds":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorCureWounds) : AUTOANIM.localized(AUTOANIM.animColorCureWoundsFree)
@@ -184,6 +189,9 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
         case itemName === "rangelasersworddb":
             animationColor = AUTOANIM.localized(AUTOANIM.rangeLaserSwordColor)
             break;
+        case itemName === "bless":
+            animationColor = patreon ? AUTOANIM.localized(AUTOANIM.blessColors) : AUTOANIM.localized(AUTOANIM.blessColorsFree)
+            break;
         default:
             animationColor = AUTOANIM.localized(AUTOANIM.animNull);
             break;
@@ -331,8 +339,10 @@ export function templateColors(templateType, templateAnimation, patreon) {
                 case "lightning":
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.rayLightningColor) : AUTOANIM.localized(AUTOANIM.rayLightningColorFree);
                     break;
+                case "lightningbolt":
+                    templateColor = patreon ? AUTOANIM.localized(AUTOANIM.lightningBoltColor) : AUTOANIM.localized(AUTOANIM.lightningBoltColorFree);
+                    break;
             }
-            return AUTOANIM.localized(AUTOANIM.coneColdColor);
             break;
         case "circle":
             switch (templateAnimation) {
@@ -370,6 +380,9 @@ export function templateColors(templateType, templateAnimation, patreon) {
                     break;
                 case 'sleetstorm':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.sleetstormColors) : AUTOANIM.localized(AUTOANIM.sleetstormColorsFree)
+                    break;
+                case "cloudofdaggers":
+                    templateColor = patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerColors) : AUTOANIM.localized(AUTOANIM.cloudDaggerColorsFree);
                     break;
                 default:
                     return;
@@ -451,6 +464,12 @@ export function variantSpell(itemName, patreon) {
     switch (itemName) {
         case "shieldspell":
             variants = patreon ? AUTOANIM.shieldVariant : AUTOANIM.shieldVariantFree;
+            break;
+        case "cloudofdaggers":
+            variants = patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerVariant) : AUTOANIM.localized(AUTOANIM.cloudDaggerVariantFree);
+            break;
+        case "lightningbolt":
+            variants = AUTOANIM.localized(AUTOANIM.lbVariant);
             break;
         default:
             variants = patreon ? AUTOANIM.localized(AUTOANIM.spellVariant) : AUTOANIM.localized(AUTOANIM.spellVariantFree);

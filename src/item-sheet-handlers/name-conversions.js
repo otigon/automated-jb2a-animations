@@ -10,6 +10,15 @@ export function nameConversion(itemName) {
     let jb2a = moduleIncludes("jb2a_patreon") === true ? "jb2a_patreon" : "JB2A_DnD5e";
     let autoPreview = "no preview";
     switch (true) {
+        case oldItemName === "bless":
+            newItemName = "bless";
+            defaultColor = "yellow";
+            break;
+        //need to rework some of this or provide a way to exit out based on certain animation types
+        case oldItemName === "lightning bolt":
+        case oldItemName === game.i18n.format("AUTOANIM.lightningbolt"):
+            newItemName = "lightningbolt";
+            break;
         case oldItemName === "rangesword":
         case oldItemName === "rangegreatsword":
         case oldItemName === "rangegreataxe":
@@ -19,6 +28,9 @@ export function nameConversion(itemName) {
         case oldItemName === "rangehandaxe":
             newItemName = oldItemName;
             defaultColor = "white";
+            break;
+        case oldItemName === "cloudofdaggers":
+            newItemName = "cloudofdaggers";
             break;
         case oldItemName === "rangelasersword":
             newItemName = oldItemName;
@@ -31,6 +43,11 @@ export function nameConversion(itemName) {
         case oldItemName.includes("bardicinspiration"):
             newItemName = "bardicinspiration";
             defaultColor = "green orange";
+            break;
+        case itemAutoRec.chakram.some(el => oldItemName.includes(el)):
+            newItemName = "chakram";
+            autoRec = game.i18n.format("AUTOANIM.chakram");
+            autoPreview = `modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Ranged/Chakram01_01_Regular_White_15ft_1000x400.webm`;
             break;
         case itemAutoRec.rapier.some(el => oldItemName.includes(el)):
             newItemName = "rapier";
@@ -80,22 +97,22 @@ export function nameConversion(itemName) {
             autoRec = game.i18n.format("AUTOANIM.itemMaul");
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Melee/Maul01_01_Regular_White_800x600.webm`;
             break;
-        case oldItemName === game.i18n.format("AUTOANIM.item1HS").toLowerCase():
+        case oldItemName === '1 handed slashing':
             newItemName = "1hs";
             break;
-        case oldItemName === game.i18n.format("AUTOANIM.item2HS").toLowerCase():
+        case oldItemName === "2 handed slashing":
             newItemName = "2hs";
             break;
-        case oldItemName === game.i18n.format("AUTOANIM.item1HB").toLowerCase():
+        case oldItemName === "1 handed bludgeoning":
             newItemName = "1hb";
             break;
-        case oldItemName === game.i18n.format("AUTOANIM.item2HB").toLowerCase():
+        case oldItemName === "2 handed bludgeoning":
             newItemName = "2hb";
             break;
-        case oldItemName === game.i18n.format("AUTOANIM.item1HP").toLowerCase():
+        case oldItemName === "1 handed piercing":
             newItemName = "1hp";
             break;
-        case oldItemName === game.i18n.format("AUTOANIM.item2HP").toLowerCase():
+        case oldItemName === "2 handed piercing":
             newItemName = "2hp";
             break;
         case itemAutoRec.dagger.some(el => oldItemName.includes(el)):
@@ -304,6 +321,8 @@ export function nameConversion(itemName) {
     if (newItemName === undefined) {
         console.warn("Does not match any automatically recognized name")
     }
+    //console.log("old item name is " + oldItemName)
+    //console.log("new item name is " + newItemName)
     return [newItemName, defaultColor, autoRec, autoPreview];
     function moduleIncludes(test) {
         return !!game.modules.get(test);

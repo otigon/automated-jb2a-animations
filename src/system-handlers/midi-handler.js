@@ -1,4 +1,4 @@
-import { nameConversion, removeDefaults } from "../item-sheet-handlers/name-conversions.js";
+import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
 
 export default class MidiHandler {
     constructor(workflow) {
@@ -154,6 +154,7 @@ export default class MidiHandler {
         this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
         */
         this._convert = nameConversion(this._animNameFinal);
+        console.log("post name conversion is " + this._convert)
         this._convertName = this._convert[0];
         this._defaultColor = this._convert[1];
         //console.log(this._convert)

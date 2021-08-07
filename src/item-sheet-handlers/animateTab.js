@@ -71,16 +71,32 @@ export class AAItemSettings extends FormApplication {
         let impactVariant = flags.autoanimations?.impactVar || "";
         let templateType = flags.autoanimations?.templates?.tempType ?? "";
         let templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
+        let templateVariants;
+        switch (templateAnimation) {
+            case "cloudofdaggers":
+            case "lightningbolt":
+                templateVariants = true;
+                break;
+            default:
+                templateVariants = false;
+        }
         let spellVariants;
         switch (true) {
             case itemName === "scorchingray" && animType === "t6":
             case itemName === "generichealing" && animType === "t7":
             case itemName === "shieldspell" && animType === "t13":
+            case itemName === "cloudofdaggers" && animType === "t11":
+            case itemName === "guidingbolt":
                 spellVariants = true;
                 break;
             default:
                 spellVariants = false;
         }
+
+        let animationLoops = flags.autoanimations?.options?.loops > 50 ? 50 : flags.autoanimations?.options?.loops;
+        let loopTemplate =  flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
+        let explosionLoops = flags.autoanimations?.explodeLoop > 50 ? 50 : flags.autoanimations?.explodeLoop;
+
         let videoPreview = animPreview(flags, itemName);
         //console.log("videoPreview is set to " + videoPreview)
         if (videoPreview === "no preview" && !isOverride) { videoPreview = conversion[3] }
@@ -130,7 +146,7 @@ export class AAItemSettings extends FormApplication {
 
             huntermarkAnim: patreon ? AUTOANIM.localized(AUTOANIM.hmAnim) : AUTOANIM.localized(AUTOANIM.hmAnimFree),
 
-            animationLoops: flags.autoanimations?.options?.loops ?? 1,
+            animationLoops: animationLoops || 1,
             animationLoopDelay: flags.autoanimations?.options?.loopDelay ?? 250,
             scale: flags.autoanimations?.options?.scale ?? 1,
 
@@ -161,7 +177,7 @@ export class AAItemSettings extends FormApplication {
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             explosionColors: explosionColors(explosionVariant, patreon),
             explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
-            explosionLoops: flags.autoanimations?.explodeLoop ?? 1,
+            explosionLoops: explosionLoops || 1,
             explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
             showExplosionOptions: (flags.autoanimations?.explosion /*&& override*/ && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7")) ? true : false,
 
@@ -169,7 +185,7 @@ export class AAItemSettings extends FormApplication {
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
             volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
 
-            auraRadius: AUTOANIM.selfCastRadius,
+            auraRadius: flags.autoanimations?.selfRadius || 5,
             hexColour: flags.autoanimations?.animTint || `#FFFFFF`,
             opacity: flags.autoanimations?.auraOpacity || ".75",
 
@@ -178,12 +194,15 @@ export class AAItemSettings extends FormApplication {
             templateTypes: AUTOANIM.localized(AUTOANIM.templateType),
             templateAnimations: animTemplates(templateType),
             templateAnimColors: templateColors(templateType, templateAnimation, patreon),
-            loopTemplate: flags.autoanimations?.templates?.tempLoop ?? 1,
+            loopTemplate: loopTemplate || 1,
             templateLoopDelay: flags.autoanimations?.templates?.loopDelay ?? 250,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
             templateOpacity: flags.autoanimations?.templates?.opacity ?? 0.75,
             makePersistent: templateType === "circle" || templateType === "rect",
             persistent: flags.autoanimations?.templates?.persistent && (templateType === "circle" || templateType === "rect"),
+            occlusionAlpha: flags.autoanimations?.templates?.occlusionAlpha ?? "0",
+            templateVariants: templateVariants,
+            templateVariant: variantSpell(templateAnimation, patreon),
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
@@ -202,8 +221,6 @@ export class AAItemSettings extends FormApplication {
             rangeDmgType: rangedDamageTypes(itemName, patreon),
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
             sneakAttack: itemName === "sneakattack" ? true : false,
-
-            auraRadius: flags.autoanimations?.selfRadius ?? 17.5,
 
             flags: this.object.data.flags,
             content: content,
@@ -232,6 +249,7 @@ export class AAItemSettings extends FormApplication {
             shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
             huntersMark: itemName === "huntersmark",
             sneakAttack: itemName === "sneakattack",
+            bless: itemName === "bless",
 
             dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
 

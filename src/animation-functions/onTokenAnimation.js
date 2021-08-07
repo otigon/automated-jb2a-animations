@@ -1,6 +1,6 @@
 import { buildTokenAnimationFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
-import { JB2APATREONDB } from "./jb2a-database.js/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./jb2a-database.js/jb2a-free-database.js";
+import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -42,7 +42,7 @@ export async function onTokenAnimation(handler) {
     let explosionDelay = 1;
     let explosionFile = "";
     let playExSound = explosion && handler.explodeSound
-    console.log(playExSound)
+    //console.log(playExSound)
     if (handler.explodeSound){
         explosionVolume = explosionSound?.volume || 0.25;
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
