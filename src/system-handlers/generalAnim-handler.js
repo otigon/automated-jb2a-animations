@@ -2,7 +2,6 @@ import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
 
 export default class GeneralAnimHandler {
     constructor(sourceToken, targets, item) {
-        
         this._actorToken = sourceToken;
         this._actor = this._actorToken.actor;
         this._item = item;
@@ -83,6 +82,8 @@ export default class GeneralAnimHandler {
         this._targetScale = this._targetToken.scale ?? 1,
         this._targetDelay = this._targetToken.delayAfter ?? 500,
         this._targetVariant = this._targetToken.variant ?? "",
+
+        this._itemName = item.name?.toLowerCase() ?? '';
 
         //console.log(this._animName);
         this._animNameFinal;
