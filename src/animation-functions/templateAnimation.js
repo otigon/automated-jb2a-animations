@@ -63,10 +63,7 @@ export async function templateAnimation(handler, msg) {
                 break;
             case "rect":
                 if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && handler.item.data.data.target.type === "sphere") {
-                    console.log("5e Helpers is active")
-                    console.log("Template Switch is Active")
                     templateW = Math.sqrt(Math.pow(template.data.distance, 2) - Math.pow((handler.item.data.data.target.value * 2), 2));
-                    console.log(templateW)
                     templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
                     scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
                     scaleY = scaleX;

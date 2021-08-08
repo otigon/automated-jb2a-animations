@@ -1,34 +1,24 @@
-import { buildRangedFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { buildRangedFile, buildSwitchFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function rangedAnimations(handler) {
+export async function meleeSwitch(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
 
     // Sets JB2A database and Global Delay
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let itemName = handler.convertedName;
-    console.log(itemName)
-    /*
-    switch (handler.convertedName) {
-        case "dagger":
-        case "handaxe":
-        case "spear":
-            itemName = "range" + itemName;
-            console.log("adjusted name is " + itemName);
-            break;
-    }
-    */
+    let itemName = handler.switchName || handler.convertedName;
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     //Builds Primary File Path and Pulls from flags if already set
-    let attack =  await buildRangedFile(jb2a, itemName, handler);
+    let attack =  await buildSwitchFile(jb2a, itemName, handler, handler.switchColor);
     let sourceToken = handler.actorToken;
 
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
@@ -111,12 +101,18 @@ export async function rangedAnimations(handler) {
                         async (effect, data) => {
                             return data
                         })
-                    //.waitUntilFinished(-500 + handler.explosionDelay)
+                    .waitUntilFinished(-700/* + handler.explosionDelay*/)
+                .effect()
+                    .file(attack.fileReturn)
+                    .atLocation(sourceToken)
+                    .reachTowards("animation")
+                    .playIf(handler.switchReturn)
+                    .JB2A()
                 .effect()
                     .atLocation("animation")
                     //.file(explosion.file)
                     .scale({ x: scale, y: scale })
-                    .delay(500 + handler.explosionDelay)
+                    .delay(handler.explosionDelay)
                     .repeats(handler.animationLoops, handler.loopDelay)
                     .belowTokens(handler.explosionLevel)
                     .playIf(() => { return handler.explosion })

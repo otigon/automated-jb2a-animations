@@ -178,6 +178,14 @@
                         </select>
                     </div>
                     {{/if}}
+                    {{#if returning}}
+                    <div class="form-group">
+                        <label>Returning Weapon</label>
+                        <input type="checkbox" name="flags.autoanimations.meleeSwitch.returning"
+                            value="flags.autoanimations.meleeSwitch.returning" {{checked
+                            flags.autoanimations.meleeSwitch.returning}}>
+                    </div>
+                    {{/if}}
                     <!--Choose Standard Animation Color-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuAnimColor"}}</label>

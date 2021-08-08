@@ -1,7 +1,7 @@
 import { buildWeaponFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
-import { rangedAnimations } from "./rangedAnimation.js";
+import { meleeSwitch } from "./meleeSwitch.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -11,16 +11,12 @@ export async function meleeAnimation(handler) {
         return !!game.modules.get(test);
     }
     let itemName = handler.convertedName;
-    /*
-    switch (handler.convertedName) {
-        case "dagger":
-        case "handaxe":
-        case "spear":
-            itemName = "melee" + itemName;
-            //console.log(itemName)
-            break;
+    let rangeSwitch;
+    if (moduleIncludes("jb2a_patreon")) {
+        rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword']
+    } else {
+        rangeSwitch = ['dagger', 'lasersword']
     }
-    */
     // Sets JB2A database and Global Delay
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
@@ -42,13 +38,11 @@ export async function meleeAnimation(handler) {
     let explosionDelay = 1;
     let explosionFile = "";
     let playExSound = explosion && handler.explodeSound
-    //console.log(playExSound)
-    if (handler.explodeSound){
+    if (handler.explodeSound) {
         explosionVolume = explosionSound?.volume || 0.25;
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
         explosionFile = explosionSound?.file;
     }
-    //console.log(explosion)
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     let sFXScale;
@@ -72,44 +66,37 @@ export async function meleeAnimation(handler) {
 
             let target = handler.allTargets[i];
 
-            const switchName = handler.switchName
-            if (handler.switchType === "on") {
-                switch (handler.convertedName) {
-                    case "greataxe":
-                    case "dagger":
-                    case "handaxe":
-                    case "spear":
-                    case "greatsword":
-                    case "lasersword":
-                    case "mace":
-                    case "sword":
-                        if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
-                            rangedAnimations(handler)
+
+            //const switchName = handler.switchName;
+            const switchType = handler.switchType;
+            const switchDetect = handler.switchDetect;
+            if (!game.settings.get("autoanimations", "rangeSwitch")) {
+                switch (switchType) {
+                    case "on":
+                        if (rangeSwitch.some(el => itemName.includes(el))) {
+                            if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
+                                meleeSwitch(handler)
+                                return;
+                            }
+                        }
+                        break;
+                    case "custom":
+                        if (switchDetect === "manual") {
+                            if ((handler.getDistanceTo(target) / canvas.dimensions.distance) > handler.switchRange) {
+                                meleeSwitch(handler)
+                                return;
+                            }
+                        } else if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
+                            meleeSwitch(handler)
                             return;
                         }
                         break;
                 }
-            } else if (handler.switchType === "custom") {
-
             }
-
             if (handler.targetEnable) {
                 tFXScale = 2 * target.w / targetFX.metadata.width;
             }
 
-            /*
-            //Checks Range and sends it to Range Builder if true
-            switch (handler.convertedName) {
-                case "dagger":
-                case "handaxe":
-                case "spear":
-                    if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
-                        rangedAnimations(handler)
-                        return;
-                    }
-                    break;
-            }
-            */
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? false : true;

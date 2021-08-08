@@ -33,10 +33,12 @@ export function nameConversion(itemName) {
             newItemName = "cloudofdaggers";
             break;
         case oldItemName === "rangelasersword":
+        case oldItemName === "lasersword":
             newItemName = oldItemName;
             defaultColor = "blue";
             break;
         case oldItemName === "rangelasersworddb":
+        case oldItemName === "doublelasersword":
             newItemName = oldItemName;
             defaultColor = "red";
             break;
@@ -159,8 +161,9 @@ export function nameConversion(itemName) {
             autoPreview = `modules/${jb2a}/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Blue_30ft_1600x400.webm`;
             break;
         case itemAutoRec.rangejavelin.some(el => oldItemName.includes(el)):
-            newItemName = "rangejavelin";
+            newItemName = "javelin";
             autoRec = game.i18n.format("AUTOANIM.itemJavelin");
+            defaultColor = "white";
             autoPreview = ``;
             break;
         case itemAutoRec.rangesling.some(el => oldItemName.includes(el)):
@@ -321,8 +324,8 @@ export function nameConversion(itemName) {
     if (newItemName === undefined) {
         console.warn("Does not match any automatically recognized name")
     }
-    //console.log("old item name is " + oldItemName)
-    //console.log("new item name is " + newItemName)
+    console.log("old item name is " + oldItemName)
+    console.log("new item name is " + newItemName)
     return [newItemName, defaultColor, autoRec, autoPreview];
     function moduleIncludes(test) {
         return !!game.modules.get(test);

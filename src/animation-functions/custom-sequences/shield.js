@@ -18,7 +18,6 @@ export async function shieldSpell(handler) {
     // Random Color pull given object path
     //Builds standard File Path
     let onToken = await buildShieldFile(obj01, handler);
-    console.log(onToken)
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {

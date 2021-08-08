@@ -43,7 +43,14 @@ Hooks.once('setup', function () {
 });
 
 Hooks.on('init', () => {
-
+    game.settings.register("autoanimations", "disableAutoRec", {
+        name: game.i18n.format("AUTOANIM.settingDisableAutoRec"),
+        hint: game.i18n.format("AUTOANIM.settingDisableAutoRecHint"),
+        scope: "client",
+        config: true,
+        type: Boolean,
+        default: false,
+    })
     game.settings.register("autoanimations", "globaldelay", {
         name: game.i18n.format("AUTOANIM.globaldelay_name"),
         hint: game.i18n.format("AUTOANIM.globaldelay_hint"),
@@ -73,6 +80,14 @@ Hooks.on('init', () => {
         type: Boolean,
         default: false,
     });
+    game.settings.register("autoanimations", "rangeSwitch", {
+        name: game.i18n.format("AUTOANIM.settingRangeSwitch"),
+        hint: game.i18n.format("AUTOANIM.settingRangeSwitchhint"),
+        scope: "client",
+        config: true,
+        type: Boolean,
+        default: false,
+    })
     switch (game.system.id) {
         case "demonlord": {
             if (!(game.data.version === "0.7.9" || game.data.version === "0.7.10")) {

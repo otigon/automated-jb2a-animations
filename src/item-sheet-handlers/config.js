@@ -83,7 +83,6 @@ AUTOANIM.animNameRangeWeapon = {
     "javelin": "AUTOANIM.itemJavelin",
     "laser blast": "AUTOANIM.itemLaserBlast",
     "rangelasersword": "AUTOANIM.itemLaserSword",
-    "rangelasersworddb": "AUTOANIM.itemLaserSwordDB",
     "rangemace": "AUTOANIM.itemMace",
     "siege boulder": "AUTOANIM.itemSiegeBoulder",
     "sling": "AUTOANIM.itemSling",
@@ -93,13 +92,52 @@ AUTOANIM.animNameRangeWeapon = {
     "throwing hammer": "AUTOANIM.itemThrowingHammer",
 };
 
+AUTOANIM.animNameSwitch = {
+    "a1": ``,
+    "arrow": "AUTOANIM.itemArrow",
+    "bolt": "AUTOANIM.bolt",
+    "boulder": "AUTOANIM.itemBoulder",
+    "bullet": "AUTOANIM.bullet",
+    "chakram": "AUTOANIM.chakram",
+    "dagger": "AUTOANIM.itemDagger",
+    "greataxe": "AUTOANIM.itemGreataxe",
+    "greatsword": "AUTOANIM.itemGreatsword",
+    "handaxe": "AUTOANIM.itemHandaxe",
+    "javelin": "AUTOANIM.itemJavelin",
+    "lasershot": "AUTOANIM.itemLaserBlast",
+    "lasersword": "AUTOANIM.itemLaserSword",
+    "mace": "AUTOANIM.itemMace",
+    "siege": "AUTOANIM.itemSiegeBoulder",
+    "sling": "AUTOANIM.itemSling",
+    "snipe": "AUTOANIM.snipe",
+    "spear": "AUTOANIM.itemSpear",
+    "sword": "AUTOANIM.itemSword",
+    "hammer": "AUTOANIM.itemThrowingHammer",
+};
+
+AUTOANIM.laserswordVariant = {
+    'a1': ``,
+    '01': "AUTOANIM.single",
+    '02': "AUTOANIM.double"
+}
 AUTOANIM.animNameRangeWeaponFree = {
     "a1": ``,
     "arrow": "AUTOANIM.itemArrow",
     "bolt": "AUTOANIM.bolt",
     "bullet": "AUTOANIM.bullet",
     "snipe": "AUTOANIM.snipe",
-    "laser blast": "AUTOANIM.itemLaserBlast",
+    "lasershot": "AUTOANIM.itemLaserBlast",
+};
+
+AUTOANIM.animNameSwitchFree = {
+    "a1": ``,
+    "arrow": "AUTOANIM.itemArrow",
+    "bolt": "AUTOANIM.bolt",
+    "bullet": "AUTOANIM.bullet",
+    "dagger": "AUTOANIM.itemDagger",
+    "snipe": "AUTOANIM.snipe",
+    "lasershot": "AUTOANIM.itemLaserBlast",
+    "lasersword": "AUTOANIM.itemLaserSword",
 };
 
 AUTOANIM.animNameGenericDmg = {
@@ -187,7 +225,7 @@ AUTOANIM.animDaggerColor = {
 }
 AUTOANIM.rangeSwordColor = {
     "a1": ``,
-    "white": `AUTOANIM.colorWhite`,
+    "white": `AUTOANIM.white`,
     "blue": "AUTOANIM.colorBlue",
 }
 

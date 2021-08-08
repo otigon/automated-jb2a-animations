@@ -95,109 +95,133 @@ JB2AFREEDB.antilifeshell = {
     'antilifeshell': 'modules/JB2A_DnD5e/Library/5th_Level/Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm'
 }
 
-JB2AFREEDB.meleedagger = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Dagger02_01_Regular_White_800x600.webm'
-}
-
-JB2AFREEDB.rangedagger = {
-    '01': {
-        'white': {
-            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
-            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
-            '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_60ft_2800x400.webm',
-            '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_90ft_4000x400.webm'
+JB2AFREEDB.dagger = {
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Dagger02_01_Regular_White_800x600.webm'
         }
     },
-    '01 return': {
-        'white': {
-            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm',
-            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm',
-            '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm',
-            '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm'
-        }
+    range: {
+        '01': {
+            'white': {
+                '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
+                '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
+                '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_60ft_2800x400.webm',
+                '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_90ft_4000x400.webm'
+            }
+        },
     },
-}
-
-JB2AFREEDB.rangehandaxe = {
-    '01': {
-        'white': {
-            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
-            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
-            '45ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
-        }
+    return: {
+        '01': {
+            'white': {
+                '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm',
+                '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm',
+                '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm',
+                '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm'
+            }
+        },
     }
 }
-
-JB2AFREEDB.rangespear = {
-    '01': {
-        'white': {
-            '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm',
-            '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm',
-            '45ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/Dagger01_01_Regular_White_45ft_2200x400.webm',
-        }
-    }
-}
-
 
 JB2AFREEDB.greataxe = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/GreatAxe01_01_Regular_White_800x600.webm'
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/GreatAxe01_01_Regular_White_800x600.webm'
+        }
+    }
 }
 
 JB2AFREEDB.greatclub = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/GreatClub01_01_Regular_White_800x600.webm'
-}
-
-JB2AFREEDB.greatsword = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/GreatSword01_01_Regular_White_800x600.webm'
-}
-
-JB2AFREEDB.meleehandaxe = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/HandAxe02_01_Regular_White_800x600.webm'
-}
-
-JB2AFREEDB.lasersword = {
-    'blue': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/LaserSword01_01_Regular_Blue_800x600.webm'
-}
-
-JB2AFREEDB.rangelasersword = {
-    'blue': {
-        '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_15ft_1000x600.webm',
-        '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_30ft_1600x600.webm',
-        '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_60ft_2800x600.webm',
-        '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_90ft_4000x600.webm'
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/GreatClub01_01_Regular_White_800x600.webm'
+        }
     }
 }
 
-JB2AFREEDB.rangelasersworddb = {
-    'red': {
-        '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_15ft_1000x600.webm',
-        '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_30ft_1600x600.webm',
-        '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_60ft_2800x600.webm',
-        '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_90ft_4000x600.webm'
+JB2AFREEDB.greatsword = {
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/GreatSword01_01_Regular_White_800x600.webm'
+        }
+    }
+}
+
+JB2AFREEDB.handaxe = {
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/HandAxe02_01_Regular_White_800x600.webm'
+        }
+    }
+}
+
+JB2AFREEDB.lasersword = {
+    melee: {
+        '01': {
+            'blue': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/LaserSword01_01_Regular_Blue_800x600.webm'
+        }
+    },
+    range: {
+        '01': {
+            'blue': {
+                '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_15ft_1000x600.webm',
+                '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_30ft_1600x600.webm',
+                '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_60ft_2800x600.webm',
+                '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_90ft_4000x600.webm'
+            }
+        },
+        '02': {
+            'red': {
+                '15ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_15ft_1000x600.webm',
+                '30ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_30ft_1600x600.webm',
+                '60ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_60ft_2800x600.webm',
+                '90ft': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_90ft_4000x600.webm'
+            }
+        }
     }
 }
 
 JB2AFREEDB.mace = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Mace01_01_Regular_White_800x600.webm'
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Mace01_01_Regular_White_800x600.webm'
+        }
+    }
 }
 
 
 JB2AFREEDB.maul = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Maul01_01_Regular_White_800x600.webm'
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Maul01_01_Regular_White_800x600.webm'
+        }
+    }
 }
 
 
 JB2AFREEDB.rapier = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Rapier01_01_Regular_White_800x600.webm'
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Rapier01_01_Regular_White_800x600.webm'
+        }
+    }
 }
 
 
-JB2AFREEDB.meleespear = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm',
+JB2AFREEDB.spear = {
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm',
+        }
+    }
 }
 
 JB2AFREEDB.sword = {
-    'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Sword01_01_Regular_White_800x600.webm',
+    melee: {
+        '01': {
+            'white': 'modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Melee/Sword01_01_Regular_White_800x600.webm',
+        }
+    }
 }
 
 JB2AFREEDB.lasershot = {
@@ -223,11 +247,11 @@ JB2AFREEDB.lasershot = {
         '90ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Orange_90ft_4000x400.webm"
     },
     'red': {
-           '05ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_05ft_600x400.webm",
-           '15ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_15ft_1000x400.webm",
-           '30ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_30ft_1600x400.webm",
-           '60ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_60ft_2800x400.webm",
-           '90ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_90ft_4000x400.webm"
+        '05ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_05ft_600x400.webm",
+        '15ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_15ft_1000x400.webm",
+        '30ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_30ft_1600x400.webm",
+        '60ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_60ft_2800x400.webm",
+        '90ft': "modules/JB2A_DnD5e/Library/Generic/Weapon_Attacks/Ranged/LaserShot_01_Regular_Red_90ft_4000x400.webm"
     },
 }
 
@@ -703,22 +727,22 @@ JB2AFREEDB.cloudofdaggers = {
     }
 }
 
-JB2AFREEDB.bless= {
+JB2AFREEDB.bless = {
     'intro': {
         'yellow': "modules/JB2A_DnD5e/Library/1st_Level/Bless/Bless_01_Regular_Yellow_Intro_400x400.webm"
     },
     'loop': {
-        'yellow': "modules/JB2A_DnD5e/Library/1st_Level/Bless/Bless_01_Regular_Yellow_Loop_400x400.webm"  
-    }  
+        'yellow': "modules/JB2A_DnD5e/Library/1st_Level/Bless/Bless_01_Regular_Yellow_Loop_400x400.webm"
+    }
 },
 
 
 
-JB2AFREEDB.lightningbolt = {
-    'narrow':{
-        'blue':'modules/JB2A_DnD5e/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x200.webm'
-    },
-    'wide':{
-        'blue':'modules/JB2A_DnD5e/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x400.webm'
+    JB2AFREEDB.lightningbolt = {
+        'narrow': {
+            'blue': 'modules/JB2A_DnD5e/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x200.webm'
+        },
+        'wide': {
+            'blue': 'modules/JB2A_DnD5e/Library/3rd_Level/Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x400.webm'
+        }
     }
-}

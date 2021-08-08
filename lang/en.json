@@ -350,6 +350,13 @@
 
     "AUTOANIM.lightningbolt": "Lightning Bolt",
     "AUTOANIM.chakram": "Chakram",
-    "AUTOANIM.bless": "Bless"
+    "AUTOANIM.bless": "Bless",
+
+    "AUTOANIM.single": "Single",
+    "AUTOANIM.double": "Double",
+    "AUTOANIM.settingRangeSwitch": "Disable Melee to Range switch",
+    "AUTOANIM.settingRangeSwitchhint": "Disables the melee animation switch to range animation",
+    "AUTOANIM.settingDisableAutoRec": "Disable Automatic Recognition",
+    "AUTOANIM.settingDisableAutoRecHint": "Only Custom configured Items will play animations"
 
 }

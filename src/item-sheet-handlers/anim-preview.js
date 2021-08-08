@@ -180,9 +180,7 @@ function animPreview(flags, name) {
                 tempType = item.templates?.tempType;
                 color = item.templates?.tempColor;
                 tempAnim = item.templates?.tempAnim;
-                console.log(tempAnim)
                 spellVar = item.spellVar || "01";
-                console.log(spellVar)
                 if (item.templates?.customAnim) {
                     preview = item.templates?.customPath;
                 } else {

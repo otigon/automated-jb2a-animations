@@ -79,6 +79,8 @@ export default class PF2Handler {
         this._switchVariant = this._meleeSwitch?.rangeVar ?? "01";
         this._switchColor = this._meleeSwitch?.color ?? "white";
         this._switchDetect = this._meleeSwitch?.detect ?? "auto";
+        this._switchRange = this._meleeSwitch?.range ?? "1";
+        this._returning = this._meleeSwitch?.returning ?? false;
 
         this._sourceToken = this.flags.sourceToken ?? "";
         this._sourceEnable = this._sourceToken.enable ?? false;
@@ -228,6 +230,8 @@ export default class PF2Handler {
     get switchVariant() { return this._switchVariant }
     get switchColor() { return this._switchColor }
     get switchDetect() { return this._switchDetect }
+    get switchRange() { return this._switchRange }
+    get switchReturn() { return this._returning }
 
     get sourceEnable() {return this._sourceEnable;}
     get sourceLevel() {return this._sourceLevel;}
