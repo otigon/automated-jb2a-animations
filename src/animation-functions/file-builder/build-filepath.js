@@ -60,7 +60,7 @@ export async function buildSwitchFile(jb2a, name, handler) {
         case "dagger":
         case "handaxe":
             // Just a patch until I separate range/melee animations
-            if (color !== "dark purple") (color = "white")
+            if (color !== "darkpurple") (color = "white")
             //if (!handler.variant || handler.variant === "a1") (variant = "01")
             file = `autoanimations.${itemName}.range.${variant}.${color}`;
             if (variant === "kunai") { variant = '01'; color = 'white'};
@@ -81,6 +81,7 @@ export async function buildSwitchFile(jb2a, name, handler) {
             break;
         default:
             file = color === "random" ? `autoanimations.${itemName}.range.01` : `autoanimations.${itemName}.range.01.${color}`;
+            fileReturn = `autoanimations.${itemName}.return.01.${color}`
     }
     //let videoData = await getVideoDimensionsOf(fileData['30ft']);//get video metadata
     //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)

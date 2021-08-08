@@ -55,6 +55,17 @@ export async function meleeSwitch(handler) {
     //logging explosion Scale
     let scale = explosion?.scale ?? 1;
 
+    let returnWeapons = ['dagger', 'hammer', 'greatsword']
+    let switchReturn = returnWeapons.some(el => itemName.includes(el)) ? handler.switchReturn : false;
+    let returnDelay;
+    switch (true) {
+        case itemName.includes('dagger'):
+        case itemName.includes('hammer'):
+            returnDelay = 1000;
+            break;
+        default:
+            returnDelay = 1500;
+    }
     async function cast() {
         let arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
@@ -106,9 +117,11 @@ export async function meleeSwitch(handler) {
                     //.waitUntilFinished(-700/* + handler.explosionDelay*/)
                 .effect()
                     .file(attack.fileReturn)
+                    .delay(returnDelay)
                     .atLocation(sourceToken)
+                    .repeats(handler.animationLoops, handler.loopDelay)
                     .reachTowards("animation")
-                    .playIf(handler.switchReturn)
+                    .playIf(switchReturn)
                     .JB2A()
                 .effect()
                     .atLocation("animation")
