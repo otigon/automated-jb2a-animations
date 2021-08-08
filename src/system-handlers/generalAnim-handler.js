@@ -115,11 +115,11 @@ export default class GeneralAnimHandler {
         this._convert = nameConversion(this._animNameFinal);
         this._convertName = this._convert[0];
         this._defaultColor = this._convert[1];
-
+        this._delay = this._convert[4];
     }
     
     get convertedName() {return this._convertName;}
-    
+    get animEnd() { return this._delay }
     get itemMacro() {return this._itemMacro;}
 
     get playOnMiss() {return false}

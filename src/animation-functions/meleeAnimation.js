@@ -59,8 +59,7 @@ export async function meleeAnimation(handler) {
 
     //logging explosion Scale
     let scale = explosion?.scale ?? 1;
-    let endAnim = handler.animEnd;
-    console.log(endAnim)
+
     async function cast() {
         let arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
@@ -120,7 +119,7 @@ export async function meleeAnimation(handler) {
                     })
                 .thenDo(function() {
                     Hooks.callAll("aa.animationStart", sourceToken, target)
-                })          
+                })                         
                 .effect()
                     //.delay(sourceOptions.delayAfter)
                     .file(attack.file)
@@ -137,7 +136,6 @@ export async function meleeAnimation(handler) {
                         data.anchor = { x: 0.4, y: 0.5 }
                         return data;
                     })
-                    .waitUntilFinished(endAnim + handler.explosionDelay)
                     .playIf(() => { return handler.getDistanceTo(target) <= 5 })
                 .effect()
                     .file(attack.file)
@@ -150,16 +148,12 @@ export async function meleeAnimation(handler) {
                     .missed(hit)
                     .name("animation")
                     .belowTokens(handler.animLevel)
-                    .waitUntilFinished(endAnim + handler.explosionDelay)
                     .playIf(() => { return handler.getDistanceTo(target) > 5 })
-                .thenDo(function() {
-                    Hooks.callAll("aa.animationEnd", sourceToken, target)
-                })
                 .effect()
                     .atLocation("animation")
                     //.file(explosion.file)
                     .scale({ x: scale, y: scale })
-                    //.delay(500 + handler.explosionDelay)
+                    .delay(500 + handler.explosionDelay)
                     .repeats(handler.animationLoops, handler.loopDelay)
                     .belowTokens(handler.explosionLevel)
                     .playIf(() => { return explosion })

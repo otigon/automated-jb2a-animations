@@ -87,7 +87,7 @@ export async function meleeSwitch(handler) {
                         return data;
                     })
                 .thenDo(function() {
-                    Hooks.callAll("aa.animationStart", sourceToken, target)
+                    Hooks.callAll("aaAnimationStart", sourceToken, target)
                 })          
                 .effect()
                     .file(attack.file)
@@ -103,10 +103,7 @@ export async function meleeSwitch(handler) {
                         async (effect, data) => {
                             return data
                         })
-                    .waitUntilFinished(-700/* + handler.explosionDelay*/)
-                .thenDo(function() {
-                    Hooks.callAll("aa.animationEnd", sourceToken, target)
-                })
+                    //.waitUntilFinished(-700/* + handler.explosionDelay*/)
                 .effect()
                     .file(attack.fileReturn)
                     .atLocation(sourceToken)
@@ -117,7 +114,7 @@ export async function meleeSwitch(handler) {
                     .atLocation("animation")
                     //.file(explosion.file)
                     .scale({ x: scale, y: scale })
-                    //.delay(handler.explosionDelay)
+                    .delay(handler.explosionDelay)
                     .repeats(handler.animationLoops, handler.loopDelay)
                     .belowTokens(handler.explosionLevel)
                     .playIf(() => { return handler.explosion })

@@ -65,6 +65,9 @@ export async function onTokenAnimation(handler) {
                 }
                 return data;
             })
+        .thenDo(function() {
+            Hooks.callAll("aa.animationStart", sourceToken, target)
+        })             
         .effect()
             .atLocation(sourceToken)
             .scale(exScale)
@@ -132,6 +135,9 @@ export async function onTokenAnimation(handler) {
                         }
                         return data;
                     })
+                .thenDo(function() {
+                    Hooks.callAll("aa.animationStart", sourceToken, target)
+                })             
                 .effect()
                     .file(onToken.file)
                     .atLocation(target)
