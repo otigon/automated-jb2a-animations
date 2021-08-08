@@ -357,6 +357,10 @@
     "AUTOANIM.settingRangeSwitch": "Disable Melee to Range switch",
     "AUTOANIM.settingRangeSwitchhint": "Disables the melee animation switch to range animation",
     "AUTOANIM.settingDisableAutoRec": "Disable Automatic Recognition",
-    "AUTOANIM.settingDisableAutoRecHint": "Only Custom configured Items will play animations"
+    "AUTOANIM.settingDisableAutoRecHint": "Only Custom configured Items will play animations",
+
+    "AUTOANIM.returning": "Returning Weapon",
+    "AUTOANIM.rangeDetect": "Range Detection",
+    "AUTOANIM.gridSquares": "Grid Squares for Range Switch"
 
 }

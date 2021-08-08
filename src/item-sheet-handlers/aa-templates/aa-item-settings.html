@@ -180,7 +180,7 @@
                     {{/if}}
                     {{#if returning}}
                     <div class="form-group">
-                        <label>Returning Weapon</label>
+                        <label>{{localize "AUTOANIM.returning"}}</label>
                         <input type="checkbox" name="flags.autoanimations.meleeSwitch.returning"
                             value="flags.autoanimations.meleeSwitch.returning" {{checked
                             flags.autoanimations.meleeSwitch.returning}}>
@@ -198,7 +198,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Range Detection</label>
+                        <label>{{localize "AUTOANIM.rangeDetect"}}</label>
                         <select name="flags.autoanimations.meleeSwitch.detect">
                             {{#select flags.autoanimations.meleeSwitch.detect}}
                             <option value="auto">Automatic</option>
@@ -208,7 +208,7 @@
                     </div>
                     {{#if switchManual}}
                     <div class="form-group">
-                        <label>Grid Squares for Range Switch</label>
+                        <label>{{localize "AUTOANIM.gridSquares"}}</label>
                         <input type="number" name="flags.autoanimations.meleeSwitch.range" value={{switchRange}}
                             data-dtype="Number">
                     </div>
