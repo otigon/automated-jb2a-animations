@@ -26,13 +26,13 @@ export default class AUTORECOG {
 
         this._arrow = ["longbow", game.i18n.format("AUTOANIM.itemArrow").toLowerCase(), "arrow", game.i18n.format("AUTOANIM.itemLongbow").toLowerCase(), game.i18n.format("AUTOANIM.itemShortbow").toLowerCase()];
 
-        this._rangehammer = ["throwing hammer", game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()]
+        this._rangehammer = ["light hammer", "throwing hammer", game.i18n.format("AUTOANIM.itemThrowingHammer").toLowerCase()]
 
         this._siege = ["siege boulder", game.i18n.format("AUTOANIM.itemSiegeBoulder").toLowerCase()]
 
         this._boulder = ["boulder", game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()]
 
-        this._lasershot = ["laser blast", game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase()]
+        this._lasershot = ["laser blast", game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase(), "laser gun", "laser pistol"]
 
         this._rangejavelin = ["javelin", "dart", game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()];
 

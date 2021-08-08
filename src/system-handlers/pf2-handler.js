@@ -72,6 +72,16 @@ export default class PF2Handler {
         this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
         this._customExplode = this._flags.options?.customExplosion ?? "";
 
+        this._meleeSwitch = this._flags.meleeSwitch;
+        this._switchType = this._meleeSwitch?.switchType ?? "on";
+        this._switchName = this._meleeSwitch?.animName ?? "";
+        this._switchDmgType = this._meleeSwitch?.rangeDmgType ?? "physical";
+        this._switchVariant = this._meleeSwitch?.rangeVar ?? "01";
+        this._switchColor = this._meleeSwitch?.color ?? "white";
+        this._switchDetect = this._meleeSwitch?.detect ?? "auto";
+        this._switchRange = this._meleeSwitch?.range ?? "1";
+        this._returning = this._meleeSwitch?.returning ?? false;
+
         this._sourceToken = this.flags.sourceToken ?? "";
         this._sourceEnable = this._sourceToken.enable ?? false;
         this._sourceLevel = this._sourceToken.animLevel ?? false;
@@ -113,10 +123,11 @@ export default class PF2Handler {
         this._convert = nameConversion(this._animNameFinal);
         this._convertName = this._convert[0];
         this._defaultColor = this._convert[1];
+        this._delay = this._convert[4];
     }
 
     get convertedName() { return this._convertName; }
-
+    get animEnd() { return this._delay }
     get itemMacro() { return this._itemMacro; }
 
     get playOnMiss() { return false; }
@@ -207,36 +218,45 @@ export default class PF2Handler {
     get custom01() { return this._custom01 }
     get enableCustom01() { return this._enableCustom01 }
     get options() { return this._options }
-    get customExplode() { return this._enableCustomExplosion }
-    get customExplosionPath() { return this._customExplode }
+    get customExplode() { return this._enableCustomExplosion}
+    get customExplosionPath() { return this._customExplode}
 
-    get templates() { return this._templates; }
-    get templatePersist() { return this._templatePersist }
-    get templateOpacity() { return this._templateOpacity }
+    get templates() {return this._templates;}
+    get templatePersist() {return this._templatePersist}
+    get templateOpacity() {return this._templateOpacity}
 
-    get sourceEnable() { return this._sourceEnable; }
-    get sourceLevel() { return this._sourceLevel; }
-    get sourceName() { return this._sourceName; }
-    get sourceColor() { return this._sourceColor; }
-    get sourceCustomEnable() { return this._sourceCustomEnable; }
-    get sourceCustomPath() { return this._sourceCustomPath; }
-    get sourceLoops() { return this._sourceLoops; }
-    get sourceLoopDelay() { return this._sourceLoopDelay }
-    get sourceScale() { return this._sourceScale; }
-    get sourceDelay() { return this._sourceDelay; }
-    get sourceVariant() { return this._sourceVariant; }
+    get switchType() { return this._switchType }
+    get switchName() { return this._switchName }
+    get switchDmgType() { return this._switchDmgType }
+    get switchVariant() { return this._switchVariant }
+    get switchColor() { return this._switchColor }
+    get switchDetect() { return this._switchDetect }
+    get switchRange() { return this._switchRange }
+    get switchReturn() { return this._returning }
 
-    get targetEnable() { return this._targetEnable; }
-    get targetLevel() { return this._targetLevel; }
-    get targetName() { return this._targetName; }
-    get targetColor() { return this._targetColor; }
-    get targetCustomEnable() { return this._targetCustomEnable; }
-    get targetCustomPath() { return this._targetCustomPath; }
-    get targetLoops() { return this._targetLoops; }
-    get targetLoopDelay() { return this._targetLoopDelay }
-    get targetScale() { return this._targetScale; }
-    get targetDelay() { return this._targetDelay; }
-    get targetVariant() { return this._targetVariant; }
+    get sourceEnable() {return this._sourceEnable;}
+    get sourceLevel() {return this._sourceLevel;}
+    get sourceName() {return this._sourceName;}
+    get sourceColor() {return this._sourceColor;}
+    get sourceCustomEnable() {return this._sourceCustomEnable;}
+    get sourceCustomPath() {return this._sourceCustomPath;}
+    get sourceLoops() {return this._sourceLoops;}
+    get sourceLoopDelay() {return this._sourceLoopDelay}
+    get sourceScale() {return this._sourceScale;}
+    get sourceDelay() {return this._sourceDelay;}
+    get sourceVariant() {return this._sourceVariant;}
+
+    get targetEnable() {return this._targetEnable;}
+    get targetLevel() {return this._targetLevel;}
+    get targetName() {return this._targetName;}
+    get targetColor() {return this._targetColor;}
+    get targetCustomEnable() {return this._targetCustomEnable;}
+    get targetCustomPath() {return this._targetCustomPath;}
+    get targetLoops() {return this._targetLoops;}
+    get targetLoopDelay() {return this._targetLoopDelay}
+    get targetScale() {return this._targetScale;}
+    get targetDelay() {return this._targetDelay;}
+    get targetVariant() { return this._targetVariant;}
 
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;

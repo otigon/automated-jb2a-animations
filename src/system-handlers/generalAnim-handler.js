@@ -57,6 +57,16 @@ export default class GeneralAnimHandler {
         this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
         this._customExplode = this._flags.options?.customExplosion ?? "";
 
+        this._meleeSwitch = this._flags.meleeSwitch;
+        this._switchType = this._meleeSwitch?.switchType ?? "on";
+        this._switchName = this._meleeSwitch?.animName ?? "";
+        this._switchDmgType = this._meleeSwitch?.rangeDmgType ?? "physical";
+        this._switchVariant = this._meleeSwitch?.rangeVar ?? "01";
+        this._switchColor = this._meleeSwitch?.color ?? "white";
+        this._switchDetect = this._meleeSwitch?.detect ?? "auto";
+        this._switchRange = this._meleeSwitch?.range ?? "1";
+        this._returning = this._meleeSwitch?.returning ?? false;
+
         this._sourceToken = this.flags.sourceToken ?? "";
         this._sourceEnable = this._sourceToken.enable ?? false;
         this._sourceLevel = this._sourceToken.animLevel ?? false;
@@ -85,7 +95,6 @@ export default class GeneralAnimHandler {
 
         this._itemName = item.name?.toLowerCase() ?? '';
 
-        //console.log(this._animName);
         this._animNameFinal;
         switch (true) {
             case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
@@ -107,11 +116,11 @@ export default class GeneralAnimHandler {
         this._convert = nameConversion(this._animNameFinal);
         this._convertName = this._convert[0];
         this._defaultColor = this._convert[1];
-
+        this._delay = this._convert[4];
     }
     
     get convertedName() {return this._convertName;}
-    
+    get animEnd() { return this._delay }
     get itemMacro() {return this._itemMacro;}
 
     get playOnMiss() {return false}
@@ -198,6 +207,15 @@ export default class GeneralAnimHandler {
     get templates() {return this._templates;}
     get templatePersist() {return this._templatePersist}
     get templateOpacity() {return this._templateOpacity}
+
+    get switchType() { return this._switchType }
+    get switchName() { return this._switchName }
+    get switchDmgType() { return this._switchDmgType }
+    get switchVariant() { return this._switchVariant }
+    get switchColor() { return this._switchColor }
+    get switchDetect() { return this._switchDetect }
+    get switchRange() { return this._switchRange }
+    get switchReturn() { return this._returning }
 
     get sourceEnable() {return this._sourceEnable;}
     get sourceLevel() {return this._sourceLevel;}

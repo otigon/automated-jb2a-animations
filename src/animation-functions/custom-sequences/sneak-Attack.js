@@ -43,7 +43,6 @@ export async function sneakAttack(handler) {
                 if (handler.sourceEnable) {
                     data.file = sourceFX.file;
                 }
-                //console.log(data)
                 return data;
             })
 

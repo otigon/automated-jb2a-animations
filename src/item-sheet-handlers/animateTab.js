@@ -1,5 +1,5 @@
 import { AUTOANIM } from "./config.js";
-import { colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "./tab-options.js";
+import { switchColorChoices, colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -52,6 +52,7 @@ export class AAItemSettings extends FormApplication {
         }
         */
         let itemName = conversion[0];
+        let switchName = flags.autoanimations?.meleeSwitch?.animName ?? "";
         let sourceName = flags.autoanimations?.sourceToken?.name ?? "";
         let sourceVariant = flags.autoanimations?.sourceToken?.variant ?? "";
         let targetName = flags.autoanimations?.targetToken?.name ?? "";
@@ -59,8 +60,11 @@ export class AAItemSettings extends FormApplication {
         let animType = flags.autoanimations?.animType;
         let spellVariant = flags.autoanimations?.spellVar;
         let variant = flags.autoanimations?.dtvar ?? "01";
+        let switchVariant = flags.autoanimations?.meleeSwitch?.rangeVar ?? "01";
+        let rangeSwitchType = flags.autoanimations?.meleeSwitch?.switchType || "on";
         let bardAnimation = flags.autoanimations?.bards?.bardAnim;
         let damageType = flags.autoanimations?.rangedOptions?.rangeDmgType ?? "regular";
+        let switchDamageType = flags.autoanimations?.meleeSwitch?.rangeDmgType ?? "regular";
         let override = flags.autoanimations?.override ? true : false;
         let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
         let explosionVariant = flags.autoanimations?.explodeVariant;
@@ -92,9 +96,8 @@ export class AAItemSettings extends FormApplication {
         let animationLoops = flags.autoanimations?.options?.loops > 50 ? 50 : flags.autoanimations?.options?.loops;
         let loopTemplate =  flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
         let explosionLoops = flags.autoanimations?.explodeLoop > 50 ? 50 : flags.autoanimations?.explodeLoop;
-
+        let returnWeapons = ["dagger", "hammer", "greatsword"];
         let videoPreview = animPreview(flags, itemName);
-        //console.log("videoPreview is set to " + videoPreview)
         if (videoPreview === "no preview" && !isOverride) { videoPreview = conversion[3] }
         let content = "";
         switch (true) {
@@ -113,11 +116,6 @@ export class AAItemSettings extends FormApplication {
                         break;
                 }
         }
-        //console.log("Override is set to " + isOverride);
-        //console.log("The Standard Item Name is " + itemNameItem);
-        //console.log("The Flag Item Name is " + itemNameFlag);
-        //console.log("The Final Item Name is " + oldItemName);
-        //console.log("The Converted Name is " + itemName)
         return {
             defaultCheck: AAITEMCHECK.default.includes(itemName),
             OldName: oldName,
@@ -160,7 +158,7 @@ export class AAItemSettings extends FormApplication {
             uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
 
             thrownVariant: thrownVariants(itemName, patreon),
-            thrownVariantShow: (itemName.includes("dagger") || itemName.includes("handaxe")) && (animType === "t2" || animType === "t4") && override ? true : false,
+            thrownVariantShow: (itemName.includes("lasersword") || itemName.includes("dagger") || itemName.includes("handaxe")) && (animType === "t2" || animType === "t4") && override ? true : false,
 
             dsDelaySelf: flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1,
             dsDelayTarget: flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250,
@@ -203,6 +201,17 @@ export class AAItemSettings extends FormApplication {
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
+
+            rangeSwitch: patreon ? AUTOANIM.localized(AUTOANIM.animNameSwitch) : AUTOANIM.localized(AUTOANIM.animNameSwitchFree),
+            rangeSwitchDmgType: rangedDamageTypes(switchName, patreon),
+            rangeSwitchColor: switchColorChoices(switchName, patreon, switchDamageType, switchVariant),
+            rangeSwitchVariant: thrownVariants(switchName, patreon),
+            showRSVariant: (switchName.includes("lasersword") || switchName === "dagger" || switchName === "handaxe") && animType === "t2" && override ? true : false,
+            switchType: switchName === "bolt" || switchName === "bullet" || switchName === "arrow" ? true : false,
+            switchRange: flags.autoanimations?.meleeSwitch?.range ?? 2,
+            switchManual: flags.autoanimations?.meleeSwitch?.detect === "manual" ? true : false,
+            rangeSwitchType: flags.autoanimations?.meleeSwitch?.switchType === "custom",//rangeSwitchType === "custom",
+            returning: returnWeapons.some(el => switchName.includes(el)),
 
             rangeDmgType: rangedDamageTypes(itemName, patreon),
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
@@ -314,7 +323,6 @@ export class AAItemSettings extends FormApplication {
     }
 
     async _updateObject(event, formData) {
-        //console.log(formData);
         formData = expandObject(formData);
         if (!formData.changes)
             formData.changes = [];

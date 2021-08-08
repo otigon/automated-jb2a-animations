@@ -128,19 +128,93 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if thrownVariantShow}}
-                <!--Choose a Thrown Dagger Variant-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuThrownVariant"}}</label>
-                    <select name="flags.autoanimations.dtvar" class="dagger-variants">
-                        {{#select flags.autoanimations.dtvar}}
-                        {{#each thrownVariant as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
+                <div class="aa-ridged">
+                    <div class="form-group">
+                        <label>Range Switch</label>
+                        <select name="flags.autoanimations.meleeSwitch.switchType">
+                            {{#select flags.autoanimations.meleeSwitch.switchType}}
+                            <option value="on">Enabled</option>
+                            <option value="off">Disabled</option>
+                            <option value="custom">Custom</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{#if rangeSwitchType}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+                        <select name="flags.autoanimations.meleeSwitch.animName">
+                            {{#select flags.autoanimations.meleeSwitch.animName}}
+                            {{#each rangeSwitch as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{#if switchType}}
+                    <!--Choose Damage Type-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.damageType"}}</label>
+                        <div class="form-fields">
+                            <select name="flags.autoanimations.meleeSwitch.rangeDmgType" class="animation-colors">
+                                {{#select flags.autoanimations.meleeSwitch.rangeDmgType}}
+                                {{#each rangeSwitchDmgType as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    {{/if}}
+                    {{#if showRSVariant}}
+                    <!--Choose a Thrown Dagger Variant-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                        <select name="flags.autoanimations.meleeSwitch.rangeVar" class="dagger-variants">
+                            {{#select flags.autoanimations.meleeSwitch.rangeVar}}
+                            {{#each rangeSwitchVariant as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{/if}}
+                    {{#if returning}}
+                    <div class="form-group">
+                        <label>Returning Weapon</label>
+                        <input type="checkbox" name="flags.autoanimations.meleeSwitch.returning"
+                            value="flags.autoanimations.meleeSwitch.returning" {{checked
+                            flags.autoanimations.meleeSwitch.returning}}>
+                    </div>
+                    {{/if}}
+                    <!--Choose Standard Animation Color-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                        <select name="flags.autoanimations.meleeSwitch.color">
+                            {{#select flags.autoanimations.meleeSwitch.color}}
+                            {{#each rangeSwitchColor as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Range Detection</label>
+                        <select name="flags.autoanimations.meleeSwitch.detect">
+                            {{#select flags.autoanimations.meleeSwitch.detect}}
+                            <option value="auto">Automatic</option>
+                            <option value="manual">Manual</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{#if switchManual}}
+                    <div class="form-group">
+                        <label>Grid Squares for Range Switch</label>
+                        <input type="number" name="flags.autoanimations.meleeSwitch.range" value={{switchRange}}
+                            data-dtype="Number">
+                    </div>
+                    {{/if}}
+                    {{/if}}
                 </div>
-                {{/if}}
                 {{/unless}}
                 <!--Add Custom Animation-->
                 <div class="aa-ridged">

@@ -13,7 +13,6 @@ function animPreview(flags, name) {
     //let itemName = item.animName.toLowerCase();
     let itemName = name;
     let item = flags.autoanimations ?? "";
-    //console.log(item);
     let color;
     let obj02;
     let tempType;
@@ -40,7 +39,6 @@ function animPreview(flags, name) {
                     default:
                         try { preview = obj01[itemName][color] }
                         catch (exception) { preview = "no preview" }
-                        //console.log(preview);
                         break;
                 }
                 break;
@@ -180,9 +178,7 @@ function animPreview(flags, name) {
                 tempType = item.templates?.tempType;
                 color = item.templates?.tempColor;
                 tempAnim = item.templates?.tempAnim;
-                console.log(tempAnim)
                 spellVar = item.spellVar || "01";
-                console.log(spellVar)
                 if (item.templates?.customAnim) {
                     preview = item.templates?.customPath;
                 } else {
@@ -264,7 +260,6 @@ function animPreview(flags, name) {
                 break;
         }
     }
-    //console.log(preview);
     return preview
 
     function testPath(path) {
@@ -274,14 +269,6 @@ function animPreview(flags, name) {
             console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
             return undefined;
         }
-    }
-}
-function checkPath(content) {
-    try {
-        return content;
-    } catch (exception) {
-        //console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
-        return null;
     }
 }
 export default animPreview;

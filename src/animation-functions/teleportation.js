@@ -20,7 +20,6 @@ export async function teleportation(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName
-    //console.log(itemName)
     let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
 
     let sourceFX;
@@ -87,7 +86,6 @@ export async function teleportation(handler) {
                     if (handler.sourceEnable) {
                         data.file = sourceFX.file;
                     }
-                    //console.log(data)
                     return data;
                 })            
             .effect()

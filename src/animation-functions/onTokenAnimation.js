@@ -42,7 +42,6 @@ export async function onTokenAnimation(handler) {
     let explosionDelay = 1;
     let explosionFile = "";
     let playExSound = explosion && handler.explodeSound
-    //console.log(playExSound)
     if (handler.explodeSound){
         explosionVolume = explosionSound?.volume || 0.25;
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
@@ -66,6 +65,9 @@ export async function onTokenAnimation(handler) {
                 }
                 return data;
             })
+        .thenDo(function() {
+            Hooks.callAll("aa.animationStart", sourceToken, target)
+        })             
         .effect()
             .atLocation(sourceToken)
             .scale(exScale)
@@ -89,7 +91,7 @@ export async function onTokenAnimation(handler) {
         .effect()
             .file(onToken.file)
             .atLocation(sourceToken)
-            .randomizeMirrorY()
+            //.randomizeMirrorY()
             .repeats(handler.animationLoops, handler.loopDelay)
             //.missed(hit)
             .scale(((sourceToken.w / animWidth) * 1.5) * handler.scale)
@@ -133,6 +135,9 @@ export async function onTokenAnimation(handler) {
                         }
                         return data;
                     })
+                .thenDo(function() {
+                    Hooks.callAll("aa.animationStart", sourceToken, target)
+                })             
                 .effect()
                     .file(onToken.file)
                     .atLocation(target)

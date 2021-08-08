@@ -9,7 +9,6 @@ export async function explodeOnToken(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    //console.log(JB2APATREONDB)
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
@@ -30,9 +29,7 @@ export async function explodeOnToken(handler) {
     if (handler.targetEnable) {
         targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
-    
 
-    //console.log(handler.animLevel);
     if (handler.animType === "t10") {
         new Sequence()
             .effect()
@@ -46,7 +43,6 @@ export async function explodeOnToken(handler) {
                     if (handler.sourceEnable) {
                     data.file = sourceFX.file;
                 }
-                //console.log(data)
                 return data;
                 })            
             .effect()
@@ -59,7 +55,6 @@ export async function explodeOnToken(handler) {
                 .belowTokens(handler.animLevel)
                 .addOverride(
                     async (effect, data) => {
-                        //console.log(data)
                         return data
                     })
             .play()
@@ -95,7 +90,6 @@ export async function explodeOnToken(handler) {
                             if (handler.sourceEnable) {
                             data.file = sourceFX.file;
                             }
-                            //console.log(data)
                             return data;
                             })            
                     .effect()
@@ -117,11 +111,9 @@ export async function explodeOnToken(handler) {
                             if (handler.targetEnable) {
                                 data.file = targetFX.file;
                             }
-                            //console.log(data)
                             return data;
                         })                
                         .play()
-                //await wait(250)
             }
         }
         cast()
