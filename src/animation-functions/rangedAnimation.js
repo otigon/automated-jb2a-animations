@@ -85,7 +85,10 @@ export async function rangedAnimations(handler) {
                             data.file = sourceFX.file;
                         }
                         return data;
-                    })            
+                    })
+                .thenDo(function() {
+                    Hooks.callAll("aa.animationStart", sourceToken, target)
+                })                       
                 .effect()
                     .file(attack.file)
                     .atLocation(sourceToken)

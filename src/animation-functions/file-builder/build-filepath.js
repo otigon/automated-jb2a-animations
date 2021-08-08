@@ -4,6 +4,7 @@
 export async function buildWeaponFile(jb2a, name, handler) {
 
     let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color
+    color = color.replace(/\s+/g, '');
     //if (!color || color === "a1") { color = handler.defaultColor }
     let uaStrikeType = handler.uaStrikeType || "physical";
     let itemName = name.replace("melee", "")
@@ -95,6 +96,7 @@ export async function buildRangedFile(jb2a, name, handler) {
         dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
     }
     let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color;
+    color = color.replace(/\s+/g, '');
     let file;
     //let fileData;
     //let variant = handler.spellVariant ?? "01";
@@ -117,7 +119,7 @@ export async function buildRangedFile(jb2a, name, handler) {
         case "dagger":
         case "handaxe":
             // Just a patch until I separate range/melee animations
-            if (color !== "dark purple") (color = "white")
+            if (color !== "darkpurple") (color = "white")
             if (!handler.dtvar || handler.dtvar === "a1") (dtvar = "01")
             file = `autoanimations.${itemName}.range.${dtvar}.${color}`;
             break;
@@ -152,6 +154,7 @@ export async function buildRangedFile(jb2a, name, handler) {
 
 export async function buildAfterFile(jb2a, handler) {
     let color = handler.explosionColor;
+    color = color.replace(/\s+/g, '');
     let variant = handler.explosionVariant;
     let impactVariant = handler.impactVar;
     let file;
@@ -189,7 +192,8 @@ export async function buildAfterFile(jb2a, handler) {
 }
 
 export async function buildTokenAnimationFile(jb2a, itemName, handler) {
-    let color = handler.color;
+    let color = !handler.color || handler.color === "a1" ? handler.defaultColor : handler.color;
+    color = color.replace(/\s+/g, '');
     let variant = handler.spellVariant ?? "01";
     let file;
     let msFile;
@@ -201,18 +205,15 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
     } else {
         switch (itemName) {
             case "generichealing":
-                if (!handler.color || handler.color === "a1") { color = handler.defaultColor }
                 file = color === "random" ? `autoanimations.${itemName}.${variant}` : `autoanimations.${itemName}.${variant}.${color}`;
                 fileData = jb2a["generichealing"][variant][Object.keys(jb2a["generichealing"][variant])[0]]
                 break;
             case "mistystep":
-                if (!handler.color || handler.color === "a1") { color = handler.defaultColor }
                 file = color === "random" ? `autoanimations.${itemName}.01` : `autoanimations.${itemName}.01.${color}`;
                 msFile = color === "random" ? `autoanimations.${itemName}.02` : `autoanimations.${itemName}.02.${color}`;
                 fileData = jb2a[itemName]["01"][Object.keys(jb2a[itemName]["01"])[0]]
                 break;
             default:
-                if (!handler.color || handler.color === "a1") { color = handler.defaultColor }
                 file = color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
                 fileData = jb2a[itemName][Object.keys(jb2a[itemName])[0]]
                 break;
@@ -268,6 +269,7 @@ export async function buildSourceTokenFile(jb2a, animName, handler) {
     let file;
     let fileData;
     let color = handler.flags.sourceToken?.color ?? "";
+    color = color.replace(/\s+/g, '');
     if (handler.sourceCustomEnable) {
         file = handler.sourceCustomPath
         fileData = file
@@ -311,6 +313,7 @@ export async function buildTargetTokenFile(jb2a, animName, handler) {
     let file;
     let fileData;
     let color = handler.flags.targetToken?.color ?? "";
+    color = color.replace(/\s+/g, '');
     if (handler.targetCustomEnable) {
         file = handler.targetCustomPath
         fileData = file
@@ -352,7 +355,8 @@ export async function buildTargetTokenFile(jb2a, animName, handler) {
 
 export async function buildShieldFile(jb2a, handler) {
     const spellVariant = handler.spellVariant || "01";
-    const color = handler.color || "blue";
+    let color = handler.color || "blue";
+    color = color.replace(/\s+/g, '');
     const shieldVar = handler.options.shieldVar || "outro_fade";
 
     const file01 = `autoanimations.shield.${spellVariant}.${color}.intro`;
@@ -366,7 +370,8 @@ export async function buildShieldFile(jb2a, handler) {
 }
 
 export async function buildBlessFile(jb2a, handler) {
-    const color = handler.color || "yellow";
+    let color = handler.color || "yellow";
+    color = color.replace(/\s+/g, '');
     const file01 = `autoanimations.bless.${color}.intro`;
     const file02 = `autoanimations.bless.${color}.loop`;
     const ctaFile01 = jb2a.bless[color]["intro"];
@@ -405,6 +410,7 @@ export async function buildAuraFile(jb2a, handler) {
                 break;
             default:
                 color = handler.color
+                color = color.replace(/\s+/g, '');
         }
         file = name === "cloudofdaggers" ? jb2a[name][variant][color] : jb2a[name][color];
     }

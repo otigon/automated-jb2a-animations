@@ -42,7 +42,7 @@ JB2AFREEDB.generichealing = {
         'yellow': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_01_Yellow_400x400.webm',
     },
     '02': {
-        'green orange': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm',
+        'greenorange': 'modules/JB2A_DnD5e/Library/Generic/Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm',
     }
 
 }
@@ -283,7 +283,7 @@ JB2AFREEDB.sleetstorm = {
 }
 
 JB2AFREEDB.spiritguardians = {
-    "yellow blue": 'modules/JB2A_DnD5e/Library/3rd_Level/Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm',
+    "yellowblue": 'modules/JB2A_DnD5e/Library/3rd_Level/Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm',
 }
 
 JB2AFREEDB.wallofforce = {
@@ -291,7 +291,7 @@ JB2AFREEDB.wallofforce = {
 }
 
 JB2AFREEDB.whirlwind = {
-    "blue grey": 'modules/JB2A_DnD5e/Library/7th_Level/Whirlwind/Whirlwind_01_BlueGrey_400x400.webm',
+    "bluegrey": 'modules/JB2A_DnD5e/Library/7th_Level/Whirlwind/Whirlwind_01_BlueGrey_400x400.webm',
 }
 
 JB2AFREEDB.fogcloud = {
@@ -307,22 +307,22 @@ JB2AFREEDB.explosion = {
         "orange": [
             'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_01_Orange_400x400.webm',
         ],
-        "yellow blue": [
+        "yellowblue": [
             'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm'
         ],
     },
     "snowflake": {
-        "blue white": [
+        "bluewhite": [
             'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
         ]
     },
     "outpulse01": {
-        "blue white": [
+        "bluewhite": [
             'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
         ]
     },
     "outpulse02": {
-        "blue white": [
+        "bluewhite": [
             'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
         ]
     },
@@ -453,7 +453,7 @@ JB2AFREEDB.impact = {
 
 JB2AFREEDB.guidingbolt = {
     '01': {
-        'blue yellow': {
+        'blueyellow': {
             '05ft': "modules/JB2A_DnD5e/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_05ft_600x400.webm",
             '15ft': "modules/JB2A_DnD5e/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_15ft_1000x400.webm",
             '30ft': "modules/JB2A_DnD5e/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_30ft_1600x400.webm",
@@ -465,10 +465,10 @@ JB2AFREEDB.guidingbolt = {
 
 JB2AFREEDB.bardicinspiration = {
     'inspire': {
-        'green orange': 'modules/JB2A_DnD5e/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm',
+        'greenorange': 'modules/JB2A_DnD5e/Library/1st_Level/Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm',
     },
     'marker': {
-        'green orange': 'modules/JB2A_DnD5e/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm',
+        'greenorange': 'modules/JB2A_DnD5e/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm',
     }
 }
 
@@ -488,10 +488,10 @@ JB2AFREEDB.breathweapons = {
 
 JB2AFREEDB.divinesmite = {
     'caster': {
-        'blue yellow': 'modules/JB2A_DnD5e/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400',
+        'blueyellow': 'modules/JB2A_DnD5e/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400',
     },
     'target': {
-        'blue yellow': 'modules/JB2A_DnD5e/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400',
+        'blueyellow': 'modules/JB2A_DnD5e/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400',
     }
 }
 
@@ -547,19 +547,19 @@ JB2AFREEDB.templates = {
             "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_02_Blue_400x400.webm',
         },
         "ex03": {
-            "yellow blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm'
+            "yellowblue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_03_Regular_BlueYellow_400x400.webm'
         },
         "ex04": {
             "blue": 'modules/JB2A_DnD5e/Library/Generic/Explosion/Explosion_04_Regular_Blue_400x400.webm',
         },
         "snowflake": {
-            "blue white": 'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+            "bluewhite": 'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
         },
         "outpulse01": {
-            "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
+            "bluewhite": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm',
         },
         "outpulse02": {
-            "blue white": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
+            "bluewhite": 'modules/JB2A_DnD5e/Library/Generic/Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm',
         },
         "shatter": {
             'purple': 'modules/JB2A_DnD5e/Library/2nd_Level/Shatter/Shatter_01_Purple_400x400.webm',
@@ -575,9 +575,9 @@ JB2AFREEDB.templates = {
         },
         "calllightning": {
             "blue": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Blue_75OPA_1000x1000.webm',
-            "blue orange": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_BlueOrange_75OPA_1000x1000.webm',
+            "blueorange": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_BlueOrange_75OPA_1000x1000.webm',
             "green": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Green_75OPA_1000x1000.webm',
-            "pink yellow": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_PinkYellow_75OPA_1000x1000.webm',
+            "pinkyellow": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_PinkYellow_75OPA_1000x1000.webm',
             "purple": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Purple_75OPA_1000x1000.webm',
             "red": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Red_75OPA_1000x1000.webm',
             "yellow": 'modules/JB2A_DnD5e/Library/3rd_Level/Call_Lightning/Opacities/CallLightning_01_Yellow_75OPA_1000x1000.webm'
@@ -682,25 +682,25 @@ JB2AFREEDB.snipe = {
 
 JB2AFREEDB.tokenEffect = {
     dizzystars: {
-        "blue orange": "modules/JB2A_DnD5e/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm",
+        "blueorange": "modules/JB2A_DnD5e/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm",
     },
     icespikes: {
         "white": "modules/JB2A_DnD5e/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm"
     },
     snowflake: {
-        "blue white": 'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
+        "bluewhite": 'modules/JB2A_DnD5e/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
     },
     magicSign: {
         "blue": "modules/JB2A_DnD5e/Library/Generic/Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm",
         "yellow": "modules/JB2A_DnD5e/Library/Generic/Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm",
-        "light blue": "modules/JB2A_DnD5e/Library/Generic/Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm",
+        "lightblue": "modules/JB2A_DnD5e/Library/Generic/Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm",
     },
     marker: {
         marker01: {
-            "blue yellow": "modules/JB2A_DnD5e/Library/Generic/Marker/Marker_01_Regular_BlueYellow_400x400.webm",
+            "blueyellow": "modules/JB2A_DnD5e/Library/Generic/Marker/Marker_01_Regular_BlueYellow_400x400.webm",
         },
         musicMarker: {
-            "green orange": "modules/JB2A_DnD5e/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm",
+            "greenorange": "modules/JB2A_DnD5e/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm",
         }
     },
 }

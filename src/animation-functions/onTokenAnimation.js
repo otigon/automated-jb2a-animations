@@ -88,7 +88,7 @@ export async function onTokenAnimation(handler) {
         .effect()
             .file(onToken.file)
             .atLocation(sourceToken)
-            .randomizeMirrorY()
+            //.randomizeMirrorY()
             .repeats(handler.animationLoops, handler.loopDelay)
             //.missed(hit)
             .scale(((sourceToken.w / animWidth) * 1.5) * handler.scale)
