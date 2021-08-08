@@ -158,10 +158,6 @@ export default class MidiHandler {
         this._convert = nameConversion(this._animNameFinal);
         this._convertName = this._convert[0];
         this._defaultColor = this._convert[1];
-        //console.log(this._convert)
-        //console.log("default saved name is " + this._convertName)
-        //console.log("default saved color is " + this._defaultColor)
-
     }
 
     get convertedName() { return this._convertName; }

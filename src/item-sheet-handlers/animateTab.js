@@ -98,7 +98,6 @@ export class AAItemSettings extends FormApplication {
         let explosionLoops = flags.autoanimations?.explodeLoop > 50 ? 50 : flags.autoanimations?.explodeLoop;
         let returnWeapons = ["dagger", "hammer", "greatsword"];
         let videoPreview = animPreview(flags, itemName);
-        //console.log("videoPreview is set to " + videoPreview)
         if (videoPreview === "no preview" && !isOverride) { videoPreview = conversion[3] }
         let content = "";
         switch (true) {
@@ -117,11 +116,6 @@ export class AAItemSettings extends FormApplication {
                         break;
                 }
         }
-        //console.log("Override is set to " + isOverride);
-        //console.log("The Standard Item Name is " + itemNameItem);
-        //console.log("The Flag Item Name is " + itemNameFlag);
-        //console.log("The Final Item Name is " + oldItemName);
-        //console.log("The Converted Name is " + itemName)
         return {
             defaultCheck: AAITEMCHECK.default.includes(itemName),
             OldName: oldName,
@@ -329,7 +323,6 @@ export class AAItemSettings extends FormApplication {
     }
 
     async _updateObject(event, formData) {
-        //console.log(formData);
         formData = expandObject(formData);
         if (!formData.changes)
             formData.changes = [];

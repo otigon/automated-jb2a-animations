@@ -8,7 +8,6 @@ export async function buildWeaponFile(jb2a, name, handler) {
     let uaStrikeType = handler.uaStrikeType || "physical";
     let itemName = name.replace("melee", "")
     let file;
-    //console.log("Build a file Item Name is " + itemName)
     if (handler.enableCustom01) {
         file = handler.custom01
     } else {
@@ -155,7 +154,6 @@ export async function buildAfterFile(jb2a, handler) {
     let color = handler.explosionColor;
     let variant = handler.explosionVariant;
     let impactVariant = handler.impactVar;
-    //console.log(handler)
     let file;
     let fileData;
     if (handler.customExplode) {
@@ -196,7 +194,6 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
     let file;
     let msFile;
     let fileData;
-    //console.log("Item Name for file build is " + itemName)
     if (handler.enableCustom01) {
         file = handler.custom01
         msFile = handler.custom01
@@ -314,8 +311,6 @@ export async function buildTargetTokenFile(jb2a, animName, handler) {
     let file;
     let fileData;
     let color = handler.flags.targetToken?.color ?? "";
-    //console.log("animation name is " + animName)
-    //console.log(handler.targetVariant)
     if (handler.targetCustomEnable) {
         file = handler.targetCustomPath
         fileData = file

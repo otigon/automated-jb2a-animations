@@ -100,7 +100,6 @@ export default class Dnd35Handler {
         this._targetDelay = this._targetToken.delayAfter ?? 500,
         this._targetVariant = this._targetToken.variant ?? "",
 
-        //console.log(this._animName);
         this._animNameFinal;
         switch (true) {
             case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):

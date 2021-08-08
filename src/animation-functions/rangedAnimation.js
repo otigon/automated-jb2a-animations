@@ -13,17 +13,7 @@ export async function rangedAnimations(handler) {
     // Sets JB2A database and Global Delay
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
-    console.log(itemName)
-    /*
-    switch (handler.convertedName) {
-        case "dagger":
-        case "handaxe":
-        case "spear":
-            itemName = "range" + itemName;
-            console.log("adjusted name is " + itemName);
-            break;
-    }
-    */
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
@@ -94,7 +84,6 @@ export async function rangedAnimations(handler) {
                         if (handler.sourceEnable) {
                             data.file = sourceFX.file;
                         }
-                        //console.log(data)
                         return data;
                     })            
                 .effect()
@@ -124,7 +113,6 @@ export async function rangedAnimations(handler) {
                         if (handler.explosion) {
                             data.file = explosion.file;
                         }
-                        //console.log(data)
                         return data;
                     })
                 .sound()
@@ -144,7 +132,6 @@ export async function rangedAnimations(handler) {
                         if (handler.targetEnable) {
                             data.file = targetFX.file;
                         }
-                        //console.log(data)
                         return data;
                     })            
                 .play()

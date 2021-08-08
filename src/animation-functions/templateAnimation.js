@@ -13,7 +13,6 @@ export async function templateAnimation(handler, msg) {
     }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     const sourceToken = handler.actorToken;
-    //console.log(handler.item);
     let tempAnimation = await buildTemplateFile(obj01, handler)
     let sourceFX;
     let sFXScale;
@@ -37,7 +36,6 @@ export async function templateAnimation(handler, msg) {
             template = await canvas.templates.documentCollection.get(templateID);
         }
         let templateType = template.data?.t;
-        //console.log(template)
         let templateW;
         let templateLength;
         let scaleX;
@@ -115,7 +113,6 @@ export async function templateAnimation(handler, msg) {
         const occlusionMode = parseInt(mode)
         let occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
         //const occlusionAlpha = parseInt(alpha);
-        //console.log(rotate)
         if (handler.templatePersist && (handler.templates.tempType === "circle" || handler.templates.tempType === "rect")) {
             let data;
             if (handler.templates.overhead) {
@@ -172,7 +169,6 @@ export async function templateAnimation(handler, msg) {
                     if (handler.sourceEnable) {
                         data.file = sourceFX.file;
                     }
-                    //console.log(data)
                     return data;
                 })
                 .effect()

@@ -4,8 +4,6 @@ export default class WFRP4eHandler {
     constructor(item, targets) {
         const itemId = item._id;
         this._actorToken = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != undefined);
-        console.log("WFRP Actor Token found is")
-        console.log(this._actorToken)
         if (!this._actorToken) {
             return;
         }
@@ -100,7 +98,6 @@ export default class WFRP4eHandler {
         this._targetDelay = this._targetToken.delayAfter ?? 500,
         this._targetVariant = this._targetToken.variant ?? "",
 
-        //console.log(this._animName);
         this._animNameFinal;
         switch (true) {
             case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):

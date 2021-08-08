@@ -9,7 +9,6 @@ export async function shieldSpell(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    //console.log(JB2APATREONDB)
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     //let itemName = handler.convertedName;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
@@ -41,7 +40,6 @@ export async function shieldSpell(handler) {
                         if (handler.sourceEnable) {
                             data.file = sourceFX.file;
                         }
-                        //console.log(data)
                         return data;
                     })
                 .effect()

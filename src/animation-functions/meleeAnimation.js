@@ -115,7 +115,6 @@ export async function meleeAnimation(handler) {
                     if (handler.sourceEnable) {
                         data.file = sourceFX.file;
                     }
-                    //console.log(data)
                     return data;
                 })
                 .effect()
@@ -132,7 +131,6 @@ export async function meleeAnimation(handler) {
                 .belowTokens(handler.animLevel)
                 .addOverride(async (effect, data) => {
                     data.anchor = { x: 0.4, y: 0.5 }
-                    //console.log(data._distance)
                     return data;
                 })
                 .playIf(() => { return handler.getDistanceTo(target) <= 5 })
@@ -160,7 +158,6 @@ export async function meleeAnimation(handler) {
                     if (explosion) {
                         data.file = explosion.file;
                     }
-                    //console.log(data)
                     return data;
                 })
                 //.waitUntilFinished(explosionDelay)
@@ -181,7 +178,6 @@ export async function meleeAnimation(handler) {
                     if (handler.targetEnable) {
                         data.file = targetFX.file;
                     }
-                    //console.log(data)
                     return data;
                 })
                 .play()

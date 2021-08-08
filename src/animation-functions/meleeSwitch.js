@@ -84,7 +84,6 @@ export async function meleeSwitch(handler) {
                         if (handler.sourceEnable) {
                             data.file = sourceFX.file;
                         }
-                        //console.log(data)
                         return data;
                     })            
                 .effect()
@@ -120,7 +119,6 @@ export async function meleeSwitch(handler) {
                         if (handler.explosion) {
                             data.file = explosion.file;
                         }
-                        //console.log(data)
                         return data;
                     })
                 .sound()
@@ -140,7 +138,6 @@ export async function meleeSwitch(handler) {
                         if (handler.targetEnable) {
                             data.file = targetFX.file;
                         }
-                        //console.log(data)
                         return data;
                     })            
                 .play()
