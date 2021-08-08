@@ -32,12 +32,11 @@ function animPreview(flags, name) {
                     case "dagger":
                     case "handaxe":
                     case "spear":
-                        obj02 = 'melee' + itemName;
-                        try { preview = obj01[obj02][color] }
+                        try { preview = obj01[itemName]['melee']['01'][color] }
                         catch (exception) { preview = "no preview" }
                         break;
                     default:
-                        try { preview = obj01[itemName][color] }
+                        try { preview = obj01[itemName]['melee']['01'][color] }
                         catch (exception) { preview = "no preview" }
                         break;
                 }
@@ -65,30 +64,35 @@ function animPreview(flags, name) {
                 break;
             case item.animType === 't4':
                 color = item.color
+                itemName = itemName.replace("range", "")
                 switch (itemName) {
                     case "boulder":
-                    case "rangejavelin":
                     case "siege":
-                    case "rangesling":
+                        try { preview = obj01[itemName]['white']['30ft'] }
+                        catch (exception) { preview = "no preview"; }
+                        break;
+                    case "javelin":
+                    case "sling":
+                    case "spear":
+                        try { preview = obj01[itemName]['range']['01']['white']['30ft'] }
+                        catch (exception) { preview = "no preview"; }
+                        break;
+                    case "chakram":
                         try { preview = obj01[itemName]['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
-                    case "rangedagger":
-                    case "rangehandaxe":
-                        try { preview = obj01[itemName][item.dtvar]['30ft'] }
+                    case "dagger":
+                    case "handaxe":
+                    case "lasersword":
+                        try { preview = obj01[itemName]['range'][item.dtvar][color]['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
-                    case "rangehammer":
-                    case "rangespear":
+                    case "spear":
                         try { preview = obj01[itemName]['01']['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "lasershot":
                     case "snipe":
-                    case "rangelasersword":
-                    case "rangelasersworddb":
-                    case "rangesword":
-                    case "rangegreataxe":
                         try { preview = obj01[itemName][color]['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
@@ -100,8 +104,12 @@ function animPreview(flags, name) {
                         catch (exception) { preview = "no preview" }
                         break;
                     default:
-                        try { preview = obj01[itemName]['white']['30ft'] }
+                        try { preview = obj01[itemName]['range']['01'][color]['30ft'] }
                         catch (exception) { preview = "no preview"; }
+                    /*
+                    try { preview = obj01[itemName]['white']['30ft'] }
+                    catch (exception) { preview = "no preview"; }
+                    */
                 }
                 break;
             case item.animType === 't5':

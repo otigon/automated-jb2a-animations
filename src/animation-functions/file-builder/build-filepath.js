@@ -229,6 +229,8 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
 
 export async function buildTemplateFile(jb2a, handler) {
     let flags = handler.templates;
+    let color = flags.tempColor;
+    color = color.replace(/\s+/g, '');
     let file;
     let file2;
     const variant = handler.spellVariant || "01";
@@ -242,16 +244,16 @@ export async function buildTemplateFile(jb2a, handler) {
                 file2 = jb2a['templates'][flags.tempType][flags.tempAnim];
                 break;
             case "cloudofdaggers":
-                file = `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${flags.tempColor}`;
-                file2 = jb2a['templates'][flags.tempType][flags.tempAnim][variant][flags.tempColor];
+                file = `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${color}`;
+                file2 = jb2a['templates'][flags.tempType][flags.tempAnim][variant][color];
                 break;
             case "lightningbolt":
-                file = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${flags.tempColor}`;
-                file2 = flags.tempColor === "random" ? jb2a['templates'][flags.tempType][flags.tempAnim][variant][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim][variant])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][variant][flags.tempColor];
+                file = color === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${color}`;
+                file2 = color === "random" ? jb2a['templates'][flags.tempType][flags.tempAnim][variant][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim][variant])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][variant][color];
                 break;
             default:
-                file = flags.tempColor === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${flags.tempColor}`;
-                file2 = flags.tempColor === "random" ? jb2a['templates'][flags.tempType][flags.tempAnim][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][flags.tempColor];
+                file = color === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${color}`;
+                file2 = color === "random" ? jb2a['templates'][flags.tempType][flags.tempAnim][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][color];
         }
     }
     let metadata = await getVideoDimensionsOf(file2);//get video metadata

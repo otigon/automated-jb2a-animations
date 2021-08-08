@@ -16,7 +16,8 @@ export default class PF2Handler {
         this._itemId = item.id;
         this._allTargets = Array.from(msg.user.targets);
         const actualName = item.name.toLowerCase();
-        this._itemName = (item.type === "weapon" ? item.baseType : (item.slug ?? actualName)).replace(/-/g, " ");
+        let base = item.baseType ? item.baseType : "";
+        this._itemName = (item.type === "weapon" ? base : (item.slug ?? actualName)).replace(/-/g, " ");
         if (item.type === "spell" && this._itemName === "shield") this._itemName = "shieldspell";
 
         this._itemType = itemtype;
