@@ -1,6 +1,7 @@
 import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
+import { AAcustomRecog } from "./custom-recognition/auto-recognition.js"
 
 import Dnd5Handler from "./system-handlers/dnd5-handler.js";
 import MidiHandler from "./system-handlers/midi-handler.js";
@@ -43,6 +44,14 @@ Hooks.once('setup', function () {
 });
 
 Hooks.on('init', () => {
+	game.settings.registerMenu("autoanimations", "custom-autorec", {
+		name: "Automatic Recognition",
+		label: "Configure Automatic Recognition",
+		hint: "Set Automatic Recognition of Items for Animations",
+		icon: "fas fa-dice-d20",
+		type: AAcustomRecog,
+		restricted: true
+	});
     game.settings.register("autoanimations", "disableAutoRec", {
         name: game.i18n.format("AUTOANIM.settingDisableAutoRec"),
         hint: game.i18n.format("AUTOANIM.settingDisableAutoRecHint"),
