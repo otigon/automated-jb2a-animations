@@ -41,24 +41,36 @@ export async function trafficCop(handler) {
         switch (animType) {
             case "t2":
             case "t3":
-                if (targets === 0) { return; }
-                meleeAnimation(handler);
+                if (targets === 0) {
+                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                    return;
+                }
+            meleeAnimation(handler);
                 break;
             case "t4":
-                if (targets === 0) { return; }
-                rangedAnimations(handler);
-                break;     
+                if (targets === 0) {
+                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                    return;
+                }
+            rangedAnimations(handler);
+                break;
             case "t5":
-                if (targets === 0) { return; }
-                onTokenAnimation(handler);
-                break;    
+                if (targets === 0) {
+                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                    return;
+                }
+            onTokenAnimation(handler);
+                break;
             case "t6":
-                if (targets === 0) { return; }
-                rangedAnimations(handler);
-                break;     
+                if (targets === 0) {
+                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                    return;
+                }
+            rangedAnimations(handler);
+                break;
             case "t7":
                 onTokenAnimation(handler);
-                break;    
+                break;
             case "t8":
                 if (game.modules.get("midi-qol")?.active) { return; }
                 //some do not need hook on template, depends on when damage is rolled
@@ -111,31 +123,37 @@ export async function trafficCop(handler) {
         }
     } else {
         if (!game.settings.get("autoanimations", "disableAutoRec")) {
-        switch (true) {
-            case itemName === "thunderwave":
-                switch (true) {
-                    case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
-                        thunderwaveAuto(handler);
-                        break;
-                    default:
-                        Hooks.once("createMeasuredTemplate", () => {
+            switch (true) {
+                case itemName === "thunderwave":
+                    switch (true) {
+                        case (game.modules.get("midi-qol")?.active && (handler.autoDamage === "none")):
                             thunderwaveAuto(handler);
-                        })
-                }
-                break;
-            case itemArray.melee.includes(itemName):
-                if (targets === 0) { return; }
-                meleeAnimation(handler);
-                break;
-            case itemArray.spellattack.includes(itemName):
-            case itemArray.ranged.includes(itemName):
-                if (targets === 0) { return; }
-                rangedAnimations(handler);
-                break;
-            case itemArray.healing.includes(itemName):
-            case itemArray.creatureattack.includes(itemName):
-                onTokenAnimation(handler);
-                break;
+                            break;
+                        default:
+                            Hooks.once("createMeasuredTemplate", () => {
+                                thunderwaveAuto(handler);
+                            })
+                    }
+                    break;
+                case itemArray.melee.includes(itemName):
+                    if (targets === 0) {
+                        Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                        return;
+                    }
+                    meleeAnimation(handler);
+                    break;
+                case itemArray.spellattack.includes(itemName):
+                case itemArray.ranged.includes(itemName):
+                    if (targets === 0) {
+                        Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                        return;
+                    }
+                    rangedAnimations(handler);
+                    break;
+                case itemArray.healing.includes(itemName):
+                case itemArray.creatureattack.includes(itemName):
+                    onTokenAnimation(handler);
+                    break;
             }
         }
     }

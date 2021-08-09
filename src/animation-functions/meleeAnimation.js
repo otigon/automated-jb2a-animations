@@ -24,6 +24,7 @@ export async function meleeAnimation(handler) {
 
     //Builds Primary File Path and Pulls from flags if already set
     let attack = await buildWeaponFile(obj01, itemName, handler)
+    let attackDuration = attack.metadata.duration * 1000;
     let sourceToken = handler.actorToken;
     let sourceScale = itemName === "unarmedstrike" || itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
 
@@ -184,7 +185,8 @@ export async function meleeAnimation(handler) {
                         return data;
                     })
                 .play()
-            await wait(750)
+                await wait(handler.animEnd)
+                Hooks.callAll("aa.animationEnd", sourceToken, target)
         }
     }
     cast()
