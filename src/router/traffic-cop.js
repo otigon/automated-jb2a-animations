@@ -38,7 +38,6 @@ export async function trafficCop(handler) {
     const override = handler.animOverride;
     const targets = handler.allTargets.length;
     if (override) {
-        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
         switch (animType) {
             case "t2":
             case "t3":
@@ -46,6 +45,7 @@ export async function trafficCop(handler) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     return;
                 }
+            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
             meleeAnimation(handler);
                 break;
             case "t4":
@@ -53,6 +53,7 @@ export async function trafficCop(handler) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     return;
                 }
+            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
             rangedAnimations(handler);
                 break;
             case "t5":
@@ -60,6 +61,7 @@ export async function trafficCop(handler) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     return;
                 }
+            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
             onTokenAnimation(handler);
                 break;
             case "t6":
@@ -67,6 +69,7 @@ export async function trafficCop(handler) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     return;
                 }
+            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
             rangedAnimations(handler);
                 break;
             case "t7":
