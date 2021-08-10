@@ -30,24 +30,25 @@ export async function teleportation(handler) {
     }
 
 
-    let Scale = ((token.w / onToken.metadata.width) * handler.scale) *1.75;
-
-    let range = MeasuredTemplate.create({
-        t: "circle",
-        user: game.user.id,
-        x: token.x + canvas.grid.size / 2,
-        y: token.y + canvas.grid.size / 2,
-        direction: 0,
-        distance: handler.teleRange,
-        borderColor: "#FF0000",
-        flags: {
-            world: {
-                Teleportation: {
-                    ActorId: actor.id
+    let Scale = ((token.w / onToken.metadata.width) * handler.scale) * 1.75;
+    if (!handler.options?.hideTemplate) {
+        let range = MeasuredTemplate.create({
+            t: "circle",
+            user: game.user.id,
+            x: token.x + canvas.grid.size / 2,
+            y: token.y + canvas.grid.size / 2,
+            direction: 0,
+            distance: handler.teleRange,
+            borderColor: "#FF0000",
+            flags: {
+                world: {
+                    Teleportation: {
+                        ActorId: actor.id
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {
@@ -76,56 +77,57 @@ export async function teleportation(handler) {
 
         new Sequence()
             .effect()
-                .atLocation(token)
-                .scale(sFXScale * handler.sourceScale)
-                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                .belowTokens(handler.sourceLevel)
-                .waitUntilFinished(handler.sourceDelay)
-                .playIf(handler.sourceEnable)
-                .addOverride(async (effect, data) => {
-                    if (handler.sourceEnable) {
-                        data.file = sourceFX.file;
-                    }
-                    return data;
-                })            
+            .atLocation(token)
+            .scale(sFXScale * handler.sourceScale)
+            .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+            .belowTokens(handler.sourceLevel)
+            .waitUntilFinished(handler.sourceDelay)
+            .playIf(handler.sourceEnable)
+            .addOverride(async (effect, data) => {
+                if (handler.sourceEnable) {
+                    data.file = sourceFX.file;
+                }
+                return data;
+            })
             .effect()
-                .file(onToken.file)
-                .atLocation(token)
-                .scale(Scale)
-                .randomRotation()
-                .wait(750)
-                .thenDo(async () => {
-                    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                        await token.update({
-                            x: gridPos[0],
-                            y: gridPos[1],
-                            hidden: true
-                        }, { animate: false });
-                    } else {
-                        await token.document.update({
-                            x: gridPos[0],
-                            y: gridPos[1],
-                            hidden: true
-                        }, { animate: false });
-                    }
-                })
+            .file(onToken.file)
+            .atLocation(token)
+            .scale(Scale)
+            .randomRotation()
+            .wait(750)
+            .thenDo(async () => {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                    await token.update({
+                        x: gridPos[0],
+                        y: gridPos[1],
+                        hidden: true
+                    }, { animate: false });
+                } else {
+                    await token.document.update({
+                        x: gridPos[0],
+                        y: gridPos[1],
+                        hidden: true
+                    }, { animate: false });
+                }
+            })
             .effect()
-                .file(onToken.msFile)
-                .atLocation(token)
-                .scale(Scale)
-                .randomRotation()
-                .wait(1500)
-                .thenDo(async () => {
-                    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                        await token.update({
-                            hidden: false
-                        }, { animate: false });
-            0        } else {
-                        await token.document.update({
-                            hidden: false
-                        }, { animate: false });
-                    }
-                })
+            .file(onToken.msFile)
+            .atLocation(token)
+            .scale(Scale)
+            .randomRotation()
+            .wait(1500)
+            .thenDo(async () => {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                    await token.update({
+                        hidden: false
+                    }, { animate: false });
+                    0
+                } else {
+                    await token.document.update({
+                        hidden: false
+                    }, { animate: false });
+                }
+            })
             .play();
 
     };

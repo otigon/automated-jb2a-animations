@@ -5,7 +5,7 @@ import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function meleeSwitch(handler) {
+export async function meleeSwitch(handler, target) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -67,10 +67,10 @@ export async function meleeSwitch(handler) {
             returnDelay = 1500;
     }
     async function cast() {
-        let arrayLength = handler.allTargets.length;
-        for (var i = 0; i < arrayLength; i++) {
+        //let arrayLength = handler.allTargets.length;
+        //for (var i = 0; i < arrayLength; i++) {
 
-            let target = handler.allTargets[i];
+            //let target = handler.allTargets[i];
             if (handler.targetEnable) {
                 tFXScale = 2 * target.w / targetFX.metadata.width;
             }        
@@ -159,7 +159,7 @@ export async function meleeSwitch(handler) {
                 .play()
                 await wait(handler.animEnd)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)
-        }
+        //}
     }
     cast()
 }
