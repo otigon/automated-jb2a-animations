@@ -9,6 +9,7 @@ export async function buildWeaponFile(jb2a, name, handler) {
     let uaStrikeType = handler.uaStrikeType || "physical";
     let itemName = name.replace("melee", "")
     let file;
+    let fileData;
     if (handler.enableCustom01) {
         file = handler.custom01
     } else {
@@ -20,18 +21,21 @@ export async function buildWeaponFile(jb2a, name, handler) {
             case "1hb":
             case "2hb":
                 file = `autoanimations.genericmelee.${itemName}`;
+                fileData = jb2a['genericmelee'][itemName];
                 break;
             case 'unarmedstrike':
             case 'flurryofblows':
-                file = handler.color === "random" ? `autoanimations.${itemName}.${uaStrikeType}` : `autoanimations.${itemName}.${uaStrikeType}.${color}`;
+                file = color === "random" ? `autoanimations.${itemName}.${uaStrikeType}` : `autoanimations.${itemName}.${uaStrikeType}.${color}`;
+                fileData = color === "random" ? jb2a[itemName][uaStrikeType][Object.keys(jb2a[itemName][uaStrikeType])[0]] : jb2a[itemName][uaStrikeType][color];
                 break;
             default:
-                file = handler.color === "random" ? `autoanimations.${itemName}.melee.01` : `autoanimations.${itemName}.melee.01.${color}`
+                file = color === "random" ? `autoanimations.${itemName}.melee.01` : `autoanimations.${itemName}.melee.01.${color}`
+                fileData = color === "random" ? jb2a[itemName]['melee']['01'][Object.keys(jb2a[itemName]['melee']['01'])[0]] : jb2a[itemName]['melee']['01'][color];
         }
     }
-    //let videoData = await getVideoDimensionsOf(filePath[Object.keys(filePath)[0]]);//get video metadata
+    let metadata = await getVideoDimensionsOf(fileData);//get video metadata
     //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
-    return { file };
+    return { file, metadata };
 }
 
 export async function buildSwitchFile(jb2a, name, handler) {

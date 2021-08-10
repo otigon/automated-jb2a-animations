@@ -101,6 +101,8 @@ export async function onTokenAnimation(handler) {
                     return data
                 })
         .play()
+        await wait(500)
+        Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
     }
     //.waitUntilFinished(-500 + handler.explosionDelay)
 
@@ -121,7 +123,7 @@ export async function onTokenAnimation(handler) {
                 hit = false;
             }
 
-            new Sequence()
+            await new Sequence()
                 .effect()
                     .atLocation(sourceToken)
                     .scale(sFXScale * handler.sourceScale)
@@ -181,7 +183,8 @@ export async function onTokenAnimation(handler) {
                         return data;
                     })            
                 .play()
-            //await wait(250)
+                await wait(500)
+                Hooks.callAll("aa.animationEnd", sourceToken, target)
         }
     }
     cast()

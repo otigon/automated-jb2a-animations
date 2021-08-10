@@ -24,6 +24,7 @@ export async function meleeAnimation(handler) {
 
     //Builds Primary File Path and Pulls from flags if already set
     let attack = await buildWeaponFile(obj01, itemName, handler)
+    let attackDuration = attack.metadata.duration * 1000;
     let sourceToken = handler.actorToken;
     let sourceScale = itemName === "unarmedstrike" || itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
 
@@ -66,44 +67,46 @@ export async function meleeAnimation(handler) {
 
             let target = handler.allTargets[i];
 
-
+            let moveTo = handler.getDistanceTo(target) > 5 ? true : false;
             //const switchName = handler.switchName;
             const switchType = handler.switchType;
             const switchDetect = handler.switchDetect;
+            let noMelee = false;
             if (!game.settings.get("autoanimations", "rangeSwitch")) {
                 switch (switchType) {
                     case "on":
                         if (rangeSwitch.some(el => itemName.includes(el))) {
                             if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
-                                meleeSwitch(handler)
-                                return;
+                                noMelee = true;
                             }
                         }
                         break;
                     case "custom":
                         if (switchDetect === "manual") {
                             if ((handler.getDistanceTo(target) / canvas.dimensions.distance) > handler.switchRange) {
-                                meleeSwitch(handler)
-                                return;
+                                noMelee = true;
                             }
                         } else if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
-                            meleeSwitch(handler)
-                            return;
+                            noMelee = true;
                         }
                         break;
                 }
             }
-            if (handler.targetEnable) {
-                tFXScale = 2 * target.w / targetFX.metadata.width;
+            if (noMelee) {
+                meleeSwitch(handler, target)
             }
+            else {
+                if (handler.targetEnable) {
+                    tFXScale = 2 * target.w / targetFX.metadata.width;
+                }
 
-            let hit;
-            if (handler.playOnMiss) {
-                hit = handler.hitTargetsId.includes(target.id) ? false : true;
-            } else {
-                hit = false;
-            }
-            new Sequence()
+                let hit;
+                if (handler.playOnMiss) {
+                    hit = handler.hitTargetsId.includes(target.id) ? false : true;
+                } else {
+                    hit = false;
+                }
+                await new Sequence()
                 .effect()
                     .atLocation(sourceToken)
                     .scale(sFXScale * handler.sourceScale)
@@ -113,13 +116,13 @@ export async function meleeAnimation(handler) {
                     .playIf(handler.sourceEnable)
                     .addOverride(async (effect, data) => {
                         if (handler.sourceEnable) {
-                         data.file = sourceFX.file;
+                            data.file = sourceFX.file;
                         }
                         return data;
                     })
-                .thenDo(function() {
+                .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, target)
-                })                         
+                })
                 .effect()
                     //.delay(sourceOptions.delayAfter)
                     .file(attack.file)
@@ -136,7 +139,7 @@ export async function meleeAnimation(handler) {
                         data.anchor = { x: 0.4, y: 0.5 }
                         return data;
                     })
-                    .playIf(() => { return handler.getDistanceTo(target) <= 5 })
+                    .playIf(!moveTo)
                 .effect()
                     .file(attack.file)
                     .atLocation(sourceToken)
@@ -148,7 +151,7 @@ export async function meleeAnimation(handler) {
                     .missed(hit)
                     .name("animation")
                     .belowTokens(handler.animLevel)
-                    .playIf(() => { return handler.getDistanceTo(target) > 5 })
+                    .playIf(moveTo)
                 .effect()
                     .atLocation("animation")
                     //.file(explosion.file)
@@ -165,11 +168,16 @@ export async function meleeAnimation(handler) {
                     })
                     //.waitUntilFinished(explosionDelay)
                 .sound()
-                    .file(explosionFile)
                     .playIf(() => { return explosion && handler.explodeSound })
                     .delay(explosionDelay)
                     .volume(explosionVolume)
                     .repeats(handler.animationLoops, handler.loopDelay)
+                    .addOverride(async (effect, data) => {
+                        if (handler.explodeSound) {
+                            data.file = explosionFile;
+                        }
+                        return data;
+                    })
                 .effect()
                     .delay(handler.targetDelay)
                     .atLocation(target)
@@ -183,8 +191,10 @@ export async function meleeAnimation(handler) {
                         }
                         return data;
                     })
-                .play()
-            await wait(750)
+                    .play()
+                await wait(handler.animEnd)
+                Hooks.callAll("aa.animationEnd", sourceToken, target)
+            }
         }
     }
     cast()

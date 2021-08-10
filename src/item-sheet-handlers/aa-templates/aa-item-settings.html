@@ -1414,6 +1414,11 @@
                     <input type="Number" name="flags.autoanimations.teleDist" min="5" max="500" step=".01"
                         value={{teleRange}}>
                 </div>
+                <div class="form-group">
+                    <label>Do Note Place Template</label>
+                    <input type="checkbox" name="flags.autoanimations.options.hideTemplate" value="flags.autoanimations.options.hideTemplate"
+                    {{checked flags.autoanimations.options.hideTemplate}}>
+                </div>
                 <!--Add Custom Animation-->
                 <div class="aa-ridged">
                     <div class="form-group">

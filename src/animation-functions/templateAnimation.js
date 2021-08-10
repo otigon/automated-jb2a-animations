@@ -27,6 +27,16 @@ export async function templateAnimation(handler, msg) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
+    let templateSound = handler.allSounds?.item;
+    let templateVolume = 0.25;
+    let templateDelay = 1;
+    let templateFile = "";
+    if (handler.itemSound) {
+        templateVolume = templateSound?.volume || 0.25;
+        templateDelay = templateSound?.delay === 0 ? 1 : explosionSound?.delay;
+        templateFile = templateSound?.file;
+    }
+
     async function cast() {
         const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
         let template;
@@ -157,29 +167,40 @@ export async function templateAnimation(handler, msg) {
             socketlibSocket.executeAsGM("placeTile", data)
             //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
         } else {
-            new Sequence()
+            await new Sequence()
                 .effect()
-                .atLocation(sourceToken)
-                .scale(sFXScale * handler.sourceScale)
-                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                .belowTokens(handler.sourceLevel)
-                .waitUntilFinished(handler.sourceDelay)
-                .playIf(handler.sourceEnable)
-                .addOverride(async (effect, data) => {
-                    if (handler.sourceEnable) {
-                        data.file = sourceFX.file;
-                    }
-                    return data;
-                })
+                    .atLocation(sourceToken)
+                    .scale(sFXScale * handler.sourceScale)
+                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                    .belowTokens(handler.sourceLevel)
+                    .waitUntilFinished(handler.sourceDelay)
+                    .playIf(handler.sourceEnable)
+                    .addOverride(async (effect, data) => {
+                        if (handler.sourceEnable) {
+                            data.file = sourceFX.file;
+                        }
+                        return data;
+                    })
+                .thenDo(function() {
+                    Hooks.callAll("aa.animationStart", sourceToken, "no-target")
+                })                         
                 .effect()
-                .file(tempAnimation.file)
-                .atLocation({ x: template.data.x, y: template.data.y })
-                .anchor({ x: xAnchor, y: yAnchor })
-                .rotate(rotate)
-                .scale({ x: scaleX, y: scaleY })
-                .belowTokens(false)
-                .repeats(tempAnimation.loops, tempAnimation.delay)
+                    .file(tempAnimation.file)
+                    .atLocation({ x: template.data.x, y: template.data.y })
+                    .anchor({ x: xAnchor, y: yAnchor })
+                    .rotate(rotate)
+                    .scale({ x: scaleX, y: scaleY })
+                    .belowTokens(false)
+                    .repeats(tempAnimation.loops, tempAnimation.delay)
+                .sound()
+                    .file(templateFile)
+                    .playIf(handler.itemSound)
+                    .delay(templateDelay)
+                    .volume(templateVolume)
+                    .repeats(handler.animationLoops, handler.loopDelay)
                 .play()
+                await wait(500)
+                Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
         }
 
         if (handler.templates.removeTemplate) {

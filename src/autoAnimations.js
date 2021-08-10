@@ -200,7 +200,7 @@ Hooks.on('init', () => {
                         scope: 'world',
                         config: true,
                         type: String,
-                        filePicker: true
+                        filePicker: "imagevideo"
                     });
                     game.settings.register("autoanimations", "EnableCriticalMiss", {
                         name: game.i18n.format("AUTOANIM.critmiss_name"),
@@ -216,7 +216,7 @@ Hooks.on('init', () => {
                         scope: 'world',
                         config: true,
                         type: String,
-                        filePicker: true
+                        filePicker: "imagevideo"
                     });
                 }
             } else {

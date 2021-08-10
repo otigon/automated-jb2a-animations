@@ -72,7 +72,7 @@ export async function rangedAnimations(handler) {
                 hit = false;
             }
 
-            new Sequence()
+            await new Sequence()
                 .effect()
                     .atLocation(sourceToken)
                     .scale(sFXScale * handler.sourceScale)
@@ -138,7 +138,9 @@ export async function rangedAnimations(handler) {
                         return data;
                     })            
                 .play()
-            await wait(750)
+                 console.log(handler.animEnd)
+                await wait(handler.animEnd)
+                Hooks.callAll("aa.animationEnd", sourceToken, target)
         }
     }
     cast()
