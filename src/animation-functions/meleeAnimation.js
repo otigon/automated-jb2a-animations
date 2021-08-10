@@ -93,7 +93,7 @@ export async function meleeAnimation(handler) {
                 }
             }
             if (noMelee) {
-                meleeSwitch(handler, target)
+                await meleeSwitch(handler, target)
             }
             else {
                 if (handler.targetEnable) {

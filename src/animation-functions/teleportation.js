@@ -77,57 +77,56 @@ export async function teleportation(handler) {
 
         new Sequence()
             .effect()
-            .atLocation(token)
-            .scale(sFXScale * handler.sourceScale)
-            .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-            .belowTokens(handler.sourceLevel)
-            .waitUntilFinished(handler.sourceDelay)
-            .playIf(handler.sourceEnable)
-            .addOverride(async (effect, data) => {
-                if (handler.sourceEnable) {
-                    data.file = sourceFX.file;
-                }
-                return data;
-            })
+                .atLocation(token)
+                .scale(sFXScale * handler.sourceScale)
+                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                .belowTokens(handler.sourceLevel)
+                .waitUntilFinished(handler.sourceDelay)
+                .playIf(handler.sourceEnable)
+                .addOverride(async (effect, data) => {
+                    if (handler.sourceEnable) {
+                        data.file = sourceFX.file;
+                    }
+                    return data;
+                })
             .effect()
-            .file(onToken.file)
-            .atLocation(token)
-            .scale(Scale)
-            .randomRotation()
-            .wait(750)
+                .file(onToken.file)
+                .atLocation(token)
+                .scale(Scale)
+                .randomRotation()
+                .waitUntilFinished(-2250)
+            .animation()
+                .on(token)
+                .fadeOut(500)
+            .wait(500)
             .thenDo(async () => {
                 if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
                     await token.update({
                         x: gridPos[0],
                         y: gridPos[1],
-                        hidden: true
                     }, { animate: false });
                 } else {
                     await token.document.update({
                         x: gridPos[0],
                         y: gridPos[1],
-                        hidden: true
                     }, { animate: false });
                 }
             })
+            /*
+            .animation()
+                .on(token)
+                .teleportTo({x: gridPos[0], y: gridPos[1]})
+                .async()
+            */
             .effect()
-            .file(onToken.msFile)
-            .atLocation(token)
-            .scale(Scale)
-            .randomRotation()
+                .file(onToken.msFile)
+                .atLocation(token)
+                .scale(Scale)
+                .randomRotation()
             .wait(1500)
-            .thenDo(async () => {
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    await token.update({
-                        hidden: false
-                    }, { animate: false });
-                    0
-                } else {
-                    await token.document.update({
-                        hidden: false
-                    }, { animate: false });
-                }
-            })
+            .animation()
+                .on(token)
+                .fadeIn(500)
             .play();
 
     };

@@ -33,7 +33,7 @@ export async function templateAnimation(handler, msg) {
     let templateFile = "";
     if (handler.itemSound) {
         templateVolume = templateSound?.volume || 0.25;
-        templateDelay = templateSound?.delay === 0 ? 1 : explosionSound?.delay;
+        templateDelay = templateSound?.delay === 0 ? 1 : templateSound?.delay;
         templateFile = templateSound?.file;
     }
 

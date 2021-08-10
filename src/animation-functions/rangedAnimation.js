@@ -138,7 +138,7 @@ export async function rangedAnimations(handler) {
                         return data;
                     })            
                 .play()
-                 console.log(handler.animEnd)
+                 //console.log(handler.animEnd)
                 await wait(handler.animEnd)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)
         }

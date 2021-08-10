@@ -436,7 +436,7 @@ function setUpMidiNoA(workflow) {
 }
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
 async function specialCaseAnimations(msg) {
-    if (game.user.id !== msg.user.id) {
+    if (game.user.id !== msg.user?.id) {
         return;
     }
     let handler = new Dnd5Handler(msg);
