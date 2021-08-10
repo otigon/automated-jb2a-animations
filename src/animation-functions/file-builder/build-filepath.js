@@ -11,7 +11,8 @@ export async function buildWeaponFile(jb2a, name, handler) {
     let file;
     let fileData;
     if (handler.enableCustom01) {
-        file = handler.custom01
+        file = handler.custom01;
+        fileData = handler.custom01;
     } else {
         switch (itemName) {
             case "1hs":
