@@ -36,7 +36,7 @@ export async function trafficCop(handler) {
     const animName = handler.animName;
     const animType = handler.animType;
     const override = handler.animOverride;
-    const targets = handler.allTargets.length;
+    const targets = handler.allTargets?.length ?? 0;
     if (override) {
         switch (animType) {
             case "t2":

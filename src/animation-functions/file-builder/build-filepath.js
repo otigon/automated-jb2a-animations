@@ -27,7 +27,7 @@ export async function buildWeaponFile(jb2a, name, handler) {
             case 'unarmedstrike':
             case 'flurryofblows':
                 file = color === "random" ? `autoanimations.${itemName}.${uaStrikeType}` : `autoanimations.${itemName}.${uaStrikeType}.${color}`;
-                fileData = color === "random" ? jb2a[itemName][uaStrikeType][Object.keys(jb2a[itemName][uaStrikeType])[0]] : jb2a[itemName][uaStrikeType][color];
+                fileData = jb2a[itemName][uaStrikeType]["blue"][Object.keys(jb2a[itemName][uaStrikeType]["blue"])[0]];
                 break;
             default:
                 file = color === "random" ? `autoanimations.${itemName}.melee.01` : `autoanimations.${itemName}.melee.01.${color}`
@@ -49,7 +49,8 @@ export async function buildSwitchFile(jb2a, name, handler) {
     if (itemName === "arrow") { dmgType = handler.switchDmgType ?? "regular" } else {
         dmgType = handler.switchDmgType ?? "physical";
     }
-    let color = handler.switchColor === "a1" || !handler.switchColor ? "white" : handler.switchColor;
+    let color = handler.switchColor;
+    color = color === "a1" || !color || color === "n1" ? "white" : color;
     //let fileData;
     //let variant = handler.spellVariant ?? "01";
     switch (itemName) {
@@ -77,7 +78,7 @@ export async function buildSwitchFile(jb2a, name, handler) {
             break;
         case "lasershot":
         case "snipe":
-            file = `autoanimations.${itemName}.${color}`;
+            file = color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
             break;
         case 'arrow':
         case 'bolt':
@@ -101,7 +102,8 @@ export async function buildRangedFile(jb2a, name, handler) {
     if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
         dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
     }
-    let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color;
+    let color = handler.color;
+    color = color === "a1" || !color || color === "n1" ? handler.defaultColor : handler.color;
     color = color.replace(/\s+/g, '');
     let file;
     //let fileData;
@@ -134,7 +136,7 @@ export async function buildRangedFile(jb2a, name, handler) {
             break;
         case "lasershot":
         case "snipe":
-            file = `autoanimations.${itemName}.${color}`;
+            file = color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
             break;
         case 'arrow':
         case 'bolt':

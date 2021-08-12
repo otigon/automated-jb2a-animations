@@ -40,11 +40,7 @@ export async function templateAnimation(handler, msg) {
     async function cast() {
         const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
         let template;
-        if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-            template = await canvas.templates.get(templateID);
-        } else {
-            template = await canvas.templates.documentCollection.get(templateID);
-        }
+        template = await canvas.templates.documentCollection.get(templateID);
         let templateType = template.data?.t;
         let templateW;
         let templateLength;
@@ -57,7 +53,6 @@ export async function templateAnimation(handler, msg) {
         let tileHeight;
         let tileX;
         let tileY;
-        let dnd5eHelper;
         //let scale = ((200 * handler.explosionRadius) / (canvas.dimensions.distance * videoData.width))
         switch (templateType) {
             case "ray":
@@ -165,47 +160,55 @@ export async function templateAnimation(handler, msg) {
                 }
             }
             socketlibSocket.executeAsGM("placeTile", data)
+            new Sequence()
+                .sound()
+                .file(templateFile)
+                .playIf(handler.itemSound)
+                .delay(templateDelay)
+                .volume(templateVolume)
+                .repeats(handler.animationLoops, handler.loopDelay)
+                .play()
             //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
         } else {
+            if (handler.templates.removeTemplate) {
+                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+            }        
             await new Sequence()
                 .effect()
-                    .atLocation(sourceToken)
-                    .scale(sFXScale * handler.sourceScale)
-                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                    .belowTokens(handler.sourceLevel)
-                    .waitUntilFinished(handler.sourceDelay)
-                    .playIf(handler.sourceEnable)
-                    .addOverride(async (effect, data) => {
-                        if (handler.sourceEnable) {
-                            data.file = sourceFX.file;
-                        }
-                        return data;
-                    })
-                .thenDo(function() {
+                .atLocation(sourceToken)
+                .scale(sFXScale * handler.sourceScale)
+                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                .belowTokens(handler.sourceLevel)
+                .waitUntilFinished(handler.sourceDelay)
+                .playIf(handler.sourceEnable)
+                .addOverride(async (effect, data) => {
+                    if (handler.sourceEnable) {
+                        data.file = sourceFX.file;
+                    }
+                    return data;
+                })
+                .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, "no-target")
-                })                         
+                })
                 .effect()
-                    .file(tempAnimation.file)
-                    .atLocation({ x: template.data.x, y: template.data.y })
-                    .anchor({ x: xAnchor, y: yAnchor })
-                    .rotate(rotate)
-                    .scale({ x: scaleX, y: scaleY })
-                    .belowTokens(false)
-                    .repeats(tempAnimation.loops, tempAnimation.delay)
+                .file(tempAnimation.file)
+                .atLocation({ x: template.data.x, y: template.data.y })
+                .anchor({ x: xAnchor, y: yAnchor })
+                .rotate(rotate)
+                .scale({ x: scaleX, y: scaleY })
+                .belowTokens(false)
+                .repeats(tempAnimation.loops, tempAnimation.delay)
                 .sound()
-                    .file(templateFile)
-                    .playIf(handler.itemSound)
-                    .delay(templateDelay)
-                    .volume(templateVolume)
-                    .repeats(handler.animationLoops, handler.loopDelay)
+                .file(templateFile)
+                .playIf(handler.itemSound)
+                .delay(templateDelay)
+                .volume(templateVolume)
+                .repeats(handler.animationLoops, handler.loopDelay)
                 .play()
-                await wait(500)
-                Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
+            await wait(500)
+            Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
         }
 
-        if (handler.templates.removeTemplate) {
-            canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
-        }
 
     }
     cast();

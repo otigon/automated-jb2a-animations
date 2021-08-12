@@ -69,11 +69,7 @@ export async function teleportation(handler) {
 
         let removeTemplates = canvas.templates.placeables.filter(i => i.data.flags.world?.Teleportation?.ActorId === actor.id);
         removeTemplates = removeTemplates.map(template => template.id);
-        if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-            await canvas.templates.get(removeTemplates).delete()
-        } else {
-            if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
-        }
+        if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
 
         new Sequence()
             .effect()
@@ -99,25 +95,10 @@ export async function teleportation(handler) {
                 .on(token)
                 .fadeOut(500)
             .wait(500)
-            .thenDo(async () => {
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    await token.update({
-                        x: gridPos[0],
-                        y: gridPos[1],
-                    }, { animate: false });
-                } else {
-                    await token.document.update({
-                        x: gridPos[0],
-                        y: gridPos[1],
-                    }, { animate: false });
-                }
-            })
-            /*
             .animation()
                 .on(token)
                 .teleportTo({x: gridPos[0], y: gridPos[1]})
                 .async()
-            */
             .effect()
                 .file(onToken.msFile)
                 .atLocation(token)
