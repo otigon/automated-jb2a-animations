@@ -30,7 +30,7 @@ import { templateAnimation } from "./animation-functions/templateAnimation.js";
 import { shieldSpell } from "./animation-functions/custom-sequences/shield.js";
 import { sneakAttack } from "./animation-functions/custom-sequences/sneak-Attack.js";
 import { bless } from "./animation-functions/custom-sequences/bless.js";
-import { setupSocket } from "./socketset.js";
+import { setupSocket, socketlibSocket } from "./socketset.js";
 
 import ImagePicker from "./ImagePicker.js";
 
@@ -41,8 +41,33 @@ const log = () => { };
 Hooks.once('setup', function () {
     setupSocket();
 });
-
+var killAllAnimations;
+function disableAnimations() {
+    socket.off('module.sequencer')
+    killAllAnimations = true;
+}
 Hooks.on('init', () => {
+    game.settings.register("autoanimations", "killAllAnim", {
+        name: game.i18n.format("AUTOANIM.toggleAnimations"),
+        hint: game.i18n.format("AUTOANIM.toggleAnimations_hint"),
+        scope: "client",
+        config: true,
+        type: String,
+        choices: {
+            "on": game.i18n.format("AUTOANIM.ON"),
+            "off": game.i18n.format("AUTOANIM.OFF"),
+        },
+        default: "on",
+        onChange: value => {
+            if (value === "off") {
+                disableAnimations()
+            }
+            if (value === "on") {
+                window.location.reload()
+            }
+            //console.log(value)
+        }
+    })
     game.settings.register("autoanimations", "disableAutoRec", {
         name: game.i18n.format("AUTOANIM.settingDisableAutoRec"),
         hint: game.i18n.format("AUTOANIM.settingDisableAutoRecHint"),
@@ -89,6 +114,26 @@ Hooks.on('init', () => {
         default: false,
     })
     switch (game.system.id) {
+        case "demonlord": {
+            if (!(game.data.version === "0.7.9" || game.data.version === "0.7.10")) {
+                game.settings.register("autoanimations", "playtrigger", {
+                    name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
+                    hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
+                    scope: "world",
+                    type: String,
+                    choices: {
+                        "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
+                        "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
+                        "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
+                        "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
+                        "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
+                    },
+                    default: "rollattack",
+                    config: true
+                })
+            }
+            break
+        }
         case "sfrpg": {
             game.settings.register("autoanimations", "playonDamage", {
                 name: game.i18n.format("AUTOANIM.midiondmg_name"),
@@ -318,6 +363,11 @@ Hooks.once('ready', function () {
 
     Hooks.on("sequencer.ready", () => {
         SequencerDatabase.registerEntries("autoanimations", obj01);
+        if (game.settings.get("autoanimations", "killAllAnim") === "off") {
+            console.log("ANIMATIONS ARE OFF")
+            socket.off('module.sequencer')
+            killAllAnimations = true;
+        }
     });
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error(game.i18n.format("AUTOANIM.error"));
@@ -333,6 +383,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 */
 class AutoAnimations {
     static playAnimation(sourceToken, targets, item) {
+        if (killAllAnimations) { return; }
         let handler = new GeneralAnimHandler(sourceToken, targets, item);
         trafficCop(handler);
     }
@@ -348,12 +399,14 @@ function moduleIncludes(test) {
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 function setUpMidi(workflow) {
+    if (killAllAnimations) { return; }
     let handler = new MidiHandler(workflow);
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
 function setUpMidiNoAD(workflow) {
+    if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = new MidiHandler(workflow);
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -361,6 +414,7 @@ function setUpMidiNoAD(workflow) {
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
 function setUpMidiNoA(workflow) {
+    if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = new MidiHandler(workflow);
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -368,6 +422,7 @@ function setUpMidiNoA(workflow) {
 }
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
 async function specialCaseAnimations(msg) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== msg.user?.id) {
         return;
     }
@@ -383,6 +438,7 @@ async function specialCaseAnimations(msg) {
 / Set up DnD5e and SW5e CORE (NON MIDI)
 */
 function setUp5eCore(msg) {
+    if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
 
     const animationNow = game.settings.get("autoanimations", "playonDamageCore");
@@ -398,7 +454,7 @@ function setUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
-
+    console.log(rollType)
     if (!handler.item || handler.animKill) { return }
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
@@ -415,8 +471,8 @@ function setUp5eCore(msg) {
             break;
         case !animationNow:
             switch (true) {
-                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck"):
-                        trafficCop(handler);
+                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") & !rollType.includes("damage"):
+                    trafficCop(handler);
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
@@ -432,6 +488,7 @@ function setUp5eCore(msg) {
 / sets Handler for PF1 and DnD3.5
 */
 function onCreateChatMessage(msg) {
+    if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
     log('onCreateChatMessage', msg);
     let handler;
@@ -459,6 +516,7 @@ function onCreateChatMessage(msg) {
 / Sets Handler for SWADE
 */
 function swadeData(SwadeActor, SwadeItem) {
+    if (killAllAnimations) { return; }
     let handler = new SwadeHandler(SwadeActor, SwadeItem);
     trafficCop(handler);
 }
@@ -467,6 +525,7 @@ function swadeData(SwadeActor, SwadeItem) {
 / Sets Handler for Starfinder
 */
 function starFinder(data, msg) {
+    if (killAllAnimations) { return; }
     let tokenId = msg.data.speaker.token;
     let sourceToken = canvas.tokens.get(tokenId);
     let targets = Array.from(msg.user.targets);
@@ -478,6 +537,7 @@ function starFinder(data, msg) {
 / Sets Handler for Tormenta 20
 */
 function setupTormenta20(msg) {
+    if (killAllAnimations) { return; }
     let handler = new Tormenta20Handler(msg);
     if (game.user.id === msg.user.id) {
         switch (true) {
@@ -496,6 +556,7 @@ function setupTormenta20(msg) {
 / Sets Handler for Demon Lord
 */
 function setupDemonLord(data) {
+    if (killAllAnimations) { return; }
     let handler = new DemonLordHandler(data);
     trafficCop(handler);
 }
@@ -504,6 +565,7 @@ function setupDemonLord(data) {
 / Sets Handler for Pathfinder 2e and routes to animations
 */
 async function pf2eReady(msg) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = new PF2Handler(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
@@ -583,6 +645,7 @@ async function itemSound(handler) {
     }
 }
 async function criticalCheck(workflow) {
+    if (killAllAnimations) { return; }
     if (!workflow.isCritical && !workflow.isFumble) { return; }
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
@@ -615,6 +678,7 @@ async function criticalCheck(workflow) {
 / WFRP Functions
 */
 function wfrpWeapon(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.weapon;
     let allTargets = Array.from(targets);
@@ -628,6 +692,7 @@ function wfrpWeapon(data, targets, info) {
     }
 }
 function wfrpPrayer(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.prayer;
     let allTargets = Array.from(targets);
@@ -641,6 +706,7 @@ function wfrpPrayer(data, targets, info) {
     }
 }
 function wfrpCast(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.spell;
     let allTargets = Array.from(targets);
@@ -654,6 +720,7 @@ function wfrpCast(data, targets, info) {
     }
 }
 function wfrpTrait(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.trait;
     let allTargets = Array.from(targets);
@@ -667,6 +734,7 @@ function wfrpTrait(data, targets, info) {
     }
 }
 function wfrpSkill(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.skill;
     let allTargets = Array.from(targets);

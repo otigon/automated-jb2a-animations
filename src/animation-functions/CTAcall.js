@@ -14,7 +14,7 @@ async function ctaCall(handler) {
 
     const aura = await buildAuraFile(obj01, handler);
     console.log(handler.allTargets.length)
-    if (handler.allTargets.length === 0) {
+    if (handler.allTargets.length === 0 || handler.options?.ignoreTarget) {
         selfAura()
     } else {
         targetAura();

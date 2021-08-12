@@ -245,6 +245,8 @@ export class AAItemSettings extends FormApplication {
             huntersMark: itemName === "huntersmark",
             sneakAttack: itemName === "sneakattack",
             bless: itemName === "bless",
+            anchorX: flags.autoanimations?.options?.anchorX || 0.5,
+            anchorY: flags.autoanimations?.options?.anchorY || 0.7,
 
             dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
 

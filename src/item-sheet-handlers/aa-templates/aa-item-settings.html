@@ -1246,6 +1246,13 @@
                     </select>
                 </div>
                 {{/unless}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.scaleToToken"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.options.scaleToToken"
+                        value="flags.autoanimations.options.scaleToToken" {{checked
+                        flags.autoanimations.options.scaleToToken}}>
+                </div>
+                {{#unless flags.autoanimations.options.scaleToToken}}
                 <div class="flexrow">
                     <!--Choose Explosion Radius-->
                     <div class="aa-column">
@@ -1265,6 +1272,28 @@
                             data-dtype="Number">
                     </div>
                 </div>
+                {{/unless}}
+                {{#if flags.autoanimations.options.scaleToToken}}
+                <div class="flexrow">
+                    <!--Choose Explosion Radius-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.scale"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" min="0" step=".01"
+                            value={{scale}} data-type="Number">
+                    </div>
+                    <!--Set Explosion Loops-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                            data-dtype="Number">
+                    </div>
+                </div>
+                {{/if}}
                 <!--Add Custom Animation-->
                 <div class="aa-ridged">
                     <div class="form-group">
@@ -1377,6 +1406,11 @@
                     <input type="checkbox" name="flags.autoanimations.ctaOption" value="flags.autoanimations.ctaOption"
                         {{checked flags.autoanimations.ctaOption}}>
                 </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.ignoreTargets"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.options.ignoreTarget" value="flags.autoanimations.options.ignoreTarget"
+                        {{checked flags.autoanimations.options.ignoreTarget}}>
+                </div>
                 {{/if}}
 
 
@@ -1415,9 +1449,10 @@
                         value={{teleRange}}>
                 </div>
                 <div class="form-group">
-                    <label>Do Note Place Template</label>
-                    <input type="checkbox" name="flags.autoanimations.options.hideTemplate" value="flags.autoanimations.options.hideTemplate"
-                    {{checked flags.autoanimations.options.hideTemplate}}>
+                    <label>{{localize "AUTOANIM.noTemplate"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.options.hideTemplate"
+                        value="flags.autoanimations.options.hideTemplate" {{checked
+                        flags.autoanimations.options.hideTemplate}}>
                 </div>
                 <!--Add Custom Animation-->
                 <div class="aa-ridged">
@@ -1646,6 +1681,20 @@
                         {{/each}}
                         {{/select}}
                     </select>
+                </div>
+                <div class="flexrow">
+                    <!--Choose Explosion Radius-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.anchorX"}} (0 - 1)</label>
+                        <input type="Number" name="flags.autoanimations.options.anchorX" min="0" step=".01"
+                            value={{anchorX}} data-type="Number" min="0" max="1">
+                    </div>
+                    <!--Set Explosion Loops-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.anchorY"}} (0 - 1)</label>
+                        <input type="Number" name="flags.autoanimations.options.anchorY" value={{anchorY}}
+                            data-dtype="Number" min="0" max="1">
+                    </div>
                 </div>
                 {{/if}}
                 {{/if}}

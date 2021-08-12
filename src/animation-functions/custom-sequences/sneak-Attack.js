@@ -28,7 +28,8 @@ export async function sneakAttack(handler) {
         targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
     */
-
+    const anchorX = handler.options?.anchorX || 0.5;
+    const anchorY = handler.options?.anchorY || 0.7;
 
     async function cast() {
         new Sequence()
@@ -50,7 +51,7 @@ export async function sneakAttack(handler) {
             .file(sneak.file)
             .atLocation(sourceToken)
             .scale(2 * sourceToken.w / sneak.metadata.width)
-            .anchor({ x: 0.5, y: 0.7 })
+            .anchor({ x: anchorX, y: anchorY })
             .play()
     }
     cast();

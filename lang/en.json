@@ -361,6 +361,16 @@
 
     "AUTOANIM.returning": "Returning Weapon",
     "AUTOANIM.rangeDetect": "Range Detection",
-    "AUTOANIM.gridSquares": "Grid Squares for Range Switch"
+    "AUTOANIM.gridSquares": "Grid Squares for Range Switch",
+
+    "AUTOANIM.toggleAnimations": "Toggle Animations",
+    "AUTOANIM.toggleAnimations_hint": "Requires refresh if turning Animations ON",
+    "AUTOANIM.ON": "ON",
+    "AUTOANIM.OFF": "OFF",
+    "AUTOANIM.ignoreTargets": "Ignore Targets",
+    "AUTOANIM.scaleToToken": "Scale by Token Size",
+    "AUTOANIM.noTemplate": "Do Not Place Template",
+    "AUTOANIM.anchorX": "Anchor X",
+    "AUTOANIM.anchorY": "Anchor Y"
 
 }

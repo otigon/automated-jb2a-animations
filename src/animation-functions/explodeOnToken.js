@@ -29,7 +29,9 @@ export async function explodeOnToken(handler) {
     if (handler.targetEnable) {
         targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
-
+    let tokenScale = (1.5 * sourceToken.w / explosion.metadata.width)
+    const optionScale = handler.options?.scale ?? 1
+    let scaleT10 = handler.options?.scaleToToken ? (tokenScale * optionScale) : explosion.scale;
     if (handler.animType === "t10") {
         new Sequence()
             .effect()
@@ -51,7 +53,7 @@ export async function explodeOnToken(handler) {
                 .randomizeMirrorY()
                 .repeats(handler.explosionLoops, handler.explosionDelay)
                 //.missed(hit)
-                .scale(explosion.scale)
+                .scale(scaleT10)
                 .belowTokens(handler.animLevel)
                 .addOverride(
                     async (effect, data) => {
@@ -77,6 +79,8 @@ export async function explodeOnToken(handler) {
             } else {
                 hit = false;
             }
+            let targetScale = (1.5 * target.w / explosion.metadata.width)
+            let scaleT9 = handler.options?.scaleToToken ? (targetScale * optionScale) : explosion.scale;
 
                 new Sequence()
                     .effect()
@@ -97,7 +101,7 @@ export async function explodeOnToken(handler) {
                         .atLocation(target)
                         //.randomizeMirrorY()
                         .repeats(handler.explosionLoops, handler.explosionDelay)
-                        .scale(explosion.scale)
+                        .scale(scaleT9)
                         .belowTokens(handler.animLevel)
                         .playIf(() => { return arrayLength })
                     .effect()
