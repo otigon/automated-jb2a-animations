@@ -400,10 +400,6 @@ function setUp5eCore(msg) {
     }
 
     if (!handler.item || handler.animKill) { return }
-    let mreActive = game.modules.get("mre-dnd5e")?.active ? true : false;
-    console.log(mreActive)
-    let mreFlavor = msg.data?.flavor?.toLowerCase().includes("damage roll") ? true : false;
-    console.log(mreFlavor)
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
             trafficCop(handler);
@@ -412,17 +408,15 @@ function setUp5eCore(msg) {
             trafficCop(handler);
             break;
         case animationNow:
-            if (rollType.includes("damage") || (mreActive && mreFlavor)) {
+            if (rollType.includes("damage")) {
                 if (handler.animType === "t8") { return; }
                 trafficCop(handler);
             }
             break;
         case !animationNow:
             switch (true) {
-                case game.modules.get("mre-dnd5e")?.active:
-                    if (game.settings.get("mre-dnd5e", "autoCheck")) {
+                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck"):
                         trafficCop(handler);
-                    }
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
