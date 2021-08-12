@@ -168,6 +168,9 @@ export async function templateAnimation(handler, msg) {
                 .volume(templateVolume)
                 .repeats(handler.animationLoops, handler.loopDelay)
                 .play()
+            if (handler.templates.removeTemplate) {
+                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+            }            
             //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
         } else {
             if (handler.templates.removeTemplate) {
