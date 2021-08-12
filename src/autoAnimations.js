@@ -479,6 +479,10 @@ function setUp5eCore(msg) {
                     if (handler.animType === "t8") { return; }
                     trafficCop(handler);
                     break;
+                case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
+                    if (handler.animType === "t8") { return; }
+                    trafficCop(handler);
+                    break;
             }
             break;
     }
