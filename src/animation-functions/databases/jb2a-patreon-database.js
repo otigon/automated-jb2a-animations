@@ -867,15 +867,63 @@ JB2APATREONDB.sword = {
 JB2APATREONDB.genericmelee = {
     melee: {
         '01': {
-            "1hs": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_1Handed_800x600.webm',
-            "2hs": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_2Handed_800x600.webm',
-            "1hb": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_1Handed_800x600.webm',
-            "2hb": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_2Handed_800x600.webm',
-            "1hp": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_1Handed_800x600.webm',
-            "2hp": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_2Handed_800x600.webm'
+            'white': {
+                "1hs": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_1Handed_800x600.webm',
+                "2hs": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_2Handed_800x600.webm',
+                "1hb": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_1Handed_800x600.webm',
+                "2hb": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_2Handed_800x600.webm',
+                "1hp": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_1Handed_800x600.webm',
+                "2hp": 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_2Handed_800x600.webm'
+            }
         }
     }
+}
 
+JB2APATREONDB['1hs'] = {
+    melee: {
+        '01': {
+            'white': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_1Handed_800x600.webm',
+        }
+    }
+}
+JB2APATREONDB['2hs'] = {
+    melee: {
+        '01': {
+            'white': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_2Handed_800x600.webm',
+        }
+    }
+}
+
+JB2APATREONDB['1hb'] = {
+    melee: {
+        '01': {
+            'white': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_1Handed_800x600.webm',
+        }
+    }
+}
+
+JB2APATREONDB['2hb'] = {
+    melee: {
+        '01': {
+            'white': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_2Handed_800x600.webm',
+        }
+    }
+}
+
+JB2APATREONDB['1hp'] = {
+    melee: {
+        '01': {
+            'white': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_1Handed_800x600.webm',
+        }
+    }
+}
+
+JB2APATREONDB['2hp'] = {
+    melee: {
+        '01': {
+            'white': 'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_2Handed_800x600.webm'
+        }
+    }
 }
 
 JB2APATREONDB.lasershot = {
