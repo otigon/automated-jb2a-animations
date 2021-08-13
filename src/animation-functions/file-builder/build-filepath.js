@@ -33,45 +33,6 @@ export async function buildWeaponFile(jb2a, name, handler) {
     //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
     return { file, metadata };
 }
-/*
-export async function buildWeaponFile(jb2a, name, handler) {
-
-    let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color
-    color = color.replace(/\s+/g, '');
-    //if (!color || color === "a1") { color = handler.defaultColor }
-    let uaStrikeType = handler.uaStrikeType || "physical";
-    let itemName = name.replace("melee", "")
-    let file;
-    let fileData;
-    if (handler.enableCustom01) {
-        file = handler.custom01;
-        fileData = handler.custom01;
-    } else {
-        switch (itemName) {
-            case "1hs":
-            case "2hs":
-            case "1hp":
-            case "2hp":
-            case "1hb":
-            case "2hb":
-                file = `autoanimations.genericmelee.${itemName}`;
-                fileData = jb2a['genericmelee'][itemName];
-                break;
-            case 'unarmedstrike':
-            case 'flurryofblows':
-                file = color === "random" ? `autoanimations.${itemName}.${uaStrikeType}` : `autoanimations.${itemName}.${uaStrikeType}.${color}`;
-                fileData = jb2a[itemName][uaStrikeType]["blue"][Object.keys(jb2a[itemName][uaStrikeType]["blue"])[0]];
-                break;
-            default:
-                file = color === "random" ? `autoanimations.${itemName}.melee.01` : `autoanimations.${itemName}.melee.01.${color}`
-                fileData = color === "random" ? jb2a[itemName]['melee']['01'][Object.keys(jb2a[itemName]['melee']['01'])[0]] : jb2a[itemName]['melee']['01'][color];
-        }
-    }
-    let metadata = await getVideoDimensionsOf(fileData);//get video metadata
-    //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
-    return { file, metadata };
-}
-*/
 
 export async function buildSwitchFile(jb2a, name, handler) {
 
@@ -102,62 +63,7 @@ export async function buildSwitchFile(jb2a, name, handler) {
     //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
     return { file, fileReturn };
 }
-/*
-export async function buildSwitchFile(jb2a, name, handler) {
-    let file;
-    let fileReturn;
-    let variant = handler.switchVariant || "01";
-    let dmgType = handler.switchDmgType ?? "physical";
-    let itemName = name.replace("range", "")
-    if (itemName.includes("lasersword")) { itemName = itemName.replace("double", "") };
-    if (itemName === "arrow") { dmgType = handler.switchDmgType ?? "regular" } else {
-        dmgType = handler.switchDmgType ?? "physical";
-    }
-    let color = handler.switchColor;
-    color = color === "a1" || !color || color === "n1" ? "white" : color;
-    //let fileData;
-    //let variant = handler.spellVariant ?? "01";
-    switch (itemName) {
-        case 'boulder':
-        case 'siege':
-        case 'chakram':
-            file = `autoanimations.${itemName}`;
-            break;
-        case 'sling':
-            file = `autoanimations.${itemName}.range.01`;
-            break;
-        case 'hammer':
-        case "dagger":
-        case "handaxe":
-            // Just a patch until I separate range/melee animations
-            if (color !== "darkpurple") (color = "white")
-            //if (!handler.variant || handler.variant === "a1") (variant = "01")
-            file = `autoanimations.${itemName}.range.${variant}.${color}`;
-            if (variant === "kunai") { variant = '01'; color = 'white' };
-            fileReturn = `autoanimations.${itemName}.return.${variant}.${color}`;
-            break;
-        case 'lasersword':
-            color = !color || color === "a1" ? "blue" : "blue";
-            file = color === 'random' ? `autoanimations.lasersword.range.${variant}` : `autoanimations.lasersword.range.${variant}.${color}`;
-            break;
-        case "lasershot":
-        case "snipe":
-            file = color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
-            break;
-        case 'arrow':
-        case 'bolt':
-        case 'bullet':
-            file = color === "random" ? `autoanimations.${itemName}.${dmgType}` : `autoanimations.${itemName}.${dmgType}.${color}`;
-            break;
-        default:
-            file = color === "random" ? `autoanimations.${itemName}.range.01` : `autoanimations.${itemName}.range.01.${color}`;
-            fileReturn = `autoanimations.${itemName}.return.01.${color}`
-    }
-    //let videoData = await getVideoDimensionsOf(fileData['30ft']);//get video metadata
-    //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
-    return { file, fileReturn };
-}
-*/
+
 export async function buildRangedFile(jb2a, name, handler) {
 
     let dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
@@ -186,73 +92,6 @@ export async function buildRangedFile(jb2a, name, handler) {
     //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
     return { file };
 }
-/*
-export async function buildRangedFile(jb2a, name, handler) {
-
-    let dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
-    let itemName = name.replace("range", "")
-    if (itemName.includes("lasersword")) { itemName = itemName.replace("double", "") };
-    if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-        dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
-    }
-    let color = handler.color;
-    color = color === "a1" || !color || color === "n1" ? handler.defaultColor : handler.color;
-    color = color.replace(/\s+/g, '');
-    let file;
-    //let fileData;
-    //let variant = handler.spellVariant ?? "01";
-    let dtvar = handler.dtvar;
-    switch (itemName) {
-        case "scorchingray":
-        case "guidingbolt":
-            const spellVariant = handler.spellVariant || "01";
-            file = handler.color === "random" ? `autoanimations.${itemName}.${spellVariant}` : `autoanimations.${itemName}.${spellVariant}.${color}`;
-            break;
-        case 'boulder':
-        case 'siege':
-        case 'chakram':
-            file = `autoanimations.${itemName}`;
-            break;
-        case 'sling':
-            file = `autoanimations.${itemName}.range.01`;
-            break;
-        case 'hammer':
-        case "dagger":
-        case "handaxe":
-            // Just a patch until I separate range/melee animations
-            if (color !== "darkpurple") (color = "white")
-            if (!handler.dtvar || handler.dtvar === "a1") (dtvar = "01")
-            file = `autoanimations.${itemName}.range.${dtvar}.${color}`;
-            break;
-        case 'lasersword':
-            file = handler.color === 'random' ? `autoanimations.lasersword.range.${dtvar}` : `autoanimations.lasersword.range.${dtvar}.${color}`;
-            break;
-        case "lasershot":
-        case "snipe":
-            file = color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
-            break;
-        case 'arrow':
-        case 'bolt':
-        case 'bullet':
-            file = handler.color === "random" ? `autoanimations.${itemName}.${dmgType}` : `autoanimations.${itemName}.${dmgType}.${color}`;
-            break;
-        case 'firebolt':
-        case 'rayoffrost':
-        case 'witchbolt':
-        case 'eldritchblast':
-        case 'magicmissile':
-        case 'disintegrate':
-            file = handler.color === 'random' ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
-            break;
-        default:
-            if (!handler.color || handler.color === "a1") { color = handler.defaultColor }
-            file = handler.color === "random" ? `autoanimations.${itemName}.range.01` : `autoanimations.${itemName}.range.01.${color}`;
-    }
-    //let videoData = await getVideoDimensionsOf(fileData['30ft']);//get video metadata
-    //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
-    return { file };
-}
-*/
 
 export async function buildAfterFile(jb2a, handler) {
     let color = handler.explosionColor;
@@ -282,50 +121,17 @@ export async function buildAfterFile(jb2a, handler) {
     //handler.item.setFlag("autoanimations", "defaults.explosion.metadata", videoData)
     return { file, scale, metadata };
 }
-/*
-export async function buildAfterFile(jb2a, handler) {
-    let color = handler.explosionColor;
-    color = color.replace(/\s+/g, '');
-    let variant = handler.explosionVariant;
-    let impactVariant = handler.impactVar;
-    let file;
-    let fileData;
-    if (handler.customExplode) {
-        file = handler.customExplosionPath
-        fileData = file
-    } else {
-        switch (true) {
-            case variant === "shatter":
-            case variant === "thunderwave":
-                file = handler.explosionColor === "random" ? `autoanimations.explosion.${variant}` : `autoanimations.explosion.${variant}.${color}`;
-                fileData = jb2a.explosion[variant][Object.keys(jb2a.explosion[variant])[0]]
-                break;
-            case variant === "boulder":
-                file = `autoanimations.explosion.${variant}`;
-                fileData = jb2a['explosion'][variant];
-                break;
-            case variant === "antilife-shell":
-                file = `autoanimations.explosion.antilifeshell`;
-                fileData = jb2a['explosion']['antilifeshell'];
-                break;
-            default:
-                file = handler.explosionColor === "random" ? `autoanimations.explosion.${handler.explosionVariant}` : `autoanimations.explosion.${handler.explosionVariant}.${handler.explosionColor}`;
-                fileData = jb2a['explosion'][variant][Object.keys(jb2a['explosion'][variant])[0]][0]
-        }
-    }
-    let metadata = await getVideoDimensionsOf(fileData);//get video metadata
-    let scale = ((200 * handler.explosionRadius) / (metadata.width))
 
-    //handler.item.setFlag("autoanimations", "defaults.explosion.file", filePath)
-    //handler.item.setFlag("autoanimations", "defaults.explosion.scale", scale)
-    //handler.item.setFlag("autoanimations", "defaults.explosion.metadata", videoData)
-    return { file, scale, metadata };
-}
-*/
 export async function buildTokenAnimationFile(jb2a, itemName, handler) {
     let color = !handler.color || handler.color === "a1" ? handler.defaultColor : handler.color;
     color = color.replace(/\s+/g, '');
-    let variant = handler.spellVariant ?? "01";
+    let variant = handler.spellVariant;
+    let variantArray = Object.keys(jb2a[itemName].static);
+    variant = variantArray.some(el => variant.includes(el)) ? variant : variantArray[0];
+    let colorArray = Object.keys(jb2a[itemName].static[variant])
+    if (color === "random") { } else {
+        color = colorArray.some(el => color.includes(el)) ? color : colorArray[0];
+    }
     let file;
     let msFile;
     let fileData;
@@ -334,21 +140,9 @@ export async function buildTokenAnimationFile(jb2a, itemName, handler) {
         msFile = handler.custom01
         fileData = file
     } else {
-        switch (itemName) {
-            case "generichealing":
-                file = color === "random" ? `autoanimations.${itemName}.${variant}` : `autoanimations.${itemName}.${variant}.${color}`;
-                fileData = jb2a["generichealing"][variant][Object.keys(jb2a["generichealing"][variant])[0]]
-                break;
-            case "mistystep":
-                file = color === "random" ? `autoanimations.${itemName}.01` : `autoanimations.${itemName}.01.${color}`;
-                msFile = color === "random" ? `autoanimations.${itemName}.02` : `autoanimations.${itemName}.02.${color}`;
-                fileData = jb2a[itemName]["01"][Object.keys(jb2a[itemName]["01"])[0]]
-                break;
-            default:
-                file = color === "random" ? `autoanimations.${itemName}` : `autoanimations.${itemName}.${color}`;
-                fileData = jb2a[itemName][Object.keys(jb2a[itemName])[0]]
-                break;
-        }
+        file = color === "random" ? `autoanimations.${itemName}.static.${variant}` : `autoanimations.${itemName}.static.${variant}.${color}`;
+        fileData = jb2a[itemName].static[variant][Object.keys(jb2a[itemName].static[variant])[0]];
+        msFile = color === "random" ? `autoanimations.${itemName}.static.02` : `autoanimations.${itemName}.static.02.${color}`;
     }
     let metadata = await getVideoDimensionsOf(fileData);//get video metadata
     //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
@@ -362,30 +156,28 @@ export async function buildTemplateFile(jb2a, handler) {
     let flags = handler.templates;
     let color = flags.tempColor;
     color = color.replace(/\s+/g, '');
+    const type = flags.tempType;
+
+    let animation = flags.tempAnim;
+    let animationArray = Object.keys(jb2a.templates[type]);
+    animation = animationArray.some(el => animation.includes(el)) ? animation : animationArray[0];
+
+    let variant = handler.spellVariant;
+    let variantArray = Object.keys(jb2a.templates[type][animation]);
+    variant = variantArray.some(el => variant.includes(el)) ? variant : variantArray[0];
+    let colorArray = Object.keys(jb2a.templates[type][animation][variant])
+    if (color === "random") { } else {
+        color = colorArray.some(el => color.includes(el)) ? color : colorArray[0];
+    }
+
     let file;
     let file2;
-    const variant = handler.spellVariant || "01";
     if (handler.templates.customAnim) {
         file = handler.templates.customPath
         file2 = file
     } else {
-        switch (handler.templates?.tempAnim) {
-            case "fogcloud":
-                file = `autoanimations.templates.${flags.tempType}.${flags.tempAnim}`;
-                file2 = jb2a['templates'][flags.tempType][flags.tempAnim];
-                break;
-            case "cloudofdaggers":
-                file = `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${color}`;
-                file2 = jb2a['templates'][flags.tempType][flags.tempAnim][variant][color];
-                break;
-            case "lightningbolt":
-                file = color === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${variant}.${color}`;
-                file2 = color === "random" ? jb2a['templates'][flags.tempType][flags.tempAnim][variant][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim][variant])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][variant][color];
-                break;
-            default:
-                file = color === "random" ? `autoanimations.templates.${flags.tempType}.${flags.tempAnim}` : `autoanimations.templates.${flags.tempType}.${flags.tempAnim}.${color}`;
-                file2 = color === "random" ? jb2a['templates'][flags.tempType][flags.tempAnim][Object.keys(jb2a['templates'][flags.tempType][flags.tempAnim])[0]] : jb2a['templates'][flags.tempType][flags.tempAnim][color];
-        }
+        file = `autoanimations.templates.${type}.${animation}.${variant}.${color}`;
+        file2 = jb2a['templates'][type][animation][variant][color];
     }
     let metadata = await getVideoDimensionsOf(file2);//get video metadata
     //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)

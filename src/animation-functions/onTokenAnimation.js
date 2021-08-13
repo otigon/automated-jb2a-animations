@@ -66,7 +66,7 @@ export async function onTokenAnimation(handler) {
                 return data;
             })
         .thenDo(function() {
-            Hooks.callAll("aa.animationStart", sourceToken, target)
+            Hooks.callAll("aa.animationStart", sourceToken, "no-target")
         })             
         .effect()
             .atLocation(sourceToken)

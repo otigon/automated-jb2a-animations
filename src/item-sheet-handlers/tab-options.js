@@ -56,15 +56,13 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorFirebolt) : AUTOANIM.localized(AUTOANIM.animColorFireboltFree)
             break;
         case itemName === "generichealing":
-            switch (spellVariant) {
-                case ('01'):
-                    animationColor = AUTOANIM.localized(AUTOANIM.animGenHealing01);
-                    break;
-                case ('02'):
+            switch (true) {
+                case spellVariant === '02':
                     animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animGenHealing02) : AUTOANIM.localized(AUTOANIM.animGenHealingFree02);
                     break;
                 default:
-                    return;
+                    animationColor = AUTOANIM.localized(AUTOANIM.animGenHealing01);
+                    break;;
             }
             break;
         case itemName === "magicmissile":
