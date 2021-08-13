@@ -3,6 +3,41 @@
 
 export async function buildWeaponFile(jb2a, name, handler) {
 
+    let color = handler.color;
+    color = color === "a1" || !color || color === "n1" ? handler.defaultColor.replace(/\s+/g, '') : color.replace(/\s+/g, '')
+    let itemName = name.replace("melee", "")
+    let file;
+    let fileData;
+    let variant = "01";
+    if (handler.enableCustom01) {
+        file = handler.custom01;
+        fileData = handler.custom01;
+    } else {
+        switch (itemName) {
+            case 'unarmedstrike':
+            case 'flurryofblows':
+                variant = Object.keys(jb2a[itemName].melee).some(el => handler.uaStrikeType.includes(el)) ? handler.uaStrikeType : "physical";
+                if (color === "random") { } else {
+                    color = Object.keys(jb2a[itemName].melee[variant]).some(el => color.includes(el)) ? color : Object.keys(jb2a[itemName].melee[variant])[0];
+                }
+                file = color === "random" ? `autoanimations.${itemName}.melee.${variant}` : `autoanimations.${itemName}.melee.${variant}.${color}`;
+                fileData = jb2a[itemName].melee[variant]["blue"][Object.keys(jb2a[itemName].melee[variant]["blue"])[0]];
+                break;
+            default:
+                if (color === "random") { } else {
+                    color = Object.keys(jb2a[itemName].melee[variant]).some(el => color.includes(el)) ? color : Object.keys(jb2a[itemName].melee[variant])[0];
+                }
+                file = color === "random" ? `autoanimations.${itemName}.melee.${variant}` : `autoanimations.${itemName}.melee.${variant}.${color}`
+                fileData = color === "random" ? jb2a[itemName].melee[variant][Object.keys(jb2a[itemName].melee[variant])[0]] : jb2a[itemName].melee[variant][color];
+        }
+    }
+    let metadata = await getVideoDimensionsOf(fileData);//get video metadata
+    //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
+    return { file, metadata };
+}
+/*
+export async function buildWeaponFile(jb2a, name, handler) {
+
     let color = handler.color === "a1" || !handler.color ? handler.defaultColor : handler.color
     color = color.replace(/\s+/g, '');
     //if (!color || color === "a1") { color = handler.defaultColor }
@@ -38,14 +73,14 @@ export async function buildWeaponFile(jb2a, name, handler) {
     //handler.item.setFlag("autoanimations", "defaults.primary.file", filePath)
     return { file, metadata };
 }
-
+*/
 export async function buildSwitchFile(jb2a, name, handler) {
     let file;
     let fileReturn;
     let variant = handler.switchVariant || "01";
     let dmgType = handler.switchDmgType ?? "physical";
     let itemName = name.replace("range", "")
-    if (itemName.includes("lasersword")) { itemName = itemName.replace("double", "")};
+    if (itemName.includes("lasersword")) { itemName = itemName.replace("double", "") };
     if (itemName === "arrow") { dmgType = handler.switchDmgType ?? "regular" } else {
         dmgType = handler.switchDmgType ?? "physical";
     }
@@ -69,7 +104,7 @@ export async function buildSwitchFile(jb2a, name, handler) {
             if (color !== "darkpurple") (color = "white")
             //if (!handler.variant || handler.variant === "a1") (variant = "01")
             file = `autoanimations.${itemName}.range.${variant}.${color}`;
-            if (variant === "kunai") { variant = '01'; color = 'white'};
+            if (variant === "kunai") { variant = '01'; color = 'white' };
             fileReturn = `autoanimations.${itemName}.return.${variant}.${color}`;
             break;
         case 'lasersword':
@@ -98,7 +133,7 @@ export async function buildRangedFile(jb2a, name, handler) {
 
     let dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
     let itemName = name.replace("range", "")
-    if (itemName.includes("lasersword")) { itemName = itemName.replace("double", "")};
+    if (itemName.includes("lasersword")) { itemName = itemName.replace("double", "") };
     if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
         dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
     }

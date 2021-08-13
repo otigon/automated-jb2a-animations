@@ -4,9 +4,11 @@ import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { meleeSwitch } from "./meleeSwitch.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
+import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function meleeAnimation(handler) {
+    console.log(animationDefault)
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
