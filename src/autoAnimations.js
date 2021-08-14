@@ -13,6 +13,7 @@ import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import SW5eHandler from "./system-handlers/sw5e-handler.js";
 import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
 import PF2Handler from "./system-handlers/pf2-handler.js";
+import ForbiddenLandsHandler from "./system-handlers/forbidden-lands-handler.js";
 
 import thunderwaveAuto from "./animation-functions/thunderwave.js";
 import ctaCall from "./animation-functions/CTAcall.js";
@@ -262,6 +263,9 @@ Hooks.on('init', () => {
                 break;
             case "pf2e":
                 Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
+                break;
+                case "forbidden-lands": 
+                Hooks.on("createChatMessage", async (msg) => { fblReady(msg) });
                 break;
             case "sfrpg":
                 Hooks.on("createChatMessage", async (msg) => {
@@ -556,6 +560,15 @@ function setupTormenta20(msg) {
     trafficCop(handler);
 }
 
+async function fblReady(msg){
+    if(killAllAnimations) { return; }
+    if(game.user.id !== msg.user.id) { return; }
+    const handler = new ForbiddenLandsHandler(msg);
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
+    trafficCop(handler);
+}
 /*
 / Sets Handler for Demon Lord
 */
