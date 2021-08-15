@@ -350,6 +350,27 @@
 
     "AUTOANIM.lightningbolt": "Relámpago",
     "AUTOANIM.chakram": "Chakram",
-    "AUTOANIM.bless": "Bendición"
+    "AUTOANIM.bless": "Bendición",
+    
+    "AUTOANIM.single": "Simple",
+    "AUTOANIM.double": "Doble",
+    "AUTOANIM.settingRangeSwitch": "Desactivar cambio Melee a Rango",
+    "AUTOANIM.settingRangeSwitchhint": "Desactiva el cambio de animación de cuerpo a cuerpo a una de rango",
+    "AUTOANIM.settingDisableAutoRec": "Desactivar Reconocimiento Automático",
+    "AUTOANIM.settingDisableAutoRecHint": "Sólo los elementos configurados a mano reproducirán animaciones",
+    
+    "AUTOANIM.returning": "Regreso de Arma",
+    "AUTOANIM.rangeDetect": "Detección de Rango",
+    "AUTOANIM.gridSquares": "N° de casillas para cambiar a rango",
+    
+    "AUTOANIM.toggleAnimations": "Activar Animaciones",
+    "AUTOANIM.toggleAnimations_hint": "Requiere refresar si se activan las animaciones",
+    "AUTOANIM.ON": "Sí",
+    "AUTOANIM.OFF": "No",
+    "AUTOANIM.ignoreTargets": "Ignorar Objetivos",
+    "AUTOANIM.scaleToToken": "Escala por tamaño de ficha",
+    "AUTOANIM.noTemplate": "No colocar plantilla",
+    "AUTOANIM.anchorX": "Ancla X",
+    "AUTOANIM.anchorY": "Ancla Y"
 
 }
