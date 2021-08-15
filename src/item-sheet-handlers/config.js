@@ -730,7 +730,7 @@ AUTOANIM.explodeVariant = {
     "outpulse01": "AUTOANIM.outpulse01",
     "outpulse02": "AUTOANIM.outpulse02",
     "impact": "AUTOANIM.impact",
-    "boulder": "AUTOANIM.itemBoulder",
+    "boulderimpact": "AUTOANIM.itemBoulder",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
 }

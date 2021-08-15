@@ -94,22 +94,20 @@ export async function buildRangedFile(jb2a, name, handler) {
 export async function buildAfterFile(jb2a, handler) {
     let color = handler.explosionColor;
     color = color.replace(/\s+/g, '');
-    let variant = handler.explosionVariant;
-    let variantArray = Object.keys(jb2a.explosion.static);
-    variant = variantArray.some(el => variant.includes(el)) ? variant : variantArray[0];
-    let colorArray = Object.keys(jb2a.explosion.static[variant])
+    let path = handler.explosionVariant === "boulder" ? "boulderimpact" : handler.explosionVariant;
+    let variant = '01';
+    let colorArray = Object.keys(jb2a[path].static[variant])
     if (color === "random") { } else {
         color = colorArray.some(el => color.includes(el)) ? color : colorArray[0];
     }
-
     let file;
     let fileData;
     if (handler.customExplode) {
         file = handler.customExplosionPath
         fileData = file
     } else {
-        file = color === "random" ? `autoanimations.explosion.static.${variant}` : `autoanimations.explosion.static.${variant}.${color}`;
-        fileData = jb2a.explosion.static[variant][Object.keys(jb2a.explosion.static[variant])[0]][0]
+        file = color === "random" ? `autoanimations.${path}.static.${variant}` : `autoanimations.${path}.static.${variant}.${color}`;
+        fileData = jb2a[path].static[variant][Object.keys(jb2a[path].static[variant])[0]][0]
     }
     let metadata = await getVideoDimensionsOf(fileData);//get video metadata
     let scale = ((200 * handler.explosionRadius) / (metadata.width))
@@ -193,30 +191,14 @@ export async function buildSourceTokenFile(jb2a, animName, handler) {
     let fileData;
     let color = handler.sourceColor ?? "";
     color = color.replace(/\s+/g, '');
-    let path = 'tokeneffect';
-    switch (animName) {
-        case "explosion":
-        case "impact":
-            path = 'explosion';
-            break;
-        case "sneakattack":
-        case "divinesmite":
-            path = animName;
-            break;
-    }
-    console.log(animName)
-    console.log(path)
-    let variant = handler.sourceName;
-    console.log("Pre Variant is " + variant)
+    const path = animName;
+    let variant = handler.sourceVariant;
     const variantArray = Object.keys(jb2a[path].static)
     variant = variantArray.some(el => variant.includes(el)) ? variant : variantArray[0];
-    console.log("Post Variant is " + variant)
     let colorArray = Object.keys(jb2a[path].static[variant])
-    console.log(colorArray)
     if (color === "random") { } else {
         color = colorArray.some(el => color.includes(el)) ? color : colorArray[0];
     }
-    console.log("Color is " + color)
 
     if (handler.sourceCustomEnable) {
         file = handler.sourceCustomPath

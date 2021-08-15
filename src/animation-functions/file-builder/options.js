@@ -1,17 +1,18 @@
+/*
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js"
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-/*
+
 export default class animationDefaults {
     constructor () {
 
     }
 }
-*/
-/*
+
+
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
-*/
+
 let jb2a = JB2APATREONDB;
 
 export const animationDefault = {
@@ -59,3 +60,4 @@ guidingbolt: {
 },
 
 }
+*/
