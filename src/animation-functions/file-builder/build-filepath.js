@@ -13,8 +13,6 @@ export async function buildWeaponFile(jb2a, name, handler) {
     let variantArray = Object.keys(jb2a[itemName].melee);
     variant = variantArray.some(el => variant.includes(el)) ? variant : variantArray[0];
     let colorArray = Object.keys(jb2a[itemName].melee[variant])
-    console.log(color)
-    console.log(variant)
     if (handler.enableCustom01) {
         file = handler.custom01;
         fileData = handler.custom01;
@@ -193,6 +191,50 @@ export async function buildTemplateFile(jb2a, handler) {
 export async function buildSourceTokenFile(jb2a, animName, handler) {
     let file;
     let fileData;
+    let color = handler.sourceColor ?? "";
+    color = color.replace(/\s+/g, '');
+    let path = 'tokeneffect';
+    switch (animName) {
+        case "explosion":
+        case "impact":
+            path = 'explosion';
+            break;
+        case "sneakattack":
+        case "divinesmite":
+            path = animName;
+            break;
+    }
+    console.log(animName)
+    console.log(path)
+    let variant = handler.sourceName;
+    console.log("Pre Variant is " + variant)
+    const variantArray = Object.keys(jb2a[path].static)
+    variant = variantArray.some(el => variant.includes(el)) ? variant : variantArray[0];
+    console.log("Post Variant is " + variant)
+    let colorArray = Object.keys(jb2a[path].static[variant])
+    console.log(colorArray)
+    if (color === "random") { } else {
+        color = colorArray.some(el => color.includes(el)) ? color : colorArray[0];
+    }
+    console.log("Color is " + color)
+
+    if (handler.sourceCustomEnable) {
+        file = handler.sourceCustomPath
+        fileData = file
+    } else {
+        file = color === "random" ? `autoanimations.${path}.static.${variant}` : `autoanimations.${path}.static.${variant}.${color}`;
+        fileData = color === "random" ? jb2a[path].static[variant][Object.keys(jb2a[path].static[variant])[0]][0] : jb2a[path].static[variant][color]
+    }
+    let metadata = await getVideoDimensionsOf(fileData);//get video metadata
+    //handler.item.setFlag("autoanimations", "defaults.source.file", filePath)
+    //handler.item.setFlag("autoanimations", "defaults.source.metadata", videoData)
+
+    return { file, metadata };
+}
+/*
+export async function buildSourceTokenFile(jb2a, animName, handler) {
+    let file;
+    let fileData;
     let color = handler.flags.sourceToken?.color ?? "";
     color = color.replace(/\s+/g, '');
     if (handler.sourceCustomEnable) {
@@ -233,7 +275,7 @@ export async function buildSourceTokenFile(jb2a, animName, handler) {
 
     return { file, metadata };
 }
-
+*/
 export async function buildTargetTokenFile(jb2a, animName, handler) {
     let file;
     let fileData;

@@ -1981,30 +1981,36 @@ JB2APATREONDB.templates = {
 }
 
 JB2APATREONDB.divinesmite = {
-    'caster': {
-        'blueyellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm',
-        'greenyellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm',
-        'purplepink': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm',
-        'darkpurple': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Dark_Purple_Caster_400x400.webm',
-        'yellowwhite': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_YellowWhite_Caster_400x400.webm',
-    },
-    'target': {
-        'blueyellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm',
-        'greenyellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_GreenYellow_Target_400x400.webm',
-        'purplepink': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_PurplePink_Target_400x400.webm',
-        'darkpurple': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm',
-        'yellowwhite': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_YellowWhite_Target_400x400.webm',
+    static: {
+        'caster': {
+            'blueyellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm',
+            'greenyellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm',
+            'purplepink': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm',
+            'darkpurple': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Dark_Purple_Caster_400x400.webm',
+            'yellowwhite': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_YellowWhite_Caster_400x400.webm',
+        },
+        'target': {
+            'blueyellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm',
+            'greenyellow': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_GreenYellow_Target_400x400.webm',
+            'purplepink': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_PurplePink_Target_400x400.webm',
+            'darkpurple': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm',
+            'yellowwhite': 'modules/jb2a_patreon/Library/2nd_Level/Divine_Smite/DivineSmite_01_Regular_YellowWhite_Target_400x400.webm',
+        }
     }
 }
 
 JB2APATREONDB.sneakattack = {
-    'darkgreen': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm',
-    'darkpurple': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Dark_Purple_300x300.webm',
-    'darkred': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Dark_Red_300x300.webm',
-    'blue': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Regular_Blue_300x300.webm',
-    'orange': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Regular_Orange_300x300.webm',
-    'pink': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Regular_Pink_300x300.webm',
-    'yellow': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Regular_Yellow_300x300.webm'
+    static: {
+        '01': {
+            'darkgreen': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm',
+            'darkpurple': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Dark_Purple_300x300.webm',
+            'darkred': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Dark_Red_300x300.webm',
+            'blue': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Regular_Blue_300x300.webm',
+            'orange': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Regular_Orange_300x300.webm',
+            'pink': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Regular_Pink_300x300.webm',
+            'yellow': 'modules/jb2a_patreon/Library/1st_Level/Sneak_Attack/Sneak_Attack_Regular_Yellow_300x300.webm'
+        }
+    }
 }
 
 JB2APATREONDB.sneakattackui = {
@@ -2381,64 +2387,56 @@ JB2APATREONDB.snipe = {
     }
 }
 
-JB2APATREONDB.tokenEffect = {
-    snowflake: {
-        'bluewhite': [
-            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm',
-        ],
-        'greenorange': [
-            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm',
-        ],
-        'purplepink': [
-            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm',
-        ],
-        'tealyellow': [
-            'modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm',
-        ],
-    },
-    dizzystars: {
-        'black': 'modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Black_400x400.webm',
-        'blueorange': 'modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm',
-        'green': 'modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Green_400x400.webm',
-        'orange': 'modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Orange_400x400.webm',
-        'pink': 'modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Pink_400x400.webm',
-        'purple': 'modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Purple_400x400.webm',
-        'red': 'modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Red_400x400.webm',
-        'white': 'modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_White_400x400.webm',
-        'yellow': 'modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Yellow_400x400.webm'
-    },
-    icespikes: {
-        'blue': 'modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_Blue_1000x1000.webm',
-        'red': 'modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_Red_1000x1000.webm',
-        'white': 'modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm'
-    },
-    magicSign: {
-        'blue': 'modules/jb2a_patreon/Library/Generic/Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm',
-        'yellow': 'modules/jb2a_patreon/Library/Generic/Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm',
-        'lightblue': 'modules/jb2a_patreon/Library/Generic/Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm',
-    },
-    marker: {
+JB2APATREONDB.tokeneffect = {
+    static: {
+        snowflake: {
+            'bluewhite': ['modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm'],
+            'greenorange': ['modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm'],
+            'purplepink': ['modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm'],
+            'tealyellow': ['modules/jb2a_patreon/Library/Generic/Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm'],
+        },
+        dizzystars: {
+            'black': ['modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Black_400x400.webm'],
+            'blueorange': ['modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm'],
+            'green': ['modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Green_400x400.webm'],
+            'orange': ['modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Orange_400x400.webm'],
+            'pink': ['modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Pink_400x400.webm'],
+            'purple': ['modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Purple_400x400.webm'],
+            'red': ['modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Red_400x400.webm'],
+            'white': ['modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_White_400x400.webm'],
+            'yellow': ['modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Yellow_400x400.webm']
+        },
+        icespikes: {
+            'blue': ['modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_Blue_1000x1000.webm'],
+            'red': ['modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_Red_1000x1000.webm'],
+            'white': ['modules/jb2a_patreon/Library/Generic/Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm']
+        },
+        magicSign: {
+            'blue': ['modules/jb2a_patreon/Library/Generic/Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm'],
+            'yellow': ['modules/jb2a_patreon/Library/Generic/Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm'],
+            'lightblue': ['modules/jb2a_patreon/Library/Generic/Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm'],
+        },
         marker01: {
-            'bluewhite': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Dark_BlueWhite_400x400.webm',
-            'blueyellow': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_BlueYellow_400x400.webm',
-            'greenorange': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_GreenOrange_400x400.webm',
-            'pink': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_Pink_400x400.webm',
-            'purplepink': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_PurplePink_400x400.webm',
+            'bluewhite': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Dark_BlueWhite_400x400.webm'],
+            'blueyellow': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_BlueYellow_400x400.webm'],
+            'greenorange': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_GreenOrange_400x400.webm'],
+            'pink': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_Pink_400x400.webm'],
+            'purplepink': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_01_Regular_PurplePink_400x400.webm'],
         },
         marker02: {
-            'bluewhite': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Dark_BlueWhite_400x400.webm',
-            'blueyellow': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_BlueYellow_400x400.webm',
-            'greenorange': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_GreenOrange_400x400.webm',
-            'pink': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_Pink_400x400.webm',
-            'purplepink': 'modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_PurplePink_400x400.webm',
+            'bluewhite': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Dark_BlueWhite_400x400.webm'],
+            'blueyellow': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_BlueYellow_400x400.webm'],
+            'greenorange': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_GreenOrange_400x400.webm'],
+            'pink': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_Pink_400x400.webm'],
+            'purplepink': ['modules/jb2a_patreon/Library/Generic/Marker/Marker_02_Regular_PurplePink_400x400.webm'],
         },
         musicMarker: {
-            'darkred': 'modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Dark_Red_400x400.webm',
-            'blueyellow': 'modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm',
-            'greenorange': 'modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm',
-            'purplepink': 'modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_PurplePink_400x400.webm',
+            'darkred': ['modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Dark_Red_400x400.webm'],
+            'blueyellow': ['modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm'],
+            'greenorange': ['modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm'],
+            'purplepink': ['modules/jb2a_patreon/Library/Generic/Marker/MusicMarker_01_Regular_PurplePink_400x400.webm'],
         }
-    },
+    }
 }
 
 JB2APATREONDB.shield = {
