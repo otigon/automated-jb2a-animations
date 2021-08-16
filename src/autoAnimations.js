@@ -560,6 +560,9 @@ function setupTormenta20(msg) {
     trafficCop(handler);
 }
 
+/*
+/ Sets Handler for Forbidden Lands
+*/
 async function fblReady(msg){
     if(killAllAnimations) { return; }
     if(game.user.id !== msg.user.id) { return; }

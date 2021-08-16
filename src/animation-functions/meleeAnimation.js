@@ -168,16 +168,11 @@ export async function meleeAnimation(handler) {
                     })
                     //.waitUntilFinished(explosionDelay)
                 .sound()
-                    .playIf(() => { return explosion && handler.explodeSound })
+                    .file(explosionFile)
+                    .playIf(() => {return explosion && handler.explodeSound})
                     .delay(explosionDelay)
                     .volume(explosionVolume)
                     .repeats(handler.animationLoops, handler.loopDelay)
-                    .addOverride(async (effect, data) => {
-                        if (handler.explodeSound) {
-                            data.file = explosionFile;
-                        }
-                        return data;
-                    })
                 .effect()
                     .delay(handler.targetDelay)
                     .atLocation(target)
