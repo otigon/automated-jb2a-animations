@@ -18,13 +18,13 @@ export async function meleeSwitch(handler, target) {
     await wait(globalDelay);
 
     //Builds Primary File Path and Pulls from flags if already set
-    let attack =  await buildSwitchFile(jb2a, itemName, handler, handler.switchColor);
+    let attack =  await buildFile(false, itemName, "range", handler.switchColor);//need to finish
     let sourceToken = handler.actorToken;
 
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
     let explosion;
     if (handler.flags.explosion) {
-        explosion = await buildAfterFile(jb2a, handler)
+        explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor)
     }
 
     let explosionSound = handler.allSounds?.explosion;
@@ -42,14 +42,14 @@ export async function meleeSwitch(handler, target) {
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(jb2a, handler.sourceName, handler);
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(jb2a, handler.targetName, handler)
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor)
     }
 
     //logging explosion Scale

@@ -1,6 +1,39 @@
-//import { JB2APATREONDB } from "../jb2a-patreon-database.js";
-//import { JB2AFREEDB } from "../jb2a-free-database.js";
+import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { AAITEMCHECK } from "../item-arrays.js";
+
+export async function buildFile(getMeta, name, animationType, animationVariant, animationColor) {
+    function moduleIncludes(test) {
+        return !!game.modules.get(test);
+    }
+    const jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    const path = name.replace(/melee|range|double/gi, function(x) {
+        return "";
+    });
+    const type = animationType;
+    const variantArray = Object.keys(jb2a[path][type]);
+    const variant = variantArray.some(el => animationVariant.includes(el)) ? animationVariant : variantArray[0];
+
+    let color = animationColor.replace(/\s+/g, '');
+    //color = color.replace(/\s+/g, '');
+    const colorArray = Object.keys(jb2a[path][type][variant]);
+    if (animationColor === "random") { 
+        color = animationColor;
+    } else {
+        color = colorArray.some(el => color.includes(el)) ? color : colorArray[0];
+    }
+
+    const file = color === "random" ? `autoanimations.${path}.${type}.${variant}` : `autoanimations.${path}.${type}.${variant}.${color}`;
+    const msFile = color === "random" ? `autoanimations.${path}.${type}.02` : `autoanimations.${path}.${type}.02.${color}`;
+    let fileData;
+    let metadata;
+    if (getMeta) {
+        fileData = color === "random" ? jb2a[path][type][variant][Object.keys(jb2a[path][type][variant])[0]][0] : jb2a[path][type][variant][color][0];
+        metadata = await getVideoDimensionsOf(fileData);
+    }
+
+    return {file, msFile, metadata}
+}
 
 export async function buildWeaponFile(jb2a, name, handler) {
 

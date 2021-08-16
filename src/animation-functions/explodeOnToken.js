@@ -1,4 +1,4 @@
-import { buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { buildFile } from "./file-builder/build-filepath.js"
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
@@ -14,20 +14,20 @@ export async function explodeOnToken(handler) {
     await wait(globalDelay);
 
     let sourceToken = handler.actorToken;
-    let explosion = await buildAfterFile(obj01, handler)
+    let explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor)
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor)
     }
     let tokenScale = (1.5 * sourceToken.w / explosion.metadata.width)
     const optionScale = handler.options?.scale ?? 1

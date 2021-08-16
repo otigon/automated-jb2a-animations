@@ -1,7 +1,7 @@
-import { buildRangedFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { buildFile } from "./file-builder/build-filepath.js"
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
-//import { AAITEMCHECK } from "./item-arrays.js";
+import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -13,18 +13,24 @@ export async function rangedAnimations(handler) {
     // Sets JB2A database and Global Delay
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
-
+     console.log(itemName)
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
+    let dmgType;
+    if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
+        dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
+    }
+    let variant = AAITEMCHECK.spellattack.some(el => itemName.includes(el)) ? handler.spellVariant : dmgType;
     //Builds Primary File Path and Pulls from flags if already set
-    let attack =  await buildRangedFile(jb2a, itemName, handler);
+    let attack = await buildFile(false, itemName, "range", variant, handler.color)
+    //let attack =  await buildRangedFile(jb2a, itemName, handler);
     let sourceToken = handler.actorToken;
 
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
     let explosion;
     if (handler.flags.explosion) {
-        explosion = await buildAfterFile(jb2a, handler)
+        explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor)
     }
 
     let explosionSound = handler.allSounds?.explosion;
@@ -42,14 +48,14 @@ export async function rangedAnimations(handler) {
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(jb2a, handler.sourceName, handler);
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(jb2a, handler.targetName, handler)
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor)
     }
 
     //logging explosion Scale
