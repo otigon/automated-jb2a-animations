@@ -32,7 +32,7 @@ export default class AUTORECOG {
 
         this._boulder = ["boulder", game.i18n.format("AUTOANIM.itemBoulder").toLowerCase()]
 
-        this._lasershot = ["laser blast", game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase(), "laser gun", "laser pistol"]
+        this._lasershot = ["laser blast", game.i18n.format("AUTOANIM.itemLaserBlast").toLowerCase(), "laser gun", "laser pistol", "lasershot"]
 
         this._rangejavelin = ["javelin", "dart", game.i18n.format("AUTOANIM.itemJavelin").toLowerCase()];
 
