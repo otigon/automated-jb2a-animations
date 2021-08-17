@@ -13,7 +13,7 @@ export async function rangedAnimations(handler) {
     // Sets JB2A database and Global Delay
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
-     console.log(itemName)
+    console.log(itemName)
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
@@ -22,6 +22,8 @@ export async function rangedAnimations(handler) {
         dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
     }
     let variant = AAITEMCHECK.spellattack.some(el => itemName.includes(el)) ? handler.spellVariant : dmgType;
+    variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" ? handler.dtvar : variant;
+    console.log(variant)
     //Builds Primary File Path and Pulls from flags if already set
     let attack = await buildFile(false, itemName, "range", variant, handler.color)
     //let attack =  await buildRangedFile(jb2a, itemName, handler);

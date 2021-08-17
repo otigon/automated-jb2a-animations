@@ -1,6 +1,5 @@
 import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js";
-import { buildTargetTokenFile } from "../animation-functions/file-builder/build-filepath.js";
 
 function animPreview(flags, name) {
 

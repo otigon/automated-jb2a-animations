@@ -26,7 +26,7 @@ export async function meleeAnimation(handler) {
 
     //Builds Primary File Path and Pulls from flags if already set
     let variant = itemName === "unarmedstrike" || itemName === "flurryofblows" ? handler.uaStrikeType : "01";
-    let attack = await buildFile(itemName, "melee", variant, handler.color)
+    let attack = await buildFile(false, itemName, "melee", variant, handler.color)
     //let attack = await buildWeaponFile(obj01, itemName, handler)
     let sourceToken = handler.actorToken;
     let sourceScale = itemName === "unarmedstrike" || itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;

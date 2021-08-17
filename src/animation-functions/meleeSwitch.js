@@ -1,6 +1,4 @@
-import { buildRangedFile, buildSwitchFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
-import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
+import { buildFile } from "./file-builder/build-filepath.js"
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -11,14 +9,16 @@ export async function meleeSwitch(handler, target) {
     }
 
     // Sets JB2A database and Global Delay
-    let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.switchName || handler.convertedName;
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
+    console.log(itemName)
+
+    let variant = itemName === "lasersword" || itemName === "dagger" || itemName === "handaxe" ? handler.switchVariant : handler.switchDmgType;
 
     //Builds Primary File Path and Pulls from flags if already set
-    let attack =  await buildFile(false, itemName, "range", handler.switchColor);//need to finish
+    let attack =  await buildFile(false, itemName, "range", variant, handler.switchColor);//need to finish
     let sourceToken = handler.actorToken;
 
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
@@ -116,7 +116,7 @@ export async function meleeSwitch(handler, target) {
                         })
                     //.waitUntilFinished(-700/* + handler.explosionDelay*/)
                 .effect()
-                    .file(attack.fileReturn)
+                    .file(attack.returnFile)
                     .delay(returnDelay)
                     .atLocation(sourceToken)
                     .repeats(handler.animationLoops, handler.loopDelay)

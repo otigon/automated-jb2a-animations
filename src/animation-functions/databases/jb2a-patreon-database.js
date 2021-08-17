@@ -860,15 +860,50 @@ JB2APATREONDB.sword = {
     }
 }
 
-JB2APATREONDB.genericmelee = {
+JB2APATREONDB['1hs'] = {
     melee: {
         '01': {
-            "1hs": [lg`Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_1Handed_800x600.webm`],
-            "2hs": [lg`Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_2Handed_800x600.webm`],
-            "1hb": [lg`Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_1Handed_800x600.webm`],
-            "2hb": [lg`Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_2Handed_800x600.webm`],
-            "1hp": [lg`Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_1Handed_800x600.webm`],
-            "2hp": [lg`Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_2Handed_800x600.webm`]
+            "white": [lg`Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_1Handed_800x600.webm`],
+        }
+    }
+}
+
+JB2APATREONDB['2hs'] = {
+    melee: {
+        '01': {
+            "white": [lg`Weapon_Attacks/Melee/DmgSlashing_01_Regular_Yellow_2Handed_800x600.webm`],
+        }
+    }
+}
+
+JB2APATREONDB['1hb'] = {
+    melee: {
+        '01': {
+            "white": [lg`Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_1Handed_800x600.webm`],
+        }
+    }
+}
+
+JB2APATREONDB['2hb'] = {
+    melee: {
+        '01': {
+            "white": [lg`Weapon_Attacks/Melee/DmgBludgeoning_01_Regular_Yellow_2Handed_800x600.webm`],
+        }
+    }
+}
+
+JB2APATREONDB['1hp'] = {
+    melee: {
+        '01': {
+            "white": [lg`Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_1Handed_800x600.webm`],
+        }
+    }
+}
+
+JB2APATREONDB['2hp'] = {
+    melee: {
+        '01': {
+            "white": [lg`Weapon_Attacks/Melee/DmgPiercing_01_Regular_Yellow_2Handed_800x600.webm`]
         }
     }
 }
@@ -1289,7 +1324,7 @@ JB2APATREONDB.thunderwave = {
 JB2APATREONDB.antilifeshell = {
     static: {
         '01': {
-            'white': [l5`Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm`]
+            'blue': [l5`Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm`]
         }
     }
 }
@@ -1689,8 +1724,8 @@ JB2APATREONDB.bardicinspiration = {
     }
 }
 
-JB2APATREONDB.templates = {
-    'ray': {
+JB2APATREONDB.ray = {
+    static: {
         'acid': {
             'blue': [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Blue_30ft_Line_Burst_1200x200.webm`],
             'green': [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Green_30ft_Line_Burst_1200x200.webm`],
@@ -1724,8 +1759,9 @@ JB2APATREONDB.templates = {
             }
         }
     },
-
-    'cone': {
+}
+JB2APATREONDB.cone = {
+    static: {
         'cold': {
             'blue': [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
             'green': [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
@@ -1770,7 +1806,9 @@ JB2APATREONDB.templates = {
 
         }
     },
-    'circle': {
+}
+JB2APATREONDB.circle = {
+    static: {
         "ex01": {
             "blue": [lg`Explosion/Explosion_01_Blue_400x400.webm`],
             "green": [lg`Explosion/Explosion_01_Green_400x400.webm`],
@@ -1869,7 +1907,9 @@ JB2APATREONDB.templates = {
             }
         }
     },
-    'rect': {
+}
+JB2APATREONDB.rect = {
+    static: {
         "entangle": {
             'brown': [l1`Entangle/Entangle_01_Brown_400x400.webm`],
             'green': [l1`Entangle/Entangle_01_Green_400x400.webm`],
@@ -2469,10 +2509,12 @@ JB2APATREONDB.cloudofdaggers = {
 JB2APATREONDB.chakram = {
     range: {
         '01': {
-            '15ft': [lg`Weapon_Attacks/Ranged/Chakram01_01_Regular_White_15ft_1000x400.webm`],
-            '30ft': [lg`Weapon_Attacks/Ranged/Chakram01_01_Regular_White_30ft_1600x400.webm`],
-            '60ft': [lg`Weapon_Attacks/Ranged/Chakram01_01_Regular_White_60ft_2800x400.webm`],
-            '90ft': [lg`Weapon_Attacks/Ranged/Chakram01_01_Regular_White_90ft_4000x400.webm`],
+            'white': {
+                '15ft': [lg`Weapon_Attacks/Ranged/Chakram01_01_Regular_White_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Chakram01_01_Regular_White_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Chakram01_01_Regular_White_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Chakram01_01_Regular_White_90ft_4000x400.webm`],
+            }
         }
     }
 }

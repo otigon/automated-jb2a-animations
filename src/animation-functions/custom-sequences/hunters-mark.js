@@ -1,6 +1,5 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-import { buildHMFile } from "../file-builder/build-filepath.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -10,14 +9,13 @@ async function huntersMark(handler) {
         return !!game.modules.get(test);
     }
 
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let hmAnim = await buildHMFile(obj01, handler)
     let myToken = handler.actorToken;
     let target = handler.allTargets[0];
 
-    let hmPulse = hmAnim.file01;
-    let hmLoop = hmAnim.file02;
+    let hmPulse = `autoanimations.huntersmark.${handler.hmAnim}.pulse.${handler.color}`;
+    let hmLoop = jb2a['huntersmark'][handler.hmAnim]['loop'][handler.color];
 
     let Scale = 0.5 //(target.w / hmAnim.metadata.width);
 

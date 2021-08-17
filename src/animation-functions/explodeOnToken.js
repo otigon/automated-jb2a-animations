@@ -30,8 +30,9 @@ export async function explodeOnToken(handler) {
         targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor)
     }
     let tokenScale = (1.5 * sourceToken.w / explosion.metadata.width)
+    let animationScale = ((200 * handler.explosionRadius) / explosion.metadata.width)
     const optionScale = handler.options?.scale ?? 1
-    let scaleT10 = handler.options?.scaleToToken ? (tokenScale * optionScale) : explosion.scale;
+    let scaleT10 = handler.options?.scaleToToken ? (tokenScale * optionScale) : animationScale;
     if (handler.animType === "t10") {
         new Sequence()
             .effect()
@@ -80,7 +81,7 @@ export async function explodeOnToken(handler) {
                 hit = false;
             }
             let targetScale = (1.5 * target.w / explosion.metadata.width)
-            let scaleT9 = handler.options?.scaleToToken ? (targetScale * optionScale) : explosion.scale;
+            let scaleT9 = handler.options?.scaleToToken ? (targetScale * optionScale) : animationScale;
 
                 new Sequence()
                     .effect()
