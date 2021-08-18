@@ -1,6 +1,6 @@
 export const JB2AFREEDB = {};
 
-const BASE = 'modules/jb2a_patreon/Library/'
+const BASE = 'modules/JB2A_DnD5e/Library/'
 const prefix = (str) => (strs, ...exprs) => `${BASE}${str}/${strs.reduce((a, c, i) => a + exprs[i - 1] + c)}`
 const l0 = prefix('Cantrip')
 const l1 = prefix('1st_Level')
