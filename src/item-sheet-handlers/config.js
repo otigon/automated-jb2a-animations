@@ -404,6 +404,7 @@ AUTOANIM.animColorMagicMissile = {
     "purple": "AUTOANIM.colorPurple",
     "yellow": "AUTOANIM.colorYellow",
     "orange": "AUTOANIM.colorOrange",
+    "darkred": "AUTOANIM.colorDarkRed",
     "random": "AUTOANIM.colorRandom"
 };
 
