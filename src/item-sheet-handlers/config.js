@@ -185,6 +185,7 @@ AUTOANIM.animBiteColor = {
     "a1": ``,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
+    "grey": "AUTOANIM.colorGrey",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
     "red": "AUTOANIM.colorRed",
@@ -359,6 +360,8 @@ AUTOANIM.animColorFirebolt = {
     "a1": ``,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
+    "palegreen": "AUTOANIM.colorPaleGreen",
+    "darkgreen": "AUTOANIM.colorDarkGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
     "red": "AUTOANIM.colorRed",
@@ -1031,6 +1034,7 @@ AUTOANIM.dsSelf = {
     'blueyellow': "AUTOANIM.colorYellowBlue",
     'greenyellow': "AUTOANIM.colorGreenYellow",
     "purplepink": "AUTOANIM.colorPinkPurple",
+    "darkred": "AUTOANIM.colorDarkRed",
     "darkpurple": "AUTOANIM.colorDarkPurple",
     "yellowwhite": "AUTOANIM.white",
     "random": "AUTOANIM.colorRandom"
@@ -1046,6 +1050,7 @@ AUTOANIM.dsTarget = {
     'blueyellow': "AUTOANIM.colorYellowBlue",
     'greenyellow': "AUTOANIM.colorGreenYellow",
     "purplepink": "AUTOANIM.colorPinkPurple",
+    "darkred": "AUTOANIM.colorDarkRed",
     "darkpurple": "AUTOANIM.colorDarkPurple",
     "yellowwhite": "AUTOANIM.white",
     "random": "AUTOANIM.colorRandom"
@@ -1265,6 +1270,8 @@ AUTOANIM.entangleColors = {
     "brown": "AUTOANIM.colorBrown",
     "green": "AUTOANIM.colorGreen",
     "yellow": "AUTOANIM.colorYellow",
+    "darkpurple": "AUTOANIM.colorDarkPurple",
+    "palegreen": "AUTOANIM.colorPaleGreen",
     "random": "AUTOANIM.colorRandom"
 }
 
@@ -1337,6 +1344,7 @@ AUTOANIM.bulletColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
     "random": "AUTOANIM.colorRandom"
 }
 
@@ -1355,6 +1363,7 @@ AUTOANIM.snipeColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
     "random": "AUTOANIM.colorRandom"
 }
 

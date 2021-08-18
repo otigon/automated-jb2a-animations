@@ -12,14 +12,14 @@ export async function buildFile(getMeta, name, animationType, animationVariant, 
     const type = animationType;
 
     const variantArray = Object.keys(jb2a[path][type]);
-    const variant = variantArray.some(el => animationVariant.includes(el)) ? animationVariant : variantArray[0];
+    const variant = variantArray.some(el => animationVariant === el) ? animationVariant : variantArray[0];
 
     let color = animationColor.replace(/\s+/g, '');
     const colorArray = Object.keys(jb2a[path][type][variant]);
     if (animationColor === "random") { 
         color = animationColor;
     } else {
-        color = colorArray.some(el => color.includes(el)) ? color : colorArray[0];
+        color = colorArray.some(el => color === el) ? color : colorArray[0];
     }
 
     const file = color === "random" ? `autoanimations.${path}.${type}.${variant}` : `autoanimations.${path}.${type}.${variant}.${color}`;

@@ -96,7 +96,7 @@ export class AAItemSettings extends FormApplication {
         let animationLoops = flags.autoanimations?.options?.loops > 50 ? 50 : flags.autoanimations?.options?.loops;
         let loopTemplate =  flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
         let explosionLoops = flags.autoanimations?.explodeLoop > 50 ? 50 : flags.autoanimations?.explodeLoop;
-        let returnWeapons = ["dagger", "hammer", "greatsword"];
+        let returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
         let videoPreview = animPreview(flags, itemName);
         if (videoPreview === "no preview" && !isOverride) { videoPreview = conversion[3] }
         let content = "";

@@ -55,7 +55,7 @@ export async function meleeSwitch(handler, target) {
     //logging explosion Scale
     let scale = explosion?.scale ?? 1;
 
-    let returnWeapons = ['dagger', 'hammer', 'greatsword']
+    let returnWeapons = ['dagger', 'hammer', 'greatsword', 'chakram']
     let switchReturn = returnWeapons.some(el => itemName.includes(el)) ? handler.switchReturn : false;
     let returnDelay;
     switch (true) {

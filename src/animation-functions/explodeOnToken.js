@@ -14,7 +14,9 @@ export async function explodeOnToken(handler) {
     await wait(globalDelay);
 
     let sourceToken = handler.actorToken;
-    let explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor)
+    let name = handler.explosionVariant;
+    name = name === "boulder" ? "boulderimpact" : name;
+    let explosion = await buildFile(true, name, "static", "01", handler.explosionColor)
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;

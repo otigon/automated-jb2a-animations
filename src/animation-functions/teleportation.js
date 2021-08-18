@@ -90,26 +90,41 @@ export async function teleportation(handler) {
                 .atLocation(token)
                 .scale(Scale)
                 .randomRotation()
-                .waitUntilFinished(-2250)
-            .animation()
-                .on(token)
-                .fadeOut(500)
-            .wait(500)
-            .animation()
-                .on(token)
-                .teleportTo({x: gridPos[0], y: gridPos[1]})
-                .async()
+                .wait(750)
+            .thenDo(async () => {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                    await token.update({
+                        x: gridPos[0],
+                        y: gridPos[1],
+                        hidden: true
+                    }, { animate: false });
+                } else {
+                    await token.document.update({
+                        x: gridPos[0],
+                        y: gridPos[1],
+                        hidden: true
+                    }, { animate: false });
+                }
+            })  
             .effect()
                 .file(onToken.msFile)
                 .atLocation(token)
                 .scale(Scale)
                 .randomRotation()
             .wait(1500)
-            .animation()
-                .on(token)
-                .fadeIn(500)
+            .thenDo(async () => {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                    await token.update({
+                        hidden: false
+                    }, { animate: false });
+                    0
+                } else {
+                    await token.document.update({
+                        hidden: false
+                    }, { animate: false });
+                }
+            })
             .play();
-
     };
 
 
