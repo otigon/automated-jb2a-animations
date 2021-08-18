@@ -12,7 +12,6 @@ async function ctaCall(handler) {
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
     const aura = await buildAuraFile(jb2a, handler);
-    console.log(handler.allTargets.length)
     if (handler.allTargets.length === 0 || handler.options?.ignoreTarget) {
         selfAura()
     } else {

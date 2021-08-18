@@ -13,7 +13,6 @@ export async function meleeSwitch(handler, target) {
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
-    console.log(itemName)
 
     let variant = itemName === "lasersword" || itemName === "dagger" || itemName === "handaxe" ? handler.switchVariant : handler.switchDmgType;
 

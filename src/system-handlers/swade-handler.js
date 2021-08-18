@@ -265,7 +265,6 @@ export default class SwadeHandler {
             if (d < distance)
                 distance = (d * 5);
         });
-        console.log(distance);
         return distance;
     }
 

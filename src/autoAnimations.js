@@ -458,7 +458,6 @@ function setUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
-    console.log(rollType)
     if (!handler.item || handler.animKill) { return }
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
