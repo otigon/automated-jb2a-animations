@@ -351,5 +351,26 @@
     "AUTOANIM.lightningbolt": "Éclair",
     "AUTOANIM.chakram": "Chakram",
     "AUTOANIM.bless": "Bénédiction"
+    
+    "AUTOANIM.single": "Simple",
+    "AUTOANIM.double": "Double",
+    "AUTOANIM.settingRangeSwitch": "Désactiver le passage de la mêlée à la portée",
+    "AUTOANIM.settingRangeSwitchhint": "Désactive le passage de l'animation de mêlée à l'animation de portée.",
+    "AUTOANIM.settingDisableAutoRec": "Désactiver la reconnaissance automatique",
+    "AUTOANIM.settingDisableAutoRecHint": "Seuls les éléments configurés sur mesure joueront des animations",
+
+    "AUTOANIM.returning": "Arme de retour",
+    "AUTOANIM.rangeDetect": "Détection de la portée",
+    "AUTOANIM.gridSquares": "Carrés de la grille pour l'interrupteur  de portée",
+
+    "AUTOANIM.toggleAnimations": "Active/désactive les animations",
+    "AUTOANIM.toggleAnimations_hint": "Nécessite un rafraîchissement si l'on active les animations",
+    "AUTOANIM.ON": "ON",
+    "AUTOANIM.OFF": "OFF",
+    "AUTOANIM.ignoreTargets": "Ignorer les cibles",
+    "AUTOANIM.scaleToToken": "Échelle par taille de jeton",
+    "AUTOANIM.noTemplate": "Modèle à ne pas placer",
+    "AUTOANIM.anchorX": "Ancre X",
+    "AUTOANIM.anchorY": "Ancre Y"
 
 }
