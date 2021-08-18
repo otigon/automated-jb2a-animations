@@ -7,6 +7,14 @@ import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays
 export function colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType, variant) {
     let animationColor;
     let type;
+    let animVar;
+    switch (true) {
+        case itemName === "arrow":
+        case itemName === "bolt":
+        case itemName === "bullet":
+            animVar = damageType;
+            break;
+    }
     switch (true) {
         case AAITEMCHECK.melee.some(el => itemName === el):
         case AAITEMCHECK.meleerange.some(el => itemName === el):
