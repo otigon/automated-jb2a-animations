@@ -11,28 +11,27 @@ export async function buildFile(getMeta, name, animationType, animationVariant, 
     });
     const type = animationType;
 
-    const variantArray = Object.keys(jb2a[path][type]);
+    const variantArray = Object.keys(jb2a[type][path]);
     const variant = variantArray.some(el => animationVariant === el) ? animationVariant : variantArray[0];
 
     let color = animationColor.replace(/\s+/g, '');
-    const colorArray = Object.keys(jb2a[path][type][variant]);
+    const colorArray = Object.keys(jb2a[type][path][variant]);
     if (animationColor === "random") { 
         color = animationColor;
     } else {
         color = colorArray.some(el => color === el) ? color : colorArray[0];
     }
 
-    const file = color === "random" ? `autoanimations.${path}.${type}.${variant}` : `autoanimations.${path}.${type}.${variant}.${color}`;
-    const msFile = color === "random" ? `autoanimations.${path}.${type}.02` : `autoanimations.${path}.${type}.02.${color}`;
-    const returnFile = `autoanimations.${path}.return.${variant}.${color}`
+    const file = color === "random" ? `autoanimations.${type}.${path}.${variant}` : `autoanimations.${type}.${path}.${variant}.${color}`;
+    const msFile = color === "random" ? `autoanimations.${type}.${path}.02` : `autoanimations.${type}.${path}.02.${color}`;
+    const returnFile = `autoanimations.return.${path}.${variant}.${color}`
 
     let fileData;
     let metadata;
     if (getMeta) {
-        fileData = color === "random" ? jb2a[path][type][variant][Object.keys(jb2a[path][type][variant])[0]][0] : jb2a[path][type][variant][color][0];
+        fileData = color === "random" ? jb2a[type][path][variant][Object.keys(jb2a[type][path][variant])[0]][0] : jb2a[type][path][variant][color][0];
         metadata = await getVideoDimensionsOf(fileData);
     }
-    console.log(fileData)
     return {file, msFile, metadata, returnFile, fileData}
 }
 

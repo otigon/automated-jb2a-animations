@@ -1178,7 +1178,8 @@ AUTOANIM.rayAnimations = {
     "acid": "AUTOANIM.dmgTypeAcid",
     "fire": "AUTOANIM.dmgTypeFire",
     "lightning": "AUTOANIM.dmgTypeLightning",
-    "lightningbolt": "AUTOANIM.lightningbolt"
+    "lightningbolt01": "AUTOANIM.lightningbolt",
+    "lightningbolt02": "AUTOANIM.lightningbolt02"
 }
 
 AUTOANIM.lightningBoltColor = {
@@ -1257,7 +1258,8 @@ AUTOANIM.circleAnimations = {
     "darkness": "AUTOANIM.animDarkness",
     "calllightning": "AUTOANIM.animCallLightning",
     "sleetstorm": "AUTOANIM.animSleetstorm",
-    "cloudofdaggers": "AUTOANIM.cloudOfDaggers"
+    "cloudofdaggers": "AUTOANIM.cloudOfDaggers",
+    "cloudofkunais": "AUTOANIM.cloudofkunais"
 }
 
 AUTOANIM.rectangleAnimations = {

@@ -14,8 +14,9 @@ async function huntersMark(handler) {
     let myToken = handler.actorToken;
     let target = handler.allTargets[0];
 
-    let hmPulse = `autoanimations.huntersmark.${handler.hmAnim}.pulse.${handler.color}`;
-    let hmLoop = jb2a['huntersmark'][handler.hmAnim]['loop'][handler.color];
+    let animLoop = handler.hmAnim + "loop";
+    let hmPulse = `autoanimations.static.huntersmark.${handler.hmAnim}.${handler.color}`;
+    let hmLoop = jb2a.static.huntersmark[animLoop][handler.color];
 
     let Scale = 0.5 //(target.w / hmAnim.metadata.width);
 

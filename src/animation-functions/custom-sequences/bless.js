@@ -144,10 +144,10 @@ export async function bless(handler) {
 async function buildBlessFile(jb2a, handler) {
     let color = handler.color || "yellow";
     color = color.replace(/\s+/g, '');
-    const file01 = `autoanimations.bless.static.01.${color}.intro`;
-    const file02 = `autoanimations.bless.static.01.${color}.loop`;
-    const ctaFile01 = jb2a.bless.static['01'][color]["intro"];
-    const ctaFile02 = jb2a.bless.static['01'][color]["loop"];
+    const file01 = `autoanimations.static.bless.01.${color}.intro`;
+    const file02 = `autoanimations.static.bless.01.${color}.loop`;
+    const ctaFile01 = jb2a.static.bless['01'][color]["intro"];
+    const ctaFile02 = jb2a.static.bless['01'][color]["loop"];
 
     let metadata = await getVideoDimensionsOf(ctaFile01);
     let metadata2 = await getVideoDimensionsOf(ctaFile02);

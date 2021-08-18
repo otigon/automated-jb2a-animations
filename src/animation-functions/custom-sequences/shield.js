@@ -18,11 +18,11 @@ export async function shieldSpell(handler) {
         color = color.replace(/\s+/g, '');
         const shieldVar = handler.options.shieldVar || "outro_fade";
     
-        const file01 = `autoanimations.shield.static.${spellVariant}.${color}.intro`;
-        const file02 = `autoanimations.shield.static.${spellVariant}.${color}.loop`;
-        const file03 = `autoanimations.shield.static.${spellVariant}.${color}.${shieldVar}`;
+        const file01 = `autoanimations.static.shield.${spellVariant}.${color}.intro`;
+        const file02 = `autoanimations.static.shield.${spellVariant}.${color}.loop`;
+        const file03 = `autoanimations.static.shield.${spellVariant}.${color}.${shieldVar}`;
     
-        const fileData = jb2a["shield"]["static"]["01"]["blue"]["intro"];
+        const fileData = jb2a.static.shield["01"]["blue"]["intro"];
         const metadata = await getVideoDimensionsOf(fileData);
     
         return { file01, file02, file03, metadata };

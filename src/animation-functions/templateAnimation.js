@@ -6,7 +6,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 export async function templateAnimation(handler, msg) {
 
     const sourceToken = handler.actorToken;
-    let tempAnimation = await buildFile(true, handler.templates.tempType, "static", handler.spellVariant, handler.templates.tempColor)
+    let tempAnimation = await buildFile(true, handler.templates.tempType, "static", handler.templates.tempAnim, handler.templates.tempColor)
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {

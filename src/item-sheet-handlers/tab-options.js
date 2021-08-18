@@ -402,7 +402,8 @@ export function templateColors(templateType, templateAnimation, patreon) {
                 case "lightning":
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.rayLightningColor) : AUTOANIM.localized(AUTOANIM.rayLightningColorFree);
                     break;
-                case "lightningbolt":
+                case "lightningbolt01":
+                case "lightningbolt02":
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.lightningBoltColor) : AUTOANIM.localized(AUTOANIM.lightningBoltColorFree);
                     break;
             }
@@ -445,6 +446,7 @@ export function templateColors(templateType, templateAnimation, patreon) {
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.sleetstormColors) : AUTOANIM.localized(AUTOANIM.sleetstormColorsFree)
                     break;
                 case "cloudofdaggers":
+                case "cloudofkunais":
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerColors) : AUTOANIM.localized(AUTOANIM.cloudDaggerColorsFree);
                     break;
                 default:
