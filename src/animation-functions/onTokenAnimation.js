@@ -1,4 +1,4 @@
-import { buildTokenAnimationFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { buildFile } from "./file-builder/build-filepath.js"
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
@@ -17,24 +17,24 @@ export async function onTokenAnimation(handler) {
 
     // Random Color pull given object path
     //Builds standard File Path
-    let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
+    let onToken = await buildFile(true, itemName, "static", handler.spellVariant, handler.color);
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor);
     }
 
     let explosion;
     if (handler.explosion) {
-        explosion = await buildAfterFile(obj01, handler);
+        explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor)
     }
 
     let explosionSound = handler.allSounds?.explosion;
@@ -66,7 +66,7 @@ export async function onTokenAnimation(handler) {
                 return data;
             })
         .thenDo(function() {
-            Hooks.callAll("aa.animationStart", sourceToken, target)
+            Hooks.callAll("aa.animationStart", sourceToken, "no-target")
         })             
         .effect()
             .atLocation(sourceToken)

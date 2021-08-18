@@ -1,23 +1,16 @@
-import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
-import { buildTemplateFile } from "./file-builder/build-filepath.js";
+import { buildFile } from "./file-builder/build-filepath.js";
 import { socketlibSocket } from "../socketset.js"
-import { buildTokenAnimationFile, buildSourceTokenFile } from "./file-builder/build-filepath.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function templateAnimation(handler, msg) {
 
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     const sourceToken = handler.actorToken;
-    let tempAnimation = await buildTemplateFile(obj01, handler)
+    let tempAnimation = await buildFile(true, handler.templates.tempType, "static", handler.templates.tempAnim, handler.templates.tempColor)
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
 
@@ -125,7 +118,7 @@ export async function templateAnimation(handler, msg) {
                     alpha: handler.templateOpacity,
                     width: tileWidth,
                     height: tileHeight,
-                    img: tempAnimation.file2,
+                    img: tempAnimation.fileData,
                     // false sets it in canvas.background. true sets it to canvas.foreground
                     overhead: true,
                     occlusion: {
@@ -146,7 +139,7 @@ export async function templateAnimation(handler, msg) {
                     alpha: handler.templateOpacity,
                     width: tileWidth,
                     height: tileHeight,
-                    img: tempAnimation.file2,
+                    img: tempAnimation.fileData,
                     // false sets it in canvas.background. true sets it to canvas.foreground
                     overhead: false,
                     video: {
@@ -178,35 +171,35 @@ export async function templateAnimation(handler, msg) {
             }        
             await new Sequence()
                 .effect()
-                .atLocation(sourceToken)
-                .scale(sFXScale * handler.sourceScale)
-                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                .belowTokens(handler.sourceLevel)
-                .waitUntilFinished(handler.sourceDelay)
-                .playIf(handler.sourceEnable)
-                .addOverride(async (effect, data) => {
-                    if (handler.sourceEnable) {
-                        data.file = sourceFX.file;
-                    }
-                    return data;
-                })
+                    .atLocation(sourceToken)
+                    .scale(sFXScale * handler.sourceScale)
+                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                    .belowTokens(handler.sourceLevel)
+                    .waitUntilFinished(handler.sourceDelay)
+                    .playIf(handler.sourceEnable)
+                    .addOverride(async (effect, data) => {
+                        if (handler.sourceEnable) {
+                            data.file = sourceFX.file;
+                        }
+                        return data;
+                    })
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, "no-target")
                 })
                 .effect()
-                .file(tempAnimation.file)
-                .atLocation({ x: template.data.x, y: template.data.y })
-                .anchor({ x: xAnchor, y: yAnchor })
-                .rotate(rotate)
-                .scale({ x: scaleX, y: scaleY })
-                .belowTokens(false)
-                .repeats(tempAnimation.loops, tempAnimation.delay)
+                    .file(tempAnimation.file)
+                    .atLocation({ x: template.data.x, y: template.data.y })
+                    .anchor({ x: xAnchor, y: yAnchor })
+                    .rotate(rotate)
+                    .scale({ x: scaleX, y: scaleY })
+                    .belowTokens(false)
+                    .repeats(handler.templates.tempLoop, handler.templates.loopDelay)
                 .sound()
-                .file(templateFile)
-                .playIf(handler.itemSound)
-                .delay(templateDelay)
-                .volume(templateVolume)
-                .repeats(handler.animationLoops, handler.loopDelay)
+                    .file(templateFile)
+                    .playIf(handler.itemSound)
+                    .delay(templateDelay)
+                    .volume(templateVolume)
+                    .repeats(handler.animationLoops, handler.loopDelay)
                 .play()
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")

@@ -3,7 +3,7 @@ The framework for the code below originated from Honeybadger (Trioderigon) for c
 */
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
-import { buildTokenAnimationFile, buildSourceTokenFile } from "./file-builder/build-filepath.js"
+import { buildFile} from "./file-builder/build-filepath.js"
 
 export async function teleportation(handler) {
 
@@ -20,12 +20,12 @@ export async function teleportation(handler) {
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName
-    let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
+    let onToken = await buildFile(true, itemName, "static", "01", handler.color);
 
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
         sFXScale = 2 * token.w / sourceFX.metadata.width;
     }
 
@@ -90,26 +90,41 @@ export async function teleportation(handler) {
                 .atLocation(token)
                 .scale(Scale)
                 .randomRotation()
-                .waitUntilFinished(-2250)
-            .animation()
-                .on(token)
-                .fadeOut(500)
-            .wait(500)
-            .animation()
-                .on(token)
-                .teleportTo({x: gridPos[0], y: gridPos[1]})
-                .async()
+                .wait(750)
+            .thenDo(async () => {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                    await token.update({
+                        x: gridPos[0],
+                        y: gridPos[1],
+                        hidden: true
+                    }, { animate: false });
+                } else {
+                    await token.document.update({
+                        x: gridPos[0],
+                        y: gridPos[1],
+                        hidden: true
+                    }, { animate: false });
+                }
+            })  
             .effect()
                 .file(onToken.msFile)
                 .atLocation(token)
                 .scale(Scale)
                 .randomRotation()
             .wait(1500)
-            .animation()
-                .on(token)
-                .fadeIn(500)
+            .thenDo(async () => {
+                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
+                    await token.update({
+                        hidden: false
+                    }, { animate: false });
+                    0
+                } else {
+                    await token.document.update({
+                        hidden: false
+                    }, { animate: false });
+                }
+            })
             .play();
-
     };
 
 

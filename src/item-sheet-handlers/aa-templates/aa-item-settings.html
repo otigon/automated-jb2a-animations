@@ -1104,18 +1104,6 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if templateVariants}}
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.variantChoice"}}</label>
-                    <select name="flags.autoanimations.spellVar">
-                        {{#select flags.autoanimations.spellVar}}
-                        {{#each templateVariant as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
-                </div>
-                {{/if}}
                 <!--Choose Template Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
@@ -1664,7 +1652,7 @@
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.ctaStatic"}}</label>
-                    <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked ctaOption}}>
+                    <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked flags.autoanimations.ctaOption}}>
                 </div>
                 <div class="aa-column">
                     <label>{{localize "AUTOANIM.scale"}}</label>

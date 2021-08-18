@@ -1,4 +1,4 @@
-import { buildBlessFile, buildSourceTokenFile } from "../file-builder/build-filepath.js"
+import { buildFile } from "../file-builder/build-filepath.js"
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
@@ -16,12 +16,13 @@ export async function bless(handler) {
 
     // Random Color pull given object path
     //Builds standard File Path
+    
     let bless = await buildBlessFile(obj01, handler);
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
     }
 
     let sourceToken = handler.actorToken;
@@ -30,13 +31,13 @@ export async function bless(handler) {
     let addCTA = handler.options?.addCTA ? false : true
     if (handler.allTargets.length === 0) {
         new Sequence()
-            .effect()
+        .effect()
             .file(bless.file01)
             .atLocation(sourceToken)
             .scale(scale * handler.scale)
             .belowTokens(handler.animLevel)
             .waitUntilFinished(-500)
-            .effect()
+        .effect()
             .file(bless.file02)
             .scale(scale)
             .atLocation(sourceToken)
@@ -138,4 +139,37 @@ export async function bless(handler) {
         );
         d.render(true)
     }
+}
+
+async function buildBlessFile(jb2a, handler) {
+    let color = handler.color || "yellow";
+    color = color.replace(/\s+/g, '');
+    const file01 = `autoanimations.static.bless.01.${color}.intro`;
+    const file02 = `autoanimations.static.bless.01.${color}.loop`;
+    const ctaFile01 = jb2a.static.bless['01'][color]["intro"];
+    const ctaFile02 = jb2a.static.bless['01'][color]["loop"];
+
+    let metadata = await getVideoDimensionsOf(ctaFile01);
+    let metadata2 = await getVideoDimensionsOf(ctaFile02);
+
+    return { file01, file02, ctaFile01, ctaFile02, metadata, metadata2 }
+}
+function getVideoDimensionsOf(url) {
+    return new Promise(resolve => {
+        // create the video element
+        const video = document.createElement('video');
+        video.preload = "metadata";
+
+        // place a listener on it
+        video.addEventListener("loadedmetadata", function () {
+            // retrieve dimensions
+            const height = this.videoHeight;
+            const width = this.videoWidth;
+            const duration = this.duration
+            // send back result
+            resolve({ height, width, duration });
+        }, false);
+        video.src = url;
+
+    });
 }

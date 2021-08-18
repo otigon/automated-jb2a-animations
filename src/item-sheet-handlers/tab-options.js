@@ -56,15 +56,13 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorFirebolt) : AUTOANIM.localized(AUTOANIM.animColorFireboltFree)
             break;
         case itemName === "generichealing":
-            switch (spellVariant) {
-                case ('01'):
-                    animationColor = AUTOANIM.localized(AUTOANIM.animGenHealing01);
-                    break;
-                case ('02'):
+            switch (true) {
+                case spellVariant === '02':
                     animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animGenHealing02) : AUTOANIM.localized(AUTOANIM.animGenHealingFree02);
                     break;
                 default:
-                    return;
+                    animationColor = AUTOANIM.localized(AUTOANIM.animGenHealing01);
+                    break;;
             }
             break;
         case itemName === "magicmissile":
@@ -404,7 +402,8 @@ export function templateColors(templateType, templateAnimation, patreon) {
                 case "lightning":
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.rayLightningColor) : AUTOANIM.localized(AUTOANIM.rayLightningColorFree);
                     break;
-                case "lightningbolt":
+                case "lightningbolt01":
+                case "lightningbolt02":
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.lightningBoltColor) : AUTOANIM.localized(AUTOANIM.lightningBoltColorFree);
                     break;
             }
@@ -447,6 +446,7 @@ export function templateColors(templateType, templateAnimation, patreon) {
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.sleetstormColors) : AUTOANIM.localized(AUTOANIM.sleetstormColorsFree)
                     break;
                 case "cloudofdaggers":
+                case "cloudofkunais":
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.cloudDaggerColors) : AUTOANIM.localized(AUTOANIM.cloudDaggerColorsFree);
                     break;
                 default:

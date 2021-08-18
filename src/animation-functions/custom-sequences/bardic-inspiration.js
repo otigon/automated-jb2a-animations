@@ -6,8 +6,8 @@ async function bardicInspiration(handler) {
     let token = handler.actorToken;
     let target = handler.allTargets[0];
     
-    let selfMarkerPath = handler.bards.markerColor === "random" ? `autoanimations.bardicinspiration.marker` : `autoanimations.bardicinspiration.marker.${handler.bards.markerColor}`;
-    let targetMarkerPath = handler.bards.markerColorTarget === "random" ? `autoanimations.bardicinspiration.marker` : `autoanimations.bardicinspiration.marker.${handler.bards.markerColorTarget}`
+    let selfMarkerPath = handler.bards.markerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${handler.bards.markerColor}`;
+    let targetMarkerPath = handler.bards.markerColorTarget === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${handler.bards.markerColorTarget}`
     async function markerCreate(tokenMarker, path) {
         new Sequence()
         .effect()
@@ -18,8 +18,8 @@ async function bardicInspiration(handler) {
         .play()
     }
 
-    let selfMusicPath = handler.bards.bardSelfColor === "random" ? `autoanimations.music` : `autoanimations.music.${handler.bards.bardSelfColor}`
-    let targetMusicPath = handler.bards.bardTargetColor === "random" ? `autoanimations.music` : `autoanimations.music.${handler.bards.bardTargetColor}`
+    let selfMusicPath = handler.bards.bardSelfColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${handler.bards.bardSelfColor}`
+    let targetMusicPath = handler.bards.bardTargetColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${handler.bards.bardTargetColor}`
     async function music(token, path) {
         
         let musicPlay = new Sequence()
@@ -33,8 +33,8 @@ async function bardicInspiration(handler) {
         if (handler.bardSelf) {musicPlay.play()}
     }
 
-    let selfBIPath = handler.bards.bardSelfColor === "random" ? `autoanimations.bardicinspiration.inspire` : `autoanimations.bardicinspiration.inspire.${handler.bards.bardSelfColor}`
-    let targetBIPath = handler.bards.bardTargetColor === "random" ? `autoanimations.bardicinspiration.inspire` : `autoanimations.bardicinspiration.inspire.${handler.bards.bardTargetColor}`
+    let selfBIPath = handler.bards.bardSelfColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${handler.bards.bardSelfColor}`
+    let targetBIPath = handler.bards.bardTargetColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${handler.bards.bardTargetColor}`
     async function bardicInspiration(biToken, path) {
 
         let bardicPlay = new Sequence()

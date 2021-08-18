@@ -1,12 +1,16 @@
-import { buildWeaponFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { buildFile } from "./file-builder/build-filepath.js"
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { meleeSwitch } from "./meleeSwitch.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
-
+import { aaColorsPatreon } from "./databases/jb2a-patreon-colors.js"
+import { aaColorsFree } from "./databases/jb2a-free-colors.js";
+//import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function meleeAnimation(handler) {
+    console.log(aaColorsFree)
+    console.log(aaColorsPatreon)
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -23,15 +27,16 @@ export async function meleeAnimation(handler) {
     await wait(globalDelay);
 
     //Builds Primary File Path and Pulls from flags if already set
-    let attack = await buildWeaponFile(obj01, itemName, handler)
-    let attackDuration = attack.metadata.duration * 1000;
+    let variant = itemName === "unarmedstrike" || itemName === "flurryofblows" ? handler.uaStrikeType : "01";
+    let attack = await buildFile(false, itemName, "melee", variant, handler.color)
+    //let attack = await buildWeaponFile(obj01, itemName, handler)
     let sourceToken = handler.actorToken;
     let sourceScale = itemName === "unarmedstrike" || itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
 
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
     let explosion;
     if (handler.flags.explosion) {
-        explosion = await buildAfterFile(obj01, handler)
+        explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor)
     }
 
     let explosionSound = handler.allSounds?.explosion;
@@ -48,14 +53,14 @@ export async function meleeAnimation(handler) {
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler);
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor);
     }
 
     //logging explosion Scale

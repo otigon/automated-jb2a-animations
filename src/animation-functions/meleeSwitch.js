@@ -1,6 +1,4 @@
-import { buildRangedFile, buildSwitchFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
-import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
+import { buildFile } from "./file-builder/build-filepath.js"
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -11,20 +9,22 @@ export async function meleeSwitch(handler, target) {
     }
 
     // Sets JB2A database and Global Delay
-    let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.switchName || handler.convertedName;
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
+    console.log(itemName)
+
+    let variant = itemName === "lasersword" || itemName === "dagger" || itemName === "handaxe" ? handler.switchVariant : handler.switchDmgType;
 
     //Builds Primary File Path and Pulls from flags if already set
-    let attack =  await buildSwitchFile(jb2a, itemName, handler, handler.switchColor);
+    let attack =  await buildFile(false, itemName, "range", variant, handler.switchColor);//need to finish
     let sourceToken = handler.actorToken;
 
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
     let explosion;
     if (handler.flags.explosion) {
-        explosion = await buildAfterFile(jb2a, handler)
+        explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor)
     }
 
     let explosionSound = handler.allSounds?.explosion;
@@ -42,20 +42,20 @@ export async function meleeSwitch(handler, target) {
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(jb2a, handler.sourceName, handler);
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(jb2a, handler.targetName, handler)
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor)
     }
 
     //logging explosion Scale
     let scale = explosion?.scale ?? 1;
 
-    let returnWeapons = ['dagger', 'hammer', 'greatsword']
+    let returnWeapons = ['dagger', 'hammer', 'greatsword', 'chakram']
     let switchReturn = returnWeapons.some(el => itemName.includes(el)) ? handler.switchReturn : false;
     let returnDelay;
     switch (true) {
@@ -116,7 +116,7 @@ export async function meleeSwitch(handler, target) {
                         })
                     //.waitUntilFinished(-700/* + handler.explosionDelay*/)
                 .effect()
-                    .file(attack.fileReturn)
+                    .file(attack.returnFile)
                     .delay(returnDelay)
                     .atLocation(sourceToken)
                     .repeats(handler.animationLoops, handler.loopDelay)

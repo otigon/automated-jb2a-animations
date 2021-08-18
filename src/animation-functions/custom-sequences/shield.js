@@ -1,7 +1,5 @@
-import { buildShieldFile, buildSourceTokenFile } from "../file-builder/build-filepath.js"
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-//import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -14,18 +12,34 @@ export async function shieldSpell(handler) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    // Random Color pull given object path
-    //Builds standard File Path
+    async function buildShieldFile(jb2a, handler) {
+        const spellVariant = handler.spellVariant || "01";
+        let color = handler.color || "blue";
+        color = color.replace(/\s+/g, '');
+        const shieldVar = handler.options.shieldVar || "outro_fade";
+    
+        const file01 = `autoanimations.static.shield.${spellVariant}.${color}.intro`;
+        const file02 = `autoanimations.static.shield.${spellVariant}.${color}.loop`;
+        const file03 = `autoanimations.static.shield.${spellVariant}.${color}.${shieldVar}`;
+    
+        const fileData = jb2a.static.shield["01"]["blue"]["intro"];
+        const metadata = await getVideoDimensionsOf(fileData);
+    
+        return { file01, file02, file03, metadata };
+    }
+    
     let onToken = await buildShieldFile(obj01, handler);
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler)
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
     }
 
     let sourceToken = handler.actorToken;
     //let animWidth = onToken.metadata.width;
     let scale = ((sourceToken.w / onToken.metadata.width) * 1.75) * handler.scale
+
+
 
     async function cast() {
             new Sequence()
@@ -62,4 +76,24 @@ export async function shieldSpell(handler) {
             //await wait(250)
     }
     cast()
+}
+
+function getVideoDimensionsOf(url) {
+    return new Promise(resolve => {
+        // create the video element
+        const video = document.createElement('video');
+        video.preload = "metadata";
+
+        // place a listener on it
+        video.addEventListener("loadedmetadata", function () {
+            // retrieve dimensions
+            const height = this.videoHeight;
+            const width = this.videoWidth;
+            const duration = this.duration
+            // send back result
+            resolve({ height, width, duration });
+        }, false);
+        video.src = url;
+
+    });
 }

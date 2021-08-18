@@ -185,6 +185,7 @@ AUTOANIM.animBiteColor = {
     "a1": ``,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
+    "grey": "AUTOANIM.colorGrey",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
     "red": "AUTOANIM.colorRed",
@@ -359,6 +360,8 @@ AUTOANIM.animColorFirebolt = {
     "a1": ``,
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
+    "palegreen": "AUTOANIM.colorPaleGreen",
+    "darkgreen": "AUTOANIM.colorDarkGreen",
     "orange": "AUTOANIM.colorOrange",
     "purple": "AUTOANIM.colorPurple",
     "red": "AUTOANIM.colorRed",
@@ -730,7 +733,7 @@ AUTOANIM.explodeVariant = {
     "outpulse01": "AUTOANIM.outpulse01",
     "outpulse02": "AUTOANIM.outpulse02",
     "impact": "AUTOANIM.impact",
-    "boulder": "AUTOANIM.itemBoulder",
+    "boulderimpact": "AUTOANIM.itemBoulder",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
 }
@@ -1031,6 +1034,7 @@ AUTOANIM.dsSelf = {
     'blueyellow': "AUTOANIM.colorYellowBlue",
     'greenyellow': "AUTOANIM.colorGreenYellow",
     "purplepink": "AUTOANIM.colorPinkPurple",
+    "darkred": "AUTOANIM.colorDarkRed",
     "darkpurple": "AUTOANIM.colorDarkPurple",
     "yellowwhite": "AUTOANIM.white",
     "random": "AUTOANIM.colorRandom"
@@ -1046,6 +1050,7 @@ AUTOANIM.dsTarget = {
     'blueyellow': "AUTOANIM.colorYellowBlue",
     'greenyellow': "AUTOANIM.colorGreenYellow",
     "purplepink": "AUTOANIM.colorPinkPurple",
+    "darkred": "AUTOANIM.colorDarkRed",
     "darkpurple": "AUTOANIM.colorDarkPurple",
     "yellowwhite": "AUTOANIM.white",
     "random": "AUTOANIM.colorRandom"
@@ -1173,7 +1178,8 @@ AUTOANIM.rayAnimations = {
     "acid": "AUTOANIM.dmgTypeAcid",
     "fire": "AUTOANIM.dmgTypeFire",
     "lightning": "AUTOANIM.dmgTypeLightning",
-    "lightningbolt": "AUTOANIM.lightningbolt"
+    "lightningbolt01": "AUTOANIM.lightningbolt",
+    "lightningbolt02": "AUTOANIM.lightningbolt02"
 }
 
 AUTOANIM.lightningBoltColor = {
@@ -1252,7 +1258,8 @@ AUTOANIM.circleAnimations = {
     "darkness": "AUTOANIM.animDarkness",
     "calllightning": "AUTOANIM.animCallLightning",
     "sleetstorm": "AUTOANIM.animSleetstorm",
-    "cloudofdaggers": "AUTOANIM.cloudOfDaggers"
+    "cloudofdaggers": "AUTOANIM.cloudOfDaggers",
+    "cloudofkunais": "AUTOANIM.cloudofkunais"
 }
 
 AUTOANIM.rectangleAnimations = {
@@ -1265,6 +1272,8 @@ AUTOANIM.entangleColors = {
     "brown": "AUTOANIM.colorBrown",
     "green": "AUTOANIM.colorGreen",
     "yellow": "AUTOANIM.colorYellow",
+    "darkpurple": "AUTOANIM.colorDarkPurple",
+    "palegreen": "AUTOANIM.colorPaleGreen",
     "random": "AUTOANIM.colorRandom"
 }
 
@@ -1337,6 +1346,7 @@ AUTOANIM.bulletColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
     "random": "AUTOANIM.colorRandom"
 }
 
@@ -1355,6 +1365,7 @@ AUTOANIM.snipeColors = {
     "blue": "AUTOANIM.colorBlue",
     "green": "AUTOANIM.colorGreen",
     "orange": "AUTOANIM.colorOrange",
+    "red": "AUTOANIM.colorRed",
     "random": "AUTOANIM.colorRandom"
 }
 

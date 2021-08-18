@@ -71,15 +71,6 @@ export class AAItemSettings extends FormApplication {
         let impactVariant = flags.autoanimations?.impactVar || "";
         let templateType = flags.autoanimations?.templates?.tempType ?? "";
         let templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
-        let templateVariants;
-        switch (templateAnimation) {
-            case "cloudofdaggers":
-            case "lightningbolt":
-                templateVariants = true;
-                break;
-            default:
-                templateVariants = false;
-        }
         let spellVariants;
         switch (true) {
             case itemName === "scorchingray" && animType === "t6":
@@ -96,7 +87,7 @@ export class AAItemSettings extends FormApplication {
         let animationLoops = flags.autoanimations?.options?.loops > 50 ? 50 : flags.autoanimations?.options?.loops;
         let loopTemplate =  flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
         let explosionLoops = flags.autoanimations?.explodeLoop > 50 ? 50 : flags.autoanimations?.explodeLoop;
-        let returnWeapons = ["dagger", "hammer", "greatsword"];
+        let returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
         let videoPreview = animPreview(flags, itemName);
         if (videoPreview === "no preview" && !isOverride) { videoPreview = conversion[3] }
         let content = "";
@@ -195,7 +186,6 @@ export class AAItemSettings extends FormApplication {
             makePersistent: templateType === "circle" || templateType === "rect",
             persistent: flags.autoanimations?.templates?.persistent && (templateType === "circle" || templateType === "rect"),
             occlusionAlpha: flags.autoanimations?.templates?.occlusionAlpha ?? "0",
-            templateVariants: templateVariants,
             templateVariant: variantSpell(templateAnimation, patreon),
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
