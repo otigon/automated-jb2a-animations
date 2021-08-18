@@ -681,7 +681,7 @@ JB2APATREONDB.range = {
     },
     guidingbolt: {
         '01': {
-            blueyellow: {
+            yellowblue: {
                 '05ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_05ft_600x400.webm`],
                 '15ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_15ft_1000x400.webm`],
                 '30ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_30ft_1600x400.webm`],
@@ -718,7 +718,7 @@ JB2APATREONDB.range = {
             }
         },
         '02': {
-            blueyellow: {
+            yellowblue: {
                 '05ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_BlueYellow_05ft_600x400.webm`],
                 '15ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_BlueYellow_15ft_1000x400.webm`],
                 '30ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_BlueYellow_30ft_1600x400.webm`],
@@ -1662,13 +1662,13 @@ JB2APATREONDB.static = {
     },
     bardicinspiration: {
         'inspire': {
-            blueyellow: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
+            yellowblue: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm`],
             purplepink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_PurplePink_400x400.webm`],
             darkred: [l1`Bardic_Inspiration/BardicInspiration_01_Dark_Red_400x400.webm`]
         },
         'marker': {
-            blueyellow: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
+            yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
             purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
             darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
@@ -1912,7 +1912,7 @@ JB2APATREONDB.static = {
     },
     divinesmite: {
         'caster': {
-            blueyellow: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
+            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
             greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm`],
             purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm`],
             darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Caster_400x400.webm`],
@@ -1920,7 +1920,7 @@ JB2APATREONDB.static = {
             darkred: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Caster_400x400.webm`],
         },
         'target': {
-            blueyellow: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
+            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
             greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Target_400x400.webm`],
             purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Target_400x400.webm`],
             darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm`],
@@ -2125,21 +2125,21 @@ JB2APATREONDB.static = {
     marker: {
         marker01: {
             bluewhite: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
-            blueyellow: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
+            yellowblue: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_01_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_01_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_01_Regular_PurplePink_400x400.webm`],
         },
         marker02: {
             bluewhite: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
-            blueyellow: [lg`Marker/Marker_02_Regular_BlueYellow_400x400.webm`],
+            yellowblue: [lg`Marker/Marker_02_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_02_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_02_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_02_Regular_PurplePink_400x400.webm`],
         },
         musicMarker: {
             darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
-            blueyellow: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
+            yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
             purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
         }
@@ -2403,7 +2403,7 @@ JB2APATREONDB.static = {
             darkred: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Red_600x600.webm`],
             yellowblue: [l3`Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm`],
             greenorange: [l3`Spirit_Guardians/SpiritGuardians_01_Light_GreenOrange_600x600.webm`],
-            pinkpurple: [l3`Spirit_Guardians/SpiritGuardians_01_Light_PinkPurple_600x600.webm`],
+            purplepink: [l3`Spirit_Guardians/SpiritGuardians_01_Light_PinkPurple_600x600.webm`],
             darkwhiteblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_WhiteBlue_600x600.webm`]
         }
     },

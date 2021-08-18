@@ -1,8 +1,32 @@
 
 import { AUTOANIM } from "./config.js";
+import { aaColorsPatreon } from "../animation-functions/databases/jb2a-patreon-colors.js";
+import { aaColorsFree } from "../animation-functions/databases/jb2a-free-colors.js";
+import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
 
 export function colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType, variant) {
     let animationColor;
+    let type;
+    switch (true) {
+        case AAITEMCHECK.melee.some(el => itemName === el):
+        case AAITEMCHECK.meleerange.some(el => itemName === el):
+            type = 'melee';
+            break;
+        case AAITEMCHECK.ranged.some(el => itemName === el):
+        case AAITEMCHECK.spellattack.some(el => itemName === el):
+            type = 'range';
+            break;
+        default:
+            type = 'static';
+    }
+    let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    //console.log(colorMenu)
+    colorMenu[type][itemName]['01'].random = "AUTOANIM.random";
+    //preMenu.random = "AUTOANIM.random";
+
+    animationColor = colorMenu.localized(colorMenu[type][itemName]['01']);
+
+    /*
     switch (true) {
         case itemName === "lasersword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorLaserSword) : AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree)
@@ -193,6 +217,7 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             break;
 
     }
+    */
     return animationColor;
 }
 

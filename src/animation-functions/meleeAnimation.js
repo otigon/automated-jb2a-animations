@@ -3,8 +3,8 @@ import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { meleeSwitch } from "./meleeSwitch.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
-//import { aaColorsPatreon } from "./databases/jb2a-patreon-colors.js"
-//import { aaColorsFree } from "./databases/jb2a-free-colors.js";
+import { aaColorsPatreon } from "./databases/jb2a-patreon-colors.js"
+import { aaColorsFree } from "./databases/jb2a-free-colors.js";
 //import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -12,6 +12,8 @@ export async function meleeAnimation(handler) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
+    console.log(aaColorsFree)
+    console.log(aaColorsPatreon)
     let itemName = handler.convertedName;
     let rangeSwitch;
     if (moduleIncludes("jb2a_patreon")) {
