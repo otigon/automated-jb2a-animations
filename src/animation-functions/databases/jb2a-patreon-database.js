@@ -1729,7 +1729,7 @@ JB2APATREONDB.static = {
             yellowblue: [lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Explosion/Explosion_03_Regular_GreenOrange_400x400.webm`],
             purplepink: [lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`],
-            bluewhite: [lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`],
+            whiteblue: [lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`],
             pink: [lg`Explosion/Explosion_03_Regular_Pink_400x400.webm`],
         },
         'ex04': {
@@ -1740,19 +1740,19 @@ JB2APATREONDB.static = {
             orange: [lg`Explosion/Explosion_04_Regular_Orange_400x400.webm`],
         },
         'snowflake': {
-            bluewhite: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],
         },
         'outpulse01': {
-            bluewhite: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
         },
         'outpulse02': {
-            bluewhite: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm`],
@@ -1975,7 +1975,7 @@ JB2APATREONDB.static = {
             purplepink: [
                 lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`,
             ],
-            bluewhite: [
+            whiteblue: [
                 lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`,
             ],
             pink: [
@@ -2002,7 +2002,7 @@ JB2APATREONDB.static = {
             yellow: [lg`Healing/HealingAbility_01_Yellow_400x400.webm`],
         },
         '02': {
-            bluewhite: [lg`Healing/HealingAbility_02_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Healing/HealingAbility_02_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Healing/HealingAbility_02_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Healing/HealingAbility_02_Regular_TealYellow_Burst_600x600.webm`],
@@ -2124,14 +2124,14 @@ JB2APATREONDB.static = {
     },
     marker: {
         marker01: {
-            bluewhite: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
+            whiteblue: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
             yellowblue: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_01_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_01_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_01_Regular_PurplePink_400x400.webm`],
         },
         marker02: {
-            bluewhite: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
+            whiteblue: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
             yellowblue: [lg`Marker/Marker_02_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_02_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_02_Regular_Pink_400x400.webm`],
@@ -2204,7 +2204,7 @@ JB2APATREONDB.static = {
     },
     outpulse01: {
         '01': {
-            bluewhite: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
@@ -2212,7 +2212,7 @@ JB2APATREONDB.static = {
     },
     outpulse02: {
         '01': {
-            bluewhite: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm`],
@@ -2390,7 +2390,7 @@ JB2APATREONDB.static = {
     },
     snowflake: {
         '01': {
-            bluewhite: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],

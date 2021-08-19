@@ -486,7 +486,7 @@ AUTOANIM.animColorWitchboltFree = {
 
 AUTOANIM.animColorArrow = {
     "a1": ``,
-    "regular": "AUTOANIM.colorWhite",
+    "regular": "AUTOANIM.regular",
     "green": "AUTOANIM.colorGreen"
 };
 
@@ -1318,14 +1318,14 @@ AUTOANIM.arrowColorsFree = {
 
 AUTOANIM.legacyArrowColors = {
     "a1": "",
-    "regular": "AUTOANIM.colorWhite",
+    "regular": "AUTOANIM.regular",
     "green": "AUTOANIM.colorGreen",
     "random": "AUTOANIM.colorRandom"
 }
 
 AUTOANIM.legacyArrowColorsFree = {
     "a1": "",
-    "regular": "AUTOANIM.colorWhite",
+    "regular": "AUTOANIM.regular",
 }
 
 AUTOANIM.boltColors = {
@@ -1390,7 +1390,7 @@ AUTOANIM.boltOptionsFree = {
 
 AUTOANIM.arrowOptions = {
     "a1": "",
-    "regular": "AUTOANIM.colorWhite",
+    "regular": "AUTOANIM.regular",
     "poison": "AUTOANIM.poison",
     'fire': "AUTOANIM.dmgTypeFire",
     "cold": "AUTOANIM.cold",

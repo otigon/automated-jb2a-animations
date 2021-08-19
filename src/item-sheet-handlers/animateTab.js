@@ -194,7 +194,7 @@ export class AAItemSettings extends FormApplication {
 
             rangeSwitch: patreon ? AUTOANIM.localized(AUTOANIM.animNameSwitch) : AUTOANIM.localized(AUTOANIM.animNameSwitchFree),
             rangeSwitchDmgType: rangedDamageTypes(switchName, patreon),
-            rangeSwitchColor: switchColorChoices(switchName, patreon, switchDamageType, switchVariant),
+            rangeSwitchColor: colorChoices(switchName, patreon, "pass", "pass", switchDamageType, switchVariant),
             rangeSwitchVariant: thrownVariants(switchName, patreon),
             showRSVariant: (switchName.includes("lasersword") || switchName === "dagger" || switchName === "handaxe") && animType === "t2" && override ? true : false,
             switchType: switchName === "bolt" || switchName === "bullet" || switchName === "arrow" ? true : false,

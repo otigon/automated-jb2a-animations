@@ -5,16 +5,8 @@ import { aaColorsFree } from "../animation-functions/databases/jb2a-free-colors.
 import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
 
 export function colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType, variant) {
-    let animationColor;
+    console.log(aaColorsPatreon)
     let type;
-    let animVar;
-    switch (true) {
-        case itemName === "arrow":
-        case itemName === "bolt":
-        case itemName === "bullet":
-            animVar = damageType;
-            break;
-    }
     switch (true) {
         case AAITEMCHECK.melee.some(el => itemName === el):
         case AAITEMCHECK.meleerange.some(el => itemName === el):
@@ -27,12 +19,45 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
         default:
             type = 'static';
     }
+
+    let animationColor;
+    let animVar;
+    switch (true) {
+        case itemName === "arrow":
+        case itemName === "bolt":
+        case itemName === "bullet":
+            animVar = damageType;
+            break;
+        case itemName === "lasersword":
+        case itemName === "dagger":
+        case itemName === "handaxe":
+            animVar = variant;
+            break;
+        case itemName === "bardicinspiration":
+            animVar = bardAnimation;
+            break;
+        default:
+            animVar = spellVariant;
+    }
     let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
     //console.log(colorMenu)
-    colorMenu[type][itemName]['01'].random = "AUTOANIM.random";
-    //preMenu.random = "AUTOANIM.random";
+    
+    try { colorMenu[type][itemName][animVar].random = "AUTOANIM.random"; }
+    catch (exception) { }
 
-    animationColor = colorMenu.localized(colorMenu[type][itemName]['01']);
+    let variantArray;
+    try { variantArray = Object.keys(colorMenu[type][itemName]) }
+    catch (exception) { }
+    console.log(animVar)
+    console.log(variantArray)
+    //preMenu.random = "AUTOANIM.random";
+    try { 
+        animVar = variantArray.some(el => animVar === el) ? animVar : variantArray[0];
+        console.log(animVar)
+        animationColor = colorMenu.localized(colorMenu[type][itemName][animVar]); }
+    catch (exception) { animationColor = null }
+
+    
 
     /*
     switch (true) {
