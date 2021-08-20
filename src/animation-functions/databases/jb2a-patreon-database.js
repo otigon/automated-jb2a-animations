@@ -1917,7 +1917,7 @@ JB2APATREONDB.static = {
             purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm`],
             darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Caster_400x400.webm`],
             yellowwhite: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Caster_400x400.webm`],
-            darkred: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Caster_400x400.webm`],
+            darkred: [l2`Divine_Smite/DivineSmite_01_Dark_Red_Caster_400x400.webm`],
         },
         'target': {
             blueyellow: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
@@ -1925,7 +1925,7 @@ JB2APATREONDB.static = {
             purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Target_400x400.webm`],
             darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm`],
             yellowwhite: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Target_400x400.webm`],
-            darkred: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Target_400x400.webm`],
+            darkred: [l2`Divine_Smite/DivineSmite_01_Dark_Red_Target_400x400.webm`],
         }
     },
     dizzystars: {
