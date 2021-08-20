@@ -264,7 +264,7 @@ Hooks.on('init', () => {
             case "pf2e":
                 Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
                 break;
-                case "forbidden-lands": 
+            case "forbidden-lands":
                 Hooks.on("createChatMessage", async (msg) => { fblReady(msg) });
                 break;
             case "sfrpg":
@@ -430,11 +430,21 @@ async function specialCaseAnimations(msg) {
     if (game.user.id !== msg.user?.id) {
         return;
     }
-    let handler = new Dnd5Handler(msg);
-    if (handler.animType === "t8" && handler.animOverride) {
-        Hooks.once("createMeasuredTemplate", (msg) => {
-            templateAnimation(handler, msg);
-        })
+    let breakOut = checkMessege(msg);
+    if (breakOut === 0) {
+        let handler = new Dnd5Handler(msg);
+        if (handler.animType === "t8" && handler.animOverride) {
+            Hooks.once("createMeasuredTemplate", (msg) => {
+                templateAnimation(handler, msg);
+            })
+        }
+    } else { return; }
+}
+function checkMessege(msg) {
+    try {
+        return msg.data?.flags['midi-qol'].type;
+    } catch (exception) {
+        return false;
     }
 }
 
@@ -562,9 +572,9 @@ function setupTormenta20(msg) {
 /*
 / Sets Handler for Forbidden Lands
 */
-async function fblReady(msg){
-    if(killAllAnimations) { return; }
-    if(game.user.id !== msg.user.id) { return; }
+async function fblReady(msg) {
+    if (killAllAnimations) { return; }
+    if (game.user.id !== msg.user.id) { return; }
     const handler = new ForbiddenLandsHandler(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
