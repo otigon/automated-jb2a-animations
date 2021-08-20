@@ -1,5 +1,5 @@
 import { AUTOANIM } from "./config.js";
-import { switchColorChoices, colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "./tab-options.js";
+import { rangeColors, meleeColors, staticColors, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -143,7 +143,6 @@ export class AAItemSettings extends FormApplication {
             spellVariant: variantSpell(itemName, patreon),
             animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
             animationNames: animationName(animType, patreon),
-            animationColor: colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType, variant), //AUTOANIM.localized(AUTOANIM.animColorMelee),
 
             unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
             uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
@@ -160,7 +159,7 @@ export class AAItemSettings extends FormApplication {
             addExplosion: (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7") ? true : false,
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explodeVariant),
             impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
-            explosionColors: explosionColors(explosionVariant, patreon),
+            //explosionColors: explosionColors(explosionVariant, patreon),
             explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
             explosionLoops: explosionLoops || 1,
             explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
@@ -178,7 +177,7 @@ export class AAItemSettings extends FormApplication {
 
             templateTypes: AUTOANIM.localized(AUTOANIM.templateType),
             templateAnimations: animTemplates(templateType),
-            templateAnimColors: templateColors(templateType, templateAnimation, patreon),
+            //templateAnimColors: templateColors(templateType, templateAnimation, patreon),
             loopTemplate: loopTemplate || 1,
             templateLoopDelay: flags.autoanimations?.templates?.loopDelay ?? 250,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
@@ -194,7 +193,6 @@ export class AAItemSettings extends FormApplication {
 
             rangeSwitch: patreon ? AUTOANIM.localized(AUTOANIM.animNameSwitch) : AUTOANIM.localized(AUTOANIM.animNameSwitchFree),
             rangeSwitchDmgType: rangedDamageTypes(switchName, patreon),
-            rangeSwitchColor: colorChoices(switchName, patreon, "pass", "pass", switchDamageType, switchVariant),
             rangeSwitchVariant: thrownVariants(switchName, patreon),
             showRSVariant: (switchName.includes("lasersword") || switchName === "dagger" || switchName === "handaxe") && animType === "t2" && override ? true : false,
             switchType: switchName === "bolt" || switchName === "bullet" || switchName === "arrow" ? true : false,
@@ -240,6 +238,12 @@ export class AAItemSettings extends FormApplication {
 
             dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
 
+            meleeColors: meleeColors(itemName, patreon, variant), //AUTOANIM.localized(AUTOANIM.animColorMelee),
+            rangeColors: rangeColors(itemName, patreon, spellVariant, damageType, variant),
+            switchColors: rangeColors(switchName, patreon, spellVariant, switchDamageType, switchVariant),
+            staticColors: staticColors(itemName, patreon, spellVariant, bardAnimation, damageType, variant),
+            explosionColors: staticColors(explosionVariant, patreon, spellVariant, bardAnimation, damageType, variant),
+            templateColors: staticColors(templateType, patreon, templateAnimation),
         };
 
     }

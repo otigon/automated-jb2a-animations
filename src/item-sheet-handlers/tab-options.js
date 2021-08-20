@@ -3,8 +3,9 @@ import { AUTOANIM } from "./config.js";
 import { aaColorsPatreon } from "../animation-functions/databases/jb2a-patreon-colors.js";
 import { aaColorsFree } from "../animation-functions/databases/jb2a-free-colors.js";
 import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
-
-export function colorChoices(itemName, patreon, spellVariant, bardAnimation, damageType, variant) {
+import { aaVariantsPatreon } from "../animation-functions/databases/jb2a-patreon-variants.js";
+/*
+export function meleeColors(itemName, patreon, spellVariant, bardAnimation, damageType, variant) {
     console.log(aaColorsPatreon)
     let type;
     switch (true) {
@@ -59,7 +60,6 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
 
     
 
-    /*
     switch (true) {
         case itemName === "lasersword":
             animationColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorLaserSword) : AUTOANIM.localized(AUTOANIM.animColorLaserSwordFree)
@@ -250,9 +250,119 @@ export function colorChoices(itemName, patreon, spellVariant, bardAnimation, dam
             break;
 
     }
-    */
     return animationColor;
 }
+*/
+export function meleeColors(itemName, patreon, variant) {
+    //console.log(aaColorsPatreon)
+    console.log(aaVariantsPatreon)
+    let animationColor;
+    let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    //console.log(colorMenu)
+
+    try { colorMenu.melee[itemName][variant].random = "AUTOANIM.random"; }
+    catch (exception) { }
+
+    let variantArray;
+    try { variantArray = Object.keys(colorMenu.melee[itemName]) }
+    catch (exception) { }
+    //console.log(variant)
+    //console.log(variantArray)
+    //preMenu.random = "AUTOANIM.random";
+    try {
+        variant = variantArray.some(el => variant === el) ? variant : variantArray[0];
+        console.log(variant)
+        animationColor = colorMenu.localized(colorMenu.melee[itemName][variant]);
+    }
+    catch (exception) { animationColor = null }
+
+    return animationColor;
+}
+
+export function rangeColors(itemName, patreon, spellVariant, damageType, variant) {
+    //console.log(aaColorsPatreon)
+    //console.log(itemName)
+    let animationColor;
+    let animVar;
+    let name = itemName.replace(/melee|range|double/gi, function(x) {
+        return "";
+    });
+    //console.log(name)
+    switch (true) {
+        case name === "arrow":
+        case name === "bolt":
+        case name === "bullet":
+            animVar = damageType;
+            break;
+        case name === "lasersword":
+        case name === "dagger":
+        case name === "handaxe":
+            animVar = variant;
+            break;
+        default:
+            animVar = spellVariant;
+    }
+    let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    //console.log(colorMenu)
+
+    try { colorMenu.range[name][animVar].random = "AUTOANIM.random"; }
+    catch (exception) { }
+
+    let variantArray;
+    try { variantArray = Object.keys(colorMenu.range[name]) }
+    catch (exception) { }
+    //console.log(animVar)
+    //console.log(variantArray)
+    //preMenu.random = "AUTOANIM.random";
+    try {
+        animVar = variantArray.some(el => animVar === el) ? animVar : variantArray[0];
+        console.log(animVar)
+        animationColor = colorMenu.localized(colorMenu.range[name][animVar]);
+    }
+    catch (exception) { animationColor = null }
+
+    return animationColor;
+}
+
+export function staticColors(itemName, patreon, spellVariant, bardAnimation, damageType, variant) {
+    console.log(itemName)
+    let name = itemName === "boulder" ? "boulderimpact" : itemName;
+    console.log(name)
+    let animationColor;
+    let animVar= spellVariant;
+    let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    //console.log(colorMenu)
+
+    try { colorMenu.static[name][animVar].random = "AUTOANIM.random"; }
+    catch (exception) { }
+
+    let variantArray;
+    try { variantArray = Object.keys(colorMenu.static[name]) }
+    catch (exception) { }
+    //console.log(animVar)
+    //console.log(variantArray)
+    //preMenu.random = "AUTOANIM.random";
+    try {
+        animVar = variantArray.some(el => animVar === el) ? animVar : variantArray[0];
+        console.log(animVar)
+        animationColor = colorMenu.localized(colorMenu.static[name][animVar]);
+    }
+    catch (exception) { animationColor = null }
+
+    return animationColor;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 export function switchColorChoices(itemName, patreon, damageType, variant) {
     let animationColor;
@@ -372,7 +482,7 @@ export function thrownVariants(itemName, patreon) {
     }
     return thrownVariant;
 }
-
+/*
 export function explosionColors(explosionVariant, patreon) {
     let explosionColor;
     switch (explosionVariant) {
@@ -396,7 +506,7 @@ export function explosionColors(explosionVariant, patreon) {
     }
     return explosionColor;
 }
-
+*/
 export function bardColorTarget(bardTargetAnimation, patreon) {
     let bardColorTarget;
     switch (bardTargetAnimation) {
@@ -427,7 +537,7 @@ export function animTemplates(templateType) {
     }
     return templateChoices;
 }
-
+/*
 export function templateColors(templateType, templateAnimation, patreon) {
     let templateColor;
     switch (templateType) {
@@ -489,11 +599,11 @@ export function templateColors(templateType, templateAnimation, patreon) {
                 case 'thunderwave':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorShatterThunder) : AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree);
                     break;
-                /*
+                
                 case 'fogcloud':
                     templateColor = patreon ? AUTOANIM.localized(AUTOANIM.animColorShatterThunder) : AUTOANIM.localized(AUTOANIM.animColorShatterThunderFree)
                     break;
-                */
+                
                 case 'darkness':
                     templateColor = AUTOANIM.localized(AUTOANIM.darknessColors)
                     break;
@@ -517,6 +627,7 @@ export function templateColors(templateType, templateAnimation, patreon) {
     }
     return templateColor;
 }
+*/
 
 export function rangedDamageTypes(itemName, patreon) {
     let damageType;

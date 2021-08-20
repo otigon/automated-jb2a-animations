@@ -772,7 +772,7 @@ AUTOANIM.selfemanation = {
     "snowflake": "AUTOANIM.snowflake",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
-    "antilife-shell": "AUTOANIM.animAntiLifeShell",
+    "antilifeshell": "AUTOANIM.animAntiLifeShell",
 }
 
 AUTOANIM.aura = {

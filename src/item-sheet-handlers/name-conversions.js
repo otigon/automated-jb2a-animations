@@ -11,6 +11,9 @@ export function nameConversion(itemName) {
     let jb2a = moduleIncludes("jb2a_patreon") === true ? "jb2a_patreon" : "JB2A_DnD5e";
     let autoPreview = "no preview";
     switch (true) {
+        case oldItemName === "antilifeshell":
+            newItemName = "antilifeshell";
+            break;
         case oldItemName === "bless":
             newItemName = "bless";
             defaultColor = "yellow";
