@@ -1,14 +1,16 @@
 
 import { AUTOANIM } from "./config.js";
-import { aaColorsPatreon } from "../animation-functions/databases/jb2a-patreon-colors.js";
-import { aaColorsFree } from "../animation-functions/databases/jb2a-free-colors.js";
-import { aaVariantsPatreon } from "../animation-functions/databases/jb2a-patreon-variants.js";
-import { aaVariantsFree } from "../animation-functions/databases/jb2a-free-variants.js";
+import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
+//import { aaColorsFree, aaVariantsFree } from "../animation-functions/databases/jb2a-free-colors.js";
+//import { aaVariantsPatreon } from "../animation-functions/databases/jb2a-patreon-variants.js";
+//import { aaVariantsPatreon } from "../animation-functions/databases/jb2a-patreon-menus.js";
+//import { aaVariantsFree } from "../animation-functions/databases/jb2a-free-variants.js";
 
 export function meleeColors(itemName, patreon, variant) {
     //console.log(aaColorsPatreon)
     let animationColor;
-    let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    //let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    let colorMenu = aaColorMenu;
     //console.log(colorMenu)
 
     try { colorMenu.melee[itemName][variant].random = "AUTOANIM.random"; }
@@ -53,7 +55,8 @@ export function rangeColors(itemName, patreon, spellVariant, damageType, variant
         default:
             animVar = spellVariant;
     }
-    let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    //let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    let colorMenu = aaColorMenu;
     //console.log(colorMenu)
 
     try { colorMenu.range[name][animVar].random = "AUTOANIM.random"; }
@@ -81,7 +84,8 @@ export function staticColors(itemName, patreon, spellVariant, bardAnimation, dam
     //console.log(name)
     let animationColor;
     let animVar= spellVariant;
-    let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    //let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
+    let colorMenu = aaColorMenu;
     //console.log(colorMenu)
 
     try { colorMenu.static[name][animVar].random = "AUTOANIM.random"; }
@@ -109,7 +113,8 @@ export function variantOptions(itemName, patreon, type) {
         return "";
     });
 
-    const variantMenu = patreon ? aaVariantsPatreon : aaVariantsFree;
+    //const variantMenu = patreon ? aaVariantsPatreon : aaVariantsFree;
+    const variantMenu = aaVariantMenu;
     console.log (variantMenu)
     let variantOptions;
     try { variantOptions = variantMenu.localized(variantMenu[type][name])}
