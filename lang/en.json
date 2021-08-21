@@ -319,6 +319,7 @@
     "AUTOANIM.start": "Start",
     "AUTOANIM.thrown": "Thrown",
     "AUTOANIM.white": "White",
+    "AUTOANIM.yellowwhite": "White",
     "AUTOANIM.customSequences": "Custom Sequences",
     "AUTOANIM.explode": "Explode",
     "AUTOANIM.fade": "Fade",

@@ -273,7 +273,7 @@ export function nameConversion(itemName) {
             autoPreview = `modules/${jb2a}/Library/1st_Level/Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_30ft_1600x400.webm`;
             break;
         case oldItemName === "shieldspell":
-            newItemName = "shieldspell";
+            newItemName = "shield";
             break;
         case itemAutoRec.creaturebite.some(el => oldItemName.includes(el)):
             newItemName = "creaturebite";

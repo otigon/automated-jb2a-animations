@@ -1,5 +1,5 @@
 import { AUTOANIM } from "./config.js";
-import { rangeColors, meleeColors, staticColors, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "./tab-options.js";
+import { rangeColors, meleeColors, staticColors, animationName, bardColorTarget, animTemplates, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -75,7 +75,7 @@ export class AAItemSettings extends FormApplication {
         switch (true) {
             case itemName === "scorchingray" && animType === "t6":
             case itemName === "generichealing" && animType === "t7":
-            case itemName === "shieldspell" && animType === "t13":
+            case itemName === "shield" && animType === "t13":
             case itemName === "cloudofdaggers" && animType === "t11":
             case itemName === "guidingbolt":
                 spellVariants = true;
@@ -215,7 +215,8 @@ export class AAItemSettings extends FormApplication {
             sourceDelayAfter: flags.autoanimations?.sourceToken?.delayAfter ?? 500,
             sourceAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
             sourceColor: flags.autoanimations?.sourceToken?.color ?? "",
-            sourceColors: tokenColors(patreon, sourceName, sourceVariant),
+            //sourceColors: tokenColors(patreon, sourceName, sourceVariant),
+            sourceColors: staticColors(sourceName, patreon, sourceVariant),
             sourceMarker: flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
 
             targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
@@ -225,7 +226,8 @@ export class AAItemSettings extends FormApplication {
             targetDelayStart: flags.autoanimations?.targetToken?.delayStart ?? 500,
             targetAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
             targetColor: flags.autoanimations?.targetToken?.color ?? "",
-            targetColors: tokenColors(patreon, targetName, targetVariant),
+            //targetColors: tokenColors(patreon, targetName, targetVariant),
+            targetColors: staticColors(targetName, patreon, targetVariant),
             targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
 
             markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
@@ -244,6 +246,9 @@ export class AAItemSettings extends FormApplication {
             staticColors: staticColors(itemName, patreon, spellVariant, bardAnimation, damageType, variant),
             explosionColors: staticColors(explosionVariant, patreon, spellVariant, bardAnimation, damageType, variant),
             templateColors: staticColors(templateType, patreon, templateAnimation),
+            bardSelfColors: staticColors(flags.autoanimations?.bards?.bardAnim, patreon),
+            bardTargetColors: staticColors(flags.autoanimations?.bards?.bardTargetAnim, patreon),
+            markerColors: staticColors("bardicinspiration", patreon, "marker")
         };
 
     }

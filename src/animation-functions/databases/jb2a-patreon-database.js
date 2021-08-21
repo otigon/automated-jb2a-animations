@@ -758,10 +758,10 @@ JB2APATREONDB.range = {
     hammer: {
         '01': {
             white: {
-                '15ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_90ft_4000x400.webm`]
+                '15ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_90ft_4000x400.webm`]
             }
         }
     },

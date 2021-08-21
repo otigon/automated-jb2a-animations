@@ -1513,7 +1513,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1548,7 +1548,7 @@
                         <label>{{localize "AUTOANIM.selfColor"}}</label>
                         <select name="flags.autoanimations.bards.bardSelfColor">
                             {{#select flags.autoanimations.bards.bardSelfColor}}
-                            {{#each bardColors as |name key|}}
+                            {{#each bardSelfColors as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -1581,7 +1581,7 @@
                         <label>{{localize "AUTOANIM.targetColor"}}</label>
                         <select name="flags.autoanimations.bards.bardTargetColor">
                             {{#select flags.autoanimations.bards.bardTargetColor}}
-                            {{#each bardColorTarget as |name key|}}
+                            {{#each bardTargetColors as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -1604,7 +1604,7 @@
                             <label>{{localize "AUTOANIM.markerColor"}}</label>
                             <select name="flags.autoanimations.bards.markerColor">
                                 {{#select flags.autoanimations.bards.markerColor}}
-                                {{#each bardMarkerColor as |name key|}}
+                                {{#each markerColors as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -1615,7 +1615,7 @@
                             <label>{{localize "AUTOANIM.markerColorTarget"}}</label>
                             <select name="flags.autoanimations.bards.markerColorTarget">
                                 {{#select flags.autoanimations.bards.markerColorTarget}}
-                                {{#each bardMarkerColor as |name key|}}
+                                {{#each markerColors as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -1644,7 +1644,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1659,12 +1659,14 @@
                     <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
                 </div>
                 {{/if}}
+
+                <!--Sneak Attack Options-->
                 {{#if sneakAttack}}
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1693,7 +1695,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}

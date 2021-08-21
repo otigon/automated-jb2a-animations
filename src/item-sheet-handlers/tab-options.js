@@ -363,7 +363,7 @@ export function staticColors(itemName, patreon, spellVariant, bardAnimation, dam
 
 
 
-
+/*
 export function switchColorChoices(itemName, patreon, damageType, variant) {
     let animationColor;
     switch (true) {
@@ -426,7 +426,7 @@ export function switchColorChoices(itemName, patreon, damageType, variant) {
     }
     return animationColor;
 }
-
+*/
 export function animationName(animType, patreon) {
     let animationNames;
     switch (animType) {
@@ -507,6 +507,7 @@ export function explosionColors(explosionVariant, patreon) {
     return explosionColor;
 }
 */
+/*
 export function bardColorTarget(bardTargetAnimation, patreon) {
     let bardColorTarget;
     switch (bardTargetAnimation) {
@@ -518,7 +519,7 @@ export function bardColorTarget(bardTargetAnimation, patreon) {
     }
     return bardColorTarget;
 }
-
+*/
 export function animTemplates(templateType) {
     let templateChoices;
     switch (templateType) {
@@ -648,7 +649,7 @@ export function rangedDamageTypes(itemName, patreon) {
 export function tokenAnimations() {
     return AUTOANIM.tokenAnimations
 }
-
+/*
 export function tokenColors(patreon, name, variant) {
     let color;
     switch (name) {
@@ -691,11 +692,11 @@ export function tokenColors(patreon, name, variant) {
     }
     return color;
 }
-
+*/
 export function variantSpell(itemName, patreon) {
     let variants;
     switch (itemName) {
-        case "shieldspell":
+        case "shield":
             variants = patreon ? AUTOANIM.shieldVariant : AUTOANIM.shieldVariantFree;
             break;
         case "cloudofdaggers":
