@@ -111,7 +111,7 @@
                     <label>{{localize "AUTOANIM.uaType"}}</label>
                     <select name="flags.autoanimations.uaStrikeType">
                         {{#select flags.autoanimations.uaStrikeType}}
-                        {{#each unarmedStrikeTypes as |name key|}}
+                        {{#each meleeVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -157,7 +157,7 @@
                         <div class="form-fields">
                             <select name="flags.autoanimations.meleeSwitch.rangeDmgType" class="animation-colors">
                                 {{#select flags.autoanimations.meleeSwitch.rangeDmgType}}
-                                {{#each rangeSwitchDmgType as |name key|}}
+                                {{#each switchVariant as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -171,7 +171,7 @@
                         <label>{{localize "AUTOANIM.variantChoice"}}</label>
                         <select name="flags.autoanimations.meleeSwitch.rangeVar" class="dagger-variants">
                             {{#select flags.autoanimations.meleeSwitch.rangeVar}}
-                            {{#each rangeSwitchVariant as |name key|}}
+                            {{#each switchVariant as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -388,7 +388,7 @@
                     <div class="form-fields">
                         <select name="flags.autoanimations.rangedOptions.rangeDmgType" class="animation-colors">
                             {{#select flags.autoanimations.rangedOptions.rangeDmgType}}
-                            {{#each rangeDmgType as |name key|}}
+                            {{#each rangeVariant as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -402,7 +402,7 @@
                     <label>{{localize "AUTOANIM.menuThrownVariant"}}</label>
                     <select name="flags.autoanimations.dtvar" class="dagger-variants">
                         {{#select flags.autoanimations.dtvar}}
-                        {{#each thrownVariant as |name key|}}
+                        {{#each rangeVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -743,7 +743,7 @@
                     <label>{{localize "AUTOANIM.variantChoice"}}</label>
                     <select name="flags.autoanimations.spellVar">
                         {{#select flags.autoanimations.spellVar}}
-                        {{#each spellVariant as |name key|}}
+                        {{#each rangeVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -909,7 +909,7 @@
                     <label>{{localize "AUTOANIM.variantChoice"}}</label>
                     <select name="flags.autoanimations.spellVar">
                         {{#select flags.autoanimations.spellVar}}
-                        {{#each spellVariant as |name key|}}
+                        {{#each staticVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1493,7 +1493,7 @@
                     <label>{{localize "AUTOANIM.variantChoice"}}</label>
                     <select name="flags.autoanimations.spellVar">
                         {{#select flags.autoanimations.spellVar}}
-                        {{#each spellVariant as |name key|}}
+                        {{#each staticVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}

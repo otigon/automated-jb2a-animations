@@ -1,5 +1,5 @@
 import { AUTOANIM } from "./config.js";
-import { rangeColors, meleeColors, staticColors, animationName, bardColorTarget, animTemplates, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "./tab-options.js";
+import { rangeColors, meleeColors, staticColors, animationName, animTemplates, variantOptions } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -126,8 +126,8 @@ export class AAItemSettings extends FormApplication {
             bardicOptions: itemName === "bardicinspiration" ? true : false,
             bardAnimName: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardAnimTarget: AUTOANIM.localized(AUTOANIM.bardAnimType),
-            bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
-            bardMarkerColor: patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree),
+            //bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
+            //bardMarkerColor: patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree),
 
             huntermarkAnim: patreon ? AUTOANIM.localized(AUTOANIM.hmAnim) : AUTOANIM.localized(AUTOANIM.hmAnimFree),
 
@@ -140,25 +140,25 @@ export class AAItemSettings extends FormApplication {
             customExplosion: flags.autoanimations?.options?.customExplosion ?? "",
 
             spellVariants: spellVariants,
-            spellVariant: variantSpell(itemName, patreon),
+            //spellVariant: variantSpell(itemName, patreon),
             animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
             animationNames: animationName(animType, patreon),
 
-            unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
+            //unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
             uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
 
-            thrownVariant: thrownVariants(itemName, patreon),
+            //thrownVariant: thrownVariants(itemName, patreon),
             thrownVariantShow: (itemName.includes("lasersword") || itemName.includes("dagger") || itemName.includes("handaxe")) && (animType === "t2" || animType === "t4") && override ? true : false,
 
             dsDelaySelf: flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1,
             dsDelayTarget: flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250,
-            dsColorSelf: AUTOANIM.localized(AUTOANIM.dsSelf),
-            dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
+            //dsColorSelf: AUTOANIM.localized(AUTOANIM.dsSelf),
+            //dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
             divineSmite: override && (animType === "t2" || animType === "t3") ? true : false,
 
             addExplosion: (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7") ? true : false,
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explodeVariant),
-            impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
+            //impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
             //explosionColors: explosionColors(explosionVariant, patreon),
             explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
             explosionLoops: explosionLoops || 1,
@@ -185,15 +185,15 @@ export class AAItemSettings extends FormApplication {
             makePersistent: templateType === "circle" || templateType === "rect",
             persistent: flags.autoanimations?.templates?.persistent && (templateType === "circle" || templateType === "rect"),
             occlusionAlpha: flags.autoanimations?.templates?.occlusionAlpha ?? "0",
-            templateVariant: variantSpell(templateAnimation, patreon),
+            //templateVariant: variantSpell(templateAnimation, patreon),
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
 
             rangeSwitch: patreon ? AUTOANIM.localized(AUTOANIM.animNameSwitch) : AUTOANIM.localized(AUTOANIM.animNameSwitchFree),
-            rangeSwitchDmgType: rangedDamageTypes(switchName, patreon),
-            rangeSwitchVariant: thrownVariants(switchName, patreon),
+            //rangeSwitchDmgType: rangedDamageTypes(switchName, patreon),
+            //rangeSwitchVariant: thrownVariants(switchName, patreon),
             showRSVariant: (switchName.includes("lasersword") || switchName === "dagger" || switchName === "handaxe") && animType === "t2" && override ? true : false,
             switchType: switchName === "bolt" || switchName === "bullet" || switchName === "arrow" ? true : false,
             switchRange: flags.autoanimations?.meleeSwitch?.range ?? 2,
@@ -201,7 +201,7 @@ export class AAItemSettings extends FormApplication {
             rangeSwitchType: flags.autoanimations?.meleeSwitch?.switchType === "custom",//rangeSwitchType === "custom",
             returning: returnWeapons.some(el => switchName.includes(el)),
 
-            rangeDmgType: rangedDamageTypes(itemName, patreon),
+            //rangeDmgType: rangedDamageTypes(itemName, patreon),
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
             sneakAttack: itemName === "sneakattack" ? true : false,
 
@@ -230,7 +230,7 @@ export class AAItemSettings extends FormApplication {
             targetColors: staticColors(targetName, patreon, targetVariant),
             targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
 
-            markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
+            //markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
             shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
             huntersMark: itemName === "huntersmark",
             sneakAttack: itemName === "sneakattack",
@@ -240,7 +240,7 @@ export class AAItemSettings extends FormApplication {
 
             dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
 
-            meleeColors: meleeColors(itemName, patreon, variant), //AUTOANIM.localized(AUTOANIM.animColorMelee),
+            meleeColors: meleeColors(itemName, patreon, variant),
             rangeColors: rangeColors(itemName, patreon, spellVariant, damageType, variant),
             switchColors: rangeColors(switchName, patreon, spellVariant, switchDamageType, switchVariant),
             staticColors: staticColors(itemName, patreon, spellVariant, bardAnimation, damageType, variant),
@@ -248,7 +248,12 @@ export class AAItemSettings extends FormApplication {
             templateColors: staticColors(templateType, patreon, templateAnimation),
             bardSelfColors: staticColors(flags.autoanimations?.bards?.bardAnim, patreon),
             bardTargetColors: staticColors(flags.autoanimations?.bards?.bardTargetAnim, patreon),
-            markerColors: staticColors("bardicinspiration", patreon, "marker")
+            markerColors: staticColors("bardicinspiration", patreon, "marker"),
+
+            rangeVariant: variantOptions(itemName, patreon, "range"),
+            switchVariant: variantOptions(switchName, patreon, "range"),
+            meleeVariant: variantOptions(itemName, patreon, "melee"),
+            staticVariant: variantOptions(itemName, patreon, "static"),
         };
 
     }
