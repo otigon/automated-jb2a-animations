@@ -62,6 +62,8 @@
     "AUTOANIM.brown": "Brown",
     "AUTOANIM.lightblue": "Light Blue",
     "AUTOANIM.rainbow": "Rainbow",
+    "AUTOANIM.white": "White",
+    "AUTOANIM.yellowwhite": "White",
 
     "AUTOANIM.poison": "Poison",
     "AUTOANIM.acid": "Acid",
@@ -323,8 +325,6 @@
     "AUTOANIM.primary": "Primary",
     "AUTOANIM.start": "Start",
     "AUTOANIM.thrown": "Thrown",
-    "AUTOANIM.white": "White",
-    "AUTOANIM.yellowwhite": "White",
     "AUTOANIM.customSequences": "Custom Sequences",
     "AUTOANIM.explode": "Explode",
     "AUTOANIM.fade": "Fade",
