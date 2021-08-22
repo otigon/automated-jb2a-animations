@@ -1,8 +1,3 @@
-import { AUTOANIM } from "../item-sheet-handlers/config.js";
-import { switchColorChoices, colorChoices, animationName, bardColorTarget, explosionColors, animTemplates, templateColors, rangedDamageTypes, tokenColors, thrownVariants, variantSpell } from "../item-sheet-handlers/tab-options.js";
-import animPreview from "../item-sheet-handlers/anim-preview.js";
-import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
-import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 
 export class AAcustomRecog extends FormApplication {
     constructor() {
@@ -12,7 +7,7 @@ export class AAcustomRecog extends FormApplication {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-item-settings.html',
+            template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-autorecognition.html',
             id: 'AA-item-settings',
             title: game.i18n.localize("AUTOANIM.tabTitle"),
             resizable: true,
@@ -33,6 +28,9 @@ export class AAcustomRecog extends FormApplication {
 
     activateListeners(html) {
         super.activateListeners(html);
+
+        html.find('button.add-override').click(this._onAddOverride.bind(this));
+        html.find('button.remove-override').click(this._onRemoveOverride.bind(this));
     }
 
     async _updateObject(event, formData) {
