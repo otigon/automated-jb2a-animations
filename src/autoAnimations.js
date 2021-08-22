@@ -14,27 +14,15 @@ import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import SW5eHandler from "./system-handlers/sw5e-handler.js";
 import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
 import PF2Handler from "./system-handlers/pf2-handler.js";
+import ForbiddenLandsHandler from "./system-handlers/forbidden-lands-handler.js";
 
-import thunderwaveAuto from "./animation-functions/thunderwave.js";
-import ctaCall from "./animation-functions/CTAcall.js";
-import huntersMark from "./animation-functions/custom-sequences/hunters-mark.js";
-import bardicInspiration from "./animation-functions/custom-sequences/bardic-inspiration.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
-import { AAITEMCHECK, AAITEMCHECKFREE } from "./animation-functions/item-arrays.js";
-import { rangedAnimations } from "./animation-functions/rangedAnimation.js";
-import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
-import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
-import { explodeOnToken } from "./animation-functions/explodeOnToken.js";
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
-import { shieldSpell } from "./animation-functions/custom-sequences/shield.js";
-import { sneakAttack } from "./animation-functions/custom-sequences/sneak-Attack.js";
-import { bless } from "./animation-functions/custom-sequences/bless.js";
-import { setupSocket } from "./socketset.js";
+import { setupSocket, socketlibSocket } from "./socketset.js";
 
-import ImagePicker from "./ImagePicker.js";
-
+//import menuOptions from "./animation-functions/databases/jb2a-patreon-menus.js";
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
 const log = () => { };
@@ -42,7 +30,11 @@ const log = () => { };
 Hooks.once('setup', function () {
     setupSocket();
 });
-
+var killAllAnimations;
+function disableAnimations() {
+    socket.off('module.sequencer')
+    killAllAnimations = true;
+}
 Hooks.on('init', () => {
 	game.settings.registerMenu("autoanimations", "custom-autorec", {
 		name: "Automatic Recognition",
@@ -52,6 +44,27 @@ Hooks.on('init', () => {
 		type: AAcustomRecog,
 		restricted: true
 	});
+    game.settings.register("autoanimations", "killAllAnim", {
+        name: game.i18n.format("AUTOANIM.toggleAnimations"),
+        hint: game.i18n.format("AUTOANIM.toggleAnimations_hint"),
+        scope: "client",
+        config: true,
+        type: String,
+        choices: {
+            "on": game.i18n.format("AUTOANIM.ON"),
+            "off": game.i18n.format("AUTOANIM.OFF"),
+        },
+        default: "on",
+        onChange: value => {
+            if (value === "off") {
+                disableAnimations()
+            }
+            if (value === "on") {
+                window.location.reload()
+            }
+            //console.log(value)
+        }
+    })
     game.settings.register("autoanimations", "disableAutoRec", {
         name: game.i18n.format("AUTOANIM.settingDisableAutoRec"),
         hint: game.i18n.format("AUTOANIM.settingDisableAutoRecHint"),
@@ -158,76 +171,39 @@ Hooks.on('init', () => {
                     config: true,
                     onChange: () => { window.location.reload() }
                 });
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    game.settings.register("autoanimations", "EnableCritical", {
-                        name: game.i18n.format("AUTOANIM.crithit_name"),
-                        hint: game.i18n.format("AUTOANIM.crithit_hint"),
-                        scope: 'world',
-                        type: Boolean,
-                        default: false,
-                        config: true,
-                        onchange: () => { window.location.reload() }
-                    });
-                    game.settings.register("autoanimations", "CriticalAnimation", {
-                        name: game.i18n.format("AUTOANIM.crithitAnim_name"),
-                        scope: 'world',
-                        type: ImagePicker.Image,
-                        default: "modules/JB2A_DnD5e/Library/Generic/UI/Critical_02_Red_200x200.webm",
-                        config: true,
-                        onchange: () => { window.location.reload() }
-                    });
-                    game.settings.register("autoanimations", "EnableCriticalMiss", {
-                        name: game.i18n.format("AUTOANIM.critmiss_name"),
-                        hint: game.i18n.format("AUTOANIM.critmiss_hint"),
-                        scope: 'world',
-                        type: Boolean,
-                        default: false,
-                        config: true,
-                        onchange: () => { window.location.reload() }
-                    });
-                    game.settings.register("autoanimations", "CriticalMissAnimation", {
-                        name: game.i18n.format("AUTOANIM.critmissAnim_name"),
-                        scope: 'world',
-                        type: ImagePicker.Image,
-                        default: "modules/JB2A_DnD5e/Library/Generic/UI/Miss_02_White_200x200.webm",
-                        config: true,
-                        onchange: () => { window.location.reload() }
-                    });
-                } else {
-                    game.settings.register("autoanimations", "EnableCritical", {
-                        name: game.i18n.format("AUTOANIM.crithit_name"),
-                        hint: game.i18n.format("AUTOANIM.crithit_hint"),
-                        scope: 'world',
-                        type: Boolean,
-                        default: false,
-                        config: true,
-                        onchange: () => { window.location.reload() }
-                    });
-                    game.settings.register("autoanimations", "CriticalAnimation", {
-                        name: game.i18n.format("AUTOANIM.crithitAnim_name"),
-                        //name: "Choose A File",
-                        scope: 'world',
-                        config: true,
-                        type: String,
-                        filePicker: true
-                    });
-                    game.settings.register("autoanimations", "EnableCriticalMiss", {
-                        name: game.i18n.format("AUTOANIM.critmiss_name"),
-                        hint: game.i18n.format("AUTOANIM.critmiss_hint"),
-                        scope: 'world',
-                        type: Boolean,
-                        default: false,
-                        config: true,
-                        onchange: () => { window.location.reload() }
-                    });
-                    game.settings.register("autoanimations", "CriticalMissAnimation", {
-                        name: game.i18n.format("AUTOANIM.critmissAnim_name"),
-                        scope: 'world',
-                        config: true,
-                        type: String,
-                        filePicker: true
-                    });
-                }
+                game.settings.register("autoanimations", "EnableCritical", {
+                    name: game.i18n.format("AUTOANIM.crithit_name"),
+                    hint: game.i18n.format("AUTOANIM.crithit_hint"),
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+                game.settings.register("autoanimations", "CriticalAnimation", {
+                    name: game.i18n.format("AUTOANIM.crithitAnim_name"),
+                    //name: "Choose A File",
+                    scope: 'world',
+                    config: true,
+                    type: String,
+                    filePicker: "imagevideo"
+                });
+                game.settings.register("autoanimations", "EnableCriticalMiss", {
+                    name: game.i18n.format("AUTOANIM.critmiss_name"),
+                    hint: game.i18n.format("AUTOANIM.critmiss_hint"),
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+                game.settings.register("autoanimations", "CriticalMissAnimation", {
+                    name: game.i18n.format("AUTOANIM.critmissAnim_name"),
+                    scope: 'world',
+                    config: true,
+                    type: String,
+                    filePicker: "imagevideo"
+                });
             } else {
                 game.settings.register("autoanimations", "playonDamageCore", {
                     name: game.i18n.format("AUTOANIM.coreondmg_name"),
@@ -278,16 +254,14 @@ Hooks.on('init', () => {
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
             case "demonlord": {
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    Hooks.on("DL.ApplyDamage", setupDemonLord);
-                    Hooks.on("DL.ApplyHealing", setupDemonLord);
-                } else {
-                    Hooks.on("DL.Action", setupDemonLord);
-                }
+                Hooks.on("DL.Action", setupDemonLord);
             }
                 break;
             case "pf2e":
                 Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
+                break;
+            case "forbidden-lands":
+                Hooks.on("createChatMessage", async (msg) => { fblReady(msg) });
                 break;
             case "sfrpg":
                 Hooks.on("createChatMessage", async (msg) => {
@@ -376,15 +350,9 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
         return;
     }
     const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-        aaBtn.click(ev => {
-            new AAItemSettings(app.entity, {}).render(true);
-        });
-    } else {
-        aaBtn.click(ev => {
-            new AAItemSettings(app.document, {}).render(true);
-        });
-    }
+    aaBtn.click(ev => {
+        new AAItemSettings(app.document, {}).render(true);
+    });
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
     aaBtn.insertAfter(titleElement);
@@ -395,10 +363,16 @@ Hooks.once('ready', function () {
 
     Hooks.on("sequencer.ready", () => {
         SequencerDatabase.registerEntries("autoanimations", obj01);
+        if (game.settings.get("autoanimations", "killAllAnim") === "off") {
+            console.log("ANIMATIONS ARE OFF")
+            socket.off('module.sequencer')//
+            killAllAnimations = true;
+        }
     });
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error(game.i18n.format("AUTOANIM.error"));
     }
+    Hooks.callAll("aa.ready", obj01)
 });
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -410,6 +384,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 */
 class AutoAnimations {
     static playAnimation(sourceToken, targets, item) {
+        if (killAllAnimations) { return; }
         let handler = new GeneralAnimHandler(sourceToken, targets, item);
         trafficCop(handler);
     }
@@ -425,34 +400,48 @@ function moduleIncludes(test) {
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 function setUpMidi(workflow) {
+    if (killAllAnimations) { return; }
     let handler = new MidiHandler(workflow);
-    if (handler.animType === "t8" && handler.animOverride) {return;}
+    if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
 function setUpMidiNoAD(workflow) {
+    if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = new MidiHandler(workflow);
-    if (handler.animType === "t8" && handler.animOverride) {return;}
+    if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
 function setUpMidiNoA(workflow) {
+    if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = new MidiHandler(workflow);
-    if (handler.animType === "t8" && handler.animOverride) {return;}
+    if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler)
 }
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
 async function specialCaseAnimations(msg) {
-    if (game.user.id !== msg.user.id) {
+    if (killAllAnimations) { return; }
+    if (game.user.id !== msg.user?.id) {
         return;
     }
-    let handler = new Dnd5Handler(msg);
-    if (handler.animType === "t8" && handler.animOverride) {
-        Hooks.once("createMeasuredTemplate", (msg) => {
-            templateAnimation(handler, msg);
-        })
+    let breakOut = checkMessege(msg);
+    if (breakOut === 0) {
+        let handler = new Dnd5Handler(msg);
+        if (handler.animType === "t8" && handler.animOverride) {
+            Hooks.once("createMeasuredTemplate", (msg) => {
+                templateAnimation(handler, msg);
+            })
+        }
+    } else { return; }
+}
+function checkMessege(msg) {
+    try {
+        return msg.data?.flags['midi-qol'].type;
+    } catch (exception) {
+        return false;
     }
 }
 
@@ -460,6 +449,7 @@ async function specialCaseAnimations(msg) {
 / Set up DnD5e and SW5e CORE (NON MIDI)
 */
 function setUp5eCore(msg) {
+    if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
 
     const animationNow = game.settings.get("autoanimations", "playonDamageCore");
@@ -475,7 +465,6 @@ function setUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
-
     if (!handler.item || handler.animKill) { return }
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
@@ -487,29 +476,20 @@ function setUp5eCore(msg) {
         case animationNow:
             if (rollType.includes("damage")) {
                 if (handler.animType === "t8") { return; }
-                if (game.modules.get("mre-dnd5e")?.active) {
-                    switch (game.settings.get("mre-dnd5e", "autoDamage")) {
-                        case (true):
-                            switch (true) {
-                                case handler.convertedName === "thunderwave":
-                                    //case handler.convertedName.includes(game.i18n.format("AUTOANIM.itemThunderwave").toLowerCase()):
-                                    Hooks.once("createMeasuredTemplate", () => {
-                                        thunderwaveAuto(handler);
-                                    })
-                                    break;
-                            }
-                            break;
-                        case (false):
-                            trafficCop(handler);
-                            break;
-                    }
-                } else { trafficCop(handler); }
+                trafficCop(handler);
             }
             break;
         case !animationNow:
             switch (true) {
+                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") & !rollType.includes("damage"):
+                    trafficCop(handler);
+                    break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
+                    if (handler.animType === "t8") { return; }
+                    trafficCop(handler);
+                    break;
+                case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
                     if (handler.animType === "t8") { return; }
                     trafficCop(handler);
                     break;
@@ -522,6 +502,7 @@ function setUp5eCore(msg) {
 / sets Handler for PF1 and DnD3.5
 */
 function onCreateChatMessage(msg) {
+    if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
     log('onCreateChatMessage', msg);
     let handler;
@@ -549,6 +530,7 @@ function onCreateChatMessage(msg) {
 / Sets Handler for SWADE
 */
 function swadeData(SwadeActor, SwadeItem) {
+    if (killAllAnimations) { return; }
     let handler = new SwadeHandler(SwadeActor, SwadeItem);
     trafficCop(handler);
 }
@@ -557,6 +539,7 @@ function swadeData(SwadeActor, SwadeItem) {
 / Sets Handler for Starfinder
 */
 function starFinder(data, msg) {
+    if (killAllAnimations) { return; }
     let tokenId = msg.data.speaker.token;
     let sourceToken = canvas.tokens.get(tokenId);
     let targets = Array.from(msg.user.targets);
@@ -568,6 +551,7 @@ function starFinder(data, msg) {
 / Sets Handler for Tormenta 20
 */
 function setupTormenta20(msg) {
+    if (killAllAnimations) { return; }
     let handler = new Tormenta20Handler(msg);
     if (game.user.id === msg.user.id) {
         switch (true) {
@@ -583,9 +567,22 @@ function setupTormenta20(msg) {
 }
 
 /*
+/ Sets Handler for Forbidden Lands
+*/
+async function fblReady(msg) {
+    if (killAllAnimations) { return; }
+    if (game.user.id !== msg.user.id) { return; }
+    const handler = new ForbiddenLandsHandler(msg);
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
+    trafficCop(handler);
+}
+/*
 / Sets Handler for Demon Lord
 */
 function setupDemonLord(data) {
+    if (killAllAnimations) { return; }
     let handler = new DemonLordHandler(data);
     trafficCop(handler);
 }
@@ -594,6 +591,7 @@ function setupDemonLord(data) {
 / Sets Handler for Pathfinder 2e and routes to animations
 */
 async function pf2eReady(msg) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = new PF2Handler(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
@@ -673,6 +671,7 @@ async function itemSound(handler) {
     }
 }
 async function criticalCheck(workflow) {
+    if (killAllAnimations) { return; }
     if (!workflow.isCritical && !workflow.isFumble) { return; }
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
@@ -705,6 +704,7 @@ async function criticalCheck(workflow) {
 / WFRP Functions
 */
 function wfrpWeapon(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.weapon;
     let allTargets = Array.from(targets);
@@ -718,6 +718,7 @@ function wfrpWeapon(data, targets, info) {
     }
 }
 function wfrpPrayer(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.prayer;
     let allTargets = Array.from(targets);
@@ -731,6 +732,7 @@ function wfrpPrayer(data, targets, info) {
     }
 }
 function wfrpCast(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.spell;
     let allTargets = Array.from(targets);
@@ -744,6 +746,7 @@ function wfrpCast(data, targets, info) {
     }
 }
 function wfrpTrait(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.trait;
     let allTargets = Array.from(targets);
@@ -757,6 +760,7 @@ function wfrpTrait(data, targets, info) {
     }
 }
 function wfrpSkill(data, targets, info) {
+    if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     let item = data.skill;
     let allTargets = Array.from(targets);

@@ -1,7 +1,7 @@
-import { buildRangedFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { buildFile } from "./file-builder/build-filepath.js"
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
-//import { AAITEMCHECK } from "./item-arrays.js";
+import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -13,25 +13,32 @@ export async function rangedAnimations(handler) {
     // Sets JB2A database and Global Delay
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
-
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
+    let dmgType;
+    if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
+        dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
+    }
+    let variant = AAITEMCHECK.spellattack.some(el => itemName.includes(el)) ? handler.spellVariant : dmgType;
+    variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" || itemName === "chakram" ? handler.dtvar : variant;
     //Builds Primary File Path and Pulls from flags if already set
-    let attack =  await buildRangedFile(jb2a, itemName, handler);
+    let attack = await buildFile(false, itemName, "range", variant, handler.color)
+    //let attack =  await buildRangedFile(jb2a, itemName, handler);
     let sourceToken = handler.actorToken;
 
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
     let explosion;
+    let customExplosionPath;
     if (handler.flags.explosion) {
-        explosion = await buildAfterFile(jb2a, handler)
+        customExplosionPath = handler.customExplode ? handler.customExplosionPath : false;
+        explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, customExplosionPath)
     }
 
     let explosionSound = handler.allSounds?.explosion;
     let explosionVolume = 0.25;
     let explosionDelay = 1;
     let explosionFile = "";
-    let playExSound = explosion && handler.explodeSound
     if (handler.explodeSound){
         explosionVolume = explosionSound?.volume || 0.25;
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
@@ -41,19 +48,23 @@ export async function rangedAnimations(handler) {
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     let sFXScale;
+    let customSourcePath; 
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(jb2a, handler.sourceName, handler);
+        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
+    let customTargetPath; 
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(jb2a, handler.targetName, handler)
+        customTargetPath = handler.targetCustomEnable ? handler.targetCustomPath : false;
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, customTargetPath);
     }
 
     //logging explosion Scale
-    let scale = explosion?.scale ?? 1;
+    let scale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
 
     async function cast() {
         let arrayLength = handler.allTargets.length;
@@ -72,7 +83,7 @@ export async function rangedAnimations(handler) {
                 hit = false;
             }
 
-            new Sequence()
+            await new Sequence()
                 .effect()
                     .atLocation(sourceToken)
                     .scale(sFXScale * handler.sourceScale)
@@ -138,7 +149,8 @@ export async function rangedAnimations(handler) {
                         return data;
                     })            
                 .play()
-            await wait(750)
+                await wait(handler.animEnd)
+                Hooks.callAll("aa.animationEnd", sourceToken, target)
         }
     }
     cast()

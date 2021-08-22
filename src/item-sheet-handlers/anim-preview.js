@@ -1,6 +1,5 @@
 import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js";
-import { buildTargetTokenFile } from "../animation-functions/file-builder/build-filepath.js";
 
 function animPreview(flags, name) {
 
@@ -32,11 +31,11 @@ function animPreview(flags, name) {
                     case "dagger":
                     case "handaxe":
                     case "spear":
-                        try { preview = obj01[itemName]['melee']['01'][color] }
+                        try { preview = obj01.melee[itemName]['01'][color] }
                         catch (exception) { preview = "no preview" }
                         break;
                     default:
-                        try { preview = obj01[itemName]['melee']['01'][color] }
+                        try { preview = obj01.melee[itemName]['01'][color] }
                         catch (exception) { preview = "no preview" }
                         break;
                 }
@@ -49,16 +48,16 @@ function animPreview(flags, name) {
                         switch (item.uaStrikeType) {
                             case ``:
                             case "physical":
-                                try { preview = obj01[itemName]['physical'][color]['1'] }
+                                try { preview = obj01.melee[itemName]['physical'][color]['1'] }
                                 catch (exception) { preview = "no preview" }
                                 break;
                             default:
-                                try { preview = obj01[itemName]['magical'][color]['1'] }
+                                try { preview = obj01.melee[itemName]['magical'][color]['1'] }
                                 catch (exception) { preview = "no preview" }
                         }
                         break;
                     default:
-                        try { preview = obj01.genericmelee[itemName] }
+                        try { preview = obj01.melee[itemName]['01']['white'] }
                         catch (exception) { preview = "no preview" }
                 }
                 break;
@@ -68,43 +67,43 @@ function animPreview(flags, name) {
                 switch (itemName) {
                     case "boulder":
                     case "siege":
-                        try { preview = obj01[itemName]['white']['30ft'] }
+                        try { preview = obj01.range[itemName]['01']['white']['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "javelin":
                     case "sling":
                     case "spear":
-                        try { preview = obj01[itemName]['range']['01']['white']['30ft'] }
+                        try { preview = obj01.range[itemName]['01']['white']['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "chakram":
-                        try { preview = obj01[itemName]['30ft'] }
+                        try { preview = obj01.range[itemName][item.dtvar]['white']['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "dagger":
                     case "handaxe":
                     case "lasersword":
-                        try { preview = obj01[itemName]['range'][item.dtvar][color]['30ft'] }
+                        try { preview = obj01.range[itemName][item.dtvar][color]['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "spear":
-                        try { preview = obj01[itemName]['01']['30ft'] }
+                        try { preview = obj01.range[itemName]['01']['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "lasershot":
                     case "snipe":
-                        try { preview = obj01[itemName][color]['30ft'] }
+                        try { preview = obj01.range[itemName]['01'][color]['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "arrow":
                     case "bolt":
                     case "bullet":
                         damageType = item.rangedOptions?.rangeDmgType;
-                        try { preview = obj01[itemName][damageType][color]['30ft'] }
+                        try { preview = obj01.range[itemName][damageType][color]['30ft'] }
                         catch (exception) { preview = "no preview" }
                         break;
                     default:
-                        try { preview = obj01[itemName]['range']['01'][color]['30ft'] }
+                        try { preview = obj01.range[itemName]['01'][color]['30ft'] }
                         catch (exception) { preview = "no preview"; }
                     /*
                     try { preview = obj01[itemName]['white']['30ft'] }
@@ -117,11 +116,11 @@ function animPreview(flags, name) {
                 switch (itemName) {
                     case "creaturebite":
                     case "creatureclaw":
-                        try { preview = obj01[itemName][color] }
+                        try { preview = obj01.static[itemName]['01'][color] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     default:
-                        try { preview = obj01[itemName][color] }
+                        try { preview = obj01.static[itemName]['01'][color] }
                         catch (exception) { preview = "no preview"; }
                 }
                 break;
@@ -141,20 +140,20 @@ function animPreview(flags, name) {
                             }
                             switch (spellVar) {
                                 case '02':
-                                    try { preview = obj01[itemName][spellVar][color]['30ft'][0] }
+                                    try { preview = obj01.range[itemName][spellVar][color]['30ft'][0] }
                                     catch (exception) { preview = "no preview"; }
                                     break;
                                 default:
-                                    try { preview = obj01[itemName][spellVar][color]['30ft'] }
+                                    try { preview = obj01.range[itemName][spellVar][color]['30ft'] }
                                     catch (exception) { preview = "no preview"; }
                             }
                             break;
                         case "magicmissile":
-                            try { preview = obj01[itemName][color]['30ft'][0] }
+                            try { preview = obj01.range[itemName]['01'][color]['30ft'][0] }
                             catch (exception) { preview = "no preview"; }
                             break;
                         default:
-                            try { preview = obj01[itemName][color]['30ft'] }
+                            try { preview = obj01.range[itemName]['01'][color]['30ft'] }
                             catch (exception) { preview = "no preview"; }
                     }
                 }
@@ -163,19 +162,19 @@ function animPreview(flags, name) {
                 color = item.color;
                 switch (itemName) {
                     case "curewounds":
-                        try { preview = obj01[itemName][color] }
+                        try { preview = obj01.static[itemName]['01'][color] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "generichealing":
                         switch (item.spellVar) {
                             case '02':
                                 spellVar = '02';
-                                try { preview = obj01[itemName][spellVar][color] }
+                                try { preview = obj01.static[itemName][spellVar][color] }
                                 catch (exception) { preview = "no preview"; }
                                 break;
                             default:
                                 spellVar = '01';
-                                try { preview = obj01[itemName][spellVar][color] }
+                                try { preview = obj01.static[itemName][spellVar][color] }
                                 catch (exception) { preview = "no preview"; }
                         }
                         break;
@@ -190,30 +189,23 @@ function animPreview(flags, name) {
                 if (item.templates?.customAnim) {
                     preview = item.templates?.customPath;
                 } else {
-                    switch (tempAnim) {
-                        case "lightningbolt":
-                            try { preview = obj01[obj02][tempType][tempAnim][spellVar][color] }
-                            catch (exception) { "no preview" }
-                            break;
-                        default:
-                            try { preview = obj01[obj02][tempType][tempAnim][color] }
-                            catch (exception) { "no preview" }
-                    }
+                    try { preview = obj01.static[tempType][tempAnim][color] }
+                    catch (exception) { "no preview" }
                 }
                 break;
             case item.animType === 't9':
                 switch (item.explodeVariant) {
                     case 'boulder':
-                        preview = obj01.explosion.boulder
+                        preview = obj01.static.explosion.boulderimpact
                         break;
                     case 'shatter':
                     case "thunderwave":
                     case 'antilife-shell':
-                        try { preview = obj01.explosion[item.explodeVariant][item.explodeColor] }
+                        try { preview = obj01.static[item.explodeVariant]['01'][item.explodeColor] }
                         catch (exception) { preview = "no preview" }
                         break;
                     default:
-                        try { preview = obj01.explosion[item.explodeVariant][item.explodeColor][0] }
+                        try { preview = obj01.static[item.explodeVariant]['01'][item.explodeColor][0] }
                         catch (exception) { preview = "no preview" }
                         break;
                 }
@@ -221,16 +213,16 @@ function animPreview(flags, name) {
             case item.animType === 't10':
                 switch (item.explodeVariant) {
                     case 'boulder':
-                        preview = obj01.explosion.boulder
+                        preview = obj01.static.explosion.boulderimpact
                         break;
                     case 'shatter':
                     case "thunderwave":
                     case 'antilife-shell':
-                        try { preview = obj01.explosion[item.explodeVariant][item.explodeColor] }
+                        try { preview = obj01.static[item.explodeVariant]['01'][item.explodeColor] }
                         catch (exception) { preview = "no preview" }
                         break;
                     default:
-                        try { preview = obj01.explosion[item.explodeVariant][item.explodeColor][0] }
+                        try { preview = obj01.static[item.explodeVariant]['01'][item.explodeColor][0] }
                         catch (exception) { preview = "no preview" }
                         break;
                 }

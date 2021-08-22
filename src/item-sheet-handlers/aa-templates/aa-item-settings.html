@@ -105,13 +105,13 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if uaStrikes}}
+                {{#if meleeLength}}
                 <!--Choose Unarmed Strike Type (Magical or Physical)-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.uaType"}}</label>
                     <select name="flags.autoanimations.uaStrikeType">
                         {{#select flags.autoanimations.uaStrikeType}}
-                        {{#each unarmedStrikeTypes as |name key|}}
+                        {{#each meleeVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -122,7 +122,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each meleeColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -157,7 +157,7 @@
                         <div class="form-fields">
                             <select name="flags.autoanimations.meleeSwitch.rangeDmgType" class="animation-colors">
                                 {{#select flags.autoanimations.meleeSwitch.rangeDmgType}}
-                                {{#each rangeSwitchDmgType as |name key|}}
+                                {{#each switchVariant as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -171,7 +171,7 @@
                         <label>{{localize "AUTOANIM.variantChoice"}}</label>
                         <select name="flags.autoanimations.meleeSwitch.rangeVar" class="dagger-variants">
                             {{#select flags.autoanimations.meleeSwitch.rangeVar}}
-                            {{#each rangeSwitchVariant as |name key|}}
+                            {{#each switchVariant as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -191,7 +191,7 @@
                         <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                         <select name="flags.autoanimations.meleeSwitch.color">
                             {{#select flags.autoanimations.meleeSwitch.color}}
-                            {{#each rangeSwitchColor as |name key|}}
+                            {{#each switchColors as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -255,14 +255,12 @@
                 </div>
                 <!--Enable Explosion? Checkbox-->
                 <div class="aa-ridged">
-                    {{#if addExplosion}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
                         <input type="checkbox" name="flags.autoanimations.explosion"
                             value="flags.autoanimations.explosion" {{checked flags.autoanimations.explosion}}>
                     </div>
-                    {{/if}}
-                    {{#if showExplosionOptions}}
+                    {{#if flags.autoanimations.explosion}}
                     <!--Play Explosion Under Token?-->
                     <div class="ex-anim-level">
                         <div class="form-group">
@@ -388,7 +386,7 @@
                     <div class="form-fields">
                         <select name="flags.autoanimations.rangedOptions.rangeDmgType" class="animation-colors">
                             {{#select flags.autoanimations.rangedOptions.rangeDmgType}}
-                            {{#each rangeDmgType as |name key|}}
+                            {{#each rangeVariant as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -402,7 +400,7 @@
                     <label>{{localize "AUTOANIM.menuThrownVariant"}}</label>
                     <select name="flags.autoanimations.dtvar" class="dagger-variants">
                         {{#select flags.autoanimations.dtvar}}
-                        {{#each thrownVariant as |name key|}}
+                        {{#each rangeVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -414,7 +412,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each rangeColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -434,14 +432,12 @@
                 </div>
                 <!--Enable Explosion? Checkbox-->
                 <div class="aa-ridged">
-                    {{#if addExplosion}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
                         <input type="checkbox" name="flags.autoanimations.explosion"
                             value="flags.autoanimations.explosion" {{checked flags.autoanimations.explosion}}>
                     </div>
-                    {{/if}}
-                    {{#if showExplosionOptions}}
+                    {{#if flags.autoanimations.explosion}}
                     <!--Play Explosion Under Token?-->
                     <div class="ex-anim-level">
                         <div class="form-group">
@@ -566,7 +562,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -611,14 +607,12 @@
                     </div>
                 </div>
                 <div class="aa-ridged">
-                    {{#if addExplosion}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
                         <input type="checkbox" name="flags.autoanimations.explosion"
                             value="flags.autoanimations.explosion" {{checked flags.autoanimations.explosion}}>
                     </div>
-                    {{/if}}
-                    {{#if showExplosionOptions}}
+                    {{#if flags.autoanimations.explosion}}
                     <!--Play Explosion Under Token?-->
                     <div class="ex-anim-level">
                         <div class="form-group">
@@ -737,13 +731,13 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if spellVariants}}
+                {{#if rangeLength}}
                 <!--Spell Variant Option-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.variantChoice"}}</label>
                     <select name="flags.autoanimations.spellVar">
                         {{#select flags.autoanimations.spellVar}}
-                        {{#each spellVariant as |name key|}}
+                        {{#each rangeVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -755,7 +749,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each spellColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -775,14 +769,12 @@
                     </div>
                 </div>
                 <div class="aa-ridged">
-                    {{#if addExplosion}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
                         <input type="checkbox" name="flags.autoanimations.explosion"
                             value="flags.autoanimations.explosion" {{checked flags.autoanimations.explosion}}>
                     </div>
-                    {{/if}}
-                    {{#if showExplosionOptions}}
+                    {{#if flags.autoanimations.explosion}}
                     <!--Play Explosion Under Token?-->
                     <div class="ex-anim-level">
                         <div class="form-group">
@@ -903,13 +895,13 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if spellVariants}}
+                {{#if staticLength}}
                 <!--Spell Variant Option-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.variantChoice"}}</label>
                     <select name="flags.autoanimations.spellVar">
                         {{#select flags.autoanimations.spellVar}}
-                        {{#each spellVariant as |name key|}}
+                        {{#each staticVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -921,7 +913,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -966,14 +958,12 @@
                     </div>
                 </div>
                 <div class="aa-ridged">
-                    {{#if addExplosion}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
                         <input type="checkbox" name="flags.autoanimations.explosion"
                             value="flags.autoanimations.explosion" {{checked flags.autoanimations.explosion}}>
                     </div>
-                    {{/if}}
-                    {{#if showExplosionOptions}}
+                    {{#if flags.autoanimations.explosion}}
                     <!--Play Explosion Under Token?-->
                     <div class="ex-anim-level">
                         <div class="form-group">
@@ -1104,24 +1094,12 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if templateVariants}}
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.variantChoice"}}</label>
-                    <select name="flags.autoanimations.spellVar">
-                        {{#select flags.autoanimations.spellVar}}
-                        {{#each templateVariant as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
-                </div>
-                {{/if}}
                 <!--Choose Template Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.templates.tempColor">
                         {{#select flags.autoanimations.templates.tempColor}}
-                        {{#each templateAnimColors as |name key|}}
+                        {{#each templateColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1246,6 +1224,13 @@
                     </select>
                 </div>
                 {{/unless}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.scaleToToken"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.options.scaleToToken"
+                        value="flags.autoanimations.options.scaleToToken" {{checked
+                        flags.autoanimations.options.scaleToToken}}>
+                </div>
+                {{#unless flags.autoanimations.options.scaleToToken}}
                 <div class="flexrow">
                     <!--Choose Explosion Radius-->
                     <div class="aa-column">
@@ -1265,6 +1250,28 @@
                             data-dtype="Number">
                     </div>
                 </div>
+                {{/unless}}
+                {{#if flags.autoanimations.options.scaleToToken}}
+                <div class="flexrow">
+                    <!--Choose Explosion Radius-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.scale"}}</label>
+                        <input type="Number" name="flags.autoanimations.options.scale" min="0" step=".01"
+                            value={{scale}} data-type="Number">
+                    </div>
+                    <!--Set Explosion Loops-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}}</label>
+                        <input type="Number" name="flags.autoanimations.explodeLoop" value={{explosionLoops}}
+                            data-dtype="Number">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+                            data-dtype="Number">
+                    </div>
+                </div>
+                {{/if}}
                 <!--Add Custom Animation-->
                 <div class="aa-ridged">
                     <div class="form-group">
@@ -1309,24 +1316,12 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if spellVariants}}
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.variantChoice"}}</label>
-                    <select name="flags.autoanimations.spellVar">
-                        {{#select flags.autoanimations.spellVar}}
-                        {{#each spellVariant as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
-                </div>
-                {{/if}}
                 <!--Choose Standard Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1377,6 +1372,11 @@
                     <input type="checkbox" name="flags.autoanimations.ctaOption" value="flags.autoanimations.ctaOption"
                         {{checked flags.autoanimations.ctaOption}}>
                 </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.ignoreTargets"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.options.ignoreTarget" value="flags.autoanimations.options.ignoreTarget"
+                        {{checked flags.autoanimations.options.ignoreTarget}}>
+                </div>
                 {{/if}}
 
 
@@ -1401,7 +1401,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1413,6 +1413,12 @@
                     <label>{{localize "AUTOANIM.range"}}</label>
                     <input type="Number" name="flags.autoanimations.teleDist" min="5" max="500" step=".01"
                         value={{teleRange}}>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.noTemplate"}}</label>
+                    <input type="checkbox" name="flags.autoanimations.options.hideTemplate"
+                        value="flags.autoanimations.options.hideTemplate" {{checked
+                        flags.autoanimations.options.hideTemplate}}>
                 </div>
                 <!--Add Custom Animation-->
                 <div class="aa-ridged">
@@ -1459,13 +1465,13 @@
                         {{/select}}
                     </select>
                 </div>
-                {{#if spellVariants}}
+                {{#if shield}}
                 <!--Spell Variant Option-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.variantChoice"}}</label>
                     <select name="flags.autoanimations.spellVar">
                         {{#select flags.autoanimations.spellVar}}
-                        {{#each spellVariant as |name key|}}
+                        {{#each staticVariant as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1485,7 +1491,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1520,7 +1526,7 @@
                         <label>{{localize "AUTOANIM.selfColor"}}</label>
                         <select name="flags.autoanimations.bards.bardSelfColor">
                             {{#select flags.autoanimations.bards.bardSelfColor}}
-                            {{#each animationColor as |name key|}}
+                            {{#each bardSelfColors as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -1553,7 +1559,7 @@
                         <label>{{localize "AUTOANIM.targetColor"}}</label>
                         <select name="flags.autoanimations.bards.bardTargetColor">
                             {{#select flags.autoanimations.bards.bardTargetColor}}
-                            {{#each bardColorTarget as |name key|}}
+                            {{#each bardTargetColors as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -1576,7 +1582,7 @@
                             <label>{{localize "AUTOANIM.markerColor"}}</label>
                             <select name="flags.autoanimations.bards.markerColor">
                                 {{#select flags.autoanimations.bards.markerColor}}
-                                {{#each bardMarkerColor as |name key|}}
+                                {{#each markerColors as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -1587,7 +1593,7 @@
                             <label>{{localize "AUTOANIM.markerColorTarget"}}</label>
                             <select name="flags.autoanimations.bards.markerColorTarget">
                                 {{#select flags.autoanimations.bards.markerColorTarget}}
-                                {{#each bardMarkerColor as |name key|}}
+                                {{#each markerColors as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -1616,7 +1622,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1624,23 +1630,39 @@
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.ctaStatic"}}</label>
-                    <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked ctaOption}}>
+                    <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked flags.autoanimations.ctaOption}}>
                 </div>
                 <div class="aa-column">
                     <label>{{localize "AUTOANIM.scale"}}</label>
                     <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
                 </div>
                 {{/if}}
+
+                <!--Sneak Attack Options-->
                 {{#if sneakAttack}}
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
+                </div>
+                <div class="flexrow">
+                    <!--Choose Explosion Radius-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.anchorX"}} (0 - 1)</label>
+                        <input type="Number" name="flags.autoanimations.options.anchorX" min="0" step=".01"
+                            value={{anchorX}} data-type="Number" min="0" max="1">
+                    </div>
+                    <!--Set Explosion Loops-->
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.anchorY"}} (0 - 1)</label>
+                        <input type="Number" name="flags.autoanimations.options.anchorY" value={{anchorY}}
+                            data-dtype="Number" min="0" max="1">
+                    </div>
                 </div>
                 {{/if}}
                 {{/if}}
@@ -1651,7 +1673,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each staticColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}

@@ -1,4 +1,4 @@
-import { buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { buildFile } from "./file-builder/build-filepath.js"
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
@@ -14,22 +14,32 @@ export async function explodeOnToken(handler) {
     await wait(globalDelay);
 
     let sourceToken = handler.actorToken;
-    let explosion = await buildAfterFile(obj01, handler)
+    let name = handler.explosionVariant;
+    name = name === "boulder" ? "boulderimpact" : name;
+    let customExplosionPath = handler.customExplode ? handler.customExplosionPath : false
+    let explosion = await buildFile(true, name, "static", "01", handler.explosionColor, customExplosionPath)
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     let sFXScale;
+    let customSourcePath; 
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
+    let customTargetPath; 
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
+        customTargetPath = handler.targetCustomEnable ? handler.targetCustomPath : false;
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, customTargetPath);
     }
-
+    let tokenScale = (1.5 * sourceToken.w / explosion.metadata.width)
+    let animationScale = ((200 * handler.explosionRadius) / explosion.metadata.width)
+    const optionScale = handler.options?.scale ?? 1
+    let scaleT10 = handler.options?.scaleToToken ? (tokenScale * optionScale) : animationScale;
     if (handler.animType === "t10") {
         new Sequence()
             .effect()
@@ -51,7 +61,7 @@ export async function explodeOnToken(handler) {
                 .randomizeMirrorY()
                 .repeats(handler.explosionLoops, handler.explosionDelay)
                 //.missed(hit)
-                .scale(explosion.scale)
+                .scale(scaleT10)
                 .belowTokens(handler.animLevel)
                 .addOverride(
                     async (effect, data) => {
@@ -77,6 +87,8 @@ export async function explodeOnToken(handler) {
             } else {
                 hit = false;
             }
+            let targetScale = (1.5 * target.w / explosion.metadata.width)
+            let scaleT9 = handler.options?.scaleToToken ? (targetScale * optionScale) : animationScale;
 
                 new Sequence()
                     .effect()
@@ -97,7 +109,7 @@ export async function explodeOnToken(handler) {
                         .atLocation(target)
                         //.randomizeMirrorY()
                         .repeats(handler.explosionLoops, handler.explosionDelay)
-                        .scale(explosion.scale)
+                        .scale(scaleT9)
                         .belowTokens(handler.animLevel)
                         .playIf(() => { return arrayLength })
                     .effect()

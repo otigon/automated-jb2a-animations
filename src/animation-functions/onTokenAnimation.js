@@ -1,4 +1,4 @@
-import { buildTokenAnimationFile, buildAfterFile, buildSourceTokenFile, buildTargetTokenFile } from "./file-builder/build-filepath.js"
+import { buildFile } from "./file-builder/build-filepath.js"
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
@@ -17,24 +17,31 @@ export async function onTokenAnimation(handler) {
 
     // Random Color pull given object path
     //Builds standard File Path
-    let onToken = await buildTokenAnimationFile(obj01, itemName, handler);
+    let customPath = handler.enableCustom01 ? handler.custom01 : false;
+    let onToken = await buildFile(true, itemName, "static", handler.spellVariant, handler.color, customPath);
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     let sFXScale;
+    let customSourcePath; 
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
+    let customTargetPath; 
     if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
+        customTargetPath = handler.targetCustomEnable ? handler.targetCustomPath : false;
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, customTargetPath);
     }
 
     let explosion;
+    let customExplosionPath;
     if (handler.explosion) {
-        explosion = await buildAfterFile(obj01, handler);
+        customExplosionPath = handler.customExplode ? handler.customExplosionPath : false;
+        explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, customExplosionPath)
     }
 
     let explosionSound = handler.allSounds?.explosion;
@@ -47,8 +54,7 @@ export async function onTokenAnimation(handler) {
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
         explosionFile = explosionSound?.file;
     }
-
-    let exScale = explosion?.scale ?? 1;
+    let exScale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     let animWidth = onToken.metadata.width;
     if (handler.allTargets.length === 0 && (itemName === "curewounds" || itemName === "generichealing")) {
     new Sequence()
@@ -66,7 +72,7 @@ export async function onTokenAnimation(handler) {
                 return data;
             })
         .thenDo(function() {
-            Hooks.callAll("aa.animationStart", sourceToken, target)
+            Hooks.callAll("aa.animationStart", sourceToken, "no-target")
         })             
         .effect()
             .atLocation(sourceToken)
@@ -101,6 +107,8 @@ export async function onTokenAnimation(handler) {
                     return data
                 })
         .play()
+        await wait(500)
+        Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
     }
     //.waitUntilFinished(-500 + handler.explosionDelay)
 
@@ -121,7 +129,7 @@ export async function onTokenAnimation(handler) {
                 hit = false;
             }
 
-            new Sequence()
+            await new Sequence()
                 .effect()
                     .atLocation(sourceToken)
                     .scale(sFXScale * handler.sourceScale)
@@ -181,7 +189,8 @@ export async function onTokenAnimation(handler) {
                         return data;
                     })            
                 .play()
-            //await wait(250)
+                await wait(500)
+                Hooks.callAll("aa.animationEnd", sourceToken, target)
         }
     }
     cast()

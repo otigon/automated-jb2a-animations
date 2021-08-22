@@ -1,24 +1,19 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-import { buildTokenAnimationFile, buildSourceTokenFile, buildTargetTokenFile } from "../file-builder/build-filepath.js";
+import { buildFile } from "../file-builder/build-filepath.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function sneakAttack(handler) {
 
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
-
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
-    let sneak = await buildTokenAnimationFile(obj01, itemName, handler)
+    let sneak = await buildFile(true, itemName, "static", "01", handler.color)
     let sourceToken = handler.actorToken;
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     let sFXScale;
     if (handler.sourceEnable) {
-        sourceFX = await buildSourceTokenFile(obj01, handler.sourceName, handler);
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
@@ -28,7 +23,8 @@ export async function sneakAttack(handler) {
         targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
     }
     */
-
+    const anchorX = handler.options?.anchorX || 0.5;
+    const anchorY = handler.options?.anchorY || 0.7;
 
     async function cast() {
         new Sequence()
@@ -50,7 +46,7 @@ export async function sneakAttack(handler) {
             .file(sneak.file)
             .atLocation(sourceToken)
             .scale(2 * sourceToken.w / sneak.metadata.width)
-            .anchor({ x: 0.5, y: 0.7 })
+            .anchor({ x: anchorX, y: anchorY })
             .play()
     }
     cast();

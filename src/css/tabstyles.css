@@ -13,12 +13,13 @@
 
 .aa-video-previews {
     border: 3px inset #a1a1a1;
-    padding: 3px;
+    padding: 5px;
     margin-bottom: 5px;
-    max-width: 80%;
-    max-height: 80%;
+    width: 345px;
+    height: 345px;
     display: block;
     margin: 0 auto;
+    background: #363636
 }
 
 .aa-column {

@@ -1,7 +1,6 @@
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
-import { buildAuraFile } from "./file-builder/build-filepath.js";
-
+import { buildFile } from "./file-builder/build-filepath.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function ctaCall(handler) {
@@ -10,11 +9,10 @@ async function ctaCall(handler) {
         return !!game.modules.get(test);
     }
 
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
-    const aura = await buildAuraFile(obj01, handler);
-    console.log(handler.allTargets.length)
-    if (handler.allTargets.length === 0) {
+    //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    let animName = handler.animName.replace(/\s+/g, '')
+    const aura = await buildFile(true, animName, "static", "01", handler.color, handler.custom01);
+    if (handler.allTargets.length === 0 || handler.options?.ignoreTarget) {
         selfAura()
     } else {
         targetAura();
@@ -36,7 +34,7 @@ async function ctaCall(handler) {
             rotation: "static",
             scale: handler.selfRadius,
             speed: 0,
-            texturePath: aura.file,
+            texturePath: aura.fileData,
             tint: tintPost,
             xScale: 0.5,
             yScale: 0.5
@@ -89,7 +87,7 @@ async function ctaCall(handler) {
                 rotation: "static",
                 scale: handler.selfRadius,
                 speed: 0,
-                texturePath: aura.file,
+                texturePath: aura.fileData,
                 tint: tintPost,
                 xScale: 0.5,
                 yScale: 0.5
@@ -133,3 +131,30 @@ async function ctaCall(handler) {
 }
 
 export default ctaCall;
+/*
+async function buildAuraFile(jb2a, handler) {
+    let namePrior = handler.animName;
+    const name = namePrior.replace(/\s+/g, '');
+    const variant = handler.spellVariant || "01";
+    let color;
+    let file;
+    if (handler.enableCustom01) {
+        file = handler.custom01
+    } else {
+        switch (name) {
+            case "fogcloud":
+                color = "white";
+                break;
+            case "antilifeshell":
+                color = "blue";
+                break;
+            default:
+                color = handler.color
+                color = color.replace(/\s+/g, '');
+        }
+        file = name === "cloudofdaggers" ? jb2a[name].static[variant][color] : jb2a[name].static[variant][color];
+    }
+
+    return { file }
+}
+*/

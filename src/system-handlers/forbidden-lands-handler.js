@@ -1,21 +1,19 @@
 import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
 
-export default class SwadeHandler {
-    constructor(SwadeActor, SwadeItem) {
-        const item = SwadeItem;
-        const actor = SwadeActor;
+export default class ForbiddenLandsHandler {
+    constructor(msg) {
+        const { itemId, tokenId } = msg._roll.options
+        this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+        if (!itemId || !this._actorToken) {return;}
 
-        if (!item || !actor) {
-            return;
-        }
-
-        this._item = item;
-        this._actor = actor;
-        this._actorToken = canvas.tokens.ownedTokens.find(x => x.actor.id === actor.id);
-        this._allTargets = Array.from(game.user.targets);
-        this._itemName = item.name?.toLowerCase();
-        this._flags = item?.data?.flags?.autoanimations ?? "";;
-        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._actor = this._actorToken.actor;
+        this._itemId = itemId;
+        this._allTargets = Array.from(msg.user.targets);
+        this._item = this._actorToken.actor.items?.get(itemId) ?? "";
+        this._itemName = this._item.name?.toLowerCase() ?? "";
+        this._itemType = this._item.data?.type?.toLowerCase();
+        this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._flags = this._item.data?.flags?.autoanimations ?? "";
 
         this._animLevel = this._flags.animLevel ?? false;
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
@@ -108,19 +106,30 @@ export default class SwadeHandler {
                 this._animNameFinal = this._animName;
                 break;
         }
-        /* For storing nameConversions, disabling for now
-        this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
-        if (this._convert[0] !== "pass") {
-            this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
-            this._item.setFlag("autoanimations", "defaults.color", this._convert[1])
-        }
-        this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
-        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
-        */
+
         this._convert = nameConversion(this._animNameFinal);
         this._convertName = this._convert[0];
         this._defaultColor = this._convert[1];
         this._delay = this._convert[4];
+    }
+
+    isSpell (msg) {
+        return msg._roll === null
+    }
+
+    getIds (msg) {
+        if (this.isSpell(msg)) {
+            const roll = JSON.parse(msg.data.roll)
+            return {
+                itemId: "",
+                tokenId: ""
+            }
+        }
+
+        return {
+            itemId: msg._roll.options.itemId,
+            tokenId: msg._roll.options.tokenId
+        }
     }
 
     get convertedName() {return this._convertName;}
@@ -133,9 +142,11 @@ export default class SwadeHandler {
 
     get reachCheck() {
         let reach = 0;
-
-        if (this._item.data.data?.range?.units?.toLowerCase() === "reach") {
-            reach =+ 5;
+        if (this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
+            reach += 5;
+        }
+        if (this._item.data?.data?.properties?.rch) {
+            reach += 5;
         }
         return reach;
     }
@@ -242,6 +253,10 @@ export default class SwadeHandler {
     get targetScale() {return this._targetScale;}
     get targetDelay() {return this._targetDelay;}
     get targetVariant() { return this._targetVariant;}
+  
+    get hasAttack() {return this._item?.hasAttack ?? false;}
+    get hasDamage() {return this._item?.hasDamage ?? false;}
+
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < this._actorToken.data.width; x++) {
@@ -260,31 +275,17 @@ export default class SwadeHandler {
             return -1;
         }
         rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
-        distance = (rdistance[0] * 5);
+        distance = rdistance[0];
         rdistance.forEach(d => {
             if (d < distance)
-                distance = (d * 5);
+                distance = d;
         });
         return distance;
-    }
-
-    itemIncludes() {
-        return [...arguments].every(a => this._itemName?.includes(a));
-    }
-
-    itemSourceIncludes() {
-        return [...arguments].every(a => this._itemSource?.includes(a));
-    }
-    itemColorIncludes() {
-        return [...arguments].every(a => this._animColor?.includes(a));
     }
     itemNameIncludes() {
         return [...arguments].every(a => this._animNameFinal?.includes(a));
     }
     itemTypeIncludes() {
         return [...arguments].every(a => this._itemType?.includes(a));
-    }
-    animNameIncludes() {
-        return [...arguments].every(a => this._animName?.includes(a));
     }
 }
