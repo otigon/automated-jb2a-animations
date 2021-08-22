@@ -1,8 +1,6 @@
 import { buildFile } from "./file-builder/build-filepath.js"
 import { meleeSwitch } from "./meleeSwitch.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
-//import { aaColorsPatreon } from "./databases/jb2a-patreon-colors.js"
-//import { aaColorsFree } from "./databases/jb2a-free-colors.js";
 //import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 

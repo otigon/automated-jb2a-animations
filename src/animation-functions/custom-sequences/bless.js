@@ -1,6 +1,7 @@
 import { buildFile } from "../file-builder/build-filepath.js"
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
+import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -144,6 +145,11 @@ export async function bless(handler) {
 async function buildBlessFile(jb2a, handler) {
     let color = handler.color || "yellow";
     color = color.replace(/\s+/g, '');
+    function random_item(items)
+    {
+    return items[Math.floor(Math.random()*items.length)];
+    }
+    color = color === "random" ? random_item(Object.keys(aaColorMenu.static.bless['01'])) : color;
     const file01 = `autoanimations.static.bless.01.${color}.intro`;
     const file02 = `autoanimations.static.bless.01.${color}.loop`;
     const ctaFile01 = jb2a.static.bless['01'][color]["intro"];

@@ -21,7 +21,7 @@ export async function rangedAnimations(handler) {
         dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
     }
     let variant = AAITEMCHECK.spellattack.some(el => itemName.includes(el)) ? handler.spellVariant : dmgType;
-    variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" ? handler.dtvar : variant;
+    variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" || itemName === "chakram" ? handler.dtvar : variant;
     //Builds Primary File Path and Pulls from flags if already set
     let attack = await buildFile(false, itemName, "range", variant, handler.color)
     //let attack =  await buildRangedFile(jb2a, itemName, handler);

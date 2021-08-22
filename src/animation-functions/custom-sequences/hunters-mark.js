@@ -1,5 +1,6 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
+import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -15,8 +16,13 @@ async function huntersMark(handler) {
     let target = handler.allTargets[0];
 
     let animLoop = handler.hmAnim + "loop";
-    let hmPulse = `autoanimations.static.huntersmark.${handler.hmAnim}.${handler.color}`;
-    let hmLoop = jb2a.static.huntersmark[animLoop][handler.color];
+    let hmPulse = handler.color === 'random' ? `autoanimations.static.huntersmark.${handler.hmAnim}` : `autoanimations.static.huntersmark.${handler.hmAnim}.${handler.color}`;
+    function random_item(items)
+    {
+    return items[Math.floor(Math.random()*items.length)];
+    }
+    let ctaColor = handler.color === "random" ? random_item(Object.keys(aaColorMenu.static.huntersmark[animLoop])) : handler.color;
+    let hmLoop = jb2a.static.huntersmark[animLoop][ctaColor];
 
     let Scale = 0.5 //(target.w / hmAnim.metadata.width);
 

@@ -15,26 +15,13 @@ import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
 import PF2Handler from "./system-handlers/pf2-handler.js";
 import ForbiddenLandsHandler from "./system-handlers/forbidden-lands-handler.js";
 
-import thunderwaveAuto from "./animation-functions/thunderwave.js";
-import ctaCall from "./animation-functions/CTAcall.js";
-import huntersMark from "./animation-functions/custom-sequences/hunters-mark.js";
-import bardicInspiration from "./animation-functions/custom-sequences/bardic-inspiration.js";
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 
-import { AAITEMCHECK, AAITEMCHECKFREE } from "./animation-functions/item-arrays.js";
-import { rangedAnimations } from "./animation-functions/rangedAnimation.js";
-import { meleeAnimation } from "./animation-functions/meleeAnimation.js";
-import { onTokenAnimation } from "./animation-functions/onTokenAnimation.js";
-import { explodeOnToken } from "./animation-functions/explodeOnToken.js";
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
-import { shieldSpell } from "./animation-functions/custom-sequences/shield.js";
-import { sneakAttack } from "./animation-functions/custom-sequences/sneak-Attack.js";
-import { bless } from "./animation-functions/custom-sequences/bless.js";
 import { setupSocket, socketlibSocket } from "./socketset.js";
 
-import ImagePicker from "./ImagePicker.js";
-
+//import menuOptions from "./animation-functions/databases/jb2a-patreon-menus.js";
 // just swap which of these two lines is commented to turn on/off all logging
 //const log = console.log.bind(window.console);
 const log = () => { };
@@ -369,13 +356,14 @@ Hooks.once('ready', function () {
         SequencerDatabase.registerEntries("autoanimations", obj01);
         if (game.settings.get("autoanimations", "killAllAnim") === "off") {
             console.log("ANIMATIONS ARE OFF")
-            socket.off('module.sequencer')
+            socket.off('module.sequencer')//
             killAllAnimations = true;
         }
     });
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error(game.i18n.format("AUTOANIM.error"));
     }
+    Hooks.callAll("aa.ready", obj01)
 });
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));

@@ -12,6 +12,22 @@ const lg = prefix('Generic')
 
 JB2APATREONDB.range = {
     arrow: {
+        'regular': {
+            regular: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_90ft_4000x400.webm`]
+            },
+            green: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_90ft_4000x400.webm`]
+            }
+        },
         'physical': {
             blue: {
                 '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_05ft_600x400.webm`],
@@ -40,22 +56,6 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_White_Physical_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_White_Physical_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_White_Physical_90ft_4000x400.webm`]
-            }
-        },
-        'regular': {
-            green: {
-                '05ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_05ft_600x400.webm`],
-                '15ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_90ft_4000x400.webm`]
-            },
-            regular: {
-                '05ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_05ft_600x400.webm`],
-                '15ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_90ft_4000x400.webm`]
             }
         },
         'poison': {
@@ -681,7 +681,7 @@ JB2APATREONDB.range = {
     },
     guidingbolt: {
         '01': {
-            blueyellow: {
+            yellowblue: {
                 '05ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_05ft_600x400.webm`],
                 '15ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_15ft_1000x400.webm`],
                 '30ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_30ft_1600x400.webm`],
@@ -718,7 +718,7 @@ JB2APATREONDB.range = {
             }
         },
         '02': {
-            blueyellow: {
+            yellowblue: {
                 '05ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_BlueYellow_05ft_600x400.webm`],
                 '15ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_BlueYellow_15ft_1000x400.webm`],
                 '30ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_BlueYellow_30ft_1600x400.webm`],
@@ -758,10 +758,10 @@ JB2APATREONDB.range = {
     hammer: {
         '01': {
             white: {
-                '15ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_90ft_4000x400.webm`]
+                '15ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_90ft_4000x400.webm`]
             }
         }
     },
@@ -1662,13 +1662,13 @@ JB2APATREONDB.static = {
     },
     bardicinspiration: {
         'inspire': {
-            blueyellow: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
+            yellowblue: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm`],
             purplepink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_PurplePink_400x400.webm`],
             darkred: [l1`Bardic_Inspiration/BardicInspiration_01_Dark_Red_400x400.webm`]
         },
         'marker': {
-            blueyellow: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
+            yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
             purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
             darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
@@ -1729,7 +1729,7 @@ JB2APATREONDB.static = {
             yellowblue: [lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Explosion/Explosion_03_Regular_GreenOrange_400x400.webm`],
             purplepink: [lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`],
-            bluewhite: [lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`],
+            whiteblue: [lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`],
             pink: [lg`Explosion/Explosion_03_Regular_Pink_400x400.webm`],
         },
         'ex04': {
@@ -1740,19 +1740,19 @@ JB2APATREONDB.static = {
             orange: [lg`Explosion/Explosion_04_Regular_Orange_400x400.webm`],
         },
         'snowflake': {
-            bluewhite: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],
         },
         'outpulse01': {
-            bluewhite: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
         },
         'outpulse02': {
-            bluewhite: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm`],
@@ -1912,7 +1912,7 @@ JB2APATREONDB.static = {
     },
     divinesmite: {
         'caster': {
-            blueyellow: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
+            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
             greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm`],
             purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm`],
             darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Caster_400x400.webm`],
@@ -1920,7 +1920,7 @@ JB2APATREONDB.static = {
             darkred: [l2`Divine_Smite/DivineSmite_01_Dark_Red_Caster_400x400.webm`],
         },
         'target': {
-            blueyellow: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
+            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
             greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Target_400x400.webm`],
             purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Target_400x400.webm`],
             darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm`],
@@ -1975,7 +1975,7 @@ JB2APATREONDB.static = {
             purplepink: [
                 lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`,
             ],
-            bluewhite: [
+            whiteblue: [
                 lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`,
             ],
             pink: [
@@ -2002,7 +2002,7 @@ JB2APATREONDB.static = {
             yellow: [lg`Healing/HealingAbility_01_Yellow_400x400.webm`],
         },
         '02': {
-            bluewhite: [lg`Healing/HealingAbility_02_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Healing/HealingAbility_02_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Healing/HealingAbility_02_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Healing/HealingAbility_02_Regular_TealYellow_Burst_600x600.webm`],
@@ -2124,22 +2124,22 @@ JB2APATREONDB.static = {
     },
     marker: {
         marker01: {
-            bluewhite: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
-            blueyellow: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
+            whiteblue: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
+            yellowblue: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_01_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_01_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_01_Regular_PurplePink_400x400.webm`],
         },
         marker02: {
-            bluewhite: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
-            blueyellow: [lg`Marker/Marker_02_Regular_BlueYellow_400x400.webm`],
+            whiteblue: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
+            yellowblue: [lg`Marker/Marker_02_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_02_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_02_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_02_Regular_PurplePink_400x400.webm`],
         },
         musicMarker: {
             darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
-            blueyellow: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
+            yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
             purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
         }
@@ -2204,7 +2204,7 @@ JB2APATREONDB.static = {
     },
     outpulse01: {
         '01': {
-            bluewhite: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
@@ -2212,7 +2212,7 @@ JB2APATREONDB.static = {
     },
     outpulse02: {
         '01': {
-            bluewhite: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm`],
@@ -2257,6 +2257,36 @@ JB2APATREONDB.static = {
             yellow: [l1`Entangle/Entangle_01_Yellow_400x400.webm`],
             darkpurple: [l1`Entangle/Entangle_01_Dark_Purple_400x400.webm`],
             palegreen: [l1`Entangle/Entangle_01_Regular_Green02_400x400.webm`]
+        },
+        thunderwave: {
+            green: {
+                'left': [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`]
+            },
+            orange: {
+                'left': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`]
+            },
+            purple: {
+                'left': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
+            },
+            red: {
+                'left': [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
+            },
+            blue: {
+                'left': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`]
+            }
+        },
+        web: {
+            white: [l2`Web/Opacities/Web_01_White_02_75OPA_400x400.webm`]
         }
     },
     shatter: {
@@ -2390,7 +2420,7 @@ JB2APATREONDB.static = {
     },
     snowflake: {
         '01': {
-            bluewhite: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
+            whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
             greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
             purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
             tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],
@@ -2403,7 +2433,7 @@ JB2APATREONDB.static = {
             darkred: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Red_600x600.webm`],
             yellowblue: [l3`Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm`],
             greenorange: [l3`Spirit_Guardians/SpiritGuardians_01_Light_GreenOrange_600x600.webm`],
-            pinkpurple: [l3`Spirit_Guardians/SpiritGuardians_01_Light_PinkPurple_600x600.webm`],
+            purplepink: [l3`Spirit_Guardians/SpiritGuardians_01_Light_PinkPurple_600x600.webm`],
             darkwhiteblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_WhiteBlue_600x600.webm`]
         }
     },
@@ -2419,35 +2449,6 @@ JB2APATREONDB.static = {
             blue: [lg`Lightning/StaticElectricity_02_Regular_Blue_400x400.webm`],
             green: [lg`Lightning/StaticElectricity_02_Regular_Green_400x400.webm`],
             purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`]
-        }
-    },
-    thunderwave: {
-        '01': {
-            green: {
-                'left': [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`]
-            },
-            orange: {
-                'left': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`]
-            },
-            purple: {
-                'left': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
-            },
-            red: {
-                'left': [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
-            },
-            blue: {
-                'left': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`]
-            }
         }
     },
     thunderwave: {
