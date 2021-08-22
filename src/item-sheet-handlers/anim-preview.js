@@ -77,7 +77,7 @@ function animPreview(flags, name) {
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "chakram":
-                        try { preview = obj01.range[itemName]['01']['white']['30ft'] }
+                        try { preview = obj01.range[itemName][item.dtvar]['white']['30ft'] }
                         catch (exception) { preview = "no preview"; }
                         break;
                     case "dagger":

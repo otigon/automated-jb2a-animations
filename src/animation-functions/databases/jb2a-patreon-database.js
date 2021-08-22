@@ -12,6 +12,22 @@ const lg = prefix('Generic')
 
 JB2APATREONDB.range = {
     arrow: {
+        'regular': {
+            regular: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_90ft_4000x400.webm`]
+            },
+            green: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_90ft_4000x400.webm`]
+            }
+        },
         'physical': {
             blue: {
                 '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_05ft_600x400.webm`],
@@ -40,22 +56,6 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_White_Physical_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_White_Physical_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_White_Physical_90ft_4000x400.webm`]
-            }
-        },
-        'regular': {
-            green: {
-                '05ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_05ft_600x400.webm`],
-                '15ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Glowing_Green_90ft_4000x400.webm`]
-            },
-            regular: {
-                '05ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_05ft_600x400.webm`],
-                '15ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_90ft_4000x400.webm`]
             }
         },
         'poison': {
