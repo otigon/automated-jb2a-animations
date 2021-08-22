@@ -190,26 +190,6 @@ export async function thunderwaveAuto(handler) {
         await wait(500)
         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target")
     }
-
-
-
-
-        /*
-        new Sequence()
-            .effect()
-                .file(anFile)
-                .atLocation({x: tempX + (gridSize * 1.5), y: tempY + (gridSize * 1.5)})
-                .scale(Scale)
-                .rotate(ang)
-                .anchor({x: 0.5, y: 0.5})
-                .repeats(5, 500)
-            .play()
-            */
-    async function cast() {
-
-
-    }
-    cast();
 }
 
 export default thunderwaveAuto;
