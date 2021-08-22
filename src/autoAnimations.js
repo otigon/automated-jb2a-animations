@@ -418,11 +418,21 @@ async function specialCaseAnimations(msg) {
     if (game.user.id !== msg.user?.id) {
         return;
     }
-    let handler = new Dnd5Handler(msg);
-    if (handler.animType === "t8" && handler.animOverride) {
-        Hooks.once("createMeasuredTemplate", (msg) => {
-            templateAnimation(handler, msg);
-        })
+    let breakOut = checkMessege(msg);
+    if (breakOut === 0) {
+        let handler = new Dnd5Handler(msg);
+        if (handler.animType === "t8" && handler.animOverride) {
+            Hooks.once("createMeasuredTemplate", (msg) => {
+                templateAnimation(handler, msg);
+            })
+        }
+    } else { return; }
+}
+function checkMessege(msg) {
+    try {
+        return msg.data?.flags['midi-qol'].type;
+    } catch (exception) {
+        return false;
     }
 }
 

@@ -11,11 +11,14 @@ export async function templateAnimation(handler, msg) {
         return;
     }
     const sourceToken = handler.actorToken;
-    let tempAnimation = await buildFile(true, handler.templates.tempType, "static", handler.templates.tempAnim, handler.templates.tempColor)
+    let customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
+    let tempAnimation = await buildFile(true, handler.templates.tempType, "static", handler.templates.tempAnim, handler.templates.tempColor, customPath)
     let sourceFX;
     let sFXScale;
+    let customSourcePath; 
     if (handler.sourceEnable) {
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
+        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
 

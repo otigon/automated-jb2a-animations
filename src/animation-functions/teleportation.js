@@ -1,8 +1,3 @@
-/*
-The framework for the code below originated from Honeybadger (Trioderigon) for creating/deleting the Template and movingt the Token around.
-*/
-import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { buildFile} from "./file-builder/build-filepath.js"
 
 export async function teleportation(handler) {
@@ -12,21 +7,20 @@ export async function teleportation(handler) {
         console.log("A-A Misty Step will not work with DAE SRD Misty Step");
         return;
     }
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
     const token = handler.actorToken;
     const actor = handler.actor;
 
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName
-    let onToken = await buildFile(true, itemName, "static", "01", handler.color);
+    let customPath = handler.enableCustom01 ? handler.custom01 : false;
+    let onToken = await buildFile(true, itemName, "static", "01", handler.color, customPath);
 
     let sourceFX;
     let sFXScale;
+    let customSourcePath; 
     if (handler.sourceEnable) {
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
-        sFXScale = 2 * token.w / sourceFX.metadata.width;
+        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
+        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
 
 

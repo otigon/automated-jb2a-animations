@@ -380,6 +380,10 @@
     "AUTOANIM.scaleToToken": "Escala por tamaño de ficha",
     "AUTOANIM.noTemplate": "No colocar plantilla",
     "AUTOANIM.anchorX": "Ancla X",
-    "AUTOANIM.anchorY": "Ancla Y"
+    "AUTOANIM.anchorY": "Ancla Y",
+    
+    "AUTOANIM.colorPaleGreen": "Verde Pálido",
+    "AUTOANIM.lightningbolt02": "Relámpago 02",
+    "AUTOANIM.cloudofkunais": "Nube de Kunais"
 
 }

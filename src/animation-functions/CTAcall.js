@@ -1,6 +1,6 @@
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
-
+import { buildFile } from "./file-builder/build-filepath.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function ctaCall(handler) {
@@ -9,9 +9,9 @@ async function ctaCall(handler) {
         return !!game.modules.get(test);
     }
 
-    let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
-    const aura = await buildAuraFile(jb2a, handler);
+    //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    let animName = handler.animName.replace(/\s+/g, '')
+    const aura = await buildFile(true, animName, "static", "01", handler.color, handler.custom01);
     if (handler.allTargets.length === 0 || handler.options?.ignoreTarget) {
         selfAura()
     } else {
@@ -34,7 +34,7 @@ async function ctaCall(handler) {
             rotation: "static",
             scale: handler.selfRadius,
             speed: 0,
-            texturePath: aura.file,
+            texturePath: aura.fileData,
             tint: tintPost,
             xScale: 0.5,
             yScale: 0.5
@@ -87,7 +87,7 @@ async function ctaCall(handler) {
                 rotation: "static",
                 scale: handler.selfRadius,
                 speed: 0,
-                texturePath: aura.file,
+                texturePath: aura.fileData,
                 tint: tintPost,
                 xScale: 0.5,
                 yScale: 0.5
@@ -131,7 +131,7 @@ async function ctaCall(handler) {
 }
 
 export default ctaCall;
-
+/*
 async function buildAuraFile(jb2a, handler) {
     let namePrior = handler.animName;
     const name = namePrior.replace(/\s+/g, '');
@@ -157,3 +157,4 @@ async function buildAuraFile(jb2a, handler) {
 
     return { file }
 }
+*/

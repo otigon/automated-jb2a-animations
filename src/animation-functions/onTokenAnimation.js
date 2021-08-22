@@ -17,24 +17,31 @@ export async function onTokenAnimation(handler) {
 
     // Random Color pull given object path
     //Builds standard File Path
-    let onToken = await buildFile(true, itemName, "static", handler.spellVariant, handler.color);
+    let customPath = handler.enableCustom01 ? handler.custom01 : false;
+    let onToken = await buildFile(true, itemName, "static", handler.spellVariant, handler.color, customPath);
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     let sFXScale;
+    let customSourcePath; 
     if (handler.sourceEnable) {
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
+        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
+        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
         sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     let targetFX;
     let tFXScale;
+    let customTargetPath; 
     if (handler.targetEnable) {
-        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor);
+        customTargetPath = handler.targetCustomEnable ? handler.targetCustomPath : false;
+        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, customTargetPath);
     }
 
     let explosion;
+    let customExplosionPath;
     if (handler.explosion) {
-        explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor)
+        customExplosionPath = handler.customExplode ? handler.customExplosionPath : false;
+        explosion = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, customExplosionPath)
     }
 
     let explosionSound = handler.allSounds?.explosion;
@@ -47,8 +54,7 @@ export async function onTokenAnimation(handler) {
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
         explosionFile = explosionSound?.file;
     }
-
-    let exScale = explosion?.scale ?? 1;
+    let exScale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     let animWidth = onToken.metadata.width;
     if (handler.allTargets.length === 0 && (itemName === "curewounds" || itemName === "generichealing")) {
     new Sequence()
