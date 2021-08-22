@@ -277,7 +277,9 @@ AUTOANIM.circleAnimations = {
 
 AUTOANIM.rectangleAnimations = {
     "a1": ``,
-    "entangle": "AUTOANIM.entangle"
+    "entangle": "AUTOANIM.entangle",
+    "thunderwave": "AUTOANIM.itemThunderwave",
+    "web": "AUTOANIM.web"
 }
 
 AUTOANIM.animTypePick = {

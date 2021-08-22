@@ -1,17 +1,27 @@
 
 import { AUTOANIM } from "./config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
-//import { aaColorsFree, aaVariantsFree } from "../animation-functions/databases/jb2a-free-colors.js";
-//import { aaVariantsPatreon } from "../animation-functions/databases/jb2a-patreon-variants.js";
-//import { aaVariantsPatreon } from "../animation-functions/databases/jb2a-patreon-menus.js";
-//import { aaVariantsFree } from "../animation-functions/databases/jb2a-free-variants.js";
 
-export function meleeColors(itemName, patreon, variant) {
-    //console.log(aaColorsPatreon)
+export function menuColors (itemName, variant, type) {
     let animationColor;
-    //let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
     let colorMenu = aaColorMenu;
-    //console.log(colorMenu)
+    let variantArray;
+    try { variantArray = Object.keys(colorMenu[type][itemName]) }
+    catch (exception) { }
+    let variantNow;
+    try {
+        variantNow = variantArray.some(el => variant === el) ? variant : variantArray[0];
+        colorMenu[type][itemName][variantNow].random = "AUTOANIM.random";
+        animationColor = colorMenu.localized(colorMenu[type][itemName][variantNow]);
+    }
+    catch (exception) { animationColor = null }
+    return animationColor;
+
+}
+/*
+export function meleeColors(itemName, variant) {
+    let animationColor;
+    let colorMenu = aaColorMenu;
 
     try { colorMenu.melee[itemName][variant].random = "AUTOANIM.random"; }
     catch (exception) { }
@@ -19,28 +29,21 @@ export function meleeColors(itemName, patreon, variant) {
     let variantArray;
     try { variantArray = Object.keys(colorMenu.melee[itemName]) }
     catch (exception) { }
-    //console.log(variant)
-    //console.log(variantArray)
-    //preMenu.random = "AUTOANIM.random";
     try {
         variant = variantArray.some(el => variant === el) ? variant : variantArray[0];
-        console.log(variant)
         animationColor = colorMenu.localized(colorMenu.melee[itemName][variant]);
     }
     catch (exception) { animationColor = null }
 
     return animationColor;
 }
-
-export function rangeColors(itemName, patreon, spellVariant, damageType, variant) {
-    //console.log(aaColorsPatreon)
-    //console.log(itemName)
+*/
+export function rangeColors(itemName, damageType, variant) {
     let animationColor;
     let animVar;
     let name = itemName.replace(/melee|range|double/gi, function(x) {
         return "";
     });
-    //console.log(name)
     switch (true) {
         case name === "arrow":
         case name === "bolt":
@@ -52,12 +55,8 @@ export function rangeColors(itemName, patreon, spellVariant, damageType, variant
         case name === "handaxe":
             animVar = variant;
             break;
-        default:
-            animVar = spellVariant;
     }
-    //let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
     let colorMenu = aaColorMenu;
-    //console.log(colorMenu)
 
     try { colorMenu.range[name][animVar].random = "AUTOANIM.random"; }
     catch (exception) { }
@@ -65,12 +64,8 @@ export function rangeColors(itemName, patreon, spellVariant, damageType, variant
     let variantArray;
     try { variantArray = Object.keys(colorMenu.range[name]) }
     catch (exception) { }
-    //console.log(animVar)
-    //console.log(variantArray)
-    //preMenu.random = "AUTOANIM.random";
     try {
         animVar = variantArray.some(el => animVar === el) ? animVar : variantArray[0];
-        //console.log(animVar)
         animationColor = colorMenu.localized(colorMenu.range[name][animVar]);
     }
     catch (exception) { animationColor = null }
@@ -78,15 +73,11 @@ export function rangeColors(itemName, patreon, spellVariant, damageType, variant
     return animationColor;
 }
 
-export function staticColors(itemName, patreon, spellVariant, bardAnimation, damageType, variant) {
-    //console.log(itemName)
+export function staticColors(itemName, spellVariant, bardAnimation, damageType, variant) {
     let name = itemName === "boulder" ? "boulderimpact" : itemName;
-    //console.log(name)
     let animationColor;
     let animVar= spellVariant;
-    //let colorMenu = patreon ? aaColorsPatreon : aaColorsFree;
     let colorMenu = aaColorMenu;
-    //console.log(colorMenu)
 
     try { colorMenu.static[name][animVar].random = "AUTOANIM.random"; }
     catch (exception) { }
@@ -94,12 +85,8 @@ export function staticColors(itemName, patreon, spellVariant, bardAnimation, dam
     let variantArray;
     try { variantArray = Object.keys(colorMenu.static[name]) }
     catch (exception) { }
-    //console.log(animVar)
-    //console.log(variantArray)
-    //preMenu.random = "AUTOANIM.random";
     try {
         animVar = variantArray.some(el => animVar === el) ? animVar : variantArray[0];
-        console.log(animVar)
         animationColor = colorMenu.localized(colorMenu.static[name][animVar]);
     }
     catch (exception) { animationColor = null }
@@ -107,20 +94,30 @@ export function staticColors(itemName, patreon, spellVariant, bardAnimation, dam
     return animationColor;
 }
 
-export function variantOptions(itemName, patreon, type) {
+export function variantOptions(itemName, type) {
     
     let name = itemName.replace(/melee|range|double/gi, function(x) {
         return "";
     });
 
-    //const variantMenu = patreon ? aaVariantsPatreon : aaVariantsFree;
     const variantMenu = aaVariantMenu;
-    console.log (variantMenu)
     let variantOptions;
     try { variantOptions = variantMenu.localized(variantMenu[type][name])}
     catch (exception) { }
-    console.log(variantOptions)
     return variantOptions;
+}
+
+export function variantLength(itemName, type) {
+    let name = itemName.replace(/melee|range|double/gi, function(x) {
+        return "";
+    });
+
+    const variantMenu = aaVariantMenu;
+    let variantLength;
+    try { variantLength = Object.keys(variantMenu[type][name]).length}
+    catch (exception) { }
+    return variantLength;
+
 }
 
 export function animationName(animType, patreon) {
@@ -177,8 +174,4 @@ export function animTemplates(templateType) {
             break;
     }
     return templateChoices;
-}
-
-export function tokenAnimations() {
-    return AUTOANIM.tokenAnimations
 }

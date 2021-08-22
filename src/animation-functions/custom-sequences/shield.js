@@ -1,6 +1,7 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { buildFile } from "../file-builder/build-filepath.js";
+import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function shieldSpell(handler) {
@@ -16,6 +17,11 @@ export async function shieldSpell(handler) {
         const spellVariant = handler.spellVariant || "01";
         let color = handler.color || "blue";
         color = color.replace(/\s+/g, '');
+        function random_item(items)
+        {
+        return items[Math.floor(Math.random()*items.length)];
+        }
+        color = color === "random" ? random_item(Object.keys(aaColorMenu.static.bless[spellVariant])) : color;
         const shieldVar = handler.options.shieldVar || "outro_fade";
     
         const file01 = `autoanimations.static.shield.${spellVariant}.${color}.intro`;

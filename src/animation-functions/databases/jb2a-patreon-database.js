@@ -2257,6 +2257,36 @@ JB2APATREONDB.static = {
             yellow: [l1`Entangle/Entangle_01_Yellow_400x400.webm`],
             darkpurple: [l1`Entangle/Entangle_01_Dark_Purple_400x400.webm`],
             palegreen: [l1`Entangle/Entangle_01_Regular_Green02_400x400.webm`]
+        },
+        thunderwave: {
+            green: {
+                'left': [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`]
+            },
+            orange: {
+                'left': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`]
+            },
+            purple: {
+                'left': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
+            },
+            red: {
+                'left': [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
+            },
+            blue: {
+                'left': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`]
+            }
+        },
+        web: {
+            white: [l2`Web/Opacities/Web_01_White_02_75OPA_400x400.webm`]
         }
     },
     shatter: {
@@ -2419,35 +2449,6 @@ JB2APATREONDB.static = {
             blue: [lg`Lightning/StaticElectricity_02_Regular_Blue_400x400.webm`],
             green: [lg`Lightning/StaticElectricity_02_Regular_Green_400x400.webm`],
             purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`]
-        }
-    },
-    thunderwave: {
-        '01': {
-            green: {
-                'left': [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`]
-            },
-            orange: {
-                'left': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`]
-            },
-            purple: {
-                'left': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
-            },
-            red: {
-                'left': [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
-            },
-            blue: {
-                'left': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`]
-            }
         }
     },
     thunderwave: {

@@ -1,10 +1,15 @@
 import { buildFile } from "./file-builder/build-filepath.js";
-import { socketlibSocket } from "../socketset.js"
+import { socketlibSocket } from "../socketset.js";
+import { thunderwaveAuto } from "./thunderwave.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function templateAnimation(handler, msg) {
 
+    if (handler.templates.tempAnim === 'thunderwave') {
+        thunderwaveAuto(handler);
+        return;
+    }
     const sourceToken = handler.actorToken;
     let tempAnimation = await buildFile(true, handler.templates.tempType, "static", handler.templates.tempAnim, handler.templates.tempColor)
     let sourceFX;

@@ -5,11 +5,6 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function sneakAttack(handler) {
 
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
-
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let itemName = handler.convertedName;
     let sneak = await buildFile(true, itemName, "static", "01", handler.color)
     let sourceToken = handler.actorToken;
