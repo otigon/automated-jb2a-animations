@@ -5,6 +5,7 @@ async function bardicInspiration(handler) {
 
     let token = handler.actorToken;
     let target = handler.allTargets[0];
+    console.log(target)
     
     let selfMarkerPath = handler.bards.markerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${handler.bards.markerColor}`;
     let targetMarkerPath = handler.bards.markerColorTarget === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${handler.bards.markerColorTarget}`
@@ -30,7 +31,7 @@ async function bardicInspiration(handler) {
         .repeats(10, 350)
         .randomOffset()
 
-        if (handler.bardSelf) {musicPlay.play()}
+        musicPlay.play()
     }
 
     let selfBIPath = handler.bards.bardSelfColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${handler.bards.bardSelfColor}`
@@ -39,11 +40,11 @@ async function bardicInspiration(handler) {
 
         let bardicPlay = new Sequence()
         .effect()
-        .file(path)
-        .atLocation(biToken)
-        .scale((biToken.w / 400) * 2)
+            .file(path)
+            .atLocation(biToken)
+            .scale((biToken.w / 400) * 2)
 
-        if (handler.bardSelf) { bardicPlay.play()}
+        bardicPlay.play()
     }
 
     if (handler.bards.bardSelf) {
@@ -54,7 +55,7 @@ async function bardicInspiration(handler) {
                     if (handler.bardSelf) {
                         markerCreate(token, selfMarkerPath);
                     }
-                    await wait(3750);
+                    //await wait(3750);
                 }
                 break;
             default:
@@ -63,7 +64,7 @@ async function bardicInspiration(handler) {
                     if (handler.bardSelf) {
                         markerCreate(token, selfMarkerPath);
                     }
-                    await wait(3750);
+                    //await wait(3750);
                 }
         }
     }
@@ -75,7 +76,7 @@ async function bardicInspiration(handler) {
                     if (target && handler.bardTarget) {
                         markerCreate(target, targetMarkerPath);
                     }
-                    await wait(3750);
+                    //await wait(3750);
                 }
                 break;
             default:
@@ -84,7 +85,7 @@ async function bardicInspiration(handler) {
                     if (target && handler.bardTarget) {
                         markerCreate(target, targetMarkerPath);
                     }
-                    await wait(3750);
+                    //await wait(3750);
                 }
         }
     }
