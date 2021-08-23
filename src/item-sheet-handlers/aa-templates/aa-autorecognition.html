@@ -1,24 +1,37 @@
 <form class="flexcol" id="AAItemSettings" autocomplete="off" novalidate>
     <nav class="flexrow tabs" data-group="sections">
-        <a class="aa-options" data-tab="meleeAnim"><i class="fas fa-bomb"></i> Melee Animations </a>
-        <a class="aa-options" data-tab="rangeAnim"><i class="fas fa-guitar"></i> Range Animations </a>
-        <a class="aa-options" data-tab="tokenANim"><i class="fas fa-user-plus"></i> On Token Effects </a>
+        <a class="aa-options" data-tab="overrides"><i class="fas fa-bomb"></i> Animations </a>
     </nav>
 
     <section class="content">
         <!--Animation Settings-->
-        <div class="tab" data-tab="meleeAnim" data-group="sections">
-
+        <div class="tab" data-tab="overrides" data-group="sections">
+            {{#each settings.aaAutoRecognition.overrides as |override idx|}}
+            <div class='flexrow override-entry' data-idx="{{idx}}">
+                <div class='flexcol'>
+                    <div class='form-group'>
+                        <label for="aaAutoRecognition.overrides.{{idx}}.target">
+                            WOOT
+                        </label>
+                        <div class='form-fields'>
+                            <input type='text' name="aaAutoRecognition.overrides.{{idx}}.target"
+                                value="{{lookup (lookup @root.settings.aaAutoRecognition.overrides idx) 'target'}}" />
+                        </div>
+                    </div>
+                </div>
+                <div class='flexcol remove-override-wrapper'>
+                    <button class='remove-override' data-idx="{{idx}}">
+                        <i class='far fa-trash-alt'></i>
+                    </button>
+                </div>
+            </div>
+            {{/each}}
         </div>
-
-
-        <!--Audio Settings-->
-        <div class="tab" data-tab="rangeAnim" data-group="sections">
-        </div>
-
-        <!--Token Animation Options-->
-
-        <div class="tab" data-tab="tokenANim" data-group="sections">
+        <footer class='sheet-footer flexrow add-override-wrapper'>
+            <button class='add-override'>
+                <i class='far fa-plus-square'></i>Add Override
+            </button>
+        </footer>
         </div>
 
     </section>
