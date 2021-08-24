@@ -80,7 +80,7 @@ export async function thunderwaveAuto(handler) {
             ang = 0;
             anFile = filePath['left'];
             break;
-        case (xPos === (tempX + (gridSize * 3))) && ((yPos >= tempY) && yPos <= (tempY + (gridSize * 2))):
+        case (xPos >= (tempX + (gridSize * 2.5))) && ((yPos >= tempY) && yPos <= (tempY + (gridSize * 2))):
             ang = 90;
             anFile = filePath['mid'];
             break;
