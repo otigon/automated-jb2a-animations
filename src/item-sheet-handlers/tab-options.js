@@ -11,8 +11,8 @@ export function menuColors (itemName, variant, type) {
     let variantNow;
     try {
         variantNow = variantArray.some(el => variant === el) ? variant : variantArray[0];
-        colorMenu[type][itemName][variantNow].random = "AUTOANIM.random";
-        animationColor = colorMenu.localized(colorMenu[type][itemName][variantNow]);
+        colorMenu[type][itemName][variantNow].random = game.i18n.localize( game.i18n.localize("AUTOANIM.random"));
+        animationColor = colorMenu[type][itemName][variantNow];
     }
     catch (exception) { animationColor = null }
     return animationColor;
@@ -23,7 +23,7 @@ export function meleeColors(itemName, variant) {
     let animationColor;
     let colorMenu = aaColorMenu;
 
-    try { colorMenu.melee[itemName][variant].random = "AUTOANIM.random"; }
+    try { colorMenu.melee[itemName][variant].random =  game.i18n.localize("AUTOANIM.random"); }
     catch (exception) { }
 
     let variantArray;
@@ -58,7 +58,7 @@ export function rangeColors(itemName, damageType, variant) {
     }
     let colorMenu = aaColorMenu;
 
-    try { colorMenu.range[name][animVar].random = "AUTOANIM.random"; }
+    try { colorMenu.range[name][animVar].random =  game.i18n.localize("AUTOANIM.random"); }
     catch (exception) { }
 
     let variantArray;
@@ -66,7 +66,7 @@ export function rangeColors(itemName, damageType, variant) {
     catch (exception) { }
     try {
         animVar = variantArray.some(el => animVar === el) ? animVar : variantArray[0];
-        animationColor = colorMenu.localized(colorMenu.range[name][animVar]);
+        animationColor = colorMenu.range[name][animVar];
     }
     catch (exception) { animationColor = null }
 
@@ -79,7 +79,7 @@ export function staticColors(itemName, spellVariant, bardAnimation, damageType, 
     let animVar= spellVariant;
     let colorMenu = aaColorMenu;
 
-    try { colorMenu.static[name][animVar].random = "AUTOANIM.random"; }
+    try { colorMenu.static[name][animVar].random =  game.i18n.localize("AUTOANIM.random"); }
     catch (exception) { }
 
     let variantArray;
@@ -87,7 +87,7 @@ export function staticColors(itemName, spellVariant, bardAnimation, damageType, 
     catch (exception) { }
     try {
         animVar = variantArray.some(el => animVar === el) ? animVar : variantArray[0];
-        animationColor = colorMenu.localized(colorMenu.static[name][animVar]);
+        animationColor = colorMenu.static[name][animVar];
     }
     catch (exception) { animationColor = null }
 
@@ -102,7 +102,7 @@ export function variantOptions(itemName, type) {
 
     const variantMenu = aaVariantMenu;
     let variantOptions;
-    try { variantOptions = variantMenu.localized(variantMenu[type][name])}
+    try { variantOptions = variantMenu[type][name]}
     catch (exception) { }
     return variantOptions;
 }

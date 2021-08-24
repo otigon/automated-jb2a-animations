@@ -36,6 +36,31 @@ function disableAnimations() {
     killAllAnimations = true;
 }
 Hooks.on('init', () => {
+    Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
+        return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+    });
+    Handlebars.registerHelper('ifnoteq', function (a, b, options) {
+        if (a != b) { return options.fn(this); }
+        return options.inverse(this);
+    });
+    Handlebars.registerHelper("aaEach", function (colors, type, name, variant, options) {
+        var ret = "";
+        //console.log(colors)
+        //console.log("type is " + type)
+        //console.log("name is " + name)
+        //console.log("varaint is " + variant)
+
+        let context;
+        context = colors[type][name][variant]
+        console.log(context)
+        for (var i = 0, j = context.length; i < j; i++) {
+            ret = ret + options.fn(context[i]);
+            //console.log(context[i])
+        }
+        //console.log(ret)
+        return ret;
+    });
+
     aaSettings();
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
