@@ -14,9 +14,8 @@ export async function thunderwaveAuto(handler) {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let color = handler.templates.tempColor;
     const colors = ['green', 'orange', 'purple', 'red', 'blue']
-    function random_item(items)
-    {
-    return items[Math.floor(Math.random()*items.length)];
+    function random_item(items) {
+        return items[Math.floor(Math.random() * items.length)];
     }
     console.log(color)
     switch (true) {
@@ -50,7 +49,11 @@ export async function thunderwaveAuto(handler) {
     const templateID = await canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
     let template = await canvas.templates.get(templateID);
     let gridSize = canvas.scene.data.grid;
-    let Scale = canvas.scene.data.grid / 200;
+
+    let templateW = template.data.width;
+    let templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
+    let scaleX = (100 / canvas.grid.size) * templateLength / 600;
+    let scaleY = scaleX;
     let xPos = handler.actorToken.data.x;
     let yPos = handler.actorToken.data.y;
     let tempY = template.data.y;
@@ -93,7 +96,6 @@ export async function thunderwaveAuto(handler) {
             anFile = filePath['mid'];
             break;
     }
-
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
@@ -141,51 +143,51 @@ export async function thunderwaveAuto(handler) {
         socketlibSocket.executeAsGM("placeTile", data)
         new Sequence()
             .sound()
-                .file(templateFile)
-                .playIf(handler.itemSound)
-                .delay(templateDelay)
-                .volume(templateVolume)
-                .repeats(handler.animationLoops, handler.loopDelay)
+            .file(templateFile)
+            .playIf(handler.itemSound)
+            .delay(templateDelay)
+            .volume(templateVolume)
+            .repeats(handler.animationLoops, handler.loopDelay)
             .play()
         if (handler.templates.removeTemplate) {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
-        }            
+        }
         //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
     } else {
         if (handler.templates.removeTemplate) {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
-        }        
+        }
         await new Sequence()
             .effect()
-                .atLocation(handler.actorToken)
-                .scale(sFXScale * handler.sourceScale)
-                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                .belowTokens(handler.sourceLevel)
-                .waitUntilFinished(handler.sourceDelay)
-                .playIf(handler.sourceEnable)
-                .addOverride(async (effect, data) => {
-                    if (handler.sourceEnable) {
-                        data.file = sourceFX.file;
-                    }
-                    return data;
-                })
+            .atLocation(handler.actorToken)
+            .scale(sFXScale * handler.sourceScale)
+            .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+            .belowTokens(handler.sourceLevel)
+            .waitUntilFinished(handler.sourceDelay)
+            .playIf(handler.sourceEnable)
+            .addOverride(async (effect, data) => {
+                if (handler.sourceEnable) {
+                    data.file = sourceFX.file;
+                }
+                return data;
+            })
             .thenDo(function () {
                 Hooks.callAll("aa.animationStart", handler.actorToken, "no-target")
             })
             .effect()
-                .file(anFile)
-                .atLocation({x: tempX + (gridSize * 1.5), y: tempY + (gridSize * 1.5)})
-                .anchor({x: 0.5, y: 0.5})
-                .rotate(ang)
-                .scale(Scale)
-                .belowTokens(false)
-                .repeats(handler.templates.tempLoop, handler.templates.loopDelay)
+            .file(anFile)
+            .atLocation({ x: tempX + (gridSize * 1.5), y: tempY + (gridSize * 1.5) })
+            .anchor({ x: 0.5, y: 0.5 })
+            .rotate(ang)
+            .scale({x: scaleX, y: scaleY})
+            .belowTokens(false)
+            .repeats(handler.templates.tempLoop, handler.templates.loopDelay)
             .sound()
-                .file(templateFile)
-                .playIf(handler.itemSound)
-                .delay(templateDelay)
-                .volume(templateVolume)
-                .repeats(handler.animationLoops, handler.loopDelay)
+            .file(templateFile)
+            .playIf(handler.itemSound)
+            .delay(templateDelay)
+            .volume(templateVolume)
+            .repeats(handler.animationLoops, handler.loopDelay)
             .play()
         await wait(500)
         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target")
