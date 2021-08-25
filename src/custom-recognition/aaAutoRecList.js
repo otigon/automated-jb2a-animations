@@ -5,10 +5,10 @@ export class aaAutoRecognition {
             categories: {},
             overrides: {
                 0: {
-                    target: 'Longsword',
+                    name: 'Longsword',
                 },
                 1: {
-                    target: 'Fire Bolt',
+                    name: 'Fire Bolt',
                 },
             },
         };

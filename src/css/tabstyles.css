@@ -96,4 +96,14 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+.remove-override-wrapper {
+	flex: 0;
+	margin-left: 0.5em;
+}
   
+.aa-autorecog {
+    border: 3px ridge #a1a1a1;
+    padding: 3px;
+    margin-bottom: 5px;
+}

@@ -1,5 +1,5 @@
 import { AUTOANIM } from "../item-sheet-handlers/config.js";
-import { aaColorMenu } from "../animation-functions/databases/jb2a-menu-options.js";
+import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 
 export class AAcustomRecog extends FormApplication {
     constructor(object = {}, options) {
@@ -34,6 +34,9 @@ export class AAcustomRecog extends FormApplication {
         data.rangeList = AUTOANIM.localized(AUTOANIM.animNameRangeWeapon);
         data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
         data.colors = aaColorMenu;
+        data.variants = aaVariantMenu;
+        //console.log(aaColorMenu)
+        //console.log(aaVariantMenu)
         //let settings = this.getSettingsData();
         //let colors = aaColorMenu;
         //let index = data.indexOf()
@@ -54,12 +57,12 @@ export class AAcustomRecog extends FormApplication {
     activateListeners(html) {
         super.activateListeners(html);
 
-        html.find('button.add-override').click(this._onAddOverride.bind(this));
-        html.find('button.remove-override').click(this._onRemoveOverride.bind(this));
-        html.find('.aa-menu-autorec input[type="text"]').change(evt => {
+        html.find('button.add-autorecog').click(this._onAddOverride.bind(this));
+        html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
+        html.find('.aa-autorecog input[type="text"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
-        html.find('.aa-menu-autorec select').change(evt => {
+        html.find('.aa-autorecog select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
 
@@ -76,9 +79,10 @@ export class AAcustomRecog extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutoRecognition.overrides.${idx}.target`] = '';
+        updateData[`aaAutoRecognition.overrides.${idx}.name`] = '';
         updateData[`aaAutoRecognition.overrides.${idx}.type`] = 'None';
         updateData[`aaAutoRecognition.overrides.${idx}.animation`] = 'None';
+        updateData[`aaAutoRecognition.overrides.${idx}.variant`] = '';
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
     }

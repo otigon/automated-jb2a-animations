@@ -5,13 +5,13 @@ export const AUTOANIM = {}
 AUTOANIM.animNameAttackSpell = {
     "a1": ``,
     "disintegrate": "AUTOANIM.itemDisintegrate",
-    "eldritch blast": "AUTOANIM.itemEldritchBlast",
-    "fire bolt": "AUTOANIM.itemFireBolt",
-    "magic missile": "AUTOANIM.itemMagicMissile",
-    "ray of frost": "AUTOANIM.itemRayFrost",
-    "scorching ray": "AUTOANIM.itemScorchingRay",
-    "witch bolt": "AUTOANIM.itemWitchBolt",
-    "guiding bolt": "AUTOANIM.itemGuidingBolt"
+    "eldritchblast": "AUTOANIM.itemEldritchBlast",
+    "firebolt": "AUTOANIM.itemFireBolt",
+    "magicmissile": "AUTOANIM.itemMagicMissile",
+    "rayoffrost": "AUTOANIM.itemRayFrost",
+    "scorchingray": "AUTOANIM.itemScorchingRay",
+    "witchbolt": "AUTOANIM.itemWitchBolt",
+    "guidingbolt": "AUTOANIM.itemGuidingBolt"
 };
 
 AUTOANIM.shieldOutro = {
@@ -22,7 +22,7 @@ AUTOANIM.shieldOutro = {
 AUTOANIM.animNameHealSpell = {
     "a1": ``,
     "cure wounds": "AUTOANIM.itemCureWounds",
-    "generic healing": "AUTOANIM.itemGenericHealing",
+    "generichealing": "AUTOANIM.itemGenericHealing",
 }
 
 AUTOANIM.animNameMeleeWeapon = {
@@ -52,7 +52,7 @@ AUTOANIM.animNameRangeWeapon = {
     "rangegreatsword": "AUTOANIM.itemGreatsword",
     "rangehandaxe": "AUTOANIM.itemHandaxe",
     "javelin": "AUTOANIM.itemJavelin",
-    "laser blast": "AUTOANIM.itemLaserBlast",
+    "laserblast": "AUTOANIM.itemLaserBlast",
     "rangelasersword": "AUTOANIM.itemLaserSword",
     "rangemace": "AUTOANIM.itemMace",
     "siege boulder": "AUTOANIM.itemSiegeBoulder",
@@ -181,12 +181,12 @@ AUTOANIM.selfemanation = {
 
 AUTOANIM.aura = {
     "a1": "",
-    "call lightning": "AUTOANIM.animCallLightning",
+    "calllightning": "AUTOANIM.animCallLightning",
     "darkness": "AUTOANIM.animDarkness",
-    "fog cloud": "AUTOANIM.animFogCloud",
+    "fogcloud": "AUTOANIM.animFogCloud",
     "sleetstorm": "AUTOANIM.animSleetstorm",
-    "spirit guardians": "AUTOANIM.animSpiritGuardians",
-    "wall of force": "AUTOANIM.animWallOfForce",
+    "spiritguardians": "AUTOANIM.animSpiritGuardians",
+    "wallofforce": "AUTOANIM.animWallOfForce",
     "whirlwind": "AUTOANIM.animWhirlwind",
     "antilifeshell": "AUTOANIM.animAntiLifeShell",
     "cloudofdaggers": "AUTOANIM.cloudOfDaggers"
@@ -205,7 +205,7 @@ AUTOANIM.hmAnimFree = {
 
 AUTOANIM.animTeleport = {
     'a1': ``,
-    'misty step': "AUTOANIM.itemMistyStep"
+    'mistystep': "AUTOANIM.itemMistyStep"
 }
 
 AUTOANIM.animNameClassFeatures = {

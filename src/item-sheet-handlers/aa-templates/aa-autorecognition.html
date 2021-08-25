@@ -1,5 +1,5 @@
 <form class="flexcol" id="AAItemSettings" autocomplete="off" novalidate>
-    <nav class="flexrow tabs" data-group="sections">
+    <nav class="sheet-tabs tabs" data-group="sections">
         <a class="aa-options" data-tab="overrides"><i class="fas fa-bomb"></i> Animations </a>
     </nav>
 
@@ -7,19 +7,18 @@
         <!--Animation Settings-->
         <div class="tab" data-tab="overrides" data-group="sections">
             {{#each settings.aaAutoRecognition.overrides as |override idx|}}
-            <div class='aa-menu-autorec'>
+            <div class='aa-autorecog'>
                 <div class='flexrow override-entry' data-idx="{{idx}}">
                     <div class='flexcol'>
                         <div class='form-group'>
-                            <label for="aaAutoRecognition.overrides.{{idx}}.target">
+                            <label for="aaAutoRecognition.overrides.{{idx}}.name">
                                 Name
                             </label>
                             <div class='form-fields'>
-                                <input type='text' name="aaAutoRecognition.overrides.{{idx}}.target"
-                                    value="{{lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'target'}}" />
+                                <input type='text' name="aaAutoRecognition.overrides.{{idx}}.name"
+                                    value="{{lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'name'}}" />
                             </div>
                         </div>
-                        {{#ifnoteq (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'target') ""}}
                         <div class='form-group'>
                             <label for="aaAutoRecognition.overrides.{{idx}}.type">Type</label>
                             <select name="aaAutoRecognition.overrides.{{idx}}.type">
@@ -31,8 +30,6 @@
                                 {{/select}}
                             </select>
                         </div>
-                        {{/ifnoteq}}
-                        {{#ifnoteq (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'target') ""}}
                         {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'type') "melee"}}
                         <div class='form-group'>
                             <label for="aaAutoRecognition.overrides.{{idx}}.animation">Animation</label>
@@ -69,20 +66,34 @@
                             </select>
                         </div>
                         {{/ifEquals}}
-                        {{/ifnoteq}}
+                        <div class='form-group'>
+                            <label for="aaAutoRecognition.overrides.{{idx}}.variant">Variant</label>
+                            <select name="aaAutoRecognition.overrides.{{idx}}.variant">
+                                {{#select (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'variant')}}
+                                {{#each (lookup (lookup ../variants (lookup (lookup
+                                ../settings.aaAutoRecognition.overrides idx) 'type')) (lookup (lookup
+                                ../settings.aaAutoRecognition.overrides idx) 'animation')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
                         <div class='form-group'>
                             <label for="aaAutoRecognition.overrides.{{idx}}.color">Color</label>
                             <select name="aaAutoRecognition.overrides.{{idx}}.color">
                                 {{#select (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'color')}}
-                                {{#aaEach ../colors 'melee' 'greataxe' '01' as |name key|}}
+                                {{#each (lookup (lookup (lookup ../colors (lookup (lookup
+                                ../settings.aaAutoRecognition.overrides idx) 'type')) (lookup (lookup
+                                ../settings.aaAutoRecognition.overrides idx) 'animation')) (lookup (lookup
+                                ../settings.aaAutoRecognition.overrides idx) 'variant')) as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
-                                {{/aaEach}}
+                                {{/each}}
                                 {{/select}}
                             </select>
                         </div>
                     </div>
                     <div class='flexcol remove-override-wrapper'>
-                        <button class='remove-override' data-idx="{{idx}}">
+                        <button class='remove-autorecog' data-idx="{{idx}}">
                             <i class='far fa-trash-alt'></i>
                         </button>
                     </div>
@@ -91,7 +102,7 @@
             {{/each}}
         </div>
         <footer class='sheet-footer flexrow add-override-wrapper'>
-            <button class='add-override'>
+            <button class='add-autorecog'>
                 <i class='far fa-plus-square'></i>Add Override
             </button>
         </footer>
