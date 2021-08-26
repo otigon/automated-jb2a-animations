@@ -384,6 +384,7 @@
     "AUTOANIM.lightningbolt02": "Relámpago 02",
     "AUTOANIM.cloudofkunais": "Nube de Kunais",
     
-    "AUTOANIM.web": "Telaraña"
+    "AUTOANIM.web": "Telaraña",
+    "AUTOANIM.ammoAnimate": "Animar en base a munición"
 
 }
