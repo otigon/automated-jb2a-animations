@@ -4,12 +4,21 @@ export default class GeneralAnimHandler {
     constructor(sourceToken, targets, item) {
         this._actorToken = sourceToken;
         this._actor = this._actorToken.actor;
-        this._item = item;
+        //Switches to Ammunition Animation if active on Item
+        let newItem;
+        let itemId;
+        if (item.data.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
+            itemId = item.data.data.consume.target;
+            newItem = this._actorToken.actor.items?.get(itemId) ?? "";
+        } else {
+            newItem = item;
+        }
+        this._item = newItem;
 
         this._allTargets = targets;
         
         this._flags = this._item.data?.flags?.autoanimations ?? "";
-        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
 
         this._animLevel = this._flags.animLevel ?? false;
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
@@ -93,7 +102,7 @@ export default class GeneralAnimHandler {
         this._targetDelay = this._targetToken.delayAfter ?? 500,
         this._targetVariant = this._targetToken.variant ?? "",
 
-        this._itemName = item.name?.toLowerCase() ?? '';
+        this._itemName = this._item.name?.toLowerCase() ?? '';
 
         this._animNameFinal;
         switch (true) {

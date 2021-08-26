@@ -27,6 +27,14 @@
                             value="flags.autoanimations.animLevel" data-dtype="{{Boolean}}" {{checked
                             flags.autoanimations.animLevel}} />
                     </div>
+                    {{#if ammo5e}}
+                    <div class='form-group'>
+                        <label>Animate from Ammunition</label>
+                        <input type="checkbox" name="flags.autoanimations.options.ammo"
+                            value="flags.autoanimations.options.ammo" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.options.ammo}} />
+                    </div>
+                    {{/if}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.customize"}} {{localize "AUTOANIM.animation"}}</label>
                         <input type="checkbox" name="flags.autoanimations.override"

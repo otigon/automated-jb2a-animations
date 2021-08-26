@@ -2,8 +2,17 @@ import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
 
 export default class MidiHandler {
     constructor(workflow) {
-        const item = workflow.item;
+        //const item = workflow.item;
         this._actorToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(item._id) != null);
+        //Switches to Ammunition Animation if active on Item
+        let item;
+        let itemId
+        if (workflow.item.data.flags?.autoanimations?.options?.ammo && workflow.item.data?.data?.consume?.type === "ammo") {
+            itemId = workflow.item.data.data.consume.target;
+            item = this._actorToken.actor.items?.get(itemId) ?? "";
+        } else {
+            item = workflow.item
+        }
         const actor = this._actorToken?.actor;
         if (!item || !actor) {
             return;
@@ -135,7 +144,7 @@ export default class MidiHandler {
         this._itemName = item.name?.toLowerCase() ?? '';;
         this._itemSource = item.data?.data?.source?.toLowerCase() ?? '';
         this._itemType = item.data.type.toLowerCase();
-        this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
 
         this._animNameFinal;
         switch (true) {

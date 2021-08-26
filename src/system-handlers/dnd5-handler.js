@@ -3,10 +3,16 @@ import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
 export default class Dnd5Handler {
     constructor(msg) {
         let msgAtr = this.extractItemId(msg.data.content);
-        const itemId = msg.data?.flags?.dnd5e?.roll?.itemId || msgAtr || msg.data?.flags?.["midi-qol"]?.itemId;
+        let itemId = msg.data?.flags?.dnd5e?.roll?.itemId || msgAtr || msg.data?.flags?.["midi-qol"]?.itemId;
         const tokenId = msg.data.speaker.token;  
         this._actorToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         if (!itemId || !this._actorToken) {return;}
+        //Switches to Ammunition Animation if active on Item
+        let item = this._actorToken.actor.items?.get(itemId) ?? "";
+        if (item.data.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
+            itemId = item.data.data.consume.target;
+            item = this._actorToken.actor.items?.get(itemId) ?? "";
+        } 
 
         this._actor = this._actorToken.actor;
         this._itemId = itemId;

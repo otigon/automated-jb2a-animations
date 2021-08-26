@@ -255,6 +255,8 @@ export class AAItemSettings extends FormApplication {
             switchVariant: variantOptions(switchName, "range"),
             meleeVariant: variantOptions(itemName, "melee"),
             staticVariant: variantOptions(itemName, "static"),
+
+            ammo5e: game.system.id === "dnd5e" ? true : false,
         };
 
     }
