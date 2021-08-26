@@ -10,6 +10,7 @@ export default class MidiHandler {
         if (workflow.item.data.flags?.autoanimations?.options?.ammo && workflow.item.data?.data?.consume?.type === "ammo") {
             itemId = workflow.item.data.data.consume.target;
             item = this._actorToken.actor.items?.get(itemId) ?? "";
+            if (!item.data.flags.autoanimations) { item = workflow.item}
         } else {
             item = workflow.item
         }
