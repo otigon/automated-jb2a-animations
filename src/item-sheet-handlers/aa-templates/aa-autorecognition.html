@@ -1,28 +1,28 @@
 <form class="flexcol" id="AAItemSettings" autocomplete="off" novalidate>
     <nav class="sheet-tabs tabs" data-group="sections">
-        <a class="aa-options" data-tab="overrides"><i class="fas fa-bomb"></i> Animations </a>
+        <a class="aa-options" data-tab="melee"><i class="fas fa-shield-alt"></i> Melee </a>
     </nav>
 
     <section class="content">
         <!--Animation Settings-->
-        <div class="tab" data-tab="overrides" data-group="sections">
-            {{#each settings.aaAutoRecognition.overrides as |override idx|}}
+        <div class="tab" data-tab="melee" data-group="sections">
+            {{#each settings.aaAutoRecognition.melee as |melee idx|}}
             <div class='aa-autorecog'>
                 <div class='flexrow override-entry' data-idx="{{idx}}">
                     <div class='flexcol'>
                         <div class='form-group'>
-                            <label for="aaAutoRecognition.overrides.{{idx}}.name">
+                            <label for="aaAutoRecognition.melee.{{idx}}.name">
                                 Name
                             </label>
                             <div class='form-fields'>
-                                <input type='text' name="aaAutoRecognition.overrides.{{idx}}.name"
-                                    value="{{lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'name'}}" />
+                                <input type='text' name="aaAutoRecognition.melee.{{idx}}.name"
+                                    value="{{lookup (lookup ../settings.aaAutoRecognition.melee idx) 'name'}}" />
                             </div>
                         </div>
                         <div class='form-group'>
-                            <label for="aaAutoRecognition.overrides.{{idx}}.type">Type</label>
-                            <select name="aaAutoRecognition.overrides.{{idx}}.type">
-                                {{#select (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'type')}}
+                            <label for="aaAutoRecognition.melee.{{idx}}.type">Type</label>
+                            <select name="aaAutoRecognition.melee.{{idx}}.type">
+                                {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')}}
                                 <option value=""></option>
                                 <option value="melee">Melee</option>
                                 <option value="range">Range</option>
@@ -30,62 +30,53 @@
                                 {{/select}}
                             </select>
                         </div>
-                        {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'type') "melee"}}
                         <div class='form-group'>
-                            <label for="aaAutoRecognition.overrides.{{idx}}.animation">Animation</label>
-                            <select name="aaAutoRecognition.overrides.{{idx}}.animation">
-                                {{#select (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'animation')}}
+                            <label for="aaAutoRecognition.melee.{{idx}}.animation">Animation</label>
+                            <select name="aaAutoRecognition.melee.{{idx}}.animation">
+                                {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'animation')}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')
+                                "melee"}}
                                 {{#each ../meleeList as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                        {{/ifEquals}}
-                        {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'type') "range"}}
-                        <div class='form-group'>
-                            <label for="aaAutoRecognition.overrides.{{idx}}.animation">Animation</label>
-                            <select name="aaAutoRecognition.overrides.{{idx}}.animation">
-                                {{#select (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'animation')}}
+                                {{/ifEquals}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')
+                                "range"}}
                                 {{#each ../rangeList as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                        {{/ifEquals}}
-                        {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'type') "spell"}}
-                        <div class='form-group'>
-                            <label for="aaAutoRecognition.overrides.{{idx}}.animation">Animation</label>
-                            <select name="aaAutoRecognition.overrides.{{idx}}.animation">
-                                {{#select (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'animation')}}
+                                {{/ifEquals}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')
+                                "spell"}}
                                 {{#each ../spellList as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
+                                {{/ifEquals}}
                                 {{/select}}
                             </select>
                         </div>
-                        {{/ifEquals}}
-                        <div class='form-group'>
-                            <label for="aaAutoRecognition.overrides.{{idx}}.variant">Variant</label>
-                            <select name="aaAutoRecognition.overrides.{{idx}}.variant">
-                                {{#select (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'variant')}}
-                                {{#each (lookup (lookup ../variants (lookup (lookup
-                                ../settings.aaAutoRecognition.overrides idx) 'type')) (lookup (lookup
-                                ../settings.aaAutoRecognition.overrides idx) 'animation')) as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
+                        <div class='variant-choice'>
+                            <div class='form-group'>
+                                <label for="aaAutoRecognition.melee.{{idx}}.variant">Variant</label>
+                                <select name="aaAutoRecognition.melee.{{idx}}.variant">
+                                    {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'variant')}}
+                                    {{#each (lookup (lookup ../variants (lookup (lookup
+                                    ../settings.aaAutoRecognition.melee idx) 'type')) (lookup (lookup
+                                    ../settings.aaAutoRecognition.melee idx) 'animation')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </div>
                         </div>
                         <div class='form-group'>
-                            <label for="aaAutoRecognition.overrides.{{idx}}.color">Color</label>
-                            <select name="aaAutoRecognition.overrides.{{idx}}.color">
-                                {{#select (lookup (lookup ../settings.aaAutoRecognition.overrides idx) 'color')}}
+                            <label for="aaAutoRecognition.melee.{{idx}}.color">Color</label>
+                            <select name="aaAutoRecognition.melee.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'color')}}
                                 {{#each (lookup (lookup (lookup ../colors (lookup (lookup
-                                ../settings.aaAutoRecognition.overrides idx) 'type')) (lookup (lookup
-                                ../settings.aaAutoRecognition.overrides idx) 'animation')) (lookup (lookup
-                                ../settings.aaAutoRecognition.overrides idx) 'variant')) as |name key|}}
+                                ../settings.aaAutoRecognition.melee idx) 'type')) (lookup (lookup
+                                ../settings.aaAutoRecognition.melee idx) 'animation')) (lookup (lookup
+                                ../settings.aaAutoRecognition.melee idx) 'variant')) as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -106,6 +97,13 @@
                 <i class='far fa-plus-square'></i>Add Override
             </button>
         </footer>
+        </div>
+
+
+        <div class="tab" data-tab="spell" data-group="sections">
+        </div>
+
+        <div class="tab" data-tab="template" data-group="sections">
         </div>
 
     </section>

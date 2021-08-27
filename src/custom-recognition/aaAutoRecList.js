@@ -2,13 +2,9 @@
 export class aaAutoRecognition {
     static get defaultConfiguration() {
         const defaultConfig = {
-            categories: {},
-            overrides: {
+            melee: {
                 0: {
                     name: 'Longsword',
-                },
-                1: {
-                    name: 'Fire Bolt',
                 },
             },
         };

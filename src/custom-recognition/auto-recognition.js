@@ -63,9 +63,11 @@ export class AAcustomRecog extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.aa-autorecog select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
+            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
         });
-
+        html.find('.aa-autorecog').dblclick(evt => {
+            this.submit({ preventClose: true }).then(() => this.render())
+        });
     }
 
     async _onAddOverride(event) {
@@ -79,10 +81,10 @@ export class AAcustomRecog extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutoRecognition.overrides.${idx}.name`] = '';
-        updateData[`aaAutoRecognition.overrides.${idx}.type`] = 'None';
-        updateData[`aaAutoRecognition.overrides.${idx}.animation`] = 'None';
-        updateData[`aaAutoRecognition.overrides.${idx}.variant`] = '';
+        updateData[`aaAutoRecognition.melee.${idx}.name`] = '';
+        updateData[`aaAutoRecognition.melee.${idx}.type`] = 'None';
+        updateData[`aaAutoRecognition.melee.${idx}.animation`] = 'None';
+        updateData[`aaAutoRecognition.melee.${idx}.variant`] = '';
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
     }
@@ -107,9 +109,9 @@ export class AAcustomRecog extends FormApplication {
         for (let [key, value] of Object.entries(data)) {
             console.log(key)
             console.log(value)
-                const compacted = {};
-                Object.values(value.overrides).forEach((val, idx) => compacted[idx] = val);
-                value.overrides = compacted;
+            const compacted = {};
+            Object.values(value.melee).forEach((val, idx) => compacted[idx] = val);
+            value.melee = compacted;
             await game.settings.set('autoanimations', key, value);
         }
     }
