@@ -55,7 +55,7 @@
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.color">
                         {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                        {{#each autoColors as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}

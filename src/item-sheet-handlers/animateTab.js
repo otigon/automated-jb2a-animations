@@ -1,5 +1,5 @@
 import { AUTOANIM } from "./config.js";
-import { rangeColors, staticColors, animationName, animTemplates, variantOptions, menuColors, variantLength } from "./tab-options.js";
+import { rangeColors, staticColors, animationName, animTemplates, variantOptions, menuColors, variantLength, autoColors } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -244,6 +244,8 @@ export class AAItemSettings extends FormApplication {
             staticColors: menuColors(itemName, spellVariant, "static"),
             spellColors: menuColors(itemName, spellVariant, "range"),
             
+            autoColors: autoColors(itemName),
+
             rangeColors: rangeColors(itemName, damageType, variant),
             switchColors: rangeColors(switchName, spellVariant, switchDamageType, switchVariant),
 

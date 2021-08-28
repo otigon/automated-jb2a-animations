@@ -1,8 +1,9 @@
 
 import { AUTOANIM } from "./config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
+import { AAITEMCHECK } from "../animation-functions/item-arrays.js";
 
-export function menuColors (itemName, variant, type) {
+export function menuColors(itemName, variant, type) {
     let animationColor;
     let colorMenu = aaColorMenu;
     let variantArray;
@@ -41,7 +42,7 @@ export function meleeColors(itemName, variant) {
 export function rangeColors(itemName, damageType, variant) {
     let animationColor;
     let animVar;
-    let name = itemName.replace(/melee|range|double/gi, function(x) {
+    let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
     switch (true) {
@@ -76,7 +77,7 @@ export function rangeColors(itemName, damageType, variant) {
 export function staticColors(itemName, spellVariant, bardAnimation, damageType, variant) {
     let name = itemName === "boulder" ? "boulderimpact" : itemName;
     let animationColor;
-    let animVar= spellVariant;
+    let animVar = spellVariant;
     let colorMenu = aaColorMenu;
 
     try { colorMenu.static[name][animVar].random = "AUTOANIM.random"; }
@@ -94,27 +95,54 @@ export function staticColors(itemName, spellVariant, bardAnimation, damageType, 
     return animationColor;
 }
 
+export function autoColors(itemName) {
+    let type;
+    switch (true) {
+        case AAITEMCHECK.melee.some(el => itemName === el):
+            type = "melee";
+            break;
+        case AAITEMCHECK.ranged.some(el => itemName === el):
+        case AAITEMCHECK.spellattack.some(el => itemName === el):
+            type = "range";
+            break;
+        default:
+            type = "static";
+    }
+    let name = itemName.replace(/melee|range|double/gi, function (x) {
+        return "";
+    });
+    let colorMenu = aaColorMenu;
+    let variant;
+    try {
+        variant = Object.keys(colorMenu[type][name])[0]
+    } catch (exception) { }
+    let animationColor;
+    try {
+        animationColor = colorMenu.localized(colorMenu[type][name][variant])
+    } catch (exception) { }
+    return animationColor;
+}
 export function variantOptions(itemName, type) {
-    
-    let name = itemName.replace(/melee|range|double/gi, function(x) {
+
+    let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
 
     const variantMenu = aaVariantMenu;
     let variantOptions;
-    try { variantOptions = variantMenu.localized(variantMenu[type][name])}
+    try { variantOptions = variantMenu.localized(variantMenu[type][name]) }
     catch (exception) { }
     return variantOptions;
 }
 
 export function variantLength(itemName, type) {
-    let name = itemName.replace(/melee|range|double/gi, function(x) {
+    let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
 
     const variantMenu = aaVariantMenu;
     let variantLength;
-    try { variantLength = Object.keys(variantMenu[type][name]).length}
+    try { variantLength = Object.keys(variantMenu[type][name]).length }
     catch (exception) { }
     return variantLength;
 
