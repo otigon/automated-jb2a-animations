@@ -419,7 +419,7 @@ async function specialCaseAnimations(msg) {
         return;
     }
     let breakOut = checkMessege(msg);
-    if (breakOut === 0) {
+    if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
         let handler = new Dnd5Handler(msg);
         if (handler.animType === "t8" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
