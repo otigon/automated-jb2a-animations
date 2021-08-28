@@ -1,6 +1,7 @@
 <form class="flexcol" id="AAItemSettings" autocomplete="off" novalidate>
     <nav class="sheet-tabs tabs" data-group="sections">
         <a class="aa-options" data-tab="melee"><i class="fas fa-shield-alt"></i> Melee </a>
+        <a class="aa-options" data-tab="range"><i class="fas fa-shield-alt"></i> Range </a>
     </nav>
 
     <section class="content">
@@ -30,44 +31,44 @@
                                 {{/select}}
                             </select>
                         </div>
-                        <div class='form-group'>
-                            <label for="aaAutoRecognition.melee.{{idx}}.animation">Animation</label>
-                            <select name="aaAutoRecognition.melee.{{idx}}.animation">
-                                {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'animation')}}
-                                {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')
-                                "melee"}}
-                                {{#each ../meleeList as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/ifEquals}}
-                                {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')
-                                "range"}}
-                                {{#each ../rangeList as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/ifEquals}}
-                                {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')
-                                "spell"}}
-                                {{#each ../spellList as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/ifEquals}}
-                                {{/select}}
-                            </select>
-                        </div>
-                        <div class='variant-choice'>
+                        <div class='animation-choice'>
                             <div class='form-group'>
-                                <label for="aaAutoRecognition.melee.{{idx}}.variant">Variant</label>
-                                <select name="aaAutoRecognition.melee.{{idx}}.variant">
-                                    {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'variant')}}
-                                    {{#each (lookup (lookup ../variants (lookup (lookup
-                                    ../settings.aaAutoRecognition.melee idx) 'type')) (lookup (lookup
-                                    ../settings.aaAutoRecognition.melee idx) 'animation')) as |name key|}}
+                                <label for="aaAutoRecognition.melee.{{idx}}.animation">Animation</label>
+                                <select name="aaAutoRecognition.melee.{{idx}}.animation">
+                                    {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'animation')}}
+                                    {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')
+                                    "melee"}}
+                                    {{#each ../meleeList as |name key|}}
                                     <option value="{{key}}">{{name}}</option>
                                     {{/each}}
+                                    {{/ifEquals}}
+                                    {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')
+                                    "range"}}
+                                    {{#each ../rangeList as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/ifEquals}}
+                                    {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'type')
+                                    "spell"}}
+                                    {{#each ../spellList as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/ifEquals}}
                                     {{/select}}
                                 </select>
                             </div>
+                        </div>
+                        <div class='form-group'>
+                            <label for="aaAutoRecognition.melee.{{idx}}.variant">Variant</label>
+                            <select name="aaAutoRecognition.melee.{{idx}}.variant">
+                                {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'variant')}}
+                                {{#each (lookup (lookup ../variants (lookup (lookup
+                                ../settings.aaAutoRecognition.melee idx) 'type')) (lookup (lookup
+                                ../settings.aaAutoRecognition.melee idx) 'animation')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
                         </div>
                         <div class='form-group'>
                             <label for="aaAutoRecognition.melee.{{idx}}.color">Color</label>
@@ -91,13 +92,106 @@
                 </div>
             </div>
             {{/each}}
+            <footer class='sheet-footer flexrow add-melee-wrapper'>
+                <button class='add-autorecog-melee'>
+                    <i class='far fa-plus-square'></i>Add Override
+                </button>
+            </footer>
         </div>
-        <footer class='sheet-footer flexrow add-override-wrapper'>
-            <button class='add-autorecog'>
-                <i class='far fa-plus-square'></i>Add Override
-            </button>
-        </footer>
+
+        <div class="tab" data-tab="range" data-group="sections">
+            {{#each settings.aaAutoRecognition.range as |range idx|}}
+            <div class='aa-autorecog'>
+                <div class='flexrow override-entry' data-idx="{{idx}}">
+                    <div class='flexcol'>
+                        <div class='form-group'>
+                            <label for="aaAutoRecognition.range.{{idx}}.name">
+                                Name
+                            </label>
+                            <div class='form-fields'>
+                                <input type='text' name="aaAutoRecognition.range.{{idx}}.name"
+                                    value="{{lookup (lookup ../settings.aaAutoRecognition.range idx) 'name'}}" />
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label for="aaAutoRecognition.range.{{idx}}.type">Type</label>
+                            <select name="aaAutoRecognition.range.{{idx}}.type">
+                                {{#select (lookup (lookup ../settings.aaAutoRecognition.range idx) 'type')}}
+                                <option value=""></option>
+                                <option value="melee">Melee</option>
+                                <option value="range">Range</option>
+                                <option value="spell">Spell</option>
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class='animation-choice'>
+                            <div class='form-group'>
+                                <label for="aaAutoRecognition.range.{{idx}}.animation">Animation</label>
+                                <select name="aaAutoRecognition.range.{{idx}}.animation">
+                                    {{#select (lookup (lookup ../settings.aaAutoRecognition.range idx) 'animation')}}
+                                    {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.range idx) 'type')
+                                    "melee"}}
+                                    {{#each ../meleeList as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/ifEquals}}
+                                    {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.range idx) 'type')
+                                    "range"}}
+                                    {{#each ../rangeList as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/ifEquals}}
+                                    {{#ifEquals (lookup (lookup ../settings.aaAutoRecognition.range idx) 'type')
+                                    "spell"}}
+                                    {{#each ../spellList as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/ifEquals}}
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label for="aaAutoRecognition.range.{{idx}}.variant">Variant</label>
+                            <select name="aaAutoRecognition.range.{{idx}}.variant">
+                                {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'variant')}}
+                                {{#each (lookup (lookup ../variants (lookup (lookup
+                                ../settings.aaAutoRecognition.range idx) 'type')) (lookup (lookup
+                                ../settings.aaAutoRecognition.range idx) 'animation')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class='form-group'>
+                            <label for="aaAutoRecognition.range.{{idx}}.color">Color</label>
+                            <select name="aaAutoRecognition.range.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutoRecognition.melee idx) 'color')}}
+                                {{#each (lookup (lookup (lookup ../colors (lookup (lookup
+                                ../settings.aaAutoRecognition.range idx) 'type')) (lookup (lookup
+                                ../settings.aaAutoRecognition.range idx) 'animation')) (lookup (lookup
+                                ../settings.aaAutoRecognition.range idx) 'variant')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class='flexcol remove-override-wrapper'>
+                        <button class='remove-autorecog' data-idx="{{idx}}">
+                            <i class='far fa-trash-alt'></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            <footer class='sheet-footer flexrow add-override-wrapper'>
+                <button class='add-autorecog-range'>
+                    <i class='far fa-plus-square'></i>Add Override
+                </button>
+            </footer>
         </div>
+
 
 
         <div class="tab" data-tab="spell" data-group="sections">
