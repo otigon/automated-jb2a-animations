@@ -107,3 +107,7 @@
     padding: 3px;
     margin-bottom: 5px;
 }
+
+.aa-autorecog input {
+    text-align: center;
+}

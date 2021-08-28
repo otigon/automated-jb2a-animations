@@ -12,7 +12,7 @@ export class AAcustomRecog extends FormApplication {
             id: 'Automatic-Recognition',
             title: "Automatic Recognition Settings",
             resizable: true,
-            width: 600,
+            width: 750,
             height: "auto",
             closeOnSubmit: true,
 
@@ -35,6 +35,7 @@ export class AAcustomRecog extends FormApplication {
         data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
         data.colors = aaColorMenu;
         data.variants = aaVariantMenu;
+        data.show = false;
         //console.log(aaColorMenu)
         //console.log(aaVariantMenu)
         //let settings = this.getSettingsData();
@@ -58,7 +59,7 @@ export class AAcustomRecog extends FormApplication {
         super.activateListeners(html);
 
         html.find('button.add-autorecog-melee').click(this._addMelee.bind(this));
-        html.find('button.add-autorecog-range').click(this._addRange.bind(this));
+        //html.find('button.add-autorecog-range').click(this._addRange.bind(this));
         html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
         html.find('.aa-autorecog input[type="text"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
@@ -80,28 +81,7 @@ export class AAcustomRecog extends FormApplication {
         event.preventDefault();
         let idx = 0;
         console.log(event)
-        const entries = event.target.closest('div.tab').querySelectorAll('div.override-entry');
-        console.log(entries)
-        const last = entries[entries.length - 1];
-        console.log(last)
-        if (last) {
-            idx = last.dataset.idx + 1;
-        }
-        let updateData = {}
-        updateData[`aaAutoRecognition.melee.${idx}.name`] = '';
-        updateData[`aaAutoRecognition.melee.${idx}.type`] = 'None';
-        updateData[`aaAutoRecognition.melee.${idx}.animation`] = 'None';
-        updateData[`aaAutoRecognition.melee.${idx}.variant`] = '';
-
-        await this._onSubmit(event, { updateData: updateData, preventClose: true });
-        this.render();
-    }
-
-    async _addRange(event) {
-        event.preventDefault();
-        let idx = 0;
-        console.log(event)
-        const entries = event.target.closest('div.tab').querySelectorAll('div.override-entry');
+        const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
         console.log(entries)
         const last = entries[entries.length - 1];
         console.log(last)
@@ -110,21 +90,19 @@ export class AAcustomRecog extends FormApplication {
         }
         console.log(idx)
         let updateData = {}
-
-        updateData[`aaAutoRecognition.range.${idx}.name`] = '';
-        updateData[`aaAutoRecognition.range.${idx}.type`] = 'None';
-        updateData[`aaAutoRecognition.range.${idx}.animation`] = 'None';
-        updateData[`aaAutoRecognition.range.${idx}.variant`] = '';
+        updateData[`aaAutoRecognition.melee.${idx}.name`] = '';
+        updateData[`aaAutoRecognition.melee.${idx}.type`] = 'melee';
+        updateData[`aaAutoRecognition.melee.${idx}.animation`] = 'None';
+        updateData[`aaAutoRecognition.melee.${idx}.variant`] = '';
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         console.log(updateData)
         this.render();
     }
 
-
     async _onRemoveOverride(event) {
         event.preventDefault();
-        console.log(event)
+        //console.log(event)
         let idx = event.target.dataset.idx;
         const el = event.target.closest(`div[data-idx="${idx}"]`);
         if (!el) {
@@ -137,11 +115,12 @@ export class AAcustomRecog extends FormApplication {
 
     /** @override */
     async _updateObject(_, formData) {
-        console.log(formData)
+        //console.log(formData)
         const data = expandObject(formData);
+        //console.log(data)
         for (let [key, value] of Object.entries(data)) {
-            console.log(key)
-            console.log(value)
+            //console.log(key)
+            //console.log(value)
             const compacted = {};
             Object.values(value.melee).forEach((val, idx) => compacted[idx] = val);
             value.melee = compacted;
