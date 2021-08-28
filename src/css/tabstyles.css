@@ -108,6 +108,26 @@
     margin-bottom: 5px;
 }
 
+.aa-range-autorecog {
+    border: 3px ridge #a1a1a1;
+    padding: 3px;
+    margin-bottom: 5px;
+}
+
+.aa-spell-autorecog {
+    border: 3px ridge #a1a1a1;
+    padding: 3px;
+    margin-bottom: 5px;
+}
+
 .aa-autorecog input {
+    text-align: center;
+}
+
+.aa-spell-autorecog input{
+    text-align: center;
+}
+
+.aa-range-autorecog input{
     text-align: center;
 }

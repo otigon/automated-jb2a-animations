@@ -52,7 +52,7 @@ AUTOANIM.animNameRangeWeapon = {
     "rangegreatsword": "AUTOANIM.itemGreatsword",
     "rangehandaxe": "AUTOANIM.itemHandaxe",
     "javelin": "AUTOANIM.itemJavelin",
-    "laserblast": "AUTOANIM.itemLaserBlast",
+    "lasershot": "AUTOANIM.itemLaserBlast",
     "rangelasersword": "AUTOANIM.itemLaserSword",
     "rangemace": "AUTOANIM.itemMace",
     "siege boulder": "AUTOANIM.itemSiegeBoulder",
