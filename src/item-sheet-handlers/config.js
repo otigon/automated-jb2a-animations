@@ -40,6 +40,23 @@ AUTOANIM.animNameMeleeWeapon = {
     "rapier": "AUTOANIM.itemRapier"
 };
 
+AUTOANIM.meleeWeapons = {
+    "a1": ``,
+    "dagger": "AUTOANIM.itemDagger",
+    "flurryofblows": "AUTOANIM.itemFlurryBlows",
+    "greataxe": "AUTOANIM.itemGreataxe",
+    "greatclub": "AUTOANIM.itemGreatclub",
+    "greatsword": "AUTOANIM.itemGreatsword",
+    "handaxe": "AUTOANIM.itemHandaxe",
+    "lasersword": "AUTOANIM.itemLaserSword",
+    "mace": "AUTOANIM.itemMace",
+    "maul": "AUTOANIM.itemMaul",
+    "spear": "AUTOANIM.itemSpear",
+    "sword": "AUTOANIM.itemSword",
+    "rapier": "AUTOANIM.itemRapier",
+    "unarmedstrike": "AUTOANIM.itemUnarmedStrike",
+};
+
 AUTOANIM.animNameRangeWeapon = {
     "a1": ``,
     "arrow": "AUTOANIM.itemArrow",
@@ -47,19 +64,19 @@ AUTOANIM.animNameRangeWeapon = {
     "boulder": "AUTOANIM.itemBoulder",
     "bullet": "AUTOANIM.bullet",
     "chakram": "AUTOANIM.chakram",
-    "rangedagger": "AUTOANIM.itemDagger",
-    "rangegreataxe": "AUTOANIM.itemGreataxe",
-    "rangegreatsword": "AUTOANIM.itemGreatsword",
-    "rangehandaxe": "AUTOANIM.itemHandaxe",
+    "dagger": "AUTOANIM.itemDagger",
+    "greataxe": "AUTOANIM.itemGreataxe",
+    "greatsword": "AUTOANIM.itemGreatsword",
+    "handaxe": "AUTOANIM.itemHandaxe",
     "javelin": "AUTOANIM.itemJavelin",
     "lasershot": "AUTOANIM.itemLaserBlast",
-    "rangelasersword": "AUTOANIM.itemLaserSword",
-    "rangemace": "AUTOANIM.itemMace",
+    "lasersword": "AUTOANIM.itemLaserSword",
+    "mace": "AUTOANIM.itemMace",
     "siege boulder": "AUTOANIM.itemSiegeBoulder",
     "sling": "AUTOANIM.itemSling",
     "snipe": "AUTOANIM.snipe",
-    "rangespear": "AUTOANIM.itemSpear",
-    "rangesword": "AUTOANIM.itemSword",
+    "spear": "AUTOANIM.itemSpear",
+    "sword": "AUTOANIM.itemSword",
     "throwing hammer": "AUTOANIM.itemThrowingHammer",
 };
 
@@ -114,8 +131,8 @@ AUTOANIM.animNameGenericDmg = {
     "2 handed slashing": "AUTOANIM.item2HS",
     "2 handed piercing": "AUTOANIM.item2HP",
     "2 handed bludgeoning": "AUTOANIM.item2HB",
-    "unarmed strike": "AUTOANIM.itemUnarmedStrike",
-    "flurry of blows": "AUTOANIM.itemFlurryBlows"
+    "unarmedstrike": "AUTOANIM.itemUnarmedStrike",
+    "flurryofblows": "AUTOANIM.itemFlurryBlows"
 }
 
 AUTOANIM.animNameGenericDmgFree = {

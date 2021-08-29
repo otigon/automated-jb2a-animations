@@ -1,0 +1,71 @@
+<div class='aa-autorecognition'>
+    {{#each settings.aaAutorec.melee as |melee idx|}}
+    <div class='aa-melee-autorecog'>
+        <div class='flexrow melee-settings' data-idx="{{idx}}">
+            <div class='flexcol'>
+                <div class='form-group'>
+                    <div class='form-fields'>
+                        <input type='text' name="aaAutorec.melee.{{idx}}.name" placeholder="Weapon Name"
+                            class='auto-name' value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'name'}}" />
+                    </div>
+                </div>
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <div class='animation-choice'>
+                            <div class='form-group'>
+                                <label for="aaAutorec.melee.{{idx}}.animation">Animation</label>
+                                <select name="aaAutorec.melee.{{idx}}.animation">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
+                                    'animation')}}
+                                    "melee"}}
+                                    {{#each ../meleeList as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aa-column">
+                        <div class='form-group'>
+                            <label for="aaAutorec.melee.{{idx}}.variant">Variant</label>
+                            <select name="aaAutorec.melee.{{idx}}.variant">
+                                {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'variant')}}
+                                {{#each (lookup (lookup ../variants 'melee') (lookup (lookup
+                                ../settings.aaAutorec.melee idx) 'animation')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="aa-column">
+                        <div class='form-group'>
+                            <label for="aaAutorec.melee.{{idx}}.color">Color</label>
+                            <select name="aaAutorec.melee.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'color')}}
+                                {{#each (lookup (lookup (lookup ../colors 'melee') (lookup (lookup
+                                ../settings.aaAutorec.melee idx) 'animation')) (lookup (lookup
+                                ../settings.aaAutorec.melee idx) 'variant')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='flexcol remove-override-wrapper'>
+                <button class='remove-autorecog' data-idx="{{idx}}">
+                    <i class='far fa-trash-alt'></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<footer class='sheet-footer flexrow add-melee-wrapper'>
+    <button class='add-autorecog-melee'>
+        <i class='far fa-plus-square'></i>Add Override
+    </button>
+</footer>

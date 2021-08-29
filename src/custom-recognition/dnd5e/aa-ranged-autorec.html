@@ -1,0 +1,71 @@
+<div class='aa-autorecognition'>
+    {{#each settings.aaAutorec.range as |range idx|}}
+    <div class='aa-range-autorecog'>
+        <div class='flexrow range-settings' data-idx="{{idx}}">
+            <div class='flexcol'>
+                <div class='form-group'>
+                    <div class='form-fields'>
+                        <input type='text' name="aaAutorec.range.{{idx}}.name" placeholder="Range Weapon Name"
+                            class='auto-name' value="{{lookup (lookup ../settings.aaAutorec.range idx) 'name'}}" />
+                    </div>
+                </div>
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <div class='animation-choice'>
+                            <div class='form-group'>
+                                <label for="aaAutorec.range.{{idx}}.animation">Animation</label>
+                                <select name="aaAutorec.range.{{idx}}.animation">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.range idx)
+                                    'animation')}}
+                                    "range"}}
+                                    {{#each ../rangeList as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aa-column">
+                        <div class='form-group'>
+                            <label for="aaAutorec.range.{{idx}}.variant">Variant</label>
+                            <select name="aaAutorec.range.{{idx}}.variant">
+                                {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'variant')}}
+                                {{#each (lookup (lookup ../variants 'range') (lookup (lookup
+                                ../settings.aaAutorec.range idx) 'animation')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="aa-column">
+                        <div class='form-group'>
+                            <label for="aaAutorec.range.{{idx}}.color">Color</label>
+                            <select name="aaAutorec.range.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'color')}}
+                                {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
+                                ../settings.aaAutorec.range idx) 'animation')) (lookup (lookup
+                                ../settings.aaAutorec.range idx) 'variant')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='flexcol remove-override-wrapper'>
+                <button class='remove-autorecog' data-idx="{{idx}}">
+                    <i class='far fa-trash-alt'></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<footer class='sheet-footer flexrow add-range-wrapper'>
+    <button class='add-autorecog-range'>
+        <i class='far fa-plus-square'></i>Add Override
+    </button>
+</footer>

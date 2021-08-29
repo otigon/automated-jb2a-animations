@@ -60,8 +60,22 @@ Hooks.on('init', () => {
         //console.log(ret)
         return ret;
     });
+    Handlebars.registerHelper('concat', function (...params) {
+        // Ignore the object appended by handlebars.
+        if (typeof params[params.length - 1] === 'object') {
+            params.pop();
+        }
 
+        return params.join('');
+    });
     aaSettings();
+    loadTemplates([
+        'modules/autoanimations/src/custom-recognition/settings.html',
+        'modules/autoanimations/src/custom-recognition/dnd5e/aa-melee-autorec.html',
+        'modules/autoanimations/src/custom-recognition/dnd5e/aa-spell-autorec.html',
+        'modules/autoanimations/src/custom-recognition/dnd5e/aa-ranged-autorec.html',
+    ]);
+
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
         switch (game.settings.get("autoanimations", "playonDamage")) {

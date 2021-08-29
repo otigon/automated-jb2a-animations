@@ -102,32 +102,45 @@
 	margin-left: 0.5em;
 }
   
-.aa-autorecog {
-    border: 3px ridge #a1a1a1;
+.aa-melee-autorecog {
+    border: 3px ridge rgb(97, 97, 97);
     padding: 3px;
     margin-bottom: 5px;
 }
 
 .aa-range-autorecog {
-    border: 3px ridge #a1a1a1;
+    border: 3px ridge rgb(97, 97, 97);
     padding: 3px;
     margin-bottom: 5px;
 }
 
 .aa-spell-autorecog {
-    border: 3px ridge #a1a1a1;
+    border: 3px ridge rgb(97, 97, 97);
     padding: 3px;
     margin-bottom: 5px;
 }
 
-.aa-autorecog input {
+.aa-melee-autorecog input {
     text-align: center;
+    font-weight: bold;
+    font-size: large;
+    background-color: rgb(187, 187, 173);
 }
 
 .aa-spell-autorecog input{
     text-align: center;
+    font-weight: bold;
+    font-size: large;
+    background-color: rgb(187, 187, 173);
 }
 
 .aa-range-autorecog input{
     text-align: center;
+    font-weight: bold;
+    font-size: large;
+    background-color: rgb(187, 187, 173);
+}
+
+.aa-autorecognition label{
+    font-weight: bold;
 }

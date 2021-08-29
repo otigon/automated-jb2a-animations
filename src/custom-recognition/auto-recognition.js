@@ -1,28 +1,27 @@
 import { AUTOANIM } from "../item-sheet-handlers/config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 
-export class aaMeleeAuto extends FormApplication {
+export class aaAutoRecognition extends FormApplication {
     constructor(object = {}, options) {
         super(object, options);
     }
 
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-autorecognition.html',
+            template: './modules/autoanimations/src/custom-recognition/settings.html',
             id: 'Automatic-Recognition',
             title: "Automatic Recognition Settings",
             resizable: true,
             width: 750,
             height: "auto",
             closeOnSubmit: true,
-
-            tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
+            tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "name" }]
         });
     }
 
     getSettingsData() {
         let settingsData = {
-            "aaMeleeAuto": game.settings.get("autoanimations", "aaMeleeAuto"),
+            "aaAutorec": game.settings.get("autoanimations", "aaAutorec"),
         }
         return settingsData;
     }
@@ -30,12 +29,13 @@ export class aaMeleeAuto extends FormApplication {
     getData() {
         let data = super.getData();
         data.settings = this.getSettingsData();
-        data.meleeList = AUTOANIM.localized(AUTOANIM.animNameMeleeWeapon);
+        data.meleeList = AUTOANIM.localized(AUTOANIM.meleeWeapons);
         data.rangeList = AUTOANIM.localized(AUTOANIM.animNameRangeWeapon);
         data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
         data.colors = aaColorMenu;
         data.variants = aaVariantMenu;
         data.show = false;
+        data.system = {id: game.system.id, title: game.system.data.title}
         //console.log(aaColorMenu)
         //console.log(aaVariantMenu)
         //let settings = this.getSettingsData();
@@ -59,12 +59,15 @@ export class aaMeleeAuto extends FormApplication {
         super.activateListeners(html);
 
         html.find('button.add-autorecog-melee').click(this._addMelee.bind(this));
+        html.find('button.add-autorecog-spell').click(this._addSpell.bind(this));
+        html.find('button.add-autorecog-range').click(this._addRange.bind(this));
+
         //html.find('button.add-autorecog-range').click(this._addRange.bind(this));
         html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
-        html.find('.aa-autorecog input[type="text"]').change(evt => {
+        html.find('.aa-autorecognition input[type="text"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
-        html.find('.aa-autorecog select').change(evt => {
+        html.find('.aa-autorecognition select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
         });
         /*
@@ -90,10 +93,56 @@ export class aaMeleeAuto extends FormApplication {
         }
         console.log(idx)
         let updateData = {}
-        updateData[`aaMeleeAuto.melee.${idx}.name`] = '';
-        updateData[`aaMeleeAuto.melee.${idx}.type`] = 'melee';
-        updateData[`aaMeleeAuto.melee.${idx}.animation`] = 'None';
-        updateData[`aaMeleeAuto.melee.${idx}.variant`] = '';
+        updateData[`aaAutorec.melee.${idx}.name`] = '';
+        updateData[`aaAutorec.melee.${idx}.type`] = 'melee';
+        updateData[`aaAutorec.melee.${idx}.animation`] = 'None';
+        updateData[`aaAutorec.melee.${idx}.variant`] = '';
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        console.log(updateData)
+        this.render();
+    }
+
+    async _addSpell(event) {
+        event.preventDefault();
+        let idx = 0;
+        console.log(event)
+        const entries = event.target.closest('div.tab').querySelectorAll('div.spell-settings');
+        console.log(entries)
+        const last = entries[entries.length - 1];
+        console.log(last)
+        if (last) {
+            idx = last.dataset.idx + 1;
+        }
+        console.log(idx)
+        let updateData = {}
+        updateData[`aaAutorec.attackspell.${idx}.name`] = '';
+        updateData[`aaAutorec.attackspell.${idx}.type`] = 'range';
+        updateData[`aaAutorec.attackspell.${idx}.animation`] = 'None';
+        updateData[`aaAutorec.attackspell.${idx}.variant`] = '';
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        console.log(updateData)
+        this.render();
+    }
+
+    async _addRange(event) {
+        event.preventDefault();
+        let idx = 0;
+        console.log(event)
+        const entries = event.target.closest('div.tab').querySelectorAll('div.range-settings');
+        console.log(entries)
+        const last = entries[entries.length - 1];
+        console.log(last)
+        if (last) {
+            idx = last.dataset.idx + 1;
+        }
+        console.log(idx)
+        let updateData = {}
+        updateData[`aaAutorec.range.${idx}.name`] = '';
+        updateData[`aaAutorec.range.${idx}.type`] = 'range';
+        updateData[`aaAutorec.range.${idx}.animation`] = 'None';
+        updateData[`aaAutorec.range.${idx}.variant`] = '';
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         console.log(updateData)
@@ -115,16 +164,23 @@ export class aaMeleeAuto extends FormApplication {
 
     /** @override */
     async _updateObject(_, formData) {
-        //console.log(formData)
         const data = expandObject(formData);
-        //console.log(data)
         for (let [key, value] of Object.entries(data)) {
-            //console.log(key)
-            //console.log(value)
             const compacted = {};
             Object.values(value.melee).forEach((val, idx) => compacted[idx] = val);
             value.melee = compacted;
-            console.log(key)
+            await game.settings.set('autoanimations', key, value);
+        }
+        for (let [key, value] of Object.entries(data)) {
+            const compacted = {};
+            Object.values(value.attackspell).forEach((val, idx) => compacted[idx] = val);
+            value.attackspell = compacted;
+            await game.settings.set('autoanimations', key, value);
+        }
+        for (let [key, value] of Object.entries(data)) {
+            const compacted = {};
+            Object.values(value.range).forEach((val, idx) => compacted[idx] = val);
+            value.range = compacted;
             await game.settings.set('autoanimations', key, value);
         }
     }
@@ -145,7 +201,6 @@ export class aaMeleeAuto extends FormApplication {
     */
 }
 
-export default aaMeleeAuto;
 
 function moduleIncludes(test) {
     return !!game.modules.get(test);
@@ -163,201 +218,5 @@ function animationNames(type) {
         case 'spell':
             nameList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell)
             break;
-    }
-}
-
-export class aaSpellAuto extends FormApplication {
-    constructor(object = {}, options) {
-        super(object, options);
-    }
-
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-spell-autorec.html',
-            id: 'Automatic-Recognition',
-            title: "Automatic Recognition Settings",
-            resizable: true,
-            width: 750,
-            height: "auto",
-            closeOnSubmit: true,
-
-            tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
-        });
-    }
-
-    getSettingsData() {
-        let settingsData = {
-            "aaSpellAuto": game.settings.get("autoanimations", "aaSpellAuto"),
-        }
-        return settingsData;
-    }
-
-    getData() {
-        let data = super.getData();
-        data.settings = this.getSettingsData();
-        data.meleeList = AUTOANIM.localized(AUTOANIM.animNameMeleeWeapon);
-        data.rangeList = AUTOANIM.localized(AUTOANIM.animNameRangeWeapon);
-        data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
-        data.colors = aaColorMenu;
-        data.variants = aaVariantMenu;
-        data.show = false;
-        console.log(data)
-        return data
-    }
-
-    activateListeners(html) {
-        super.activateListeners(html);
-        html.find('button.add-autorecog-spell').click(this._addSpell.bind(this));
-        //html.find('button.add-autorecog-range').click(this._addRange.bind(this));
-        html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
-        html.find('.aa-spell-autorecog input[type="text"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.aa-spell-autorecog select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
-        });
-        html.find('.aa-spell-autorecog').dblclick(evt => {
-            this.submit({ preventClose: true }).then(() => this.render())
-        });
-    }
-
-    async _addSpell(event) {
-        event.preventDefault();
-        let idx = 0;
-        const entries = event.target.closest('div.tab').querySelectorAll('div.spell-settings');
-        const last = entries[entries.length - 1];
-        if (last) {
-            idx = last.dataset.idx + 1;
-        }
-        let updateData = {}
-        updateData[`aaSpellAuto.range.${idx}.name`] = '';
-        updateData[`aaSpellAuto.range.${idx}.type`] = 'range';
-        updateData[`aaSpellAuto.range.${idx}.animation`] = 'None';
-        updateData[`aaSpellAuto.range.${idx}.variant`] = '';
-
-        await this._onSubmit(event, { updateData: updateData, preventClose: true });
-        this.render();
-    }
-
-    async _onRemoveOverride(event) {
-        event.preventDefault();
-        let idx = event.target.dataset.idx;
-        const el = event.target.closest(`div[data-idx="${idx}"]`);
-        if (!el) {
-            return true;
-        }
-        el.remove();
-        await this._onSubmit(event, { preventClose: true });
-        this.render();
-    }
-
-    /** @override */
-    async _updateObject(_, formData) {
-        const data = expandObject(formData);
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            Object.values(value.range).forEach((val, idx) => compacted[idx] = val);
-            value.range = compacted;
-            console.log(key)
-            await game.settings.set('autoanimations', key, value);
-        }
-    }
-}
-
-export class aaRangedAuto extends FormApplication {
-    constructor(object = {}, options) {
-        super(object, options);
-    }
-
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-ranged-autorec.html',
-            id: 'Automatic-Recognition',
-            title: "Automatic Recognition Settings",
-            resizable: true,
-            width: 750,
-            height: "auto",
-            closeOnSubmit: true,
-
-            tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
-        });
-    }
-
-    getSettingsData() {
-        let settingsData = {
-            "aaRangeAuto": game.settings.get("autoanimations", "aaRangeAuto"),
-        }
-        return settingsData;
-    }
-
-    getData() {
-        let data = super.getData();
-        data.settings = this.getSettingsData();
-        data.meleeList = AUTOANIM.localized(AUTOANIM.animNameMeleeWeapon);
-        data.rangeList = AUTOANIM.localized(AUTOANIM.animNameRangeWeapon);
-        data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
-        data.colors = aaColorMenu;
-        data.variants = aaVariantMenu;
-        data.show = false;
-        console.log(data)
-        return data
-    }
-
-    activateListeners(html) {
-        super.activateListeners(html);
-        html.find('button.add-autorecog-range').click(this._addRange.bind(this));
-        //html.find('button.add-autorecog-range').click(this._addRange.bind(this));
-        html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
-        html.find('.aa-range-autorecog input[type="text"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.aa-range-autorecog select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
-        });
-        html.find('.aa-range-autorecog').dblclick(evt => {
-            this.submit({ preventClose: true }).then(() => this.render())
-        });
-    }
-
-    async _addRange(event) {
-        event.preventDefault();
-        let idx = 0;
-        const entries = event.target.closest('div.tab').querySelectorAll('div.range-settings');
-        const last = entries[entries.length - 1];
-        if (last) {
-            idx = last.dataset.idx + 1;
-        }
-        let updateData = {}
-        updateData[`aaRangeAuto.range.${idx}.name`] = '';
-        updateData[`aaRangeAuto.range.${idx}.type`] = 'range';
-        updateData[`aaRangeAuto.range.${idx}.animation`] = 'None';
-        updateData[`aaRangeAuto.range.${idx}.variant`] = '';
-
-        await this._onSubmit(event, { updateData: updateData, preventClose: true });
-        this.render();
-    }
-
-    async _onRemoveOverride(event) {
-        event.preventDefault();
-        let idx = event.target.dataset.idx;
-        const el = event.target.closest(`div[data-idx="${idx}"]`);
-        if (!el) {
-            return true;
-        }
-        el.remove();
-        await this._onSubmit(event, { preventClose: true });
-        this.render();
-    }
-
-    /** @override */
-    async _updateObject(_, formData) {
-        const data = expandObject(formData);
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            Object.values(value.range).forEach((val, idx) => compacted[idx] = val);
-            value.range = compacted;
-            console.log(key)
-            await game.settings.set('autoanimations', key, value);
-        }
     }
 }

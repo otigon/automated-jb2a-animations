@@ -1,66 +1,21 @@
-import { aaMeleeAuto, aaSpellAuto, aaRangedAuto } from "./custom-recognition/auto-recognition.js"
-import { aaMeleeAutorec, aaSpellAutorec, aaRangedAutorec } from "./custom-recognition/aaAutoRecList.js";
+import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js"
+import { aaAutorec } from "./custom-recognition/aaAutoRecList.js";
 export default function aaSettings() {
 
     const menuAAAutoRecSettings = {
         key: 'custom-autorec',
         config: {
-            label: "Configure Melee Recognition",
+            label: "Configure Automatic Recognition",
             icon: "fas fa-dice-d20",
-            type: aaMeleeAuto,
+            type: aaAutoRecognition,
             restricted: true,
         },
     };
 
-    const menuAAAutoSpells = {
-        key: 'spell-autorec',
+    const AutoRecSettings = {
+        key: 'aaAutorec',
         config: {
-            label: "Configure Spell Recognition",
-            icon: "fas fa-dice-d20",
-            type: aaSpellAuto,
-            restricted: true,
-        },
-    };
-
-    const menuAAAutoRange = {
-        key: 'range-weapon-autorec',
-        config: {
-            label: "Configure Range Weapon Recognition",
-            icon: "fas fa-dice-d20",
-            type: aaRangedAuto,
-            restricted: true,
-        },
-    };
-
-
-    const meleeAutoSettings = {
-        key: 'aaMeleeAuto',
-        config: {
-            name: "Melee Automatic Recognition",
-            hint: "Configure Automatic Recognition",
-            scope: 'world',
-            config: false,
-            default: {},
-            type: Object,
-        },
-    };
-
-    const spellAutoSettings = {
-        key: 'aaSpellAuto',
-        config: {
-            name: "Spell Automatic Recognition",
-            hint: "Configure Automatic Recognition",
-            scope: 'world',
-            config: false,
-            default: {},
-            type: Object,
-        },
-    };
-
-    const rangedAutoSettings = {
-        key: 'aaRangeAuto',
-        config: {
-            name: "Ranged Automatic Recognition",
+            name: "Automatic Recognition",
             hint: "Configure Automatic Recognition",
             scope: 'world',
             config: false,
@@ -72,27 +27,9 @@ export default function aaSettings() {
     game.settings.registerMenu('autoanimations', menuAAAutoRecSettings.key, menuAAAutoRecSettings.config);
     game.settings.register(
         'autoanimations',
-        meleeAutoSettings.key,
-        mergeObject(meleeAutoSettings.config, {
-            default: aaMeleeAutorec.defaultConfiguration
-        }, true, true),
-    );
-
-    game.settings.registerMenu('autoanimations', menuAAAutoSpells.key, menuAAAutoSpells.config);
-    game.settings.register(
-        'autoanimations',
-        spellAutoSettings.key,
-        mergeObject(spellAutoSettings.config, {
-            default: aaSpellAutorec.defaultConfiguration
-        }, true, true),
-    );
-
-    game.settings.registerMenu('autoanimations', menuAAAutoRange.key, menuAAAutoRange.config);
-    game.settings.register(
-        'autoanimations',
-        rangedAutoSettings.key,
-        mergeObject(rangedAutoSettings.config, {
-            default: aaRangedAutorec.defaultConfiguration
+        AutoRecSettings.key,
+        mergeObject(AutoRecSettings.config, {
+            default: aaAutorec.defaultConfiguration
         }, true, true),
     );
 

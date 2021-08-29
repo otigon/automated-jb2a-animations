@@ -1,0 +1,26 @@
+<form class="flexcol" autocomplete='off' novalidate>
+	<nav class='sheet-tabs tabs' data-group="sections">
+		<a class='item' data-tab='melee'><i class="fas fa-shield-alt"></i></i>Melee Attack</a>
+		<a class='item' data-tab='spells'><i class="fas fa-hat-wizard"></i>Spell Attack</a>
+		<a class='item' data-tab='range'><i class="fas fa-people-arrows"></i></i>Range Weapon</a>
+	</nav>
+
+	<section class='content'>
+		<div class='tab' data-tab='melee' data-group='sections'>
+			{{#> (concat 'modules/autoanimations/src/custom-recognition/dnd5e' '/aa-melee-autorec.html')}}
+			{{/undefined}}
+		</div>
+		<div class='tab' data-tab='spells' data-group='sections'>
+			{{#> (concat 'modules/autoanimations/src/custom-recognition/dnd5e' '/aa-spell-autorec.html')}}
+			{{/undefined}}
+		</div>
+		<div class='tab' data-tab='range' data-group='sections'>
+			{{#> (concat 'modules/autoanimations/src/custom-recognition/dnd5e' '/aa-ranged-autorec.html')}}
+			{{/undefined}}
+		</div>
+	</section>
+
+	<footer class='sheet-footer flexrow'>
+		<button type='submit' name='submit' value='1'><i class='far fa-save'></i>SUBMIT</button>
+	</footer>
+</form>
