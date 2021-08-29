@@ -1,15 +1,20 @@
 <div class='aa-autorecognition'>
+    <div class='form-fields'>
+        <input type='text' placeholder="Search" id="aatest"
+            class='auto-search' />
+    </div>
     {{#each settings.aaAutorec.melee as |melee idx|}}
-    <div class='aa-melee-autorecog'>
+    <div class='aa-melee-autorecog aa-search'>
         <div class='flexrow melee-settings' data-idx="{{idx}}">
             <div class='flexcol'>
                 <div class='form-group'>
                     <div class='form-fields'>
+                        <i class="fas fa-plus collapse-button"></i>
                         <input type='text' name="aaAutorec.melee.{{idx}}.name" placeholder="Weapon Name"
                             class='auto-name' value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'name'}}" />
                     </div>
                 </div>
-                <div class="flexrow">
+                <div class='flexrow hidden'>
                     <div class="aa-column">
                         <div class='animation-choice'>
                             <div class='form-group'>

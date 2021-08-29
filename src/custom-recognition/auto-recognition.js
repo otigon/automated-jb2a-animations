@@ -9,7 +9,7 @@ export class aaAutoRecognition extends FormApplication {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             template: './modules/autoanimations/src/custom-recognition/settings.html',
-            id: 'Automatic-Recognition',
+            id: 'automatic-recognition',
             title: "Automatic Recognition Settings",
             resizable: true,
             width: 750,
@@ -47,16 +47,34 @@ export class aaAutoRecognition extends FormApplication {
         html.find('button.add-autorecog-range').click(this._addRange.bind(this));
 
         html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
-        html.find('.aa-autorecognition input[type="text"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
+        //utilize html.on versus html.find
+        //remove this.render() and add show/hide elements for menus (pre-populated)
         html.find('.aa-autorecognition select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
         });
-        html.find('.aa-autorecog').dblclick(evt => {
-            this.submit({ preventClose: true }).then(() => this.render())
+        html.on('click', '.collapse-button', (evt) => {
+            $(evt.currentTarget).closest('.flexcol').find('.flexrow').toggleClass('hidden')
+            $(evt.currentTarget).toggleClass('fa-minus fa-plus')
         });
+        html.on('keyup', '#aatest', this._onSearch.bind(this))
+        html.on('change', '#aatest', (evt) => { 
+            evt.preventDefault()
+        })
     }
+
+    _onSearch(evt) {
+        const search = $(evt.currentTarget).val().toLowerCase();
+        debugger
+        this.element.find('.aa-search').each((index, element) => {
+            const text = $(element).find('.auto-name').val().toLowerCase()
+            if (text.includes(search)) {
+                $(element).show(250)
+            } else {
+                $(element).hide()
+            }
+        })
+    }
+
 
     async _addMelee(event) {
         event.preventDefault();
