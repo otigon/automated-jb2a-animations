@@ -27,6 +27,16 @@ async function itemSound(handler) {
 }
 
 export async function trafficCop(handler) {
+    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    //console.log(autoRecSettings)
+    const meleeLength = Object.keys(autoRecSettings.melee).length;
+    const meleeNameArray = [];
+    let currentName;
+    for (var i = 0; i < meleeLength; i++) {
+        currentName = Object.entries(autoRecSettings.melee[i])[0][1].toLowerCase()
+        meleeNameArray.push(currentName)
+    }
+
     const itemArray = moduleIncludes("jb2a_patreon") ? AAITEMCHECK : AAITEMCHECKFREE;
     if (handler.itemSound) {
         itemSound(handler);
@@ -139,7 +149,7 @@ export async function trafficCop(handler) {
                             })
                     }
                     break;
-                case itemArray.melee.includes(itemName):
+                case meleeNameArray.includes(itemName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         return;
