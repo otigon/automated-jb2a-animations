@@ -50,6 +50,20 @@ JB2APATREONDB.range = {
                 '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Physical_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Physical_90ft_4000x400.webm`]
             },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Physical_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Physical_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Physical_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Physical_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Physical_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Physical_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Physical_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Physical_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Physical_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Physical_90ft_4000x400.webm`]
+            },
             white: {
                 '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_White_Physical_05ft_600x400.webm`],
                 '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_White_Physical_15ft_1000x400.webm`],
@@ -79,7 +93,21 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Poison_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Poison_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Poison_90ft_4000x400.webm`]
-            }
+            },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Poison_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Poison_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Poison_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Poison_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Poison_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Poison_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Poison_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Poison_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Poison_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Poison_90ft_4000x400.webm`]
+            },
         },
         'fire': {
             blue: {
@@ -102,7 +130,21 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Fire_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Fire_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Fire_90ft_4000x400.webm`]
-            }
+            },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Fire_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Fire_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Fire_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Fire_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Fire_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Fire_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Fire_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Fire_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Fire_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Fire_90ft_4000x400.webm`]
+            },
         },
         'cold': {
             blue: {
@@ -125,7 +167,21 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Cold_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Cold_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Cold_90ft_4000x400.webm`]
-            }
+            },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Cold_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Cold_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Cold_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Cold_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Cold_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Cold_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Cold_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Cold_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Cold_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Cold_90ft_4000x400.webm`]
+            },
         },
         'lightning': {
             blue: {
@@ -148,7 +204,21 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Lightning_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Lightning_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Orange_Lightning_90ft_4000x400.webm`]
-            }
+            },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Lightning_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Lightning_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Lightning_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Lightning_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Pink_Lightning_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Lightning_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Lightning_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Lightning_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Lightning_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Purple_Lightning_90ft_4000x400.webm`]
+            },
         }
     },
     bolt: {
@@ -173,7 +243,21 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Green_Physical_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Green_Physical_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Green_Physical_90ft_4000x400.webm`]
-            }
+            },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Physical_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Physical_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Physical_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Physical_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Physical_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Physical_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Physical_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Physical_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Physical_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Physical_90ft_4000x400.webm`]
+            },
         },
         'poison': {
             blue: {
@@ -196,7 +280,21 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Poison_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Poison_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Poison_90ft_4000x400.webm`]
-            }
+            },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__90ft_4000x400.webm`]
+            },
         },
         'fire': {
             blue: {
@@ -219,7 +317,21 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Fire_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Fire_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Fire_90ft_4000x400.webm`]
-            }
+            },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Fire_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Fire_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Fire_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Fire_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Fire_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Fire_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Fire_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Fire_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Fire_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Fire_90ft_4000x400.webm`]
+            },
         },
         'cold': {
             blue: {
@@ -242,7 +354,21 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Cold_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Cold_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Cold_90ft_4000x400.webm`]
-            }
+            },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Cold_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Cold_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Cold_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Cold_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Cold_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Cold_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Cold_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Cold_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Cold_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Cold_90ft_4000x400.webm`]
+            },
         },
         'lightning': {
             blue: {
@@ -265,7 +391,21 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Lightning_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Lightning_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Lightning_90ft_4000x400.webm`]
-            }
+            },
+            pink: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Lightning_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Lightning_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Lightning_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Lightning_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Lightning_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Lightning_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Lightning_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Lightning_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Lightning_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Lightning_90ft_4000x400.webm`]
+            },
         }
     },
     boulder: {
@@ -2151,7 +2291,8 @@ JB2APATREONDB.static = {
             orange: [l2`Misty_Step/MistyStep_01_Regular_Orange_400x400.webm`],
             purple: [l2`Misty_Step/MistyStep_01_Regular_Purple_400x400.webm`],
             darkgreen: [l2`Misty_Step/MistyStep_01_Dark_Green_400x400.webm`],
-            darkred: [l2`Misty_Step/MistyStep_01_Dark_Red_400x400.webm`]
+            darkred: [l2`Misty_Step/MistyStep_01_Dark_Red_400x400.webm`],
+            grey: [l2`Misty_Step/MistyStep_01_Regular_Grey_400x400.webm`]
         },
         '02': {
             blue: [l2`Misty_Step/MistyStep_02_Regular_Blue_400x400.webm`],
@@ -2159,7 +2300,8 @@ JB2APATREONDB.static = {
             orange: [l2`Misty_Step/MistyStep_02_Regular_Orange_400x400.webm`],
             purple: [l2`Misty_Step/MistyStep_02_Regular_Purple_400x400.webm`],
             darkgreen: [l2`Misty_Step/MistyStep_02_Dark_Green_400x400.webm`],
-            darkred: [l2`Misty_Step/MistyStep_02_Dark_Red_400x400.webm`]
+            darkred: [l2`Misty_Step/MistyStep_02_Dark_Red_400x400.webm`],
+            grey: [l2`Misty_Step/MistyStep_02_Regular_Grey_400x400.webm`]
         }
     },
     music: {
@@ -2459,6 +2601,28 @@ JB2APATREONDB.static = {
             red: [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
             blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
         }
+    },
+    tollthedead: {
+        bell: {
+            green: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Green_400x400.webm`],
+            purple: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Purple_400x400.webm`],
+            red: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Red_400x400.webm`],
+        },
+        complete: {
+            green: [l0`Toll_The_Dead/TollTheDead_01_Regular_Green_400x400.webm`],
+            purple: [l0`Toll_The_Dead/TollTheDead_01_Regular_Purple_400x400.webm`],
+            red: [l0`Toll_The_Dead/TollTheDead_01_Regular_Red_400x400.webm`],
+        },
+        shockwave: {
+            green: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Green_400x400.webm`],
+            purple: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Purple_400x400.webm`],
+            red: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Red_400x400.webm`],
+        },
+        skull: {
+            green: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`],
+            purple: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Purple_400x400.webm`],
+            red: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Red_400x400.webm`],
+        },
     },
     wallofforce: {
         '01': {

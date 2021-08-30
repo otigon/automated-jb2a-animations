@@ -67,7 +67,7 @@ export class AAItemSettings extends FormApplication {
         const damageType = flags.autoanimations?.rangedOptions?.rangeDmgType ?? "regular";
         const switchDamageType = flags.autoanimations?.meleeSwitch?.rangeDmgType ?? "regular";
         //let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
-        const explosionVariant = flags.autoanimations?.explodeVariant;
+        const explosionVariant = flags.autoanimations?.explodeVariant ?? '';
         //let impactVariant = flags.autoanimations?.impactVar || "";
         const templateType = flags.autoanimations?.templates?.tempType ?? "";
         const templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
@@ -211,6 +211,8 @@ export class AAItemSettings extends FormApplication {
             //sourceColors: tokenColors(patreon, sourceName, sourceVariant),
             sourceColors: staticColors(sourceName, patreon, sourceVariant),
             sourceMarker: flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
+            variantSource: flags.autoanimations?.sourceToken?.name === "tollthedead" ? true : false,
+            sourceVariant: AUTOANIM.localized(AUTOANIM.tollthedeadVariants),
 
             targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
             targetLoops: flags.autoanimations?.targetToken?.loops ?? 1,
@@ -222,6 +224,8 @@ export class AAItemSettings extends FormApplication {
             //targetColors: tokenColors(patreon, targetName, targetVariant),
             targetColors: staticColors(targetName, patreon, targetVariant),
             targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
+            variantTarget: flags.autoanimations?.targetToken?.name === "tollthedead" ? true : false,
+            targetVariant: AUTOANIM.localized(AUTOANIM.tollthedeadVariants),
 
             //markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
             shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
@@ -257,8 +261,10 @@ export class AAItemSettings extends FormApplication {
             switchVariant: variantOptions(switchName, "range"),
             meleeVariant: variantOptions(itemName, "melee"),
             staticVariant: variantOptions(itemName, "static"),
+            oldVariant: variantOptions(explosionVariant, "static"),
 
             ammo5e: game.system.id === "dnd5e" ? true : false,
+            variantOption: explosionVariant === "tollthedead" ? true : false
         };
 
     }

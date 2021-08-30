@@ -91,7 +91,7 @@ export default class DemonLordHandler {
         this._templates = this._flags.templates ?? "";
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
-
+        this._variant = this._flags.options?.variant ?? "";
         this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
         this._customExplode = this._flags.options?.customExplosion ?? "";
 
@@ -190,7 +190,7 @@ export default class DemonLordHandler {
     get color() { return this._animColor; }
     get defaultColor() { return this._defaultColor; }
     get animName() { return this._animNameFinal; }
-
+    get variant() { return this._variant; }
     get explosion() { return this._explosion; }
     get impactVar() { return this._impactVar; }
     get explosionColor() { return this._explodeColor; }

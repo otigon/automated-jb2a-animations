@@ -385,6 +385,12 @@
     "AUTOANIM.cloudofkunais": "Cloud of Kunais",
 
     "AUTOANIM.web": "Web",
-    "AUTOANIM.ammoAnimate": "Animate from Ammunition"
+    "AUTOANIM.ammoAnimate": "Animate from Ammunition",
+
+    "AUTOANIM.tollthedead": "Toll the Dead",
+    "AUTOANIM.bell": "Bell",
+    "AUTOANIM.shockwave": "Shockwave",
+    "AUTOANIM.skull": "Skull",
+    "AUTOANIM.complete": "Complete"
 
 }
