@@ -1,7 +1,7 @@
 <div class='aa-autorecognition'>
     <div class='form-fields'>
-        <input type='text' placeholder="Search" id="aatest"
-            class='auto-search' />
+        <input type='text' name="aaAutorec.search" value="{{settings.aaAutorec.search}}" placeholder="Search"
+            id="aatest" autofocus class='auto-search' />
     </div>
     {{#each settings.aaAutorec.melee as |melee idx|}}
     <div class='aa-melee-autorecog aa-search'>
@@ -9,53 +9,56 @@
             <div class='flexcol'>
                 <div class='form-group'>
                     <div class='form-fields'>
+                        <input type='hidden' class='hideme' name='aaAutorec.melee.{{idx}}.hidden' value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'hidden'}}">
                         <i class="fas fa-plus collapse-button"></i>
                         <input type='text' name="aaAutorec.melee.{{idx}}.name" placeholder="Weapon Name"
                             class='auto-name' value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'name'}}" />
                     </div>
                 </div>
-                <div class='flexrow hidden'>
-                    <div class="aa-column">
-                        <div class='animation-choice'>
+                <div class='hidden' {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) 'True' }} style="display:none" {{/ifEquals}}>
+                    <div class='flexrow hidden'>
+                        <div class="aa-column">
+                            <div class='animation-choice'>
+                                <div class='form-group'>
+                                    <label for="aaAutorec.melee.{{idx}}.animation">Animation</label>
+                                    <select name="aaAutorec.melee.{{idx}}.animation">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
+                                        'animation')}}
+                                        "melee"}}
+                                        {{#each ../meleeList as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aa-column">
                             <div class='form-group'>
-                                <label for="aaAutorec.melee.{{idx}}.animation">Animation</label>
-                                <select name="aaAutorec.melee.{{idx}}.animation">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
-                                    'animation')}}
-                                    "melee"}}
-                                    {{#each ../meleeList as |name key|}}
+                                <label for="aaAutorec.melee.{{idx}}.variant">Variant</label>
+                                <select name="aaAutorec.melee.{{idx}}.variant">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'variant')}}
+                                    {{#each (lookup (lookup ../variants 'melee') (lookup (lookup
+                                    ../settings.aaAutorec.melee idx) 'animation')) as |name key|}}
                                     <option value="{{key}}">{{name}}</option>
                                     {{/each}}
                                     {{/select}}
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="aa-column">
-                        <div class='form-group'>
-                            <label for="aaAutorec.melee.{{idx}}.variant">Variant</label>
-                            <select name="aaAutorec.melee.{{idx}}.variant">
-                                {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'variant')}}
-                                {{#each (lookup (lookup ../variants 'melee') (lookup (lookup
-                                ../settings.aaAutorec.melee idx) 'animation')) as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="aa-column">
-                        <div class='form-group'>
-                            <label for="aaAutorec.melee.{{idx}}.color">Color</label>
-                            <select name="aaAutorec.melee.{{idx}}.color">
-                                {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'color')}}
-                                {{#each (lookup (lookup (lookup ../colors 'melee') (lookup (lookup
-                                ../settings.aaAutorec.melee idx) 'animation')) (lookup (lookup
-                                ../settings.aaAutorec.melee idx) 'variant')) as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
+                        <div class="aa-column">
+                            <div class='form-group'>
+                                <label for="aaAutorec.melee.{{idx}}.color">Color</label>
+                                <select name="aaAutorec.melee.{{idx}}.color">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'color')}}
+                                    {{#each (lookup (lookup (lookup ../colors 'melee') (lookup (lookup
+                                    ../settings.aaAutorec.melee idx) 'animation')) (lookup (lookup
+                                    ../settings.aaAutorec.melee idx) 'variant')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>

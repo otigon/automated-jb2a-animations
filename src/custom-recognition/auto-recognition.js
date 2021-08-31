@@ -52,19 +52,30 @@ export class aaAutoRecognition extends FormApplication {
         html.find('.aa-autorecognition select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
         });
+        /*
         html.on('click', '.collapse-button', (evt) => {
             $(evt.currentTarget).closest('.flexcol').find('.flexrow').toggleClass('hidden')
             $(evt.currentTarget).toggleClass('fa-minus fa-plus')
         });
+        */
+        html.on('click', '.collapse-button', (evt) => {
+            var change = $(evt.currentTarget).closest('.form-fields').find('.hideme').val()
+            if (change === "False") {
+                $(evt.currentTarget).closest('.form-fields').find('.hideme').val("True")
+            } else {
+                $(evt.currentTarget).closest('.form-fields').find('.hideme').val("False")
+            }
+            this.submit({ preventClose: true }).then(() => this.render())
+        });
         html.on('keyup', '#aatest', this._onSearch.bind(this))
-        html.on('change', '#aatest', (evt) => { 
+        html.on('load', '#aatest', this._onSearch.bind(this))
+        html.on('open', '#aatest', (evt) => { 
             evt.preventDefault()
         })
     }
 
     _onSearch(evt) {
         const search = $(evt.currentTarget).val().toLowerCase();
-        debugger
         this.element.find('.aa-search').each((index, element) => {
             const text = $(element).find('.auto-name').val().toLowerCase()
             if (text.includes(search)) {

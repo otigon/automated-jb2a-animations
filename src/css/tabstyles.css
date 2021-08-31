@@ -144,11 +144,11 @@
 .aa-autorecognition label{
     font-weight: bold;
 }
-
+/*
 #automatic-recognition .flexrow.hidden {
     display: none;
 }
-
+*/
 #automatic-recognition .collapse-button {
     max-width: 1.5rem;
     margin: 0.5rem;
