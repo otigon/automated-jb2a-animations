@@ -157,3 +157,7 @@
 #automatic-recognition .collapse-button:hover {
     text-shadow: 0 0 5px red
 }
+
+.aa-autorec-submit {
+    max-height: 2rem;
+}

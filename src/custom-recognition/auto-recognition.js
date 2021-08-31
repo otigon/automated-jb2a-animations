@@ -70,7 +70,7 @@ export class aaAutoRecognition extends FormApplication {
         });
         html.on('keyup', '#aatest', this._onSearch.bind(this))
         //html.on('focus', '.aa-autorecognition', this._loadSearch.bind(this))
-        //html.on(this._loadSearch())
+        html.on(this._loadSearch())
         html.on('open', '#aatest', (evt) => { 
             evt.preventDefault()
         })
@@ -79,9 +79,7 @@ export class aaAutoRecognition extends FormApplication {
     _loadSearch(evt) {
         //debugger
         const settings = this.getSettingsData()
-        console.log(settings)
         const search = settings.aaAutorec.search.toLowerCase()
-        console.log(search)
         this.element.find('.aa-search').each((index, element) => {
             const text = $(element).find('.auto-name').val().toLowerCase()
             if (text.includes(search)) {

@@ -1,56 +1,66 @@
 <div class='aa-autorecognition'>
     {{#each settings.aaAutorec.attackspell as |spell idx|}}
-    <div class='aa-spell-autorecog'>
+    <div class='aa-spell-autorecog aa-search'>
         <div class='flexrow spell-settings' data-idx="{{idx}}">
             <div class='flexcol'>
                 <div class='form-group'>
                     <div class='form-fields'>
+                        <input type='checkbox' class='hideme' name='aaAutorec.attackspell.{{idx}}.hidden' {{checked
+                            (lookup (lookup ../settings.aaAutorec.attackspell idx) 'hidden' ) }} style="display:none">
+                        <i {{#if ( lookup (lookup ../settings.aaAutorec.attackspell idx) 'hidden' ) }}
+                            class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
+                            ../settings.aaAutorec.attackspell idx) 'hidden' ) }} class="fas fa-minus collapse-button"
+                            {{/unless}}></i>
                         <input type='text' name="aaAutorec.attackspell.{{idx}}.name" placeholder="Spell Name"
-                            class='auto-name' value="{{lookup (lookup ../settings.aaAutorec.attackspell idx) 'name'}}" />
+                            class='auto-name'
+                            value="{{lookup (lookup ../settings.aaAutorec.attackspell idx) 'name'}}" />
                     </div>
                 </div>
-                <div class="flexrow">
-                    <div class="aa-column">
-                        <div class='animation-choice'>
+                <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.attackspell idx) 'hidden' ) }}
+                    style="display:none" {{/if}}>
+                    <div class="flexrow">
+                        <div class="aa-column">
+                            <div class='animation-choice'>
+                                <div class='form-group'>
+                                    <label for="aaAutorec.attackspell.{{idx}}.animation">Animation</label>
+                                    <select name="aaAutorec.attackspell.{{idx}}.animation">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.attackspell idx)
+                                        'animation')}}
+                                        "spell"}}
+                                        {{#each ../spellList as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aa-column">
                             <div class='form-group'>
-                                <label for="aaAutorec.attackspell.{{idx}}.animation">Animation</label>
-                                <select name="aaAutorec.attackspell.{{idx}}.animation">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.attackspell idx)
-                                    'animation')}}
-                                    "spell"}}
-                                    {{#each ../spellList as |name key|}}
+                                <label for="aaAutorec.attackspell.{{idx}}.variant">Variant</label>
+                                <select name="aaAutorec.attackspell.{{idx}}.variant">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.attackspell idx) 'variant')}}
+                                    {{#each (lookup (lookup ../variants 'range') (lookup (lookup
+                                    ../settings.aaAutorec.attackspell idx) 'animation')) as |name key|}}
                                     <option value="{{key}}">{{name}}</option>
                                     {{/each}}
                                     {{/select}}
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="aa-column">
-                        <div class='form-group'>
-                            <label for="aaAutorec.attackspell.{{idx}}.variant">Variant</label>
-                            <select name="aaAutorec.attackspell.{{idx}}.variant">
-                                {{#select (lookup (lookup ../settings.aaAutorec.attackspell idx) 'variant')}}
-                                {{#each (lookup (lookup ../variants 'range') (lookup (lookup
-                                ../settings.aaAutorec.attackspell idx) 'animation')) as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="aa-column">
-                        <div class='form-group'>
-                            <label for="aaAutorec.attackspell.{{idx}}.color">Color</label>
-                            <select name="aaAutorec.attackspell.{{idx}}.color">
-                                {{#select (lookup (lookup ../settings.aaAutorec.attackspell idx) 'color')}}
-                                {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
-                                ../settings.aaAutorec.attackspell idx) 'animation')) (lookup (lookup
-                                ../settings.aaAutorec.attackspell idx) 'variant')) as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
+                        <div class="aa-column">
+                            <div class='form-group'>
+                                <label for="aaAutorec.attackspell.{{idx}}.color">Color</label>
+                                <select name="aaAutorec.attackspell.{{idx}}.color">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.attackspell idx) 'color')}}
+                                    {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
+                                    ../settings.aaAutorec.attackspell idx) 'animation')) (lookup (lookup
+                                    ../settings.aaAutorec.attackspell idx) 'variant')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>

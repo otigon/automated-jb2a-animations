@@ -6,6 +6,10 @@
 	</nav>
 
 	<section class='content'>
+		<div class='form-fields'>
+			<input type='text' name="aaAutorec.search" value="{{settings.aaAutorec.search}}" placeholder="Search"
+				id="aatest" autofocus class='auto-search' />
+		</div>
 		<div class='tab' data-tab='melee' data-group='sections'>
 			{{#> (concat 'modules/autoanimations/src/custom-recognition/dnd5e' '/aa-melee-autorec.html')}}
 			{{/undefined}}
@@ -21,6 +25,7 @@
 	</section>
 
 	<footer class='sheet-footer flexrow'>
-		<button type='submit' name='submit' value='1'><i class='far fa-save'></i>SUBMIT</button>
+		<button type='submit' name='submit' value='1' class='aa-autorec-submit'><i
+				class='far fa-save'></i>SUBMIT</button>
 	</footer>
 </form>
