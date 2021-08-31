@@ -69,12 +69,29 @@ export class aaAutoRecognition extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render())
         });
         html.on('keyup', '#aatest', this._onSearch.bind(this))
-        html.on('load', '#aatest', this._onSearch.bind(this))
+        //html.on('focus', '.aa-autorecognition', this._loadSearch.bind(this))
+        //html.on(this._loadSearch())
         html.on('open', '#aatest', (evt) => { 
             evt.preventDefault()
         })
     }
 
+    _loadSearch(evt) {
+        //debugger
+        const settings = this.getSettingsData()
+        console.log(settings)
+        const search = settings.aaAutorec.search.toLowerCase()
+        console.log(search)
+        this.element.find('.aa-search').each((index, element) => {
+            const text = $(element).find('.auto-name').val().toLowerCase()
+            if (text.includes(search)) {
+                $(element).show(250)
+            } else {
+                $(element).hide()
+            }
+        })
+    }
+    
     _onSearch(evt) {
         const search = $(evt.currentTarget).val().toLowerCase();
         this.element.find('.aa-search').each((index, element) => {
