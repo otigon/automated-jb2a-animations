@@ -385,6 +385,12 @@
     "AUTOANIM.cloudofkunais": "Nube de Kunais",
     
     "AUTOANIM.web": "Telaraña",
-    "AUTOANIM.ammoAnimate": "Animar en base a munición"
+    "AUTOANIM.ammoAnimate": "Animar en base a munición",
+
+    "AUTOANIM.tollthedead": "Tocar a los Muertos",
+    "AUTOANIM.bell": "Campana",
+    "AUTOANIM.shockwave": "Onda de choque",
+    "AUTOANIM.skull": "Cráneo",
+    "AUTOANIM.complete": "Completo"
 
 }
