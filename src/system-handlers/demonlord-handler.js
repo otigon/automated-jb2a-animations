@@ -112,26 +112,26 @@ export default class DemonLordHandler {
         this._sourceColor = this._sourceToken.color ?? "";
         this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;
         this._sourceCustomPath = this._sourceToken.customPath ?? "";
-        this._sourceLoops = this._sourceToken.loops ?? 1,
-            this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
-        this._sourceScale = this._sourceToken.scale ?? 1,
-            this._sourceDelay = this._sourceToken.delayAfter ?? 500,
-            this._sourceVariant = this._sourceToken.variant ?? "",
+        this._sourceLoops = this._sourceToken.loops ?? 1;
+        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
+        this._sourceScale = this._sourceToken.scale ?? 1;
+        this._sourceDelay = this._sourceToken.delayAfter ?? 500;
+        this._sourceVariant = this._sourceToken.variant ?? "";
 
-            this._targetToken = this.flags.targetToken ?? "";
+        this._targetToken = this.flags.targetToken ?? "";
         this._targetEnable = this._targetToken.enable ?? false;
         this._targetLevel = this._targetToken.animLevel ?? false;
         this._targetName = this._targetToken.name ?? "";
         this._targetColor = this._targetToken.color ?? "";
         this._targetCustomEnable = this._targetToken.enableCustom ?? false;
         this._targetCustomPath = this._targetToken.customPath ?? "";
-        this._targetLoops = this._targetToken.loops ?? 1,
-            this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
-        this._targetScale = this._targetToken.scale ?? 1,
-            this._targetDelay = this._targetToken.delayAfter ?? 500,
-            this._targetVariant = this._targetToken.variant ?? "",
+        this._targetLoops = this._targetToken.loops ?? 1;
+        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
+        this._targetScale = this._targetToken.scale ?? 1;
+        this._targetDelay = this._targetToken.delayStart ?? 500;
+        this._targetVariant = this._targetToken.variant ?? "";
 
-            this._animNameFinal;
+        this._animNameFinal;
         switch (true) {
             case ((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
                 this._animNameFinal = this._itemName;

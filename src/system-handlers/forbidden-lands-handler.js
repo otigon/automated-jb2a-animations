@@ -94,7 +94,7 @@ export default class ForbiddenLandsHandler {
         this._targetLoops = this._targetToken.loops ?? 1,
         this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
         this._targetScale = this._targetToken.scale ?? 1,
-        this._targetDelay = this._targetToken.delayAfter ?? 500,
+        this._targetDelay = this._targetToken.delayStart ?? 500,
         this._targetVariant = this._targetToken.variant ?? "",
 
         this._animNameFinal;
