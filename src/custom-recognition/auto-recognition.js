@@ -59,11 +59,12 @@ export class aaAutoRecognition extends FormApplication {
         });
         */
         html.on('click', '.collapse-button', (evt) => {
-            var change = $(evt.currentTarget).closest('.form-fields').find('.hideme').val()
-            if (change === "False") {
-                $(evt.currentTarget).closest('.form-fields').find('.hideme').val("True")
+            var change = $(evt.currentTarget).closest('.form-fields').find('.hideme').is(":checked")
+            console.log(change)
+            if (change === true) {
+                $(evt.currentTarget).closest('.form-fields').find('.hideme').prop('checked', false)
             } else {
-                $(evt.currentTarget).closest('.form-fields').find('.hideme').val("False")
+                $(evt.currentTarget).closest('.form-fields').find('.hideme').prop('checked', true)
             }
             this.submit({ preventClose: true }).then(() => this.render())
         });

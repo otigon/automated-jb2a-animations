@@ -9,13 +9,13 @@
             <div class='flexcol'>
                 <div class='form-group'>
                     <div class='form-fields'>
-                        <input type='hidden' class='hideme' name='aaAutorec.melee.{{idx}}.hidden' value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'hidden'}}">
+                        <input type='checkbox' class='hideme' name='aaAutorec.melee.{{idx}}.hidden' {{checked (lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }} style="display:none">
                         <i class="fas fa-plus collapse-button"></i>
                         <input type='text' name="aaAutorec.melee.{{idx}}.name" placeholder="Weapon Name"
                             class='auto-name' value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'name'}}" />
                     </div>
                 </div>
-                <div class='hidden' {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) 'True' }} style="display:none" {{/ifEquals}}>
+                <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }} style="display:none" {{/if}}>
                     <div class='flexrow hidden'>
                         <div class="aa-column">
                             <div class='animation-choice'>
