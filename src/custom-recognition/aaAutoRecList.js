@@ -10,6 +10,9 @@ export class aaAutorec {
                     animation: 'dagger',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 1: {
                     hidden: true,
@@ -17,6 +20,9 @@ export class aaAutorec {
                     animation: 'flurryofblows',
                     variant: 'physical',
                     color: 'blue',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 2: {
                     hidden: true,
@@ -24,6 +30,9 @@ export class aaAutorec {
                     animation: 'greataxe',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 3: {
                     hidden: true,
@@ -31,6 +40,9 @@ export class aaAutorec {
                     animation: 'greatclub',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 4: {
                     hidden: true,
@@ -38,6 +50,9 @@ export class aaAutorec {
                     animation: 'greatsword',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 5: {
                     hidden: true,
@@ -45,6 +60,9 @@ export class aaAutorec {
                     animation: 'handaxe',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 6: {
                     hidden: true,
@@ -52,6 +70,9 @@ export class aaAutorec {
                     animation: 'sword',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 7: {
                     hidden: true,
@@ -59,6 +80,9 @@ export class aaAutorec {
                     animation: 'mace',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 8: {
                     hidden: true,
@@ -66,6 +90,9 @@ export class aaAutorec {
                     animation: 'maul',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 9: {
                     hidden: true,
@@ -73,6 +100,9 @@ export class aaAutorec {
                     animation: 'sword',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 10: {
                     hidden: true,
@@ -80,6 +110,9 @@ export class aaAutorec {
                     animation: 'spear',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 11: {
                     hidden: true,
@@ -87,6 +120,9 @@ export class aaAutorec {
                     animation: 'rapier',
                     variant: '01',
                     color: 'white',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
                 12: {
                     hidden: true,
@@ -94,6 +130,9 @@ export class aaAutorec {
                     animation: 'unarmedstrike',
                     variant: 'physical',
                     color: 'blue',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
                 },
             },
             attackspell: {
@@ -103,6 +142,8 @@ export class aaAutorec {
                     animation: 'disintegrate',
                     variant: '01',
                     color: 'green',
+                    loops: 1,
+                    loopDelay: 500,
                 },
                 1: {
                     hidden: true,
@@ -110,6 +151,8 @@ export class aaAutorec {
                     animation: 'eldritchblast',
                     variant: '01',
                     color: 'purple',
+                    loops: 1,
+                    loopDelay: 500,
                 },
                 2: {
                     hidden: true,
@@ -117,6 +160,8 @@ export class aaAutorec {
                     animation: 'firebolt',
                     variant: '01',
                     color: 'orange',
+                    loops: 1,
+                    loopDelay: 500,
                 },
                 3: {
                     hidden: true,
@@ -124,6 +169,8 @@ export class aaAutorec {
                     animation: 'guidingbolt',
                     variant: '01',
                     color: 'blueyellow',
+                    loops: 1,
+                    loopDelay: 500,
                 },
                 4: {
                     hidden: true,
@@ -131,6 +178,8 @@ export class aaAutorec {
                     animation: 'magicmissile',
                     variant: '01',
                     color: 'purple',
+                    loops: 1,
+                    loopDelay: 500,
                 },
                 5: {
                     hidden: true,
@@ -138,6 +187,8 @@ export class aaAutorec {
                     animation: 'rayoffrost',
                     variant: '01',
                     color: 'blue',
+                    loops: 1,
+                    loopDelay: 500,
                 },
                 6: {
                     hidden: true,
@@ -145,6 +196,8 @@ export class aaAutorec {
                     animation: 'scorchingray',
                     variant: '01',
                     color: 'orange',
+                    loops: 1,
+                    loopDelay: 500,
                 },
                 7: {
                     hidden: true,
@@ -152,37 +205,38 @@ export class aaAutorec {
                     animation: 'witchbolt',
                     variant: '01',
                     color: 'blue',
+                    loops: 1,
+                    loopDelay: 500,
                 },
 
             },
             range: {
                 0: {
                     hidden: true,
-                    name: 'Dagger',
-                    animation: 'dagger',
-                    variant: '01',
-                    color: 'white',
-                },
-                1: {
-                    hidden: true,
                     name: 'Crossbow',
                     animation: 'bolt',
                     variant: 'physical',
                     color: 'orange',
+                    loops: 1,
+                    loopDelay: 500,
                 },
-                2: {
+                1: {
                     hidden: true,
                     name: 'Longbow',
                     animation: 'arrow',
                     variant: 'regular',
                     color: 'regular',
+                    loops: 1,
+                    loopDelay: 500,
                 },
-                3: {
+                2: {
                     hidden: true,
                     name: 'Shortbow',
                     animation: 'arrow',
                     variant: 'regular',
                     color: 'regular',
+                    loops: 1,
+                    loopDelay: 500,
                 },
             },
         };

@@ -8,7 +8,6 @@ export async function meleeAnimation(handler, autoObject) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    let itemName = handler.convertedName;
     let rangeSwitch;
     if (moduleIncludes("jb2a_patreon")) {
         rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword']
@@ -20,12 +19,25 @@ export async function meleeAnimation(handler, autoObject) {
     await wait(globalDelay);
 
     //Builds Primary File Path and Pulls from flags if already set
+    /*
+    let itemName = handler.convertedName;
     let variant = itemName === "unarmedstrike" || itemName === "flurryofblows" ? handler.uaStrikeType : "01";
     let customPath = handler.enableCustom01 ? handler.custom01 : false;
-    let attack = await buildFile(false, itemName, "melee", variant, handler.color, customPath)
+    */
+    const data = {};
+    if (autoObject) {
+        Object.assign(data, autoObject[0]);
+        data.itemName = data.animation;
+    } else {
+        data.itemName = handler.convertedName;
+        data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";
+        data.customPath = handler.enableCustom01 ? handler.custom01 : false;
+        data.color = handler.color
+    }
+    let attack = await buildFile(false, data.itemName, "melee", data.variant, data.color, data.customPath)
     //let attack = await buildWeaponFile(obj01, itemName, handler)
     let sourceToken = handler.actorToken;
-    let sourceScale = itemName === "unarmedstrike" || itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
+    let sourceScale = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
 
     //Builds Explosion File Path if Enabled, and pulls from flags if already set
     let explosion;
@@ -79,7 +91,7 @@ export async function meleeAnimation(handler, autoObject) {
             if (!game.settings.get("autoanimations", "rangeSwitch")) {
                 switch (switchType) {
                     case "on":
-                        if (rangeSwitch.some(el => itemName.includes(el))) {
+                        if (rangeSwitch.some(el => data.itemName.includes(el))) {
                             if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
                                 noMelee = true;
                             }

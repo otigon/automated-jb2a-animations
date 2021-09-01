@@ -104,22 +104,25 @@
   
 .aa-melee-autorecog {
     border: 3px ridge rgb(97, 97, 97);
+    border-radius: 5px;
     padding: 3px;
     margin-bottom: 5px;
 }
 
 .aa-range-autorecog {
     border: 3px ridge rgb(97, 97, 97);
+    border-radius: 5px;
     padding: 3px;
     margin-bottom: 5px;
 }
 
 .aa-spell-autorecog {
     border: 3px ridge rgb(97, 97, 97);
+    border-radius: 5px;
     padding: 3px;
     margin-bottom: 5px;
 }
-
+/*
 .aa-melee-autorecog input {
     text-align: center;
     font-weight: bold;
@@ -133,15 +136,21 @@
     font-size: large;
     background-color: rgb(187, 187, 173);
 }
-
-.aa-range-autorecog input{
+*/
+#automatic-recognition input.auto-name{
     text-align: center;
     font-weight: bold;
     font-size: large;
     background-color: rgb(187, 187, 173);
 }
 
-.aa-autorecognition label{
+#automatic-recognition input.auto-search{
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
+}
+
+#automatic-recognition label{
     font-weight: bold;
 }
 /*

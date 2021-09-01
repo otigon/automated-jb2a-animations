@@ -25,42 +25,45 @@ async function itemSound(handler) {
         AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
     }
 }
-//credit to Steve Holgado on Stack Overflow
-function findAllByKey(obj, keyToFind) {
-    return Object.entries(obj)
-        .reduce((acc, [key, value]) => (key === keyToFind)
-            ? acc.concat(value)
-            : (typeof value === 'object')
-                ? acc.concat(findAllByKey(value, keyToFind))
-                : acc
-            , [])
-}
 
 function getAllNames(obj, type) {
     const nameArray = []
-    let arrayLength = Object.keys(obj[type]).length
+    const arrayLength = Object.keys(obj[type]).length
     for (var i = 0; i < arrayLength; i++) {
         nameArray.push(obj[type][i].name.toLowerCase())
     }
     return nameArray;
 }
 
-function findObject(data, type, itemName) {
+function findObjectByName(data, type, name) {
     return Object.values(data[type]).filter(section => {
-        return section.name.toLowerCase().includes(itemName.toLowerCase()) ? section : "";
+        return section.name.toLowerCase() === (name.toLowerCase()) ? section : "";
     })
+}
 
+function autorecNameCheck(nameArray, name) {
+    const arrayLength = nameArray.length;
+    let nameFound = false;
+    for (var i = 0; i < arrayLength; i++) {
+        if (nameArray[i].toLowerCase() === name) {
+            nameFound = true;
+        }
+    }
+    //console.log(nameFound)
+    return nameFound;
+}
+
+function rinseName(oldName) {
+    let newName = oldName.replace(/[+1]|[+2]|[+3]/gi, function (x) {
+        return "";
+    });
+    newName = newName.trim("\s+$/g", "")
+    return newName;
 }
 
 export async function trafficCop(handler) {
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
     console.log(autoRecSettings)
-
-    //console.log(findObject(autoRecSettings.melee, "Greatsword"))
-    //const meleeLength = Object.keys(autoRecSettings.melee).length;
-    //const meleeNameArray = findAllByKey(autoRecSettings.melee, 'name');
-    //console.log(handler.item.name)
-    //console.log(findAllByKey(autoRecSettings.melee, 'name'))
     const itemArray = moduleIncludes("jb2a_patreon") ? AAITEMCHECK : AAITEMCHECKFREE;
     if (handler.itemSound) {
         itemSound(handler);
@@ -165,6 +168,8 @@ export async function trafficCop(handler) {
                 melee: getAllNames(autoRecSettings, 'melee'),
                 range: [...getAllNames(autoRecSettings, 'range'), ...getAllNames(autoRecSettings, 'attackspell')],
             }
+            const autoName = rinseName(handler.itemName);
+            console.log(autoName)
             //console.log(nameArrays)
             //console.log(findAllByKey(autoRecSettings, "name"))
             switch (true) {
@@ -180,17 +185,19 @@ export async function trafficCop(handler) {
                     }
                     break;
                 //case nameArrays.melee.includes(handler.itemName):
-                case nameArrays.melee.some(el => handler.itemName.includes(el)):
+                //case nameArrays.melee.some(el => handler.itemName.includes(el)):
+                case autorecNameCheck(nameArrays.melee, autoName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const meleeAutoObject = findObject(autoRecSettings, 'melee', handler.item.name)
+                    const meleeAutoObject = findObjectByName(autoRecSettings, 'melee', autoName)
                     console.log(meleeAutoObject)                
                     meleeAnimation(handler, meleeAutoObject);
                     break;
-                case nameArrays.range.includes(handler.itemName):
+                //case nameArrays.range.includes(handler.itemName):
+                case autorecNameCheck(nameArrays.range, autoName):
                     //case itemArray.spellattack.includes(itemName):
                     //case itemArray.ranged.includes(itemName):
                     if (targets === 0) {
@@ -198,7 +205,8 @@ export async function trafficCop(handler) {
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const rangeAutoObject = findObject(autoRecSettings, 'range', handler.item.name).length === 0 ? findObject(autoRecSettings, 'attackspell', handler.item.name) : findObject(autoRecSettings, 'range', handler.item.name)
+                    const spellAutoObject = findObjectByName(autoRecSettings, 'attackspell', autoName)
+                    const rangeAutoObject = spellAutoObject.length === 0 ? findObjectByName(autoRecSettings, 'range', handler.item.name) : spellAutoObject;
                     console.log(rangeAutoObject)                
                     rangedAnimations(handler, rangeAutoObject);
                     break;

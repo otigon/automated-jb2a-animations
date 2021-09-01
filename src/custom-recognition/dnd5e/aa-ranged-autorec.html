@@ -62,6 +62,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class='flexrow'>
+                        <div class="aa-column">
+                            <div class='form-group'>
+                                <label>{{localize "AUTOANIM.loops"}}</label>
+                                <input type="Number" name="aaAutorec.range.{{idx}}.loops"
+                                    value="{{lookup (lookup ../settings.aaAutorec.range idx) 'loops'}}"
+                                    data-dtype="Number">
+                            </div>
+                        </div>
+                        <div class="aa-column">
+                            <div class='form-group'>
+                                <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                                <input type="Number" name="aaAutorec.range.{{idx}}.loopDelay"
+                                    value="{{lookup (lookup ../settings.aaAutorec.range idx) 'loopDelay'}}"
+                                    data-dtype="Number">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class='flexcol remove-override-wrapper'>

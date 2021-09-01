@@ -26,26 +26,24 @@ export async function rangedAnimations(handler, autoObject) {
     variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" || itemName === "chakram" ? handler.dtvar : variant;
     let color = handler.color
     */
-    let itemName;
-    let dmgType;
-    let variant;
-    let color;
+    const data = {}
     if (autoObject) {
-        const auto = autoObject[0]
-        itemName = auto.animation;
-        variant = auto.variant;
-        color = auto.color;
+        Object.assign(data, autoObject[0])
+        data.itemName = data.animation;
+        console.log(data)
     } else {
-        itemName = handler.convertedName;
-        if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-            dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
+        data.itemName = handler.convertedName;
+        if (itemName === "arrow") { data.dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
+            data.dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
         }
-        variant = AAITEMCHECK.spellattack.some(el => itemName.includes(el)) ? handler.spellVariant : dmgType;
-        variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" || itemName === "chakram" ? handler.dtvar : variant;
-        color = handler.color
+        const variant = AAITEMCHECK.spellattack.some(el => itemName.includes(el)) ? handler.spellVariant : dmgType;
+        data.variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" || itemName === "chakram" ? handler.dtvar : variant;
+        data.color = handler.color;
+        data.loops = handler.animationLoops;
+        data.loopDelay = handler.loopDelay;
     }
     //Builds Primary File Path and Pulls from flags if already set
-    let attack = await buildFile(false, itemName, "range", variant, color)
+    let attack = await buildFile(false, data.itemName, "range", data.variant, data.color)
     //let attack =  await buildRangedFile(jb2a, itemName, handler);
     let sourceToken = handler.actorToken;
 
@@ -128,7 +126,7 @@ export async function rangedAnimations(handler, autoObject) {
                     .reachTowards(target)
                     .JB2A()
                     .randomizeMirrorY()
-                    .repeats(handler.animationLoops, handler.loopDelay)
+                    .repeats(data.loops, data.loopDelay)
                     .missed(hit)
                     .name("animation")
                     .belowTokens(handler.animLevel)
@@ -142,7 +140,7 @@ export async function rangedAnimations(handler, autoObject) {
                     //.file(explosion.file)
                     .scale({ x: scale, y: scale })
                     .delay(500 + handler.explosionDelay)
-                    .repeats(handler.animationLoops, handler.loopDelay)
+                    .repeats(data.loops, data.loopDelay)
                     .belowTokens(handler.explosionLevel)
                     .playIf(() => { return handler.explosion })
                     .addOverride(async (effect, data) => {
@@ -156,7 +154,7 @@ export async function rangedAnimations(handler, autoObject) {
                     .playIf(() => {return explosion && handler.explodeSound})
                     .delay(explosionDelay)
                     .volume(explosionVolume)
-                    .repeats(handler.animationLoops, handler.loopDelay)
+                    .repeats(data.loops, data.loopDelay)
                 .effect()
                     .delay(handler.targetDelay)
                     .atLocation(target)
