@@ -5,25 +5,47 @@ import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function rangedAnimations(handler) {
+export async function rangedAnimations(handler, autoObject) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
 
     // Sets JB2A database and Global Delay
-    let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let itemName = handler.convertedName;
+    //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
-
+    //console.log(autoObject);
+    //console.log(autoObject[0].animation)
+    /*
+    let itemName = handler.convertedName;
     let dmgType;
     if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
         dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
     }
     let variant = AAITEMCHECK.spellattack.some(el => itemName.includes(el)) ? handler.spellVariant : dmgType;
     variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" || itemName === "chakram" ? handler.dtvar : variant;
+    let color = handler.color
+    */
+    let itemName;
+    let dmgType;
+    let variant;
+    let color;
+    if (autoObject) {
+        const auto = autoObject[0]
+        itemName = auto.animation;
+        variant = auto.variant;
+        color = auto.color;
+    } else {
+        itemName = handler.convertedName;
+        if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
+            dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
+        }
+        variant = AAITEMCHECK.spellattack.some(el => itemName.includes(el)) ? handler.spellVariant : dmgType;
+        variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" || itemName === "chakram" ? handler.dtvar : variant;
+        color = handler.color
+    }
     //Builds Primary File Path and Pulls from flags if already set
-    let attack = await buildFile(false, itemName, "range", variant, handler.color)
+    let attack = await buildFile(false, itemName, "range", variant, color)
     //let attack =  await buildRangedFile(jb2a, itemName, handler);
     let sourceToken = handler.actorToken;
 

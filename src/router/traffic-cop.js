@@ -25,18 +25,42 @@ async function itemSound(handler) {
         AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
     }
 }
+//credit to Steve Holgado on Stack Overflow
+function findAllByKey(obj, keyToFind) {
+    return Object.entries(obj)
+        .reduce((acc, [key, value]) => (key === keyToFind)
+            ? acc.concat(value)
+            : (typeof value === 'object')
+                ? acc.concat(findAllByKey(value, keyToFind))
+                : acc
+            , [])
+}
+
+function getAllNames(obj, type) {
+    const nameArray = []
+    let arrayLength = Object.keys(obj[type]).length
+    for (var i = 0; i < arrayLength; i++) {
+        nameArray.push(obj[type][i].name.toLowerCase())
+    }
+    return nameArray;
+}
+
+function findObject(data, type, itemName) {
+    return Object.values(data[type]).filter(section => {
+        return section.name.toLowerCase().includes(itemName.toLowerCase()) ? section : "";
+    })
+
+}
 
 export async function trafficCop(handler) {
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    //console.log(autoRecSettings)
-    const meleeLength = Object.keys(autoRecSettings.melee).length;
-    const meleeNameArray = [];
-    let currentName;
-    for (var i = 0; i < meleeLength; i++) {
-        currentName = Object.entries(autoRecSettings.melee[i])[0][1].toLowerCase()
-        meleeNameArray.push(currentName)
-    }
+    console.log(autoRecSettings)
 
+    //console.log(findObject(autoRecSettings.melee, "Greatsword"))
+    //const meleeLength = Object.keys(autoRecSettings.melee).length;
+    //const meleeNameArray = findAllByKey(autoRecSettings.melee, 'name');
+    //console.log(handler.item.name)
+    //console.log(findAllByKey(autoRecSettings.melee, 'name'))
     const itemArray = moduleIncludes("jb2a_patreon") ? AAITEMCHECK : AAITEMCHECKFREE;
     if (handler.itemSound) {
         itemSound(handler);
@@ -55,32 +79,32 @@ export async function trafficCop(handler) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     return;
                 }
-            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-            meleeAnimation(handler);
+                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                meleeAnimation(handler);
                 break;
             case "t4":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     return;
                 }
-            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-            rangedAnimations(handler);
+                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                rangedAnimations(handler);
                 break;
             case "t5":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     return;
                 }
-            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-            onTokenAnimation(handler);
+                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                onTokenAnimation(handler);
                 break;
             case "t6":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     return;
                 }
-            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-            rangedAnimations(handler);
+                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                rangedAnimations(handler);
                 break;
             case "t7":
                 onTokenAnimation(handler);
@@ -137,6 +161,12 @@ export async function trafficCop(handler) {
         }
     } else {
         if (!game.settings.get("autoanimations", "disableAutoRec")) {
+            const nameArrays = {
+                melee: getAllNames(autoRecSettings, 'melee'),
+                range: [...getAllNames(autoRecSettings, 'range'), ...getAllNames(autoRecSettings, 'attackspell')],
+            }
+            //console.log(nameArrays)
+            //console.log(findAllByKey(autoRecSettings, "name"))
             switch (true) {
                 case itemName === "thunderwave":
                     switch (true) {
@@ -149,22 +179,28 @@ export async function trafficCop(handler) {
                             })
                     }
                     break;
-                case meleeNameArray.includes(itemName):
+                //case nameArrays.melee.includes(handler.itemName):
+                case nameArrays.melee.some(el => handler.itemName.includes(el)):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    meleeAnimation(handler);
+                    const meleeAutoObject = findObject(autoRecSettings, 'melee', handler.item.name)
+                    console.log(meleeAutoObject)                
+                    meleeAnimation(handler, meleeAutoObject);
                     break;
-                case itemArray.spellattack.includes(itemName):
-                case itemArray.ranged.includes(itemName):
+                case nameArrays.range.includes(handler.itemName):
+                    //case itemArray.spellattack.includes(itemName):
+                    //case itemArray.ranged.includes(itemName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    rangedAnimations(handler);
+                    const rangeAutoObject = findObject(autoRecSettings, 'range', handler.item.name).length === 0 ? findObject(autoRecSettings, 'attackspell', handler.item.name) : findObject(autoRecSettings, 'range', handler.item.name)
+                    console.log(rangeAutoObject)                
+                    rangedAnimations(handler, rangeAutoObject);
                     break;
                 case itemArray.healing.includes(itemName):
                 case itemArray.creatureattack.includes(itemName):

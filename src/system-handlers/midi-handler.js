@@ -180,6 +180,7 @@ export default class MidiHandler {
         return reach;
     }
 
+    get itemName() { return this._itemName }
     get item() { return this._item }
     get actorToken() { return this._actorToken; }
     get allTargets() { return this._allTargets; }

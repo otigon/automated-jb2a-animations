@@ -4,7 +4,7 @@ import { meleeSwitch } from "./meleeSwitch.js";
 //import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function meleeAnimation(handler) {
+export async function meleeAnimation(handler, autoObject) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
