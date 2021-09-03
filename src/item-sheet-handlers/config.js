@@ -328,6 +328,21 @@ AUTOANIM.tokenAnimations = {
     "sneakattack": "AUTOANIM.sneakattack",
 }
 
+AUTOANIM.autoself = {
+    "a1": ``,
+    "antilifeshell": "AUTOANIM.animAntiLifeShell",
+    "boulder": "AUTOANIM.itemBoulder",
+    "curewounds": "AUTOANIM.itemCureWounds",
+    "generichealing": "AUTOANIM.itemGenericHealing",
+    "explosion": "AUTOANIM.explosion",
+    "impact": "AUTOANIM.impact",
+    "outpulse01": "AUTOANIM.outpulse01",
+    "outpulse02": "AUTOANIM.outpulse02",
+    "snowflake": "AUTOANIM.snowflake",
+    "shatter": "AUTOANIM.itemShatter",
+    "thunderwave": "AUTOANIM.itemThunderwave",
+}
+
 AUTOANIM.localized = function (cfg) {
     return Object.keys(cfg).reduce((i18nCfg, key) => {
         i18nCfg[key] = game.i18n.localize(cfg[key]);

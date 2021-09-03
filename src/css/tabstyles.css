@@ -170,3 +170,12 @@
 .aa-autorec-submit {
     max-height: 2rem;
 }
+
+.aa-rangemenu {
+    padding: 5px;
+    text-align: center;
+}
+
+#aa-autorec-form {
+    width: 5em;
+}

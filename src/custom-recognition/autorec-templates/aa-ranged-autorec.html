@@ -18,7 +18,19 @@
                 <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.range idx) 'hidden' ) }}
                     style="display:none" {{/if}}>
                     <div class="flexrow">
-                        <div class="aa-column">
+                        <div class="aa-rangemenu" id="aa-autorec-form">
+                            <div class='form-group'>
+                                <label for="aaAutorec.range.{{idx}}.type">Type</label>
+                                <select name="aaAutorec.range.{{idx}}.type">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'type')}}
+                                    <option value="">Pick a Type</option>
+                                    <option value="weapon">Weapon</option>
+                                    <option value="spell">Spell</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="aa-rangemenu" id="aa-autorec-form">
                             <div class='animation-choice'>
                                 <div class='form-group'>
                                     <label for="aaAutorec.range.{{idx}}.animation">Animation</label>
@@ -26,15 +38,26 @@
                                         {{#select (lookup (lookup ../settings.aaAutorec.range idx)
                                         'animation')}}
                                         "range"}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
+                                        'weapon'}}
                                         {{#each ../rangeList as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
+                                        {{/ifEquals}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
+                                        'spell'}}
+                                        {{#each ../spellList as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
                                         {{/select}}
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="aa-column">
+                    </div>
+                    <div class="flexrow">
+                        <div class="aa-rangemenu" id="aa-autorec-form">
                             <div class='form-group'>
                                 <label for="aaAutorec.range.{{idx}}.variant">Variant</label>
                                 <select name="aaAutorec.range.{{idx}}.variant">
@@ -47,7 +70,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="aa-column">
+                        <div class="aa-rangemenu" id="aa-autorec-form">
                             <div class='form-group'>
                                 <label for="aaAutorec.range.{{idx}}.color">Color</label>
                                 <select name="aaAutorec.range.{{idx}}.color">
@@ -63,7 +86,7 @@
                         </div>
                     </div>
                     <div class='flexrow'>
-                        <div class="aa-column">
+                        <div class="aa-rangemenu" id="aa-autorec-form">
                             <div class='form-group'>
                                 <label>{{localize "AUTOANIM.loops"}}</label>
                                 <input type="Number" name="aaAutorec.range.{{idx}}.loops"
@@ -71,7 +94,7 @@
                                     data-dtype="Number">
                             </div>
                         </div>
-                        <div class="aa-column">
+                        <div class="aa-rangemenu" id="aa-autorec-form">
                             <div class='form-group'>
                                 <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
                                 <input type="Number" name="aaAutorec.range.{{idx}}.loopDelay"
