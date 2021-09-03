@@ -32,6 +32,7 @@ export class aaAutoRecognition extends FormApplication {
         data.meleeList = AUTOANIM.localized(AUTOANIM.meleeWeapons);
         data.rangeList = AUTOANIM.localized(AUTOANIM.animNameRangeWeapon);
         data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
+        data.healList = AUTOANIM.localized(AUTOANIM.animNameHealSpell);
         data.colors = aaColorMenu;
         data.variants = aaVariantMenu;
         data.show = false;
@@ -45,6 +46,7 @@ export class aaAutoRecognition extends FormApplication {
         html.find('button.add-autorecog-melee').click(this._addMelee.bind(this));
         html.find('button.add-autorecog-spell').click(this._addSpell.bind(this));
         html.find('button.add-autorecog-range').click(this._addRange.bind(this));
+        html.find('button.add-autorecog-heal').click(this._addHeal.bind(this));
 
         html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
         //utilize html.on versus html.find
@@ -164,6 +166,27 @@ export class aaAutoRecognition extends FormApplication {
         this.render();
     }
 
+    async _addHeal(event) {
+        event.preventDefault();
+        let idx = 0;
+        const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
+        const last = entries[entries.length - 1];
+        if (last) {
+            idx = last.dataset.idx + 1;
+        }
+        let updateData = {}
+        updateData[`aaAutorec.heal.${idx}.name`] = '';
+        updateData[`aaAutorec.heal.${idx}.type`] = 'melee';
+        updateData[`aaAutorec.heal.${idx}.animation`] = 'None';
+        updateData[`aaAutorec.heal.${idx}.variant`] = '';
+        updateData[`aaAutorec.heal.${idx}.loops`] = 1;
+        updateData[`aaAutorec.heal.${idx}.loopDelay`] = 500;
+        updateData[`aaAutorec.heal.${idx}.scale`] = 1;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
     async _onRemoveOverride(event) {
         event.preventDefault();
         let idx = event.target.dataset.idx;
@@ -195,6 +218,12 @@ export class aaAutoRecognition extends FormApplication {
             const compacted = {};
             Object.values(value.range).forEach((val, idx) => compacted[idx] = val);
             value.range = compacted;
+            await game.settings.set('autoanimations', key, value);
+        }
+        for (let [key, value] of Object.entries(data)) {
+            const compacted = {};
+            Object.values(value.heal).forEach((val, idx) => compacted[idx] = val);
+            value.heal = compacted;
             await game.settings.set('autoanimations', key, value);
         }
         /*

@@ -1,8 +1,13 @@
 <form class="flexcol" autocomplete='off' novalidate>
 	<nav class='sheet-tabs tabs' data-group="sections">
 		<a class='item' data-tab='melee'><i class="fas fa-shield-alt"></i></i>Melee Attack</a>
-		<a class='item' data-tab='spells'><i class="fas fa-hat-wizard"></i>Spell Attack</a>
+		<a class='item' data-tab='spells'><i class="fas fa-hat-wizard"></i>Range Spell</a>
 		<a class='item' data-tab='range'><i class="fas fa-people-arrows"></i></i>Range Weapon</a>
+		<a class='item' data-tab='healing'><i class="fas fa-medkit"></i></i>Healing</a>
+		<a class='item' data-tab='creature'><i class="fas fa-spider"></i></i>Creatures</a>
+		<a class='item' data-tab='target'><i class="fas fa-bullseye"></i></i>On Target</a>
+		<a class='item' data-tab='self'><i class="fas fa-child"></i></i>On Self</a>
+		<a class='item' data-tab='template'><i class="fas fa-stop-circle"></i></i>Templates</a>
 	</nav>
 
 	<section class='content'>
@@ -20,6 +25,10 @@
 		</div>
 		<div class='tab' data-tab='range' data-group='sections'>
 			{{#> (concat 'modules/autoanimations/src/custom-recognition/dnd5e' '/aa-ranged-autorec.html')}}
+			{{/undefined}}
+		</div>
+		<div class='tab' data-tab='healing' data-group='sections'>
+			{{#> (concat 'modules/autoanimations/src/custom-recognition/dnd5e' '/aa-healing-autorec.html')}}
 			{{/undefined}}
 		</div>
 	</section>

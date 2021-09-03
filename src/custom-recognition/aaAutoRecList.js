@@ -239,6 +239,28 @@ export class aaAutorec {
                     loopDelay: 500,
                 },
             },
+            heal: {
+                0: {
+                    hidden: true,
+                    name: 'Cure Wounds',
+                    animation: 'curewounds',
+                    variant: '01',
+                    color: 'blue',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
+                },
+                1: {
+                    hidden: true,
+                    name: 'Healing Word',
+                    animation: 'generichealing',
+                    variant: '01',
+                    color: 'blue',
+                    loops: 1,
+                    loopDelay: 500,
+                    scale: 1,
+                },
+            }
         };
         return defaultConfig;
     }

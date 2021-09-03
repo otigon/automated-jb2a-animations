@@ -21,7 +21,7 @@ AUTOANIM.shieldOutro = {
 
 AUTOANIM.animNameHealSpell = {
     "a1": ``,
-    "cure wounds": "AUTOANIM.itemCureWounds",
+    "curewounds": "AUTOANIM.itemCureWounds",
     "generichealing": "AUTOANIM.itemGenericHealing",
 }
 

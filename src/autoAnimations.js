@@ -74,6 +74,7 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/custom-recognition/dnd5e/aa-melee-autorec.html',
         'modules/autoanimations/src/custom-recognition/dnd5e/aa-spell-autorec.html',
         'modules/autoanimations/src/custom-recognition/dnd5e/aa-ranged-autorec.html',
+        'modules/autoanimations/src/custom-recognition/dnd5e/aa-healing-autorec.html',
     ]);
 
     if (game.modules.get("midi-qol")?.active) {
