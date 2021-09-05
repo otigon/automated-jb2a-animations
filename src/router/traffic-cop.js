@@ -204,7 +204,7 @@ export async function trafficCop(handler) {
             //console.log(autoObject)
             const nameArrays = {
                 melee: getAllNames(autoRecSettings, 'melee'),
-                range: [...getAllNames(autoRecSettings, 'range'), ...getAllNames(autoRecSettings, 'attackspell')],
+                range: [...getAllNames(autoRecSettings, 'range'), ...getAllNames(autoRecSettings, 'static')],
             }
             //console.log(autoName)
             //console.log(nameArrays)

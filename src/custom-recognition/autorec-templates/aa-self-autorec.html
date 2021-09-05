@@ -1,28 +1,28 @@
 <div class='aa-autorecognition'>
-    {{#each settings.aaAutorec.self as |self idx|}}
-    <div class='aa-self-autorecog aa-search'>
-        <div class='flexrow self-settings' data-idx="{{idx}}">
+    {{#each settings.aaAutorec.static as |static idx|}}
+    <div class='aa-static-autorecog aa-search'>
+        <div class='flexrow static-settings' data-idx="{{idx}}">
             <div class='flexcol'>
                 <div class='form-group'>
                     <div class='form-fields'>
-                        <input type='checkbox' class='hideme' name='aaAutorec.self.{{idx}}.hidden' {{checked (lookup
-                            (lookup ../settings.aaAutorec.self idx) 'hidden' ) }} style="display:none">
-                        <i {{#if ( lookup (lookup ../settings.aaAutorec.self idx) 'hidden' ) }}
+                        <input type='checkbox' class='hideme' name='aaAutorec.static.{{idx}}.hidden' {{checked (lookup
+                            (lookup ../settings.aaAutorec.static idx) 'hidden' ) }} style="display:none">
+                        <i {{#if ( lookup (lookup ../settings.aaAutorec.static idx) 'hidden' ) }}
                             class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
-                            ../settings.aaAutorec.self idx) 'hidden' ) }} class="fas fa-minus collapse-button"
+                            ../settings.aaAutorec.static idx) 'hidden' ) }} class="fas fa-minus collapse-button"
                             {{/unless}}></i>
-                        <input type='text' name="aaAutorec.self.{{idx}}.name" placeholder="Item Name" class='auto-name'
-                            value="{{lookup (lookup ../settings.aaAutorec.self idx) 'name'}}" />
+                        <input type='text' name="aaAutorec.static.{{idx}}.name" placeholder="Item Name" class='auto-name'
+                            value="{{lookup (lookup ../settings.aaAutorec.static idx) 'name'}}" />
                     </div>
                 </div>
-                <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.self idx) 'hidden' ) }}
+                <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.static idx) 'hidden' ) }}
                     style="display:none" {{/if}}>
                     <div class="aa-container">
                         <div class="option01">
                             <div class="aa-rangemenu">
-                                <label for="aaAutorec.self.{{idx}}.type">Play on:
-                                    <select name="aaAutorec.self.{{idx}}.type">
-                                        {{#select (lookup (lookup ../settings.aaAutorec.self idx)
+                                <label for="aaAutorec.static.{{idx}}.type">Play on:
+                                    <select name="aaAutorec.static.{{idx}}.type">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.static idx)
                                         'type')}}
                                         <option value="source">Source</option>
                                         <option value="target">Target</option>
@@ -32,12 +32,13 @@
                                 </label>
                             </div>
                         </div>
+                        {{#unless (lookup (lookup ../settings.aaAutorec.static idx) 'custom')}}
                         <div class="option02">
                             <div class="aa-rangemenu">
                                 <div class='animation-choice'>
-                                    <label for="aaAutorec.self.{{idx}}.animation">Animation:
-                                        <select name="aaAutorec.self.{{idx}}.animation">
-                                            {{#select (lookup (lookup ../settings.aaAutorec.self idx)
+                                    <label for="aaAutorec.static.{{idx}}.animation">Animation:
+                                        <select name="aaAutorec.static.{{idx}}.animation">
+                                            {{#select (lookup (lookup ../settings.aaAutorec.static idx)
                                             'animation')}}
                                             {{#each ../selfList as |name key|}}
                                             <option value="{{key}}">{{name}}</option>
@@ -50,11 +51,11 @@
                         </div>
                         <div class="option03">
                             <div class="aa-rangemenu">
-                                <label for="aaAutorec.self.{{idx}}.variant">Variant:
-                                    <select name="aaAutorec.self.{{idx}}.variant" sytle="width:5em">
-                                        {{#select (lookup (lookup ../settings.aaAutorec.self idx) 'variant')}}
+                                <label for="aaAutorec.static.{{idx}}.variant">Variant:
+                                    <select name="aaAutorec.static.{{idx}}.variant" sytle="width:5em">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.static idx) 'variant')}}
                                         {{#each (lookup (lookup ../variants 'static') (lookup (lookup
-                                        ../settings.aaAutorec.self idx) 'animation')) as |name key|}}
+                                        ../settings.aaAutorec.static idx) 'animation')) as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/select}}
@@ -64,12 +65,12 @@
                         </div>
                         <div class="option04">
                             <div class="aa-rangemenu">
-                                <label for="aaAutorec.self.{{idx}}.color">Color:
-                                    <select name="aaAutorec.self.{{idx}}.color">
-                                        {{#select (lookup (lookup ../settings.aaAutorec.self idx) 'color')}}
+                                <label for="aaAutorec.static.{{idx}}.color">Color:
+                                    <select name="aaAutorec.static.{{idx}}.color">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.static idx) 'color')}}
                                         {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                        ../settings.aaAutorec.self idx) 'animation')) (lookup (lookup
-                                        ../settings.aaAutorec.self idx) 'variant')) as |name key|}}
+                                        ../settings.aaAutorec.static idx) 'animation')) (lookup (lookup
+                                        ../settings.aaAutorec.static idx) 'variant')) as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/select}}
@@ -77,11 +78,12 @@
                                 </label>
                             </div>
                         </div>
+                        {{/unless}}
                         <div class="option05">
                             <div class="autorec-menu-options">
                                 <label>Repeat:
-                                    <input type="Number" name="aaAutorec.self.{{idx}}.loops"
-                                        value="{{lookup (lookup ../settings.aaAutorec.self idx) 'loops'}}"
+                                    <input type="Number" name="aaAutorec.static.{{idx}}.loops"
+                                        value="{{lookup (lookup ../settings.aaAutorec.static idx) 'loops'}}"
                                         data-dtype="Number">
                                 </label>
                             </div>
@@ -89,8 +91,8 @@
                         <div class="option06">
                             <div class="autorec-menu-options">
                                 <label>Delay:
-                                    <input type="Number" name="aaAutorec.self.{{idx}}.loopDelay"
-                                        value="{{lookup (lookup ../settings.aaAutorec.self idx) 'loopDelay'}}"
+                                    <input type="Number" name="aaAutorec.static.{{idx}}.loopDelay"
+                                        value="{{lookup (lookup ../settings.aaAutorec.static idx) 'loopDelay'}}"
                                         data-dtype="Number">
                                 </label>
                             </div>
@@ -98,8 +100,8 @@
                         <div class="option07">
                             <div class="autorec-menu-options">
                                 <label>Scale:
-                                    <input type="Number" name="aaAutorec.self.{{idx}}.scale"
-                                        value="{{lookup (lookup ../settings.aaAutorec.self idx) 'scale'}}"
+                                    <input type="Number" name="aaAutorec.static.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.static idx) 'scale'}}"
                                         data-dtype="Number">
                                 </label>
                             </div>
@@ -108,27 +110,31 @@
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
                                     <label>Below: </label>
-                                    <input type='checkbox' name='aaAutorec.self.{{idx}}.below' {{checked (lookup (lookup
-                                        ../settings.aaAutorec.self idx) 'below' ) }}>
+                                    <input type='checkbox' name='aaAutorec.static.{{idx}}.below' {{checked (lookup (lookup
+                                        ../settings.aaAutorec.static idx) 'below' ) }}>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group" style="position: relative; ">
-                        <div class="autorec-menu-options">
-                            <div class='form-group'>
-                                <label>Custom Animation: </label>
-                                <input type='checkbox' name='aaAutorec.self.{{idx}}.custom' {{checked (lookup (lookup
-                                    ../settings.aaAutorec.self idx) 'custom' ) }}>
+                        <div class="option09">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>Custom: </label>
+                                    <input type='checkbox' name='aaAutorec.static.{{idx}}.custom' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.static idx) 'custom' ) }}>
+                                </div>
                             </div>
                         </div>
-                        {{#if (lookup (lookup ../settings.aaAutorec.self idx) 'custom')}}
-                        <input type="text" class="files" name="aaAutorec.self.{{idx}}.customfile"
-                            value="{{lookup (lookup ../settings.aaAutorec.self idx) 'customfile'}}">
-                        <button type="button" class="file-picker" data-type="image/video"
-                            data-target="aaAutorec.self.{{idx}}.customfile" tabindex="-1" title="Browse Files">
-                            <i class="fas fa-music"></i>
-                        </button>
+                        {{#if (lookup (lookup ../settings.aaAutorec.static idx) 'custom')}}
+                        <div class="pickerspan">
+                            <div class="form-group">
+                                <input type="text" class="files" name="aaAutorec.static.{{idx}}.customfile"
+                                    value="{{lookup (lookup ../settings.aaAutorec.static idx) 'customfile'}}">
+                                <button type="button" class="file-picker" data-type="image/video"
+                                    data-target="aaAutorec.static.{{idx}}.customfile" tabindex="-1" title="Browse Files">
+                                    <i class="fas fa-music"></i>
+                                </button>
+                            </div>
+                        </div>
                         {{/if}}
                     </div>
                 </div>
@@ -142,8 +148,8 @@
     </div>
     {{/each}}
 </div>
-<footer class='sheet-footer flexrow add-self-wrapper'>
-    <button class='add-autorecog-self'>
+<footer class='sheet-footer flexrow add-static-wrapper'>
+    <button class='add-autorecog-static'>
         <i class='far fa-plus-square'></i>Add Override
     </button>
 </footer>

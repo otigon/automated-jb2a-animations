@@ -45,7 +45,8 @@ export class aaAutoRecognition extends FormApplication {
 
         html.find('button.add-autorecog-melee').click(this._addMelee.bind(this));
         html.find('button.add-autorecog-range').click(this._addRange.bind(this));
-        html.find('button.add-autorecog-self').click(this._addSelf.bind(this));
+        html.find('button.add-autorecog-static').click(this._addStatic.bind(this));
+        //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
 
         html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
@@ -150,28 +151,50 @@ export class aaAutoRecognition extends FormApplication {
         this.render();
     }
 
-    async _addSelf(event) {
+    async _addStatic(event) {
         event.preventDefault();
         let idx = 0;
-        const entries = event.target.closest('div.tab').querySelectorAll('div.self-settings');
+        const entries = event.target.closest('div.tab').querySelectorAll('div.static-settings');
         const last = entries[entries.length - 1];
         if (last) {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.self.${idx}.name`] = '';
-        updateData[`aaAutorec.self.${idx}.type`] = 'static';
-        updateData[`aaAutorec.self.${idx}.animation`] = 'None';
-        updateData[`aaAutorec.self.${idx}.variant`] = '';
-        updateData[`aaAutorec.self.${idx}.loops`] = 1;
-        updateData[`aaAutorec.self.${idx}.loopDelay`] = 500;
-        updateData[`aaAutorec.self.${idx}.scale`] = 1;
-        updateData[`aaAutorec.self.${idx}.below`] = false;
+        updateData[`aaAutorec.static.${idx}.name`] = '';
+        updateData[`aaAutorec.static.${idx}.type`] = 'static';
+        updateData[`aaAutorec.static.${idx}.animation`] = 'None';
+        updateData[`aaAutorec.static.${idx}.variant`] = '';
+        updateData[`aaAutorec.static.${idx}.loops`] = 1;
+        updateData[`aaAutorec.static.${idx}.loopDelay`] = 500;
+        updateData[`aaAutorec.static.${idx}.scale`] = 1;
+        updateData[`aaAutorec.static.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
     }
+    /*
+    async _addStatic(event) {
+        event.preventDefault();
+        let idx = 0;
+        const entries = event.target.closest('div.tab').querySelectorAll('div.static-settings');
+        const last = entries[entries.length - 1];
+        if (last) {
+            idx = last.dataset.idx + 1;
+        }
+        let updateData = {}
+        updateData[`aaAutorec.static.${idx}.name`] = '';
+        updateData[`aaAutorec.static.${idx}.type`] = 'static';
+        updateData[`aaAutorec.static.${idx}.animation`] = 'None';
+        updateData[`aaAutorec.static.${idx}.variant`] = '';
+        updateData[`aaAutorec.static.${idx}.repeat`] = 1;
+        updateData[`aaAutorec.static.${idx}.delay`] = 500;
+        updateData[`aaAutorec.static.${idx}.scale`] = 1;
+        updateData[`aaAutorec.static.${idx}.below`] = false;
 
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+    */
     async _onRemoveOverride(event) {
         event.preventDefault();
         let idx = event.target.dataset.idx;
@@ -201,8 +224,8 @@ export class aaAutoRecognition extends FormApplication {
         }
         for (let [key, value] of Object.entries(data)) {
             const compacted = {};
-            Object.values(value.self).forEach((val, idx) => compacted[idx] = val);
-            value.self = compacted;
+            Object.values(value.static).forEach((val, idx) => compacted[idx] = val);
+            value.static = compacted;
             await game.settings.set('autoanimations', key, value);
         }
         /*

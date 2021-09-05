@@ -18,10 +18,11 @@
                 <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }}
                     style="display:none" {{/if}}>
                     <div class="aa-container">
-                        <div class="optionspan">
+                        {{#unless (lookup (lookup ../settings.aaAutorec.melee idx) 'custom')}}
+                        <div class="meleespan">
                             <div class="aa-rangemenu">
                                 <div class='animation-choice'>
-                                        <label for="aaAutorec.melee.{{idx}}.animation">Animation: 
+                                    <label for="aaAutorec.melee.{{idx}}.animation">Animation:
                                         <select name="aaAutorec.melee.{{idx}}.animation">
                                             {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
                                             'animation')}}
@@ -36,7 +37,7 @@
                         </div>
                         <div class="option03">
                             <div class="aa-rangemenu">
-                                    <label for="aaAutorec.melee.{{idx}}.variant">Variant: 
+                                <label for="aaAutorec.melee.{{idx}}.variant">Variant:
                                     <select name="aaAutorec.melee.{{idx}}.variant">
                                         {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'variant')}}
                                         {{#each (lookup (lookup ../variants 'melee') (lookup (lookup
@@ -50,7 +51,7 @@
                         </div>
                         <div class="option04">
                             <div class="aa-rangemenu">
-                                    <label for="aaAutorec.melee.{{idx}}.color">Color: 
+                                <label for="aaAutorec.melee.{{idx}}.color">Color:
                                     <select name="aaAutorec.melee.{{idx}}.color">
                                         {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'color')}}
                                         {{#each (lookup (lookup (lookup ../colors 'melee') (lookup (lookup
@@ -63,30 +64,31 @@
                                 </label>
                             </div>
                         </div>
+                        {{/unless}}
                         <div class="option05">
                             <div class="autorec-menu-options">
-                                <label>Repeat: 
-                                <input type="Number" name="aaAutorec.melee.{{idx}}.loops"
-                                    value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'loops'}}"
-                                    data-dtype="Number">
+                                <label>Repeat:
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.loops"
+                                        value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'loops'}}"
+                                        data-dtype="Number">
                                 </label>
                             </div>
                         </div>
                         <div class="option06">
                             <div class="autorec-menu-options">
-                                <label>Delay: 
-                                <input type="Number" name="aaAutorec.melee.{{idx}}.loopDelay"
-                                    value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'loopDelay'}}"
-                                    data-dtype="Number">
+                                <label>Delay:
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.loopDelay"
+                                        value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'loopDelay'}}"
+                                        data-dtype="Number">
                                 </label>
                             </div>
                         </div>
                         <div class="option07">
                             <div class="autorec-menu-options">
-                                <label>Scale: 
-                                <input type="Number" name="aaAutorec.melee.{{idx}}.scale"
-                                    value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'scale'}}"
-                                    data-dtype="Number">
+                                <label>Scale:
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'scale'}}"
+                                        data-dtype="Number">
                                 </label>
                             </div>
                         </div>
@@ -94,11 +96,118 @@
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
                                     <label>Below: </label>
-                                    <input type='checkbox' name='aaAutorec.melee.{{idx}}.below' {{checked (lookup (lookup
-                                        ../settings.aaAutorec.melee idx) 'below' ) }}>
+                                    <input type='checkbox' name='aaAutorec.melee.{{idx}}.below' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.melee idx) 'below' ) }}>
                                 </div>
                             </div>
                         </div>
+                        <div class="option09">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>Custom: </label>
+                                    <input type='checkbox' name='aaAutorec.melee.{{idx}}.custom' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.melee idx) 'custom' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.melee idx) 'custom')}}
+                        <div class="pickerspan">
+                            <div class="form-group">
+                                <input type="text" class="files" name="aaAutorec.melee.{{idx}}.customPath"
+                                    value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'customPath'}}">
+                                <button type="button" class="file-picker" data-type="image/video"
+                                    data-target="aaAutorec.melee.{{idx}}.customPath" tabindex="-1" title="Browse Files">
+                                    <i class="fas fa-music"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {{/if}}
+                        <div class="option13">
+                            <div class="form-group">
+                                <label>Switch: </label>
+                                <select name="aaAutorec.melee.{{idx}}.switchType">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchType')}}
+                                    <option value="on">Enabled</option>
+                                    <option value="off">Disabled</option>
+                                    <option value="custom">Custom</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'switchType') 'custom'}}
+                        <div class="option14">
+                            <div class="form-group">
+                                <label>Animation: </label>
+                                <select name="aaAutorec.melee.{{idx}}.switchAnimation">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchAnimation')}}
+                                    {{#each ../rangeList as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="option15">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>Return </label>
+                                    <input type='checkbox' name='aaAutorec.melee.{{idx}}.return' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.melee idx) 'return' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="option17">
+                            <div class="aa-rangemenu">
+                                <label for="aaAutorec.melee.{{idx}}.switchVariant">Variant:
+                                    <select name="aaAutorec.melee.{{idx}}.switchVariant">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchVariant')}}
+                                        {{#each (lookup (lookup ../variants 'range') (lookup (lookup
+                                        ../settings.aaAutorec.melee idx) 'switchAnimation')) as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option18">
+                            <div class="aa-rangemenu">
+                                <label for="aaAutorec.melee.{{idx}}.switchColor">Color:
+                                    <select name="aaAutorec.melee.{{idx}}.switchColor">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchColor')}}
+                                        {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
+                                        ../settings.aaAutorec.melee idx) 'switchAnimation')) (lookup (lookup
+                                        ../settings.aaAutorec.melee idx) 'switchVariant')) as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class='option21'>
+                            <div class="form-group">
+                                <label>Range Detection: </label>
+                                <select name="aaAutorec.melee.{{idx}}.detect">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'detect')}}
+                                    <option value="auto">Automatic</option>
+                                    <option value="manual">Manual</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'detect') 'manual'}}
+                        <div class='option22'>
+                            <div class="autorec-menu-options">
+                                <label>Distance to Switch:
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.range"
+                                        value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'range'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        {{/ifEquals}}
+                        {{/ifEquals}}
                     </div>
                 </div>
             </div>
