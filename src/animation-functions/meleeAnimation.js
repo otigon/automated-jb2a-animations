@@ -39,7 +39,7 @@ export async function meleeAnimation(handler, autoObject) {
         data.loopDelay = handler.loopDelay;
         data.scale = handler.scale;
     }
-    let attack = await buildFile(false, data.itemName, "melee", data.variant, data.color, data.customPath)
+    const attack = await buildFile(false, data.itemName, "melee", data.variant, data.color, data.customPath)
     //let attack = await buildWeaponFile(obj01, itemName, handler)
     const sourceToken = handler.actorToken;
     const sourceScale = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
@@ -53,15 +53,21 @@ export async function meleeAnimation(handler, autoObject) {
         explosion.data = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath)
     }
 
-    let explosionSound = handler.allSounds?.explosion;
-    let explosionVolume = 0.25;
-    let explosionDelay = 1;
-    let explosionFile = "";
+    //const explosionSound = handler.allSounds?.explosion;
+    //let explosionVolume = 0.25;
+    //let explosionDelay = 1;
+    //let explosionFile = "";
+    const explosionSound = {};
+    explosionSound.volume = handler.allSounds?.explosion?.volume || 0.25;
+    explosionSound.delay = handler.allSounds?.explosion?.delay || 1;
+    explosionSound.file = handler.allSounds?.explosion?.file || ""
+    /*
     if (handler.explodeSound) {
         explosionVolume = explosionSound?.volume || 0.25;
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
         explosionFile = explosionSound?.file;
     }
+    */
     // builds Source Token file if Enabled, and pulls from flags if already set
     //let sourceFX;
     //let sFXScale;
@@ -192,10 +198,10 @@ export async function meleeAnimation(handler, autoObject) {
                     })
                     //.waitUntilFinished(explosionDelay)
                 .sound()
-                    .file(explosionFile)
+                    .file(explosionSound.file)
                     .playIf(() => {return explosion.data && handler.explodeSound})
-                    .delay(explosionDelay)
-                    .volume(explosionVolume)
+                    .delay(explosionSound.delay)
+                    .volume(explosionSound.volume)
                     .repeats(data.loops, data.loopDelay)
                 .effect()
                     .delay(handler.targetDelay)

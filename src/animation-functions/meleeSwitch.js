@@ -8,13 +8,6 @@ export async function meleeSwitch(handler, target, autoObject) {
         return !!game.modules.get(test);
     }
 
-    // Sets JB2A database and Global Delay
-    //let itemName = handler.switchName || handler.convertedName;
-
-    //let globalDelay = game.settings.get("autoanimations", "globaldelay");
-    //await wait(globalDelay);
-
-
     //Builds Primary File Path and Pulls from flags if already set
     const data = {};
     if (autoObject) {
@@ -36,7 +29,7 @@ export async function meleeSwitch(handler, target, autoObject) {
         data.return = handler.switchReturn
         data.switchVariant = data.switchAnimation === "lasersword" || data.switchAnimation === "dagger" || data.switchAnimation === "handaxe" ? handler.switchVariant : handler.switchDmgType;
     }
-    let attack = await buildFile(false, data.switchAnimation, "range", data.switchVariant, data.switchColor);//need to finish
+    const attack = await buildFile(false, data.switchAnimation, "range", data.switchVariant, data.switchColor);//need to finish
     const sourceToken = handler.actorToken;
     //let variant = data.itemName === "lasersword" || data.itemName === "dagger" || data.itemName === "handaxe" ? handler.switchVariant : handler.switchDmgType;
 
@@ -48,7 +41,7 @@ export async function meleeSwitch(handler, target, autoObject) {
         explosion.customExplosionPath = handler.customExplode ? handler.customExplosionPath : false;
         explosion.data = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath)
     }
-
+    /*
     let explosionSound = handler.allSounds?.explosion;
     let explosionVolume = 0.25;
     let explosionDelay = 1;
@@ -59,6 +52,11 @@ export async function meleeSwitch(handler, target, autoObject) {
         explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
         explosionFile = explosionSound?.file;
     }
+    */
+    const explosionSound = {};
+    explosionSound.volume = handler.allSounds?.explosion?.volume || 0.25;
+    explosionSound.delay = handler.allSounds?.explosion?.delay || 1;
+    explosionSound.file = handler.allSounds?.explosion?.file || ""
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     //let sourceFX;
@@ -113,77 +111,77 @@ export async function meleeSwitch(handler, target, autoObject) {
 
         await new Sequence()
             .effect()
-            .atLocation(sourceToken)
-            .scale(sourceFX.sFXScale * handler.sourceScale)
-            .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-            .belowTokens(handler.sourceLevel)
-            .waitUntilFinished(handler.sourceDelay)
-            .playIf(handler.sourceEnable)
-            .addOverride(async (effect, data) => {
-                if (handler.sourceEnable) {
-                    data.file = sourceFX.data.file;
-                }
-                return data;
-            })
+                .atLocation(sourceToken)
+                .scale(sourceFX.sFXScale * handler.sourceScale)
+                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
+                .belowTokens(handler.sourceLevel)
+                .waitUntilFinished(handler.sourceDelay)
+                .playIf(handler.sourceEnable)
+                .addOverride(async (effect, data) => {
+                    if (handler.sourceEnable) {
+                        data.file = sourceFX.data.file;
+                    }
+                    return data;
+                })
             .thenDo(function () {
                 Hooks.callAll("aaAnimationStart", sourceToken, target)
             })
             .effect()
-            .file(attack.file)
-            .atLocation(sourceToken)
-            .reachTowards(target)
-            .JB2A()
-            .randomizeMirrorY()
-            .repeats(handler.animationLoops, handler.loopDelay)
-            .missed(hit)
-            .name("animation")
-            .belowTokens(handler.animLevel)
-            .addOverride(
-                async (effect, data) => {
-                    return data
-                })
+                .file(attack.file)
+                .atLocation(sourceToken)
+                .reachTowards(target)
+                .JB2A()
+                .randomizeMirrorY()
+                .repeats(handler.animationLoops, handler.loopDelay)
+                .missed(hit)
+                .name("animation")
+                .belowTokens(handler.animLevel)
+                .addOverride(
+                    async (effect, data) => {
+                        return data
+                    })
             //.waitUntilFinished(-700/* + handler.explosionDelay*/)
             .effect()
-            .file(attack.returnFile)
-            .delay(returnDelay)
-            .atLocation(sourceToken)
-            .repeats(handler.animationLoops, handler.loopDelay)
-            .reachTowards("animation")
-            .playIf(switchReturn)
-            .JB2A()
+                .file(attack.returnFile)
+                .delay(returnDelay)
+                .atLocation(sourceToken)
+                .repeats(handler.animationLoops, handler.loopDelay)
+                .reachTowards("animation")
+                .playIf(switchReturn)
+                .JB2A()
             .effect()
-            .atLocation("animation")
-            //.file(explosion.file)
-            .scale({ x: scale, y: scale })
-            .delay(handler.explosionDelay)
-            .repeats(handler.animationLoops, handler.loopDelay)
-            .belowTokens(handler.explosionLevel)
-            .playIf(() => { return handler.explosion })
-            .addOverride(async (effect, data) => {
-                if (handler.explosion) {
-                    data.file = explosion.data.file;
-                }
-                return data;
-            })
+                .atLocation("animation")
+                //.file(explosion.file)
+                .scale({ x: scale, y: scale })
+                .delay(handler.explosionDelay)
+                .repeats(handler.animationLoops, handler.loopDelay)
+                .belowTokens(handler.explosionLevel)
+                .playIf(() => { return handler.explosion })
+                .addOverride(async (effect, data) => {
+                    if (handler.explosion) {
+                        data.file = explosion.data.file;
+                    }
+                    return data;
+                })
             .sound()
-            .file(explosionFile)
-            .playIf(() => { return explosion.data && handler.explodeSound })
-            .delay(explosionDelay)
-            .volume(explosionVolume)
-            .repeats(handler.animationLoops, handler.loopDelay)
+                .file(explosionSound.file)
+                .playIf(() => { return explosion.data && handler.explodeSound })
+                .delay(explosionSound.delay)
+                .volume(explosionSound.volume)
+                .repeats(handler.animationLoops, handler.loopDelay)
             .effect()
-            .delay(handler.targetDelay)
-            .atLocation(target)
-            .scale(targetFX.tFXScale * handler.targetScale)
-            .repeats(handler.targetLoops, handler.targetLoopDelay)
-            .belowTokens(handler.targetLevel)
-            .playIf(handler.targetEnable)
-            .addOverride(async (effect, data) => {
-                if (handler.targetEnable) {
-                    data.file = targetFX.data.file;
-                }
-                return data;
-            })
+                .delay(handler.targetDelay)
+                .atLocation(target)
+                .scale(targetFX.tFXScale * handler.targetScale)
+                .repeats(handler.targetLoops, handler.targetLoopDelay)
+                .belowTokens(handler.targetLevel)
+                .playIf(handler.targetEnable)
+                .addOverride(async (effect, data) => {
+                    if (handler.targetEnable) {
+                        data.file = targetFX.data.file;
+                    }
+                    return data;
+                })
             .play()
         await wait(handler.animEnd)
         Hooks.callAll("aa.animationEnd", sourceToken, target)
