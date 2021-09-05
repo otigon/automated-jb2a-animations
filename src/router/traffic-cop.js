@@ -13,6 +13,7 @@ import { shieldSpell } from "../animation-functions/custom-sequences/shield.js";
 import { sneakAttack } from "../animation-functions/custom-sequences/sneak-Attack.js";
 import { bless } from "../animation-functions/custom-sequences/bless.js";
 import { staticAnimation } from "../animation-functions/staticAnimation.js";
+import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -26,7 +27,7 @@ async function itemSound(handler) {
         AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
     }
 }
-
+/*
 function getAllNames(obj, type) {
     const nameArray = []
     try {Object.keys(obj[type]).length} 
@@ -37,7 +38,7 @@ function getAllNames(obj, type) {
     }
     return nameArray;
 }
-/*
+
 function getAllTheNames(obj) {
     const nameArray = []
     const keys = Object.keys(obj)
@@ -51,13 +52,13 @@ function getAllTheNames(obj) {
     }
     return nameArray;
 }
-*/
+
 function findObjectByName(data, type, name) {
     return Object.values(data[type]).filter(section => {
         return section.name.toLowerCase() === (name.toLowerCase()) ? section : "";
     })
 }
-/*
+
 function findObjectByNameFull(data, name) {
     const keys = Object.keys(data)
     const keyLength = keys.length
@@ -72,7 +73,7 @@ function findObjectByNameFull(data, name) {
         if (newObject.length === 1) {return newObject}
     }
 }
-*/
+
 function autorecNameCheck(nameArray, name) {
     const arrayLength = nameArray.length;
     let nameFound = false;
@@ -92,7 +93,7 @@ function rinseName(oldName) {
     newName = newName.trim("\s+$/g", "")
     return newName;
 }
-
+*/
 export async function trafficCop(handler) {
     //console.log(autoRecSettings)
     const itemArray = moduleIncludes("jb2a_patreon") ? AAITEMCHECK : AAITEMCHECKFREE;

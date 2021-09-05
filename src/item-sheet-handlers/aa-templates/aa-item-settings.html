@@ -38,16 +38,15 @@
                 {{#if autoRecognized}}
                 <!--If auto-recognized, Animation name will be listed here-->
                 <div class="form-group">
-                    <label class="auto-recognized"><strong>{{OldName}}</strong> is recognized as the
-                        <strong>{{convertedName}}</strong> animation</label>
+                    <label class="auto-recognized"><strong>{{OldName}}</strong> is configured in the Global Settings</label>
                 </div>
                 {{/if}}
                 <!--Choose Standard Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
-                    <select name="flags.autoanimations.color">
-                        {{#select flags.autoanimations.color}}
-                        {{#each animationColor as |name key|}}
+                    <select name="flags.autoanimations.options.autoColor">
+                        {{#select flags.autoanimations.options.autoColor}}
+                        {{#each autorecColor as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}

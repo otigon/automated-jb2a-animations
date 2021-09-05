@@ -13,6 +13,7 @@ export async function staticAnimation(handler, autoObject) {
         Object.assign(data, autoObject[0])
         data.itemName = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
+        data.color = handler.options?.autoColor || data.color;
         console.log(data)
     } else {
         data.itemName = handler.convertedName;

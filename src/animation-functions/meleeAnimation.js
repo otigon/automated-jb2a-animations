@@ -29,6 +29,7 @@ export async function meleeAnimation(handler, autoObject) {
         Object.assign(data, autoObject[0]);
         data.itemName = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
+        data.color = handler.options?.autoColor || data.color;
     } else {
         data.itemName = handler.convertedName;
         data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";

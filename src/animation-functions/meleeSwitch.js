@@ -15,6 +15,7 @@ export async function meleeSwitch(handler, target, autoObject) {
         //if (!data.switchAnimation) { data.switchAnimation = data.animation; }
         data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
         data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
+        data.color = handler.options?.autoColor || data.color;
         console.log(data.switchAnimation)
         console.log(autoObject)
     } else {

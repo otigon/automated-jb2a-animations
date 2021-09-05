@@ -1,5 +1,5 @@
 import { AUTOANIM } from "./config.js";
-import { rangeColors, staticColors, animationName, animTemplates, variantOptions, menuColors, variantLength } from "./tab-options.js";
+import { rangeColors, staticColors, animationName, animTemplates, variantOptions, menuColors, variantLength, autorecColors, checkAutoRec, autoPreview } from "./tab-options.js";
 import animPreview from "./anim-preview.js";
 import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -82,7 +82,7 @@ export class AAItemSettings extends FormApplication {
         const staticLength = variantLength(itemName, "static");
 
         let videoPreview = animPreview(flags, itemName);
-        if (videoPreview === "no preview" && !override) { videoPreview = conversion[3] }
+        if (videoPreview === "no preview" && !override) { videoPreview = autoPreview(oldName, flags.autoanimations?.options?.autoColor, patreon) }
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
@@ -103,8 +103,9 @@ export class AAItemSettings extends FormApplication {
         return {
             defaultCheck: AAITEMCHECK.default.includes(itemName),
             OldName: oldName,
-            convertedName: conversion[2],
-            autoRecognized: conversion[2] === undefined ? false : true,
+            //convertedName: conversion[2],
+            //autoRecognized: conversion[2] === undefined ? false : true,
+            autoRecognized: checkAutoRec(oldName),
             t2t3: override && (animType === "t2" || animType === "t3"),
             t4: override && animType === "t4",
             t5: override && animType === "t5",
@@ -255,6 +256,8 @@ export class AAItemSettings extends FormApplication {
             switchVariant: variantOptions(switchName, "range"),
             meleeVariant: variantOptions(itemName, "melee"),
             staticVariant: variantOptions(itemName, "static"),
+
+            autorecColor: autorecColors(oldName)
         };
 
     }

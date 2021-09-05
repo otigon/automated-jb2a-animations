@@ -30,12 +30,17 @@ export async function rangedAnimations(handler, autoObject) {
     if (autoObject) {
         Object.assign(data, autoObject[0])
         data.itemName = data.animation;
+        data.color = handler.options?.autoColor || data.color;
         console.log(data)
     } else {
         data.itemName = handler.convertedName;
         if (data.itemName === "arrow") { data.dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
             data.dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
         }
+        let dmgType;
+        if (data.itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
+            dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
+        }    
         const variant = AAITEMCHECK.spellattack.some(el => data.itemName.includes(el)) ? handler.spellVariant : dmgType;
         data.variant = data.itemName === "rangelasersword" || data.itemName === "rangedagger" || data.itemName === "rangehandaxe" || data.itemName === "chakram" ? handler.dtvar : variant;
         data.color = handler.color;
