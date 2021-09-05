@@ -121,8 +121,8 @@ export class aaAutoRecognition extends FormApplication {
         updateData[`aaAutorec.melee.${idx}.type`] = 'melee';
         updateData[`aaAutorec.melee.${idx}.animation`] = 'None';
         updateData[`aaAutorec.melee.${idx}.variant`] = '';
-        updateData[`aaAutorec.melee.${idx}.loops`] = 1;
-        updateData[`aaAutorec.melee.${idx}.loopDelay`] = 500;
+        updateData[`aaAutorec.melee.${idx}.repeat`] = 1;
+        updateData[`aaAutorec.melee.${idx}.delay`] = 500;
         updateData[`aaAutorec.melee.${idx}.scale`] = 1;
         updateData[`aaAutorec.melee.${idx}.below`] = false;
 
@@ -143,8 +143,8 @@ export class aaAutoRecognition extends FormApplication {
         updateData[`aaAutorec.range.${idx}.type`] = 'range';
         updateData[`aaAutorec.range.${idx}.animation`] = 'None';
         updateData[`aaAutorec.range.${idx}.variant`] = '';
-        updateData[`aaAutorec.range.${idx}.loops`] = 1;
-        updateData[`aaAutorec.range.${idx}.loopDelay`] = 500;
+        updateData[`aaAutorec.range.${idx}.repeat`] = 1;
+        updateData[`aaAutorec.range.${idx}.delay`] = 500;
         updateData[`aaAutorec.range.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
@@ -164,8 +164,8 @@ export class aaAutoRecognition extends FormApplication {
         updateData[`aaAutorec.static.${idx}.type`] = 'static';
         updateData[`aaAutorec.static.${idx}.animation`] = 'None';
         updateData[`aaAutorec.static.${idx}.variant`] = '';
-        updateData[`aaAutorec.static.${idx}.loops`] = 1;
-        updateData[`aaAutorec.static.${idx}.loopDelay`] = 500;
+        updateData[`aaAutorec.static.${idx}.repeat`] = 1;
+        updateData[`aaAutorec.static.${idx}.delay`] = 500;
         updateData[`aaAutorec.static.${idx}.scale`] = 1;
         updateData[`aaAutorec.static.${idx}.below`] = false;
 

@@ -27,7 +27,8 @@ export async function meleeAnimation(handler, autoObject) {
     const data = {};
     if (autoObject) {
         Object.assign(data, autoObject[0]);
-        data.itemName = data.animation;
+        data.itemName = data.animation || "";
+        data.customPath = data.custom ? data.customPath : false;
     } else {
         data.itemName = handler.convertedName;
         data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";
@@ -35,8 +36,8 @@ export async function meleeAnimation(handler, autoObject) {
         data.color = handler.color;
         data.switchType = handler.switchType;
         data.detect = handler.switchDetect;
-        data.loops = handler.animationLoops;
-        data.loopDelay = handler.loopDelay;
+        data.repeat = handler.animationLoops;
+        data.delay = handler.loopDelay;
         data.scale = handler.scale;
     }
     const attack = await buildFile(false, data.itemName, "melee", data.variant, data.color, data.customPath)
@@ -60,7 +61,7 @@ export async function meleeAnimation(handler, autoObject) {
     const explosionSound = {};
     explosionSound.volume = handler.allSounds?.explosion?.volume || 0.25;
     explosionSound.delay = handler.allSounds?.explosion?.delay || 1;
-    explosionSound.file = handler.allSounds?.explosion?.file || ""
+    explosionSound.file = handler.allSounds?.explosion?.file || "";
     /*
     if (handler.explodeSound) {
         explosionVolume = explosionSound?.volume || 0.25;
@@ -76,7 +77,7 @@ export async function meleeAnimation(handler, autoObject) {
     if (handler.sourceEnable) {
         sourceFX.customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
         sourceFX.data = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath);
-        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
+        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.data.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     //let targetFX;
@@ -160,7 +161,7 @@ export async function meleeAnimation(handler, autoObject) {
                     .rotateTowards(target)
                     //.JB2A()
                     .scale(sourceScale * data.scale)
-                    .repeats(data.loops, data.loopDelay)
+                    .repeats(data.repeat, data.delay)
                     .randomizeMirrorY()
                     .missed(hit)
                     .name("animation")
@@ -176,7 +177,7 @@ export async function meleeAnimation(handler, autoObject) {
                     .moveTowards(target)
                     //.JB2A()
                     .scale(sourceScale * data.scale)
-                    .repeats(data.loops, data.loopDelay)
+                    .repeats(data.repeat, data.delay)
                     .randomizeMirrorY()
                     .missed(hit)
                     .name("animation")
@@ -187,7 +188,7 @@ export async function meleeAnimation(handler, autoObject) {
                     //.file(explosion.file)
                     .scale({ x: scale, y: scale })
                     .delay(500 + handler.explosionDelay)
-                    .repeats(data.loops, data.loopDelay)
+                    .repeats(data.repeat, data.delay)
                     .belowTokens(handler.explosionLevel)
                     .playIf(() => { return explosion.data })
                     .addOverride(async (effect, data) => {
@@ -202,7 +203,7 @@ export async function meleeAnimation(handler, autoObject) {
                     .playIf(() => {return explosion.data && handler.explodeSound})
                     .delay(explosionSound.delay)
                     .volume(explosionSound.volume)
-                    .repeats(data.loops, data.loopDelay)
+                    .repeats(data.repeat, data.delay)
                 .effect()
                     .delay(handler.targetDelay)
                     .atLocation(target)

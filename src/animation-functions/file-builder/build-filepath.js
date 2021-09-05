@@ -5,13 +5,9 @@ export async function buildFile(getMeta, name, animationType, animationVariant, 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    const jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    const path = name.replace(/melee|range|double/gi, function (x) {
-        return "";
-    });
     let file;
     let msFile;
-    let color = animationColor.replace(/\s+/g, '');
+    let color;
     let returnFile;
     let fileData;
     let metadata;
@@ -23,7 +19,11 @@ export async function buildFile(getMeta, name, animationType, animationVariant, 
             metadata = await getVideoDimensionsOf(fileData);
         }    
     } else {
-
+        const jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+        const path = name.replace(/melee|range|double/gi, function (x) {
+            return "";
+        });
+        color = animationColor.replace(/\s+/g, '');
         const type = animationType;
         const variantArray = Object.keys(jb2a[type][path]);
         const variant = variantArray.some(el => animationVariant === el) ? animationVariant : variantArray[0];

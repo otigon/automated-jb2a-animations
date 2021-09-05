@@ -24,8 +24,8 @@ export async function meleeSwitch(handler, target, autoObject) {
         data.color = handler.switchColor;
         data.switchType = handler.switchType;
         data.detect = handler.switchDetect;
-        data.loops = handler.animationLoops;
-        data.loopDelay = handler.loopDelay;
+        data.repeat = handler.animationLoops;
+        data.delay = handler.loopDelay;
         data.return = handler.switchReturn
         data.switchVariant = data.switchAnimation === "lasersword" || data.switchAnimation === "dagger" || data.switchAnimation === "handaxe" ? handler.switchVariant : handler.switchDmgType;
     }
@@ -66,7 +66,7 @@ export async function meleeSwitch(handler, target, autoObject) {
     if (handler.sourceEnable) {
         sourceFX.customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
         sourceFX.data = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
-        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
+        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.data.metadata.width;
     }
     // builds Target Token file if Enabled, and pulls from flags if already set
     //let targetFX;

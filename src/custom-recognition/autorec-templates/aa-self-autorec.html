@@ -82,8 +82,8 @@
                         <div class="option05">
                             <div class="autorec-menu-options">
                                 <label>Repeat:
-                                    <input type="Number" name="aaAutorec.static.{{idx}}.loops"
-                                        value="{{lookup (lookup ../settings.aaAutorec.static idx) 'loops'}}"
+                                    <input type="Number" name="aaAutorec.static.{{idx}}.repeat"
+                                        value="{{lookup (lookup ../settings.aaAutorec.static idx) 'repeat'}}"
                                         data-dtype="Number">
                                 </label>
                             </div>
@@ -91,8 +91,8 @@
                         <div class="option06">
                             <div class="autorec-menu-options">
                                 <label>Delay:
-                                    <input type="Number" name="aaAutorec.static.{{idx}}.loopDelay"
-                                        value="{{lookup (lookup ../settings.aaAutorec.static idx) 'loopDelay'}}"
+                                    <input type="Number" name="aaAutorec.static.{{idx}}.delay"
+                                        value="{{lookup (lookup ../settings.aaAutorec.static idx) 'delay'}}"
                                         data-dtype="Number">
                                 </label>
                             </div>
@@ -127,10 +127,10 @@
                         {{#if (lookup (lookup ../settings.aaAutorec.static idx) 'custom')}}
                         <div class="pickerspan">
                             <div class="form-group">
-                                <input type="text" class="files" name="aaAutorec.static.{{idx}}.customfile"
-                                    value="{{lookup (lookup ../settings.aaAutorec.static idx) 'customfile'}}">
+                                <input type="text" class="files" name="aaAutorec.static.{{idx}}.customPath"
+                                    value="{{lookup (lookup ../settings.aaAutorec.static idx) 'customPath'}}">
                                 <button type="button" class="file-picker" data-type="image/video"
-                                    data-target="aaAutorec.static.{{idx}}.customfile" tabindex="-1" title="Browse Files">
+                                    data-target="aaAutorec.static.{{idx}}.customPath" tabindex="-1" title="Browse Files">
                                     <i class="fas fa-music"></i>
                                 </button>
                             </div>

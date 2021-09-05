@@ -12,6 +12,7 @@ import { templateAnimation } from "../animation-functions/templateAnimation.js";
 import { shieldSpell } from "../animation-functions/custom-sequences/shield.js";
 import { sneakAttack } from "../animation-functions/custom-sequences/sneak-Attack.js";
 import { bless } from "../animation-functions/custom-sequences/bless.js";
+import { staticAnimation } from "../animation-functions/staticAnimation.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -28,6 +29,8 @@ async function itemSound(handler) {
 
 function getAllNames(obj, type) {
     const nameArray = []
+    try {Object.keys(obj[type]).length} 
+    catch (exception) {return nameArray}
     const arrayLength = Object.keys(obj[type]).length
     for (var i = 0; i < arrayLength; i++) {
         nameArray.push(obj[type][i].name.toLowerCase())
@@ -204,7 +207,8 @@ export async function trafficCop(handler) {
             //console.log(autoObject)
             const nameArrays = {
                 melee: getAllNames(autoRecSettings, 'melee'),
-                range: [...getAllNames(autoRecSettings, 'range'), ...getAllNames(autoRecSettings, 'static')],
+                range: getAllNames(autoRecSettings, 'range'),
+                static: getAllNames(autoRecSettings, 'static')
             }
             //console.log(autoName)
             //console.log(nameArrays)
@@ -231,16 +235,21 @@ export async function trafficCop(handler) {
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const spellAutoObject = findObjectByName(autoRecSettings, 'attackspell', autoName)
-                    const rangeAutoObject = spellAutoObject.length === 0 ? findObjectByName(autoRecSettings, 'range', handler.item.name) : spellAutoObject;
+                    const rangeAutoObject = findObjectByName(autoRecSettings, 'range', handler.item.name);
                     console.log(rangeAutoObject)
                     rangedAnimations(handler, rangeAutoObject);
                     break;
+                case autorecNameCheck(nameArrays.static, autoName):
+                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                    const staticAutoObject = (findObjectByName(autoRecSettings, 'static', autoName))
+                    staticAnimation(handler, staticAutoObject);
+                /*
                 case itemArray.healing.includes(itemName):
                 case itemArray.creatureattack.includes(itemName):
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                     onTokenAnimation(handler);
                     break;
+                */
             }
         }
     }
