@@ -116,7 +116,7 @@
     margin-bottom: 5px;
 }
 
-.aa-spell-autorecog {
+.aa-self-autorecog {
     border: 3px ridge rgb(97, 97, 97);
     border-radius: 5px;
     padding: 3px;
@@ -176,6 +176,74 @@
     text-align: center;
 }
 
-#aa-autorec-form {
-    width: 5em;
+.autorec-menu-options {
+    padding: 5px;
+    text-align: center;
+}
+
+.autorec-menu-options input {
+    width: 3em;
+}
+
+.aa-container {
+    display: grid;
+    grid-template-columns: auto auto 9em 9em;
+    grid-template-rows: 3em 3em;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "option01 option02 option05 option06"
+      "option03 option04 option07 option08"
+      "option09 option10 option11 option12"
+      "option13 option14 option15 option16";
+    align-items: center;
+    justify-items: end; 
+}
+  
+.option01 { 
+    grid-area: option01; 
+}
+  
+.option02 { 
+    grid-area: option02; 
+}
+  
+.option03 { 
+    grid-area: option03; 
+}
+  
+.option04 { 
+    grid-area: option04; 
+}
+  
+.option05 { 
+    grid-area: option05; 
+}
+  
+.option06 { 
+    grid-area: option06; 
+}
+  
+.option07 { 
+    grid-area: option07; 
+}
+  
+.option08 { 
+    grid-area: option08; 
+}
+  
+.option09 { 
+    grid-area: option09; 
+}
+
+.option10 { 
+    grid-area: option10; 
+}
+
+.option11 { 
+    grid-area: option11; 
+}
+
+.option12 { 
+    grid-area: option12; 
 }

@@ -11,75 +11,125 @@
                             class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
                             ../settings.aaAutorec.self idx) 'hidden' ) }} class="fas fa-minus collapse-button"
                             {{/unless}}></i>
-                        <input type='text' name="aaAutorec.self.{{idx}}.name" placeholder="Item Name"
-                            class='auto-name' value="{{lookup (lookup ../settings.aaAutorec.self idx) 'name'}}" />
+                        <input type='text' name="aaAutorec.self.{{idx}}.name" placeholder="Item Name" class='auto-name'
+                            value="{{lookup (lookup ../settings.aaAutorec.self idx) 'name'}}" />
                     </div>
                 </div>
                 <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.self idx) 'hidden' ) }}
                     style="display:none" {{/if}}>
-                    <div class='flexrow hidden'>
-                        <div class="aa-rangemenu">
-                            <div class='animation-choice'>
-                                <div class='form-group'>
-                                    <label for="aaAutorec.self.{{idx}}.animation">Animation</label>
-                                    <select name="aaAutorec.self.{{idx}}.animation">
+                    <div class="aa-container">
+                        <div class="option01">
+                            <div class="aa-rangemenu">
+                                <label for="aaAutorec.self.{{idx}}.type">Play on:
+                                    <select name="aaAutorec.self.{{idx}}.type">
                                         {{#select (lookup (lookup ../settings.aaAutorec.self idx)
-                                        'animation')}}
-                                        {{#each ../selfList as |name key|}}
+                                        'type')}}
+                                        <option value="source">Source</option>
+                                        <option value="target">Target</option>
+                                        <option value="sourcetarget">Both</option>
+                                        {{/select}}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option02">
+                            <div class="aa-rangemenu">
+                                <div class='animation-choice'>
+                                    <label for="aaAutorec.self.{{idx}}.animation">Animation:
+                                        <select name="aaAutorec.self.{{idx}}.animation">
+                                            {{#select (lookup (lookup ../settings.aaAutorec.self idx)
+                                            'animation')}}
+                                            {{#each ../selfList as |name key|}}
+                                            <option value="{{key}}">{{name}}</option>
+                                            {{/each}}
+                                            {{/select}}
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="option03">
+                            <div class="aa-rangemenu">
+                                <label for="aaAutorec.self.{{idx}}.variant">Variant:
+                                    <select name="aaAutorec.self.{{idx}}.variant" sytle="width:5em">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.self idx) 'variant')}}
+                                        {{#each (lookup (lookup ../variants 'static') (lookup (lookup
+                                        ../settings.aaAutorec.self idx) 'animation')) as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/select}}
                                     </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option04">
+                            <div class="aa-rangemenu">
+                                <label for="aaAutorec.self.{{idx}}.color">Color:
+                                    <select name="aaAutorec.self.{{idx}}.color">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.self idx) 'color')}}
+                                        {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
+                                        ../settings.aaAutorec.self idx) 'animation')) (lookup (lookup
+                                        ../settings.aaAutorec.self idx) 'variant')) as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>Repeat:
+                                    <input type="Number" name="aaAutorec.self.{{idx}}.loops"
+                                        value="{{lookup (lookup ../settings.aaAutorec.self idx) 'loops'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <label>Delay:
+                                    <input type="Number" name="aaAutorec.self.{{idx}}.loopDelay"
+                                        value="{{lookup (lookup ../settings.aaAutorec.self idx) 'loopDelay'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option07">
+                            <div class="autorec-menu-options">
+                                <label>Scale:
+                                    <input type="Number" name="aaAutorec.self.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.self idx) 'scale'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option08">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>Below: </label>
+                                    <input type='checkbox' name='aaAutorec.self.{{idx}}.below' {{checked (lookup (lookup
+                                        ../settings.aaAutorec.self idx) 'below' ) }}>
                                 </div>
                             </div>
                         </div>
-                        <div class="aa-rangemenu">
-                            <div class='form-group'>
-                                <label for="aaAutorec.self.{{idx}}.variant">Variant</label>
-                                <select name="aaAutorec.self.{{idx}}.variant">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.self idx) 'variant')}}
-                                    {{#each (lookup (lookup ../variants 'static') (lookup (lookup
-                                    ../settings.aaAutorec.self idx) 'animation')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="aa-rangemenu">
-                            <div class='form-group'>
-                                <label for="aaAutorec.self.{{idx}}.color">Color</label>
-                                <select name="aaAutorec.self.{{idx}}.color">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.self idx) 'color')}}
-                                    {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                    ../settings.aaAutorec.self idx) 'animation')) (lookup (lookup
-                                    ../settings.aaAutorec.self idx) 'variant')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
-                        </div>
                     </div>
-                    <div class='flexrow'>
-                        <div class="aa-rangemenu">
-                                <label>{{localize "AUTOANIM.loops"}}</label>
-                                <input type="Number" name="aaAutorec.self.{{idx}}.loops"
-                                    value="{{lookup (lookup ../settings.aaAutorec.self idx) 'loops'}}"
-                                    data-dtype="Number">
+                    <div class="form-group" style="position: relative; ">
+                        <div class="autorec-menu-options">
+                            <div class='form-group'>
+                                <label>Custom Animation: </label>
+                                <input type='checkbox' name='aaAutorec.self.{{idx}}.custom' {{checked (lookup (lookup
+                                    ../settings.aaAutorec.self idx) 'custom' ) }}>
+                            </div>
                         </div>
-                        <div class="aa-rangemenu">
-                                <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
-                                <input type="Number" name="aaAutorec.self.{{idx}}.loopDelay"
-                                    value="{{lookup (lookup ../settings.aaAutorec.self idx) 'loopDelay'}}"
-                                    data-dtype="Number">
-                        </div>
-                        <div class="aa-rangemenu">
-                                <label>{{localize "AUTOANIM.scale"}}</label>
-                                <input type="Number" name="aaAutorec.self.{{idx}}.scale"
-                                    value="{{lookup (lookup ../settings.aaAutorec.self idx) 'scale'}}"
-                                    data-dtype="Number">
-                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.self idx) 'custom')}}
+                        <input type="text" class="files" name="aaAutorec.self.{{idx}}.customfile"
+                            value="{{lookup (lookup ../settings.aaAutorec.self idx) 'customfile'}}">
+                        <button type="button" class="file-picker" data-type="image/video"
+                            data-target="aaAutorec.self.{{idx}}.customfile" tabindex="-1" title="Browse Files">
+                            <i class="fas fa-music"></i>
+                        </button>
+                        {{/if}}
                     </div>
                 </div>
             </div>

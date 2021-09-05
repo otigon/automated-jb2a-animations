@@ -12,7 +12,7 @@ export class aaAutoRecognition extends FormApplication {
             id: 'automatic-recognition',
             title: "Automatic Recognition Settings",
             resizable: true,
-            width: 750,
+            width: 700,
             height: "auto",
             closeOnSubmit: true,
             tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "name" }]
@@ -47,6 +47,9 @@ export class aaAutoRecognition extends FormApplication {
         html.find('button.add-autorecog-range').click(this._addRange.bind(this));
         html.find('button.add-autorecog-self').click(this._addSelf.bind(this));
 
+        html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render())
+        })
         html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
         //utilize html.on versus html.find
         //remove this.render() and add show/hide elements for menus (pre-populated)
@@ -120,6 +123,7 @@ export class aaAutoRecognition extends FormApplication {
         updateData[`aaAutorec.melee.${idx}.loops`] = 1;
         updateData[`aaAutorec.melee.${idx}.loopDelay`] = 500;
         updateData[`aaAutorec.melee.${idx}.scale`] = 1;
+        updateData[`aaAutorec.melee.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
@@ -140,6 +144,7 @@ export class aaAutoRecognition extends FormApplication {
         updateData[`aaAutorec.range.${idx}.variant`] = '';
         updateData[`aaAutorec.range.${idx}.loops`] = 1;
         updateData[`aaAutorec.range.${idx}.loopDelay`] = 500;
+        updateData[`aaAutorec.range.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
@@ -148,7 +153,7 @@ export class aaAutoRecognition extends FormApplication {
     async _addSelf(event) {
         event.preventDefault();
         let idx = 0;
-        const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
+        const entries = event.target.closest('div.tab').querySelectorAll('div.self-settings');
         const last = entries[entries.length - 1];
         if (last) {
             idx = last.dataset.idx + 1;
@@ -161,6 +166,7 @@ export class aaAutoRecognition extends FormApplication {
         updateData[`aaAutorec.self.${idx}.loops`] = 1;
         updateData[`aaAutorec.self.${idx}.loopDelay`] = 500;
         updateData[`aaAutorec.self.${idx}.scale`] = 1;
+        updateData[`aaAutorec.self.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
@@ -191,6 +197,12 @@ export class aaAutoRecognition extends FormApplication {
             const compacted = {};
             Object.values(value.range).forEach((val, idx) => compacted[idx] = val);
             value.range = compacted;
+            await game.settings.set('autoanimations', key, value);
+        }
+        for (let [key, value] of Object.entries(data)) {
+            const compacted = {};
+            Object.values(value.self).forEach((val, idx) => compacted[idx] = val);
+            value.self = compacted;
             await game.settings.set('autoanimations', key, value);
         }
         /*

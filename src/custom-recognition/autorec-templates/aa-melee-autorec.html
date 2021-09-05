@@ -17,68 +17,87 @@
                 </div>
                 <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }}
                     style="display:none" {{/if}}>
-                    <div class='flexrow hidden'>
-                        <div class="aa-rangemenu">
-                            <div class='animation-choice'>
-                                <div class='form-group'>
-                                    <label for="aaAutorec.melee.{{idx}}.animation">Animation</label>
-                                    <select name="aaAutorec.melee.{{idx}}.animation">
-                                        {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
-                                        'animation')}}
-                                        {{#each ../meleeList as |name key|}}
+                    <div class="aa-container">
+                        <div class="optionspan">
+                            <div class="aa-rangemenu">
+                                <div class='animation-choice'>
+                                        <label for="aaAutorec.melee.{{idx}}.animation">Animation: 
+                                        <select name="aaAutorec.melee.{{idx}}.animation">
+                                            {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
+                                            'animation')}}
+                                            {{#each ../meleeList as |name key|}}
+                                            <option value="{{key}}">{{name}}</option>
+                                            {{/each}}
+                                            {{/select}}
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="option03">
+                            <div class="aa-rangemenu">
+                                    <label for="aaAutorec.melee.{{idx}}.variant">Variant: 
+                                    <select name="aaAutorec.melee.{{idx}}.variant">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'variant')}}
+                                        {{#each (lookup (lookup ../variants 'melee') (lookup (lookup
+                                        ../settings.aaAutorec.melee idx) 'animation')) as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/select}}
                                     </select>
-                                </div>
+                                </label>
                             </div>
                         </div>
-                        <div class="aa-rangemenu">
-                            <div class='form-group'>
-                                <label for="aaAutorec.melee.{{idx}}.variant">Variant</label>
-                                <select name="aaAutorec.melee.{{idx}}.variant">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'variant')}}
-                                    {{#each (lookup (lookup ../variants 'melee') (lookup (lookup
-                                    ../settings.aaAutorec.melee idx) 'animation')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
+                        <div class="option04">
+                            <div class="aa-rangemenu">
+                                    <label for="aaAutorec.melee.{{idx}}.color">Color: 
+                                    <select name="aaAutorec.melee.{{idx}}.color">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'color')}}
+                                        {{#each (lookup (lookup (lookup ../colors 'melee') (lookup (lookup
+                                        ../settings.aaAutorec.melee idx) 'animation')) (lookup (lookup
+                                        ../settings.aaAutorec.melee idx) 'variant')) as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </label>
                             </div>
                         </div>
-                        <div class="aa-rangemenu">
-                            <div class='form-group'>
-                                <label for="aaAutorec.melee.{{idx}}.color">Color</label>
-                                <select name="aaAutorec.melee.{{idx}}.color">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'color')}}
-                                    {{#each (lookup (lookup (lookup ../colors 'melee') (lookup (lookup
-                                    ../settings.aaAutorec.melee idx) 'animation')) (lookup (lookup
-                                    ../settings.aaAutorec.melee idx) 'variant')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class='flexrow'>
-                        <div class="aa-rangemenu">
-                                <label>{{localize "AUTOANIM.loops"}}</label>
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>Repeat: 
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.loops"
                                     value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'loops'}}"
                                     data-dtype="Number">
+                                </label>
+                            </div>
                         </div>
-                        <div class="aa-rangemenu">
-                                <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <label>Delay: 
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.loopDelay"
                                     value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'loopDelay'}}"
                                     data-dtype="Number">
+                                </label>
+                            </div>
                         </div>
-                        <div class="aa-rangemenu">
-                                <label>{{localize "AUTOANIM.scale"}}</label>
+                        <div class="option07">
+                            <div class="autorec-menu-options">
+                                <label>Scale: 
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.scale"
                                     value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'scale'}}"
                                     data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option08">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>Below: </label>
+                                    <input type='checkbox' name='aaAutorec.melee.{{idx}}.below' {{checked (lookup (lookup
+                                        ../settings.aaAutorec.melee idx) 'below' ) }}>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
