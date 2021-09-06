@@ -1,16 +1,16 @@
 <form class="flexcol" autocomplete='off' novalidate>
 	<nav class='sheet-tabs tabs' data-group="sections">
-		<a class='item' data-tab='melee'><i class="fas fa-shield-alt"></i></i>Melee</a>
-		<a class='item' data-tab='range'><i class="fas fa-people-arrows"></i>Range</a>
-		<a class='item' data-tab='self'><i class="fas fa-child"></i></i>On Token</a>
-		<a class='item' data-tab='template'><i class="fas fa-shapes"></i></i>Templates</a>
-		<a class='item' data-tab='aura'><i class="fas fa-stop-circle"></i></i>Auras</a>
-		<a class='item' data-tab='presets'><i class="fas fa-gift"></i></i>Presets</a>
+		<a class='item' data-tab='melee'><i class="fas fa-shield-alt fa-lg"></i></i>{{localize "AUTOANIM.melee"}}</a>
+		<a class='item' data-tab='range'><i class="fas fa-people-arrows fa-lg"></i>{{localize "AUTOANIM.ranged"}}</a>
+		<a class='item' data-tab='self'><i class="fas fa-child fa-lg"></i></i>{{localize "AUTOANIM.onToken"}}</a>
+		<a class='item' data-tab='template'><i class="fas fa-shapes fa-lg"></i></i>{{localize "AUTOANIM.templates"}}</a>
+		<a class='item' data-tab='aura'><i class="fab fa-creative-commons-by fa-lg"></i></i>{{localize "AUTOANIM.typeAuras"}}</a>
+		<a class='item' data-tab='presets'><i class="fas fa-gift fa-lg"></i></i>{{localize "AUTOANIM.presets"}}</a>
 	</nav>
 
 	<section class='content'>
 		<div class='form-fields'>
-			<input type='text' name="aaAutorec.search" value="{{settings.aaAutorec.search}}" placeholder="Search"
+			<input type='text' name="aaAutorec.search" value="{{settings.aaAutorec.search}}" placeholder="{{localize 'AUTOANIM.search'}}"
 				id="aatest" autofocus class='auto-search' />
 		</div>
 		<div class='tab' data-tab='melee' data-group='sections'>

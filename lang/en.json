@@ -384,6 +384,27 @@
     "AUTOANIM.lightningbolt02": "Lightning Bolt 02",
     "AUTOANIM.cloudofkunais": "Cloud of Kunais",
 
-    "AUTOANIM.web": "Web"
+    "AUTOANIM.web": "Web",
+
+    "AUTOANIM.itemName": "Item Name",
+    "AUTOANIM.search": "Search",
+    "AUTOANIM.variant": "Variant",
+    "AUTOANIM.color": "Color",
+    "AUTOANIM.repeat": "Repeat",
+    "AUTOANIM.delay": "Delay",
+    "AUTOANIM.below": "Below Token",
+    "AUTOANIM.custom": "Custom",
+    "AUTOANIM.switch": "Switch",
+    "AUTOANIM.return": "Return",
+    "AUTOANIM.addItem": "Add Item",
+    "AUTOANIM.type": "Type",
+    "AUTOANIM.remove": "Remove Template",
+    "AUTOANIM.static": "Static",
+    "AUTOANIM.playOn": "Play On",
+    "AUTOANIM.tint": "Tint",
+    "AUTOANIM.melee": "Melee",
+    "AUTOANIM.ranged": "Range",
+    "AUTOANIM.onToken": "On Token",
+    "AUTOANIM.presets": "Presets"
 
 }

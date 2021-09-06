@@ -1,6 +1,6 @@
 <div class='aa-autorecognition'>
     {{#each settings.aaAutorec.auras as |auras idx|}}
-    <div class='aa-auras-autorecog aa-search'>
+    <div class='aa-border-autorecog aa-search'>
         <div class='flexrow auras-settings' data-idx="{{idx}}">
             <div class='flexcol'>
                 <div class='form-group'>
@@ -11,7 +11,7 @@
                             class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
                             ../settings.aaAutorec.auras idx) 'hidden' ) }} class="fas fa-minus collapse-button"
                             {{/unless}}></i>
-                        <input type='text' name="aaAutorec.auras.{{idx}}.name" placeholder="Item Name" class='auto-name'
+                        <input type='text' name="aaAutorec.auras.{{idx}}.name" placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
                             value="{{lookup (lookup ../settings.aaAutorec.auras idx) 'name'}}" />
                     </div>
                 </div>
@@ -20,26 +20,23 @@
                     <div class="aa-container">
                         {{#unless (lookup (lookup ../settings.aaAutorec.auras idx) 'custom')}}
                         <div class="aura01">
-                            <div class="aa-rangemenu">
-                                <div class='animation-choice'>
-                                    <div class='form-group'>
-                                        <label for="aaAutorec.auras.{{idx}}.animation">Animation: </label>
-                                        <select name="aaAutorec.auras.{{idx}}.animation">
-                                            {{#select (lookup (lookup ../settings.aaAutorec.auras idx)
-                                            'animation')}}
-                                            {{#each ../auraList as |name key|}}
-                                            <option value="{{key}}">{{name}}</option>
-                                            {{/each}}
-                                            {{/select}}
-                                        </select>
-                                    </div>
+                            <div class='animation-choice'>
+                                <div class='form-group'>
+                                    <label for="aaAutorec.auras.{{idx}}.animation">{{localize 'AUTOANIM.animation'}}: </label>
+                                    <select name="aaAutorec.auras.{{idx}}.animation" style="min-width: 15em;">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.auras idx)
+                                        'animation')}}
+                                        {{#each ../auraList as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/select}}
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="option03">
-                            <div class="aa-rangemenu">
-                                <div class='form-group'>
-                                <label for="aaAutorec.auras.{{idx}}.variant">Variant:
+                            <div class='form-group'>
+                                <label for="aaAutorec.auras.{{idx}}.variant">{{localize 'AUTOANIM.variant'}}:
                                     <select name="aaAutorec.auras.{{idx}}.variant" sytle="width:5em">
                                         {{#select (lookup (lookup ../settings.aaAutorec.auras idx) 'variant')}}
                                         {{#each (lookup (lookup ../variants 'static') (lookup (lookup
@@ -49,28 +46,25 @@
                                         {{/select}}
                                     </select>
                                 </label>
-                                </div>
                             </div>
                         </div>
                         <div class="option04">
-                            <div class="aa-rangemenu">
-                                <label for="aaAutorec.auras.{{idx}}.color">Color:
-                                    <select name="aaAutorec.auras.{{idx}}.color">
-                                        {{#select (lookup (lookup ../settings.aaAutorec.auras idx) 'color')}}
-                                        {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                        ../settings.aaAutorec.auras idx) 'animation')) (lookup (lookup
-                                        ../settings.aaAutorec.auras idx) 'variant')) as |name key|}}
-                                        <option value="{{key}}">{{name}}</option>
-                                        {{/each}}
-                                        {{/select}}
-                                    </select>
-                                </label>
-                            </div>
+                            <label for="aaAutorec.auras.{{idx}}.color">{{localize 'AUTOANIM.color'}}:
+                                <select name="aaAutorec.auras.{{idx}}.color">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.auras idx) 'color')}}
+                                    {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
+                                    ../settings.aaAutorec.auras idx) 'animation')) (lookup (lookup
+                                    ../settings.aaAutorec.auras idx) 'variant')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </label>
                         </div>
                         {{/unless}}
                         <div class="option05">
                             <div class="autorec-menu-options">
-                                <label>Scale:
+                                <label>{{localize 'AUTOANIM.ctaScale'}}:
                                     <input type="Number" name="aaAutorec.auras.{{idx}}.scale"
                                         value="{{lookup (lookup ../settings.aaAutorec.auras idx) 'scale'}}"
                                         data-dtype="Number">
@@ -80,7 +74,7 @@
                         <div class="option06">
                             <div class="autorec-menu-options">
                                 <div class="form-group">
-                                    <label>Tint: </label>
+                                    <label>{{localize 'AUTOANIM.tint'}}: </label>
                                     <input type="color" name="aaAutorec.auras.{{idx}}.tint"
                                         value="{{lookup (lookup ../settings.aaAutorec.auras idx) 'tint'}}">
                                 </div>
@@ -89,7 +83,7 @@
                         <div class="option07">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
-                                    <label>Ignore Targets: </label>
+                                    <label>{{localize 'AUTOANIM.ignoreTargets'}}: </label>
                                     <input type='checkbox' name='aaAutorec.auras.{{idx}}.ignoretargets' {{checked
                                         (lookup (lookup ../settings.aaAutorec.auras idx) 'ignoretargets' ) }}>
                                 </div>
@@ -98,7 +92,7 @@
                         <div class="option08">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
-                                    <label>Below: </label>
+                                    <label>{{localize 'AUTOANIM.below'}}: </label>
                                     <input type='checkbox' name='aaAutorec.auras.{{idx}}.below' {{checked (lookup
                                         (lookup ../settings.aaAutorec.auras idx) 'below' ) }}>
                                 </div>
@@ -107,7 +101,7 @@
                         <div class="option11">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
-                                    <label>Static: </label>
+                                    <label>{{localize 'AUTOANIM.static'}}: </label>
                                     <input type='checkbox' name='aaAutorec.auras.{{idx}}.static' {{checked (lookup
                                         (lookup ../settings.aaAutorec.auras idx) 'static' ) }}>
                                 </div>
@@ -115,7 +109,7 @@
                         </div>
                         <div class="option12">
                             <div class="autorec-menu-options">
-                                <label>Opacity:
+                                <label>{{localize 'AUTOANIM.opacity'}}:
                                     <input type="Number" name="aaAutorec.auras.{{idx}}.opacity"
                                         value="{{lookup (lookup ../settings.aaAutorec.auras idx) 'opacity'}}"
                                         data-dtype="Number">
@@ -125,7 +119,7 @@
                         <div class="option13">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
-                                    <label>Custom: </label>
+                                    <label>{{localize 'AUTOANIM.custom'}}: </label>
                                     <input type='checkbox' name='aaAutorec.auras.{{idx}}.custom' {{checked (lookup
                                         (lookup ../settings.aaAutorec.auras idx) 'custom' ) }}>
                                 </div>
@@ -157,6 +151,6 @@
 </div>
 <footer class='sheet-footer flexrow add-auras-wrapper'>
     <button class='add-autorecog-auras'>
-        <i class='far fa-plus-square'></i>Add Override
+        <i class='far fa-plus-square'></i>{{localize 'AUTOANIM.addItem'}}
     </button>
 </footer>

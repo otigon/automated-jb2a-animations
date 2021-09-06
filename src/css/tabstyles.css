@@ -103,46 +103,26 @@
 	margin-left: 0.5em;
 }
   
-.aa-melee-autorecog {
+.aa-border-autorecog {
     border: 3px ridge rgb(97, 97, 97);
     border-radius: 5px;
     padding: 3px;
     margin-bottom: 5px;
 }
 
-.aa-range-autorecog {
-    border: 3px ridge rgb(97, 97, 97);
-    border-radius: 5px;
-    padding: 3px;
-    margin-bottom: 5px;
-}
-
-.aa-self-autorecog {
-    border: 3px ridge rgb(97, 97, 97);
-    border-radius: 5px;
-    padding: 3px;
-    margin-bottom: 5px;
-}
-/*
-.aa-melee-autorecog input {
-    text-align: center;
-    font-weight: bold;
-    font-size: large;
-    background-color: rgb(187, 187, 173);
-}
-
-.aa-spell-autorecog input{
-    text-align: center;
-    font-weight: bold;
-    font-size: large;
-    background-color: rgb(187, 187, 173);
-}
-*/
 #automatic-recognition input.auto-name{
     text-align: center;
     font-weight: bold;
     font-size: large;
     background-color: rgb(187, 187, 173);
+}
+
+.auto-name:placeholder-shown{
+    opacity: 0.50;
+}
+
+.auto-search:placeholder-shown{
+    opacity: 0.50;
 }
 
 #automatic-recognition input.auto-search{
@@ -154,11 +134,7 @@
 #automatic-recognition label{
     font-weight: bold;
 }
-/*
-#automatic-recognition .flexrow.hidden {
-    display: none;
-}
-*/
+
 #automatic-recognition .collapse-button {
     max-width: 1.5rem;
     margin: 0.5rem;
@@ -168,17 +144,18 @@
     min-width: 5em
 }
 
+#automatic-recognition .item{
+    font-size: 15px;
+    text-align:center;
+    vertical-align: middle;
+}
+
 #automatic-recognition .collapse-button:hover {
     text-shadow: 0 0 5px red
 }
 
 .aa-autorec-submit {
     max-height: 2rem;
-}
-
-.aa-rangemenu {
-    padding: 5px;
-    text-align: center;
 }
 
 .autorec-menu-options {
@@ -192,7 +169,7 @@
 
 .aa-container {
     display: grid;
-    grid-template-columns: auto auto 9em 9em;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr)) repeat(auto-fit, minmax(15em, 1fr)) 9em 9em;
     grid-template-rows: auto auto auto auto auto auto;
     gap: 0px 0px;
     align-items: center;

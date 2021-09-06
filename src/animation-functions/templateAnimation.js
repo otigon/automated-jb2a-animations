@@ -42,17 +42,18 @@ export async function templateAnimation(handler, autoObject) {
 
     //let customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
     const tempAnimation = await buildFile(true, data.type, "static", data.itemName, data.color, data.customPath)
-    let sourceFX;
-    let sFXScale;
-    let customSourcePath; 
+    //let sourceFX;
+    //let sFXScale;
+    //let customSourcePath; 
+    const sourceFX = {};
     if (handler.sourceEnable) {
-        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
-        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
+        sourceFX.customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
+        sourceFX.data = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath);
+        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.data.metadata.width;
     }
 
-    let videoWidth = tempAnimation.metadata.width;
-    let videoHeight = tempAnimation.metadata.height;
+    const videoWidth = tempAnimation.metadata.width;
+    const videoHeight = tempAnimation.metadata.height;
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
@@ -206,14 +207,14 @@ export async function templateAnimation(handler, autoObject) {
             await new Sequence()
                 .effect()
                     .atLocation(sourceToken)
-                    .scale(sFXScale * handler.sourceScale)
+                    .scale(sourceFX.sFXScale * handler.sourceScale)
                     .repeats(handler.sourceLoops, handler.sourceLoopDelay)
                     .belowTokens(handler.sourceLevel)
                     .waitUntilFinished(handler.sourceDelay)
                     .playIf(handler.sourceEnable)
                     .addOverride(async (effect, data) => {
                         if (handler.sourceEnable) {
-                            data.file = sourceFX.file;
+                            data.file = sourceFX.data.file;
                         }
                         return data;
                     })

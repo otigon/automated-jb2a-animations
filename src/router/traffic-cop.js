@@ -101,7 +101,7 @@ export async function trafficCop(handler) {
         itemSound(handler);
     }
     if (handler.animKill) { return; }
-    const itemName = handler.convertedName;
+    //const itemName = handler.convertedName;
     const animName = handler.animName;
     const animType = handler.animType;
     const override = handler.animOverride;
@@ -213,33 +213,23 @@ export async function trafficCop(handler) {
                 templates: getAllNames(autoRecSettings, 'templates'),
                 auras: getAllNames(autoRecSettings, 'auras'),
             }
-            //console.log(autoName)
-            //console.log(nameArrays)
-            //console.log(findAllByKey(autoRecSettings, "name"))
             switch (true) {
-                //case nameArrays.melee.includes(handler.itemName):
-                //case nameArrays.melee.some(el => handler.itemName.includes(el)):
                 case autorecNameCheck(nameArrays.melee, autoName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    //const meleeAutoObject = findObjectByName(autoRecSettings, 'melee', autoName)
-                    //console.log(meleeAutoObject)
-                    meleeAnimation(handler, findObjectByName(autoRecSettings, 'melee', autoName));
+                    const meleeAutoObject = findObjectByName(autoRecSettings, 'melee', autoName)
+                    meleeAnimation(handler, meleeAutoObject);
                     break;
-                //case nameArrays.range.includes(handler.itemName):
                 case autorecNameCheck(nameArrays.range, autoName):
-                    //case itemArray.spellattack.includes(itemName):
-                    //case itemArray.ranged.includes(itemName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                     const rangeAutoObject = findObjectByName(autoRecSettings, 'range', handler.item.name);
-                    console.log(rangeAutoObject)
                     rangedAnimations(handler, rangeAutoObject);
                     break;
                 case autorecNameCheck(nameArrays.static, autoName):
@@ -257,13 +247,6 @@ export async function trafficCop(handler) {
                     const auraAutoObject = findObjectByName(autoRecSettings, 'auras', autoName)
                     ctaCall(handler, auraAutoObject)
                     break;
-                /*
-                case itemArray.healing.includes(itemName):
-                case itemArray.creatureattack.includes(itemName):
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    onTokenAnimation(handler);
-                    break;
-                */
             }
         }
     }
