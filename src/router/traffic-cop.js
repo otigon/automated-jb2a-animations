@@ -209,7 +209,8 @@ export async function trafficCop(handler) {
             const nameArrays = {
                 melee: getAllNames(autoRecSettings, 'melee'),
                 range: getAllNames(autoRecSettings, 'range'),
-                static: getAllNames(autoRecSettings, 'static')
+                static: getAllNames(autoRecSettings, 'static'),
+                templates: getAllNames(autoRecSettings, 'templates'),
             }
             //console.log(autoName)
             //console.log(nameArrays)
@@ -242,8 +243,14 @@ export async function trafficCop(handler) {
                     break;
                 case autorecNameCheck(nameArrays.static, autoName):
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const staticAutoObject = (findObjectByName(autoRecSettings, 'static', autoName))
+                    const staticAutoObject = findObjectByName(autoRecSettings, 'static', autoName)
                     staticAnimation(handler, staticAutoObject);
+                    break;
+                case autorecNameCheck(nameArrays.templates, autoName):
+                    const templateAutoObject = findObjectByName(autoRecSettings, 'templates', autoName)
+                    Hooks.once("createMeasuredTemplate", () => {
+                        templateAnimation(handler, templateAutoObject)
+                    })        
                 /*
                 case itemArray.healing.includes(itemName):
                 case itemArray.creatureattack.includes(itemName):

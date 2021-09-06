@@ -73,7 +73,9 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/custom-recognition/settings.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-melee-autorec.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-ranged-autorec.html',
-        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-self-autorec.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-static-autorec.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-templates-autorec.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-auras-autorec.html',
     ]);
 
     if (game.modules.get("midi-qol")?.active) {

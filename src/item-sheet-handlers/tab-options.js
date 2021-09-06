@@ -90,6 +90,7 @@ export function autorecColors(itemName) {
     let autorecSection = findObjectByNameFull(autoRecSettings, autoName);
     let autorecObject = autorecSection[0]
     let autorecType = autorecSection[1]
+    if (autorecType !== 'melee' || autorecType !== 'range') {autorecType = 'static'}
     console.log(autorecSection)
     console.log(autorecObject)
     console.log(autorecType)
@@ -148,8 +149,10 @@ export function autoPreview(name, baseColor, patreon) {
     const jb2a = patreon ? JB2APATREONDB : JB2AFREEDB;
     const autorecSection = findObjectByNameFull(autoRecSettings, autoName);
     const autorecObject = autorecSection[0]
-    const autorecType = autorecSection[1]
-    
+    let autorecType = autorecSection[1]
+    if (autorecType !== 'melee' || autorecType !== 'range') {autorecType = 'static'}
+    console.log(jb2a)
+    console.log(autorecType)
     const color = baseColor || autorecObject[0].color
 
     const file = autorecType === "range" ? jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color]['30ft'] : jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color]

@@ -272,6 +272,20 @@ export class aaAutorec {
                     below: true,
                     type: "sourcetarget",
                 },
+            },
+            templates: {
+                0: {
+                    hidden: true,
+                    name: 'Fog Cloud',
+                    animation: 'fogcloud',
+                    variant: '01',
+                    color: 'white',
+                    repeat: 1,
+                    delay: 500,
+                    scale: 1,
+                    below: false,
+                    type: "circle",
+                }
             }
         };
         return defaultConfig;

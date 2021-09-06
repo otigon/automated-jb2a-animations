@@ -1,5 +1,6 @@
 import { AUTOANIM } from "../item-sheet-handlers/config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
+import ctaCall from "../animation-functions/CTAcall.js";
 
 export class aaAutoRecognition extends FormApplication {
     constructor(object = {}, options) {
@@ -33,6 +34,12 @@ export class aaAutoRecognition extends FormApplication {
         data.rangeList = AUTOANIM.localized(AUTOANIM.animNameRangeWeapon);
         data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
         data.selfList = AUTOANIM.localized(AUTOANIM.autoself);
+        data.templateCircle = AUTOANIM.localized(AUTOANIM.circleAnimations);
+        data.templateCone = AUTOANIM.localized(AUTOANIM.coneAnimations);
+        data.templateRect = AUTOANIM.localized(AUTOANIM.rectangleAnimations);
+        data.templateRay = AUTOANIM.localized(AUTOANIM.rayAnimations);
+        data.auraList = AUTOANIM.localized(AUTOANIM.aura);
+
         data.colors = aaColorMenu;
         data.variants = aaVariantMenu;
         data.show = false;
@@ -46,6 +53,8 @@ export class aaAutoRecognition extends FormApplication {
         html.find('button.add-autorecog-melee').click(this._addMelee.bind(this));
         html.find('button.add-autorecog-range').click(this._addRange.bind(this));
         html.find('button.add-autorecog-static').click(this._addStatic.bind(this));
+        html.find('button.add-autorecog-templates').click(this._addTemplate.bind(this));
+        html.find('button.add-autorecog-auras').click(this._addAura.bind(this));
         //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
 
         html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
@@ -172,6 +181,50 @@ export class aaAutoRecognition extends FormApplication {
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
     }
+
+    async _addTemplate(event) {
+        event.preventDefault();
+        let idx = 0;
+        const entries = event.target.closest('div.tab').querySelectorAll('div.templates-settings');
+        const last = entries[entries.length - 1];
+        if (last) {
+            idx = last.dataset.idx + 1;
+        }
+        let updateData = {}
+        updateData[`aaAutorec.templates.${idx}.name`] = '';
+        updateData[`aaAutorec.templates.${idx}.type`] = 'templates';
+        updateData[`aaAutorec.templates.${idx}.animation`] = 'None';
+        updateData[`aaAutorec.templates.${idx}.variant`] = '';
+        updateData[`aaAutorec.templates.${idx}.repeat`] = 1;
+        updateData[`aaAutorec.templates.${idx}.delay`] = 500;
+        updateData[`aaAutorec.templates.${idx}.below`] = false;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _addAura(event) {
+        event.preventDefault();
+        let idx = 0;
+        const entries = event.target.closest('div.tab').querySelectorAll('div.auras-settings');
+        const last = entries[entries.length - 1];
+        if (last) {
+            idx = last.dataset.idx + 1;
+        }
+        let updateData = {}
+        updateData[`aaAutorec.auras.${idx}.name`] = '';
+        updateData[`aaAutorec.auras.${idx}.type`] = 'static';
+        updateData[`aaAutorec.auras.${idx}.animation`] = 'None';
+        updateData[`aaAutorec.auras.${idx}.variant`] = '';
+        updateData[`aaAutorec.auras.${idx}.tint`] = '#ffffff';
+        updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
+        updateData[`aaAutorec.auras.${idx}.scale`] = 1;
+        updateData[`aaAutorec.auras.${idx}.below`] = false;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
     /*
     async _addStatic(event) {
         event.preventDefault();
@@ -228,6 +281,19 @@ export class aaAutoRecognition extends FormApplication {
             value.static = compacted;
             await game.settings.set('autoanimations', key, value);
         }
+        for (let [key, value] of Object.entries(data)) {
+            const compacted = {};
+            Object.values(value.templates).forEach((val, idx) => compacted[idx] = val);
+            value.templates = compacted;
+            await game.settings.set('autoanimations', key, value);
+        }
+        for (let [key, value] of Object.entries(data)) {
+            const compacted = {};
+            Object.values(value.auras).forEach((val, idx) => compacted[idx] = val);
+            value.auras = compacted;
+            await game.settings.set('autoanimations', key, value);
+        }
+
         /*
         //test for building array of auto-rec names
         let settings = game.settings.get('autoanimations', 'aaAutorec');
