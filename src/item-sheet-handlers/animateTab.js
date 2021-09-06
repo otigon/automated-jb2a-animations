@@ -82,7 +82,7 @@ export class AAItemSettings extends FormApplication {
         const staticLength = variantLength(itemName, "static");
 
         let videoPreview = animPreview(flags, itemName);
-        if (videoPreview === "no preview" && !override) { videoPreview = autoPreview(oldName, flags.autoanimations?.options?.autoColor, patreon) }
+        if (videoPreview === "no preview" && !override) { videoPreview = autoPreview(oldName, patreon) }
         let content = "";
         switch (true) {
             case videoPreview === "no preview":

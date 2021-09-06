@@ -154,6 +154,15 @@
     text-shadow: 0 0 5px red
 }
 
+#automatic-recognition .remove-autorecog:hover {
+    text-shadow: 0 0 5px red
+}
+
+#automatic-recognition .remove-autorecog {
+    max-width: 3rem;
+    margin: 0.5rem;
+}
+
 .aa-autorec-submit {
     max-height: 2rem;
 }
@@ -165,6 +174,10 @@
 
 .autorec-menu-options input {
     width: 3em;
+}
+
+#aa-import-export {
+    padding: 10px;
 }
 
 .aa-container {

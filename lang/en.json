@@ -405,6 +405,9 @@
     "AUTOANIM.melee": "Melee",
     "AUTOANIM.ranged": "Range",
     "AUTOANIM.onToken": "On Token",
-    "AUTOANIM.presets": "Presets"
+    "AUTOANIM.presets": "Presets",
+    "AUTOANIM.submit": "Submit",
+    "AUTOANIM.import": "Import Settings",
+    "AUTOANIM.export": "Export Settings"
 
 }

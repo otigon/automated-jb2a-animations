@@ -23,6 +23,7 @@ async function ctaCall(handler, autoObject) {
         data.opacity = handler.auraOpacity;
         data.scale = handler.selfRadius
         data.ignoretargets = handler.options?.ignoreTarget
+        data.below = true;
     }
     const sourceToken = handler.actorToken;
     const aura = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
@@ -37,7 +38,7 @@ async function ctaCall(handler, autoObject) {
     async function selfAura() {
 
         let textureData = {
-            belowToken: true,
+            belowToken: data.below,
             multiple: 0,
             opacity: data.opacity,
             radius: 2,
@@ -87,7 +88,7 @@ async function ctaCall(handler, autoObject) {
             let target = handler.allTargets[i];
 
             let textureData = {
-                belowToken: true,
+                belowToken: data.below,
                 multiple: 0,
                 opacity: data.opacity,
                 radius: 2,

@@ -63,3 +63,16 @@ export function findObjectByNameFull(data, name) {
         if (newObject.length === 1) {return [ newObject, keys[i] ]}
     }
 }
+
+export function exportAutorecToJSON() {
+	const data = (game.settings.get('autoanimations', 'aaAutorec'))
+	const filename = `fvtt-autoanimations-autorecognition.json`;
+	saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
+}
+
+export async function importAutorecFromJSON(json) {
+	const data = JSON.parse(json);
+	console.warn("autoanimations | Import settings ", data);
+	game.settings.set("autoanimations", "aaAutorec", data);
+}
+

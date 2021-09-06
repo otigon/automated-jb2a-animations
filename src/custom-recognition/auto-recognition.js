@@ -1,6 +1,7 @@
 import { AUTOANIM } from "../item-sheet-handlers/config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 import ctaCall from "../animation-functions/CTAcall.js";
+import { exportAutorecToJSON, importAutorecFromJSON } from "./autoFunctions.js";
 
 export class aaAutoRecognition extends FormApplication {
     constructor(object = {}, options) {
@@ -44,6 +45,7 @@ export class aaAutoRecognition extends FormApplication {
         data.variants = aaVariantMenu;
         data.show = false;
         data.system = { id: game.system.id, title: game.system.data.title }
+        console.log(data)
         return data
     }
 
@@ -61,17 +63,9 @@ export class aaAutoRecognition extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render())
         })
         html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
-        //utilize html.on versus html.find
-        //remove this.render() and add show/hide elements for menus (pre-populated)
         html.find('.aa-autorecognition select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
         });
-        /*
-        html.on('click', '.collapse-button', (evt) => {
-            $(evt.currentTarget).closest('.flexcol').find('.flexrow').toggleClass('hidden')
-            $(evt.currentTarget).toggleClass('fa-minus fa-plus')
-        });
-        */
         html.on('click', '.collapse-button', (evt) => {
             var change = $(evt.currentTarget).closest('.form-fields').find('.hideme').is(":checked")
             if (change === true) {
@@ -87,12 +81,18 @@ export class aaAutoRecognition extends FormApplication {
         html.on('open', '#aatest', (evt) => { 
             evt.preventDefault()
         })
+        html.find("#aa-autorec-export").click(exportAutorecToJSON);
+		html.find("#aa-autorec-import").on("click", async () => {
+			if (await importFromJSONDialog()) {
+				this.close();
+			}
+		});
     }
 
     _loadSearch(evt) {
         //debugger
         const settings = this.getSettingsData()
-        const search = settings.aaAutorec.search.toLowerCase()
+        const search = settings.aaAutorec?.search?.toLowerCase()
         this.element.find('.aa-search').each((index, element) => {
             const text = $(element).find('.auto-name').val().toLowerCase()
             if (text.includes(search)) {
@@ -198,7 +198,7 @@ export class aaAutoRecognition extends FormApplication {
         updateData[`aaAutorec.auras.${idx}.tint`] = '#ffffff';
         updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
         updateData[`aaAutorec.auras.${idx}.scale`] = 1;
-        updateData[`aaAutorec.auras.${idx}.below`] = false;
+        updateData[`aaAutorec.auras.${idx}.below`] = true;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
@@ -298,4 +298,39 @@ export class aaAutoRecognition extends FormApplication {
         console.log(meleeNameArray)
         */
     }
+}
+
+async function importFromJSONDialog() {
+	const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
+	let dialog = new Promise((resolve, reject) => {
+		new Dialog({
+			title: `Import Automatic Recognition Settings`,
+			content: content,
+			buttons: {
+				import: {
+					icon: '<i class="fas fa-file-import"></i>',
+					label: "Import",
+					callback: html => {
+						//@ts-ignore
+						const form = html.find("form")[0];
+						if (!form.data.files.length)
+							return ui.notifications?.error("You did not upload a data file!");
+						readTextFromFile(form.data.files[0]).then(json => {
+							importAutorecFromJSON(json);
+							resolve(true);
+						});
+					}
+				},
+				no: {
+					icon: '<i class="fas fa-times"></i>',
+					label: "Cancel",
+					callback: html => resolve(false)
+				}
+			},
+			default: "import"
+		}, {
+			width: 400
+		}).render(true);
+	});
+	return await dialog;
 }

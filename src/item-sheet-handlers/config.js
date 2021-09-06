@@ -72,12 +72,12 @@ AUTOANIM.animNameRangeWeapon = {
     "lasershot": "AUTOANIM.itemLaserBlast",
     "lasersword": "AUTOANIM.itemLaserSword",
     "mace": "AUTOANIM.itemMace",
-    "siege boulder": "AUTOANIM.itemSiegeBoulder",
+    "siegeboulder": "AUTOANIM.itemSiegeBoulder",
     "sling": "AUTOANIM.itemSling",
     "snipe": "AUTOANIM.snipe",
     "spear": "AUTOANIM.itemSpear",
     "sword": "AUTOANIM.itemSword",
-    "throwing hammer": "AUTOANIM.itemThrowingHammer",
+    "hammer": "AUTOANIM.itemThrowingHammer",
 };
 
 AUTOANIM.animNameSwitch = {
@@ -331,7 +331,7 @@ AUTOANIM.tokenAnimations = {
 AUTOANIM.autoself = {
     "a1": ``,
     "antilifeshell": "AUTOANIM.animAntiLifeShell",
-    "boulder": "AUTOANIM.itemBoulder",
+    "boulderimpact": "AUTOANIM.itemBoulder",
     "curewounds": "AUTOANIM.itemCureWounds",
     "generichealing": "AUTOANIM.itemGenericHealing",
     "explosion": "AUTOANIM.explosion",
