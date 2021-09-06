@@ -155,6 +155,7 @@ export default class PF2Handler {
         return [extendedReach, weaponReach, naturalReach].find((reach) => Number.isInteger(reach));
     }
 
+    get itemName() { return this._item.name }
     get item() { return this._item; }
     get itemType() { return this._itemType; }
     get actorToken() { return this._actorToken; }

@@ -16,8 +16,6 @@ export async function meleeSwitch(handler, target, autoObject) {
         data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
         data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
         data.color = handler.options?.autoColor || data.color;
-        console.log(data.switchAnimation)
-        console.log(autoObject)
     } else {
         data.switchAnimation = handler.switchName || handler.convertedName;
         //data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";

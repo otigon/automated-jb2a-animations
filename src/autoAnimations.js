@@ -21,6 +21,7 @@ import aaSettings from "./settings.js";
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
 import { setupSocket, socketlibSocket } from "./socketset.js";
+import { autorecNameCheck, getAllNames, rinseName } from "./custom-recognition/autoFunctions.js";
 
 //import menuOptions from "./animation-functions/databases/jb2a-patreon-menus.js";
 // just swap which of these two lines is commented to turn on/off all logging
@@ -52,7 +53,6 @@ Hooks.on('init', () => {
 
         let context;
         context = colors[type][name][variant]
-        console.log(context)
         for (var i = 0, j = context.length; i < j; i++) {
             ret = ret + options.fn(context[i]);
             //console.log(context[i])
@@ -263,6 +263,8 @@ function moduleIncludes(test) {
 function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = new MidiHandler(workflow);
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler);
 }
@@ -271,6 +273,8 @@ function setUpMidiNoAD(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = new MidiHandler(workflow);
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler)
 }
@@ -279,6 +283,8 @@ function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = new MidiHandler(workflow);
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler)
 }
@@ -291,10 +297,14 @@ async function specialCaseAnimations(msg) {
     let breakOut = checkMessege(msg);
     if (breakOut === 0) {
         let handler = new Dnd5Handler(msg);
+        const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
         if (handler.animType === "t8" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler, msg);
             })
+        }
+        if (templateItem && !handler.animOverride) {
+            trafficCop(handler)
         }
     } else { return; }
 }
@@ -327,16 +337,21 @@ function setUp5eCore(msg) {
             break;
     }
     if (!handler.item || handler.animKill) { return }
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
             trafficCop(handler);
             break;
-        case handler.animType === "t8" && !rollType.includes("damage"):
+        case handler.animType === "t8" && !rollType.includes("damage") && handler.animOverride:
+            trafficCop(handler);
+            break;
+        case templateItem && !rollType.includes("damage") && !rollType.includes("attack"):
             trafficCop(handler);
             break;
         case animationNow:
             if (rollType.includes("damage")) {
-                if (handler.animType === "t8") { return; }
+                if (t8Template || templateItem) { return; }
                 trafficCop(handler);
             }
             break;
@@ -347,11 +362,11 @@ function setUp5eCore(msg) {
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
-                    if (handler.animType === "t8") { return; }
+                    if (t8Template || templateItem) { return; }
                     trafficCop(handler);
                     break;
                 case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (handler.animType === "t8") { return; }
+                    if (t8Template || templateItem) { return; }
                     trafficCop(handler);
                     break;
             }
@@ -458,15 +473,22 @@ async function pf2eReady(msg) {
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
     const damage = handler.item.damageValue;
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (handler.animType === "t8" && handler.animOverride) {
+    if (t8Template) {
         if (msg.data.flavor?.toLowerCase().includes("damage")) { return; }
         trafficCop(handler);
         return;
     }
+    if (templateItem && !t8Template && !msg.data.flavor?.toLowerCase().includes("damage")) {
+        trafficCop(handler);
+        return;
+    }
+    if (templateItem || t8Template) {return};
     switch (itemType) {
         case "spell":
             switch (spellType) {

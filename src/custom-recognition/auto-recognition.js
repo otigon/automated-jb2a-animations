@@ -74,7 +74,6 @@ export class aaAutoRecognition extends FormApplication {
         */
         html.on('click', '.collapse-button', (evt) => {
             var change = $(evt.currentTarget).closest('.form-fields').find('.hideme').is(":checked")
-            console.log(change)
             if (change === true) {
                 $(evt.currentTarget).closest('.form-fields').find('.hideme').prop('checked', false)
             } else {
@@ -126,10 +125,6 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.melee.${idx}.name`] = '';
-        updateData[`aaAutorec.melee.${idx}.type`] = 'melee';
-        updateData[`aaAutorec.melee.${idx}.animation`] = 'None';
-        updateData[`aaAutorec.melee.${idx}.variant`] = '';
         updateData[`aaAutorec.melee.${idx}.repeat`] = 1;
         updateData[`aaAutorec.melee.${idx}.delay`] = 500;
         updateData[`aaAutorec.melee.${idx}.scale`] = 1;
@@ -148,10 +143,6 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.range.${idx}.name`] = '';
-        updateData[`aaAutorec.range.${idx}.type`] = 'range';
-        updateData[`aaAutorec.range.${idx}.animation`] = 'None';
-        updateData[`aaAutorec.range.${idx}.variant`] = '';
         updateData[`aaAutorec.range.${idx}.repeat`] = 1;
         updateData[`aaAutorec.range.${idx}.delay`] = 500;
         updateData[`aaAutorec.range.${idx}.below`] = false;
@@ -169,10 +160,6 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.static.${idx}.name`] = '';
-        updateData[`aaAutorec.static.${idx}.type`] = 'static';
-        updateData[`aaAutorec.static.${idx}.animation`] = 'None';
-        updateData[`aaAutorec.static.${idx}.variant`] = '';
         updateData[`aaAutorec.static.${idx}.repeat`] = 1;
         updateData[`aaAutorec.static.${idx}.delay`] = 500;
         updateData[`aaAutorec.static.${idx}.scale`] = 1;
@@ -191,14 +178,10 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.templates.${idx}.name`] = '';
-        updateData[`aaAutorec.templates.${idx}.type`] = 'templates';
-        updateData[`aaAutorec.templates.${idx}.animation`] = 'None';
-        updateData[`aaAutorec.templates.${idx}.variant`] = '';
         updateData[`aaAutorec.templates.${idx}.repeat`] = 1;
         updateData[`aaAutorec.templates.${idx}.delay`] = 500;
         updateData[`aaAutorec.templates.${idx}.below`] = false;
-
+        updateData[`aaAutorec.templates.${idx}.opacity`] = 0.75;
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
     }
@@ -212,10 +195,6 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.auras.${idx}.name`] = '';
-        updateData[`aaAutorec.auras.${idx}.type`] = 'static';
-        updateData[`aaAutorec.auras.${idx}.animation`] = 'None';
-        updateData[`aaAutorec.auras.${idx}.variant`] = '';
         updateData[`aaAutorec.auras.${idx}.tint`] = '#ffffff';
         updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
         updateData[`aaAutorec.auras.${idx}.scale`] = 1;
@@ -265,30 +244,40 @@ export class aaAutoRecognition extends FormApplication {
         const data = expandObject(formData);
         for (let [key, value] of Object.entries(data)) {
             const compacted = {};
+            try {Object.values(value.melee)}
+            catch (exception) {return}
             Object.values(value.melee).forEach((val, idx) => compacted[idx] = val);
             value.melee = compacted;
             await game.settings.set('autoanimations', key, value);
         }
         for (let [key, value] of Object.entries(data)) {
             const compacted = {};
+            try {Object.values(value.range)}
+            catch (exception) {return}
             Object.values(value.range).forEach((val, idx) => compacted[idx] = val);
             value.range = compacted;
             await game.settings.set('autoanimations', key, value);
         }
         for (let [key, value] of Object.entries(data)) {
             const compacted = {};
+            try {Object.values(value.static)}
+            catch (exception) {return}
             Object.values(value.static).forEach((val, idx) => compacted[idx] = val);
             value.static = compacted;
             await game.settings.set('autoanimations', key, value);
         }
         for (let [key, value] of Object.entries(data)) {
             const compacted = {};
+            try {Object.values(value.templates)}
+            catch (exception) {return}
             Object.values(value.templates).forEach((val, idx) => compacted[idx] = val);
             value.templates = compacted;
             await game.settings.set('autoanimations', key, value);
         }
         for (let [key, value] of Object.entries(data)) {
             const compacted = {};
+            try {Object.values(value.auras)}
+            catch (exception) {return}
             Object.values(value.auras).forEach((val, idx) => compacted[idx] = val);
             value.auras = compacted;
             await game.settings.set('autoanimations', key, value);

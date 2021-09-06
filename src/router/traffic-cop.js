@@ -203,7 +203,7 @@ export async function trafficCop(handler) {
             if (!autorecNameCheck(fullArray, autoName)) {
                 return;
             }
-            */
+            
             //const autoObject = findObjectByNameFull(autoRecSettings, autoName)
             //console.log(autoObject)
             const nameArrays = {
@@ -213,8 +213,9 @@ export async function trafficCop(handler) {
                 templates: getAllNames(autoRecSettings, 'templates'),
                 auras: getAllNames(autoRecSettings, 'auras'),
             }
+            */
             switch (true) {
-                case autorecNameCheck(nameArrays.melee, autoName):
+                case autorecNameCheck(getAllNames(autoRecSettings, 'melee'), autoName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         return;
@@ -223,7 +224,7 @@ export async function trafficCop(handler) {
                     const meleeAutoObject = findObjectByName(autoRecSettings, 'melee', autoName)
                     meleeAnimation(handler, meleeAutoObject);
                     break;
-                case autorecNameCheck(nameArrays.range, autoName):
+                case autorecNameCheck(getAllNames(autoRecSettings, 'range'), autoName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         return;
@@ -232,18 +233,18 @@ export async function trafficCop(handler) {
                     const rangeAutoObject = findObjectByName(autoRecSettings, 'range', handler.item.name);
                     rangedAnimations(handler, rangeAutoObject);
                     break;
-                case autorecNameCheck(nameArrays.static, autoName):
+                case autorecNameCheck(getAllNames(autoRecSettings, 'static'), autoName):
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                     const staticAutoObject = findObjectByName(autoRecSettings, 'static', autoName)
                     staticAnimation(handler, staticAutoObject);
                     break;
-                case autorecNameCheck(nameArrays.templates, autoName):
+                case autorecNameCheck(getAllNames(autoRecSettings, 'templates'), autoName):
                     const templateAutoObject = findObjectByName(autoRecSettings, 'templates', autoName)
                     Hooks.once("createMeasuredTemplate", () => {
                         templateAnimation(handler, templateAutoObject)
                     })
                     break;
-                case autorecNameCheck(nameArrays.auras, autoName):
+                case autorecNameCheck(getAllNames(autoRecSettings, 'auras'), autoName):
                     const auraAutoObject = findObjectByName(autoRecSettings, 'auras', autoName)
                     ctaCall(handler, auraAutoObject)
                     break;

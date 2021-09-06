@@ -5,7 +5,6 @@ async function bardicInspiration(handler) {
 
     let token = handler.actorToken;
     let target = handler.allTargets[0];
-    console.log(target)
     
     let selfMarkerPath = handler.bards.markerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${handler.bards.markerColor}`;
     let targetMarkerPath = handler.bards.markerColorTarget === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${handler.bards.markerColorTarget}`

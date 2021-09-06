@@ -14,7 +14,6 @@ export async function staticAnimation(handler, autoObject) {
         data.itemName = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
         data.color = handler.options?.autoColor || data.color;
-        console.log(data)
     } else {
         data.itemName = handler.convertedName;
         data.variant = handler.spellVariant;

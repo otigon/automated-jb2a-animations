@@ -19,7 +19,6 @@ export async function templateAnimation(handler, autoObject) {
         data.customPath = data.custom ? data.customPath : false;
         data.color = handler.options?.autoColor || data.color;
         data.occlusionMode = parseInt(data.occlusionMode);
-        console.log(data)
     } else {
         data.itemName = handler.templates.tempAnim;
         data.variant = handler.spellVariant;

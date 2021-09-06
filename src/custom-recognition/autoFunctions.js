@@ -56,7 +56,6 @@ export function findObjectByNameFull(data, name) {
     let newObject;
     for (var i = 1; i < keyLength; i++) {
         var currentObject = data[keys[i]]
-        console.log(currentObject)
         newObject = Object.values(currentObject).filter(section => {
             return section.name.toLowerCase() === (name.toLowerCase()) ? section : "";
         })

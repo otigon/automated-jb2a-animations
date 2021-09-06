@@ -14,7 +14,6 @@ async function ctaCall(handler, autoObject) {
         data.customPath = data.custom ? data.customPath : false;
         data.color = handler.options?.autoColor || data.color;
         data.tint = parseInt(data.tint.substr(1), 16);
-        console.log(data)
     } else {
         data.itemName = handler.animName.replace(/\s+/g, '');
         data.variant = handler.spellVariant;
@@ -27,7 +26,6 @@ async function ctaCall(handler, autoObject) {
     }
     const sourceToken = handler.actorToken;
     const aura = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
-    console.log(aura.file)
     if (handler.allTargets.length === 0 || data.ignoretargets) {
         selfAura()
     } else {

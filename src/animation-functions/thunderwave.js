@@ -18,7 +18,6 @@ export async function thunderwaveAuto(handler) {
     {
     return items[Math.floor(Math.random()*items.length)];
     }
-    console.log(color)
     switch (true) {
         case color === "a1" || ``:
         case !color:

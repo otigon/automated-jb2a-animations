@@ -86,30 +86,23 @@ export function autorecColors(itemName) {
         return;
     }
     const colorMenu = aaColorMenu;
-    console.log(colorMenu)
     let autorecSection = findObjectByNameFull(autoRecSettings, autoName);
     let autorecObject = autorecSection[0]
     let autorecType = autorecSection[1]
     if (autorecType !== 'melee' || autorecType !== 'range') {autorecType = 'static'}
-    console.log(autorecSection)
-    console.log(autorecObject)
-    console.log(autorecType)
 
     let colors = colorMenu[autorecType][autorecObject[0].animation][autorecObject[0].variant]
-    console.log(colors)
     return colors;
 }
 
 export function checkAutoRec(itemName) {
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
     const autoName = rinseName(itemName)
-    console.log(autoName)
     const nameArray = getAllTheNames(autoRecSettings);
     let foundName = false;
     if (autorecNameCheck(nameArray, autoName)) {
         foundName = true;
     }
-    console.log(foundName)
     return foundName;
 }
 export function variantOptions(itemName, type) {
@@ -151,8 +144,6 @@ export function autoPreview(name, baseColor, patreon) {
     const autorecObject = autorecSection[0]
     let autorecType = autorecSection[1]
     if (autorecType !== 'melee' || autorecType !== 'range') {autorecType = 'static'}
-    console.log(jb2a)
-    console.log(autorecType)
     const color = baseColor || autorecObject[0].color
 
     const file = autorecType === "range" ? jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color]['30ft'] : jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color]
