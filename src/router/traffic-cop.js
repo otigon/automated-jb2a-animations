@@ -211,6 +211,7 @@ export async function trafficCop(handler) {
                 range: getAllNames(autoRecSettings, 'range'),
                 static: getAllNames(autoRecSettings, 'static'),
                 templates: getAllNames(autoRecSettings, 'templates'),
+                auras: getAllNames(autoRecSettings, 'auras'),
             }
             //console.log(autoName)
             //console.log(nameArrays)
@@ -250,7 +251,12 @@ export async function trafficCop(handler) {
                     const templateAutoObject = findObjectByName(autoRecSettings, 'templates', autoName)
                     Hooks.once("createMeasuredTemplate", () => {
                         templateAnimation(handler, templateAutoObject)
-                    })        
+                    })
+                    break;
+                case autorecNameCheck(nameArrays.auras, autoName):
+                    const auraAutoObject = findObjectByName(autoRecSettings, 'auras', autoName)
+                    ctaCall(handler, auraAutoObject)
+                    break;
                 /*
                 case itemArray.healing.includes(itemName):
                 case itemArray.creatureattack.includes(itemName):
