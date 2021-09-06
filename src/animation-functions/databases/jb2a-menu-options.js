@@ -5,14 +5,12 @@ function menuOptions(database) {
 
 const jb2a = database;
 
-let spell = Object.keys(jb2a.spell)
 let range = Object.keys(jb2a.range)
 let melee = Object.keys(jb2a.melee)
 let aaStatic = Object.keys(jb2a.static)
 let rangeReturn = Object.keys(jb2a.return)
 
 //aaColorMenu = {}
-aaColorMenu.spell = spell.reduce((o, key) => ({...o, [key]: Object.keys(jb2a.spell[key]).reduce((o, variant) => ({...o, [variant]: Object.keys(jb2a.spell[key][variant]).reduce((o, colors) => ({...o, [colors]: game.i18n.localize(`AUTOANIM.${colors}`)}), {})}), {})}), {});
 
 aaColorMenu.range = range.reduce((o, key) => ({...o, [key]: Object.keys(jb2a.range[key]).reduce((o, variant) => ({...o, [variant]: Object.keys(jb2a.range[key][variant]).reduce((o, colors) => ({...o, [colors]: game.i18n.localize(`AUTOANIM.${colors}`)}), {})}), {})}), {});
 
@@ -24,7 +22,6 @@ aaColorMenu.static = aaStatic.reduce((o, key) => ({...o, [key]: Object.keys(jb2a
 
 //aaVariantMenu = {}
 
-aaVariantMenu.spell = spell.reduce((o, key) => ({...o, [key]: Object.keys(jb2a.spell[key]).reduce((o, variant) => ({...o, [variant]: game.i18n.localize(`AUTOANIM.${variant}`)}), {})}), {});
 
 aaVariantMenu.range = range.reduce((o, key) => ({...o, [key]: Object.keys(jb2a.range[key]).reduce((o, variant) => ({...o, [variant]: game.i18n.localize(`AUTOANIM.${variant}`)}), {})}), {});
 
