@@ -230,7 +230,7 @@ export async function trafficCop(handler) {
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const rangeAutoObject = findObjectByName(autoRecSettings, 'range', handler.item.name);
+                    const rangeAutoObject = findObjectByName(autoRecSettings, 'range', autoName);
                     rangedAnimations(handler, rangeAutoObject);
                     break;
                 case autorecNameCheck(getAllNames(autoRecSettings, 'static'), autoName):

@@ -10,8 +10,10 @@ export function getAllNames(obj, type) {
 }
 
 export function findObjectByName(data, type, name) {
+    const newName = name.toLowerCase()
     return Object.values(data[type]).filter(section => {
-        return section.name.toLowerCase() === (name.toLowerCase()) ? section : "";
+        //cutting out all spaces
+        return section.name.replace(/\s+/g, '').toLowerCase() === newName ? section : "";
     })
 }
 
@@ -20,7 +22,9 @@ export function autorecNameCheck(nameArray, name) {
     let newName = name.toLowerCase()
     let nameFound = false;
     for (var i = 0; i < arrayLength; i++) {
-        if (nameArray[i].toLowerCase() === newName) {
+        //cutting out all spaces
+        var currentArrayName = nameArray[i].replace(/\s+/g, '').toLowerCase()
+        if (currentArrayName === newName) {
             nameFound = true;
         }
     }
@@ -32,7 +36,11 @@ export function rinseName(oldName) {
     let newName = oldName.replace(/[+1]|[+2]|[+3]/gi, function (x) {
         return "";
     });
-    newName = newName.trim("\s+$/g", "")
+    //trim trailing whitespace
+    //newName = newName.trim("\s+$/g", "")
+    //cut out all spaces
+    newName = newName.replace(/\s+/g, '');
+    console.log(newName)
     return newName;
 }
 
@@ -57,7 +65,8 @@ export function findObjectByNameFull(data, name) {
     for (var i = 1; i < keyLength; i++) {
         var currentObject = data[keys[i]]
         newObject = Object.values(currentObject).filter(section => {
-            return section.name.toLowerCase() === (name.toLowerCase()) ? section : "";
+            //added .replace()
+            return section.name.replace(/\s+/g, '').toLowerCase() === (name.toLowerCase()) ? section : "";
         })
         //console.log(newObject)
         if (newObject.length === 1) {return [ newObject, keys[i] ]}

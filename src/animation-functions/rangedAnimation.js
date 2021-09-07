@@ -34,6 +34,7 @@ export async function rangedAnimations(handler, autoObject) {
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
         data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+        console.log(data)
     } else {
         data.itemName = handler.convertedName;
         if (data.itemName === "arrow") { data.dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
