@@ -150,8 +150,10 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     }
     const jb2a = patreon ? JB2APATREONDB : JB2AFREEDB;
     const autorecSection = findObjectByNameFull(autoRecSettings, autoName);
+    console.log(autorecSection)
     const autorecObject = autorecSection[0]
     let autorecType = autorecSection[1]
+    let changeColor = baseColor;
     //console.log(autorecType)
     /*
     switch (true) {
@@ -163,11 +165,16 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     }
     */
     if (autorecType !== 'melee' && autorecType !== 'range') {autorecType = 'static'}
-    let color = autoOverridden ? baseColor : autorecObject[0].color
-    if (color === 'random') { color = autorecObject[0].color }
-    //console.log(autorecType)
-    //console.log(color)
-    //console.log(autorecObject[0].animation)
+    if (!changeColor) {changeColor = Object.keys(jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant])[0]}
+    let color = autoOverridden ? changeColor : autorecObject[0].color
+    if (color === 'random') { color = autorecObject[0].color || ""}
+    /*
+    console.log(autoOverridden)
+    console.log(autorecType)
+    console.log(color)
+    console.log(autorecObject[0].animation)
+    console.log(autoName)
+    */
     const file = autorecType === "range" ? jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color][Object.keys(jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color])[1]] : jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color]
 
     return file;
