@@ -76,6 +76,7 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-static-autorec.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-templates-autorec.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-auras-autorec.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-presets-autorec.html',
     ]);
 
     if (game.modules.get("midi-qol")?.active) {

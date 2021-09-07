@@ -40,6 +40,8 @@ export class aaAutoRecognition extends FormApplication {
         data.templateRect = AUTOANIM.localized(AUTOANIM.rectangleAnimations);
         data.templateRay = AUTOANIM.localized(AUTOANIM.rayAnimations);
         data.auraList = AUTOANIM.localized(AUTOANIM.aura);
+        data.presetList = AUTOANIM.localized(AUTOANIM.animNameClassFeatures);
+        data.bardAnimName = AUTOANIM.localized(AUTOANIM.bardAnimType)
 
         data.colors = aaColorMenu;
         data.variants = aaVariantMenu;
@@ -57,6 +59,8 @@ export class aaAutoRecognition extends FormApplication {
         html.find('button.add-autorecog-static').click(this._addStatic.bind(this));
         html.find('button.add-autorecog-templates').click(this._addTemplate.bind(this));
         html.find('button.add-autorecog-auras').click(this._addAura.bind(this));
+        html.find('button.add-autorecog-preset').click(this._addPreset.bind(this));
+
         //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
 
         html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
@@ -200,6 +204,24 @@ export class aaAutoRecognition extends FormApplication {
         updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
         updateData[`aaAutorec.auras.${idx}.scale`] = 1;
         updateData[`aaAutorec.auras.${idx}.below`] = true;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _addPreset(event) {
+        event.preventDefault();
+        let idx = 0;
+        const entries = event.target.closest('div.tab').querySelectorAll('div.preset-settings');
+        const last = entries[entries.length - 1];
+        if (last) {
+            idx = last.dataset.idx + 1;
+        }
+        let updateData = {}
+        updateData[`aaAutorec.preset.${idx}.tint`] = '#ffffff';
+        updateData[`aaAutorec.preset.${idx}.opacity`] = 0.75;
+        updateData[`aaAutorec.preset.${idx}.scale`] = 1;
+        updateData[`aaAutorec.preset.${idx}.below`] = true;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
