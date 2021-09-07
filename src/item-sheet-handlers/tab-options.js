@@ -89,6 +89,7 @@ export function autorecColors(itemName) {
     let autorecSection = findObjectByNameFull(autoRecSettings, autoName);
     let autorecObject = autorecSection[0]
     let autorecType = autorecSection[1]
+    /*
     switch (true) {
         case autorecType === 'melee':
         case autorecType === 'range':
@@ -96,7 +97,8 @@ export function autorecColors(itemName) {
         default:
             autorecType = 'static'
     }
-    //if (autorecType !== 'melee' || autorecType !== 'range') {autorecType = 'static'}
+    */
+    if (autorecType !== 'melee' && autorecType !== 'range') {autorecType = 'static'}
 
     let colors = colorMenu[autorecType][autorecObject[0].animation][autorecObject[0].variant]
     return colors;
@@ -138,7 +140,7 @@ export function variantLength(itemName, type) {
 
 }
 
-export function autoPreview(name, patreon) {
+export function autoPreview(name, baseColor, patreon, autoOverridden) {
 
     const autoName = rinseName(name)
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
@@ -150,7 +152,8 @@ export function autoPreview(name, patreon) {
     const autorecSection = findObjectByNameFull(autoRecSettings, autoName);
     const autorecObject = autorecSection[0]
     let autorecType = autorecSection[1]
-    console.log(autorecType)
+    //console.log(autorecType)
+    /*
     switch (true) {
         case autorecType === 'melee':
         case autorecType === 'range':
@@ -158,12 +161,14 @@ export function autoPreview(name, patreon) {
         default:
             autorecType = 'static'
     }
-    //if (autorecType !== 'melee' || autorecType !== 'range') {autorecType = 'static'}
-    const color = autorecObject[0].color
-    console.log(autorecType)
-    console.log(color)
-    console.log(autorecObject[0].animation)
-    const file = autorecType === "range" ? jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color]['30ft'] : jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color]
+    */
+    if (autorecType !== 'melee' && autorecType !== 'range') {autorecType = 'static'}
+    let color = autoOverridden ? baseColor : autorecObject[0].color
+    if (color === 'random') { color = autorecObject[0].color }
+    //console.log(autorecType)
+    //console.log(color)
+    //console.log(autorecObject[0].animation)
+    const file = autorecType === "range" ? jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color][Object.keys(jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color])[1]] : jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color]
 
     return file;
 }

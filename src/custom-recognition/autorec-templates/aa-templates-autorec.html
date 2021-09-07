@@ -14,9 +14,7 @@
                         <input type='text' name="aaAutorec.templates.{{idx}}.name"
                             placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
                             value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'name'}}" />
-                        <button class='remove-autorecog' data-idx="{{idx}}">
-                            <i class='far fa-trash-alt'></i>
-                        </button>
+                        <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
                     </div>
                 </div>
                 <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }}
@@ -91,8 +89,8 @@
                                 <select name="aaAutorec.templates.{{idx}}.color">
                                     {{#select (lookup (lookup ../settings.aaAutorec.templates idx) 'color')}}
                                     {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                    ../settings.aaAutorec.templates idx) 'animation')) (lookup (lookup
-                                    ../settings.aaAutorec.templates idx) 'variant')) as |name key|}}
+                                    ../settings.aaAutorec.templates idx) 'type')) (lookup (lookup
+                                    ../settings.aaAutorec.templates idx) 'animation')) as |name key|}}
                                     <option value="{{key}}">{{name}}</option>
                                     {{/each}}
                                     {{/select}}

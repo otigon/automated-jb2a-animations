@@ -14,10 +14,13 @@ export async function templateAnimation(handler, autoObject) {
 
     const data = {}
     if (autoObject) {
+        const autoOverridden = handler.options?.overrideAuto
         Object.assign(data, autoObject[0])
         data.itemName = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
-        data.color = handler.options?.autoColor || data.color;
+        data.color = autoOverridden ? handler.options?.autoColor : data.color;
+        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
+        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
         data.occlusionMode = parseInt(data.occlusionMode);
     } else {
         data.itemName = handler.templates.tempAnim;

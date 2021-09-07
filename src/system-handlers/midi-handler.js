@@ -10,7 +10,7 @@ export default class MidiHandler {
         }
         this._item = item;
         this._actor = actor;
-
+        //if (!this._item.flags?.autoanimations?.options?.autoColor) {this._item.setFlag('autoanimations', 'options.autoColor', )}
         this._actorToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null);
 
         // getting flag data from Animation Tab

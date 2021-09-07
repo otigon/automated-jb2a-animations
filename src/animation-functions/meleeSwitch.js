@@ -11,11 +11,14 @@ export async function meleeSwitch(handler, target, autoObject) {
     //Builds Primary File Path and Pulls from flags if already set
     const data = {};
     if (autoObject) {
+        const autoOverridden = handler.options?.overrideAuto
         Object.assign(data, autoObject[0]);
         //if (!data.switchAnimation) { data.switchAnimation = data.animation; }
         data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
         data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
-        data.color = handler.options?.autoColor || data.color;
+        data.color = autoOverridden ? handler.options?.autoColor : data.color;
+        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
+        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
     } else {
         data.switchAnimation = handler.switchName || handler.convertedName;
         //data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";

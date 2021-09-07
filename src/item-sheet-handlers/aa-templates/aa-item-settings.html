@@ -20,6 +20,7 @@
             {{#unless flags.autoanimations.killAnim}}
             <div class="animation-not-disabled">
                 <div>
+                    {{#unless autoRecognizedNoOverride}}
                     <!--Play Animations Below Tokens Button-->
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.underToken"}}</label>
@@ -27,6 +28,7 @@
                             value="flags.autoanimations.animLevel" data-dtype="{{Boolean}}" {{checked
                             flags.autoanimations.animLevel}} />
                     </div>
+                    {{/unless}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.customize"}} {{localize "AUTOANIM.animation"}}</label>
                         <input type="checkbox" name="flags.autoanimations.override"
@@ -38,9 +40,16 @@
                 {{#if autoRecognized}}
                 <!--If auto-recognized, Animation name will be listed here-->
                 <div class="form-group">
-                    <label class="auto-recognized"><strong>{{OldName}}</strong> is configured in the Global Settings</label>
+                    <label class="auto-recognized"><strong>{{OldName}}</strong> is configured in the Global
+                        Settings</label>
                 </div>
-                {{/if}}
+                <div class="form-group">
+                    <label>Override Automatic Settings</label>
+                    <input type="checkbox" name="flags.autoanimations.options.overrideAuto"
+                        value="flags.autoanimations.options.overrideAuto" {{checked
+                        flags.autoanimations.options.overrideAuto}}>
+                </div>
+                {{#if flags.autoanimations.options.overrideAuto}}
                 <!--Choose Standard Animation Color-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
@@ -55,22 +64,24 @@
                 <div class="flexrow">
                     <div class="aa-column">
                         <label>{{localize "AUTOANIM.loops"}}</label>
-                        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}}
+                        <input type="Number" name="flags.autoanimations.options.autoRepeat" value="{{autoRepeat}}"
                             data-dtype="Number">
                     </div>
                     <div class="aa-column">
                         <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
-                        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+                        <input type="Number" name="flags.autoanimations.options.autoDelay" value={{autoDelay}}
                             data-dtype="Number">
                     </div>
                     {{#if defaultCheck}}
                     <div class="aa-column">
                         <label>{{localize "AUTOANIM.scale"}}</label>
-                        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}}
+                        <input type="Number" name="flags.autoanimations.options.autoScale" value={{autoScale}}
                             data-dtype="Number">
                     </div>
                     {{/if}}
                 </div>
+                {{/if}}
+                {{/if}}
 
                 {{/unless}}
                 {{#if flags.autoanimations.override}}
@@ -1373,8 +1384,9 @@
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.ignoreTargets"}}</label>
-                    <input type="checkbox" name="flags.autoanimations.options.ignoreTarget" value="flags.autoanimations.options.ignoreTarget"
-                        {{checked flags.autoanimations.options.ignoreTarget}}>
+                    <input type="checkbox" name="flags.autoanimations.options.ignoreTarget"
+                        value="flags.autoanimations.options.ignoreTarget" {{checked
+                        flags.autoanimations.options.ignoreTarget}}>
                 </div>
                 {{/if}}
 
@@ -1629,7 +1641,8 @@
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.ctaStatic"}}</label>
-                    <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked flags.autoanimations.ctaOption}}>
+                    <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked
+                        flags.autoanimations.ctaOption}}>
                 </div>
                 <div class="aa-column">
                     <label>{{localize "AUTOANIM.scale"}}</label>

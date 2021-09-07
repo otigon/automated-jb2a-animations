@@ -72,7 +72,7 @@ export class AAItemSettings extends FormApplication {
         const templateType = flags.autoanimations?.templates?.tempType ?? "";
         const templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
         const animationLoops = flags.autoanimations?.options?.loops > 50 ? 50 : flags.autoanimations?.options?.loops;
-        const loopTemplate =  flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
+        const loopTemplate = flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
         const explosionLoops = flags.autoanimations?.explodeLoop > 50 ? 50 : flags.autoanimations?.explodeLoop;
         const returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
 
@@ -82,7 +82,7 @@ export class AAItemSettings extends FormApplication {
         const staticLength = variantLength(itemName, "static");
 
         let videoPreview = animPreview(flags, itemName);
-        if (videoPreview === "no preview" && !override) { videoPreview = autoPreview(oldName, patreon) }
+        if (videoPreview === "no preview" && !override) { videoPreview = autoPreview(oldName, flags.autoanimations?.options?.autoColor, patreon, flags.autoanimations?.options?.overrideAuto) }
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
@@ -106,6 +106,7 @@ export class AAItemSettings extends FormApplication {
             //convertedName: conversion[2],
             //autoRecognized: conversion[2] === undefined ? false : true,
             autoRecognized: checkAutoRec(oldName),
+            autoRecognizedNoOverride: checkAutoRec(oldName) && !override,
             t2t3: override && (animType === "t2" || animType === "t3"),
             t4: override && animType === "t4",
             t5: override && animType === "t5",
@@ -244,7 +245,7 @@ export class AAItemSettings extends FormApplication {
             markerColors: menuColors("bardicinspiration", "marker", "static"),
             staticColors: menuColors(itemName, spellVariant, "static"),
             spellColors: menuColors(itemName, spellVariant, "range"),
-            
+
             rangeColors: rangeColors(itemName, damageType, variant),
             switchColors: rangeColors(switchName, spellVariant, switchDamageType, switchVariant),
 
@@ -257,7 +258,10 @@ export class AAItemSettings extends FormApplication {
             meleeVariant: variantOptions(itemName, "melee"),
             staticVariant: variantOptions(itemName, "static"),
 
-            autorecColor: autorecColors(oldName)
+            autorecColor: autorecColors(oldName),
+            autoRepeat: flags.autoanimations?.options?.autoRepeat || 1,
+            autoDelay: flags.autoanimations?.options?.autoDelay || 500,
+            autoScale: flags.autoanimations?.options?.autoScale || 1,
         };
 
     }

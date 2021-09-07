@@ -137,7 +137,7 @@
 
 #automatic-recognition .collapse-button {
     max-width: 1.5rem;
-    margin: 0.5rem;
+    margin-left: 0.75rem;
 }
 
 #automatic-recognition select{
@@ -159,8 +159,8 @@
 }
 
 #automatic-recognition .remove-autorecog {
-    max-width: 3rem;
-    margin: 0.5rem;
+    max-width: 1.5rem;
+    margin-left: 0.75rem;
 }
 
 .aa-autorec-submit {
