@@ -66,6 +66,9 @@ export class aaAutoRecognition extends FormApplication {
         html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
         })
+        html.find('.aa-container input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render())
+        })
         //html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
         html.find('.remove-autorecog').click(this._onRemoveOverride.bind(this))
         html.find('.aa-autorecognition select').change(evt => {
@@ -218,10 +221,10 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.preset.${idx}.tint`] = '#ffffff';
-        updateData[`aaAutorec.preset.${idx}.opacity`] = 0.75;
         updateData[`aaAutorec.preset.${idx}.scale`] = 1;
-        updateData[`aaAutorec.preset.${idx}.below`] = true;
+        updateData[`aaAutorec.preset.${idx}.below`] = false;
+        updateData[`aaAutorec.preset.${idx}.anchorX`] = 0.5;
+        updateData[`aaAutorec.preset.${idx}.anchorY`] = 0.5;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();

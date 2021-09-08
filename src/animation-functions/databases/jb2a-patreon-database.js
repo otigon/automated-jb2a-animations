@@ -1661,18 +1661,12 @@ JB2APATREONDB.static = {
         }
     },
     bardicinspiration: {
-        'inspire': {
+        '01': {
             yellowblue: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm`],
             purplepink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_PurplePink_400x400.webm`],
             darkred: [l1`Bardic_Inspiration/BardicInspiration_01_Dark_Red_400x400.webm`]
         },
-        'marker': {
-            yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
-            greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
-            purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
-            darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
-        }
     },
     bless: {
         '01': {
@@ -2121,7 +2115,7 @@ JB2APATREONDB.static = {
     },
     lightningball: {
         '01': {
-            dark_purple: [lg`Lightning/LightningBall_01_Dark_Purple_400x400.webm`],
+            darkpurple: [lg`Lightning/LightningBall_01_Dark_Purple_400x400.webm`],
             blue: [l6`Lightning/LightningBall_01_Regular_Blue_400x400.webm`],
             green: [l6`Lightning/LightningBall_01_Regular_Green_400x400.webm`],
             purple: [l6`Lightning/LightningBall_01_Regular_Purple_400x400.webm`]
@@ -2149,7 +2143,7 @@ JB2APATREONDB.static = {
             pink: [lg`Marker/Marker_02_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_02_Regular_PurplePink_400x400.webm`],
         },
-        musicMarker: {
+        musicmarker: {
             darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
             yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
