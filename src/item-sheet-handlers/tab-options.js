@@ -87,7 +87,8 @@ export function autorecColors(itemName) {
     }
     const colorMenu = aaColorMenu;
     let autorecSection = findObjectByNameFull(autoRecSettings, autoName);
-    let autorecObject = autorecSection[0]
+    const autorecObject = autorecSection[0]
+    if (autorecObject[0].custom) {return null}
     let autorecType = autorecSection[1]
     /*
     switch (true) {
@@ -150,8 +151,10 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     }
     const jb2a = patreon ? JB2APATREONDB : JB2AFREEDB;
     const autorecSection = findObjectByNameFull(autoRecSettings, autoName);
-    console.log(autorecSection)
+    //console.log(autorecSection)
     const autorecObject = autorecSection[0]
+    if (autorecObject[0].custom) {return autorecObject[0].customPath}
+    //console.log(autorecObject)
     let autorecType = autorecSection[1]
     let changeColor = baseColor;
     //console.log(autorecType)

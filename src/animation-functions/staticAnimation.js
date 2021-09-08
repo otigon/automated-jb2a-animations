@@ -17,6 +17,7 @@ export async function staticAnimation(handler, autoObject) {
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
         data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
     } else {
         data.itemName = handler.convertedName;
         data.variant = handler.spellVariant;
@@ -25,6 +26,7 @@ export async function staticAnimation(handler, autoObject) {
         data.delay = handler.loopDelay;
         data.customPath = handler.enableCustom01 ? handler.custom01 : false;
         data.below = handler.animLevel;
+        data.scale = handler.scale;
     }
     const onToken = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath);
     // builds Source Token file if Enabled, and pulls from flags if already set
@@ -54,8 +56,42 @@ export async function staticAnimation(handler, autoObject) {
 
     let exScale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     let animWidth = onToken.metadata.width;
-    if (handler.allTargets.length === 0 && (data.itemName === "curewounds" || data.itemName === "generichealing")) {
-    new Sequence()
+    const arrayLength = handler.allTargets.length;
+
+    switch (data.type) {
+        case 'source':
+            selfCast()
+            break;
+        case 'target':
+            if (arrayLength === 0) { return; }
+            targetCast()
+            break;
+        case 'targetDefault':
+            if (arrayLength === 0) {
+                selfCast()
+            } else { targetCast() }
+            break;
+        case 'sourcetarget':
+            selfCast()
+            if (arrayLength === 0) { return; }
+            targetCast()
+            break;
+    }
+    if (data.type === 'source') {
+        selfCast()
+    }
+
+    if (data.type === 'target') {
+        targetCast()
+    }
+
+    if (data.type === 'sourcetarget') {
+        selfCast()
+        targetCast()
+    }
+
+    async function selfCast() {
+        new Sequence()
         .effect()
             .atLocation(sourceToken)
             .scale(sourceFX.sFXScale * handler.sourceScale)
@@ -72,6 +108,14 @@ export async function staticAnimation(handler, autoObject) {
         .thenDo(function() {
             Hooks.callAll("aa.animationStart", sourceToken, "no-target")
         })             
+        .effect()
+            .file(onToken.file)
+            .atLocation(sourceToken)
+            //.randomizeMirrorY()
+            .repeats(data.repeat, data.delay)
+            //.missed(hit)
+            .scale(((sourceToken.w / animWidth) * 1.5) * data.scale)
+            .belowTokens(data.below)
         .effect()
             .atLocation(sourceToken)
             .scale(exScale)
@@ -92,26 +136,12 @@ export async function staticAnimation(handler, autoObject) {
             .delay(explosionSound.delay)
             .volume(explosionSound.volume)
             .repeats(data.repeat, data.delay)
-        .effect()
-            .file(onToken.file)
-            .atLocation(sourceToken)
-            //.randomizeMirrorY()
-            .repeats(data.repeat, data.delay)
-            //.missed(hit)
-            .scale(((sourceToken.w / animWidth) * 1.5) * handler.scale)
-            .belowTokens(data.below)
-            .addOverride(
-                async (effect, data) => {
-                    return data
-                })
         .play()
-        await wait(500)
+        //await wait(500)
         Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
     }
-    //.waitUntilFinished(-500 + handler.explosionDelay)
 
-    async function cast() {
-        let arrayLength = handler.allTargets.length;
+    async function targetCast() {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
@@ -127,7 +157,7 @@ export async function staticAnimation(handler, autoObject) {
                 hit = false;
             }
 
-            await new Sequence()
+            new Sequence()
                 .effect()
                     .atLocation(sourceToken)
                     .scale(sourceFX.sFXScale * handler.sourceScale)
@@ -149,7 +179,7 @@ export async function staticAnimation(handler, autoObject) {
                     .atLocation(target)
                     //.randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
-                    .scale(scale * handler.scale)
+                    .scale(scale * data.scale)
                     .belowTokens(data.below)
                     .name("animation")
                     .playIf(() => { return arrayLength })
@@ -187,9 +217,8 @@ export async function staticAnimation(handler, autoObject) {
                         return data;
                     })            
                 .play()
-                await wait(500)
+                //await wait(500)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)
         }
     }
-    cast()
 }
