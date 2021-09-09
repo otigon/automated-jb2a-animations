@@ -4,7 +4,7 @@ import { buildFile } from "../file-builder/build-filepath.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function shieldSpell(handler) {
+export async function shieldSpell(handler, autoObject) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -13,37 +13,52 @@ export async function shieldSpell(handler) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    async function buildShieldFile(jb2a, handler) {
-        const spellVariant = handler.spellVariant || "01";
-        let color = handler.color || "blue";
+    async function buildShieldFile(jb2a, baseColor, variant, endeffect) {
+        //const spellVariant = handler.spellVariant || "01";
+        let color = baseColor;
         color = color.replace(/\s+/g, '');
         function random_item(items)
         {
         return items[Math.floor(Math.random()*items.length)];
         }
-        color = color === "random" ? random_item(Object.keys(aaColorMenu.static.bless[spellVariant])) : color;
-        const shieldVar = handler.options.shieldVar || "outro_fade";
+        color = color === "random" ? random_item(Object.keys(aaColorMenu.static.bless[variant])) : color;
+        //const shieldVar = handler.options.shieldVar || "outro_fade";
     
-        const file01 = `autoanimations.static.shield.${spellVariant}.${color}.intro`;
-        const file02 = `autoanimations.static.shield.${spellVariant}.${color}.loop`;
-        const file03 = `autoanimations.static.shield.${spellVariant}.${color}.${shieldVar}`;
+        const file01 = `autoanimations.static.shield.${variant}.${color}.intro`;
+        const file02 = `autoanimations.static.shield.${variant}.${color}.loop`;
+        const file03 = `autoanimations.static.shield.${variant}.${color}.${endeffect}`;
     
         const fileData = jb2a.static.shield["01"]["blue"]["intro"];
         const metadata = await getVideoDimensionsOf(fileData);
     
         return { file01, file02, file03, metadata };
     }
-    
-    let onToken = await buildShieldFile(obj01, handler);
+    const data = {};
+    if (autoObject) {
+        const autoOverridden = handler.options?.overrideAuto
+        Object.assign(data, autoObject[0]);
+        data.itemName = data.animation || "";
+        data.color = autoOverridden ? handler.options?.autoColor : data.color;
+        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
+    } else {
+        data.itemName = handler.convertedName;
+        data.color = handler.color || "blue";
+        data.scale = handler.scale || 1;
+        data.below = handler.animLevel;
+        data.addCTA = handler.options?.addCTA;
+        data.endeffect = handler.options.shieldVar || "outro_fade";
+        data.variant = handler.spellVariant || "01";
+    }
+    const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {
         sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
     }
 
-    let sourceToken = handler.actorToken;
+    const sourceToken = handler.actorToken;
     //let animWidth = onToken.metadata.width;
-    let scale = ((sourceToken.w / onToken.metadata.width) * 1.75) * handler.scale
+    let scale = ((sourceToken.w / onToken.metadata.width) * 1.75) * data.scale
 
 
 
@@ -66,17 +81,20 @@ export async function shieldSpell(handler) {
                     .file(onToken.file01)
                     .scale(scale)
                     .atLocation(sourceToken)
+                    .belowTokens(data.below)
                     .waitUntilFinished(-500)        
                 .effect()
                     .file(onToken.file02)
                     .scale(scale)
                     .atLocation(sourceToken)
+                    .belowTokens(data.below)
                     .fadeIn(300)
                     .fadeOut(300)
                     .waitUntilFinished(-500)
                 .effect()
                     .file(onToken.file03)
                     .scale(scale)
+                    .belowTokens(data.below)
                     .atLocation(sourceToken)                          
                 .play()
             //await wait(250)

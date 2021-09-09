@@ -5,7 +5,7 @@ import { getAllTheNames, findObjectByNameFull, autorecNameCheck, rinseName } fro
 import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js";
 import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js";
 
-export function menuColors (itemName, variant, type) {
+export function menuColors(itemName, variant, type) {
     let animationColor;
     let colorMenu = aaColorMenu;
     let variantArray;
@@ -14,7 +14,7 @@ export function menuColors (itemName, variant, type) {
     let variantNow;
     try {
         variantNow = variantArray.some(el => variant === el) ? variant : variantArray[0];
-        colorMenu[type][itemName][variantNow].random = game.i18n.localize( game.i18n.localize("AUTOANIM.random"));
+        colorMenu[type][itemName][variantNow].random = game.i18n.localize(game.i18n.localize("AUTOANIM.random"));
         animationColor = colorMenu[type][itemName][variantNow];
     }
     catch (exception) { animationColor = null }
@@ -25,7 +25,7 @@ export function menuColors (itemName, variant, type) {
 export function rangeColors(itemName, damageType, variant) {
     let animationColor;
     let animVar;
-    let name = itemName.replace(/melee|range|double/gi, function(x) {
+    let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
     switch (true) {
@@ -42,7 +42,7 @@ export function rangeColors(itemName, damageType, variant) {
     }
     let colorMenu = aaColorMenu;
 
-    try { colorMenu.range[name][animVar].random =  game.i18n.localize("AUTOANIM.random"); }
+    try { colorMenu.range[name][animVar].random = game.i18n.localize("AUTOANIM.random"); }
     catch (exception) { }
 
     let variantArray;
@@ -60,10 +60,10 @@ export function rangeColors(itemName, damageType, variant) {
 export function staticColors(itemName, spellVariant, bardAnimation, damageType, variant) {
     let name = itemName === "boulder" ? "boulderimpact" : itemName;
     let animationColor;
-    let animVar= spellVariant;
+    let animVar = spellVariant;
     let colorMenu = aaColorMenu;
 
-    try { colorMenu.static[name][animVar].random =  game.i18n.localize("AUTOANIM.random"); }
+    try { colorMenu.static[name][animVar].random = game.i18n.localize("AUTOANIM.random"); }
     catch (exception) { }
 
     let variantArray;
@@ -88,7 +88,7 @@ export function autorecColors(itemName) {
     const colorMenu = aaColorMenu;
     let autorecSection = findObjectByNameFull(autoRecSettings, autoName);
     const autorecObject = autorecSection[0]
-    if (autorecObject[0].custom) {return null}
+    if (autorecObject[0].custom) { return null }
     let autorecType = autorecSection[1]
     /*
     switch (true) {
@@ -99,9 +99,10 @@ export function autorecColors(itemName) {
             autorecType = 'static'
     }
     */
-    if (autorecType !== 'melee' && autorecType !== 'range') {autorecType = 'static'}
-
-    let colors = colorMenu[autorecType][autorecObject[0].animation][autorecObject[0].variant]
+    if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
+    const name = autorecObject[0].animation === 'shieldspell' ? 'shield' : autorecObject[0].animation
+    const variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
+    let colors = colorMenu[autorecType][name][variant]
     return colors;
 }
 
@@ -116,20 +117,20 @@ export function checkAutoRec(itemName) {
     return foundName;
 }
 export function variantOptions(itemName, type) {
-    
-    let name = itemName.replace(/melee|range|double/gi, function(x) {
+
+    let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
 
     const variantMenu = aaVariantMenu;
     let variantOptions;
-    try { variantOptions = variantMenu[type][name]}
+    try { variantOptions = variantMenu[type][name] }
     catch (exception) { }
     return variantOptions;
 }
 
 export function variantLength(itemName, type) {
-    let name = itemName.replace(/melee|range|double/gi, function(x) {
+    let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
 
@@ -153,11 +154,11 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     const autorecSection = findObjectByNameFull(autoRecSettings, autoName);
     //console.log(autorecSection)
     const autorecObject = autorecSection[0]
-    if (autorecObject[0].custom) {return autorecObject[0].customPath}
+    if (autorecObject[0].animation === 'bardicinspiration' || autorecObject[0].animation === 'bless' || autorecObject[0].animation === 'shieldspell') { return; }
+    if (autorecObject[0].custom) { return autorecObject[0].customPath }
     //console.log(autorecObject)
     let autorecType = autorecSection[1]
     let changeColor = baseColor;
-    //console.log(autorecType)
     /*
     switch (true) {
         case autorecType === 'melee':
@@ -167,10 +168,12 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
             autorecType = 'static'
     }
     */
-    if (autorecType !== 'melee' && autorecType !== 'range') {autorecType = 'static'}
-    if (!changeColor) {changeColor = Object.keys(jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant])[0]}
+    //if (!autorecObject[0].variant) {variant = Object.keys(jb2a[autorecType][autorecObject[0].animation])[0]}
+    if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
+    const variant = !autorecObject[0].variant ? Object.keys(jb2a[autorecType][autorecObject[0].animation])[0] : autorecObject[0].variant;
+    if (!changeColor) { changeColor = Object.keys(jb2a[autorecType][autorecObject[0].animation][variant])[0] }
     let color = autoOverridden ? changeColor : autorecObject[0].color
-    if (color === 'random') { color = autorecObject[0].color || ""}
+    if (color === 'random') { color = autorecObject[0].color || "" }
     /*
     console.log(autoOverridden)
     console.log(autorecType)
@@ -178,8 +181,7 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     console.log(autorecObject[0].animation)
     console.log(autoName)
     */
-    const file = autorecType === "range" ? jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color][Object.keys(jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color])[1]] : jb2a[autorecType][autorecObject[0].animation][autorecObject[0].variant][color]
-
+    const file = autorecType === "range" ? jb2a[autorecType][autorecObject[0].animation][variant][color][Object.keys(jb2a[autorecType][autorecObject[0].animation][variant][color])[1]] : jb2a[autorecType][autorecObject[0].animation][variant][color]
     return file;
 }
 

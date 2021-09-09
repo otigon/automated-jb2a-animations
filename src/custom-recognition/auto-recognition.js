@@ -230,29 +230,6 @@ export class aaAutoRecognition extends FormApplication {
         this.render();
     }
 
-    /*
-    async _addStatic(event) {
-        event.preventDefault();
-        let idx = 0;
-        const entries = event.target.closest('div.tab').querySelectorAll('div.static-settings');
-        const last = entries[entries.length - 1];
-        if (last) {
-            idx = last.dataset.idx + 1;
-        }
-        let updateData = {}
-        updateData[`aaAutorec.static.${idx}.name`] = '';
-        updateData[`aaAutorec.static.${idx}.type`] = 'static';
-        updateData[`aaAutorec.static.${idx}.animation`] = 'None';
-        updateData[`aaAutorec.static.${idx}.variant`] = '';
-        updateData[`aaAutorec.static.${idx}.repeat`] = 1;
-        updateData[`aaAutorec.static.${idx}.delay`] = 500;
-        updateData[`aaAutorec.static.${idx}.scale`] = 1;
-        updateData[`aaAutorec.static.${idx}.below`] = false;
-
-        await this._onSubmit(event, { updateData: updateData, preventClose: true });
-        this.render();
-    }
-    */
     async _onRemoveOverride(event) {
         event.preventDefault();
         let idx = event.target.dataset.idx;
@@ -306,6 +283,14 @@ export class aaAutoRecognition extends FormApplication {
             catch (exception) {return}
             Object.values(value.auras).forEach((val, idx) => compacted[idx] = val);
             value.auras = compacted;
+            await game.settings.set('autoanimations', key, value);
+        }
+        for (let [key, value] of Object.entries(data)) {
+            const compacted = {};
+            try {Object.values(value.preset)}
+            catch (exception) {return}
+            Object.values(value.preset).forEach((val, idx) => compacted[idx] = val);
+            value.preset = compacted;
             await game.settings.set('autoanimations', key, value);
         }
 

@@ -6,7 +6,7 @@ import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function bless(handler) {
+export async function bless(handler, autoObject) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -17,32 +17,46 @@ export async function bless(handler) {
 
     // Random Color pull given object path
     //Builds standard File Path
-    
-    let bless = await buildBlessFile(obj01, handler);
-
+    const data = {};
+    if (autoObject) {
+        const autoOverridden = handler.options?.overrideAuto
+        Object.assign(data, autoObject[0]);
+        data.itemName = data.animation || "";
+        data.color = autoOverridden ? handler.options?.autoColor : data.color;
+        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
+    } else {
+        data.itemName = handler.convertedName;
+        data.color = handler.color;
+        data.scale = handler.scale || 1;
+        data.below = handler.animLevel;
+        data.addCTA = handler.options?.addCTA;
+    }
+    console.log(data)
+    const bless = await buildBlessFile(obj01, data.color);
+    console.log(bless)
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {
         sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
     }
 
-    let sourceToken = handler.actorToken;
+    const sourceToken = handler.actorToken;
     //let animWidth = onToken.metadata.width;
-    let scale = ((sourceToken.w / bless.metadata.width) * 2)// * handler.scale
-    let addCTA = handler.options?.addCTA ? false : true
+    const scale = ((sourceToken.w / bless.metadata.width) * 2)// * handler.scale
+    let addCTA = data.addCTA ? false : true
     if (handler.allTargets.length === 0) {
         new Sequence()
         .effect()
             .file(bless.file01)
             .atLocation(sourceToken)
-            .scale(scale * handler.scale)
-            .belowTokens(handler.animLevel)
+            .scale(scale * data.scale)
+            .belowTokens(data.below)
             .waitUntilFinished(-500)
         .effect()
             .file(bless.file02)
             .scale(scale)
             .atLocation(sourceToken)
-            .belowTokens(handler.animLevel)
+            .belowTokens(data.below)
             .play()
     }
 
@@ -58,22 +72,22 @@ export async function bless(handler) {
             let targetScale = ((target.w / bless.metadata.width) * 2)
             new Sequence()
                 .effect()
-                .file(bless.file01)
-                .atLocation(target)
-                .scale(targetScale * handler.scale)
-                .belowTokens(handler.animLevel)
-                .waitUntilFinished(-500)
+                    .file(bless.file01)
+                    .atLocation(target)
+                    .scale(targetScale * data.scale)
+                    .belowTokens(data.below)
+                    .waitUntilFinished(-500)
                 .effect()
-                .file(bless.file02)
-                .scale(targetScale * handler.scale)
-                .atLocation(target)
-                .belowTokens(handler.animLevel)
-                .playIf(addCTA)
+                    .file(bless.file02)
+                    .scale(targetScale * data.scale)
+                    .atLocation(target)
+                    .belowTokens(data.below)
+                    .playIf(addCTA)
                 .play()
             //await wait(250)
 
         }
-        if (handler.options?.addCTA) {
+        if (data.addCTA) {
             await wait((bless.metadata.duration * 1000) - 500)
             cTa()
         }
@@ -108,7 +122,7 @@ export async function bless(handler) {
             CTA.addAnimation(target, textureData, pushActor, name)
         }
     }
-    if (handler.options?.addCTA) {
+    if (data.addCTA) {
         await wait ((bless.metadata.duration * 1000) - 500);
         removeCTA()
     }
@@ -142,8 +156,8 @@ export async function bless(handler) {
     }
 }
 
-async function buildBlessFile(jb2a, handler) {
-    let color = handler.color || "yellow";
+async function buildBlessFile(jb2a, baseColor) {
+    let color = baseColor || "yellow";
     color = color.replace(/\s+/g, '');
     function random_item(items)
     {

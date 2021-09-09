@@ -62,6 +62,8 @@
                     </select>
                 </div>
                 <div class="flexrow">
+                    {{#unless autoNone}}
+                    {{#unless autoRepeatDelay}}
                     <div class="aa-column">
                         <label>{{localize "AUTOANIM.loops"}}</label>
                         <input type="Number" name="flags.autoanimations.options.autoRepeat" value="{{autoRepeat}}"
@@ -72,13 +74,15 @@
                         <input type="Number" name="flags.autoanimations.options.autoDelay" value={{autoDelay}}
                             data-dtype="Number">
                     </div>
-                    {{#if defaultCheck}}
+                    {{/unless}}
+                    {{#if noAutoScale}}
                     <div class="aa-column">
                         <label>{{localize "AUTOANIM.scale"}}</label>
                         <input type="Number" name="flags.autoanimations.options.autoScale" value={{autoScale}}
                             data-dtype="Number">
                     </div>
                     {{/if}}
+                    {{/unless}}
                 </div>
                 {{/if}}
                 {{/if}}

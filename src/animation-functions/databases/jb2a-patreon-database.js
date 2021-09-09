@@ -1661,12 +1661,18 @@ JB2APATREONDB.static = {
         }
     },
     bardicinspiration: {
-        '01': {
+        'inspire': {
             yellowblue: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm`],
             purplepink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_PurplePink_400x400.webm`],
             darkred: [l1`Bardic_Inspiration/BardicInspiration_01_Dark_Red_400x400.webm`]
         },
+        'marker': {
+            yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
+            greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
+            purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
+            darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
+        }
     },
     bless: {
         '01': {

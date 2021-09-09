@@ -27,10 +27,10 @@
                                         style="min-width: 15em; text-align: center;">
                                         {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
                                         'animation')}}
-                                        <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}</option>
+                                        <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}
+                                        </option>
                                         <option value="bless">{{localize "AUTOANIM.bless"}}</option>
                                         <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
-                                        <option value="sneakattack">{{localize "AUTOANIM.sneakattack"}}</option>
                                         {{/select}}
                                     </select>
                                 </label>
@@ -76,26 +76,22 @@
                                 {{/select}}
                             </select>
                         </div>
-                        <div class='option07'>
-                            <label>{{localize 'AUTOANIM.variant'}}:</label>
-                            <select name="aaAutorec.preset.{{idx}}.selfVariant">
-                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'selfVariant')}}
-                                {{#each (lookup (lookup ../variants 'static') (lookup (lookup
-                                ../settings.aaAutorec.preset idx) 'selfAnimation')) as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
                         <div class="option08">
                             <label>{{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.selfColor">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'selfColor')}}
-                                {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                ../settings.aaAutorec.preset idx) 'selfAnimation')) (lookup (lookup
-                                ../settings.aaAutorec.preset idx) 'selfVariant')) as |name key|}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'selfAnimation')
+                                'bardicinspiration'}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'inspire') as
+                                |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
+                                {{/ifEquals}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'selfAnimation') 'music'}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'music') '01') as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/ifEquals}}
                                 {{/select}}
                             </select>
                         </div>
@@ -121,26 +117,22 @@
                                 {{/select}}
                             </select>
                         </div>
-                        <div class='option11'>
-                            <label>{{localize 'AUTOANIM.variant'}}:</label>
-                            <select name="aaAutorec.preset.{{idx}}.targetVariant">
-                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'targetVariant')}}
-                                {{#each (lookup (lookup ../variants 'static') (lookup (lookup
-                                ../settings.aaAutorec.preset idx) 'targetAnimation')) as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
                         <div class="option12">
                             <label>{{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.targetColor">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'targetColor')}}
-                                {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                ../settings.aaAutorec.preset idx) 'targetAnimation')) (lookup (lookup
-                                ../settings.aaAutorec.preset idx) 'targetVariant')) as |name key|}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'targetAnimation')
+                                'bardicinspiration'}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'inspire') as
+                                |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
+                                {{/ifEquals}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'targetAnimation') 'music'}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'music') '01') as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/ifEquals}}
                                 {{/select}}
                             </select>
                         </div>
@@ -212,54 +204,6 @@
                             <option value="outro_fade">{{localize "AUTOANIM.fade"}}</option>
                             {{/select}}
                         </select>
-                    </div>
-                    {{/ifEquals}}
-                    <!--Hunters Mark Menu-->
-                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'huntersmark'}}
-                    <div class='form-group'>
-
-                    </div>
-                    {{/ifEquals}}
-                    <!--Sneak Attack Menu-->
-                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'sneakattack'}}
-                    <div class='option03'>
-                        <label>{{localize 'AUTOANIM.variant'}}:</label>
-                        <select name="aaAutorec.preset.{{idx}}.variant">
-                            {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'variant')}}
-                            {{#each (lookup (lookup ../variants 'static') 'sneakattack') as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
-                    </div>
-                    <div class="option04">
-                        <label>{{localize "AUTOANIM.color"}}: </label>
-                        <select name="aaAutorec.preset.{{idx}}.color">
-                            {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color')}}
-                            {{#each (lookup (lookup (lookup ../colors 'static') 'sneakattack') (lookup (lookup
-                            ../settings.aaAutorec.preset idx) 'variant')) as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
-                    </div>
-                    <div class="option09">
-                        <div class="autorec-menu-options">
-                            <label>{{localize "AUTOANIM.anchorX"}} (0 - 1):
-                                <input type="Number" name="aaAutorec.preset.{{idx}}.anchorX"
-                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'anchorX'}}"
-                                    data-dtype="Number">
-                            </label>
-                        </div>
-                    </div>
-                    <div class="option10">
-                        <div class="autorec-menu-options">
-                            <label>{{localize "AUTOANIM.anchorY"}} (0 - 1):
-                                <input type="Number" name="aaAutorec.preset.{{idx}}.anchorY"
-                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'anchorY'}}"
-                                    data-dtype="Number">
-                            </label>
-                        </div>
                     </div>
                     {{/ifEquals}}
                     <!--Bless Menu-->

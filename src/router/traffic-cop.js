@@ -221,7 +221,7 @@ export async function trafficCop(handler) {
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const meleeAutoObject = findObjectByName(autoRecSettings, 'melee', autoName)
+                    const meleeAutoObject = findObjectByName(autoRecSettings, 'melee', autoName);
                     meleeAnimation(handler, meleeAutoObject);
                     break;
                 case autorecNameCheck(getAllNames(autoRecSettings, 'range'), autoName):
@@ -235,18 +235,33 @@ export async function trafficCop(handler) {
                     break;
                 case autorecNameCheck(getAllNames(autoRecSettings, 'static'), autoName):
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const staticAutoObject = findObjectByName(autoRecSettings, 'static', autoName)
+                    const staticAutoObject = findObjectByName(autoRecSettings, 'static', autoName);
                     staticAnimation(handler, staticAutoObject);
                     break;
                 case autorecNameCheck(getAllNames(autoRecSettings, 'templates'), autoName):
-                    const templateAutoObject = findObjectByName(autoRecSettings, 'templates', autoName)
+                    const templateAutoObject = findObjectByName(autoRecSettings, 'templates', autoName);
                     Hooks.once("createMeasuredTemplate", () => {
-                        templateAnimation(handler, templateAutoObject)
+                        templateAnimation(handler, templateAutoObject);
                     })
                     break;
                 case autorecNameCheck(getAllNames(autoRecSettings, 'auras'), autoName):
-                    const auraAutoObject = findObjectByName(autoRecSettings, 'auras', autoName)
-                    ctaCall(handler, auraAutoObject)
+                    const auraAutoObject = findObjectByName(autoRecSettings, 'auras', autoName);
+                    ctaCall(handler, auraAutoObject);
+                    break;
+                case autorecNameCheck(getAllNames(autoRecSettings, 'preset'), autoName):
+                    const presetAutoObject = findObjectByName(autoRecSettings, 'preset', autoName);
+                    console.log(presetAutoObject)
+                    switch (presetAutoObject[0].animation) {
+                        case 'bardicinspiration':
+                            bardicInspiration(handler, presetAutoObject);
+                            break;
+                        case 'bless':
+                            bless(handler, presetAutoObject);
+                            break;
+                        case 'shieldspell':
+                            shieldSpell(handler, presetAutoObject);
+                            break;
+                    }
                     break;
             }
         }

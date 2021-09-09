@@ -1,13 +1,33 @@
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function bardicInspiration(handler) {
+async function bardicInspiration(handler, autoObject) {
 
     let token = handler.actorToken;
     let target = handler.allTargets[0];
+
+    const data = {};
+    if (autoObject) {
+        //const autoOverridden = handler.options?.overrideAuto
+        Object.assign(data, autoObject[0]);
+        data.itemName = data.animation || "";
+
+    } else {
+        data.itemName = handler.convertedName;
+        data.selfColor = handler.bards.bardSelfColor;
+        data.targetColor = handler.bards.bardTargetColor;
+        data.selfMarkerColor = handler.bards.markerColor;
+        data.targetMarkerColor = handler.bards.markerColorTarget;
+        data.animateSelf = handler.bards.bardSelf;
+        data.animateTarget = handler.bards.bardTarget;
+        data.marker = handler.bards.marker;
+        data.selfAnimation = handler.bardAnim;
+        data.targetAnimation = handler.bards.bardTargetAnim;
+    }
+    console.log(data)
     
-    let selfMarkerPath = handler.bards.markerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${handler.bards.markerColor}`;
-    let targetMarkerPath = handler.bards.markerColorTarget === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${handler.bards.markerColorTarget}`
+    let selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.selfMarkerColor}`;
+    let targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.targetMarkerColor}`
     async function markerCreate(tokenMarker, path) {
         new Sequence()
         .effect()
@@ -18,8 +38,8 @@ async function bardicInspiration(handler) {
         .play()
     }
 
-    let selfMusicPath = handler.bards.bardSelfColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${handler.bards.bardSelfColor}`
-    let targetMusicPath = handler.bards.bardTargetColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${handler.bards.bardTargetColor}`
+    let selfMusicPath = data.selfColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${data.selfColor}`
+    let targetMusicPath = data.targetColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${data.targetColor}`
     async function music(token, path) {
         
         let musicPlay = new Sequence()
@@ -33,8 +53,8 @@ async function bardicInspiration(handler) {
         musicPlay.play()
     }
 
-    let selfBIPath = handler.bards.bardSelfColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${handler.bards.bardSelfColor}`
-    let targetBIPath = handler.bards.bardTargetColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${handler.bards.bardTargetColor}`
+    let selfBIPath = data.selfColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${data.selfColor}`
+    let targetBIPath = data.targetColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${data.targetColor}`
     async function bardicInspiration(biToken, path) {
 
         let bardicPlay = new Sequence()
@@ -46,12 +66,12 @@ async function bardicInspiration(handler) {
         bardicPlay.play()
     }
 
-    if (handler.bards.bardSelf) {
+    if (data.animateSelf) {
         switch (true) {
-            case handler.bardAnim === "music":
+            case data.selfAnimation === "music":
                 music(token, selfMusicPath);
-                if (handler.bards.marker) {
-                    if (handler.bardSelf) {
+                if (data.marker) {
+                    if (data.animateSelf) {
                         markerCreate(token, selfMarkerPath);
                     }
                     //await wait(3750);
@@ -59,20 +79,20 @@ async function bardicInspiration(handler) {
                 break;
             default:
                 bardicInspiration(token, selfBIPath);
-                if (handler.bards.marker) {
-                    if (handler.bardSelf) {
+                if (data.marker) {
+                    if (data.animateSelf) {
                         markerCreate(token, selfMarkerPath);
                     }
                     //await wait(3750);
                 }
         }
     }
-    if (handler.bards.bardTarget && target !== undefined) {
+    if (data.animateTarget && target !== undefined) {
         switch (true) {
-            case handler.bards.bardTargetAnim === "music":
+            case data.targetAnimation === "music":
                 music(target, targetMusicPath);
-                if (handler.bards.marker) {
-                    if (target && handler.bardTarget) {
+                if (data.marker) {
+                    if (target && data.animateTarget) {
                         markerCreate(target, targetMarkerPath);
                     }
                     //await wait(3750);
@@ -80,8 +100,8 @@ async function bardicInspiration(handler) {
                 break;
             default:
                 bardicInspiration(target, targetBIPath);
-                if (handler.bards.marker) {
-                    if (target && handler.bardTarget) {
+                if (data.marker) {
+                    if (target && data.animateTarget) {
                         markerCreate(target, targetMarkerPath);
                     }
                     //await wait(3750);
