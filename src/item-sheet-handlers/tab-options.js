@@ -99,8 +99,9 @@ export function autorecColors(itemName) {
             autorecType = 'static'
     }
     */
+    const animationName = autorecType === 'preset' && autorecObject[0].animation === "teleportation" ? autorecObject[0].subAnimation : autorecObject[0].animation;
     if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
-    const name = autorecObject[0].animation === 'shieldspell' ? 'shield' : autorecObject[0].animation
+    const name = animationName === 'shieldspell' ? 'shield' : animationName
     const variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
     let colors = colorMenu[autorecType][name][variant]
     return colors;
@@ -158,6 +159,8 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     if (autorecObject[0].custom) { return autorecObject[0].customPath }
     //console.log(autorecObject)
     let autorecType = autorecSection[1]
+    //if (autorecType === 'preset') {return;}
+    //console.log(autorecType)
     let changeColor = baseColor;
     /*
     switch (true) {
@@ -169,9 +172,14 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     }
     */
     //if (!autorecObject[0].variant) {variant = Object.keys(jb2a[autorecType][autorecObject[0].animation])[0]}
+    const animationName = autorecType === 'preset' ? autorecObject[0].subAnimation : autorecObject[0].animation;
     if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
-    const variant = !autorecObject[0].variant ? Object.keys(jb2a[autorecType][autorecObject[0].animation])[0] : autorecObject[0].variant;
-    if (!changeColor) { changeColor = Object.keys(jb2a[autorecType][autorecObject[0].animation][variant])[0] }
+    //console.log(autoName)
+    console.log(autorecType)
+    console.log(animationName)
+    const variant = !autorecObject[0].variant ? Object.keys(jb2a[autorecType][animationName])[0] : autorecObject[0].variant;
+    console.log(variant)
+    if (!changeColor) { changeColor = Object.keys(jb2a[autorecType][animationName][variant])[0] }
     let color = autoOverridden ? changeColor : autorecObject[0].color
     if (color === 'random') { color = autorecObject[0].color || "" }
     /*
@@ -181,7 +189,7 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     console.log(autorecObject[0].animation)
     console.log(autoName)
     */
-    const file = autorecType === "range" ? jb2a[autorecType][autorecObject[0].animation][variant][color][Object.keys(jb2a[autorecType][autorecObject[0].animation][variant][color])[1]] : jb2a[autorecType][autorecObject[0].animation][variant][color]
+    const file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color]
     return file;
 }
 
