@@ -1,6 +1,6 @@
 import { buildFile} from "./file-builder/build-filepath.js"
 
-export async function teleportation(handler) {
+export async function teleportation(handler, autoObject) {
 
 
     if (handler.itemMacro.toLowerCase().includes("misty step")) {
@@ -10,9 +10,27 @@ export async function teleportation(handler) {
     const token = handler.actorToken;
     const actor = handler.actor;
 
-    let itemName = handler.convertedName
-    let customPath = handler.enableCustom01 ? handler.custom01 : false;
-    let onToken = await buildFile(true, itemName, "static", "01", handler.color, customPath);
+    const data = {};
+    if (autoObject) {
+        const autoOverridden = handler.options?.overrideAuto
+        Object.assign(data, autoObject[0]);
+        data.itemName = data.subAnimation || "";
+        data.customPath = data.custom ? data.customPath : false;
+        data.color = autoOverridden ? handler.options?.autoColor : data.color;
+        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
+    } else {
+        data.itemName = handler.convertedName;
+        data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";
+        data.customPath = handler.enableCustom01 ? handler.custom01 : false;
+        data.color = handler.color;
+        data.switchType = handler.switchType;
+        data.detect = handler.switchDetect;
+        data.scale = handler.scale;
+        data.range = handler.teleRange;
+        data.hideTemplate = handler.options?.hideTemplate;
+    }
+
+    const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
 
     let sourceFX;
     let sFXScale;
@@ -24,15 +42,15 @@ export async function teleportation(handler) {
     }
 
 
-    let Scale = ((token.w / onToken.metadata.width) * handler.scale) * 1.75;
-    if (!handler.options?.hideTemplate) {
+    let Scale = ((token.w / onToken.metadata.width) * data.scale) * 1.75;
+    if (!data.hideTemplate) {
         let range = MeasuredTemplate.create({
             t: "circle",
             user: game.user.id,
             x: token.x + canvas.grid.size / 2,
             y: token.y + canvas.grid.size / 2,
             direction: 0,
-            distance: handler.teleRange,
+            distance: data.range,
             borderColor: "#FF0000",
             flags: {
                 world: {
@@ -49,7 +67,7 @@ export async function teleportation(handler) {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
         let ray = new Ray(token.center, pos)
-        if (ray.distance > ((canvas.grid.size * (handler.teleRange / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
+        if (ray.distance > ((canvas.grid.size * (data.range / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
             ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
         } else {
             deleteTemplatesAndMove();

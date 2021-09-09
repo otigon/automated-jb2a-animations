@@ -47,7 +47,6 @@ export class aaAutoRecognition extends FormApplication {
         data.variants = aaVariantMenu;
         data.show = false;
         data.system = { id: game.system.id, title: game.system.data.title }
-        console.log(data)
         return data
     }
 

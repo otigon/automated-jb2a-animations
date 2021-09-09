@@ -408,6 +408,7 @@
     "AUTOANIM.presets": "Presets",
     "AUTOANIM.submit": "Submit",
     "AUTOANIM.import": "Import Settings",
-    "AUTOANIM.export": "Export Settings"
+    "AUTOANIM.export": "Export Settings",
+    "AUTOANIM.preset": "Preset"
 
 }

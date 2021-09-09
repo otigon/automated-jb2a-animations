@@ -261,6 +261,9 @@ export async function trafficCop(handler) {
                         case 'shieldspell':
                             shieldSpell(handler, presetAutoObject);
                             break;
+                        case 'teleportation':
+                            teleportation(handler, presetAutoObject)
+                            break;
                     }
                     break;
             }
