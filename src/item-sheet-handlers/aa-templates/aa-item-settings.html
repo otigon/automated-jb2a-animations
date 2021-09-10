@@ -1793,7 +1793,7 @@
                             <label>{{localize "AUTOANIM.variantChoice"}}</label>
                             <select name="flags.autoanimations.sourceToken.variant">
                                 {{#select flags.autoanimations.sourceToken.variant}}
-                                {{#each markerVariants as |name key|}}
+                                {{#each sourceVariant as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -1911,7 +1911,7 @@
                             <label>{{localize "AUTOANIM.variantChoice"}}</label>
                             <select name="flags.autoanimations.targetToken.variant">
                                 {{#select flags.autoanimations.targetToken.variant}}
-                                {{#each markerVariants as |name key|}}
+                                {{#each targetVariant as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}

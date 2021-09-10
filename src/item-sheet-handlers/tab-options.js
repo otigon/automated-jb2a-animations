@@ -23,11 +23,13 @@ export function menuColors(itemName, variant, type) {
 }
 
 export function rangeColors(itemName, damageType, variant) {
+    console.log(itemName)
     let animationColor;
     let animVar;
     let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
+    name = name === "siege" ? "siegeboulder" : name;
     switch (true) {
         case name === "arrow":
         case name === "bolt":

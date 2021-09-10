@@ -1,4 +1,4 @@
-import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+import { endTiming } from "../constants/timings.js";
 
 export default class ForbiddenLandsHandler {
     constructor(msg) {
@@ -107,10 +107,10 @@ export default class ForbiddenLandsHandler {
                 break;
         }
 
-        this._convert = nameConversion(this._animNameFinal);
-        this._convertName = this._convert[0];
-        this._defaultColor = this._convert[1];
-        this._delay = this._convert[4];
+        //this._convert = nameConversion(this._animNameFinal);
+        this._convertName = this._animName.replace(/\s+/g, '').toLowerCase();
+        //this._defaultColor = this._convert[1];
+        this._delay = endTiming(this._animNameFinal);
     }
 
     isSpell (msg) {
@@ -169,7 +169,7 @@ export default class ForbiddenLandsHandler {
     get animOverride() {return this._animOverride;}
     get animType() {return this._animType;}
     get color() {return this._animColor;}
-    get defaultColor() {return this._defaultColor;}
+    //get defaultColor() {return this._defaultColor;}
     get animName() {return this._animNameFinal;}
 
     get explosion() {return this._explosion;}

@@ -2135,21 +2135,21 @@ JB2APATREONDB.static = {
         }
     },
     marker: {
-        marker01: {
+        '01': {
             whiteblue: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
             yellowblue: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_01_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_01_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_01_Regular_PurplePink_400x400.webm`],
         },
-        marker02: {
+        '02': {
             whiteblue: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
             yellowblue: [lg`Marker/Marker_02_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_02_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_02_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_02_Regular_PurplePink_400x400.webm`],
         },
-        musicmarker: {
+        '03': {
             darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
             yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
@@ -2310,7 +2310,7 @@ JB2APATREONDB.static = {
             orange: [l2`Shatter/Shatter_01_Orange_400x400.webm`]
         }
     },
-    shield: {
+    shieldspell: {
         '01': {
             blue: {
                 'intro': l1`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`,

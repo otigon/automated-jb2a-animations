@@ -1,4 +1,4 @@
-import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+import { endTiming } from "../constants/timings.js";
 
 export default class MidiHandler {
     constructor(workflow) {
@@ -129,8 +129,6 @@ export default class MidiHandler {
             this._allTargets = Array.from(workflow.targets);
         }
         */
-        // separate due to Midi Hit Target List for Targeting Assistant
-        this._targetAssistant = Array.from(workflow.targets);
 
         this._itemName = item.name?.toLowerCase() ?? '';;
         this._itemSource = item.data?.data?.source?.toLowerCase() ?? '';
@@ -155,10 +153,10 @@ export default class MidiHandler {
         this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
         this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
         */
-        this._convert = nameConversion(this._animNameFinal);
-        this._convertName = this._convert[0];
-        this._defaultColor = this._convert[1];
-        this._delay = this._convert[4];
+        //this._convert = nameConversion(this._animNameFinal);
+        this._convertName = this._animName.replace(/\s+/g, '').toLowerCase();
+        //this._defaultColor = this._convert[1];
+        this._delay = endTiming(this._animNameFinal);
     }
 
     get convertedName() { return this._convertName; }
@@ -187,8 +185,6 @@ export default class MidiHandler {
     get hitTargetsId() { return this._hitTargetsId; }
     get targetsId() { return this._targetsId; }
 
-    get targetAssistant() { return this._targetAssistant; }
-
     get isValid() { return !!(this._item && this._actor); }
     get itemType() { return this._item.data.type.toLowerCase(); }
 
@@ -198,7 +194,7 @@ export default class MidiHandler {
     get animOverride() { return this._animOverride; }
     get animType() { return this._animType; }
     get color() { return this._animColor; }
-    get defaultColor() { return this._defaultColor; }
+    //get defaultColor() { return this._defaultColor; }
     get animName() { return this._animNameFinal; }
 
     get explosion() { return this._explosion; }

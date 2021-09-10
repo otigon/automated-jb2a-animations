@@ -180,7 +180,7 @@
                             <label>{{localize 'AUTOANIM.variant'}}:</label>
                             <select name="aaAutorec.preset.{{idx}}.variant">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'variant')}}
-                                {{#each (lookup (lookup ../variants 'static') 'shield') as |name key|}}
+                                {{#each (lookup (lookup ../variants 'static') 'shieldspell') as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -190,7 +190,7 @@
                             <label>{{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.color">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color')}}
-                                {{#each (lookup (lookup (lookup ../colors 'static') 'shield') (lookup (lookup
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'shieldspell') (lookup (lookup
                                 ../settings.aaAutorec.preset idx) 'variant')) as |name
                                 key|}}
                                 <option value="{{key}}">{{name}}</option>

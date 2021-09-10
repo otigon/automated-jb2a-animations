@@ -2,7 +2,7 @@ import { AUTOANIM } from "./config.js";
 import { rangeColors, staticColors, animationName, animTemplates, variantOptions, menuColors, variantLength, autorecColors, checkAutoRec, autoPreview } from "./tab-options.js";
 import { findObjectByNameFull, rinseName } from "../custom-recognition/autoFunctions.js";
 import animPreview from "./anim-preview.js";
-import { nameConversion } from "./name-conversions.js";
+//import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 
 export class AAItemSettings extends FormApplication {
@@ -45,8 +45,7 @@ export class AAItemSettings extends FormApplication {
                 oldItemName = itemNameFlag;
                 break;
         }
-        console.log(oldItemName)
-        const conversion = nameConversion(oldItemName)
+        //const conversion = nameConversion(oldItemName)
         /*
         if (flags.autoanimations === undefined) {
             this.object.setFlag("autoanimations", "animName", conversion[2]);
@@ -54,7 +53,8 @@ export class AAItemSettings extends FormApplication {
             this.render();
         }
         */
-        const itemName = conversion[0];
+        //const itemName = conversion[0];
+        const itemName = oldItemName.replace(/\s+/g, '').toLowerCase()
         const switchName = flags.autoanimations?.meleeSwitch?.animName ?? "";
         const sourceName = flags.autoanimations?.sourceToken?.name ?? "";
         const sourceVariant = flags.autoanimations?.sourceToken?.variant ?? "";
@@ -215,6 +215,7 @@ export class AAItemSettings extends FormApplication {
             sourceAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
             sourceColor: flags.autoanimations?.sourceToken?.color ?? "",
             sourceColors: staticColors(sourceName, patreon, sourceVariant),
+            sourceVariant: variantOptions(sourceName, "static"),
             sourceMarker: flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
 
             targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
@@ -225,10 +226,11 @@ export class AAItemSettings extends FormApplication {
             targetAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
             targetColor: flags.autoanimations?.targetToken?.color ?? "",
             targetColors: staticColors(targetName, patreon, targetVariant),
+            targetVariant: variantOptions(sourceName, "static"),
             targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
 
             shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
-            shield: itemName === "shield",
+            shield: itemName === "shieldspell",
             huntersMark: itemName === "huntersmark",
             sneakAttack: itemName === "sneakattack",
             bless: itemName === "bless" && animType === "t13",

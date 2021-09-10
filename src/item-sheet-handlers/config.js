@@ -127,12 +127,12 @@ AUTOANIM.animNameSwitchFree = {
 
 AUTOANIM.animNameGenericDmg = {
     "a1": ``,
-    "1 handed slashing": "AUTOANIM.item1HS",
-    "1 handed piercing": "AUTOANIM.item1HP",
-    "1 handed bludgeoning": "AUTOANIM.item1HB",
-    "2 handed slashing": "AUTOANIM.item2HS",
-    "2 handed piercing": "AUTOANIM.item2HP",
-    "2 handed bludgeoning": "AUTOANIM.item2HB",
+    "1hs": "AUTOANIM.item1HS",
+    "1hp": "AUTOANIM.item1HP",
+    "1hb": "AUTOANIM.item1HB",
+    "2hs": "AUTOANIM.item2HS",
+    "2hp": "AUTOANIM.item2HP",
+    "2hb": "AUTOANIM.item2HB",
     "unarmedstrike": "AUTOANIM.itemUnarmedStrike",
     "flurryofblows": "AUTOANIM.itemFlurryBlows"
 }
