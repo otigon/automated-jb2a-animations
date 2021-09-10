@@ -283,7 +283,33 @@ export class aaAutorec {
                     scale: 1,
                     below: true,
                     type: "target",
-                }
+                },
+                3: {
+                    animation: "bite",
+                    below: false,
+                    color: "red",
+                    custom: false,
+                    delay: 500,
+                    hidden: true,
+                    name: "Bite",
+                    repeat: 1,
+                    scale: 1,
+                    type: "target",
+                    variant: "01",
+                },
+                4: {
+                    animation: "claw",
+                    below: false,
+                    color: "red",
+                    custom: false,
+                    delay: 500,
+                    hidden: true,
+                    name: "Claws",
+                    repeat: 1,
+                    scale: 1,
+                    type: "target",
+                    variant: "01",
+                },
             },
             templates: {
                 0: {
@@ -322,6 +348,21 @@ export class aaAutorec {
                     type: 'circle',
                     variant: '01',
                 },
+                2: {
+                    animation: "thunderwave",
+                    below: false,
+                    color: "blue",
+                    custom: false,
+                    delay: 500,
+                    hidden: true,
+                    name: "Thunderwave",
+                    opacity: 0.75,
+                    persist: false,
+                    removeTemplate: true,
+                    repeat: 3,
+                    type: "rect",
+                    variant: "01",
+                }
             },
             auras: {
                 0: {

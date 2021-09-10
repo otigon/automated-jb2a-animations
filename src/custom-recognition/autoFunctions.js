@@ -40,7 +40,7 @@ export function rinseName(oldName) {
     //newName = newName.trim("\s+$/g", "")
     //cut out all spaces
     newName = newName.replace(/\s+/g, '');
-    console.log(newName)
+    //console.log(newName)
     return newName;
 }
 

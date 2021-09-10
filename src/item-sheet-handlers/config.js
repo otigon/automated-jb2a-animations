@@ -108,8 +108,10 @@ AUTOANIM.animNameRangeWeaponFree = {
     "arrow": "AUTOANIM.itemArrow",
     "bolt": "AUTOANIM.bolt",
     "bullet": "AUTOANIM.bullet",
-    "snipe": "AUTOANIM.snipe",
+    "dagger": "AUTOANIM.itemDagger",
     "lasershot": "AUTOANIM.itemLaserBlast",
+    "lasersword": "AUTOANIM.itemLaserSword",
+    "snipe": "AUTOANIM.snipe",
 };
 
 AUTOANIM.animNameSwitchFree = {
@@ -331,7 +333,9 @@ AUTOANIM.tokenAnimations = {
 AUTOANIM.autoself = {
     "a1": ``,
     "antilifeshell": "AUTOANIM.animAntiLifeShell",
+    "bite": "AUTOANIM.itemBite",
     "boulderimpact": "AUTOANIM.itemBoulder",
+    "claw": "AUTOANIM.itemClaw",
     "curewounds": "AUTOANIM.itemCureWounds",
     "generichealing": "AUTOANIM.itemGenericHealing",
     "explosion": "AUTOANIM.explosion",

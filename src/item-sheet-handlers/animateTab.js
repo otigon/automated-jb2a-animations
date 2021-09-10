@@ -27,7 +27,7 @@ export class AAItemSettings extends FormApplication {
     }
 
     getData() {
-        this.object.unsetFlag("autoanimations", "defaults")
+        //this.object.unsetFlag("autoanimations", "defaults")
         const flags = this.object.data.flags;
         const patreon = moduleIncludes("jb2a_patreon");
         const itemNameItem = this.object.name?.toLowerCase() ?? "";
@@ -45,6 +45,7 @@ export class AAItemSettings extends FormApplication {
                 oldItemName = itemNameFlag;
                 break;
         }
+        console.log(oldItemName)
         const conversion = nameConversion(oldItemName)
         /*
         if (flags.autoanimations === undefined) {
@@ -78,6 +79,7 @@ export class AAItemSettings extends FormApplication {
         const returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
 
         //let variantLength = variantLength(itemName, );
+        console.log(itemName)
         const meleeLength = variantLength(itemName, "melee");
         const rangeLength = variantLength(itemName, "range");
         const staticLength = variantLength(itemName, "static");

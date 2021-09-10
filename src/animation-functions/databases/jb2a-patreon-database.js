@@ -1886,7 +1886,7 @@ JB2APATREONDB.static = {
 
         }
     },
-    creaturebite: {
+    bite: {
         '01': {
             red: [lg`Creature/Bite_01_Regular_Red_400x400.webm`],
             blue: [lg`Creature/Bite_01_Regular_Blue_400x400.webm`],
@@ -1897,7 +1897,7 @@ JB2APATREONDB.static = {
             yellow: [lg`Creature/Bite_01_Regular_Yellow_400x400.webm`]
         }
     },
-    creatureclaw: {
+    claw: {
         '01': {
             red: [lg`Creature/Claws_01_Regular_Red_400x400.webm`],
             blue: [lg`Creature/Claws_01_Bright_Blue_400x400.webm`],

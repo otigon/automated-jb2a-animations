@@ -6,10 +6,6 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function templateAnimation(handler, autoObject) {
 
-    if (handler.templates.tempAnim === 'thunderwave') {
-        thunderwaveAuto(handler);
-        return;
-    }
     const sourceToken = handler.actorToken;
 
     const data = {}
@@ -37,6 +33,10 @@ export async function templateAnimation(handler, autoObject) {
         data.occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
         data.occlusionMode = parseInt(handler.templates?.occlusionMode ?? "3");
         data.removeTemplate = handler.templates.removeTemplate;
+    }
+    if (data.itemName === 'thunderwave') {
+        thunderwaveAuto(handler, autoObject);
+        return;
     }
     //let mode = handler.templates?.occlusionMode ?? "3";
     //const occlusionMode = parseInt(mode)

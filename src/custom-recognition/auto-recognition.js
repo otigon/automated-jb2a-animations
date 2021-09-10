@@ -29,10 +29,11 @@ export class aaAutoRecognition extends FormApplication {
     }
 
     getData() {
+        const patreon = moduleIncludes("jb2a_patreon")
         let data = super.getData();
         data.settings = this.getSettingsData();
         data.meleeList = AUTOANIM.localized(AUTOANIM.meleeWeapons);
-        data.rangeList = AUTOANIM.localized(AUTOANIM.animNameRangeWeapon);
+        data.rangeList = patreon ? AUTOANIM.localized(AUTOANIM.animNameRangeWeapon) : AUTOANIM.localized(AUTOANIM.animNameRangeWeaponFree);
         data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
         data.selfList = AUTOANIM.localized(AUTOANIM.autoself);
         data.templateCircle = AUTOANIM.localized(AUTOANIM.circleAnimations);
@@ -343,4 +344,8 @@ async function importFromJSONDialog() {
 		}).render(true);
 	});
 	return await dialog;
+}
+
+function moduleIncludes(test) {
+    return !!game.modules.get(test);
 }

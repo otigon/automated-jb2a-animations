@@ -42,25 +42,25 @@ export default class AUTORECOG {
 
         this._shatter = ["shatter", game.i18n.format("AUTOANIM.itemShatter").toLowerCase()]
 
-        this._magicmissile = ["magic missile", game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()]
+        this._magicmissile = ["magicmissile", "magic missile", game.i18n.format("AUTOANIM.itemMagicMissile").toLowerCase()]
 
-        this._curewounds = ["cure wounds", game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()]
+        this._curewounds = ["curewounds", "cure wounds", game.i18n.format("AUTOANIM.itemCureWounds").toLowerCase()]
 
-        this._generichealing = ["healing word", "generic healing", game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase(), game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()]
+        this._generichealing = ["generichealing", "healing word", "generic healing", game.i18n.format("AUTOANIM.itemHealingWord").toLowerCase(), game.i18n.format("AUTOANIM.itemGenericHealing").toLowerCase()]
 
-        this._firebolt = ["fire bolt", "produce flame", game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase(), ]
+        this._firebolt = ["firebolt", "fire bolt", "produce flame", game.i18n.format("AUTOANIM.itemFireBolt").toLowerCase(), ]
 
-        this._rayoffrost = ["ray of frost", game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()]
+        this._rayoffrost = ["rayoffrost", "ray of frost", game.i18n.format("AUTOANIM.itemRayFrost").toLowerCase()]
 
-        this._witchbolt = ["witch bolt", game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()]
+        this._witchbolt = ["witchbolt", "witch bolt", game.i18n.format("AUTOANIM.itemWitchBolt").toLowerCase()]
 
-        this._eldritchblast = ["eldritch blast", game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()]
+        this._eldritchblast = ["eldritchblast", "eldritch blast", game.i18n.format("AUTOANIM.itemEldritchBlast").toLowerCase()]
 
-        this._scorchingray = ["scorching ray", "fire ray", game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()]
+        this._scorchingray = ["scorchingray", "scorching ray", "fire ray", game.i18n.format("AUTOANIM.itemScorchingRay").toLowerCase()]
 
         this._disintegrate = ["disintegrate", game.i18n.format("AUTOANIM.itemDisintegrate").toLowerCase()]
 
-        this._guidingbolt = ["guiding bolt", game.i18n.format("AUTOANIM.itemGuidingBolt").toLowerCase()]
+        this._guidingbolt = ["guidingbolt", "guiding bolt", game.i18n.format("AUTOANIM.itemGuidingBolt").toLowerCase()]
 
         this._shield = ["shield", game.i18n.format("AUTOANIM.itemShield").toLowerCase()]
 
@@ -70,25 +70,25 @@ export default class AUTORECOG {
 
         this._huntersmark = ["hunter's mark", game.i18n.format("AUTOANIM.itemHM").toLowerCase(), "huntersmark"]
 
-        this._unarmedstrike = ["unarmed strike", "fist", "gauntlet", game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()]
+        this._unarmedstrike = ["unarmedstrike", "unarmed strike", "fist", "gauntlet", game.i18n.format("AUTOANIM.itemUnarmedStrike").toLowerCase()]
 
-        this._flurryofblows = ["flurry of blows", game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()]
+        this._flurryofblows = ["flurryofblows", "flurry of blows", game.i18n.format("AUTOANIM.itemFlurryBlows").toLowerCase()]
 
-        this._calllightning = ["call lightning", game.i18n.format("AUTOANIM.animCallLightning").toLowerCase()]
+        this._calllightning = ["calllightning", "call lightning", game.i18n.format("AUTOANIM.animCallLightning").toLowerCase()]
 
         this._darkness = ["darkness", game.i18n.format("AUTOANIM.animDarkness").toLowerCase()]
 
-        this._fogcloud = ["fog cloud", game.i18n.format("AUTOANIM.animFogCloud").toLowerCase()]
+        this._fogcloud = ["fogcloud", "fog cloud", game.i18n.format("AUTOANIM.animFogCloud").toLowerCase()]
 
         this._sleetstorm = ["sleetstorm", game.i18n.format("AUTOANIM.animSleetstorm").toLowerCase()]
 
-        this._spiritguardians = ["spirit guardians", game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase()]
+        this._spiritguardians = ["spiritguardians", "spirit guardians", game.i18n.format("AUTOANIM.animSpiritGuardians").toLowerCase()]
 
-        this._wallofforce = ["wall of force", game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase()]
+        this._wallofforce = ["wallofforce", "wall of force", game.i18n.format("AUTOANIM.animWallOfForce").toLowerCase()]
 
         this._whirlwind = ["whirlwind", game.i18n.format("AUTOANIM.animWhirlwind").toLowerCase()]
 
-        this._mistystep = ["misty step", game.i18n.format("AUTOANIM.itemMistyStep").toLowerCase()]
+        this._mistystep = ["mistystep", "misty step", game.i18n.format("AUTOANIM.itemMistyStep").toLowerCase()]
 
         this._bolt = ["bolt", game.i18n.format("AUTOANIM.bolt").toLowerCase(), "crossbow", game.i18n.format("AUTOANIM.crossbow").toLowerCase()]
 
