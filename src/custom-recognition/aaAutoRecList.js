@@ -275,13 +275,13 @@ export class aaAutorec {
                 2: {
                     hidden: true,
                     name: 'Toll the Dead',
-                    animation: 'generichealing',
-                    variant: '01',
-                    color: 'blue',
+                    animation: 'tollthedead',
+                    variant: 'complete',
+                    color: 'green',
                     repeat: 1,
                     delay: 500,
                     scale: 1,
-                    below: true,
+                    below: false,
                     type: "target",
                 },
                 3: {

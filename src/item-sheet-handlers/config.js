@@ -356,6 +356,7 @@ AUTOANIM.autoself = {
     "snowflake": "AUTOANIM.snowflake",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
+    "tollthedead": "AUTOANIM.tollthedead",
 }
 
 AUTOANIM.localized = function (cfg) {
