@@ -1422,7 +1422,7 @@ JB2APATREONDB.range = {
             }
         }
     },
-    siege: {
+    siegeboulder: {
         '01': {
             white: {
                 '05ft': [lg`Weapon_Attacks/Ranged/SiegeBoulder01_01_Regular_White_05ft_600x500.webm`],
@@ -1967,6 +1967,18 @@ JB2APATREONDB.static = {
             purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Purple_400x400.webm`],
             red: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Red_400x400.webm`],
             yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Yellow_400x400.webm`]
+        },
+    },
+    cloudofkunais: {
+        '01': {
+            darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Purple_400x400.webm`],
+            darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Red_400x400.webm`],
+            blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Blue_400x400.webm`],
+            green: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Green_400x400.webm`],
+            orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Orange_400x400.webm`],
+            purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Purple_400x400.webm`],
+            red: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Red_400x400.webm`],
+            yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Yellow_400x400.webm`]
         }
     },
     cone: {
@@ -2014,7 +2026,7 @@ JB2APATREONDB.static = {
 
         }
     },
-    creaturebite: {
+    bite: {
         '01': {
             red: [lg`Creature/Bite_01_Regular_Red_400x400.webm`],
             blue: [lg`Creature/Bite_01_Regular_Blue_400x400.webm`],
@@ -2025,7 +2037,7 @@ JB2APATREONDB.static = {
             yellow: [lg`Creature/Bite_01_Regular_Yellow_400x400.webm`]
         }
     },
-    creatureclaw: {
+    claw: {
         '01': {
             red: [lg`Creature/Claws_01_Regular_Red_400x400.webm`],
             blue: [lg`Creature/Claws_01_Bright_Blue_400x400.webm`],
@@ -2249,7 +2261,7 @@ JB2APATREONDB.static = {
     },
     lightningball: {
         '01': {
-            dark_purple: [lg`Lightning/LightningBall_01_Dark_Purple_400x400.webm`],
+            darkpurple: [lg`Lightning/LightningBall_01_Dark_Purple_400x400.webm`],
             blue: [l6`Lightning/LightningBall_01_Regular_Blue_400x400.webm`],
             green: [l6`Lightning/LightningBall_01_Regular_Green_400x400.webm`],
             purple: [l6`Lightning/LightningBall_01_Regular_Purple_400x400.webm`]
@@ -2263,21 +2275,21 @@ JB2APATREONDB.static = {
         }
     },
     marker: {
-        marker01: {
+        '01': {
             whiteblue: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
             yellowblue: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_01_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_01_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_01_Regular_PurplePink_400x400.webm`],
         },
-        marker02: {
+        '02': {
             whiteblue: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
             yellowblue: [lg`Marker/Marker_02_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/Marker_02_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_02_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_02_Regular_PurplePink_400x400.webm`],
         },
-        musicMarker: {
+        '03': {
             darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
             yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
             greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
@@ -2440,7 +2452,7 @@ JB2APATREONDB.static = {
             orange: [l2`Shatter/Shatter_01_Orange_400x400.webm`]
         }
     },
-    shield: {
+    shieldspell: {
         '01': {
             blue: {
                 'intro': l1`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`,

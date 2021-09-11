@@ -16,10 +16,12 @@ import PF2Handler from "./system-handlers/pf2-handler.js";
 import ForbiddenLandsHandler from "./system-handlers/forbidden-lands-handler.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
+import aaSettings from "./settings.js";
 
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
 import { setupSocket, socketlibSocket } from "./socketset.js";
+import { autorecNameCheck, getAllNames, rinseName } from "./custom-recognition/autoFunctions.js";
 
 //import menuOptions from "./animation-functions/databases/jb2a-patreon-menus.js";
 // just swap which of these two lines is commented to turn on/off all logging
@@ -35,178 +37,41 @@ function disableAnimations() {
     killAllAnimations = true;
 }
 Hooks.on('init', () => {
-    game.settings.register("autoanimations", "killAllAnim", {
-        name: game.i18n.format("AUTOANIM.toggleAnimations"),
-        hint: game.i18n.format("AUTOANIM.toggleAnimations_hint"),
-        scope: "client",
-        config: true,
-        type: String,
-        choices: {
-            "on": game.i18n.format("AUTOANIM.ON"),
-            "off": game.i18n.format("AUTOANIM.OFF"),
-        },
-        default: "on",
-        onChange: value => {
-            if (value === "off") {
-                disableAnimations()
-            }
-            if (value === "on") {
-                window.location.reload()
-            }
-            //console.log(value)
-        }
-    })
-    game.settings.register("autoanimations", "disableAutoRec", {
-        name: game.i18n.format("AUTOANIM.settingDisableAutoRec"),
-        hint: game.i18n.format("AUTOANIM.settingDisableAutoRecHint"),
-        scope: "client",
-        config: true,
-        type: Boolean,
-        default: false,
-    })
-    game.settings.register("autoanimations", "globaldelay", {
-        name: game.i18n.format("AUTOANIM.globaldelay_name"),
-        hint: game.i18n.format("AUTOANIM.globaldelay_hint"),
-        scope: "world",
-        config: true,
-        default: 100,
-        type: Number
-    })
-    game.settings.register("autoanimations", "videoLoop", {
-        name: game.i18n.format("AUTOANIM.animPreview"),
-        hint: game.i18n.format("AUTOANIM.animPreviewHint"),
-        scope: "world",
-        type: String,
-        choices: {
-            "0": "No Video Preview",
-            "1": "Manually Play Video Preview",
-            "2": "Autoplay Video Preview"
-        },
-        default: "0",
-        config: true
-    })
-    game.settings.register("autoanimations", "hideFromPlayers", {
-        name: game.i18n.format("AUTOANIM.animtab_name"),
-        hint: game.i18n.format("AUTOANIM.animtab_hint"),
-        scope: "world",
-        config: true,
-        type: Boolean,
-        default: false,
+    Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
+        return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
     });
-    game.settings.register("autoanimations", "rangeSwitch", {
-        name: game.i18n.format("AUTOANIM.settingRangeSwitch"),
-        hint: game.i18n.format("AUTOANIM.settingRangeSwitchhint"),
-        scope: "client",
-        config: true,
-        type: Boolean,
-        default: false,
-    })
-    switch (game.system.id) {
-        case "demonlord": {
-            if (!(game.data.version === "0.7.9" || game.data.version === "0.7.10")) {
-                game.settings.register("autoanimations", "playtrigger", {
-                    name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
-                    hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
-                    scope: "world",
-                    type: String,
-                    choices: {
-                        "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
-                        "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
-                        "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
-                        "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
-                        "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
-                    },
-                    default: "rollattack",
-                    config: true
-                })
-            }
-            break
+    Handlebars.registerHelper('ifnoteq', function (a, b, options) {
+        if (a != b) { return options.fn(this); }
+        return options.inverse(this);
+    });
+    Handlebars.registerHelper("aaEach", function (colors, type, name, variant, options) {
+        var ret = "";
+
+        let context;
+        context = colors[type][name][variant]
+        for (var i = 0, j = context.length; i < j; i++) {
+            ret = ret + options.fn(context[i]);
         }
-        case "sfrpg": {
-            game.settings.register("autoanimations", "playonDamage", {
-                name: game.i18n.format("AUTOANIM.midiondmg_name"),
-                hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
-                scope: 'world',
-                type: Boolean,
-                default: false,
-                config: true,
-                onChange: () => { window.location.reload() }
-            });
+        return ret;
+    });
+    Handlebars.registerHelper('concat', function (...params) {
+        // Ignore the object appended by handlebars.
+        if (typeof params[params.length - 1] === 'object') {
+            params.pop();
         }
-        case "dnd5e":
-        case "sw5e":
-        case "pf2e":
-            if (game.modules.get("midi-qol")?.active) {
-                game.settings.register("autoanimations", "playonhit", {
-                    name: game.i18n.format("AUTOANIM.midionhit_name"),
-                    hint: game.i18n.format("AUTOANIM.midionhit_hint"),
-                    scope: 'world',
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                });
-                game.settings.register("autoanimations", "playonmiss", {
-                    name: game.i18n.format("AUTOANIM.midionmiss_name"),
-                    hint: game.i18n.format("AUTOANIM.midionmiss_hint"),
-                    scope: `world`,
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                });
-                game.settings.register("autoanimations", "playonDamage", {
-                    name: game.i18n.format("AUTOANIM.midiondmg_name"),
-                    hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
-                    scope: 'world',
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                    onChange: () => { window.location.reload() }
-                });
-                game.settings.register("autoanimations", "EnableCritical", {
-                    name: game.i18n.format("AUTOANIM.crithit_name"),
-                    hint: game.i18n.format("AUTOANIM.crithit_hint"),
-                    scope: 'world',
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                    onchange: () => { window.location.reload() }
-                });
-                game.settings.register("autoanimations", "CriticalAnimation", {
-                    name: game.i18n.format("AUTOANIM.crithitAnim_name"),
-                    //name: "Choose A File",
-                    scope: 'world',
-                    config: true,
-                    type: String,
-                    filePicker: "imagevideo"
-                });
-                game.settings.register("autoanimations", "EnableCriticalMiss", {
-                    name: game.i18n.format("AUTOANIM.critmiss_name"),
-                    hint: game.i18n.format("AUTOANIM.critmiss_hint"),
-                    scope: 'world',
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                    onchange: () => { window.location.reload() }
-                });
-                game.settings.register("autoanimations", "CriticalMissAnimation", {
-                    name: game.i18n.format("AUTOANIM.critmissAnim_name"),
-                    scope: 'world',
-                    config: true,
-                    type: String,
-                    filePicker: "imagevideo"
-                });
-            } else {
-                game.settings.register("autoanimations", "playonDamageCore", {
-                    name: game.i18n.format("AUTOANIM.coreondmg_name"),
-                    hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
-                    scope: 'world',
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                });
-            }
-            break;
-    }
+
+        return params.join('');
+    });
+    aaSettings();
+    loadTemplates([
+        'modules/autoanimations/src/custom-recognition/settings.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-melee-autorec.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-ranged-autorec.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-static-autorec.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-templates-autorec.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-auras-autorec.html',
+        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-presets-autorec.html',
+    ]);
 
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
@@ -393,6 +258,8 @@ function moduleIncludes(test) {
 function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = new MidiHandler(workflow);
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler);
 }
@@ -401,6 +268,8 @@ function setUpMidiNoAD(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = new MidiHandler(workflow);
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler)
 }
@@ -409,6 +278,8 @@ function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = new MidiHandler(workflow);
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler)
 }
@@ -421,10 +292,14 @@ async function specialCaseAnimations(msg) {
     let breakOut = checkMessege(msg);
     if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
         let handler = new Dnd5Handler(msg);
+        const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
         if (handler.animType === "t8" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler, msg);
             })
+        }
+        if (templateItem && !handler.animOverride) {
+            trafficCop(handler)
         }
     } else { return; }
 }
@@ -457,16 +332,21 @@ function setUp5eCore(msg) {
             break;
     }
     if (!handler.item || handler.animKill) { return }
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
             trafficCop(handler);
             break;
-        case handler.animType === "t8" && !rollType.includes("damage"):
+        case handler.animType === "t8" && !rollType.includes("damage") && handler.animOverride:
+            trafficCop(handler);
+            break;
+        case templateItem && !rollType.includes("damage") && !rollType.includes("attack"):
             trafficCop(handler);
             break;
         case animationNow:
             if (rollType.includes("damage")) {
-                if (handler.animType === "t8") { return; }
+                if (t8Template || templateItem) { return; }
                 trafficCop(handler);
             }
             break;
@@ -477,11 +357,11 @@ function setUp5eCore(msg) {
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
-                    if (handler.animType === "t8") { return; }
+                    if (t8Template || templateItem) { return; }
                     trafficCop(handler);
                     break;
                 case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (handler.animType === "t8") { return; }
+                    if (t8Template || templateItem) { return; }
                     trafficCop(handler);
                     break;
             }
@@ -588,15 +468,22 @@ async function pf2eReady(msg) {
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
+    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
     const damage = handler.item.damageValue;
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (handler.animType === "t8" && handler.animOverride) {
+    if (t8Template) {
         if (msg.data.flavor?.toLowerCase().includes("damage")) { return; }
         trafficCop(handler);
         return;
     }
+    if (templateItem && !t8Template && !msg.data.flavor?.toLowerCase().includes("damage")) {
+        trafficCop(handler);
+        return;
+    }
+    if (templateItem || t8Template) {return};
     switch (itemType) {
         case "spell":
             switch (spellType) {

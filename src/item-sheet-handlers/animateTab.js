@@ -1,7 +1,10 @@
 import { AUTOANIM } from "./config.js";
-import { rangeColors, staticColors, animationName, animTemplates, variantOptions, menuColors, variantLength, autoColors } from "./tab-options.js";
+
+import { rangeColors, staticColors, animationName, animTemplates, variantOptions, menuColors, variantLength, autorecColors, checkAutoRec, autoPreview } from "./tab-options.js";
+import { findObjectByNameFull, rinseName } from "../custom-recognition/autoFunctions.js";
+
 import animPreview from "./anim-preview.js";
-import { nameConversion } from "./name-conversions.js";
+//import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 
 export class AAItemSettings extends FormApplication {
@@ -26,7 +29,7 @@ export class AAItemSettings extends FormApplication {
     }
 
     getData() {
-        this.object.unsetFlag("autoanimations", "defaults")
+        //this.object.unsetFlag("autoanimations", "defaults")
         const flags = this.object.data.flags;
         const patreon = moduleIncludes("jb2a_patreon");
         const itemNameItem = this.object.name?.toLowerCase() ?? "";
@@ -44,7 +47,7 @@ export class AAItemSettings extends FormApplication {
                 oldItemName = itemNameFlag;
                 break;
         }
-        const conversion = nameConversion(oldItemName)
+        //const conversion = nameConversion(oldItemName)
         /*
         if (flags.autoanimations === undefined) {
             this.object.setFlag("autoanimations", "animName", conversion[2]);
@@ -52,7 +55,8 @@ export class AAItemSettings extends FormApplication {
             this.render();
         }
         */
-        const itemName = conversion[0];
+        //const itemName = conversion[0];
+        const itemName = oldItemName.replace(/\s+/g, '').toLowerCase()
         const switchName = flags.autoanimations?.meleeSwitch?.animName ?? "";
         const sourceName = flags.autoanimations?.sourceToken?.name ?? "";
         const sourceVariant = flags.autoanimations?.sourceToken?.variant ?? "";
@@ -72,17 +76,36 @@ export class AAItemSettings extends FormApplication {
         const templateType = flags.autoanimations?.templates?.tempType ?? "";
         const templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
         const animationLoops = flags.autoanimations?.options?.loops > 50 ? 50 : flags.autoanimations?.options?.loops;
-        const loopTemplate =  flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
+        const loopTemplate = flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
         const explosionLoops = flags.autoanimations?.explodeLoop > 50 ? 50 : flags.autoanimations?.explodeLoop;
         const returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
 
         //let variantLength = variantLength(itemName, );
+
         const meleeLength = variantLength(itemName, "melee");
         const rangeLength = variantLength(itemName, "range");
         const staticLength = variantLength(itemName, "static");
 
+        //const showScale = oldName.toLowerCase() === "bless" || oldName.toLowerCase() === "shield" || oldName.toLowerCase() === "bardicinspiration" ? true : false;
+        //const autoName = rinseName(oldName);
+        const autorecType = findObjectByNameFull(game.settings.get('autoanimations', 'aaAutorec'), rinseName(oldName));
+        //let noRepeatDelay; //= autorecType === 'auras' || autorecType === 'templates' || autorecType === 'preset' ? false : true;
+        let noScale = ['templates', 'range'];
+        let noRepeatDelay = ['preset'];
+        let noOptions = ['auras']
+        if (autorecType) {console.log(autorecType[1])}
+        let autoRepeatDelay; //= autorecType ? noRepeatDelay.some(el => autorecType[1] === el) : false;
+        let noAutoScale; //= autorecType ? false : noScale.some(el => autorecType[1] === el) ;
+        let autoNone; //= autorecType ? noOptions.some(el => autorecType[1] === el) : false;
+        if (autorecType) {
+            const WTF = noScale.some(el => autorecType[1] === el)
+            autoRepeatDelay = noRepeatDelay.some(el => autorecType[1] === el);
+            noAutoScale = WTF ? false : true;
+            autoNone = noOptions.some(el => autorecType[1] === el);
+            }
+
         let videoPreview = animPreview(flags, itemName);
-        if (videoPreview === "no preview" && !override) { videoPreview = conversion[3] }
+        if (videoPreview === "no preview" && !override) { videoPreview = autoPreview(oldName, flags.autoanimations?.options?.autoColor, patreon, flags.autoanimations?.options?.overrideAuto) }
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
@@ -101,10 +124,16 @@ export class AAItemSettings extends FormApplication {
                 }
         }
         return {
-            defaultCheck: AAITEMCHECK.default.includes(itemName),
+            defaultCheck: AAITEMCHECK.default.includes(itemName) || noRepeatDelay,
+            autoRepeatDelay: autoRepeatDelay,
+            noAutoScale: noAutoScale,
+            autoNone: autoNone,
+            
             OldName: oldName,
-            convertedName: conversion[2],
-            autoRecognized: conversion[2] === undefined ? false : true,
+            //convertedName: conversion[2],
+            //autoRecognized: conversion[2] === undefined ? false : true,
+            autoRecognized: checkAutoRec(oldName),
+            autoRecognizedNoOverride: checkAutoRec(oldName) && !override,
             t2t3: override && (animType === "t2" || animType === "t3"),
             t4: override && animType === "t4",
             t5: override && animType === "t5",
@@ -119,8 +148,6 @@ export class AAItemSettings extends FormApplication {
             bardicOptions: itemName === "bardicinspiration" ? true : false,
             bardAnimName: AUTOANIM.localized(AUTOANIM.bardAnimType),
             bardAnimTarget: AUTOANIM.localized(AUTOANIM.bardAnimType),
-            //bardColorTarget: bardColorTarget(bardTargetAnimation, patreon),
-            //bardMarkerColor: patreon ? AUTOANIM.localized(AUTOANIM.bardicMarkerColors) : AUTOANIM.localized(AUTOANIM.bardicMarkerColorsFree),
 
             huntermarkAnim: patreon ? AUTOANIM.localized(AUTOANIM.hmAnim) : AUTOANIM.localized(AUTOANIM.hmAnimFree),
 
@@ -128,35 +155,21 @@ export class AAItemSettings extends FormApplication {
             animationLoopDelay: flags.autoanimations?.options?.loopDelay ?? 250,
             scale: flags.autoanimations?.options?.scale ?? 1,
 
-            //enableCustom01: flags.autoanimations?.options?.enableCustom01 === "custom" ? true : false,
             customPath01: flags.autoanimations?.options?.customPath01 || "",
             customExplosion: flags.autoanimations?.options?.customExplosion ?? "",
 
-            //spellVariants: spellVariants,
-            //spellVariant: variantSpell(itemName, patreon),
             animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
             animationNames: animationName(animType, patreon),
 
-            //unarmedStrikeTypes: AUTOANIM.localized(AUTOANIM.uaStrikeType),
-            //uaStrikes: itemName === "unarmedstrike" || itemName === "flurryofblows" ? true : false,
-
-            //thrownVariant: thrownVariants(itemName, patreon),
             thrownVariantShow: (itemName.includes("lasersword") || itemName.includes("dagger") || itemName.includes("handaxe")) || itemName.includes("chakram") && (animType === "t2" || animType === "t4") && override ? true : false,
 
             dsDelaySelf: flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1,
             dsDelayTarget: flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250,
-            //dsColorSelf: AUTOANIM.localized(AUTOANIM.dsSelf),
-            //dsColorTarget: AUTOANIM.localized(AUTOANIM.dsTarget),
-            //divineSmite: override && (animType === "t2" || animType === "t3") ? true : false,
 
-            //addExplosion: (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7") ? true : false,
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explodeVariant),
-            //impactVariants: AUTOANIM.localized(AUTOANIM.impactVariant),
-            //explosionColors: explosionColors(explosionVariant, patreon),
             explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
             explosionLoops: explosionLoops || 1,
             explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
-            //showExplosionOptions: (flags.autoanimations?.explosion /*&& override*/ && (animType === "t2" || animType === "t3" || animType === "t4" || animType === "t5" || animType === "t6" || animType === "t7")) ? true : false,
 
             explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
@@ -170,7 +183,6 @@ export class AAItemSettings extends FormApplication {
 
             templateTypes: AUTOANIM.localized(AUTOANIM.templateType),
             templateAnimations: animTemplates(templateType),
-            //templateAnimColors: templateColors(templateType, templateAnimation, patreon),
             loopTemplate: loopTemplate || 1,
             templateLoopDelay: flags.autoanimations?.templates?.loopDelay ?? 250,
             customTemplatePath: flags.autoanimations?.templates?.customPath || "",
@@ -178,15 +190,12 @@ export class AAItemSettings extends FormApplication {
             makePersistent: templateType === "circle" || templateType === "rect",
             persistent: flags.autoanimations?.templates?.persistent && (templateType === "circle" || templateType === "rect"),
             occlusionAlpha: flags.autoanimations?.templates?.occlusionAlpha ?? "0",
-            //templateVariant: variantSpell(templateAnimation, patreon),
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
 
             rangeSwitch: patreon ? AUTOANIM.localized(AUTOANIM.animNameSwitch) : AUTOANIM.localized(AUTOANIM.animNameSwitchFree),
-            //rangeSwitchDmgType: rangedDamageTypes(switchName, patreon),
-            //rangeSwitchVariant: thrownVariants(switchName, patreon),
             showRSVariant: (switchName.includes("lasersword") || switchName === "dagger" || switchName === "handaxe") && animType === "t2" && override ? true : false,
             switchType: switchName === "bolt" || switchName === "bullet" || switchName === "arrow" ? true : false,
             switchRange: flags.autoanimations?.meleeSwitch?.range ?? 2,
@@ -194,7 +203,6 @@ export class AAItemSettings extends FormApplication {
             rangeSwitchType: flags.autoanimations?.meleeSwitch?.switchType === "custom",//rangeSwitchType === "custom",
             returning: returnWeapons.some(el => switchName.includes(el)),
 
-            //rangeDmgType: rangedDamageTypes(itemName, patreon),
             rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
             sneakAttack: itemName === "sneakattack" ? true : false,
 
@@ -208,8 +216,8 @@ export class AAItemSettings extends FormApplication {
             sourceDelayAfter: flags.autoanimations?.sourceToken?.delayAfter ?? 500,
             sourceAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
             sourceColor: flags.autoanimations?.sourceToken?.color ?? "",
-            //sourceColors: tokenColors(patreon, sourceName, sourceVariant),
             sourceColors: staticColors(sourceName, patreon, sourceVariant),
+            sourceVariant: variantOptions(sourceName, "static"),
             sourceMarker: flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
             variantSource: flags.autoanimations?.sourceToken?.name === "tollthedead" ? true : false,
             sourceVariant: AUTOANIM.localized(AUTOANIM.tollthedeadVariants),
@@ -221,24 +229,22 @@ export class AAItemSettings extends FormApplication {
             targetDelayStart: flags.autoanimations?.targetToken?.delayStart ?? 500,
             targetAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
             targetColor: flags.autoanimations?.targetToken?.color ?? "",
-            //targetColors: tokenColors(patreon, targetName, targetVariant),
             targetColors: staticColors(targetName, patreon, targetVariant),
+            targetVariant: variantOptions(sourceName, "static"),
             targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
             variantTarget: flags.autoanimations?.targetToken?.name === "tollthedead" ? true : false,
             targetVariant: AUTOANIM.localized(AUTOANIM.tollthedeadVariants),
 
-            //markerVariants: patreon ? AUTOANIM.localized(AUTOANIM.markerOptions) : AUTOANIM.localized(AUTOANIM.markerOptionsFree),
             shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
-            shield: itemName === "shield",
+            shield: itemName === "shieldspell",
             huntersMark: itemName === "huntersmark",
             sneakAttack: itemName === "sneakattack",
-            bless: itemName === "bless",
+            bless: itemName === "bless" && animType === "t13",
             anchorX: flags.autoanimations?.options?.anchorX || 0.5,
             anchorY: flags.autoanimations?.options?.anchorY || 0.7,
 
             dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
 
-            //meleeColors: meleeColors(itemName, variant),
             meleeColors: menuColors(itemName, variant, "melee"),
             explosionColors: menuColors(explosionVariant, "", "static"),
             templateColors: menuColors(templateType, templateAnimation, "static"),
@@ -247,8 +253,6 @@ export class AAItemSettings extends FormApplication {
             markerColors: menuColors("bardicinspiration", "marker", "static"),
             staticColors: menuColors(itemName, spellVariant, "static"),
             spellColors: menuColors(itemName, spellVariant, "range"),
-            
-            autoColors: autoColors(itemName),
 
             rangeColors: rangeColors(itemName, damageType, variant),
             switchColors: rangeColors(switchName, spellVariant, switchDamageType, switchVariant),
@@ -261,10 +265,15 @@ export class AAItemSettings extends FormApplication {
             switchVariant: variantOptions(switchName, "range"),
             meleeVariant: variantOptions(itemName, "melee"),
             staticVariant: variantOptions(itemName, "static"),
-            oldVariant: variantOptions(explosionVariant, "static"),
+
+            autorecColor: autorecColors(oldName),
+            autoRepeat: flags.autoanimations?.options?.autoRepeat || 1,
+            autoDelay: flags.autoanimations?.options?.autoDelay || 500,
+            autoScale: flags.autoanimations?.options?.autoScale || 1,
 
             ammo5e: game.system.id === "dnd5e" ? true : false,
             variantOption: explosionVariant === "tollthedead" ? true : false
+
         };
 
     }

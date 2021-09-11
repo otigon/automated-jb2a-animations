@@ -1,7 +1,10 @@
 
 import { AUTOANIM } from "./config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
-import { AAITEMCHECK } from "../animation-functions/item-arrays.js";
+
+import { getAllTheNames, findObjectByNameFull, autorecNameCheck, rinseName } from "../custom-recognition/autoFunctions.js";
+import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js";
+import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js";
 
 export function menuColors(itemName, variant, type) {
     let animationColor;
@@ -12,39 +15,22 @@ export function menuColors(itemName, variant, type) {
     let variantNow;
     try {
         variantNow = variantArray.some(el => variant === el) ? variant : variantArray[0];
-        colorMenu[type][itemName][variantNow].random = "AUTOANIM.random";
-        animationColor = colorMenu.localized(colorMenu[type][itemName][variantNow]);
+        colorMenu[type][itemName][variantNow].random = game.i18n.localize(game.i18n.localize("AUTOANIM.random"));
+        animationColor = colorMenu[type][itemName][variantNow];
     }
     catch (exception) { animationColor = null }
     return animationColor;
 
 }
-/*
-export function meleeColors(itemName, variant) {
-    let animationColor;
-    let colorMenu = aaColorMenu;
 
-    try { colorMenu.melee[itemName][variant].random = "AUTOANIM.random"; }
-    catch (exception) { }
-
-    let variantArray;
-    try { variantArray = Object.keys(colorMenu.melee[itemName]) }
-    catch (exception) { }
-    try {
-        variant = variantArray.some(el => variant === el) ? variant : variantArray[0];
-        animationColor = colorMenu.localized(colorMenu.melee[itemName][variant]);
-    }
-    catch (exception) { animationColor = null }
-
-    return animationColor;
-}
-*/
 export function rangeColors(itemName, damageType, variant) {
+
     let animationColor;
     let animVar;
     let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
+    name = name === "siege" ? "siegeboulder" : name;
     switch (true) {
         case name === "arrow":
         case name === "bolt":
@@ -59,7 +45,7 @@ export function rangeColors(itemName, damageType, variant) {
     }
     let colorMenu = aaColorMenu;
 
-    try { colorMenu.range[name][animVar].random = "AUTOANIM.random"; }
+    try { colorMenu.range[name][animVar].random = game.i18n.localize("AUTOANIM.random"); }
     catch (exception) { }
 
     let variantArray;
@@ -67,7 +53,7 @@ export function rangeColors(itemName, damageType, variant) {
     catch (exception) { }
     try {
         animVar = variantArray.some(el => animVar === el) ? animVar : variantArray[0];
-        animationColor = colorMenu.localized(colorMenu.range[name][animVar]);
+        animationColor = colorMenu.range[name][animVar];
     }
     catch (exception) { animationColor = null }
 
@@ -80,7 +66,7 @@ export function staticColors(itemName, spellVariant, bardAnimation, damageType, 
     let animVar = spellVariant;
     let colorMenu = aaColorMenu;
 
-    try { colorMenu.static[name][animVar].random = "AUTOANIM.random"; }
+    try { colorMenu.static[name][animVar].random = game.i18n.localize("AUTOANIM.random"); }
     catch (exception) { }
 
     let variantArray;
@@ -88,39 +74,53 @@ export function staticColors(itemName, spellVariant, bardAnimation, damageType, 
     catch (exception) { }
     try {
         animVar = variantArray.some(el => animVar === el) ? animVar : variantArray[0];
-        animationColor = colorMenu.localized(colorMenu.static[name][animVar]);
+        animationColor = colorMenu.static[name][animVar];
     }
     catch (exception) { animationColor = null }
 
     return animationColor;
 }
 
-export function autoColors(itemName) {
-    let type;
+
+export function autorecColors(itemName) {
+    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    const autoName = rinseName(itemName)
+    const nameArray = getAllTheNames(autoRecSettings);
+    if (!autorecNameCheck(nameArray, autoName)) {
+        return;
+    }
+    const colorMenu = aaColorMenu;
+    let autorecSection = findObjectByNameFull(autoRecSettings, autoName);
+    const autorecObject = autorecSection[0]
+    if (autorecObject[0].custom) { return null }
+    let autorecType = autorecSection[1]
+    /*
     switch (true) {
-        case AAITEMCHECK.melee.some(el => itemName === el):
-            type = "melee";
-            break;
-        case AAITEMCHECK.ranged.some(el => itemName === el):
-        case AAITEMCHECK.spellattack.some(el => itemName === el):
-            type = "range";
+        case autorecType === 'melee':
+        case autorecType === 'range':
             break;
         default:
-            type = "static";
+            autorecType = 'static'
     }
-    let name = itemName.replace(/melee|range|double/gi, function (x) {
-        return "";
-    });
-    let colorMenu = aaColorMenu;
-    let variant;
-    try {
-        variant = Object.keys(colorMenu[type][name])[0]
-    } catch (exception) { }
-    let animationColor;
-    try {
-        animationColor = colorMenu.localized(colorMenu[type][name][variant])
-    } catch (exception) { }
-    return animationColor;
+    */
+    const animationName = autorecType === 'preset' && autorecObject[0].animation === "teleportation" ? autorecObject[0].subAnimation : autorecObject[0].animation;
+    if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
+    const name = animationName === 'shieldspell' ? 'shield' : animationName
+    const variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
+    let colors = colorMenu[autorecType][name][variant]
+    return colors;
+}
+
+export function checkAutoRec(itemName) {
+    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    const autoName = rinseName(itemName)
+    const nameArray = getAllTheNames(autoRecSettings);
+    let foundName = false;
+    if (autorecNameCheck(nameArray, autoName)) {
+        foundName = true;
+    }
+    return foundName;
+
 }
 export function variantOptions(itemName, type) {
 
@@ -130,7 +130,9 @@ export function variantOptions(itemName, type) {
 
     const variantMenu = aaVariantMenu;
     let variantOptions;
-    try { variantOptions = variantMenu.localized(variantMenu[type][name]) }
+
+    try { variantOptions = variantMenu[type][name] }
+
     catch (exception) { }
     return variantOptions;
 }
@@ -146,6 +148,40 @@ export function variantLength(itemName, type) {
     catch (exception) { }
     return variantLength;
 
+}
+
+export function autoPreview(name, baseColor, patreon, autoOverridden) {
+
+    const autoName = rinseName(name)
+    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    const nameArray = getAllTheNames(autoRecSettings);
+    if (!autorecNameCheck(nameArray, autoName)) {
+        return;
+    }
+    const jb2a = patreon ? JB2APATREONDB : JB2AFREEDB;
+    const autorecSection = findObjectByNameFull(autoRecSettings, autoName);
+
+    const autorecObject = autorecSection[0]
+    if (autorecObject[0].animation === 'bardicinspiration' || autorecObject[0].animation === 'bless' || autorecObject[0].animation === 'shieldspell') { return; }
+    if (autorecObject[0].custom) { return autorecObject[0].customPath }
+
+    let autorecType = autorecSection[1]
+
+    
+    let changeColor = baseColor;
+
+    //if (!autorecObject[0].variant) {variant = Object.keys(jb2a[autorecType][autorecObject[0].animation])[0]}
+    const animationName = autorecType === 'preset' ? autorecObject[0].subAnimation : autorecObject[0].animation;
+    if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
+
+    const variant = !autorecObject[0].variant ? Object.keys(jb2a[autorecType][animationName])[0] : autorecObject[0].variant;
+
+    if (!changeColor) { changeColor = Object.keys(jb2a[autorecType][animationName][variant])[0] }
+    let color = autoOverridden ? changeColor : autorecObject[0].color
+    if (color === 'random') { color = autorecObject[0].color || "" }
+
+    const file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color]
+    return file;
 }
 
 export function animationName(animType, patreon) {

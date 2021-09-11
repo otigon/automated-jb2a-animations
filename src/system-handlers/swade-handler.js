@@ -1,4 +1,4 @@
-import { nameConversion } from "../item-sheet-handlers/name-conversions.js";
+import { endTiming } from "../constants/timings.js";
 
 export default class SwadeHandler {
     constructor(SwadeActor, SwadeItem) {
@@ -117,10 +117,10 @@ export default class SwadeHandler {
         this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
         this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
         */
-        this._convert = nameConversion(this._animNameFinal);
-        this._convertName = this._convert[0];
-        this._defaultColor = this._convert[1];
-        this._delay = this._convert[4];
+        //this._convert = nameConversion(this._animNameFinal);
+        this._convertName = this._animName.replace(/\s+/g, '').toLowerCase();
+        //this._defaultColor = this._convert[1];
+        this._delay = endTiming(this._animNameFinal);
     }
 
     get convertedName() {return this._convertName;}
@@ -140,6 +140,7 @@ export default class SwadeHandler {
         return reach;
     }
 
+    get itemName() { return this._itemName }
     get item() {return this._item}
     get actorToken() {return this._actorToken;}
     get allTargets() {return this._allTargets;}
@@ -157,7 +158,7 @@ export default class SwadeHandler {
     get animOverride() {return this._animOverride;}
     get animType() {return this._animType;}
     get color() {return this._animColor;}
-    get defaultColor() {return this._defaultColor;}
+    //get defaultColor() {return this._defaultColor;}
     get animName() {return this._animNameFinal;}
     get variant() { return this._variant; }
     get explosion() {return this._explosion;}

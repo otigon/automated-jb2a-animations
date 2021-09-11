@@ -675,7 +675,7 @@ JB2AFREEDB.static = {
             blue: [l2`Shatter/Shatter_01_Blue_400x400.webm`]
         }
     },
-    shield: {
+    shieldspell: {
         '01': {
             blue: {
                 'intro': [l1`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`],

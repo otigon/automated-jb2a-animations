@@ -5,13 +5,13 @@ export const AUTOANIM = {}
 AUTOANIM.animNameAttackSpell = {
     "a1": ``,
     "disintegrate": "AUTOANIM.itemDisintegrate",
-    "eldritch blast": "AUTOANIM.itemEldritchBlast",
-    "fire bolt": "AUTOANIM.itemFireBolt",
-    "magic missile": "AUTOANIM.itemMagicMissile",
-    "ray of frost": "AUTOANIM.itemRayFrost",
-    "scorching ray": "AUTOANIM.itemScorchingRay",
-    "witch bolt": "AUTOANIM.itemWitchBolt",
-    "guiding bolt": "AUTOANIM.itemGuidingBolt"
+    "eldritchblast": "AUTOANIM.itemEldritchBlast",
+    "firebolt": "AUTOANIM.itemFireBolt",
+    "magicmissile": "AUTOANIM.itemMagicMissile",
+    "rayoffrost": "AUTOANIM.itemRayFrost",
+    "scorchingray": "AUTOANIM.itemScorchingRay",
+    "witchbolt": "AUTOANIM.itemWitchBolt",
+    "guidingbolt": "AUTOANIM.itemGuidingBolt"
 };
 
 AUTOANIM.shieldOutro = {
@@ -21,8 +21,8 @@ AUTOANIM.shieldOutro = {
 
 AUTOANIM.animNameHealSpell = {
     "a1": ``,
-    "cure wounds": "AUTOANIM.itemCureWounds",
-    "generic healing": "AUTOANIM.itemGenericHealing",
+    "curewounds": "AUTOANIM.itemCureWounds",
+    "generichealing": "AUTOANIM.itemGenericHealing",
 }
 
 AUTOANIM.animNameMeleeWeapon = {
@@ -40,6 +40,23 @@ AUTOANIM.animNameMeleeWeapon = {
     "rapier": "AUTOANIM.itemRapier"
 };
 
+AUTOANIM.meleeWeapons = {
+    "a1": ``,
+    "dagger": "AUTOANIM.itemDagger",
+    "flurryofblows": "AUTOANIM.itemFlurryBlows",
+    "greataxe": "AUTOANIM.itemGreataxe",
+    "greatclub": "AUTOANIM.itemGreatclub",
+    "greatsword": "AUTOANIM.itemGreatsword",
+    "handaxe": "AUTOANIM.itemHandaxe",
+    "lasersword": "AUTOANIM.itemLaserSword",
+    "mace": "AUTOANIM.itemMace",
+    "maul": "AUTOANIM.itemMaul",
+    "spear": "AUTOANIM.itemSpear",
+    "sword": "AUTOANIM.itemSword",
+    "rapier": "AUTOANIM.itemRapier",
+    "unarmedstrike": "AUTOANIM.itemUnarmedStrike",
+};
+
 AUTOANIM.animNameRangeWeapon = {
     "a1": ``,
     "arrow": "AUTOANIM.itemArrow",
@@ -47,20 +64,20 @@ AUTOANIM.animNameRangeWeapon = {
     "boulder": "AUTOANIM.itemBoulder",
     "bullet": "AUTOANIM.bullet",
     "chakram": "AUTOANIM.chakram",
-    "rangedagger": "AUTOANIM.itemDagger",
-    "rangegreataxe": "AUTOANIM.itemGreataxe",
-    "rangegreatsword": "AUTOANIM.itemGreatsword",
-    "rangehandaxe": "AUTOANIM.itemHandaxe",
+    "dagger": "AUTOANIM.itemDagger",
+    "greataxe": "AUTOANIM.itemGreataxe",
+    "greatsword": "AUTOANIM.itemGreatsword",
+    "handaxe": "AUTOANIM.itemHandaxe",
     "javelin": "AUTOANIM.itemJavelin",
-    "laser blast": "AUTOANIM.itemLaserBlast",
-    "rangelasersword": "AUTOANIM.itemLaserSword",
-    "rangemace": "AUTOANIM.itemMace",
-    "siege boulder": "AUTOANIM.itemSiegeBoulder",
+    "lasershot": "AUTOANIM.itemLaserBlast",
+    "lasersword": "AUTOANIM.itemLaserSword",
+    "mace": "AUTOANIM.itemMace",
+    "siegeboulder": "AUTOANIM.itemSiegeBoulder",
     "sling": "AUTOANIM.itemSling",
     "snipe": "AUTOANIM.snipe",
-    "rangespear": "AUTOANIM.itemSpear",
-    "rangesword": "AUTOANIM.itemSword",
-    "throwing hammer": "AUTOANIM.itemThrowingHammer",
+    "spear": "AUTOANIM.itemSpear",
+    "sword": "AUTOANIM.itemSword",
+    "hammer": "AUTOANIM.itemThrowingHammer",
 };
 
 AUTOANIM.animNameSwitch = {
@@ -91,8 +108,10 @@ AUTOANIM.animNameRangeWeaponFree = {
     "arrow": "AUTOANIM.itemArrow",
     "bolt": "AUTOANIM.bolt",
     "bullet": "AUTOANIM.bullet",
-    "snipe": "AUTOANIM.snipe",
+    "dagger": "AUTOANIM.itemDagger",
     "lasershot": "AUTOANIM.itemLaserBlast",
+    "lasersword": "AUTOANIM.itemLaserSword",
+    "snipe": "AUTOANIM.snipe",
 };
 
 AUTOANIM.animNameSwitchFree = {
@@ -108,14 +127,14 @@ AUTOANIM.animNameSwitchFree = {
 
 AUTOANIM.animNameGenericDmg = {
     "a1": ``,
-    "1 handed slashing": "AUTOANIM.item1HS",
-    "1 handed piercing": "AUTOANIM.item1HP",
-    "1 handed bludgeoning": "AUTOANIM.item1HB",
-    "2 handed slashing": "AUTOANIM.item2HS",
-    "2 handed piercing": "AUTOANIM.item2HP",
-    "2 handed bludgeoning": "AUTOANIM.item2HB",
-    "unarmed strike": "AUTOANIM.itemUnarmedStrike",
-    "flurry of blows": "AUTOANIM.itemFlurryBlows"
+    "1hs": "AUTOANIM.item1HS",
+    "1hp": "AUTOANIM.item1HP",
+    "1hb": "AUTOANIM.item1HB",
+    "2hs": "AUTOANIM.item2HS",
+    "2hp": "AUTOANIM.item2HP",
+    "2hb": "AUTOANIM.item2HB",
+    "unarmedstrike": "AUTOANIM.itemUnarmedStrike",
+    "flurryofblows": "AUTOANIM.itemFlurryBlows"
 }
 
 AUTOANIM.animNameGenericDmgFree = {
@@ -183,12 +202,12 @@ AUTOANIM.selfemanation = {
 
 AUTOANIM.aura = {
     "a1": "",
-    "call lightning": "AUTOANIM.animCallLightning",
+    "calllightning": "AUTOANIM.animCallLightning",
     "darkness": "AUTOANIM.animDarkness",
-    "fog cloud": "AUTOANIM.animFogCloud",
+    "fogcloud": "AUTOANIM.animFogCloud",
     "sleetstorm": "AUTOANIM.animSleetstorm",
-    "spirit guardians": "AUTOANIM.animSpiritGuardians",
-    "wall of force": "AUTOANIM.animWallOfForce",
+    "spiritguardians": "AUTOANIM.animSpiritGuardians",
+    "wallofforce": "AUTOANIM.animWallOfForce",
     "whirlwind": "AUTOANIM.animWhirlwind",
     "antilifeshell": "AUTOANIM.animAntiLifeShell",
     "cloudofdaggers": "AUTOANIM.cloudOfDaggers"
@@ -207,7 +226,7 @@ AUTOANIM.hmAnimFree = {
 
 AUTOANIM.animTeleport = {
     'a1': ``,
-    'misty step': "AUTOANIM.itemMistyStep"
+    'mistystep': "AUTOANIM.itemMistyStep"
 }
 
 AUTOANIM.animNameClassFeatures = {
@@ -320,6 +339,23 @@ AUTOANIM.tollthedeadVariants = {
     "bell": 'AUTOANIM.bell',
     "shockwave": 'AUTOANIM.shockwave',
     "skull": 'AUTOANIM.skull',
+}
+
+AUTOANIM.autoself = {
+    "a1": ``,
+    "antilifeshell": "AUTOANIM.animAntiLifeShell",
+    "bite": "AUTOANIM.itemBite",
+    "boulderimpact": "AUTOANIM.itemBoulder",
+    "claw": "AUTOANIM.itemClaw",
+    "curewounds": "AUTOANIM.itemCureWounds",
+    "generichealing": "AUTOANIM.itemGenericHealing",
+    "explosion": "AUTOANIM.explosion",
+    "impact": "AUTOANIM.impact",
+    "outpulse01": "AUTOANIM.outpulse01",
+    "outpulse02": "AUTOANIM.outpulse02",
+    "snowflake": "AUTOANIM.snowflake",
+    "shatter": "AUTOANIM.itemShatter",
+    "thunderwave": "AUTOANIM.itemThunderwave",
 }
 
 AUTOANIM.localized = function (cfg) {

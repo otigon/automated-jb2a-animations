@@ -1,0 +1,231 @@
+<div class='aa-autorecognition'>
+    {{#each settings.aaAutorec.templates as |templates idx|}}
+    <div class='aa-border-autorecog aa-search'>
+        <div class='flexrow templates-settings' data-idx="{{idx}}">
+            <div class='flexcol'>
+                <div class='form-group'>
+                    <div class='form-fields'>
+                        <input type='checkbox' class='hideme' name='aaAutorec.templates.{{idx}}.hidden' {{checked
+                            (lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }} style="display:none">
+                        <i {{#if ( lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }}
+                            class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
+                            ../settings.aaAutorec.templates idx) 'hidden' ) }} class="fas fa-minus collapse-button"
+                            {{/unless}}></i>
+                        <input type='text' name="aaAutorec.templates.{{idx}}.name"
+                            placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
+                            value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'name'}}" />
+                        <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
+                    </div>
+                </div>
+                <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }}
+                    style="display:none" {{/if}}>
+                    <div class="aa-container">
+                        <div class="option01">
+                            <label for="aaAutorec.templates.{{idx}}.type">{{localize 'AUTOANIM.type'}}:
+                                <select name="aaAutorec.templates.{{idx}}.type">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.templates idx)
+                                    'type')}}
+                                    <option value="cone">{{localize "AUTOANIM.cone"}}</option>
+                                    <option value="rect">{{localize "AUTOANIM.square"}}</option>
+                                    <option value="circle">{{localize "AUTOANIM.circle"}}</option>
+                                    <option value="ray">{{localize "AUTOANIM.ray"}}</option>
+                                    {{/select}}
+                                </select>
+                            </label>
+                        </div>
+                        {{#unless (lookup (lookup ../settings.aaAutorec.templates idx) 'custom')}}
+                        <div class="option02">
+                            <div class='animation-choice'>
+                                <label for="aaAutorec.templates.{{idx}}.animation">{{localize 'AUTOANIM.animation'}}:
+                                    <select name="aaAutorec.templates.{{idx}}.animation">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.templates idx)
+                                        'animation')}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'type')
+                                        'circle'}}
+                                        {{#each ../templateCircle as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'type')
+                                        'cone'}}
+                                        {{#each ../templateCone as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'type')
+                                        'rect'}}
+                                        {{#each ../templateRect as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'type')
+                                        'ray'}}
+                                        {{#each ../templateRay as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
+                                        {{/select}}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option03">
+                            <label for="aaAutorec.templates.{{idx}}.variant">{{localize 'AUTOANIM.variant'}}:
+                                <select name="aaAutorec.templates.{{idx}}.variant" sytle="width:5em">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.templates idx) 'variant')}}
+                                    {{#each (lookup (lookup ../variants 'static') (lookup (lookup
+                                    ../settings.aaAutorec.templates idx) 'animation')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </label>
+                        </div>
+                        <div class="option04">
+                            <label for="aaAutorec.templates.{{idx}}.color">{{localize 'AUTOANIM.color'}}:
+                                <select name="aaAutorec.templates.{{idx}}.color">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.templates idx) 'color')}}
+                                    {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
+                                    ../settings.aaAutorec.templates idx) 'type')) (lookup (lookup
+                                    ../settings.aaAutorec.templates idx) 'animation')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </label>
+                        </div>
+                        {{/unless}}
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.repeat'}}:
+                                    <input type="Number" name="aaAutorec.templates.{{idx}}.repeat"
+                                        value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'repeat'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.delayMS'}}:
+                                    <input type="Number" name="aaAutorec.templates.{{idx}}.delay"
+                                        value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'delay'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option08">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.below'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.templates.{{idx}}.below' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.templates idx) 'below' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="option09">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.custom'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.templates.{{idx}}.custom' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.templates idx) 'custom' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'custom')}}
+                        <div class="pickerspan">
+                            <div class="form-group">
+                                <input type="text" class="files" name="aaAutorec.templates.{{idx}}.customPath"
+                                    value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'customPath'}}">
+                                <button type="button" class="file-picker" data-type="image/video"
+                                    data-target="aaAutorec.templates.{{idx}}.customPath" tabindex="-1"
+                                    title="Browse Files">
+                                    <i class="fas fa-file-video"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {{/if}}
+                        <div class="option13">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.opacity'}}:
+                                    <input type="Number" name="aaAutorec.templates.{{idx}}.opacity"
+                                        value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'opacity'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option14">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.remove'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.templates.{{idx}}.removeTemplate' {{checked
+                                        (lookup (lookup ../settings.aaAutorec.templates idx) 'removeTemplate' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="option15">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.placeTile'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.templates.{{idx}}.persist' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.templates idx) 'persist' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'persist')}}
+                        <div class="option16">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.overhead'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.templates.{{idx}}.overhead' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.templates idx) 'overhead' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'overhead')}}
+                    <div class="form-group">
+                        <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+                    </div>
+                    <div class='flexrow'>
+                        <div class="autorec-menu-options">
+                            <div class="form-group">
+                                <label>{{localize "AUTOANIM.occlusionMode"}}</label>
+                                <select name="aaAutorec.templates.{{idx}}.occlusionMode">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.templates idx)
+                                    'occlusionMode')}}
+                                    <option value="3">{{localize "AUTOANIM.occlusion03"}}</option>
+                                    <option value="1">{{localize "AUTOANIM.occlusion01"}}</option>
+                                    <option value="2">{{localize "AUTOANIM.occlusion02"}}</option>
+                                    <option value="0">{{localize "AUTOANIM.occlusion00"}}</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="autorec-menu-options">
+                        <div class="form-group">
+                            <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
+                            <div class="form-fields">
+                                <input type="range" name="aaAutorec.templates.{{idx}}.occlusionAlpha"
+                                    value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'occlusionAlpha'}}"
+                                    min="0" max="1" step="0.05">
+                                <span class="range-value">{{occlusionAlpha}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<footer class='sheet-footer flexrow add-templates-wrapper'>
+    <button class='add-autorecog-templates'>
+        <i class='far fa-plus-square'></i>{{localize 'AUTOANIM.addItem'}}
+    </button>
+</footer>

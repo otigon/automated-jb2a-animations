@@ -3,16 +3,31 @@ import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { buildFile } from "./file-builder/build-filepath.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function ctaCall(handler) {
-
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
+async function ctaCall(handler, autoObject) {
 
     //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let animName = handler.animName.replace(/\s+/g, '')
-    const aura = await buildFile(true, animName, "static", "01", handler.color, handler.custom01);
-    if (handler.allTargets.length === 0 || handler.options?.ignoreTarget) {
+    //let animName = handler.animName.replace(/\s+/g, '')
+    const data = {}
+    if (autoObject) {
+        Object.assign(data, autoObject[0])
+        data.itemName = data.animation || "";
+        data.customPath = data.custom ? data.customPath : false;
+        data.color = handler.options?.autoColor || data.color;
+        data.tint = parseInt(data.tint.substr(1), 16);
+    } else {
+        data.itemName = handler.animName.replace(/\s+/g, '');
+        data.variant = handler.spellVariant;
+        data.color = handler.color;
+        data.customPath = handler.enableCustom01 ? handler.custom01 : false;
+        data.tint = parseInt(handler.animTint.substr(1), 16);
+        data.opacity = handler.auraOpacity;
+        data.scale = handler.selfRadius
+        data.ignoretargets = handler.options?.ignoreTarget
+        data.below = true;
+    }
+    const sourceToken = handler.actorToken;
+    const aura = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
+    if (handler.allTargets.length === 0 || data.ignoretargets) {
         selfAura()
     } else {
         targetAura();
@@ -22,31 +37,27 @@ async function ctaCall(handler) {
 
     async function selfAura() {
 
-        let token = handler.actorToken;
-        let tintPre = handler.animTint;
-        let tintPost = parseInt(tintPre.substr(1), 16);
-        let auraOpacity = handler.auraOpacity;
         let textureData = {
-            belowToken: true,
+            belowToken: data.below,
             multiple: 0,
-            opacity: auraOpacity,
+            opacity: data.opacity,
             radius: 2,
             rotation: "static",
-            scale: handler.selfRadius,
+            scale: data.scale,
             speed: 0,
             texturePath: aura.fileData,
-            tint: tintPost,
+            tint: data.tint,
             xScale: 0.5,
             yScale: 0.5
         }
 
         let pushActor = false;
 
-        let name = handler.animName;
+        let name = data.itemName;
 
-        let tokenName = token.name;
+        let tokenName = sourceToken.name;
 
-        CTA.addAnimation(token, textureData, pushActor, name)
+        CTA.addAnimation(sourceToken, textureData, pushActor, name)
 
         let clsd = false;
         let d = new Dialog({
@@ -60,7 +71,7 @@ async function ctaCall(handler) {
             default: 'yes',
             close: () => {
                 if (clsd === false) console.log('This was closed without using a button');
-                if (clsd === true) CTA.removeAnimByName(token, name, true, true);
+                if (clsd === true) CTA.removeAnimByName(sourceToken, name, true, true);
             }
         },
             { width: 100, height: 75 }
@@ -76,26 +87,23 @@ async function ctaCall(handler) {
 
             let target = handler.allTargets[i];
 
-            let tintPre = handler.animTint;
-            let tintPost = parseInt(tintPre.substr(1), 16);
-            let auraOpacity = handler.auraOpacity;
             let textureData = {
-                belowToken: true,
+                belowToken: data.below,
                 multiple: 0,
-                opacity: auraOpacity,
+                opacity: data.opacity,
                 radius: 2,
                 rotation: "static",
-                scale: handler.selfRadius,
+                scale: data.scale,
                 speed: 0,
                 texturePath: aura.fileData,
-                tint: tintPost,
+                tint: data.tint,
                 xScale: 0.5,
                 yScale: 0.5
             }
 
             let pushActor = false;
 
-            let name = handler.animName;
+            let name = data.itemName;
 
             CTA.addAnimation(target, textureData, pushActor, name)
         }
@@ -116,7 +124,7 @@ async function ctaCall(handler) {
                 if (clsd === false) console.log('This was closed without using a button');
                 if (clsd === true) {
                     let arrayLength = handler.allTargets.length;
-                    let name = handler.animName;
+                    let name = data.itemName;
                     for (var i = 0; i < arrayLength; i++) {
                         let target = handler.allTargets[i];
                         CTA.removeAnimByName(target, name, true, true);

@@ -11,6 +11,7 @@ function animPreview(flags, name) {
     let jb2a = moduleIncludes("jb2a_patreon") === true ? true : false;
     //let itemName = item.animName.toLowerCase();
     let itemName = name;
+
     let item = flags.autoanimations ?? "";
     let color;
     let obj02;
@@ -229,14 +230,14 @@ function animPreview(flags, name) {
                 break;
             case item.animType === 't11':
                 color = item.color;
-                try { preview = obj01[itemName][color] }
+                try { preview = obj01.static[itemName]['01'][color] }
                 catch (exception) { preview = "no preview"; }
                 break;
             case item.animType === 't12':
                 color = item.color;
                 switch (itemName) {
                     case "mistystep":
-                        try { preview = obj01[itemName]['01'][color] }
+                        try { preview = obj01.static[itemName]['01'][color] }
                         catch (exception) { preview = "no preview"; }
                         break;
                 }
@@ -247,19 +248,42 @@ function animPreview(flags, name) {
                         color = item.bards?.bardSelfColor;
                         switch (item.bards?.bardAnim) {
                             case "bardicinspiration":
-                                try { preview = obj01[itemName]['inspire'][color] }
+                                try { preview = obj01.static[itemName]['inspire'][color] }
                                 catch (exception) { preview = "no preview"; }
                                 break;
                             case "music":
-                                try { preview = obj01[itemName][color] }
+                                try { preview = obj01.static[itemName][color] }
                                 catch (exception) { preview = "no preview"; }
                                 break;
                         }
                         break;
-                }
+                    case "shield":
+                        color = item.color;
+                        spellVar = item.options?.shieldVar;
+                        if (spellVar === "outro_explode") {
+                            try { preview = obj01.static[itemName][item.spellVar][color][spellVar]}
+                            catch (exception) { preview = "no preview"; }
+                        }
+                        if (spellVar === "outro_fade") {
+                            try { preview = obj01.static[itemName][item.spellVar][color][spellVar]}
+                            catch (exception) { preview = "no preview"; }
+                        }
+                        break;
+                    case "sneakattack":
+                        color = item.color;
+                        try { preview = obj01.static[itemName]['01'][color]}
+                        catch (exception) { preview = "no preview"; }
+                        break;
+                    case "bless":
+                        color = item.color;
+                        try { preview = obj01.static[itemName]['01'][color]['loop']}
+                        catch (exception) { preview = "no preview"; }
+                        break;
+            }
                 break;
         }
     }
+
     return preview
 
     function testPath(path) {

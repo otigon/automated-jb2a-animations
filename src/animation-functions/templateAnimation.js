@@ -4,26 +4,58 @@ import { thunderwaveAuto } from "./thunderwave.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function templateAnimation(handler, msg) {
+export async function templateAnimation(handler, autoObject) {
 
-    if (handler.templates.tempAnim === 'thunderwave') {
-        thunderwaveAuto(handler);
+    const sourceToken = handler.actorToken;
+
+    const data = {}
+    if (autoObject) {
+        const autoOverridden = handler.options?.overrideAuto
+        Object.assign(data, autoObject[0])
+        data.itemName = data.animation || "";
+        data.customPath = data.custom ? data.customPath : false;
+        data.color = autoOverridden ? handler.options?.autoColor : data.color;
+        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
+        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+        data.occlusionMode = parseInt(data.occlusionMode);
+    } else {
+        data.itemName = handler.templates.tempAnim;
+        data.variant = handler.spellVariant;
+        data.color = handler.templates.tempColor;
+        data.repeat = handler.templates.tempLoop;
+        data.delay = handler.templates.loopDelay;
+        data.customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
+        data.below = handler.animLevel;
+        data.type = handler.templates.tempType;
+        data.persist = handler.templatePersist;
+        data.overhead = handler.templates.overhead;
+        data.opacity = handler.templateOpacity;
+        data.occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
+        data.occlusionMode = parseInt(handler.templates?.occlusionMode ?? "3");
+        data.removeTemplate = handler.templates.removeTemplate;
+    }
+    if (data.itemName === 'thunderwave') {
+        thunderwaveAuto(handler, autoObject);
         return;
     }
-    const sourceToken = handler.actorToken;
-    let customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
-    let tempAnimation = await buildFile(true, handler.templates.tempType, "static", handler.templates.tempAnim, handler.templates.tempColor, customPath)
-    let sourceFX;
-    let sFXScale;
-    let customSourcePath; 
+    //let mode = handler.templates?.occlusionMode ?? "3";
+    //const occlusionMode = parseInt(mode)
+    //let occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
+
+    //let customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
+    const tempAnimation = await buildFile(true, data.type, "static", data.itemName, data.color, data.customPath)
+    //let sourceFX;
+    //let sFXScale;
+    //let customSourcePath; 
+    const sourceFX = {};
     if (handler.sourceEnable) {
-        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
-        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
+        sourceFX.customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
+        sourceFX.data = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath);
+        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.data.metadata.width;
     }
 
-    let videoWidth = tempAnimation.metadata.width;
-    let videoHeight = tempAnimation.metadata.height;
+    const videoWidth = tempAnimation.metadata.width;
+    const videoHeight = tempAnimation.metadata.height;
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
@@ -115,23 +147,20 @@ export async function templateAnimation(handler, msg) {
                 yAnchor = 0.5;
                 break;
         }
-        let mode = handler.templates?.occlusionMode ?? "3";
-        const occlusionMode = parseInt(mode)
-        let occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
         //const occlusionAlpha = parseInt(alpha);
-        if (handler.templatePersist && (handler.templates.tempType === "circle" || handler.templates.tempType === "rect")) {
-            let data;
-            if (handler.templates.overhead) {
-                data = {
-                    alpha: handler.templateOpacity,
+        if (data.persist && (data.type === "circle" || data.type === "rect")) {
+            let templateData;
+            if (data.overhead) {
+                templateData = {
+                    alpha: data.opacity,
                     width: tileWidth,
                     height: tileHeight,
                     img: tempAnimation.fileData,
                     // false sets it in canvas.background. true sets it to canvas.foreground
                     overhead: true,
                     occlusion: {
-                        alpha: occlusionAlpha,
-                        mode: occlusionMode,
+                        alpha: data.occlusionAlpha,
+                        mode: data.occlusionMode,
                     },
                     video: {
                         autoplay: true,
@@ -143,8 +172,8 @@ export async function templateAnimation(handler, msg) {
                     z: 100,
                 }
             } else {
-                data = {
-                    alpha: handler.templateOpacity,
+                templateData = {
+                    alpha: data.opacity,
                     width: tileWidth,
                     height: tileHeight,
                     img: tempAnimation.fileData,
@@ -160,7 +189,7 @@ export async function templateAnimation(handler, msg) {
                     z: 100,
                 }
             }
-            socketlibSocket.executeAsGM("placeTile", data)
+            socketlibSocket.executeAsGM("placeTile", templateData)
             new Sequence()
                 .sound()
                 .file(templateFile)
@@ -169,25 +198,25 @@ export async function templateAnimation(handler, msg) {
                 .volume(templateVolume)
                 .repeats(handler.animationLoops, handler.loopDelay)
                 .play()
-            if (handler.templates.removeTemplate) {
+            if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }            
             //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
         } else {
-            if (handler.templates.removeTemplate) {
+            if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }        
             await new Sequence()
                 .effect()
                     .atLocation(sourceToken)
-                    .scale(sFXScale * handler.sourceScale)
+                    .scale(sourceFX.sFXScale * handler.sourceScale)
                     .repeats(handler.sourceLoops, handler.sourceLoopDelay)
                     .belowTokens(handler.sourceLevel)
                     .waitUntilFinished(handler.sourceDelay)
                     .playIf(handler.sourceEnable)
                     .addOverride(async (effect, data) => {
                         if (handler.sourceEnable) {
-                            data.file = sourceFX.file;
+                            data.file = sourceFX.data.file;
                         }
                         return data;
                     })
@@ -201,13 +230,13 @@ export async function templateAnimation(handler, msg) {
                     .rotate(rotate)
                     .scale({ x: scaleX, y: scaleY })
                     .belowTokens(false)
-                    .repeats(handler.templates.tempLoop, handler.templates.loopDelay)
+                    .repeats(data.repeat, data.delay)
                 .sound()
                     .file(templateFile)
                     .playIf(handler.itemSound)
                     .delay(templateDelay)
                     .volume(templateVolume)
-                    .repeats(handler.animationLoops, handler.loopDelay)
+                    .repeats(data.repeat, data.delay)
                 .play()
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")

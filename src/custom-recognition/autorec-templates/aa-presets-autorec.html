@@ -1,0 +1,312 @@
+<div class='aa-autorecognition'>
+    {{#each settings.aaAutorec.preset as |preset idx|}}
+    <div class='aa-border-autorecog aa-search'>
+        <div class='flexrow preset-settings' data-idx="{{idx}}">
+            <div class='flexcol'>
+                <div class='form-group'>
+                    <div class='form-fields'>
+                        <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.hidden' {{checked (lookup
+                            (lookup ../settings.aaAutorec.preset idx) 'hidden' ) }} style="display:none">
+                        <i {{#if ( lookup (lookup ../settings.aaAutorec.preset idx) 'hidden' ) }}
+                            class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
+                            ../settings.aaAutorec.preset idx) 'hidden' ) }} class="fas fa-minus collapse-button"
+                            {{/unless}}></i>
+                        <input type='text' name="aaAutorec.preset.{{idx}}.name"
+                            placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
+                            value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'name'}}" />
+                        <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
+                    </div>
+                </div>
+                <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.preset idx) 'hidden' ) }}
+                    style="display:none" {{/if}}>
+                    <div class="aa-container">
+                        <div class="meleespan">
+                            <div class='animation-choice'>
+                                <label for="aaAutorec.preset.{{idx}}.animation">{{localize 'AUTOANIM.preset'}}:
+                                    <select name="aaAutorec.preset.{{idx}}.animation"
+                                        style="min-width: 15em; text-align: center;">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
+                                        'animation')}}
+                                        <option value=""></option>
+                                        <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}
+                                        </option>
+                                        <option value="bless">{{localize "AUTOANIM.bless"}}</option>
+                                        <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
+                                        <option value="teleportation">{{localize "AUTOANIM.animTeleportation"}}</option>
+                                        {{/select}}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.ctaScale'}}:
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'scale'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.below'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.below' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.preset idx) 'below' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Bardic Inspiration Menu-->
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'bardicinspiration'}}
+                        <div class='option03'>
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize "AUTOANIM.bardSelf"}}</label>
+                                    <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.animateSelf'
+                                        {{checked (lookup (lookup ../settings.aaAutorec.preset idx) 'animateSelf' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'animateSelf')}}
+                        <div class="option04">
+                            <label>{{localize "AUTOANIM.animation"}}</label>
+                            <select name="aaAutorec.preset.{{idx}}.selfAnimation">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'selfAnimation')}}
+                                {{#each ../bardAnimName as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="option08">
+                            <label>{{localize "AUTOANIM.color"}}: </label>
+                            <select name="aaAutorec.preset.{{idx}}.selfColor">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'selfColor')}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'selfAnimation')
+                                'bardicinspiration'}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'inspire') as
+                                |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/ifEquals}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'selfAnimation') 'music'}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'music') '01') as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/ifEquals}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        {{/if}}
+                        <div class='option09'>
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize "AUTOANIM.bardTarget"}}</label>
+                                    <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.animateTarget'
+                                        {{checked (lookup (lookup ../settings.aaAutorec.preset idx) 'animateTarget' )
+                                        }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'animateTarget')}}
+                        <div class="option10">
+                            <label>{{localize "AUTOANIM.animation"}}</label>
+                            <select name="aaAutorec.preset.{{idx}}.targetAnimation">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'targetAnimation')}}
+                                {{#each ../bardAnimName as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="option12">
+                            <label>{{localize "AUTOANIM.color"}}: </label>
+                            <select name="aaAutorec.preset.{{idx}}.targetColor">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'targetColor')}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'targetAnimation')
+                                'bardicinspiration'}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'inspire') as
+                                |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/ifEquals}}
+                                {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'targetAnimation')
+                                'music'}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'music') '01') as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/ifEquals}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        {{/if}}
+                        <div class='option13'>
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize "AUTOANIM.markerEnable"}}</label>
+                                    <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.marker'
+                                        {{checked (lookup (lookup ../settings.aaAutorec.preset idx) 'marker' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'marker')}}
+                        <div class="option14">
+                            <label>Self {{localize "AUTOANIM.color"}}: </label>
+                            <select name="aaAutorec.preset.{{idx}}.selfMarkerColor">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'selfMarkerColor')}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'marker') 'musicmarker') as |name
+                                key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="span1516">
+                            <label>Target {{localize "AUTOANIM.color"}}: </label>
+                            <select name="aaAutorec.preset.{{idx}}.targetMarkerColor">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'targetMarkerColor')}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'marker') 'musicmarker') as |name
+                                key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        {{/if}}
+                        {{/ifEquals}}
+                        <!--Shield Menu-->
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'shieldspell'}}
+                        <div class='option03'>
+                            <label>{{localize 'AUTOANIM.variant'}}:</label>
+                            <select name="aaAutorec.preset.{{idx}}.variant">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'variant')}}
+                                {{#each (lookup (lookup ../variants 'static') 'shieldspell') as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="option04">
+                            <label>{{localize "AUTOANIM.color"}}: </label>
+                            <select name="aaAutorec.preset.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color')}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'shieldspell') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'variant')) as |name
+                                key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="span0708">
+                            <label>End Effect: </label>
+                            <select name="aaAutorec.preset.{{idx}}.endeffect" style="min-width: 15em;">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'endeffect')}}
+                                <option value="outro_explode">{{localize "AUTOANIM.explode"}}</option>
+                                <option value="outro_fade">{{localize "AUTOANIM.fade"}}</option>
+                                {{/select}}
+                            </select>
+                        </div>
+                        {{/ifEquals}}
+                        <!--Bless Menu-->
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'bless'}}
+                        <div class="option03">
+                            <label>{{localize "AUTOANIM.color"}}: </label>
+                            <select name="aaAutorec.preset.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color')}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'bless') '01') as |name
+                                key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class='option04'>
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>Add CTA</label>
+                                    <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.addCTA'
+                                        {{checked (lookup (lookup ../settings.aaAutorec.preset idx) 'addCTA' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{/ifEquals}}
+                        <!--Teleportation Menu-->
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'teleportation'}}
+                        {{#unless (lookup (lookup ../settings.aaAutorec.preset idx) 'custom')}}
+                        <div class="option03">
+                            <div class='animation-choice'>
+                                <label for="aaAutorec.preset.{{idx}}.subAnimation">{{localize 'AUTOANIM.animation'}}:
+                                    <select name="aaAutorec.preset.{{idx}}.subAnimation">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
+                                        'subAnimation')}}
+                                        <option value=""></option>
+                                        <option value="mistystep">{{localize "AUTOANIM.itemMistyStep"}}</option>
+                                        {{/select}}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option04">
+                            <label>{{localize "AUTOANIM.color"}}: </label>
+                            <select name="aaAutorec.preset.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color')}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'subAnimation')) '01') as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        {{/unless}}
+                        <div class="option07">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.ranged'}}:
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.range"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'range'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class='option08'>
+                            <div class="form-group">
+                                <label>{{localize "AUTOANIM.noTemplate"}}</label>
+                                <input type="checkbox" name='aaAutorec.preset.{{idx}}.hideTemplate' {{checked (lookup
+                                    (lookup ../settings.aaAutorec.preset idx) 'hideTemplate' ) }}>
+                            </div>
+                        </div>
+                        <div class="option09">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.custom'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.custom' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.preset idx) 'custom' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'custom')}}
+                        <div class="pickerspan">
+                            <div class="form-group">
+                                <input type="text" class="files" name="aaAutorec.preset.{{idx}}.customPath"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'customPath'}}">
+                                <button type="button" class="file-picker" data-type="image/video"
+                                    data-target="aaAutorec.preset.{{idx}}.customPath" tabindex="-1"
+                                    title="Browse Files">
+                                    <i class="fas fa-file-video"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{/ifEquals}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<footer class='sheet-footer flexrow add-preset-wrapper'>
+    <button class='add-autorecog-preset'>
+        <i class='far fa-plus-square'></i>{{localize 'AUTOANIM.addItem'}}
+    </button>
+</footer>

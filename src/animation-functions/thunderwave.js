@@ -5,28 +5,53 @@ import { socketlibSocket } from "../socketset.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function thunderwaveAuto(handler) {
+export async function thunderwaveAuto(handler, autoObject) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
+    const data = {}
+    if (autoObject) {
+        const autoOverridden = handler.options?.overrideAuto
+        Object.assign(data, autoObject[0])
+        data.itemName = data.animation || "";
+        data.customPath = data.custom ? data.customPath : false;
+        data.color = autoOverridden ? handler.options?.autoColor : data.color;
+        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
+        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+        data.occlusionMode = parseInt(data.occlusionMode);
+    } else {
+        data.itemName = handler.templates.tempAnim;
+        data.variant = handler.spellVariant;
+        data.color = handler.templates.tempColor;
+        data.repeat = handler.templates.tempLoop;
+        data.delay = handler.templates.loopDelay;
+        data.customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
+        data.below = handler.animLevel;
+        data.type = handler.templates.tempType;
+        data.persist = handler.templatePersist;
+        data.overhead = handler.templates.overhead;
+        data.opacity = handler.templateOpacity;
+        data.occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
+        data.occlusionMode = parseInt(handler.templates?.occlusionMode ?? "3");
+        data.removeTemplate = handler.templates.removeTemplate;
+    }
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let color = handler.templates.tempColor;
+    let color;
     const colors = ['green', 'orange', 'purple', 'red', 'blue']
     function random_item(items) {
         return items[Math.floor(Math.random() * items.length)];
     }
-    console.log(color)
     switch (true) {
-        case color === "a1" || ``:
-        case !color:
+        case data.color === "a1" || ``:
+        case !data.color:
             color = "blue";
             break;
-        case color === "random":
+        case data.color === "random":
             color = random_item(colors);
         default:
-            color = color;
+            color = data.color;
     }
 
     let templateSound = handler.allSounds?.item;
@@ -99,11 +124,11 @@ export async function thunderwaveAuto(handler) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    if (handler.templatePersist && (handler.templates.tempType === "circle" || handler.templates.tempType === "rect")) {
-        let data;
-        if (handler.templates.overhead) {
-            data = {
-                alpha: handler.templateOpacity,
+    if (data.persist && (data.type === "circle" || data.type === "rect")) {
+        let tileData;
+        if (data.overhead) {
+            tileData = {
+                alpha: data.opacity,
                 width: gridSize * 3,
                 height: gridSize * 3,
                 img: anFile,
@@ -123,8 +148,8 @@ export async function thunderwaveAuto(handler) {
                 z: 100,
             }
         } else {
-            data = {
-                alpha: handler.templateOpacity,
+            tileData = {
+                alpha: data.opacity,
                 width: gridSize * 3,
                 height: gridSize * 3,
                 img: anFile,
@@ -140,7 +165,7 @@ export async function thunderwaveAuto(handler) {
                 z: 100,
             }
         }
-        socketlibSocket.executeAsGM("placeTile", data)
+        socketlibSocket.executeAsGM("placeTile", tileData)
         new Sequence()
             .sound()
             .file(templateFile)
@@ -149,12 +174,12 @@ export async function thunderwaveAuto(handler) {
             .volume(templateVolume)
             .repeats(handler.animationLoops, handler.loopDelay)
             .play()
-        if (handler.templates.removeTemplate) {
+        if (data.removeTemplate) {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
         }
         //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
     } else {
-        if (handler.templates.removeTemplate) {
+        if (data.removeTemplate) {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
         }
         await new Sequence()
@@ -175,19 +200,20 @@ export async function thunderwaveAuto(handler) {
                 Hooks.callAll("aa.animationStart", handler.actorToken, "no-target")
             })
             .effect()
-            .file(anFile)
-            .atLocation({ x: tempX + (gridSize * 1.5), y: tempY + (gridSize * 1.5) })
-            .anchor({ x: 0.5, y: 0.5 })
-            .rotate(ang)
-            .scale({x: scaleX, y: scaleY})
-            .belowTokens(false)
-            .repeats(handler.templates.tempLoop, handler.templates.loopDelay)
+
+                .file(anFile)
+                .atLocation({x: tempX + (gridSize * 1.5), y: tempY + (gridSize * 1.5)})
+                .anchor({x: 0.5, y: 0.5})
+                .rotate(ang)
+                .scale(Scale)
+                .belowTokens(false)
+                .repeats(data.repeat, data.delay)
             .sound()
-            .file(templateFile)
-            .playIf(handler.itemSound)
-            .delay(templateDelay)
-            .volume(templateVolume)
-            .repeats(handler.animationLoops, handler.loopDelay)
+                .file(templateFile)
+                .playIf(handler.itemSound)
+                .delay(templateDelay)
+                .volume(templateVolume)
+                .repeats(data.repeat, data.delay)
             .play()
         await wait(500)
         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target")

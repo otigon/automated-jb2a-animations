@@ -1,0 +1,214 @@
+<div class='aa-autorecognition'>
+    {{#each settings.aaAutorec.melee as |melee idx|}}
+    <div class='aa-border-autorecog aa-search'>
+        <div class='flexrow melee-settings' data-idx="{{idx}}">
+            <div class='flexcol'>
+                <div class='form-group'>
+                    <div class='form-fields'>
+                        <input type='checkbox' class='hideme' name='aaAutorec.melee.{{idx}}.hidden' {{checked (lookup
+                            (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }} style="display:none">
+                        <i {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }}
+                            class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
+                            ../settings.aaAutorec.melee idx) 'hidden' ) }} class="fas fa-minus collapse-button"
+                            {{/unless}}></i>
+                        <input type='text' name="aaAutorec.melee.{{idx}}.name"
+                            placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
+                            value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'name'}}" />
+                        <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
+                    </div>
+                </div>
+                <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }}
+                    style="display:none" {{/if}}>
+                    <div class="aa-container">
+                        {{#unless (lookup (lookup ../settings.aaAutorec.melee idx) 'custom')}}
+                        <div class="meleespan">
+                            <div class='animation-choice'>
+                                <label for="aaAutorec.melee.{{idx}}.animation">{{localize 'AUTOANIM.animation'}}:
+                                    <select name="aaAutorec.melee.{{idx}}.animation" style="min-width: 15em;">
+                                        {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
+                                        'animation')}}
+                                        {{#each ../meleeList as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option03">
+                            <label for="aaAutorec.melee.{{idx}}.variant">{{localize 'AUTOANIM.variant'}}:
+                                <select name="aaAutorec.melee.{{idx}}.variant">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'variant')}}
+                                    {{#each (lookup (lookup ../variants 'melee') (lookup (lookup
+                                    ../settings.aaAutorec.melee idx) 'animation')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </label>
+                        </div>
+                        <div class="option04">
+                            <label for="aaAutorec.melee.{{idx}}.color">{{localize 'AUTOANIM.color'}}:
+                                <select name="aaAutorec.melee.{{idx}}.color">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'color')}}
+                                    {{#each (lookup (lookup (lookup ../colors 'melee') (lookup (lookup
+                                    ../settings.aaAutorec.melee idx) 'animation')) (lookup (lookup
+                                    ../settings.aaAutorec.melee idx) 'variant')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </label>
+                        </div>
+                        {{/unless}}
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.repeat'}}:
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.repeat"
+                                        value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'repeat'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.delayMS'}}:
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.delay"
+                                        value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'delay'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option07">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.ctaScale'}}:
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'scale'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option08">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.below'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.melee.{{idx}}.below' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.melee idx) 'below' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="option09">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.custom'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.melee.{{idx}}.custom' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.melee idx) 'custom' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.melee idx) 'custom')}}
+                        <div class="pickerspan">
+                            <div class="form-group">
+                                <input type="text" class="files" name="aaAutorec.melee.{{idx}}.customPath"
+                                    value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'customPath'}}">
+                                <button type="button" class="file-picker" data-type="image/video"
+                                    data-target="aaAutorec.melee.{{idx}}.customPath" tabindex="-1" title="Browse Files">
+                                    <i class="fas fa-file-video"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {{/if}}
+                        <div class="option13">
+                            <div class="form-group">
+                                <label>{{localize 'AUTOANIM.switch'}}: </label>
+                                <select name="aaAutorec.melee.{{idx}}.switchType">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchType')}}
+                                    <option value="on">Enabled</option>
+                                    <option value="off">Disabled</option>
+                                    <option value="custom">Custom</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'switchType') 'custom'}}
+                        <div class="option14">
+                            <div class="form-group">
+                                <label>{{localize 'AUTOANIM.animation'}}: </label>
+                                <select name="aaAutorec.melee.{{idx}}.switchAnimation">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchAnimation')}}
+                                    {{#each ../rangeList as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="option15">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.return'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.melee.{{idx}}.return' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.melee idx) 'return' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="option17">
+                            <label for="aaAutorec.melee.{{idx}}.switchVariant">{{localize 'AUTOANIM.variant'}}:
+                                <select name="aaAutorec.melee.{{idx}}.switchVariant">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchVariant')}}
+                                    {{#each (lookup (lookup ../variants 'range') (lookup (lookup
+                                    ../settings.aaAutorec.melee idx) 'switchAnimation')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </label>
+                        </div>
+                        <div class="option18">
+                            <label for="aaAutorec.melee.{{idx}}.switchColor">{{localize 'AUTOANIM.color'}}:
+                                <select name="aaAutorec.melee.{{idx}}.switchColor">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchColor')}}
+                                    {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
+                                    ../settings.aaAutorec.melee idx) 'switchAnimation')) (lookup (lookup
+                                    ../settings.aaAutorec.melee idx) 'switchVariant')) as |name key|}}
+                                    <option value="{{key}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </label>
+                        </div>
+                        <div class='option21'>
+                            <div class="form-group">
+                                <label>{{localize 'AUTOANIM.rangeDetect'}}: </label>
+                                <select name="aaAutorec.melee.{{idx}}.detect">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'detect')}}
+                                    <option value="auto">Automatic</option>
+                                    <option value="manual">Manual</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </div>
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'detect') 'manual'}}
+                        <div class='option22'>
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.gridSquares'}}:
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.range"
+                                        value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'range'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        {{/ifEquals}}
+                        {{/ifEquals}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<footer class='sheet-footer flexrow add-melee-wrapper'>
+    <button class='add-autorecog-melee'>
+        <i class='far fa-plus-square'></i>{{localize 'AUTOANIM.addItem'}}
+    </button>
+</footer>
