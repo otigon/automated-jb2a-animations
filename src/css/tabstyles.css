@@ -22,6 +22,10 @@
     background: #363636
 }
 
+#AA-item-settings .tabs .active {
+    text-shadow: 0 0 10px red;
+}
+
 .aa-column {
     padding: 10px;
     text-align: center;
@@ -67,7 +71,6 @@
     margin: 5px;
     width: 25%;
     font-weight: bold;
-    background-color: rgb(169, 216, 255);
 }
 
 .AA-flow-chart-Primary {
@@ -89,7 +92,6 @@
     margin: 5px;
     width: 25%;
     font-weight: bold;
-    background-color: rgb(169, 216, 255);
 }
 
 .aa-flow-arrow {

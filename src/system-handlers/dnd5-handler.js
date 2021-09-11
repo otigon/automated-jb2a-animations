@@ -9,7 +9,7 @@ export default class Dnd5Handler {
         if (!itemId || !this._actorToken) {return;}
         //Switches to Ammunition Animation if active on Item
         let item = this._actorToken.actor.items?.get(itemId) ?? "";
-        if (item.data.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
+        if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
             itemId = item.data.data.consume.target;
             item = this._actorToken.actor.items?.get(itemId) ?? "";
         } 

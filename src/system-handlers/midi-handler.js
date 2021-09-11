@@ -7,7 +7,7 @@ export default class MidiHandler {
         //Switches to Ammunition Animation if active on Item
         let item;
         let itemId
-        if (workflow.item.data.flags?.autoanimations?.options?.ammo && workflow.item.data?.data?.consume?.type === "ammo") {
+        if (workflow.item?.data?.flags?.autoanimations?.options?.ammo && workflow.item?.data?.data?.consume?.type === "ammo") {
             itemId = workflow.item.data.data.consume.target;
             item = this._actorToken.actor.items?.get(itemId) ?? "";
             if (!item.data.flags.autoanimations) { item = workflow.item}
