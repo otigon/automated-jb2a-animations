@@ -5,7 +5,7 @@ export default function aaSettings() {
     const menuAAAutoRecSettings = {
         key: 'custom-autorec',
         config: {
-            label: "Configure Automatic Recognition",
+            label: game.i18n.format("AUTOANIM.autoRecSetting"),
             icon: "fas fa-dice-d20",
             type: aaAutoRecognition,
             restricted: true,

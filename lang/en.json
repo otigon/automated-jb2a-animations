@@ -409,6 +409,7 @@
     "AUTOANIM.submit": "Submit",
     "AUTOANIM.import": "Import Settings",
     "AUTOANIM.export": "Export Settings",
-    "AUTOANIM.preset": "Preset"
+    "AUTOANIM.preset": "Preset",
+    "AUTOANIM.autoRecSetting": "Configure Automatic Recognition"
 
 }
