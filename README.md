@@ -10,6 +10,7 @@ Many thanks to WASP for creating a great animation framework with the **SEQUENCE
 
 <br>
 **A Note on adding support for more systems:**  
+
 I will not be expanding support for any more systems for the forseeable future. I will attempt to write a guide on how to add support, but I can't promise anything. The amount of upkeep with the module keeps me busy enough. Each system is unique, and many do not pass the required information in the chat messages for A-A to be able to function properly
 <br>
 
