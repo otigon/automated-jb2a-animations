@@ -42,8 +42,7 @@ REQUIRED MODULES:
 - **JB2A** - Jules&Ben's Animated Assets (patreon or free version)  
 - **Sequencer** by Wasp
 
-Optional Modules:
-- Token Magic FX  
+Optional Modules: 
 - Custom Token Animations by Kandashi (For Aura effects)  
 - Socketlib (for placing Tile effects *see Wiki*)
 
