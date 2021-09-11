@@ -103,7 +103,10 @@ export function autorecColors(itemName) {
             autorecType = 'static'
     }
     */
-    const animationName = autorecType === 'preset' && autorecObject[0].animation === "teleportation" ? autorecObject[0].subAnimation : autorecObject[0].animation;
+    let animationName = autorecType === 'preset' && autorecObject[0].animation === "teleportation" ? autorecObject[0].subAnimation : autorecObject[0].animation;
+    if (autorecSection[1] === 'templates') {
+        animationName = autorecObject[0].type;
+    }
     if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
     const name = animationName === 'shieldspell' ? 'shield' : animationName
     const variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
@@ -167,15 +170,15 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
 
     let autorecType = autorecSection[1]
 
-    
     let changeColor = baseColor;
 
     //if (!autorecObject[0].variant) {variant = Object.keys(jb2a[autorecType][autorecObject[0].animation])[0]}
-    const animationName = autorecType === 'preset' ? autorecObject[0].subAnimation : autorecObject[0].animation;
+    let animationName = autorecType === 'preset' ? autorecObject[0].subAnimation : autorecObject[0].animation;
     if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
-
-    const variant = !autorecObject[0].variant ? Object.keys(jb2a[autorecType][animationName])[0] : autorecObject[0].variant;
-
+    if (autorecSection[1] === 'templates') {
+        animationName = autorecObject[0].type;
+    }
+    let variant = !autorecObject[0].variant ? Object.keys(jb2a[autorecType][animationName])[0] : autorecObject[0].variant;
     if (!changeColor) { changeColor = Object.keys(jb2a[autorecType][animationName][variant])[0] }
     let color = autoOverridden ? changeColor : autorecObject[0].color
     if (color === 'random') { color = autorecObject[0].color || "" }

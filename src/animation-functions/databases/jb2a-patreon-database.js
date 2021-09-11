@@ -2023,7 +2023,6 @@ JB2APATREONDB.static = {
             green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
             orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
             purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
-
         }
     },
     bite: {
@@ -2262,9 +2261,9 @@ JB2APATREONDB.static = {
     lightningball: {
         '01': {
             darkpurple: [lg`Lightning/LightningBall_01_Dark_Purple_400x400.webm`],
-            blue: [l6`Lightning/LightningBall_01_Regular_Blue_400x400.webm`],
-            green: [l6`Lightning/LightningBall_01_Regular_Green_400x400.webm`],
-            purple: [l6`Lightning/LightningBall_01_Regular_Purple_400x400.webm`]
+            blue: [lg`Lightning/LightningBall_01_Regular_Blue_400x400.webm`],
+            green: [lg`Lightning/LightningBall_01_Regular_Green_400x400.webm`],
+            purple: [lg`Lightning/LightningBall_01_Regular_Purple_400x400.webm`]
         }
     },
     magicSign: {

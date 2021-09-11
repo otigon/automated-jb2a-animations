@@ -93,7 +93,7 @@ export class AAItemSettings extends FormApplication {
         let noScale = ['templates', 'range'];
         let noRepeatDelay = ['preset'];
         let noOptions = ['auras']
-        if (autorecType) {console.log(autorecType[1])}
+        //if (autorecType) {console.log(autorecType[1])}
         let autoRepeatDelay; //= autorecType ? noRepeatDelay.some(el => autorecType[1] === el) : false;
         let noAutoScale; //= autorecType ? false : noScale.some(el => autorecType[1] === el) ;
         let autoNone; //= autorecType ? noOptions.some(el => autorecType[1] === el) : false;

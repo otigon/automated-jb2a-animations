@@ -25,6 +25,7 @@
                                 <select name="aaAutorec.templates.{{idx}}.type">
                                     {{#select (lookup (lookup ../settings.aaAutorec.templates idx)
                                     'type')}}
+                                    <option value=""></option>
                                     <option value="cone">{{localize "AUTOANIM.cone"}}</option>
                                     <option value="rect">{{localize "AUTOANIM.square"}}</option>
                                     <option value="circle">{{localize "AUTOANIM.circle"}}</option>

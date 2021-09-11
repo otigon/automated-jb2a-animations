@@ -58,7 +58,6 @@ export async function explodeOnToken(handler) {
             .effect()
                 .file(explosion.file)
                 .atLocation(sourceToken)
-                .randomizeMirrorY()
                 .repeats(handler.explosionLoops, handler.explosionDelay)
                 //.missed(hit)
                 .scale(scaleT10)
