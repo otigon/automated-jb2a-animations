@@ -4,12 +4,21 @@ export default class GeneralAnimHandler {
     constructor(sourceToken, targets, item) {
         this._actorToken = sourceToken;
         this._actor = this._actorToken.actor;
-        this._item = item;
+        //Switches to Ammunition Animation if active on Item
+        let newItem;
+        let itemId;
+        if (item.data.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
+            itemId = item.data.data.consume.target;
+            newItem = this._actorToken.actor.items?.get(itemId) ?? "";
+        } else {
+            newItem = item;
+        }
+        this._item = newItem;
 
         this._allTargets = targets;
         
         this._flags = this._item.data?.flags?.autoanimations ?? "";
-        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
 
         this._animLevel = this._flags.animLevel ?? false;
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
@@ -53,7 +62,7 @@ export default class GeneralAnimHandler {
         this._templates = this._flags.templates ?? "";
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
-
+        this._variant = this._flags.options?.variant ?? "";
         this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
         this._customExplode = this._flags.options?.customExplosion ?? "";
 
@@ -90,10 +99,10 @@ export default class GeneralAnimHandler {
         this._targetLoops = this._targetToken.loops ?? 1,
         this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
         this._targetScale = this._targetToken.scale ?? 1,
-        this._targetDelay = this._targetToken.delayAfter ?? 500,
+        this._targetDelay = this._targetToken.delayStart ?? 500,
         this._targetVariant = this._targetToken.variant ?? "",
 
-        this._itemName = item.name?.toLowerCase() ?? '';
+        this._itemName = this._item.name?.toLowerCase() ?? '';
 
         this._animNameFinal;
         switch (true) {
@@ -158,7 +167,7 @@ export default class GeneralAnimHandler {
     get color() {return this._animColor;}
     //get defaultColor() {return this._defaultColor;}
     get animName() {return this._animNameFinal;}
-
+    get variant() { return this._variant; }
     get explosion() {return this._explosion;}
     get impactVar() {return this._impactVar;}
     get explosionColor() {return this._explodeColor;}

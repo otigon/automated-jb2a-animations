@@ -159,6 +159,7 @@ AUTOANIM.explodeVariant = {
     "boulderimpact": "AUTOANIM.itemBoulder",
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
+    "tollthedead": "AUTOANIM.tollthedead",
 }
 
 AUTOANIM.explodeVariantFree = {
@@ -196,6 +197,7 @@ AUTOANIM.selfemanation = {
     "shatter": "AUTOANIM.itemShatter",
     "thunderwave": "AUTOANIM.itemThunderwave",
     "antilifeshell": "AUTOANIM.animAntiLifeShell",
+    "tollthedead": "AUTOANIM.tollthedead",
 }
 
 AUTOANIM.aura = {
@@ -328,6 +330,15 @@ AUTOANIM.tokenAnimations = {
     "marker": "AUTOANIM.marker",
     "snowflake": "AUTOANIM.snowflake",
     "sneakattack": "AUTOANIM.sneakattack",
+    "tollthedead": "AUTOANIM.tollthedead",
+}
+
+AUTOANIM.tollthedeadVariants = {
+    "a1": ``,
+    "complete": 'AUTOANIM.complete',
+    "bell": 'AUTOANIM.bell',
+    "shockwave": 'AUTOANIM.shockwave',
+    "skull": 'AUTOANIM.skull',
 }
 
 AUTOANIM.autoself = {

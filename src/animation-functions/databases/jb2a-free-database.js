@@ -725,6 +725,20 @@ JB2AFREEDB.static = {
             }
         }
     },
+    tollthedead: {
+        bell: {
+            green: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Green_400x400.webm`],
+        },
+        complete: {
+            green: [l0`Toll_The_Dead/TollTheDead_01_Regular_Green_400x400.webm`],
+        },
+        shockwave: {
+            green: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Green_400x400.webm`],
+        },
+        skullsmoke: {
+            green: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`],
+        },
+    },
     wallofforce: {
         '01': {
             grey: [l5`Wall_Of_Force/WallOfForce_01_Grey_Sphere_400x400.webm`],

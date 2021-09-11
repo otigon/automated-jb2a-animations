@@ -29,6 +29,14 @@
                             flags.autoanimations.animLevel}} />
                     </div>
                     {{/unless}}
+                    {{#if ammo5e}}
+                    <div class='form-group'>
+                        <label>{{localize "AUTOANIM.ammoAnimate"}}</label>
+                        <input type="checkbox" name="flags.autoanimations.options.ammo"
+                            value="flags.autoanimations.options.ammo" data-dtype="{{Boolean}}" {{checked
+                            flags.autoanimations.options.ammo}} />
+                    </div>
+                    {{/if}}
                     <div class="form-group">
                         <label>{{localize "AUTOANIM.customize"}} {{localize "AUTOANIM.animation"}}</label>
                         <input type="checkbox" name="flags.autoanimations.override"
@@ -1217,7 +1225,7 @@
                 {{#unless flags.autoanimations.options.enableCustomExplosion}}
                 <!--Choose Explosion Variant-->
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuExplodeVariant"}}</label>
+                    <label>{{localize "AUTOANIM.menuAnimName"}}</label>
                     <select name="flags.autoanimations.explodeVariant">
                         {{#select flags.autoanimations.explodeVariant}}
                         {{#each explosionVariants as |name key|}}
@@ -1226,9 +1234,22 @@
                         {{/select}}
                     </select>
                 </div>
+                <!--Variant Options-->
+                {{#if variantOption}}
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                    <select name="flags.autoanimations.options.variant">
+                        {{#select flags.autoanimations.options.variant}}
+                        {{#each oldVariant as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                {{/if}}
                 <!--Choose Explosion Color-->
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuExplodeColor"}}</label>
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
                     <select name="flags.autoanimations.explodeColor">
                         {{#select flags.autoanimations.explodeColor}}
                         {{#each explosionColors as |name key|}}
@@ -1786,6 +1807,18 @@
                             {{/select}}
                         </select>
                     </div>
+                    {{#if variantSource}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                        <select name="flags.autoanimations.sourceToken.variant">
+                            {{#select flags.autoanimations.sourceToken.variant}}
+                            {{#each sourceVariant as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{/if}}
                     {{#if sourceMarker}}
                     <div class="impact-variant">
                         <!--Choose Impact Variant-->
@@ -1904,6 +1937,18 @@
                             {{/select}}
                         </select>
                     </div>
+                    {{#if variantTarget}}
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.variantChoice"}}</label>
+                        <select name="flags.autoanimations.targetToken.variant">
+                            {{#select flags.autoanimations.targetToken.variant}}
+                            {{#each targetVariant as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{/if}}
                     {{#if targetMarker}}
                     <div class="impact-variant">
                         <!--Choose Impact Variant-->

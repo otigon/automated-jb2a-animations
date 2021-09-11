@@ -290,7 +290,7 @@ async function specialCaseAnimations(msg) {
         return;
     }
     let breakOut = checkMessege(msg);
-    if (breakOut === 0) {
+    if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
         let handler = new Dnd5Handler(msg);
         const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
         if (handler.animType === "t8" && handler.animOverride) {

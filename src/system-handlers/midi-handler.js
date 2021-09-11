@@ -2,8 +2,18 @@ import { endTiming } from "../constants/timings.js";
 
 export default class MidiHandler {
     constructor(workflow) {
-        const item = workflow.item;
+        //const item = workflow.item;
         this._actorToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(item._id) != null);
+        //Switches to Ammunition Animation if active on Item
+        let item;
+        let itemId
+        if (workflow.item.data.flags?.autoanimations?.options?.ammo && workflow.item.data?.data?.consume?.type === "ammo") {
+            itemId = workflow.item.data.data.consume.target;
+            item = this._actorToken.actor.items?.get(itemId) ?? "";
+            if (!item.data.flags.autoanimations) { item = workflow.item}
+        } else {
+            item = workflow.item
+        }
         const actor = this._actorToken?.actor;
         if (!item || !actor) {
             return;
@@ -58,7 +68,7 @@ export default class MidiHandler {
         this._templates = this._flags.templates ?? "";
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
-
+        this._variant = this._flags.options?.variant ?? "";
         this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
         this._customExplode = this._flags.options?.customExplosion ?? "";
 
@@ -133,7 +143,7 @@ export default class MidiHandler {
         this._itemName = item.name?.toLowerCase() ?? '';;
         this._itemSource = item.data?.data?.source?.toLowerCase() ?? '';
         this._itemType = item.data.type.toLowerCase();
-        this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
 
         this._animNameFinal;
         switch (true) {
@@ -196,7 +206,7 @@ export default class MidiHandler {
     get color() { return this._animColor; }
     //get defaultColor() { return this._defaultColor; }
     get animName() { return this._animNameFinal; }
-
+    get variant() { return this._variant; }
     get explosion() { return this._explosion; }
     get impactVar() { return this._impactVar; }
     get explosionColor() { return this._explodeColor; }

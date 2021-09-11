@@ -69,7 +69,7 @@ export default class PF2Handler {
         this._templates = this._flags.templates ?? "";
         this._templatePersist = this._flags.templates?.persistent ?? false;
         this._templateOpacity = this._flags.templates?.opacity ?? 0.75;
-
+        this._variant = this._flags.options?.variant ?? "";
         this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
         this._customExplode = this._flags.options?.customExplosion ?? "";
 
@@ -90,24 +90,24 @@ export default class PF2Handler {
         this._sourceColor = this._sourceToken.color ?? "";
         this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;
         this._sourceCustomPath = this._sourceToken.customPath ?? "";
-        this._sourceLoops = this._sourceToken.loops ?? 1,
-            this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
-        this._sourceScale = this._sourceToken.scale ?? 1,
-            this._sourceDelay = this._sourceToken.delayAfter ?? 500,
-            this._sourceVariant = this._sourceToken.variant ?? "",
+        this._sourceLoops = this._sourceToken.loops ?? 1;
+        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
+        this._sourceScale = this._sourceToken.scale ?? 1;
+        this._sourceDelay = this._sourceToken.delayAfter ?? 500,
+            this._sourceVariant = this._sourceToken.variant ?? "";
 
-            this._targetToken = this.flags.targetToken ?? "";
+        this._targetToken = this.flags.targetToken ?? "";
         this._targetEnable = this._targetToken.enable ?? false;
         this._targetLevel = this._targetToken.animLevel ?? false;
         this._targetName = this._targetToken.name ?? "";
         this._targetColor = this._targetToken.color ?? "";
         this._targetCustomEnable = this._targetToken.enableCustom ?? false;
         this._targetCustomPath = this._targetToken.customPath ?? "";
-        this._targetLoops = this._targetToken.loops ?? 1,
-            this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
-        this._targetScale = this._targetToken.scale ?? 1,
-            this._targetDelay = this._targetToken.delayAfter ?? 500,
-            this._targetVariant = this._targetToken.variant ?? "";
+        this._targetLoops = this._targetToken.loops ?? 1;
+        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
+        this._targetScale = this._targetToken.scale ?? 1;
+        this._targetDelay = this._targetToken.delayStart ?? 500;
+        this._targetVariant = this._targetToken.variant ?? "";
 
         this._animNameFinal = (!this._animOverride) || ((this._animOverride) && (this._animName === ``))
             ? this._itemName
@@ -176,7 +176,7 @@ export default class PF2Handler {
     get color() { return this._animColor; }
     //get defaultColor() { return this._defaultColor; }
     get animName() { return this._animNameFinal; }
-
+    get variant() { return this._variant; }
     get explosion() { return this._explosion; }
     get impactVar() { return this._impactVar; }
     get explosionColor() { return this._explodeColor; }
@@ -220,12 +220,12 @@ export default class PF2Handler {
     get custom01() { return this._custom01 }
     get enableCustom01() { return this._enableCustom01 }
     get options() { return this._options }
-    get customExplode() { return this._enableCustomExplosion}
-    get customExplosionPath() { return this._customExplode}
+    get customExplode() { return this._enableCustomExplosion }
+    get customExplosionPath() { return this._customExplode }
 
-    get templates() {return this._templates;}
-    get templatePersist() {return this._templatePersist}
-    get templateOpacity() {return this._templateOpacity}
+    get templates() { return this._templates; }
+    get templatePersist() { return this._templatePersist }
+    get templateOpacity() { return this._templateOpacity }
 
     get switchType() { return this._switchType }
     get switchName() { return this._switchName }
@@ -236,29 +236,29 @@ export default class PF2Handler {
     get switchRange() { return this._switchRange }
     get switchReturn() { return this._returning }
 
-    get sourceEnable() {return this._sourceEnable;}
-    get sourceLevel() {return this._sourceLevel;}
-    get sourceName() {return this._sourceName;}
-    get sourceColor() {return this._sourceColor;}
-    get sourceCustomEnable() {return this._sourceCustomEnable;}
-    get sourceCustomPath() {return this._sourceCustomPath;}
-    get sourceLoops() {return this._sourceLoops;}
-    get sourceLoopDelay() {return this._sourceLoopDelay}
-    get sourceScale() {return this._sourceScale;}
-    get sourceDelay() {return this._sourceDelay;}
-    get sourceVariant() {return this._sourceVariant;}
+    get sourceEnable() { return this._sourceEnable; }
+    get sourceLevel() { return this._sourceLevel; }
+    get sourceName() { return this._sourceName; }
+    get sourceColor() { return this._sourceColor; }
+    get sourceCustomEnable() { return this._sourceCustomEnable; }
+    get sourceCustomPath() { return this._sourceCustomPath; }
+    get sourceLoops() { return this._sourceLoops; }
+    get sourceLoopDelay() { return this._sourceLoopDelay }
+    get sourceScale() { return this._sourceScale; }
+    get sourceDelay() { return this._sourceDelay; }
+    get sourceVariant() { return this._sourceVariant; }
 
-    get targetEnable() {return this._targetEnable;}
-    get targetLevel() {return this._targetLevel;}
-    get targetName() {return this._targetName;}
-    get targetColor() {return this._targetColor;}
-    get targetCustomEnable() {return this._targetCustomEnable;}
-    get targetCustomPath() {return this._targetCustomPath;}
-    get targetLoops() {return this._targetLoops;}
-    get targetLoopDelay() {return this._targetLoopDelay}
-    get targetScale() {return this._targetScale;}
-    get targetDelay() {return this._targetDelay;}
-    get targetVariant() { return this._targetVariant;}
+    get targetEnable() { return this._targetEnable; }
+    get targetLevel() { return this._targetLevel; }
+    get targetName() { return this._targetName; }
+    get targetColor() { return this._targetColor; }
+    get targetCustomEnable() { return this._targetCustomEnable; }
+    get targetCustomPath() { return this._targetCustomPath; }
+    get targetLoops() { return this._targetLoops; }
+    get targetLoopDelay() { return this._targetLoopDelay }
+    get targetScale() { return this._targetScale; }
+    get targetDelay() { return this._targetDelay; }
+    get targetVariant() { return this._targetVariant; }
 
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;

@@ -1,6 +1,8 @@
 import { AUTOANIM } from "./config.js";
+
 import { rangeColors, staticColors, animationName, animTemplates, variantOptions, menuColors, variantLength, autorecColors, checkAutoRec, autoPreview } from "./tab-options.js";
 import { findObjectByNameFull, rinseName } from "../custom-recognition/autoFunctions.js";
+
 import animPreview from "./anim-preview.js";
 //import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -69,7 +71,7 @@ export class AAItemSettings extends FormApplication {
         const damageType = flags.autoanimations?.rangedOptions?.rangeDmgType ?? "regular";
         const switchDamageType = flags.autoanimations?.meleeSwitch?.rangeDmgType ?? "regular";
         //let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
-        const explosionVariant = flags.autoanimations?.explodeVariant;
+        const explosionVariant = flags.autoanimations?.explodeVariant ?? '';
         //let impactVariant = flags.autoanimations?.impactVar || "";
         const templateType = flags.autoanimations?.templates?.tempType ?? "";
         const templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
@@ -217,6 +219,8 @@ export class AAItemSettings extends FormApplication {
             sourceColors: staticColors(sourceName, patreon, sourceVariant),
             sourceVariant: variantOptions(sourceName, "static"),
             sourceMarker: flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
+            variantSource: flags.autoanimations?.sourceToken?.name === "tollthedead" ? true : false,
+            sourceVariant: AUTOANIM.localized(AUTOANIM.tollthedeadVariants),
 
             targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
             targetLoops: flags.autoanimations?.targetToken?.loops ?? 1,
@@ -228,6 +232,8 @@ export class AAItemSettings extends FormApplication {
             targetColors: staticColors(targetName, patreon, targetVariant),
             targetVariant: variantOptions(sourceName, "static"),
             targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
+            variantTarget: flags.autoanimations?.targetToken?.name === "tollthedead" ? true : false,
+            targetVariant: AUTOANIM.localized(AUTOANIM.tollthedeadVariants),
 
             shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
             shield: itemName === "shieldspell",
@@ -264,6 +270,10 @@ export class AAItemSettings extends FormApplication {
             autoRepeat: flags.autoanimations?.options?.autoRepeat || 1,
             autoDelay: flags.autoanimations?.options?.autoDelay || 500,
             autoScale: flags.autoanimations?.options?.autoScale || 1,
+
+            ammo5e: game.system.id === "dnd5e" ? true : false,
+            variantOption: explosionVariant === "tollthedead" ? true : false
+
         };
 
     }

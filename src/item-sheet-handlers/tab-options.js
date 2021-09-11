@@ -1,6 +1,7 @@
 
 import { AUTOANIM } from "./config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
+
 import { getAllTheNames, findObjectByNameFull, autorecNameCheck, rinseName } from "../custom-recognition/autoFunctions.js";
 import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js";
 import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js";
@@ -80,6 +81,7 @@ export function staticColors(itemName, spellVariant, bardAnimation, damageType, 
     return animationColor;
 }
 
+
 export function autorecColors(itemName) {
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
     const autoName = rinseName(itemName)
@@ -118,6 +120,7 @@ export function checkAutoRec(itemName) {
         foundName = true;
     }
     return foundName;
+
 }
 export function variantOptions(itemName, type) {
 
@@ -127,7 +130,9 @@ export function variantOptions(itemName, type) {
 
     const variantMenu = aaVariantMenu;
     let variantOptions;
+
     try { variantOptions = variantMenu[type][name] }
+
     catch (exception) { }
     return variantOptions;
 }

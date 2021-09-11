@@ -13,13 +13,13 @@
     "AUTOANIM.midionmiss_hint": "En cas d'échec, l'animation déviera de sa cible. Requière MIDI Workflow pour vérifier les résultats",
     "AUTOANIM.midiondmg_name":"Ne jouer les animations que sur les jets de dégâts",
     "AUTOANIM.midiondmg_hint":"NÉCESSITE UN RAFRAÎCHISSEMENT. Lorsque cette option est activée, les animations ne sont jouées QUE sur le jet de dégâts.",
-    "AUTOANIM.demonlordtrigger_name":"Trigger to play animations",
-    "AUTOANIM.demonlordtrigger_hint":"Choose the condition for play animations",
-    "AUTOANIM.demonlordtrigger_rollattack":"Play animations on roll attack",
-    "AUTOANIM.demonlordtrigger_hits":"Play animations on hits",
-    "AUTOANIM.demonlordtrigger_misses": "Play animations on hits and misses",
-    "AUTOANIM.demonlordtrigger_rolldamage":"Play animations on roll damage",
-    "AUTOANIM.demonlordtrigger_applydamage":"Play animations on apply damage",
+    "AUTOANIM.demonlordtrigger_name":"Déclencheur pour jouer les animations",
+    "AUTOANIM.demonlordtrigger_hint":"Choisissez la condition pour jouer les animations",
+    "AUTOANIM.demonlordtrigger_rollattack":"Jouer les animations lors d'un jet d'attaque",
+    "AUTOANIM.demonlordtrigger_hits":"Jouer les animations si touché",
+    "AUTOANIM.demonlordtrigger_misses": "Jouer les animations sur les succès et les échecs",
+    "AUTOANIM.demonlordtrigger_rolldamage":"Jouer les animations sur les jets de dégâts",
+    "AUTOANIM.demonlordtrigger_applydamage":"Jouer les animations lors de l'application de dommages",
     "AUTOANIM.coreondmg_name":"Jouer les animations d'attaque uniquement sur les jets de dégâts",
     "AUTOANIM.coreondmg_hint":"Par défaut, les animations sont jouées sur les jets d'attaque.",
     "AUTOANIM.enableshield_name":"Activer l'animation du sort Bouclier",
@@ -380,6 +380,11 @@
     "AUTOANIM.scaleToToken": "Échelle par taille de jeton",
     "AUTOANIM.noTemplate": "Modèle à ne pas placer",
     "AUTOANIM.anchorX": "Ancre X",
-    "AUTOANIM.anchorY": "Ancre Y"
+    "AUTOANIM.anchorY": "Ancre Y",
+    
+    "AUTOANIM.lightningbolt02": "Éclair 02",
+    "AUTOANIM.cloudofkunais": "Nuage de Kunais",
 
+    "AUTOANIM.web": "Toile",
+    "AUTOANIM.ammoAnimate": "Animer à partir des munitions"
 }

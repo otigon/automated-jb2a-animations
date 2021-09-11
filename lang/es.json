@@ -80,6 +80,7 @@
     "AUTOANIM.03":"03",
     "AUTOANIM.kunai":"Kunai",
 
+    
     "AUTOANIM.itemSpell": "Conjuro",
     "AUTOANIM.itemWeapon": "Arma",
     "AUTOANIM.itemFeat": "Dote",
@@ -129,8 +130,6 @@
     "AUTOANIM.itemLaserBlast": "Estallido Láser",
     "AUTOANIM.itemSiegeBoulder": "Roca de Asedio",
     "AUTOANIM.itemThrowingHammer": "Martillo Arrojadizo",
-    "AUTOANIM.itemDagger01": "Daga01",
-    "AUTOANIM.itemDagger02": "Daga02",
     "AUTOANIM.itemSling": "Tirachinas",
 
     "AUTOANIM.itemUnarmedStrike": "Ataque sin Armas",
@@ -382,8 +381,16 @@
     "AUTOANIM.anchorX": "Ancla X",
     "AUTOANIM.anchorY": "Ancla Y",
     
-    "AUTOANIM.colorPaleGreen": "Verde Pálido",
     "AUTOANIM.lightningbolt02": "Relámpago 02",
-    "AUTOANIM.cloudofkunais": "Nube de Kunais"
+    "AUTOANIM.cloudofkunais": "Nube de Kunais",
+    
+    "AUTOANIM.web": "Telaraña",
+    "AUTOANIM.ammoAnimate": "Animar en base a munición",
+
+    "AUTOANIM.tollthedead": "Tocar a los Muertos",
+    "AUTOANIM.bell": "Campana",
+    "AUTOANIM.shockwave": "Onda de choque",
+    "AUTOANIM.skull": "Cráneo",
+    "AUTOANIM.complete": "Completo"
 
 }

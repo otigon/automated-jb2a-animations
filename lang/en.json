@@ -412,4 +412,12 @@
     "AUTOANIM.preset": "Preset",
     "AUTOANIM.autoRecSetting": "Configure Automatic Recognition"
 
+    "AUTOANIM.ammoAnimate": "Animate from Ammunition",
+
+    "AUTOANIM.tollthedead": "Toll the Dead",
+    "AUTOANIM.bell": "Bell",
+    "AUTOANIM.shockwave": "Shockwave",
+    "AUTOANIM.skull": "Skull",
+    "AUTOANIM.complete": "Complete"
+
 }

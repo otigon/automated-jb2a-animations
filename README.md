@@ -8,8 +8,9 @@ MIT License provided:
 - The SEQUENCER module is now a dependancy of Automated Animations.  
 Many thanks to WASP for creating a great animation framework with the **SEQUENCER** Module. Check out his website [**here**](https://app.fantasy-calendar.com/) and get the **SEQUENCER** module asap!
 
-<br>
-<br>
+# A Note on adding support for more systems:  
+
+I will not be expanding support for any more systems for the forseeable future. I will attempt to write a guide on how to add support, but I can't promise anything. The amount of upkeep with the module keeps me busy enough. Each system is unique, and many do not pass the required information in the chat messages for A-A to be able to function properly
 
 # Automated Animations
 **No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
@@ -42,8 +43,7 @@ REQUIRED MODULES:
 - **JB2A** - Jules&Ben's Animated Assets (patreon or free version)  
 - **Sequencer** by Wasp
 
-Optional Modules:
-- Token Magic FX  
+Optional Modules: 
 - Custom Token Animations by Kandashi (For Aura effects)  
 - Socketlib (for placing Tile effects *see Wiki*)
 
@@ -57,12 +57,8 @@ Supported Modules for DnD5e (Those that mess with rolling):
 
 ## Roadmap (subject to change) in no particular Order yet:  
      
-1. Extending support to more systems  -- In Process
-2. Adding customizable TMFX options on a per item basis (versus a global on/off setting currently)  
-3. Adding "Summon" effects for spells/features  
-4. Enhancing Item Sounds to use a wildcard feature  
-5. Global level Automatic Recognition that can be set by the GM and offer a certain level of customization. Configured from the module settings menu  
-6. Audio Revamp for better play of sounds, wildcard feature, linking the sound directly to a particular animation, etc.  
+1. Adding customizable TMFX options on a per item basis (versus a global on/off setting currently)    
+2. Audio Revamp for better play of sounds, wildcard feature, linking the sound directly to a particular animation, etc.  
 
 # Overview
 ## Attack Spells and Melee attacks require a token(s) to be Targeted
