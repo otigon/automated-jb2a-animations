@@ -138,7 +138,7 @@ export class aaAutorec {
             range: {
                 0: {
                     hidden: true,
-                    name: 'Crossbow',
+                    name: 'Heavy Crossbow',
                     animation: 'bolt',
                     variant: 'physical',
                     color: 'orange',
