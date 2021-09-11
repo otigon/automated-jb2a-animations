@@ -24,7 +24,6 @@ async function bardicInspiration(handler, autoObject) {
         data.selfAnimation = handler.bardAnim;
         data.targetAnimation = handler.bards.bardTargetAnim;
     }
-    console.log(data)
     
     let selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.selfMarkerColor}`;
     let targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.targetMarkerColor}`

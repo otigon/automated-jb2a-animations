@@ -31,9 +31,7 @@ export async function bless(handler, autoObject) {
         data.below = handler.animLevel;
         data.addCTA = handler.options?.addCTA;
     }
-    console.log(data)
     const bless = await buildBlessFile(obj01, data.color);
-    console.log(bless)
     // builds Source Token file if Enabled, and pulls from flags if already set
     let sourceFX;
     if (handler.sourceEnable) {

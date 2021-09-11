@@ -293,21 +293,6 @@ export class aaAutoRecognition extends FormApplication {
             value.preset = compacted;
             await game.settings.set('autoanimations', key, value);
         }
-
-        /*
-        //test for building array of auto-rec names
-        let settings = game.settings.get('autoanimations', 'aaAutorec');
-        console.log(settings)
-        let meleeLength = Object.keys(settings.melee).length
-        let meleeNameArray = [];
-        let currentName;
-        for (var i = 0; i < meleeLength; i++) {
-            currentName = Object.entries(settings.melee[i])[0][1].toLowerCase()
-            //console.log(currentName)
-            meleeNameArray.push(currentName)
-        }
-        console.log(meleeNameArray)
-        */
     }
 }
 

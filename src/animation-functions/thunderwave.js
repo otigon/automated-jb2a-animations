@@ -10,7 +10,6 @@ export async function thunderwaveAuto(handler, autoObject) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-     console.log(autoObject)
     const data = {}
     if (autoObject) {
         const autoOverridden = handler.options?.overrideAuto
@@ -37,7 +36,7 @@ export async function thunderwaveAuto(handler, autoObject) {
         data.occlusionMode = parseInt(handler.templates?.occlusionMode ?? "3");
         data.removeTemplate = handler.templates.removeTemplate;
     }
-    console.log(data)
+
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let color;
     const colors = ['green', 'orange', 'purple', 'red', 'blue']

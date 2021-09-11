@@ -46,18 +46,12 @@ Hooks.on('init', () => {
     });
     Handlebars.registerHelper("aaEach", function (colors, type, name, variant, options) {
         var ret = "";
-        //console.log(colors)
-        //console.log("type is " + type)
-        //console.log("name is " + name)
-        //console.log("varaint is " + variant)
 
         let context;
         context = colors[type][name][variant]
         for (var i = 0, j = context.length; i < j; i++) {
             ret = ret + options.fn(context[i]);
-            //console.log(context[i])
         }
-        //console.log(ret)
         return ret;
     });
     Handlebars.registerHelper('concat', function (...params) {

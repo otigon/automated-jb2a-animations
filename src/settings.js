@@ -33,35 +33,6 @@ export default function aaSettings() {
         }, true, true),
     );
 
-    /*
-        game.settings.registerMenu("autoanimations", "custom-autorec", {
-            name: "Automatic Recognition",
-            label: "Configure Automatic Recognition",
-            hint: "Set Automatic Recognition of Items for Animations",
-            icon: "fas fa-dice-d20",
-            type: AAcustomRecog,
-            restricted: true
-        });
-    
-        game.settings.register("autoanimations", "aaAutoRecog", {
-            mergeObject()(
-            name: "Automatic Recognition",
-            label: "Configure Automatic Recognition",
-            hint: "Set Automatic Recognition of Items for Animations",
-            scope: "world",
-            config: false,
-            default: {
-                aaAutoRecog: {
-                    overrides: {
-                        0: {
-                            target: 'Stinking Cloud',
-                        },
-                    },
-                }
-            },
-            type: Object
-        });
-    */
     game.settings.register("autoanimations", "killAllAnim", {
         name: game.i18n.format("AUTOANIM.toggleAnimations"),
         hint: game.i18n.format("AUTOANIM.toggleAnimations_hint"),
@@ -80,7 +51,6 @@ export default function aaSettings() {
             if (value === "on") {
                 window.location.reload()
             }
-            //console.log(value)
         }
     })
     game.settings.register("autoanimations", "disableAutoRec", {

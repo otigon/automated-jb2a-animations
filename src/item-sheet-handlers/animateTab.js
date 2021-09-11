@@ -79,7 +79,7 @@ export class AAItemSettings extends FormApplication {
         const returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
 
         //let variantLength = variantLength(itemName, );
-        console.log(itemName)
+
         const meleeLength = variantLength(itemName, "melee");
         const rangeLength = variantLength(itemName, "range");
         const staticLength = variantLength(itemName, "static");

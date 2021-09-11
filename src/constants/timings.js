@@ -1,7 +1,7 @@
 export function endTiming(itemName) {
     let name = itemName.replace(/\s+/g, '').toLowerCase();
     let animEnd = 700;
-    console.log(name)
+
     switch (name) {
         case "rangelasersword":
         case "rangelasersworddb":
@@ -77,7 +77,7 @@ export function endTiming(itemName) {
             animEnd = 0;
             break;
     }
-    console.log(animEnd)
+
     return animEnd;
 }
 

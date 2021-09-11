@@ -14,18 +14,7 @@ export async function rangedAnimations(handler, autoObject) {
     //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
-    //console.log(autoObject);
-    //console.log(autoObject[0].animation)
-    /*
-    let itemName = handler.convertedName;
-    let dmgType;
-    if (itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-        dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
-    }
-    let variant = AAITEMCHECK.spellattack.some(el => itemName.includes(el)) ? handler.spellVariant : dmgType;
-    variant = itemName === "rangelasersword" || itemName === "rangedagger" || itemName === "rangehandaxe" || itemName === "chakram" ? handler.dtvar : variant;
-    let color = handler.color
-    */
+
     const data = {}
     if (autoObject) {
         const autoOverridden = handler.options?.overrideAuto
@@ -34,7 +23,6 @@ export async function rangedAnimations(handler, autoObject) {
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
         data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-        console.log(data)
     } else {
         data.itemName = handler.convertedName;
         if (data.itemName === "arrow") { data.dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {

@@ -11,7 +11,7 @@ function animPreview(flags, name) {
     let jb2a = moduleIncludes("jb2a_patreon") === true ? true : false;
     //let itemName = item.animName.toLowerCase();
     let itemName = name;
-    console.log("Preview item name is " + itemName)
+
     let item = flags.autoanimations ?? "";
     let color;
     let obj02;
@@ -283,7 +283,7 @@ function animPreview(flags, name) {
                 break;
         }
     }
-    console.log("Preview path is " + preview)
+
     return preview
 
     function testPath(path) {

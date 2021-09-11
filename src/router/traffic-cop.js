@@ -27,75 +27,9 @@ async function itemSound(handler) {
         AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
     }
 }
-/*
-function getAllNames(obj, type) {
-    const nameArray = []
-    try {Object.keys(obj[type]).length} 
-    catch (exception) {return nameArray}
-    const arrayLength = Object.keys(obj[type]).length
-    for (var i = 0; i < arrayLength; i++) {
-        nameArray.push(obj[type][i].name.toLowerCase())
-    }
-    return nameArray;
-}
 
-function getAllTheNames(obj) {
-    const nameArray = []
-    const keys = Object.keys(obj)
-    const keyLength = keys.length
-    for (var i = 0; i < keyLength; i++) {
-        var arrayLength = Object.keys(obj[keys[i]]).length
-        var currentObject = obj[keys[i]]
-        for (var k = 0; k < arrayLength; k++) {
-            nameArray.push(currentObject[k].name.toLowerCase())
-        }
-    }
-    return nameArray;
-}
-
-function findObjectByName(data, type, name) {
-    return Object.values(data[type]).filter(section => {
-        return section.name.toLowerCase() === (name.toLowerCase()) ? section : "";
-    })
-}
-
-function findObjectByNameFull(data, name) {
-    const keys = Object.keys(data)
-    const keyLength = keys.length
-    let newObject;
-    for (var i = 1; i < keyLength; i++) {
-        var currentObject = data[keys[i]]
-        console.log(currentObject)
-        newObject = Object.values(currentObject).filter(section => {
-            return section.name.toLowerCase() === (name.toLowerCase()) ? section : "";
-        })
-        //console.log(newObject)
-        if (newObject.length === 1) {return newObject}
-    }
-}
-
-function autorecNameCheck(nameArray, name) {
-    const arrayLength = nameArray.length;
-    let nameFound = false;
-    for (var i = 0; i < arrayLength; i++) {
-        if (nameArray[i].toLowerCase() === name) {
-            nameFound = true;
-        }
-    }
-    //console.log(nameFound)
-    return nameFound;
-}
-
-function rinseName(oldName) {
-    let newName = oldName.replace(/[+1]|[+2]|[+3]/gi, function (x) {
-        return "";
-    });
-    newName = newName.trim("\s+$/g", "")
-    return newName;
-}
-*/
 export async function trafficCop(handler) {
-    //console.log(autoRecSettings)
+
     const itemArray = moduleIncludes("jb2a_patreon") ? AAITEMCHECK : AAITEMCHECKFREE;
     if (handler.itemSound) {
         itemSound(handler);
@@ -205,7 +139,6 @@ export async function trafficCop(handler) {
             }
             
             //const autoObject = findObjectByNameFull(autoRecSettings, autoName)
-            //console.log(autoObject)
             const nameArrays = {
                 melee: getAllNames(autoRecSettings, 'melee'),
                 range: getAllNames(autoRecSettings, 'range'),
@@ -250,7 +183,6 @@ export async function trafficCop(handler) {
                     break;
                 case autorecNameCheck(getAllNames(autoRecSettings, 'preset'), autoName):
                     const presetAutoObject = findObjectByName(autoRecSettings, 'preset', autoName);
-                    console.log(presetAutoObject)
                     switch (presetAutoObject[0].animation) {
                         case 'bardicinspiration':
                             bardicInspiration(handler, presetAutoObject);

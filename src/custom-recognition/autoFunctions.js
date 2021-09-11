@@ -28,7 +28,6 @@ export function autorecNameCheck(nameArray, name) {
             nameFound = true;
         }
     }
-    //console.log(nameFound)
     return nameFound;
 }
 
@@ -40,7 +39,7 @@ export function rinseName(oldName) {
     //newName = newName.trim("\s+$/g", "")
     //cut out all spaces
     newName = newName.replace(/\s+/g, '');
-    //console.log(newName)
+
     return newName;
 }
 
@@ -68,7 +67,7 @@ export function findObjectByNameFull(data, name) {
             //added .replace()
             return section.name.replace(/\s+/g, '').toLowerCase() === (name.toLowerCase()) ? section : "";
         })
-        //console.log(newObject)
+
         if (newObject.length === 1) {return [ newObject, keys[i] ]}
     }
 }

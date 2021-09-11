@@ -23,7 +23,7 @@ export function menuColors(itemName, variant, type) {
 }
 
 export function rangeColors(itemName, damageType, variant) {
-    console.log(itemName)
+
     let animationColor;
     let animVar;
     let name = itemName.replace(/melee|range|double/gi, function (x) {
@@ -155,42 +155,26 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     }
     const jb2a = patreon ? JB2APATREONDB : JB2AFREEDB;
     const autorecSection = findObjectByNameFull(autoRecSettings, autoName);
-    //console.log(autorecSection)
+
     const autorecObject = autorecSection[0]
     if (autorecObject[0].animation === 'bardicinspiration' || autorecObject[0].animation === 'bless' || autorecObject[0].animation === 'shieldspell') { return; }
     if (autorecObject[0].custom) { return autorecObject[0].customPath }
-    //console.log(autorecObject)
+
     let autorecType = autorecSection[1]
-    //if (autorecType === 'preset') {return;}
-    //console.log(autorecType)
+
+    
     let changeColor = baseColor;
-    /*
-    switch (true) {
-        case autorecType === 'melee':
-        case autorecType === 'range':
-            break;
-        default:
-            autorecType = 'static'
-    }
-    */
+
     //if (!autorecObject[0].variant) {variant = Object.keys(jb2a[autorecType][autorecObject[0].animation])[0]}
     const animationName = autorecType === 'preset' ? autorecObject[0].subAnimation : autorecObject[0].animation;
     if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
-    //console.log(autoName)
-    console.log(autorecType)
-    console.log(animationName)
+
     const variant = !autorecObject[0].variant ? Object.keys(jb2a[autorecType][animationName])[0] : autorecObject[0].variant;
-    console.log(variant)
+
     if (!changeColor) { changeColor = Object.keys(jb2a[autorecType][animationName][variant])[0] }
     let color = autoOverridden ? changeColor : autorecObject[0].color
     if (color === 'random') { color = autorecObject[0].color || "" }
-    /*
-    console.log(autoOverridden)
-    console.log(autorecType)
-    console.log(color)
-    console.log(autorecObject[0].animation)
-    console.log(autoName)
-    */
+
     const file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color]
     return file;
 }
