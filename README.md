@@ -8,11 +8,9 @@ MIT License provided:
 - The SEQUENCER module is now a dependancy of Automated Animations.  
 Many thanks to WASP for creating a great animation framework with the **SEQUENCER** Module. Check out his website [**here**](https://app.fantasy-calendar.com/) and get the **SEQUENCER** module asap!
 
-<br>
 # A Note on adding support for more systems:  
 
 I will not be expanding support for any more systems for the forseeable future. I will attempt to write a guide on how to add support, but I can't promise anything. The amount of upkeep with the module keeps me busy enough. Each system is unique, and many do not pass the required information in the chat messages for A-A to be able to function properly
-<br>
 
 # Automated Animations
 **No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
