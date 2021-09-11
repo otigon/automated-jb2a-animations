@@ -292,12 +292,13 @@ async function specialCaseAnimations(msg) {
     let breakOut = checkMessege(msg);
     if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
         let handler = new Dnd5Handler(msg);
-        const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
         if (handler.animType === "t8" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
-                templateAnimation(handler, msg);
+                templateAnimation(handler);
             })
+            return;
         }
+        const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
         if (templateItem && !handler.animOverride) {
             trafficCop(handler)
         }

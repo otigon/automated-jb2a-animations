@@ -29,8 +29,6 @@ async function itemSound(handler) {
 }
 
 export async function trafficCop(handler) {
-
-    const itemArray = moduleIncludes("jb2a_patreon") ? AAITEMCHECK : AAITEMCHECKFREE;
     if (handler.itemSound) {
         itemSound(handler);
     }
