@@ -14,6 +14,7 @@ import SW5eHandler from "./system-handlers/sw5e-handler.js";
 import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
 import PF2Handler from "./system-handlers/pf2-handler.js";
 import ForbiddenLandsHandler from "./system-handlers/forbidden-lands-handler.js";
+import flagHandler from "./system-handlers/consolidated-handler.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import aaSettings from "./settings.js";
@@ -257,7 +258,7 @@ function moduleIncludes(test) {
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
-    let handler = new MidiHandler(workflow);
+    let handler = new flagHandler(workflow);
     const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -267,7 +268,7 @@ function setUpMidi(workflow) {
 function setUpMidiNoAD(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
-    let handler = new MidiHandler(workflow);
+    let handler = new flagHandler(workflow);
     const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -277,7 +278,7 @@ function setUpMidiNoAD(workflow) {
 function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
-    let handler = new MidiHandler(workflow);
+    let handler = new flagHandler(workflow);
     const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -291,7 +292,7 @@ async function specialCaseAnimations(msg) {
     }
     let breakOut = checkMessege(msg);
     if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
-        let handler = new Dnd5Handler(msg);
+        let handler = new flagHandler(msg, true);
         if (handler.animType === "t8" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler);
@@ -324,7 +325,7 @@ function setUp5eCore(msg) {
     let rollType;
     switch (game.system.id) {
         case "dnd5e":
-            handler = new Dnd5Handler(msg);
+            handler = new flagHandler(msg);
             rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
             break;
         case "sw5e":
@@ -380,10 +381,10 @@ function onCreateChatMessage(msg) {
     let handler;
     switch (game.system.id) {
         case "pf1":
-            handler = new Pf1Handler(msg);
+            handler = new flagHandler(msg);
             break;
         case "D35E":
-            handler = new Dnd35Handler(msg);
+            handler = new flagHandler(msg);
             break;
     }
     /*
@@ -403,7 +404,8 @@ function onCreateChatMessage(msg) {
 */
 function swadeData(SwadeActor, SwadeItem) {
     if (killAllAnimations) { return; }
-    let handler = new SwadeHandler(SwadeActor, SwadeItem);
+    let data = {SwadeActor, SwadeItem}
+    let handler = new flagHandler(data);
     trafficCop(handler);
 }
 
@@ -424,7 +426,7 @@ function starFinder(data, msg) {
 */
 function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
-    let handler = new Tormenta20Handler(msg);
+    let handler = new flagHandler(msg);
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
@@ -444,7 +446,7 @@ function setupTormenta20(msg) {
 async function fblReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = new ForbiddenLandsHandler(msg);
+    const handler = new flagHandler(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
@@ -454,6 +456,7 @@ async function fblReady(msg) {
 / Sets Handler for Demon Lord
 */
 function setupDemonLord(data) {
+    console.log(data)
     if (killAllAnimations) { return; }
     let handler = new DemonLordHandler(data);
     trafficCop(handler);

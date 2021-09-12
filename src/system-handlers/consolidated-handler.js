@@ -1,16 +1,28 @@
 import { endTiming } from "../constants/timings.js";
-import { getItemTokenFromMessage } from "./item-data/get-data.js";
+import { getSystemData } from "./item-data/getdata-by-system.js";
 
-export default class genericHandler {
-    constructor(msg) {
-        const data = getItemTokenFromMessage(msg);
+export default class flagHandler {
+    constructor(msg, isChat) {
+        const data = getSystemData(msg, isChat);
         const item = data.item;
         const token = data.token;
-        if (!item || !token) {return;}
-        
+        const targets = data.targets;
+        const hitTargets = data.hitTargets;
+        const midiActive = game.modules.get('midi-qol')?.active;
+        if (!item || !token) { return; }
+
         this._actorToken = token;
         this._actor = token.actor;
-        this._allTargets = Array.from(msg.user.targets);
+        this._allTargets = targets;
+        this._playOnMiss = midiActive ? game.settings.get("autoanimations", "playonmiss") : false;
+        const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
+        this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
+        this._userAD = midiActive ? midiSettings?.autoRollDamage: "";
+
+        this._hitTargets = hitTargets;
+        this._hitTargetsId = hitTargets ? Array.from(this._hitTargets.filter(actor => actor.id).map(actor => actor.id)) : undefined;
+        this._targetsId = Array.from(this._allTargets.filter(actor => actor.id).map(actor => actor.id));
+
         this._item = item;
         this._itemName = this._item.name?.toLowerCase() ?? "";
         this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
@@ -80,12 +92,12 @@ export default class genericHandler {
         this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;
         this._sourceCustomPath = this._sourceToken.customPath ?? "";
         this._sourceLoops = this._sourceToken.loops ?? 1,
-        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
+            this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
         this._sourceScale = this._sourceToken.scale ?? 1,
-        this._sourceDelay = this._sourceToken.delayAfter ?? 500,
-        this._sourceVariant = this._sourceToken.variant ?? "",
+            this._sourceDelay = this._sourceToken.delayAfter ?? 500,
+            this._sourceVariant = this._sourceToken.variant ?? "",
 
-        this._targetToken = this.flags.targetToken ?? "";
+            this._targetToken = this.flags.targetToken ?? "";
         this._targetEnable = this._targetToken.enable ?? false;
         this._targetLevel = this._targetToken.animLevel ?? false;
         this._targetName = this._targetToken.name ?? "";
@@ -93,42 +105,31 @@ export default class genericHandler {
         this._targetCustomEnable = this._targetToken.enableCustom ?? false;
         this._targetCustomPath = this._targetToken.customPath ?? "";
         this._targetLoops = this._targetToken.loops ?? 1,
-        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
+            this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
         this._targetScale = this._targetToken.scale ?? 1,
-        this._targetDelay = this._targetToken.delayStart ?? 500,
-        this._targetVariant = this._targetToken.variant ?? "",
+            this._targetDelay = this._targetToken.delayStart ?? 500,
+            this._targetVariant = this._targetToken.variant ?? "",
 
-        this._animNameFinal;
+            this._animNameFinal;
         switch (true) {
-            case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
+            case ((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
                 this._animNameFinal = this._itemName;
                 break;
             default:
                 this._animNameFinal = this._animName;
                 break;
         }
-        /* For storing nameConversions, disabling for now
-        this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
-        if (this._convert[0] !== "pass") {
-            this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
-            this._item.setFlag("autoanimations", "defaults.color", this._convert[1])
-        }
-        this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
-        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
-        */
-        //this._convert = nameConversion(this._animNameFinal);
         this._convertName = this._animName.replace(/\s+/g, '').toLowerCase();
-        //this._defaultColor = this._convert[1];
         this._delay = endTiming(this._animNameFinal);
     }
 
-    get convertedName() {return this._convertName;}
+    get convertedName() { return this._convertName; }
     get animEnd() { return this._delay }
-    get itemMacro() {return this._itemMacro;}
+    get itemMacro() { return this._itemMacro; }
 
-    get playOnMiss() {return false}
+    get playOnMiss() { return this._playOnMiss }
 
-    get actor() {return this._actor;}
+    get actor() { return this._actor; }
 
     get reachCheck() {
         let reach = 0;
@@ -142,75 +143,73 @@ export default class genericHandler {
     }
 
     get itemName() { return this._itemName }
-    get item() {return this._item}
-    get actorToken() {return this._actorToken;}
-    get allTargets() {return this._allTargets;}
-    get hitTargetsId() {return this._hitTargetsId;}
-    get targetsId() {return this._targetsId;}
+    get item() { return this._item }
+    get actorToken() { return this._actorToken; }
+    get allTargets() { return this._allTargets; }
+    get hitTargetsId() { return this._hitTargetsId; }
+    get targetsId() { return this._targetsId; }
 
-    get targetAssistant() {return this._targetAssistant;}
+    get isValid() { return !!(this._item && this._actor); }
+    get itemType() { return this._item.data.type.toLowerCase(); }
 
-    get isValid() {return !!(this._item && this._actor);}
-    get itemType() {return this._item.data.type.toLowerCase();}
+    get checkSaves() { return }
 
-    get checkSaves() {return}
-
-    get animKill() {return this._animKill;}
-    get animOverride() {return this._animOverride;}
-    get animType() {return this._animType;}
-    get color() {return this._animColor;}
+    get animKill() { return this._animKill; }
+    get animOverride() { return this._animOverride; }
+    get animType() { return this._animType; }
+    get color() { return this._animColor; }
     //get defaultColor() {return this._defaultColor;}
-    get animName() {return this._animNameFinal;}
+    get animName() { return this._animNameFinal; }
     get variant() { return this._variant; }
-    get explosion() {return this._explosion;}
-    get impactVar() {return this._impactVar;}
-    get explosionColor() {return this._explodeColor;}
-    get explosionRadius() {return this._explodeRadius;}
-    get explosionVariant() {return this._explodeVariant;}
-    get explosionDelay() {return this._explodeDelay;}
-    get explosionLevel() {return this._exAnimLevel;}
-    get explosionLoops() {return this._animExLoop;}
+    get explosion() { return this._explosion; }
+    get impactVar() { return this._impactVar; }
+    get explosionColor() { return this._explodeColor; }
+    get explosionRadius() { return this._explodeRadius; }
+    get explosionVariant() { return this._explodeVariant; }
+    get explosionDelay() { return this._explodeDelay; }
+    get explosionLevel() { return this._exAnimLevel; }
+    get explosionLoops() { return this._animExLoop; }
 
-    get dtvar() {return this._dtvar;}
-    get selfRadius() {return this._selfRadius;}
+    get dtvar() { return this._dtvar; }
+    get selfRadius() { return this._selfRadius; }
 
-    get animTint() {return this._animTint;}
-    get auraOpacity() {return this._auraOpacity;}
-    get ctaOption() {return this._ctaOption;}
+    get animTint() { return this._animTint; }
+    get auraOpacity() { return this._auraOpacity; }
+    get ctaOption() { return this._ctaOption; }
 
-    get hmAnim() {return this._hmAnim;}
-    get uaStrikeType() {return this._uaStrikeType;}
-    get teleRange() {return this._teleDist;}
-    get spellVariant() {return this._spellVar;}
+    get hmAnim() { return this._hmAnim; }
+    get uaStrikeType() { return this._uaStrikeType; }
+    get teleRange() { return this._teleDist; }
+    get spellVariant() { return this._spellVar; }
 
-    get bardTarget() {return this._bardTarget;}
-    get bardSelf() {return this._bardSelf;}
-    get bardAnim() {return this._bardAnim;}
-    get bards() {return this._bards;}
+    get bardTarget() { return this._bardTarget; }
+    get bardSelf() { return this._bardSelf; }
+    get bardAnim() { return this._bardAnim; }
+    get bards() { return this._bards; }
 
-    get allSounds() {return this._allSounds;}
-    get itemSound() {return this._itemSound;}
-    get explodeSound() {return this._explodeSound}
+    get allSounds() { return this._allSounds; }
+    get itemSound() { return this._itemSound; }
+    get explodeSound() { return this._explodeSound }
 
-    get spellLoops() {return this._spellLoops;}
-    get divineSmite() {return this._divineSmite;}
-    get autoDamage() {return game.user.isGM ? this._gmAD : this._userAD;}
-    get flags() {return this._flags;}
+    get spellLoops() { return this._spellLoops; }
+    get divineSmite() { return this._divineSmite; }
+    get autoDamage() { return game.user.isGM ? this._gmAD : this._userAD; }
+    get flags() { return this._flags; }
 
-    get rangedOptions() {return this._rangedOptions;}
-    get animationLoops() {return this._animLoops;}
-    get loopDelay() {return this._loopDelay;}
-    get scale() {return this._scale;}
-    get animLevel() {return this._animLevel;}
+    get rangedOptions() { return this._rangedOptions; }
+    get animationLoops() { return this._animLoops; }
+    get loopDelay() { return this._loopDelay; }
+    get scale() { return this._scale; }
+    get animLevel() { return this._animLevel; }
     get custom01() { return this._custom01 }
     get enableCustom01() { return this._enableCustom01 }
     get options() { return this._options }
-    get customExplode() { return this._enableCustomExplosion}
-    get customExplosionPath() { return this._customExplode}
+    get customExplode() { return this._enableCustomExplosion }
+    get customExplosionPath() { return this._customExplode }
 
-    get templates() {return this._templates;}
-    get templatePersist() {return this._templatePersist}
-    get templateOpacity() {return this._templateOpacity}
+    get templates() { return this._templates; }
+    get templatePersist() { return this._templatePersist }
+    get templateOpacity() { return this._templateOpacity }
 
     get switchType() { return this._switchType }
     get switchName() { return this._switchName }
@@ -221,32 +220,32 @@ export default class genericHandler {
     get switchRange() { return this._switchRange }
     get switchReturn() { return this._returning }
 
-    get sourceEnable() {return this._sourceEnable;}
-    get sourceLevel() {return this._sourceLevel;}
-    get sourceName() {return this._sourceName;}
-    get sourceColor() {return this._sourceColor;}
-    get sourceCustomEnable() {return this._sourceCustomEnable;}
-    get sourceCustomPath() {return this._sourceCustomPath;}
-    get sourceLoops() {return this._sourceLoops;}
-    get sourceLoopDelay() {return this._sourceLoopDelay}
-    get sourceScale() {return this._sourceScale;}
-    get sourceDelay() {return this._sourceDelay;}
-    get sourceVariant() {return this._sourceVariant;}
+    get sourceEnable() { return this._sourceEnable; }
+    get sourceLevel() { return this._sourceLevel; }
+    get sourceName() { return this._sourceName; }
+    get sourceColor() { return this._sourceColor; }
+    get sourceCustomEnable() { return this._sourceCustomEnable; }
+    get sourceCustomPath() { return this._sourceCustomPath; }
+    get sourceLoops() { return this._sourceLoops; }
+    get sourceLoopDelay() { return this._sourceLoopDelay }
+    get sourceScale() { return this._sourceScale; }
+    get sourceDelay() { return this._sourceDelay; }
+    get sourceVariant() { return this._sourceVariant; }
 
-    get targetEnable() {return this._targetEnable;}
-    get targetLevel() {return this._targetLevel;}
-    get targetName() {return this._targetName;}
-    get targetColor() {return this._targetColor;}
-    get targetCustomEnable() {return this._targetCustomEnable;}
-    get targetCustomPath() {return this._targetCustomPath;}
-    get targetLoops() {return this._targetLoops;}
-    get targetLoopDelay() {return this._targetLoopDelay}
-    get targetScale() {return this._targetScale;}
-    get targetDelay() {return this._targetDelay;}
-    get targetVariant() { return this._targetVariant;}
-  
-    get hasAttack() {return this._item?.hasAttack ?? false;}
-    get hasDamage() {return this._item?.hasDamage ?? false;}
+    get targetEnable() { return this._targetEnable; }
+    get targetLevel() { return this._targetLevel; }
+    get targetName() { return this._targetName; }
+    get targetColor() { return this._targetColor; }
+    get targetCustomEnable() { return this._targetCustomEnable; }
+    get targetCustomPath() { return this._targetCustomPath; }
+    get targetLoops() { return this._targetLoops; }
+    get targetLoopDelay() { return this._targetLoopDelay }
+    get targetScale() { return this._targetScale; }
+    get targetDelay() { return this._targetDelay; }
+    get targetVariant() { return this._targetVariant; }
+
+    get hasAttack() { return this._item?.hasAttack ?? false; }
+    get hasDamage() { return this._item?.hasDamage ?? false; }
 
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
@@ -272,17 +271,5 @@ export default class genericHandler {
                 distance = d;
         });
         return distance;
-    }
-    itemNameIncludes() {
-        return [...arguments].every(a => this._animNameFinal?.includes(a));
-    }
-
-    extractItemId(content) {
-        try {
-            return $(content).attr("data-item-id");
-        } catch (exception) {
-            console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
-            return null;
-        }
     }
 }

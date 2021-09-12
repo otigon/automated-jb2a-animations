@@ -315,12 +315,5 @@ export default class MidiHandler {
         });
         return distance;
     }
-
-    itemNameIncludes() {
-        return [...arguments].every(a => this._animNameFinal?.includes(a));
-    }
-    itemTypeIncludes() {
-        return [...arguments].every(a => this._itemType?.includes(a));
-    }
 }
 
