@@ -1,10 +1,11 @@
 export function getAllNames(obj, type) {
     const nameArray = []
-    try {Object.keys(obj[type]).length} 
+    try {Object.keys(obj[type]).length}
     catch (exception) {return nameArray}
     const arrayLength = Object.keys(obj[type]).length
     for (var i = 0; i < arrayLength; i++) {
-        nameArray.push(obj[type][i].name.toLowerCase())
+        const names = obj[type][i].name.toLowerCase().split(',')
+        names.forEach(n => nameArray.push(n.trim()))
     }
     return nameArray;
 }
@@ -13,7 +14,8 @@ export function findObjectByName(data, type, name) {
     const newName = name.toLowerCase()
     return Object.values(data[type]).filter(section => {
         //cutting out all spaces
-        return section.name.replace(/\s+/g, '').toLowerCase() === newName ? section : "";
+        const names = section.name.replace(/\s+/g, '').toLowerCase().split(',')
+        return names.includes(newName) ? section : "";
     })
 }
 
@@ -51,7 +53,8 @@ export function getAllTheNames(obj) {
         var arrayLength = Object.keys(obj[keys[i]]).length
         var currentObject = obj[keys[i]]
         for (var k = 0; k < arrayLength; k++) {
-            nameArray.push(currentObject[k].name.toLowerCase())
+            const names = currentObject[k].name.toLowerCase().split(',')
+            names.forEach(n => nameArray.push(n.trim()))
         }
     }
     return nameArray;
@@ -65,7 +68,8 @@ export function findObjectByNameFull(data, name) {
         var currentObject = data[keys[i]]
         newObject = Object.values(currentObject).filter(section => {
             //added .replace()
-            return section.name.replace(/\s+/g, '').toLowerCase() === (name.toLowerCase()) ? section : "";
+            const names = section.name.replace(/\s+/g, '').toLowerCase().split(',')
+            return names.includes(name.toLowerCase()) ? section : "";
         })
 
         if (newObject.length === 1) {return [ newObject, keys[i] ]}

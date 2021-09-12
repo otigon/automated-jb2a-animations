@@ -259,7 +259,7 @@
     "AUTOANIM.chooseAudio": "Choose Audio File",
     "AUTOANIM.audioDelay": "Delay Audio (milliseconds)",
     "AUTOANIM.markerColor": "Marker Color Self",
-    
+
     "AUTOANIM.breathWeapon": "Breath Weapon",
     "AUTOANIM.bwWarning": "Assumes 30 foot Line Template",
     "AUTOANIM.selfColor": "Self Animation Color",
@@ -394,7 +394,7 @@
     "AUTOANIM.skull": "Skull",
     "AUTOANIM.complete": "Complete",
 
-    "AUTOANIM.itemName": "Item Name",
+    "AUTOANIM.itemName": "Item Name (or comma separated list of item names)",
     "AUTOANIM.search": "Search",
     "AUTOANIM.variant": "Variant",
     "AUTOANIM.color": "Color",
