@@ -190,6 +190,15 @@ Hooks.on('init', () => {
                 break;
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
+                Hooks.on("BRSW-RollItem", async (data, html) => {
+                    var actorId = data.getFlag("betterrolls-swade2", "actor");
+                    var actor = game.actors.get(actorId);
+
+                    var itemId = data.getFlag("betterrolls-swade2", "item_id");
+                    var item = actor.items.get(itemId);
+
+                    swadeData(actor, item) 
+                });
                 break;
             case "wfrp4e":
                 Hooks.on("wfrp4e:rollWeaponTest", async (data, info) => {
