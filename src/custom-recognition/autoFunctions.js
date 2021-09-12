@@ -1,6 +1,6 @@
 export function getAllNames(obj, type) {
     const nameArray = []
-    try {Object.keys(obj[type]).length} 
+    try {Object.keys(obj[type]).length}
     catch (exception) {return nameArray}
     const arrayLength = Object.keys(obj[type]).length
     for (var i = 0; i < arrayLength; i++) {
@@ -11,10 +11,14 @@ export function getAllNames(obj, type) {
 
 export function findObjectByName(data, type, name) {
     const newName = name.toLowerCase()
-    return Object.values(data[type]).filter(section => {
-        //cutting out all spaces
-        return section.name.replace(/\s+/g, '').toLowerCase() === newName ? section : "";
-    })
+    var newObject = Object.values(data[type])
+        .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+        .find(section => {
+            //cutting out all spaces
+            return newName.includes(section.name.replace(/\s+/g, '').toLowerCase()) ? section : "";
+        })
+
+    return [newObject]
 }
 
 export function autorecNameCheck(nameArray, name) {
@@ -24,8 +28,9 @@ export function autorecNameCheck(nameArray, name) {
     for (var i = 0; i < arrayLength; i++) {
         //cutting out all spaces
         var currentArrayName = nameArray[i].replace(/\s+/g, '').toLowerCase()
-        if (currentArrayName === newName) {
+        if (newName.includes(currentArrayName)) {
             nameFound = true;
+            break;
         }
     }
     return nameFound;
@@ -54,6 +59,7 @@ export function getAllTheNames(obj) {
             nameArray.push(currentObject[k].name.toLowerCase())
         }
     }
+    nameArray.sort((a, b) => b.length - a.length)
     return nameArray;
 }
 
@@ -62,13 +68,14 @@ export function findObjectByNameFull(data, name) {
     const keyLength = keys.length
     let newObject;
     for (var i = 1; i < keyLength; i++) {
-        var currentObject = data[keys[i]]
-        newObject = Object.values(currentObject).filter(section => {
-            //added .replace()
-            return section.name.replace(/\s+/g, '').toLowerCase() === (name.toLowerCase()) ? section : "";
-        })
+        var newObject = Object.values(data[keys[i]])
+            .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+            .find(section => {
+                //added .replace()
+                return name.toLowerCase().includes(section.name.replace(/\s+/g, '').toLowerCase()) ? section : "";
+            })
 
-        if (newObject.length === 1) {return [ newObject, keys[i] ]}
+        if (newObject) { return [[newObject], keys[i]] }
     }
 }
 
