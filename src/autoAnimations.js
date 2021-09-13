@@ -110,24 +110,7 @@ Hooks.on('init', () => {
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
             case "demonlord": {
-                if (!(game.data.version === "0.7.9" || game.data.version === "0.7.10")) {
-                    game.settings.register("autoanimations", "playtrigger", {
-                        name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
-                        hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
-                        scope: "world",
-                        type: String,
-                        choices: {
-                            "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
-                            "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
-                            "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
-                            "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
-                            "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
-                        },
-                        default: "rollattack",
-                        config: true
-                    })
-                }
-                break
+                Hooks.on("DL.Action", setupDemonLord);
             }
                 break;
             case "pf2e":
