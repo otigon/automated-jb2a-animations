@@ -458,7 +458,7 @@ async function fblReady(msg) {
 function setupDemonLord(data) {
     console.log(data)
     if (killAllAnimations) { return; }
-    let handler = new DemonLordHandler(data);
+    let handler = new flagHandler(data);
     trafficCop(handler);
 }
 
@@ -468,7 +468,7 @@ function setupDemonLord(data) {
 async function pf2eReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = new PF2Handler(msg);
+    const handler = new flagHandler(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }

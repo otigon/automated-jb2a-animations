@@ -82,13 +82,13 @@ export function getSystemData(input, chatMessage) {
             itemId = input.itemId;
             token = input.sourceToken || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
             item = token.actor?.items?.get(itemId);
+            hitTargets = Array.from(input.hitTargets);
             const getTargets = () => {
                 if (game.settings.get("autoanimations", "playtrigger") === "hits") {
                     return Array.from(hitTargets);
                 }
-                return Array.from(targets);
+                return Array.from(input.targets);
             }
-            hitTargets = Array.from(hitTargets);
             targets = getTargets()    
             break;
         case 'swade':
