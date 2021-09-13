@@ -108,7 +108,7 @@ export function autorecColors(itemName) {
         animationName = autorecObject[0].type;
     }
     if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
-    const name = animationName === 'shieldspell' ? 'shield' : animationName
+    const name = animationName === 'shield' ? 'shieldspell' : animationName
     const variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
     let colors = colorMenu[autorecType][name][variant]
     return colors;

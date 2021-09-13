@@ -23,7 +23,7 @@ export async function meleeSwitch(handler, target, autoObject) {
         data.switchAnimation = handler.switchName || handler.convertedName;
         //data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";
         data.customPath = handler.enableCustom01 ? handler.custom01 : false;
-        data.color = handler.switchColor;
+        data.switchColor = handler.switchColor;
         data.switchType = handler.switchType;
         data.detect = handler.switchDetect;
         data.repeat = handler.animationLoops;
