@@ -17,7 +17,7 @@
                         <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
                     </div>
                 </div>
-                <div class='hidden' {{#if ( lookup (lookup ../settings.aaAutorec.range idx) 'hidden' ) }}
+                <div {{#if ( lookup (lookup ../settings.aaAutorec.range idx) 'hidden' ) }}
                     style="display:none" {{/if}}>
                     <div class="aa-container">
                         <div class="option01">

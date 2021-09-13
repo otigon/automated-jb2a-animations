@@ -24,11 +24,11 @@ export async function shieldSpell(handler, autoObject) {
         color = color === "random" ? random_item(Object.keys(aaColorMenu.static.bless[variant])) : color;
         //const shieldVar = handler.options.shieldVar || "outro_fade";
     
-        const file01 = `autoanimations.static.shield.${variant}.${color}.intro`;
-        const file02 = `autoanimations.static.shield.${variant}.${color}.loop`;
-        const file03 = `autoanimations.static.shield.${variant}.${color}.${endeffect}`;
+        const file01 = `autoanimations.static.shieldspell.${variant}.${color}.intro`;
+        const file02 = `autoanimations.static.shieldspell.${variant}.${color}.loop`;
+        const file03 = `autoanimations.static.shieldspell.${variant}.${color}.${endeffect}`;
     
-        const fileData = jb2a.static.shield["01"]["blue"]["intro"];
+        const fileData = jb2a.static.shieldspell["01"]["blue"]["intro"];
         const metadata = await getVideoDimensionsOf(fileData);
     
         return { file01, file02, file03, metadata };
