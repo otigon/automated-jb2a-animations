@@ -9,6 +9,7 @@ export function getSystemData(input, chatMessage) {
     let targets;
     let hitTargets;
     let actor;
+    let reach;
     switch (systemID) {
         case 'dnd5e':
             if (game.modules.get('midi-qol')?.active && !chatMessage) {
@@ -32,7 +33,14 @@ export function getSystemData(input, chatMessage) {
                         default:
                             targets = targets;
                     }
-                }        
+                }
+                reach = 0;
+                if (token.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
+                    reach += 5;
+                }
+                if (item.data?.data?.properties?.rch) {
+                    reach += 5;
+                }
             } else {
                 inputAtr = extractItemId(input.data?.content);
                 itemId = input.data?.flags?.dnd5e?.roll?.itemId || inputAtr || input.data?.flags?.["midi-qol"]?.itemId;
@@ -43,7 +51,14 @@ export function getSystemData(input, chatMessage) {
                     itemId = item.data.data.consume.target;
                     item = token.actor.items?.get(itemId) ?? "";
                 }
-                targets = Array.from(input.user.targets)
+                targets = Array.from(input.user.targets);
+                reach = 0;
+                if (token.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
+                    reach += 5;
+                }
+                if (item.data?.data?.properties?.rch) {
+                    reach += 5;
+                }
             }
             break;
         case 'D35E':
@@ -89,7 +104,7 @@ export function getSystemData(input, chatMessage) {
                 }
                 return Array.from(input.targets);
             }
-            targets = getTargets()    
+            targets = getTargets()
             break;
         case 'swade':
             item = input.SwadeItem;
@@ -112,7 +127,7 @@ export function getSystemData(input, chatMessage) {
             break;
     }
 
-    return { item, token, targets, hitTargets };
+    return { item, token, targets, hitTargets, reach };
 
 }
 

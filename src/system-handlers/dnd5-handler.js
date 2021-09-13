@@ -14,15 +14,15 @@ export default class Dnd5Handler {
             item = this._actorToken.actor.items?.get(itemId) ?? "";
         } 
 
-        this._actor = this._actorToken.actor;
-        this._itemId = itemId;
-        this._allTargets = Array.from(msg.user.targets);
-        this._item = this._actorToken.actor.items?.get(itemId) ?? "";
-        this._itemName = this._item.name?.toLowerCase() ?? "";
-        this._itemType = this._item.data?.type?.toLowerCase();
-        this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
-        this._flags = this._item.data?.flags?.autoanimations ?? "";
-
+        //this._actor = this._actorToken.actor;
+        //this._itemId = itemId;
+        //this._allTargets = Array.from(msg.user.targets);
+        //this._item = this._actorToken.actor.items?.get(itemId) ?? "";
+        //this._itemName = this._item.name?.toLowerCase() ?? "";
+        //this._itemType = this._item.data?.type?.toLowerCase();
+        //this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        //this._flags = this._item.data?.flags?.autoanimations ?? "";
+        /*
         this._animLevel = this._flags.animLevel ?? false;
         this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
@@ -68,7 +68,7 @@ export default class Dnd5Handler {
         this._variant = this._flags.options?.variant ?? "";
         this._enableCustomExplosion = this._flags.options?.enableCustomExplosion ?? false;
         this._customExplode = this._flags.options?.customExplosion ?? "";
-
+        
         this._meleeSwitch = this._flags.meleeSwitch;
         this._switchType = this._meleeSwitch?.switchType ?? "on";
         this._switchName = this._meleeSwitch?.animName ?? "";
@@ -104,7 +104,7 @@ export default class Dnd5Handler {
         this._targetScale = this._targetToken.scale ?? 1,
         this._targetDelay = this._targetToken.delayStart ?? 500,
         this._targetVariant = this._targetToken.variant ?? "",
-
+        */
         this._animNameFinal;
         switch (true) {
             case((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
@@ -114,18 +114,8 @@ export default class Dnd5Handler {
                 this._animNameFinal = this._animName;
                 break;
         }
-        /* For storing nameConversions, disabling for now
-        this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
-        if (this._convert[0] !== "pass") {
-            this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
-            this._item.setFlag("autoanimations", "defaults.color", this._convert[1])
-        }
-        this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
-        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
-        */
-        //this._convert = nameConversion(this._animNameFinal);
+
         this._convertName = this._animName.replace(/\s+/g, '').toLowerCase();
-        //this._defaultColor = this._convert[1];
         this._delay = endTiming(this._animNameFinal);
     }
 
@@ -155,18 +145,14 @@ export default class Dnd5Handler {
     get hitTargetsId() {return this._hitTargetsId;}
     get targetsId() {return this._targetsId;}
 
-    get targetAssistant() {return this._targetAssistant;}
-
     get isValid() {return !!(this._item && this._actor);}
     get itemType() {return this._item.data.type.toLowerCase();}
-
-    get checkSaves() {return}
 
     get animKill() {return this._animKill;}
     get animOverride() {return this._animOverride;}
     get animType() {return this._animType;}
     get color() {return this._animColor;}
-    //get defaultColor() {return this._defaultColor;}
+
     get animName() {return this._animNameFinal;}
     get variant() { return this._variant; }
     get explosion() {return this._explosion;}

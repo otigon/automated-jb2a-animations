@@ -4,6 +4,7 @@ import { getSystemData } from "./item-data/getdata-by-system.js";
 export default class flagHandler {
     constructor(msg, isChat) {
         const data = getSystemData(msg, isChat);
+        console.log(data)
         const item = data.item;
         const token = data.token;
         const targets = data.targets;
@@ -11,13 +12,15 @@ export default class flagHandler {
         const midiActive = game.modules.get('midi-qol')?.active;
         if (!item || !token) { return; }
 
+        this._reach = data.reach || 0;
         this._actorToken = token;
         this._actor = token.actor;
         this._allTargets = targets;
+        //midi-qol specific settings
         this._playOnMiss = midiActive ? game.settings.get("autoanimations", "playonmiss") : false;
         const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
         this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
-        this._userAD = midiActive ? midiSettings?.autoRollDamage: "";
+        this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
 
         this._hitTargets = hitTargets;
         this._hitTargetsId = hitTargets ? Array.from(this._hitTargets.filter(actor => actor.id).map(actor => actor.id)) : undefined;
@@ -91,26 +94,26 @@ export default class flagHandler {
         this._sourceColor = this._sourceToken.color ?? "";
         this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;
         this._sourceCustomPath = this._sourceToken.customPath ?? "";
-        this._sourceLoops = this._sourceToken.loops ?? 1,
-            this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
-        this._sourceScale = this._sourceToken.scale ?? 1,
-            this._sourceDelay = this._sourceToken.delayAfter ?? 500,
-            this._sourceVariant = this._sourceToken.variant ?? "",
+        this._sourceLoops = this._sourceToken.loops ?? 1;
+        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
+        this._sourceScale = this._sourceToken.scale ?? 1;
+        this._sourceDelay = this._sourceToken.delayAfter ?? 500;
+        this._sourceVariant = this._sourceToken.variant ?? "";
 
-            this._targetToken = this.flags.targetToken ?? "";
+        this._targetToken = this.flags.targetToken ?? "";
         this._targetEnable = this._targetToken.enable ?? false;
         this._targetLevel = this._targetToken.animLevel ?? false;
         this._targetName = this._targetToken.name ?? "";
         this._targetColor = this._targetToken.color ?? "";
         this._targetCustomEnable = this._targetToken.enableCustom ?? false;
         this._targetCustomPath = this._targetToken.customPath ?? "";
-        this._targetLoops = this._targetToken.loops ?? 1,
-            this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
-        this._targetScale = this._targetToken.scale ?? 1,
-            this._targetDelay = this._targetToken.delayStart ?? 500,
-            this._targetVariant = this._targetToken.variant ?? "",
+        this._targetLoops = this._targetToken.loops ?? 1;
+        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
+        this._targetScale = this._targetToken.scale ?? 1;
+        this._targetDelay = this._targetToken.delayStart ?? 500;
+        this._targetVariant = this._targetToken.variant ?? "";
 
-            this._animNameFinal;
+        this._animNameFinal;
         switch (true) {
             case ((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
                 this._animNameFinal = this._itemName;
@@ -131,16 +134,7 @@ export default class flagHandler {
 
     get actor() { return this._actor; }
 
-    get reachCheck() {
-        let reach = 0;
-        if (this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
-            reach += 5;
-        }
-        if (this._item.data?.data?.properties?.rch) {
-            reach += 5;
-        }
-        return reach;
-    }
+    get reachCheck() { return this._reach; }
 
     get itemName() { return this._itemName }
     get item() { return this._item }
@@ -152,13 +146,11 @@ export default class flagHandler {
     get isValid() { return !!(this._item && this._actor); }
     get itemType() { return this._item.data.type.toLowerCase(); }
 
-    get checkSaves() { return }
-
     get animKill() { return this._animKill; }
     get animOverride() { return this._animOverride; }
     get animType() { return this._animType; }
     get color() { return this._animColor; }
-    //get defaultColor() {return this._defaultColor;}
+
     get animName() { return this._animNameFinal; }
     get variant() { return this._variant; }
     get explosion() { return this._explosion; }
@@ -247,29 +239,68 @@ export default class flagHandler {
     get hasAttack() { return this._item?.hasAttack ?? false; }
     get hasDamage() { return this._item?.hasDamage ?? false; }
 
+
     getDistanceTo(target) {
-        var x, x1, y, y1, d, r, segments = [], rdistance, distance;
-        for (x = 0; x < this._actorToken.data.width; x++) {
-            for (y = 0; y < this._actorToken.data.height; y++) {
-                const origin = new PIXI.Point(...canvas.grid.getCenter(this._actorToken.data.x + (canvas.dimensions.size * x), this._actorToken.data.y + (canvas.dimensions.size * y)));
-                for (x1 = 0; x1 < target.data.width; x1++) {
-                    for (y1 = 0; y1 < target.data.height; y1++) {
-                        const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));
-                        const r = new Ray(origin, dest);
-                        segments.push({ ray: r });
+        if (game.system.id === 'pf1') {
+            const scene = game.scenes.active;
+            const gridSize = scene.data.grid;
+
+            const left = (token) => token.data.x;
+            const right = (token) => token.data.x + token.w;
+            const top = (token) => token.data.y;
+            const bottom = (token) => token.data.y + token.h;
+
+            const isLeftOf = right(this._actorToken) <= left(target);
+            const isRightOf = left(this._actorToken) >= right(target);
+            const isAbove = bottom(this._actorToken) <= top(target);
+            const isBelow = top(this._actorToken) >= bottom(target);
+
+            let x1 = left(this._actorToken);
+            let x2 = left(target);
+            let y1 = top(this._actorToken);
+            let y2 = top(target);
+
+            if (isLeftOf) {
+                x1 += (this._actorToken.data.width - 1) * gridSize;
+            }
+            else if (isRightOf) {
+                x2 += (target.data.width - 1) * gridSize;
+            }
+
+            if (isAbove) {
+                y1 += (this._actorToken.data.height - 1) * gridSize;
+            }
+            else if (isBelow) {
+                y2 += (target.data.height - 1) * gridSize;
+            }
+
+            const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
+            const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
+            return distance;
+        } else {
+            var x, x1, y, y1, d, r, segments = [], rdistance, distance;
+            for (x = 0; x < this._actorToken.data.width; x++) {
+                for (y = 0; y < this._actorToken.data.height; y++) {
+                    const origin = new PIXI.Point(...canvas.grid.getCenter(this._actorToken.data.x + (canvas.dimensions.size * x), this._actorToken.data.y + (canvas.dimensions.size * y)));
+                    for (x1 = 0; x1 < target.data.width; x1++) {
+                        for (y1 = 0; y1 < target.data.height; y1++) {
+                            const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));
+                            const r = new Ray(origin, dest);
+                            segments.push({ ray: r });
+                        }
                     }
                 }
             }
+            if (segments.length === 0) {
+                return -1;
+            }
+            rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
+            distance = rdistance[0];
+            rdistance.forEach(d => {
+                if (d < distance)
+                    distance = d;
+            });
+            return distance;
         }
-        if (segments.length === 0) {
-            return -1;
-        }
-        rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
-        distance = rdistance[0];
-        rdistance.forEach(d => {
-            if (d < distance)
-                distance = d;
-        });
-        return distance;
     }
 }
