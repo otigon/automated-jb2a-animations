@@ -37,7 +37,7 @@ export function autorecNameCheck(nameArray, name) {
 }
 
 export function rinseName(oldName) {
-    let newName = oldName.replace(/[+1]|[+2]|[+3]/gi, function (x) {
+    let newName = oldName.replace(/[+1]|[+2]|[+3]|[+4]/gi, function (x) {
         return "";
     });
     //trim trailing whitespace
@@ -66,7 +66,7 @@ export function getAllTheNames(obj) {
 export function findObjectByNameFull(data, name) {
     const keys = Object.keys(data)
     const keyLength = keys.length
-    let newObject;
+    //let newObject;
     for (var i = 1; i < keyLength; i++) {
         var newObject = Object.values(data[keys[i]])
             .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
