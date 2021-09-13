@@ -182,8 +182,12 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     if (!changeColor) { changeColor = Object.keys(jb2a[autorecType][animationName][variant])[0] }
     let color = autoOverridden ? changeColor : autorecObject[0].color
     if (color === 'random') { color = autorecObject[0].color || "" }
-
-    const file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color]
+    let file;
+    if (animationName === 'magicmissile') {
+        file = jb2a[autorecType][animationName][variant][color]['15ft'][1]
+    } else {
+        file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color]
+    }
     return file;
 }
 

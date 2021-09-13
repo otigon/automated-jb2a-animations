@@ -82,7 +82,7 @@ export async function rangedAnimations(handler, autoObject) {
     }
 
     //logging explosion Scale
-    let scale = ((200 * handler.explosionRadius) / explosion?.data.metadata?.width) ?? 1;
+    let scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
 
     async function cast() {
         let arrayLength = handler.allTargets.length;
