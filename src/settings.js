@@ -1,5 +1,6 @@
 import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js"
 import { aaAutorec } from "./custom-recognition/aaAutoRecList.js";
+import { disableAnimations } from "./autoAnimations.js";
 export default function aaSettings() {
 
     const menuAAAutoRecSettings = {
@@ -204,5 +205,13 @@ export default function aaSettings() {
             }
             break;
     }
+
+    game.settings.register("autoanimations", "debug", {
+        name: game.i18n.format("AUTOANIM.debugging"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
 
 }

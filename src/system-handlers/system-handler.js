@@ -1,34 +1,40 @@
 import { endTiming } from "../constants/timings.js";
+import { getSystemData } from "./getdata-by-system.js";
 
-export default class PF2Handler {
-    constructor(msg) {
-        const item = msg.item;
-        const itemtype = item?.type;
-        const itemId = item?.id;
+export default class flagHandler {
+    constructor(msg, isChat) {
+        this.debug = game.settings.get("autoanimations", "debug");
+        this._log("Getting System Data")
+        const data = getSystemData(msg, isChat);
+        if (!data) { this._log("Retrieval Failed"); return; }
+        this._log("Data Retrieved", data)
+        //const item = data.item;
+        //const token = data.token;
+        //const targets = data.targets;
+        //const hitTargets = data.hitTargets;
+        const midiActive = game.modules.get('midi-qol')?.active;
+        this._reach = data.reach || 0;
 
-        this._actorToken = msg.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
-        this._actor = item?.actor;
+        this._item = data.item;
+        this._actorToken = data.token;
+        this._actor = data.token.actor;
+        this._allTargets = data.targets;
+        this._hitTargets = data.hitTargets;
+        this._hitTargetsId = data.hitTargets ? Array.from(this._hitTargets.filter(actor => actor.id).map(actor => actor.id)) : undefined;
+        this._targetsId = Array.from(this._allTargets.filter(actor => actor.id).map(actor => actor.id));
 
-        if (!item || !this._actorToken) {
-            return;
-        }
+        //midi-qol specific settings
+        this._playOnMiss = midiActive ? game.settings.get("autoanimations", "playonmiss") : false;
+        const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
+        this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
+        this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
 
-        this._itemId = item.id;
-        this._allTargets = Array.from(msg.user.targets);
-        const actualName = item.name.toLowerCase();
-        let base = item.baseType ? item.baseType : "";
-        this._itemName = (item.type === "weapon" ? base : (item.slug ?? actualName)).replace(/-/g, " ");
-        if (item.type === "spell" && this._itemName === "shield") this._itemName = "shieldspell";
-
-        this._itemType = itemtype;
-        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
-        this._item = item;
-
-        // getting flag data from Animation Tab
-        this._flags = item.data.flags.autoanimations ?? {};
+        this._itemName = this._item.name?.toLowerCase() ?? "";
+        this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._flags = this._item.data?.flags?.autoanimations ?? "";
 
         this._animLevel = this._flags.animLevel ?? false;
-        this._animColor = this._flags.color?.toLowerCase() ?? "";
+        this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._explodeColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._explodeDelay = this._flags.explodeDelay ?? 0;
@@ -93,8 +99,8 @@ export default class PF2Handler {
         this._sourceLoops = this._sourceToken.loops ?? 1;
         this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
         this._sourceScale = this._sourceToken.scale ?? 1;
-        this._sourceDelay = this._sourceToken.delayAfter ?? 500,
-            this._sourceVariant = this._sourceToken.variant ?? "";
+        this._sourceDelay = this._sourceToken.delayAfter ?? 500;
+        this._sourceVariant = this._sourceToken.variant ?? "";
 
         this._targetToken = this.flags.targetToken ?? "";
         this._targetEnable = this._targetToken.enable ?? false;
@@ -109,21 +115,16 @@ export default class PF2Handler {
         this._targetDelay = this._targetToken.delayStart ?? 500;
         this._targetVariant = this._targetToken.variant ?? "";
 
-        this._animNameFinal = (!this._animOverride) || ((this._animOverride) && (this._animName === ``))
-            ? this._itemName
-            : this._animName;
-        /* For storing nameConversions, disabling for now
-        this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
-        if (this._convert[0] !== "pass") {
-            this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
-            this._item.setFlag("autoanimations", "defaults.color", this._convert[1]);
+        this._animNameFinal;
+        switch (true) {
+            case ((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
+                this._animNameFinal = this._itemName;
+                break;
+            default:
+                this._animNameFinal = this._animName;
+                break;
         }
-        this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
-        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1]
-        */
-        //this._convert = nameConversion(this._animNameFinal);
         this._convertName = this._animName.replace(/\s+/g, '').toLowerCase();
-        //this._defaultColor = this._convert[1];
         this._delay = endTiming(this._animNameFinal);
     }
 
@@ -131,50 +132,27 @@ export default class PF2Handler {
     get animEnd() { return this._delay }
     get itemMacro() { return this._itemMacro; }
 
-    get playOnMiss() { return false; }
+    get playOnMiss() { return this._playOnMiss }
 
     get actor() { return this._actor; }
 
-    get reachCheck() {
-        const naturalReach = {
-            tiny: 0,
-            sm: 0,
-            med: 0,
-            lg: 5,
-            huge: 10,
-            grg: 15,
-        }[this.actor.size] ?? 0;
-        const traits = this.item.traits;
-        const weaponReach = traits.has("reach")
-            ? 5
-            : Number(
-                [...traits].find((trait) => trait.startsWith("reach"))?.replace(/^reach-/, "")
-            );
-        const extendedReach = naturalReach && weaponReach ? naturalReach + weaponReach : NaN;
+    get reachCheck() { return this._reach; }
 
-        return [extendedReach, weaponReach, naturalReach].find((reach) => Number.isInteger(reach));
-    }
-
-    get itemName() { return this._item.name }
-    get item() { return this._item; }
-    get itemType() { return this._itemType; }
+    get itemName() { return this._itemName }
+    get item() { return this._item }
     get actorToken() { return this._actorToken; }
     get allTargets() { return this._allTargets; }
     get hitTargetsId() { return this._hitTargetsId; }
     get targetsId() { return this._targetsId; }
 
-    get targetAssistant() { return this._targetAssistant; }
-
     get isValid() { return !!(this._item && this._actor); }
-    //get itemType() { return this._item.data.type.toLowerCase(); }
-
-    get checkSaves() { return; }
+    get itemType() { return this._item.data.type.toLowerCase(); }
 
     get animKill() { return this._animKill; }
     get animOverride() { return this._animOverride; }
     get animType() { return this._animType; }
     get color() { return this._animColor; }
-    //get defaultColor() { return this._defaultColor; }
+
     get animName() { return this._animNameFinal; }
     get variant() { return this._variant; }
     get explosion() { return this._explosion; }
@@ -260,44 +238,76 @@ export default class PF2Handler {
     get targetDelay() { return this._targetDelay; }
     get targetVariant() { return this._targetVariant; }
 
+    get hasAttack() { return this._item?.hasAttack ?? false; }
+    get hasDamage() { return this._item?.hasDamage ?? false; }
+
+
     getDistanceTo(target) {
-        var x, x1, y, y1, d, r, segments = [], rdistance, distance;
-        for (x = 0; x < this._actorToken.data.width; x++) {
-            for (y = 0; y < this._actorToken.data.height; y++) {
-                const origin = new PIXI.Point(...canvas.grid.getCenter(this._actorToken.data.x + (canvas.dimensions.size * x), this._actorToken.data.y + (canvas.dimensions.size * y)));
-                for (x1 = 0; x1 < target.data.width; x1++) {
-                    for (y1 = 0; y1 < target.data.height; y1++) {
-                        const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));
-                        const r = new Ray(origin, dest);
-                        segments.push({ ray: r });
+        if (game.system.id === 'pf1') {
+            const scene = game.scenes.active;
+            const gridSize = scene.data.grid;
+
+            const left = (token) => token.data.x;
+            const right = (token) => token.data.x + token.w;
+            const top = (token) => token.data.y;
+            const bottom = (token) => token.data.y + token.h;
+
+            const isLeftOf = right(this._actorToken) <= left(target);
+            const isRightOf = left(this._actorToken) >= right(target);
+            const isAbove = bottom(this._actorToken) <= top(target);
+            const isBelow = top(this._actorToken) >= bottom(target);
+
+            let x1 = left(this._actorToken);
+            let x2 = left(target);
+            let y1 = top(this._actorToken);
+            let y2 = top(target);
+
+            if (isLeftOf) {
+                x1 += (this._actorToken.data.width - 1) * gridSize;
+            }
+            else if (isRightOf) {
+                x2 += (target.data.width - 1) * gridSize;
+            }
+
+            if (isAbove) {
+                y1 += (this._actorToken.data.height - 1) * gridSize;
+            }
+            else if (isBelow) {
+                y2 += (target.data.height - 1) * gridSize;
+            }
+
+            const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
+            const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
+            return distance;
+        } else {
+            var x, x1, y, y1, d, r, segments = [], rdistance, distance;
+            for (x = 0; x < this._actorToken.data.width; x++) {
+                for (y = 0; y < this._actorToken.data.height; y++) {
+                    const origin = new PIXI.Point(...canvas.grid.getCenter(this._actorToken.data.x + (canvas.dimensions.size * x), this._actorToken.data.y + (canvas.dimensions.size * y)));
+                    for (x1 = 0; x1 < target.data.width; x1++) {
+                        for (y1 = 0; y1 < target.data.height; y1++) {
+                            const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));
+                            const r = new Ray(origin, dest);
+                            segments.push({ ray: r });
+                        }
                     }
                 }
             }
+            if (segments.length === 0) {
+                return -1;
+            }
+            rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
+            distance = rdistance[0];
+            rdistance.forEach(d => {
+                if (d < distance)
+                    distance = d;
+            });
+            return distance;
         }
-        if (segments.length === 0) {
-            return -1;
-        }
-        rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
-        distance = rdistance[0];
-        rdistance.forEach(d => {
-            if (d < distance)
-                distance = d;
-        });
-        return distance;
-    }
-    itemNameIncludes() {
-        return [...arguments].every(a => this._animNameFinal?.includes(a));
-    }
-    itemTypeIncludes() {
-        return [...arguments].every(a => this._itemType?.includes(a));
     }
 
-    extractItemId(content) {
-        try {
-            return $(content).attr("data-item-id");
-        } catch (exception) {
-            console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
-            return null;
-        }
+    _log(...args){
+        if(this.debug) console.log(`DEBUG | Automated Animations |`, ...args);
     }
+
 }

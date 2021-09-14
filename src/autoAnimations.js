@@ -2,18 +2,19 @@ import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-data
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
 
-import Dnd5Handler from "./system-handlers/dnd5-handler.js";
-import MidiHandler from "./system-handlers/midi-handler.js";
-import Pf1Handler from "./system-handlers/pf1-handler.js";
-import Dnd35Handler from "./system-handlers/dnd35-handler.js";
-import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
-import DemonLordHandler from './system-handlers/demonlord-handler.js';
-import SwadeHandler from './system-handlers/swade-handler.js';
+//import Dnd5Handler from "./system-handlers/dnd5-handler.js";
+//import MidiHandler from "./system-handlers/midi-handler.js";
+//import Pf1Handler from "./system-handlers/pf1-handler.js";
+//import Dnd35Handler from "./system-handlers/dnd35-handler.js";
+//import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
+//import DemonLordHandler from './system-handlers/demonlord-handler.js';
+//import SwadeHandler from './system-handlers/swade-handler.js';
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
-import SW5eHandler from "./system-handlers/sw5e-handler.js";
-import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
-import PF2Handler from "./system-handlers/pf2-handler.js";
-import ForbiddenLandsHandler from "./system-handlers/forbidden-lands-handler.js";
+//import SW5eHandler from "./system-handlers/sw5e-handler.js";
+//import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
+//import PF2Handler from "./system-handlers/pf2-handler.js";
+//import ForbiddenLandsHandler from "./system-handlers/forbidden-lands-handler.js";
+import flagHandler from "./system-handlers/system-handler.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import aaSettings from "./settings.js";
@@ -32,7 +33,7 @@ Hooks.once('setup', function () {
     setupSocket();
 });
 var killAllAnimations;
-function disableAnimations() {
+export function disableAnimations() {
     socket.off('module.sequencer')
     killAllAnimations = true;
 }
@@ -43,16 +44,6 @@ Hooks.on('init', () => {
     Handlebars.registerHelper('ifnoteq', function (a, b, options) {
         if (a != b) { return options.fn(this); }
         return options.inverse(this);
-    });
-    Handlebars.registerHelper("aaEach", function (colors, type, name, variant, options) {
-        var ret = "";
-
-        let context;
-        context = colors[type][name][variant]
-        for (var i = 0, j = context.length; i < j; i++) {
-            ret = ret + options.fn(context[i]);
-        }
-        return ret;
     });
     Handlebars.registerHelper('concat', function (...params) {
         // Ignore the object appended by handlebars.
@@ -109,10 +100,9 @@ Hooks.on('init', () => {
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
-            case "demonlord": {
-                Hooks.on("DL.Action", setupDemonLord);
-            }
-                break;
+            case "demonlord": 
+            Hooks.on("DL.Action", setupDemonLord);
+            break;
             case "pf2e":
                 Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
                 break;
@@ -266,7 +256,7 @@ function moduleIncludes(test) {
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
-    let handler = new MidiHandler(workflow);
+    let handler = new flagHandler(workflow);
     const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -276,7 +266,7 @@ function setUpMidi(workflow) {
 function setUpMidiNoAD(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
-    let handler = new MidiHandler(workflow);
+    let handler = new flagHandler(workflow);
     const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -286,7 +276,7 @@ function setUpMidiNoAD(workflow) {
 function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
-    let handler = new MidiHandler(workflow);
+    let handler = new flagHandler(workflow);
     const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -300,7 +290,7 @@ async function specialCaseAnimations(msg) {
     }
     let breakOut = checkMessege(msg);
     if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
-        let handler = new Dnd5Handler(msg);
+        let handler = new flagHandler(msg, true);
         if (handler.animType === "t8" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler);
@@ -333,11 +323,11 @@ function setUp5eCore(msg) {
     let rollType;
     switch (game.system.id) {
         case "dnd5e":
-            handler = new Dnd5Handler(msg);
+            handler = new flagHandler(msg);
             rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
             break;
         case "sw5e":
-            handler = new SW5eHandler(msg);
+            handler = new flagHandler(msg);
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
@@ -389,10 +379,10 @@ function onCreateChatMessage(msg) {
     let handler;
     switch (game.system.id) {
         case "pf1":
-            handler = new Pf1Handler(msg);
+            handler = new flagHandler(msg);
             break;
         case "D35E":
-            handler = new Dnd35Handler(msg);
+            handler = new flagHandler(msg);
             break;
     }
     /*
@@ -412,7 +402,8 @@ function onCreateChatMessage(msg) {
 */
 function swadeData(SwadeActor, SwadeItem) {
     if (killAllAnimations) { return; }
-    let handler = new SwadeHandler(SwadeActor, SwadeItem);
+    let data = {SwadeActor, SwadeItem}
+    let handler = new flagHandler(data);
     trafficCop(handler);
 }
 
@@ -433,7 +424,7 @@ function starFinder(data, msg) {
 */
 function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
-    let handler = new Tormenta20Handler(msg);
+    let handler = new flagHandler(msg);
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
@@ -453,7 +444,7 @@ function setupTormenta20(msg) {
 async function fblReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = new ForbiddenLandsHandler(msg);
+    const handler = new flagHandler(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
@@ -464,7 +455,7 @@ async function fblReady(msg) {
 */
 function setupDemonLord(data) {
     if (killAllAnimations) { return; }
-    let handler = new DemonLordHandler(data);
+    let handler = new flagHandler(data);
     trafficCop(handler);
 }
 
@@ -474,7 +465,7 @@ function setupDemonLord(data) {
 async function pf2eReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = new PF2Handler(msg);
+    const handler = new flagHandler(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
@@ -594,9 +585,7 @@ async function criticalCheck(workflow) {
 function wfrpWeapon(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.weapon;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = new flagHandler({item: data.weapon, targets: targets});
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -608,9 +597,7 @@ function wfrpWeapon(data, targets, info) {
 function wfrpPrayer(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.prayer;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = new flagHandler({item: data.prayer, targets: targets});
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -622,9 +609,7 @@ function wfrpPrayer(data, targets, info) {
 function wfrpCast(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.spell;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = new flagHandler({item: data.spell, targets: targets});
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -636,9 +621,7 @@ function wfrpCast(data, targets, info) {
 function wfrpTrait(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.trait;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = new flagHandler({item: data.trait, targets: targets});
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -650,9 +633,7 @@ function wfrpTrait(data, targets, info) {
 function wfrpSkill(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.skill;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = new flagHandler({item: data.skill, targets: targets});
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
