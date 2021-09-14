@@ -418,6 +418,7 @@
     "AUTOANIM.import": "Import Settings",
     "AUTOANIM.export": "Export Settings",
     "AUTOANIM.preset": "Preset",
-    "AUTOANIM.autoRecSetting": "Configure Automatic Recognition"
+    "AUTOANIM.autoRecSetting": "Configure Automatic Recognition",
+    "AUTOANIM.debugging": "Enable Debugging"
 
 }
