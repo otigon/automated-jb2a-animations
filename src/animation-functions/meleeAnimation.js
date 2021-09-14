@@ -1,10 +1,12 @@
 import { buildFile } from "./file-builder/build-filepath.js"
 import { meleeSwitch } from "./meleeSwitch.js";
+import { aaDebugger } from "../constants/constants.js"
 //import { AAITEMCHECK } from "./item-arrays.js";
 //import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function meleeAnimation(handler, autoObject) {
+    const aaDebug = game.settings.get("autoanimations", "debug")
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -45,6 +47,7 @@ export async function meleeAnimation(handler, autoObject) {
         data.delay = handler.loopDelay;
         data.scale = handler.scale;
     }
+    if (aaDebug) { aaDebugger("Melee Animation Start", data) }
     const attack = await buildFile(false, data.itemName, "melee", data.variant, data.color, data.customPath)
     //let attack = await buildWeaponFile(obj01, itemName, handler)
     const sourceToken = handler.actorToken;

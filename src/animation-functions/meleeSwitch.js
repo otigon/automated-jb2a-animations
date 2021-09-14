@@ -1,9 +1,11 @@
 import { buildFile } from "./file-builder/build-filepath.js"
+import { aaDebugger } from "../constants/constants.js"
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function meleeSwitch(handler, target, autoObject) {
+    const aaDebug = game.settings.get("autoanimations", "debug")
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -31,6 +33,7 @@ export async function meleeSwitch(handler, target, autoObject) {
         data.return = handler.switchReturn
         data.switchVariant = data.switchAnimation === "lasersword" || data.switchAnimation === "dagger" || data.switchAnimation === "handaxe" ? handler.switchVariant : handler.switchDmgType;
     }
+    if (aaDebug) { aaDebugger("Switch Animation Start", data) }
     const attack = await buildFile(false, data.switchAnimation, "range", data.switchVariant, data.switchColor);//need to finish
     const sourceToken = handler.actorToken;
     //let variant = data.itemName === "lasersword" || data.itemName === "dagger" || data.itemName === "handaxe" ? handler.switchVariant : handler.switchDmgType;

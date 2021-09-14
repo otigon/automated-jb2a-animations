@@ -2,11 +2,12 @@ import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { buildFile } from "./file-builder/build-filepath.js";
 import { socketlibSocket } from "../socketset.js";
+import { aaDebugger } from "../constants/constants.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function thunderwaveAuto(handler, autoObject) {
-
+    const aaDebug = game.settings.get("autoanimations", "debug")
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -36,7 +37,7 @@ export async function thunderwaveAuto(handler, autoObject) {
         data.occlusionMode = parseInt(handler.templates?.occlusionMode ?? "3");
         data.removeTemplate = handler.templates.removeTemplate;
     }
-
+    if (aaDebug) { aaDebugger("Thunderwave Animation Start", data) }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let color;
     const colors = ['green', 'orange', 'purple', 'red', 'blue']

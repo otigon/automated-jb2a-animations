@@ -1,9 +1,10 @@
 import { buildFile } from "./file-builder/build-filepath.js"
+import { aaDebugger } from "../constants/constants.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function staticAnimation(handler, autoObject) {
-
+    const aaDebug = game.settings.get("autoanimations", "debug")
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
     const sourceToken = handler.actorToken;
@@ -28,6 +29,7 @@ export async function staticAnimation(handler, autoObject) {
         data.below = handler.animLevel;
         data.scale = handler.scale;
     }
+    if (aaDebug) { aaDebugger("Static Animation Start", data) }
     const onToken = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath);
     // builds Source Token file if Enabled, and pulls from flags if already set
     const sourceFX = {};

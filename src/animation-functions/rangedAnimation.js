@@ -1,4 +1,5 @@
 import { buildFile } from "./file-builder/build-filepath.js"
+import { aaDebugger } from "../constants/constants.js"
 //import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 //import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { AAITEMCHECK } from "./item-arrays.js";
@@ -6,6 +7,7 @@ import { AAITEMCHECK } from "./item-arrays.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function rangedAnimations(handler, autoObject) {
+    const aaDebug = game.settings.get("autoanimations", "debug")
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -38,6 +40,7 @@ export async function rangedAnimations(handler, autoObject) {
         data.repeat = handler.animationLoops;
         data.delay = handler.loopDelay;
     }
+    if (aaDebug) { aaDebugger("Ranged Animation Start", data) }
     //Builds Primary File Path and Pulls from flags if already set
     const attack = await buildFile(false, data.itemName, "range", data.variant, data.color)
     //let attack =  await buildRangedFile(jb2a, itemName, handler);

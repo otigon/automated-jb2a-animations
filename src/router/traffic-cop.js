@@ -15,6 +15,7 @@ import { bless } from "../animation-functions/custom-sequences/bless.js";
 import { staticAnimation } from "../animation-functions/staticAnimation.js";
 import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
 import { aaDebugger } from "../constants/constants.js";
+import { AutorecFunctions} from "../custom-recognition/autoFunctions.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -47,7 +48,7 @@ export async function trafficCop(handler) {
             case "t3":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                    if (aaDebug) { aaDebugger("Melee Animation", "NO TARGETS") }
+                    if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
@@ -56,7 +57,7 @@ export async function trafficCop(handler) {
             case "t4":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                    if (aaDebug) { aaDebugger("Range Animation", "NO TARGETS") }
+                    if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
@@ -65,7 +66,7 @@ export async function trafficCop(handler) {
             case "t5":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                    if (aaDebug) { aaDebugger("Creature Animation", "NO TARGETS") }
+                    if (aaDebug) { aaDebugger("Creature Animation End", "NO TARGETS") }
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
@@ -74,7 +75,7 @@ export async function trafficCop(handler) {
             case "t6":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                    if (aaDebug) { aaDebugger("Spell Animation", "NO TARGETS") }
+                    if (aaDebug) { aaDebugger("Spell Animation End", "NO TARGETS") }
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
@@ -138,52 +139,52 @@ export async function trafficCop(handler) {
             if (aaDebug) { aaDebugger("Automatic Recognition Beginning") }
             const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
-            const autoName = rinseName(handler.itemName);
+            const autoName = AutorecFunctions._rinseName(handler.itemName);
 
             switch (true) {
-                case autorecNameCheck(getAllNames(autoRecSettings, 'melee'), autoName):
+                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'melee'), autoName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                        if (aaDebug) { aaDebugger("Melee Animation", "NO TARGETS") }
+                        if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const meleeAutoObject = findObjectByName(autoRecSettings, 'melee', autoName);
-                    if (aaDebug) { aaDebugger("Melee Animation", meleeAutoObject) }
+                    const meleeAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'melee', autoName);
+                    if (aaDebug) { aaDebugger("Pre Melee Animation", meleeAutoObject) }
                     meleeAnimation(handler, meleeAutoObject);
                     break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'range'), autoName):
+                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'range'), autoName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                        if (aaDebug) { aaDebugger("Range Animation", "NO TARGETS") }
+                        if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
                         return;
                     }
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const rangeAutoObject = findObjectByName(autoRecSettings, 'range', autoName);
-                    if (aaDebug) { aaDebugger("Range Animation", rangeAutoObject) }
+                    const rangeAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'range', autoName);
+                    if (aaDebug) { aaDebugger("Pre Range Animation", rangeAutoObject) }
                     rangedAnimations(handler, rangeAutoObject);
                     break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'static'), autoName):
+                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'static'), autoName):
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const staticAutoObject = findObjectByName(autoRecSettings, 'static', autoName);
-                    if (aaDebug) { aaDebugger("Static Animation", staticAutoObject) }
+                    const staticAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'static', autoName);
+                    if (aaDebug) { aaDebugger("Pre Static Animation", staticAutoObject) }
                     staticAnimation(handler, staticAutoObject);
                     break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'templates'), autoName):
-                    const templateAutoObject = findObjectByName(autoRecSettings, 'templates', autoName);
-                    if (aaDebug) { aaDebugger("Template Animation", templateAutoObject) }
+                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'templates'), autoName):
+                    const templateAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'templates', autoName);
+                    if (aaDebug) { aaDebugger("Pre Template Animation", templateAutoObject) }
                     Hooks.once("createMeasuredTemplate", () => {
                         templateAnimation(handler, templateAutoObject);
                     })
                     break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'auras'), autoName):
-                    const auraAutoObject = findObjectByName(autoRecSettings, 'auras', autoName);
-                    if (aaDebug) { aaDebugger("CTA Animation", auraAutoObject) }
+                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'auras'), autoName):
+                    const auraAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'auras', autoName);
+                    if (aaDebug) { aaDebugger("Pre CTA Animation", auraAutoObject) }
                     ctaCall(handler, auraAutoObject);
                     break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'preset'), autoName):
-                    const presetAutoObject = findObjectByName(autoRecSettings, 'preset', autoName);
-                    if (aaDebug) { aaDebugger("Preset Animation", presetAutoObject) }
+                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'preset'), autoName):
+                    const presetAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'preset', autoName);
+                    if (aaDebug) { aaDebugger("Pre Preset Animation", presetAutoObject) }
                     switch (presetAutoObject[0].animation) {
                         case 'bardicinspiration':
                             bardicInspiration(handler, presetAutoObject);

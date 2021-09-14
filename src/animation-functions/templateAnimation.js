@@ -1,11 +1,12 @@
 import { buildFile } from "./file-builder/build-filepath.js";
 import { socketlibSocket } from "../socketset.js";
 import { thunderwaveAuto } from "./thunderwave.js"
+import { aaDebugger } from "../constants/constants.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function templateAnimation(handler, autoObject) {
-
+    const aaDebug = game.settings.get("autoanimations", "debug")
     const sourceToken = handler.actorToken;
 
     const data = {}
@@ -34,6 +35,7 @@ export async function templateAnimation(handler, autoObject) {
         data.occlusionMode = parseInt(handler.templates?.occlusionMode ?? "3");
         data.removeTemplate = handler.templates.removeTemplate;
     }
+    if (aaDebug) { aaDebugger("Template Animation Start", data) }
     if (data.itemName === 'thunderwave') {
         thunderwaveAuto(handler, autoObject);
         return;

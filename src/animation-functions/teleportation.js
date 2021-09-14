@@ -1,7 +1,8 @@
 import { buildFile} from "./file-builder/build-filepath.js"
+import { aaDebugger } from "../constants/constants.js"
 
 export async function teleportation(handler, autoObject) {
-
+    const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (handler.itemMacro.toLowerCase().includes("misty step")) {
         console.log("A-A Misty Step will not work with DAE SRD Misty Step");
@@ -29,7 +30,7 @@ export async function teleportation(handler, autoObject) {
         data.range = handler.teleRange;
         data.hideTemplate = handler.options?.hideTemplate;
     }
-
+    if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
     const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
 
     let sourceFX;
