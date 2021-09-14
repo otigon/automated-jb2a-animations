@@ -3,10 +3,11 @@ import { getSystemData } from "./getdata-by-system.js";
 
 export default class flagHandler {
     constructor(msg, isChat) {
+        this.debug = game.settings.get("autoanimations", "debug");
+        this._log("Getting System Data")
         const data = getSystemData(msg, isChat);
-        if (!data) { return; }
-        console.log("Flags are Proceeding")
-        console.log(data)
+        if (!data) { this._log("Retrieval Failed"); return; }
+        this._log("Data Retrieved", data)
         //const item = data.item;
         //const token = data.token;
         //const targets = data.targets;
@@ -27,7 +28,6 @@ export default class flagHandler {
         const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
         this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
         this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
-
 
         this._itemName = this._item.name?.toLowerCase() ?? "";
         this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
@@ -305,4 +305,9 @@ export default class flagHandler {
             return distance;
         }
     }
+
+    _log(...args){
+        if(this.debug) console.log(`DEBUG | Automated Animations |`, ...args);
+    }
+
 }

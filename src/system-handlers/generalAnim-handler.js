@@ -2,6 +2,8 @@ import { endTiming } from "../constants/timings.js";
 
 export default class GeneralAnimHandler {
     constructor(sourceToken, targets, item) {
+        this.debug = game.settings.get("autoanimations", "debug");
+        this._log("External Animation Call Start", [sourceToken, targets, item])
         this._actorToken = sourceToken;
         this._actor = this._actorToken.actor;
         //Switches to Ammunition Animation if active on Item
@@ -277,10 +279,8 @@ export default class GeneralAnimHandler {
         return distance;
     }
 
-    itemNameIncludes() {
-        return [...arguments].every(a => this._animNameFinal?.includes(a));
+    _log(...args){
+        if(this.debug) console.log(`DEBUG | Automated Animations |`, ...args);
     }
-    itemTypeIncludes() {
-        return [...arguments].every(a => this._itemType?.includes(a));
-    }
+
 }

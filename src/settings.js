@@ -206,4 +206,12 @@ export default function aaSettings() {
             break;
     }
 
+    game.settings.register("autoanimations", "debug", {
+        name: game.i18n.format("AUTOANIM.debugging"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
+
 }

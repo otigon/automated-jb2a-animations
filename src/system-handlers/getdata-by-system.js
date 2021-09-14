@@ -1,5 +1,4 @@
 export function getSystemData(input, chatMessage) {
-    console.log(input)
     const systemID = game.system.id;
     let inputAtr;
     let itemId;
