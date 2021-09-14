@@ -1,5 +1,6 @@
 import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js"
 import { aaAutorec } from "./custom-recognition/aaAutoRecList.js";
+import { disableAnimations } from "./autoAnimations.js";
 export default function aaSettings() {
 
     const menuAAAutoRecSettings = {

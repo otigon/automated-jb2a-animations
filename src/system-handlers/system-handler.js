@@ -1,33 +1,40 @@
 import { endTiming } from "../constants/timings.js";
+import { getSystemData } from "./getdata-by-system.js";
 
-export default class MidiHandler {
-    constructor(workflow) {
-        //const item = workflow.item;
-        this._actorToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(item._id) != null);
-        //Switches to Ammunition Animation if active on Item
-        let item;
-        let itemId
-        if (workflow.item?.data?.flags?.autoanimations?.options?.ammo && workflow.item?.data?.data?.consume?.type === "ammo") {
-            itemId = workflow.item.data.data.consume.target;
-            item = this._actorToken.actor.items?.get(itemId) ?? "";
-            if (!item.data.flags.autoanimations) { item = workflow.item}
-        } else {
-            item = workflow.item
-        }
-        const actor = this._actorToken?.actor;
-        if (!item || !actor) {
-            return;
-        }
-        this._item = item;
-        this._actor = actor;
-        //if (!this._item.flags?.autoanimations?.options?.autoColor) {this._item.setFlag('autoanimations', 'options.autoColor', )}
-        this._actorToken = canvas.tokens.get(workflow.tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(item._id) != null);
+export default class flagHandler {
+    constructor(msg, isChat) {
+        const data = getSystemData(msg, isChat);
+        if (!data) { return; }
+        console.log("Flags are Proceeding")
+        console.log(data)
+        //const item = data.item;
+        //const token = data.token;
+        //const targets = data.targets;
+        //const hitTargets = data.hitTargets;
+        const midiActive = game.modules.get('midi-qol')?.active;
+        this._reach = data.reach || 0;
 
-        // getting flag data from Animation Tab
-        this._flags = item.data?.flags?.autoanimations ?? "";;
-        //
+        this._item = data.item;
+        this._actorToken = data.token;
+        this._actor = data.token.actor;
+        this._allTargets = data.targets;
+        this._hitTargets = data.hitTargets;
+        this._hitTargetsId = data.hitTargets ? Array.from(this._hitTargets.filter(actor => actor.id).map(actor => actor.id)) : undefined;
+        this._targetsId = Array.from(this._allTargets.filter(actor => actor.id).map(actor => actor.id));
+
+        //midi-qol specific settings
+        this._playOnMiss = midiActive ? game.settings.get("autoanimations", "playonmiss") : false;
+        const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
+        this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
+        this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
+
+
+        this._itemName = this._item.name?.toLowerCase() ?? "";
+        this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
+        this._flags = this._item.data?.flags?.autoanimations ?? "";
+
         this._animLevel = this._flags.animLevel ?? false;
-        this._animColor = this._flags.color ?? "";
+        this._animColor = this._flags?.color?.toLowerCase() ?? "";
         this._animName = this._flags.animName?.toLowerCase() ?? "";
         this._explodeColor = this._flags.explodeColor?.toLowerCase() ?? "";
         this._explodeDelay = this._flags.explodeDelay ?? 0;
@@ -46,9 +53,9 @@ export default class MidiHandler {
         this._auraOpacity = this._flags.auraOpacity ?? "";
         this._ctaOption = this._flags.ctaOption ?? "";
         this._hmAnim = this._flags.hmAnim ?? "";
-        this._uaStrikeType = this._flags.uaStrikeType ?? "physical";
+        this._uaStrikeType = this._flags.uaStrikeType ?? "";
         this._teleDist = this._flags.teleDist ?? "";
-        this._spellVar = this._flags.spellVar ?? "01";
+        this._spellVar = this._flags.spellVar ?? "";
         this._bardTarget = this._flags.bards?.bardTarget ?? true;
         this._bardSelf = this._flags.bards?.bardSelf ?? true;
         this._bardAnim = this._flags.bards?.bardAnim ?? "";
@@ -108,43 +115,6 @@ export default class MidiHandler {
         this._targetDelay = this._targetToken.delayStart ?? 500;
         this._targetVariant = this._targetToken.variant ?? "";
 
-        this._checkSave = Array.from(workflow.saves);
-        this._savesId = Array.from(this._checkSave.filter(actor => actor.id).map(actor => actor.id));
-
-        this._hitTargets = Array.from(workflow.hitTargets);
-        this._hitTargetsId = Array.from(this._hitTargets.filter(actor => actor.id).map(actor => actor.id));
-        this._targets = Array.from(workflow.targets);
-        this._targetsId = Array.from(this._targets.filter(actor => actor.id).map(actor => actor.id));
-        switch (true) {
-            case (game.settings.get("autoanimations", "playonmiss")):
-                this._allTargets = Array.from(workflow.targets);
-                break;
-            case (game.settings.get("autoanimations", "playonhit")):
-                this._allTargets = Array.from(workflow.hitTargets);
-                break;
-            default:
-                this._allTargets = Array.from(workflow.targets);
-        }
-
-        this._playOnMiss = game.settings.get("autoanimations", "playonmiss");
-
-        const midiSettings = game.settings.get("midi-qol", "ConfigSettings")
-        this._gmAD = midiSettings.gmAutoDamage;
-        this._userAD = midiSettings.autoRollDamage;
-
-        /*
-        if (game.settings.get("autoanimations", "playonhit")) {
-            this._allTargets = Array.from(workflow.hitTargets);
-        } else {
-            this._allTargets = Array.from(workflow.targets);
-        }
-        */
-
-        this._itemName = item.name?.toLowerCase() ?? '';;
-        this._itemSource = item.data?.data?.source?.toLowerCase() ?? '';
-        this._itemType = item.data.type.toLowerCase();
-        this._itemMacro = item.data?.flags?.itemacro?.macro?.data?.name ?? "";
-
         this._animNameFinal;
         switch (true) {
             case ((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
@@ -154,18 +124,7 @@ export default class MidiHandler {
                 this._animNameFinal = this._animName;
                 break;
         }
-        /* For storing nameConversions, disabling for now
-        this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
-        if (this._convert[0] !== "pass") {
-            this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
-            this._item.setFlag("autoanimations", "defaults.color", this._convert[1])
-        }
-        this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
-        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
-        */
-        //this._convert = nameConversion(this._animNameFinal);
         this._convertName = this._animName.replace(/\s+/g, '').toLowerCase();
-        //this._defaultColor = this._convert[1];
         this._delay = endTiming(this._animNameFinal);
     }
 
@@ -173,20 +132,11 @@ export default class MidiHandler {
     get animEnd() { return this._delay }
     get itemMacro() { return this._itemMacro; }
 
-    get playOnMiss() { return this._playOnMiss; }
+    get playOnMiss() { return this._playOnMiss }
 
     get actor() { return this._actor; }
 
-    get reachCheck() {
-        let reach = 0;
-        if (this._actorToken.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
-            reach += 5;
-        }
-        if (this._item.data?.data?.properties?.rch) {
-            reach += 5;
-        }
-        return reach;
-    }
+    get reachCheck() { return this._reach; }
 
     get itemName() { return this._itemName }
     get item() { return this._item }
@@ -198,13 +148,11 @@ export default class MidiHandler {
     get isValid() { return !!(this._item && this._actor); }
     get itemType() { return this._item.data.type.toLowerCase(); }
 
-    get checkSaves() { return this._checkSaves; }
-
     get animKill() { return this._animKill; }
     get animOverride() { return this._animOverride; }
     get animType() { return this._animType; }
     get color() { return this._animColor; }
-    //get defaultColor() { return this._defaultColor; }
+
     get animName() { return this._animNameFinal; }
     get variant() { return this._variant; }
     get explosion() { return this._explosion; }
@@ -290,30 +238,71 @@ export default class MidiHandler {
     get targetDelay() { return this._targetDelay; }
     get targetVariant() { return this._targetVariant; }
 
+    get hasAttack() { return this._item?.hasAttack ?? false; }
+    get hasDamage() { return this._item?.hasDamage ?? false; }
+
+
     getDistanceTo(target) {
-        var x, x1, y, y1, d, r, segments = [], rdistance, distance;
-        for (x = 0; x < this._actorToken.data.width; x++) {
-            for (y = 0; y < this._actorToken.data.height; y++) {
-                const origin = new PIXI.Point(...canvas.grid.getCenter(this._actorToken.data.x + (canvas.dimensions.size * x), this._actorToken.data.y + (canvas.dimensions.size * y)));
-                for (x1 = 0; x1 < target.data.width; x1++) {
-                    for (y1 = 0; y1 < target.data.height; y1++) {
-                        const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));
-                        const r = new Ray(origin, dest);
-                        segments.push({ ray: r });
+        if (game.system.id === 'pf1') {
+            const scene = game.scenes.active;
+            const gridSize = scene.data.grid;
+
+            const left = (token) => token.data.x;
+            const right = (token) => token.data.x + token.w;
+            const top = (token) => token.data.y;
+            const bottom = (token) => token.data.y + token.h;
+
+            const isLeftOf = right(this._actorToken) <= left(target);
+            const isRightOf = left(this._actorToken) >= right(target);
+            const isAbove = bottom(this._actorToken) <= top(target);
+            const isBelow = top(this._actorToken) >= bottom(target);
+
+            let x1 = left(this._actorToken);
+            let x2 = left(target);
+            let y1 = top(this._actorToken);
+            let y2 = top(target);
+
+            if (isLeftOf) {
+                x1 += (this._actorToken.data.width - 1) * gridSize;
+            }
+            else if (isRightOf) {
+                x2 += (target.data.width - 1) * gridSize;
+            }
+
+            if (isAbove) {
+                y1 += (this._actorToken.data.height - 1) * gridSize;
+            }
+            else if (isBelow) {
+                y2 += (target.data.height - 1) * gridSize;
+            }
+
+            const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
+            const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
+            return distance;
+        } else {
+            var x, x1, y, y1, d, r, segments = [], rdistance, distance;
+            for (x = 0; x < this._actorToken.data.width; x++) {
+                for (y = 0; y < this._actorToken.data.height; y++) {
+                    const origin = new PIXI.Point(...canvas.grid.getCenter(this._actorToken.data.x + (canvas.dimensions.size * x), this._actorToken.data.y + (canvas.dimensions.size * y)));
+                    for (x1 = 0; x1 < target.data.width; x1++) {
+                        for (y1 = 0; y1 < target.data.height; y1++) {
+                            const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));
+                            const r = new Ray(origin, dest);
+                            segments.push({ ray: r });
+                        }
                     }
                 }
             }
+            if (segments.length === 0) {
+                return -1;
+            }
+            rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
+            distance = rdistance[0];
+            rdistance.forEach(d => {
+                if (d < distance)
+                    distance = d;
+            });
+            return distance;
         }
-        if (segments.length === 0) {
-            return -1;
-        }
-        rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
-        distance = rdistance[0];
-        rdistance.forEach(d => {
-            if (d < distance)
-                distance = d;
-        });
-        return distance;
     }
 }
-
