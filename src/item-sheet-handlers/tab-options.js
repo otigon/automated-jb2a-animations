@@ -108,7 +108,7 @@ export function autorecColors(itemName) {
         animationName = autorecObject[0].type;
     }
     if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
-    const name = animationName === 'shieldspell' ? 'shield' : animationName
+    const name = animationName === 'shield' ? 'shieldspell' : animationName
     const variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
     let colors = colorMenu[autorecType][name][variant]
     return colors;
@@ -182,8 +182,12 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
     if (!changeColor) { changeColor = Object.keys(jb2a[autorecType][animationName][variant])[0] }
     let color = autoOverridden ? changeColor : autorecObject[0].color
     if (color === 'random') { color = autorecObject[0].color || "" }
-
-    const file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color]
+    let file;
+    if (animationName === 'magicmissile') {
+        file = jb2a[autorecType][animationName][variant][color]['15ft'][1]
+    } else {
+        file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color]
+    }
     return file;
 }
 
