@@ -454,7 +454,6 @@ async function fblReady(msg) {
 / Sets Handler for Demon Lord
 */
 function setupDemonLord(data) {
-    console.log(data)
     if (killAllAnimations) { return; }
     let handler = new flagHandler(data);
     trafficCop(handler);
