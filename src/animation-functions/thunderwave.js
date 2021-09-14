@@ -77,8 +77,7 @@ export async function thunderwaveAuto(handler, autoObject) {
 
     let templateW = template.data.width;
     let templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-    let scaleX = (100 / canvas.grid.size) * templateLength / 600;
-    let scaleY = scaleX;
+    let scale = (100 / canvas.grid.size) * templateLength / 600;
     let xPos = handler.actorToken.data.x;
     let yPos = handler.actorToken.data.y;
     let tempY = template.data.y;
@@ -205,7 +204,7 @@ export async function thunderwaveAuto(handler, autoObject) {
                 .atLocation({x: tempX + (gridSize * 1.5), y: tempY + (gridSize * 1.5)})
                 .anchor({x: 0.5, y: 0.5})
                 .rotate(ang)
-                .scale(Scale)
+                .scale(scale)
                 .belowTokens(false)
                 .repeats(data.repeat, data.delay)
             .sound()

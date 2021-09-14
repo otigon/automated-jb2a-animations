@@ -109,8 +109,17 @@ export function autorecColors(itemName) {
     }
     if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
     const name = animationName === 'shield' ? 'shieldspell' : animationName
-    const variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
-    let colors = colorMenu[autorecType][name][variant]
+    let variant;
+    try {variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;}
+    catch (exception) {}
+    //let variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
+    if (autorecSection[1] === 'templates') {
+        variant = autorecObject[0].animation;
+    }
+    let colors;
+    try {colors = colorMenu[autorecType][name][variant]}
+    catch (exception) {}
+    //let colors = colorMenu[autorecType][name][variant]
     return colors;
 }
 
@@ -179,14 +188,19 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
         animationName = autorecObject[0].type;
     }
     let variant = !autorecObject[0].variant ? Object.keys(jb2a[autorecType][animationName])[0] : autorecObject[0].variant;
-    if (!changeColor) { changeColor = Object.keys(jb2a[autorecType][animationName][variant])[0] }
+    if (!changeColor) {
+        try { changeColor = Object.keys(jb2a[autorecType][animationName][variant])[0] }
+        catch (exception) { changeColor = autorecObject[0].color }
+    }
     let color = autoOverridden ? changeColor : autorecObject[0].color
     if (color === 'random') { color = autorecObject[0].color || "" }
     let file;
     if (animationName === 'magicmissile') {
-        file = jb2a[autorecType][animationName][variant][color]['15ft'][1]
+        try { file = jb2a[autorecType][animationName][variant][color]['15ft'][1] }
+        catch (exception) { }
     } else {
-        file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color]
+        try { file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color] }
+        catch (exception) { }
     }
     return file;
 }
