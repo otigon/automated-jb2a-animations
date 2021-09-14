@@ -1,7 +1,8 @@
 import { AUTOANIM } from "../item-sheet-handlers/config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
-import ctaCall from "../animation-functions/CTAcall.js";
-import { exportAutorecToJSON, importAutorecFromJSON } from "./autoFunctions.js";
+//import ctaCall from "../animation-functions/CTAcall.js";
+//import { exportAutorecToJSON, importAutorecFromJSON } from "./autoFunctions.js";
+import { AutorecFunctions } from "./autorecFunctions.js";
 
 export class aaAutoRecognition extends FormApplication {
     constructor(object = {}, options) {
@@ -89,7 +90,7 @@ export class aaAutoRecognition extends FormApplication {
         html.on('open', '#aatest', (evt) => { 
             evt.preventDefault()
         })
-        html.find("#aa-autorec-export").click(exportAutorecToJSON);
+        html.find("#aa-autorec-export").click(AutorecFunctions._exportAutorecToJSON);
 		html.find("#aa-autorec-import").on("click", async () => {
 			if (await importFromJSONDialog()) {
 				this.close();
@@ -312,7 +313,7 @@ async function importFromJSONDialog() {
 						if (!form.data.files.length)
 							return ui.notifications?.error("You did not upload a data file!");
 						readTextFromFile(form.data.files[0]).then(json => {
-							importAutorecFromJSON(json);
+							AutorecFunctions._importAutorecFromJSON(json);
 							resolve(true);
 						});
 					}

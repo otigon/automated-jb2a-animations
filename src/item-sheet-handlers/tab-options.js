@@ -1,8 +1,8 @@
 
 import { AUTOANIM } from "./config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
-
-import { getAllTheNames, findObjectByNameFull, autorecNameCheck, rinseName } from "../custom-recognition/autoFunctions.js";
+import { AutorecFunctions } from "../custom-recognition/autorecFunctions.js";
+//import { getAllTheNames, findObjectByNameFull, autorecNameCheck, rinseName } from "../custom-recognition/autoFunctions.js";
 import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js";
 import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js";
 
@@ -84,13 +84,13 @@ export function staticColors(itemName, spellVariant, bardAnimation, damageType, 
 
 export function autorecColors(itemName) {
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    const autoName = rinseName(itemName)
-    const nameArray = getAllTheNames(autoRecSettings);
-    if (!autorecNameCheck(nameArray, autoName)) {
+    const autoName = AutorecFunctions._rinseName(itemName)
+    const nameArray = AutorecFunctions._getAllTheNames(autoRecSettings);
+    if (!AutorecFunctions._autorecNameCheck(nameArray, autoName)) {
         return;
     }
     const colorMenu = aaColorMenu;
-    let autorecSection = findObjectByNameFull(autoRecSettings, autoName);
+    let autorecSection = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName);
     const autorecObject = autorecSection[0]
     if (autorecObject[0].custom) { return null }
     let autorecType = autorecSection[1]
@@ -125,10 +125,10 @@ export function autorecColors(itemName) {
 
 export function checkAutoRec(itemName) {
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    const autoName = rinseName(itemName)
-    const nameArray = getAllTheNames(autoRecSettings);
+    const autoName = AutorecFunctions._rinseName(itemName)
+    const nameArray = AutorecFunctions._getAllTheNames(autoRecSettings);
     let foundName = false;
-    if (autorecNameCheck(nameArray, autoName)) {
+    if (AutorecFunctions._autorecNameCheck(nameArray, autoName)) {
         foundName = true;
     }
     return foundName;
@@ -164,14 +164,14 @@ export function variantLength(itemName, type) {
 
 export function autoPreview(name, baseColor, patreon, autoOverridden) {
 
-    const autoName = rinseName(name)
+    const autoName = AutorecFunctions._rinseName(name)
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    const nameArray = getAllTheNames(autoRecSettings);
-    if (!autorecNameCheck(nameArray, autoName)) {
+    const nameArray = AutorecFunctions._getAllTheNames(autoRecSettings);
+    if (!AutorecFunctions._autorecNameCheck(nameArray, autoName)) {
         return;
     }
     const jb2a = patreon ? JB2APATREONDB : JB2AFREEDB;
-    const autorecSection = findObjectByNameFull(autoRecSettings, autoName);
+    const autorecSection = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName);
 
     const autorecObject = autorecSection[0]
     if (autorecObject[0].animation === 'bardicinspiration' || autorecObject[0].animation === 'bless' || autorecObject[0].animation === 'shieldspell') { return; }

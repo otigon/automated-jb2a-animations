@@ -1,5 +1,5 @@
-import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
-import thunderwaveAuto from "../animation-functions/thunderwave.js";
+//import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
+//import thunderwaveAuto from "../animation-functions/thunderwave.js";
 import ctaCall from "../animation-functions/CTAcall.js";
 import huntersMark from "../animation-functions/custom-sequences/hunters-mark.js";
 import bardicInspiration from "../animation-functions/custom-sequences/bardic-inspiration.js";
@@ -13,9 +13,9 @@ import { shieldSpell } from "../animation-functions/custom-sequences/shield.js";
 import { sneakAttack } from "../animation-functions/custom-sequences/sneak-Attack.js";
 import { bless } from "../animation-functions/custom-sequences/bless.js";
 import { staticAnimation } from "../animation-functions/staticAnimation.js";
-import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
+//import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
 import { aaDebugger } from "../constants/constants.js";
-import { AutorecFunctions} from "../custom-recognition/autoFunctions.js"
+import { AutorecFunctions} from "../custom-recognition/autorecFunctions.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -142,7 +142,7 @@ export async function trafficCop(handler) {
             const autoName = AutorecFunctions._rinseName(handler.itemName);
 
             switch (true) {
-                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'melee'), autoName):
+                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'melee'), autoName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
@@ -153,7 +153,7 @@ export async function trafficCop(handler) {
                     if (aaDebug) { aaDebugger("Pre Melee Animation", meleeAutoObject) }
                     meleeAnimation(handler, meleeAutoObject);
                     break;
-                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'range'), autoName):
+                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'range'), autoName):
                     if (targets === 0) {
                         Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                         if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
@@ -164,25 +164,25 @@ export async function trafficCop(handler) {
                     if (aaDebug) { aaDebugger("Pre Range Animation", rangeAutoObject) }
                     rangedAnimations(handler, rangeAutoObject);
                     break;
-                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'static'), autoName):
+                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'static'), autoName):
                     Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                     const staticAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'static', autoName);
                     if (aaDebug) { aaDebugger("Pre Static Animation", staticAutoObject) }
                     staticAnimation(handler, staticAutoObject);
                     break;
-                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'templates'), autoName):
+                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), autoName):
                     const templateAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'templates', autoName);
                     if (aaDebug) { aaDebugger("Pre Template Animation", templateAutoObject) }
                     Hooks.once("createMeasuredTemplate", () => {
                         templateAnimation(handler, templateAutoObject);
                     })
                     break;
-                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'auras'), autoName):
+                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'auras'), autoName):
                     const auraAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'auras', autoName);
                     if (aaDebug) { aaDebugger("Pre CTA Animation", auraAutoObject) }
                     ctaCall(handler, auraAutoObject);
                     break;
-                case AutorecFunctions._autorecNameCheck(getAllNames(autoRecSettings, 'preset'), autoName):
+                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'preset'), autoName):
                     const presetAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'preset', autoName);
                     if (aaDebug) { aaDebugger("Pre Preset Animation", presetAutoObject) }
                     switch (presetAutoObject[0].animation) {

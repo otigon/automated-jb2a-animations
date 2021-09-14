@@ -1,8 +1,8 @@
 import { AUTOANIM } from "./config.js";
 
 import { rangeColors, staticColors, animationName, animTemplates, variantOptions, menuColors, variantLength, autorecColors, checkAutoRec, autoPreview } from "./tab-options.js";
-import { findObjectByNameFull, rinseName } from "../custom-recognition/autoFunctions.js";
-
+//import { findObjectByNameFull, rinseName } from "../custom-recognition/autoFunctions.js";
+import { AutorecFunctions } from "../custom-recognition/autorecFunctions.js";
 import animPreview from "./anim-preview.js";
 //import { nameConversion } from "./name-conversions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
@@ -88,7 +88,7 @@ export class AAItemSettings extends FormApplication {
 
         //const showScale = oldName.toLowerCase() === "bless" || oldName.toLowerCase() === "shield" || oldName.toLowerCase() === "bardicinspiration" ? true : false;
         //const autoName = rinseName(oldName);
-        const autorecType = findObjectByNameFull(game.settings.get('autoanimations', 'aaAutorec'), rinseName(oldName));
+        const autorecType = AutorecFunctions._findObjectByNameFull(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName));
         //let noRepeatDelay; //= autorecType === 'auras' || autorecType === 'templates' || autorecType === 'preset' ? false : true;
         let noScale = ['templates', 'range'];
         let noRepeatDelay = ['preset'];
