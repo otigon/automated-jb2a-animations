@@ -22,6 +22,7 @@ export function findObjectByName(data, type, name) {
 }
 
 export function autorecNameCheck(nameArray, name) {
+    if (!name) {return;}
     const arrayLength = nameArray.length;
     let newName = name.toLowerCase()
     let nameFound = false;
@@ -37,6 +38,7 @@ export function autorecNameCheck(nameArray, name) {
 }
 
 export function rinseName(oldName) {
+    if (!oldName) {return;}
     let newName = oldName.replace(/[+1]|[+2]|[+3]|[+4]/gi, function (x) {
         return "";
     });
