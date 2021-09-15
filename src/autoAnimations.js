@@ -8,6 +8,7 @@ import Pf1Handler from "./system-handlers/pf1-handler.js";
 import Dnd35Handler from "./system-handlers/dnd35-handler.js";
 import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
 import DemonLordHandler from './system-handlers/demonlord-handler.js';
+import StarWarsFfgHandler from './system-handlers/starwarsffg-handler.js';
 import SwadeHandler from './system-handlers/swade-handler.js';
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import SW5eHandler from "./system-handlers/sw5e-handler.js";
@@ -187,6 +188,9 @@ Hooks.on('init', () => {
                         });
                     })
                 }
+                break;
+            case "starwarsffg":
+                Hooks.on("createChatMessage", async (msg) => { swffgReady(msg) });
                 break;
             case "swade":
                 Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
@@ -422,6 +426,15 @@ function onCreateChatMessage(msg) {
     }
     */
     trafficCop(handler)
+}
+
+/*
+/ Sets Handler for Star Wars FFG
+*/
+function swffgReady(msg) {
+    if (killAllAnimations) { return; }
+    let handler = new StarWarsFfgHandler(msg);
+    trafficCop(handler);
 }
 
 /*
