@@ -45,6 +45,7 @@ export function getSystemData(input, chatMessage) {
                 inputAtr = extractItemId(input.data?.content);
                 itemId = input.data?.flags?.dnd5e?.roll?.itemId || inputAtr || input.data?.flags?.["midi-qol"]?.itemId;
                 tokenId = input.data?.speaker?.token;
+                if (!itemId || !tokenId) { return; }
                 token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
                 item = token.actor?.items?.get(itemId);
                 if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
@@ -59,16 +60,15 @@ export function getSystemData(input, chatMessage) {
                 if (item.data?.data?.properties?.rch) {
                     reach += 5;
                 }
-                if (!item || !token) { return; }
             }
             break;
         case 'D35E':
             itemId = extractItemId(input.data?.content);
             tokenId = input.data?.speaker?.token;
+            if (!itemId || !itemId) { return; }
             token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
             item = token.actor.items?.get(itemId) ?? null;
             targets = Array.from(input.user.targets);
-            if (!item || !token) { return; }
             break;
         case 'sw5e':
             if (game.modules.get('midi-qol')?.active && !chatMessage) {
@@ -104,10 +104,10 @@ export function getSystemData(input, chatMessage) {
             } else {
                 itemId = input.data?.flags?.sw5e?.roll?.itemId;
                 tokenId = input.data?.speaker?.token;
+                if (!itemId || !itemId) { return; }
                 token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
                 item = token.actor.items?.get(itemId) ?? "";
                 targets = Array.from(input.user.targets);
-                if (!item || !token) { return; }
             }
             break;
         case 'pf1':
@@ -126,10 +126,10 @@ export function getSystemData(input, chatMessage) {
         case 'forbidden-lands':
             itemId = input._roll.options?.itemId;
             tokenId = input._roll.options?.tokenId;
+            if (!itemId || !tokenId) { return; }
             token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemID) != null);
             item = token.actor?.items?.get(itemId);
             targets = Array.from(input.user.targets);
-            if (!item || !token) { return; }
             break;
         case 'demonlord':
             itemId = input.itemId;
@@ -169,10 +169,10 @@ export function getSystemData(input, chatMessage) {
         case 'tormenta20':
             itemId = extractItemId(input.data?.content);
             tokenId = input.data?.speaker?.token;
+            if (!itemId || !tokenId) { return; }
             token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
             item = token.actor.items?.get(itemId) ?? "";
             targets = Array.from(input.user.targets);
-            if (!item || !token) { return; }
             break;
         case 'wfrp4e':
             item = input.item;
