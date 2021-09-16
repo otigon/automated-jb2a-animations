@@ -432,7 +432,7 @@ function setupTormenta20(msg) {
                 break;
         }
     }
-    if (game.user.id === msg.user.id) {
+    if (game.user.id !== msg.user.id) {
         return;
     }
     trafficCop(handler);

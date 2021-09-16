@@ -32,13 +32,9 @@ export async function bless(handler, autoObject) {
         data.addCTA = handler.options?.addCTA;
     }
     const bless = await buildBlessFile(obj01, data.color);
-    // builds Source Token file if Enabled, and pulls from flags if already set
-    let sourceFX;
-    if (handler.sourceEnable) {
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
-    }
-
+    
     const sourceToken = handler.actorToken;
+
     //let animWidth = onToken.metadata.width;
     const scale = ((sourceToken.w / bless.metadata.width) * 2)// * handler.scale
     let addCTA = data.addCTA ? false : true
@@ -63,9 +59,6 @@ export async function bless(handler, autoObject) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
-            if (handler.targetEnable) {
-                tFXScale = 2 * target.w / targetFX.metadata.width;
-            }
 
             let targetScale = ((target.w / bless.metadata.width) * 2)
             new Sequence()

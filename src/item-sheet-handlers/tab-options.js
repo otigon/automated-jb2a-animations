@@ -110,15 +110,15 @@ export function autorecColors(itemName) {
     if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
     const name = animationName === 'shield' ? 'shieldspell' : animationName
     let variant;
-    try {variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;}
-    catch (exception) {}
+    try { variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant; }
+    catch (exception) { }
     //let variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
     if (autorecSection[1] === 'templates') {
         variant = autorecObject[0].animation;
     }
     let colors;
-    try {colors = colorMenu[autorecType][name][variant]}
-    catch (exception) {}
+    try { colors = colorMenu[autorecType][name][variant] }
+    catch (exception) { }
     //let colors = colorMenu[autorecType][name][variant]
     return colors;
 }
@@ -135,7 +135,7 @@ export function checkAutoRec(itemName) {
 
 }
 export function variantOptions(itemName, type) {
-
+    if (!itemName) { console.log("Name is Undefined while checking variantOptions"); return; }
     let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
@@ -150,6 +150,7 @@ export function variantOptions(itemName, type) {
 }
 
 export function variantLength(itemName, type) {
+    if (!itemName) { console.log("Name is Undefined while checking variantLength"); return; }
     let name = itemName.replace(/melee|range|double/gi, function (x) {
         return "";
     });
@@ -163,7 +164,7 @@ export function variantLength(itemName, type) {
 }
 
 export function autoPreview(name, baseColor, patreon, autoOverridden) {
-
+    if (!name) { console.log("Name is Undefined while fetching Video Preview"); return; }
     const autoName = rinseName(name)
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
     const nameArray = getAllTheNames(autoRecSettings);

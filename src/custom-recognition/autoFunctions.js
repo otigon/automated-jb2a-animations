@@ -29,7 +29,8 @@ export function autorecNameCheck(nameArray, name) {
     for (var i = 0; i < arrayLength; i++) {
         //cutting out all spaces
         var currentArrayName = nameArray[i].replace(/\s+/g, '').toLowerCase()
-        if (newName.includes(currentArrayName)) {
+        if (currentArrayName === "") {} 
+        else if (newName.includes(currentArrayName)) {
             nameFound = true;
             break;
         }
@@ -74,7 +75,7 @@ export function findObjectByNameFull(data, name) {
             .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
             .find(section => {
                 //added .replace()
-                return name.toLowerCase().includes(section.name.replace(/\s+/g, '').toLowerCase()) ? section : "";
+                return name.toLowerCase().includes(section.name.replace(/\s+/g, '').toLowerCase()) && section.name !== "" ? section : "";
             })
 
         if (newObject) { return [[newObject], keys[i]] }
