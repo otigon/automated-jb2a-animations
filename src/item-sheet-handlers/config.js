@@ -1,4 +1,3 @@
-
 export const AUTOANIM = {}
 
 
@@ -366,19 +365,3 @@ AUTOANIM.localized = function (cfg) {
     }, {}
     );
 };
-
-AUTOANIM.numeric = function (value, fallback) {
-    if ($.isNumeric(value)) {
-        return parseInt(value);
-    } else {
-        return fallback;
-    }
-};
-
-AUTOANIM.fromCollection = function (collection, entryId) {
-    const pack = game.packs.find(p => p.collection === collection);
-    return pack.getEntity(entryId).then(ent => {
-        return ent;
-    });
-};
-
