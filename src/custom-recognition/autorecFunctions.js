@@ -1,6 +1,6 @@
 import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js"
 import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js"
-import { aaColorMenu } from "../animation-functions/databases/jb2a-menu-options.js"
+import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js"
 
 export class AutorecFunctions {
 
@@ -161,6 +161,7 @@ export class AutorecFunctions {
             return;
         }
         const colorMenu = aaColorMenu;
+        const variantMenu = aaVariantMenu;
         let autorecSection = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName);
         const autorecObject = autorecSection[0]
         if (autorecObject[0].custom) { return null }
@@ -173,17 +174,21 @@ export class AutorecFunctions {
         if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
         const name = animationName === 'shield' ? 'shieldspell' : animationName
         let variant;
-        try {variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;}
-        catch (exception) {}
+        try { variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant; }
+        catch (exception) { }
     
         if (autorecSection[1] === 'templates') {
             variant = autorecObject[0].animation;
         }
         let colors;
-        try {colors = colorMenu[autorecType][name][variant]}
-        catch (exception) {}
+        try { colors = colorMenu[autorecType][name][variant] }
+        catch (exception) { }
+        let variantChoices;
+        try { variantChoices = variantMenu[autorecType][name] }
+        catch (exception) { }
+        if (autorecSection[1] === "templates") { variantChoices = undefined }
     
-        return colors;
+        return { colors, variantChoices };
     }
-    
+        
 }

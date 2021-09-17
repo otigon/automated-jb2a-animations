@@ -97,7 +97,8 @@ export class AAItemSettings extends FormApplication {
             autoRepeatDelay = noRepeatDelay.some(el => autorecType[1] === el);
             noAutoScale = WTF ? false : true;
             autoNone = noOptions.some(el => autorecType[1] === el);
-            }
+        }
+        let autoOptions = AutorecFunctions._checkAutoRec(oldName) ? AutorecFunctions._autorecColors(oldName) : { colors: null, variantChoices: null };
 
         let videoPreview = animPreview(flags, itemName);
         if (videoPreview === "no preview" && !override) { videoPreview = AutorecFunctions._autoPreview(oldName, flags.autoanimations?.options?.autoColor, patreon, flags.autoanimations?.options?.overrideAuto) }
@@ -123,7 +124,7 @@ export class AAItemSettings extends FormApplication {
             autoRepeatDelay: autoRepeatDelay,
             noAutoScale: noAutoScale,
             autoNone: autoNone,
-            
+
             OldName: oldName,
             //convertedName: conversion[2],
             //autoRecognized: conversion[2] === undefined ? false : true,
@@ -247,7 +248,7 @@ export class AAItemSettings extends FormApplication {
             bardTargetColors: AATabFunctions.menuColors(flags.autoanimations?.bards?.bardTargetAnim, "", "static"),
             markerColors: AATabFunctions.menuColors("bardicinspiration", "marker", "static"),
             staticColors: AATabFunctions.menuColors(itemName, spellVariant, "static"),
-            spellColors:AATabFunctions. menuColors(itemName, spellVariant, "range"),
+            spellColors: AATabFunctions.menuColors(itemName, spellVariant, "range"),
 
             rangeColors: AATabFunctions.rangeColors(itemName, damageType, variant),
             switchColors: AATabFunctions.rangeColors(switchName, spellVariant, switchDamageType, switchVariant),
@@ -261,7 +262,7 @@ export class AAItemSettings extends FormApplication {
             meleeVariant: AATabFunctions.variantOptions(itemName, "melee"),
             staticVariant: AATabFunctions.variantOptions(itemName, "static"),
 
-            autorecColor: AutorecFunctions._autorecColors(oldName),
+            autorecColor: autoOptions.colors,
             autoRepeat: flags.autoanimations?.options?.autoRepeat || 1,
             autoDelay: flags.autoanimations?.options?.autoDelay || 500,
             autoScale: flags.autoanimations?.options?.autoScale || 1,

@@ -4,7 +4,7 @@ import { trafficCop } from "./router/traffic-cop.js";
 import { AutorecFunctions } from "./custom-recognition/autorecFunctions.js";
 
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
-import flagHandler from "./system-handlers/system-handler.js";
+import flagHandler from "./system-handlers/flag-handler.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import aaSettings from "./settings.js";
