@@ -266,7 +266,8 @@ export class AAItemSettings extends FormApplication {
             meleeVariant: variantOptions(itemName, "melee"),
             staticVariant: variantOptions(itemName, "static"),
 
-            autorecColor: autorecColors(oldName),
+            autorecColor: autorecColors(oldName).colors,
+            autorecVariants: autorecColors(oldName).variantChoices,
             autoRepeat: flags.autoanimations?.options?.autoRepeat || 1,
             autoDelay: flags.autoanimations?.options?.autoDelay || 500,
             autoScale: flags.autoanimations?.options?.autoScale || 1,

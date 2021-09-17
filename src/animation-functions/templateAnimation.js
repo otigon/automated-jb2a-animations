@@ -18,6 +18,7 @@ export async function templateAnimation(handler, autoObject) {
         data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
         data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
         data.occlusionMode = parseInt(data.occlusionMode);
+        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
     } else {
         data.itemName = handler.templates.tempAnim;
         data.variant = handler.spellVariant;

@@ -90,6 +90,7 @@ export function autorecColors(itemName) {
         return;
     }
     const colorMenu = aaColorMenu;
+    const variantMenu = aaVariantMenu;
     let autorecSection = findObjectByNameFull(autoRecSettings, autoName);
     const autorecObject = autorecSection[0]
     if (autorecObject[0].custom) { return null }
@@ -119,8 +120,12 @@ export function autorecColors(itemName) {
     let colors;
     try { colors = colorMenu[autorecType][name][variant] }
     catch (exception) { }
+    let variantChoices;
+    try { variantChoices = variantMenu[autorecType][name] }
+    catch (exception) { }
+    if (autorecSection[1] === "templates") { variantChoices = undefined }
     //let colors = colorMenu[autorecType][name][variant]
-    return colors;
+    return { colors, variantChoices };
 }
 
 export function checkAutoRec(itemName) {
@@ -200,7 +205,7 @@ export function autoPreview(name, baseColor, patreon, autoOverridden) {
         try { file = jb2a[autorecType][animationName][variant][color]['15ft'][1] }
         catch (exception) { }
     } else {
-        try { file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color] }
+        try { file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color][0] }
         catch (exception) { }
     }
     return file;

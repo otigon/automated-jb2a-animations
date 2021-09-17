@@ -31,13 +31,15 @@ AUTOANIM.animNameMeleeWeapon = {
     "greataxe": "AUTOANIM.itemGreataxe",
     "greatclub": "AUTOANIM.itemGreatclub",
     "greatsword": "AUTOANIM.itemGreatsword",
+    "halberd": "AUTOANIM.halberd",
     "handaxe": "AUTOANIM.itemHandaxe",
     "lasersword": "AUTOANIM.itemLaserSword",
     "mace": "AUTOANIM.itemMace",
     "maul": "AUTOANIM.itemMaul",
+    "quarterstaff": "AUTOANIM.quarterstaff",
     "spear": "AUTOANIM.itemSpear",
     "sword": "AUTOANIM.itemSword",
-    "rapier": "AUTOANIM.itemRapier"
+    "rapier": "AUTOANIM.itemRapier",
 };
 
 AUTOANIM.meleeWeapons = {
@@ -47,10 +49,12 @@ AUTOANIM.meleeWeapons = {
     "greataxe": "AUTOANIM.itemGreataxe",
     "greatclub": "AUTOANIM.itemGreatclub",
     "greatsword": "AUTOANIM.itemGreatsword",
+    "halberd": "AUTOANIM.halberd",
     "handaxe": "AUTOANIM.itemHandaxe",
     "lasersword": "AUTOANIM.itemLaserSword",
     "mace": "AUTOANIM.itemMace",
     "maul": "AUTOANIM.itemMaul",
+    "quarterstaff": "AUTOANIM.quarterstaff",
     "spear": "AUTOANIM.itemSpear",
     "sword": "AUTOANIM.itemSword",
     "rapier": "AUTOANIM.itemRapier",
@@ -288,6 +292,8 @@ AUTOANIM.circleAnimations = {
     "outpulse01": "AUTOANIM.outpulse01",
     "outpulse02": "AUTOANIM.outpulse02",
     "shatter": "AUTOANIM.itemShatter",
+    "sleep01": "AUTOANIM.sleep01",
+    "sleep02": "AUTOANIM.sleep02",
     "fogcloud": "AUTOANIM.animFogCloud",
     "darkness": "AUTOANIM.animDarkness",
     "calllightning": "AUTOANIM.animCallLightning",

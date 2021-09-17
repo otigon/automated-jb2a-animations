@@ -58,17 +58,28 @@
                         flags.autoanimations.options.overrideAuto}}>
                 </div>
                 {{#if flags.autoanimations.options.overrideAuto}}
-                <!--Choose Standard Animation Color-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
-                    <select name="flags.autoanimations.options.autoColor">
-                        {{#select flags.autoanimations.options.autoColor}}
-                        {{#each autorecColor as |name key|}}
-                        <option value="{{key}}">{{name}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
-                </div>
+                    <!--Choose Variant-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.variant"}}</label>
+                            <select name="flags.autoanimations.options.autoVariant">
+                                {{#select flags.autoanimations.options.autoVariant}}
+                                {{#each autorecVariants as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                    </div>
+                    <!--Choose Standard Animation Color-->
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                        <select name="flags.autoanimations.options.autoColor">
+                            {{#select flags.autoanimations.options.autoColor}}
+                            {{#each autorecColor as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
                 <div class="flexrow">
                     {{#unless autoNone}}
                     {{#unless autoRepeatDelay}}
@@ -1894,7 +1905,10 @@
                     <img src="modules/autoanimations/pictures/Sequence.webp" alt="Tips4Sequence">
                 </div>-->
                 <div class="flexrow">
-                    <div class="AA-flow-chart-Source" {{#if flags.autoanimations.sourceToken.enable }} style="background-color: rgb(129, 248, 138);" {{/if}} {{#unless flags.autoanimations.sourceToken.enable}} style="background-color: rgb(255, 145, 43);" {{/unless}}>
+                    <div class="AA-flow-chart-Source" {{#if flags.autoanimations.sourceToken.enable }}
+                        style="background-color: rgb(129, 248, 138);" {{/if}} {{#unless
+                        flags.autoanimations.sourceToken.enable}} style="background-color: rgb(255, 145, 43);"
+                        {{/unless}}>
                         <label>{{localize "AUTOANIM.source"}} {{localize "AUTOANIM.animation"}}</label>
                     </div>
                     <div class="aa-flow-arrow">
@@ -1906,7 +1920,10 @@
                     <div class="aa-flow-arrow">
                         <i class="fas fa-angle-double-right fa-3x"></i>
                     </div>
-                    <div class="AA-flow-chart-Target" {{#if flags.autoanimations.targetToken.enable }} style="background-color: rgb(129, 248, 138);" {{/if}} {{#unless flags.autoanimations.targetToken.enable}} style="background-color: rgb(255, 145, 43);" {{/unless}}>
+                    <div class="AA-flow-chart-Target" {{#if flags.autoanimations.targetToken.enable }}
+                        style="background-color: rgb(129, 248, 138);" {{/if}} {{#unless
+                        flags.autoanimations.targetToken.enable}} style="background-color: rgb(255, 145, 43);"
+                        {{/unless}}>
                         <label>{{localize "AUTOANIM.target"}} {{localize "AUTOANIM.animation"}}</label>
                     </div>
                 </div>

@@ -40,6 +40,7 @@ export async function shieldSpell(handler, autoObject) {
         data.itemName = data.animation || "";
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
+        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
     } else {
         data.itemName = handler.convertedName;
         data.color = handler.color || "blue";

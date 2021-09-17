@@ -32,11 +32,11 @@ function animPreview(flags, name) {
                     case "dagger":
                     case "handaxe":
                     case "spear":
-                        try { preview = obj01.melee[itemName]['01'][color] }
+                        try { preview = obj01.melee[itemName]['01'][color][0] }
                         catch (exception) { preview = "no preview" }
                         break;
                     default:
-                        try { preview = obj01.melee[itemName]['01'][color] }
+                        try { preview = obj01.melee[itemName]['01'][color][0] }
                         catch (exception) { preview = "no preview" }
                         break;
                 }
@@ -49,11 +49,11 @@ function animPreview(flags, name) {
                         switch (item.uaStrikeType) {
                             case ``:
                             case "physical":
-                                try { preview = obj01.melee[itemName]['physical'][color]['1'] }
+                                try { preview = obj01.melee[itemName]['physical'][color]['1'][0] }
                                 catch (exception) { preview = "no preview" }
                                 break;
                             default:
-                                try { preview = obj01.melee[itemName]['magical'][color]['1'] }
+                                try { preview = obj01.melee[itemName]['magical'][color]['1'][0] }
                                 catch (exception) { preview = "no preview" }
                         }
                         break;

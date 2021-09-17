@@ -317,6 +317,18 @@ JB2AFREEDB.melee = {
             white: [lg`Weapon_Attacks/Melee/GreatSword01_01_Regular_White_800x600.webm`]
         }
     },
+    halberd: {
+        '01': {
+            white: [
+                lg`Weapon_Attacks/Melee/Halberd01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_06_Regular_White_800x600.webm`
+            ],
+        }
+    },
     handaxe: {
         '01': {
             white: [lg`Weapon_Attacks/Melee/HandAxe02_01_Regular_White_800x600.webm`]
@@ -337,14 +349,34 @@ JB2AFREEDB.melee = {
             white: [lg`Weapon_Attacks/Melee/Maul01_01_Regular_White_800x600.webm`]
         }
     },
+    quarterstaff: {
+        white: [
+            lg`Weapon_Attacks/Melee/Quarterstaff01_01_Regular_White_800x600.webm`,
+            lg`Weapon_Attacks/Melee/Quarterstaff01_02_Regular_White_800x600.webm`,
+            lg`Weapon_Attacks/Melee/Quarterstaff01_03_Regular_White_800x600.webm`,
+            lg`Weapon_Attacks/Melee/Quarterstaff01_04_Regular_White_800x600.webm`,
+            lg`Weapon_Attacks/Melee/Quarterstaff01_05_Regular_White_800x600.webm`,
+            lg`Weapon_Attacks/Melee/Quarterstaff01_06_Regular_White_800x600.webm`
+        ],
+    },
     rapier: {
         '01': {
             white: [lg`Weapon_Attacks/Melee/Rapier01_01_Regular_White_800x600.webm`]
         }
     },
     spear: {
-        '01': {
+        'fire': {
             white: [lg`Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm`],
+        },
+        '01': {
+            white: [
+                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm',
+                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_02_Regular_White_800x600.webm',
+                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_03_Regular_White_800x600.webm',
+                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_04_Regular_White_800x600.webm',
+                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_05_Regular_White_800x600.webm',
+                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_06_Regular_White_800x600.webm'
+            ],
         }
     },
     sword: {
@@ -422,6 +454,12 @@ JB2AFREEDB.static = {
         },
         "outpulse02": {
             bluewhite: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
+        },
+        sleep01: {
+            pink: [l1`Sleep/Cloud01_01_Regular_Pink_400x400.webm`],
+        },
+        sleep02: {
+            pink: [l1`Sleep/Cloud01_02_Regular_Pink_400x400.webm`],
         },
         "shatter": {
             purple: [l2`Shatter/Shatter_01_Purple_400x400.webm`],

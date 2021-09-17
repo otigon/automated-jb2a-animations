@@ -19,6 +19,7 @@ export async function thunderwaveAuto(handler, autoObject) {
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
         data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
         data.occlusionMode = parseInt(data.occlusionMode);
     } else {
         data.itemName = handler.templates.tempAnim;

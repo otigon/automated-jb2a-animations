@@ -419,6 +419,13 @@
     "AUTOANIM.export": "Export Settings",
     "AUTOANIM.preset": "Preset",
     "AUTOANIM.autoRecSetting": "Configure Automatic Recognition",
-    "AUTOANIM.debugging": "Enable Debugging"
+    "AUTOANIM.debugging": "Enable Debugging",
+
+    "AUTOANIM.darkorangepurple": "Dark Orange Purple",
+    "AUTOANIM.halberd": "Halberd",
+    "AUTOANIM.quarterstaff": "Quarterstaff",
+    "AUTOANIM.04": "04",
+    "AUTOANIM.sleep01": "Sleep 01",
+    "AUTOANIM.sleep02": "Sleep 02"
 
 }

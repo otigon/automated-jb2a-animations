@@ -19,6 +19,7 @@ export async function meleeSwitch(handler, target, autoObject) {
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
         data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
     } else {
         data.switchAnimation = handler.switchName || handler.convertedName;
         //data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";

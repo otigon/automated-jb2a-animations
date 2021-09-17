@@ -138,7 +138,7 @@ export class aaAutorec {
             range: {
                 0: {
                     hidden: true,
-                    name: 'Heavy Crossbow',
+                    name: 'Crossbow',
                     animation: 'bolt',
                     variant: 'physical',
                     color: 'orange',
@@ -148,7 +148,7 @@ export class aaAutorec {
                 },
                 1: {
                     hidden: true,
-                    name: 'Longbow',
+                    name: 'Bow',
                     animation: 'arrow',
                     variant: 'regular',
                     color: 'regular',
@@ -158,16 +158,6 @@ export class aaAutorec {
                 },
                 2: {
                     hidden: true,
-                    name: 'Shortbow',
-                    animation: 'arrow',
-                    variant: 'regular',
-                    color: 'regular',
-                    repeat: 1,
-                    delay: 500,
-                    type: "weapon",
-                },
-                3: {
-                    hidden: true,
                     name: 'Disintegrate',
                     animation: 'disintegrate',
                     variant: '01',
@@ -176,7 +166,7 @@ export class aaAutorec {
                     delay: 500,
                     type: "spell",
                 },
-                4: {
+                3: {
                     hidden: true,
                     name: 'Eldritch Blast',
                     animation: 'eldritchblast',
@@ -186,7 +176,7 @@ export class aaAutorec {
                     delay: 500,
                     type: "spell",
                 },
-                5: {
+                4: {
                     hidden: true,
                     name: 'Fire Bolt',
                     animation: 'firebolt',
@@ -196,7 +186,7 @@ export class aaAutorec {
                     delay: 500,
                     type: "spell",
                 },
-                6: {
+                5: {
                     hidden: true,
                     name: 'Guiding Bolt',
                     animation: 'guidingbolt',
@@ -206,7 +196,7 @@ export class aaAutorec {
                     delay: 500,
                     type: "spell",
                 },
-                7: {
+                6: {
                     hidden: true,
                     name: 'Magic Missile',
                     animation: 'magicmissile',
@@ -216,7 +206,7 @@ export class aaAutorec {
                     delay: 500,
                     type: "spell",
                 },
-                8: {
+                7: {
                     hidden: true,
                     name: 'Ray of Frost',
                     animation: 'rayoffrost',
@@ -226,7 +216,7 @@ export class aaAutorec {
                     delay: 500,
                     type: "spell",
                 },
-                9: {
+                8: {
                     hidden: true,
                     name: 'Scorching Ray',
                     animation: 'scorchingray',
@@ -236,7 +226,7 @@ export class aaAutorec {
                     delay: 500,
                     type: "spell",
                 },
-                10: {
+                9: {
                     hidden: true,
                     name: 'Witch Bolt',
                     animation: 'witchbolt',

@@ -18,6 +18,7 @@ export async function staticAnimation(handler, autoObject) {
         data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
         data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
         data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
+        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
     } else {
         data.itemName = handler.convertedName;
         data.variant = handler.spellVariant;
