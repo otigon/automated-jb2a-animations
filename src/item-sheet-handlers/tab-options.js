@@ -93,7 +93,7 @@ export function autorecColors(itemName, flags) {
     const variantMenu = aaVariantMenu;
     let autorecSection = findObjectByNameFull(autoRecSettings, autoName);
     const autorecObject = autorecSection[0]
-    if (autorecObject[0].custom) { return null }
+    if (autorecObject[0].custom) { return {colors: null, variantChoices: null} }
     let autorecType = autorecSection[1]
     /*
     switch (true) {
@@ -117,9 +117,11 @@ export function autorecColors(itemName, flags) {
     if (autorecSection[1] === 'templates') {
         variant = autorecObject[0].animation;
     }
+    let autoVariant;
     if (flags.autoanimations?.options?.overrideAuto) {
-        variant = flags.autoanimations?.options?.autoVariant;
+        autoVariant = flags.autoanimations?.options?.autoVariant;
     }
+    variant = !autoVariant ? variant : autoVariant;
     let colors;
     try { colors = colorMenu[autorecType][name][variant] }
     catch (exception) { }
