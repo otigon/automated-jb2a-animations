@@ -82,7 +82,7 @@ export function staticColors(itemName, spellVariant, bardAnimation, damageType, 
 }
 
 
-export function autorecColors(itemName) {
+export function autorecColors(itemName, flags) {
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
     const autoName = rinseName(itemName)
     const nameArray = getAllTheNames(autoRecSettings);
@@ -116,6 +116,9 @@ export function autorecColors(itemName) {
     //let variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant;
     if (autorecSection[1] === 'templates') {
         variant = autorecObject[0].animation;
+    }
+    if (flags.autoanimations?.options?.overrideAuto) {
+        variant = flags.autoanimations?.options?.autoVariant;
     }
     let colors;
     try { colors = colorMenu[autorecType][name][variant] }

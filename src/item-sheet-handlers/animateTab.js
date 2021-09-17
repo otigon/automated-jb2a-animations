@@ -103,8 +103,8 @@ export class AAItemSettings extends FormApplication {
             noAutoScale = WTF ? false : true;
             autoNone = noOptions.some(el => autorecType[1] === el);
         }
-        console.log(checkAutoRec(oldName))
-        let autoOptions = checkAutoRec(oldName) ? autorecColors(oldName) : {colors: null, variantChoices: null};
+        //console.log(checkAutoRec(oldName))
+        let autoOptions = checkAutoRec(oldName) ? autorecColors(oldName, flags) : {colors: null, variantChoices: null};
 
         let videoPreview = animPreview(flags, itemName);
         if (videoPreview === "no preview" && !override) { videoPreview = autoPreview(oldName, flags.autoanimations?.options?.autoColor, patreon, flags.autoanimations?.options?.overrideAuto) }

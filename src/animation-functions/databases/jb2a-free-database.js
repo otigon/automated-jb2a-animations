@@ -370,12 +370,12 @@ JB2AFREEDB.melee = {
         },
         '01': {
             white: [
-                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm',
-                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_02_Regular_White_800x600.webm',
-                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_03_Regular_White_800x600.webm',
-                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_04_Regular_White_800x600.webm',
-                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_05_Regular_White_800x600.webm',
-                'modules/jb2a_patreon/Library/Generic/Weapon_Attacks/Melee/Spear01_06_Regular_White_800x600.webm'
+                lg`Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Spear01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Spear01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Spear01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Spear01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Spear01_06_Regular_White_800x600.webm`
             ],
         }
     },
