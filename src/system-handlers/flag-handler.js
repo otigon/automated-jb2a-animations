@@ -66,7 +66,6 @@ export default class flagHandler {
         this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
-        this._divineSmite = this._flags.divineSmite ?? "";
         this._rangedOptions = this._flags.rangedOptions ?? "";
         this._animLoops = this._flags.options?.loops ?? 1;
         this._loopDelay = this._flags.options?.loopDelay ?? 250;
@@ -91,31 +90,31 @@ export default class flagHandler {
         this._switchRange = this._meleeSwitch?.range ?? "1";
         this._returning = this._meleeSwitch?.returning ?? false;
 
-        this._sourceToken = this.flags.sourceToken ?? "";
-        this._sourceEnable = this._sourceToken.enable ?? false;
-        this._sourceLevel = this._sourceToken.animLevel ?? false;
-        this._sourceName = this._sourceToken.name ?? "";
-        this._sourceColor = this._sourceToken.color ?? "";
-        this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;
-        this._sourceCustomPath = this._sourceToken.customPath ?? "";
-        this._sourceLoops = this._sourceToken.loops ?? 1;
-        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
-        this._sourceScale = this._sourceToken.scale ?? 1;
-        this._sourceDelay = this._sourceToken.delayAfter ?? 500;
-        this._sourceVariant = this._sourceToken.variant ?? "";
+        this._sourceToken = this.flags.sourceToken ?? "";//
+        this._sourceEnable = this._sourceToken.enable ?? false;//
+        this._sourceLevel = this._sourceToken.animLevel ?? false;//
+        this._sourceName = this._sourceToken.name ?? "";//
+        this._sourceColor = this._sourceToken.color ?? "";//
+        this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;//
+        this._sourceCustomPath = this._sourceToken.customPath ?? "";//
+        this._sourceLoops = this._sourceToken.loops ?? 1;//
+        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;//
+        this._sourceScale = this._sourceToken.scale ?? 1;//
+        this._sourceDelay = this._sourceToken.delayAfter ?? 500;//
+        this._sourceVariant = this._sourceToken.variant ?? "";//
 
-        this._targetToken = this.flags.targetToken ?? "";
+        this._targetToken = this.flags.targetToken ?? "";//
         this._targetEnable = this._targetToken.enable ?? false;
-        this._targetLevel = this._targetToken.animLevel ?? false;
-        this._targetName = this._targetToken.name ?? "";
-        this._targetColor = this._targetToken.color ?? "";
-        this._targetCustomEnable = this._targetToken.enableCustom ?? false;
-        this._targetCustomPath = this._targetToken.customPath ?? "";
-        this._targetLoops = this._targetToken.loops ?? 1;
-        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
-        this._targetScale = this._targetToken.scale ?? 1;
-        this._targetDelay = this._targetToken.delayStart ?? 500;
-        this._targetVariant = this._targetToken.variant ?? "";
+        this._targetLevel = this._targetToken.animLevel ?? false;//
+        this._targetName = this._targetToken.name ?? "";//
+        this._targetColor = this._targetToken.color ?? "";//
+        this._targetCustomEnable = this._targetToken.enableCustom ?? false;//
+        this._targetCustomPath = this._targetToken.customPath ?? "";//
+        this._targetLoops = this._targetToken.loops ?? 1;//
+        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;//
+        this._targetScale = this._targetToken.scale ?? 1;//
+        this._targetDelay = this._targetToken.delayStart ?? 500;//
+        this._targetVariant = this._targetToken.variant ?? "";//
 
         this._animNameFinal;
         switch (true) {
@@ -188,7 +187,6 @@ export default class flagHandler {
     get explodeSound() { return this._explodeSound }
 
     get spellLoops() { return this._spellLoops; }
-    get divineSmite() { return this._divineSmite; }
     get autoDamage() { return game.user.isGM ? this._gmAD : this._userAD; }
     get flags() { return this._flags; }
 

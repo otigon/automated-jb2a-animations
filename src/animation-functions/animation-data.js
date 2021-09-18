@@ -122,27 +122,42 @@ static _explosionSound (handler) {
     return explosionSound;
 }
 
-static _sourceFX(handler, sourceToken) {
+static async _sourceFX(handler, sourceToken) {
+    const source = handler.flags?.sourceToken || {};
+    const enableCustom = source.enableCustom || false;
     const sourceFX = {
-        customSourcePath: handler.sourceCustomEnable ? handler.sourceCustomPath : false,
-        repeat: handler.sourceLoops || 1,
-        delay: handler.sourceLoopDelay || 250,
-        below: handler.sourceLevel || false,
-        startDelay: handler.sourceDelay || 500,
-        scale: handler.sourceScale || 1,
-    };
+        enabled: source.enable || false,
+        customSourcePath: enableCustom ? source.customPath : false,
+        repeat: source.loops || 1,
+        delay: source.loopDelay || 250,
+        below: source.animLevel || false,
+        startDelay: source.delayAfter || 500,
+        scale: source.scale || 1,
+        animation: source.name || "",
+        color: source.color,
+        variant: source.variant,
+    }
+    sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
+    sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceToken.w / sourceFX.data?.metadata?.width : 1;
     return sourceFX;
 }
 
-static _targetFX(handler) {
+static async _targetFX(handler) {
+    const target = handler.flags?.targetToken || {};
+    const enableCustom = target.enableCustom || false;
     const targetFX = {
-        customTargetPath: handler.targetCustomEnable ? handler.targetCustomPath : false,
-        repeat: handler.targetLoops || 1,
-        delay: handler.targetLoopDelay || 250,
-        below: handler.targetLevel || false,
-        startDelay: handler.targetDelay || 500,
-        scale: handler.targetScale || 1,
-    };
+        enabled: target.enable || false,
+        customTargetPath: enableCustom ? target.customPath : false,
+        repeat: target.loops || 1,
+        delay: target.loopDelay || 250,
+        below: target.animLevel || false,
+        startDelay: target.delayStart || 500,
+        scale: target.scale || 1,
+        animation: target.name || "",
+        color: target.color,
+        variant: target.variant,
+    }
+    targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : "";
     return targetFX
 }
 

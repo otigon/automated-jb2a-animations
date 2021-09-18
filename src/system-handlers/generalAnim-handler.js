@@ -53,7 +53,6 @@ export default class GeneralAnimHandler {
         this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
-        this._divineSmite = this._flags.divineSmite ?? "";
         this._rangedOptions = this._flags.rangedOptions ?? "";
         this._animLoops = this._flags.options?.loops ?? 1;
         this._loopDelay = this._flags.options?.loopDelay ?? 250;
@@ -201,7 +200,6 @@ export default class GeneralAnimHandler {
     get explodeSound() {return this._explodeSound}
 
     get spellLoops() {return this._spellLoops;}
-    get divineSmite() {return this._divineSmite;}
     get autoDamage() {return game.user.isGM ? this._gmAD : this._userAD;}
     get flags() {return this._flags;}
 

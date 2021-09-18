@@ -12,21 +12,12 @@ export async function staticAnimation(handler, autoObject) {
 
     const data = AAanimationData._staticData(handler, autoObject);
     if (aaDebug) { aaDebugger("Static Animation Start", data) }
-
     const onToken = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath);
 
-    // builds Source Token file if Enabled, and pulls from flags if already set
-    const sourceFX = AAanimationData._sourceFX(handler, sourceToken);
-    sourceFX.data = handler.sourceEnable ? await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath) : "";
-    sourceFX.sFXScale = handler.sourceEnable ? 2 * sourceToken.w / sourceFX.data?.metadata?.width : 1;
-
-    // builds Target Token file if Enabled, and pulls from flags if already set
-    const targetFX = AAanimationData._targetFX(handler);
-    targetFX.data = handler.targetEnable ? await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, targetFX.customTargetPath) : "";
-
     const explosion = handler.flags.explosion ? await AAanimationData._explosionData(handler) : {};
-
     const explosionSound = AAanimationData._explosionSound(handler);
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    const targetFX = await AAanimationData._targetFX(handler);
 
     const exScale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;
@@ -60,9 +51,9 @@ export async function staticAnimation(handler, autoObject) {
             .repeats(sourceFX.repeat, sourceFX.delay)
             .belowTokens(sourceFX.below)
             .waitUntilFinished(sourceFX.startDelay)
-            .playIf(handler.sourceEnable)
+            .playIf(sourceFX.enabled)
             .addOverride(async (effect, data) => {
-                if (handler.sourceEnable) {
+                if (sourceFX.enabled) {
                     data.file = sourceFX.data.file;
                 }
                 return data;
@@ -107,7 +98,7 @@ export async function staticAnimation(handler, autoObject) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
-            if (handler.targetEnable) {
+            if (targetFX.enabled) {
                 tFXScale = 2 * target.w / targetFX.metadata.width;
             }        
 
@@ -126,9 +117,9 @@ export async function staticAnimation(handler, autoObject) {
                     .repeats(sourceFX.repeat, sourceFX.delay)
                     .belowTokens(sourceFX.below)
                     .waitUntilFinished(sourceFX.startDelay)
-                    .playIf(handler.sourceEnable)
+                    .playIf(sourceFX.enabled)
                     .addOverride(async (effect, data) => {
-                        if (handler.sourceEnable) {
+                        if (sourceFX.enabled) {
                             data.file = sourceFX.data.file;
                         }
                         return data;
@@ -171,9 +162,9 @@ export async function staticAnimation(handler, autoObject) {
                     .scale(targetFX.tFXScale * targetFX.scale)
                     .repeats(targetFX.repeat, targetFX.delay)
                     .belowTokens(targetFX.below)
-                    .playIf(handler.targetEnable)
+                    .playIf(targetFX.enabled)
                     .addOverride(async (effect, data) => {
-                        if (handler.targetEnable) {
+                        if (targetFX.enabled) {
                             data.file = targetFX.data.file;
                         }
                         return data;

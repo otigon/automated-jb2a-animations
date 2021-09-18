@@ -33,14 +33,9 @@ export async function teleportation(handler, autoObject) {
     if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
     const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
 
-    let sourceFX;
-    let sFXScale;
-    let customSourcePath; 
-    if (handler.sourceEnable) {
-        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
-        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
-    }
+    const sourceFX = AAanimationData._sourceFX(handler, sourceToken);
+    sourceFX.data = handler.sourceEnable ? await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath) : "";
+    sourceFX.sFXScale = handler.sourceEnable ? 2 * sourceToken.w / sourceFX.data?.metadata?.width : 1;
 
 
     let Scale = ((token.w / onToken.metadata.width) * data.scale) * 1.75;
@@ -87,10 +82,10 @@ export async function teleportation(handler, autoObject) {
         new Sequence()
             .effect()
                 .atLocation(token)
-                .scale(sFXScale * handler.sourceScale)
-                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                .belowTokens(handler.sourceLevel)
-                .waitUntilFinished(handler.sourceDelay)
+                .scale(sourceFX.sFXScale * sourceFX.scale)
+                .repeats(sourceFX.repeat, sourceFX.delay)
+                .belowTokens(sourceFX.below)
+                .waitUntilFinished(sourceFX.startDelay)
                 .playIf(handler.sourceEnable)
                 .addOverride(async (effect, data) => {
                     if (handler.sourceEnable) {

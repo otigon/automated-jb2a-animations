@@ -160,9 +160,6 @@ export class AAItemSettings extends FormApplication {
 
             thrownVariantShow: (itemName.includes("lasersword") || itemName.includes("dagger") || itemName.includes("handaxe")) || itemName.includes("chakram") && (animType === "t2" || animType === "t4") && override ? true : false,
 
-            dsDelaySelf: flags.autoanimations?.divineSmite?.dsSelfDelay ?? 1,
-            dsDelayTarget: flags.autoanimations?.divineSmite?.dsTargetDelay ?? 1250,
-
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explodeVariant),
             explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
             explosionLoops: explosionLoops || 1,

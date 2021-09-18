@@ -14,21 +14,14 @@ export async function meleeSwitch(handler, target, autoObject) {
     //Builds Primary File Path and Pulls from flags if already set
     const data = AAanimationData._switchData(handler, autoObject);
     if (aaDebug) { aaDebugger("Switch Animation Start", data) }
-
     const attack = await buildFile(false, data.switchAnimation, "range", data.switchVariant, data.switchColor);//need to finish
     
     const sourceToken = handler.actorToken;
 
     const explosion = handler.flags.explosion ? await AAanimationData._explosionData(handler) : {};
-
     const explosionSound = AAanimationData._explosionSound(handler);
-
-    const sourceFX = AAanimationData._sourceFX(handler, sourceToken);
-    sourceFX.data = handler.sourceEnable ? await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath) : "";
-    sourceFX.sFXScale = handler.sourceEnable ? 2 * sourceToken.w / sourceFX.data?.metadata?.width : 1;
-
-    const targetFX = AAanimationData._targetFX(handler);
-    targetFX.data = handler.targetEnable ? await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, targetFX.customTargetPath) : "";
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    const targetFX = await AAanimationData._targetFX(handler);
 
     //logging explosion Scale
     const scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
@@ -68,9 +61,9 @@ export async function meleeSwitch(handler, target, autoObject) {
                 .repeats(sourceFX.repeat, sourceFX.delay)
                 .belowTokens(sourceFX.below)
                 .waitUntilFinished(sourceFX.startDelay)
-                .playIf(handler.sourceEnable)
+                .playIf(sourceFX.enabled)
                 .addOverride(async (effect, data) => {
-                    if (handler.sourceEnable) {
+                    if (sourceFX.enabled) {
                         data.file = sourceFX.data.file;
                     }
                     return data;
@@ -123,9 +116,9 @@ export async function meleeSwitch(handler, target, autoObject) {
                 .scale(targetFX.tFXScale * targetFX.scale)
                 .repeats(targetFX.repeat, targetFX.delay)
                 .belowTokens(targetFX.below)
-                .playIf(handler.targetEnable)
+                .playIf(targetFX.enabled)
                 .addOverride(async (effect, data) => {
-                    if (handler.targetEnable) {
+                    if (targetFX.enabled) {
                         data.file = targetFX.data.file;
                     }
                     return data;
