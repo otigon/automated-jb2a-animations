@@ -1,19 +1,14 @@
 
 export class AASystemData {
-    constructor(input, isChat) {
-        const systemID = game.system.id;
-        this._input = input;
-        this._isChat = isChat;
-    }
 
     /**
     * Gather required data:
     * 
     * @param token the Source Token that is using the item
     * @param item the originating item that is being rolled
-    * @param targets an Array from target Set
+    * @param targets an Array from target Set, either through Chat Message, Hook or game.user.targets
     * @param hitTargets an Array from a list of HIT targets if supported by system
-    * @param reach calculating the Reach from Race/Weapon/etc. if supported by system
+    * @param reach calculating the cumulative Reach from Race/Weapon/etc. if supported by system
     * 
     * system name for new field should be in all Lower Case with special characters removed
     * 
