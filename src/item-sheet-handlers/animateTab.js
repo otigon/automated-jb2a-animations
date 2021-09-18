@@ -98,8 +98,8 @@ export class AAItemSettings extends FormApplication {
             noAutoScale = WTF ? false : true;
             autoNone = noOptions.some(el => autorecType[1] === el);
         }
-        let autoOptions = AutorecFunctions._checkAutoRec(oldName) ? AutorecFunctions._autorecColors(oldName) : { colors: null, variantChoices: null };
-
+        let autoOptions = AutorecFunctions._checkAutoRec(oldName) ? AutorecFunctions._autorecColors(oldName, flags) : { colors: null, variantChoices: null };
+        /*
         let videoPreview = animPreview(flags, itemName);
         if (videoPreview === "no preview" && !override) { videoPreview = AutorecFunctions._autoPreview(oldName, flags.autoanimations?.options?.autoColor, patreon, flags.autoanimations?.options?.overrideAuto) }
         let content = "";
@@ -119,6 +119,7 @@ export class AAItemSettings extends FormApplication {
                         break;
                 }
         }
+        */
         return {
             defaultCheck: AAITEMCHECK.default.includes(itemName) || noRepeatDelay,
             autoRepeatDelay: autoRepeatDelay,
@@ -203,7 +204,7 @@ export class AAItemSettings extends FormApplication {
             sneakAttack: itemName === "sneakattack" ? true : false,
 
             flags: this.object.data.flags,
-            content: content,
+            //content: content,
 
             sourceCustom: flags.autoanimations?.sourceToken?.customPath ?? "",
             sourceLoops: flags.autoanimations?.sourceToken?.loops ?? 1,

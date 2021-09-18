@@ -1,5 +1,6 @@
 import { buildFile } from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
+import { AAanimationData } from "./animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -9,55 +10,26 @@ export async function staticAnimation(handler, autoObject) {
     await wait(globalDelay);
     const sourceToken = handler.actorToken;
 
-    const data = {}
-    if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject[0])
-        data.itemName = data.animation || "";
-        data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-    } else {
-        data.itemName = handler.convertedName;
-        data.variant = handler.spellVariant;
-        data.color = handler.color;
-        data.repeat = handler.animationLoops;
-        data.delay = handler.loopDelay;
-        data.customPath = handler.enableCustom01 ? handler.custom01 : false;
-        data.below = handler.animLevel;
-        data.scale = handler.scale;
-    }
+    const data = AAanimationData._staticData(handler, autoObject);
     if (aaDebug) { aaDebugger("Static Animation Start", data) }
+
     const onToken = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath);
+
     // builds Source Token file if Enabled, and pulls from flags if already set
-    const sourceFX = {};
-    if (handler.sourceEnable) {
-        sourceFX.customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX.data = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath);
-        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.data.metadata.width;
-    }
+    const sourceFX = AAanimationData._sourceFX(handler, sourceToken);
+    sourceFX.data = handler.sourceEnable ? await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath) : "";
+    sourceFX.sFXScale = handler.sourceEnable ? 2 * sourceToken.w / sourceFX.data?.metadata?.width : 1;
+
     // builds Target Token file if Enabled, and pulls from flags if already set
-    const targetFX = {};
-    if (handler.targetEnable) {
-        targetFX.customTargetPath = handler.targetCustomEnable ? handler.targetCustomPath : false;
-        targetFX.data = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, targetFX.customTargetPath);
-    }
+    const targetFX = AAanimationData._targetFX(handler);
+    targetFX.data = handler.targetEnable ? await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, targetFX.customTargetPath) : "";
 
-    const explosion = {};
-    if (handler.flags.explosion) {
-        explosion.customExplosionPath = handler.customExplode ? handler.customExplosionPath : false;
-        explosion.data = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath)
-    }
+    const explosion = handler.flags.explosion ? await AAanimationData._explosionData(handler) : {};
 
-    const explosionSound = {};
-    explosionSound.volume = handler.allSounds?.explosion?.volume || 0.25;
-    explosionSound.delay = handler.allSounds?.explosion?.delay || 1;
-    explosionSound.file = handler.allSounds?.explosion?.file || "";
+    const explosionSound = AAanimationData._explosionSound(handler);
 
-    let exScale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
-    let animWidth = onToken.metadata.width;
+    const exScale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
+    const animWidth = onToken.metadata.width;
     const arrayLength = handler.allTargets.length;
 
     switch (data.type) {
@@ -79,27 +51,15 @@ export async function staticAnimation(handler, autoObject) {
             targetCast()
             break;
     }
-    if (data.type === 'source') {
-        selfCast()
-    }
-
-    if (data.type === 'target') {
-        targetCast()
-    }
-
-    if (data.type === 'sourcetarget') {
-        selfCast()
-        targetCast()
-    }
-
+    
     async function selfCast() {
         new Sequence()
         .effect()
             .atLocation(sourceToken)
-            .scale(sourceFX.sFXScale * handler.sourceScale)
-            .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-            .belowTokens(handler.sourceLevel)
-            .waitUntilFinished(handler.sourceDelay)
+            .scale(sourceFX.sFXScale * sourceFX.scale)
+            .repeats(sourceFX.repeat, sourceFX.delay)
+            .belowTokens(sourceFX.below)
+            .waitUntilFinished(sourceFX.startDelay)
             .playIf(handler.sourceEnable)
             .addOverride(async (effect, data) => {
                 if (handler.sourceEnable) {
@@ -121,11 +81,11 @@ export async function staticAnimation(handler, autoObject) {
         .effect()
             .atLocation(sourceToken)
             .scale(exScale)
-            .delay(handler.explosionDelay)
+            .delay(500 + explosion.delay)
             //.randomizeMirrorY()
             .repeats(data.repeat, data.delay)
-            .belowTokens(handler.explosionLevel)
-            .playIf(() => {return explosion.data})
+            .belowTokens(explosion.below)
+            .playIf(handler.explosion)
             .addOverride(async (effect, data) => {
                 if (explosion.data) {
                     data.file = explosion.data.file;
@@ -162,10 +122,10 @@ export async function staticAnimation(handler, autoObject) {
             new Sequence()
                 .effect()
                     .atLocation(sourceToken)
-                    .scale(sourceFX.sFXScale * handler.sourceScale)
-                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                    .belowTokens(handler.sourceLevel)
-                    .waitUntilFinished(handler.sourceDelay)
+                    .scale(sourceFX.sFXScale * sourceFX.scale)
+                    .repeats(sourceFX.repeat, sourceFX.delay)
+                    .belowTokens(sourceFX.below)
+                    .waitUntilFinished(sourceFX.startDelay)
                     .playIf(handler.sourceEnable)
                     .addOverride(async (effect, data) => {
                         if (handler.sourceEnable) {
@@ -188,11 +148,11 @@ export async function staticAnimation(handler, autoObject) {
                 .effect()
                     .atLocation("animation")
                     .scale(exScale)
-                    .delay(handler.explosionDelay)
+                    .delay(500 + explosion.delay)
                     //.randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
-                    .belowTokens(handler.explosionLevel)
-                    .playIf(() => {return explosion.data})
+                    .belowTokens(explosion.below)
+                    .playIf(handler.explosion)
                     .addOverride(async (effect, data) => {
                         if (explosion.data) {
                             data.file = explosion.data.file;
@@ -206,11 +166,11 @@ export async function staticAnimation(handler, autoObject) {
                     .volume(explosionSound.volume)
                     .repeats(data.repeat, data.delay)
                 .effect()
-                    .delay(handler.targetDelay)
+                    .delay(targetFX.startDelay)
                     .atLocation("animation")
-                    .scale(targetFX.tFXScale * handler.targetScale)
-                    .repeats(handler.targetLoops, handler.targetLoopDelay)
-                    .belowTokens(handler.targetLevel)
+                    .scale(targetFX.tFXScale * targetFX.scale)
+                    .repeats(targetFX.repeat, targetFX.delay)
+                    .belowTokens(targetFX.below)
                     .playIf(handler.targetEnable)
                     .addOverride(async (effect, data) => {
                         if (handler.targetEnable) {

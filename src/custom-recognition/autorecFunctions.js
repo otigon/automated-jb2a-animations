@@ -153,7 +153,7 @@ export class AutorecFunctions {
         return file;
     }
 
-    static _autorecColors(itemName) {
+    static _autorecColors(itemName, flags) {
         const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
         const autoName = AutorecFunctions._rinseName(itemName)
         const nameArray = AutorecFunctions._getAllTheNames(autoRecSettings);
@@ -164,7 +164,7 @@ export class AutorecFunctions {
         const variantMenu = aaVariantMenu;
         let autorecSection = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName);
         const autorecObject = autorecSection[0]
-        if (autorecObject[0].custom) { return null }
+        if (autorecObject[0].custom) { return {colors: null, variantChoices: null} }
         let autorecType = autorecSection[1]
     
         let animationName = autorecType === 'preset' && autorecObject[0].animation === "teleportation" ? autorecObject[0].subAnimation : autorecObject[0].animation;
@@ -176,10 +176,16 @@ export class AutorecFunctions {
         let variant;
         try { variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant; }
         catch (exception) { }
-    
         if (autorecSection[1] === 'templates') {
             variant = autorecObject[0].animation;
         }
+
+        let autoVariant;
+        if (flags.autoanimations?.options?.overrideAuto) {
+            autoVariant = flags.autoanimations?.options?.autoVariant;
+        }
+        variant = !autoVariant ? variant : autoVariant;
+
         let colors;
         try { colors = colorMenu[autorecType][name][variant] }
         catch (exception) { }

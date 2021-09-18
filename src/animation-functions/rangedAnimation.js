@@ -1,91 +1,36 @@
 import { buildFile } from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
-//import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
-//import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
-import { AAITEMCHECK } from "./item-arrays.js";
+import { AAanimationData } from "./animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function rangedAnimations(handler, autoObject) {
     const aaDebug = game.settings.get("autoanimations", "debug")
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
 
     // Sets JB2A database and Global Delay
     //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    const data = {}
-    if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject[0])
-        data.itemName = data.animation;
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-    } else {
-        data.itemName = handler.convertedName;
-        if (data.itemName === "arrow") { data.dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-            data.dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
-        }
-        let dmgType;
-        if (data.itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-            dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
-        }    
-        const variant = AAITEMCHECK.spellattack.some(el => data.itemName.includes(el)) ? handler.spellVariant : dmgType;
-        data.variant = data.itemName === "rangelasersword" || data.itemName === "rangedagger" || data.itemName === "rangehandaxe" || data.itemName === "chakram" ? handler.dtvar : variant;
-        data.color = handler.color;
-        data.repeat = handler.animationLoops;
-        data.delay = handler.loopDelay;
-    }
+    const data = AAanimationData._rangeData(handler, autoObject);
     if (aaDebug) { aaDebugger("Ranged Animation Start", data) }
+
     //Builds Primary File Path and Pulls from flags if already set
     const attack = await buildFile(false, data.itemName, "range", data.variant, data.color)
-    //let attack =  await buildRangedFile(jb2a, itemName, handler);
+
     const sourceToken = handler.actorToken;
 
-    //Builds Explosion File Path if Enabled, and pulls from flags if already set
-    //let explosion;
-    //let customExplosionPath;
-    const explosion = {};
-    if (handler.flags.explosion) {
-        explosion.customExplosionPath = handler.customExplode ? handler.customExplosionPath : false;
-        explosion.data = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath)
-    }
+    const explosion = handler.flags.explosion ? await AAanimationData._explosionData(handler) : {};
+    const explosionSound = AAanimationData._explosionSound(handler);
 
-    //let explosionSound = handler.allSounds?.explosion;
-    //let explosionVolume = 0.25;
-    //let explosionDelay = 1;
-    //let explosionFile = "";
-    const explosionSound = {};
-    explosionSound.volume = handler.allSounds?.explosion?.volume || 0.25;
-    explosionSound.delay = handler.allSounds?.explosion?.delay || 1;
-    explosionSound.file = handler.allSounds?.explosion?.file || ""
+    const sourceFX = AAanimationData._sourceFX(handler, sourceToken);
+    sourceFX.data = handler.sourceEnable ? await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath) : "";
+    sourceFX.sFXScale = handler.sourceEnable ? 2 * sourceToken.w / sourceFX.data?.metadata?.width : 1;
 
-    // builds Source Token file if Enabled, and pulls from flags if already set
-    //let sourceFX;
-    //let sFXScale;
-    //let customSourcePath; 
-    const sourceFX = {};
-    if (handler.sourceEnable) {
-        sourceFX.customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX.data = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath);
-        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.data.metadata.width;
-    }
-    // builds Target Token file if Enabled, and pulls from flags if already set
-    //let targetFX;
-    //let tFXScale;
-    //let customTargetPath; 
-    const targetFX = {};
-    if (handler.targetEnable) {
-        targetFX.customTargetPath = handler.targetCustomEnable ? handler.targetCustomPath : false;
-        targetFX.data = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, targetFX.customTargetPath);
-    }
+    const targetFX = AAanimationData._targetFX(handler);
+    targetFX.data = handler.targetEnable ? await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, targetFX.customTargetPath) : "";
 
-    //logging explosion Scale
-    let scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
+    const scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
 
     async function cast() {
         let arrayLength = handler.allTargets.length;
@@ -107,10 +52,10 @@ export async function rangedAnimations(handler, autoObject) {
             await new Sequence()
                 .effect()
                     .atLocation(sourceToken)
-                    .scale(sourceFX.sFXScale * handler.sourceScale)
-                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                    .belowTokens(handler.sourceLevel)
-                    .waitUntilFinished(handler.sourceDelay)
+                    .scale(sourceFX.sFXScale * sourceFX.scale)
+                    .repeats(sourceFX.repeat, sourceFX.delay)
+                    .belowTokens(sourceFX.below)
+                    .waitUntilFinished(sourceFX.startDelay)
                     .playIf(handler.sourceEnable)
                     .addOverride(async (effect, data) => {
                         if (handler.sourceEnable) {
@@ -140,9 +85,9 @@ export async function rangedAnimations(handler, autoObject) {
                     .atLocation("animation")
                     //.file(explosion.data.file)
                     .scale({ x: scale, y: scale })
-                    .delay(500 + handler.explosionDelay)
+                    .delay(500 + explosion.delay)
                     .repeats(data.repeat, data.delay)
-                    .belowTokens(handler.explosionLevel)
+                    .belowTokens(explosion.below)
                     .playIf(() => { return explosion.data })
                     .addOverride(async (effect, data) => {
                         if (explosion.data) {
@@ -157,11 +102,11 @@ export async function rangedAnimations(handler, autoObject) {
                     .volume(explosionSound.volume)
                     .repeats(data.repeat, data.delay)
                 .effect()
-                    .delay(handler.targetDelay)
+                    .delay(targetFX.startDelay)
                     .atLocation(target)
-                    .scale( targetFX.tFXScale * handler.targetScale)
-                    .repeats(handler.targetLoops, handler.targetLoopDelay)
-                    .belowTokens(handler.targetLevel)
+                    .scale( targetFX.tFXScale * targetFX.scale)
+                    .repeats(targetFX.repeat, targetFX.delay)
+                    .belowTokens(targetFX.below)
                     .playIf(handler.targetEnable)
                     .addOverride(async (effect, data) => {
                         if (handler.targetEnable) {
