@@ -138,7 +138,7 @@ export async function meleeAnimation(handler, autoObject) {
                     .belowTokens(targetFX.below)
                     .gridSize(canvas.grid.size)
                     .playIf(targetFX.enabled)
-                    .play()
+                .play()
                 await wait(handler.animEnd)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)
             }

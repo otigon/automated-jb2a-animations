@@ -141,7 +141,7 @@
                 {{#if meleeLength}}
                 <!--Choose Unarmed Strike Type (Magical or Physical)-->
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.uaType"}}</label>
+                    <label>{{localize "AUTOANIM.variant"}}</label>
                     <select name="flags.autoanimations.uaStrikeType">
                         {{#select flags.autoanimations.uaStrikeType}}
                         {{#each meleeVariant as |name key|}}
@@ -1251,7 +1251,7 @@
                     <label>{{localize "AUTOANIM.variantChoice"}}</label>
                     <select name="flags.autoanimations.options.variant">
                         {{#select flags.autoanimations.options.variant}}
-                        {{#each oldVariant as |name key|}}
+                        {{#each staticVariantTTD as |name key|}}
                         <option value="{{key}}">{{name}}</option>
                         {{/each}}
                         {{/select}}
@@ -1746,9 +1746,9 @@
                 </div>
                 {{/if}}
             </div>
-            <!--            <div class="aa-video">
+            <div class="aa-video">
                 {{{content}}}
-            </div>-->
+            </div>
             {{/unless}}
         </div>
 

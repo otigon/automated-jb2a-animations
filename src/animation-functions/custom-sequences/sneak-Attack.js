@@ -1,26 +1,30 @@
-import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { buildFile } from "../file-builder/build-filepath.js";
 import { AAanimationData } from "../../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function sneakAttack(handler) {
+export async function sneakAttack(handler, autoObject) {
 
-    let itemName = handler.convertedName;
-    let sneak = await buildFile(true, itemName, "static", "01", handler.color)
+    const data = {}
+    if (autoObject) {
+        const autoOverridden = handler.options?.overrideAuto
+        Object.assign(data, autoObject[0]);
+        data.itemName = data.animation || "";
+        data.color = autoOverridden ? handler.options?.autoColor : data.color;
+        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
+        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
+    } else {
+        data.itemName = handler.convertedName;
+        data.color = handler.color;
+        data.scale = 1;
+        data.below = false;
+        data.anchorX = handler.options?.anchorX || 0.5;
+        data.anchorY = handler.options?.anchorY || 0.7;
+    }
+    const sneak = await buildFile(true, data.itemName, "static", "01", data.color)
     const sourceToken = handler.actorToken;
 
-    // builds Source Token file if Enabled, and pulls from flags if already set
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    // builds Target Token file if Enabled, and pulls from flags if already set
-    /*
-    let targetFX;
-    if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
-    }
-    */
-    const anchorX = handler.options?.anchorX || 0.5;
-    const anchorY = handler.options?.anchorY || 0.7;
 
     async function cast() {
         new Sequence()
@@ -28,9 +32,10 @@ export async function sneakAttack(handler) {
             .effect()
                 .file(sneak.file)
                 .atLocation(sourceToken)
-                .scale(2 * sourceToken.w / sneak.metadata.width)
+                .scale((2 * sourceToken.w / sneak.metadata.width) * data.scale)
                 .gridSize(canvas.grid.size)
-                .anchor({ x: anchorX, y: anchorY })
+                .belowTokens(data.below)
+                .anchor({ x: data.anchorX, y: data.anchorY })
             .play()
     }
     cast();

@@ -104,56 +104,64 @@ export class AutorecFunctions {
         game.settings.set("autoanimations", "aaAutorec", data);
     }
 
-    static _autoPreview(name, baseColor, patreon, autoOverridden) {
-        if (!name) { return; }
-        const autoName = this._rinseName(name)
-        const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-        const nameArray = this._getAllTheNames(autoRecSettings);
-        if (!this._autorecNameCheck(nameArray, autoName)) {
+    static _autoPreview(name, patreon, flags) {
+
+        const data = {};
+        data.autoOverriden = flags.autoanimations?.options?.overrideAuto;
+        data.autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        data.autoName = this._rinseName(name);
+        data.autorecSection = this._findObjectByNameFull(data.autoRecSettings, data.autoName);
+        if (!data.autorecSection) { return; }
+        
+        data.autorecObject = data.autorecSection[0][0];
+        data.autorecType = data.autorecSection[1];
+        data.name = data.autorecObject?.animation;
+        data.color = data.autoOverriden ? flags.autoanimations?.options?.autoColor : data.autorecObject?.color;
+        data.variant = data.autoOverriden ? flags.autoanimations?.options?.autoVariant : data.autorecObject?.variant;
+        data.nameArray = this._getAllTheNames(data.autoRecSettings);
+
+        if (data.autorecObject?.custom) {
+            return data.autorecObject?.customPath;
+        }
+        if (data.autorecType === 'preset') { return; }
+        if (data.autorecType !== 'melee' && data.autorecType !== 'range') { data.autorecType = 'static' }
+
+        //const autoName = this._rinseName(name);
+        if (!data.autoName) { return; }
+        if (!this._autorecNameCheck(data.nameArray, data.autoName)) {
             return;
         }
+
         const jb2a = patreon ? JB2APATREONDB : JB2AFREEDB;
-        const autorecSection = this._findObjectByNameFull(autoRecSettings, autoName);
-
-        const autorecObject = autorecSection[0]
-        if (autorecObject[0].animation === 'bardicinspiration' || autorecObject[0].animation === 'bless' || autorecObject[0].animation === 'shieldspell') { return; }
-        if (autorecObject[0].custom) { return autorecObject[0].customPath }
-
-        let autorecType = autorecSection[1]
-
-        let changeColor = baseColor;
-
-        //if (!autorecObject[0].variant) {variant = Object.keys(jb2a[autorecType][autorecObject[0].animation])[0]}
-        let animationName = autorecType === 'preset' ? autorecObject[0].subAnimation : autorecObject[0].animation;
-        if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
-        if (autorecSection[1] === 'templates') {
-            animationName = autorecObject[0].type;
-        }
-
-        let variant;
-        try {variant = !autorecObject[0].variant ? Object.keys(jb2a[autorecType][animationName])[0] : autorecObject[0].variant;}
-        catch (exception) {}
-
-        if (!changeColor) {
-            try { changeColor = Object.keys(jb2a[autorecType][animationName][variant])[0] }
-            catch (exception) { changeColor = autorecObject[0].color }
-        }
-
-        let color = autoOverridden ? changeColor : autorecObject[0].color
-        if (color === 'random') { color = autorecObject[0].color || "" }
 
         let file;
-        if (animationName === 'magicmissile') {
-            try { file = jb2a[autorecType][animationName][variant][color]['15ft'][1] }
-            catch (exception) { }
-        } else {
-            try { file = autorecType === "range" ? jb2a[autorecType][animationName][variant][color][Object.keys(jb2a[autorecType][animationName][variant][color])[1]] : jb2a[autorecType][animationName][variant][color] }
-            catch (exception) { }
+        switch (true) {
+            case data.name === 'magicmissile' || (data.name === "scorchingray" && data.variant === '02'):
+                try { file = jb2a[autorecType][data.name][data.variant][data.color]['15ft'][1] }
+                catch (exception) { }
+                break;
+            case data.name === 'quarterstaff':
+            case data.name === 'halberd':
+            case data.name === 'spear' && data.variant === '01':
+                try { file = jb2a[data.autorecType][data.name][data.variant][data.color][1] }
+                catch (exception) { }
+                break;
+            case data.autorecType === 'range':
+                try { file = jb2a[data.autorecType][data.name][data.variant][data.color][Object.keys(jb2a[data.autorecType][data.name][data.variant][data.color])[1]] }
+                catch (exception) { }
+                break;
+            case data.autorecSection[1] === 'templates':
+                try { file = jb2a.static[data.autorecObject.type][data.name][data.color] }
+                catch (exception) { }
+                break;
+            default:
+                try { file = jb2a[data.autorecType][data.name][data.variant][data.color] }
+                catch (exception) { }
         }
         return file;
     }
 
-    static _autorecColors(itemName, flags) {
+    static _autorecChoices(itemName, flags) {
         const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
         const autoName = AutorecFunctions._rinseName(itemName)
         const nameArray = AutorecFunctions._getAllTheNames(autoRecSettings);
@@ -164,9 +172,9 @@ export class AutorecFunctions {
         const variantMenu = aaVariantMenu;
         let autorecSection = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName);
         const autorecObject = autorecSection[0]
-        if (autorecObject[0].custom) { return {colors: null, variantChoices: null} }
+        if (autorecObject[0].custom) { return { colors: null, variantChoices: null } }
         let autorecType = autorecSection[1]
-    
+
         let animationName = autorecType === 'preset' && autorecObject[0].animation === "teleportation" ? autorecObject[0].subAnimation : autorecObject[0].animation;
         if (autorecSection[1] === 'templates') {
             animationName = autorecObject[0].type;
@@ -193,8 +201,8 @@ export class AutorecFunctions {
         try { variantChoices = variantMenu[autorecType][name] }
         catch (exception) { }
         if (autorecSection[1] === "templates") { variantChoices = undefined }
-    
+
         return { colors, variantChoices };
     }
-        
+
 }

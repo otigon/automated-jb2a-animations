@@ -462,7 +462,8 @@ async function pf2eReady(msg) {
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
-    const damage = handler.item.damageValue;
+    const damage = /*handler.item.damageValue || */handler.item.damage.length;
+    console.log(damage)
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
     if (t8Template) {
@@ -479,7 +480,11 @@ async function pf2eReady(msg) {
         case "spell":
             switch (spellType) {
                 case "utility":
-                    trafficCop(handler);
+                    if (!damage) {
+                        trafficCop(handler);
+                    } else if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                        trafficCop(handler);
+                    }
                     break;
                 case "save":
                     if (!damage) {
@@ -532,13 +537,6 @@ async function pf2eReady(msg) {
     }
 }
 
-async function itemSound(handler) {
-    let audio = handler.allSounds.item;
-    if (handler.itemSound) {
-        await wait(audio.delay);
-        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-    }
-}
 async function criticalCheck(workflow) {
     if (killAllAnimations) { return; }
     if (!workflow.isCritical && !workflow.isFumble) { return; }

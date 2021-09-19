@@ -198,6 +198,9 @@ export async function trafficCop(handler) {
                         case 'teleportation':
                             teleportation(handler, presetAutoObject)
                             break;
+                        case 'sneakattack' :
+                            sneakAttack(handler, presetAutoObject)
+                            break;
                     }
                     break;
                 default:

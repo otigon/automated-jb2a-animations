@@ -1,7 +1,6 @@
 import { AUTOANIM } from "./config.js";
-import { AATabFunctions } from "./tab-options.js";
+import { AATabFunctions } from "../aa-classes/tab-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
-import animPreview from "./anim-preview.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 
 export class AAItemSettings extends FormApplication {
@@ -61,7 +60,7 @@ export class AAItemSettings extends FormApplication {
         const targetVariant = flags.autoanimations?.targetToken?.variant ?? "";
         const animType = flags.autoanimations?.animType;
         const spellVariant = flags.autoanimations?.spellVar;
-        const variant = flags.autoanimations?.dtvar ?? "01";
+        const variant = AATabFunctions._variant(flags);//flags.autoanimations?.dtvar ?? "01";
         const switchVariant = flags.autoanimations?.meleeSwitch?.rangeVar ?? "01";
         //let rangeSwitchType = flags.autoanimations?.meleeSwitch?.switchType || "on";
         const bardAnimation = flags.autoanimations?.bards?.bardAnim;
@@ -98,10 +97,11 @@ export class AAItemSettings extends FormApplication {
             noAutoScale = WTF ? false : true;
             autoNone = noOptions.some(el => autorecType[1] === el);
         }
-        let autoOptions = AutorecFunctions._checkAutoRec(oldName) ? AutorecFunctions._autorecColors(oldName, flags) : { colors: null, variantChoices: null };
-        /*
-        let videoPreview = animPreview(flags, itemName);
-        if (videoPreview === "no preview" && !override) { videoPreview = AutorecFunctions._autoPreview(oldName, flags.autoanimations?.options?.autoColor, patreon, flags.autoanimations?.options?.overrideAuto) }
+        let autoOptions = AutorecFunctions._checkAutoRec(oldName) ? AutorecFunctions._autorecChoices(oldName, flags) : { colors: null, variantChoices: null };
+        
+        let videoPreview = override ? AATabFunctions._customPreview(flags, patreon) : AutorecFunctions._autoPreview(oldName, patreon, flags)
+        //let videoPreview = 'no preview'; //= AATabFunctions._customPreview(flags, patreon) //= animPreview(flags, itemName);
+        //if (videoPreview === "no preview" && !override) { videoPreview = AutorecFunctions._autoPreview(oldName, patreon, flags) }
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
@@ -119,7 +119,7 @@ export class AAItemSettings extends FormApplication {
                         break;
                 }
         }
-        */
+        
         return {
             defaultCheck: AAITEMCHECK.default.includes(itemName) || noRepeatDelay,
             autoRepeatDelay: autoRepeatDelay,
@@ -201,7 +201,7 @@ export class AAItemSettings extends FormApplication {
             sneakAttack: itemName === "sneakattack" ? true : false,
 
             flags: this.object.data.flags,
-            //content: content,
+            content: content,
 
             sourceCustom: flags.autoanimations?.sourceToken?.customPath ?? "",
             sourceLoops: flags.autoanimations?.sourceToken?.loops ?? 1,
@@ -259,6 +259,7 @@ export class AAItemSettings extends FormApplication {
             switchVariant: AATabFunctions.variantOptions(switchName, "range"),
             meleeVariant: AATabFunctions.variantOptions(itemName, "melee"),
             staticVariant: AATabFunctions.variantOptions(itemName, "static"),
+            staticVariantTTD: AATabFunctions.variantOptions("tollthedead", "static"),
 
             autorecColor: autoOptions.colors,
             autorecVariants: autoOptions.variantChoices,

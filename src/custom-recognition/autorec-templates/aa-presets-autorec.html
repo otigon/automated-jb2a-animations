@@ -17,8 +17,8 @@
                         <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
                     </div>
                 </div>
-                <div {{#if ( lookup (lookup ../settings.aaAutorec.preset idx) 'hidden' ) }}
-                    style="display:none" {{/if}}>
+                <div {{#if ( lookup (lookup ../settings.aaAutorec.preset idx) 'hidden' ) }} style="display:none"
+                    {{/if}}>
                     <div class="aa-container">
                         <div class="meleespan">
                             <div class='animation-choice'>
@@ -32,6 +32,7 @@
                                         </option>
                                         <option value="bless">{{localize "AUTOANIM.bless"}}</option>
                                         <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
+                                        <option value="sneakattack">{{localize "AUTOANIM.sneakattack"}}</option>
                                         <option value="teleportation">{{localize "AUTOANIM.animTeleportation"}}</option>
                                         {{/select}}
                                     </select>
@@ -154,7 +155,8 @@
                             <label>Self {{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.selfMarkerColor">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'selfMarkerColor')}}
-                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'marker') as |name
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'marker') as
+                                |name
                                 key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
@@ -165,7 +167,8 @@
                             <label>Target {{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.targetMarkerColor">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'targetMarkerColor')}}
-                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'marker') as |name
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'marker') as
+                                |name
                                 key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
@@ -297,6 +300,48 @@
                             </div>
                         </div>
                         {{/if}}
+                        {{/ifEquals}}
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'sneakattack'}}
+                        <div class='option03'>
+                            <label>{{localize 'AUTOANIM.variant'}}:</label>
+                            <select name="aaAutorec.preset.{{idx}}.variant">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'variant')}}
+                                {{#each (lookup (lookup ../variants 'static') 'sneakattack') as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class='option04'>
+                            <label>{{localize "AUTOANIM.color"}}: </label>
+                            <select name="aaAutorec.preset.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color')}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'sneakattack') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'variant')) as |name
+                                key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class='option07'>
+                            <div class="autorec-menu-options">
+                                <label>{{localize "AUTOANIM.anchorX"}}
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.anchorX"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'anchorX'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class='option08'>
+                            <div class="autorec-menu-options">
+                                <label>{{localize "AUTOANIM.anchorY"}}
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.anchorY"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'anchorY'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
                         {{/ifEquals}}
                     </div>
                 </div>

@@ -527,12 +527,12 @@ JB2AFREEDB.static = {
             green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
         }
     },
-    creaturebite: {
+    bite: {
         '01': {
             red: [lg`Creature/Bite_01_Regular_Red_400x400.webm`],
         }
     },
-    creatureclaw: {
+    claw: {
         '01': {
             red: [lg`Creature/Claws_01_Regular_Red_400x400.webm`],
         }
