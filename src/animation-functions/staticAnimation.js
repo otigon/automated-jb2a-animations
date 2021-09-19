@@ -19,10 +19,11 @@ export async function staticAnimation(handler, autoObject) {
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const targetFX = await AAanimationData._targetFX(handler);
 
-    const exScale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
+    const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;
     const arrayLength = handler.allTargets.length;
-
+    const gridSize = canvas.grid.size;
+    
     switch (data.type) {
         case 'source':
             selfCast()
@@ -42,22 +43,9 @@ export async function staticAnimation(handler, autoObject) {
             targetCast()
             break;
     }
-    
     async function selfCast() {
         new Sequence()
-        .effect()
-            .atLocation(sourceToken)
-            .scale(sourceFX.sFXScale * sourceFX.scale)
-            .repeats(sourceFX.repeat, sourceFX.delay)
-            .belowTokens(sourceFX.below)
-            .waitUntilFinished(sourceFX.startDelay)
-            .playIf(sourceFX.enabled)
-            .addOverride(async (effect, data) => {
-                if (sourceFX.enabled) {
-                    data.file = sourceFX.data.file;
-                }
-                return data;
-            })
+        .sequence(sourceFX.sourceSeq)
         .thenDo(function() {
             Hooks.callAll("aa.animationStart", sourceToken, "no-target")
         })             
@@ -66,7 +54,7 @@ export async function staticAnimation(handler, autoObject) {
             .atLocation(sourceToken)
             //.randomizeMirrorY()
             .repeats(data.repeat, data.delay)
-            //.missed(hit)
+            .gridSize(gridSize)
             .scale(((sourceToken.w / animWidth) * 1.5) * data.scale)
             .belowTokens(data.below)
         .effect()
@@ -111,26 +99,14 @@ export async function staticAnimation(handler, autoObject) {
             }
 
             new Sequence()
-                .effect()
-                    .atLocation(sourceToken)
-                    .scale(sourceFX.sFXScale * sourceFX.scale)
-                    .repeats(sourceFX.repeat, sourceFX.delay)
-                    .belowTokens(sourceFX.below)
-                    .waitUntilFinished(sourceFX.startDelay)
-                    .playIf(sourceFX.enabled)
-                    .addOverride(async (effect, data) => {
-                        if (sourceFX.enabled) {
-                            data.file = sourceFX.data.file;
-                        }
-                        return data;
-                    })
+                .sequence(sourceFX.sourceSeq)
                 .thenDo(function() {
                     Hooks.callAll("aa.animationStart", sourceToken, target)
                 })             
                 .effect()
                     .file(onToken.file)
                     .atLocation(target)
-                    //.randomizeMirrorY()
+                    .gridSize(gridSize)
                     .repeats(data.repeat, data.delay)
                     .scale(scale * data.scale)
                     .belowTokens(data.below)
@@ -162,6 +138,7 @@ export async function staticAnimation(handler, autoObject) {
                     .scale(targetFX.tFXScale * targetFX.scale)
                     .repeats(targetFX.repeat, targetFX.delay)
                     .belowTokens(targetFX.below)
+                    .gridSize(gridSize)
                     .playIf(targetFX.enabled)
                     .addOverride(async (effect, data) => {
                         if (targetFX.enabled) {

@@ -81,19 +81,7 @@ export async function meleeAnimation(handler, autoObject) {
                     hit = false;
                 }
                 await new Sequence()
-                .effect()
-                    .atLocation(sourceToken)
-                    .scale(sourceFX.sFXScale * sourceFX.scale)
-                    .repeats(sourceFX.repeat, sourceFX.delay)
-                    .belowTokens(sourceFX.below)
-                    .waitUntilFinished(sourceFX.startDelay)
-                    .playIf(sourceFX.enabled)
-                    .addOverride(async (effect, data) => {
-                        if (sourceFX.enabled) {
-                            data.file = sourceFX.data.file;
-                        }
-                        return data;
-                    })
+                .sequence(sourceFX.sourceSeq)
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, target)
                 })

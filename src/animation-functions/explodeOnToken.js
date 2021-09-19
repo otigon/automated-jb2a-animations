@@ -27,19 +27,7 @@ export async function explodeOnToken(handler) {
     const scaleT10 = handler.options?.scaleToToken ? (tokenScale * optionScale) : animationScale;
     if (handler.animType === "t10") {
         new Sequence()
-            .effect()
-                .atLocation(sourceToken)
-                .scale(sourceFX.sFXScale * sourceFX.scale)
-                .repeats(sourceFX.repeat, sourceFX.delay)
-                .belowTokens(sourceFX.below)
-                .waitUntilFinished(sourceFX.startDelay)
-                .playIf(sourceFX.enabled)
-                .addOverride(async (effect, data) => {
-                    if (sourceFX.enabled) {
-                    data.file = sourceFX.data.file;
-                }
-                return data;
-                })            
+            .sequence(sourceFX.sourceSeq)
             .effect()
                 .file(explosion.file)
                 .atLocation(sourceToken)
@@ -75,19 +63,7 @@ export async function explodeOnToken(handler) {
             let scaleT9 = handler.options?.scaleToToken ? (targetScale * optionScale) : animationScale;
 
                 new Sequence()
-                    .effect()
-                        .atLocation(sourceToken)
-                        .scale(sourceFX.sFXScale * sourceFX.scale)
-                        .repeats(sourceFX.repeat, sourceFX.delay)
-                        .belowTokens(sourceFX.below)
-                        .waitUntilFinished(sourceFX.startDelay)
-                        .playIf(sourceFX.enabled)
-                        .addOverride(async (effect, data) => {
-                            if (sourceFX.enabled) {
-                            data.file = sourceFX.data.file;
-                            }
-                            return data;
-                            })            
+                    .sequence(sourceFX.sourceSeq)
                     .effect()
                         .file(explosion.file)
                         .atLocation(target)

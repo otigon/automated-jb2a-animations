@@ -34,7 +34,6 @@ export async function teleportation(handler, autoObject) {
     const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
 
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    console.log(sourceFX)
 
     let Scale = ((sourceToken.w / onToken.metadata.width) * data.scale) * 1.75;
     if (!data.hideTemplate) {
@@ -78,19 +77,7 @@ export async function teleportation(handler, autoObject) {
         if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
 
         new Sequence()
-            .effect()
-                .atLocation(sourceToken)
-                .scale(sourceFX.sFXScale * sourceFX.scale)
-                .repeats(sourceFX.repeat, sourceFX.delay)
-                .belowTokens(sourceFX.below)
-                .waitUntilFinished(sourceFX.startDelay)
-                .playIf(sourceFX.enabled)
-                .addOverride(async (effect, data) => {
-                    if (sourceFX.enabled) {
-                        data.file = sourceFX.data.file;
-                    }
-                    return data;
-                })
+            .sequence(sourceFX.sourceSeq)
             .effect()
                 .file(onToken.file)
                 .atLocation(sourceToken)

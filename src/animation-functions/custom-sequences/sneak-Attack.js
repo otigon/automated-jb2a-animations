@@ -24,25 +24,12 @@ export async function sneakAttack(handler) {
 
     async function cast() {
         new Sequence()
+            .sequence(sourceFX.sourceSeq)
             .effect()
-            .atLocation(sourceToken)
-            .scale(sourceFX.sFXScale * sourceFX.scale)
-            .repeats(sourceFX.repeat, sourceFX.delay)
-            .belowTokens(sourceFX.below)
-            .waitUntilFinished(sourceFX.startDelay)
-            .playIf(sourceFX.enabled)
-            .addOverride(async (effect, data) => {
-                if (sourceFX.enabled) {
-                    data.file = sourceFX.data.file;
-                }
-                return data;
-            })
-
-            .effect()
-            .file(sneak.file)
-            .atLocation(sourceToken)
-            .scale(2 * sourceToken.w / sneak.metadata.width)
-            .anchor({ x: anchorX, y: anchorY })
+                .file(sneak.file)
+                .atLocation(sourceToken)
+                .scale(2 * sourceToken.w / sneak.metadata.width)
+                .anchor({ x: anchorX, y: anchorY })
             .play()
     }
     cast();
