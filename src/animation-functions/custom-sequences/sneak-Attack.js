@@ -29,6 +29,7 @@ export async function sneakAttack(handler) {
                 .file(sneak.file)
                 .atLocation(sourceToken)
                 .scale(2 * sourceToken.w / sneak.metadata.width)
+                .gridSize(canvas.grid.size)
                 .anchor({ x: anchorX, y: anchorY })
             .play()
     }

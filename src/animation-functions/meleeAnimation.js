@@ -116,18 +116,12 @@ export async function meleeAnimation(handler, autoObject) {
                     .playIf(moveTo)
                 .effect()
                     .atLocation("animation")
-                    //.file(explosion.file)
+                    .file(explosion.data?.file)
                     .scale({ x: scale, y: scale })
                     .delay(500 + explosion.delay)
                     .repeats(data.repeat, data.delay)
                     .belowTokens(explosion.below)
-                    .playIf(handler.explosion)
-                    .addOverride(async (effect, data) => {
-                        if (explosion.data) {
-                            data.file = explosion.data.file;
-                        }
-                        return data;
-                    })
+                    .playIf(explosion.enabled)
                     //.waitUntilFinished(explosionDelay)
                 .sound()
                     .file(explosionSound.file)
@@ -137,17 +131,13 @@ export async function meleeAnimation(handler, autoObject) {
                     .repeats(data.repeat, data.delay)
                 .effect()
                     .delay(targetFX.startDelay)
+                    .file(targetFX.data?.file)
                     .atLocation(target)
                     .scale(targetFX.tFXScale * targetFX.scale)
                     .repeats(targetFX.repeat, targetFX.delay)
                     .belowTokens(targetFX.below)
+                    .gridSize(canvas.grid.size)
                     .playIf(targetFX.enabled)
-                    .addOverride(async (effect, data) => {
-                        if (targetFX.enabled) {
-                            data.file = targetFX.data.file;
-                        }
-                        return data;
-                    })
                     .play()
                 await wait(handler.animEnd)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)

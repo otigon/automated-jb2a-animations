@@ -154,7 +154,7 @@
                             <label>Self {{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.selfMarkerColor">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'selfMarkerColor')}}
-                                {{#each (lookup (lookup (lookup ../colors 'static') 'marker') 'musicmarker') as |name
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'marker') as |name
                                 key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
@@ -165,7 +165,7 @@
                             <label>Target {{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.targetMarkerColor">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'targetMarkerColor')}}
-                                {{#each (lookup (lookup (lookup ../colors 'static') 'marker') 'musicmarker') as |name
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'bardicinspiration') 'marker') as |name
                                 key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}

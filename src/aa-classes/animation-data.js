@@ -104,11 +104,12 @@ static _staticData (handler, autoObject) {
 
 static async _explosionData (handler) {
     const explosion = {
+        enabled: handler.explosion || false,
         customExplosionPath: handler.customExplode ? handler.customExplosionPath : false,
         delay: handler.explosionDelay || 1,
         below: handler.explosionLevel || false,
     };
-    explosion.data = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath);
+    explosion.data = explosion.enabled ? await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath) : "";
     return explosion;
 }
 
@@ -136,8 +137,24 @@ static async _sourceFX(handler, sourceToken) {
         color: source.color,
         variant: source.variant,
     }
+    if (!sourceFX.animation || sourceFX.animation === "a1") {
+        sourceFX.enabled = false;
+        console.warn("AUTOMATED ANIMATIONS || TokenFX Source Animation is enabled on this item but NO Animation is chosen!");
+    }
+
     sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
     sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceToken.w / sourceFX.data?.metadata?.width : 1;
+    sourceFX.sourceSeq = new Sequence();
+    sourceFX.sourceSeq.effect()
+        .file(sourceFX.data.file)
+        .atLocation(sourceToken)
+        .gridSize(canvas.grid.size)
+        .scale(sourceFX.sFXScale * sourceFX.scale)
+        .repeats(sourceFX.repeat, sourceFX.delay)
+        .belowTokens(sourceFX.below)
+        .waitUntilFinished(sourceFX.startDelay)
+        .playIf(sourceFX.enabled)
+
     return sourceFX;
 }
 
@@ -155,6 +172,10 @@ static async _targetFX(handler) {
         animation: target.name || "",
         color: target.color,
         variant: target.variant,
+    }
+    if (!targetFX.animation || targetFX.animation === "a1") {
+        targetFX.enabled = false;
+        console.warn("AUTOMATED ANIMATIONS || TokenFX Target Animation is enabled on this item but NO Animation is chosen!");
     }
     targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : "";
     return targetFX

@@ -134,18 +134,13 @@ export async function staticAnimation(handler, autoObject) {
                     .repeats(data.repeat, data.delay)
                 .effect()
                     .delay(targetFX.startDelay)
+                    .file(targetFX.data?.file)
                     .atLocation("animation")
                     .scale(targetFX.tFXScale * targetFX.scale)
                     .repeats(targetFX.repeat, targetFX.delay)
                     .belowTokens(targetFX.below)
                     .gridSize(gridSize)
                     .playIf(targetFX.enabled)
-                    .addOverride(async (effect, data) => {
-                        if (targetFX.enabled) {
-                            data.file = targetFX.data.file;
-                        }
-                        return data;
-                    })            
                 .play()
                 //await wait(500)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)

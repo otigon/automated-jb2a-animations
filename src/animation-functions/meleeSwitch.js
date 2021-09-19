@@ -80,18 +80,12 @@ export async function meleeSwitch(handler, target, autoObject) {
                 .JB2A()
             .effect()
                 .atLocation("animation")
-                //.file(explosion.file)
+                .file(explosion.data?.file)
                 .scale({ x: scale, y: scale })
                 .delay(500 + explosion.delay)
                 .repeats(data.repeat, data.delay)
                 .belowTokens(explosion.below)
                 .playIf(handler.explosion)
-                .addOverride(async (effect, data) => {
-                    if (handler.explosion) {
-                        data.file = explosion.data.file;
-                    }
-                    return data;
-                })
             .sound()
                 .file(explosionSound.file)
                 .playIf(() => { return handler.explosion && handler.explodeSound })
@@ -100,17 +94,13 @@ export async function meleeSwitch(handler, target, autoObject) {
                 .repeats(data.repeat, data.delay)
             .effect()
                 .delay(targetFX.startDelay)
+                .file(targetFX.data?.file)
                 .atLocation(target)
+                .gridSize(canvas.grid.size)
                 .scale(targetFX.tFXScale * targetFX.scale)
                 .repeats(targetFX.repeat, targetFX.delay)
                 .belowTokens(targetFX.below)
                 .playIf(targetFX.enabled)
-                .addOverride(async (effect, data) => {
-                    if (targetFX.enabled) {
-                        data.file = targetFX.data.file;
-                    }
-                    return data;
-                })
             .play()
         await wait(handler.animEnd)
         Hooks.callAll("aa.animationEnd", sourceToken, target)

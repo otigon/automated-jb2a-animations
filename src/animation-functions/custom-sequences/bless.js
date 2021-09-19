@@ -35,7 +35,7 @@ export async function bless(handler, autoObject) {
     const bless = await buildBlessFile(obj01, data.color);
     // builds Source Token file if Enabled, and pulls from flags if already set
     //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-
+    const gridSize = canvas.grid.size;
     const sourceToken = handler.actorToken;
     //let animWidth = onToken.metadata.width;
     const scale = ((sourceToken.w / bless.metadata.width) * 2)// * handler.scale
@@ -46,11 +46,13 @@ export async function bless(handler, autoObject) {
             .file(bless.file01)
             .atLocation(sourceToken)
             .scale(scale * data.scale)
+            .gridSize(gridSize)
             .belowTokens(data.below)
             .waitUntilFinished(-500)
         .effect()
             .file(bless.file02)
             .scale(scale)
+            .gridSize(gridSize)
             .atLocation(sourceToken)
             .belowTokens(data.below)
             .play()
@@ -71,11 +73,13 @@ export async function bless(handler, autoObject) {
                     .file(bless.file01)
                     .atLocation(target)
                     .scale(targetScale * data.scale)
+                    .gridSize(gridSize)
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)
                 .effect()
                     .file(bless.file02)
                     .scale(targetScale * data.scale)
+                    .gridSize(gridSize)
                     .atLocation(target)
                     .belowTokens(data.below)
                     .playIf(addCTA)

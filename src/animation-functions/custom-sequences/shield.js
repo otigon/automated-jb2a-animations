@@ -56,7 +56,7 @@ export async function shieldSpell(handler, autoObject) {
 
     //let animWidth = onToken.metadata.width;
     let scale = ((sourceToken.w / onToken.metadata.width) * 1.75) * data.scale
-
+    const gridSize = canvas.grid.size;
 
 
     async function cast() {
@@ -65,12 +65,14 @@ export async function shieldSpell(handler, autoObject) {
                 .effect()
                     .file(onToken.file01)
                     .scale(scale)
+                    .gridSize(gridSize)
                     .atLocation(sourceToken)
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)        
                 .effect()
                     .file(onToken.file02)
                     .scale(scale)
+                    .gridSize(gridSize)
                     .atLocation(sourceToken)
                     .belowTokens(data.below)
                     .fadeIn(300)
@@ -79,6 +81,7 @@ export async function shieldSpell(handler, autoObject) {
                 .effect()
                     .file(onToken.file03)
                     .scale(scale)
+                    .gridSize(gridSize)
                     .belowTokens(data.below)
                     .atLocation(sourceToken)                          
                 .play()

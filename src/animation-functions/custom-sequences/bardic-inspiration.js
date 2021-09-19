@@ -24,7 +24,8 @@ async function bardicInspiration(handler, autoObject) {
         data.selfAnimation = handler.bardAnim;
         data.targetAnimation = handler.bards.bardTargetAnim;
     }
-    
+    const gridSize = canvas.grid.size;
+
     let selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.selfMarkerColor}`;
     let targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.targetMarkerColor}`
     async function markerCreate(tokenMarker, path) {
@@ -33,6 +34,7 @@ async function bardicInspiration(handler, autoObject) {
         .file(path)
         .atLocation(tokenMarker)
         .scale((tokenMarker.w / 400) * 2)
+        .gridSize(gridSize)
         .belowTokens(true)
         .play()
     }
@@ -46,6 +48,7 @@ async function bardicInspiration(handler, autoObject) {
         .file(path)
         .atLocation(token)
         .scale(token.w / 200)
+        .gridSize(gridSize)
         .repeats(10, 350)
         .randomOffset()
 
@@ -61,6 +64,7 @@ async function bardicInspiration(handler, autoObject) {
             .file(path)
             .atLocation(biToken)
             .scale((biToken.w / 400) * 2)
+            .gridSize(gridSize)
 
         bardicPlay.play()
     }

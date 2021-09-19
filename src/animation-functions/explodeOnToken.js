@@ -35,10 +35,6 @@ export async function explodeOnToken(handler) {
                 //.missed(hit)
                 .scale(scaleT10)
                 .belowTokens(handler.animLevel)
-                .addOverride(
-                    async (effect, data) => {
-                        return data
-                    })
             .play()
         return
     } else {
@@ -74,18 +70,13 @@ export async function explodeOnToken(handler) {
                         .playIf(() => { return arrayLength })
                     .effect()
                         .delay(targetFX.startDelay)
+                        .file(targetFX.data?.file)
                         .atLocation(target)
                         .scale(targetFX.tFXScale * targetFX.scale)
                         .repeats(targetFX.repeat, targetFX.delay)
                         .belowTokens(targetFX.below)
                         .playIf(targetFX.enabled)
-                        .addOverride(async (effect, data) => {
-                            if (targetFX.enabled) {
-                                data.file = targetFX.data.file;
-                            }
-                            return data;
-                        })                
-                        .play()
+                    .play()
             }
         }
         cast()

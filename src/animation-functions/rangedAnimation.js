@@ -84,17 +84,13 @@ export async function rangedAnimations(handler, autoObject) {
                     .repeats(data.repeat, data.delay)
                 .effect()
                     .delay(targetFX.startDelay)
+                    .file(targetFX.data?.file)
                     .atLocation(target)
+                    .gridSize(canvas.grid.size)
                     .scale( targetFX.tFXScale * targetFX.scale)
                     .repeats(targetFX.repeat, targetFX.delay)
                     .belowTokens(targetFX.below)
                     .playIf(targetFX.enabled)
-                    .addOverride(async (effect, data) => {
-                        if (targetFX.enabled) {
-                            data.file = targetFX.data.file;
-                        }
-                        return data;
-                    })            
                 .play()
                 await wait(handler.animEnd)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)
