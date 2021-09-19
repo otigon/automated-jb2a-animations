@@ -1,7 +1,7 @@
 import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
-import { AutorecFunctions } from "./custom-recognition/autorecFunctions.js";
+import { AutorecFunctions } from "./aa-classes/autorecFunctions.js";
 
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import flagHandler from "./system-handlers/flag-handler.js";

@@ -1,6 +1,6 @@
 import { buildFile } from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
-import { AAanimationData } from "./animation-data.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -42,7 +42,7 @@ export async function meleeSwitch(handler, target, autoObject) {
         //for (var i = 0; i < arrayLength; i++) {
 
         //let target = handler.allTargets[i];
-        if (handler.targetEnable) {
+        if (targetFX.enabled) {
             targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
         }
 
@@ -94,10 +94,10 @@ export async function meleeSwitch(handler, target, autoObject) {
                 .atLocation("animation")
                 //.file(explosion.file)
                 .scale({ x: scale, y: scale })
-                .delay(explosion.delay)
+                .delay(500 + explosion.delay)
                 .repeats(data.repeat, data.delay)
                 .belowTokens(explosion.below)
-                .playIf(() => { return handler.explosion })
+                .playIf(handler.explosion)
                 .addOverride(async (effect, data) => {
                     if (handler.explosion) {
                         data.file = explosion.data.file;
@@ -106,7 +106,7 @@ export async function meleeSwitch(handler, target, autoObject) {
                 })
             .sound()
                 .file(explosionSound.file)
-                .playIf(() => { return explosion.data && handler.explodeSound })
+                .playIf(() => { return handler.explosion && handler.explodeSound })
                 .delay(explosionSound.delay)
                 .volume(explosionSound.volume)
                 .repeats(data.repeat, data.delay)

@@ -2,7 +2,8 @@ import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { buildFile } from "./file-builder/build-filepath.js";
 import { socketlibSocket } from "../socketset.js";
-import { aaDebugger } from "../constants/constants.js"
+import { aaDebugger } from "../constants/constants.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -37,6 +38,7 @@ export async function thunderwaveAuto(handler, autoObject) {
         data.occlusionMode = parseInt(handler.templates?.occlusionMode ?? "3");
         data.removeTemplate = handler.templates.removeTemplate;
     }
+    const sourceToken = handler.actorToken;
     if (aaDebug) { aaDebugger("Thunderwave Animation Start", data) }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let color;
@@ -65,12 +67,7 @@ export async function thunderwaveAuto(handler, autoObject) {
         templateFile = templateSound?.file;
     }
 
-    let sourceFX;
-    let sFXScale;
-    if (handler.sourceEnable) {
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
-        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
-    }
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
     const templateID = await canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
     let template = await canvas.templates.get(templateID);
@@ -79,8 +76,8 @@ export async function thunderwaveAuto(handler, autoObject) {
     let templateW = template.data.width;
     let templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
     let scale = (100 / canvas.grid.size) * templateLength / 600;
-    let xPos = handler.actorToken.data.x;
-    let yPos = handler.actorToken.data.y;
+    let xPos = sourceToken.data.x;
+    let yPos = sourceToken.data.y;
     let tempY = template.data.y;
     let tempX = template.data.x;
 
@@ -184,20 +181,20 @@ export async function thunderwaveAuto(handler, autoObject) {
         }
         await new Sequence()
             .effect()
-            .atLocation(handler.actorToken)
-            .scale(sFXScale * handler.sourceScale)
-            .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-            .belowTokens(handler.sourceLevel)
-            .waitUntilFinished(handler.sourceDelay)
-            .playIf(handler.sourceEnable)
+            .atLocation(sourceToken)
+            .scale(sourceFX.sFXScale * sourceFX.scale)
+            .repeats(sourceFX.repeat, sourceFX.delay)
+            .belowTokens(sourceFX.below)
+            .waitUntilFinished(sourceFX.startDelay)
+            .playIf(sourceFX.enabled)
             .addOverride(async (effect, data) => {
-                if (handler.sourceEnable) {
-                    data.file = sourceFX.file;
+                if (sourceFX.enabled) {
+                    data.file = sourceFX.data.file;
                 }
                 return data;
             })
             .thenDo(function () {
-                Hooks.callAll("aa.animationStart", handler.actorToken, "no-target")
+                Hooks.callAll("aa.animationStart", sourceToken, "no-target")
             })
             .effect()
 
@@ -216,7 +213,7 @@ export async function thunderwaveAuto(handler, autoObject) {
                 .repeats(data.repeat, data.delay)
             .play()
         await wait(500)
-        Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target")
+        Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
     }
 }
 

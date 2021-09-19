@@ -1,59 +1,42 @@
 import { buildFile } from "./file-builder/build-filepath.js"
-import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
-import { aaDebugger } from "../constants/constants.js"
+import { aaDebugger } from "../constants/constants.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function explodeOnToken(handler) {
     const aaDebug = game.settings.get("autoanimations", "debug")
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    let sourceToken = handler.actorToken;
+    const sourceToken = handler.actorToken;
     let name = handler.explosionVariant;
     name = name === "boulder" ? "boulderimpact" : name;
     let customExplosionPath = handler.customExplode ? handler.customExplosionPath : false
-    let explosion = await buildFile(true, name, "static", handler.variant, handler.explosionColor, customExplosionPath)
+    const explosion = await buildFile(true, name, "static", handler.variant, handler.explosionColor, customExplosionPath)
 
     // builds Source Token file if Enabled, and pulls from flags if already set
-    let sourceFX;
-    let sFXScale;
-    let customSourcePath; 
-    if (handler.sourceEnable) {
-        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
-        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
-    }
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     // builds Target Token file if Enabled, and pulls from flags if already set
-    let targetFX;
-    let tFXScale;
-    let customTargetPath; 
-    if (handler.targetEnable) {
-        customTargetPath = handler.targetCustomEnable ? handler.targetCustomPath : false;
-        targetFX = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, customTargetPath);
-    }
-    let tokenScale = (1.5 * sourceToken.w / explosion.metadata.width)
-    let animationScale = ((200 * handler.explosionRadius) / explosion.metadata.width)
-    const optionScale = handler.options?.scale ?? 1
-    let scaleT10 = handler.options?.scaleToToken ? (tokenScale * optionScale) : animationScale;
+    const targetFX = await AAanimationData._targetFX(handler);
+    const tokenScale = (1.5 * sourceToken.w / explosion.metadata.width)
+    const animationScale = ((200 * handler.explosionRadius) / explosion.metadata.width)
+    const optionScale = handler.options?.scale ?? 1;
+    const scaleT10 = handler.options?.scaleToToken ? (tokenScale * optionScale) : animationScale;
     if (handler.animType === "t10") {
         new Sequence()
             .effect()
                 .atLocation(sourceToken)
-                .scale(sFXScale * handler.sourceScale)
-                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                .belowTokens(handler.sourceLevel)
-                .waitUntilFinished(handler.sourceDelay)
-                .playIf(handler.sourceEnable)
+                .scale(sourceFX.sFXScale * sourceFX.scale)
+                .repeats(sourceFX.repeat, sourceFX.delay)
+                .belowTokens(sourceFX.below)
+                .waitUntilFinished(sourceFX.startDelay)
+                .playIf(sourceFX.enabled)
                 .addOverride(async (effect, data) => {
-                    if (handler.sourceEnable) {
-                    data.file = sourceFX.file;
+                    if (sourceFX.enabled) {
+                    data.file = sourceFX.data.file;
                 }
                 return data;
                 })            
@@ -78,8 +61,8 @@ export async function explodeOnToken(handler) {
             for (var i = 0; i < arrayLength; i++) {
 
                 let target = handler.allTargets[i];
-                if (handler.targetEnable) {
-                    tFXScale = 2 * target.w / targetFX.metadata.width;
+                if (targetFX.enabled) {
+                    targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
                 }        
     
             let hit;
@@ -94,14 +77,14 @@ export async function explodeOnToken(handler) {
                 new Sequence()
                     .effect()
                         .atLocation(sourceToken)
-                        .scale(sFXScale * handler.sourceScale)
-                        .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                        .belowTokens(handler.sourceLevel)
-                        .waitUntilFinished(handler.sourceDelay)
-                        .playIf(handler.sourceEnable)
+                        .scale(sourceFX.sFXScale * sourceFX.scale)
+                        .repeats(sourceFX.repeat, sourceFX.delay)
+                        .belowTokens(sourceFX.below)
+                        .waitUntilFinished(sourceFX.startDelay)
+                        .playIf(sourceFX.enabled)
                         .addOverride(async (effect, data) => {
-                            if (handler.sourceEnable) {
-                            data.file = sourceFX.file;
+                            if (sourceFX.enabled) {
+                            data.file = sourceFX.data.file;
                             }
                             return data;
                             })            
@@ -114,15 +97,15 @@ export async function explodeOnToken(handler) {
                         .belowTokens(handler.animLevel)
                         .playIf(() => { return arrayLength })
                     .effect()
-                        .delay(handler.targetDelay)
+                        .delay(targetFX.startDelay)
                         .atLocation(target)
-                        .scale(tFXScale * handler.targetScale)
-                        .repeats(handler.targetLoops, handler.targetLoopDelay)
-                        .belowTokens(handler.targetLevel)
-                        .playIf(handler.targetEnable)
+                        .scale(targetFX.tFXScale * targetFX.scale)
+                        .repeats(targetFX.repeat, targetFX.delay)
+                        .belowTokens(targetFX.below)
+                        .playIf(targetFX.enabled)
                         .addOverride(async (effect, data) => {
-                            if (handler.targetEnable) {
-                                data.file = targetFX.file;
+                            if (targetFX.enabled) {
+                                data.file = targetFX.data.file;
                             }
                             return data;
                         })                

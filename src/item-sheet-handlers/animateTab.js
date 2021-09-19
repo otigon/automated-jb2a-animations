@@ -1,6 +1,6 @@
 import { AUTOANIM } from "./config.js";
 import { AATabFunctions } from "./tab-options.js";
-import { AutorecFunctions } from "../custom-recognition/autorecFunctions.js";
+import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import animPreview from "./anim-preview.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 

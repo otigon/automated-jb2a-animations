@@ -1,6 +1,6 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-import { buildFile } from "../file-builder/build-filepath.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -49,14 +49,11 @@ export async function shieldSpell(handler, autoObject) {
         data.endeffect = handler.options.shieldVar || "outro_fade";
         data.variant = handler.spellVariant || "01";
     }
+    const sourceToken = handler.actorToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
     // builds Source Token file if Enabled, and pulls from flags if already set
-    let sourceFX;
-    if (handler.sourceEnable) {
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
-    }
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
-    const sourceToken = handler.actorToken;
     //let animWidth = onToken.metadata.width;
     let scale = ((sourceToken.w / onToken.metadata.width) * 1.75) * data.scale
 
@@ -66,14 +63,14 @@ export async function shieldSpell(handler, autoObject) {
             new Sequence()
                 .effect()
                     .atLocation(sourceToken)
-                    .scale(handler.sourceScale)
-                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                    .belowTokens(handler.sourceLevel)
-                    .waitUntilFinished(handler.sourceDelay)
-                    .playIf(handler.sourceEnable)
+                    .scale(sourceFX.scale)
+                    .repeats(sourceFX.repeat, sourceFX.delay)
+                    .belowTokens(sourceFX.below)
+                    .waitUntilFinished(sourceFX.startDelay)
+                    .playIf(sourceFX.enabled)
                     .addOverride(async (effect, data) => {
-                        if (handler.sourceEnable) {
-                            data.file = sourceFX.file;
+                        if (sourceFX.enabled) {
+                            data.file = sourceFX.data.file;
                         }
                         return data;
                     })

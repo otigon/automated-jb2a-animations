@@ -1,8 +1,6 @@
 import { AUTOANIM } from "../item-sheet-handlers/config.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
-//import ctaCall from "../animation-functions/CTAcall.js";
-//import { exportAutorecToJSON, importAutorecFromJSON } from "./autoFunctions.js";
-import { AutorecFunctions } from "./autorecFunctions.js";
+import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 
 export class aaAutoRecognition extends FormApplication {
     constructor(object = {}, options) {

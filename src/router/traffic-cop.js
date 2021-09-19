@@ -15,7 +15,7 @@ import { bless } from "../animation-functions/custom-sequences/bless.js";
 import { staticAnimation } from "../animation-functions/staticAnimation.js";
 //import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
 import { aaDebugger } from "../constants/constants.js";
-import { AutorecFunctions} from "../custom-recognition/autorecFunctions.js"
+import { AutorecFunctions} from "../aa-classes/autorecFunctions.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 

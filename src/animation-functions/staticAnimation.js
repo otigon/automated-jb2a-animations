@@ -1,6 +1,6 @@
 import { buildFile } from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
-import { AAanimationData } from "./animation-data.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -99,7 +99,7 @@ export async function staticAnimation(handler, autoObject) {
 
             let target = handler.allTargets[i];
             if (targetFX.enabled) {
-                tFXScale = 2 * target.w / targetFX.metadata.width;
+                targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
             }        
 
             let scale = data.itemName.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75

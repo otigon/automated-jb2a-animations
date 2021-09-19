@@ -1,7 +1,7 @@
 import { buildFile } from "./file-builder/build-filepath.js"
 import { meleeSwitch } from "./meleeSwitch.js";
 import { aaDebugger } from "../constants/constants.js";
-import { AAanimationData } from "./animation-data.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 //import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -70,10 +70,10 @@ export async function meleeAnimation(handler, autoObject) {
                 await meleeSwitch(handler, target, autoObject)
             }
             else {
-                if (handler.targetEnable) {
+                if (targetFX.enabled) {
                     targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
                 }
-
+                console.log(targetFX)
                 let hit;
                 if (handler.playOnMiss) {
                     hit = handler.hitTargetsId.includes(target.id) ? false : true;

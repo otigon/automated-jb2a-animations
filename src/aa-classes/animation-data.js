@@ -1,5 +1,5 @@
-import { buildFile } from "./file-builder/build-filepath.js";
-import { AAITEMCHECK } from "./item-arrays.js";
+import { buildFile } from "../animation-functions/file-builder/build-filepath.js";
+import { AAITEMCHECK } from "../animation-functions/item-arrays.js";
 export class AAanimationData {
 
 static _meleeData (handler, autoObject) {
@@ -107,7 +107,6 @@ static async _explosionData (handler) {
         customExplosionPath: handler.customExplode ? handler.customExplosionPath : false,
         delay: handler.explosionDelay || 1,
         below: handler.explosionLevel || false,
-        
     };
     explosion.data = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath);
     return explosion;

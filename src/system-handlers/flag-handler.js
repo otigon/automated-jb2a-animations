@@ -89,7 +89,7 @@ export default class flagHandler {
         this._switchDetect = this._meleeSwitch?.detect ?? "auto";
         this._switchRange = this._meleeSwitch?.range ?? "1";
         this._returning = this._meleeSwitch?.returning ?? false;
-
+        /*
         this._sourceToken = this.flags.sourceToken ?? "";//
         this._sourceEnable = this._sourceToken.enable ?? false;//
         this._sourceLevel = this._sourceToken.animLevel ?? false;//
@@ -115,7 +115,7 @@ export default class flagHandler {
         this._targetScale = this._targetToken.scale ?? 1;//
         this._targetDelay = this._targetToken.delayStart ?? 500;//
         this._targetVariant = this._targetToken.variant ?? "";//
-
+        */
         this._animNameFinal;
         switch (true) {
             case ((!this._animOverride) || ((this._animOverride) && (this._animName === ``))):
@@ -213,7 +213,7 @@ export default class flagHandler {
     get switchDetect() { return this._switchDetect }
     get switchRange() { return this._switchRange }
     get switchReturn() { return this._returning }
-
+    /*
     get sourceEnable() { return this._sourceEnable; }
     get sourceLevel() { return this._sourceLevel; }
     get sourceName() { return this._sourceName; }
@@ -237,7 +237,7 @@ export default class flagHandler {
     get targetScale() { return this._targetScale; }
     get targetDelay() { return this._targetDelay; }
     get targetVariant() { return this._targetVariant; }
-
+    */
     get hasAttack() { return this._item?.hasAttack ?? false; }
     get hasDamage() { return this._item?.hasDamage ?? false; }
 

@@ -2,7 +2,7 @@ import { buildFile } from "./file-builder/build-filepath.js";
 import { socketlibSocket } from "../socketset.js";
 import { thunderwaveAuto } from "./thunderwave.js"
 import { aaDebugger } from "../constants/constants.js"
-
+import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function templateAnimation(handler, autoObject) {
@@ -49,12 +49,7 @@ export async function templateAnimation(handler, autoObject) {
     //let sourceFX;
     //let sFXScale;
     //let customSourcePath; 
-    const sourceFX = {};
-    if (handler.sourceEnable) {
-        sourceFX.customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX.data = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath);
-        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.data.metadata.width;
-    }
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
     const videoWidth = tempAnimation.metadata.width;
     const videoHeight = tempAnimation.metadata.height;
@@ -211,13 +206,13 @@ export async function templateAnimation(handler, autoObject) {
             await new Sequence()
                 .effect()
                     .atLocation(sourceToken)
-                    .scale(sourceFX.sFXScale * handler.sourceScale)
-                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                    .belowTokens(handler.sourceLevel)
-                    .waitUntilFinished(handler.sourceDelay)
-                    .playIf(handler.sourceEnable)
+                    .scale(sourceFX.sFXScale * sourceFX.scale)
+                    .repeats(sourceFX.repeat, sourceFX.delay)
+                    .belowTokens(sourceFX.below)
+                    .waitUntilFinished(sourceFX.startDelay)
+                    .playIf(sourceFX.enabled)
                     .addOverride(async (effect, data) => {
-                        if (handler.sourceEnable) {
+                        if (sourceFX.enabled) {
                             data.file = sourceFX.data.file;
                         }
                         return data;
