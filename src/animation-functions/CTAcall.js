@@ -1,10 +1,11 @@
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 import { buildFile } from "./file-builder/build-filepath.js";
+import { aaDebugger } from "../constants/constants.js"
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function ctaCall(handler, autoObject) {
-
+    const aaDebug = game.settings.get("autoanimations", "debug")
     //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     //let animName = handler.animName.replace(/\s+/g, '')
     const data = {}
@@ -25,6 +26,7 @@ async function ctaCall(handler, autoObject) {
         data.ignoretargets = handler.options?.ignoreTarget
         data.below = true;
     }
+    if (aaDebug) { aaDebugger("CTA Aura Animation Start", data) }
     const sourceToken = handler.actorToken;
     const aura = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
     if (handler.allTargets.length === 0 || data.ignoretargets) {

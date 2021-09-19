@@ -2,6 +2,7 @@ import { buildFile } from "../file-builder/build-filepath.js"
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -32,7 +33,9 @@ export async function bless(handler, autoObject) {
         data.addCTA = handler.options?.addCTA;
     }
     const bless = await buildBlessFile(obj01, data.color);
-    
+    // builds Source Token file if Enabled, and pulls from flags if already set
+    //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    const gridSize = canvas.grid.size;
     const sourceToken = handler.actorToken;
 
     //let animWidth = onToken.metadata.width;
@@ -44,11 +47,13 @@ export async function bless(handler, autoObject) {
             .file(bless.file01)
             .atLocation(sourceToken)
             .scale(scale * data.scale)
+            .gridSize(gridSize)
             .belowTokens(data.below)
             .waitUntilFinished(-500)
         .effect()
             .file(bless.file02)
             .scale(scale)
+            .gridSize(gridSize)
             .atLocation(sourceToken)
             .belowTokens(data.below)
             .play()
@@ -66,11 +71,13 @@ export async function bless(handler, autoObject) {
                     .file(bless.file01)
                     .atLocation(target)
                     .scale(targetScale * data.scale)
+                    .gridSize(gridSize)
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)
                 .effect()
                     .file(bless.file02)
                     .scale(targetScale * data.scale)
+                    .gridSize(gridSize)
                     .atLocation(target)
                     .belowTokens(data.below)
                     .playIf(addCTA)

@@ -66,7 +66,7 @@ export class aaAutorec {
                 },
                 6: {
                     hidden: true,
-                    name: 'Longsword',
+                    name: 'Sword',
                     animation: 'sword',
                     variant: '01',
                     color: 'white',
@@ -96,16 +96,6 @@ export class aaAutorec {
                 },
                 9: {
                     hidden: true,
-                    name: 'Shortsword',
-                    animation: 'sword',
-                    variant: '01',
-                    color: 'white',
-                    repeat: 1,
-                    delay: 500,
-                    scale: 1,
-                },
-                10: {
-                    hidden: true,
                     name: 'Spear',
                     animation: 'spear',
                     variant: '01',
@@ -114,7 +104,7 @@ export class aaAutorec {
                     delay: 500,
                     scale: 1,
                 },
-                11: {
+                10: {
                     hidden: true,
                     name: 'Rapier',
                     animation: 'rapier',
@@ -124,7 +114,7 @@ export class aaAutorec {
                     delay: 500,
                     scale: 1,
                 },
-                12: {
+                11: {
                     hidden: true,
                     name: 'Unarmed Strike',
                     animation: 'unarmedstrike',

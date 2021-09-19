@@ -1,13 +1,14 @@
 import { buildFile} from "./file-builder/build-filepath.js"
-
+import { aaDebugger } from "../constants/constants.js"
+import { AAanimationData } from "../aa-classes/animation-data.js";
 export async function teleportation(handler, autoObject) {
-
+    const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (handler.itemMacro.toLowerCase().includes("misty step")) {
         console.log("A-A Misty Step will not work with DAE SRD Misty Step");
         return;
     }
-    const token = handler.actorToken;
+    const sourceToken = handler.actorToken;
     const actor = handler.actor;
 
     const data = {};
@@ -29,26 +30,18 @@ export async function teleportation(handler, autoObject) {
         data.range = handler.teleRange;
         data.hideTemplate = handler.options?.hideTemplate;
     }
-
+    if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
     const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
 
-    let sourceFX;
-    let sFXScale;
-    let customSourcePath; 
-    if (handler.sourceEnable) {
-        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
-        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
-    }
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
-
-    let Scale = ((token.w / onToken.metadata.width) * data.scale) * 1.75;
+    let Scale = ((sourceToken.w / onToken.metadata.width) * data.scale) * 1.75;
     if (!data.hideTemplate) {
         let range = MeasuredTemplate.create({
             t: "circle",
             user: game.user.id,
-            x: token.x + canvas.grid.size / 2,
-            y: token.y + canvas.grid.size / 2,
+            x: sourceToken.x + canvas.grid.size / 2,
+            y: sourceToken.y + canvas.grid.size / 2,
             direction: 0,
             distance: data.range,
             borderColor: "#FF0000",
@@ -66,7 +59,7 @@ export async function teleportation(handler, autoObject) {
     canvas.app.stage.addListener('pointerdown', event => {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
-        let ray = new Ray(token.center, pos)
+        let ray = new Ray(sourceToken.center, pos)
         if (ray.distance > ((canvas.grid.size * (data.range / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
             ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
         } else {
@@ -84,34 +77,22 @@ export async function teleportation(handler, autoObject) {
         if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
 
         new Sequence()
-            .effect()
-                .atLocation(token)
-                .scale(sFXScale * handler.sourceScale)
-                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                .belowTokens(handler.sourceLevel)
-                .waitUntilFinished(handler.sourceDelay)
-                .playIf(handler.sourceEnable)
-                .addOverride(async (effect, data) => {
-                    if (handler.sourceEnable) {
-                        data.file = sourceFX.file;
-                    }
-                    return data;
-                })
+            .sequence(sourceFX.sourceSeq)
             .effect()
                 .file(onToken.file)
-                .atLocation(token)
+                .atLocation(sourceToken)
                 .scale(Scale)
                 .randomRotation()
                 .wait(750)
             .thenDo(async () => {
                 if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    await token.update({
+                    await sourceToken.update({
                         x: gridPos[0],
                         y: gridPos[1],
                         hidden: true
                     }, { animate: false });
                 } else {
-                    await token.document.update({
+                    await sourceToken.document.update({
                         x: gridPos[0],
                         y: gridPos[1],
                         hidden: true
@@ -120,18 +101,18 @@ export async function teleportation(handler, autoObject) {
             })  
             .effect()
                 .file(onToken.msFile)
-                .atLocation(token)
+                .atLocation(sourceToken)
                 .scale(Scale)
                 .randomRotation()
             .wait(1500)
             .thenDo(async () => {
                 if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    await token.update({
+                    await sourceToken.update({
                         hidden: false
                     }, { animate: false });
                     0
                 } else {
-                    await token.document.update({
+                    await sourceToken.document.update({
                         hidden: false
                     }, { animate: false });
                 }

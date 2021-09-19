@@ -53,7 +53,6 @@ export default class GeneralAnimHandler {
         this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
         this._spellLoops = this._flags.spellOptions?.spellLoops ?? 1;
-        this._divineSmite = this._flags.divineSmite ?? "";
         this._rangedOptions = this._flags.rangedOptions ?? "";
         this._animLoops = this._flags.options?.loops ?? 1;
         this._loopDelay = this._flags.options?.loopDelay ?? 250;
@@ -78,32 +77,6 @@ export default class GeneralAnimHandler {
         this._switchRange = this._meleeSwitch?.range ?? "1";
         this._returning = this._meleeSwitch?.returning ?? false;
 
-        this._sourceToken = this.flags.sourceToken ?? "";
-        this._sourceEnable = this._sourceToken.enable ?? false;
-        this._sourceLevel = this._sourceToken.animLevel ?? false;
-        this._sourceName = this._sourceToken.name ?? "";
-        this._sourceColor = this._sourceToken.color ?? "";
-        this._sourceCustomEnable = this._sourceToken.enableCustom ?? false;
-        this._sourceCustomPath = this._sourceToken.customPath ?? "";
-        this._sourceLoops = this._sourceToken.loops ?? 1,
-        this._sourceLoopDelay = this._sourceToken.loopDelay ?? 250;
-        this._sourceScale = this._sourceToken.scale ?? 1,
-        this._sourceDelay = this._sourceToken.delayAfter ?? 500,
-        this._sourceVariant = this._sourceToken.variant ?? "",
-
-        this._targetToken = this.flags.targetToken ?? "";
-        this._targetEnable = this._targetToken.enable ?? false;
-        this._targetLevel = this._targetToken.animLevel ?? false;
-        this._targetName = this._targetToken.name ?? "";
-        this._targetColor = this._targetToken.color ?? "";
-        this._targetCustomEnable = this._targetToken.enableCustom ?? false;
-        this._targetCustomPath = this._targetToken.customPath ?? "";
-        this._targetLoops = this._targetToken.loops ?? 1,
-        this._targetLoopDelay = this._targetToken.loopDelay ?? 250;
-        this._targetScale = this._targetToken.scale ?? 1,
-        this._targetDelay = this._targetToken.delayStart ?? 500,
-        this._targetVariant = this._targetToken.variant ?? "",
-
         this._itemName = this._item.name?.toLowerCase() ?? '';
 
         this._animNameFinal;
@@ -115,16 +88,7 @@ export default class GeneralAnimHandler {
                 this._animNameFinal = this._animName;
                 break;
         }
-        /* For storing nameConversions, disabling for now
-        this._convert = this._flags.defaults ? true : nameConversion(this._animNameFinal);
-        if (this._convert[0] !== "pass") {
-            this._item.setFlag("autoanimations", "defaults.name", this._convert[0]);
-            this._item.setFlag("autoanimations", "defaults.color", this._convert[1])
-        }
-        this._convertName = this._flags.defaults ? this._flags.defaults.name : this._convert[0];
-        this._defaultColor = this._flags.defaults ? this._flags.defaults.color : this._convert[1];
-        */
-        //this._convert = nameConversion(this._animNameFinal);
+        
         this._convertName = this._animName.replace(/\s+/g, '').toLowerCase();
         //this._defaultColor = this._convert[1];
         this._delay = endTiming(this._animNameFinal);
@@ -201,7 +165,6 @@ export default class GeneralAnimHandler {
     get explodeSound() {return this._explodeSound}
 
     get spellLoops() {return this._spellLoops;}
-    get divineSmite() {return this._divineSmite;}
     get autoDamage() {return game.user.isGM ? this._gmAD : this._userAD;}
     get flags() {return this._flags;}
 
@@ -228,30 +191,6 @@ export default class GeneralAnimHandler {
     get switchDetect() { return this._switchDetect }
     get switchRange() { return this._switchRange }
     get switchReturn() { return this._returning }
-
-    get sourceEnable() {return this._sourceEnable;}
-    get sourceLevel() {return this._sourceLevel;}
-    get sourceName() {return this._sourceName;}
-    get sourceColor() {return this._sourceColor;}
-    get sourceCustomEnable() {return this._sourceCustomEnable;}
-    get sourceCustomPath() {return this._sourceCustomPath;}
-    get sourceLoops() {return this._sourceLoops;}
-    get sourceLoopDelay() {return this._sourceLoopDelay}
-    get sourceScale() {return this._sourceScale;}
-    get sourceDelay() {return this._sourceDelay;}
-    get sourceVariant() {return this._sourceVariant;}
-
-    get targetEnable() {return this._targetEnable;}
-    get targetLevel() {return this._targetLevel;}
-    get targetName() {return this._targetName;}
-    get targetColor() {return this._targetColor;}
-    get targetCustomEnable() {return this._targetCustomEnable;}
-    get targetCustomPath() {return this._targetCustomPath;}
-    get targetLoops() {return this._targetLoops;}
-    get targetLoopDelay() {return this._targetLoopDelay}
-    get targetScale() {return this._targetScale;}
-    get targetDelay() {return this._targetDelay;}
-    get targetVariant() { return this._targetVariant;}
 
     getDistanceTo(target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;

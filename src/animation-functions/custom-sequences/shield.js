@@ -1,6 +1,6 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-import { buildFile } from "../file-builder/build-filepath.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -50,43 +50,30 @@ export async function shieldSpell(handler, autoObject) {
         data.endeffect = handler.options.shieldVar || "outro_fade";
         data.variant = handler.spellVariant || "01";
     }
+    const sourceToken = handler.actorToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
     // builds Source Token file if Enabled, and pulls from flags if already set
-    let sourceFX;
-    if (handler.sourceEnable) {
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
-    }
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
-    const sourceToken = handler.actorToken;
     //let animWidth = onToken.metadata.width;
     let scale = ((sourceToken.w / onToken.metadata.width) * 1.75) * data.scale
-
+    const gridSize = canvas.grid.size;
 
 
     async function cast() {
             new Sequence()
-                .effect()
-                    .atLocation(sourceToken)
-                    .scale(handler.sourceScale)
-                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                    .belowTokens(handler.sourceLevel)
-                    .waitUntilFinished(handler.sourceDelay)
-                    .playIf(handler.sourceEnable)
-                    .addOverride(async (effect, data) => {
-                        if (handler.sourceEnable) {
-                            data.file = sourceFX.file;
-                        }
-                        return data;
-                    })
+                .sequence(sourceFX.sourceSeq)
                 .effect()
                     .file(onToken.file01)
                     .scale(scale)
+                    .gridSize(gridSize)
                     .atLocation(sourceToken)
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)        
                 .effect()
                     .file(onToken.file02)
                     .scale(scale)
+                    .gridSize(gridSize)
                     .atLocation(sourceToken)
                     .belowTokens(data.below)
                     .fadeIn(300)
@@ -95,6 +82,7 @@ export async function shieldSpell(handler, autoObject) {
                 .effect()
                     .file(onToken.file03)
                     .scale(scale)
+                    .gridSize(gridSize)
                     .belowTokens(data.below)
                     .atLocation(sourceToken)                          
                 .play()

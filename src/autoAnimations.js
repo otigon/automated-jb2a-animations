@@ -1,28 +1,18 @@
 import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
+import { AutorecFunctions } from "./aa-classes/autorecFunctions.js";
 
-//import Dnd5Handler from "./system-handlers/dnd5-handler.js";
-//import MidiHandler from "./system-handlers/midi-handler.js";
-//import Pf1Handler from "./system-handlers/pf1-handler.js";
-//import Dnd35Handler from "./system-handlers/dnd35-handler.js";
-//import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
-//import DemonLordHandler from './system-handlers/demonlord-handler.js';
-//import SwadeHandler from './system-handlers/swade-handler.js';
 import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
-//import SW5eHandler from "./system-handlers/sw5e-handler.js";
-//import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
-//import PF2Handler from "./system-handlers/pf2-handler.js";
-//import ForbiddenLandsHandler from "./system-handlers/forbidden-lands-handler.js";
-import flagHandler from "./system-handlers/system-handler.js";
+import flagHandler from "./system-handlers/flag-handler.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import aaSettings from "./settings.js";
 
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
-import { setupSocket, socketlibSocket } from "./socketset.js";
-import { autorecNameCheck, getAllNames, rinseName } from "./custom-recognition/autoFunctions.js";
+import { setupSocket } from "./socketset.js";
+//import { autorecNameCheck, getAllNames, rinseName } from "./custom-recognition/autoFunctions.js";
 
 //import menuOptions from "./animation-functions/databases/jb2a-patreon-menus.js";
 // just swap which of these two lines is commented to turn on/off all logging
@@ -100,9 +90,9 @@ Hooks.on('init', () => {
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
-            case "demonlord": 
-            Hooks.on("DL.Action", setupDemonLord);
-            break;
+            case "demonlord":
+                Hooks.on("DL.Action", setupDemonLord);
+                break;
             case "pf2e":
                 Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
                 break;
@@ -170,7 +160,7 @@ Hooks.on('init', () => {
                     var itemId = data.getFlag("betterrolls-swade2", "item_id");
                     var item = actor.items.get(itemId);
 
-                    swadeData(actor, item) 
+                    swadeData(actor, item)
                 });
                 break;
             case "wfrp4e":
@@ -257,7 +247,7 @@ function moduleIncludes(test) {
 function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = new flagHandler(workflow);
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler);
@@ -267,7 +257,7 @@ function setUpMidiNoAD(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = new flagHandler(workflow);
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler)
@@ -277,7 +267,7 @@ function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = new flagHandler(workflow);
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler)
@@ -297,7 +287,7 @@ async function specialCaseAnimations(msg) {
             })
             return;
         }
-        const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+        const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
         if (templateItem && !handler.animOverride) {
             trafficCop(handler)
         }
@@ -332,7 +322,7 @@ function setUp5eCore(msg) {
             break;
     }
     if (!handler.item || handler.animKill) { return }
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
@@ -402,7 +392,7 @@ function onCreateChatMessage(msg) {
 */
 function swadeData(SwadeActor, SwadeItem) {
     if (killAllAnimations) { return; }
-    let data = {SwadeActor, SwadeItem}
+    let data = { SwadeActor, SwadeItem }
     let handler = new flagHandler(data);
     trafficCop(handler);
 }
@@ -469,7 +459,7 @@ async function pf2eReady(msg) {
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
     const damage = handler.item.damageValue;
@@ -585,7 +575,7 @@ async function criticalCheck(workflow) {
 function wfrpWeapon(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({item: data.weapon, targets: targets});
+    let handler = new flagHandler({ item: data.weapon, targets: targets });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -597,7 +587,7 @@ function wfrpWeapon(data, targets, info) {
 function wfrpPrayer(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({item: data.prayer, targets: targets});
+    let handler = new flagHandler({ item: data.prayer, targets: targets });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -609,7 +599,7 @@ function wfrpPrayer(data, targets, info) {
 function wfrpCast(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({item: data.spell, targets: targets});
+    let handler = new flagHandler({ item: data.spell, targets: targets });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -621,7 +611,7 @@ function wfrpCast(data, targets, info) {
 function wfrpTrait(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({item: data.trait, targets: targets});
+    let handler = new flagHandler({ item: data.trait, targets: targets });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -633,7 +623,7 @@ function wfrpTrait(data, targets, info) {
 function wfrpSkill(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({item: data.skill, targets: targets});
+    let handler = new flagHandler({ item: data.skill, targets: targets });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
