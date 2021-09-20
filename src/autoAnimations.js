@@ -3,7 +3,6 @@ import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.j
 import { trafficCop } from "./router/traffic-cop.js";
 import { AutorecFunctions } from "./aa-classes/autorecFunctions.js";
 
-import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
 import flagHandler from "./system-handlers/flag-handler.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
@@ -230,7 +229,12 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 class AutoAnimations {
     static playAnimation(sourceToken, targets, item) {
         if (killAllAnimations) { return; }
-        let handler = new GeneralAnimHandler(sourceToken, targets, item);
+        const data = {
+            token: sourceToken,
+            targets: targets,
+            item: item,
+        }
+        let handler = new flagHandler(null, null, data)
         trafficCop(handler);
     }
 }
@@ -462,7 +466,7 @@ async function pf2eReady(msg) {
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
-    const damage = /*handler.item.damageValue || */handler.item.damage.length;
+    const damage = /*handler.item.damageValue || */handler.item?.damage?.length;
     console.log(damage)
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")

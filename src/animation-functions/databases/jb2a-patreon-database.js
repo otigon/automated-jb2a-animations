@@ -2835,21 +2835,25 @@ JB2APATREONDB.static = {
     },
     tollthedead: {
         bell: {
+            blue: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Blue_400x400.webm`],
             green: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Green_400x400.webm`],
             purple: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Purple_400x400.webm`],
             red: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Red_400x400.webm`],
         },
         complete: {
+            blue: [l0`Toll_The_Dead/TollTheDead_01_Regular_Blue_400x400.webm`],
             green: [l0`Toll_The_Dead/TollTheDead_01_Regular_Green_400x400.webm`],
             purple: [l0`Toll_The_Dead/TollTheDead_01_Regular_Purple_400x400.webm`],
             red: [l0`Toll_The_Dead/TollTheDead_01_Regular_Red_400x400.webm`],
         },
         shockwave: {
+            blue: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Blue_400x400.webm`],
             green: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Green_400x400.webm`],
             purple: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Purple_400x400.webm`],
             red: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Red_400x400.webm`],
         },
         skull: {
+            blue: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Blue_400x400.webm`],
             green: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`],
             purple: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Purple_400x400.webm`],
             red: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Red_400x400.webm`],

@@ -80,7 +80,7 @@ export async function meleeAnimation(handler, autoObject) {
                 } else {
                     hit = false;
                 }
-                await new Sequence()
+                await new Sequence("Automated Animations")
                 .sequence(sourceFX.sourceSeq)
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, target)

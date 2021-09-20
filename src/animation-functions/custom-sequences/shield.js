@@ -61,7 +61,7 @@ export async function shieldSpell(handler, autoObject) {
 
 
     async function cast() {
-            new Sequence()
+            new Sequence("Automated Animations")
                 .sequence(sourceFX.sourceSeq)
                 .effect()
                     .file(onToken.file01)

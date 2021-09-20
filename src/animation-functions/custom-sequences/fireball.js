@@ -1,57 +1,85 @@
+import { buildFile } from "../file-builder/build-filepath.js"
 
 export async function fireball(handler, autoObject) {
 
-    let fireballTemplate = canvas.templates.get(args[0].templateId)
-    let tokenD = canvas.tokens.get(args[0].tokenId);
+    const data = {}
+    if (autoObject) {
+        Object.assign(data, autoObject[0]);
+    } else {
 
-    let templatePosition = fireballTemplate.position;
+    }
+    console.log(data)
 
-    fireballTemplate.delete();
+    const projectileAnimation = await buildFile(false, data.projectile, "range", data.projectileVariant, data.projectileColor);
+    const explosion01 = await buildFile(true, data.explosion01, "static", data.explosion01Variant, data.explosion01Color)
+    const explosion02 = await buildFile(true, data.explosion02, "static", data.explosion02Variant, data.explosion02Color)
+
+    let fireballTemplate = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;//canvas.templates.get(args[0].templateId)
+    let tokenD = handler.actorToken;
+    let template = await canvas.templates.documentCollection.get(fireballTemplate)
+
+    const size = canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance);
+    const xPos = template.data.x;
+    const yPos = template.data.y;
 
     let tileData = [{
-        img: "Images/Forgotten_Adventures/Overlays_and_Effects/Blast_Marks/Blast_Mark_Debris_A1_2x2.png",
-        width: (7 * canvas.grid.size),
-        height: (7 * canvas.grid.size),
+        img: data.afterEffectPath,
+        width: size,
+        height: size,
         scale: 1,
-        x: templatePosition.x - (3.5 * canvas.grid.size),
-        y: templatePosition.y - (3.5 * canvas.grid.size),
+        x: xPos - (size / 2),
+        y: yPos - (size / 2),
         z: 10,
         rotation: 0,
         hidden: false,
         locked: false,
         alpha: 0
     }];
+    let tile;
+    if (data.afterEffect && data.afterEffectPath !== "") {
+        tile = await canvas.scene.createEmbeddedDocuments("Tile", tileData)
+    }
 
-    let tile = await canvas.scene.createEmbeddedDocuments("Tile", tileData);
+    console.log(template)
 
-    new Sequence()
+    if (data.removeTemplate) {
+        canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+    }
+
+    new Sequence("Automated Animations")
         .effect()
-            .file("autoanimations.range.firebolt.01.orange")
+            .file(projectileAnimation.file)
             .atLocation(tokenD)
-            .reachTowards(templatePosition)
-            .waitUntilFinished(-1200)
+            .reachTowards({x: xPos, y: yPos})
+            .waitUntilFinished(data.wait01)
             .JB2A()
         .effect()
-            .file("autoanimations.static.shatter.01.red.0")
-            .atLocation(templatePosition)
-            .JB2A()
-            .scale(1.5)
+            .file(explosion01.file)
+            .atLocation({x: xPos, y: yPos})
+            .size(size * .35)
             .timeRange(0, 1200)
-            .waitUntilFinished(250)
+            .waitUntilFinished(data.wait02)
         .effect()
-            .file("autoanimations.static.explosion.01.orange.2")
-            .atLocation(templatePosition)
-            .JB2A()
-            .scale(4)
+            .file(explosion02.file)
+            .atLocation({x: xPos, y: yPos})
+            .size(size)
             .zIndex(1)
         .effect()
+            .file(explosion02.file)
+            .atLocation({x: xPos, y: yPos})
+            .size(size)
+            .zIndex(5)
+            .waitUntilFinished(-750 + data.wait03)
+        .animation()
+            .on(tile[0])
+            .fadeIn(250)
+        /*
+        .effect()
             .file("autoanimations.static.explosion.01.orange")
-            .atLocation(templatePosition)
+            .atLocation({x: xPos, y: yPos})
             .JB2A()
             .scale(4)
             .zIndex(5)
-            .animation()
-            .on(tile[0])
-            .fadeIn(250)
+        */
         .play()
 }

@@ -426,6 +426,10 @@
     "AUTOANIM.quarterstaff": "Quarterstaff",
     "AUTOANIM.04": "04",
     "AUTOANIM.sleep01": "Sleep 01",
-    "AUTOANIM.sleep02": "Sleep 02"
+    "AUTOANIM.sleep02": "Sleep 02",
+    "AUTOANIM.persistant": "Persistant",
+    "AUTOANIM.fireball": "Fireball",
+    "AUTOANIM.projectile": "Projectile",
+    "AUTOANIM.addAfterImage": "Add After Image"
 
 }

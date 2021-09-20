@@ -39,14 +39,16 @@ export async function bless(handler, autoObject) {
     const sourceToken = handler.actorToken;
 
     //let animWidth = onToken.metadata.width;
-    const scale = ((sourceToken.w / bless.metadata.width) * 2)// * handler.scale
-    let addCTA = data.addCTA ? false : true
+    const scale = (sourceToken.w * 2.5 / bless.metadata.width) * data.scale// * handler.scale
+    const size = sourceToken.w * 1.5;
+    const scaledSize = (size * data.scale)
+
     if (handler.allTargets.length === 0) {
-        new Sequence()
+        new Sequence("Automated Animations")
         .effect()
             .file(bless.file01)
-            .atLocation(sourceToken)
-            .scale(scale * data.scale)
+            .attachTo(sourceToken)
+            .scale(scale)
             .gridSize(gridSize)
             .belowTokens(data.below)
             .waitUntilFinished(-500)
@@ -54,8 +56,11 @@ export async function bless(handler, autoObject) {
             .file(bless.file02)
             .scale(scale)
             .gridSize(gridSize)
-            .atLocation(sourceToken)
+            .attachTo(sourceToken)
             .belowTokens(data.below)
+            .persist(data.addCTA)
+            .loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
+            .loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
             .play()
     }
 
@@ -64,94 +69,30 @@ export async function bless(handler, autoObject) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
+            let targetScale = (target.w * 2 / bless.metadata.width) * data.scale
 
-            let targetScale = ((target.w / bless.metadata.width) * 2)
-            new Sequence()
+            new Sequence("Automated Animations")
                 .effect()
                     .file(bless.file01)
-                    .atLocation(target)
-                    .scale(targetScale * data.scale)
+                    .attachTo(target)
+                    .scale(targetScale)
                     .gridSize(gridSize)
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)
                 .effect()
                     .file(bless.file02)
-                    .scale(targetScale * data.scale)
+                    .scale(targetScale)
                     .gridSize(gridSize)
-                    .atLocation(target)
+                    .attachTo(target)
                     .belowTokens(data.below)
-                    .playIf(addCTA)
+                    .persist(data.addCTA)
+                    .loopProperty("sprite", "scale.x", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})
+                    .loopProperty("sprite", "scale.y", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})        
                 .play()
-            //await wait(250)
 
-        }
-        if (data.addCTA) {
-            await wait((bless.metadata.duration * 1000) - 500)
-            cTa()
         }
     }
     cast()
-
-    async function cTa() {
-        let arrayLength = handler.allTargets.length;
-        for (var i = 0; i < arrayLength; i++) {
-
-            let target = handler.allTargets[i];
-
-            let textureData = {
-                belowToken: true,
-                multiple: 0,
-                opacity: 1.0,
-                radius: 2,
-                rotation: "static",
-                scale: 2 * handler.scale,
-                speed: 0,
-                texturePath: bless.ctaFile02,
-                tint: 16777215,
-                xScale: 0.5,
-                yScale: 0.5
-            }
-
-            let pushActor = false;
-
-            let name = handler.animName;
-
-
-            CTA.addAnimation(target, textureData, pushActor, name)
-        }
-    }
-    if (data.addCTA) {
-        await wait ((bless.metadata.duration * 1000) - 500);
-        removeCTA()
-    }
-    async function removeCTA() {
-        let clsd = false;
-        let d = new Dialog({
-            title: "A-A",
-            buttons: {
-                yes: {
-                    label: game.i18n.format("AUTOANIM.removeAura"),
-                    icon: '<i class="fas fa-biohazard"></i>',
-                    callback: (html) => { clsd = true }
-                },
-            },
-            default: 'yes',
-            close: () => {
-                if (clsd === false) console.log('This was closed without using a button');
-                if (clsd === true) {
-                    let arrayLength = handler.allTargets.length;
-                    let name = handler.animName;
-                    for (var i = 0; i < arrayLength; i++) {
-                        let target = handler.allTargets[i];
-                        CTA.removeAnimByName(target, name, true, true);
-                    }
-                }
-            }
-        },
-            { width: 'auto', height: 'auto' }
-        );
-        d.render(true)
-    }
 }
 
 async function buildBlessFile(jb2a, baseColor) {
