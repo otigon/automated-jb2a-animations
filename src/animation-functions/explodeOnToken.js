@@ -26,7 +26,7 @@ export async function explodeOnToken(handler) {
     const optionScale = handler.options?.scale ?? 1;
     const scaleT10 = handler.options?.scaleToToken ? (tokenScale * optionScale) : animationScale;
     if (handler.animType === "t10") {
-        new Sequence()
+        new Sequence("Automated Animations")
             .sequence(sourceFX.sourceSeq)
             .effect()
                 .file(explosion.file)
@@ -58,7 +58,7 @@ export async function explodeOnToken(handler) {
             let targetScale = (1.5 * target.w / explosion.metadata.width)
             let scaleT9 = handler.options?.scaleToToken ? (targetScale * optionScale) : animationScale;
 
-                new Sequence()
+                new Sequence("Automated Animations")
                     .sequence(sourceFX.sourceSeq)
                     .effect()
                         .file(explosion.file)

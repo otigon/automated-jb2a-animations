@@ -65,22 +65,22 @@
                             </label>
                         </div>
                         {{/unless}}
-                        <div class="option05">
+                        <div class="option06">
                             <div class="autorec-menu-options">
-                                <label>{{localize 'AUTOANIM.ctaScale'}}:
+                                <label>{{localize 'AUTOANIM.radius'}}:
                                     <input type="Number" name="aaAutorec.auras.{{idx}}.scale"
                                         value="{{lookup (lookup ../settings.aaAutorec.auras idx) 'scale'}}"
                                         data-dtype="Number">
                                 </label>
                             </div>
                         </div>
-                        <div class="option06">
+                        <div class="option05">
                             <div class="autorec-menu-options">
-                                <div class="form-group">
-                                    <label>{{localize 'AUTOANIM.tint'}}: </label>
-                                    <input type="color" name="aaAutorec.auras.{{idx}}.tint"
-                                        value="{{lookup (lookup ../settings.aaAutorec.auras idx) 'tint'}}">
-                                </div>
+                                <label>{{localize 'AUTOANIM.opacity'}}:
+                                    <input type="Number" name="aaAutorec.auras.{{idx}}.opacity"
+                                        value="{{lookup (lookup ../settings.aaAutorec.auras idx) 'opacity'}}"
+                                        data-dtype="Number">
+                                </label>
                             </div>
                         </div>
                         <div class="option07">
@@ -99,24 +99,6 @@
                                     <input type='checkbox' name='aaAutorec.auras.{{idx}}.below' {{checked (lookup
                                         (lookup ../settings.aaAutorec.auras idx) 'below' ) }}>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="option11">
-                            <div class="autorec-menu-options">
-                                <div class='form-group'>
-                                    <label>{{localize 'AUTOANIM.static'}}: </label>
-                                    <input type='checkbox' name='aaAutorec.auras.{{idx}}.static' {{checked (lookup
-                                        (lookup ../settings.aaAutorec.auras idx) 'static' ) }}>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="option12">
-                            <div class="autorec-menu-options">
-                                <label>{{localize 'AUTOANIM.opacity'}}:
-                                    <input type="Number" name="aaAutorec.auras.{{idx}}.opacity"
-                                        value="{{lookup (lookup ../settings.aaAutorec.auras idx) 'opacity'}}"
-                                        data-dtype="Number">
-                                </label>
                             </div>
                         </div>
                         <div class="option13">

@@ -41,7 +41,8 @@ export class aaAutoRecognition extends FormApplication {
         data.templateRay = AUTOANIM.localized(AUTOANIM.rayAnimations);
         data.auraList = AUTOANIM.localized(AUTOANIM.aura);
         data.presetList = AUTOANIM.localized(AUTOANIM.animNameClassFeatures);
-        data.bardAnimName = AUTOANIM.localized(AUTOANIM.bardAnimType)
+        data.bardAnimName = AUTOANIM.localized(AUTOANIM.bardAnimType);
+        data.explosionMenu = AUTOANIM.localized(AUTOANIM.explosionMenu);
 
         data.colors = aaColorMenu;
         data.variants = aaVariantMenu;

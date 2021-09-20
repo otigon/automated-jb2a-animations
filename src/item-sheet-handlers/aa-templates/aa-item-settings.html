@@ -1347,10 +1347,6 @@
 
                 {{#if t11}}
                 <!--Choose Animation by Name-->
-                <!--Warning if CTA is required-->
-                <div class="form-group">
-                    <label class="socketlibWarn">Custom Token Animations {{localize "AUTOANIM.socketLibAA"}}</label>
-                </div>
                 {{#unless flags.autoanimations.options.enableCustom01}}
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
@@ -1395,28 +1391,15 @@
                 </div>
                 <!--Aura Choose Radius-->
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.scale"}}</label>
+                    <label>{{localize "AUTOANIM.radius"}}</label>
                     <input type="Number" name="flags.autoanimations.selfRadius" min="0" step=".01" value={{auraRadius}}
                         data-type="Number">
-                </div>
-                <label class="aa-hint-text">{{localize "AUTOANIM.auraScale"}}</label>
-                <!--Set Aura Tint-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.auraTint"}} </label>
-                    <input type="color" id="flags.autoanimations.animTint" name="flags.autoanimations.animTint"
-                        value={{hexColour}}>
                 </div>
                 <!--Set Aura Opacity-->
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.auraOpacity"}} </label>
                     <input type="Number" name="flags.autoanimations.auraOpacity" min="0" max="1" step=".01"
                         value={{opacity}}>
-                </div>
-                <!--Make CTA effect Static?-->
-                <div class="form-group">
-                    <label>{{localize "AUTOANIM.ctaStatic"}}</label>
-                    <input type="checkbox" name="flags.autoanimations.ctaOption" value="flags.autoanimations.ctaOption"
-                        {{checked flags.autoanimations.ctaOption}}>
                 </div>
                 <div class="form-group">
                     <label>{{localize "AUTOANIM.ignoreTargets"}}</label>
@@ -1676,10 +1659,24 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>{{localize "AUTOANIM.ctaStatic"}}</label>
+                    <label>{{localize "AUTOANIM.persistant"}}?</label>
                     <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked
                         flags.autoanimations.ctaOption}}>
                 </div>
+                {{#if flags.autoanimations.ctaOption}}
+                <div class="flexrow">
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.anchorX"}} (0 - 1)</label>
+                        <input type="Number" name="flags.autoanimations.options.anchorX" min="0" step=".01"
+                            value={{anchorX}} data-type="Number" min="0" max="1">
+                    </div>
+                    <div class="aa-column">
+                        <label>{{localize "AUTOANIM.anchorY"}} (0 - 1)</label>
+                        <input type="Number" name="flags.autoanimations.options.anchorY" value={{anchorY}}
+                            data-dtype="Number" min="0" max="1">
+                    </div>
+                </div>
+                {{/if}}
                 <div class="aa-column">
                     <label>{{localize "AUTOANIM.scale"}}</label>
                     <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
@@ -1728,15 +1725,10 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Add CTA Effect on Token</label>
+                    <label>{{localize "AUTOANIM.persistant"}}?</label>
                     <input type="checkbox" name="flags.autoanimations.options.addCTA" {{checked
                         flags.autoanimations.options.addCTA}}>
                 </div>
-                {{#if flags.autoanimations.options.addCTA}}
-                <div class="form-group">
-                    <label class="socketlibWarn">Custom Token Animations {{localize "AUTOANIM.socketLibAA"}}</label>
-                </div>
-                {{/if}}
                 <div class="flexrow">
                     <div class="aa-column">
                         <label>{{localize "AUTOANIM.scale"}}</label>

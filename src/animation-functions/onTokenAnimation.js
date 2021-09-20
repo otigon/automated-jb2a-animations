@@ -28,7 +28,7 @@ export async function onTokenAnimation(handler) {
     const exScale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     let animWidth = onToken.metadata.width;
     if (handler.allTargets.length === 0 && (itemName === "curewounds" || itemName === "generichealing")) {
-    new Sequence()
+    new Sequence("Automated Animations")
         .effect()
             .atLocation(sourceToken)
             .scale(sourceFX.sFXScale * sourceFX.scale)
@@ -98,7 +98,7 @@ export async function onTokenAnimation(handler) {
                 hit = false;
             }
 
-            await new Sequence()
+            await new Sequence("Automated Animations")
                 .sequence(sourceFX.sourceSeq)
                 .thenDo(function() {
                     Hooks.callAll("aa.animationStart", sourceToken, target)

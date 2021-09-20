@@ -1,6 +1,5 @@
 //import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
 //import thunderwaveAuto from "../animation-functions/thunderwave.js";
-import ctaCall from "../animation-functions/CTAcall.js";
 import huntersMark from "../animation-functions/custom-sequences/hunters-mark.js";
 import bardicInspiration from "../animation-functions/custom-sequences/bardic-inspiration.js";
 import { rangedAnimations } from "../animation-functions/rangedAnimation.js";
@@ -13,9 +12,11 @@ import { shieldSpell } from "../animation-functions/custom-sequences/shield.js";
 import { sneakAttack } from "../animation-functions/custom-sequences/sneak-Attack.js";
 import { bless } from "../animation-functions/custom-sequences/bless.js";
 import { staticAnimation } from "../animation-functions/staticAnimation.js";
+import { auras } from "../animation-functions/aura-attach.js";
 //import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
 import { aaDebugger } from "../constants/constants.js";
-import { AutorecFunctions} from "../aa-classes/autorecFunctions.js"
+import { AutorecFunctions} from "../aa-classes/autorecFunctions.js";
+//import { fireball } from "../animation-functions/custom-sequences/fireball.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -107,9 +108,12 @@ export async function trafficCop(handler) {
                 explodeOnToken(handler);
                 break;
             case "t11":
+                /*
                 if (game.modules.get("Custom-Token-Animations")?.active) {
                     ctaCall(handler);
                 } else { ui.notifications.error("Custom Token Animations module must be Active") }
+                */
+                auras(handler)
                 break;
             case "t12":
                 teleportation(handler);
@@ -131,7 +135,7 @@ export async function trafficCop(handler) {
                     case "bless":
                         bless(handler);
                         break;
-                }
+            }
                 break;
         }
     } else {
@@ -180,7 +184,8 @@ export async function trafficCop(handler) {
                 case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'auras'), autoName):
                     const auraAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'auras', autoName);
                     if (aaDebug) { aaDebugger("Pre CTA Animation", auraAutoObject) }
-                    ctaCall(handler, auraAutoObject);
+                    //ctaCall(handler, auraAutoObject);
+                    auras(handler, auraAutoObject)
                     break;
                 case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'preset'), autoName):
                     const presetAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'preset', autoName);
@@ -201,6 +206,24 @@ export async function trafficCop(handler) {
                         case 'sneakattack' :
                             sneakAttack(handler, presetAutoObject)
                             break;
+                        /*
+                        case "fireball":
+                            switch (game.system.id) {
+                                case "dnd5e":
+                                case "pf2e":
+                                    if (game.modules.get("mars-5e")?.active || game.modules.get('midi-qol')?.active) {
+                                        fireball(handler, presetAutoObject);
+                                    } else {
+                                        Hooks.once("createMeasuredTemplate", () => {
+                                            fireball(handler, presetAutoObject);
+                                        });
+                                    }
+                                    break;
+                                default:
+                                    fireball(handler, presetAutoObject);
+                            }            
+                            break;       
+                            */ 
                     }
                     break;
                 default:

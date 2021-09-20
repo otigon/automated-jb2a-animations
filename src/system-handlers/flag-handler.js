@@ -2,12 +2,12 @@ import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
 
 export default class flagHandler {
-    constructor(msg, isChat) {
+    constructor(msg, isChat, external) {
         this.debug = game.settings.get("autoanimations", "debug");
         this._log("Getting System Data")
         //const data = getSystemData(msg, isChat);
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
-        const data = AASystemData[systemID](msg, isChat)
+        const data = external ? external : AASystemData[systemID](msg, isChat)
         if (!data) { this._log("Retrieval Failed"); return; }
         this._log("Data Retrieved", data)
         //const item = data.item;

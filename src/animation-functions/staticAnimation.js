@@ -98,7 +98,7 @@ export async function staticAnimation(handler, autoObject) {
                 hit = false;
             }
 
-            new Sequence()
+            new Sequence("Automated Animations")
                 .sequence(sourceFX.sourceSeq)
                 .thenDo(function() {
                     Hooks.callAll("aa.animationStart", sourceToken, target)

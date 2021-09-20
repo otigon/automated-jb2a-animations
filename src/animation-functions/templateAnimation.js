@@ -204,7 +204,7 @@ export async function templateAnimation(handler, autoObject) {
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }        
-            await new Sequence()
+            await new Sequence("Automated Animations")
                 .sequence(sourceFX.sourceSeq)
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, "no-target")

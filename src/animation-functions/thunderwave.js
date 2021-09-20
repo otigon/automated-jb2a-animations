@@ -164,7 +164,7 @@ export async function thunderwaveAuto(handler, autoObject) {
             }
         }
         socketlibSocket.executeAsGM("placeTile", tileData)
-        new Sequence()
+        new Sequence("Automated Animations")
             .sound()
             .file(templateFile)
             .playIf(handler.itemSound)

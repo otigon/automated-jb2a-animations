@@ -165,6 +165,16 @@ AUTOANIM.explodeVariant = {
     "tollthedead": "AUTOANIM.tollthedead",
 }
 
+AUTOANIM.explosionMenu = {
+    "a1": "",
+    "explosion": "AUTOANIM.explosion",
+    "snowflake": "AUTOANIM.snowflake",
+    "outpulse01": "AUTOANIM.outpulse01",
+    "outpulse02": "AUTOANIM.outpulse02",
+    "shatter": "AUTOANIM.itemShatter",
+    "thunderwave": "AUTOANIM.itemThunderwave",
+}
+
 AUTOANIM.explodeVariantFree = {
     "ex1": ``,
     "explosion": "AUTOANIM.explosion",
@@ -238,7 +248,8 @@ AUTOANIM.animNameClassFeatures = {
     "shieldspell": "AUTOANIM.itemShield",
     "huntersmark": "AUTOANIM.itemHM",
     "sneakattack": "AUTOANIM.sneakattack",
-    "bless": "AUTOANIM.bless"
+    "bless": "AUTOANIM.bless",
+    //"fireball": "Fireball"
 }
 
 AUTOANIM.bardAnimType = {

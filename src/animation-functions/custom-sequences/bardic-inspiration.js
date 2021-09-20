@@ -29,7 +29,7 @@ async function bardicInspiration(handler, autoObject) {
     let selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.selfMarkerColor}`;
     let targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.targetMarkerColor}`
     async function markerCreate(tokenMarker, path) {
-        new Sequence()
+        new Sequence("Automated Animations")
         .effect()
         .file(path)
         .atLocation(tokenMarker)
@@ -43,7 +43,7 @@ async function bardicInspiration(handler, autoObject) {
     let targetMusicPath = data.targetColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${data.targetColor}`
     async function music(token, path) {
         
-        let musicPlay = new Sequence()
+        let musicPlay = new Sequence("Automated Animations")
         .effect()
         .file(path)
         .atLocation(token)
@@ -59,7 +59,7 @@ async function bardicInspiration(handler, autoObject) {
     let targetBIPath = data.targetColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${data.targetColor}`
     async function bardicInspiration(biToken, path) {
 
-        let bardicPlay = new Sequence()
+        let bardicPlay = new Sequence("Automated Animations")
         .effect()
             .file(path)
             .atLocation(biToken)
