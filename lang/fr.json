@@ -387,4 +387,45 @@
 
     "AUTOANIM.web": "Toile",
     "AUTOANIM.ammoAnimate": "Animer à partir des munitions"
+    
+    "AUTOANIM.tollthedead": "Glas funèbre",
+    "AUTOANIM.bell": "Cloche",
+    "AUTOANIM.shockwave": "Onde de choc",
+    "AUTOANIM.skull": "Crâne",
+    "AUTOANIM.complete": "Complète",
+
+    "AUTOANIM.itemName": "Nom de l'article",
+    "AUTOANIM.search": "Recherche",
+    "AUTOANIM.variant": "Variante",
+    "AUTOANIM.color": "Couleur",
+    "AUTOANIM.repeat": "Répéter",
+    "AUTOANIM.delay": "Délai",
+    "AUTOANIM.below": "En dessous de Token",
+    "AUTOANIM.custom": "Personnalisé",
+    "AUTOANIM.switch": "Switch",
+    "AUTOANIM.return": "Retour",
+    "AUTOANIM.addItem": "Ajouter un article",
+    "AUTOANIM.type": "Type",
+    "AUTOANIM.remove": "Supprimer le modèle",
+    "AUTOANIM.static": "Statique",
+    "AUTOANIM.playOn": "Jouer sur",
+    "AUTOANIM.tint": "Teinte",
+    "AUTOANIM.melee": "Mêlée",
+    "AUTOANIM.ranged": "Portée",
+    "AUTOANIM.onToken": "Sur le Token",
+    "AUTOANIM.presets": "Préréglages",
+    "AUTOANIM.submit": "Soumettre",
+    "AUTOANIM.import": "Importer les options",
+    "AUTOANIM.export": "Exporter les options",
+    "AUTOANIM.preset": "Préréglage",
+    "AUTOANIM.autoRecSetting": "Configurer la reconnaissance automatique",
+    "AUTOANIM.debugging": "Activer le débogage",
+
+    "AUTOANIM.darkorangepurple": "Orange foncée Pourpre",
+    "AUTOANIM.halberd": "Hallebarde",
+    "AUTOANIM.quarterstaff": "Bâton de chasse",
+    "AUTOANIM.04": "04",
+    "AUTOANIM.sleep01": "Sommeil 01",
+    "AUTOANIM.sleep02": "Sommeil 02"
+
 }
