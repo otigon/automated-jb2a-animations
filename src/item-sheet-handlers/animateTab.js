@@ -82,7 +82,7 @@ export class AAItemSettings extends FormApplication {
         const rangeLength = AATabFunctions.variantLength(itemName, "range");
         const staticLength = AATabFunctions.variantLength(itemName, "static");
 
-        const autorecType = AutorecFunctions._findObjectByNameFull(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName));
+        const autorecType = AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName));
 
         let noScale = ['templates', 'range'];
         let noRepeatDelay = ['preset'];

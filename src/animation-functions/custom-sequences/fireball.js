@@ -6,7 +6,7 @@ export async function fireball(handler, autoObject) {
 
     const data = {}
     if (autoObject) {
-        Object.assign(data, autoObject[0]);
+        Object.assign(data, autoObject);
     } else {
 
     }

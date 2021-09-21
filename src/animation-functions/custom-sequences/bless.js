@@ -21,7 +21,7 @@ export async function bless(handler, autoObject) {
     const data = {};
     if (autoObject) {
         const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject[0]);
+        Object.assign(data, autoObject);
         data.itemName = data.animation || "";
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.scale = autoOverridden ? handler.options?.autoScale : data.scale;

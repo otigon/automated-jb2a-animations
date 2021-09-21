@@ -4,6 +4,12 @@ import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2
 
 export class AutorecFunctions {
 
+    /**
+     * 
+     * @param {game.settings.get('autonanimations', 'Autorec')} obj 
+     * @param {Menu field to get from} type 
+     * @returns all NAMES in lower case from Autorec Menu defined by type
+     */
     static _getAllNames(obj, type) {
         const nameArray = []
         try { Object.keys(obj[type]).length }
@@ -14,7 +20,7 @@ export class AutorecFunctions {
         }
         return nameArray;
     }
-
+    /*
     static _findObjectByName(data, type, name) {
         const newName = name.toLowerCase()
         var newObject = Object.values(data[type])
@@ -26,7 +32,26 @@ export class AutorecFunctions {
 
         return [newObject]
     }
+    */
 
+    /**
+     * 
+     * @param {game.settings.get('autoanimations', 'Autorec')} settings 
+     * @param {Item name with all spaces removed} name 
+     * @returns Returns TRUE if it is found in the Autorec Menus, otherwise FALSE
+     */
+    static foundInAutorec(settings, name) {
+        const nameList = this._getAllTheNames(settings);//gets ALL names in Autorec sorted longest to shortest
+        const isFound = this._autorecNameCheck(nameList, name);//checks autoNameList against current name
+        return isFound;
+    }
+
+    /**
+     * 
+     * @param {array of Names from the Automatic Recognition menus, sorted longest to shortest} nameArray 
+     * @param {item Name in lower case and no spaces} name 
+     * @returns 
+     */
     static _autorecNameCheck(nameArray, name) {
         if (!name) { return; }
         const arrayLength = nameArray.length;
@@ -44,12 +69,22 @@ export class AutorecFunctions {
         return nameFound;
     }
 
+    /**
+     * 
+     * @param {Original item name} oldName 
+     * @returns Original name with all spaces removed
+     */
     static _rinseName(oldName) {
         if (!oldName) { return; }
         const newName = oldName.replace(/\s+/g, '');
         return newName;
     }
 
+    /**
+     * 
+     * @param {game.settings.get('autoanimations', 'Autorec')} obj 
+     * @returns 
+     */
     static _getAllTheNames(obj) {
         const nameArray = []
         const keys = Object.keys(obj)
@@ -64,14 +99,15 @@ export class AutorecFunctions {
         nameArray.sort((a, b) => b.length - a.length)
         return nameArray;
     }
-
+    /*
     static _findObjectByNameFull(data, name) {
         const keys = Object.keys(data)
+        console.log(keys)
         const keyLength = keys.length
         //let newObject;
         for (var i = 1; i < keyLength; i++) {
             var newObject = Object.values(data[keys[i]])
-                .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+                //.sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
                 .find(section => {
                     //added .replace()
                     return name.toLowerCase().includes(section.name.replace(/\s+/g, '').toLowerCase()) && section.name !== "" ? section : "";
@@ -79,6 +115,49 @@ export class AutorecFunctions {
 
             if (newObject) { return [[newObject], keys[i]] }
         }
+    }
+    */
+
+    /**
+     * 
+     * @param {game.settings.get('autoanimations', 'Autorec')} settings 
+     * @param {item Name with all spaces removed} name 
+     * @returns Autorec Object containing all default settings
+     */
+    static _findObjectFromArray(settings, name) {
+        const data = this._combineMenus(settings); //combines all Autorec Menus into a single array
+        const length = data.length;
+        for (var i = 1; i < length; i++) {
+            var newObject = Object.values(data)
+                .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+                .find(section => {
+                    //added .replace()
+                    return name.toLowerCase().includes(section.name.replace(/\s+/g, '').toLowerCase()) && section.name !== "" ? section : "";
+                })
+            if (newObject) { return newObject }
+        }
+    }
+
+    /**
+     * 
+     * @param {game.settings.get('autoanimations', 'Autorec')} data 
+     * @returns combined menus in a single array sorted by NAME field longest to shortest 
+     */
+    static _combineMenus(data) {
+        const mergedArray = [];
+        const keys = Object.keys(data);
+        const keyLength = keys.length;
+        for (var i = 1; i < keyLength; i++) {
+            var arrayLength = Object.keys(data[keys[i]]).length
+            var currentObject = data[keys[i]];
+            for (var k = 0; k < arrayLength; k++) {
+                currentObject[k].menuSection = keys[i]
+                mergedArray.push(currentObject[k])
+            }
+        }
+        mergedArray.sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+        console.log(mergedArray)
+        return mergedArray;
     }
 
     static _checkAutoRec(itemName) {
@@ -92,12 +171,18 @@ export class AutorecFunctions {
         return foundName;
     }
 
+    /**
+     * Exports Automatic Recognition Menu settings
+     */
     static _exportAutorecToJSON() {
         const data = (game.settings.get('autoanimations', 'aaAutorec'))
         const filename = `fvtt-autoanimations-autorecognition.json`;
         saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
     }
-
+    /**
+     * 
+     * @param {Imported JSON file from an Export} json 
+     */
     static _importAutorecFromJSON(json) {
         const data = JSON.parse(json);
         console.warn("autoanimations | Import settings ", data);
@@ -110,11 +195,11 @@ export class AutorecFunctions {
         data.autoOverriden = flags.autoanimations?.options?.overrideAuto;
         data.autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
         data.autoName = this._rinseName(name);
-        data.autorecSection = this._findObjectByNameFull(data.autoRecSettings, data.autoName);
+        data.autorecSection = this._findObjectFromArray(data.autoRecSettings, data.autoName);
         if (!data.autorecSection) { return; }
-        
-        data.autorecObject = data.autorecSection[0][0];
-        data.autorecType = data.autorecSection[1];
+
+        data.autorecObject = data.autorecSection;
+        data.autorecType = data.autorecSection.menuSection;
         data.name = data.autorecObject?.animation;
         data.color = data.autoOverriden ? flags.autoanimations?.options?.autoColor : data.autorecObject?.color;
         data.variant = data.autoOverriden ? flags.autoanimations?.options?.autoVariant : data.autorecObject?.variant;
@@ -170,22 +255,21 @@ export class AutorecFunctions {
         }
         const colorMenu = aaColorMenu;
         const variantMenu = aaVariantMenu;
-        let autorecSection = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName);
-        const autorecObject = autorecSection[0]
-        if (autorecObject[0].custom) { return { colors: null, variantChoices: null } }
-        let autorecType = autorecSection[1]
+        const autorecSection = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName);
+        if (autorecSection.custom) { return { colors: null, variantChoices: null } }
+        let autorecType = autorecSection.menuSection
 
-        let animationName = autorecType === 'preset' && autorecObject[0].animation === "teleportation" ? autorecObject[0].subAnimation : autorecObject[0].animation;
+        let animationName = autorecType === 'preset' && autorecSection.animation === "teleportation" ? autorecSection.subAnimation : autorecSection.animation;
         if (autorecSection[1] === 'templates') {
-            animationName = autorecObject[0].type;
+            animationName = autorecSection.type;
         }
         if (autorecType !== 'melee' && autorecType !== 'range') { autorecType = 'static' }
         const name = animationName === 'shield' ? 'shieldspell' : animationName
         let variant;
-        try { variant = !autorecObject[0].variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecObject[0].variant; }
+        try { variant = !autorecSection.variant ? Object.keys(colorMenu[autorecType][name])[0] : autorecSection.variant; }
         catch (exception) { }
         if (autorecSection[1] === 'templates') {
-            variant = autorecObject[0].animation;
+            variant = autorecSection.animation;
         }
 
         let autoVariant;
