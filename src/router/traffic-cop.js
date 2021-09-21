@@ -15,8 +15,8 @@ import { staticAnimation } from "../animation-functions/staticAnimation.js";
 import { auras } from "../animation-functions/aura-attach.js";
 //import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
 import { aaDebugger } from "../constants/constants.js";
-import { AutorecFunctions} from "../aa-classes/autorecFunctions.js";
-//import { fireball } from "../animation-functions/custom-sequences/fireball.js";
+import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
+import { fireball } from "../animation-functions/custom-sequences/fireball.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -135,16 +135,98 @@ export async function trafficCop(handler) {
                     case "bless":
                         bless(handler);
                         break;
-            }
+                }
                 break;
         }
     } else {
         if (!game.settings.get("autoanimations", "disableAutoRec")) {
             if (aaDebug) { aaDebugger("Automatic Recognition Beginning") }
             const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-
+            const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);
             const autoName = AutorecFunctions._rinseName(handler.itemName);
 
+            const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName);
+
+            if (isAuto) {
+                const getObject = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName)
+                const autoObject = getObject[0]
+                switch (getObject[1]) {
+                    case 'melee':
+                        if (targets === 0) {
+                            Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                            if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
+                            return;
+                        }
+                        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                        if (aaDebug) { aaDebugger("Pre Melee Animation", autoObject) }
+                        meleeAnimation(handler, autoObject);
+                        break;
+                    case 'range':
+                        if (targets === 0) {
+                            Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                            if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
+                            return;
+                        }
+                        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                        if (aaDebug) { aaDebugger("Pre Range Animation", autoObject) }
+                        rangedAnimations(handler, autoObject);
+                        break;
+                    case 'static':
+                        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                        if (aaDebug) { aaDebugger("Pre Static Animation", autoObject) }
+                        staticAnimation(handler, autoObject);
+                        break;
+                    case 'templates':
+                        if (aaDebug) { aaDebugger("Pre Template Animation", autoObject) }
+                        Hooks.once("createMeasuredTemplate", () => {
+                            templateAnimation(handler, autoObject);
+                        })
+                        break;
+                    case 'auras':
+                        if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
+                        auras(handler, autoObject)
+                        break;
+                    case 'preset':
+                        if (aaDebug) { aaDebugger("Pre Preset Animation", autoObject) }
+                        switch (autoObject[0].animation) {
+                            case 'bardicinspiration':
+                                bardicInspiration(handler, autoObject);
+                                break;
+                            case 'bless':
+                                bless(handler, autoObject);
+                                break;
+                            case 'shieldspell':
+                                shieldSpell(handler, autoObject);
+                                break;
+                            case 'teleportation':
+                                teleportation(handler, autoObject)
+                                break;
+                            case 'sneakattack':
+                                sneakAttack(handler, autoObject)
+                                break;
+                            
+                            case "fireball":
+                                switch (game.system.id) {
+                                    case "dnd5e":
+                                    case "pf2e":
+                                        if (game.modules.get("mars-5e")?.active || game.modules.get('midi-qol')?.active) {
+                                            fireball(handler, autoObject);
+                                        } else {
+                                            Hooks.once("createMeasuredTemplate", () => {
+                                                fireball(handler, autoObject);
+                                            });
+                                        }
+                                        break;
+                                    default:
+                                        fireball(handler, autoObject);
+                                }            
+                                break;       
+                                
+                        }    
+                        break;
+                }
+            }
+            /*
             switch (true) {
                 case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'melee'), autoName):
                     if (targets === 0) {
@@ -203,10 +285,10 @@ export async function trafficCop(handler) {
                         case 'teleportation':
                             teleportation(handler, presetAutoObject)
                             break;
-                        case 'sneakattack' :
+                        case 'sneakattack':
                             sneakAttack(handler, presetAutoObject)
                             break;
-                        /*
+                        
                         case "fireball":
                             switch (game.system.id) {
                                 case "dnd5e":
@@ -223,12 +305,13 @@ export async function trafficCop(handler) {
                                     fireball(handler, presetAutoObject);
                             }            
                             break;       
-                            */ 
+                            
                     }
                     break;
                 default:
                     aaDebugger(aaDebug, "No Automatic Recognition Found");
             }
+            */
         }
     }
 }

@@ -27,7 +27,7 @@ export async function auras(handler, autoObject) {
         data.ignoretargets = handler.options?.ignoreTarget
         data.below = true;
     }
-    console.log(data)
+
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
 
     if (aaDebug) { aaDebugger("CTA Aura Animation Start", data) }

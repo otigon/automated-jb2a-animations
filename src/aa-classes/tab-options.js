@@ -280,11 +280,9 @@ export class AATabFunctions {
         let defaultVariant = data.variant;
         let inPlace = true;
         if (!Object.keys(jb2a[data.dbPath][data.newName]).includes(data.variant)) {
-            console.log("getting default variant");
             inPlace = false;
             defaultVariant = variantMenu[data.dbPath][data.newName][Object.keys(variantMenu[data.dbPath][data.newName])[0]]
         }
-        console.log(defaultVariant)
         return { inPlace, defaultVariant };
     }
 
@@ -292,7 +290,6 @@ export class AATabFunctions {
         let defaultColor = data.color;
         let inPlace = true;
         if (!Object.keys(jb2a[data.dbPath][data.newName][data.variant]).includes(data.color)) {
-            console.log("getting default color");
             inPlace = false;
             defaultColor = colorMenu[data.dbPath][data.newName][data.variant][Object.keys(colorMenu[data.dbPath][data.newName][data.variant])[0]]
         }

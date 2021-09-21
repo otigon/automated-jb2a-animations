@@ -73,7 +73,7 @@ export async function meleeAnimation(handler, autoObject) {
                 if (targetFX.enabled) {
                     targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
                 }
-                console.log(targetFX)
+
                 let hit;
                 if (handler.playOnMiss) {
                     hit = handler.hitTargetsId.includes(target.id) ? false : true;

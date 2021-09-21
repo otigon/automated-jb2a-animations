@@ -31,7 +31,7 @@
                                         <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}
                                         </option>
                                         <option value="bless">{{localize "AUTOANIM.bless"}}</option>
-                                        <!--<option value="fireball">{{localize "AUTOANIM.fireball"}}</option>-->
+                                        <option value="fireball">{{localize "AUTOANIM.fireball"}}</option>
                                         <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
                                         <option value="sneakattack">{{localize "AUTOANIM.sneakattack"}}</option>
                                         <option value="teleportation">{{localize "AUTOANIM.animTeleportation"}}</option>
@@ -528,12 +528,15 @@
                             <div class="form-group">
                                 <input type="text" class="files" style="width:15em" name="aaAutorec.preset.{{idx}}.afterEffectPath"
                                     value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'afterEffectPath'}}">
-                                <button type="button" class="file-picker" data-type="image/video"
+                                <button type="button" class="file-picker" data-type="image"
                                     data-target="aaAutorec.preset.{{idx}}.afterEffectPath" tabindex="-1" title="Browse Files">
                                     <i class="fas fa-file-video"></i>
                                 </button>
                             </div>
                         </div>
+                        <div style='grid-column: 1 / 5; grid-row: 6 / 7'>
+                            <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+                        </div>    
                         {{/if}}
                         {{/ifEquals}}
                     </div>
