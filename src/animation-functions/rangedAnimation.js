@@ -43,7 +43,7 @@ export async function rangedAnimations(handler, autoObject) {
             }
 
             await new Sequence("Automated Animations")
-                .sequence(sourceFX.sourceSeq)
+                .addSequence(sourceFX.sourceSeq)
                 .thenDo(function() {
                     Hooks.callAll("aa.animationStart", sourceToken, target)
                 })                       

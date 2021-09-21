@@ -61,6 +61,7 @@ export async function bless(handler, autoObject) {
             .persist(data.addCTA)
             .loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
             .loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
+            .filter("ColorMatrix", {hue: 120})
             .play()
     }
 
