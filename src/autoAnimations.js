@@ -326,7 +326,28 @@ function setUp5eCore(msg) {
             break;
     }
     if (!handler.item || handler.animKill) { return }
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
+
+    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    //const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);
+    const autoName = AutorecFunctions._rinseName(handler.itemName);
+    //const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName);
+    const getObject = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName)
+    //console.log(getObject)
+    //console.log(getObject[0][0].name)
+    //let templateItem;
+    let fireball;
+    if (getObject) {
+        //const rinsedName = AutorecFunctions._rinseName(getObject[0][0].name)
+        //templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName)); //getObject[1] === 'templates' && (rinsedName === autoName) ? true : false;
+        //console.log(getObject)
+        //console.log(getObject[0][0].animation)
+        fireball = getObject[1] === 'preset' && (getObject[0][0].animation === 'fireball') ? true : false;
+    }
+    //console.log(templateItem)
+    //console.log(fireball)
+
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
+    //console.log(templateItem)
     const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
@@ -335,12 +356,12 @@ function setUp5eCore(msg) {
         case handler.animType === "t8" && !rollType.includes("damage") && handler.animOverride:
             trafficCop(handler);
             break;
-        case templateItem && !rollType.includes("damage") && !rollType.includes("attack"):
+        case (templateItem || fireball) && !rollType.includes("damage") && !rollType.includes("attack"):
             trafficCop(handler);
             break;
         case animationNow:
             if (rollType.includes("damage")) {
-                if (t8Template || templateItem) { return; }
+                if (t8Template || templateItem || fireball) { return; }
                 trafficCop(handler);
             }
             break;
@@ -351,11 +372,11 @@ function setUp5eCore(msg) {
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
-                    if (t8Template || templateItem) { return; }
+                    if (t8Template || templateItem || fireball) { return; }
                     trafficCop(handler);
                     break;
                 case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (t8Template || templateItem) { return; }
+                    if (t8Template || templateItem || fireball) { return; }
                     trafficCop(handler);
                     break;
             }
@@ -463,7 +484,16 @@ async function pf2eReady(msg) {
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
+
+    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    const autoName = AutorecFunctions._rinseName(handler.itemName);
+    const getObject = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName)
+    let fireball;
+    if (getObject) {
+        fireball = getObject[1] === 'preset' && (getObject[0][0].animation === 'fireball') ? true : false;
+    }
+
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
     const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
     const damage = /*handler.item.damageValue || */handler.item?.damage?.length;
@@ -475,11 +505,11 @@ async function pf2eReady(msg) {
         trafficCop(handler);
         return;
     }
-    if (templateItem && !t8Template && !msg.data.flavor?.toLowerCase().includes("damage")) {
+    if ((templateItem || fireball) && !t8Template && !msg.data.flavor?.toLowerCase().includes("damage")) {
         trafficCop(handler);
         return;
     }
-    if (templateItem || t8Template) { return };
+    if (templateItem || fireball || t8Template) { return };
     switch (itemType) {
         case "spell":
             switch (spellType) {

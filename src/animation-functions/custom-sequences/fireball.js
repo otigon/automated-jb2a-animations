@@ -1,5 +1,5 @@
 import { buildFile } from "../file-builder/build-filepath.js"
-
+import { socketlibSocket } from "../../socketset.js";
 export async function fireball(handler, autoObject) {
 
     const data = {}
@@ -8,7 +8,6 @@ export async function fireball(handler, autoObject) {
     } else {
 
     }
-    console.log(data)
 
     const projectileAnimation = await buildFile(false, data.projectile, "range", data.projectileVariant, data.projectileColor);
     const explosion01 = await buildFile(true, data.explosion01, "static", data.explosion01Variant, data.explosion01Color)
@@ -21,26 +20,32 @@ export async function fireball(handler, autoObject) {
     const size = canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance);
     const xPos = template.data.x;
     const yPos = template.data.y;
-
-    let tileData = [{
-        img: data.afterEffectPath,
+    const filePath = data.afterEffectPath;
+    let tileData = {
+        alpha: 0,
         width: size,
         height: size,
-        scale: 1,
+        img: filePath,
         x: xPos - (size / 2),
         y: yPos - (size / 2),
         z: 10,
-        rotation: 0,
-        hidden: false,
-        locked: false,
-        alpha: 0
-    }];
-    let tile;
-    if (data.afterEffect && data.afterEffectPath !== "") {
-        tile = await canvas.scene.createEmbeddedDocuments("Tile", tileData)
-    }
+    };
 
-    console.log(template)
+
+    let tile;
+    //let isImage;
+    //let isImage;
+    if (data.afterEffect && (data.afterEffectPath !== "") && game.modules.get('socketlib')?.active) {
+        //const imageTypes = ['webp', 'jpeg', 'png']
+        //isImage = imageTypes.some(el => filePath.toLowerCase().includes(el)) ? true : false;
+        await socketlibSocket.executeAsGM("placeTile", tileData)
+        //const tileId = canvas.scene.data.tiles[canvas.scene.data.tiles.length - 1]._id;
+        //console.log(tileId)
+        tile = canvas.scene.data.tiles.contents[canvas.scene.data.tiles.contents.length - 1]
+        //tile = await canvas.scene.createEmbeddedDocuments("Tile", tileData)
+        //console.log(tile)
+
+    }
 
     if (data.removeTemplate) {
         canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
@@ -50,36 +55,45 @@ export async function fireball(handler, autoObject) {
         .effect()
             .file(projectileAnimation.file)
             .atLocation(tokenD)
-            .reachTowards({x: xPos, y: yPos})
+            .reachTowards({ x: xPos, y: yPos })
             .waitUntilFinished(data.wait01)
             .JB2A()
         .effect()
             .file(explosion01.file)
-            .atLocation({x: xPos, y: yPos})
+            .atLocation({ x: xPos, y: yPos })
             .size(size * .35)
             .timeRange(0, 1200)
             .waitUntilFinished(data.wait02)
         .effect()
             .file(explosion02.file)
-            .atLocation({x: xPos, y: yPos})
+            .atLocation({ x: xPos, y: yPos })
             .size(size)
             .zIndex(1)
         .effect()
             .file(explosion02.file)
-            .atLocation({x: xPos, y: yPos})
+            .atLocation({ x: xPos, y: yPos })
             .size(size)
             .zIndex(5)
             .waitUntilFinished(-750 + data.wait03)
-        .animation()
-            .on(tile[0])
-            .fadeIn(250)
+        .thenDo(function () {
+            if (data.afterEffect && data.afterEffectPath !== "" && game.modules.get('socketlib')?.active) {
+                new Sequence()
+                    .animation()
+                        .on(tile)
+                        .fadeIn(250)
+                    .play()
+            }
+        })
         /*
         .effect()
-            .file("autoanimations.static.explosion.01.orange")
-            .atLocation({x: xPos, y: yPos})
-            .JB2A()
-            .scale(4)
-            .zIndex(5)
+            .file(data.afterEffectPath)
+            .atLocation({ x: xPos, y: yPos })
+            .size(size * 0.85)
+            .belowTokens(true)
+            .persist(true)
+            .extraEndDuration(15000)
+            .playIf(!isImage)
         */
         .play()
+
 }
