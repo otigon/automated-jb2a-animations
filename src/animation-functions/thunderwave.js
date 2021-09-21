@@ -181,7 +181,7 @@ export async function thunderwaveAuto(handler, autoObject) {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
         }
         await new Sequence()
-            .sequence(sourceFX.sourceSeq)
+            .addSequence(sourceFX.sourceSeq)
             .thenDo(function () {
                 Hooks.callAll("aa.animationStart", sourceToken, "no-target")
             })

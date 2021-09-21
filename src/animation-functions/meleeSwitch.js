@@ -55,7 +55,7 @@ export async function meleeSwitch(handler, target, autoObject) {
         }
 
         await new Sequence("Automated Animations")
-            .sequence(sourceFX.sourceSeq)
+            .addSequence(sourceFX.sourceSeq)
             .thenDo(function () {
                 Hooks.callAll("aaAnimationStart", sourceToken, target)
             })

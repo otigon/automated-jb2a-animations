@@ -77,7 +77,7 @@ export async function teleportation(handler, autoObject) {
         if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
 
         new Sequence("Automated Animations")
-            .sequence(sourceFX.sourceSeq)
+            .addSequence(sourceFX.sourceSeq)
             .effect()
                 .file(onToken.file)
                 .atLocation(sourceToken)

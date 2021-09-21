@@ -45,7 +45,7 @@ export async function staticAnimation(handler, autoObject) {
     }
     async function selfCast() {
         new Sequence()
-        .sequence(sourceFX.sourceSeq)
+        .addSequence(sourceFX.sourceSeq)
         .thenDo(function() {
             Hooks.callAll("aa.animationStart", sourceToken, "no-target")
         })             
@@ -99,7 +99,7 @@ export async function staticAnimation(handler, autoObject) {
             }
 
             new Sequence("Automated Animations")
-                .sequence(sourceFX.sourceSeq)
+                .addSequence(sourceFX.sourceSeq)
                 .thenDo(function() {
                     Hooks.callAll("aa.animationStart", sourceToken, target)
                 })             

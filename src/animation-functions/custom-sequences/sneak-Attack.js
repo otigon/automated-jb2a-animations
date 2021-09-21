@@ -28,7 +28,7 @@ export async function sneakAttack(handler, autoObject) {
 
     async function cast() {
         new Sequence("Automated Animations")
-            .sequence(sourceFX.sourceSeq)
+            .addSequence(sourceFX.sourceSeq)
             .effect()
                 .file(sneak.file)
                 .atLocation(sourceToken)
