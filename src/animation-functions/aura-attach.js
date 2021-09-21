@@ -10,7 +10,7 @@ export async function auras(handler, autoObject) {
     const gridSize = canvas.grid.size
     const data = {}
     if (autoObject) {
-        Object.assign(data, autoObject[0])
+        Object.assign(data, autoObject)
         data.itemName = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
         data.color = handler.options?.autoColor || data.color;

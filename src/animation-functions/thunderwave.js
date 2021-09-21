@@ -15,7 +15,7 @@ export async function thunderwaveAuto(handler, autoObject) {
     const data = {}
     if (autoObject) {
         const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject[0])
+        Object.assign(data, autoObject)
         data.itemName = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
         data.color = autoOverridden ? handler.options?.autoColor : data.color;

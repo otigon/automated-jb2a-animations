@@ -142,15 +142,14 @@ export async function trafficCop(handler) {
         if (!game.settings.get("autoanimations", "disableAutoRec")) {
             if (aaDebug) { aaDebugger("Automatic Recognition Beginning") }
             const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-            const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);
-            const autoName = AutorecFunctions._rinseName(handler.itemName);
-
-            const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName);
+            //const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);//gets ALL names in Autorec sorted longest to shortest
+            //const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName); //checks autoNameList against current name
+            const autoName = AutorecFunctions._rinseName(handler.itemName); //removes all spaces in the name
+            const isAuto = AutorecFunctions.foundInAutorec(autoRecSettings, autoName);
 
             if (isAuto) {
-                const getObject = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName)
-                const autoObject = getObject[0]
-                switch (getObject[1]) {
+                const autoObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName) // combines Autorec menus and sorts by name length, returns object
+                switch (autoObject.menuSection) {
                     case 'melee':
                         if (targets === 0) {
                             Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
@@ -188,7 +187,7 @@ export async function trafficCop(handler) {
                         break;
                     case 'preset':
                         if (aaDebug) { aaDebugger("Pre Preset Animation", autoObject) }
-                        switch (autoObject[0].animation) {
+                        switch (autoObject.animation) {
                             case 'bardicinspiration':
                                 bardicInspiration(handler, autoObject);
                                 break;

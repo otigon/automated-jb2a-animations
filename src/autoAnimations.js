@@ -331,7 +331,7 @@ function setUp5eCore(msg) {
     //const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);
     const autoName = AutorecFunctions._rinseName(handler.itemName);
     //const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName);
-    const getObject = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName)
+    const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
     //console.log(getObject)
     //console.log(getObject[0][0].name)
     //let templateItem;
@@ -341,7 +341,7 @@ function setUp5eCore(msg) {
         //templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName)); //getObject[1] === 'templates' && (rinsedName === autoName) ? true : false;
         //console.log(getObject)
         //console.log(getObject[0][0].animation)
-        fireball = getObject[1] === 'preset' && (getObject[0][0].animation === 'fireball') ? true : false;
+        fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
     }
     //console.log(templateItem)
     //console.log(fireball)
@@ -487,10 +487,10 @@ async function pf2eReady(msg) {
 
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
     const autoName = AutorecFunctions._rinseName(handler.itemName);
-    const getObject = AutorecFunctions._findObjectByNameFull(autoRecSettings, autoName)
+    const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
     let fireball;
     if (getObject) {
-        fireball = getObject[1] === 'preset' && (getObject[0][0].animation === 'fireball') ? true : false;
+        fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
     }
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));

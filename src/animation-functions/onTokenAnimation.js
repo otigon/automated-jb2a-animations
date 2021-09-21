@@ -49,7 +49,8 @@ export async function onTokenAnimation(handler) {
             .file(onToken.file)
             .atLocation(sourceToken)
             .repeats(handler.animationLoops, handler.loopDelay)
-            .scale(((sourceToken.w / animWidth) * 1.5) * handler.scale)
+            //.scale(((sourceToken.w / animWidth) * 1.5) * handler.scale)
+            .size(sourceToken.w * 1.5)
             .belowTokens(handler.animLevel)
             .addOverride(
             async (effect, data) => {
@@ -108,7 +109,8 @@ export async function onTokenAnimation(handler) {
                     .atLocation(target)
                     //.randomizeMirrorY()
                     .repeats(handler.animationLoops, handler.loopDelay)
-                    .scale(scale * handler.scale)
+                    //.scale(scale * handler.scale)
+                    .size(target.w * 1.5 * handler.scale)
                     .belowTokens(handler.animLevel)
                     .name("animation")
                     .playIf(() => { return arrayLength })

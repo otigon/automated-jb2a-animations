@@ -9,7 +9,7 @@ async function bardicInspiration(handler, autoObject) {
     const data = {};
     if (autoObject) {
         //const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject[0]);
+        Object.assign(data, autoObject);
         data.itemName = data.animation || "";
 
     } else {
