@@ -57,29 +57,36 @@
                         value="flags.autoanimations.options.overrideAuto" {{checked
                         flags.autoanimations.options.overrideAuto}}>
                 </div>
+
                 {{#if flags.autoanimations.options.overrideAuto}}
-                    <!--Choose Variant-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.variant"}}</label>
-                            <select name="flags.autoanimations.options.autoVariant">
-                                {{#select flags.autoanimations.options.autoVariant}}
-                                {{#each autorecVariants as |name key|}}
-                                <option value="{{key}}">{{name}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                    </div>
-                    <!--Choose Standard Animation Color-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
-                        <select name="flags.autoanimations.options.autoColor">
-                            {{#select flags.autoanimations.options.autoColor}}
-                            {{#each autorecColor as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
-                    </div>
+                {{#if autoPreset}}
+                <div class='form-group'>
+                    
+                </div>
+                {{/if}}
+                {{#unless autoPreset}}
+                <!--Choose Variant-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.variant"}}</label>
+                    <select name="flags.autoanimations.options.autoVariant">
+                        {{#select flags.autoanimations.options.autoVariant}}
+                        {{#each autorecVariants as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <!--Choose Standard Animation Color-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                    <select name="flags.autoanimations.options.autoColor">
+                        {{#select flags.autoanimations.options.autoColor}}
+                        {{#each autorecColor as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
                 <div class="flexrow">
                     {{#unless autoNone}}
                     {{#unless autoRepeatDelay}}
@@ -103,6 +110,7 @@
                     {{/if}}
                     {{/unless}}
                 </div>
+                {{/unless}}
                 {{/if}}
                 {{/if}}
 

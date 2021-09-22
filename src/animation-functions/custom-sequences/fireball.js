@@ -7,6 +7,14 @@ export async function fireball(handler, autoObject) {
     const data = {}
     if (autoObject) {
         Object.assign(data, autoObject);
+        data.projectileRepeat = data.projectileRepeat || 1;
+        data.projectileDelay = data.projectileDelay || 250;
+        data.explosion01Repeat = data.explosion01Repeat || 1;
+        data.explosion01Delay = data.explosion01Delay || 250;
+        data.explosion01Scale = data.explosion01Scale || 1;
+        data.explosion02Repeat = data.explosion02Repeat || 1;
+        data.explosion02Delay = data.explosion02Delay || 250;
+        data.explosion02Scale = data.explosion02Scale || 1;
     } else {
 
     }
@@ -58,23 +66,26 @@ export async function fireball(handler, autoObject) {
             .file(projectileAnimation.file)
             .atLocation(tokenD)
             .reachTowards({ x: xPos, y: yPos })
+            .repeats(data.projectileRepeat, data.projectileDelay)
             .waitUntilFinished(data.wait01)
             .JB2A()
         .effect()
             .file(explosion01.file)
             .atLocation({ x: xPos, y: yPos })
-            .size(size * .35)
+            .size(size * .35 * data.explosion01Scale)
+            .repeats(data.explosion01Repeat, data.explosion01Delay)
             .timeRange(0, 1200)
             .waitUntilFinished(data.wait02)
         .effect()
             .file(explosion02.file)
             .atLocation({ x: xPos, y: yPos })
-            .size(size)
+            .size(size * data.explosion02Scale)
+            .repeats(data.explosion02Repeat, data.explosion02Delay)
             .zIndex(1)
         .effect()
             .file(explosion02.file)
             .atLocation({ x: xPos, y: yPos })
-            .size(size)
+            .size(size * data.explosion02Scale)
             .zIndex(5)
             .waitUntilFinished(-750 + data.wait03)
         .thenDo(function () {

@@ -97,9 +97,11 @@ export class AAItemSettings extends FormApplication {
             noAutoScale = WTF ? false : true;
             autoNone = noOptions.some(el => autorecType[1] === el);
         }
-        let autoOptions = AutorecFunctions._checkAutoRec(oldName) ? AutorecFunctions._autorecChoices(oldName, flags) : { colors: null, variantChoices: null };
-        
-        let videoPreview = override ? AATabFunctions._customPreview(flags, patreon) : AutorecFunctions._autoPreview(oldName, patreon, flags)
+
+        const autoCheck = AutorecFunctions._checkAutoRec(oldName);
+        const autoObject = autoCheck ? AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
+        const autoOptions = autoCheck ? AutorecFunctions._autorecChoices(oldName, flags) : { colors: null, variantChoices: null };
+        const videoPreview = override ? AATabFunctions._customPreview(flags, patreon) : AutorecFunctions._autoPreview(oldName, patreon, flags)
         //let videoPreview = 'no preview'; //= AATabFunctions._customPreview(flags, patreon) //= animPreview(flags, itemName);
         //if (videoPreview === "no preview" && !override) { videoPreview = AutorecFunctions._autoPreview(oldName, patreon, flags) }
         let content = "";
@@ -129,8 +131,9 @@ export class AAItemSettings extends FormApplication {
             OldName: oldName,
             //convertedName: conversion[2],
             //autoRecognized: conversion[2] === undefined ? false : true,
-            autoRecognized: AutorecFunctions._checkAutoRec(oldName),
-            autoRecognizedNoOverride: AutorecFunctions._checkAutoRec(oldName) && !override,
+            autoPreset: autoObject.menuSection === 'preset' ? true : false,
+            autoRecognized: autoCheck,
+            autoRecognizedNoOverride: autoCheck && !override,
             t2t3: override && (animType === "t2" || animType === "t3"),
             t4: override && animType === "t4",
             t5: override && animType === "t5",

@@ -120,7 +120,7 @@ export class AutorecFunctions {
 
     /**
      * 
-     * @param {game.settings.get('autoanimations', 'Autorec')} settings 
+     * @param {game.settings.get('autoanimations', 'aaAutorec')} settings 
      * @param {item Name with all spaces removed} name 
      * @returns Autorec Object containing all default settings
      */
@@ -156,8 +156,12 @@ export class AutorecFunctions {
             }
         }
         mergedArray.sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
-        console.log(mergedArray)
+        //console.log(mergedArray)
         return mergedArray;
+    }
+
+    static _checkPreset(itemName) {
+
     }
 
     static _checkAutoRec(itemName) {
