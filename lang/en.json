@@ -430,6 +430,7 @@
     "AUTOANIM.persistant": "Persistant",
     "AUTOANIM.fireball": "Fireball",
     "AUTOANIM.projectile": "Projectile",
-    "AUTOANIM.addAfterImage": "Add After Image"
+    "AUTOANIM.addAfterImage": "Add After Image",
+    "AUTOANIM.wait": "Wait"
 
 }

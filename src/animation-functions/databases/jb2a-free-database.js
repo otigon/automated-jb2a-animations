@@ -468,8 +468,10 @@ JB2AFREEDB.static = {
             green: [l2`Shatter/Shatter_01_Green_400x400.webm`],
             orange: [l2`Shatter/Shatter_01_Orange_400x400.webm`]
         },
-        "fogcloud": [l1`Fog_Cloud/FogCloud_01_White_800x800.webm`],
-        "darkness": {
+        fogcloud: {
+            white: [l1`Fog_Cloud/FogCloud_01_White_800x800.webm`],
+        },
+        darkness: {
             black: [l2`Darkness/Darkness_01_Black_600x600.webm`],
             green: [l2`Darkness/Darkness_01_Green_600x600.webm`]
         },
@@ -702,11 +704,21 @@ JB2AFREEDB.static = {
         }
     },
     rect: {
-        "entangle": {
+        entangle: {
             brown: [l1`Entangle/Entangle_01_Brown_400x400.webm`],
             green: [l1`Entangle/Entangle_01_Green_400x400.webm`],
             yellow: [l1`Entangle/Entangle_01_Yellow_400x400.webm`]
-        }
+        },
+        thunderwave: {
+            blue: {
+                'left': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
+                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
+                'center': [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`]
+            }
+        },
+        web: {
+            white: [l2`Web/Opacities/Web_01_White_02_75OPA_400x400.webm`]
+        },
     },
     shatter: {
         '01': {

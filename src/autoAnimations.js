@@ -271,8 +271,17 @@ function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = new flagHandler(workflow);
+
+    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    const autoName = AutorecFunctions._rinseName(handler.itemName);
+    const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
+    let fireball;
+    if (getObject) {
+        fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
+    }
+
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    if (templateItem && !handler.animOverride) { return; }
+    if ((templateItem || fireball) && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
     trafficCop(handler)
 }
@@ -285,6 +294,15 @@ async function specialCaseAnimations(msg) {
     let breakOut = checkMessege(msg);
     if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
         let handler = new flagHandler(msg, true);
+
+        const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        const autoName = AutorecFunctions._rinseName(handler.itemName);
+        const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
+        let fireball;
+        if (getObject) {
+            fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
+        }    
+        console.log(fireball)
         if (handler.animType === "t8" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler);
@@ -292,7 +310,7 @@ async function specialCaseAnimations(msg) {
             return;
         }
         const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-        if (templateItem && !handler.animOverride) {
+        if ((templateItem || fireball) && !handler.animOverride) {
             trafficCop(handler)
         }
     } else { return; }

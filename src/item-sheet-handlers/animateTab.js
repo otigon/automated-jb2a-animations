@@ -2,7 +2,7 @@ import { AUTOANIM } from "./config.js";
 import { AATabFunctions } from "../aa-classes/tab-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
-
+import { aaColorMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 export class AAItemSettings extends FormApplication {
     constructor() {
         super(...arguments);
@@ -127,11 +127,13 @@ export class AAItemSettings extends FormApplication {
             autoRepeatDelay: autoRepeatDelay,
             noAutoScale: noAutoScale,
             autoNone: autoNone,
-
+            projectile:AUTOANIM.localized(AUTOANIM.animNameAttackSpell),
             OldName: oldName,
-            //convertedName: conversion[2],
-            //autoRecognized: conversion[2] === undefined ? false : true,
-            autoPreset: autoObject.menuSection === 'preset' ? true : false,
+
+            //autoPreset: autoObject.menuSection === 'preset' ? true : false,
+            fireball: autoObject.animation  === 'fireball' && autoObject.menuSection === 'preset' ? autoObject : false,
+            colormenu: aaColorMenu,
+            explosionMenu: AUTOANIM.localized(AUTOANIM.explosionMenu),
             autoRecognized: autoCheck,
             autoRecognizedNoOverride: autoCheck && !override,
             t2t3: override && (animType === "t2" || animType === "t3"),

@@ -573,14 +573,11 @@
                             <input type="text" class="files" style="width:15em"
                                 name="aaAutorec.preset.{{idx}}.afterEffectPath"
                                 value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'afterEffectPath'}}">
-                            <button type="button" class="file-picker" data-type="image"
+                            <button type="button" class="file-picker" data-type="image/video"
                                 data-target="aaAutorec.preset.{{idx}}.afterEffectPath" tabindex="-1"
                                 title="Browse Files">
                                 <i class="fas fa-file-video"></i>
                             </button>
-                        </div>
-                        <div style='grid-column: 1 / 5; grid-row: 9 / 10'>
-                            <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
                         </div>
                         {{/if}}
                         {{/ifEquals}}
