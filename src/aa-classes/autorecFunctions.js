@@ -127,7 +127,7 @@ export class AutorecFunctions {
     static _findObjectFromArray(settings, name) {
         const data = this._combineMenus(settings); //combines all Autorec Menus into a single array
         const length = data.length;
-        for (var i = 1; i < length; i++) {
+        for (var i = 0; i < length; i++) {
             var newObject = Object.values(data)
                 .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
                 .find(section => {
@@ -156,7 +156,7 @@ export class AutorecFunctions {
             }
         }
         mergedArray.sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
-        //console.log(mergedArray)
+      
         return mergedArray;
     }
 
