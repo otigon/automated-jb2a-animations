@@ -203,25 +203,23 @@ export async function trafficCop(handler) {
                             case 'sneakattack':
                                 sneakAttack(handler, autoObject)
                                 break;
-                            
                             case "fireball":
                                 switch (game.system.id) {
                                     case "dnd5e":
                                     case "pf2e":
-                                        if (game.modules.get("mars-5e")?.active || game.modules.get('midi-qol')?.active) {
-                                            fireball(handler, autoObject);
+                                        if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
+                                            fireball(handler, autoObject, true);
                                         } else {
                                             Hooks.once("createMeasuredTemplate", () => {
-                                                fireball(handler, autoObject);
+                                                fireball(handler, autoObject, true);
                                             });
                                         }
                                         break;
                                     default:
-                                        fireball(handler, autoObject);
-                                }            
-                                break;       
-                                
-                        }    
+                                        fireball(handler, autoObject, true);
+                                }
+                                break;
+                        }
                         break;
                 }
             }

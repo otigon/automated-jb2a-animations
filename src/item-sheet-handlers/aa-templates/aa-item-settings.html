@@ -57,29 +57,136 @@
                         value="flags.autoanimations.options.overrideAuto" {{checked
                         flags.autoanimations.options.overrideAuto}}>
                 </div>
+
                 {{#if flags.autoanimations.options.overrideAuto}}
-                    <!--Choose Variant-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.variant"}}</label>
-                            <select name="flags.autoanimations.options.autoVariant">
-                                {{#select flags.autoanimations.options.autoVariant}}
-                                {{#each autorecVariants as |name key|}}
+                <!--{{#if autoPreset}}-->
+                {{#if fireball}}
+                <div class='form-group'>
+                    <div class='form-group'>
+                        <label>Projectile
+                            <select name="flags.autoanimations.options.autoFireball.projectile">
+                                {{#select flags.autoanimations.options.autoFireball.projectile}}
+                                {{#each projectile as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
-                            </select>
+                            </select></label>
                     </div>
-                    <!--Choose Standard Animation Color-->
-                    <div class="form-group">
-                        <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
-                        <select name="flags.autoanimations.options.autoColor">
-                            {{#select flags.autoanimations.options.autoColor}}
-                            {{#each autorecColor as |name key|}}
+                    <div class='form-group'>
+                        <label>{{localize 'AUTOANIM.color'}}: 
+                        <select name="flags.autoanimations.options.autoFireball.projectileColor">
+                            {{#select flags.autoanimations.options.autoFireball.projectileColor}}
+                            {{#each (lookup (lookup colormenu.range flags.autoanimations.options.autoFireball.projectile) '01') as
+                            |name
+                            key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
-                        </select>
+                        </select></label>
                     </div>
+                    <div class='form-group'>
+                        <label>{{localize 'AUTOANIM.wait'}}:
+                            <input type="Number" style='width:5em' name="flags.autoanimations.options.autoFireball.wait01"
+                                value="{{lookup flags.autoanimations.options.autoFireball 'wait01'}}" data-dtype="Number">
+                        </label>
+                    </div>
+                </div>
+                <!--<div class='form-group'>
+                        <label>Explosion 01
+                            <select style='width:7em' name="flags.autoanimations.options.autoFireball.explosion01">
+                                {{#select flags.autoanimations.options.autoFireball.explosion01}}
+                                {{#each explosionMenu as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select></label>
+                    </div>-->
+                <div class='form-group'>
+                    <label>{{localize 'AUTOANIM.explosion'}} 01 {{localize 'AUTOANIM.color'}}: </label>
+                    <select name="flags.autoanimations.options.autoFireball.explosion01Color">
+                        {{#select flags.autoanimations.options.autoFireball.explosion01Color}}
+                        {{#each (lookup (lookup colormenu.static fireball.explosion01) fireball.explosion01Variant) as
+                        |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <!--<div class='form-group'>
+                        <label>Wait
+                            <input type="Number" style='width:3em' name="flags.autoanimations.autoFireball.wait02"
+                                value="{{lookup flags.autoanimations.autoFireball 'wait02'}}" data-dtype="Number">
+                        </label>
+                    </div>-->
+                <!--<div class='form-group'>
+                        <label>Explosion 02
+                            <select style='width:7em' name="flags.autoanimations.options.autoFireball.explosion02">
+                                {{#select flags.autoanimations.options.autoFireball.explosion02}}
+                                {{#each explosionMenu as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select></label>
+                    </div>-->
+                <div class='form-group'>
+                    <label>{{localize 'AUTOANIM.explosion'}} 01 {{localize 'AUTOANIM.color'}}: </label>
+                    <select name="flags.autoanimations.options.autoFireball.explosion02Color">
+                        {{#select flags.autoanimations.options.autoFireball.explosion02Color}}
+                        {{#each (lookup (lookup colormenu.static fireball.explosion02) fireball.explosion02Variant) as
+                        |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <div class='form-group'>
+                    <div class="form-group">
+                        <label>{{localize "AUTOANIM.customAnim"}}
+                            <input type="checkbox" name="flags.autoanimations.options.autoFireball.afterEffect"
+                                value="flags.autoanimations.options.autoFireball.afterEffect" data-dtype="{{Boolean}}"
+                                {{checked flags.autoanimations.options.autoFireball.afterEffect}}></label>
+                    </div>
+                    {{#if flags.autoanimations.options.autoFireball.afterEffect}}
+                    <label>Wait
+                        <input type="Number" style='width:3em' name="flags.autoanimations.options.autoFireball.wait03"
+                            value="{{flags.autoanimations.options.autoFireball.wait03}}" data-dtype="Number">
+                    </label>
+                    <div class="form-group">
+                        <input type="text" class="files"
+                            name="flags.autoanimations.options.autoFireball.afterEffectPath" value="{{flags.autoanimations.options.autoFireball.afterEffectPath}}">
+                        <button type="button" class="file-picker" data-type="image/video"
+                            data-target="flags.autoanimations.options.autoFireball.afterEffectPath" tabindex="-1"
+                            title="Browse Files">
+                            <i class="fas fa-file-video"></i>
+                        </button>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/if}}
+                <!--{{/if}}-->
+                {{#unless fireball}}
+                <!--Choose Variant-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.variant"}}</label>
+                    <select name="flags.autoanimations.options.autoVariant">
+                        {{#select flags.autoanimations.options.autoVariant}}
+                        {{#each autorecVariants as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <!--Choose Standard Animation Color-->
+                <div class="form-group">
+                    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+                    <select name="flags.autoanimations.options.autoColor">
+                        {{#select flags.autoanimations.options.autoColor}}
+                        {{#each autorecColor as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
                 <div class="flexrow">
                     {{#unless autoNone}}
                     {{#unless autoRepeatDelay}}
@@ -103,6 +210,7 @@
                     {{/if}}
                     {{/unless}}
                 </div>
+                {{/unless}}
                 {{/if}}
                 {{/if}}
 

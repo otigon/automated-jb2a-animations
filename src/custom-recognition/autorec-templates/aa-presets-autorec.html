@@ -347,6 +347,7 @@
                             </div>
                         </div>
                         {{/ifEquals}}
+
                         <!--Fireball preset-->
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'fireball'}}
                         <div class="option05">
@@ -358,6 +359,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class='option03'>
                             <div class='autorec-menu-pad'>
                                 <label for="aaAutorec.preset.{{idx}}.projectile">{{localize 'AUTOANIM.projectile'}}:
@@ -410,133 +412,173 @@
                                 </label>
                             </div>
                         </div>
-                        <div class='option09'>
-                            <div class='autorec-menu-pad'>
-                                <label for="aaAutorec.preset.{{idx}}.explosion01">{{localize 'AUTOANIM.explosion'}} 01:
-                                </label>
-                                <select name="aaAutorec.preset.{{idx}}.explosion01">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
-                                    'explosion01')}}
-                                    {{#each ../explosionMenu as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
+                        <div class="autorec-menu-options" style='grid-column: 2 / 3; grid-row: 3 / 4;'>
+                            <label>{{localize 'AUTOANIM.repeat'}}:
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.projectileRepeat"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'projectileRepeat'}}"
+                                    data-dtype="Number">
+                            </label>
                         </div>
-                        <div class='option10'>
-                            <div class='autorec-menu-pad'>
-                                <label for="aaAutorec.preset.{{idx}}.explosion01Variant">{{localize 'AUTOANIM.variant'}}:
-                                </label>
-                                <select name="aaAutorec.preset.{{idx}}.explosion01Variant">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'explosion01Variant')}}
-                                    {{#each (lookup (lookup ../variants 'static') (lookup (lookup
-                                    ../settings.aaAutorec.preset idx) 'explosion01')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
+                        <div class="autorec-menu-options" style='grid-column: 3 / 4; grid-row: 3 / 4;'>
+                            <label>{{localize 'AUTOANIM.delayMS'}}:
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.projectileDelay"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'projectileDelay'}}"
+                                    data-dtype="Number">
+                            </label>
                         </div>
-                        <div class='option11'>
-                            <div class='autorec-menu-pad'>
-                                <label for="aaAutorec.preset.{{idx}}.explosion01Color">{{localize 'AUTOANIM.color'}}:
-                                </label>
-                                <select name="aaAutorec.preset.{{idx}}.explosion01Color">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'explosion01Color')}}
-                                    {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                    ../settings.aaAutorec.preset idx) 'explosion01')) (lookup (lookup
-                                    ../settings.aaAutorec.preset idx) 'explosion01Variant')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
+
+                        <div class='autorec-menu-pad' style='grid-column: 1 / 2; grid-row: 4 / 5;'>
+                            <label for="aaAutorec.preset.{{idx}}.explosion01">{{localize 'AUTOANIM.explosion'}} 01:
+                            </label>
+                            <select name="aaAutorec.preset.{{idx}}.explosion01">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
+                                'explosion01')}}
+                                {{#each ../explosionMenu as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
                         </div>
-                        <div class='option12'>
-                            <div class="autorec-menu-options">
-                                <label>Wait
-                                    <input type="Number" name="aaAutorec.preset.{{idx}}.wait02"
-                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'wait02'}}"
-                                        data-dtype="Number">
-                                </label>
-                            </div>
+                        <div class='autorec-menu-pad' style='grid-column: 2 / 3; grid-row: 4 / 5;'>
+                            <label for="aaAutorec.preset.{{idx}}.explosion01Variant">{{localize
+                                'AUTOANIM.variant'}}:
+                            </label>
+                            <select name="aaAutorec.preset.{{idx}}.explosion01Variant">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'explosion01Variant')}}
+                                {{#each (lookup (lookup ../variants 'static') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'explosion01')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
                         </div>
-                        <div class='option13'>
-                            <div class='autorec-menu-pad'>
-                                <label for="aaAutorec.preset.{{idx}}.explosion02">{{localize 'AUTOANIM.explosion'}} 02:
-                                </label>
-                                <select name="aaAutorec.preset.{{idx}}.explosion02">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
-                                    'explosion02')}}
-                                    {{#each ../explosionMenu as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
+                        <div class='autorec-menu-pad' style='grid-column: 3 / 4; grid-row: 4 / 5;'>
+                            <label for="aaAutorec.preset.{{idx}}.explosion01Color">{{localize 'AUTOANIM.color'}}:
+                            </label>
+                            <select name="aaAutorec.preset.{{idx}}.explosion01Color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'explosion01Color')}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'explosion01')) (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'explosion01Variant')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
                         </div>
-                        <div class='option14'>
-                            <div class='autorec-menu-pad'>
-                                <label for="aaAutorec.preset.{{idx}}.explosion02Variant">{{localize 'AUTOANIM.variant'}}:
-                                </label>
-                                <select name="aaAutorec.preset.{{idx}}.explosion02Variant">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Variant')}}
-                                    {{#each (lookup (lookup ../variants 'static') (lookup (lookup
-                                    ../settings.aaAutorec.preset idx) 'explosion02')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
+                        <div class="autorec-menu-options" style='grid-column: 4 / 5; grid-row: 4 / 5;'>
+                            <label>Wait
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.wait02"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'wait02'}}"
+                                    data-dtype="Number">
+                            </label>
                         </div>
-                        <div class='option15'>
-                            <div class='autorec-menu-pad'>
-                                <label for="aaAutorec.preset.{{idx}}.explosion02Color">{{localize 'AUTOANIM.color'}}:
-                                </label>
-                                <select name="aaAutorec.preset.{{idx}}.explosion02Color">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Color')}}
-                                    {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                    ../settings.aaAutorec.preset idx) 'explosion02')) (lookup (lookup
-                                    ../settings.aaAutorec.preset idx) 'explosion02Variant')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
+                        <div class="autorec-menu-options" style='grid-column: 2 / 3; grid-row: 5 / 6;'>
+                            <label>{{localize 'AUTOANIM.repeat'}}:
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.explosion01Repeat"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion01Repeat'}}"
+                                    data-dtype="Number">
+                            </label>
                         </div>
-                        <div class="option17">
-                            <div class="autorec-menu-options">
-                                <div class='form-group'>
-                                    <label>{{localize 'AUTOANIM.addAfterImage'}}: </label>
-                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.afterEffect' {{checked (lookup
-                                        (lookup ../settings.aaAutorec.preset idx) 'afterEffect' ) }}>
-                                </div>
+                        <div class="autorec-menu-options" style='grid-column: 3 / 4; grid-row: 5 / 6;'>
+                            <label>{{localize 'AUTOANIM.delayMS'}}:
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.explosion01Delay"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion01Delay'}}"
+                                    data-dtype="Number">
+                            </label>
+                        </div>
+                        <div class="autorec-menu-options" style='grid-column: 4 / 5; grid-row: 5 / 6;'>
+                            <label>{{localize 'AUTOANIM.scale'}}:
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.explosion01Scale"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion01Scale'}}"
+                                    data-dtype="Number">
+                            </label>
+                        </div>
+
+                        <div class='autorec-menu-pad' style='grid-column: 1 / 2; grid-row: 6 / 7;'>
+                            <label for="aaAutorec.preset.{{idx}}.explosion02">{{localize 'AUTOANIM.explosion'}} 02:
+                            </label>
+                            <select name="aaAutorec.preset.{{idx}}.explosion02">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
+                                'explosion02')}}
+                                {{#each ../explosionMenu as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class='autorec-menu-pad' style='grid-column: 2 / 3; grid-row: 6 / 7;'>
+                            <label for="aaAutorec.preset.{{idx}}.explosion02Variant">{{localize
+                                'AUTOANIM.variant'}}:
+                            </label>
+                            <select name="aaAutorec.preset.{{idx}}.explosion02Variant">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Variant')}}
+                                {{#each (lookup (lookup ../variants 'static') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'explosion02')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class='autorec-menu-pad' style='grid-column: 3 / 4; grid-row: 6 / 7;'>
+                            <label for="aaAutorec.preset.{{idx}}.explosion02Color">{{localize 'AUTOANIM.color'}}:
+                            </label>
+                            <select name="aaAutorec.preset.{{idx}}.explosion02Color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Color')}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'explosion02')) (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'explosion02Variant')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="autorec-menu-options" style='grid-column: 2 / 3; grid-row: 7 / 8;'>
+                            <label>{{localize 'AUTOANIM.repeat'}}:
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Repeat"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Repeat'}}"
+                                    data-dtype="Number">
+                            </label>
+                        </div>
+                        <div class="autorec-menu-options" style='grid-column: 3 / 4; grid-row: 7 / 8;'>
+                            <label>{{localize 'AUTOANIM.delayMS'}}:
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Delay"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Delay'}}"
+                                    data-dtype="Number">
+                            </label>
+                        </div>
+                        <div class="autorec-menu-options" style='grid-column: 4 / 5; grid-row: 7 / 8;'>
+                            <label>{{localize 'AUTOANIM.scale'}}:
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Scale"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Scale'}}"
+                                    data-dtype="Number">
+                            </label>
+                        </div>
+
+                        <div class="autorec-menu-options" style='grid-column: 1 / 2; grid-row: 8 / 9;'>
+                            <div class='form-group'>
+                                <label>{{localize 'AUTOANIM.addAfterImage'}}: </label>
+                                <input type='checkbox' name='aaAutorec.preset.{{idx}}.afterEffect' {{checked (lookup
+                                    (lookup ../settings.aaAutorec.preset idx) 'afterEffect' ) }}>
                             </div>
                         </div>
                         {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'afterEffect')}}
-                        <div class='option18'>
-                            <div class="autorec-menu-options">
-                                <label>Wait
-                                    <input type="Number" name="aaAutorec.preset.{{idx}}.wait03"
-                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'wait03'}}"
-                                        data-dtype="Number">
-                                </label>
-                            </div>
+                        <div class="autorec-menu-options" style='grid-column: 2 / 3; grid-row: 8 / 9;'>
+                            <label>Wait
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.wait03"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'wait03'}}"
+                                    data-dtype="Number">
+                            </label>
                         </div>
-                        <div class="span1920">
-                            <div class="form-group">
-                                <input type="text" class="files" style="width:15em" name="aaAutorec.preset.{{idx}}.afterEffectPath"
-                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'afterEffectPath'}}">
-                                <button type="button" class="file-picker" data-type="image"
-                                    data-target="aaAutorec.preset.{{idx}}.afterEffectPath" tabindex="-1" title="Browse Files">
-                                    <i class="fas fa-file-video"></i>
-                                </button>
-                            </div>
+                        <div class="form-group" style='grid-column: 3 / 5; grid-row: 8 / 9;'>
+                            <input type="text" class="files" style="width:15em"
+                                name="aaAutorec.preset.{{idx}}.afterEffectPath"
+                                value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'afterEffectPath'}}">
+                            <button type="button" class="file-picker" data-type="image/video"
+                                data-target="aaAutorec.preset.{{idx}}.afterEffectPath" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-file-video"></i>
+                            </button>
                         </div>
-                        <div style='grid-column: 1 / 5; grid-row: 6 / 7'>
-                            <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
-                        </div>    
                         {{/if}}
                         {{/ifEquals}}
                     </div>
