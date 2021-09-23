@@ -131,7 +131,7 @@ export class AAItemSettings extends FormApplication {
             OldName: oldName,
 
             //autoPreset: autoObject.menuSection === 'preset' ? true : false,
-            fireball: autoObject.animation  === 'fireball' && autoObject.menuSection === 'preset' ? autoObject : false,
+            fireball: autoObject.animation === 'fireball' && autoObject.menuSection === 'preset' ? autoObject : false,
             colormenu: aaColorMenu,
             explosionMenu: AUTOANIM.localized(AUTOANIM.explosionMenu),
             autoRecognized: autoCheck,
