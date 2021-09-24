@@ -56,7 +56,7 @@ export async function staticAnimation(handler, autoObject) {
             .repeats(data.repeat, data.delay)
             //.gridSize(gridSize)
             //.scale(((sourceToken.w / animWidth) * 1.5) * data.scale)
-            .size(sourceToken.w * 1.5)
+            .size(sourceToken.w * 1.5 * data.scale)
             .belowTokens(data.below)
         .effect()
             .atLocation(sourceToken)

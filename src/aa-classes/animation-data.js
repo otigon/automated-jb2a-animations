@@ -16,7 +16,7 @@ export class AAanimationData {
             data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
         } else {
             data.itemName = handler.convertedName;
-            data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";
+            data.variant = handler.uaStrikeType || "01";
             data.customPath = handler.enableCustom01 ? handler.custom01 : false;
             data.color = handler.color;
             data.switchType = handler.switchType;

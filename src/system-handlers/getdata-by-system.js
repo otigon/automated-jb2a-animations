@@ -54,6 +54,7 @@ export class AASystemData {
             const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
 
             let item = token.actor?.items?.get(itemId);
+            if (!item) return;
             if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
                 itemId = item.data.data.consume.target;
                 item = token.actor.items?.get(itemId) ?? "";
