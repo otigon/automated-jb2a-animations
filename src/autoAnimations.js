@@ -322,7 +322,6 @@ async function specialCaseAnimations(msg) {
         if (getObject) {
             fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
         }    
-        console.log(fireball)
         if (handler.animType === "t8" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler);
@@ -619,7 +618,6 @@ async function criticalCheck(workflow) {
     if (!workflow.isCritical && !workflow.isFumble) { return; }
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
-
     let token;
 
     let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
