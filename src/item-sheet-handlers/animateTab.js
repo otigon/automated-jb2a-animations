@@ -12,15 +12,15 @@ export class AAItemSettings extends FormApplication {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/aa-item-settings.html',
+            template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/item-central.html',
             id: 'AA-item-settings',
             title: game.i18n.localize("AUTOANIM.tabTitle"),
             resizable: true,
-            width: 600,
+            width: 700,
             height: "auto",
             closeOnSubmit: true,
 
-            tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "animations" }]
+            tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "animations" }]
         });
     }
 

@@ -1,0 +1,27 @@
+<form class="flexcol" id="AAItemSettings" autocomplete='off' novalidate>
+	<nav class='sheet-tabs tabs' data-group="sections">
+        <a class="aa-options" data-tab="animations"><i class="fas fa-bomb"></i> Animations </a>
+        <a class="aa-options" data-tab="audio"><i class="fas fa-guitar"></i> Audio </a>
+        <a class="aa-options" data-tab="sourceTokenFX"><i class="fas fa-user-plus"></i> TokenFX </a>
+	</nav>
+
+	<section class='content'>
+		<div class='tab' data-tab='animations' data-group='sections'>
+			{{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates' '/animations.html')}}
+			{{/undefined}}
+		</div>
+		<div class='tab' data-tab='audio' data-group='sections'>
+			{{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates' '/item-audio.html')}}
+			{{/undefined}}
+		</div>
+		<div class='tab' data-tab='sourcTokenFX' data-group='sections'>
+			{{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates' '/pre-postfx.html')}}
+			{{/undefined}}
+		</div>
+	</section>
+
+	<footer class='sheet-footer flexrow'>
+		<button type='submit' name='submit' value='1' class='aa-item-submit'><i
+				class='far fa-save'></i>{{localize "AUTOANIM.submit"}}</button>
+	</footer>
+</form>

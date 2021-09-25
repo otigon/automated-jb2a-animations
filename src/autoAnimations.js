@@ -51,6 +51,16 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-templates-autorec.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-auras-autorec.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-presets-autorec.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animations.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/item-audio.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/pre-postfx.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-melee.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ranged.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ontoken.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-templates.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-auras.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-presets.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-autoOverride.html',
     ]);
 
     if (game.modules.get("midi-qol")?.active) {
