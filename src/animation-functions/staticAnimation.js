@@ -87,9 +87,12 @@ export async function staticAnimation(handler, autoObject) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
+            /*
             if (targetFX.enabled) {
                 targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
             }        
+            */
+            let targetSequence = AAanimationData._targetSequence(targetFX, target);
 
             let scale = data.itemName.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
             let hit;
@@ -133,6 +136,8 @@ export async function staticAnimation(handler, autoObject) {
                     .delay(explosionSound.delay)
                     .volume(explosionSound.volume)
                     .repeats(data.repeat, data.delay)
+                .addSequence(targetSequence.targetSeq)
+                /*
                 .effect()
                     .delay(targetFX.startDelay)
                     .file(targetFX.data?.file)
@@ -142,6 +147,7 @@ export async function staticAnimation(handler, autoObject) {
                     .belowTokens(targetFX.below)
                     .gridSize(gridSize)
                     .playIf(targetFX.enabled)
+                */
                 .play()
                 //await wait(500)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)

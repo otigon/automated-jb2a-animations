@@ -25,7 +25,7 @@ export async function auras(handler, autoObject) {
         data.opacity = handler.auraOpacity;
         data.size = handler.selfRadius * 2 * gridSize
         data.ignoretargets = handler.options?.ignoreTarget
-        data.below = true;
+        data.below = handler.animLevel;
     }
 
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
@@ -47,7 +47,7 @@ export async function auras(handler, autoObject) {
                 //.atLocation(sourceToken)
                 .persist()
                 .size(data.size)
-                .belowTokens(true)
+                .belowTokens(data.below)
                 .file(aura.file)
                 .gridSize(gridSize)
                 .attachTo(sourceToken)
@@ -73,7 +73,7 @@ export async function auras(handler, autoObject) {
                     .persist()
                     .size(data.size)
                     .gridSize(gridSize)
-                    .belowTokens(true)
+                    .belowTokens(data.below)
                     .file(aura.file)
                     .fadeIn(50)
                     .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})

@@ -1,0 +1,116 @@
+<!--Choose Template Type-->
+<div class="form-group">
+    <label>{{localize "AUTOANIM.templateType"}}</label>
+    <select name="flags.autoanimations.templates.tempType">
+        {{#select flags.autoanimations.templates.tempType}}
+        {{#each templateTypes as |name key|}}
+        <option value="{{key}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+{{#unless flags.autoanimations.templates.customAnim}}
+<!--Choose Template Animation-->
+<div class="form-group">
+    <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+    <select name="flags.autoanimations.templates.tempAnim">
+        {{#select flags.autoanimations.templates.tempAnim}}
+        {{#each templateAnimations as |name key|}}
+        <option value="{{key}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+<!--Choose Template Animation Color-->
+<div class="form-group">
+    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
+    <select name="flags.autoanimations.templates.tempColor">
+        {{#select flags.autoanimations.templates.tempColor}}
+        {{#each templateColors as |name key|}}
+        <option value="{{key}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+{{/unless}}
+<!--Choose Custom Animation?-->
+<div class="form-group">
+    <label>{{localize "AUTOANIM.customAnim"}}</label>
+    <input type="checkbox" name="flags.autoanimations.templates.customAnim"
+        value="flags.autoanimations.templates.customAnim" {{checked flags.autoanimations.templates.customAnim}}>
+</div>
+{{#if flags.autoanimations.templates.customAnim}}
+<!--Custom Animation filePicker and Text field-->
+<div class="form-group">
+    <label>{{localize "AUTOANIM.menuAnimName"}}</label>
+    <input type="text" class="files" name="flags.autoanimations.templates.customPath" value={{customTemplatePath}}>
+    <button type="button" class="file-picker" data-type="image/video"
+        data-target="flags.autoanimations.templates.customPath" tabindex="-1" title="Browse Files">
+        <i class="fas fa-file-video"></i>
+    </button>
+</div>
+{{/if}}
+<div class="form-group">
+    <label>Remove Template after Placement?</label>
+    <input type="checkbox" name="flags.autoanimations.templates.removeTemplate"
+        value="flags.autoanimations.templates.removeTemplate" {{checked flags.autoanimations.templates.removeTemplate}}>
+</div>
+{{#if makePersistent}}
+<!--Make effect a Tile on Canvas-->
+<div class="form-group">
+    <label>{{localize "AUTOANIM.placeTile"}}</label>
+    <input type="checkbox" name="flags.autoanimations.templates.persistent"
+        value="flags.autoanimations.templates.persistent" {{checked flags.autoanimations.templates.persistent}}>
+</div>
+<label class="aa-hint-text">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+{{/if}}
+{{#if persistent}}
+<div class="form-group">
+    <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+</div>
+<!--Set Tile Opacity-->
+<div class="form-group">
+    <label>{{localize "AUTOANIM.opacity"}}</label>
+    <input type="Number" name="flags.autoanimations.templates.opacity" min="0" max="1" step=".01"
+        value={{templateOpacity}}>
+</div>
+<div class="form-group">
+    <label>{{localize "AUTOANIM.overhead"}}</label>
+    <input type="checkbox" name="flags.autoanimations.templates.overhead"
+        value="flags.autoanimations.templates.overhead" {{checked flags.autoanimations.templates.overhead}}>
+</div>
+{{#if flags.autoanimations.templates.overhead}}
+<div class="form-group">
+    <label>{{localize "AUTOANIM.occlusionMode"}}</label>
+    <select name="flags.autoanimations.templates.occlusionMode">
+        {{#select flags.autoanimations.templates.occlusionMode}}
+        <option value="3">{{localize "AUTOANIM.occlusion03"}}</option>
+        <option value="1">{{localize "AUTOANIM.occlusion01"}}</option>
+        <option value="2">{{localize "AUTOANIM.occlusion02"}}</option>
+        <option value="0">{{localize "AUTOANIM.occlusion00"}}</option>
+        {{/select}}
+    </select>
+</div>
+<div class="form-group">
+    <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
+    <div class="form-fields">
+        <input type="range" name="flags.autoanimations.templates.occlusionAlpha" value={{occlusionAlpha}} min="0"
+            max="1" step="0.05">
+        <span class="range-value">{{occlusionAlpha}}</span>
+    </div>
+</div>
+{{/if}}
+{{/if}}
+{{#unless persistent}}
+<div class="flexrow">
+    <div class="aa-column">
+        <label>{{localize "AUTOANIM.loops"}}</label>
+        <input type="Number" name="flags.autoanimations.templates.tempLoop" value={{loopTemplate}} data-dtype="Number">
+    </div>
+    <div class="aa-column">
+        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
+        <input type="Number" name="flags.autoanimations.templates.loopDelay" value={{templateLoopDelay}}
+            data-dtype="Number">
+    </div>
+</div>
+{{/unless}}

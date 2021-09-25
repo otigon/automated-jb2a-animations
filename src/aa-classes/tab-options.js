@@ -15,7 +15,7 @@ export class AATabFunctions {
         let variantNow;
         try {
             variantNow = variantArray.some(el => variant === el) ? variant : variantArray[0];
-            colorMenu[type][itemName][variantNow].random = game.i18n.localize(game.i18n.localize("AUTOANIM.random"));
+            //colorMenu[type][itemName][variantNow].random = game.i18n.localize(game.i18n.localize("AUTOANIM.random"));
             animationColor = colorMenu[type][itemName][variantNow];
         }
         catch (exception) { animationColor = null }
@@ -44,10 +44,10 @@ export class AATabFunctions {
                 break;
         }
         let colorMenu = aaColorMenu;
-
+        /*
         try { colorMenu.range[name][animVar].random = game.i18n.localize("AUTOANIM.random"); }
         catch (exception) { }
-
+        */
         let variantArray;
         try { variantArray = Object.keys(colorMenu.range[name]) }
         catch (exception) { }
@@ -65,10 +65,10 @@ export class AATabFunctions {
         let animationColor;
         let animVar = spellVariant;
         let colorMenu = aaColorMenu;
-
+        /*
         try { colorMenu.static[name][animVar].random = game.i18n.localize("AUTOANIM.random"); }
         catch (exception) { }
-
+        */
         let variantArray;
         try { variantArray = Object.keys(colorMenu.static[name]) }
         catch (exception) { }

@@ -70,16 +70,19 @@ export async function meleeAnimation(handler, autoObject) {
                 await meleeSwitch(handler, target, autoObject)
             }
             else {
+                /*
                 if (targetFX.enabled) {
                     targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
                 }
-
+                */
+                let targetSequence = AAanimationData._targetSequence(targetFX, target);
                 let hit;
                 if (handler.playOnMiss) {
                     hit = handler.hitTargetsId.includes(target.id) ? false : true;
                 } else {
                     hit = false;
                 }
+                
                 await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function () {
@@ -129,6 +132,8 @@ export async function meleeAnimation(handler, autoObject) {
                     .delay(explosionSound.delay)
                     .volume(explosionSound.volume)
                     .repeats(data.repeat, data.delay)
+                .addSequence(targetSequence.targetSeq)
+                /*
                 .effect()
                     .delay(targetFX.startDelay)
                     .file(targetFX.data?.file)
@@ -138,6 +143,7 @@ export async function meleeAnimation(handler, autoObject) {
                     .belowTokens(targetFX.below)
                     .gridSize(canvas.grid.size)
                     .playIf(targetFX.enabled)
+                */
                 .play()
                 await wait(handler.animEnd)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)

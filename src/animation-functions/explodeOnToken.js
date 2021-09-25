@@ -45,10 +45,13 @@ export async function explodeOnToken(handler) {
             for (var i = 0; i < arrayLength; i++) {
 
                 let target = handler.allTargets[i];
+                /*
                 if (targetFX.enabled) {
                     targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
-                }        
-    
+                }
+                */
+                let targetSequence = AAanimationData._targetSequence(targetFX, target);
+
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? false : true;
@@ -68,6 +71,8 @@ export async function explodeOnToken(handler) {
                         .scale(scaleT9)
                         .belowTokens(handler.animLevel)
                         .playIf(() => { return arrayLength })
+                    .addSequence(targetSequence.targetSeq)
+                    /*
                     .effect()
                         .delay(targetFX.startDelay)
                         .file(targetFX.data?.file)
@@ -76,6 +81,7 @@ export async function explodeOnToken(handler) {
                         .repeats(targetFX.repeat, targetFX.delay)
                         .belowTokens(targetFX.below)
                         .playIf(targetFX.enabled)
+                    */
                     .play()
             }
         }
