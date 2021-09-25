@@ -37,6 +37,16 @@ export async function fireball(handler, autoObject) {
         data.wait03 = autoOverrideAfter ? handler.options?.autoFireball?.wait03 : data.wait03;
     }
 
+    let templateSound = handler.allSounds?.item;
+    let templateVolume = 0.25;
+    let templateDelay = 1;
+    let templateFile = "";
+    if (handler.itemSound) {
+        templateVolume = templateSound?.volume || 0.25;
+        templateDelay = templateSound?.delay === 0 ? 1 : templateSound?.delay;
+        templateFile = templateSound?.file;
+    }
+
     const projectileAnimation = await buildFile(false, data.projectile, "range", data.projectileVariant, data.projectileColor);
     const explosion01 = await buildFile(true, data.explosion01, "static", data.explosion01Variant, data.explosion01Color)
     const explosion02 = await buildFile(true, data.explosion02, "static", data.explosion02Variant, data.explosion02Color)
@@ -64,6 +74,11 @@ export async function fireball(handler, autoObject) {
             .repeats(data.projectileRepeat, data.projectileDelay)
             .waitUntilFinished(data.wait01)
             .JB2A()
+        .sound()
+            .file(templateFile)
+            .playIf(handler.itemSound)
+            .delay(templateDelay)
+            .volume(templateVolume)
         .effect()
             .file(explosion01.file)
             .atLocation(position)
