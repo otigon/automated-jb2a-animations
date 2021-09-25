@@ -6,7 +6,7 @@ export class AutorecFunctions {
 
     /**
      * 
-     * @param {game.settings.get('autonanimations', 'Autorec')} obj 
+     * @param {game.settings.get('autonanimations', 'aaAutorec')} obj 
      * @param {Menu field to get from} type 
      * @returns all NAMES in lower case from Autorec Menu defined by type
      */
@@ -36,7 +36,7 @@ export class AutorecFunctions {
 
     /**
      * 
-     * @param {game.settings.get('autoanimations', 'Autorec')} settings 
+     * @param {game.settings.get('autoanimations', 'aaAutorec')} settings 
      * @param {Item name with all spaces removed} name 
      * @returns Returns TRUE if it is found in the Autorec Menus, otherwise FALSE
      */
@@ -125,6 +125,7 @@ export class AutorecFunctions {
      * @returns Autorec Object containing all default settings
      */
     static _findObjectFromArray(settings, name) {
+        if (!name) { return; }
         const data = this._combineMenus(settings); //combines all Autorec Menus into a single array
         const length = data.length;
         for (var i = 0; i < length; i++) {
@@ -140,7 +141,7 @@ export class AutorecFunctions {
 
     /**
      * 
-     * @param {game.settings.get('autoanimations', 'Autorec')} data 
+     * @param {game.settings.get('autoanimations', 'aaAutorec')} data 
      * @returns combined menus in a single array sorted by NAME field longest to shortest 
      */
     static _combineMenus(data) {
@@ -151,6 +152,7 @@ export class AutorecFunctions {
             var arrayLength = Object.keys(data[keys[i]]).length
             var currentObject = data[keys[i]];
             for (var k = 0; k < arrayLength; k++) {
+                if (currentObject[k].name === "") { break; }
                 currentObject[k].menuSection = keys[i]
                 mergedArray.push(currentObject[k])
             }

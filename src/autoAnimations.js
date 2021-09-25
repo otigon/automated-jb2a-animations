@@ -251,6 +251,9 @@ function moduleIncludes(test) {
 function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = new flagHandler(workflow);
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -261,6 +264,9 @@ function setUpMidiNoAD(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = new flagHandler(workflow);
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
     if (handler.animType === "t8" && handler.animOverride) { return; }
@@ -271,7 +277,9 @@ function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = new flagHandler(workflow);
-
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
     const autoName = AutorecFunctions._rinseName(handler.itemName);
     const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
@@ -294,7 +302,9 @@ async function specialCaseAnimations(msg) {
     let breakOut = checkMessege(msg);
     if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
         let handler = new flagHandler(msg, true);
-
+        if (!handler.item || !handler.actorToken || handler.animKill) {
+            return;
+        }
         const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
         const autoName = AutorecFunctions._rinseName(handler.itemName);
         const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
@@ -343,7 +353,9 @@ function setUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
-    if (!handler.item || handler.animKill) { return }
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
 
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
     //const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);
@@ -418,15 +430,9 @@ function onCreateChatMessage(msg) {
             handler = new flagHandler(msg);
             break;
     }
-    /*
-    if (game.user.id === msg.user.id) {
-        switch (true) {
-            case ((handler.animType === "t12") && (handler.animOverride)):
-                teleportation(handler);
-                break;
-        }
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
     }
-    */
     trafficCop(handler)
 }
 
@@ -437,6 +443,9 @@ function swadeData(SwadeActor, SwadeItem) {
     if (killAllAnimations) { return; }
     let data = { SwadeActor, SwadeItem }
     let handler = new flagHandler(data);
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
     trafficCop(handler);
 }
 
@@ -458,6 +467,9 @@ function starFinder(data, msg) {
 function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
     let handler = new flagHandler(msg);
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.animOverride)):
@@ -489,6 +501,9 @@ async function fblReady(msg) {
 function setupDemonLord(data) {
     if (killAllAnimations) { return; }
     let handler = new flagHandler(data);
+    if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
     trafficCop(handler);
 }
 
