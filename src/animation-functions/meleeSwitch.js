@@ -42,9 +42,12 @@ export async function meleeSwitch(handler, target, autoObject) {
         //for (var i = 0; i < arrayLength; i++) {
 
         //let target = handler.allTargets[i];
+        /*
         if (targetFX.enabled) {
             targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
         }
+        */
+        let targetSequence = AAanimationData._targetSequence(targetFX, target);
 
         //Checks Range and sends it to Range Builder if true
         let hit;
@@ -92,6 +95,8 @@ export async function meleeSwitch(handler, target, autoObject) {
                 .delay(explosionSound.delay)
                 .volume(explosionSound.volume)
                 .repeats(data.repeat, data.delay)
+            .addSequence(targetSequence.targetSeq)
+            /*
             .effect()
                 .delay(targetFX.startDelay)
                 .file(targetFX.data?.file)
@@ -101,6 +106,7 @@ export async function meleeSwitch(handler, target, autoObject) {
                 .repeats(targetFX.repeat, targetFX.delay)
                 .belowTokens(targetFX.below)
                 .playIf(targetFX.enabled)
+            */
             .play()
         await wait(handler.animEnd)
         Hooks.callAll("aa.animationEnd", sourceToken, target)

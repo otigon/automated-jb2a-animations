@@ -179,7 +179,35 @@ export class AAanimationData {
             console.warn("AUTOMATED ANIMATIONS || TokenFX Target Animation is enabled on this item but NO Animation is chosen!");
         }
         targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : "";
+        
+        targetFX.targetSeq = new Sequence();
+        targetFX.targetSeq.effect()
+            .delay(targetFX.startDelay)
+            .file(targetFX.data?.file)
+            //.atLocation(target)
+            //.scale(targetFX.tFXScale * targetFX.scale)
+            .repeats(targetFX.repeat, targetFX.delay)
+            .belowTokens(targetFX.below)
+            .gridSize(canvas.grid.size)
+            .playIf(targetFX.enabled)
+
         return targetFX
+    }
+
+    static _targetSequence(targetFX, target) {
+        targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata.width : 1;
+        targetFX.targetSeq = new Sequence();
+        targetFX.targetSeq.effect()
+            .delay(targetFX.startDelay)
+            .file(targetFX.data?.file)
+            .atLocation(target)
+            .scale(targetFX.tFXScale * targetFX.scale)
+            .repeats(targetFX.repeat, targetFX.delay)
+            .belowTokens(targetFX.below)
+            .gridSize(canvas.grid.size)
+            .playIf(targetFX.enabled)
+
+        return targetFX;
     }
 
     static async _variant(handler) {
