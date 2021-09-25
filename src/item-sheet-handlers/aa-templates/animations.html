@@ -8,7 +8,6 @@
 </div>
 
 {{#unless flags.autoanimations.killAnim}}
-<div class="animation-not-disabled">
     <div>
         {{#unless autoRecognizedNoOverride}}
         <!--Play Animations Below Tokens Button-->
@@ -65,7 +64,7 @@
     </div>
     {{/if}}
 
-
+    <div class='aa-item-container'>
     <!--T2 and T3 Options-->
     {{#if t2t3}}
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-melee.html')}}
@@ -96,7 +95,7 @@
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-presets.html')}}
     {{/undefined}}
     {{/if}}
-
+    </div>
     <!-- T5 Options-->
 
     {{#if t5}}
@@ -601,5 +600,4 @@
 </div>
 <div class="aa-video">
     {{{content}}}
-</div>
 {{/unless}}

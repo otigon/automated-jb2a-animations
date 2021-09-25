@@ -37,6 +37,7 @@ export async function trafficCop(handler) {
     */
     if (handler.animKill) {
         if (aaDebug) { aaDebugger("Animations Disabled on Item") }
+        itemSound(handler)
         return;
     }
     //const itemName = handler.convertedName;

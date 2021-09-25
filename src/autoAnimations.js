@@ -261,7 +261,7 @@ function moduleIncludes(test) {
 function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = new flagHandler(workflow);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
@@ -274,7 +274,7 @@ function setUpMidiNoAD(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = new flagHandler(workflow);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
@@ -287,7 +287,7 @@ function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = new flagHandler(workflow);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
@@ -312,7 +312,7 @@ async function specialCaseAnimations(msg) {
     let breakOut = checkMessege(msg);
     if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
         let handler = new flagHandler(msg, true);
-        if (!handler.item || !handler.actorToken || handler.animKill) {
+        if (!handler.item || !handler.actorToken) {
             return;
         }
         const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');

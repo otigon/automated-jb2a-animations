@@ -177,6 +177,7 @@
 .autorec-menu-options input {
     width: 3em;
 }
+
 .autorec-menu-pad {
     padding: 5px;
 }
@@ -186,6 +187,15 @@
 }
 
 .aa-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr)) repeat(auto-fit, minmax(15em, 1fr)) 9em 9em;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+    gap: 0px 0px;
+    align-items: center;
+    justify-items: end; 
+}
+
+.aa-item-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15em, 1fr)) repeat(auto-fit, minmax(15em, 1fr)) 9em 9em;
     grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
