@@ -234,6 +234,8 @@ export async function trafficCop(handler) {
                         }
                         break;
                 }
+            } else {
+                itemSound(handler)
             }
             /*
             switch (true) {
