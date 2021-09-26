@@ -46,6 +46,7 @@ async function huntersMark(handler) {
             .gridSize(canvas.grid.size)
             .belowTokens(false)
             .persist(true)
+            .name(target.name)
             //.loopProperty("sprite", "rotation", { values: [0, 360], duration: 6000})
             .loopProperty("sprite", "scale.x", { from: (finalScale * 0.4), to: finalScale, duration: 4000, pingPong:true})
             .loopProperty("sprite", "scale.y", { from: (finalScale * 0.4), to: finalScale, duration: 4000, pingPong:true})
