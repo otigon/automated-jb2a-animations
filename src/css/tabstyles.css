@@ -241,7 +241,7 @@
 .aa-explosion-container {
     display: grid;
     grid-template-columns: minmax(5em, 20em) minmax(10em, 30em) 9em 9em;
-    grid-template-rows: auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto;
     grid-gap: 1px;
     align-items: center;
     justify-items: end; 
