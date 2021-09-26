@@ -1,52 +1,55 @@
 <!--Choose Animation by Name-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.menuAnimName"}}</label>
-    <select name="flags.autoanimations.animName">
-        {{#select flags.autoanimations.animName}}
-        {{#each animationNames as |name key|}}
-        <option value="{{key}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
-<!--Choose Damage Type-->
-{{#if rangedType}}
-<div class="form-group">
-    <label>{{localize "AUTOANIM.damageType"}}</label>
-    <div class="form-fields">
-        <select name="flags.autoanimations.rangedOptions.rangeDmgType" class="animation-colors">
-            {{#select flags.autoanimations.rangedOptions.rangeDmgType}}
+<div class='flexrow'>
+    <div class="form-group">
+        <label>{{localize "AUTOANIM.menuAnimName"}}
+            <select name="flags.autoanimations.animName">
+                {{#select flags.autoanimations.animName}}
+                {{#each animationNames as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </label>
+    </div>
+    <!--Choose Damage Type-->
+    {{#if rangedType}}
+    <div class="form-group">
+        <label>{{localize "AUTOANIM.variant"}}
+            <div class="form-fields">
+                <select name="flags.autoanimations.rangedOptions.rangeDmgType" class="animation-colors">
+                    {{#select flags.autoanimations.rangedOptions.rangeDmgType}}
+                    {{#each rangeVariant as |name key|}}
+                    <option value="{{key}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+        </label>
+    </div>
+    {{/if}}
+    {{#if thrownVariantShow}}
+    <!--Choose a Thrown Dagger Variant-->
+    <div class="form-group">
+        <label>{{localize "AUTOANIM.variant"}}</label>
+        <select name="flags.autoanimations.dtvar" class="dagger-variants">
+            {{#select flags.autoanimations.dtvar}}
             {{#each rangeVariant as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
         </select>
     </div>
-</div>
-{{/if}}
-{{#if thrownVariantShow}}
-<!--Choose a Thrown Dagger Variant-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.menuThrownVariant"}}</label>
-    <select name="flags.autoanimations.dtvar" class="dagger-variants">
-        {{#select flags.autoanimations.dtvar}}
-        {{#each rangeVariant as |name key|}}
-        <option value="{{key}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
-{{/if}}
-<!--Choose Standard Animation Color-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
-    <select name="flags.autoanimations.color">
-        {{#select flags.autoanimations.color}}
-        {{#each rangeColors as |name key|}}
-        <option value="{{key}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
+    {{/if}}
+    <!--Choose Standard Animation Color-->
+    <div class="form-group">
+        <label>{{localize "AUTOANIM.color"}}</label>
+        <select name="flags.autoanimations.color">
+            {{#select flags.autoanimations.color}}
+            {{#each rangeColors as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
 </div>
 <div class="flexrow">
     <div class="aa-column">

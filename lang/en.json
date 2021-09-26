@@ -255,7 +255,7 @@
     "AUTOANIM.spellLoops": "Loop Animation (1-10)",
 
     "AUTOANIM.itemAudio": "Enable Item Audio",
-    "AUTOANIM.explosionAudio": "Enable Explosion Audio",
+    "AUTOANIM.explosionAudio": "Explosion Audio",
     "AUTOANIM.chooseAudio": "Choose Audio File",
     "AUTOANIM.audioDelay": "Delay Audio (milliseconds)",
     "AUTOANIM.markerColor": "Marker Color Self",

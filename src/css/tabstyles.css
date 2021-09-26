@@ -22,6 +22,10 @@
     background: #363636
 }
 
+.aa-video {
+    padding:5px;
+}
+
 #AA-item-settings .tabs .active {
     text-shadow: 0 0 10px red;
 }
@@ -197,11 +201,55 @@
 
 .aa-item-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr)) repeat(auto-fit, minmax(15em, 1fr)) 9em 9em;
-    grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
-    gap: 0px 0px;
+    grid-template-columns: auto auto 9em 9em;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto;
+    grid-gap: 1px;
     align-items: center;
     justify-items: end; 
+    border: solid black;
+    padding-bottom: 5px;
+}
+
+.aa-melee-container {
+    display: grid;
+    grid-template-columns: auto auto 9em 9em;
+    grid-template-rows: auto auto auto;
+    grid-gap: 1px;
+    align-items: center;
+    justify-items: end; 
+    border: 3px ridge #a1a1a1;
+    border-radius: 7px;
+    padding: 5px;
+    background: url("parchment.jpg") repeat;
+    color: black;
+}
+
+.aa-switch-container {
+    display: grid;
+    grid-template-columns: auto auto 9em 9em;
+    grid-template-rows: auto auto auto;
+    grid-gap: 1px;
+    align-items: center;
+    justify-items: end; 
+    border: 3px ridge #a1a1a1;
+    border-radius: 7px;
+    padding: 5px;
+    background: url("parchment.jpg") repeat;
+    color: black;
+}
+
+.aa-explosion-container {
+    display: grid;
+    grid-template-columns: minmax(5em, 20em) minmax(10em, 30em) 9em 9em;
+    grid-template-rows: auto auto auto auto auto auto;
+    grid-gap: 1px;
+    align-items: center;
+    justify-items: end; 
+    border: 3px ridge #a1a1a1;
+    border-radius: 7px;
+    padding: 5px;
+    background: url("parchment.jpg") repeat;
+    color: black;
 }
 
 .meleespan {

@@ -2,7 +2,7 @@ import { AUTOANIM } from "./config.js";
 import { AATabFunctions } from "../aa-classes/tab-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
-import { aaColorMenu } from "../animation-functions/databases/jb2a-menu-options.js";
+import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 export class AAItemSettings extends FormApplication {
     constructor() {
         super(...arguments);
@@ -19,7 +19,6 @@ export class AAItemSettings extends FormApplication {
             width: 700,
             height: "auto",
             closeOnSubmit: true,
-
             tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "animations" }]
         });
     }
@@ -121,7 +120,7 @@ export class AAItemSettings extends FormApplication {
                         break;
                 }
         }
-        
+        console.log(aaColorMenu)
         return {
             defaultCheck: AAITEMCHECK.default.includes(itemName) || noRepeatDelay,
             autoRepeatDelay: autoRepeatDelay,
@@ -133,6 +132,7 @@ export class AAItemSettings extends FormApplication {
             //autoPreset: autoObject.menuSection === 'preset' ? true : false,
             fireball: autoObject.animation === 'fireball' && autoObject.menuSection === 'preset' ? autoObject : false,
             colormenu: aaColorMenu,
+            variantmenu: aaVariantMenu,
             explosionMenu: AUTOANIM.localized(AUTOANIM.explosionMenu),
             autoRecognized: autoCheck,
             autoRecognizedNoOverride: autoCheck && !override,
