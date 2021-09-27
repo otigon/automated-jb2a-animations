@@ -1,4 +1,7 @@
-<div class='aa-template-container'>
+<div style='padding:3px'>
+
+</div>
+<div class='aa-item-container'>
 <!--Choose Template Type-->
 <div class="option01">
     <label>{{localize "AUTOANIM.templateType"}}</label>
@@ -27,7 +30,7 @@
     <label>{{localize "AUTOANIM.variant"}}</label>
     <select name="flags.autoanimations.templates.tempVariant">
         {{#select flags.autoanimations.templates.tempVariant}}
-        {{#each templateColors as |name key|}}
+        {{#each (lookup variantmenu.static (lookup flags.autoanimations.templates 'tempAnim')) as |name key|}}
         <option value="{{key}}">{{name}}</option>
         {{/each}}
         {{/select}}
@@ -45,7 +48,7 @@
     </select>
 </div>
 {{/unless}}
-<div class="form-group" style='grid-column: 4 / 5;grid-row: 1 / 2'>
+<div class="form-group" style='grid-column: 3 / 5;grid-row: 1 / 2'>
     <label>{{localize 'AUTOANIM.remove'}}: </label>
     <input type="checkbox" name="flags.autoanimations.templates.removeTemplate"
         value="flags.autoanimations.templates.removeTemplate" {{checked flags.autoanimations.templates.removeTemplate}}>
@@ -59,8 +62,7 @@
 {{#if flags.autoanimations.templates.customAnim}}
 <!--Custom Animation filePicker and Text field-->
 <div class="form-group" style='grid-column: 2 / 5;grid-row: 3 / 4'>
-    <label>{{localize "AUTOANIM.menuAnimName"}}</label>
-    <input type="text" class="files" name="flags.autoanimations.templates.customPath" value={{customTemplatePath}}>
+    <input style='width: 25em' type="text" class="files" name="flags.autoanimations.templates.customPath" value={{customTemplatePath}}>
     <button type="button" class="file-picker" data-type="image/video"
         data-target="flags.autoanimations.templates.customPath" tabindex="-1" title="Browse Files">
         <i class="fas fa-file-video"></i>
@@ -69,30 +71,29 @@
 {{/if}}
 {{#if makePersistent}}
 <!--Make effect a Tile on Canvas-->
-<div class="form-group">
+<div class="form-group" style='grid-column: 1 / 2;grid-row: 4 / 5;'>
     <label>{{localize "AUTOANIM.placeTile"}}</label>
     <input type="checkbox" name="flags.autoanimations.templates.persistent"
         value="flags.autoanimations.templates.persistent" {{checked flags.autoanimations.templates.persistent}}>
 </div>
-<label class="aa-hint-text">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
 {{/if}}
 {{#if persistent}}
-<div class="form-group">
+<div class="form-group" style='grid-column: 2 / 4;grid-row: 4 / 5;'>
     <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
 </div>
 <!--Set Tile Opacity-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.opacity"}}</label>
+<div class="autorec-menu-options option16">
+    <label>{{localize "AUTOANIM.opacity"}} </label>
     <input type="Number" name="flags.autoanimations.templates.opacity" min="0" max="1" step=".01"
         value={{templateOpacity}}>
 </div>
-<div class="form-group">
+<div class="form-group option17">
     <label>{{localize "AUTOANIM.overhead"}}</label>
     <input type="checkbox" name="flags.autoanimations.templates.overhead"
         value="flags.autoanimations.templates.overhead" {{checked flags.autoanimations.templates.overhead}}>
 </div>
 {{#if flags.autoanimations.templates.overhead}}
-<div class="form-group">
+<div class="form-group" style='grid-column: 2 / 4;grid-row: 5 / 6;'>
     <label>{{localize "AUTOANIM.occlusionMode"}}</label>
     <select name="flags.autoanimations.templates.occlusionMode">
         {{#select flags.autoanimations.templates.occlusionMode}}
@@ -103,7 +104,7 @@
         {{/select}}
     </select>
 </div>
-<div class="form-group">
+<div class="form-group" style='grid-column: 2 / 4;grid-row: 6 / 7;'>
     <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
     <div class="form-fields">
         <input type="range" name="flags.autoanimations.templates.occlusionAlpha" value={{occlusionAlpha}} min="0"
@@ -114,16 +115,14 @@
 {{/if}}
 {{/if}}
 {{#unless persistent}}
-<div class="flexrow">
-    <div class="aa-column">
-        <label>{{localize "AUTOANIM.loops"}}</label>
-        <input type="Number" name="flags.autoanimations.templates.tempLoop" value={{loopTemplate}} data-dtype="Number">
+    <div class="autorec-menu-options option07">
+        <label>{{localize "AUTOANIM.repeat"}} </label>
+        <input type="Number" style='width: 3em;' name="flags.autoanimations.templates.tempLoop" value={{loopTemplate}} data-dtype="Number">
     </div>
-    <div class="aa-column">
-        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.templates.loopDelay" value={{templateLoopDelay}}
+    <div class="autorec-menu-options option08">
+        <label>{{localize "AUTOANIM.delayMS"}} </label>
+        <input type="Number" style='width: 3em;' name="flags.autoanimations.templates.loopDelay" value={{templateLoopDelay}}
             data-dtype="Number">
     </div>
-</div>
 {{/unless}}
 </div>

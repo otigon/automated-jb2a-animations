@@ -17,18 +17,18 @@
                         <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
                     </div>
                 </div>
-                <div {{#if ( lookup (lookup ../settings.aaAutorec.static idx) 'hidden' ) }}
-                    style="display:none" {{/if}}>
+                <div {{#if ( lookup (lookup ../settings.aaAutorec.static idx) 'hidden' ) }} style="display:none"
+                    {{/if}}>
                     <div class="aa-container">
                         <div class="option01">
                             <label for="aaAutorec.static.{{idx}}.type">{{localize 'AUTOANIM.playOn'}}:
                                 <select name="aaAutorec.static.{{idx}}.type">
                                     {{#select (lookup (lookup ../settings.aaAutorec.static idx)
                                     'type')}}
-                                    <option value="source">Source</option>
-                                    <option value="target">Target</option>
-                                    <option value="targetDefault">Target default Self</option>
-                                    <option value="sourcetarget">Both</option>
+                                    <option value="source">{{localize "AUTOANIM.source"}}</option>
+                                    <option value="target">{{localize "AUTOANIM.target"}}</option>
+                                    <option value="targetDefault">{{localize "AUTOANIM.targetDefault"}}</option>
+                                    <option value="sourcetarget">{{localize "AUTOANIM.both"}}</option>
                                     {{/select}}
                                 </select>
                             </label>

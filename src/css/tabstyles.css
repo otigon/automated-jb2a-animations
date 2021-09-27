@@ -202,18 +202,7 @@
 .aa-item-container {
     display: grid;
     grid-template-columns: auto auto 9em 9em;
-    grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto;
-    grid-gap: 1px;
-    align-items: center;
-    justify-items: end; 
-    border: solid black;
-    padding-bottom: 5px;
-}
-
-.aa-melee-container {
-    display: grid;
-    grid-template-columns: auto auto 9em 9em;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto;
     grid-gap: 1px;
     align-items: center;
     justify-items: end; 
@@ -223,34 +212,6 @@
     background: url("parchment.jpg") repeat;
     color: black;
     text-align: center;
-}
-.aa-template-container {
-    display: grid;
-    grid-template-columns: auto auto 9em 9em;
-    grid-template-rows: auto auto auto;
-    grid-gap: 1px;
-    align-items: center;
-    justify-items: end; 
-    border: 3px ridge #a1a1a1;
-    border-radius: 7px;
-    padding: 5px;
-    background: url("parchment.jpg") repeat;
-    color: black;
-    text-align: center;
-}
-
-.aa-switch-container {
-    display: grid;
-    grid-template-columns: auto auto 9em 9em;
-    grid-template-rows: auto auto auto;
-    grid-gap: 1px;
-    align-items: center;
-    justify-items: end; 
-    border: 3px ridge #a1a1a1;
-    border-radius: 7px;
-    padding: 5px;
-    background: url("parchment.jpg") repeat;
-    color: black;
 }
 
 .aa-explosion-container {
@@ -317,7 +278,7 @@ text-align: center;
     background: rgba(189, 189, 189, 0.4);
 }
 
-.aa-melee-container select {
+.aa-item-container select {
 text-align:center;
 }
 

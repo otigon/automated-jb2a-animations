@@ -133,6 +133,12 @@ export class AAItemSettings extends FormApplication {
             fireball: autoObject.animation === 'fireball' && autoObject.menuSection === 'preset' ? autoObject : false,
             colormenu: aaColorMenu,
             variantmenu: aaVariantMenu,
+            rangeList: patreon ? AUTOANIM.localized(AUTOANIM.animNameRangeWeapon) : AUTOANIM.localized(AUTOANIM.animNameRangeWeaponFree),
+            spellList: AUTOANIM.localized(AUTOANIM.animNameAttackSpell),
+            onTokenList: AUTOANIM.localized(AUTOANIM.autoself),
+            meleeWeapons: AUTOANIM.localized(AUTOANIM.meleeWeapons),
+            genericDmg: AUTOANIM.localized(AUTOANIM.genericDmg),
+
             explosionMenu: AUTOANIM.localized(AUTOANIM.explosionMenu),
             autoRecognized: autoCheck,
             autoRecognizedNoOverride: autoCheck && !override,
@@ -285,7 +291,7 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.animation-not-disabled select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
+            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render());
         });
         html.find('.animation-not-disabled input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());

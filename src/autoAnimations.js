@@ -61,6 +61,7 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-auras.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-presets.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-autoOverride.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html',
     ]);
 
     if (game.modules.get("midi-qol")?.active) {

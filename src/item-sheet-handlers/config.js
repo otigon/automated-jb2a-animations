@@ -60,6 +60,16 @@ AUTOANIM.meleeWeapons = {
     "unarmedstrike": "AUTOANIM.itemUnarmedStrike",
 };
 
+AUTOANIM.genericDmg = {
+    "a1": ``,
+    "1hs": "AUTOANIM.item1HS",
+    "1hp": "AUTOANIM.item1HP",
+    "1hb": "AUTOANIM.item1HB",
+    "2hs": "AUTOANIM.item2HS",
+    "2hp": "AUTOANIM.item2HP",
+    "2hb": "AUTOANIM.item2HB",
+};
+
 AUTOANIM.animNameRangeWeapon = {
     "a1": ``,
     "arrow": "AUTOANIM.itemArrow",

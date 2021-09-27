@@ -434,6 +434,9 @@
     "AUTOANIM.wait": "Wait",
 
     "AUTOANIM.disable": "Disable Animation",
-    "AUTOANIM.playBelow": "Play Below Token"
+    "AUTOANIM.playBelow": "Play Below Token",
+    "AUTOANIM.both": "Both",
+    "AUTOANIM.targetDefault": "Target default Self",
+    "AUTOANIM.generic": "Generic"
 
 }
