@@ -13,6 +13,7 @@
 
 .aa-video-previews {
     border: 3px inset #a1a1a1;
+    border-radius: 30px;
     padding: 5px;
     margin-bottom: 5px;
     width: 345px;
@@ -41,6 +42,7 @@
     line-height: 12px;
     margin: 0;
     border: 3px ridge #a1a1a1;
+    border-radius: 6px;
     padding: 3px;
     padding-top: 5px;
     padding-bottom: 5px;
