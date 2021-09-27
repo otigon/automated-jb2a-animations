@@ -1,68 +1,76 @@
-<!--Disable Animaton Button-->
-<div class="kill-animation">
-    <div class="form-group">
-        <label>{{localize "AUTOANIM.menuKillAnim"}}</label>
-        <input type="checkbox" name="flags.autoanimations.killAnim" value="flags.autoanimations.killAnim"
-            data-dtype="{{Boolean}}" {{checked flags.autoanimations.killAnim}} />
+<div class='aa-default-container'>
+    <!--Disable Animaton Button-->
+    <div class="kill-animation" style='grid-column: 1 / 2;grid-row: 1 / 2;'>
+        <div class="form-group">
+            <label style='text-align: left;'><strong>{{localize "AUTOANIM.disable"}}</strong></label>
+            <div class="aa-divider"></div>
+            <input type="checkbox" name="flags.autoanimations.killAnim" value="flags.autoanimations.killAnim"
+                data-dtype="{{Boolean}}" {{checked flags.autoanimations.killAnim}} />
+        </div>
+    </div>
+    <div class='animation-not-disabled'>
+        {{#unless flags.autoanimations.killAnim}}
+        {{#unless autoRecognizedNoOverride}}
+        <!--Play Animations Below Tokens Button-->
+        <div class="form-group" style='grid-column: 1 / 2;grid-row: 2 / 3;'>
+            <label style='text-align: left;'><strong>{{localize "AUTOANIM.playBelow"}}</strong></label>
+            <div class="aa-divider"></div>
+            <input type="checkbox" name="flags.autoanimations.animLevel" value="flags.autoanimations.animLevel"
+                data-dtype="{{Boolean}}" {{checked flags.autoanimations.animLevel}} />
+        </div>
+        {{/unless}}
+        {{#if ammo5e}}
+        <div class='form-group' style='grid-column: 1 / 2;grid-row: 3 / 4;'>
+            <label style='text-align: left;'><strong>{{localize "AUTOANIM.ammoAnimate"}}</strong></label>
+            <div class="aa-divider"></div>
+            <input type="checkbox" name="flags.autoanimations.options.ammo" value="flags.autoanimations.options.ammo"
+                data-dtype="{{Boolean}}" {{checked flags.autoanimations.options.ammo}} />
+        </div>
+        {{/if}}
+        <div class="form-group" style='grid-column: 1 / 2;grid-row: 4 / 5;'>
+            <label style='text-align: left;'><strong>{{localize "AUTOANIM.customize"}} {{localize "AUTOANIM.animation"}}</strong></label>
+            <div class="aa-divider"></div>
+            <input type="checkbox" name="flags.autoanimations.override" value="flags.autoanimations.override"
+                data-dtype="{{Boolean}}" {{checked flags.autoanimations.override}} />
+        </div>
+        {{#unless flags.autoanimations.override}}
+        {{#if autoRecognized}}
+        <!--If auto-recognized, Animation name will be listed here-->
+        <div class="form-group" style='grid-column: 1 / 2;grid-row: 5 / 6;'>
+            <label class="auto-recognized"><strong>{{OldName}}</strong> is configured in the Global
+                Settings</label>
+        </div>
+        <div class="form-group" style='grid-column: 1 / 2;grid-row: 6 / 7;'>
+            <label style='text-align: left;'><strong>Override Automatic Settings</strong></label>
+            <div class="aa-divider"></div>
+            <input type="checkbox" name="flags.autoanimations.options.overrideAuto"
+                value="flags.autoanimations.options.overrideAuto" {{checked flags.autoanimations.options.overrideAuto}}>
+        </div>
+
+        {{#if flags.autoanimations.options.overrideAuto}}
+        {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+        '/item-autoOverride.html')}}
+        {{/undefined}}
+        {{/if}}
+        {{/if}}
+        {{/unless}}
+
+        {{#if flags.autoanimations.override}}
+        <!--Choose the Animation Type-->
+        <div class="form-group" style='grid-column: 1 / 2;grid-row: 7 / 8;'>
+            <label style='text-align: left;'><strong>{{localize "AUTOANIM.menuAnimType"}}</strong></label>
+            <select style='text-align: center;' name="flags.autoanimations.animType">
+                {{#select flags.autoanimations.animType}}
+                {{#each animationType as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        {{/if}}
     </div>
 </div>
-<div class='animation-not-disabled'>
-    {{#unless flags.autoanimations.killAnim}}
-    {{#unless autoRecognizedNoOverride}}
-    <!--Play Animations Below Tokens Button-->
-    <div class="form-group">
-        <label>{{localize "AUTOANIM.underToken"}}</label>
-        <input type="checkbox" name="flags.autoanimations.animLevel" value="flags.autoanimations.animLevel"
-            data-dtype="{{Boolean}}" {{checked flags.autoanimations.animLevel}} />
-    </div>
-    {{/unless}}
-    {{#if ammo5e}}
-    <div class='form-group'>
-        <label>{{localize "AUTOANIM.ammoAnimate"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.ammo" value="flags.autoanimations.options.ammo"
-            data-dtype="{{Boolean}}" {{checked flags.autoanimations.options.ammo}} />
-    </div>
-    {{/if}}
-    <div class="form-group">
-        <label>{{localize "AUTOANIM.customize"}} {{localize "AUTOANIM.animation"}}</label>
-        <input type="checkbox" name="flags.autoanimations.override" value="flags.autoanimations.override"
-            data-dtype="{{Boolean}}" {{checked flags.autoanimations.override}} />
-    </div>
-    {{#unless flags.autoanimations.override}}
-    {{#if autoRecognized}}
-    <!--If auto-recognized, Animation name will be listed here-->
-    <div class="form-group">
-        <label class="auto-recognized"><strong>{{OldName}}</strong> is configured in the Global
-            Settings</label>
-    </div>
-    <div class="form-group">
-        <label>Override Automatic Settings</label>
-        <input type="checkbox" name="flags.autoanimations.options.overrideAuto"
-            value="flags.autoanimations.options.overrideAuto" {{checked flags.autoanimations.options.overrideAuto}}>
-    </div>
 
-    {{#if flags.autoanimations.options.overrideAuto}}
-    {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
-    '/item-autoOverride.html')}}
-    {{/undefined}}
-    {{/if}}
-    {{/if}}
-    {{/unless}}
-
-    {{#if flags.autoanimations.override}}
-    <!--Choose the Animation Type-->
-    <div class="form-group">
-        <label>{{localize "AUTOANIM.menuAnimType"}}</label>
-        <select name="flags.autoanimations.animType">
-            {{#select flags.autoanimations.animType}}
-            {{#each animationType as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    {{/if}}
-</div>
 <div class='animation-not-disabled'>
     {{#if t2t3}}
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-melee.html')}}

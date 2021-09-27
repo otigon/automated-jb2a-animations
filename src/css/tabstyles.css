@@ -222,6 +222,21 @@
     padding: 5px;
     background: url("parchment.jpg") repeat;
     color: black;
+    text-align: center;
+}
+.aa-template-container {
+    display: grid;
+    grid-template-columns: auto auto 9em 9em;
+    grid-template-rows: auto auto auto;
+    grid-gap: 1px;
+    align-items: center;
+    justify-items: end; 
+    border: 3px ridge #a1a1a1;
+    border-radius: 7px;
+    padding: 5px;
+    background: url("parchment.jpg") repeat;
+    color: black;
+    text-align: center;
 }
 
 .aa-switch-container {
@@ -252,6 +267,25 @@
     color: black;
 }
 
+.aa-default-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-gap: 1px;
+    align-items: center;
+    border: 3px ridge #a1a1a1;
+    border-radius: 7px;
+    padding: 5px;
+    background: url("parchment.jpg") repeat;
+    color: black;
+}
+
+.aa-divider {
+    flex-grow: 1;
+    border-bottom: 2px inset rgb(85, 84, 84);
+    margin: 3px
+}
+
 .meleespan {
     grid-column: 1 / 3; 
     grid-row: 1 / 2;
@@ -260,6 +294,36 @@
 .pickerspan {
     grid-column: 2 / 5; 
     grid-row: 3 / 4;
+}
+#AA-item-settings .form-group label{
+color: black;
+background:none;
+border: none;
+}
+
+#AA-item-settings .form-group select{
+height: 27px;
+background: rgba(0, 0, 0, 0.05);
+border: 1px solid #7a7971;
+border-radius: 3px;
+padding: 0 3px;
+text-overflow: ellipsis;
+box-shadow: none;
+color: black;
+text-align: center;
+}
+
+#AA-item-settings select option {
+    background: rgba(189, 189, 189, 0.4);
+}
+
+.aa-melee-container select {
+text-align:center;
+}
+
+#AA-item-settings .form-group input[type="checkbox"] {
+width: 20px;
+height: 20px;
 }
 
 .span1920 {

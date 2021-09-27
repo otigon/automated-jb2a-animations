@@ -431,6 +431,9 @@
     "AUTOANIM.fireball": "Fireball",
     "AUTOANIM.projectile": "Projectile",
     "AUTOANIM.addAfterImage": "Add After Image",
-    "AUTOANIM.wait": "Wait"
+    "AUTOANIM.wait": "Wait",
+
+    "AUTOANIM.disable": "Disable Animation",
+    "AUTOANIM.playBelow": "Play Below Token"
 
 }
