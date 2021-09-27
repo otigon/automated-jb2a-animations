@@ -34,8 +34,7 @@ async function huntersMark(handler) {
     const persist = handler.flags?.ctaOption;
 
     const playPersist = !checkAnim && persist ? true : false;
-
-    new Sequence("Automated Animations")
+    await new Sequence("Automated Animations")
         .effect()
             .file(hmPulse)
             .atLocation(myToken)
@@ -59,7 +58,7 @@ async function huntersMark(handler) {
             .loopProperty("sprite", "scale.y", { from: (finalScale * 0.4), to: finalScale, duration: 4000, pingPong: true })
             .loopProperty("sprite", "alpha", { from: 0.25, to: 1, duration: 4000, pingPong: true })
         .play()
-
+        //AAanimationData.removePersistentEffect(target, "huntersmark", canvas.scene.id)
 }
 
 export default huntersMark;

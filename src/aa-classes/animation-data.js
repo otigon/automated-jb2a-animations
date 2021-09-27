@@ -213,4 +213,27 @@ export class AAanimationData {
     static async _variant(handler) {
         
     }
+
+    static removePersistentEffect(token, effectName, sceneID) {
+        let clsd = false;
+        const tokenName = token.name;
+        let d = new Dialog({
+            title: tokenName,
+            buttons: {
+                yes: {
+                    label: "Remove " + effectName,
+                    callback: (html) => { clsd = true }
+                },
+            },
+            default: 'yes',
+            close: () => {
+                if (clsd === false) console.log('This was closed without using a button');
+                if (clsd === true) Sequencer.EffectManager.endEffects({ object: token, name: effectName, sceneId: sceneID });
+            }
+        },
+            { width: 100, height: 75 }
+        );
+        d.options.resizable = true;
+        d.render(true)
+    }
 }
