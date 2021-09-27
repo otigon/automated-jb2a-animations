@@ -213,22 +213,4 @@ export class AAanimationData {
     static async _variant(handler) {
         
     }
-
-    static _checkForPersistent(token) {
-        const effectArray = token.data?.flags?.sequencer?.effects
-        if (!effectArray) { return false };
-        const length = effectArray.length;
-        for (var i = 0; i < length; i++) {
-            let currentArray = effectArray[i];
-            let lengthA = currentArray.length;
-            for (var k = 0; k < lengthA; k++) {
-                let currentName = currentArray[k].name
-                if (!currentName) { }
-                else if (currentName.includes("huntersmark")) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }
