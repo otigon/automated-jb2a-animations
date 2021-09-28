@@ -177,11 +177,6 @@ export async function templateAnimation(handler, autoObject) {
                     img: tempAnimation.fileData,
                     // false sets it in canvas.background. true sets it to canvas.foreground
                     overhead: false,
-                    video: {
-                        autoplay: true,
-                        loop: true,
-                        volume: 0,
-                    },
                     x: tileX,
                     y: tileY,
                     z: 100,

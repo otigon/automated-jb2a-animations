@@ -540,7 +540,7 @@ async function pf2eReady(msg) {
     const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
     const damage = /*handler.item.damageValue || */handler.item?.damage?.length;
-    console.log(damage)
+    //console.log(damage)
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
     if (t8Template) {

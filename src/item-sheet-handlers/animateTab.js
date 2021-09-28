@@ -120,7 +120,7 @@ export class AAItemSettings extends FormApplication {
                         break;
                 }
         }
-        console.log(aaColorMenu)
+
         return {
             defaultCheck: AAITEMCHECK.default.includes(itemName) || noRepeatDelay,
             autoRepeatDelay: autoRepeatDelay,
