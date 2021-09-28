@@ -573,6 +573,9 @@ async function pf2eReady(msg) {
                     if (msg.data.flavor?.toLowerCase().includes('healing')) {
                         trafficCop(handler);
                     }
+                    if (handler.item.data?.data?.category?.value === "focus") {
+                        trafficCop(handler);
+                    }
                     break;
                 case "attack":
                     switch (playOnDmg) {
