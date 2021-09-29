@@ -138,7 +138,7 @@ export class AAanimationData {
             color: source.color,
             variant: source.variant,
         }
-        if (!sourceFX.animation || sourceFX.animation === "a1") {
+        if ((!sourceFX.animation || sourceFX.animation === "a1") && sourceFX.enabled) {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || TokenFX Source Animation is enabled on this item but NO Animation is chosen!");
         }
@@ -174,7 +174,7 @@ export class AAanimationData {
             color: target.color,
             variant: target.variant,
         }
-        if (!targetFX.animation || targetFX.animation === "a1") {
+        if ((!targetFX.animation || targetFX.animation === "a1")  && targetFX.enabled) {
             targetFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || TokenFX Target Animation is enabled on this item but NO Animation is chosen!");
         }
