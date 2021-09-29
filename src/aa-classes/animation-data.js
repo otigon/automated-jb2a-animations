@@ -51,6 +51,7 @@ export class AAanimationData {
             data.color = handler.color;
             data.repeat = handler.animationLoops;
             data.delay = handler.loopDelay;
+            data.below = handler.animLevel;
         }
         return data;
     }
@@ -73,7 +74,8 @@ export class AAanimationData {
             data.detect = handler.switchDetect;
             data.repeat = handler.animationLoops;
             data.delay = handler.loopDelay;
-            data.return = handler.switchReturn
+            data.return = handler.switchReturn;
+            data.below = handler.animLevel;
             data.switchVariant = data.switchAnimation === "lasersword" || data.switchAnimation === "dagger" || data.switchAnimation === "handaxe" ? handler.switchVariant : handler.switchDmgType;
         }
         return data;
