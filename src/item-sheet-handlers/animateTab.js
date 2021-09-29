@@ -302,6 +302,15 @@ export class AAItemSettings extends FormApplication {
         html.find('.animation-not-disabled input[type="color"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        html.find('.pre-post-animations select').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render());
+        });
+        html.find('.pre-post-animations input[type="Number"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.pre-post-animations input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
         html.find('.files').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });

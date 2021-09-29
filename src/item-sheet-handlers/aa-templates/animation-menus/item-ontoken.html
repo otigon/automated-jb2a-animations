@@ -1,10 +1,10 @@
 <div style='padding:3px'>
 
 </div>
-<div class='flexrow' style='text-align: center;text-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen'>
+<div class='flexrow text-green'>
     <label><strong>{{localize "AUTOANIM.animation"}}</strong></label>
 </div>
-<div class='aa-item-container' style='box-shadow: 0 0 5px green'>
+<div class='aa-item-container primary-animation'>
     {{#unless flags.autoanimations.options.enableCustom01}}
     <div class="option01">
         <label>{{localize 'AUTOANIM.playOn'}}:
@@ -78,7 +78,7 @@
         <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
     </div>
     <!--Add Custom Animation-->
-    <div class="form-group" style='grid-column: 1 / 2;grid-row: 3 / 4;'>
+    <div class="form-group option09">
         <label>{{localize "AUTOANIM.customAnim"}}</label>
         <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
             value="flags.autoanimations.options.enableCustom01" {{checked flags.autoanimations.options.enableCustom01}}>

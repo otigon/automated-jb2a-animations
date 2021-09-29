@@ -1,10 +1,10 @@
 <div style='padding:3px'>
 
 </div>
-<div class='flexrow' style='text-align: center;text-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen'>
+<div class='flexrow text-green'>
     <label><strong>{{localize "AUTOANIM.animation"}}</strong></label>
 </div>
-<div class='aa-item-container' style='box-shadow: 0 0 5px green'>
+<div class='aa-item-container primary-animation'>
     <div class="option01">
         <label>{{localize 'AUTOANIM.type'}}:
             <select name="flags.autoanimations.options.rangeType">
@@ -71,7 +71,7 @@
         </select>
     </div>
     {{/ifEquals}}-->
-    <div syle="grid-column: 1 / 2; grid-row: 2 / 3">
+    <div class='option03'>
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.options.variant">
             {{#select flags.autoanimations.options.variant}}
@@ -82,7 +82,7 @@
         </select>
     </div>
     <!--Choose Standard Animation Color-->
-    <div style='grid-column: 2 / 3;grid-row: 2 / 3;'>
+    <div class='option04'>
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
@@ -92,11 +92,11 @@
             {{/select}}
         </select>
     </div>
-    <div class="autorec-menu-options" style='grid-column: 3 / 4;grid-row: 1 / 2;'>
+    <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.repeat"}}</label>
         <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}} data-dtype="Number">
     </div>
-    <div class="autorec-menu-options" style='grid-column: 4 / 5;grid-row: 1 / 2;'>
+    <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.delayMS"}}</label>
         <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
             data-dtype="Number">

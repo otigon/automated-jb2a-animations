@@ -437,6 +437,8 @@
     "AUTOANIM.playBelow": "Play Below Token",
     "AUTOANIM.both": "Both",
     "AUTOANIM.targetDefault": "Target default Self",
-    "AUTOANIM.generic": "Generic"
+    "AUTOANIM.generic": "Generic",
+    "AUTOANIM.addExplosion": "Add Explosion",
+    "AUTOANIM.endEffect": "End Effect"
 
 }

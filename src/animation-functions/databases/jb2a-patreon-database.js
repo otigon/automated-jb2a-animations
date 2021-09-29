@@ -2282,7 +2282,7 @@ JB2APATREONDB.static = {
         }
     },
     divinesmite: {
-        'caster': {
+        'source': {
             yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
             greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm`],
             purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm`],

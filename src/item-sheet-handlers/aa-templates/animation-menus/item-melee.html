@@ -1,10 +1,10 @@
 <div style='padding:3px'>
 
 </div>
-<div class='flexrow' style='text-align: center;text-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen'>
+<div class='flexrow text-green'>
     <label><strong>{{localize "AUTOANIM.animation"}}</strong></label>
 </div>
-<div class='aa-item-container' style='box-shadow: 0 0 5px green'>
+<div class='aa-item-container primary-animation'>
     {{#unless flags.autoanimations.options.enableCustom01}}
     <div class="option01">
         <label>{{localize 'AUTOANIM.type'}}:
@@ -36,7 +36,7 @@
         </select>
     </div>
     <!--Choose Unarmed Strike Type (Magical or Physical)-->
-    <div style='grid-column: 1 / 2;grid-row: 2 / 3'>
+    <div class='option03'>
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.uaStrikeType">
             {{#select flags.autoanimations.uaStrikeType}}
@@ -46,7 +46,7 @@
             {{/select}}
         </select>
     </div>
-    <div style='grid-column: 2 / 3;grid-row: 2 / 3'>
+    <div class='option04'>
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
@@ -58,54 +58,49 @@
         </select>
     </div>
     {{/unless}}
-    <div style='grid-column: 3 / 4;grid-row: 1 / 2'>
-        <div class="autorec-menu-options">
-            <label>{{localize "AUTOANIM.repeat"}}</label>
-            <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}} data-dtype="Number">
-        </div>
+    <div class="autorec-menu-options option05">
+        <label>{{localize "AUTOANIM.repeat"}}</label>
+        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}} data-dtype="Number">
     </div>
-    <div style='grid-column: 4 / 5;grid-row: 1 / 2;'>
-        <div class="autorec-menu-options">
-            <label>{{localize "AUTOANIM.delayMS"}}</label>
-            <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
-                data-dtype="Number">
-        </div>
+    <div class="autorec-menu-options option06">
+        <label>{{localize "AUTOANIM.delayMS"}}</label>
+        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+            data-dtype="Number">
     </div>
-    <div style='grid-column: 3 / 5;grid-row: 2 / 3;'>
-        <div class="autorec-menu-options">
-            <label>{{localize "AUTOANIM.scale"}}</label>
-            <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
-        </div>
+    <div class="autorec-menu-options" style='grid-column: 3 / 5;grid-row: 2 / 3;'>
+        <label>{{localize "AUTOANIM.scale"}}</label>
+        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
     </div>
     <!--Add Custom Animation-->
-    <div style='grid-column: 1 / 2;grid-row: 3 / 4;'>
-        <div class='form-group'>
-            <label>{{localize "AUTOANIM.custom"}}: </label>
-            <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
-                value="flags.autoanimations.options.enableCustom01" {{checked
-                flags.autoanimations.options.enableCustom01}}>
-        </div>
+    <div class='form-group option09'>
+        <label>{{localize "AUTOANIM.custom"}}: </label>
+        <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
+            value="flags.autoanimations.options.enableCustom01" {{checked flags.autoanimations.options.enableCustom01}}>
     </div>
     {{#if flags.autoanimations.options.enableCustom01}}
-    <div style='grid-column: 2 / 5;grid-row: 3 / 4'>
-        <div class='form-group'>
-            <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath01"
-                value={{customPath01}}>
-            <button type="button" class="file-picker" data-type="image/video"
-                data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
-                <i class="fas fa-file-video"></i>
-            </button>
-        </div>
+    <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath01"
+            value={{customPath01}}>
+        <button type="button" class="file-picker" data-type="image/video"
+            data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
+            <i class="fas fa-file-video"></i>
+        </button>
     </div>
     {{/if}}
 </div>
 <div style='padding:3px'>
 
 </div>
-<div class='flexrow' {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'on' }} style='text-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;text-align: center;' {{/ifEquals}} {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'off' }} style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered;text-align: center;' {{/ifEquals}} {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'custom' }} style='text-shadow: 0 0 5px orange;text-align: center;' {{/ifEquals}}>
+<div class='flexrow  text-green' 
+    {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'off' }}
+    style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered;text-align: center;' {{/ifEquals}}
+    {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'custom' }}
+    style='text-shadow: 0 0 5px orange;text-align: center;' {{/ifEquals}}>
     <label><strong>RANGE ANIMATION SWITCH</strong></label>
 </div>
-<div class='aa-item-container' {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'on' }} style='box-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;' {{/ifEquals}} {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'off' }} style='box-shadow: 0 0 5px red;' {{/ifEquals}} {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'custom' }} style='box-shadow: 0 0 5px orange;' {{/ifEquals}}>
+<div class='aa-item-container switch-animation' {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'off' }}
+    style='box-shadow: 0 0 5px red;' {{/ifEquals}} {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'custom' }}
+    style='box-shadow: 0 0 5px orange;' {{/ifEquals}}>
     <!--<div class="aa-ridged" style='grid-column: 1 / 5;grid-row: 4 / 7;'>-->
     <div style='grid-column: 1 / 2;grid-row: 1 / 2; padding-top: 5px;padding-bottom: 4px;justify-self: left;'>
         <label>Range Switch</label>
