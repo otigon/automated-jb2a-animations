@@ -25,7 +25,7 @@
     <!--Adjust the delay for explosion effect-->
     <div class='option05'>
         <label>{{localize "AUTOANIM.delayMS"}}
-            <input style='width: 3em;' type="Number" name="flags.autoanimations.explodeDelay" value={{explosionDelay}}
+            <input style='width: 3em;' type="Number" name="flags.autoanimations.explodeDelay" value="{{lookup flags.autoanimations 'explodeDelay'}}"
                 data-dtype="Number">
         </label>
     </div>
@@ -44,8 +44,8 @@
     <!--Choose Explosion Variant-->
     <div class='option03'>
         <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.options.variant">
-            {{#select flags.autoanimations.options.variant}}
+        <select name="flags.autoanimations.options.explosionVariant">
+            {{#select flags.autoanimations.options.explosionVariant}}
             {{#each (lookup variantmenu.static (lookup flags.autoanimations 'explodeVariant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
@@ -58,7 +58,7 @@
         <select name="flags.autoanimations.explodeColor">
             {{#select flags.autoanimations.explodeColor}}
             {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations 'explodeVariant')) (lookup
-            flags.autoanimations.options 'variant')) as |name key|}}
+            flags.autoanimations.options 'explosionVariant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -74,7 +74,7 @@
     {{#if flags.autoanimations.options.enableCustomExplosion}}
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
         <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customExplosion"
-            value={{customExplosion}}>
+            value="{{lookup flags.autoanimations.options 'customExplosion'}}">
         <button type="button" class="file-picker" data-type="image/video"
             data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
             <i class="fas fa-file-video"></i>
@@ -92,7 +92,7 @@
     <!--Explosion Audio filePicker and Text Input-->
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
         <input style='width: 25em' type="text" class="files" name="flags.autoanimations.allSounds.explosion.file"
-            value={{explosionAudioFile}}>
+            value="{{lookup flags.autoanimations.allSounds.explosion 'file'}}">
         <button type="button" class="file-picker" data-type="audio"
             data-target="flags.autoanimations.allSounds.explosion.file" tabindex="-1" title="Browse Files">
             <i class="fas fa-music"></i>

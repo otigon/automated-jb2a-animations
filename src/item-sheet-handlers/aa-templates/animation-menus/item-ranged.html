@@ -86,7 +86,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
-            {{#each rangeColors as |name key|}}
+            {{#each (lookup (lookup colormenu.range (lookup flags.autoanimations 'animName'))(lookup flags.autoanimations.options 'variant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}

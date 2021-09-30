@@ -205,7 +205,7 @@
                             </select>
                         </div>
                         <div class="span0708">
-                            <label>End Effect: </label>
+                            <label>{{localize "AUTOANIM.endEffect"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.endeffect" style="min-width: 15em;">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'endeffect')}}
                                 <option value="outro_explode">{{localize "AUTOANIM.explode"}}</option>
@@ -405,7 +405,7 @@
                         </div>
                         <div class='option08'>
                             <div class="autorec-menu-options">
-                                <label>Wait
+                                <label>{{localize "AUTOANIM.wait"}}
                                     <input type="Number" name="aaAutorec.preset.{{idx}}.wait01"
                                         value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'wait01'}}"
                                         data-dtype="Number">
@@ -466,7 +466,7 @@
                             </select>
                         </div>
                         <div class="autorec-menu-options" style='grid-column: 4 / 5; grid-row: 4 / 5;'>
-                            <label>Wait
+                            <label>{{localize "AUTOANIM.wait"}}
                                 <input type="Number" name="aaAutorec.preset.{{idx}}.wait02"
                                     value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'wait02'}}"
                                     data-dtype="Number">
@@ -563,7 +563,7 @@
                         </div>
                         {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'afterEffect')}}
                         <div class="autorec-menu-options" style='grid-column: 2 / 3; grid-row: 8 / 9;'>
-                            <label>Wait
+                            <label>{{localize "AUTOANIM.wait"}}
                                 <input type="Number" name="aaAutorec.preset.{{idx}}.wait03"
                                     value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'wait03'}}"
                                     data-dtype="Number">

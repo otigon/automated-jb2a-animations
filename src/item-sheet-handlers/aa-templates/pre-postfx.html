@@ -84,7 +84,7 @@
         {{#if flags.autoanimations.sourceToken.enableCustom}}
         <div class="form-group" style="grid-column: 2 / 5;">
             <input style='width: 25em' type="text" class="files" name="flags.autoanimations.sourceToken.customPath"
-                value={{sourceCustom}}>
+                value="{{lookup flags.autoanimations.sourceToken 'customPath'}}">
             <button type="button" class="file-picker" data-type="image/video"
                 data-target="flags.autoanimations.sourceToken.customPath" tabindex="-1" title="Browse Files">
                 <i class="fas fa-file-video"></i>
@@ -206,7 +206,7 @@
         {{#if flags.autoanimations.targetToken.enableCustom}}
         <div class="form-group" style="grid-column: 2 / 5;">
             <input style='width: 25em' type="text" class="files" name="flags.autoanimations.targetToken.customPath"
-                value={{targetCustom}}>
+                value="{{lookup flags.autoanimations.targetToken 'customPath'}}">
             <button type="button" class="file-picker" data-type="image/video"
                 data-target="flags.autoanimations.targetToken.customPath" tabindex="-1" title="Browse Files">
                 <i class="fas fa-file-video"></i>

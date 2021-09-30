@@ -36,10 +36,11 @@
         </select>
     </div>
     <!--Choose Unarmed Strike Type (Magical or Physical)-->
+    <!--CHANGED uaStrikeType TO options.variant-->
     <div class='option03'>
         <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.uaStrikeType">
-            {{#select flags.autoanimations.uaStrikeType}}
+        <select name="flags.autoanimations.options.variant">
+            {{#select flags.autoanimations.options.variant}}
             {{#each (lookup variantmenu.melee (lookup flags.autoanimations 'animName')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
@@ -51,7 +52,7 @@
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
             {{#each (lookup (lookup colormenu.melee (lookup flags.autoanimations 'animName')) (lookup
-            flags.autoanimations 'uaStrikeType')) as |name key|}}
+            flags.autoanimations.options 'variant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -80,7 +81,7 @@
     {{#if flags.autoanimations.options.enableCustom01}}
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
         <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath01"
-            value={{customPath01}}>
+            value="{{lookup flags.autoanimations.options 'customPath01'}}">
         <button type="button" class="file-picker" data-type="image/video"
             data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
             <i class="fas fa-file-video"></i>

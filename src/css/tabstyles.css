@@ -62,11 +62,15 @@
 .auto-recognized {
     font-size: 15px;
     text-align: center;
-    border: 3px ridge #a1a1a1;
+    border: 2px ridge #a1a1a1;
+    border-radius: 6px;
     padding: 5px;
     padding-top: 4px;
     padding-bottom: 4px;
-    background-color: rgb(206, 206, 206)
+    animation: backFade 5s infinite;
+}
+@keyframes backFade {
+    50% {background-color: rgb(158, 158, 158)}
 }
 
 .AA-flow-chart-Source {
@@ -287,6 +291,18 @@ text-align:center;
 #AA-item-settings .form-group input[type="checkbox"] {
 width: 20px;
 height: 20px;
+}
+
+#AA-item-settings .window-content {
+    background: url("parchment.jpg") repeat;
+    color: #191813;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .primary-animation {

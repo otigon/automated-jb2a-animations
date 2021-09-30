@@ -14,6 +14,7 @@ export class AAItemSettings extends FormApplication {
         return mergeObject(super.defaultOptions, {
             template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/item-central.html',
             id: 'AA-item-settings',
+            class:'AA-item-app',
             title: game.i18n.localize("AUTOANIM.tabTitle"),
             resizable: true,
             width: 700,
@@ -131,6 +132,7 @@ export class AAItemSettings extends FormApplication {
 
             //autoPreset: autoObject.menuSection === 'preset' ? true : false,
             fireball: autoObject.animation === 'fireball' && autoObject.menuSection === 'preset' ? autoObject : false,
+            autoObject: autoObject,
             colormenu: aaColorMenu,
             variantmenu: aaVariantMenu,
             rangeList: patreon ? AUTOANIM.localized(AUTOANIM.animNameRangeWeapon) : AUTOANIM.localized(AUTOANIM.animNameRangeWeaponFree),
@@ -172,7 +174,7 @@ export class AAItemSettings extends FormApplication {
             thrownVariantShow: (itemName.includes("lasersword") || itemName.includes("dagger") || itemName.includes("handaxe")) || itemName.includes("chakram") && (animType === "t2" || animType === "t4") && override ? true : false,
 
             explosionVariants: animType === "t10" ? AUTOANIM.localized(AUTOANIM.selfemanation) : AUTOANIM.localized(AUTOANIM.explodeVariant),
-            explosionRadius: flags.autoanimations?.explodeRadius ?? 5,
+            explosionRadius: flags.autoanimations?.explodeRadius ?? 2,
             explosionLoops: explosionLoops || 1,
             explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
 
@@ -180,8 +182,8 @@ export class AAItemSettings extends FormApplication {
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
             volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
 
-            auraRadius: flags.autoanimations?.selfRadius || 5,
-            hexColour: flags.autoanimations?.animTint || `#FFFFFF`,
+            auraRadius: flags.autoanimations?.selfRadius || 3.5,
+            //hexColour: flags.autoanimations?.animTint || `#FFFFFF`,
             opacity: flags.autoanimations?.auraOpacity || ".75",
 
             teleRange: flags.autoanimations?.teleDist || "30",
@@ -277,6 +279,11 @@ export class AAItemSettings extends FormApplication {
             autoRepeat: flags.autoanimations?.options?.autoRepeat || 1,
             autoDelay: flags.autoanimations?.options?.autoDelay || 500,
             autoScale: flags.autoanimations?.options?.autoScale || 1,
+            autoOpacity: flags.autoanimations?.options?.autoOpacity || 0.75,
+            autoRadius: flags.autoanimations?.options?.autoRadius || 3.5,
+            autoAnchorX: flags.autoanimations?.options?.autoAnchorX || 0.5,
+            autoAnchorY: flags.autoanimations?.options?.autoAnchory || 0.5,
+            autoRange: flags.autoanimations?.options?.autoRange || 30,
 
             ammo5e: game.system.id === "dnd5e" ? true : false,
             variantOption: explosionVariant === "tollthedead" ? true : false
