@@ -431,6 +431,17 @@
     "AUTOANIM.fireball": "Fireball",
     "AUTOANIM.projectile": "Projectile",
     "AUTOANIM.addAfterImage": "Add After Image",
-    "AUTOANIM.wait": "Wait"
+
+    "AUTOANIM.wait": "Wait",
+    "AUTOANIM.falchion": "Falchion",
+    "AUTOANIM.glaive": "Glaive",
+    "AUTOANIM.vortex": "Vortex",
+    "AUTOANIM.whirl": "Whirl",
+    "AUTOANIM.energystrands": "Energy Strands",
+    "AUTOANIM.loop": "Loop",
+    "AUTOANIM.intro": "Intro",
+    "AUTOANIM.outro": "Outro",
+    "AUTOANIM.scimitar": "Scimitar",
+    "AUTOANIM.shortsword": "Shortsword"
 
 }

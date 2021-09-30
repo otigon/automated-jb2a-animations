@@ -289,6 +289,18 @@ JB2AFREEDB.melee = {
             white: [lg`Weapon_Attacks/Melee/Dagger02_01_Regular_White_800x600.webm`]
         }
     },
+    falchion: {
+        '01': {
+            white: [
+                lg`Weapon_Attacks/Melee/Falchion01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Falchion01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Falchion01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Falchion01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Falchion01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Falchion01_06_Regular_White_800x600.webm`
+            ]
+        }
+    },
     flurryofblows: {
         'magical': {
             blue: {
@@ -300,6 +312,18 @@ JB2AFREEDB.melee = {
             blue: {
                 '1': [lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Blue_Physical01_800x600.webm`]
             }
+        }
+    },
+    glaive: {
+        '01': {
+            white: [
+                lg`Weapon_Attacks/Melee/Glaive01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Glaive01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Glaive01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Glaive01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Glaive01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Glaive01_06_Regular_White_800x600.webm`
+            ]
         }
     },
     greataxe: {
@@ -361,7 +385,38 @@ JB2AFREEDB.melee = {
     },
     rapier: {
         '01': {
-            white: [lg`Weapon_Attacks/Melee/Rapier01_01_Regular_White_800x600.webm`]
+            white: [
+                lg`Weapon_Attacks/Melee/Rapier01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_06_Regular_White_800x600.webm`
+            ]
+        }
+    },
+    scimitar: {
+        '01': {
+            white: [
+                lg`Weapon_Attacks/Melee/Scimitar01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Scimitar01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Scimitar01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Scimitar01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Scimitar01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Scimitar01_06_Regular_White_800x600.webm`
+            ]
+        }
+    },
+    shortsword: {
+        '01': {
+            white: [
+                lg`Weapon_Attacks/Melee/Shortsword01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Shortsword01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Shortsword01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Shortsword01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Shortsword01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Shortsword01_06_Regular_White_800x600.webm`
+            ]
         }
     },
     spear: {
@@ -381,7 +436,14 @@ JB2AFREEDB.melee = {
     },
     sword: {
         '01': {
-            white: [lg`Weapon_Attacks/Melee/Sword01_01_Regular_White_800x600.webm`],
+            white: [
+                lg`Weapon_Attacks/Melee/Sword01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_06_Regular_White_800x600.webm`
+            ]
         }
     },
     unarmedstrike: {
@@ -412,7 +474,7 @@ JB2AFREEDB.static = {
         },
         'marker': {
             greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
-        }
+        },
     },
     bless: {
         '01': {
@@ -649,6 +711,11 @@ JB2AFREEDB.static = {
             musicMarker: {
                 "greenorange": [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
             }
+        },
+        energystrands: {
+            loop: {
+                blue: [lg`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`]
+            },
         }
     },
     mistystep: {
@@ -789,9 +856,31 @@ JB2AFREEDB.static = {
             green: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`],
         },
     },
+    vortex: {
+        loop: {
+            blue: [lg`Template/Circle/Vortex_01_Regular_Blue_600x600.webm`],
+        },
+        intro: {
+            blue: [lg`Template/Circle/VortexIntro_01_Regular_Blue_600x600.webm`],
+        },
+        outro: {
+            blue: [lg`Template/Circle/VortexOutro_01_Regular_Blue_600x600.webm`],
+        },
+    },
     wallofforce: {
         '01': {
             grey: [l5`Wall_Of_Force/WallOfForce_01_Grey_Sphere_400x400.webm`],
+        }
+    },
+    whirl: {
+        loop: {
+            blue: [lg`Template/Circle/Whirl_01_Regular_Blue_600x600.webm`],
+        },
+        intro: {
+            blue: [lg`Template/Circle/WhirlIntro_01_Regular_Blue_600x600.webm`],
+        },
+        outro: {
+            blue: [lg`Template/Circle/WhirlOutro_01_Regular_Blue_600x600.webm`],
         }
     },
     whirlwind: {
