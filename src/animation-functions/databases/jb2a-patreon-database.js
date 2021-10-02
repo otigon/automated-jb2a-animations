@@ -2074,48 +2074,46 @@ JB2APATREONDB.melee = {
             green: [lg`Weapon_Attacks/Melee/Rapier01_Fire_Regular_Green_800x600.webm`]
         },
         '01': {
-            '01': {
-                darkorangepurple: [
-                    lg`Weapon_Attacks/Melee/Rapier01_01_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_02_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_03_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_04_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_05_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_06_Dark_OrangePurple_800x600.webm`
-                ],
-                blue: [
-                    lg`Weapon_Attacks/Melee/Rapier01_01_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_02_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_03_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_04_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_05_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_06_Regular_Blue_800x600.webm`
-                ],
-                orange: [
-                    lg`Weapon_Attacks/Melee/Rapier01_01_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_02_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_03_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_04_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_05_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_06_Regular_Orange_800x600.webm`
-                ],
-                purple: [
-                    lg`Weapon_Attacks/Melee/Rapier01_01_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_02_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_03_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_04_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_05_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_06_Regular_Purple_800x600.webm`
-                ],
-                white: [
-                    lg`Weapon_Attacks/Melee/Rapier01_01_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_02_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_03_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_04_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_05_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Rapier01_06_Regular_White_800x600.webm`
-                ]
-            }
+            darkorangepurple: [
+                lg`Weapon_Attacks/Melee/Rapier01_01_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_02_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_03_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_04_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_05_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_06_Dark_OrangePurple_800x600.webm`
+            ],
+            blue: [
+                lg`Weapon_Attacks/Melee/Rapier01_01_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_02_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_03_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_04_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_05_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_06_Regular_Blue_800x600.webm`
+            ],
+            orange: [
+                lg`Weapon_Attacks/Melee/Rapier01_01_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_02_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_03_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_04_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_05_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_06_Regular_Orange_800x600.webm`
+            ],
+            purple: [
+                lg`Weapon_Attacks/Melee/Rapier01_01_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_02_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_03_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_04_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_05_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_06_Regular_Purple_800x600.webm`
+            ],
+            white: [
+                lg`Weapon_Attacks/Melee/Rapier01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Rapier01_06_Regular_White_800x600.webm`
+            ]
         },
     },
     scimitar: {
@@ -2209,7 +2207,7 @@ JB2APATREONDB.melee = {
     spear: {
         'fire': {
             white: [lg`Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm`],
-            
+
             orange: [lg`Weapon_Attacks/Melee/Spear01_Fire_Regular_Orange_800x600.webm`],
             pink: [lg`Weapon_Attacks/Melee/Spear01_Fire_Regular_Pink_800x600.webm`],
             red: [lg`Weapon_Attacks/Melee/Spear01_Fire_Regular_Red_800x600.webm`],
@@ -2273,48 +2271,46 @@ JB2APATREONDB.melee = {
             green: [lg`Weapon_Attacks/Melee/Sword01_Fire_Regular_Green_800x600.webm`]
         },
         '01': {
-            '01': {
-                darkorangepurple: [
-                    lg`Weapon_Attacks/Melee/Sword01_01_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_02_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_03_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_04_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_05_Dark_OrangePurple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_06_Dark_OrangePurple_800x600.webm`
-                ],
-                blue: [
-                    lg`Weapon_Attacks/Melee/Sword01_01_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_02_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_03_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_04_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_05_Regular_Blue_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_06_Regular_Blue_800x600.webm`
-                ],
-                orange: [
-                    lg`Weapon_Attacks/Melee/Sword01_01_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_02_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_03_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_04_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_05_Regular_Orange_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_06_Regular_Orange_800x600.webm`
-                ],
-                purple: [
-                    lg`Weapon_Attacks/Melee/Sword01_01_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_02_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_03_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_04_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_05_Regular_Purple_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_06_Regular_Purple_800x600.webm`
-                ],
-                white: [
-                    lg`Weapon_Attacks/Melee/Sword01_01_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_02_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_03_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_04_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_05_Regular_White_800x600.webm`,
-                    lg`Weapon_Attacks/Melee/Sword01_06_Regular_White_800x600.webm`
-                ]
-            }
+            darkorangepurple: [
+                lg`Weapon_Attacks/Melee/Sword01_01_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_02_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_03_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_04_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_05_Dark_OrangePurple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_06_Dark_OrangePurple_800x600.webm`
+            ],
+            blue: [
+                lg`Weapon_Attacks/Melee/Sword01_01_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_02_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_03_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_04_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_05_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_06_Regular_Blue_800x600.webm`
+            ],
+            orange: [
+                lg`Weapon_Attacks/Melee/Sword01_01_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_02_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_03_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_04_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_05_Regular_Orange_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_06_Regular_Orange_800x600.webm`
+            ],
+            purple: [
+                lg`Weapon_Attacks/Melee/Sword01_01_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_02_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_03_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_04_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_05_Regular_Purple_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_06_Regular_Purple_800x600.webm`
+            ],
+            white: [
+                lg`Weapon_Attacks/Melee/Sword01_01_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_02_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_03_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_04_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_05_Regular_White_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Sword01_06_Regular_White_800x600.webm`
+            ]
         },
     },
     unarmedstrike: {
