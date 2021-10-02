@@ -85,7 +85,7 @@ export class AASystemData {
         return { item, token, targets };
     }
 
-    static sw5e(input) {
+    static sw5e(input, isChat) {
         if (game.modules.get('midi-qol')?.active && !isChat) {
             const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
             const ammo = input.item?.data?.flags?.autoanimations?.options?.ammo;

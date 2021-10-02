@@ -439,6 +439,17 @@
     "AUTOANIM.targetDefault": "Target default Self",
     "AUTOANIM.generic": "Generic",
     "AUTOANIM.addExplosion": "Add Explosion",
-    "AUTOANIM.endEffect": "End Effect"
+    "AUTOANIM.endEffect": "End Effect",
+
+    "AUTOANIM.falchion": "Falchion",
+    "AUTOANIM.glaive": "Glaive",
+    "AUTOANIM.vortex": "Vortex",
+    "AUTOANIM.whirl": "Whirl",
+    "AUTOANIM.energystrands": "Energy Strands",
+    "AUTOANIM.loop": "Loop",
+    "AUTOANIM.intro": "Intro",
+    "AUTOANIM.outro": "Outro",
+    "AUTOANIM.scimitar": "Scimitar",
+    "AUTOANIM.shortsword": "Shortsword"
 
 }

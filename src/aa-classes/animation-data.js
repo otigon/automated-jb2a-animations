@@ -51,6 +51,7 @@ export class AAanimationData {
             data.color = handler.color;
             data.repeat = handler.animationLoops;
             data.delay = handler.loopDelay;
+            data.below = handler.animLevel;
         }
         return data;
     }
@@ -73,7 +74,8 @@ export class AAanimationData {
             data.detect = handler.switchDetect;
             data.repeat = handler.animationLoops;
             data.delay = handler.loopDelay;
-            data.return = handler.switchReturn
+            data.return = handler.switchReturn;
+            data.below = handler.animLevel;
             data.switchVariant = data.switchAnimation === "lasersword" || data.switchAnimation === "dagger" || data.switchAnimation === "handaxe" ? handler.switchVariant : handler.switchDmgType;
         }
         return data;
@@ -138,7 +140,7 @@ export class AAanimationData {
             color: source.color,
             variant: source.variant,
         }
-        if (!sourceFX.animation || sourceFX.animation === "a1") {
+        if ((!sourceFX.animation || sourceFX.animation === "a1") && sourceFX.enabled) {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || TokenFX Source Animation is enabled on this item but NO Animation is chosen!");
         }
@@ -174,7 +176,7 @@ export class AAanimationData {
             color: target.color,
             variant: target.variant,
         }
-        if (!targetFX.animation || targetFX.animation === "a1") {
+        if ((!targetFX.animation || targetFX.animation === "a1")  && targetFX.enabled) {
             targetFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || TokenFX Target Animation is enabled on this item but NO Animation is chosen!");
         }
@@ -214,21 +216,26 @@ export class AAanimationData {
         
     }
 
-    static _checkForPersistent(token) {
-        const effectArray = token.data?.flags?.sequencer?.effects
-        if (!effectArray) { return false };
-        const length = effectArray.length;
-        for (var i = 0; i < length; i++) {
-            let currentArray = effectArray[i];
-            let lengthA = currentArray.length;
-            for (var k = 0; k < lengthA; k++) {
-                let currentName = currentArray[k].name
-                if (!currentName) { }
-                else if (currentName.includes("huntersmark")) {
-                    return true;
-                }
+    static removePersistentEffect(token, effectName, sceneID) {
+        let clsd = false;
+        const tokenName = token.name;
+        let d = new Dialog({
+            title: tokenName,
+            buttons: {
+                yes: {
+                    label: "Remove " + effectName,
+                    callback: (html) => { clsd = true }
+                },
+            },
+            default: 'yes',
+            close: () => {
+                if (clsd === false) console.log('This was closed without using a button');
+                if (clsd === true) Sequencer.EffectManager.endEffects({ object: token, name: effectName, sceneId: sceneID });
             }
-        }
-        return false;
+        },
+            { width: 100, height: 75 }
+        );
+        d.options.resizable = true;
+        d.render(true)
     }
 }

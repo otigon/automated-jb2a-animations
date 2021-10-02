@@ -23,8 +23,10 @@ async function huntersMark(handler) {
     }
     let ctaColor = handler.color === "random" ? random_item(Object.keys(aaColorMenu.static.huntersmark[animLoop])) : handler.color;
     let hmLoop = jb2a.static.huntersmark[animLoop][ctaColor];
-    const checkAnim = AAanimationData._checkForPersistent(target);
-
+    //const checkAnim = AAanimationData._checkForPersistent(target);
+    const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "huntersmark" }).length > 0
+    //console.log(checkAnim)
+    //checkAnim =  checkAnim.length > 0 ? true : false
     const scale = handler.options?.scale || 1
     const finalScale = (canvas.grid.size / 200) * scale
     const anchorX = handler.flags?.options?.anchorX || 1;
@@ -32,8 +34,7 @@ async function huntersMark(handler) {
     const persist = handler.flags?.ctaOption;
 
     const playPersist = !checkAnim && persist ? true : false;
-
-    new Sequence("Automated Animations")
+    await new Sequence("Automated Animations")
         .effect()
             .file(hmPulse)
             .atLocation(myToken)
@@ -57,7 +58,7 @@ async function huntersMark(handler) {
             .loopProperty("sprite", "scale.y", { from: (finalScale * 0.4), to: finalScale, duration: 4000, pingPong: true })
             .loopProperty("sprite", "alpha", { from: 0.25, to: 1, duration: 4000, pingPong: true })
         .play()
-
+        //AAanimationData.removePersistentEffect(target, "huntersmark", canvas.scene.id)
 }
 
 export default huntersMark;
