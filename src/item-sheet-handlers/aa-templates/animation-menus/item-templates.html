@@ -29,6 +29,7 @@
         {{/select}}
     </select>
 </div>
+{{#ifnoteq flags.autoanimations.templates.tempAnim 'thunderwave'}}
 <!--Choose a Variant-->
 <div class="option03">
     <label>{{localize "AUTOANIM.variant"}}</label>
@@ -40,14 +41,22 @@
         {{/select}}
     </select>
 </div>
+{{/ifnoteq}}
 <!--Choose Template Animation Color-->
 <div class="option04">
     <label>{{localize "AUTOANIM.color"}}</label>
     <select name="flags.autoanimations.templates.tempColor">
         {{#select flags.autoanimations.templates.tempColor}}
-        {{#each templateColors as |name key|}}
+        {{#ifEquals flags.autoanimations.templates.tempAnim 'thunderwave'}}
+        {{#each (lookup (lookup colormenu.static flags.autoanimations.templates.tempAnim) 'mid') as |name key|}}
         <option value="{{key}}">{{name}}</option>
         {{/each}}
+        {{/ifEquals}}
+        {{#ifnoteq flags.autoanimations.templates.tempAnim 'thunderwave'}}
+        {{#each (lookup (lookup colormenu.static flags.autoanimations.templates.tempAnim) flags.autoanimations.templates.tempVariant) as |name key|}}
+        <option value="{{key}}">{{name}}</option>
+        {{/each}}
+        {{/ifnoteq}}
         {{/select}}
     </select>
 </div>

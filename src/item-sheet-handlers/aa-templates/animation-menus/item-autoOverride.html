@@ -126,10 +126,20 @@
 <div class='aa-item-container primary-animation'>
     <!--Choose Standard Animation Color-->
     <div class="option01">
+        <label>{{localize "AUTOANIM.variant"}}</label>
+        <select name="flags.autoanimations.options.autoVariant">
+            {{#select flags.autoanimations.options.autoVariant}}
+            {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="option02">
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.options.autoColor">
             {{#select flags.autoanimations.options.autoColor}}
-            {{#each (lookup (lookup colormenu.static autoObject.type) autoObject.animation) as
+            {{#each (lookup (lookup colormenu.static autoObject.animation) autoObject.variant) as
             |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}

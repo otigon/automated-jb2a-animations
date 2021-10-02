@@ -208,6 +208,51 @@ export class AATabFunctions {
     }
 
     static _customPreview(itemFlags, patreon) {
+        const flags = itemFlags?.autoanimations;
+        const jb2a = patreon? JB2APATREONDB : JB2AFREEDB;
+        const colorMenu = aaColorMenu;
+        const variantMenu = aaVariantMenu;
+        if (!flags) { return; }
+
+        const customType = flags.animType || "";
+
+        const oldName = customType === 't5' ? flags.templates?.tempAnim : flags.animName
+        if (!oldName) { return; }
+
+        const data = {
+            newName: customType === 't5' ? flags.templates?.tempAnim : flags.animName,
+            type: flags.animType || "",
+            variant: customType === 't5' ? flags.templates?.tempVariant : flags.options?.variant,
+            color: customType === 't5' ? flags.templates?.tempColor : flags.color,
+            dbPath: this._dbPath(flags.animType),
+        };
+
+        let file = 'no preview';
+
+        const variantChoices = variantMenu[data.dbPath][data.newName];
+        if (!variantChoices) { console.log("EXIT"); return file; }
+        const variantCheck = this._variantCheck(data, variantMenu, jb2a)
+        data.variant = variantCheck.defaultVariant;
+
+        const colorChoices = colorMenu[data.dbPath][data.newName][data.variant];
+        if (!colorChoices) { console.log("EXIT"); return file; }
+        const colorCheck = this._colorCheck(data, colorMenu, jb2a)
+        data.color = colorCheck.defaultColor;
+
+        switch (true) {
+            case data.type === 't3':
+                try { file = jb2a[data.dbPath][data.newName][data.variant][data.color][Object.keys(jb2a[data.dbPath][data.newName][data.variant][data.color])[1]][0] }
+                catch (exception) { }
+                break;
+            default:
+                try { file = jb2a[data.dbPath][data.newName][data.variant][data.color][0] }
+                catch (exception) { }
+        }
+
+        return file;
+    }
+    /*
+    static _customPreviesw(itemFlags, patreon) {
         const flags = itemFlags.autoanimations;
         const jb2a = patreon? JB2APATREONDB : JB2AFREEDB;
         const colorMenu = aaColorMenu;
@@ -275,7 +320,7 @@ export class AATabFunctions {
 
         return file;
     }
-
+    */
     static _variantCheck(data, variantMenu, jb2a) {
         let defaultVariant = data.variant;
         let inPlace = true;
@@ -299,10 +344,8 @@ export class AATabFunctions {
     static _dbPath(type) {
         switch (type) {
             case 't2':
-            case 't3':
                 return 'melee';
-            case 't4':
-            case 't6':
+            case 't3':
                 return 'range';
             default:
                 return 'static';

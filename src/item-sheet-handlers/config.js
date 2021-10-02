@@ -292,42 +292,30 @@ AUTOANIM.templateType = {
 
 AUTOANIM.coneAnimations = {
     "a1": ``,
-    "cold": "AUTOANIM.cold",
     "coneofcold": "AUTOANIM.coneofcold",
-    "fire01": "AUTOANIM.fire01",
-    "fire02": "AUTOANIM.fire02",
-    "burninghands01": "AUTOANIM.burninghands01",
-    "burninghands02": "AUTOANIM.burninghands02",
-    "poison": "AUTOANIM.poison"
+    "burninghands": "AUTOANIM.burninghands",
+    "breathweaponcone": "AUTOANIM.breathweaponcone",
 }
 
 AUTOANIM.rayAnimations = {
     "a1": ``,
-    "acid": "AUTOANIM.acid",
-    "fire": "AUTOANIM.fire",
-    "lightning": "AUTOANIM.lightning",
-    "lightningbolt01": "AUTOANIM.lightningbolt",
-    "lightningbolt02": "AUTOANIM.lightningbolt02"
+    "breathweaponline": "AUTOANIM.breathweaponline",
+    "lightningbolt": "AUTOANIM.lightningbolt",
+    "gustofwind": "AUTOANIM.gustofwind"
 }
 
 AUTOANIM.circleAnimations = {
     "a1": ``,
-    "ex01": "AUTOANIM.explosion01",
-    "ex02": "AUTOANIM.explosion02",
-    "ex03": "AUTOANIM.explosion03",
-    "ex04": "AUTOANIM.explosion04",
+    "explosion": "AUTOANIM.explosion",
     "snowflake": "AUTOANIM.snowflake",
     "outpulse01": "AUTOANIM.outpulse01",
     "outpulse02": "AUTOANIM.outpulse02",
     "shatter": "AUTOANIM.itemShatter",
-    "sleep01": "AUTOANIM.sleep01",
-    "sleep02": "AUTOANIM.sleep02",
     "fogcloud": "AUTOANIM.animFogCloud",
     "darkness": "AUTOANIM.animDarkness",
     "calllightning": "AUTOANIM.animCallLightning",
     "sleetstorm": "AUTOANIM.animSleetstorm",
     "cloudofdaggers": "AUTOANIM.cloudOfDaggers",
-    "cloudofkunais": "AUTOANIM.cloudofkunais"
 }
 
 AUTOANIM.rectangleAnimations = {
@@ -339,18 +327,12 @@ AUTOANIM.rectangleAnimations = {
 
 AUTOANIM.animTypePick = {
     "t1": ``,
-    "t2": "AUTOANIM.typeMelee",
-    "t3": "AUTOANIM.typeGenMelee",
-    "t4": "AUTOANIM.typeRanged",
-    "t5": "AUTOANIM.typeCreature",
-    "t6": "AUTOANIM.typeAttackSpell",
-    "t7": "AUTOANIM.typeHealingSpell",
-    "t8": "AUTOANIM.templates",
-    "t9": "AUTOANIM.targetEffect",
-    "t10": "AUTOANIM.selfEffect",
-    "t11": "AUTOANIM.typeAuras",
-    "t12": "AUTOANIM.animTeleportation",
-    "t13": "AUTOANIM.customSequences",
+    "t2": "AUTOANIM.melee",
+    "t3": "AUTOANIM.ranged",
+    't4': "AUTOANIM.onToken",
+    "t5": "AUTOANIM.templates",
+    "t6": "AUTOANIM.typeAuras",
+    "t7": "AUTOANIM.presets",
 }
 
 AUTOANIM.tokenAnimations = {

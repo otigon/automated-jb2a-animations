@@ -113,7 +113,7 @@
             {{/select}}
         </select>
     </div>
-    {{#if rangeSwitchType}}
+    {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'custom'}}
     <div style='grid-column: 2 / 4;grid-row: 1 / 2; padding-right: 3em;'>
         <label>{{localize "AUTOANIM.animation"}}</label>
         <select name="flags.autoanimations.meleeSwitch.animName">
@@ -163,15 +163,15 @@
             {{/select}}
         </select>
     </div>
-    {{#if switchManual}}
+    {{#ifEquals flags.autoanimations.meleeSwitch.detect 'manual'}}
     <div style='grid-column: 1 / 5;grid-row: 3 / 4; padding-top: 5px;padding-bottom: 4px;'>
         <label>{{localize "AUTOANIM.gridSquares"}}</label>
         <input style='width: 9em' type="number" name="flags.autoanimations.meleeSwitch.range" value={{switchRange}}
             data-dtype="Number">
     </div>
-    {{/if}}
+    {{/ifEquals}}
     <!--</div>-->
-    {{/if}}
+    {{/ifEquals}}
 </div>
 <div style='padding:3px'>
 

@@ -11,7 +11,7 @@
         <label>{{localize "AUTOANIM.animation"}}</label>
         <select style='min-width: 15em;' name="flags.autoanimations.animName">
             {{#select flags.autoanimations.animName}}
-            {{#each animationNames as |name key|}}
+            {{#each auraList as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}

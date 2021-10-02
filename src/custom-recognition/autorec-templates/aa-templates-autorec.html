@@ -90,8 +90,8 @@
                                 <select name="aaAutorec.templates.{{idx}}.color">
                                     {{#select (lookup (lookup ../settings.aaAutorec.templates idx) 'color')}}
                                     {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                    ../settings.aaAutorec.templates idx) 'type')) (lookup (lookup
-                                    ../settings.aaAutorec.templates idx) 'animation')) as |name key|}}
+                                    ../settings.aaAutorec.templates idx) 'animation')) (lookup (lookup
+                                    ../settings.aaAutorec.templates idx) 'variant')) as |name key|}}
                                     <option value="{{key}}">{{name}}</option>
                                     {{/each}}
                                     {{/select}}
