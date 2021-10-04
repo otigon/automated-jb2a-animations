@@ -17,6 +17,26 @@ melee = {
     meleeSwitch.range: Grid Distance for animation switch.
 }
 
+OPTIONS = {
+    01: name
+    02: variant
+    03: repeat
+    04: delay
+    05: scale
+    06: enableCustom
+    07: customPath
+    08: opacity
+    09: persistent
+    10: occlusionMode
+    11: occlusionAlpha
+    12: auraRadius
+    13: staticType
+    14: ignoreTarget
+    15: shieldVar
+    16: anchorX
+    17: anchorY
+}
+
 range = {
     options.rangeType: Menu use only to populate the Animation menu,
     animation: Menu choice for animation,
