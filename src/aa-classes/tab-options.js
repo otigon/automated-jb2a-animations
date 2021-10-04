@@ -5,7 +5,7 @@ import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.
 import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js";
 
 export class AATabFunctions {
-
+    /*
     static menuColors(itemName, variant, type) {
         let animationColor;
         let colorMenu = aaColorMenu;
@@ -44,10 +44,6 @@ export class AATabFunctions {
                 break;
         }
         let colorMenu = aaColorMenu;
-        /*
-        try { colorMenu.range[name][animVar].random = game.i18n.localize("AUTOANIM.random"); }
-        catch (exception) { }
-        */
         let variantArray;
         try { variantArray = Object.keys(colorMenu.range[name]) }
         catch (exception) { }
@@ -59,16 +55,12 @@ export class AATabFunctions {
 
         return animationColor;
     }
-
+    
     static staticColors(itemName, spellVariant, bardAnimation, damageType, variant) {
         let name = itemName === "boulder" ? "boulderimpact" : itemName;
         let animationColor;
         let animVar = spellVariant;
         let colorMenu = aaColorMenu;
-        /*
-        try { colorMenu.static[name][animVar].random = game.i18n.localize("AUTOANIM.random"); }
-        catch (exception) { }
-        */
         let variantArray;
         try { variantArray = Object.keys(colorMenu.static[name]) }
         catch (exception) { }
@@ -80,7 +72,8 @@ export class AATabFunctions {
 
         return animationColor;
     }
-
+    */
+    /*
     static variantOptions(itemName, type) {
 
         let name = itemName.replace(/melee|range|double/gi, function (x) {
@@ -95,7 +88,8 @@ export class AATabFunctions {
 
         return variantOptions;
     }
-
+    */
+/*
     static variantLength(itemName, type) {
         let name = itemName.replace(/melee|range|double/gi, function (x) {
             return "";
@@ -108,7 +102,8 @@ export class AATabFunctions {
         return variantLength;
 
     }
-
+    */
+    /*
     static animationName(animType, patreon) {
         let animationNames;
         switch (animType) {
@@ -145,7 +140,7 @@ export class AATabFunctions {
         }
         return animationNames;
     }
-
+    */
     static animTemplates(templateType) {
         let templateChoices;
         switch (templateType) {
@@ -164,7 +159,7 @@ export class AATabFunctions {
         }
         return templateChoices;
     }
-
+    /*
     static _variant(data) {
         const flags = data.autoanimations;
         if (!flags) { return; }
@@ -206,7 +201,7 @@ export class AATabFunctions {
         }
         return variant;
     }
-
+    */
     static _customPreview(itemFlags, patreon) {
         const flags = itemFlags?.autoanimations;
         const jb2a = patreon? JB2APATREONDB : JB2AFREEDB;
@@ -214,16 +209,16 @@ export class AATabFunctions {
         const variantMenu = aaVariantMenu;
         if (!flags) { return; }
 
-        const customType = flags.animType || "";
+        //const customType = flags.animType || "";
 
-        const oldName = customType === 't5' ? flags.templates?.tempAnim : flags.animName
-        if (!oldName) { return; }
+        //const oldName = flags.animName
+        //if (!oldName) { return; }
 
         const data = {
-            newName: customType === 't5' ? flags.templates?.tempAnim : flags.animName,
+            newName: flags.animation,
             type: flags.animType || "",
-            variant: customType === 't5' ? flags.templates?.tempVariant : flags.options?.variant,
-            color: customType === 't5' ? flags.templates?.tempColor : flags.color,
+            variant: flags.options?.variant,
+            color: flags.color,
             dbPath: this._dbPath(flags.animType),
         };
 
@@ -237,7 +232,7 @@ export class AATabFunctions {
         const colorChoices = colorMenu[data.dbPath][data.newName][data.variant];
         if (!colorChoices) { console.log("EXIT"); return file; }
         const colorCheck = this._colorCheck(data, colorMenu, jb2a)
-        data.color = colorCheck.defaultColor;
+        data.color = colorCheck.defaultColor.toLowerCase();
 
         switch (true) {
             case data.type === 't3':

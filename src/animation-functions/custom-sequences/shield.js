@@ -37,18 +37,18 @@ export async function shieldSpell(handler, autoObject) {
     if (autoObject) {
         const autoOverridden = handler.options?.overrideAuto
         Object.assign(data, autoObject);
-        data.itemName = data.animation || "";
+        data.animation = data.animation || "";
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
         data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
     } else {
-        data.itemName = handler.convertedName;
-        data.color = handler.color || "blue";
-        data.scale = handler.scale || 1;
-        data.below = handler.animLevel;
-        data.addCTA = handler.options?.addCTA;
-        data.endeffect = handler.options.shieldVar || "outro_fade";
-        data.variant = handler.spellVariant || "01";
+        data.animation = handler.animation;
+        data.color = handler.color ?? "blue";
+        data.scale = handler.scale ?? 1;
+        data.below = handler.below;
+        data.persistent = handler.persistent ?? false;
+        data.endeffect = handler.options.shieldVar ?? "outro_fade";
+        data.variant = handler.variant ?? "01";
     }
     const sourceToken = handler.actorToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
@@ -76,6 +76,7 @@ export async function shieldSpell(handler, autoObject) {
                     .gridSize(gridSize)
                     .atLocation(sourceToken)
                     .belowTokens(data.below)
+                    .persist(data.persistent)
                     .fadeIn(300)
                     .fadeOut(300)
                     .waitUntilFinished(-500)

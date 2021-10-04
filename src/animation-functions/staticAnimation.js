@@ -10,16 +10,16 @@ export async function staticAnimation(handler, autoObject) {
     await wait(globalDelay);
     const sourceToken = handler.actorToken;
 
-    const data = AAanimationData._staticData(handler, autoObject);
+    const data = AAanimationData._primaryData(handler, autoObject);
     if (aaDebug) { aaDebugger("Static Animation Start", data) }
-    const onToken = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath);
-
-    const explosion = handler.flags.explosion ? await AAanimationData._explosionData(handler) : {};
+    const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
+    console.log(onToken)
+    const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
     const explosionSound = AAanimationData._explosionSound(handler);
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const targetFX = await AAanimationData._targetFX(handler);
 
-    const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
+    //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;
     const arrayLength = handler.allTargets.length;
     const gridSize = canvas.grid.size;
@@ -52,26 +52,19 @@ export async function staticAnimation(handler, autoObject) {
         .effect()
             .file(onToken.file)
             .atLocation(sourceToken)
-            //.randomizeMirrorY()
+            .name('animation')
             .repeats(data.repeat, data.delay)
-            //.gridSize(gridSize)
-            //.scale(((sourceToken.w / animWidth) * 1.5) * data.scale)
             .size(sourceToken.w * 1.5 * data.scale)
             .belowTokens(data.below)
         .effect()
-            .atLocation(sourceToken)
-            .scale(exScale)
+            .atLocation("animation")
+            .file(explosion.data?.file)
+            .scale({ x: explosion.scale, y: explosion.scale })
             .delay(500 + explosion.delay)
-            //.randomizeMirrorY()
             .repeats(data.repeat, data.delay)
             .belowTokens(explosion.below)
-            .playIf(handler.explosion)
-            .addOverride(async (effect, data) => {
-                if (explosion.data) {
-                    data.file = explosion.data.file;
-                }
-                return data;
-            })
+            .playIf(explosion.enabled)
+            //.waitUntilFinished(explosionDelay)
         .sound()
             .file(explosionSound.file)
             .playIf(() => {return explosion.data && handler.explodeSound})
@@ -94,7 +87,7 @@ export async function staticAnimation(handler, autoObject) {
             */
             let targetSequence = AAanimationData._targetSequence(targetFX, target);
 
-            let scale = data.itemName.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
+            let scale = data.animation.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? false : true;
@@ -118,21 +111,16 @@ export async function staticAnimation(handler, autoObject) {
                     .playIf(() => { return arrayLength })
                 .effect()
                     .atLocation("animation")
-                    .scale(exScale)
+                    .file(explosion.data?.file)
+                    .scale({ x: explosion.scale, y: explosion.scale })
                     .delay(500 + explosion.delay)
-                    //.randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
                     .belowTokens(explosion.below)
-                    .playIf(handler.explosion)
-                    .addOverride(async (effect, data) => {
-                        if (explosion.data) {
-                            data.file = explosion.data.file;
-                        }
-                        return data;
-                    })
+                    .playIf(explosion.enabled)
+                    //.waitUntilFinished(explosionDelay)
                 .sound()
                     .file(explosionSound.file)
-                    .playIf(() => {return explosion.data && handler.explodeSound})
+                    .playIf(() => {return explosion.enabled && handler.explodeSound})
                     .delay(explosionSound.delay)
                     .volume(explosionSound.volume)
                     .repeats(data.repeat, data.delay)

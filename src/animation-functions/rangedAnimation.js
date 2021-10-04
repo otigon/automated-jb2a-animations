@@ -12,29 +12,25 @@ export async function rangedAnimations(handler, autoObject) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    const data = AAanimationData._rangeData(handler, autoObject);
+    const data = AAanimationData._primaryData(handler, autoObject);
     if (aaDebug) { aaDebugger("Ranged Animation Start", data) }
-    const attack = await buildFile(false, data.itemName, "range", data.variant, data.color)
+    const attack = await buildFile(false, data.animation, "range", data.variant, data.color)
 
     const sourceToken = handler.actorToken;
 
-    const explosion = handler.flags.explosion ? await AAanimationData._explosionData(handler) : {};
+    const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
     const explosionSound = AAanimationData._explosionSound(handler);
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const targetFX = await AAanimationData._targetFX(handler);
 
-    const scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
+    //const scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
 
     async function cast() {
         let arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
-            /*
-            if (targetFX.enabled) {
-                targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
-            }
-            */
+
             let targetSequence = AAanimationData._targetSequence(targetFX, target);
 
             //Checks Range and sends it to Range Builder if true
@@ -59,44 +55,24 @@ export async function rangedAnimations(handler, autoObject) {
                     .repeats(data.repeat, data.delay)
                     .missed(hit)
                     .name("animation")
-                    .belowTokens(handler.animLevel)
-                    .addOverride(
-                        async (effect, data) => {
-                            return data
-                        })
+                    .belowTokens(data.below)
                     //.waitUntilFinished(-500 + handler.explosionDelay)
                 .effect()
                     .atLocation("animation")
-                    //.file(explosion.data.file)
-                    .scale({ x: scale, y: scale })
+                    .file(explosion.data?.file)
+                    .scale({ x: explosion.scale, y: explosion.scale })
                     .delay(500 + explosion.delay)
                     .repeats(data.repeat, data.delay)
                     .belowTokens(explosion.below)
-                    .playIf(() => { return explosion.data })
-                    .addOverride(async (effect, data) => {
-                        if (explosion.data) {
-                            data.file = explosion.data.file;
-                        }
-                        return data;
-                    })
+                    .playIf(explosion.enabled)
+                    //.waitUntilFinished(explosionDelay)
                 .sound()
                     .file(explosionSound.file)
-                    .playIf(() => {return explosion && handler.explodeSound})
+                    .playIf(() => {return explosion.enabled && handler.explodeSound})
                     .delay(explosionSound.delay)
                     .volume(explosionSound.volume)
                     .repeats(data.repeat, data.delay)
                 .addSequence(targetSequence.targetSeq)
-                /*
-                .effect()
-                    .delay(targetFX.startDelay)
-                    .file(targetFX.data?.file)
-                    .atLocation(target)
-                    .gridSize(canvas.grid.size)
-                    .scale( targetFX.tFXScale * targetFX.scale)
-                    .repeats(targetFX.repeat, targetFX.delay)
-                    .belowTokens(targetFX.below)
-                    .playIf(targetFX.enabled)
-                */
                 .play()
                 await wait(handler.animEnd)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)

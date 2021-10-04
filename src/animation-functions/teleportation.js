@@ -20,14 +20,12 @@ export async function teleportation(handler, autoObject) {
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
     } else {
-        data.itemName = handler.convertedName;
-        data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";
-        data.customPath = handler.enableCustom01 ? handler.custom01 : false;
+        data.itemName = handler.options?.name;
+        data.variant = handler.option?.variant;
+        data.customPath = handler.options?.enableCustom01 ? handler.options.customPath01 : false;
         data.color = handler.color;
-        data.switchType = handler.switchType;
-        data.detect = handler.switchDetect;
         data.scale = handler.scale;
-        data.range = handler.teleRange;
+        data.range = handler.teleDist;
         data.hideTemplate = handler.options?.hideTemplate;
     }
     if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }

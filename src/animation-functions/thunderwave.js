@@ -24,20 +24,20 @@ export async function thunderwaveAuto(handler, autoObject) {
         data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
         data.occlusionMode = parseInt(data.occlusionMode);
     } else {
-        data.itemName = handler.templates.tempAnim;
-        data.variant = handler.spellVariant;
-        data.color = handler.templates.tempColor;
-        data.repeat = handler.templates.tempLoop;
-        data.delay = handler.templates.loopDelay;
-        data.customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
+        data.itemName = handler.convertedName;
+        data.variant = handler.options?.variant;
+        data.color = handler.color;
+        data.repeat = handler.options?.repeat;
+        data.delay = handler.options?.delay;
+        data.customPath = handler.options?.customAnim ? handler.options.customPath : false;
         data.below = handler.animLevel;
-        data.type = handler.templates.tempType;
-        data.persist = handler.templatePersist;
-        data.overhead = handler.templates.overhead;
-        data.opacity = handler.templateOpacity;
-        data.occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
-        data.occlusionMode = parseInt(handler.templates?.occlusionMode ?? "3");
-        data.removeTemplate = handler.templates.removeTemplate;
+        data.type = handler.options?.tempType;
+        data.persist = handler.options?.persistent;
+        data.overhead = handler.options?.overhead;
+        data.opacity = handler.options?.opacity;
+        data.occlusionAlpha = handler.options?.occlusionAlpha ?? "0";
+        data.occlusionMode = parseInt(handler.options?.occlusionMode ?? "3");
+        data.removeTemplate = handler.options?.removeTemplate;
     }
     const sourceToken = handler.actorToken;
     if (aaDebug) { aaDebugger("Thunderwave Animation Start", data) }
@@ -82,41 +82,41 @@ export async function thunderwaveAuto(handler, autoObject) {
     let tempY = template.data.y;
     let tempX = template.data.x;
 
-    let filePath = obj01.static.rect['thunderwave'][color];
+    let filePath = obj01.static.thunderwave;
     let ang = 0;
     let anFile = filePath['mid'];;
     switch (true) {
         case ((xPos >= tempX && xPos <= (tempX + (gridSize * 2))) && (yPos >= tempY && yPos <= (tempY + (gridSize * 2)))):
             ang = 0;
-            anFile = filePath['center'];
+            anFile = filePath['center'][color];
             break;
         case ((xPos >= (tempX - gridSize)) && (xPos <= (tempX - (gridSize * 0.5)))) && ((yPos >= (tempY - gridSize)) && (yPos <= (tempY - (gridSize * 0.5)))):
             ang = 270;
-            anFile = filePath['left'];
+            anFile = filePath['left'][color];
             break;
         case ((xPos >= (tempX + (gridSize * 2.5))) && (xPos <= (tempX + (gridSize * 3)))) && ((yPos >= (tempY - gridSize)) && (yPos <= (tempY - (gridSize * 0.5)))):
             ang = 180;
-            anFile = filePath['left'];
+            anFile = filePath['left'][color];
             break;
         case (((xPos >= (tempX + (gridSize * 2.5))) && xPos <= (tempX + (gridSize * 3))) && ((yPos <= (tempY + (gridSize * 3))) && (yPos >= (tempY + (gridSize * 2.5))))):
             ang = 90;
-            anFile = filePath['left'];
+            anFile = filePath['left'][color];
             break;
         case ((xPos <= (tempX - (gridSize * 0.5))) && (xPos >= (tempX - gridSize))) && ((yPos <= (tempY + (gridSize * 3))) && (yPos >= (tempY + (gridSize * 2.5)))):
             ang = 0;
-            anFile = filePath['left'];
+            anFile = filePath['left'][color];
             break;
         case (xPos >= (tempX + (gridSize * 2.5))) && ((yPos >= tempY) && yPos <= (tempY + (gridSize * 2))):
             ang = 90;
-            anFile = filePath['mid'];
+            anFile = filePath['mid'][color];
             break;
         case ((xPos >= tempX) && (xPos <= (tempX + (gridSize * 2)))) && ((yPos >= (tempY - gridSize)) && (yPos <= (tempY - (gridSize * 0.5)))):
             ang = 180;
-            anFile = filePath['mid'];
+            anFile = filePath['mid'][color];
             break;
         case ((xPos >= (tempX - gridSize)) && (xPos <= (tempX - (gridSize * 0.5)))) && ((yPos >= tempY) && yPos <= (tempY + (gridSize * 2))):
             ang = 270;
-            anFile = filePath['mid'];
+            anFile = filePath['mid'][color];
             break;
     }
     let globalDelay = game.settings.get("autoanimations", "globaldelay");

@@ -4,8 +4,8 @@
 </div>
 <div class="form-group">
     <label>{{localize "AUTOANIM.menuAnimName"}}</label>
-    <select name="flags.autoanimations.animName">
-        {{#select flags.autoanimations.animName}}
+    <select name="flags.autoanimations.animation">
+        {{#select flags.autoanimations.animation}}
         <option value=""></option>
         <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}</option>
         <option value="bless">{{localize "AUTOANIM.bless"}}</option>
@@ -24,14 +24,14 @@
 
 </div>
 
-{{#ifEquals flags.autoanimations.animName "shieldspell"}}
+{{#ifEquals flags.autoanimations.animation "shieldspell"}}
 <div class='aa-item-container primary-animation'>
     <!--Spell Variant Option-->
     <div class="option01">
         <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.spellVar">
-            {{#select flags.autoanimations.spellVar}}
-            {{#each (lookup variantmenu.static (lookup flags.autoanimations 'animName')) as |name key|}}
+        <select name="flags.autoanimations.options.variant">
+            {{#select flags.autoanimations.options.variant}}
+            {{#each (lookup variantmenu.static (lookup flags.autoanimations 'animation')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -41,8 +41,8 @@
         <label>{{localize "AUTOANIM.endEffect"}}</label>
         <select name="flags.autoanimations.options.shieldVar">
             {{#select flags.autoanimations.options.shieldVar}}
-            <option value="outro-explode">{{localize "AUTOANIM.explode"}}</option>
-            <option value="outro-fade">{{localize "AUTOANIM.fade"}}</option>
+            <option value="outro_explode">{{localize "AUTOANIM.explode"}}</option>
+            <option value="outro_fade">{{localize "AUTOANIM.fade"}}</option>
             {{/select}}
         </select>
     </div>
@@ -50,18 +50,22 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
-            {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations 'animName')) (lookup
-            flags.autoanimations 'spellVar')) as |name key|}}
+            {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations 'animation')) (lookup
+            flags.autoanimations.options 'variant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
         </select>
     </div>
+    <div class="form-group option08">
+        <label>{{localize "AUTOANIM.persistant"}}?</label>
+        <input type="checkbox" name="flags.autoanimations.options.persistent" {{checked flags.autoanimations.options.persistent}}>
+    </div>
 </div>
 {{/ifEquals}}
 
 <!--Bardic Inspiration Options-->
-{{#ifEquals flags.autoanimations.animName "bardicinspiration"}}
+{{#ifEquals flags.autoanimations.animation "bardicinspiration"}}
 <div class='aa-item-container primary-animation' {{#unless flags.autoanimations.bards.bardSelf}}
     style='box-shadow: 0 0 5px red' {{/unless}}>
     <!--Bardic Inspiration: Animation on Self?-->
@@ -194,12 +198,12 @@
 {{/ifEquals}}
 
 <!--Hunters Mark Options-->
-{{#ifEquals flags.autoanimations.animName "huntersmark"}}
+{{#ifEquals flags.autoanimations.animation "huntersmark"}}
 <div class='aa-item-container primary-animation'>
     <div class="option01">
         <label>{{localize "AUTOANIM.animation"}}</label>
-        <select name="flags.autoanimations.hmAnim">
-            {{#select flags.autoanimations.hmAnim}}
+        <select name="flags.autoanimations.options.variant">
+            {{#select flags.autoanimations.options.variant}}
             <option value="eye">{{localize "AUTOANIM.eye"}}</option>
             <option value="paw">{{localize "AUTOANIM.paw"}}</option>
             {{/select}}
@@ -209,7 +213,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
-            {{#each (lookup colormenu.static.huntersmark (lookup flags.autoanimations 'hmAnim')) as |name key|}}
+            {{#each (lookup colormenu.static.huntersmark (lookup flags.autoanimations.options 'variant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -217,9 +221,9 @@
     </div>
     <div class="form-group option06">
         <label>{{localize "AUTOANIM.persistant"}}?</label>
-        <input type="checkbox" name="flags.autoanimations.ctaOption" {{checked flags.autoanimations.ctaOption}}>
+        <input type="checkbox" name="flags.autoanimations.options.persistent" {{checked flags.autoanimations.options.persistent}}>
     </div>
-    {{#if flags.autoanimations.ctaOption}}
+    {{#if flags.autoanimations.options.persistent}}
     <div class='autorec-menu-options' style='grid-column: 2 / 3;grid-row: 2 / 3;'>
         <label>{{localize "AUTOANIM.anchorX"}} (0 - 1)</label>
         <input type="Number" name="flags.autoanimations.options.anchorX" min="0" step=".01" value={{anchorX}}
@@ -239,7 +243,7 @@
 {{/ifEquals}}
 
 <!--Sneak Attack Options-->
-{{#ifEquals flags.autoanimations.animName "sneakattack"}}
+{{#ifEquals flags.autoanimations.animation "sneakattack"}}
 <div class='aa-item-container primary-animation'>
     <div class="option01">
         <label>{{localize "AUTOANIM.variant"}}</label>
@@ -278,7 +282,7 @@
 {{/ifEquals}}
 
 <!--Bless Options-->
-{{#ifEquals flags.autoanimations.animName "bless"}}
+{{#ifEquals flags.autoanimations.animation "bless"}}
 <div class='aa-item-container primary-animation'>
     <div class="option01">
         <label>{{localize "AUTOANIM.color"}}</label>
@@ -292,8 +296,8 @@
     </div>
     <div class="form-group option05">
         <label>{{localize "AUTOANIM.persistant"}}?</label>
-        <input type="checkbox" name="flags.autoanimations.options.addCTA" {{checked
-            flags.autoanimations.options.addCTA}}>
+        <input type="checkbox" name="flags.autoanimations.options.persistent" {{checked
+            flags.autoanimations.options.persistent}}>
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.scale"}}</label>
@@ -304,7 +308,7 @@
 
 
 <!--Fireball preset-->
-{{#ifEquals flags.autoanimations.animName "fireball"}}
+{{#ifEquals flags.autoanimations.animation "fireball"}}
 <div class='aa-item-container primary-animation'>
     <div id='aaFireball' style='grid-column: 1 / 3;grid-row: 1 / 2;'>
         <label><strong>{{localize "AUTOANIM.fireball"}}</strong></label>
@@ -503,13 +507,13 @@
 {{/ifEquals}}
 
 <!--Teleportation Menu-->
-{{#ifEquals flags.autoanimations.animName "teleportation"}}
+{{#ifEquals flags.autoanimations.animation "teleportation"}}
 <div class='aa-item-container primary-animation'>
     {{#unless flags.autoanimations.options.enableCustom01}}
     <!--Choose Animation by Name-->
     <div class="option01">
         <label>{{localize "AUTOANIM.animation"}}</label>
-        <select name="flags.autoanimations.animName">
+        <select name="flags.autoanimations.options.name">
             {{#select flags.autoanimations.options.name}}
             <option value="a1"></option>
             <option value="mistystep">{{localize "AUTOANIM.itemMistyStep"}}</option>
@@ -542,7 +546,7 @@
     <!--Input Distance for Template Size-->
     <div class="autorec-menu-options option02">
         <label>{{localize "AUTOANIM.range"}}</label>
-        <input type="Number" name="flags.autoanimations.teleDist" min="5" max="500" step=".01" value={{teleRange}}>
+        <input type="Number" name="flags.autoanimations.options.teleDist" min="5" max="500" step=".01" value={{teleRange}}>
     </div>
     <div class="form-group" style='grid-column: 3 / 5;grid-row: 1 / 2;'>
         <label>{{localize "AUTOANIM.remove"}}</label>
@@ -552,15 +556,15 @@
     <!--Add Custom Animation-->
     <div class="form-group option09">
         <label>{{localize "AUTOANIM.customAnim"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
-            value="flags.autoanimations.options.enableCustom01" {{checked flags.autoanimations.options.enableCustom01}}>
+        <input type="checkbox" name="flags.autoanimations.options.enableCustom"
+            value="flags.autoanimations.options.enableCustom" {{checked flags.autoanimations.options.enableCustom}}>
     </div>
-    {{#if flags.autoanimations.options.enableCustom01}}
+    {{#if flags.autoanimations.options.enableCustom}}
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4;'>
-        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath01"
-            value="{{lookup flags.autoanimations.options 'customPath01'}}">
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath"
+            value="{{lookup flags.autoanimations.options 'customPath'}}">
         <button type="button" class="file-picker" data-type="image/video"
-            data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
+            data-target="flags.autoanimations.options.customPath" tabindex="-1" title="Browse Files">
             <i class="fas fa-file-video"></i>
         </button>
     </div>

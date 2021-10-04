@@ -5,36 +5,36 @@
     <!--Enable Explosion? Checkbox-->
     <div class='form-group option01' style='padding-top: 5px;padding-bottom: 4px;'>
         <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
-        <input type="checkbox" name="flags.autoanimations.explosion" value="flags.autoanimations.explosion" {{checked
-            flags.autoanimations.explosion}}>
+        <input type="checkbox" name="flags.autoanimations.explosions.enable" value="flags.autoanimations.explosions.enable" {{checked
+            flags.autoanimations.explosions.enable}}>
     </div>
-    {{#if flags.autoanimations.explosion}}
+    {{#if flags.autoanimations.explosions.enable}}
     <!--Play Explosion Under Token?-->
     <div class="form-group option06">
         <label>{{localize "AUTOANIM.below"}}</label>
-        <input type="checkbox" name="flags.autoanimations.exAnimLevel" value="flags.autoanimations.exAnimLevel"
-            {{checked flags.autoanimations.exAnimLevel}}>
+        <input type="checkbox" name="flags.autoanimations.explosions.below" value="flags.autoanimations.explosions.below"
+            {{checked flags.autoanimations.explosions.below}}>
     </div>
     <!--Choose Explosion Radius-->
     <div style='grid-column: 3 / 5;grid-row: 2 / 3; padding-top: 5px;padding-bottom: 4px;'>
         <label>{{localize "AUTOANIM.radius"}}
-            <input style='width: 3em;' type="Number" name="flags.autoanimations.explodeRadius" min="0" step=".01"
+            <input style='width: 3em;' type="Number" name="flags.autoanimations.explosions.radius" min="0" step=".01"
                 value={{explosionRadius}} data-type="Number">
         </label>
     </div>
     <!--Adjust the delay for explosion effect-->
     <div class='option05'>
         <label>{{localize "AUTOANIM.delayMS"}}
-            <input style='width: 3em;' type="Number" name="flags.autoanimations.explodeDelay" value="{{lookup flags.autoanimations 'explodeDelay'}}"
+            <input style='width: 3em;' type="Number" name="flags.autoanimations.explosions.delay" value="{{lookup flags.autoanimations.explosions 'delay'}}"
                 data-dtype="Number">
         </label>
     </div>
-    {{#unless flags.autoanimations.options.enableCustomExplosion}}
+    {{#unless flags.autoanimations.explosions.enableCustom}}
     <!--Choose Explosion Variant-->
     <div class='option02'>
         <label>{{localize "AUTOANIM.animation"}}</label>
-        <select name="flags.autoanimations.explodeVariant">
-            {{#select flags.autoanimations.explodeVariant}}
+        <select name="flags.autoanimations.explosions.animation">
+            {{#select flags.autoanimations.explosions.animation}}
             {{#each explosionVariants as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
@@ -44,9 +44,9 @@
     <!--Choose Explosion Variant-->
     <div class='option03'>
         <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.options.explosionVariant">
-            {{#select flags.autoanimations.options.explosionVariant}}
-            {{#each (lookup variantmenu.static (lookup flags.autoanimations 'explodeVariant')) as |name key|}}
+        <select name="flags.autoanimations.explosions.variant">
+            {{#select flags.autoanimations.explosions.variant}}
+            {{#each (lookup variantmenu.static flags.autoanimations.explosions.animation) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -55,10 +55,9 @@
     <!--Choose Explosion Color-->
     <div class='option04'>
         <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.explodeColor">
-            {{#select flags.autoanimations.explodeColor}}
-            {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations 'explodeVariant')) (lookup
-            flags.autoanimations.options 'explosionVariant')) as |name key|}}
+        <select name="flags.autoanimations.explosions.color">
+            {{#select flags.autoanimations.explosions.color}}
+            {{#each (lookup (lookup colormenu.static flags.autoanimations.explosions.animation) flags.autoanimations.explosions.variant) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -67,16 +66,16 @@
     {{/unless}}
     <div class='form-group option09' style='padding-top: 5px;padding-bottom: 4px;'>
         <label>{{localize "AUTOANIM.customAnim"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.enableCustomExplosion"
-            value="flags.autoanimations.options.enableCustomExplosion" {{checked
-            flags.autoanimations.options.enableCustomExplosion}}>
+        <input type="checkbox" name="flags.autoanimations.explosions.enableCustom"
+            value="flags.autoanimations.explosions.enableCustom" {{checked
+            flags.autoanimations.explosions.enableCustom}}>
     </div>
-    {{#if flags.autoanimations.options.enableCustomExplosion}}
+    {{#if flags.autoanimations.explosions.enableCustom}}
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
-        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customExplosion"
-            value="{{lookup flags.autoanimations.options 'customExplosion'}}">
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.explosions.customPath"
+            value="{{lookup flags.autoanimations.explosions 'customPath'}}">
         <button type="button" class="file-picker" data-type="image/video"
-            data-target="flags.autoanimations.options.customExplosion" tabindex="-1" title="Browse Files">
+            data-target="flags.autoanimations.explosions.customPath" tabindex="-1" title="Browse Files">
             <i class="fas fa-file-video"></i>
         </button>
     </div>

@@ -69,11 +69,10 @@ export class AAItemSettings extends FormApplication {
         //let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
         const explosionVariant = flags.autoanimations?.explodeVariant ?? '';
         //let impactVariant = flags.autoanimations?.impactVar || "";
-        const templateType = flags.autoanimations?.templates?.tempType ?? "";
+        const templateType = flags.autoanimations?.options?.tempType ?? "";
         //const templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
-        const animationLoops = flags.autoanimations?.options?.loops > 50 ? 50 : flags.autoanimations?.options?.loops;
-        const loopTemplate = flags.autoanimations?.templates?.tempLoop > 50 ? 50 : flags.autoanimations?.templates?.tempLoop;
-        const explosionLoops = flags.autoanimations?.explodeLoop > 50 ? 50 : flags.autoanimations?.explodeLoop;
+        const animationRepeat = flags.autoanimations?.options?.repeat > 50 ? 50 : flags.autoanimations?.options?.repeat;
+        const explosionLoops = flags.autoanimations?.explosions?.repeat > 50 ? 50 : flags.autoanimations?.explosions?.repeat;
         const returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
 
         //let variantLength = variantLength(itemName, );
@@ -145,7 +144,7 @@ export class AAItemSettings extends FormApplication {
             explosionMenu: AUTOANIM.localized(AUTOANIM.explosionMenu),
             autoRecognized: autoCheck,
             autoRecognizedNoOverride: autoCheck && !override,
-            t2: override && (animType === "t2"),
+            t2: override && animType === "t2",
             t3: override && animType === "t3",
             t4: override && animType === "t4",
             t5: override && animType === "t5",
@@ -158,8 +157,8 @@ export class AAItemSettings extends FormApplication {
 
             //huntermarkAnim: patreon ? AUTOANIM.localized(AUTOANIM.hmAnim) : AUTOANIM.localized(AUTOANIM.hmAnimFree),
 
-            animationLoops: animationLoops || 1,
-            animationLoopDelay: flags.autoanimations?.options?.loopDelay ?? 250,
+            repeat: animationRepeat || 1,
+            delay: flags.autoanimations?.options?.delay ?? 250,
             scale: flags.autoanimations?.options?.scale ?? 1,
 
             //customPath01: flags.autoanimations?.options?.customPath01 || "",
@@ -171,29 +170,26 @@ export class AAItemSettings extends FormApplication {
             //thrownVariantShow: (itemName.includes("lasersword") || itemName.includes("dagger") || itemName.includes("handaxe")) || itemName.includes("chakram") && (animType === "t2" || animType === "t4") && override ? true : false,
 
             explosionVariants: AUTOANIM.localized(AUTOANIM.explodeVariant),
-            explosionRadius: flags.autoanimations?.explodeRadius ?? 2,
+            explosionRadius: flags.autoanimations?.explosions?.radius ?? 1.5,
             explosionLoops: explosionLoops || 1,
-            explosionDelay: flags.autoanimations?.explodeDelay ?? 0,
+            explosionDelay: flags.autoanimations?.explosions?.delay ?? 0,
 
             //explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
             volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
 
-            auraRadius: flags.autoanimations?.selfRadius || 3.5,
+            auraRadius: flags.autoanimations?.options?.auraRadius || 3.5,
             //hexColour: flags.autoanimations?.animTint || `#FFFFFF`,
-            opacity: flags.autoanimations?.auraOpacity || ".75",
+            opacity: flags.autoanimations?.options?.opacity || ".75",
 
-            teleRange: flags.autoanimations?.teleDist || "30",
+            teleRange: flags.autoanimations?.options?.teleDist || "30",
 
             //templateTypes: AUTOANIM.localized(AUTOANIM.templateType),
             templateAnimations: AATabFunctions.animTemplates(templateType),
-            loopTemplate: loopTemplate || 1,
-            templateLoopDelay: flags.autoanimations?.templates?.loopDelay ?? 250,
-            customTemplatePath: flags.autoanimations?.templates?.customPath || "",
-            templateOpacity: flags.autoanimations?.templates?.opacity ?? 0.75,
+            customTemplatePath: flags.autoanimations?.options?.customPath || "",
             makePersistent: templateType === "circle" || templateType === "rect",
-            persistent: flags.autoanimations?.templates?.persistent && (templateType === "circle" || templateType === "rect"),
-            occlusionAlpha: flags.autoanimations?.templates?.occlusionAlpha ?? "0",
+            persistent: flags.autoanimations?.options?.persistent && (templateType === "circle" || templateType === "rect"),
+            occlusionAlpha: flags.autoanimations?.options?.occlusionAlpha ?? "0",
 
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,

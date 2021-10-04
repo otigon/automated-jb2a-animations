@@ -11,28 +11,28 @@ export async function auras(handler, autoObject) {
     const data = {}
     if (autoObject) {
         Object.assign(data, autoObject)
-        data.itemName = data.animation || "";
+        data.animation = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
         data.color = handler.options?.autoColor || data.color;
         data.size = data.scale * 2 * gridSize;
         //data.tint = parseInt(data.tint.substr(1), 16);
     } else {
-        data.itemName = handler.animName.replace(/\s+/g, '');
-        data.variant = handler.spellVariant;
+        data.animation = handler.animation;
+        data.variant = handler.variant;
         data.color = handler.color;
-        data.customPath = handler.enableCustom01 ? handler.custom01 : false;
+        data.customPath = handler.enableCustom ? handler.customPath : false;
         //data.tint = parseInt(handler.animTint.substr(1), 16);
-        data.opacity = handler.auraOpacity;
-        data.size = handler.selfRadius * 2 * gridSize
-        data.ignoretargets = handler.options?.ignoreTarget
-        data.below = handler.animLevel;
+        data.opacity = handler.opacity;
+        data.size = handler.auraRadius * 2 * gridSize
+        data.ignoretargets = handler.options.ignoreTarget;
+        data.below = handler.below;
     }
 
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
 
     if (aaDebug) { aaDebugger("CTA Aura Animation Start", data) }
     const sourceToken = handler.actorToken;
-    const aura = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
+    const aura = await buildFile(true, data.animation, "static", "01", data.color, data.customPath);
     if (handler.allTargets.length === 0 || data.ignoretargets) {
         selfAura()
     } else {

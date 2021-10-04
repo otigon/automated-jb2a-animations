@@ -22,11 +22,11 @@ export async function bless(handler, autoObject) {
     if (autoObject) {
         const autoOverridden = handler.options?.overrideAuto
         Object.assign(data, autoObject);
-        data.itemName = data.animation || "";
+        data.animation = data.animation || "";
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
     } else {
-        data.itemName = handler.convertedName;
+        data.animation = handler.convertedName;
         data.color = handler.color;
         data.scale = handler.scale || 1;
         data.below = handler.animLevel;
@@ -40,8 +40,8 @@ export async function bless(handler, autoObject) {
 
     //let animWidth = onToken.metadata.width;
     const scale = (sourceToken.w * 2.5 / bless.metadata.width) * data.scale// * handler.scale
-    const size = sourceToken.w * 1.5;
-    const scaledSize = (size * data.scale)
+    //const size = sourceToken.w * 1.5;
+    //const scaledSize = (size * data.scale)
 
     if (handler.allTargets.length === 0) {
         new Sequence("Automated Animations")

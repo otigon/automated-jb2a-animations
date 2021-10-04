@@ -267,7 +267,7 @@ function setUpMidi(workflow) {
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
-    if (handler.animType === "t8" && handler.animOverride) { return; }
+    if (handler.animType === "t5" && handler.animOverride) { return; }
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
@@ -280,7 +280,7 @@ function setUpMidiNoAD(workflow) {
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
-    if (handler.animType === "t8" && handler.animOverride) { return; }
+    if (handler.animType === "t5" && handler.animOverride) { return; }
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
@@ -301,7 +301,7 @@ function setUpMidiNoA(workflow) {
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if ((templateItem || fireball) && !handler.animOverride) { return; }
-    if (handler.animType === "t8" && handler.animOverride) { return; }
+    if (handler.animType === "t5" && handler.animOverride) { return; }
     trafficCop(handler)
 }
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
@@ -323,7 +323,7 @@ async function specialCaseAnimations(msg) {
         if (getObject) {
             fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
         }    
-        if (handler.animType === "t8" && handler.animOverride) {
+        if (handler.animType === "t5" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler);
             })
@@ -388,12 +388,12 @@ function setUp5eCore(msg) {
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
     //console.log(templateItem)
-    const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
+    const t5Template = handler.animType === "t5" && handler.animOverride ? true : false;
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
             trafficCop(handler);
             break;
-        case handler.animType === "t8" && !rollType.includes("damage") && handler.animOverride:
+        case handler.animType === "t5" && !rollType.includes("damage") && handler.animOverride:
             trafficCop(handler);
             break;
         case (templateItem || fireball) && !rollType.includes("damage") && !rollType.includes("attack"):
@@ -401,7 +401,7 @@ function setUp5eCore(msg) {
             break;
         case animationNow:
             if (rollType.includes("damage")) {
-                if (t8Template || templateItem || fireball) { return; }
+                if (t5Template || templateItem || fireball) { return; }
                 trafficCop(handler);
             }
             break;
@@ -412,11 +412,11 @@ function setUp5eCore(msg) {
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
-                    if (t8Template || templateItem || fireball) { return; }
+                    if (t5Template || templateItem || fireball) { return; }
                     trafficCop(handler);
                     break;
                 case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (t8Template || templateItem || fireball) { return; }
+                    if (t5Template || templateItem || fireball) { return; }
                     trafficCop(handler);
                     break;
             }
@@ -537,22 +537,22 @@ async function pf2eReady(msg) {
     }
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
+    const t5Template = handler.animType === "t5" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
     const damage = /*handler.item.damageValue || */handler.item?.damage?.length;
     //console.log(damage)
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (t8Template) {
+    if (t5Template) {
         if (msg.data.flavor?.toLowerCase().includes("damage")) { return; }
         trafficCop(handler);
         return;
     }
-    if ((templateItem || fireball) && !t8Template && !msg.data.flavor?.toLowerCase().includes("damage")) {
+    if ((templateItem || fireball) && !t5Template && !msg.data.flavor?.toLowerCase().includes("damage")) {
         trafficCop(handler);
         return;
     }
-    if (templateItem || fireball || t8Template) { return };
+    if (templateItem || fireball || t5Template) { return };
     switch (itemType) {
         case "spell":
             switch (spellType) {

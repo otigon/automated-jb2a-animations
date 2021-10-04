@@ -53,11 +53,13 @@
             <input type="checkbox" name="flags.autoanimations.options.overrideAuto"
                 value="flags.autoanimations.options.overrideAuto" {{checked flags.autoanimations.options.overrideAuto}}>
         </div>
-
-
+        {{/if}}
+        {{/unless}}
+        {{/unless}}
     </div>
 </div>
-
+{{#unless flags.autoanimations.override}}
+{{#unless flags.autoanimations.killAnim}}
 {{#if flags.autoanimations.options.overrideAuto}}
 <div class='animation-not-disabled'>
     <div style='padding:6px'>
@@ -71,12 +73,13 @@
     </div>
 </div>
 {{/if}}
-{{/if}}
+{{/unless}}
 {{/unless}}
 
+{{#unless flags.autoanimations.killAnim}}
 {{#if flags.autoanimations.override}}
 <!--Choose the Animation Type-->
-<div class="form-group" style='grid-column: 1 / 2;grid-row: 7 / 8;'>
+<div class="form-group animation-not-disabled" style='grid-column: 1 / 2;grid-row: 7 / 8;'>
     <label style='text-align: left;'><strong>{{localize "AUTOANIM.menuAnimType"}}</strong></label>
     <select style='text-align: center;' name="flags.autoanimations.animType">
         {{#select flags.autoanimations.animType}}
@@ -87,7 +90,9 @@
     </select>
 </div>
 {{/if}}
+{{/unless}}
 
+{{#unless flags.autoanimations.killAnim}}
 <div class='animation-not-disabled'>
     {{#if t2}}
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-melee.html')}}
@@ -123,8 +128,10 @@
     {{/undefined}}
     {{/if}}
 </div>
+{{/unless}}
 
+{{#unless flags.autoanimations.killAnim}}
 <div class="aa-video">
     {{{content}}}
-    {{/unless}}
 </div>
+{{/unless}}

@@ -1,7 +1,7 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
-import { AAanimationData } from "../../aa-classes/animation-data.js";
+//import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -13,11 +13,11 @@ async function huntersMark(handler) {
 
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let myToken = handler.actorToken;
+    const sourceToken = handler.actorToken;
     let target = handler.allTargets[0];
-
-    let animLoop = handler.hmAnim + "loop";
-    let hmPulse = handler.color === 'random' ? `autoanimations.static.huntersmark.${handler.hmAnim}` : `autoanimations.static.huntersmark.${handler.hmAnim}.${handler.color}`;
+    const hmAnim = handler.variant || "paw";
+    let animLoop = hmAnim + "loop";
+    let hmPulse = handler.color === 'random' ? `autoanimations.static.huntersmark.${hmAnim}` : `autoanimations.static.huntersmark.${hmAnim}.${handler.color}`;
     function random_item(items) {
         return items[Math.floor(Math.random() * items.length)];
     }
@@ -29,15 +29,15 @@ async function huntersMark(handler) {
     //checkAnim =  checkAnim.length > 0 ? true : false
     const scale = handler.options?.scale || 1
     const finalScale = (canvas.grid.size / 200) * scale
-    const anchorX = handler.flags?.options?.anchorX || 1;
-    const anchorY = handler.flags?.options?.anchorY || 1;
-    const persist = handler.flags?.ctaOption;
+    const anchorX = handler.anchorX || 1;
+    const anchorY = handler.anchorY || 1;
+    const persist = handler.persistent;
 
     const playPersist = !checkAnim && persist ? true : false;
     await new Sequence("Automated Animations")
         .effect()
             .file(hmPulse)
-            .atLocation(myToken)
+            .atLocation(sourceToken)
         .effect()
             .file(hmPulse)
             .atLocation(target)

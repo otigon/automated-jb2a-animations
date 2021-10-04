@@ -9,8 +9,8 @@
     {{#unless flags.autoanimations.options.enableCustom01}}
     <div style='grid-column: 1 / 3;grid-row: 1 / 2;'>
         <label>{{localize "AUTOANIM.animation"}}</label>
-        <select style='min-width: 15em;' name="flags.autoanimations.animName">
-            {{#select flags.autoanimations.animName}}
+        <select style='min-width: 15em;' name="flags.autoanimations.animation">
+            {{#select flags.autoanimations.animation}}
             {{#each auraList as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
@@ -21,7 +21,7 @@
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.options.variant">
             {{#select flags.autoanimations.options.variant}}
-            {{#each (lookup variantmenu.static (lookup flags.autoanimations 'animName')) as |name key|}}
+            {{#each (lookup variantmenu.static (lookup flags.autoanimations 'animation')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -32,7 +32,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
-            {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations 'animName'))(lookup flags.autoanimations.options 'variant')) as |name key|}}
+            {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations 'animation'))(lookup flags.autoanimations.options 'variant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -42,13 +42,13 @@
     <!--Aura Choose Radius-->
     <div class="autorec-menu-options" style='grid-column: 3 / 5;grid-row: 1 / 2;'>
         <label>{{localize "AUTOANIM.radius"}}</label>
-        <input type="Number" name="flags.autoanimations.selfRadius" min="0" step=".01" value={{auraRadius}}
+        <input type="Number" name="flags.autoanimations.options.auraRadius" min="0" step=".01" value={{auraRadius}}
             data-type="Number">
     </div>
     <!--Set Aura Opacity-->
     <div class="autorec-menu-options option07">
         <label>{{localize "AUTOANIM.opacity"}} </label>
-        <input type="Number" name="flags.autoanimations.auraOpacity" min="0" max="1" step=".01" value={{opacity}}>
+        <input type="Number" name="flags.autoanimations.options.opacity" min="0" max="1" step=".01" value={{opacity}}>
     </div>
     <div class="autorec-menu-options option08">
         <label>{{localize "AUTOANIM.ignoreTargets"}}</label>
@@ -57,16 +57,15 @@
     </div>
     <div class="form-group option09">
         <label>{{localize "AUTOANIM.customAnim"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.enableCustom01"
-            value="flags.autoanimations.options.enableCustom01" {{checked flags.autoanimations.options.enableCustom01}}>
+        <input type="checkbox" name="flags.autoanimations.options.enableCustom"
+            value="flags.autoanimations.options.enableCustom" {{checked flags.autoanimations.options.enableCustom}}>
     </div>
-    {{#if flags.autoanimations.options.enableCustom01}}
+    {{#if flags.autoanimations.options.enableCustom}}
     <div class="form-group" style='grid-column: 2 / 5;grid-row: 3 / 4;'>
-        <label>{{localize "AUTOANIM.menuAnimName"}}</label>
-        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath01"
-            value="{{lookup flags.autoanimations.options 'customPath01'}}">
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath"
+            value="{{lookup flags.autoanimations.options 'customPath'}}">
         <button type="button" class="file-picker" data-type="image/video"
-            data-target="flags.autoanimations.options.customPath01" tabindex="-1" title="Browse Files">
+            data-target="flags.autoanimations.options.customPath" tabindex="-1" title="Browse Files">
             <i class="fas fa-file-video"></i>
         </button>
     </div>

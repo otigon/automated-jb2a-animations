@@ -19,8 +19,8 @@
     <!--Choose Animation by Name-->
     <div class='option02'>
         <label>{{localize "AUTOANIM.animation"}}</label>
-        <select name="flags.autoanimations.animName">
-            {{#select flags.autoanimations.animName}}
+        <select name="flags.autoanimations.animation">
+            {{#select flags.autoanimations.animation}}
             {{#ifEquals (lookup flags.autoanimations.options 'rangeType') 'weapon'}}
             {{#each rangeList as |name key|}}
             <option value="{{key}}">{{name}}</option>
@@ -40,7 +40,7 @@
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.rangedOptions.rangeDmgType">
             {{#select flags.autoanimations.rangedOptions.rangeDmgType}}
-            {{#each (lookup variantmenu.range (lookup flags.autoanimations 'animName')) as |name key|}}
+            {{#each (lookup variantmenu.range (lookup flags.autoanimations 'animation')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -52,7 +52,7 @@
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.dtvar">
             {{#select flags.autoanimations.dtvar}}
-            {{#each (lookup variantmenu.range (lookup flags.autoanimations 'animName')) as |name key|}}
+            {{#each (lookup variantmenu.range (lookup flags.autoanimations 'animation')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -75,7 +75,7 @@
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.options.variant">
             {{#select flags.autoanimations.options.variant}}
-            {{#each (lookup variantmenu.range (lookup flags.autoanimations 'animName')) as |name key|}}
+            {{#each (lookup variantmenu.range (lookup flags.autoanimations 'animation')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -86,7 +86,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
-            {{#each (lookup (lookup colormenu.range (lookup flags.autoanimations 'animName'))(lookup flags.autoanimations.options 'variant')) as |name key|}}
+            {{#each (lookup (lookup colormenu.range (lookup flags.autoanimations 'animation'))(lookup flags.autoanimations.options 'variant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
@@ -94,11 +94,11 @@
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.options.loops" value={{animationLoops}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.options.repeat" value={{repeat}} data-dtype="Number">
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.options.loopDelay" value={{animationLoopDelay}}
+        <input type="Number" name="flags.autoanimations.options.delay" value={{delay}}
             data-dtype="Number">
     </div>
 </div>

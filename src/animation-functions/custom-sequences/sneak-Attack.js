@@ -8,20 +8,20 @@ export async function sneakAttack(handler, autoObject) {
     if (autoObject) {
         const autoOverridden = handler.options?.overrideAuto
         Object.assign(data, autoObject);
-        data.itemName = data.animation || "";
+        data.animation = data.animation || "";
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
         data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
         data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
     } else {
-        data.itemName = handler.convertedName;
+        data.animation = handler.animation;
         data.color = handler.color;
         data.scale = 1;
         data.below = false;
-        data.anchorX = handler.options?.anchorX || 0.5;
-        data.anchorY = handler.options?.anchorY || 0.7;
+        data.anchorX = handler.anchorX;
+        data.anchorY = handler.anchorY;
     }
-    const sneak = await buildFile(true, data.itemName, "static", "01", data.color)
+    const sneak = await buildFile(true, data.animation, "static", "01", data.color)
     const sourceToken = handler.actorToken;
 
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
