@@ -1,6 +1,6 @@
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
-
+import { flagMigrations } from "./flagMerge.js"
 export default class flagHandler {
     constructor(msg, isChat, external) {
         this.debug = game.settings.get("autoanimations", "debug");
@@ -16,6 +16,9 @@ export default class flagHandler {
         //const hitTargets = data.hitTargets;
         const midiActive = game.modules.get('midi-qol')?.active;
         this._reach = data.reach || 0;
+
+        //this._flags = data.item.data?.flags?.autoanimations ?? "";
+        this._flags = flagMigrations.handle(item)
 
         this._item = data.item;
         this._actorToken = data.token;
@@ -33,7 +36,6 @@ export default class flagHandler {
 
         this._itemName = this._item.name?.toLowerCase() ?? "";
         this._itemMacro = this._item.data?.flags?.itemacro?.macro?.data?.name ?? "";
-        this._flags = this._item.data?.flags?.autoanimations ?? "";
 
         this._animKill = this._flags.killAnim;
         this._below = this._flags.animLevel ?? false;

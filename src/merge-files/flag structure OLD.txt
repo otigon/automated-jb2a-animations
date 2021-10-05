@@ -1,0 +1,156 @@
+t2t3 = {
+    animName
+    uaStrikeType
+    color
+    options.enableCustom01
+    options.customPath01
+    options.loops
+    options.loopDelay
+    options.scale
+
+    meleeSwitch.switchType
+    meleeSwitch.animName
+    meleeSwitch.rangeDmgType
+    meleeSwitch.rangeVar
+    meleeSwitch.returning
+    meleeSwitch.color
+    meleeSwitch.detect
+    meleeSwitch.range
+}
+
+t4 = {
+    animName
+    rangedOptions.rangeDmgType: variant for "bolt" "bullet" "arrow"
+    dtvar: variant for "lasersword" "dagger" "handaxe" "chakram" && t2 / t4
+    color
+    options.loops
+    options.loopDelay
+}
+
+t5 = {
+    animName
+    color
+    options.enableCustom01
+    options.customPath01
+    options.loops
+    options.loopDelay
+    options.scale
+}
+
+t6 = {
+    animName
+    spellVar: variant
+    color
+    options.loops
+    options.loopDelay
+}
+
+t7 = {
+    animName
+    spellVar: Variant
+    color
+    options.enableCustom01
+    options.customPath01
+    options.loops
+    options.loopDelay
+    options.scale
+}
+
+t8 = {
+    templates.tempType
+    templates.tempAnim
+    templates.tempColor
+    templates.customAnim
+    templates.customPath
+    templates.removeTemplate
+    templates.persistent
+    templates.opacity
+    templates.overhead
+    templates.occlusionMode
+    templates.occlusionAlpha
+    templates.tempLoop
+    templates.loopDelay
+}
+
+t9/t10 = {
+    explodeVariant: explosion name
+    options.variant: variant
+    explodeColor
+    options.scaleToToken
+    explodeRadius: if !scaleToToken
+    explodeLoop
+    explodeDelay
+    options.scale: if scaleToToken
+    options.enableCustomExplosion
+    options.customExplosion
+}
+
+t11 = {
+    animName
+    color
+    options.enableCustom01
+    options.customPath01
+    selfRadius
+    auraOpacity
+    options.ignoreTarget
+}
+
+t12 = {
+    animName
+    color
+    teleDist
+    options.hideTemplate
+    options.enableCustom01
+    options.customPath01
+    options.scale
+}
+
+t13 = {
+    SHIELD 
+    animName
+    spellVar: variant
+    options.shieldVar: end Effect
+    color
+
+    BARDIC INSPIRATION 
+    bards.bardSelf: enable Self
+    bards.bardAnim
+    bards.bardSelfColor
+    //
+    bards.bardTarget: enable Target
+    bards.bardTargetAnim
+    bards.bardTargetColor
+    //
+    bards.marker: enable marker
+    bards.markerColor
+    bards.markerColorTarget
+
+    HUNTERS MARK 
+    hmAnim: variant
+    color
+    ctaOption: persistent
+    options.anchorX
+    options.anchorY
+    options.scale
+
+    SNEAK ATTACK 
+    color
+    options.anchorX
+    options.anchorY
+
+    BLESS 
+    color
+    options.addCTA: persistent
+    options.scale: scale duh
+}
+
+add-explosion = {
+    explosion: enable Explosion
+    exAnimLevel: below Token
+    explodeVariant: explosion variant/name
+    explodeColor: explosion color
+    options.enableCustomExplosion: enable add on explosion
+    options.customExplosion: filepath
+    explodeRadius: explosion grid square radius
+    explodeDelay: delay start 
+}

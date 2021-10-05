@@ -327,12 +327,12 @@ AUTOANIM.rectangleAnimations = {
 
 AUTOANIM.animTypePick = {
     "t1": ``,
-    "t2": "AUTOANIM.melee",
-    "t3": "AUTOANIM.ranged",
-    't4': "AUTOANIM.onToken",
-    "t5": "AUTOANIM.templates",
-    "t6": "AUTOANIM.typeAuras",
-    "t7": "AUTOANIM.presets",
+    "melee": "AUTOANIM.melee",
+    "range": "AUTOANIM.ranged",
+    'static': "AUTOANIM.onToken",
+    "template": "AUTOANIM.templates",
+    "aura": "AUTOANIM.typeAuras",
+    "preset": "AUTOANIM.presets",
 }
 
 AUTOANIM.tokenAnimations = {
