@@ -2,6 +2,19 @@ import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "./flagMerge.js"
 export default class flagHandler {
+
+    static async make(msg, isChat, external) {
+        const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
+        const data = external ? external : AASystemData[systemID](msg, isChat)
+        if (!data) { return; }
+
+        console.log(data.item.data.flags.autoanimations)
+        const flags = await flagMigrations.handle(data.item);
+        console.log(flags)
+
+
+    }
+
     constructor(msg, isChat, external) {
         this.debug = game.settings.get("autoanimations", "debug");
         this._log("Getting System Data")

@@ -6,7 +6,7 @@ import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2
 export class AAItemSettings extends FormApplication {
     constructor() {
         super(...arguments);
-        this.flags = this.object.data.flags.autoanimations
+        //this.flags = this.object.data.flags.autoanimations
         //this.exampleOption = exampleOption;
     }
 
@@ -144,12 +144,12 @@ export class AAItemSettings extends FormApplication {
             explosionMenu: AUTOANIM.localized(AUTOANIM.explosionMenu),
             autoRecognized: autoCheck,
             autoRecognizedNoOverride: autoCheck && !override,
-            t2: override && animType === "t2",
-            t3: override && animType === "t3",
-            t4: override && animType === "t4",
-            t5: override && animType === "t5",
-            t6: override && animType === "t6",
-            t7: override && animType === "t7",
+            t2: override && animType === "melee",
+            t3: override && animType === "range",
+            t4: override && animType === "static",
+            t5: override && animType === "template",
+            t6: override && animType === "aura",
+            t7: override && animType === "preset",
 
             //bardicOptions: itemName === "bardicinspiration" ? true : false,
             bardAnimName: AUTOANIM.localized(AUTOANIM.bardAnimType),
@@ -243,7 +243,7 @@ export class AAItemSettings extends FormApplication {
             anchorX: flags.autoanimations?.options?.anchorX || 0.5,
             anchorY: flags.autoanimations?.options?.anchorY || 0.7,
 
-            dontShowTarget: animType === 't8' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
+            dontShowTarget: animType === 'template' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
             /*
             meleeColors: AATabFunctions.menuColors(itemName, variant, "melee"),
             explosionColors: AATabFunctions.menuColors(explosionVariant, "", "static"),

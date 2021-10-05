@@ -261,7 +261,7 @@ function moduleIncludes(test) {
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
-    let handler = new flagHandler(workflow);
+    let handler = await flagHandler.make(workflow);
     if (!handler.item || !handler.actorToken) {
         return;
     }
@@ -274,7 +274,7 @@ function setUpMidi(workflow) {
 function setUpMidiNoAD(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
-    let handler = new flagHandler(workflow);
+    let handler = await flagHandler.make(workflow);
     if (!handler.item || !handler.actorToken) {
         return;
     }
@@ -287,7 +287,7 @@ function setUpMidiNoAD(workflow) {
 function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
-    let handler = new flagHandler(workflow);
+    let handler = await flagHandler.make(workflow);
     if (!handler.item || !handler.actorToken) {
         return;
     }
@@ -312,7 +312,7 @@ async function specialCaseAnimations(msg) {
     }
     let breakOut = checkMessege(msg);
     if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
-        let handler = new flagHandler(msg, true);
+        let handler = await flagHandler.make(msg, true);
         if (!handler.item || !handler.actorToken) {
             return;
         }

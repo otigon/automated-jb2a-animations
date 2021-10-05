@@ -45,9 +45,9 @@ export async function trafficCop(handler) {
     const targets = handler.allTargets?.length ?? 0;
     if (override) {
         if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets]) }
-        if (animType === 't8') {} else {itemSound(handler)}
+        if (animType === 'template') {} else {itemSound(handler)}
         switch (animType) {
-            case "t2":
+            case "melee":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
@@ -56,7 +56,7 @@ export async function trafficCop(handler) {
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                 meleeAnimation(handler);
                 break;
-            case "t3":
+            case "range":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
@@ -65,7 +65,7 @@ export async function trafficCop(handler) {
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                 rangedAnimations(handler);
                 break;
-            case "t4":
+            case "static":
                 /*
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
@@ -76,7 +76,7 @@ export async function trafficCop(handler) {
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                 staticAnimation(handler);
                 break;
-            case "t5":
+            case "template":
                 debugger
                 if (game.modules.get("midi-qol")?.active) { return; }
                 //some do not need hook on template, depends on when damage is rolled
@@ -95,7 +95,7 @@ export async function trafficCop(handler) {
                         templateAnimation(handler);
                 }
                 break;
-            case "t6":
+            case "aura":
                 /*
                 if (game.modules.get("Custom-Token-Animations")?.active) {
                     ctaCall(handler);
@@ -103,7 +103,7 @@ export async function trafficCop(handler) {
                 */
                 auras(handler)
                 break;
-            case "t7":
+            case "preset":
                 switch (animName) {
                     case "bardicinspiration":
                         bardicInspiration(handler);

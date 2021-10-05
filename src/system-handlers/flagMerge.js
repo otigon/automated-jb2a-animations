@@ -31,6 +31,7 @@ export const flagMigrations = {
             let data;
             switch (type) {
                 case "t2":
+                    debugger
                     data = {
                         animation: replaceName(oldFlags.animName),
                         variant: oldFlags.uaStrikeType ?? "01",
