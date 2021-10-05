@@ -1,13 +1,13 @@
 
-const flagMigrations = {
+export const flagMigrations = {
 
     handle(item) {
         let flags = item.data?.flags?.autoanimations;
         if (!flags) return;
 
         if (this.upToDate(flags)) return flags;
-
-        for (let [version, migration] in Object.entries(this.migrations)) {
+        console.log(Object.entries(this.migrations))
+        for (let [version, migration] of Object.entries(this.migrations)) {
 
             if (flags.version > version) continue;
 
@@ -17,14 +17,21 @@ const flagMigrations = {
         return flags;
     },
 
+    upToDate(flags) {
+        const currentVersion = flags.version;
+        if (flags.version >= currentVersion) { return true; } else {
+            return false;
+        }
+    },
+
     migrations: {
-        "1": (item) => {
+        "1": async (item) => {
             const oldFlags = item.data?.flags?.autoanimations;
             const type = oldFlags.animType;
-
+            let data;
             switch (type) {
                 case "t2":
-                    let data = {
+                    data = {
                         animation: replaceName(oldFlags.animName),
                         variant: oldFlags.uaStrikeType ?? "01",
                         repeat: oldFlags.options?.loops ?? 1,
@@ -50,7 +57,7 @@ const flagMigrations = {
                 case "t3":
                     break;
                 case "t4":
-                    let data = {
+                    data = {
                         animation: replaceName(oldFlags.animName),
                         variant: t4VariantSwitch(replaceName(oldFlags.animName)),
                         repeat: oldFlags.options?.loops ?? 1,
@@ -86,7 +93,7 @@ const flagMigrations = {
 
                     return item.data.flags.autoanimations;
                 case "t5":
-                    let data = {
+                    data = {
                         animation: replaceName(oldFlags.animName),
                         variant: "01",
                         repeat: oldFlags.options?.loops ?? 1,
@@ -111,7 +118,7 @@ const flagMigrations = {
 
                     return item.data.flags.autoanimations;
                 case "t6":
-                    let data = {
+                    data = {
                         animation: replaceName(oldFlags.animName),
                         variant: oldFlags.spellVar ?? "01",
                         repeat: oldFlags.options?.loops ?? 1,
@@ -123,7 +130,7 @@ const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.variant', data.variant)
                     await item.setFlag('autoanimations', 'options.repeat', data.repeat)
                     await item.setFlag('autoanimations', 'options.delay', data.delay)
-                
+
                     if (oldFlags.explosion) {
                         await explosions(item)
                     }
@@ -132,7 +139,7 @@ const flagMigrations = {
 
                     return item.data.flags.autoanimations;
                 case "t7":
-                    let data = {
+                    data = {
                         animation: replaceName(oldFlags.animName),
                         variant: oldFlags.spellVar ?? "01",
                         repeat: oldFlags.options?.loops ?? 1,
@@ -148,16 +155,16 @@ const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.delay', data.delay)
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-                
+
                     if (oldFlags.explosion) {
                         await explosions(item)
                     }
-                
+
                     await item.setFlag('autoanimations', 'version', '1')
 
                     return item.data.flags.autoanimations;
                 case "t8":
-                    let data = {
+                    data = {
                         tempType: oldFlags.templates?.TempType,
                         animation: replaceName(oldFlags.templates?.tempAnim),
                         variant: "01",
@@ -188,12 +195,12 @@ const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.occlusionAlpha', data.occlusionAlpha)
                     await item.setFlag('autoanimations', 'options.repeat', data.repeat)
                     await item.setFlag('autoanimations', 'options.delay', data.delay)
-                
+
                     await item.setFlag('autoanimations', 'version', '1')
 
                     return item.data.flags.autoanimations;
                 case "t9":
-                    let data = {
+                    data = {
                         animation: replaceName(oldFlags.explodeVariant),
                         variant: oldFlags.options?.variant ?? "01",
                         color: oldFlags.explodeColor ?? "white",
@@ -213,12 +220,12 @@ const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.scale', data.scale)
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-                
+
                     await item.setFlag('autoanimations', 'version', '1')
 
                     return item.data.flags.autoanimations;
                 case "t10":
-                    let data = {
+                    data = {
                         animation: replaceName(oldFlags.explodeVariant),
                         variant: oldFlags.options?.variant ?? "01",
                         color: oldFlags.explodeColor ?? "white",
@@ -238,12 +245,12 @@ const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.scale', data.scale)
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-                
+
                     await item.setFlag('autoanimations', 'version', '1')
 
                     return item.data.flags.autoanimations;
                 case "t11":
-                    let data = {
+                    data = {
                         animation: replaceName(oldFlags.animName),
                         variant: "01",
                         color: replaceName(oldFlags.color),
@@ -262,12 +269,12 @@ const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.ignoreTarget', data.ignoreTarget)
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-                
+
                     await item.setFlag('autoanimations', 'version', '1')
 
                     return item.data.flags.autoanimations;
                 case "t12":
-                    let data = {
+                    data = {
                         animation: "teleportation",
                         name: replaceName(oldFlags.animName),
                         variant: "01",
@@ -288,12 +295,12 @@ const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.scale', data.scale)
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-                
+
                     await item.setFlag('autoanimations', 'version', '1')
 
                     return item.data.flags.autoanimations;
                 case "t13":
-                    
+
                     await item.setFlag('autoanimations', 'version', '1')
 
                     return item.data.flags.autoanimations;
@@ -326,12 +333,12 @@ const flagMigrations = {
                 const newName = name.replace(/\s+/g, '').toLowerCase();
                 return newName;
             }
-            
+
         },
     }
 }
 
-export default flagMigrations
+//export default flagMigrations
 
 /*
 class AAFlagMigration {
@@ -356,7 +363,7 @@ class AAFlagMigration {
     }
 
     static async migrations(item) {
-        
+
     }
 }
 */

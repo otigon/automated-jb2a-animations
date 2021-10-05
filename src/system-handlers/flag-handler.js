@@ -17,8 +17,10 @@ export default class flagHandler {
         const midiActive = game.modules.get('midi-qol')?.active;
         this._reach = data.reach || 0;
 
+        console.log(data.item.data.flags.autoanimations)
         //this._flags = data.item.data?.flags?.autoanimations ?? "";
-        this._flags = flagMigrations.handle(item)
+        this._flags = flagMigrations.handle(data.item)
+        console.log(data.item.data.flags.autoanimations)
 
         this._item = data.item;
         this._actorToken = data.token;
