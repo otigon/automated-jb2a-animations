@@ -7,6 +7,7 @@ import flagHandler from "./system-handlers/flag-handler.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import aaSettings from "./settings.js";
+import { AASystemData } from "./system-handlers/getdata-by-system.js";
 
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
@@ -311,26 +312,44 @@ async function specialCaseAnimations(msg) {
     if (game.user.id !== msg.user?.id) {
         return;
     }
+
+    const data = AASystemData["dnd5e"](msg, true);
+    if (!data.item || !data.token) { return; }
+    const itemType = data.item.data?.flags?.autoanimations?.animType;
+
+    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    const autoName = data.item.name ? AutorecFunctions._rinseName(data.item.name.toLowerCase()) : "noitem";
+    const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName);
+    let fireball;
+    if (getObject) {
+        fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
+    }
+
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
+    if (itemType === "templates" || itemType === "t8") {} else {
+        return;
+    }
+
     let breakOut = checkMessege(msg);
     if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
         let handler = await flagHandler.make(msg, true);
         if (!handler.item || !handler.actorToken) {
             return;
         }
-        const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-        const autoName = AutorecFunctions._rinseName(handler.itemName);
-        const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
-        let fireball;
-        if (getObject) {
-            fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
-        }    
+        //const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        //const autoName = AutorecFunctions._rinseName(handler.itemName);
+        //const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
+        //let fireball;
+        //if (getObject) {
+        //    fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
+        //}    
         if (handler.animType === "template" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler);
             })
             return;
         }
-        const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
+        //const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
         if ((templateItem || fireball) && !handler.animOverride) {
             trafficCop(handler)
         }
