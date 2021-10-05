@@ -259,7 +259,7 @@ function moduleIncludes(test) {
 / Midi-QOL Functions for DnD 5e and Star Wars 5e
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
-function setUpMidi(workflow) {
+async function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(workflow);
     if (!handler.item || !handler.actorToken) {
@@ -267,11 +267,11 @@ function setUpMidi(workflow) {
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
-    if (handler.animType === "t5" && handler.animOverride) { return; }
+    if (handler.animType === "template" && handler.animOverride) { return; }
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
-function setUpMidiNoAD(workflow) {
+async function setUpMidiNoAD(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = await flagHandler.make(workflow);
@@ -280,11 +280,11 @@ function setUpMidiNoAD(workflow) {
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
-    if (handler.animType === "t5" && handler.animOverride) { return; }
+    if (handler.animType === "template" && handler.animOverride) { return; }
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
-function setUpMidiNoA(workflow) {
+async function setUpMidiNoA(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = await flagHandler.make(workflow);
@@ -301,9 +301,10 @@ function setUpMidiNoA(workflow) {
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if ((templateItem || fireball) && !handler.animOverride) { return; }
-    if (handler.animType === "t5" && handler.animOverride) { return; }
+    if (handler.animType === "template" && handler.animOverride) { return; }
     trafficCop(handler)
 }
+
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
 async function specialCaseAnimations(msg) {
     if (killAllAnimations) { return; }
@@ -323,7 +324,7 @@ async function specialCaseAnimations(msg) {
         if (getObject) {
             fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
         }    
-        if (handler.animType === "t5" && handler.animOverride) {
+        if (handler.animType === "template" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler);
             })
@@ -335,6 +336,7 @@ async function specialCaseAnimations(msg) {
         }
     } else { return; }
 }
+
 function checkMessege(msg) {
     try {
         return msg.data?.flags['midi-qol'].type;
@@ -346,7 +348,7 @@ function checkMessege(msg) {
 /*
 / Set up DnD5e and SW5e CORE (NON MIDI)
 */
-function setUp5eCore(msg) {
+async function setUp5eCore(msg) {
     if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
 
@@ -355,11 +357,11 @@ function setUp5eCore(msg) {
     let rollType;
     switch (game.system.id) {
         case "dnd5e":
-            handler = new flagHandler(msg);
+            handler = await flagHandler.make(msg);
             rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
             break;
         case "sw5e":
-            handler = new flagHandler(msg);
+            handler =  await flagHandler.make(msg);
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
@@ -388,12 +390,12 @@ function setUp5eCore(msg) {
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
     //console.log(templateItem)
-    const t5Template = handler.animType === "t5" && handler.animOverride ? true : false;
+    const t5Template = handler.animType === "template" && handler.animOverride ? true : false;
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
             trafficCop(handler);
             break;
-        case handler.animType === "t5" && !rollType.includes("damage") && handler.animOverride:
+        case handler.animType === "template" && !rollType.includes("damage") && handler.animOverride:
             trafficCop(handler);
             break;
         case (templateItem || fireball) && !rollType.includes("damage") && !rollType.includes("attack"):
@@ -537,7 +539,7 @@ async function pf2eReady(msg) {
     }
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    const t5Template = handler.animType === "t5" && handler.animOverride ? true : false;
+    const t5Template = handler.animType === "template" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
     const damage = /*handler.item.damageValue || */handler.item?.damage?.length;
     //console.log(damage)

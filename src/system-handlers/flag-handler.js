@@ -6,35 +6,36 @@ export default class flagHandler {
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
         const data = external ? external : AASystemData[systemID](msg, isChat)
-        if (!data) { return; }
+        if (!data.item) { /*this._log("Retrieval Failed");*/ return; }
+        //this._log("Data Retrieved", data)
 
         console.log(data.item.data.flags.autoanimations)
         const flags = await flagMigrations.handle(data.item);
         console.log(flags)
 
-
+        return new flagHandler(data, flags)
     }
 
-    constructor(msg, isChat, external) {
+    constructor(systemData, flagData) {
         this.debug = game.settings.get("autoanimations", "debug");
         this._log("Getting System Data")
+        console.log(flagData)
         //const data = getSystemData(msg, isChat);
-        const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
-        const data = external ? external : AASystemData[systemID](msg, isChat)
-        if (!data) { this._log("Retrieval Failed"); return; }
-        this._log("Data Retrieved", data)
+        //const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
+        const data = systemData;
+        //if (!data) { this._log("Retrieval Failed"); return; }
+        //this._log("Data Retrieved", data)
         //const item = data.item;
         //const token = data.token;
         //const targets = data.targets;
         //const hitTargets = data.hitTargets;
         const midiActive = game.modules.get('midi-qol')?.active;
-        this._reach = data.reach || 0;
-
-        console.log(data.item.data.flags.autoanimations)
+        //console.log(data.item.data.flags.autoanimations)
         //this._flags = data.item.data?.flags?.autoanimations ?? "";
-        this._flags = flagMigrations.handle(data.item)
-        console.log(data.item.data.flags.autoanimations)
+        this._flags = flagData;
+        //console.log(data.item.data.flags.autoanimations)
 
+        this._reach = data.reach || 0;
         this._item = data.item;
         this._actorToken = data.token;
         this._actor = data.token.actor;

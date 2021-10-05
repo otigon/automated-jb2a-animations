@@ -1,20 +1,23 @@
 
 export const flagMigrations = {
 
-    handle(item) {
+    async handle(item) {
         let flags = item.data?.flags?.autoanimations;
         if (!flags) return;
 
         if (this.upToDate(flags)) return flags;
-        console.log(Object.entries(this.migrations))
+
+        
         for (let [version, migration] of Object.entries(this.migrations)) {
 
             if (flags.version > version) continue;
 
-            flags = migration(item);
+            await migration(item);
         }
 
-        return flags;
+        const newFlags = item.data.flags.autoanimations;
+        console.log(newFlags);
+        return newFlags;
     },
 
     upToDate(flags) {
@@ -29,9 +32,9 @@ export const flagMigrations = {
             const oldFlags = item.data?.flags?.autoanimations;
             const type = oldFlags.animType;
             let data;
+            let explosion;
             switch (type) {
                 case "t2":
-                    debugger
                     data = {
                         animation: replaceName(oldFlags.animName),
                         variant: oldFlags.uaStrikeType ?? "01",
@@ -39,7 +42,9 @@ export const flagMigrations = {
                         delay: oldFlags.options?.loopDelay ?? 250,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
+                        meleeType: "weapon",
                     }
+
                     await item.setFlag('autoanimations', 'animType', "melee")
                     await item.setFlag('autoanimations', 'animation', data.animation)
                     await item.setFlag('autoanimations', 'options.variant', data.variant)
@@ -47,11 +52,14 @@ export const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.delay', data.delay)
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-
+                    await item.setFlag('autoanimations', 'options.meleeType', data.meleeType)
+                    /*
                     if (oldFlags.explosion) {
                         await explosions(item)
                     }
-
+                    */
+                    await explosions(item);
+                    
                     await item.setFlag('autoanimations', 'version', '1')
 
                     return item.data.flags.autoanimations;
@@ -307,6 +315,7 @@ export const flagMigrations = {
                     return item.data.flags.autoanimations;
             }
             async function explosions(item) {
+                if (!oldFlags.explosion) { return; }
                 const explosion = {
                     enable: true,
                     below: oldFlags.exAnimLevel ?? false,
@@ -315,8 +324,8 @@ export const flagMigrations = {
                     animation: replaceName(oldFlags.explodeVariant),
                     variant: "01",
                     color: replaceName(oldFlags.explodeColor),
-                    enableCustom: oldFlags.options.enableCustomExplosion ?? false,
-                    customPath: oldFlags.options.customExplosion ?? "",
+                    enableCustom: oldFlags.options?.enableCustomExplosion ?? false,
+                    customPath: oldFlags.options?.customExplosion ?? "",
                 }
                 await item.setFlag('autoanimations', 'explosions.enable', explosion.enable)
                 await item.setFlag('autoanimations', 'explosions.below', explosion.below)

@@ -44,7 +44,7 @@ export async function trafficCop(handler) {
     const override = handler.animOverride;
     const targets = handler.allTargets?.length ?? 0;
     if (override) {
-        if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets]) }
+        if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets, handler.flags]) }
         if (animType === 'template') {} else {itemSound(handler)}
         switch (animType) {
             case "melee":
