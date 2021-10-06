@@ -1,6 +1,7 @@
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
-import { flagMigrations } from "./flagMerge.js"
+import { flagMigrations } from "./flagMerge.js";
+
 export default class flagHandler {
 
     static async make(msg, isChat, external) {
@@ -9,9 +10,9 @@ export default class flagHandler {
         if (!data.item) { /*this._log("Retrieval Failed");*/ return; }
         //this._log("Data Retrieved", data)
 
-        console.log(data.item.data.flags.autoanimations)
+        //console.log(data.item.data.flags.autoanimations)
         const flags = await flagMigrations.handle(data.item);
-        console.log(flags)
+        //console.log(flags)
 
         return new flagHandler(data, flags)
     }
@@ -19,7 +20,7 @@ export default class flagHandler {
     constructor(systemData, flagData) {
         this.debug = game.settings.get("autoanimations", "debug");
         this._log("Getting System Data")
-        console.log(flagData)
+        //console.log(flagData)
         //const data = getSystemData(msg, isChat);
         //const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
         const data = systemData;

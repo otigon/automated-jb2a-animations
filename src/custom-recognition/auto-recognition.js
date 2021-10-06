@@ -1,4 +1,4 @@
-import { AUTOANIM } from "../item-sheet-handlers/config.js";
+import { aaMenuLists } from "../item-sheet-handlers/menu-lists.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 
@@ -31,18 +31,18 @@ export class aaAutoRecognition extends FormApplication {
         const patreon = moduleIncludes("jb2a_patreon")
         let data = super.getData();
         data.settings = this.getSettingsData();
-        data.meleeList = AUTOANIM.localized(AUTOANIM.meleeWeapons);
-        data.rangeList = patreon ? AUTOANIM.localized(AUTOANIM.animNameRangeWeapon) : AUTOANIM.localized(AUTOANIM.animNameRangeWeaponFree);
-        data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
-        data.selfList = AUTOANIM.localized(AUTOANIM.autoself);
-        data.templateCircle = AUTOANIM.localized(AUTOANIM.circleAnimations);
-        data.templateCone = AUTOANIM.localized(AUTOANIM.coneAnimations);
-        data.templateRect = AUTOANIM.localized(AUTOANIM.rectangleAnimations);
-        data.templateRay = AUTOANIM.localized(AUTOANIM.rayAnimations);
-        data.auraList = AUTOANIM.localized(AUTOANIM.aura);
-        data.presetList = AUTOANIM.localized(AUTOANIM.animNameClassFeatures);
-        data.bardAnimName = AUTOANIM.localized(AUTOANIM.bardAnimType);
-        data.explosionMenu = AUTOANIM.localized(AUTOANIM.explosionMenu);
+        data.meleeList = aaMenuLists.meleeWeapons;
+        data.rangeList = patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree;
+        data.spellList = aaMenuLists.attackSpells;
+        data.selfList = aaMenuLists.autoself;
+        data.templateCircle = aaMenuLists.circleAnimations;
+        data.templateCone = aaMenuLists.coneAnimations;
+        data.templateRect = aaMenuLists.rectangleAnimations;
+        data.templateRay = aaMenuLists.rayAnimations;
+        data.auraList = aaMenuLists.aura;
+        //data.presetList = aaMenuLists.animNameClassFeatures);
+        data.bardAnimName = aaMenuLists.bardAnimType;
+        data.explosionMenu = aaMenuLists.explosionMenu;
 
         data.colors = aaColorMenu;
         data.variants = aaVariantMenu;

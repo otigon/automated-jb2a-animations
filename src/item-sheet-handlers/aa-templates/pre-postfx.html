@@ -129,7 +129,6 @@
     </div>
     <div class='aa-item-container primary-animation' {{#unless flags.autoanimations.targetToken.enable}}
         style='box-shadow: 0 0 5px red;' {{/unless}}>
-        {{#unless dontShowTarget}}
         <!--Target Token Animation Options-->
         <div class='form-group' style="grid-column: 1 / 4;grid-row: 1 / 2;justify-self: left;">
             <label>{{localize "AUTOANIM.targetToken"}}</label>
@@ -214,6 +213,5 @@
         </div>
         {{/if}}
         {{/if}}
-        {{/unless}}
     </div>
 </div>

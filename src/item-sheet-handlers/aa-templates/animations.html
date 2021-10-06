@@ -94,35 +94,35 @@
 
 {{#unless flags.autoanimations.killAnim}}
 <div class='animation-not-disabled'>
-    {{#if t2}}
+    {{#if melee}}
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-melee.html')}}
     {{/undefined}}
     {{/if}}
 
-    {{#if t3}}
+    {{#if range}}
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
     '/item-ranged.html')}}
     {{/undefined}}
     {{/if}}
 
-    {{#if t4}}
+    {{#if static}}
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
     '/item-ontoken.html')}}
     {{/undefined}}
     {{/if}}
 
-    {{#if t5}}
+    {{#if template}}
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
     '/item-templates.html')}}
     {{/undefined}}
     {{/if}}
 
-    {{#if t6}}
+    {{#if aura}}
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-auras.html')}}
     {{/undefined}}
     {{/if}}
 
-    {{#if t7}}
+    {{#if preset}}
     {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
     '/item-presets.html')}}
     {{/undefined}}

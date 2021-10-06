@@ -1,13 +1,12 @@
-import { AUTOANIM } from "./config.js";
+import { aaMenuLists } from "./menu-lists.js";
 import { AATabFunctions } from "../aa-classes/tab-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
+import { currentFlagVersion } from "../constants/constants.js";
 export class AAItemSettings extends FormApplication {
     constructor() {
         super(...arguments);
-        //this.flags = this.object.data.flags.autoanimations
-        //this.exampleOption = exampleOption;
     }
 
     static get defaultOptions() {
@@ -25,13 +24,16 @@ export class AAItemSettings extends FormApplication {
     }
 
     getData() {
-        //this.object.unsetFlag("autoanimations", "defaults")
+
         const flags = this.object.data.flags;
+        if (!flags?.autoanimations?.version) {
+            this.object.setFlag('autoanimations', 'version', currentFlagVersion)
+        }
         const patreon = moduleIncludes("jb2a_patreon");
         const itemNameItem = this.object.name?.toLowerCase() ?? "";
         const oldName = this.object.name;
-        const itemNameFlag = flags.autoanimations?.animName?.toLowerCase() ?? "";
-        //let isOverride = flags.autoanimations?.override;
+        const itemNameFlag = flags.autoanimations?.animation?.toLowerCase() ?? "";
+
         const override = flags.autoanimations?.override;
         let oldItemName;
         switch (true) {
@@ -43,66 +45,20 @@ export class AAItemSettings extends FormApplication {
                 oldItemName = itemNameFlag;
                 break;
         }
-        //const conversion = nameConversion(oldItemName)
-        /*
-        if (flags.autoanimations === undefined) {
-            this.object.setFlag("autoanimations", "animName", conversion[2]);
-            this.object.setFlag("autoanimations", "color", conversion[1]);
-            this.render();
-        }
-        */
-        //const itemName = conversion[0];
-        const itemName = oldItemName.replace(/\s+/g, '').toLowerCase()
-        const switchName = flags.autoanimations?.meleeSwitch?.animName ?? "";
-        //const sourceName = flags.autoanimations?.sourceToken?.name ?? "";
-        //const sourceVariant = flags.autoanimations?.sourceToken?.variant ?? "";
-        //const targetName = flags.autoanimations?.targetToken?.name ?? "";
-        //const targetVariant = flags.autoanimations?.targetToken?.variant ?? "";
+
+        const switchName = flags.autoanimations?.meleeSwitch?.animation ?? "";
+
         const animType = flags.autoanimations?.animType;
-        //const spellVariant = flags.autoanimations?.spellVar;
-        //const variant = AATabFunctions._variant(flags);//flags.autoanimations?.dtvar ?? "01";
-        //const switchVariant = flags.autoanimations?.meleeSwitch?.rangeVar ?? "01";
-        //let rangeSwitchType = flags.autoanimations?.meleeSwitch?.switchType || "on";
-        //const bardAnimation = flags.autoanimations?.bards?.bardAnim;
-        //const damageType = flags.autoanimations?.rangedOptions?.rangeDmgType ?? "regular";
-        //const switchDamageType = flags.autoanimations?.meleeSwitch?.rangeDmgType ?? "regular";
-        //let bardTargetAnimation = flags.autoanimations?.bards?.bardTargetAnim;
-        const explosionVariant = flags.autoanimations?.explodeVariant ?? '';
-        //let impactVariant = flags.autoanimations?.impactVar || "";
         const templateType = flags.autoanimations?.options?.tempType ?? "";
-        //const templateAnimation = flags.autoanimations?.templates?.tempAnim ?? "";
+
         const animationRepeat = flags.autoanimations?.options?.repeat > 50 ? 50 : flags.autoanimations?.options?.repeat;
         const explosionLoops = flags.autoanimations?.explosions?.repeat > 50 ? 50 : flags.autoanimations?.explosions?.repeat;
         const returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
 
-        //let variantLength = variantLength(itemName, );
-
-        //const meleeLength = AATabFunctions.variantLength(itemName, "melee");
-        //const rangeLength = AATabFunctions.variantLength(itemName, "range");
-        //const staticLength = AATabFunctions.variantLength(itemName, "static");
-
-        const autorecType = AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName));
-
-        let noScale = ['templates', 'range'];
-        let noRepeatDelay = ['preset'];
-        let noOptions = ['auras']
-
-        let autoRepeatDelay;
-        let noAutoScale;
-        let autoNone;
-        if (autorecType) {
-            const WTF = noScale.some(el => autorecType[1] === el)
-            autoRepeatDelay = noRepeatDelay.some(el => autorecType[1] === el);
-            noAutoScale = WTF ? false : true;
-            autoNone = noOptions.some(el => autorecType[1] === el);
-        }
-
         const autoCheck = AutorecFunctions._checkAutoRec(oldName);
         const autoObject = autoCheck ? AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
-        const autoOptions = autoCheck ? AutorecFunctions._autorecChoices(oldName, flags) : { colors: null, variantChoices: null };
         const videoPreview = override ? AATabFunctions._customPreview(flags, patreon) : AutorecFunctions._autoPreview(oldName, patreon, flags)
-        //let videoPreview = 'no preview'; //= AATabFunctions._customPreview(flags, patreon) //= animPreview(flags, itemName);
-        //if (videoPreview === "no preview" && !override) { videoPreview = AutorecFunctions._autoPreview(oldName, patreon, flags) }
+
         let content = "";
         switch (true) {
             case videoPreview === "no preview":
@@ -122,153 +78,78 @@ export class AAItemSettings extends FormApplication {
         }
 
         return {
-            defaultCheck: AAITEMCHECK.default.includes(itemName) || noRepeatDelay,
-            autoRepeatDelay: autoRepeatDelay,
-            noAutoScale: noAutoScale,
-            autoNone: autoNone,
-            projectile:AUTOANIM.localized(AUTOANIM.animNameAttackSpell),
+            flags: this.object.data.flags,
+
+            projectile: aaMenuLists.attackSpells,
             OldName: oldName,
 
-            //autoPreset: autoObject.menuSection === 'preset' ? true : false,
             fireball: autoObject.animation === 'fireball' && autoObject.menuSection === 'preset' ? autoObject : false,
             autoObject: autoObject,
             colormenu: aaColorMenu,
             variantmenu: aaVariantMenu,
-            rangeList: patreon ? AUTOANIM.localized(AUTOANIM.animNameRangeWeapon) : AUTOANIM.localized(AUTOANIM.animNameRangeWeaponFree),
-            spellList: AUTOANIM.localized(AUTOANIM.animNameAttackSpell),
-            onTokenList: AUTOANIM.localized(AUTOANIM.autoself),
-            meleeWeapons: AUTOANIM.localized(AUTOANIM.meleeWeapons),
-            genericDmg: AUTOANIM.localized(AUTOANIM.genericDmg),
-            auraList: AUTOANIM.localized(AUTOANIM.aura),
+            rangeList: patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree,
+            spellList: aaMenuLists.attackSpells,
+            onTokenList: aaMenuLists.autoself,
+            meleeWeapons: aaMenuLists.meleeWeapons,
+            genericDmg: aaMenuLists.genericDmg,
+            auraList: aaMenuLists.aura,
 
-            explosionMenu: AUTOANIM.localized(AUTOANIM.explosionMenu),
+            explosionMenu: aaMenuLists.explosionMenu,
             autoRecognized: autoCheck,
             autoRecognizedNoOverride: autoCheck && !override,
-            t2: override && animType === "melee",
-            t3: override && animType === "range",
-            t4: override && animType === "static",
-            t5: override && animType === "template",
-            t6: override && animType === "aura",
-            t7: override && animType === "preset",
+            melee: override && animType === "melee",
+            range: override && animType === "range",
+            static: override && animType === "static",
+            template: override && animType === "template",
+            aura: override && animType === "aura",
+            preset: override && animType === "preset",
 
-            //bardicOptions: itemName === "bardicinspiration" ? true : false,
-            bardAnimName: AUTOANIM.localized(AUTOANIM.bardAnimType),
-            bardAnimTarget: AUTOANIM.localized(AUTOANIM.bardAnimType),
-
-            //huntermarkAnim: patreon ? AUTOANIM.localized(AUTOANIM.hmAnim) : AUTOANIM.localized(AUTOANIM.hmAnimFree),
+            bardAnimName: aaMenuLists.bardAnimType,
+            bardAnimTarget: aaMenuLists.bardAnimType,
 
             repeat: animationRepeat || 1,
             delay: flags.autoanimations?.options?.delay ?? 250,
             scale: flags.autoanimations?.options?.scale ?? 1,
+            auraRadius: flags.autoanimations?.options?.auraRadius || 3.5,
+            opacity: flags.autoanimations?.options?.opacity || ".75",
+            teleRange: flags.autoanimations?.options?.teleDist || "30",
+            anchorX: flags.autoanimations?.options?.anchorX || 0.5,
+            anchorY: flags.autoanimations?.options?.anchorY || 0.7,
+            persistent: flags.autoanimations?.options?.persistent && (templateType === "circle" || templateType === "rect"),
 
-            //customPath01: flags.autoanimations?.options?.customPath01 || "",
-            //customExplosion: flags.autoanimations?.options?.customExplosion ?? "",
+            animationType: aaMenuLists.menuOptions,
 
-            animationType: AUTOANIM.localized(AUTOANIM.animTypePick),
-            //animationNames: AATabFunctions.animationName(animType, patreon),
-
-            //thrownVariantShow: (itemName.includes("lasersword") || itemName.includes("dagger") || itemName.includes("handaxe")) || itemName.includes("chakram") && (animType === "t2" || animType === "t4") && override ? true : false,
-
-            explosionVariants: AUTOANIM.localized(AUTOANIM.explodeVariant),
+            explosionVariants: aaMenuLists.explodeVariant,
             explosionRadius: flags.autoanimations?.explosions?.radius ?? 1.5,
             explosionLoops: explosionLoops || 1,
             explosionDelay: flags.autoanimations?.explosions?.delay ?? 0,
 
-            //explosionAudioFile: flags.autoanimations?.allSounds?.explosion?.file || "",
             delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
             volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
-
-            auraRadius: flags.autoanimations?.options?.auraRadius || 3.5,
-            //hexColour: flags.autoanimations?.animTint || `#FFFFFF`,
-            opacity: flags.autoanimations?.options?.opacity || ".75",
-
-            teleRange: flags.autoanimations?.options?.teleDist || "30",
-
-            //templateTypes: AUTOANIM.localized(AUTOANIM.templateType),
-            templateAnimations: AATabFunctions.animTemplates(templateType),
-            customTemplatePath: flags.autoanimations?.options?.customPath || "",
-            makePersistent: templateType === "circle" || templateType === "rect",
-            persistent: flags.autoanimations?.options?.persistent && (templateType === "circle" || templateType === "rect"),
-            occlusionAlpha: flags.autoanimations?.options?.occlusionAlpha ?? "0",
-
             itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
             delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
             volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
 
-            rangeSwitch: patreon ? AUTOANIM.localized(AUTOANIM.animNameSwitch) : AUTOANIM.localized(AUTOANIM.animNameSwitchFree),
-            //showRSVariant: (switchName.includes("lasersword") || switchName === "dagger" || switchName === "handaxe") && animType === "t2" && override ? true : false,
-            //switchType: switchName === "bolt" || switchName === "bullet" || switchName === "arrow" ? true : false,
+            templateAnimations: AATabFunctions.animTemplates(templateType),
+
+            rangeSwitch: patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree,
             switchRange: flags.autoanimations?.meleeSwitch?.range ?? 2,
-            //switchManual: flags.autoanimations?.meleeSwitch?.detect === "manual" ? true : false,
-            //rangeSwitchType: flags.autoanimations?.meleeSwitch?.switchType === "custom",//rangeSwitchType === "custom",
             returning: returnWeapons.some(el => switchName.includes(el)),
 
-            //rangedType: itemName === "bolt" || itemName === "bullet" || itemName === "arrow" ? true : false,
-            //sneakAttack: itemName === "sneakattack" ? true : false,
-
-            flags: this.object.data.flags,
             content: content,
 
-            //sourceCustom: flags.autoanimations?.sourceToken?.customPath ?? "",
             sourceLoops: flags.autoanimations?.sourceToken?.loops ?? 1,
             sourceLoopDelay: flags.autoanimations?.sourceToken?.loopDelay ?? 250,
             sourceScale: flags.autoanimations?.sourceToken?.scale ?? 1,
             sourceDelayAfter: flags.autoanimations?.sourceToken?.delayAfter ?? 500,
-            sourceAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
-            //sourceColor: flags.autoanimations?.sourceToken?.color ?? "",
-            //sourceColors: AATabFunctions.staticColors(sourceName, patreon, sourceVariant),
-            //sourceVariant: AATabFunctions.variantOptions(sourceName, "static"),
-            //sourceMarker: flags.autoanimations?.sourceToken?.name === "marker" ? true : false,
-            //variantSource: flags.autoanimations?.sourceToken?.name === "tollthedead" ? true : false,
-            //sourceVariant: AUTOANIM.localized(AUTOANIM.tollthedeadVariants),
+            sourceAnimations: aaMenuLists.tokenAnimations,
 
-            //targetCustom: flags.autoanimations?.targetToken?.customPath ?? "",
             targetLoops: flags.autoanimations?.targetToken?.loops ?? 1,
             targetLoopDelay: flags.autoanimations?.targetToken?.loopDelay ?? 250,
             targetScale: flags.autoanimations?.targetToken?.scale ?? 1,
             targetDelayStart: flags.autoanimations?.targetToken?.delayStart ?? 500,
-            targetAnimations: AUTOANIM.localized(AUTOANIM.tokenAnimations),
-            //targetColor: flags.autoanimations?.targetToken?.color ?? "",
-            //targetColors: AATabFunctions.staticColors(targetName, patreon, targetVariant),
-            //targetVariant: AATabFunctions.variantOptions(sourceName, "static"),
-            //targetMarker: flags.autoanimations?.targetToken?.name === "marker" ? true : false,
-            //variantTarget: flags.autoanimations?.targetToken?.name === "tollthedead" ? true : false,
-            //targetVariant: AUTOANIM.localized(AUTOANIM.tollthedeadVariants),
+            targetAnimations: aaMenuLists.tokenAnimations,
 
-            //shieldOutro: AUTOANIM.localized(AUTOANIM.shieldOutro),
-            //shield: itemName === "shieldspell",
-            //huntersMark: itemName === "huntersmark",
-            //sneakAttack: itemName === "sneakattack",
-            //bless: itemName === "bless" && animType === "t13",
-            anchorX: flags.autoanimations?.options?.anchorX || 0.5,
-            anchorY: flags.autoanimations?.options?.anchorY || 0.7,
-
-            dontShowTarget: animType === 'template' || animType === 't10' || animType === 't11' || animType === 't12' || animType === "t13",
-            /*
-            meleeColors: AATabFunctions.menuColors(itemName, variant, "melee"),
-            explosionColors: AATabFunctions.menuColors(explosionVariant, "", "static"),
-            templateColors: AATabFunctions.menuColors(templateType, templateAnimation, "static"),
-            bardSelfColors: AATabFunctions.menuColors(flags.autoanimations?.bards?.bardAnim, "", "static"),
-            bardTargetColors: AATabFunctions.menuColors(flags.autoanimations?.bards?.bardTargetAnim, "", "static"),
-            markerColors: AATabFunctions.menuColors("bardicinspiration", "marker", "static"),
-            staticColors: AATabFunctions.menuColors(itemName, spellVariant, "static"),
-            spellColors: AATabFunctions.menuColors(itemName, spellVariant, "range"),
-            
-            rangeColors: AATabFunctions.rangeColors(itemName, damageType, variant),
-            switchColors: AATabFunctions.rangeColors(switchName, spellVariant, switchDamageType, switchVariant),
-
-            meleeLength: meleeLength === 1 || !meleeLength ? false : true,//variantLength(itemName, "melee") === 1 ? false : true,
-            rangeLength: rangeLength === 1 || !rangeLength ? false : true,//variantLength(itemName, "range") === 1 ? false : true,
-            staticLength: staticLength === 1 || !staticLength ? false : true,//variantLength(itemName, "static") === 1 ? false : true,
-
-            rangeVariant: AATabFunctions.variantOptions(itemName, "range"),
-            switchVariant: AATabFunctions.variantOptions(switchName, "range"),
-            meleeVariant: AATabFunctions.variantOptions(itemName, "melee"),
-            staticVariant: AATabFunctions.variantOptions(itemName, "static"),
-            staticVariantTTD: AATabFunctions.variantOptions("tollthedead", "static"),
-            */
-            autorecColor: autoOptions.colors,
-            autorecVariants: autoOptions.variantChoices,
             autoRepeat: flags.autoanimations?.options?.autoRepeat || 1,
             autoDelay: flags.autoanimations?.options?.autoDelay || 500,
             autoScale: flags.autoanimations?.options?.autoScale || 1,
@@ -279,7 +160,6 @@ export class AAItemSettings extends FormApplication {
             autoRange: flags.autoanimations?.options?.autoRange || 30,
 
             ammo5e: game.system.id === "dnd5e" ? true : false,
-            variantOption: explosionVariant === "tollthedead" ? true : false
 
         };
 

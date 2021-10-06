@@ -12,6 +12,7 @@ import { AASystemData } from "./system-handlers/getdata-by-system.js";
 import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
 import { setupSocket } from "./socketset.js";
+import { flagMigrations } from "./system-handlers/flagMerge.js";
 //import { autorecNameCheck, getAllNames, rinseName } from "./custom-recognition/autoFunctions.js";
 
 //import menuOptions from "./animation-functions/databases/jb2a-patreon-menus.js";
@@ -206,7 +207,8 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
         return;
     }
     const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    aaBtn.click(ev => {
+    aaBtn.click(async ev => {
+        await flagMigrations.handle(app.document);
         new AAItemSettings(app.document, {}).render(true);
     });
     html.closest('.app').find('.aa-item-settings').remove();
@@ -325,8 +327,8 @@ async function specialCaseAnimations(msg) {
         fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
     }
 
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    if (itemType === "templates" || itemType === "t8") {} else {
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(data.item.name.toLowerCase()));
+    if (itemType === "template" || itemType === "t8") {} else {
         return;
     }
 

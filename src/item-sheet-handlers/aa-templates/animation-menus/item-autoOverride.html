@@ -444,48 +444,4 @@
     </div>
 </div>
 {{/ifEquals}}
-
 {{/ifEquals}}
-<!--
-{{#unless fireball}}
-<div class="form-group">
-    <label>{{localize "AUTOANIM.variant"}}</label>
-    <select name="flags.autoanimations.options.autoVariant">
-        {{#select flags.autoanimations.options.autoVariant}}
-        {{#each autorecVariants as |name key|}}
-        <option value="{{key}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
-<div class="form-group">
-    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
-    <select name="flags.autoanimations.options.autoColor">
-        {{#select flags.autoanimations.options.autoColor}}
-        {{#each autorecColor as |name key|}}
-        <option value="{{key}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
-<div class="flexrow">
-    {{#unless autoNone}}
-    {{#unless autoRepeatDelay}}
-    <div class="aa-column">
-        <label>{{localize "AUTOANIM.loops"}}</label>
-        <input type="Number" name="flags.autoanimations.options.autoRepeat" value="{{autoRepeat}}" data-dtype="Number">
-    </div>
-    <div class="aa-column">
-        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.options.autoDelay" value={{autoDelay}} data-dtype="Number">
-    </div>
-    {{/unless}}
-    {{#if noAutoScale}}
-    <div class="aa-column">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.options.autoScale" value={{autoScale}} data-dtype="Number">
-    </div>
-    {{/if}}
-    {{/unless}}
-</div>
-{{/unless}}-->

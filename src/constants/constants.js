@@ -5,3 +5,5 @@ export default log;
 export function aaDebugger(...args) {
     console.log(`DEBUG | Automated Animations |`, ...args);
 }
+
+export const currentFlagVersion = '1';
