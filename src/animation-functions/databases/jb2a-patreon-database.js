@@ -542,7 +542,7 @@ JB2APATREONDB.range = {
                 '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_90ft_Primary_4000x400.webm`]
             }
         },
-        secondary: {
+        '02': {
             darkpurple: {
                 '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_05ft_Secondary_600x400.webm`],
                 '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_15ft_Secondary_1000x400.webm`],

@@ -39,7 +39,7 @@ export class AATabFunctions {
             color: flags.color,
             dbPath: this._dbPath(flags.animType),
         };
-
+        console.log(data)
         let file = 'no preview';
 
         const variantChoices = variantMenu[data.dbPath][data.newName];
@@ -53,7 +53,7 @@ export class AATabFunctions {
         data.color = colorCheck.defaultColor.toLowerCase();
 
         switch (true) {
-            case data.type === 't3':
+            case data.type === 'range':
                 try { file = jb2a[data.dbPath][data.newName][data.variant][data.color][Object.keys(jb2a[data.dbPath][data.newName][data.variant][data.color])[1]][0] }
                 catch (exception) { }
                 break;
@@ -87,9 +87,9 @@ export class AATabFunctions {
 
     static _dbPath(type) {
         switch (type) {
-            case 't2':
+            case 'melee':
                 return 'melee';
-            case 't3':
+            case 'range':
                 return 'range';
             default:
                 return 'static';

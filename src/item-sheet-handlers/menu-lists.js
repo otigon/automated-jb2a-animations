@@ -4,8 +4,19 @@ const aaMenuLists = {}
 
 function menuLists() {
 
+    aaMenuLists.menuOptions = {
+        "t1": ``,
+        "melee": game.i18n.localize("AUTOANIM.melee"),
+        "range": game.i18n.localize("AUTOANIM.ranged"),
+        'static': game.i18n.localize("AUTOANIM.onToken"),
+        "template": game.i18n.localize("AUTOANIM.templates"),
+        "aura": game.i18n.localize("AUTOANIM.typeAuras"),
+        "preset": game.i18n.localize("AUTOANIM.presets"),
+    }
+
     aaMenuLists.attackSpells = {
         "a1": ``,
+        "chainlightning": game.i18n.localize("AUTOANIM.chainlightning"),
         "disintegrate": game.i18n.localize("AUTOANIM.itemDisintegrate"),
         "eldritchblast": game.i18n.localize("AUTOANIM.itemEldritchBlast"),
         "firebolt": game.i18n.localize("AUTOANIM.itemFireBolt"),
@@ -16,7 +27,7 @@ function menuLists() {
         "guidingbolt": game.i18n.localize("AUTOANIM.itemGuidingBolt"),
     };
 
-    aaMenuLists.animNameHealSpell = {
+    aaMenuLists.healingSpells = {
         "a1": ``,
         "curewounds": game.i18n.localize("AUTOANIM.itemCureWounds"),
         "generichealing": game.i18n.localize("AUTOANIM.itemGenericHealing"),
@@ -109,17 +120,31 @@ function menuLists() {
     }
 
     aaMenuLists.explosionMenu = {
-        "a1": game.i18n.localize(""),
+        "a1": "",
         "explosion": game.i18n.localize("AUTOANIM.explosion"),
         "snowflake": game.i18n.localize("AUTOANIM.snowflake"),
         "outpulse01": game.i18n.localize("AUTOANIM.outpulse01"),
         "outpulse02": game.i18n.localize("AUTOANIM.outpulse02"),
         "shatter": game.i18n.localize("AUTOANIM.itemShatter"),
+        "impact": game.i18n.localize("AUTOANIM.impact"),
+        "boulderimpact": game.i18n.localize("AUTOANIM.itemBoulder"),
+        "thunderwave": game.i18n.localize("AUTOANIM.itemThunderwave"),
+    }
+
+    aaMenuLists.staticSpells = {
+        "tollthedead": game.i18n.localize("AUTOANIM.tollthedead"),
+        "sneakattack": game.i18n.localize("AUTOANIM.sneakattack"),
+    }
+
+    aaMenuLists.explosionAnimations = {
+        "explosion": game.i18n.localize("AUTOANIM.explosion"),
+        "impact": game.i18n.localize("AUTOANIM.impact"),
+        "shatter": game.i18n.localize("AUTOANIM.itemShatter"),
         "thunderwave": game.i18n.localize("AUTOANIM.itemThunderwave"),
     }
 
     aaMenuLists.aura = {
-        "a1": game.i18n.localize(""),
+        "a1": "",
         "calllightning": game.i18n.localize("AUTOANIM.animCallLightning"),
         "darkness": game.i18n.localize("AUTOANIM.animDarkness"),
         "fogcloud": game.i18n.localize("AUTOANIM.animFogCloud"),
@@ -178,16 +203,6 @@ function menuLists() {
         "entangle": game.i18n.localize("AUTOANIM.entangle"),
         "thunderwave": game.i18n.localize("AUTOANIM.itemThunderwave"),
         "web": game.i18n.localize("AUTOANIM.web"),
-    }
-
-    aaMenuLists.menuOptions = {
-        "t1": ``,
-        "melee": game.i18n.localize("AUTOANIM.melee"),
-        "range": game.i18n.localize("AUTOANIM.ranged"),
-        'static': game.i18n.localize("AUTOANIM.onToken"),
-        "template": game.i18n.localize("AUTOANIM.templates"),
-        "aura": game.i18n.localize("AUTOANIM.typeAuras"),
-        "preset": game.i18n.localize("AUTOANIM.presets"),
     }
 
     aaMenuLists.tokenAnimations = {

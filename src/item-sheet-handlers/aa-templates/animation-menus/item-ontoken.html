@@ -18,14 +18,47 @@
             </select>
         </label>
     </div>
+    <div class='option03'>
+        <label>{{localize 'AUTOANIM.type'}}:</label>
+        <select name="flags.autoanimations.options.staticOptions">
+            {{#select flags.autoanimations.options.staticOptions}}
+            <option value="healing">{{localize 'AUTOANIM.typeHealingSpell'}}</option>
+            <option value="creature">{{localize 'AUTOANIM.typeCreature'}}</option>
+            <option value="explosion">{{localize 'AUTOANIM.explosion'}}</option>
+            <option value="staticSpells">{{localize 'AUTOANIM.itemSpell'}}</option>
+            {{/select}}
+        </select>
+    </div>
     <!--Choose Animation by Name-->
-    <div class='option02'>
+    <div class='option04'>
         <label>{{localize "AUTOANIM.animation"}}</label>
         <select name="flags.autoanimations.animation">
             {{#select flags.autoanimations.animation}}
-            {{#each onTokenList as |name key|}}
+
+            {{#ifEquals flags.autoanimations.options.staticOptions 'healing'}}
+            {{#each menuLists.healingSpells as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
+            {{/ifEquals}}
+
+            {{#ifEquals flags.autoanimations.options.staticOptions 'creature'}}
+            {{#each menuLists.creatureAttacks as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/ifEquals}}
+
+            {{#ifEquals flags.autoanimations.options.staticOptions 'explosion'}}
+            {{#each menuLists.explosionMenu as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/ifEquals}}
+
+            {{#ifEquals flags.autoanimations.options.staticOptions 'staticSpells'}}
+            {{#each menuLists.staticSpells as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/ifEquals}}
+
             {{/select}}
         </select>
     </div>
@@ -41,7 +74,7 @@
     </select>
     </div>
     {{/if}}-->
-    <div class='option03'>
+    <div class='option09'>
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.options.variant">
             {{#select flags.autoanimations.options.variant}}
@@ -52,7 +85,7 @@
         </select>
     </div>
     <!--Choose Standard Animation Color-->
-    <div class='option04'>
+    <div class='option10'>
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
@@ -64,27 +97,27 @@
         </select>
     </div>
     {{/unless}}
-    <div class="autorec-menu-options option05">
+    <div class="autorec-menu-options option07">
         <label>{{localize "AUTOANIM.repeat"}}</label>
         <input type="Number" name="flags.autoanimations.options.repeat" value={{repeat}} data-dtype="Number">
     </div>
-    <div class="autorec-menu-options option06">
+    <div class="autorec-menu-options option08">
         <label>{{localize "AUTOANIM.delayMS"}}</label>
         <input type="Number" name="flags.autoanimations.options.delay" value={{delay}}
             data-dtype="Number">
     </div>
-    <div class="autorec-menu-options option08">
+    <div class="autorec-menu-options option12">
         <label>{{localize "AUTOANIM.scale"}}</label>
         <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
     </div>
     <!--Add Custom Animation-->
-    <div class="form-group option09">
+    <div class="form-group option13">
         <label>{{localize "AUTOANIM.customAnim"}}</label>
         <input type="checkbox" name="flags.autoanimations.options.enableCustom"
             value="flags.autoanimations.options.enableCustom" {{checked flags.autoanimations.options.enableCustom}}>
     </div>
     {{#if flags.autoanimations.options.enableCustom}}
-    <div class="form-group" style='grid-column: 2 / 5;grid-row: 3 / 4'>
+    <div class="form-group" style='grid-column: 2 / 5;grid-row: 4 / 5'>
         <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath"
             value="{{lookup flags.autoanimations.options 'customPath'}}">
         <button type="button" class="file-picker" data-type="image/video"

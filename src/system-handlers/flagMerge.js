@@ -131,6 +131,7 @@ export const flagMigrations = {
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
                     await item.setFlag('autoanimations', 'options.staticType', "target")
+                    await item.setFlag('autonaimations', 'options.staticOptions', 'creature')
                     await item.setFlag('autoanimations', 'animType', "static")
                     await item.setFlag('autoanimations', 'animation', data.animation)
                     await item.setFlag('autoanimations', 'options.variant', data.variant)
@@ -173,6 +174,7 @@ export const flagMigrations = {
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
                     await item.setFlag('autoanimations', 'options.staticType', "targetDefault")
+                    await item.setFlag('autonaimations', 'options.staticOptions', 'healing')
                     await item.setFlag('autoanimations', 'animType', "static")
                     await item.setFlag('autoanimations', 'animation', data.animation)
                     await item.setFlag('autoanimations', 'options.variant', data.variant)
@@ -235,6 +237,7 @@ export const flagMigrations = {
                     }
                     await item.setFlag('autoanimations', 'animType', "static")
                     await item.setFlag('autoanimations', 'options.staticType', "target")
+                    await item.setFlag('autonaimations', 'options.staticOptions', 'explosion')
                     await item.setFlag('autoanimations', 'animation', data.animation)
                     await item.setFlag('autoanimations', 'options.variant', data.variant)
                     await item.setFlag('autoanimations', 'color', data.color)
@@ -260,6 +263,7 @@ export const flagMigrations = {
                     }
                     await item.setFlag('autoanimations', 'animType', "static")
                     await item.setFlag('autoanimations', 'options.staticType', "source")
+                    await item.setFlag('autonaimations', 'options.staticOptions', 'explosion')
                     await item.setFlag('autoanimations', 'animation', data.animation)
                     await item.setFlag('autoanimations', 'options.variant', data.variant)
                     await item.setFlag('autoanimations', 'color', data.color)

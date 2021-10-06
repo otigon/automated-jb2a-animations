@@ -79,7 +79,7 @@ export class AAItemSettings extends FormApplication {
 
         return {
             flags: this.object.data.flags,
-
+            menuLists: aaMenuLists,
             projectile: aaMenuLists.attackSpells,
             OldName: oldName,
 

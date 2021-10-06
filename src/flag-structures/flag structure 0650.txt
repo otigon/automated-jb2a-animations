@@ -48,6 +48,7 @@ range = {
 
 onToken = {
     options.staticType: Sets the behavior of the Animation,
+    options.staticOptions: Menu use only
     animation: Menu choice for animation,
     options.variant: Variant choice of the Animation,
     color: color of the Animation/Variant,
