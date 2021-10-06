@@ -16,6 +16,8 @@ export class AutorecFunctions {
         catch (exception) { return nameArray }
         const arrayLength = Object.keys(obj[type]).length
         for (var i = 0; i < arrayLength; i++) {
+            if (!obj[type][i].name) { continue }
+
             nameArray.push(obj[type][i].name.toLowerCase())
         }
         return nameArray;
@@ -93,6 +95,8 @@ export class AutorecFunctions {
             var arrayLength = Object.keys(obj[keys[i]]).length
             var currentObject = obj[keys[i]]
             for (var k = 0; k < arrayLength; k++) {
+                if (!currentObject[k].name.name) { continue }
+
                 nameArray.push(currentObject[k].name.toLowerCase())
             }
         }
@@ -158,7 +162,7 @@ export class AutorecFunctions {
             }
         }
         mergedArray.sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
-      
+
         return mergedArray;
     }
 
