@@ -129,11 +129,13 @@ function menuLists() {
         "impact": game.i18n.localize("AUTOANIM.impact"),
         "boulderimpact": game.i18n.localize("AUTOANIM.itemBoulder"),
         "thunderwave": game.i18n.localize("AUTOANIM.itemThunderwave"),
+        "antilifeshell": game.i18n.localize("AUTOANIM.animAntiLifeShell"),
     }
 
     aaMenuLists.staticSpells = {
         "tollthedead": game.i18n.localize("AUTOANIM.tollthedead"),
         "sneakattack": game.i18n.localize("AUTOANIM.sneakattack"),
+        //"bless": game.i18n.localize("AUTOANIM.bless"),
     }
 
     aaMenuLists.explosionAnimations = {

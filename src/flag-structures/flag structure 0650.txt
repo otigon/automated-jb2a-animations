@@ -15,6 +15,7 @@ melee = {
     meleeSwitch.color: Color of the Animation/Variant,
     meleeSwitch.detect: "auto", "manual",
     meleeSwitch.range: Grid Distance for animation switch.
+    meleeSwitch.returning: set for Returning Weapon animation
 }
 
 OPTIONS = {
