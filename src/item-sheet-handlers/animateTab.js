@@ -26,9 +26,9 @@ export class AAItemSettings extends FormApplication {
     getData() {
 
         const flags = this.object.data.flags;
-        if (!flags?.autoanimations?.version) {
-            this.object.setFlag('autoanimations', 'version', currentFlagVersion)
-        }
+        //if (!flags?.autoanimations?.version) {
+            //this.object.setFlag('autoanimations', 'version', currentFlagVersion)
+        //}
         const patreon = moduleIncludes("jb2a_patreon");
         const itemNameItem = this.object.name?.toLowerCase() ?? "";
         const oldName = this.object.name;
@@ -161,6 +161,7 @@ export class AAItemSettings extends FormApplication {
 
             ammo5e: game.system.id === "dnd5e" ? true : false,
 
+            versionTest: !flags.autoanimations?.version ? this.object.setFlag('autoanimations', 'version', currentFlagVersion) : null,
         };
 
     }
