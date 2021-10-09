@@ -44,6 +44,12 @@ Hooks.on('init', () => {
 
         return params.join('');
     });
+    Handlebars.registerHelper('matchOverhead', function (autoObj, options) {
+        if (autoObj.persist && (autoObj.type === 'circle' || autoObj.type === 'rect')) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
     aaSettings();
     loadTemplates([
         'modules/autoanimations/src/custom-recognition/settings.html',

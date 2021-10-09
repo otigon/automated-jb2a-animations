@@ -1,9 +1,8 @@
 import { aaMenuLists } from "./menu-lists.js";
 import { AATabFunctions } from "../aa-classes/tab-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
-import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
+//import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
-//import { currentFlagVersion } from "../constants/constants.js";
 import { flagMigrations } from "../system-handlers/flagMerge.js";
 
 export class AAItemSettings extends FormApplication {
@@ -28,9 +27,7 @@ export class AAItemSettings extends FormApplication {
     getData() {
         const currentFlagVersion = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
         const flags = this.object.data.flags;
-        //if (!flags?.autoanimations?.version) {
-            //this.object.setFlag('autoanimations', 'version', currentFlagVersion)
-        //}
+
         const patreon = moduleIncludes("jb2a_patreon");
         const itemNameItem = this.object.name?.toLowerCase() ?? "";
         const oldName = this.object.name;
@@ -158,7 +155,7 @@ export class AAItemSettings extends FormApplication {
             autoOpacity: flags.autoanimations?.options?.autoOpacity || 0.75,
             autoRadius: flags.autoanimations?.options?.autoRadius || 3.5,
             autoAnchorX: flags.autoanimations?.options?.autoAnchorX || 0.5,
-            autoAnchorY: flags.autoanimations?.options?.autoAnchory || 0.5,
+            autoAnchorY: flags.autoanimations?.options?.autoAnchorY || 0.5,
             autoRange: flags.autoanimations?.options?.autoRange || 30,
 
             ammo5e: game.system.id === "dnd5e" ? true : false,

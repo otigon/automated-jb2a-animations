@@ -32,6 +32,7 @@
                                         </option>
                                         <option value="bless">{{localize "AUTOANIM.bless"}}</option>
                                         <option value="fireball">{{localize "AUTOANIM.fireball"}}</option>
+                                        <option value='huntersmark'>{{localize "AUTOANIM.itemHM"}}</option>
                                         <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
                                         <option value="sneakattack">{{localize "AUTOANIM.sneakattack"}}</option>
                                         <option value="teleportation">{{localize "AUTOANIM.animTeleportation"}}</option>
@@ -204,14 +205,23 @@
                                 {{/select}}
                             </select>
                         </div>
-                        <div class="span0708">
+                        <div class="option07">
                             <label>{{localize "AUTOANIM.endEffect"}}: </label>
-                            <select name="aaAutorec.preset.{{idx}}.endeffect" style="min-width: 15em;">
+                            <select name="aaAutorec.preset.{{idx}}.endeffect">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'endeffect')}}
                                 <option value="outro_explode">{{localize "AUTOANIM.explode"}}</option>
                                 <option value="outro_fade">{{localize "AUTOANIM.fade"}}</option>
                                 {{/select}}
                             </select>
+                        </div>
+                        <div class='option08'>
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize "AUTOANIM.persistant"}}?</label>
+                                    <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.addCTA'
+                                        {{checked (lookup (lookup ../settings.aaAutorec.preset idx) 'addCTA' ) }}>
+                                </div>
+                            </div>
                         </div>
                         {{/ifEquals}}
                         <!--Bless Menu-->
@@ -237,6 +247,7 @@
                             </div>
                         </div>
                         {{/ifEquals}}
+
                         <!--Teleportation Menu-->
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'teleportation'}}
                         {{#unless (lookup (lookup ../settings.aaAutorec.preset idx) 'custom')}}
@@ -359,7 +370,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class='option03'>
                             <div class='autorec-menu-pad'>
                                 <label for="aaAutorec.preset.{{idx}}.projectile">{{localize 'AUTOANIM.projectile'}}:
@@ -578,6 +589,55 @@
                                 title="Browse Files">
                                 <i class="fas fa-file-video"></i>
                             </button>
+                        </div>
+                        {{/if}}
+                        {{/ifEquals}}
+
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'huntersmark'}}
+                        <div class='option03'>
+                            <label>{{localize "AUTOANIM.variant"}}</label>
+                            <select name="aaAutorec.preset.{{idx}}.variant">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'variant') }}
+                                <option value="eye">{{localize "AUTOANIM.eye"}}</option>
+                                <option value="paw">{{localize "AUTOANIM.paw"}}</option>
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="option04">
+                            <label>{{localize "AUTOANIM.color"}}</label>
+                            <select name="aaAutorec.preset.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color') }}
+                                {{#each (lookup (lookup (lookup ../colors 'static') 'huntersmark') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'variant')) as |name
+                                key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="form-group option08">
+                            <label>{{localize "AUTOANIM.persistant"}}?</label>
+                            <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.persistent' {{checked
+                                (lookup (lookup ../settings.aaAutorec.preset idx) 'persistent' ) }}>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'persistent')}}
+                        <div class='option09'>
+                            <div class="autorec-menu-options">
+                                <label>{{localize "AUTOANIM.anchorX"}}
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.anchorX"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'anchorX'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class='option10'>
+                            <div class="autorec-menu-options">
+                                <label>{{localize "AUTOANIM.anchorY"}}
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.anchorY"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'anchorY'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
                         </div>
                         {{/if}}
                         {{/ifEquals}}

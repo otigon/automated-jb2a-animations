@@ -41,6 +41,8 @@ export async function shieldSpell(handler, autoObject) {
         data.color = autoOverridden ? handler.options?.autoColor : data.color;
         data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
         data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
+        data.persistent =  autoOverridden ? handler.options?.autoPersist : data.addCTA;
+        data.endeffect = autoOverridden ? handler.options?.autoEndEffect : data.endeffect;
     } else {
         data.animation = handler.animation;
         data.color = handler.color ?? "blue";

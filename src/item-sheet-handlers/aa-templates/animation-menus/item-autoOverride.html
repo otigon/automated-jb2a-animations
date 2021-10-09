@@ -378,6 +378,61 @@
         <label>{{localize "AUTOANIM.scale"}}</label>
         <input type="Number" name="flags.autoanimations.options.autoScale" value={{autoScale}} data-dtype="Number">
     </div>
+    <div class="autorec-menu-options option06">
+        <div class='form-group'>
+            <label>{{localize 'AUTOANIM.persistant'}}: </label>
+            <input type='checkbox' name='flags.autoanimations.options.autoPersist' {{checked
+                flags.autoanimations.options.autoPersist}}>
+        </div>
+    </div>
+</div>
+{{/ifEquals}}
+
+{{#ifEquals autoObject.animation 'huntersmark'}}
+<div class='aa-item-container primary-animation'>
+    <div class="option01">
+        <label>{{localize "AUTOANIM.variant"}}</label>
+        <select name="flags.autoanimations.options.autoVariant">
+            {{#select flags.autoanimations.options.autoVariant}}
+            {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <!--Choose Standard Animation Color-->
+    <div class="option02">
+        <label>{{localize "AUTOANIM.color"}}</label>
+        <select name="flags.autoanimations.options.autoColor">
+            {{#select flags.autoanimations.options.autoColor}}
+            {{#each (lookup (lookup colormenu.static autoObject.animation) flags.autoanimations.options.autoVariant) as
+            |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="autorec-menu-options option05">
+        <label>{{localize "AUTOANIM.scale"}}</label>
+        <input type="Number" name="flags.autoanimations.options.autoScale" value={{autoScale}} data-dtype="Number">
+    </div>
+    <div class="autorec-menu-options option06">
+        <div class='form-group'>
+            <label>{{localize 'AUTOANIM.persistant'}}: </label>
+            <input type='checkbox' name='flags.autoanimations.options.autoPersist' {{checked
+                flags.autoanimations.options.autoPersist}}>
+        </div>
+    </div>
+    {{#if flags.autoanimations.options.autoPersist }}
+    <div class="autorec-menu-options option03">
+        <label>{{localize "AUTOANIM.anchorX"}}</label>
+        <input type="Number" name="flags.autoanimations.options.autoAnchorX" value={{autoAnchorX}} data-dtype="Number">
+    </div>
+    <div class="autorec-menu-options option04">
+        <label>{{localize "AUTOANIM.anchorY"}}</label>
+        <input type="Number" name="flags.autoanimations.options.autoAnchorY" value={{autoAnchorY}} data-dtype="Number">
+    </div>
+    {{/if}}
 </div>
 {{/ifEquals}}
 

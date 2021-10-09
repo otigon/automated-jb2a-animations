@@ -169,13 +169,13 @@
                         <div class="option15">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
-                                    <label>{{localize 'AUTOANIM.placeTile'}}: </label>
+                                    <label>{{localize 'AUTOANIM.persistant'}}: </label>
                                     <input type='checkbox' name='aaAutorec.templates.{{idx}}.persist' {{checked (lookup
                                         (lookup ../settings.aaAutorec.templates idx) 'persist' ) }}>
                                 </div>
                             </div>
                         </div>
-                        {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'persist')}}
+                        {{#matchOverhead (lookup ../settings.aaAutorec.templates idx)}}
                         <div class="option16">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
@@ -185,7 +185,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{/if}}
+                        {{/matchOverhead}}
                     </div>
                     {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'overhead')}}
                     <div class="form-group">
