@@ -1,4 +1,4 @@
-import { currentFlagVersion } from "../constants/constants.js";
+//import { currentFlagVersion } from "../constants/constants.js";
 
 export const flagMigrations = {
 
@@ -8,9 +8,14 @@ export const flagMigrations = {
 
         if (this.upToDate(flags)) return flags;
 
-        for (let [version, migration] of Object.entries(this.migrations)) {
+        if (flags.version && isNaN(flags.version)) {
+            console.error("Your A-A Item data may be corrupted. Please log this in the GitHub issues");
+            return flags;
+        }
 
-            if (flags.version > version) continue;
+        for (let [version, migration] of Object.entries(this.migrations)) {
+    
+            if (flags.version >= Number(version)) continue;
 
             await migration(item);
         }
@@ -21,14 +26,12 @@ export const flagMigrations = {
     },
 
     upToDate(flags) {
-        if (flags.version >= currentFlagVersion) { return true; } else {
-            return false;
-        }
+        const currentFlagVersion = Object.keys(this.migrations).map(n => Number(n)).reverse()[0]
+        return flags.version >= currentFlagVersion
     },
 
     migrations: {
         "1": async (item) => {
-            debugger
             const oldFlags = item.data?.flags?.autoanimations;
             const type = oldFlags.animType;
             let data;
@@ -58,7 +61,7 @@ export const flagMigrations = {
 
                     await explosions(item);
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t3":
@@ -91,7 +94,7 @@ export const flagMigrations = {
 
                     await explosions(item);
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t4":
@@ -128,7 +131,7 @@ export const flagMigrations = {
 
                     await explosions(item);
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t5":
@@ -154,7 +157,7 @@ export const flagMigrations = {
 
                     await explosions(item);
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t6":
@@ -175,7 +178,7 @@ export const flagMigrations = {
 
                     await explosions(item);
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t7":
@@ -201,7 +204,7 @@ export const flagMigrations = {
 
                     await explosions(item);
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t8":
@@ -237,7 +240,7 @@ export const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.repeat', data.repeat)
                     await item.setFlag('autoanimations', 'options.delay', data.delay)
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t9":
@@ -263,7 +266,7 @@ export const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t10":
@@ -289,7 +292,7 @@ export const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t11":
@@ -311,7 +314,7 @@ export const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t12":
@@ -335,7 +338,7 @@ export const flagMigrations = {
                     await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
                     await item.setFlag('autoanimations', 'options.customPath', data.customPath)
 
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
                 case "t13":
@@ -399,7 +402,7 @@ export const flagMigrations = {
                             break;
                     }
                     
-                    await item.setFlag('autoanimations', 'version', '1')
+                    await item.setFlag('autoanimations', 'version', 1)
 
                     return item.data.flags.autoanimations;
             }

@@ -33,7 +33,7 @@ export default class flagHandler {
         const midiActive = game.modules.get('midi-qol')?.active;
         //console.log(data.item.data.flags.autoanimations)
         //this._flags = data.item.data?.flags?.autoanimations ?? "";
-        this._flags = flagData;
+        this._flags = flagData ?? {};
         //console.log(data.item.data.flags.autoanimations)
 
         this._reach = data.reach || 0;

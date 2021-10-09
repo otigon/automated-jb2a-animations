@@ -134,7 +134,7 @@ export async function trafficCop(handler) {
             //const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName); //checks autoNameList against current name
             const autoName = AutorecFunctions._rinseName(handler.itemName); //removes all spaces in the name
             const isAuto = AutorecFunctions.foundInAutorec(autoRecSettings, autoName);
-
+            
             if (isAuto) {
                 const autoObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName) // combines Autorec menus and sorts by name length, returns object
                 switch (autoObject.menuSection) {

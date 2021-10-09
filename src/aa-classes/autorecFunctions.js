@@ -95,7 +95,7 @@ export class AutorecFunctions {
             var arrayLength = Object.keys(obj[keys[i]]).length
             var currentObject = obj[keys[i]]
             for (var k = 0; k < arrayLength; k++) {
-                if (!currentObject[k].name.name) { continue }
+                if (!currentObject[k].name) { continue }
 
                 nameArray.push(currentObject[k].name.toLowerCase())
             }

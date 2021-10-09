@@ -3,7 +3,9 @@ import { AATabFunctions } from "../aa-classes/tab-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
-import { currentFlagVersion } from "../constants/constants.js";
+//import { currentFlagVersion } from "../constants/constants.js";
+import { flagMigrations } from "../system-handlers/flagMerge.js";
+
 export class AAItemSettings extends FormApplication {
     constructor() {
         super(...arguments);
@@ -24,7 +26,7 @@ export class AAItemSettings extends FormApplication {
     }
 
     getData() {
-
+        const currentFlagVersion = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
         const flags = this.object.data.flags;
         //if (!flags?.autoanimations?.version) {
             //this.object.setFlag('autoanimations', 'version', currentFlagVersion)
@@ -161,7 +163,8 @@ export class AAItemSettings extends FormApplication {
 
             ammo5e: game.system.id === "dnd5e" ? true : false,
 
-            versionTest: !flags.autoanimations?.version ? this.object.setFlag('autoanimations', 'version', currentFlagVersion) : null,
+            //currentVersion: !flags.autoanimations?.version ? this.object.setFlag('autoanimations', 'version', currentFlagVersion) : "",
+            currentVersion: currentFlagVersion, 
         };
 
     }
