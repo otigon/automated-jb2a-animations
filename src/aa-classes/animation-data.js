@@ -17,10 +17,10 @@ export class AAanimationData {
             data.persistent = autoOverridden ? handler.options?.autoPersist : data.persistent;
         } else {
             data.animation = handler.animation;
-            data.variant = handler.variant || "01";
+            data.variant = handler.variant ?? "01";
             data.color = handler.color;
             data.customPath = handler.enableCustom ? handler.customPath : false;
-            data.switchType = handler.meleeSwitch.switchType || "on";
+            data.switchType = handler.meleeSwitch?.switchType ?? "on";
             data.repeat = handler.repeat;
             data.delay = handler.delay
             data.scale = handler.scale;
@@ -99,8 +99,9 @@ export class AAanimationData {
             data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
             data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
         } else {
-            data.switchAnimation = meleeSwitch.animation ?? "";
-            data.switchColor = meleeSwitch.color ?? "white";
+            data.switchAnimation = meleeSwitch.switchType === 'custom' ? meleeSwitch.animation : handler.animation;
+            if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
+            data.switchColor = meleeSwitch.color || "white";
             data.switchType = meleeSwitch.switchType ?? "on";
             data.detect = meleeSwitch.detect ?? "auto";
             data.repeat = handler.repeat;
