@@ -14,6 +14,7 @@ export class AAanimationData {
             data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
             data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
             data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
+            data.persistent = autoOverridden ? handler.options?.autoPersist : data.persistent;
         } else {
             data.animation = handler.animation;
             data.variant = handler.variant || "01";
@@ -24,7 +25,8 @@ export class AAanimationData {
             data.delay = handler.delay
             data.scale = handler.scale;
             data.below = handler.below;
-            data.type = handler.options.staticType ?? "targetDefault";
+            data.type = handler.options?.staticType ?? "targetDefault";
+            data.persistent = handler.persistent;
         }
         return data;
     }

@@ -459,5 +459,6 @@
     "AUTOANIM.mid": "Middle",
     "AUTOANIM.center": "Center",
     "AUTOANIM.inspire": "Inspire",
-    "AUTOANIM.chainlightning": "Chain Lightning"
+    "AUTOANIM.chainlightning": "Chain Lightning",
+    "AUTOANIM.choosePreset": "Choose Preset"
 }

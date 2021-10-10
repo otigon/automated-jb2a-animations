@@ -105,13 +105,13 @@
             <label>{{localize "AUTOANIM.source"}} {{localize "AUTOANIM.animation"}}</label>
         </div>
         <div class="aa-flow-arrow">
-            <i class="fas fa-angle-double-right fa-3x"></i>
+            <i {{#if flags.autoanimations.sourceToken.enable}} style='color:rgb(6, 190, 6);text-shadow: 0 0 5px black' {{/if }} {{#unless flags.autoanimations.sourceToken.enable}} style='color:red;text-shadow: 0 0 5px black' {{/unless }} class="fas fa-angle-double-right fa-3x"></i>
         </div>
         <div class="AA-flow-chart-Primary" style='color: black'>
             <label>{{localize "AUTOANIM.primary"}} {{localize "AUTOANIM.animation"}}</label>
         </div>
         <div class="aa-flow-arrow">
-            <i class="fas fa-angle-double-right fa-3x"></i>
+            <i {{#if flags.autoanimations.targetToken.enable}} style='color:rgb(6, 190, 6);text-shadow: 0 0 5px black' {{/if }} {{#unless flags.autoanimations.targetToken.enable}} style='color:red;text-shadow: 0 0 5px black' {{/unless }} class="fas fa-angle-double-right fa-3x"></i>
         </div>
         <div class="AA-flow-chart-Target" {{#if flags.autoanimations.targetToken.enable }}
             style="background-color: rgb(129, 248, 138);color: black" {{/if}} {{#unless
@@ -214,4 +214,7 @@
         {{/if}}
         {{/if}}
     </div>
+</div>
+<div style='padding:3px'>
+
 </div>

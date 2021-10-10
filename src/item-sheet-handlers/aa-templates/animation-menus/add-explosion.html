@@ -1,7 +1,7 @@
-<div class='flexrow text-green' {{#unless flags.autoanimations.explosion }} style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered; text-align: center;' {{/unless}}>
+<div class='flexrow text-green' {{#unless flags.autoanimations.explosions.enable }} style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered; text-align: center;' {{/unless}}>
     <label><strong>{{localize "AUTOANIM.addExplosion"}}</strong></label>
 </div>
-<div class='aa-explosion-container add-explosion' {{#if flags.autoanimations.explosion }} style='box-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;' {{/if}}>
+<div class='aa-explosion-container add-explosion' {{#if flags.autoanimations.explosions.enable }} style='box-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;' {{/if}}>
     <!--Enable Explosion? Checkbox-->
     <div class='form-group option01' style='padding-top: 5px;padding-bottom: 4px;'>
         <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>

@@ -1,8 +1,9 @@
 
 .aa-audio-checkbox {
-    border: 3px ridge #a1a1a1;
     padding: 3px;
     margin-bottom: 5px;
+    border: 3px ridge #a1a1a1;
+    border-radius: 7px;
 }
 
 .aa-ridged {
@@ -70,7 +71,7 @@
     animation: backFade 5s infinite;
 }
 @keyframes backFade {
-    50% {background-color: rgb(158, 158, 158)}
+    50% {background-color: rgba(158, 158, 158, 0.5)}
 }
 
 .AA-flow-chart-Source {
@@ -205,6 +206,15 @@
     justify-items: end; 
 }
 
+.aaFGimage {
+    background: url("aaMenuFG.jpg") repeat;
+}
+
+.aaBGimage {
+    background: url("aaMenuBG02.jpg") repeat;
+    color: #191813;
+}
+
 .aa-item-container {
     display: grid;
     grid-template-columns: auto auto 9em 9em;
@@ -215,7 +225,7 @@
     border: 3px ridge #a1a1a1;
     border-radius: 7px;
     padding: 5px;
-    background: url("parchment.jpg") repeat;
+    background: url("aaMenuFG.jpg") repeat;
     color: black;
     text-align: center;
 }
@@ -230,7 +240,7 @@
     border: 3px ridge #a1a1a1;
     border-radius: 7px;
     padding: 5px;
-    background: url("parchment.jpg") repeat;
+    background: url("aaMenuFG.jpg") repeat;
     color: black;
 }
 
@@ -243,7 +253,7 @@
     border: 3px ridge #a1a1a1;
     border-radius: 7px;
     padding: 5px;
-    background: url("parchment.jpg") repeat;
+    background: url("aaMenuFG.jpg") repeat;
     color: black;
 }
 
@@ -270,7 +280,7 @@ border: none;
 
 #AA-item-settings .form-group select{
 height: 27px;
-background: rgba(0, 0, 0, 0.05);
+background: url("aaMenuFG.jpg") repeat;
 border: 1px solid #7a7971;
 border-radius: 3px;
 padding: 0 3px;
@@ -294,7 +304,19 @@ height: 20px;
 }
 
 #AA-item-settings .window-content {
-    background: url("parchment.jpg") repeat;
+    background: url("aaMenuBG02.jpg") repeat;
+    color: #191813;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#automatic-recognition .window-content {
+    background: url("aaMenuBG02.jpg") repeat;
     color: #191813;
     display: flex;
     flex-direction: column;
@@ -306,11 +328,11 @@ height: 20px;
 }
 
 .primary-animation {
-    box-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;
+    box-shadow: 0 0 10px darkgreen;
 }
 
 .switch-animation {
-    box-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;
+    box-shadow: 0 0 10px darkgreen;
 }
 
 .text-green {
@@ -320,7 +342,7 @@ height: 20px;
 }
 
 .add-explosion {
-    box-shadow: 0 0 5px red;
+    box-shadow: 0 0 10px red;
 }
 
 .span1920 {

@@ -73,7 +73,7 @@ export default class flagHandler {
         this._repeatDelay = this._options.delay || 250;
         this._scale = this._options.scale || 1;
         this._opacity = this._options.opacity || 0.75;
-        this._persistent = this._options.persistent;
+        this._persistent = this._options.persistent ?? false;
         this._enableCustom = this._options.enableCustom || false;
         this._customPath = this._options.customPath || "";
         this._auraRadius = this._options.auraRadius || "";

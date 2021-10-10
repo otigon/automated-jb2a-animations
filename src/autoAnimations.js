@@ -247,14 +247,14 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 * item as the item instance being used
 */
 class AutoAnimations {
-    static playAnimation(sourceToken, targets, item) {
+    static async playAnimation(sourceToken, targets, item) {
         if (killAllAnimations) { return; }
         const data = {
             token: sourceToken,
             targets: targets,
             item: item,
         }
-        let handler = new flagHandler(null, null, data)
+        let handler = await flagHandler.make(null, null, data)
         trafficCop(handler);
     }
 }
@@ -456,17 +456,17 @@ async function setUp5eCore(msg) {
 /*
 / sets Handler for PF1 and DnD3.5
 */
-function onCreateChatMessage(msg) {
+async function onCreateChatMessage(msg) {
     if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
     log('onCreateChatMessage', msg);
     let handler;
     switch (game.system.id) {
         case "pf1":
-            handler = new flagHandler(msg);
+            handler = await flagHandler.make(msg);
             break;
         case "D35E":
-            handler = new flagHandler(msg);
+            handler = await flagHandler.make(msg);
             break;
     }
     if (!handler.item || !handler.actorToken || handler.animKill) {
@@ -478,10 +478,10 @@ function onCreateChatMessage(msg) {
 /*
 / Sets Handler for SWADE
 */
-function swadeData(SwadeActor, SwadeItem) {
+async function swadeData(SwadeActor, SwadeItem) {
     if (killAllAnimations) { return; }
     let data = { SwadeActor, SwadeItem }
-    let handler = new flagHandler(data);
+    let handler = await flagHandler.make(data);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
@@ -491,7 +491,7 @@ function swadeData(SwadeActor, SwadeItem) {
 /*
 / Sets Handler for Starfinder
 */
-function starFinder(data, msg) {
+async function starFinder(data, msg) {
     if (killAllAnimations) { return; }
     let tokenId = msg.data.speaker.token;
     let sourceToken = canvas.tokens.get(tokenId);
@@ -503,9 +503,9 @@ function starFinder(data, msg) {
 /*
 / Sets Handler for Tormenta 20
 */
-function setupTormenta20(msg) {
+async function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
-    let handler = new flagHandler(msg);
+    let handler = await flagHandler.make(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
@@ -528,7 +528,7 @@ function setupTormenta20(msg) {
 async function fblReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = new flagHandler(msg);
+    const handler = await flagHandler.make(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
@@ -537,9 +537,9 @@ async function fblReady(msg) {
 /*
 / Sets Handler for Demon Lord
 */
-function setupDemonLord(data) {
+async function setupDemonLord(data) {
     if (killAllAnimations) { return; }
-    let handler = new flagHandler(data);
+    let handler = await flagHandler.make(data);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
@@ -552,7 +552,7 @@ function setupDemonLord(data) {
 async function pf2eReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = new flagHandler(msg);
+    const handler = await flagHandler.make(msg);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
@@ -678,10 +678,10 @@ async function criticalCheck(workflow) {
 /*
 / WFRP Functions
 */
-function wfrpWeapon(data, targets, info) {
+async function wfrpWeapon(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({ item: data.weapon, targets: targets });
+    let handler = await flagHandler.make({ item: data.weapon, targets: targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -690,10 +690,10 @@ function wfrpWeapon(data, targets, info) {
             trafficCop(handler);
     }
 }
-function wfrpPrayer(data, targets, info) {
+async function wfrpPrayer(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({ item: data.prayer, targets: targets });
+    let handler = await flagHandler.make({ item: data.prayer, targets: targets, info: info  });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -702,10 +702,10 @@ function wfrpPrayer(data, targets, info) {
             trafficCop(handler);
     }
 }
-function wfrpCast(data, targets, info) {
+async function wfrpCast(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({ item: data.spell, targets: targets });
+    let handler = await flagHandler.make({ item: data.spell, targets: targets, info: info  });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -714,10 +714,10 @@ function wfrpCast(data, targets, info) {
             trafficCop(handler);
     }
 }
-function wfrpTrait(data, targets, info) {
+async function wfrpTrait(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({ item: data.trait, targets: targets });
+    let handler = await flagHandler.make({ item: data.trait, targets: targets, info: info  });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -726,10 +726,10 @@ function wfrpTrait(data, targets, info) {
             trafficCop(handler);
     }
 }
-function wfrpSkill(data, targets, info) {
+async function wfrpSkill(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = new flagHandler({ item: data.skill, targets: targets });
+    let handler = await flagHandler.make({ item: data.skill, targets: targets, info: info  });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
