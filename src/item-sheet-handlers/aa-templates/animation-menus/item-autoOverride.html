@@ -209,19 +209,31 @@
     </div>
     <div class='option03'>
         <label>{{localize 'AUTOANIM.projectile'}}: </label>
-        <select name="flags.autoanimations.autoOverride.autoFireball.projectile">
-            {{#select flags.autoanimations.autoOverride.autoFireball.projectile}}
+        <select name="flags.autoanimations.autoOverride.fireball.projectile">
+            {{#select flags.autoanimations.autoOverride.fireball.projectile}}
             {{#each projectile as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
         </select>
     </div>
-    <div class='option04'>
+    <div class='option09'>
+        <div class='autorec-menu-pad'>
+            <label>{{localize 'AUTOANIM.variant'}}: </label>
+            <select name="flags.autoanimations.autoOverride.fireball.projectileVariant">
+                {{#select flags.autoanimations.fireball.projectileVariant}}
+                {{#each (lookup variantmenu.range (lookup flags.autoanimations.autoOverride.fireball 'projectile')) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+    <div class='option10'>
         <label>{{localize 'AUTOANIM.color'}}: </label>
-        <select name="flags.autoanimations.autoOverride.autoFireball.projectileColor">
-            {{#select flags.autoanimations.autoOverride.autoFireball.projectileColor}}
-            {{#each (lookup (lookup colormenu.range flags.autoanimations.autoOverride.autoFireball.projectile) '01')
+        <select name="flags.autoanimations.autoOverride.fireball.projectileColor">
+            {{#select flags.autoanimations.autoOverride.fireball.projectileColor}}
+            {{#each (lookup (lookup colormenu.range flags.autoanimations.autoOverride.fireball.projectile) flags.autoanimations.autoOverride.fireball.projectileVariant)
             as
             |name
             key|}}
@@ -232,24 +244,24 @@
     </div>
     <div class='autorec-menu-options option07'>
         <label>{{localize 'AUTOANIM.wait'}}:
-            <input type="Number" style='width:5em' name="flags.autoanimations.autoOverride.autoFireball.wait01"
-                value="{{lookup flags.autoanimations.autoOverride.autoFireball 'wait01'}}" data-dtype="Number">
+            <input type="Number" style='width:5em' name="flags.autoanimations.autoOverride.fireball.wait01"
+                value="{{lookup flags.autoanimations.autoOverride.fireball 'wait01'}}" data-dtype="Number">
         </label>
     </div>
     <!--<div class='form-group'>
             <label>Explosion 01
-                <select style='width:7em' name="flags.autoanimations.options.autoFireball.explosion01">
-                    {{#select flags.autoanimations.options.autoFireball.explosion01}}
+                <select style='width:7em' name="flags.autoanimations.options.fireball.explosion01">
+                    {{#select flags.autoanimations.options.fireball.explosion01}}
                     {{#each explosionMenu as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
                 </select></label>
         </div>-->
-    <div class='option09' style='padding: 5px;'>
+    <div class='option13' style='padding: 5px;'>
         <label>{{localize 'AUTOANIM.explosion'}} 01 {{localize 'AUTOANIM.color'}}: </label>
-        <select name="flags.autoanimations.autoOverride.autoFireball.explosion01Color">
-            {{#select flags.autoanimations.autoOverride.autoFireball.explosion01Color}}
+        <select name="flags.autoanimations.autoOverride.fireball.explosion01Color">
+            {{#select flags.autoanimations.autoOverride.fireball.explosion01Color}}
             {{#each (lookup (lookup colormenu.static fireball.explosion01) fireball.explosion01Variant) as
             |name key|}}
             <option value="{{key}}">{{name}}</option>
@@ -259,24 +271,24 @@
     </div>
     <!--<div class='form-group'>
             <label>Wait
-                <input type="Number" style='width:3em' name="flags.autoanimations.autoFireball.wait02"
-                    value="{{lookup flags.autoanimations.autoFireball 'wait02'}}" data-dtype="Number">
+                <input type="Number" style='width:3em' name="flags.autoanimations.fireball.wait02"
+                    value="{{lookup flags.autoanimations.fireball 'wait02'}}" data-dtype="Number">
             </label>
         </div>-->
     <!--<div class='form-group'>
             <label>Explosion 02
-                <select style='width:7em' name="flags.autoanimations.options.autoFireball.explosion02">
-                    {{#select flags.autoanimations.options.autoFireball.explosion02}}
+                <select style='width:7em' name="flags.autoanimations.options.fireball.explosion02">
+                    {{#select flags.autoanimations.options.fireball.explosion02}}
                     {{#each explosionMenu as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
                 </select></label>
         </div>-->
-    <div style='grid-column: 2 / 4;grid-row: 3 / 4;'>
+    <div style='grid-column: 2 / 4;grid-row: 4 / 5;'>
         <label>{{localize 'AUTOANIM.explosion'}} 02 {{localize 'AUTOANIM.color'}}: </label>
-        <select name="flags.autoanimations.autoOverride.autoFireball.explosion02Color">
-            {{#select flags.autoanimations.autoOverride.autoFireball.explosion02Color}}
+        <select name="flags.autoanimations.autoOverride.fireball.explosion02Color">
+            {{#select flags.autoanimations.autoOverride.fireball.explosion02Color}}
             {{#each (lookup (lookup colormenu.static fireball.explosion02) fireball.explosion02Variant) as
             |name key|}}
             <option value="{{key}}">{{name}}</option>
@@ -284,24 +296,24 @@
             {{/select}}
         </select>
     </div>
-    <div class="form-group option13">
+    <div class="form-group option17">
         <label>{{localize "AUTOANIM.addAfterImage"}}</label>
-        <input type="checkbox" name="flags.autoanimations.autoOverride.autoFireball.afterEffect"
-            value="flags.autoanimations.autoOverride.autoFireball.afterEffect" data-dtype="{{Boolean}}" {{checked
-            flags.autoanimations.autoOverride.autoFireball.afterEffect}}>
+        <input type="checkbox" name="flags.autoanimations.autoOverride.fireball.afterEffect"
+            value="flags.autoanimations.autoOverride.fireball.afterEffect" data-dtype="{{Boolean}}" {{checked
+            flags.autoanimations.autoOverride.fireball.afterEffect}}>
     </div>
-    {{#if flags.autoanimations.autoOverride.autoFireball.afterEffect}}
-    <div class='autorec-menu-options option14'>
+    {{#if flags.autoanimations.autoOverride.fireball.afterEffect}}
+    <div class='autorec-menu-options option18'>
         <label>{{localize "AUTOANIM.wait"}}</label>
-        <input type="Number" style='width:3em' name="flags.autoanimations.autoOverride.autoFireball.wait03"
-            value="{{flags.autoanimations.autoOverride.autoFireball.wait03}}" data-dtype="Number">
+        <input type="Number" style='width:3em' name="flags.autoanimations.autoOverride.fireball.wait03"
+            value="{{flags.autoanimations.autoOverride.fireball.wait03}}" data-dtype="Number">
     </div>
-    <div class='form-group' style='grid-column: 3 / 5;grid-row: 4 / 5;'>
+    <div class='form-group' style='grid-column: 3 / 5;grid-row: 5 / 6;'>
         <input style="width:15em" type="text" class="files"
-            name="flags.autoanimations.autoOverride.autoFireball.afterEffectPath"
-            value="{{flags.autoanimations.autoOverride.autoFireball.afterEffectPath}}">
+            name="flags.autoanimations.autoOverride.fireball.afterEffectPath"
+            value="{{flags.autoanimations.autoOverride.fireball.afterEffectPath}}">
         <button type="button" class="file-picker" data-type="image/video"
-            data-target="flags.autoanimations.autoOverride.autoFireball.afterEffectPath" tabindex="-1" title="Browse Files">
+            data-target="flags.autoanimations.autoOverride.fireball.afterEffectPath" tabindex="-1" title="Browse Files">
             <i class="fas fa-file-video"></i>
         </button>
     </div>

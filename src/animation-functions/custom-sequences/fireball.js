@@ -4,37 +4,64 @@ import { buildFile } from "../file-builder/build-filepath.js"
 export async function fireball(handler, autoObject) {
 
     const data = {}
-    Object.assign(data, autoObject);
-    const autoOverridden = handler.autoOverride?.enable
-    const autoOverrideAfter = handler.autoOverride?.autoFireball?.afterEffect;
-    if (!autoOverridden) {
-        data.projectileRepeat = data.projectileRepeat || 1;
-        data.projectileDelay = data.projectileDelay || 250;
-        data.explosion01Repeat = data.explosion01Repeat || 1;
-        data.explosion01Delay = data.explosion01Delay || 250;
-        data.explosion01Scale = data.explosion01Scale || 1;
-        data.explosion02Repeat = data.explosion02Repeat || 1;
-        data.explosion02Delay = data.explosion02Delay || 250;
-        data.explosion02Scale = data.explosion02Scale || 1;
+
+    if (autoObject) {
+        Object.assign(data, autoObject);
+        const autoOverridden = handler.flags?.autoOverride?.enable ?? false;
+        const autoOverrideAfter = handler.flags?.autoOverride?.fireball?.afterEffect ?? false;
+        const autoFireball = handler.flags?.autoOverride?.fireball ?? {};
+        data.projectile = autoOverridden ? autoFireball.projectile : data.projectile;
+        data.projectileVariant = autoFireball ? autoFireball.projectileVariant : data.projectilVariant ?? "01";
+        data.projectileColor = autoOverridden ? autoFireball.projectileColor ?? data.projectileColor : data.projectileColor ?? "";
+        data.projectileRepeat = data.projectileRepeat ?? 1;
+        data.projectileDelay = data.projectileDelay ?? 250;
+        data.wait01 = autoOverridden ? autoFireball.wait01 ?? -500 : data.wait01 ?? -500;
+
+        data.explosion01 = data.explosion01;
+        data.explosion01Variant = data.explosion01Variant ?? "01";
+        data.explosion01Color = autoOverridden ? autoFireball.explosion01Color ?? "" : data.explosion01Color ?? "";
+        data.explosion01Repeat = data.explosion01Repeat ?? 1;
+        data.explosion01Delay = data.explosion01Delay ?? 250;
+        data.explosion01Scale = data.explosion01Scale ?? 1;
+        data.wait02 = data.wait02 ?? 500;
+
+        data.explosion02 = data.explosion02;
+        data.explosion02Variant = data.explosion02Variant ?? "01";
+        data.explosion02Color = autoOverridden ? autoFireball.explosion02Color ?? "" : data.explosion02Color ?? "";
+        data.explosion02Repeat = data.explosion02Repeat ?? 1;
+        data.explosion02Delay = data.explosion02Delay ?? 250;
+        data.explosion02Scale = data.explosion02Scale ?? 1;
+
+        data.afterEffect = autoOverrideAfter ? autoFireball.afterEffect ?? false : data.afterEffect;
+        data.afterEffectPath = autoOverrideAfter ? autoFireball.afterEffectPath ?? "" : data.afterEffectPath ?? "";
+        data.wait03 = autoOverrideAfter ? autoFireball.wait03 ?? 500 : data.wait03 ?? 500;
     } else {
-        data.projectile = handler.options.autoFireball.projectile;
-        data.projectileColor = handler.options.autoFireball.projectileColor || data.projectileColor;
-        data.projectileRepeat = data.projectileRepeat || 1;
-        data.projectileDelay = data.projectileDelay || 250;
-        data.wait01 = handler.options.autoFireball.wait01 || data.projectileColor;
+        const fireballFlags = handler.fireball ?? {};
+        data.projectile = fireballFlags.projectile;
+        data.projectileVariant = fireballFlags.projectileVariant ?? "01";
+        data.projectileColor = fireballFlags.projectileColor ?? "";
+        data.projectileRepeat = fireballFlags.projectileRepeat ?? 1;
+        data.projectileDelay = fireballFlags.projectileDelay ?? 250;
+        data.wait01 = fireballFlags.wait01 ?? -500;
 
-        data.explosion01Color = handler.options.autoFireball.explosion01Color || data.explosion01Color;
-        data.explosion01Repeat = data.explosion01Repeat || 1;
-        data.explosion01Delay = data.explosion01Delay || 250;
-        data.explosion01Scale = data.explosion01Scale || 1;
+        data.explosion01 = fireballFlags.explosion01;
+        data.explosion01Variant = fireballFlags.explosion01Variant ?? "01";
+        data.explosion01Color = fireballFlags.explosion01Color ?? "";
+        data.explosion01Repeat = fireballFlags.explosion01Repeat ?? 1;
+        data.explosion01Delay = fireballFlags.explosion01Delay ?? 250;
+        data.explosion01Scale = fireballFlags.explosion01Scale ?? 1;
+        data.wait02 = fireballFlags.wait01 ?? -500;
 
-        data.explosion02Color = handler.options.autoFireball.explosion02Color || data.explosion02Color;
-        data.explosion02Repeat = data.explosion02Repeat || 1;
-        data.explosion02Delay = data.explosion02Delay || 250;
-        data.explosion02Scale = data.explosion02Scale || 1;
-        data.afterEffect = autoOverrideAfter ? handler.options?.autoFireball?.afterEffect : data.afterEffect;
-        data.afterEffectPath = autoOverrideAfter ? handler.options?.autoFireball?.afterEffectPath : data.afterEffectPath;
-        data.wait03 = autoOverrideAfter ? handler.options?.autoFireball?.wait03 : data.wait03;
+        data.explosion02 = fireballFlags.explosion02;
+        data.explosion02Variant = fireballFlags.explosion02Variant ?? "01";
+        data.explosion02Color = fireballFlags.explosion02Color ?? "";
+        data.explosion02Repeat = fireballFlags.explosion02Repeat ?? 1;
+        data.explosion02Delay = fireballFlags.explosion02Delay ?? 250;
+        data.explosion02Scale = fireballFlags.explosion02Scale ?? 1;
+
+        data.afterEffect = fireballFlags.afterEffect;
+        data.afterEffectPath = fireballFlags.afterEffectPath ?? "";
+        data.wait03 = fireballFlags.wait03 ?? 500;
     }
 
     let templateSound = handler.allSounds?.item;
@@ -42,7 +69,7 @@ export async function fireball(handler, autoObject) {
     let templateDelay = 1;
     let templateFile = "";
     if (handler.itemSound) {
-        templateVolume = templateSound?.volume || 0.25;
+        templateVolume = templateSound?.volume ?? 0.25;
         templateDelay = templateSound?.delay === 0 ? 1 : templateSound?.delay;
         templateFile = templateSound?.file;
     }

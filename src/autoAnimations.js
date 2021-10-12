@@ -276,7 +276,7 @@ async function setUpMidi(workflow) {
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
-    if (handler.animType === "template" && handler.animOverride) { return; }
+    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride)) { return; }
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
@@ -289,7 +289,7 @@ async function setUpMidiNoAD(workflow) {
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
-    if (handler.animType === "template" && handler.animOverride) { return; }
+    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride)) { return; }
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
@@ -310,7 +310,7 @@ async function setUpMidiNoA(workflow) {
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if ((templateItem || fireball) && !handler.animOverride) { return; }
-    if (handler.animType === "template" && handler.animOverride) { return; }
+    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride)) { return; }
     trafficCop(handler)
 }
 
@@ -334,7 +334,7 @@ async function specialCaseAnimations(msg) {
     }
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(data.item.name.toLowerCase()));
-    if (itemType === "template" || itemType === "t8") {} else {
+    if ((itemType === "template" || itemType === "preset" && data.item.data?.flags?.autoanimations?.animation === "fireball") || ((templateItem || fireball) && !data.item.data?.flags?.autoanimations?.override)) { } else {
         return;
     }
 
@@ -355,6 +355,10 @@ async function specialCaseAnimations(msg) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler);
             })
+            return;
+        }
+        if (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride) {
+            trafficCop(handler);
             return;
         }
         //const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
@@ -388,7 +392,7 @@ async function setUp5eCore(msg) {
             rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
             break;
         case "sw5e":
-            handler =  await flagHandler.make(msg);
+            handler = await flagHandler.make(msg);
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
@@ -693,7 +697,7 @@ async function wfrpWeapon(data, targets, info) {
 async function wfrpPrayer(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await flagHandler.make({ item: data.prayer, targets: targets, info: info  });
+    let handler = await flagHandler.make({ item: data.prayer, targets: targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -705,7 +709,7 @@ async function wfrpPrayer(data, targets, info) {
 async function wfrpCast(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await flagHandler.make({ item: data.spell, targets: targets, info: info  });
+    let handler = await flagHandler.make({ item: data.spell, targets: targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -717,7 +721,7 @@ async function wfrpCast(data, targets, info) {
 async function wfrpTrait(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await flagHandler.make({ item: data.trait, targets: targets, info: info  });
+    let handler = await flagHandler.make({ item: data.trait, targets: targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);
@@ -729,7 +733,7 @@ async function wfrpTrait(data, targets, info) {
 async function wfrpSkill(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await flagHandler.make({ item: data.skill, targets: targets, info: info  });
+    let handler = await flagHandler.make({ item: data.skill, targets: targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.animOverride)):
             teleportation(handler);

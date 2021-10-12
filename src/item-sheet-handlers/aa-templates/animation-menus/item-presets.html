@@ -336,8 +336,8 @@
     <div class='option09'>
         <div class='autorec-menu-pad'>
             <label>{{localize 'AUTOANIM.variant'}}: </label>
-            <select name="flags.autoanimations.fireball.projectilVariant">
-                {{#select flags.autoanimations.fireball.projectilVariant}}
+            <select name="flags.autoanimations.fireball.projectileVariant">
+                {{#select flags.autoanimations.fireball.projectileVariant}}
                 {{#each (lookup variantmenu.range (lookup flags.autoanimations.fireball 'projectile')) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
@@ -351,7 +351,7 @@
             <select name="flags.autoanimations.fireball.projectileColor">
                 {{#select flags.autoanimations.fireball.projectileColor}}
                 {{#each (lookup (lookup colormenu.range (lookup flags.autoanimations.fireball 'projectile')) (lookup
-                flags.autoanimations.fireball 'projectilVariant')) as |name key|}}
+                flags.autoanimations.fireball 'projectileVariant')) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}

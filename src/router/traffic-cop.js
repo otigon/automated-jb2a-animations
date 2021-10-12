@@ -45,7 +45,7 @@ export async function trafficCop(handler) {
     const targets = handler.allTargets?.length ?? 0;
     if (override) {
         if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets, handler.flags]) }
-        if (animType === 'template') {} else {itemSound(handler)}
+        if (animType === 'template' || (animType === 'preset' && handler.animation === 'fireball')) { } else { itemSound(handler) }
         switch (animType) {
             case "melee":
                 if (targets === 0) {
@@ -122,6 +122,22 @@ export async function trafficCop(handler) {
                         break;
                     case "teleportation":
                         teleportation(handler)
+                        break;
+                    case "fireball":
+                        switch (game.system.id) {
+                            case "dnd5e":
+                            case "pf2e":
+                                if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
+                                    fireball(handler);
+                                } else {
+                                    Hooks.once("createMeasuredTemplate", () => {
+                                        fireball(handler);
+                                    });
+                                }
+                                break;
+                            default:
+                                fireball(handler);
+                        }
                         break;
                 }
                 break;

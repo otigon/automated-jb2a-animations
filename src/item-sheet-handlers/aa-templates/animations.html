@@ -51,8 +51,8 @@
         <div class="form-group" style='grid-column: 1 / 2;grid-row: 6 / 7;'>
             <label style='text-align: left;'><strong>Override Automatic Settings</strong></label>
             <div class="aa-divider"></div>
-            <input type="checkbox" name="flags.autoanimations.options.overrideAuto"
-                value="flags.autoanimations.options.overrideAuto" {{checked flags.autoanimations.options.overrideAuto}}>
+            <input type="checkbox" name="flags.autoanimations.autoOverride.enable"
+                value="flags.autoanimations.autoOverride.enable" {{checked flags.autoanimations.autoOverride.enable}}>
         </div>
         {{/if}}
         {{/unless}}
@@ -61,7 +61,7 @@
 </div>
 {{#unless flags.autoanimations.override}}
 {{#unless flags.autoanimations.killAnim}}
-{{#if flags.autoanimations.options.overrideAuto}}
+{{#if flags.autoanimations.autoOverride.enable}}
 <div class='animation-not-disabled'>
     <div style='padding:6px'>
 

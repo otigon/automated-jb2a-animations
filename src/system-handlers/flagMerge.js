@@ -33,32 +33,36 @@ export const flagMigrations = {
             debugger
             const oldFlags = item.data?.flags?.autoanimations;
             const type = oldFlags.animType;
-            //let data = {}
-            
+
             const data = {
                 killAnim: oldFlags.killAnim ?? false,
                 below: oldFlags.animLevel ?? false,
                 override: oldFlags.override ?? false,
+                //animType: 'function here',
+                //animation: 'animation function here',
+                //color: 'color funciton here',
+                'options.repeat': type === 't8' ? oldFlags.templates?.tempLoop || 1 : oldFlags.options?.loops || 1,
+                'options.delay': type === 't8' ? oldFlags.templates?.loopDelay || 250 : oldFlags.options?.loopDelay || 250,
+                'options.scale': oldFlags.options?.scale ?? 1,
+                //enableCustom: 'function here',
+                //customPath: 'function here',
                 targetToken: oldFlags.targetToken?.enable ? oldFlags.targetToken : { enable: false },
                 sourceToken: oldFlags.sourceToken?.enable ? oldFlags.sourceToken : { enable: false },
                 allSounds: oldFlags.allSounds ?? {},
+                autoOverride: oldFlags.options?.overrideAuto ? await overrideAuto() : {enable: false},
                 version: 1,
-                //'autoOverride.enable': oldFlags.options?.overrideAuto ?? false,
-            };
-            
+            }
+
             switch (type) {
                 case "t2":
                     data.animType = 'melee';
                     data.animation = replaceName(oldFlags.animName);
                     data.color = replaceName(oldFlags.color);
-                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : oldFlags.meleeSwitch?.switchType ?? 'on';
+                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : {switchType: oldFlags.meleeSwitch?.switchType ?? 'on'};
                     data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
                     data.options = {
                         meleeType: "weapon",
                         variant: oldFlags.uaStrikeType ?? "01",
-                        repeat: oldFlags.options?.loops ?? 1,
-                        delay: oldFlags.options?.loopDelay ?? 250,
-                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
@@ -70,14 +74,11 @@ export const flagMigrations = {
                     data.animation = replaceName(oldFlags.animName);
                     data.animType = genericList.includes(data.animation) ? "melee" : "generic";
                     data.color = replaceName(oldFlags.color);
-                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : oldFlags.meleeSwitch?.switchType ?? 'on';
+                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : {switchType: oldFlags.meleeSwitch?.switchType ?? 'on'};
                     data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
                     data.options = {
                         meleeType: genericList.includes(data.animation) ? "weapon" : "generic",
                         variant: oldFlags.uaStrikeType ?? "01",
-                        repeat: oldFlags.options?.loops ?? 1,
-                        delay: oldFlags.options?.loopDelay ?? 250,
-                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
@@ -91,8 +92,6 @@ export const flagMigrations = {
                     data.options = {
                         rangeType: 'weapon',
                         variant: t4VariantSwitch(replaceName(oldFlags.animName)),
-                        repeat: oldFlags.options?.loops ?? 1,
-                        delay: oldFlags.options?.loopDelay ?? 250,
                     }
 
                     function t4VariantSwitch(name) {
@@ -121,9 +120,6 @@ export const flagMigrations = {
                         staticType: 'target',
                         staticOptions: 'creature',
                         variant: "01",
-                        repeat: oldFlags.options?.loops ?? 1,
-                        delay: oldFlags.options?.loopDelay ?? 250,
-                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
@@ -137,8 +133,6 @@ export const flagMigrations = {
                     data.options = {
                         rangeType: 'spell',
                         variant: oldFlags.spellVar ?? "01",
-                        repeat: oldFlags.options?.loops ?? 1,
-                        delay: oldFlags.options?.loopDelay ?? 250,
                     }
 
                     break;
@@ -151,9 +145,6 @@ export const flagMigrations = {
                         staticType: "targetDefault",
                         staticOptions: 'staticspells',
                         variant: oldFlags.spellVar ?? "01",
-                        repeat: oldFlags.options?.loops ?? 1,
-                        delay: oldFlags.options?.loopDelay ?? 250,
-                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
@@ -175,8 +166,6 @@ export const flagMigrations = {
                         overhead: oldFlags.templates?.overhead ?? false,
                         occlusionMode: oldFlags.templates?.occlusionMode ?? "03",
                         occlusionAlpha: oldFlags.templates?.occlusionAlpha ?? 0.75,
-                        repeat: oldFlags.templates?.tempLoop ?? 1,
-                        delay: oldFlags.templates?.loopDelay ?? 250,
                     }
 
                     break;
@@ -190,9 +179,6 @@ export const flagMigrations = {
                         staticType: type === 't9' ? 'target' : 'source',
                         staticOptions: 'explosion',
                         variant: oldFlags.options?.variant ?? "01",
-                        repeat: oldFlags.options?.loops ?? 1,
-                        delay: oldFlags.options?.loopDelay ?? 250,
-                        scale: oldFlags.options?.scale ?? 2,
                         enableCustom: oldFlags.options?.enableCustomExplosion ?? false,
                         customPath: oldFlags.options?.customExplosion ?? "",
                     }
@@ -220,7 +206,6 @@ export const flagMigrations = {
                         name: replaceName(oldFlags.animName),
                         variant: "01",
                         teleDist: oldFlags.teleDist ?? 30,
-                        scale: oldFlags.options?.scale ?? 1,
                         hideTemplate: oldFlags.options?.hideTemplate ?? false,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
@@ -255,6 +240,20 @@ export const flagMigrations = {
                     break;
             }
 
+            async function overrideAuto() {
+                const auto = oldFlags.options ?? {};
+                data.autoOverride = {
+                    enable: true,
+                    variant: auto.autoVariant ?? "01",
+                    color: auto.autoColor ?? "",
+                    repeat: auto.autoRepeat ?? 1,
+                    delay: auto.autoDelay ?? 250,
+                    scale: auto.autoScale ?? 1,
+                    fireball: auto.autoFireball ?? {},
+                }
+                return data;
+            }
+            /*
             if (oldFlags.options?.overrideAuto) {
                 const auto = oldFlags.options ?? {};
                 data.autoOverride = {
@@ -267,7 +266,7 @@ export const flagMigrations = {
                     fireball: auto.autoFireball ?? {},
                 }
             }
-            
+            */
             async function explosions() {
                 //if (!oldFlags.explosion) { return; }
                 const explosion = {

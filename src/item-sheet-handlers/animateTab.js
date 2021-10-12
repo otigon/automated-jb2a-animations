@@ -116,7 +116,7 @@ export class AAItemSettings extends FormApplication {
             anchorY: flags.autoanimations?.options?.anchorY || 0.7,
             //persistent: flags.autoanimations?.options?.persistent && (templateType === "circle" || templateType === "rect"),
             persistent: flags.autoanimations?.options?.persistent && (flags.autoanimations?.options?.persistType === 'overheadtile'),
-            circRectPersist: flags.autoanimations.options.persistent && (templateType === 'circle' || templateType === 'rect') ? true : false,
+            circRectPersist: flags.autoanimations?.options?.persistent && (templateType === 'circle' || templateType === 'rect') ? true : false,
             animationType: aaMenuLists.menuOptions,
 
             explosionVariants: aaMenuLists.explodeVariant,
