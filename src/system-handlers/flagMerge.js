@@ -339,10 +339,11 @@ export const flagMigrations = {
                     case 'cone':
                         switch (oldFlags.templates?.tempAnim) {
                             case 'coneofcold':
-                                return 'coneofcold';
+                                return {name: 'coneofcold', variant: "01"};
                             case 'burninghands01':
+                                return {name: 'burninghands', variant: '01'};
                             case 'burninghands02':
-                                return 'burninghands';
+                                return {name: 'burninghands', variant: '02'};
                             default:
                                 return {name: 'breathweaponcone', variant: oldFlags.templates?.tempAnim};
                         }
