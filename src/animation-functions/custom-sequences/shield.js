@@ -35,14 +35,14 @@ export async function shieldSpell(handler, autoObject) {
     }
     const data = {};
     if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
+        const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject);
         data.animation = data.animation || "";
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
-        data.persistent =  autoOverridden ? handler.options?.autoPersist : data.addCTA;
-        data.endeffect = autoOverridden ? handler.options?.autoEndEffect : data.endeffect;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+        data.persistent =  autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
+        data.endeffect = autoOverridden ? handler.autoOverride?.endEffect : data.endeffect;
     } else {
         data.animation = handler.animation;
         data.color = handler.color ?? "blue";

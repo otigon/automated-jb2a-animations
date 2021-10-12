@@ -40,6 +40,9 @@ export class aaAutoRecognition extends FormApplication {
         data.templateRect = aaMenuLists.rectangleAnimations;
         data.templateRay = aaMenuLists.rayAnimations;
         data.auraList = aaMenuLists.aura;
+        data.creatureList = aaMenuLists.creatureAttacks;
+        data.staticSpells = aaMenuLists.staticSpells;
+        data.explosionMenu = aaMenuLists.explosionMenu;
         //data.presetList = aaMenuLists.animNameClassFeatures);
         data.bardAnimName = aaMenuLists.bardAnimType;
         data.explosionMenu = aaMenuLists.explosionMenu;

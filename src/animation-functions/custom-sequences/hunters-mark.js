@@ -15,19 +15,19 @@ async function huntersMark(handler, autoObject) {
 
     const data = {};
     if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
+        const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject);
         data.animation = data.animation || "";
         data.variant = data.variant ?? "paw";
         data.scale = data.scale ?? 1;
         data.anchorX = data.anchorX ?? 0.5;
         data.anchorY = data.anchorY ?? 0.7;
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-        data.anchorX = autoOverridden ? handler.options?.autoAnchorX : data.anchorX;
-        data.anchorY = autoOverridden ? handler.options?.autoAnchorY : data.anchorY;
-        data.persist = autoOverridden ? handler.options?.autoPersist : data.persistent;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+        data.anchorX = autoOverridden ? handler.autoOverride?.anchorX : data.anchorX;
+        data.anchorY = autoOverridden ? handler.autoOverride?.anchorY : data.anchorY;
+        data.persist = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
     } else {
         data.animation = handler.animation;
         data.variant = handler.variant ?? "paw";

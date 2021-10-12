@@ -14,14 +14,14 @@ export async function thunderwaveAuto(handler, autoObject) {
     }
     const data = {}
     if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
+        const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject)
         data.itemName = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
+        data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
+        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
         data.occlusionMode = parseInt(data.occlusionMode);
     } else {
         data.itemName = handler.convertedName;

@@ -34,21 +34,47 @@
                             </label>
                         </div>
                         {{#unless (lookup (lookup ../settings.aaAutorec.static idx) 'custom')}}
-                        <div class="option02">
+                        <div class='option03'>
+                            <label>{{localize 'AUTOANIM.type'}}:</label>
+                            <select name="aaAutorec.static.{{idx}}.staticOptions">
+                                {{#select (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions')}}
+                                <option value="creature">{{localize 'AUTOANIM.typeCreature'}}</option>
+                                <option value="explosion">{{localize 'AUTOANIM.explosion'}}</option>
+                                <option value="staticSpells">{{localize 'AUTOANIM.itemSpell'}}</option>
+                                {{/select}}
+                            </select>
+                        </div>                    
+                        <div class="option04">
                             <div class='animation-choice'>
                                 <label for="aaAutorec.static.{{idx}}.animation">{{localize 'AUTOANIM.animation'}}:
                                     <select name="aaAutorec.static.{{idx}}.animation">
                                         {{#select (lookup (lookup ../settings.aaAutorec.static idx)
                                         'animation')}}
-                                        {{#each ../selfList as |name key|}}
+
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'creature'}}
+                                        {{#each ../creatureList as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'explosion'}}
+                                        {{#each ../explosionMenu as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'staticSpells'}}
+                                        {{#each ../staticSpells as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
+
                                         {{/select}}
                                     </select>
                                 </label>
                             </div>
                         </div>
-                        <div class="option03">
+                        <div class="option09">
                             <label for="aaAutorec.static.{{idx}}.variant">{{localize 'AUTOANIM.variant'}}:
                                 <select name="aaAutorec.static.{{idx}}.variant" sytle="width:5em">
                                     {{#select (lookup (lookup ../settings.aaAutorec.static idx) 'variant')}}
@@ -60,7 +86,7 @@
                                 </select>
                             </label>
                         </div>
-                        <div class="option04">
+                        <div class="option10">
                             <label for="aaAutorec.static.{{idx}}.color">{{localize 'AUTOANIM.color'}}:
                                 <select name="aaAutorec.static.{{idx}}.color">
                                     {{#select (lookup (lookup ../settings.aaAutorec.static idx) 'color')}}
@@ -74,7 +100,7 @@
                             </label>
                         </div>
                         {{/unless}}
-                        <div class="option05">
+                        <div class="option07">
                             <div class="autorec-menu-options">
                                 <label>{{localize 'AUTOANIM.repeat'}}:
                                     <input type="Number" name="aaAutorec.static.{{idx}}.repeat"
@@ -83,7 +109,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="option06">
+                        <div class="option08">
                             <div class="autorec-menu-options">
                                 <label>{{localize 'AUTOANIM.delayMS'}}:
                                     <input type="Number" name="aaAutorec.static.{{idx}}.delay"
@@ -92,7 +118,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="option07">
+                        <div class="option11">
                             <div class="autorec-menu-options">
                                 <label>{{localize 'AUTOANIM.ctaScale'}}:
                                     <input type="Number" name="aaAutorec.static.{{idx}}.scale"
@@ -101,7 +127,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="option08">
+                        <div class="option12">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
                                     <label>{{localize 'AUTOANIM.below'}}: </label>
@@ -110,7 +136,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="option09">
+                        <div class="option13">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
                                     <label>{{localize 'AUTOANIM.custom'}}: </label>
@@ -120,8 +146,7 @@
                             </div>
                         </div>
                         {{#if (lookup (lookup ../settings.aaAutorec.static idx) 'custom')}}
-                        <div class="pickerspan">
-                            <div class="form-group">
+                            <div class="form-group" style="grid-column: 2 / 5;grid-row: 4 / 5;">
                                 <input type="text" class="files" name="aaAutorec.static.{{idx}}.customPath"
                                     value="{{lookup (lookup ../settings.aaAutorec.static idx) 'customPath'}}">
                                 <button type="button" class="file-picker" data-type="image/video"
@@ -130,7 +155,6 @@
                                     <i class="fas fa-file-video"></i>
                                 </button>
                             </div>
-                        </div>
                         {{/if}}
                     </div>
                 </div>

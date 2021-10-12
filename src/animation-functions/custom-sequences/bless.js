@@ -20,11 +20,11 @@ export async function bless(handler, autoObject) {
     //Builds standard File Path
     const data = {};
     if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
+        const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject);
         data.animation = data.animation || "";
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
     } else {
         data.animation = handler.convertedName;
         data.color = handler.color;

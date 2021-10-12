@@ -5,9 +5,9 @@ export async function fireball(handler, autoObject) {
 
     const data = {}
     Object.assign(data, autoObject);
-    const autoOverriden = handler.options?.overrideAuto;
-    const autoOverrideAfter = handler.options?.autoFireball?.afterEffect;
-    if (!autoOverriden) {
+    const autoOverridden = handler.autoOverride?.enable
+    const autoOverrideAfter = handler.autoOverride?.autoFireball?.afterEffect;
+    if (!autoOverridden) {
         data.projectileRepeat = data.projectileRepeat || 1;
         data.projectileDelay = data.projectileDelay || 250;
         data.explosion01Repeat = data.explosion01Repeat || 1;

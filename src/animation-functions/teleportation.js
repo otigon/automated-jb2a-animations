@@ -13,12 +13,12 @@ export async function teleportation(handler, autoObject) {
 
     const data = {};
     if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
+        const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject);
         data.itemName = data.subAnimation || "";
         data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
     } else {
         data.itemName = handler.options?.name;
         data.variant = handler.option?.variant;

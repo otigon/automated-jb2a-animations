@@ -82,6 +82,8 @@ export default class flagHandler {
         this._anchorX = this._options.anchorX || 1;
         this._anchorY = this._options.anchorY || 1;
 
+        this._autoOverride = this._flags.autoOverride ?? {};
+        
         this._allSounds = this._flags.allSounds ?? "";
         this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
         this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;

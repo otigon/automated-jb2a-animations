@@ -20,6 +20,8 @@ export async function templateAnimation(handler, autoObject) {
         data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
         data.occlusionMode = parseInt(data.occlusionMode);
         data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
+        data.persistOption = data.persistType || "sequencerground";
+        data.persistType = autoOverridden ? handler.options?.autoPersistType : data.persistType || 'sequencerground';
     } else {
         data.itemName = handler.convertedName;
         data.variant = handler.options?.variant;
@@ -35,6 +37,7 @@ export async function templateAnimation(handler, autoObject) {
         data.occlusionAlpha = handler.options?.occlusionAlpha ?? "0";
         data.occlusionMode = parseInt(handler.options?.occlusionMode ?? "3");
         data.removeTemplate = handler.options?.removeTemplate;
+        data.persistType = handler.options?.persistType || "sequencerground";
     }
     if (aaDebug) { aaDebugger("Template Animation Start", data) }
     if (data.itemName === 'thunderwave') {
@@ -46,9 +49,9 @@ export async function templateAnimation(handler, autoObject) {
     //let occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
 
     //let customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
-    console.log(data)
+    //console.log(data)
     const tempAnimation = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath)
-    console.log(tempAnimation)
+    //console.log(tempAnimation)
     //let sourceFX;
     //let sFXScale;
     //let customSourcePath; 
@@ -71,9 +74,12 @@ export async function templateAnimation(handler, autoObject) {
     }
 
     async function cast() {
-        const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
+        const templateObject = canvas.templates.placeables[canvas.templates.placeables.length - 1]
+        console.log(templateObject)
+        const templateID = templateObject.data._id;
         let template;
         template = await canvas.templates.documentCollection.get(templateID);
+        console.log(template)
         let templateType = template.data?.t;
         let templateW;
         let templateLength;
@@ -148,7 +154,7 @@ export async function templateAnimation(handler, autoObject) {
                 break;
         }
         //const occlusionAlpha = parseInt(alpha);
-        if (data.persist && (data.type === "circle" || data.type === "rect") && data.overhead) {
+        if (data.persist && (data.type === "circle" || data.type === "rect") && data.persistType === 'overheadtile') {
 
             const templateData = {
                     alpha: data.opacity,
@@ -177,13 +183,46 @@ export async function templateAnimation(handler, autoObject) {
                 .playIf(handler.itemSound)
                 .delay(templateDelay)
                 .volume(templateVolume)
-                .repeats(handler.animationLoops, handler.loopDelay)
+                .repeats(data.repeat, data.delay)
                 .play()
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }            
             //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
-        } else {
+        }
+        if (data.persist && (data.type === "circle" || data.type === "rect") && data.persistType === 'groundtile') {
+
+            const templateData = {
+                    alpha: data.opacity,
+                    width: tileWidth,
+                    height: tileHeight,
+                    img: tempAnimation.fileData,
+                    // false sets it in canvas.background. true sets it to canvas.foreground
+                    overhead: false,
+                    video: {
+                        autoplay: true,
+                        loop: true,
+                        volume: 0,
+                    },
+                    x: tileX,
+                    y: tileY,
+                    z: 100,
+                }
+            socketlibSocket.executeAsGM("placeTile", templateData)
+            new Sequence()
+                .sound()
+                .file(templateFile)
+                .playIf(handler.itemSound)
+                .delay(templateDelay)
+                .volume(templateVolume)
+                .repeats(data.repeat, data.delay)
+                .play()
+            if (data.removeTemplate) {
+                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+            }            
+            //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
+        }
+        if (data.persist && data.persistType === 'sequencerground') {
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }        
@@ -199,7 +238,7 @@ export async function templateAnimation(handler, autoObject) {
                     .rotate(rotate)
                     .persist(data.persist)
                     .scale({ x: scaleX, y: scaleY })
-                    .belowTokens(false)
+                    .belowTokens(true)
                     .repeats(data.repeat, data.delay)
                 .sound()
                     .file(templateFile)
@@ -212,7 +251,28 @@ export async function templateAnimation(handler, autoObject) {
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
         }
 
-
+        if (data.persist && data.persistType === 'attachtemplate') {
+            debugger
+            await new Sequence("Automated Animations")
+                .addSequence(sourceFX.sourceSeq)
+                .thenDo(function () {
+                    Hooks.callAll("aa.animationStart", sourceToken, "no-target")
+                })
+                .effect()
+                    .file(tempAnimation.file)
+                    .attachTo(templateObject)
+                    .persist(true)
+                    .scaleToObject()
+                .sound()
+                    .file(templateFile)
+                    .playIf(handler.itemSound)
+                    .delay(templateDelay)
+                    .volume(templateVolume)
+                    .repeats(data.repeat, data.delay)
+                .play()
+            await wait(500)
+            Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
+        }
     }
     cast();
 

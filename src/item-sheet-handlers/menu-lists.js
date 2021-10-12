@@ -133,8 +133,10 @@ function menuLists() {
     }
 
     aaMenuLists.staticSpells = {
-        "tollthedead": game.i18n.localize("AUTOANIM.tollthedead"),
+        "curewounds": game.i18n.localize("AUTOANIM.itemCureWounds"),
+        "generichealing": game.i18n.localize("AUTOANIM.itemGenericHealing"),
         "sneakattack": game.i18n.localize("AUTOANIM.sneakattack"),
+        "tollthedead": game.i18n.localize("AUTOANIM.tollthedead"),
         //"bless": game.i18n.localize("AUTOANIM.bless"),
     }
 

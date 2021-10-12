@@ -17,7 +17,7 @@
         {{/select}}
     </select>
 </div>
-{{#unless flags.autoanimations.options.customAnim}}
+{{#unless flags.autoanimations.options.enableCustom}}
 <!--Choose Template Animation-->
 <div class="option02">
     <label>{{localize "AUTOANIM.animation"}}</label>
@@ -31,7 +31,7 @@
 </div>
 {{#ifnoteq flags.autoanimations.animation 'thunderwave'}}
 <!--Choose a Variant-->
-<div class="option03">
+<div class="option03" style="padding: 5px">
     <label>{{localize "AUTOANIM.variant"}}</label>
     <select name="flags.autoanimations.options.variant">
         {{#select flags.autoanimations.options.variant}}
@@ -88,6 +88,34 @@
     <input type="checkbox" name="flags.autoanimations.options.persistent"
         value="flags.autoanimations.options.persistent" {{checked flags.autoanimations.options.persistent}}>
 </div>
+{{#if flags.autoanimations.options.persistent}}
+{{#if circRectPersist}}
+<div class="option14">
+    <label>Persistent Type</label>
+    <select name="flags.autoanimations.options.persistType">
+        {{#select flags.autoanimations.options.persistType}}
+        <option value=""></option>
+        <option value="overheadtile">Overhead Tile</option>
+        <option value="groundtile">Ground Tile</option>
+        <option value="sequencerground">Sequencer Effect</option>
+        <!--<option value="attachtemplate">Attach to Template</option>-->
+        {{/select}}
+    </select>
+</div>
+{{/if}}
+{{#unless circRectPersist}}
+<div class="option14">
+    <label>Persistent Type</label>
+    <select name="flags.autoanimations.options.persistType">
+        {{#select flags.autoanimations.options.persistType}}
+        <option value=""></option>
+        <option value="sequencerground">Sequencer Effect</option>
+        <!--<option value="attachtemplate">Attach to Template</option>-->
+        {{/select}}
+    </select>
+</div>
+{{/unless}}
+{{/if}}
 {{#if persistent}}
 <!--Set Tile Opacity-->
 <div class="autorec-menu-options option16">
@@ -95,13 +123,8 @@
     <input type="Number" name="flags.autoanimations.options.opacity" min="0" max="1" step=".01"
         value={{opacity}}>
 </div>
-<div class="form-group option17">
-    <label>{{localize "AUTOANIM.overhead"}}</label>
-    <input type="checkbox" name="flags.autoanimations.options.overhead"
-        value="flags.autoanimations.options.overhead" {{checked flags.autoanimations.options.overhead}}>
-</div>
-{{#if flags.autoanimations.options.overhead}}
-<div class="form-group" style='grid-column: 2 / 4;grid-row: 5 / 6;'>
+{{#ifEquals flags.autoanimations.options.persistType 'overheadtile'}}
+<div class="form-group" style='grid-column: 1 / 3;grid-row: 5 / 6;'>
     <label>{{localize "AUTOANIM.occlusionMode"}}</label>
     <select name="flags.autoanimations.options.occlusionMode">
         {{#select flags.autoanimations.options.occlusionMode}}
@@ -112,7 +135,7 @@
         {{/select}}
     </select>
 </div>
-<div class="form-group" style='grid-column: 2 / 4;grid-row: 6 / 7;'>
+<div class="form-group" style='grid-column: 3 / 5;grid-row: 5 / 6;'>
     <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
     <div class="form-fields">
         <input type="range" name="flags.autoanimations.options.occlusionAlpha" value="{{lookup flags.autoanimations.options 'occlusionAlpha'}}" min="0"
@@ -120,12 +143,12 @@
         <span class="range-value">{{lookup flags.autoanimations.options 'occlusionAlpha'}}</span>
     </div>
 </div>
-<div class="form-group" style='grid-column: 2 / 4;grid-row: 7 / 8;'>
+<div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7;justify-self: center;'>
     <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
 </div>
+{{/ifEquals}}
 {{/if}}
-{{/if}}
-{{#unless persistent}}
+{{#unless flags.autoanimations.options.persistent}}
     <div class="autorec-menu-options option07">
         <label>{{localize "AUTOANIM.repeat"}} </label>
         <input type="Number" style='width: 3em;' name="flags.autoanimations.options.repeat" value={{repeat}} data-dtype="Number">

@@ -26,7 +26,6 @@
         <label>{{localize 'AUTOANIM.type'}}:</label>
         <select name="flags.autoanimations.options.staticOptions">
             {{#select flags.autoanimations.options.staticOptions}}
-            <option value="healing">{{localize 'AUTOANIM.typeHealingSpell'}}</option>
             <option value="creature">{{localize 'AUTOANIM.typeCreature'}}</option>
             <option value="explosion">{{localize 'AUTOANIM.explosion'}}</option>
             <option value="staticSpells">{{localize 'AUTOANIM.itemSpell'}}</option>
@@ -38,12 +37,6 @@
         <label>{{localize "AUTOANIM.animation"}}</label>
         <select name="flags.autoanimations.animation">
             {{#select flags.autoanimations.animation}}
-
-            {{#ifEquals flags.autoanimations.options.staticOptions 'healing'}}
-            {{#each menuLists.healingSpells as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/ifEquals}}
 
             {{#ifEquals flags.autoanimations.options.staticOptions 'creature'}}
             {{#each menuLists.creatureAttacks as |name key|}}

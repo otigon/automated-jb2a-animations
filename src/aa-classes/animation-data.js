@@ -5,16 +5,16 @@ export class AAanimationData {
     static _primaryData (handler, autoObject) {
         const data = {};
         if (autoObject) {
-            const autoOverridden = handler.options?.overrideAuto
+            const autoOverridden = handler.autoOverride?.enable
             Object.assign(data, autoObject);
             data.animation = data.animation || "";
             data.customPath = data.custom ? data.customPath : false;
-            data.color = autoOverridden ? handler.options?.autoColor : data.color;
-            data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-            data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-            data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-            data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
-            data.persistent = autoOverridden ? handler.options?.autoPersist : data.persistent;
+            data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+            data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
+            data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
+            data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+            data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+            data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
         } else {
             data.animation = handler.animation;
             data.variant = handler.variant ?? "01";
@@ -91,13 +91,13 @@ export class AAanimationData {
         const meleeSwitch = handler.meleeSwitch;
         const data = {};
         if (autoObject) {
-            const autoOverridden = handler.options?.overrideAuto
+            const autoOverridden = handler.autoOverride?.enable
             Object.assign(data, autoObject);
             data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
             data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
-            data.color = autoOverridden ? handler.options?.autoColor : data.color;
-            data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-            data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+            data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+            data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
+            data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
         } else {
             data.switchAnimation = meleeSwitch.switchType === 'custom' ? meleeSwitch.animation : handler.animation;
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };

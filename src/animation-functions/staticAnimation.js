@@ -96,7 +96,7 @@ export async function staticAnimation(handler, autoObject) {
             */
             let targetSequence = AAanimationData._targetSequence(targetFX, target);
 
-            let scale = data.animation.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
+            let scale = data.animation === "bite" || data.animation === "claw" ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? false : true;
@@ -117,7 +117,15 @@ export async function staticAnimation(handler, autoObject) {
                     .scale(scale * data.scale)
                     .belowTokens(data.below)
                     .name("animation")
-                    .playIf(() => { return arrayLength })
+                    .playIf(!data.persistent)
+                .effect()
+                    .file(onToken.file)
+                    .attachTo(target)
+                    .name('animation')
+                    .scale(scale * data.scale)
+                    .belowTokens(data.below)
+                    .persist(data.persistent)
+                    .playIf(data.persistent)
                 .effect()
                     .atLocation("animation")
                     .file(explosion.data?.file)
@@ -134,17 +142,6 @@ export async function staticAnimation(handler, autoObject) {
                     .volume(explosionSound.volume)
                     .repeats(data.repeat, data.delay)
                 .addSequence(targetSequence.targetSeq)
-                /*
-                .effect()
-                    .delay(targetFX.startDelay)
-                    .file(targetFX.data?.file)
-                    .atLocation("animation")
-                    .scale(targetFX.tFXScale * targetFX.scale)
-                    .repeats(targetFX.repeat, targetFX.delay)
-                    .belowTokens(targetFX.below)
-                    .gridSize(gridSize)
-                    .playIf(targetFX.enabled)
-                */
                 .play()
                 //await wait(500)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)

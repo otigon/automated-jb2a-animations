@@ -8,20 +8,19 @@ export const flagMigrations = {
         if (this.upToDate(flags)) return flags;
 
         if (flags.version && isNaN(flags.version)) {
-            console.error("Your A-A Item data may be corrupted. Please log this in the GitHub issues");
+            console.error("Your A-A Item data may be corrupted. Please log this in the Automated Animations GitHub issues");
             return flags;
         }
 
         for (let [version, migration] of Object.entries(this.migrations)) {
-    
-            if (flags.version >= Number(version)) continue;
+            let flagVersion = item.data.flags.autoanimations.version;
+
+            if (flagVersion >= Number(version)) continue;
 
             await migration(item);
         }
 
-        const newFlags = item.data.flags.autoanimations;
-
-        return newFlags;
+        return item.data.flags.autoanimations;
     },
 
     upToDate(flags) {
@@ -31,86 +30,70 @@ export const flagMigrations = {
 
     migrations: {
         "1": async (item) => {
+            debugger
             const oldFlags = item.data?.flags?.autoanimations;
             const type = oldFlags.animType;
-            let data;
+            //let data = {}
+            
+            const data = {
+                killAnim: oldFlags.killAnim ?? false,
+                below: oldFlags.animLevel ?? false,
+                override: oldFlags.override ?? false,
+                targetToken: oldFlags.targetToken?.enable ? oldFlags.targetToken : { enable: false },
+                sourceToken: oldFlags.sourceToken?.enable ? oldFlags.sourceToken : { enable: false },
+                allSounds: oldFlags.allSounds ?? {},
+                version: 1,
+                //'autoOverride.enable': oldFlags.options?.overrideAuto ?? false,
+            };
+            
             switch (type) {
                 case "t2":
-                    data = {
-                        animation: replaceName(oldFlags.animName),
+                    data.animType = 'melee';
+                    data.animation = replaceName(oldFlags.animName);
+                    data.color = replaceName(oldFlags.color);
+                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : oldFlags.meleeSwitch?.switchType ?? 'on';
+                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                    data.options = {
+                        meleeType: "weapon",
                         variant: oldFlags.uaStrikeType ?? "01",
-                        color: replaceName(oldFlags.color),
                         repeat: oldFlags.options?.loops ?? 1,
                         delay: oldFlags.options?.loopDelay ?? 250,
+                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
-                        meleeType: "weapon",
                     }
-                    await item.setFlag('autoanimations', 'animType', "melee")
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.repeat', data.repeat)
-                    await item.setFlag('autoanimations', 'options.delay', data.delay)
-                    await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
-                    await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-                    await item.setFlag('autoanimations', 'options.meleeType', data.meleeType)
 
-                    if (oldFlags.meleeSwitch?.switchType === "custom") { await rangeSwitch(item); }
-
-                    await explosions(item);
-
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t3":
                     let genericList = ['flurryofblows', 'unarmedstrike'];
-                    data = {
-                        animation: replaceName(oldFlags.animName),
+
+                    data.animation = replaceName(oldFlags.animName);
+                    data.animType = genericList.includes(data.animation) ? "melee" : "generic";
+                    data.color = replaceName(oldFlags.color);
+                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : oldFlags.meleeSwitch?.switchType ?? 'on';
+                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                    data.options = {
+                        meleeType: genericList.includes(data.animation) ? "weapon" : "generic",
                         variant: oldFlags.uaStrikeType ?? "01",
-                        color: replaceName(oldFlags.color),
                         repeat: oldFlags.options?.loops ?? 1,
                         delay: oldFlags.options?.loopDelay ?? 250,
+                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
-                        meleeType: "weapon",
                     }
-                    if (genericList.includes(data.animation)) {
-                        await item.setFlag('autoanimations', 'animType', "melee")
-                    } else {
-                        await item.setFlag('autoanimations', 'animType', "generic")
-                    }
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.repeat', data.repeat)
-                    await item.setFlag('autoanimations', 'options.delay', data.delay)
-                    await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
-                    await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-                    await item.setFlag('autoanimations', 'options.meleeType', data.meleeType)
 
-                    if (oldFlags.meleeSwitch?.switchType === "custom") { await rangeSwitch(item); }
-
-                    await explosions(item);
-
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t4":
-                    data = {
-                        animation: replaceName(oldFlags.animName),
+                    data.animType = 'range';
+                    data.animation = replaceName(oldFlags.animName);
+                    data.color = replaceName(oldFlags.color);
+                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                    data.options = {
+                        rangeType: 'weapon',
                         variant: t4VariantSwitch(replaceName(oldFlags.animName)),
-                        color: replaceName(oldFlags.color),
                         repeat: oldFlags.options?.loops ?? 1,
                         delay: oldFlags.options?.loopDelay ?? 250,
                     }
-                    await item.setFlag('autoanimations', 'animType', "range")
-                    await item.setFlag('autoanimations', 'options.rangeType', "weapon")
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.repeat', data.repeat)
-                    await item.setFlag('autoanimations', 'options.delay', data.delay)
 
                     function t4VariantSwitch(name) {
                         switch (name) {
@@ -128,94 +111,66 @@ export const flagMigrations = {
                         }
                     }
 
-                    await explosions(item);
-
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t5":
-                    data = {
-                        animation: replaceName(oldFlags.animName),
+                    data.animType = 'static';
+                    data.animation = replaceName(oldFlags.animName);
+                    data.color = replaceName(oldFlags.color);
+                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                    data.options = {
+                        staticType: 'target',
+                        staticOptions: 'creature',
                         variant: "01",
-                        color: replaceName(oldFlags.color),
                         repeat: oldFlags.options?.loops ?? 1,
                         delay: oldFlags.options?.loopDelay ?? 250,
+                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
-                    await item.setFlag('autoanimations', 'options.staticType', "target")
-                    await item.setFlag('autonaimations', 'options.staticOptions', 'creature')
-                    await item.setFlag('autoanimations', 'animType', "static")
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.repeat', data.repeat)
-                    await item.setFlag('autoanimations', 'options.delay', data.delay)
-                    await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
-                    await item.setFlag('autoanimations', 'options.customPath', data.customPath)
 
-                    await explosions(item);
-
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t6":
-                    data = {
-                        animation: replaceName(oldFlags.animName),
+                    data.animType = 'range';
+                    data.animation = replaceName(oldFlags.animName);
+                    data.color = replaceName(oldFlags.color);
+                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                    data.options = {
+                        rangeType: 'spell',
                         variant: oldFlags.spellVar ?? "01",
-                        color: replaceName(oldFlags.color),
                         repeat: oldFlags.options?.loops ?? 1,
                         delay: oldFlags.options?.loopDelay ?? 250,
                     }
-                    await item.setFlag('autoanimations', 'animType', "range")
-                    await item.setFlag('autoanimations', 'options.rangeType', "spell")
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.repeat', data.repeat)
-                    await item.setFlag('autoanimations', 'options.delay', data.delay)
 
-                    await explosions(item);
-
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t7":
-                    data = {
-                        animation: replaceName(oldFlags.animName),
+                    data.animType = 'static';
+                    data.animation = replaceName(oldFlags.animName);
+                    data.color = replaceName(oldFlags.color);
+                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                    data.options = {
+                        staticType: "targetDefault",
+                        staticOptions: 'staticspells',
                         variant: oldFlags.spellVar ?? "01",
-                        color: replaceName(oldFlags.color),
                         repeat: oldFlags.options?.loops ?? 1,
                         delay: oldFlags.options?.loopDelay ?? 250,
+                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
-                    await item.setFlag('autoanimations', 'options.staticType', "targetDefault")
-                    await item.setFlag('autonaimations', 'options.staticOptions', 'healing')
-                    await item.setFlag('autoanimations', 'animType', "static")
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.repeat', data.repeat)
-                    await item.setFlag('autoanimations', 'options.delay', data.delay)
-                    await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
-                    await item.setFlag('autoanimations', 'options.customPath', data.customPath)
 
-                    await explosions(item);
-
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t8":
-                    data = {
+                    data.animType = 'template';
+                    data.animation = replaceName(oldFlags.templates?.tempAnim);
+                    data.color = replaceName(oldFlags.templates?.tempColor);
+                    data.options = {
                         tempType: oldFlags.templates?.TempType,
-                        animation: replaceName(oldFlags.templates?.tempAnim),
                         variant: "01",
-                        color: replaceName(oldFlags.templates?.tempColor),
                         removeTemplate: oldFlags.templates?.removeTemplate ?? false,
                         enableCustom: oldFlags.templates?.customAnim ?? false,
                         customPath: oldFlags.templates?.customPath ?? "",
                         persistent: oldFlags.templates?.persistent ?? false,
+                        persistType: oldFlags.templates?.persistent && oldFlags.templates?.overhead ?  'overheadtile' : 'sequencerground',
                         opacity: oldFlags.templates?.opacity ?? 0.75,
                         overhead: oldFlags.templates?.overhead ?? false,
                         occlusionMode: oldFlags.templates?.occlusionMode ?? "03",
@@ -223,219 +178,122 @@ export const flagMigrations = {
                         repeat: oldFlags.templates?.tempLoop ?? 1,
                         delay: oldFlags.templates?.loopDelay ?? 250,
                     }
-                    await item.setFlag('autoanimations', 'animType', "template")
-                    await item.setFlag('autoanimations', 'options.tempType', data.tempType)
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.removeTemplate', data.removeTemplate)
-                    await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
-                    await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-                    await item.setFlag('autoanimations', 'options.persistent', data.persistent)
-                    await item.setFlag('autoanimations', 'options.opacity', data.opacity)
-                    await item.setFlag('autoanimations', 'options.overhead', data.overhead)
-                    await item.setFlag('autoanimations', 'options.occlusionMode', data.occlusionMode)
-                    await item.setFlag('autoanimations', 'options.occlusionAlpha', data.occlusionAlpha)
-                    await item.setFlag('autoanimations', 'options.repeat', data.repeat)
-                    await item.setFlag('autoanimations', 'options.delay', data.delay)
 
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t9":
-                    data = {
-                        animation: replaceName(oldFlags.explodeVariant),
-                        variant: oldFlags.options?.variant ?? "01",
-                        color: oldFlags.explodeColor ?? "white",
-                        repeat: oldFlags.options?.loops ?? 1,
-                        delay: oldFlags.options?.loopDelay ?? 250,
-                        scale: oldFlags.options?.scale ?? 2,//factor in if by grid size
-                        enableCustom: oldFlags.options?.enableCustomExplosion ?? false,
-                        customPath: oldFlags.options?.customExplosion ?? "",
-                    }
-                    await item.setFlag('autoanimations', 'animType', "static")
-                    await item.setFlag('autoanimations', 'options.staticType', "target")
-                    await item.setFlag('autonaimations', 'options.staticOptions', 'explosion')//check menus
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.repeat', data.repeat)
-                    await item.setFlag('autoanimations', 'options.delay', data.delay)
-                    await item.setFlag('autoanimations', 'options.scale', data.scale)
-                    await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
-                    await item.setFlag('autoanimations', 'options.customPath', data.customPath)
-
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
                 case "t10":
-                    data = {
-                        animation: replaceName(oldFlags.explodeVariant),
+                    data.animType = 'static';
+                    data.animation = replaceName(oldFlags.explodeVariant);
+                    data.color = replaceName(oldFlags.explodeColor);
+                    data.explosions = { enable: false };
+                    data.options = {
+                        staticType: type === 't9' ? 'target' : 'source',
+                        staticOptions: 'explosion',
                         variant: oldFlags.options?.variant ?? "01",
-                        color: oldFlags.explodeColor ?? "white",
                         repeat: oldFlags.options?.loops ?? 1,
                         delay: oldFlags.options?.loopDelay ?? 250,
-                        scale: oldFlags.options?.scale ?? 2,//factor in if by grid size
+                        scale: oldFlags.options?.scale ?? 2,
                         enableCustom: oldFlags.options?.enableCustomExplosion ?? false,
                         customPath: oldFlags.options?.customExplosion ?? "",
                     }
-                    await item.setFlag('autoanimations', 'animType', "static")
-                    await item.setFlag('autoanimations', 'options.staticType', "source")
-                    await item.setFlag('autonaimations', 'options.staticOptions', 'explosion')//check menus
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.repeat', data.repeat)
-                    await item.setFlag('autoanimations', 'options.delay', data.delay)
-                    await item.setFlag('autoanimations', 'options.scale', data.scale)
-                    await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
-                    await item.setFlag('autoanimations', 'options.customPath', data.customPath)
 
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t11":
-                    data = {
-                        animation: replaceName(oldFlags.animName),
+                    data.animType = 'aura';
+                    data.animation = replaceName(oldFlags.animName);
+                    data.color = replaceName(oldFlags.color);
+                    data.options = {
                         variant: "01",
-                        color: replaceName(oldFlags.color),
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                         auraRadius: oldFlags.selfRadius ?? 3.5,
                         opacity: oldFlags.auraOpacity ?? 0.75,
+                        ignoreTarget: oldFlags.ignoreTarget ?? false,
                     }
-                    await item.setFlag('autoanimations', 'animType', "aura")
-                    await item.setFlag('autoanimations', 'animation', data.animation)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.opacity', data.opacity)
-                    await item.setFlag('autoanimations', 'options.auraRadius', data.auraRadius)
-                    await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
-                    await item.setFlag('autoanimations', 'options.customPath', data.customPath)
 
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t12":
-                    data = {
-                        animation: "teleportation",
+                    data.animType = 'preset';
+                    data.animation = "teleportation";
+                    data.color = replaceName(oldFlags.color);
+                    data.options = {
                         name: replaceName(oldFlags.animName),
                         variant: "01",
-                        color: replaceName(oldFlags.color),
                         teleDist: oldFlags.teleDist ?? 30,
                         scale: oldFlags.options?.scale ?? 1,
+                        hideTemplate: oldFlags.options?.hideTemplate ?? false,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
-                    await item.setFlag('autoanimations', 'animType', "preset")
-                    await item.setFlag('autoanimations', 'animation', "teleportation")
-                    await item.setFlag('autoanimations', 'options.name', data.name)
-                    await item.setFlag('autoanimations', 'options.variant', data.variant)
-                    await item.setFlag('autoanimations', 'color', data.color)
-                    await item.setFlag('autoanimations', 'options.teleDist', data.teleDist)
-                    await item.setFlag('autoanimations', 'options.scale', data.scale)
-                    await item.setFlag('autoanimations', 'options.enableCustom', data.enableCustom)
-                    await item.setFlag('autoanimations', 'options.customPath', data.customPath)
 
-                    await item.setFlag('autoanimations', 'version', 1)
-
-                    return item.data.flags.autoanimations;
+                    break;
                 case "t13":
                     const presetName = replaceName(oldFlags.animName);
-
+                    data.animType = 'preset';
+                    data.animation = presetName;
+                    data.color = replaceName(oldFlags.color);
                     switch (presetName) {
                         case 'shieldspell':
-                            data = {
-                                animation: presetName,
-                                variant: oldFlags.spellVar ?? "01",
-                                color: replaceName(oldFlags.color),
-                            }
-                            await item.setFlag('autoanimations', 'animType', "preset");
-                            await item.setFlag('autoanimations', 'animation', data.animation);
-                            await item.setFlag('autoanimations', 'options.variant', data.variant);
-                            await item.setFlag('autoanimations', 'color', data.color)
-
+                            data.options.variant = oldFlags.spellVar ?? "01";
                             break;
                         case 'bardicinspiration':
-                            await item.setFlag('autoanimations', 'animType', "preset");
-                            await item.setFlag('autoanimations', 'animation', presetName);
-
+                            data.bards = oldFlags.bards;
                             break;
                         case 'huntersmark':
-                            data = {
-                                animation: presetName,
-                                variant: replaceName(oldFlags.hmAnim),
-                                color: replaceName(oldFlags.color),
-                                persistent: oldFlags.ctaOption ?? false,
-                            }
-                            await item.setFlag('autoanimations', 'animType', "preset");
-                            await item.setFlag('autoanimations', 'animation', data.animation);
-                            await item.setFlag('autoanimations', 'options.variant', data.variant);
-                            await item.setFlag('autoanimations', 'color', data.color);
-                            await item.setFlag('autoanimations', 'options.persistent', data.persistent);
-
+                            data.options.variant = replaceName(oldFlags.hmAnim);
+                            data.options.persistent = oldFlags.ctaOption ?? false;
                             break;
                         case 'sneakattack':
-                            data = {
-                                animation: presetName,
-                                variant: "01",
-                                color: replaceName(oldFlags.color),
-                            }
-                            await item.setFlag('autoanimations', 'animType', "preset");
-                            await item.setFlag('autoanimations', 'animation', data.animation);
-                            await item.setFlag('autoanimations', 'options.variant', data.variant);
-                            await item.setFlag('autoanimations', 'color', data.color);
-
+                            data.options.variant = "01";
                             break;
                         case 'bless':
-                            data = {
-                                animation: presetName,
-                                variant: "01",
-                                color: replaceName(oldFlags.color),
-                            }
-                            await item.setFlag('autoanimations', 'animType', "preset");
-                            await item.setFlag('autoanimations', 'animation', data.animation);
-                            await item.setFlag('autoanimations', 'options.variant', data.variant);
-                            await item.setFlag('autoanimations', 'color', data.color);
-                            
+                            data.options.variant = "01";
+                            data.options.persistent = oldFlags.options.addCTA ?? false;
                             break;
                     }
-                    
-                    await item.setFlag('autoanimations', 'version', 1)
 
-                    return item.data.flags.autoanimations;
+                    break;
             }
-            async function explosions(item) {
-                if (!oldFlags.explosion) { return; }
+
+            if (oldFlags.options?.overrideAuto) {
+                const auto = oldFlags.options ?? {};
+                data.autoOverride = {
+                    enable: true,
+                    variant: auto.autoVariant ?? "01",
+                    color: auto.autoColor ?? "",
+                    repeat: auto.autoRepeat ?? 1,
+                    delay: auto.autoDelay ?? 250,
+                    scale: auto.autoScale ?? 1,
+                    fireball: auto.autoFireball ?? {},
+                }
+            }
+            
+            async function explosions() {
+                //if (!oldFlags.explosion) { return; }
                 const explosion = {
                     enable: true,
                     below: oldFlags.exAnimLevel ?? false,
                     radius: oldFlags.explodeRadius ?? 2,
                     delay: oldFlags.explodeDelay ?? 500,
-                    animation: replaceName(oldFlags.explodeVariant),
+                    animation: replaceName(oldFlags.explodeVariant) ?? "",
                     variant: "01",
                     color: replaceName(oldFlags.explodeColor),
                     enableCustom: oldFlags.options?.enableCustomExplosion ?? false,
                     customPath: oldFlags.options?.customExplosion ?? "",
                 }
-                await item.setFlag('autoanimations', 'explosions.enable', explosion.enable)
-                await item.setFlag('autoanimations', 'explosions.below', explosion.below)
-                await item.setFlag('autoanimations', 'explosions.radius', explosion.radius)
-                await item.setFlag('autoanimations', 'explosions.delay', explosion.delay)
-                await item.setFlag('autoanimations', 'explosions.animation', explosion.animation)
-                await item.setFlag('autoanimations', 'explosions.variant', explosion.variant)
-                await item.setFlag('autoanimations', 'explosions.color', explosion.color)
-                await item.setFlag('autoanimations', 'explosions.enableCustom', explosion.enableCustom)
-                await item.setFlag('autoanimations', 'explosions.customPath', explosion.customPath)
+                return explosion;
             }
 
-            async function rangeSwitch(item) {
+            async function rangeSwitch() {
                 const data = {
                     animation: oldFlags.meleeSwitch?.animName ?? "",
                     variant: switchVariants(replaceName(oldFlags.animName)),
+                    switchType: "custom",
+                    color: oldFlags.meleeSwitch?.color ?? "white",
+                    detect: oldFlags.meleeSwitch?.detect ?? "auto",
+                    range: oldFlags.meleeSwitch?.detect === 'custom' ? oldFlags.meleeSwitch?.range ?? 2 : 2,
+                    returning: oldFlags.meleeSwitch?.returning ?? false,
                 }
-                await item.setFlag('autoanimations', 'meleeSwitch.animation', data.animation);
-                await item.setFlag('autoanimations', 'meleeSwitch.variant', data.variant);
 
                 function switchVariants(name) {
                     switch (name) {
@@ -451,7 +309,7 @@ export const flagMigrations = {
                             return "01"
                     }
                 }
-
+                return data;
             }
 
             function replaceName(name) {
@@ -459,6 +317,11 @@ export const flagMigrations = {
                 const newName = name.replace(/\s+/g, '').toLowerCase();
                 return newName;
             }
+
+            await item.update({ 'flags.-=autoanimations': null })
+            await item.update({ 'flags.autoanimations': data })
+
+            return data;
         },
     }
 }

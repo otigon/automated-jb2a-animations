@@ -114,8 +114,9 @@ export class AAItemSettings extends FormApplication {
             teleRange: flags.autoanimations?.options?.teleDist || "30",
             anchorX: flags.autoanimations?.options?.anchorX || 0.5,
             anchorY: flags.autoanimations?.options?.anchorY || 0.7,
-            persistent: flags.autoanimations?.options?.persistent && (templateType === "circle" || templateType === "rect"),
-
+            //persistent: flags.autoanimations?.options?.persistent && (templateType === "circle" || templateType === "rect"),
+            persistent: flags.autoanimations?.options?.persistent && (flags.autoanimations?.options?.persistType === 'overheadtile'),
+            circRectPersist: flags.autoanimations.options.persistent && (templateType === 'circle' || templateType === 'rect') ? true : false,
             animationType: aaMenuLists.menuOptions,
 
             explosionVariants: aaMenuLists.explodeVariant,
@@ -149,14 +150,14 @@ export class AAItemSettings extends FormApplication {
             targetDelayStart: flags.autoanimations?.targetToken?.delayStart ?? 500,
             targetAnimations: aaMenuLists.tokenAnimations,
 
-            autoRepeat: flags.autoanimations?.options?.autoRepeat || 1,
-            autoDelay: flags.autoanimations?.options?.autoDelay || 500,
-            autoScale: flags.autoanimations?.options?.autoScale || 1,
-            autoOpacity: flags.autoanimations?.options?.autoOpacity || 0.75,
-            autoRadius: flags.autoanimations?.options?.autoRadius || 3.5,
-            autoAnchorX: flags.autoanimations?.options?.autoAnchorX || 0.5,
-            autoAnchorY: flags.autoanimations?.options?.autoAnchorY || 0.5,
-            autoRange: flags.autoanimations?.options?.autoRange || 30,
+            autoRepeat: flags.autoanimations?.autoOverride?.repeat || 1,
+            autoDelay: flags.autoanimations?.autoOverride?.delay || 500,
+            autoScale: flags.autoanimations?.autoOverride?.scale || 1,
+            autoOpacity: flags.autoanimations?.autoOverride?.opacity || 0.75,
+            autoRadius: flags.autoanimations?.autoOverride?.radius || 3.5,
+            autoAnchorX: flags.autoanimations?.autoOverride?.anchorX || 0.5,
+            autoAnchorY: flags.autoanimations?.autoOverride?.anchorY || 0.5,
+            autoRange: flags.autoanimations?.autoOverride?.range || 30,
 
             ammo5e: game.system.id === "dnd5e" ? true : false,
 
