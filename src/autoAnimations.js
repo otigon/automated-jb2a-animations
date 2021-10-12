@@ -50,6 +50,12 @@ Hooks.on('init', () => {
         }
         return options.inverse(this);
     });
+    Handlebars.registerHelper('sequencerOnly', function (autoObj, options) {
+        if (autoObj.persist && (autoObj.type === 'ray' || autoObj.type === 'cone')) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
     aaSettings();
     loadTemplates([
         'modules/autoanimations/src/custom-recognition/settings.html',

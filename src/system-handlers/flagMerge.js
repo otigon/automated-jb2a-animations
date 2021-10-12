@@ -52,7 +52,7 @@ export const flagMigrations = {
                 autoOverride: oldFlags.options?.overrideAuto ? await overrideAuto() : { enable: false },
                 version: 1,
             }
-
+            console.log(data)
             switch (type) {
                 case "t2":
                     data.animType = 'melee';
@@ -274,11 +274,12 @@ export const flagMigrations = {
 
             async function overrideAuto() {
                 const auto = oldFlags.options ?? {};
-                data.autoOverride = {
+                const data = {
                     enable: true,
                     variant: auto.autoVariant ?? "01",
                     color: auto.autoColor ?? "",
                     repeat: auto.autoRepeat ?? 1,
+                    endEffect: auto.endEffect ?? "outro_explode",
                     delay: auto.autoDelay ?? 250,
                     scale: auto.autoScale ?? 1,
                     fireball: auto.autoFireball ?? {},

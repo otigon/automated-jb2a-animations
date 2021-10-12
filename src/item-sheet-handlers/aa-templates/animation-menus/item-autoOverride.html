@@ -139,7 +139,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.autoOverride.color">
             {{#select flags.autoanimations.autoOverride.color}}
-            {{#each (lookup (lookup colormenu.static autoObject.animation) autoObject.variant) as
+            {{#each (lookup (lookup colormenu.static autoObject.animation) flags.autoanimations.autoOverride.variant) as
             |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}

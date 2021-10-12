@@ -460,5 +460,8 @@
     "AUTOANIM.center": "Center",
     "AUTOANIM.inspire": "Inspire",
     "AUTOANIM.chainlightning": "Chain Lightning",
-    "AUTOANIM.choosePreset": "Choose Preset"
+    "AUTOANIM.choosePreset": "Choose Preset",
+    "AUTOANIM.overheadtile": "Overhead Tile",
+    "AUTOANIM.groundtile": "Ground Tile",
+    "AUTOANIM.sequencereffect": "Sequencer Effect"
 }

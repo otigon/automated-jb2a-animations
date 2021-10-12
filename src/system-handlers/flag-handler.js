@@ -106,6 +106,8 @@ export default class flagHandler {
     get animEnd() { return this._delay }
     get itemMacro() { return this._itemMacro; }
 
+    get autoOverride() { return this._autoOverride }
+    
     get playOnMiss() { return this._playOnMiss }
 
     get actor() { return this._actor; }
