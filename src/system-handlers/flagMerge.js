@@ -198,8 +198,8 @@ export const flagMigrations = {
                         staticType: type === 't9' ? 'target' : 'source',
                         staticOptions: 'explosion',
                         variant: oldFlags.options?.variant ?? "01",
-                        repeat: oldFlags.options?.loops || 1,
-                        delay: oldFlags.options?.loopDelay || 250,
+                        repeat: oldFlags.explodeLoop || 1,
+                        delay: oldFlags.explodeDelay || 250,
                         scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustomExplosion ?? false,
                         customPath: oldFlags.options?.customExplosion ?? "",
@@ -242,21 +242,30 @@ export const flagMigrations = {
                     data.color = replaceName(oldFlags.color);
                     switch (presetName) {
                         case 'shieldspell':
-                            data.options.variant = oldFlags.spellVar ?? "01";
+                            data.options = {
+                                variant: oldFlags.spellVar ?? "01",
+                                shieldVar: oldFlags.shieldVar ?? 'outro_explode',
+                            }
                             break;
                         case 'bardicinspiration':
                             data.bards = oldFlags.bards;
                             break;
                         case 'huntersmark':
-                            data.options.variant = replaceName(oldFlags.hmAnim);
-                            data.options.persistent = oldFlags.ctaOption ?? false;
+                            data.options = {
+                                variant: replaceName(oldFlags.hmAnim),
+                                persistent: oldFlags.ctaOption ?? false,
+                            }
                             break;
                         case 'sneakattack':
-                            data.options.variant = "01";
+                            data.options = {
+                                variant: "01",
+                            }
                             break;
                         case 'bless':
-                            data.options.variant = "01";
-                            data.options.persistent = oldFlags.options.addCTA ?? false;
+                            data.options = {
+                                variant: "01",
+                                persistent: oldFlags.options.addCTA ?? false,
+                            }
                             break;
                     }
 
@@ -359,27 +368,27 @@ export const flagMigrations = {
                     case "circle":
                         switch (oldFlags.templates?.tempAnim) {
                             case 'snowflake':
-                                return {name: 'snowflake', variant: '01'};
+                                return { name: 'snowflake', variant: '01' };
                             case 'outpulse01':
-                                return {name: 'outpulse01', variant: '01'};
+                                return { name: 'outpulse01', variant: '01' };
                             case 'outpulse02':
-                                return {name: 'outpulse02', variant: '01'};
+                                return { name: 'outpulse02', variant: '01' };
                             case 'shatter':
-                                return {name: 'shatter', variant: '01'};
+                                return { name: 'shatter', variant: '01' };
                             case 'fogcloud':
-                                return {name: 'fogcloud', variant: '01'};
+                                return { name: 'fogcloud', variant: '01' };
                             case 'darkness':
-                                return {name: 'darkness', variant: '01'};
+                                return { name: 'darkness', variant: '01' };
                             case 'calllightning':
-                                return {name: 'calllightning', variant: '01'};
+                                return { name: 'calllightning', variant: '01' };
                             case 'sleetstorm':
-                                return {name: 'sleetstorm', variant: '01'};
+                                return { name: 'sleetstorm', variant: '01' };
                             case 'cloudofdaggers':
-                                return {name: 'cloudofdaggers', variant: '01'};
+                                return { name: 'cloudofdaggers', variant: '01' };
                             case 'cloudofkunais':
-                                return {name: 'cloudofdaggers', variant: '02'};
-                            default: 
-                                return {name: 'explosion', variant: '01'}
+                                return { name: 'cloudofdaggers', variant: '02' };
+                            default:
+                                return { name: 'explosion', variant: '01' }
                         }
                     case 'rect':
                         switch (oldFlags.templates?.tempAnim) {

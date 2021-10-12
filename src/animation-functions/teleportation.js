@@ -22,7 +22,7 @@ export async function teleportation(handler, autoObject) {
     } else {
         data.itemName = handler.options?.name;
         data.variant = handler.option?.variant;
-        data.customPath = handler.options?.enableCustom01 ? handler.options.customPath01 : false;
+        data.customPath = handler.options?.enableCustom ? handler.options.customPath : false;
         data.color = handler.color;
         data.scale = handler.scale;
         data.range = handler.teleDist;

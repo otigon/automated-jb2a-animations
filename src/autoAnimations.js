@@ -334,7 +334,7 @@ async function specialCaseAnimations(msg) {
     }
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(data.item.name.toLowerCase()));
-    if ((itemType === "template" || itemType === "preset" && data.item.data?.flags?.autoanimations?.animation === "fireball") || ((templateItem || fireball) && !data.item.data?.flags?.autoanimations?.override)) { } else {
+    if (((itemType === "template" || itemType === "t8") || itemType === "preset" && data.item.data?.flags?.autoanimations?.animation === "fireball") || ((templateItem || fireball) && !data.item.data?.flags?.autoanimations?.override)) { } else {
         return;
     }
 
