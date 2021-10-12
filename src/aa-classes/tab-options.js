@@ -39,7 +39,7 @@ export class AATabFunctions {
             color: flags.color,
             dbPath: this._dbPath(flags.animType),
         };
-        console.log(data)
+
         let file = 'no preview';
 
         const variantChoices = variantMenu[data.dbPath][data.newName];

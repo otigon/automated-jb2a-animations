@@ -76,11 +76,11 @@ export async function templateAnimation(handler, autoObject) {
 
     async function cast() {
         const templateObject = canvas.templates.placeables[canvas.templates.placeables.length - 1]
-        console.log(templateObject)
+
         const templateID = templateObject.data._id;
         let template;
         template = await canvas.templates.documentCollection.get(templateID);
-        console.log(template)
+
         let templateType = template.data?.t;
         let templateW;
         let templateLength;
@@ -274,6 +274,36 @@ export async function templateAnimation(handler, autoObject) {
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
         }
+
+        if (!data.persist) {
+            if (data.removeTemplate) {
+                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+            }        
+            await new Sequence("Automated Animations")
+                .addSequence(sourceFX.sourceSeq)
+                .thenDo(function () {
+                    Hooks.callAll("aa.animationStart", sourceToken, "no-target")
+                })
+                .effect()
+                    .file(tempAnimation.file)
+                    .atLocation({ x: template.data.x, y: template.data.y })
+                    .anchor({ x: xAnchor, y: yAnchor })
+                    .rotate(rotate)
+                    .persist(data.persist)
+                    .scale({ x: scaleX, y: scaleY })
+                    .belowTokens(true)
+                    .repeats(data.repeat, data.delay)
+                .sound()
+                    .file(templateFile)
+                    .playIf(handler.itemSound)
+                    .delay(templateDelay)
+                    .volume(templateVolume)
+                    .repeats(data.repeat, data.delay)
+                .play()
+            await wait(500)
+            Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
+        }
+
     }
     cast();
 

@@ -167,12 +167,13 @@ export const flagMigrations = {
 
                     break;
                 case "t8":
+                    const tempAnimVar = await templateAnimation()
                     data.animType = 'template';
-                    data.animation = await templateAnimation();
+                    data.animation = tempAnimVar.name;
                     data.color = replaceName(oldFlags.templates?.tempColor);
                     data.options = {
                         tempType: oldFlags.templates?.tempType,
-                        variant: "01",
+                        variant: tempAnimVar.variant,
                         removeTemplate: oldFlags.templates?.removeTemplate ?? false,
                         enableCustom: oldFlags.templates?.customAnim ?? false,
                         customPath: oldFlags.templates?.customPath ?? "",
@@ -336,14 +337,14 @@ export const flagMigrations = {
             async function templateAnimation() {
                 switch (oldFlags.templates?.tempType) {
                     case 'cone':
-                        switch (oldFlags.templates?.tempType) {
+                        switch (oldFlags.templates?.tempAnim) {
                             case 'coneofcold':
                                 return 'coneofcold';
                             case 'burninghands01':
                             case 'burninghands02':
                                 return 'burninghands';
                             default:
-                                return 'breathweaponcone';
+                                return {name: 'breathweaponcone', variant: oldFlags.templates?.tempAnim};
                         }
                 }
             }
