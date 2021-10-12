@@ -39,6 +39,7 @@ export async function templateAnimation(handler, autoObject) {
         data.removeTemplate = handler.options?.removeTemplate;
         data.persistType = handler.options?.persistType || "sequencerground";
     }
+    console.log(data)
     if (aaDebug) { aaDebugger("Template Animation Start", data) }
     if (data.itemName === 'thunderwave') {
         thunderwaveAuto(handler, autoObject);

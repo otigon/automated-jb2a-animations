@@ -41,9 +41,9 @@ export const flagMigrations = {
                 //animType: 'function here',
                 //animation: 'animation function here',
                 //color: 'color funciton here',
-                'options.repeat': type === 't8' ? oldFlags.templates?.tempLoop || 1 : oldFlags.options?.loops || 1,
-                'options.delay': type === 't8' ? oldFlags.templates?.loopDelay || 250 : oldFlags.options?.loopDelay || 250,
-                'options.scale': oldFlags.options?.scale ?? 1,
+                //'options.repeat': type === 't8' ? oldFlags.templates?.tempLoop || 1 : oldFlags.options?.loops || 1,
+                //'options.delay': type === 't8' ? oldFlags.templates?.loopDelay || 250 : oldFlags.options?.loopDelay || 250,
+                //'options.scale': oldFlags.options?.scale ?? 1,
                 //enableCustom: 'function here',
                 //customPath: 'function here',
                 targetToken: oldFlags.targetToken?.enable ? oldFlags.targetToken : { enable: false },
@@ -63,6 +63,9 @@ export const flagMigrations = {
                     data.options = {
                         meleeType: "weapon",
                         variant: oldFlags.uaStrikeType ?? "01",
+                        repeat: oldFlags.options?.loops || 1,
+                        delay: oldFlags.options?.loopDelay || 250,
+                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
@@ -72,13 +75,16 @@ export const flagMigrations = {
                     let genericList = ['flurryofblows', 'unarmedstrike'];
 
                     data.animation = replaceName(oldFlags.animName);
-                    data.animType = genericList.includes(data.animation) ? "melee" : "generic";
+                    data.animType = "melee";
                     data.color = replaceName(oldFlags.color);
                     data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : {switchType: oldFlags.meleeSwitch?.switchType ?? 'on'};
                     data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
                     data.options = {
                         meleeType: genericList.includes(data.animation) ? "weapon" : "generic",
                         variant: oldFlags.uaStrikeType ?? "01",
+                        repeat: oldFlags.options?.loops || 1,
+                        delay: oldFlags.options?.loopDelay || 250,
+                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
@@ -92,6 +98,8 @@ export const flagMigrations = {
                     data.options = {
                         rangeType: 'weapon',
                         variant: t4VariantSwitch(replaceName(oldFlags.animName)),
+                        repeat: oldFlags.options?.loops || 1,
+                        delay: oldFlags.options?.loopDelay || 250,
                     }
 
                     function t4VariantSwitch(name) {
@@ -120,6 +128,9 @@ export const flagMigrations = {
                         staticType: 'target',
                         staticOptions: 'creature',
                         variant: "01",
+                        repeat: oldFlags.options?.loops || 1,
+                        delay: oldFlags.options?.loopDelay || 250,
+                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
@@ -133,6 +144,8 @@ export const flagMigrations = {
                     data.options = {
                         rangeType: 'spell',
                         variant: oldFlags.spellVar ?? "01",
+                        repeat: oldFlags.options?.loops || 1,
+                        delay: oldFlags.options?.loopDelay || 250,
                     }
 
                     break;
@@ -143,8 +156,11 @@ export const flagMigrations = {
                     data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
                     data.options = {
                         staticType: "targetDefault",
-                        staticOptions: 'staticspells',
+                        staticOptions: 'staticSpells',
                         variant: oldFlags.spellVar ?? "01",
+                        repeat: oldFlags.options?.loops || 1,
+                        delay: oldFlags.options?.loopDelay || 250,
+                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",
                     }
@@ -155,17 +171,19 @@ export const flagMigrations = {
                     data.animation = replaceName(oldFlags.templates?.tempAnim);
                     data.color = replaceName(oldFlags.templates?.tempColor);
                     data.options = {
-                        tempType: oldFlags.templates?.TempType,
+                        tempType: oldFlags.templates?.tempType,
                         variant: "01",
                         removeTemplate: oldFlags.templates?.removeTemplate ?? false,
                         enableCustom: oldFlags.templates?.customAnim ?? false,
                         customPath: oldFlags.templates?.customPath ?? "",
                         persistent: oldFlags.templates?.persistent ?? false,
-                        persistType: oldFlags.templates?.persistent && oldFlags.templates?.overhead ?  'overheadtile' : 'sequencerground',
+                        persistType: (oldFlags.templates?.persistent && oldFlags.templates?.overhead) ?  'overheadtile' : 'sequencerground',
                         opacity: oldFlags.templates?.opacity ?? 0.75,
                         overhead: oldFlags.templates?.overhead ?? false,
                         occlusionMode: oldFlags.templates?.occlusionMode ?? "03",
                         occlusionAlpha: oldFlags.templates?.occlusionAlpha ?? 0.75,
+                        repeat: oldFlags.templates?.tempLoop || 1,
+                        delay: oldFlags.templates?.loopDelay || 250,
                     }
 
                     break;
@@ -179,6 +197,9 @@ export const flagMigrations = {
                         staticType: type === 't9' ? 'target' : 'source',
                         staticOptions: 'explosion',
                         variant: oldFlags.options?.variant ?? "01",
+                        repeat: oldFlags.options?.loops || 1,
+                        delay: oldFlags.options?.loopDelay || 250,
+                        scale: oldFlags.options?.scale ?? 1,
                         enableCustom: oldFlags.options?.enableCustomExplosion ?? false,
                         customPath: oldFlags.options?.customExplosion ?? "",
                     }
@@ -206,6 +227,7 @@ export const flagMigrations = {
                         name: replaceName(oldFlags.animName),
                         variant: "01",
                         teleDist: oldFlags.teleDist ?? 30,
+                        scale: oldFlags.options?.scale ?? 1,
                         hideTemplate: oldFlags.options?.hideTemplate ?? false,
                         enableCustom: oldFlags.options?.enableCustom01 ?? false,
                         customPath: oldFlags.options?.customPath01 ?? "",

@@ -13,7 +13,7 @@ export async function staticAnimation(handler, autoObject) {
     const data = AAanimationData._primaryData(handler, autoObject);
     if (aaDebug) { aaDebugger("Static Animation Start", data) }
     const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
-    console.log(onToken)
+
     const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
     const explosionSound = AAanimationData._explosionSound(handler);
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
