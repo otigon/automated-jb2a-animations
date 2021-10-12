@@ -49,7 +49,7 @@ export const flagMigrations = {
                 targetToken: oldFlags.targetToken?.enable ? oldFlags.targetToken : { enable: false },
                 sourceToken: oldFlags.sourceToken?.enable ? oldFlags.sourceToken : { enable: false },
                 allSounds: oldFlags.allSounds ?? {},
-                autoOverride: oldFlags.options?.overrideAuto ? await overrideAuto() : {enable: false},
+                autoOverride: oldFlags.options?.overrideAuto ? await overrideAuto() : { enable: false },
                 version: 1,
             }
 
@@ -58,7 +58,7 @@ export const flagMigrations = {
                     data.animType = 'melee';
                     data.animation = replaceName(oldFlags.animName);
                     data.color = replaceName(oldFlags.color);
-                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : {switchType: oldFlags.meleeSwitch?.switchType ?? 'on'};
+                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : { switchType: oldFlags.meleeSwitch?.switchType ?? 'on' };
                     data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
                     data.options = {
                         meleeType: "weapon",
@@ -77,7 +77,7 @@ export const flagMigrations = {
                     data.animation = replaceName(oldFlags.animName);
                     data.animType = "melee";
                     data.color = replaceName(oldFlags.color);
-                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : {switchType: oldFlags.meleeSwitch?.switchType ?? 'on'};
+                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : { switchType: oldFlags.meleeSwitch?.switchType ?? 'on' };
                     data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
                     data.options = {
                         meleeType: genericList.includes(data.animation) ? "weapon" : "generic",
@@ -178,7 +178,7 @@ export const flagMigrations = {
                         enableCustom: oldFlags.templates?.customAnim ?? false,
                         customPath: oldFlags.templates?.customPath ?? "",
                         persistent: oldFlags.templates?.persistent ?? false,
-                        persistType: (oldFlags.templates?.persistent && oldFlags.templates?.overhead) ?  'overheadtile' : 'sequencerground',
+                        persistType: (oldFlags.templates?.persistent && oldFlags.templates?.overhead) ? 'overheadtile' : 'sequencerground',
                         opacity: oldFlags.templates?.opacity ?? 0.75,
                         overhead: oldFlags.templates?.overhead ?? false,
                         occlusionMode: oldFlags.templates?.occlusionMode ?? "03",
@@ -339,13 +339,22 @@ export const flagMigrations = {
                     case 'cone':
                         switch (oldFlags.templates?.tempAnim) {
                             case 'coneofcold':
-                                return {name: 'coneofcold', variant: "01"};
+                                return { name: 'coneofcold', variant: "01" };
                             case 'burninghands01':
-                                return {name: 'burninghands', variant: '01'};
+                                return { name: 'burninghands', variant: '01' };
                             case 'burninghands02':
-                                return {name: 'burninghands', variant: '02'};
+                                return { name: 'burninghands', variant: '02' };
                             default:
-                                return {name: 'breathweaponcone', variant: oldFlags.templates?.tempAnim};
+                                return { name: 'breathweaponcone', variant: oldFlags.templates?.tempAnim };
+                        }
+                    case 'ray':
+                        switch (oldFlags.templates?.tempAnim) {
+                            case 'lightningbolt01':
+                                return { name: 'lightningbolt', variant: '01' };
+                            case 'lightningbolt02':
+                                return { name: 'lightningbolt', variant: '02' };
+                            default:
+                                return { name: 'breathweaponline', variant: oldFlags.templates?.tempAnim };
                         }
                 }
             }
