@@ -381,6 +381,15 @@ export const flagMigrations = {
                             default: 
                                 return {name: 'explosion', variant: '01'}
                         }
+                    case 'rect':
+                        switch (oldFlags.templates?.tempAnim) {
+                            case 'entangle':
+                                return { name: 'entangle', variant: '01' };
+                            case 'thunderwave':
+                                return { name: 'thunderwave', variant: '01' };
+                            default:
+                                return { name: 'web', variant: '01' };
+                        }
                 }
             }
 
