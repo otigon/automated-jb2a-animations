@@ -356,6 +356,31 @@ export const flagMigrations = {
                             default:
                                 return { name: 'breathweaponline', variant: oldFlags.templates?.tempAnim };
                         }
+                    case "circle":
+                        switch (oldFlags.templates?.tempAnim) {
+                            case 'snowflake':
+                                return {name: 'snowflake', variant: '01'};
+                            case 'outpulse01':
+                                return {name: 'outpulse01', variant: '01'};
+                            case 'outpulse02':
+                                return {name: 'outpulse02', variant: '01'};
+                            case 'shatter':
+                                return {name: 'shatter', variant: '01'};
+                            case 'fogcloud':
+                                return {name: 'fogcloud', variant: '01'};
+                            case 'darkness':
+                                return {name: 'darkness', variant: '01'};
+                            case 'calllightning':
+                                return {name: 'calllightning', variant: '01'};
+                            case 'sleetstorm':
+                                return {name: 'sleetstorm', variant: '01'};
+                            case 'cloudofdaggers':
+                                return {name: 'cloudofdaggers', variant: '01'};
+                            case 'cloudofkunais':
+                                return {name: 'cloudofdaggers', variant: '02'};
+                            default: 
+                                return {name: 'explosion', variant: '01'}
+                        }
                 }
             }
 
