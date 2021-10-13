@@ -10,10 +10,11 @@ export async function auras(handler, autoObject) {
     const gridSize = canvas.grid.size
     const data = {}
     if (autoObject) {
+        const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject)
         data.animation = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
-        data.color = handler.options?.autoColor || data.color;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
         data.size = data.scale * 2 * gridSize;
         //data.tint = parseInt(data.tint.substr(1), 16);
     } else {
