@@ -426,6 +426,22 @@
     "AUTOANIM.quarterstaff": "쿼터스태프",
     "AUTOANIM.04": "04",
     "AUTOANIM.sleep01": "수면 01",
-    "AUTOANIM.sleep02": "수면 02"
+    "AUTOANIM.sleep02": "수면 02",
+    "AUTOANIM.persistant": "끈질김",
+    "AUTOANIM.fireball": "파이어볼",
+    "AUTOANIM.projectile": "발사체",
+    "AUTOANIM.addAfterImage": "애프터 이미지 추가",
+
+    "AUTOANIM.wait": "대기",
+    "AUTOANIM.falchion": "펄션",
+    "AUTOANIM.glaive": "글레이브",
+    "AUTOANIM.vortex": "소용돌이",
+    "AUTOANIM.whirl": "돌개바람",
+    "AUTOANIM.energystrands": "에너지 가닥",
+    "AUTOANIM.loop": "반복",
+    "AUTOANIM.intro": "인트로",
+    "AUTOANIM.outro": "아우트로",
+    "AUTOANIM.scimitar": "시미터",
+    "AUTOANIM.shortsword": "숏소드"
 
 }
