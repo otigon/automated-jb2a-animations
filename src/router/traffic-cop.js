@@ -77,7 +77,6 @@ export async function trafficCop(handler) {
                 staticAnimation(handler);
                 break;
             case "template":
-                debugger
                 if (game.modules.get("midi-qol")?.active) { return; }
                 //some do not need hook on template, depends on when damage is rolled
                 switch (game.system.id) {

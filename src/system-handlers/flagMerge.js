@@ -30,7 +30,6 @@ export const flagMigrations = {
 
     migrations: {
         "1": async (item) => {
-            debugger
             const oldFlags = item.data?.flags?.autoanimations;
             const type = oldFlags.animType;
 
