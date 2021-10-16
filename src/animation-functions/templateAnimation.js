@@ -93,6 +93,7 @@ export async function templateAnimation(handler, autoObject) {
         let tileHeight;
         let tileX;
         let tileY;
+        const templateTypes = ['sphere', 'cylinder', 'radius']
         //let scale = ((200 * handler.explosionRadius) / (canvas.dimensions.distance * videoData.width))
         switch (templateType) {
             case "ray":
@@ -105,7 +106,7 @@ export async function templateAnimation(handler, autoObject) {
                 yAnchor = 0.5;
                 break;
             case "rect":
-                if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && handler.item.data.data.target.type === "sphere") {
+                if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.data.data.target.type)) {
                     templateW = Math.sqrt(Math.pow(template.data.distance, 2) - Math.pow((handler.item.data.data.target.value * 2), 2));
                     templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
                     scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
@@ -188,7 +189,8 @@ export async function templateAnimation(handler, autoObject) {
                 .play()
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
-            }            
+            }
+            AAanimationData.howToDelete("overheadtile")
             //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
         }
         if (data.persist && (data.type === "circle" || data.type === "rect") && data.persistType === 'groundtile') {
@@ -221,7 +223,7 @@ export async function templateAnimation(handler, autoObject) {
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }            
-            //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
+            AAanimationData.howToDelete("groundtile")
         }
         if (data.persist && data.persistType === 'sequencerground') {
             if (data.removeTemplate) {
@@ -250,6 +252,7 @@ export async function templateAnimation(handler, autoObject) {
                 .play()
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
+            AAanimationData.howToDelete("sequencerground")
         }
 
         if (data.persist && data.persistType === 'attachtemplate') {

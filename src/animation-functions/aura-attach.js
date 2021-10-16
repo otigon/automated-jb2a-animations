@@ -1,5 +1,6 @@
 import { buildFile } from "./file-builder/build-filepath.js";
-import { aaDebugger } from "../constants/constants.js"
+import { aaDebugger } from "../constants/constants.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -59,6 +60,7 @@ export async function auras(handler, autoObject) {
                 .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
                 .animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
             .play()
+        AAanimationData.howToDelete("sequencerground")
     }
 
     async function targetAura() {
@@ -68,14 +70,19 @@ export async function auras(handler, autoObject) {
 
             let target = targets[i];
             let randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
+
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: target.name + " " + aura.file }).length > 0
+            let playPersist = !checkAnim ? true : false;
+
             new Sequence()
                 .effect()
                     //.atLocation(target)
                     .attachTo(target)
                     .persist()
-                    .name(target.name)
+                    .name(target.name + " " + aura.file)
                     .size(data.size)
                     .gridSize(gridSize)
+                    .playIf(playPersist)
                     .belowTokens(data.below)
                     .file(aura.file)
                     .fadeIn(50)
@@ -85,6 +92,7 @@ export async function auras(handler, autoObject) {
                     .animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})    
                 .play()
         }
+        AAanimationData.howToDelete("sequencerground")
     }
 
 

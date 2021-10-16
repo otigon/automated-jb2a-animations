@@ -94,7 +94,7 @@ export async function staticAnimation(handler, autoObject) {
                 targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
             }        
             */
-            let targetSequence = AAanimationData._targetSequence(targetFX, target);
+            let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
 
             let scale = data.animation === "bite" || data.animation === "claw" ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
             let hit;

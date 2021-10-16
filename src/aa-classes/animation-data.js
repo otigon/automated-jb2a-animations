@@ -290,4 +290,18 @@ export class AAanimationData {
         d.options.resizable = true;
         d.render(true)
     }
+
+    static howToDelete(type) {
+        switch (type) {
+            case 'overheadtile':
+                ui.notifications.warn("This is an OVERHEAD Tile. Use the Tile Foreground Layer to remove the Animation")
+                break;
+            case 'groundtile':
+                ui.notifications.warn("This is an GROUND Tile. Use the Tile Layer to remove the Animation")
+                break;
+            case 'sequencerground':
+                ui.notifications.warn("This is SEQUENCER Persistent Effect. Use the Sequencer Effect Manager to remove the Animation")
+                break
+        }
+    }
 }
