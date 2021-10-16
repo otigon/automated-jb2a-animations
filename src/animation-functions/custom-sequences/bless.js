@@ -30,7 +30,7 @@ export async function bless(handler, autoObject) {
         data.color = handler.color;
         data.scale = handler.scale || 1;
         data.below = handler.animLevel;
-        data.addCTA = handler.options?.addCTA;
+        data.persistent = handler.options?.persistent;
     }
     const bless = await buildBlessFile(obj01, data.color);
     // builds Source Token file if Enabled, and pulls from flags if already set
@@ -44,7 +44,11 @@ export async function bless(handler, autoObject) {
     //const scaledSize = (size * data.scale)
 
     if (handler.allTargets.length === 0) {
-        new Sequence("Automated Animations")
+
+        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, name: "bless" }).length > 0
+        const playPersist = (!checkAnim && data.persistent) ? true : false;
+
+        await new Sequence("Automated Animations")
         .effect()
             .file(bless.file01)
             .attachTo(sourceToken)
@@ -58,11 +62,24 @@ export async function bless(handler, autoObject) {
             .gridSize(gridSize)
             .attachTo(sourceToken)
             .belowTokens(data.below)
-            .persist(data.addCTA)
+            .playIf(!data.persistent)
             .loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
             .loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
             .filter("ColorMatrix", {hue: 120})
-            .play()
+        .effect()
+            .file(bless.file02)
+            .scale(scale)
+            .name("bless")
+            .gridSize(gridSize)
+            .attachTo(sourceToken)
+            .belowTokens(data.below)
+            .persist(data.persistent)
+            .playIf(playPersist)
+            .loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
+            .loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
+            .filter("ColorMatrix", {hue: 120})
+        .play()
+        if (playPersist) { AAanimationData.howToDelete("sequencerground") }
     }
 
     async function cast() {
@@ -72,7 +89,10 @@ export async function bless(handler, autoObject) {
             let target = handler.allTargets[i];
             let targetScale = (target.w * 2 / bless.metadata.width) * data.scale
 
-            new Sequence("Automated Animations")
+            const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "bless" }).length > 0
+            const playPersist = (!checkAnim && data.persistent) ? true : false;
+
+            await new Sequence("Automated Animations")
                 .effect()
                     .file(bless.file01)
                     .attachTo(target)
@@ -82,15 +102,27 @@ export async function bless(handler, autoObject) {
                     .waitUntilFinished(-500)
                 .effect()
                     .file(bless.file02)
+                    .name("bless")
                     .scale(targetScale)
                     .gridSize(gridSize)
                     .attachTo(target)
                     .belowTokens(data.below)
-                    .persist(data.addCTA)
+                    .playIf(!data.persistent)
+                    .loopProperty("sprite", "scale.x", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})
+                    .loopProperty("sprite", "scale.y", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})        
+                .effect()
+                    .file(bless.file02)
+                    .name("bless")
+                    .scale(targetScale)
+                    .gridSize(gridSize)
+                    .attachTo(target)
+                    .belowTokens(data.below)
+                    .persist(data.persistent)
+                    .playIf(playPersist)
                     .loopProperty("sprite", "scale.x", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})
                     .loopProperty("sprite", "scale.y", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})        
                 .play()
-
+                if (playPersist) { AAanimationData.howToDelete("sequencerground") }
         }
     }
     cast()

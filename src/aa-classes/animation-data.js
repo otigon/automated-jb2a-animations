@@ -184,7 +184,7 @@ export class AAanimationData {
         }
 
         if (source.enable && source.name === "a1" && !source.enableCustom) {
-            targetFX.enabled = false;
+            sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
 
@@ -243,13 +243,16 @@ export class AAanimationData {
     static _targetSequence(targetFX, target, handler) {
         let hit;
         if (handler.playOnMiss) {
-            hit = handler.hitTargetsId.includes(target.id) ? false : true;
+            hit = handler.hitTargetsId.includes(target.id) ? true : false;
         } else {
-            hit = false;
+            hit = true;
         }
+        console.log(targetFX.enabled)
+        console.log(hit)
         const playNow = (targetFX.enabled && hit) ? true : false;
+        console.log(playNow)
         //const playNow = (targetFX.enabled && hit) ? true : false;
-        targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata.width : 1;
+        targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
         targetFX.targetSeq.effect()
             .delay(targetFX.startDelay)
@@ -259,7 +262,7 @@ export class AAanimationData {
             .repeats(targetFX.repeat, targetFX.delay)
             .belowTokens(targetFX.below)
             .gridSize(canvas.grid.size)
-            .playIf(!playNow)
+            .playIf(playNow)
 
         return targetFX;
     }

@@ -32,7 +32,7 @@ export async function meleeAnimation(handler, autoObject) {
     const explosionSound = AAanimationData._explosionSound(handler);
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const targetFX = await AAanimationData._targetFX(handler);
-
+    
     async function cast() {
         let arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {

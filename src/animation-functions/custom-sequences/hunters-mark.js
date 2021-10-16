@@ -1,7 +1,7 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
-//import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -78,6 +78,7 @@ async function huntersMark(handler, autoObject) {
             .loopProperty("sprite", "alpha", { from: 0.25, to: 1, duration: 4000, pingPong: true })
         .play()
         //AAanimationData.removePersistentEffect(target, "huntersmark", canvas.scene.id)
+        if (playPersist) { AAanimationData.howToDelete("sequencerground") }
 }
 
 export default huntersMark;
