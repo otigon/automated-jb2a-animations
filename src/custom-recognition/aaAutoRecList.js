@@ -6,7 +6,7 @@ export class aaAutorec {
             melee: {
                 0: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemDagger"),
+                    name: 'Dagger',
                     animation: 'dagger',
                     variant: '01',
                     color: 'white',
@@ -16,7 +16,7 @@ export class aaAutorec {
                 },
                 1: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemFlurryBlows"),
+                    name: 'Flurry of Blows',
                     animation: 'flurryofblows',
                     variant: 'physical',
                     color: 'blue',
@@ -26,7 +26,7 @@ export class aaAutorec {
                 },
                 2: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemGreataxe"),
+                    name: 'Greataxe',
                     animation: 'greataxe',
                     variant: '01',
                     color: 'white',
@@ -36,7 +36,7 @@ export class aaAutorec {
                 },
                 3: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemGreatclub"),
+                    name: 'Greatclub',
                     animation: 'greatclub',
                     variant: '01',
                     color: 'white',
@@ -46,7 +46,7 @@ export class aaAutorec {
                 },
                 4: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemGreatsword"),
+                    name: 'Greatsword',
                     animation: 'greatsword',
                     variant: '01',
                     color: 'white',
@@ -56,7 +56,7 @@ export class aaAutorec {
                 },
                 5: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemHandaxe"),
+                    name: 'Handaxe',
                     animation: 'handaxe',
                     variant: '01',
                     color: 'white',
@@ -66,7 +66,7 @@ export class aaAutorec {
                 },
                 6: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemSword"),
+                    name: 'Sword',
                     animation: 'sword',
                     variant: '01',
                     color: 'white',
@@ -76,7 +76,7 @@ export class aaAutorec {
                 },
                 7: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemMace"),
+                    name: 'Mace',
                     animation: 'mace',
                     variant: '01',
                     color: 'white',
@@ -86,7 +86,7 @@ export class aaAutorec {
                 },
                 8: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemMaul"),
+                    name: 'Maul',
                     animation: 'maul',
                     variant: '01',
                     color: 'white',
@@ -96,7 +96,7 @@ export class aaAutorec {
                 },
                 9: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemSpear"),
+                    name: 'Spear',
                     animation: 'spear',
                     variant: '01',
                     color: 'white',
@@ -106,7 +106,7 @@ export class aaAutorec {
                 },
                 10: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemRapier"),
+                    name: 'Rapier',
                     animation: 'rapier',
                     variant: '01',
                     color: 'white',
@@ -116,7 +116,7 @@ export class aaAutorec {
                 },
                 11: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemUnarmedStrike"),
+                    name: 'Unarmed Strike',
                     animation: 'unarmedstrike',
                     variant: 'physical',
                     color: 'blue',
@@ -128,7 +128,7 @@ export class aaAutorec {
             range: {
                 0: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.crossbow"),
+                    name: 'Crossbow',
                     animation: 'bolt',
                     variant: 'physical',
                     color: 'orange',
@@ -138,7 +138,7 @@ export class aaAutorec {
                 },
                 1: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemLongbow"),
+                    name: 'Bow',
                     animation: 'arrow',
                     variant: 'regular',
                     color: 'regular',
@@ -148,7 +148,7 @@ export class aaAutorec {
                 },
                 2: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemDisintegrate"),
+                    name: 'Disintegrate',
                     animation: 'disintegrate',
                     variant: '01',
                     color: 'green',
@@ -158,7 +158,7 @@ export class aaAutorec {
                 },
                 3: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemEldritchBlast"),
+                    name: 'Eldritch Blast',
                     animation: 'eldritchblast',
                     variant: '01',
                     color: 'purple',
@@ -168,7 +168,7 @@ export class aaAutorec {
                 },
                 4: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemFireBolt"),
+                    name: 'Fire Bolt',
                     animation: 'firebolt',
                     variant: '01',
                     color: 'orange',
@@ -178,7 +178,7 @@ export class aaAutorec {
                 },
                 5: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemGuidingBolt"),
+                    name: 'Guiding Bolt',
                     animation: 'guidingbolt',
                     variant: '01',
                     color: 'blueyellow',
@@ -188,7 +188,7 @@ export class aaAutorec {
                 },
                 6: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemMagicMissile"),
+                    name: 'Magic Missile',
                     animation: 'magicmissile',
                     variant: '01',
                     color: 'purple',
@@ -198,7 +198,7 @@ export class aaAutorec {
                 },
                 7: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemRayFrost"),
+                    name: 'Ray of Frost',
                     animation: 'rayoffrost',
                     variant: '01',
                     color: 'blue',
@@ -208,7 +208,7 @@ export class aaAutorec {
                 },
                 8: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemScorchingRay"),
+                    name: 'Scorching Ray',
                     animation: 'scorchingray',
                     variant: '01',
                     color: 'orange',
@@ -218,7 +218,7 @@ export class aaAutorec {
                 },
                 9: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemWitchBolt"),
+                    name: 'Witch Bolt',
                     animation: 'witchbolt',
                     variant: '01',
                     color: 'blue',
@@ -230,7 +230,7 @@ export class aaAutorec {
             static: {
                 0: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemCureWounds"),
+                    name: 'Cure Wounds',
                     animation: 'curewounds',
                     variant: '01',
                     color: 'blue',
@@ -242,7 +242,7 @@ export class aaAutorec {
                 },
                 1: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemHealingWord"),
+                    name: 'Healing Word',
                     animation: 'generichealing',
                     variant: '01',
                     color: 'blue',
@@ -254,7 +254,7 @@ export class aaAutorec {
                 },
                 2: {
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.tollthedead"),
+                    name: 'Toll the Dead',
                     animation: 'tollthedead',
                     variant: 'complete',
                     color: 'green',
@@ -271,7 +271,7 @@ export class aaAutorec {
                     custom: false,
                     delay: 500,
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemBite"),
+                    name: "Bite",
                     repeat: 1,
                     scale: 1,
                     type: "target",
@@ -284,7 +284,7 @@ export class aaAutorec {
                     custom: false,
                     delay: 500,
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemClaw"),
+                    name: "Claws",
                     repeat: 1,
                     scale: 1,
                     type: "target",
@@ -299,7 +299,7 @@ export class aaAutorec {
                     custom: false,
                     delay: 500,
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.animCallLightning"),
+                    name: "Call Lightning",
                     occlusionAlpha: 0.7,
                     occlusionMode: "3",
                     opacity: 0.75,
@@ -317,7 +317,7 @@ export class aaAutorec {
                     custom: false,
                     delay: 500,
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.animFogCloud"),
+                    name: "Fog Cloud",
                     occlusionAlpha: 0.65,
                     occlusionMode: "3",
                     opacity: 0.75,
@@ -335,7 +335,7 @@ export class aaAutorec {
                     custom: false,
                     delay: 500,
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemThunderwave"),
+                    name: "Thunderwave",
                     opacity: 0.75,
                     persist: false,
                     removeTemplate: true,
@@ -351,7 +351,7 @@ export class aaAutorec {
                     color: 'darkblue',
                     custom: false,
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.animSpiritGuardians"),
+                    name: "Spirit Guardians",
                     opacity: 0.75,
                     scale: 7,
                     static: false,
@@ -368,7 +368,7 @@ export class aaAutorec {
                     below: false,
                     hidden: true,
                     marker: true,
-                    name: game.i18n.localize("AUTOANIM.bardicInspiration"),
+                    name: "Bardic Inspiration",
                     scale: 1,
                     selfAnimation: "music",
                     selfColor: "blue",
@@ -383,7 +383,7 @@ export class aaAutorec {
                     below: true,
                     color: "yellow",
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.bless"),
+                    name: "Bless",
                     scale: 1.5,
                 },
                 2: {
@@ -392,7 +392,7 @@ export class aaAutorec {
                     color: "blue",
                     endeffect: "outro_explode",
                     hidden: true,
-                    name: game.i18n.localize("AUTOANIM.itemShield"),
+                    name: "Shield",
                     scale: 1,
                     variant: "01",
                 },
@@ -403,7 +403,7 @@ export class aaAutorec {
                     custom: false,
                     hidden: true,
                     hideTemplate: false,
-                    name: game.i18n.localize("AUTOANIM.itemMistyStep"),
+                    name: "Misty Step",
                     range: 30,
                     scale: 1.5,
                     subAnimation: "mistystep",
