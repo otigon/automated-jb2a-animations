@@ -11,7 +11,7 @@ export async function meleeSwitch(handler, target, autoObject) {
     //Builds Primary File Path and Pulls from flags if already set
     const data = AAanimationData._switchData(handler, autoObject);
     if (aaDebug) { aaDebugger("Switch Animation Start", data) }
-    console.log(data.switchAnimation)
+
     const attack = await buildFile(false, data.switchAnimation, "range", data.switchVariant, data.switchColor);//need to finish
     
     const sourceToken = handler.actorToken;

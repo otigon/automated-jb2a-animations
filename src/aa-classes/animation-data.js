@@ -247,11 +247,9 @@ export class AAanimationData {
         } else {
             hit = true;
         }
-        console.log(targetFX.enabled)
-        console.log(hit)
+
         const playNow = (targetFX.enabled && hit) ? true : false;
-        console.log(playNow)
-        //const playNow = (targetFX.enabled && hit) ? true : false;
+
         targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
         targetFX.targetSeq.effect()

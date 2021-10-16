@@ -43,12 +43,12 @@ export class AATabFunctions {
         let file = 'no preview';
 
         const variantChoices = variantMenu[data.dbPath][data.newName];
-        if (!variantChoices) { console.log("EXIT"); return file; }
+        if (!variantChoices) { return file; }
         const variantCheck = this._variantCheck(data, variantMenu, jb2a)
         data.variant = variantCheck.defaultVariant;
 
         const colorChoices = colorMenu[data.dbPath][data.newName][data.variant];
-        if (!colorChoices) { console.log("EXIT"); return file; }
+        if (!colorChoices) { return file; }
         const colorCheck = this._colorCheck(data, colorMenu, jb2a)
         data.color = colorCheck.defaultColor.toLowerCase();
 

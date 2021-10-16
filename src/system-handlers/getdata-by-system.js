@@ -229,7 +229,7 @@ export class AASystemData {
     }
 
     static wfrp4e(input) {
-        console.log(input)
+
         const item = input.item;
         const itemId = item._id;
         const tokenId = input.info?.speaker?.token;

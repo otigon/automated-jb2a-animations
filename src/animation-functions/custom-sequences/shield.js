@@ -52,7 +52,7 @@ export async function shieldSpell(handler, autoObject) {
         data.endeffect = handler.options.shieldVar ?? "outro_fade";
         data.variant = handler.variant ?? "01";
     }
-    console.log(data)
+
     const sourceToken = handler.actorToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
     // builds Source Token file if Enabled, and pulls from flags if already set

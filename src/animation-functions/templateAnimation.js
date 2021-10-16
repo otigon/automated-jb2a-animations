@@ -39,23 +39,15 @@ export async function templateAnimation(handler, autoObject) {
         data.removeTemplate = handler.options?.removeTemplate;
         data.persistType = handler.options?.persistType || "sequencerground";
     }
-    console.log(data)
+
     if (aaDebug) { aaDebugger("Template Animation Start", data) }
     if (data.itemName === 'thunderwave') {
         thunderwaveAuto(handler, autoObject);
         return;
     }
-    //let mode = handler.templates?.occlusionMode ?? "3";
-    //const occlusionMode = parseInt(mode)
-    //let occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
 
-    //let customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
-    //console.log(data)
     const tempAnimation = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath)
-    //console.log(tempAnimation)
-    //let sourceFX;
-    //let sFXScale;
-    //let customSourcePath; 
+
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
     const videoWidth = tempAnimation.metadata.width;

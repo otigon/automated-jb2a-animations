@@ -38,10 +38,10 @@ async function huntersMark(handler, autoObject) {
         data.anchorY = handler.anchorY;
         data.persist = handler.persistent;
     }
-    console.log(data)
+
     const sourceToken = handler.actorToken;
     let target = handler.allTargets[0];
-    //const hmAnim = handler.variant || "paw";
+
     const animLoop = data.variant + "loop";
     let hmPulse = data.color === 'random' ? `autoanimations.static.huntersmark.${data.variant}` : `autoanimations.static.huntersmark.${data.variant}.${data.color}`;
 

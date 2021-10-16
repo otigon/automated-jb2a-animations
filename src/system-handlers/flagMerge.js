@@ -52,7 +52,7 @@ export const flagMigrations = {
                 autoOverride: oldFlags.options?.overrideAuto ? await overrideAuto() : { enable: false },
                 version: 1,
             }
-            console.log(data)
+
             switch (type) {
                 case "t2":
                     data.animType = 'melee';

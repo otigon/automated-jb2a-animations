@@ -13,11 +13,7 @@ import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
 import { setupSocket } from "./socketset.js";
 import { flagMigrations } from "./system-handlers/flagMerge.js";
-//import { autorecNameCheck, getAllNames, rinseName } from "./custom-recognition/autoFunctions.js";
 
-//import menuOptions from "./animation-functions/databases/jb2a-patreon-menus.js";
-// just swap which of these two lines is commented to turn on/off all logging
-//const log = console.log.bind(window.console);
 const log = () => { };
 
 Hooks.once('setup', function () {
@@ -407,26 +403,17 @@ async function setUp5eCore(msg) {
     }
 
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    //const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);
+
     const autoName = AutorecFunctions._rinseName(handler.itemName);
-    //const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName);
+
     const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
-    //console.log(getObject)
-    //console.log(getObject[0][0].name)
-    //let templateItem;
+
     let fireball;
     if (getObject) {
-        //const rinsedName = AutorecFunctions._rinseName(getObject[0][0].name)
-        //templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName)); //getObject[1] === 'templates' && (rinsedName === autoName) ? true : false;
-        //console.log(getObject)
-        //console.log(getObject[0][0].animation)
         fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
     }
-    //console.log(templateItem)
-    //console.log(fireball)
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    //console.log(templateItem)
     const t5Template = handler.animType === "template" && handler.animOverride ? true : false;
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
@@ -579,7 +566,7 @@ async function pf2eReady(msg) {
     const t5Template = handler.animType === "template" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
     const damage = /*handler.item.damageValue || */handler.item?.damage?.length;
-    //console.log(damage)
+
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
     if (t5Template) {
