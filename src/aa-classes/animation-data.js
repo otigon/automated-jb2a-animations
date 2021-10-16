@@ -2,7 +2,7 @@ import { buildFile } from "../animation-functions/file-builder/build-filepath.js
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js";
 export class AAanimationData {
 
-    static _primaryData (handler, autoObject) {
+    static _primaryData(handler, autoObject) {
         const data = {};
         if (autoObject) {
             const autoOverridden = handler.autoOverride?.enable
@@ -182,9 +182,10 @@ export class AAanimationData {
             color: source.color,
             variant: source.variant,
         }
-        if ((!sourceFX.animation || sourceFX.animation === "a1") && sourceFX.enabled) {
-            sourceFX.enabled = false;
-            console.warn("AUTOMATED ANIMATIONS || TokenFX Source Animation is enabled on this item but NO Animation is chosen!");
+
+        if (source.enable && source.name === "a1" && !source.enableCustom) {
+            targetFX.enabled = false;
+            console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
 
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
@@ -218,12 +219,13 @@ export class AAanimationData {
             color: target.color,
             variant: target.variant,
         }
-        if ((!targetFX.animation || targetFX.animation === "a1")  && targetFX.enabled) {
+
+        if (target.enable && target.name === "a1" && !target.enableCustom) {
             targetFX.enabled = false;
-            console.warn("AUTOMATED ANIMATIONS || TokenFX Target Animation is enabled on this item but NO Animation is chosen!");
+            console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
         targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : "";
-        
+        /*
         targetFX.targetSeq = new Sequence();
         targetFX.targetSeq.effect()
             .delay(targetFX.startDelay)
@@ -234,11 +236,19 @@ export class AAanimationData {
             .belowTokens(targetFX.below)
             .gridSize(canvas.grid.size)
             .playIf(targetFX.enabled)
-
+        */
         return targetFX
     }
 
-    static _targetSequence(targetFX, target) {
+    static _targetSequence(targetFX, target, handler) {
+        let hit;
+        if (handler.playOnMiss) {
+            hit = handler.hitTargetsId.includes(target.id) ? false : true;
+        } else {
+            hit = false;
+        }
+        const playNow = (targetFX.enabled && hit) ? true : false;
+        //const playNow = (targetFX.enabled && hit) ? true : false;
         targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata.width : 1;
         targetFX.targetSeq = new Sequence();
         targetFX.targetSeq.effect()
@@ -249,13 +259,13 @@ export class AAanimationData {
             .repeats(targetFX.repeat, targetFX.delay)
             .belowTokens(targetFX.below)
             .gridSize(canvas.grid.size)
-            .playIf(targetFX.enabled)
+            .playIf(!playNow)
 
         return targetFX;
     }
 
     static async _variant(handler) {
-        
+
     }
 
     static removePersistentEffect(token, effectName, sceneID) {

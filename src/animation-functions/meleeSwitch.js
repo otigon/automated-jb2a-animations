@@ -37,7 +37,7 @@ export async function meleeSwitch(handler, target, autoObject) {
     }
     async function cast() {
 
-        let targetSequence = AAanimationData._targetSequence(targetFX, target);
+        let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
 
         //Checks Range and sends it to Range Builder if true
         let hit;

@@ -31,7 +31,7 @@ export async function rangedAnimations(handler, autoObject) {
 
             let target = handler.allTargets[i];
 
-            let targetSequence = AAanimationData._targetSequence(targetFX, target);
+            let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
 
             //Checks Range and sends it to Range Builder if true
             let hit;

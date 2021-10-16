@@ -73,7 +73,7 @@ export async function meleeAnimation(handler, autoObject) {
                     targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
                 }
                 */
-                let targetSequence = AAanimationData._targetSequence(targetFX, target);
+                let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
                 let hit;
                 if (handler.playOnMiss) {
                     hit = handler.hitTargetsId.includes(target.id) ? false : true;

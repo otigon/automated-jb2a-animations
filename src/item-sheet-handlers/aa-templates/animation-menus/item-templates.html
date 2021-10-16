@@ -148,6 +148,11 @@
 </div>
 {{/ifEquals}}
 {{/if}}
+{{#ifEquals flags.autoanimations.options.persistType 'groundtile'}}
+<div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7;justify-self: center;'>
+    <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+</div>    
+{{/ifEquals}}
 {{#unless flags.autoanimations.options.persistent}}
     <div class="autorec-menu-options option07">
         <label>{{localize "AUTOANIM.repeat"}} </label>

@@ -52,7 +52,7 @@ async function huntersMark(handler, autoObject) {
     const scale = data.scale || 1
     const finalScale = (canvas.grid.size / 200) * scale
 
-    const playPersist = !checkAnim && data.persist ? true : false;
+    const playPersist = (!checkAnim && data.persist) ? true : false;
     await new Sequence("Automated Animations")
         .effect()
             .file(hmPulse)
