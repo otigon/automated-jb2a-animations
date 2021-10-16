@@ -35,21 +35,24 @@ export async function shieldSpell(handler, autoObject) {
     }
     const data = {};
     if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
+        const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject);
-        data.itemName = data.animation || "";
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
+        data.animation = data.animation || "";
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+        data.persistent =  autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
+        data.endeffect = autoOverridden ? handler.autoOverride?.endEffect : data.endeffect;
     } else {
-        data.itemName = handler.convertedName;
-        data.color = handler.color || "blue";
-        data.scale = handler.scale || 1;
-        data.below = handler.animLevel;
-        data.addCTA = handler.options?.addCTA;
-        data.endeffect = handler.options.shieldVar || "outro_fade";
-        data.variant = handler.spellVariant || "01";
+        data.animation = handler.animation;
+        data.color = handler.color ?? "blue";
+        data.scale = handler.scale ?? 1;
+        data.below = handler.below;
+        data.persistent = handler.persistent ?? false;
+        data.endeffect = handler.options.shieldVar ?? "outro_fade";
+        data.variant = handler.variant ?? "01";
     }
+
     const sourceToken = handler.actorToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
     // builds Source Token file if Enabled, and pulls from flags if already set
@@ -76,6 +79,18 @@ export async function shieldSpell(handler, autoObject) {
                     .gridSize(gridSize)
                     .atLocation(sourceToken)
                     .belowTokens(data.below)
+                    .playIf(!data.persistent)
+                    .fadeIn(300)
+                    .fadeOut(300)
+                    .waitUntilFinished(-500)
+                .effect()
+                    .file(onToken.file02)
+                    .scale(scale)
+                    .gridSize(gridSize)
+                    .attachTo(sourceToken)
+                    .belowTokens(data.below)
+                    .playIf(data.persistent)
+                    .persist()
                     .fadeIn(300)
                     .fadeOut(300)
                     .waitUntilFinished(-500)

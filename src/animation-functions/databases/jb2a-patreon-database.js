@@ -258,6 +258,13 @@ JB2APATREONDB.range = {
                 '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Physical_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Physical_90ft_4000x400.webm`]
             },
+            white: {
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_White_Physical_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_White_Physical_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_White_Physical_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_White_Physical_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_White_Physical_90ft_4000x400.webm`]
+            },
         },
         'poison': {
             blue: {
@@ -542,7 +549,7 @@ JB2APATREONDB.range = {
                 '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_90ft_Primary_4000x400.webm`]
             }
         },
-        secondary: {
+        '02': {
             darkpurple: {
                 '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_05ft_Secondary_600x400.webm`],
                 '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_15ft_Secondary_1000x400.webm`],
@@ -1812,12 +1819,12 @@ JB2APATREONDB.melee = {
                 lg`Weapon_Attacks/Melee/Halberd01_06_Regular_White_800x600.webm`
             ],
             blue: [
-                lg`Melee/Halberd01_01_Regular_Blue_800x600.webm`,
-                lg`Melee/Halberd01_02_Regular_Blue_800x600.webm`,
-                lg`Melee/Halberd01_03_Regular_Blue_800x600.webm`,
-                lg`Melee/Halberd01_04_Regular_Blue_800x600.webm`,
-                lg`Melee/Halberd01_05_Regular_Blue_800x600.webm`,
-                lg`Melee/Halberd01_06_Regular_Blue_800x600.webm`
+                lg`Weapon_Attacks/Melee/Halberd01_01_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_02_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_03_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_04_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_05_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Halberd01_06_Regular_Blue_800x600.webm`
             ],
             orange: [
                 lg`Weapon_Attacks/Melee/Halberd01_01_Regular_Orange_800x600.webm`,
@@ -1903,12 +1910,12 @@ JB2APATREONDB.melee = {
                 lg`Weapon_Attacks/Melee/Quarterstaff01_06_Regular_White_800x600.webm`
             ],
             blue: [
-                lg`Melee/Quarterstaff01_01_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff01_02_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff01_03_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff01_04_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff01_05_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff01_06_Regular_Blue_800x600.webm`
+                lg`Weapon_Attacks/Melee/Quarterstaff01_01_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff01_02_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff01_03_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff01_04_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff01_05_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff01_06_Regular_Blue_800x600.webm`
             ],
             orange: [
                 lg`Weapon_Attacks/Melee/Quarterstaff01_01_Regular_Orange_800x600.webm`,
@@ -1945,12 +1952,12 @@ JB2APATREONDB.melee = {
                 lg`Weapon_Attacks/Melee/Quarterstaff02_06_Regular_White_800x600.webm`
             ],
             blue: [
-                lg`Melee/Quarterstaff02_01_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff02_02_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff02_03_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff02_04_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff02_05_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff02_06_Regular_Blue_800x600.webm`
+                lg`Weapon_Attacks/Melee/Quarterstaff02_01_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff02_02_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff02_03_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff02_04_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff02_05_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff02_06_Regular_Blue_800x600.webm`
             ],
             orange: [
                 lg`Weapon_Attacks/Melee/Quarterstaff02_01_Regular_Orange_800x600.webm`,
@@ -1987,12 +1994,12 @@ JB2APATREONDB.melee = {
                 lg`Weapon_Attacks/Melee/Quarterstaff03_06_Regular_White_800x600.webm`
             ],
             blue: [
-                lg`Melee/Quarterstaff03_01_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff03_02_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff03_03_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff03_04_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff03_05_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff03_06_Regular_Blue_800x600.webm`
+                lg`Weapon_Attacks/Melee/Quarterstaff03_01_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff03_02_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff03_03_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff03_04_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff03_05_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff03_06_Regular_Blue_800x600.webm`
             ],
             orange: [
                 lg`Weapon_Attacks/Melee/Quarterstaff03_01_Regular_Orange_800x600.webm`,
@@ -2029,12 +2036,12 @@ JB2APATREONDB.melee = {
                 lg`Weapon_Attacks/Melee/Quarterstaff04_06_Regular_White_800x600.webm`
             ],
             blue: [
-                lg`Melee/Quarterstaff04_01_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff04_02_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff04_03_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff04_04_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff04_05_Regular_Blue_800x600.webm`,
-                lg`Melee/Quarterstaff04_06_Regular_Blue_800x600.webm`
+                lg`Weapon_Attacks/Melee/Quarterstaff04_01_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff04_02_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff04_03_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff04_04_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff04_05_Regular_Blue_800x600.webm`,
+                lg`Weapon_Attacks/Melee/Quarterstaff04_06_Regular_Blue_800x600.webm`
             ],
             orange: [
                 lg`Weapon_Attacks/Melee/Quarterstaff04_01_Regular_Orange_800x600.webm`,
@@ -2400,6 +2407,20 @@ JB2APATREONDB.static = {
             white: [lg`Impact/BoulderImpact_01_Regular_White_500x500.webm`]
         }
     },
+    burninghands: {
+        '01': {
+            blue: [l1`Burning_Hands/BurningHands_01_Regular_Blue_600x600.webm`],
+            green: [l1`Burning_Hands/BurningHands_01_Regular_Green_600x600.webm`],
+            orange: [l1`Burning_Hands/BurningHands_01_Regular_Orange_600x600.webm`],
+            purple: [l1`Burning_Hands/BurningHands_01_Regular_Purple_600x600.webm`],
+        },
+        '02': {
+            blue: [l1`Burning_Hands/BurningHands_02_Regular_Blue_600x600.webm`],
+            green: [l1`Burning_Hands/BurningHands_02_Regular_Green_600x600.webm`],
+            orange: [l1`Burning_Hands/BurningHands_02_Regular_Orange_600x600.webm`],
+            purple: [l1`Burning_Hands/BurningHands_02_Regular_Purple_600x600.webm`],
+        },
+    },
     calllightning: {
         '01': {
             blue: [l3`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`],
@@ -2409,115 +2430,6 @@ JB2APATREONDB.static = {
             purple: [l3`Call_Lightning/CallLightning_01_Purple_1000x1000.webm`],
             red: [l3`Call_Lightning/CallLightning_01_Red_1000x1000.webm`],
             yellow: [l3`Call_Lightning/CallLightning_01_Yellow_1000x1000.webm`]
-        }
-    },
-    circle: {
-        'ex01': {
-            blue: [lg`Explosion/Explosion_01_Blue_400x400.webm`],
-            green: [lg`Explosion/Explosion_01_Green_400x400.webm`],
-            orange: [lg`Explosion/Explosion_01_Orange_400x400.webm`],
-            purple: [lg`Explosion/Explosion_01_Purple_400x400.webm`],
-            yellow: [lg`Explosion/Explosion_01_Yellow_400x400.webm`]
-        },
-        'ex02': {
-            blue: [lg`Explosion/Explosion_02_Blue_400x400.webm`],
-            green: [lg`Explosion/Explosion_02_Green_400x400.webm`],
-            orange: [lg`Explosion/Explosion_02_Orange_400x400.webm`],
-            purple: [lg`Explosion/Explosion_02_Purple_400x400.webm`],
-            yellow: [lg`Explosion/Explosion_02_Yellow_400x400.webm`]
-        },
-        'ex03': {
-            yellowblue: [lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`],
-            greenorange: [lg`Explosion/Explosion_03_Regular_GreenOrange_400x400.webm`],
-            purplepink: [lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`],
-            whiteblue: [lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`],
-            pink: [lg`Explosion/Explosion_03_Regular_Pink_400x400.webm`],
-        },
-        'ex04': {
-            darkpurple: [lg`Explosion/Explosion_04_Dark_Purple_400x400.webm`],
-            darkred: [lg`Explosion/Explosion_04_Dark_Red_400x400.webm`],
-            blue: [lg`Explosion/Explosion_04_Regular_Blue_400x400.webm`],
-            green: [lg`Explosion/Explosion_04_Regular_Green_400x400.webm`],
-            orange: [lg`Explosion/Explosion_04_Regular_Orange_400x400.webm`],
-        },
-        'snowflake': {
-            whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
-            greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
-            purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
-            tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],
-        },
-        'outpulse01': {
-            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
-            greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
-            purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
-            tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
-        },
-        'outpulse02': {
-            whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
-            greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
-            purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
-            tealyellow: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm`],
-        },
-        'shatter': {
-            purple: [l2`Shatter/Shatter_01_Purple_400x400.webm`],
-            red: [l2`Shatter/Shatter_01_Red_400x400.webm`],
-            blue: [l2`Shatter/Shatter_01_Blue_400x400.webm`],
-            green: [l2`Shatter/Shatter_01_Green_400x400.webm`],
-            orange: [l2`Shatter/Shatter_01_Orange_400x400.webm`]
-        },
-        'fogcloud': {
-            white: [l1`Fog_Cloud/FogCloud_01_White_800x800.webm`],
-        },
-        'darkness': {
-            black: [l2`Darkness/Darkness_01_Black_600x600.webm`],
-            green: [l2`Darkness/Darkness_01_Green_600x600.webm`]
-        },
-        'calllightning': {
-            blue: [l3`Call_Lightning/Opacities/CallLightning_01_Blue_75OPA_1000x1000.webm`],
-            blueorange: [l3`Call_Lightning/Opacities/CallLightning_01_BlueOrange_75OPA_1000x1000.webm`],
-            green: [l3`Call_Lightning/Opacities/CallLightning_01_Green_75OPA_1000x1000.webm`],
-            pinkyellow: [l3`Call_Lightning/Opacities/CallLightning_01_PinkYellow_75OPA_1000x1000.webm`],
-            purple: [l3`Call_Lightning/Opacities/CallLightning_01_Purple_75OPA_1000x1000.webm`],
-            red: [l3`Call_Lightning/Opacities/CallLightning_01_Red_75OPA_1000x1000.webm`],
-            yellow: [l3`Call_Lightning/Opacities/CallLightning_01_Yellow_75OPA_1000x1000.webm`]
-        },
-        sleep01: {
-            darkorangepurple: [l1`Sleep/Cloud01_01_Dark_OrangePurple_400x400.webm`],
-            darkpurple: [l1`Sleep/Cloud01_01_Dark_Purple_400x400.webm`],
-            green: [l1`Sleep/Cloud01_01_Regular_Green_400x400.webm`],
-            pink: [l1`Sleep/Cloud01_01_Regular_Pink_400x400.webm`],
-        },
-        sleep02: {
-            darkorangepurple: [l1`Sleep/Cloud01_02_Dark_OrangePurple_400x400.webm`],
-            darkpurple: [l1`Sleep/Cloud01_02_Dark_Purple_400x400.webm`],
-            green: [l1`Sleep/Cloud01_02_Regular_Green_400x400.webm`],
-            pink: [l1`Sleep/Cloud01_02_Regular_Pink_400x400.webm`],
-        },
-        'sleetstorm': {
-            blue: [l3`Sleet_Storm/SleetStorm_01_Blue_800x800.webm`],
-            green: [l3`Sleet_Storm/SleetStorm_01_Green_800x800.webm`],
-            purple: [l3`Sleet_Storm/SleetStorm_01_Purple_800x800.webm`],
-            tealyellow: [l3`Sleet_Storm/SleetStorm_01_TealYellow_800x800.webm`]
-        },
-        'cloudofdaggers': {
-            darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Purple_400x400.webm`],
-            darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Red_400x400.webm`],
-            blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Blue_400x400.webm`],
-            green: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Green_400x400.webm`],
-            orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Orange_400x400.webm`],
-            purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Purple_400x400.webm`],
-            red: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Red_400x400.webm`],
-            yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Yellow_400x400.webm`]
-        },
-        'cloudofkunais': {
-            darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Purple_400x400.webm`],
-            darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Red_400x400.webm`],
-            blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Blue_400x400.webm`],
-            green: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Green_400x400.webm`],
-            orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Orange_400x400.webm`],
-            purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Purple_400x400.webm`],
-            red: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Red_400x400.webm`],
-            yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Yellow_400x400.webm`]
         }
     },
     cloudofdaggers: {
@@ -2531,7 +2443,7 @@ JB2APATREONDB.static = {
             red: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Red_400x400.webm`],
             yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Yellow_400x400.webm`]
         },
-        'kunai': {
+        kunai: {
             darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Purple_400x400.webm`],
             darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Red_400x400.webm`],
             blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Blue_400x400.webm`],
@@ -2542,61 +2454,13 @@ JB2APATREONDB.static = {
             yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Yellow_400x400.webm`]
         },
     },
-    cloudofkunais: {
+    coneofcold: {
         '01': {
-            darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Purple_400x400.webm`],
-            darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Red_400x400.webm`],
-            blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Blue_400x400.webm`],
-            green: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Green_400x400.webm`],
-            orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Orange_400x400.webm`],
-            purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Purple_400x400.webm`],
-            red: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Red_400x400.webm`],
-            yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Yellow_400x400.webm`]
-        }
-    },
-    cone: {
-        'cold': {
-            blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
-            green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
-            orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
-            purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
-        },
-        'coneofcold': {
             blue: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Blue_600x600.webm`],
             green: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Green_600x600.webm`],
             orange: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Orange_600x600.webm`],
             purple: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Purple_600x600.webm`],
         },
-        'fire01': {
-            blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
-            green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
-            orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
-            purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
-        },
-        'fire02': {
-            blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
-            green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Green_30ft_Cone_Burst_600x600.webm`],
-            orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
-            purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
-        },
-        'burninghands01': {
-            blue: [l1`Burning_Hands/BurningHands_01_Regular_Blue_600x600.webm`],
-            green: [l1`Burning_Hands/BurningHands_01_Regular_Green_600x600.webm`],
-            orange: [l1`Burning_Hands/BurningHands_01_Regular_Orange_600x600.webm`],
-            purple: [l1`Burning_Hands/BurningHands_01_Regular_Purple_600x600.webm`],
-        },
-        'burninghands02': {
-            blue: [l1`Burning_Hands/BurningHands_02_Regular_Blue_600x600.webm`],
-            green: [l1`Burning_Hands/BurningHands_02_Regular_Green_600x600.webm`],
-            orange: [l1`Burning_Hands/BurningHands_02_Regular_Orange_600x600.webm`],
-            purple: [l1`Burning_Hands/BurningHands_02_Regular_Purple_600x600.webm`],
-        },
-        'poison': {
-            blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
-            green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
-            orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
-            purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
-        }
     },
     bite: {
         '01': {
@@ -2636,7 +2500,7 @@ JB2APATREONDB.static = {
         }
     },
     divinesmite: {
-        'caster': {
+        'source': {
             yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
             greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm`],
             purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm`],
@@ -2720,7 +2584,7 @@ JB2APATREONDB.static = {
         },
         '02': {
             white: [l1`Fog_Cloud/FogCloud_02_Regular_White_800x800.webm`],
-            Green: [l1`Fog_Cloud/FogCloud_02_Regular_Green_800x800.webm`]
+            green: [l1`Fog_Cloud/FogCloud_02_Regular_Green_800x800.webm`]
         },
     },
     generichealing: {
@@ -2844,6 +2708,14 @@ JB2APATREONDB.static = {
             purple: [lg`Lightning/LightningBall_01_Regular_Purple_400x400.webm`]
         }
     },
+    gustofwind: {
+        slow: {
+            white: [l2`Gust_Of_Wind/GustOfWind_01_White_1200x200.webm`]
+        },
+        fast: {
+            white: [l2`Gust_Of_Wind/GustOfWind_01_White_VeryFast_1200x200.webm`]
+        },
+    },
     magicSign: {
         '01': {
             blue: [lg`Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm`],
@@ -2958,76 +2830,98 @@ JB2APATREONDB.static = {
             tealyellow: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm`],
         }
     },
-    ray: {
-        'acid': {
+    breathweaponline: {
+        acid: {
             blue: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Blue_30ft_Line_Burst_1200x200.webm`],
             green: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Green_30ft_Line_Burst_1200x200.webm`],
             orange: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Orange_30ft_Line_Burst_1200x200.webm`],
             purple: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Purple_30ft_Line_Burst_1200x200.webm`],
         },
-        'fire': {
+        fire: {
             blue: [lg`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Blue_30ft_Line_Burst_1200x200.webm`],
             green: [lg`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Green_30ft_Line_Burst_1200x200.webm`],
             orange: [lg`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Line_Burst_1200x200.webm`],
             purple: [lg`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Purple_30ft_Line_Burst_1200x200.webm`],
         },
-        'lightning': {
+        lightning: {
             blue: [lg`Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Blue_30ft_Line_Burst_1200x200.webm`],
             green: [lg`Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Green_30ft_Line_Burst_1200x200.webm`],
             orange: [lg`Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Orange_30ft_Line_Burst_1200x200.webm`],
             purple: [lg`Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Purple_30ft_Line_Burst_1200x200.webm`],
         },
-        'lightningbolt01': {
+
+    },
+    breathweaponcone: {
+        'cold': {
+            blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
+            green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
+            orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
+            purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
+        },
+        'fire01': {
+            blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
+            green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
+            orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
+            purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
+        },
+        'fire02': {
+            blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
+            green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Green_30ft_Cone_Burst_600x600.webm`],
+            orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
+            purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
+        },
+        'poison': {
+            blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
+            green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
+            orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
+            purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
+        },
+    },
+    lightningbolt: {
+        '01': {
             darkblue: [l3`Lightning_Bolt/LightningBolt_01_Dark_Blue_4000x200.webm`],
             blue: [l3`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x200.webm`],
             green: [l3`Lightning_Bolt/LightningBolt_01_Regular_Green_4000x200.webm`],
             purple: [l3`Lightning_Bolt/LightningBolt_01_Regular_Purple_4000x200.webm`]
         },
-        'lightningbolt02': {
+        '02': {
             darkblue: [l3`Lightning_Bolt/LightningBolt_01_Dark_Blue_4000x400.webm`],
             blue: [l3`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x400.webm`],
             green: [l3`Lightning_Bolt/LightningBolt_01_Regular_Green_4000x400.webm`],
             purple: [l3`Lightning_Bolt/LightningBolt_01_Regular_Purple_4000x400.webm`]
         }
     },
-    rect: {
-        entangle: {
+    entangle: {
+        '01': {
             brown: [l1`Entangle/Entangle_01_Brown_400x400.webm`],
             green: [l1`Entangle/Entangle_01_Green_400x400.webm`],
             yellow: [l1`Entangle/Entangle_01_Yellow_400x400.webm`],
             darkpurple: [l1`Entangle/Entangle_01_Dark_Purple_400x400.webm`],
             palegreen: [l1`Entangle/Entangle_01_Regular_Green02_400x400.webm`]
-        },
-        thunderwave: {
-            green: {
-                'left': [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`]
-            },
-            orange: {
-                'left': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`]
-            },
-            purple: {
-                'left': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
-            },
-            red: {
-                'left': [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
-            },
-            blue: {
-                'left': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
-                'mid': [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
-                'center': [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`]
-            }
-        },
-        web: {
-            white: [l2`Web/Opacities/Web_01_White_02_75OPA_400x400.webm`]
         }
+    },
+    thunderwave: {
+        left: {
+            blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
+            green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
+            orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
+            purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
+            red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
+        },
+        mid: {
+            blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
+            green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
+            orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
+            purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
+            red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
+        },
+        center: {
+            blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
+            green: [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`],
+            orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`],
+            purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
+            red: [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
+        },
     },
     shatter: {
         '01': {
@@ -3191,15 +3085,6 @@ JB2APATREONDB.static = {
             purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`]
         }
     },
-    thunderwave: {
-        '01': {
-            green: [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`],
-            orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`],
-            purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
-            red: [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
-            blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
-        }
-    },
     tollthedead: {
         bell: {
             blue: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Blue_400x400.webm`],
@@ -3252,6 +3137,14 @@ JB2APATREONDB.static = {
             purple: [l5`Wall_Of_Force/WallOfForce_01_Purple_Sphere_400x400.webm`],
             red: [l5`Wall_Of_Force/WallOfForce_01_Red_Sphere_400x400.webm`],
             yellow: [l5`Wall_Of_Force/WallOfForce_01_Yellow_Sphere_400x400.webm`]
+        }
+    },
+    web: {
+        '01': {
+            white: [l2`Web/Web_01_White_01_400x400.webm`]
+        },
+        '02': {
+            white: [l2`Web/Web_01_White_02_400x400.webm`]
         }
     },
     whirl: {

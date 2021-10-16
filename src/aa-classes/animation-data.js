@@ -2,12 +2,41 @@ import { buildFile } from "../animation-functions/file-builder/build-filepath.js
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js";
 export class AAanimationData {
 
+    static _primaryData(handler, autoObject) {
+        const data = {};
+        if (autoObject) {
+            const autoOverridden = handler.autoOverride?.enable
+            Object.assign(data, autoObject);
+            data.animation = data.animation || "";
+            data.customPath = data.custom ? data.customPath : false;
+            data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+            data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
+            data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
+            data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+            data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+            data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
+        } else {
+            data.animation = handler.animation;
+            data.variant = handler.variant ?? "01";
+            data.color = handler.color;
+            data.customPath = handler.enableCustom ? handler.customPath : false;
+            data.switchType = handler.meleeSwitch?.switchType ?? "on";
+            data.repeat = handler.repeat;
+            data.delay = handler.delay
+            data.scale = handler.scale;
+            data.below = handler.below;
+            data.type = handler.options?.staticType ?? "targetDefault";
+            data.persistent = handler.persistent;
+        }
+        return data;
+    }
+    /*
     static _meleeData(handler, autoObject) {
         const data = {};
         if (autoObject) {
             const autoOverridden = handler.options?.overrideAuto
             Object.assign(data, autoObject);
-            data.itemName = data.animation || "";
+            data.animation = data.animation || "";
             data.customPath = data.custom ? data.customPath : false;
             data.color = autoOverridden ? handler.options?.autoColor : data.color;
             data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
@@ -15,104 +44,117 @@ export class AAanimationData {
             data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
             data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
         } else {
-            data.itemName = handler.convertedName;
-            data.variant = handler.uaStrikeType || "01";
-            data.customPath = handler.enableCustom01 ? handler.custom01 : false;
+            data.animation = handler.animation;
+            data.variant = handler.variant || "01";
             data.color = handler.color;
-            data.switchType = handler.switchType;
-            data.detect = handler.switchDetect;
-            data.repeat = handler.animationLoops;
-            data.delay = handler.loopDelay;
+            data.customPath = handler.enableCustom ? handler.customPath : false;
+            data.switchType = handler.meleeSwitch.switchType || "on";
+            data.repeat = handler.repeat;
+            data.delay = handler.delay
             data.scale = handler.scale;
+            data.below = handler.below;
         }
         return data;
     }
-
+    
     static _rangeData(handler, autoObject) {
         const data = {}
         if (autoObject) {
             const autoOverridden = handler.options?.overrideAuto
             Object.assign(data, autoObject)
-            data.itemName = data.animation;
+            data.animation = data.animation;
             data.color = autoOverridden ? handler.options?.autoColor : data.color;
             data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
             data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
         } else {
-            data.itemName = handler.convertedName;
-            if (data.itemName === "arrow") { data.dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-                data.dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
-            }
-            let dmgType;
-            if (data.itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-                dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
-            }
-            const variant = AAITEMCHECK.spellattack.some(el => data.itemName.includes(el)) ? handler.spellVariant : dmgType;
-            data.variant = data.itemName === "rangelasersword" || data.itemName === "rangedagger" || data.itemName === "rangehandaxe" || data.itemName === "chakram" ? handler.dtvar : variant;
+            data.animation = handler.animation;
+            
+            //if (data.itemName === "arrow") { data.dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
+                //data.dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
+            //}
+            //let dmgType;
+            //if (data.itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
+                //dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
+            //}
+            
+            //const variant = AAITEMCHECK.spellattack.some(el => data.itemName.includes(el)) ? handler.spellVariant : dmgType;
+            data.variant = handler.variant;
             data.color = handler.color;
-            data.repeat = handler.animationLoops;
-            data.delay = handler.loopDelay;
-            data.below = handler.animLevel;
+            data.repeat = handler.repeat;
+            data.delay = handler.delay;
+            data.below = handler.below;
         }
         return data;
     }
-
+    */
     static _switchData(handler, autoObject) {
+        const meleeSwitch = handler.meleeSwitch;
         const data = {};
         if (autoObject) {
-            const autoOverridden = handler.options?.overrideAuto
+            const autoOverridden = handler.autoOverride?.enable
             Object.assign(data, autoObject);
             data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
             data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
-            data.color = autoOverridden ? handler.options?.autoColor : data.color;
-            data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-            data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+            data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+            data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
+            data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
         } else {
-            data.switchAnimation = handler.switchName || handler.convertedName;
-            data.customPath = handler.enableCustom01 ? handler.custom01 : false;
-            data.switchColor = handler.switchColor;
-            data.switchType = handler.switchType;
-            data.detect = handler.switchDetect;
-            data.repeat = handler.animationLoops;
-            data.delay = handler.loopDelay;
-            data.return = handler.switchReturn;
-            data.below = handler.animLevel;
-            data.switchVariant = data.switchAnimation === "lasersword" || data.switchAnimation === "dagger" || data.switchAnimation === "handaxe" ? handler.switchVariant : handler.switchDmgType;
+            data.switchAnimation = meleeSwitch.switchType === 'custom' ? meleeSwitch.animation : handler.animation;
+            if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
+            data.switchColor = meleeSwitch.color || "white";
+            data.switchType = meleeSwitch.switchType ?? "on";
+            data.detect = meleeSwitch.detect ?? "auto";
+            data.repeat = handler.repeat;
+            data.delay = handler.delay;
+            data.return = meleeSwitch.returning;
+            data.below = handler.below;
+            data.switchVariant = meleeSwitch.variant ?? "";
+            data.range = meleeSwitch.range ?? 2;
         }
         return data;
     }
-
+    /*
     static _staticData(handler, autoObject) {
         const data = {}
         if (autoObject) {
             const autoOverridden = handler.options?.overrideAuto
             Object.assign(data, autoObject)
-            data.itemName = data.animation || "";
+            data.animation = data.animation || "";
             data.customPath = data.custom ? data.customPath : false;
             data.color = autoOverridden ? handler.options?.autoColor : data.color;
             data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
             data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
             data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
         } else {
-            data.itemName = handler.convertedName;
-            data.variant = handler.spellVariant;
+            data.animation = handler.animation;
+            data.variant = handler.options?.variant;
             data.color = handler.color;
-            data.repeat = handler.animationLoops;
-            data.delay = handler.loopDelay;
-            data.customPath = handler.enableCustom01 ? handler.custom01 : false;
-            data.below = handler.animLevel;
+            data.repeat = handler.repeat;
+            data.delay = handler.delay;
+            data.customPath = handler.enableCustom ? handler.customPath : false;
+            data.below = handler.below;
             data.scale = handler.scale;
+            data.type = handler.staticType;
         }
         return data;
     }
-
+    */
     static async _explosionData(handler) {
+        const explosions = handler.explosion;
         const explosion = {
-            enabled: handler.explosion || false,
-            customExplosionPath: handler.customExplode ? handler.customExplosionPath : false,
-            delay: handler.explosionDelay || 1,
-            below: handler.explosionLevel || false,
+            enabled: explosions.enable || false,
+            animation: explosions.animation ?? "",
+            variant: explosions.variant ?? "",
+            color: explosions.color ?? "",
+            delay: explosions.delay ?? 1,
+            radius: explosions.radius ?? 1.5,
+            enableCustom: explosions.enableCustom,
+            customPath: explosions.enableCustom ? explosions.customPath : false,
+            below: explosions.below || false,
         };
-        explosion.data = explosion.enabled ? await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath) : "";
+        explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
+        explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
+
         return explosion;
     }
 
@@ -140,9 +182,10 @@ export class AAanimationData {
             color: source.color,
             variant: source.variant,
         }
-        if ((!sourceFX.animation || sourceFX.animation === "a1") && sourceFX.enabled) {
+
+        if (source.enable && source.name === "a1" && !source.enableCustom) {
             sourceFX.enabled = false;
-            console.warn("AUTOMATED ANIMATIONS || TokenFX Source Animation is enabled on this item but NO Animation is chosen!");
+            console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
 
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
@@ -176,12 +219,13 @@ export class AAanimationData {
             color: target.color,
             variant: target.variant,
         }
-        if ((!targetFX.animation || targetFX.animation === "a1")  && targetFX.enabled) {
+
+        if (target.enable && target.name === "a1" && !target.enableCustom) {
             targetFX.enabled = false;
-            console.warn("AUTOMATED ANIMATIONS || TokenFX Target Animation is enabled on this item but NO Animation is chosen!");
+            console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
         targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : "";
-        
+        /*
         targetFX.targetSeq = new Sequence();
         targetFX.targetSeq.effect()
             .delay(targetFX.startDelay)
@@ -192,12 +236,21 @@ export class AAanimationData {
             .belowTokens(targetFX.below)
             .gridSize(canvas.grid.size)
             .playIf(targetFX.enabled)
-
+        */
         return targetFX
     }
 
-    static _targetSequence(targetFX, target) {
-        targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata.width : 1;
+    static _targetSequence(targetFX, target, handler) {
+        let hit;
+        if (handler.playOnMiss) {
+            hit = handler.hitTargetsId.includes(target.id) ? true : false;
+        } else {
+            hit = true;
+        }
+
+        const playNow = (targetFX.enabled && hit) ? true : false;
+
+        targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
         targetFX.targetSeq.effect()
             .delay(targetFX.startDelay)
@@ -207,13 +260,13 @@ export class AAanimationData {
             .repeats(targetFX.repeat, targetFX.delay)
             .belowTokens(targetFX.below)
             .gridSize(canvas.grid.size)
-            .playIf(targetFX.enabled)
+            .playIf(playNow)
 
         return targetFX;
     }
 
     static async _variant(handler) {
-        
+
     }
 
     static removePersistentEffect(token, effectName, sceneID) {
@@ -237,5 +290,19 @@ export class AAanimationData {
         );
         d.options.resizable = true;
         d.render(true)
+    }
+
+    static howToDelete(type) {
+        switch (type) {
+            case 'overheadtile':
+                ui.notifications.warn("This is an OVERHEAD Tile. Use the Tile Foreground Layer to remove the Animation")
+                break;
+            case 'groundtile':
+                ui.notifications.warn("This is an GROUND Tile. Use the Tile Layer to remove the Animation")
+                break;
+            case 'sequencerground':
+                ui.notifications.warn("This is SEQUENCER Persistent Effect. Use the Sequencer Effect Manager to remove the Animation")
+                break
+        }
     }
 }

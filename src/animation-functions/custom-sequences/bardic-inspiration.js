@@ -10,19 +10,20 @@ async function bardicInspiration(handler, autoObject) {
     if (autoObject) {
         //const autoOverridden = handler.options?.overrideAuto
         Object.assign(data, autoObject);
-        data.itemName = data.animation || "";
+        data.animation = data.animation || "";
 
     } else {
-        data.itemName = handler.convertedName;
-        data.selfColor = handler.bards.bardSelfColor;
-        data.targetColor = handler.bards.bardTargetColor;
-        data.selfMarkerColor = handler.bards.markerColor;
-        data.targetMarkerColor = handler.bards.markerColorTarget;
-        data.animateSelf = handler.bards.bardSelf;
-        data.animateTarget = handler.bards.bardTarget;
-        data.marker = handler.bards.marker;
-        data.selfAnimation = handler.bardAnim;
-        data.targetAnimation = handler.bards.bardTargetAnim;
+        const bards = handler.bards;
+        data.animation = handler.convertedName;
+        data.selfColor = bards.bardSelfColor;
+        data.targetColor = bards.bardTargetColor;
+        data.selfMarkerColor = bards.markerColor;
+        data.targetMarkerColor = bards.markerColorTarget;
+        data.animateSelf = bards.bardSelf;
+        data.animateTarget = bards.bardTarget;
+        data.marker = bards.marker;
+        data.selfAnimation = bards.bardAnim;
+        data.targetAnimation = bards.bardTargetAnim;
     }
     const gridSize = canvas.grid.size;
 

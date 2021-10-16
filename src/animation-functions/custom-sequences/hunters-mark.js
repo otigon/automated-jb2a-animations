@@ -5,7 +5,7 @@ import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function huntersMark(handler) {
+async function huntersMark(handler, autoObject) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
@@ -13,31 +13,50 @@ async function huntersMark(handler) {
 
     let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    let myToken = handler.actorToken;
+    const data = {};
+    if (autoObject) {
+        const autoOverridden = handler.autoOverride?.enable
+        Object.assign(data, autoObject);
+        data.animation = data.animation || "";
+        data.variant = data.variant ?? "paw";
+        data.scale = data.scale ?? 1;
+        data.anchorX = data.anchorX ?? 0.5;
+        data.anchorY = data.anchorY ?? 0.7;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+        data.anchorX = autoOverridden ? handler.autoOverride?.anchorX : data.anchorX;
+        data.anchorY = autoOverridden ? handler.autoOverride?.anchorY : data.anchorY;
+        data.persist = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
+    } else {
+        data.animation = handler.animation;
+        data.variant = handler.variant ?? "paw";
+        data.color = handler.color;
+        data.scale = handler.scale;
+        data.below = false;
+        data.anchorX = handler.anchorX;
+        data.anchorY = handler.anchorY;
+        data.persist = handler.persistent;
+    }
+
+    const sourceToken = handler.actorToken;
     let target = handler.allTargets[0];
 
-    let animLoop = handler.hmAnim + "loop";
-    let hmPulse = handler.color === 'random' ? `autoanimations.static.huntersmark.${handler.hmAnim}` : `autoanimations.static.huntersmark.${handler.hmAnim}.${handler.color}`;
-    function random_item(items) {
-        return items[Math.floor(Math.random() * items.length)];
-    }
-    let ctaColor = handler.color === "random" ? random_item(Object.keys(aaColorMenu.static.huntersmark[animLoop])) : handler.color;
-    let hmLoop = jb2a.static.huntersmark[animLoop][ctaColor];
-    //const checkAnim = AAanimationData._checkForPersistent(target);
-    const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "huntersmark" }).length > 0
-    //console.log(checkAnim)
-    //checkAnim =  checkAnim.length > 0 ? true : false
-    const scale = handler.options?.scale || 1
-    const finalScale = (canvas.grid.size / 200) * scale
-    const anchorX = handler.flags?.options?.anchorX || 1;
-    const anchorY = handler.flags?.options?.anchorY || 1;
-    const persist = handler.flags?.ctaOption;
+    const animLoop = data.variant + "loop";
+    let hmPulse = data.color === 'random' ? `autoanimations.static.huntersmark.${data.variant}` : `autoanimations.static.huntersmark.${data.variant}.${data.color}`;
 
-    const playPersist = !checkAnim && persist ? true : false;
+    let hmLoop = data.color === 'random' ? `autoanimations.static.huntersmark.${animLoop}` : `autoanimations.static.huntersmark.${animLoop}.${data.color}`
+
+    const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "huntersmark" }).length > 0
+
+    const scale = data.scale || 1
+    const finalScale = (canvas.grid.size / 200) * scale
+
+    const playPersist = (!checkAnim && data.persist) ? true : false;
     await new Sequence("Automated Animations")
         .effect()
             .file(hmPulse)
-            .atLocation(myToken)
+            .atLocation(sourceToken)
         .effect()
             .file(hmPulse)
             .atLocation(target)
@@ -45,7 +64,7 @@ async function huntersMark(handler) {
         .effect()
             .file(hmLoop)
             .attachTo(target)
-            .anchor({ x: anchorX, y: anchorY })
+            .anchor({ x: data.anchorX, y: data.anchorY })
             .playIf(playPersist)
             .scale(finalScale)
             .gridSize(canvas.grid.size)
@@ -59,6 +78,7 @@ async function huntersMark(handler) {
             .loopProperty("sprite", "alpha", { from: 0.25, to: 1, duration: 4000, pingPong: true })
         .play()
         //AAanimationData.removePersistentEffect(target, "huntersmark", canvas.scene.id)
+        if (playPersist) { AAanimationData.howToDelete("sequencerground") }
 }
 
 export default huntersMark;

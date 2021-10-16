@@ -16,6 +16,8 @@ export class AutorecFunctions {
         catch (exception) { return nameArray }
         const arrayLength = Object.keys(obj[type]).length
         for (var i = 0; i < arrayLength; i++) {
+            if (!obj[type][i].name) { continue }
+
             nameArray.push(obj[type][i].name.toLowerCase())
         }
         return nameArray;
@@ -93,6 +95,8 @@ export class AutorecFunctions {
             var arrayLength = Object.keys(obj[keys[i]]).length
             var currentObject = obj[keys[i]]
             for (var k = 0; k < arrayLength; k++) {
+                if (!currentObject[k].name) { continue }
+
                 nameArray.push(currentObject[k].name.toLowerCase())
             }
         }
@@ -158,7 +162,7 @@ export class AutorecFunctions {
             }
         }
         mergedArray.sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
-      
+
         return mergedArray;
     }
 
@@ -227,26 +231,16 @@ export class AutorecFunctions {
 
         let file;
         switch (true) {
-            case data.name === 'magicmissile' || (data.name === "scorchingray" && data.variant === '02'):
-                try { file = jb2a[autorecType][data.name][data.variant][data.color]['15ft'][1] }
-                catch (exception) { }
-                break;
-            case data.name === 'quarterstaff':
-            case data.name === 'halberd':
-            case data.name === 'spear' && data.variant === '01':
-                try { file = jb2a[data.autorecType][data.name][data.variant][data.color][1] }
+            case data.autorecType === 'melee':
+                try { file = jb2a.melee[data.name][data.variant][data.color][0] }
                 catch (exception) { }
                 break;
             case data.autorecType === 'range':
-                try { file = jb2a[data.autorecType][data.name][data.variant][data.color][Object.keys(jb2a[data.autorecType][data.name][data.variant][data.color])[1]] }
-                catch (exception) { }
-                break;
-            case data.autorecSection[1] === 'templates':
-                try { file = jb2a.static[data.autorecObject.type][data.name][data.color] }
+                try { file = jb2a[data.autorecType][data.name][data.variant][data.color][Object.keys(jb2a[data.autorecType][data.name][data.variant][data.color])[1]][0] }
                 catch (exception) { }
                 break;
             default:
-                try { file = jb2a[data.autorecType][data.name][data.variant][data.color] }
+                try { file = jb2a.static[data.name][data.variant][data.color][0] }
                 catch (exception) { }
         }
         return file;

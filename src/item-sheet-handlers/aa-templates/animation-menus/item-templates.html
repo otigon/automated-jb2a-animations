@@ -1,89 +1,133 @@
+<div style='padding:3px'>
+
+</div>
+<div class='flexrow text-green'>
+    <label><strong>{{localize "AUTOANIM.animation"}}</strong></label>
+</div>
+<div class='aa-item-container primary-animation'>
 <!--Choose Template Type-->
-<div class="form-group">
+<div class="option01">
     <label>{{localize "AUTOANIM.templateType"}}</label>
-    <select name="flags.autoanimations.templates.tempType">
-        {{#select flags.autoanimations.templates.tempType}}
-        {{#each templateTypes as |name key|}}
-        <option value="{{key}}">{{name}}</option>
-        {{/each}}
+    <select name="flags.autoanimations.options.tempType">
+        {{#select flags.autoanimations.options.tempType}}
+        <option value="cone">{{localize "AUTOANIM.cone"}}</option>
+        <option value="rect">{{localize "AUTOANIM.square"}}</option>
+        <option value="circle">{{localize "AUTOANIM.circle"}}</option>
+        <option value="ray">{{localize "AUTOANIM.ray"}}</option>
         {{/select}}
     </select>
 </div>
-{{#unless flags.autoanimations.templates.customAnim}}
+{{#unless flags.autoanimations.options.enableCustom}}
 <!--Choose Template Animation-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.menuAnimName"}}</label>
-    <select name="flags.autoanimations.templates.tempAnim">
-        {{#select flags.autoanimations.templates.tempAnim}}
+<div class="option02">
+    <label>{{localize "AUTOANIM.animation"}}</label>
+    <select name="flags.autoanimations.animation">
+        {{#select flags.autoanimations.animation}}
         {{#each templateAnimations as |name key|}}
         <option value="{{key}}">{{name}}</option>
         {{/each}}
         {{/select}}
     </select>
 </div>
-<!--Choose Template Animation Color-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.menuAnimColor"}}</label>
-    <select name="flags.autoanimations.templates.tempColor">
-        {{#select flags.autoanimations.templates.tempColor}}
-        {{#each templateColors as |name key|}}
+{{#ifnoteq flags.autoanimations.animation 'thunderwave'}}
+<!--Choose a Variant-->
+<div class="option03" style="padding: 5px">
+    <label>{{localize "AUTOANIM.variant"}}</label>
+    <select name="flags.autoanimations.options.variant">
+        {{#select flags.autoanimations.options.variant}}
+        {{#each (lookup variantmenu.static (lookup flags.autoanimations 'animation')) as |name key|}}
         <option value="{{key}}">{{name}}</option>
         {{/each}}
         {{/select}}
     </select>
 </div>
-{{/unless}}
-<!--Choose Custom Animation?-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.customAnim"}}</label>
-    <input type="checkbox" name="flags.autoanimations.templates.customAnim"
-        value="flags.autoanimations.templates.customAnim" {{checked flags.autoanimations.templates.customAnim}}>
+{{/ifnoteq}}
+<!--Choose Template Animation Color-->
+<div class="option04">
+    <label>{{localize "AUTOANIM.color"}}</label>
+    <select name="flags.autoanimations.color">
+        {{#select flags.autoanimations.color}}
+        {{#ifEquals flags.autoanimations.animation 'thunderwave'}}
+        {{#each (lookup (lookup colormenu.static flags.autoanimations.animation) 'mid') as |name key|}}
+        <option value="{{key}}">{{name}}</option>
+        {{/each}}
+        {{/ifEquals}}
+        {{#ifnoteq flags.autoanimations.animation 'thunderwave'}}
+        {{#each (lookup (lookup colormenu.static flags.autoanimations.animation) flags.autoanimations.options.variant) as |name key|}}
+        <option value="{{key}}">{{name}}</option>
+        {{/each}}
+        {{/ifnoteq}}
+        {{/select}}
+    </select>
 </div>
-{{#if flags.autoanimations.templates.customAnim}}
+{{/unless}}
+<div class="form-group" style='grid-column: 3 / 5;grid-row: 1 / 2'>
+    <label>{{localize 'AUTOANIM.remove'}}: </label>
+    <input type="checkbox" name="flags.autoanimations.options.removeTemplate"
+        value="flags.autoanimations.options.removeTemplate" {{checked flags.autoanimations.options.removeTemplate}}>
+</div>
+<!--Choose Custom Animation?-->
+<div class="form-group option09">
+    <label>{{localize "AUTOANIM.customAnim"}}</label>
+    <input type="checkbox" name="flags.autoanimations.options.enableCustom"
+        value="flags.autoanimations.options.enableCustom" {{checked flags.autoanimations.options.enableCustom}}>
+</div>
+{{#if flags.autoanimations.options.enableCustom}}
 <!--Custom Animation filePicker and Text field-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.menuAnimName"}}</label>
-    <input type="text" class="files" name="flags.autoanimations.templates.customPath" value={{customTemplatePath}}>
+<div class="form-group" style='grid-column: 2 / 5;grid-row: 3 / 4'>
+    <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath" value="{{lookup flags.autoanimations.options 'customPath'}}">
     <button type="button" class="file-picker" data-type="image/video"
-        data-target="flags.autoanimations.templates.customPath" tabindex="-1" title="Browse Files">
+        data-target="flags.autoanimations.options.customPath" tabindex="-1" title="Browse Files">
         <i class="fas fa-file-video"></i>
     </button>
 </div>
 {{/if}}
-<div class="form-group">
-    <label>Remove Template after Placement?</label>
-    <input type="checkbox" name="flags.autoanimations.templates.removeTemplate"
-        value="flags.autoanimations.templates.removeTemplate" {{checked flags.autoanimations.templates.removeTemplate}}>
-</div>
-{{#if makePersistent}}
 <!--Make effect a Tile on Canvas-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.placeTile"}}</label>
-    <input type="checkbox" name="flags.autoanimations.templates.persistent"
-        value="flags.autoanimations.templates.persistent" {{checked flags.autoanimations.templates.persistent}}>
+<div class="form-group option13">
+    <label>{{localize "AUTOANIM.persistant"}}</label>
+    <input type="checkbox" name="flags.autoanimations.options.persistent"
+        value="flags.autoanimations.options.persistent" {{checked flags.autoanimations.options.persistent}}>
 </div>
-<label class="aa-hint-text">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+{{#if flags.autoanimations.options.persistent}}
+{{#if circRectPersist}}
+<div class="option14">
+    <label>Persistent Type</label>
+    <select name="flags.autoanimations.options.persistType">
+        {{#select flags.autoanimations.options.persistType}}
+        <option value=""></option>
+        <option value="overheadtile">{{localize "AUTOANIM.overheadtile"}}</option>
+        <option value="groundtile">{{localize "AUTOANIM.groundtile"}}</option>
+        <option value="sequencerground">{{localize "AUTOANIM.sequencereffect"}}</option>
+        <!--<option value="attachtemplate">Attach to Template</option>-->
+        {{/select}}
+    </select>
+</div>
+{{/if}}
+{{#unless circRectPersist}}
+<div class="option14">
+    <label>Persistent Type</label>
+    <select name="flags.autoanimations.options.persistType">
+        {{#select flags.autoanimations.options.persistType}}
+        <option value=""></option>
+        <option value="sequencerground">{{localize "AUTOANIM.sequencereffect"}}</option>
+        <!--<option value="attachtemplate">Attach to Template</option>-->
+        {{/select}}
+    </select>
+</div>
+{{/unless}}
 {{/if}}
 {{#if persistent}}
-<div class="form-group">
-    <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
-</div>
 <!--Set Tile Opacity-->
-<div class="form-group">
-    <label>{{localize "AUTOANIM.opacity"}}</label>
-    <input type="Number" name="flags.autoanimations.templates.opacity" min="0" max="1" step=".01"
-        value={{templateOpacity}}>
+<div class="autorec-menu-options option16">
+    <label>{{localize "AUTOANIM.opacity"}} </label>
+    <input type="Number" name="flags.autoanimations.options.opacity" min="0" max="1" step=".01"
+        value={{opacity}}>
 </div>
-<div class="form-group">
-    <label>{{localize "AUTOANIM.overhead"}}</label>
-    <input type="checkbox" name="flags.autoanimations.templates.overhead"
-        value="flags.autoanimations.templates.overhead" {{checked flags.autoanimations.templates.overhead}}>
-</div>
-{{#if flags.autoanimations.templates.overhead}}
-<div class="form-group">
+{{#ifEquals flags.autoanimations.options.persistType 'overheadtile'}}
+<div class="form-group" style='grid-column: 1 / 3;grid-row: 5 / 6;'>
     <label>{{localize "AUTOANIM.occlusionMode"}}</label>
-    <select name="flags.autoanimations.templates.occlusionMode">
-        {{#select flags.autoanimations.templates.occlusionMode}}
+    <select name="flags.autoanimations.options.occlusionMode">
+        {{#select flags.autoanimations.options.occlusionMode}}
         <option value="3">{{localize "AUTOANIM.occlusion03"}}</option>
         <option value="1">{{localize "AUTOANIM.occlusion01"}}</option>
         <option value="2">{{localize "AUTOANIM.occlusion02"}}</option>
@@ -91,26 +135,33 @@
         {{/select}}
     </select>
 </div>
-<div class="form-group">
+<div class="form-group" style='grid-column: 3 / 5;grid-row: 5 / 6;'>
     <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
     <div class="form-fields">
-        <input type="range" name="flags.autoanimations.templates.occlusionAlpha" value={{occlusionAlpha}} min="0"
+        <input type="range" name="flags.autoanimations.options.occlusionAlpha" value="{{lookup flags.autoanimations.options 'occlusionAlpha'}}" min="0"
             max="1" step="0.05">
-        <span class="range-value">{{occlusionAlpha}}</span>
+        <span class="range-value">{{lookup flags.autoanimations.options 'occlusionAlpha'}}</span>
     </div>
 </div>
+<div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7;justify-self: center;'>
+    <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+</div>
+{{/ifEquals}}
 {{/if}}
-{{/if}}
-{{#unless persistent}}
-<div class="flexrow">
-    <div class="aa-column">
-        <label>{{localize "AUTOANIM.loops"}}</label>
-        <input type="Number" name="flags.autoanimations.templates.tempLoop" value={{loopTemplate}} data-dtype="Number">
+{{#ifEquals flags.autoanimations.options.persistType 'groundtile'}}
+<div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7;justify-self: center;'>
+    <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+</div>    
+{{/ifEquals}}
+{{#unless flags.autoanimations.options.persistent}}
+    <div class="autorec-menu-options option07">
+        <label>{{localize "AUTOANIM.repeat"}} </label>
+        <input type="Number" style='width: 3em;' name="flags.autoanimations.options.repeat" value={{repeat}} data-dtype="Number">
     </div>
-    <div class="aa-column">
-        <label>{{localize "AUTOANIM.loops"}} {{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.templates.loopDelay" value={{templateLoopDelay}}
+    <div class="autorec-menu-options option08">
+        <label>{{localize "AUTOANIM.delayMS"}} </label>
+        <input type="Number" style='width: 3em;' name="flags.autoanimations.options.delay" value={{delay}}
             data-dtype="Number">
     </div>
-</div>
 {{/unless}}
+</div>

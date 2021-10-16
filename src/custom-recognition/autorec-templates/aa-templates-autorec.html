@@ -1,6 +1,6 @@
 <div class='aa-autorecognition'>
     {{#each settings.aaAutorec.templates as |templates idx|}}
-    <div class='aa-border-autorecog aa-search'>
+    <div class='aa-border-autorecog aa-search aaFGimage'>
         <div class='flexrow templates-settings' data-idx="{{idx}}">
             <div class='flexcol'>
                 <div class='form-group'>
@@ -17,8 +17,8 @@
                         <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
                     </div>
                 </div>
-                <div {{#if ( lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }}
-                    style="display:none" {{/if}}>
+                <div {{#if ( lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }} style="display:none"
+                    {{/if}}>
                     <div class="aa-container">
                         <div class="option01">
                             <label for="aaAutorec.templates.{{idx}}.type">{{localize 'AUTOANIM.type'}}:
@@ -90,8 +90,8 @@
                                 <select name="aaAutorec.templates.{{idx}}.color">
                                     {{#select (lookup (lookup ../settings.aaAutorec.templates idx) 'color')}}
                                     {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
-                                    ../settings.aaAutorec.templates idx) 'type')) (lookup (lookup
-                                    ../settings.aaAutorec.templates idx) 'animation')) as |name key|}}
+                                    ../settings.aaAutorec.templates idx) 'animation')) (lookup (lookup
+                                    ../settings.aaAutorec.templates idx) 'variant')) as |name key|}}
                                     <option value="{{key}}">{{name}}</option>
                                     {{/each}}
                                     {{/select}}
@@ -166,28 +166,50 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="option15">
+                        <div class="option17">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
-                                    <label>{{localize 'AUTOANIM.placeTile'}}: </label>
+                                    <label>{{localize 'AUTOANIM.persistant'}}: </label>
                                     <input type='checkbox' name='aaAutorec.templates.{{idx}}.persist' {{checked (lookup
                                         (lookup ../settings.aaAutorec.templates idx) 'persist' ) }}>
                                 </div>
                             </div>
                         </div>
                         {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'persist')}}
-                        <div class="option16">
-                            <div class="autorec-menu-options">
-                                <div class='form-group'>
-                                    <label>{{localize 'AUTOANIM.overhead'}}: </label>
-                                    <input type='checkbox' name='aaAutorec.templates.{{idx}}.overhead' {{checked (lookup
-                                        (lookup ../settings.aaAutorec.templates idx) 'overhead' ) }}>
-                                </div>
-                            </div>
+                        {{#matchOverhead (lookup ../settings.aaAutorec.templates idx)}}
+                        <div class="option18">
+                            <label>Persistent Type</label>
+                            <select name="aaAutorec.templates.{{idx}}.persistType">
+                                {{#select (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType')}}
+                                <option value=""></option>
+                                <option value="overheadtile">{{localize "AUTOANIM.overheadtile"}}</option>
+                                <option value="groundtile">{{localize "AUTOANIM.groundtile"}}</option>
+                                <option value="sequencerground">{{localize "AUTOANIM.sequencereffect"}}</option>
+                                <!--<option value="attachtemplate">Attach to Template</option>-->
+                                {{/select}}
+                            </select>
                         </div>
+                        {{/matchOverhead}}
+                        {{#sequencerOnly (lookup ../settings.aaAutorec.templates idx)}}
+                        <div class="option18">
+                            <label>Persistent Type</label>
+                            <select name="aaAutorec.templates.{{idx}}.persistType">
+                                {{#select (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType')}}
+                                <option value=""></option>
+                                <option value="sequencerground">{{localize "AUTOANIM.sequencereffect"}}</option>
+                                <!--<option value="attachtemplate">Attach to Template</option>-->
+                                {{/select}}
+                            </select>
+                        </div>
+                        {{/sequencerOnly}}
                         {{/if}}
                     </div>
-                    {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'overhead')}}
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType') 'groundtile'}}
+                    <div class="form-group">
+                        <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+                    </div>
+                    {{/ifEquals}}
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType') 'overheadtile'}}
                     <div class="form-group">
                         <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
                     </div>
@@ -218,7 +240,7 @@
                             </div>
                         </div>
                     </div>
-                    {{/if}}
+                    {{/ifEquals}}
                 </div>
             </div>
         </div>

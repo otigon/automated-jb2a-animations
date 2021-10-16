@@ -1,0 +1,215 @@
+melee = {
+    options.meleeType: Menu use only to populate Animation menu,
+    animation: Menu choice for animation,
+    options.variant: Variant choice of the Animation,
+    color: color of the Animation/Variant,
+    options.repeat: animation repeats,
+    options.delay: delay between repeats,
+    options.scale: scale the animation,
+    options.enableCustom: enable a custom choice animation file,
+    options.customPath: text field and file picker for custom choice,
+
+    meleeSwitch.switchType: "on", "off", "custom"
+    meleeSwitch.animation: Menu choice for animation,
+    meleeSwitch.variant: Variant choice of the Animation,
+    meleeSwitch.color: Color of the Animation/Variant,
+    meleeSwitch.detect: "auto", "manual",
+    meleeSwitch.range: Grid Distance for animation switch.
+    meleeSwitch.returning: set for Returning Weapon animation
+}
+
+OPTIONS = {
+    01: name
+    02: variant
+    03: repeat
+    04: delay
+    05: scale
+    06: enableCustom
+    07: customPath
+    08: opacity
+    09: persistent
+    10: occlusionMode
+    11: occlusionAlpha
+    12: auraRadius
+    13: staticType
+    14: ignoreTarget
+    15: shieldVar
+    16: anchorX
+    17: anchorY
+}
+
+range = {
+    options.rangeType: Menu use only to populate the Animation menu,
+    animation: Menu choice for animation,
+    options.variant: Variant choice of the Animation,
+    color: color of the Animation/Variant,
+    options.repeat: animation repeats,
+    options.delay: delay between repeats,
+}
+
+onToken = {
+    options.staticType: Sets the behavior of the Animation,
+    options.staticOptions: Menu use only
+    animation: Menu choice for animation,
+    options.variant: Variant choice of the Animation,
+    color: color of the Animation/Variant,
+    options.repeat: animation repeats,
+    options.delay: delay between repeats,
+    options.scale: scale the animation,
+    options.enableCustom: enable a custom choice animation file,
+    options.customPath: text field and file picker for custom choice,
+}
+
+add-explosion = {
+    explosions.enable: Turn on explosions,
+    explosions.below: Set explosions below the token,
+    explosions.radius: Set the radius of the explosion in Grid Squares,
+    explosions.delay: Delay the start of the Explosion,
+    explosions.animation: Menu choice for explosion,
+    explosions.variant: Menu choice for variant,
+    explosions.color: color of the Animation/Variant,
+    explosions.enableCustom: Enable custom explosio filepath,
+    explosions.customPath: Text field and picker for custom path,
+    
+    allSounds.explosion.audioExplodeEnabled: enable Explosion Sounds,
+    allSounds.explosion.file: Text field and picker for audio,
+    allSounds.explosion.delay: delay the start of the Audio,
+    allSounds.explosion.volume: volume of Audio
+}
+
+templates = {
+    options.tempType: Menu use only to populate the Animation menu,
+    animation: animation name,
+    options.variant: Variant choice of the Animation,
+    color: color of the Animation/Variant,
+    options.removeTemplate: Remove the template after placement,
+    options.enableCustom: enable Custom Animation field,
+    options.customPath: text and picker for custom file path,
+    options.persistent: Make the animations persistent,
+    options.opacity: Set the opacity of the animation/tile,
+    options.overhead: Make the effect an Overhead Tile,
+    options.occlusionMode: Overhead Tile occlusion Mode,
+    options.occlusionAlpha: Alpha level for Occlusion,
+    options.repeat: animation repeats,
+    options.delay: delay between repeats,
+}
+
+auras = {
+    animation: Menu choice for animation,
+    options.variant: Variant choice of the Animation,
+    color: color of the Animation/Variant,
+    options.opacity: Set the opacity of the animation/tile,
+    options.auraRadius: Set the Radius in Grid Squares of the animation/tile,
+    options.ignoreTarget: Check to ignore Targets with the item animation,
+    options.enableCustom: enable a custom choice animation file,
+    options.customPath: text field and file picker for custom choice,
+}
+
+presets = {
+    animation: Set the preset animation,
+
+    SHIELD 
+    options.variant: Variant choice of the Animation,
+    color: color of the Animation/Variant,
+    options.shieldVar: Set the end effect of the Shield Animation,
+
+    BARDIC INSPIRATION 
+    bards.bardSelf: Enable Self Animation,
+    bards.bardAnim: Self Animation choice,
+    bards.bardVariant: Self Variant choice,
+    bards.bardSelfColor: Self Color choice,
+    //
+    bards.bardTarget: Enable Target Animation,
+    bards.bardTargetAnim: Target Animation Choice,
+    bards.bardTargetVariant: Target Variant choice,
+    bards.bardTargetColor: Target color choice,
+    //
+    bards.marker: Enable Marker,
+    bards.markerColor: Self Marker color,
+    bards.markerColorTarget: Target Marker Color
+
+    HUNTERS MARK 
+    options.variant: Variant choice of the Animation,
+    color: color of the Animation/Variant,
+    options.persistent: Make the animations persistent,
+    options.anchorX: Set the X anchor point,
+    options.anchorY: Set the Y anchor point,
+    options.scale: scale the animation,
+
+    SNEAK ATTACK 
+    options.variant: Variant choice of the Animation,
+    color: color of the Animation/Variant,
+    options.anchorX: Set the X anchor point,
+    options.anchorY: Set the Y anchor point,
+
+    BLESS 
+    color: color of the Animation/Variant,
+    options.persistent: Make the animations persistent,
+    options.scale: scale the animation,
+
+    FIREBALL 
+    options.removeTemplate: Remove the template after placement,
+    fireball.projectile: Projectile Menu,
+    fireball.projectilVariant: Projectile Variant menu,
+    fireball.projectileColor: Projectile Color,
+    fireball.wait01: 1st wait section,
+    fireball.projectileRepeat: set Repeats,
+    fireball.projectileDelay: set Delay between Repeats,
+    //
+    fireball.explosion01: 1st explosion choice,
+    fireball.explosion01Variant: 1st explosion variant,
+    fireball.explosion01Color: 1st explosion color,
+    fireball.wait02: 2nd wait section,
+    fireball.explosion01Repeat: set Repeats,
+    fireball.explosion01Delay: set Delay between Repeats,
+    fireball.explosion01Scale: Scale 1st explosion,
+    //
+    fireball.explosion02: 2nd explosion choice,
+    fireball.explosion02Variant: 2nd explosion variant,
+    fireball.explosion02Color: 2nd explosion color,
+    fireball.explosion02Repeat: set Repeats,
+    fireball.explosion02Delay: set Delay between Repeats,
+    fireball.explosion02Scale: Scale 1st explosion,
+    //
+    fireball.afterEffect: Enable after effect,
+    fireball.wait03: set 3rd Wait for after effect placement,
+    fireball.afterEffectPath: Text and picker for effect,
+
+    TELEPORTATION 
+    options.name: Name of animation,
+    options.variant: Variant choice of the Animation,
+    color: color of the Animation/Variant,
+    options.teleDist: Distance in ft for teleporation,
+    options.hideTemplate: Do not place template on field,
+    options.enableCustom: enable a custom choice animation file,
+    options.customPath: text field and file picker for custom choice,
+    options.scale: scale the animation,
+}
+
+sourceToken = {
+    sourceToken.enable: Enable source token animaiton,
+    sourceToken.animLevel: above/below token,
+    sourceToken.name: animation name,
+    sourceToken.variant: variant,
+    sourceToken.color: color,
+    sourceToken.loops: animation repeats,
+    sourceToken.loopDelay: delay between repeats,
+    sourceToken.scale: scale animation,
+    sourceToken.delayAfter: waitUntilFinished value,
+    sourceToken.enableCustom: enable custom file,
+    sourceToken.customPath: text and picker for custom file path
+}
+
+targetToken = {
+    targetToken.enable: Enable source token animaiton,
+    targetToken.animLevel: above/below token,
+    targetToken.name: animation name,
+    targetToken.variant: variant,
+    targetToken.color: color,
+    targetToken.loops: animation repeats,
+    targetToken.loopDelay: delay between repeats,
+    targetToken.scale: scale animation,
+    targetToken.delayStart: waitUntilFinished value,
+    targetToken.enableCustom: enable custom file,
+    targetToken.customPath: text and picker for custom file path
+}

@@ -4,8 +4,6 @@ import huntersMark from "../animation-functions/custom-sequences/hunters-mark.js
 import bardicInspiration from "../animation-functions/custom-sequences/bardic-inspiration.js";
 import { rangedAnimations } from "../animation-functions/rangedAnimation.js";
 import { meleeAnimation } from "../animation-functions/meleeAnimation.js";
-import { onTokenAnimation } from "../animation-functions/onTokenAnimation.js";
-import { explodeOnToken } from "../animation-functions/explodeOnToken.js";
 import { teleportation } from "../animation-functions/teleportation.js";
 import { templateAnimation } from "../animation-functions/templateAnimation.js";
 import { shieldSpell } from "../animation-functions/custom-sequences/shield.js";
@@ -37,19 +35,19 @@ export async function trafficCop(handler) {
     */
     if (handler.animKill) {
         if (aaDebug) { aaDebugger("Animations Disabled on Item") }
+        itemSound(handler)
         return;
     }
     //const itemName = handler.convertedName;
-    const animName = handler.animName;
     const animType = handler.animType;
+    const animName = handler.animation;
     const override = handler.animOverride;
     const targets = handler.allTargets?.length ?? 0;
     if (override) {
-        if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets]) }
-        if (animType === 't8') {} else {itemSound(handler)}
+        if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets, handler.flags]) }
+        if (animType === 'template' || (animType === 'preset' && handler.animation === 'fireball')) { } else { itemSound(handler) }
         switch (animType) {
-            case "t2":
-            case "t3":
+            case "melee":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
@@ -58,7 +56,7 @@ export async function trafficCop(handler) {
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                 meleeAnimation(handler);
                 break;
-            case "t4":
+            case "range":
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
@@ -67,28 +65,18 @@ export async function trafficCop(handler) {
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                 rangedAnimations(handler);
                 break;
-            case "t5":
+            case "static":
+                /*
                 if (targets === 0) {
                     Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
                     if (aaDebug) { aaDebugger("Creature Animation End", "NO TARGETS") }
                     return;
                 }
+                */
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                onTokenAnimation(handler);
+                staticAnimation(handler);
                 break;
-            case "t6":
-                if (targets === 0) {
-                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                    if (aaDebug) { aaDebugger("Spell Animation End", "NO TARGETS") }
-                    return;
-                }
-                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                rangedAnimations(handler);
-                break;
-            case "t7":
-                onTokenAnimation(handler);
-                break;
-            case "t8":
+            case "template":
                 if (game.modules.get("midi-qol")?.active) { return; }
                 //some do not need hook on template, depends on when damage is rolled
                 switch (game.system.id) {
@@ -106,11 +94,7 @@ export async function trafficCop(handler) {
                         templateAnimation(handler);
                 }
                 break;
-            case "t9":
-            case "t10":
-                explodeOnToken(handler);
-                break;
-            case "t11":
+            case "aura":
                 /*
                 if (game.modules.get("Custom-Token-Animations")?.active) {
                     ctaCall(handler);
@@ -118,10 +102,7 @@ export async function trafficCop(handler) {
                 */
                 auras(handler)
                 break;
-            case "t12":
-                teleportation(handler);
-                break;
-            case "t13":
+            case "preset":
                 switch (animName) {
                     case "bardicinspiration":
                         bardicInspiration(handler);
@@ -137,6 +118,25 @@ export async function trafficCop(handler) {
                         break;
                     case "bless":
                         bless(handler);
+                        break;
+                    case "teleportation":
+                        teleportation(handler)
+                        break;
+                    case "fireball":
+                        switch (game.system.id) {
+                            case "dnd5e":
+                            case "pf2e":
+                                if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
+                                    fireball(handler);
+                                } else {
+                                    Hooks.once("createMeasuredTemplate", () => {
+                                        fireball(handler);
+                                    });
+                                }
+                                break;
+                            default:
+                                fireball(handler);
+                        }
                         break;
                 }
                 break;
@@ -207,13 +207,16 @@ export async function trafficCop(handler) {
                                 itemSound(handler)
                                 shieldSpell(handler, autoObject);
                                 break;
+                            case 'huntersmark':
+                                huntersMark(handler, autoObject);
+                                break;
                             case 'teleportation':
                                 itemSound(handler)
-                                teleportation(handler, autoObject)
+                                teleportation(handler, autoObject);
                                 break;
                             case 'sneakattack':
-                                itemSound(handler)
-                                sneakAttack(handler, autoObject)
+                                itemSound(handler);
+                                sneakAttack(handler, autoObject);
                                 break;
                             case "fireball":
                                 switch (game.system.id) {

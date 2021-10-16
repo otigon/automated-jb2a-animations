@@ -10,16 +10,16 @@ export async function staticAnimation(handler, autoObject) {
     await wait(globalDelay);
     const sourceToken = handler.actorToken;
 
-    const data = AAanimationData._staticData(handler, autoObject);
+    const data = AAanimationData._primaryData(handler, autoObject);
     if (aaDebug) { aaDebugger("Static Animation Start", data) }
-    const onToken = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath);
+    const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
 
-    const explosion = handler.flags.explosion ? await AAanimationData._explosionData(handler) : {};
+    const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
     const explosionSound = AAanimationData._explosionSound(handler);
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const targetFX = await AAanimationData._targetFX(handler);
 
-    const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
+    //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;
     const arrayLength = handler.allTargets.length;
     const gridSize = canvas.grid.size;
@@ -52,26 +52,28 @@ export async function staticAnimation(handler, autoObject) {
         .effect()
             .file(onToken.file)
             .atLocation(sourceToken)
-            //.randomizeMirrorY()
+            .name('animation')
             .repeats(data.repeat, data.delay)
-            //.gridSize(gridSize)
-            //.scale(((sourceToken.w / animWidth) * 1.5) * data.scale)
             .size(sourceToken.w * 1.5 * data.scale)
             .belowTokens(data.below)
+            .playIf(!data.persistent)
         .effect()
-            .atLocation(sourceToken)
-            .scale(exScale)
+            .file(onToken.file)
+            .attachTo(sourceToken)
+            .name('animation')
+            .size(sourceToken.w * 1.5 * data.scale)
+            .belowTokens(data.below)
+            .persist(data.persistent)
+            .playIf(data.persistent)
+        .effect()
+            .atLocation("animation")
+            .file(explosion.data?.file)
+            .scale({ x: explosion.scale, y: explosion.scale })
             .delay(500 + explosion.delay)
-            //.randomizeMirrorY()
             .repeats(data.repeat, data.delay)
             .belowTokens(explosion.below)
-            .playIf(handler.explosion)
-            .addOverride(async (effect, data) => {
-                if (explosion.data) {
-                    data.file = explosion.data.file;
-                }
-                return data;
-            })
+            .playIf(explosion.enabled)
+            //.waitUntilFinished(explosionDelay)
         .sound()
             .file(explosionSound.file)
             .playIf(() => {return explosion.data && handler.explodeSound})
@@ -92,9 +94,9 @@ export async function staticAnimation(handler, autoObject) {
                 targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
             }        
             */
-            let targetSequence = AAanimationData._targetSequence(targetFX, target);
+            let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
 
-            let scale = data.itemName.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
+            let scale = data.animation === "bite" || data.animation === "claw" ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? false : true;
@@ -115,39 +117,31 @@ export async function staticAnimation(handler, autoObject) {
                     .scale(scale * data.scale)
                     .belowTokens(data.below)
                     .name("animation")
-                    .playIf(() => { return arrayLength })
+                    .playIf(!data.persistent)
+                .effect()
+                    .file(onToken.file)
+                    .attachTo(target)
+                    .name('animation')
+                    .scale(scale * data.scale)
+                    .belowTokens(data.below)
+                    .persist(data.persistent)
+                    .playIf(data.persistent)
                 .effect()
                     .atLocation("animation")
-                    .scale(exScale)
+                    .file(explosion.data?.file)
+                    .scale({ x: explosion.scale, y: explosion.scale })
                     .delay(500 + explosion.delay)
-                    //.randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
                     .belowTokens(explosion.below)
-                    .playIf(handler.explosion)
-                    .addOverride(async (effect, data) => {
-                        if (explosion.data) {
-                            data.file = explosion.data.file;
-                        }
-                        return data;
-                    })
+                    .playIf(explosion.enabled)
+                    //.waitUntilFinished(explosionDelay)
                 .sound()
                     .file(explosionSound.file)
-                    .playIf(() => {return explosion.data && handler.explodeSound})
+                    .playIf(() => {return explosion.enabled && handler.explodeSound})
                     .delay(explosionSound.delay)
                     .volume(explosionSound.volume)
                     .repeats(data.repeat, data.delay)
                 .addSequence(targetSequence.targetSeq)
-                /*
-                .effect()
-                    .delay(targetFX.startDelay)
-                    .file(targetFX.data?.file)
-                    .atLocation("animation")
-                    .scale(targetFX.tFXScale * targetFX.scale)
-                    .repeats(targetFX.repeat, targetFX.delay)
-                    .belowTokens(targetFX.below)
-                    .gridSize(gridSize)
-                    .playIf(targetFX.enabled)
-                */
                 .play()
                 //await wait(500)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)

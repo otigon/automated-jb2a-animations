@@ -21,20 +21,18 @@ export async function meleeAnimation(handler, autoObject) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    const data = AAanimationData._meleeData(handler, autoObject);
+    const data = AAanimationData._primaryData(handler, autoObject);
     if (aaDebug) { aaDebugger("Melee Animation Start", data) }
-    const attack = await buildFile(false, data.itemName, "melee", data.variant, data.color, data.customPath)
+    const attack = await buildFile(false, data.animation, "melee", data.variant, data.color, data.customPath)
 
     const sourceToken = handler.actorToken;
-    const sourceScale = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
+    const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
 
-    const explosion = handler.flags.explosion ? await AAanimationData._explosionData(handler) : {};
+    const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
     const explosionSound = AAanimationData._explosionSound(handler);
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const targetFX = await AAanimationData._targetFX(handler);
-
-    const scale = ((200 * handler.explosionRadius) / explosion.data?.metadata?.width) ?? 1;
-
+    
     async function cast() {
         let arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
@@ -49,7 +47,7 @@ export async function meleeAnimation(handler, autoObject) {
             if (!game.settings.get("autoanimations", "rangeSwitch")) {
                 switch (data.switchType) {
                     case "on":
-                        if (rangeSwitch.some(el => data.itemName.includes(el))) {
+                        if (rangeSwitch.some(el => data.animation.includes(el))) {
                             if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
                                 noMelee = true;
                             }
@@ -75,7 +73,7 @@ export async function meleeAnimation(handler, autoObject) {
                     targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
                 }
                 */
-                let targetSequence = AAanimationData._targetSequence(targetFX, target);
+                let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
                 let hit;
                 if (handler.playOnMiss) {
                     hit = handler.hitTargetsId.includes(target.id) ? false : true;
@@ -99,7 +97,7 @@ export async function meleeAnimation(handler, autoObject) {
                     .randomizeMirrorY()
                     .missed(hit)
                     .name("animation")
-                    .belowTokens(handler.animLevel)
+                    .belowTokens(data.below)
                     .addOverride(async (effect, data) => {
                         data.anchor = { x: 0.4, y: 0.5 }
                         return data;
@@ -115,12 +113,12 @@ export async function meleeAnimation(handler, autoObject) {
                     .randomizeMirrorY()
                     .missed(hit)
                     .name("animation")
-                    .belowTokens(handler.animLevel)
+                    .belowTokens(data.below)
                     .playIf(moveTo)
                 .effect()
                     .atLocation("animation")
                     .file(explosion.data?.file)
-                    .scale({ x: scale, y: scale })
+                    .scale({ x: explosion.scale, y: explosion.scale })
                     .delay(500 + explosion.delay)
                     .repeats(data.repeat, data.delay)
                     .belowTokens(explosion.below)
@@ -133,17 +131,6 @@ export async function meleeAnimation(handler, autoObject) {
                     .volume(explosionSound.volume)
                     .repeats(data.repeat, data.delay)
                 .addSequence(targetSequence.targetSeq)
-                /*
-                .effect()
-                    .delay(targetFX.startDelay)
-                    .file(targetFX.data?.file)
-                    .atLocation(target)
-                    .scale(targetFX.tFXScale * targetFX.scale)
-                    .repeats(targetFX.repeat, targetFX.delay)
-                    .belowTokens(targetFX.below)
-                    .gridSize(canvas.grid.size)
-                    .playIf(targetFX.enabled)
-                */
                 .play()
                 await wait(handler.animEnd)
                 Hooks.callAll("aa.animationEnd", sourceToken, target)

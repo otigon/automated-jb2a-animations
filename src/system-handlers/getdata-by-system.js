@@ -229,9 +229,11 @@ export class AASystemData {
     }
 
     static wfrp4e(input) {
+
         const item = input.item;
         const itemId = item._id;
-        const token = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != undefined);
+        const tokenId = input.info?.speaker?.token;
+        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != undefined);
         const targets = Array.from(input.targets);
         if (!item || !token) { return; }
 

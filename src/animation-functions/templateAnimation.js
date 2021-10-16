@@ -11,45 +11,43 @@ export async function templateAnimation(handler, autoObject) {
 
     const data = {}
     if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
+        const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject)
         data.itemName = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
+        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
+        data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
         data.occlusionMode = parseInt(data.occlusionMode);
-        data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
+        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+        data.persistType = data.overhead ? 'overheadtile' : data.persistType || 'sequencerground';
     } else {
-        data.itemName = handler.templates.tempAnim;
-        data.variant = handler.spellVariant;
-        data.color = handler.templates.tempColor;
-        data.repeat = handler.templates.tempLoop;
-        data.delay = handler.templates.loopDelay;
-        data.customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
+        data.itemName = handler.convertedName;
+        data.variant = handler.options?.variant;
+        data.color = handler.color;
+        data.repeat = handler.options?.repeat;
+        data.delay = handler.options?.delay;
+        data.customPath = handler.options?.customAnim ? handler.options.customPath : false;
         data.below = handler.animLevel;
-        data.type = handler.templates.tempType;
-        data.persist = handler.templatePersist;
-        data.overhead = handler.templates.overhead;
-        data.opacity = handler.templateOpacity;
-        data.occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
-        data.occlusionMode = parseInt(handler.templates?.occlusionMode ?? "3");
-        data.removeTemplate = handler.templates.removeTemplate;
+        data.type = handler.options?.tempType;
+        data.persist = handler.options?.persistent;
+        data.overhead = handler.options?.overhead;
+        data.opacity = handler.options?.opacity;
+        data.occlusionAlpha = handler.options?.occlusionAlpha ?? "0";
+        data.occlusionMode = parseInt(handler.options?.occlusionMode ?? "3");
+        data.removeTemplate = handler.options?.removeTemplate;
+        data.persistType = handler.options?.persistType || "sequencerground";
     }
+
     if (aaDebug) { aaDebugger("Template Animation Start", data) }
     if (data.itemName === 'thunderwave') {
         thunderwaveAuto(handler, autoObject);
         return;
     }
-    //let mode = handler.templates?.occlusionMode ?? "3";
-    //const occlusionMode = parseInt(mode)
-    //let occlusionAlpha = handler.templates?.occlusionAlpha ?? "0";
 
-    //let customPath = handler.templates?.customAnim ? handler.templates.customPath : false;
-    const tempAnimation = await buildFile(true, data.type, "static", data.itemName, data.color, data.customPath)
-    //let sourceFX;
-    //let sFXScale;
-    //let customSourcePath; 
+    const tempAnimation = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath)
+
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
     const videoWidth = tempAnimation.metadata.width;
@@ -69,9 +67,12 @@ export async function templateAnimation(handler, autoObject) {
     }
 
     async function cast() {
-        const templateID = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
+        const templateObject = canvas.templates.placeables[canvas.templates.placeables.length - 1]
+
+        const templateID = templateObject.data._id;
         let template;
         template = await canvas.templates.documentCollection.get(templateID);
+
         let templateType = template.data?.t;
         let templateW;
         let templateLength;
@@ -84,6 +85,7 @@ export async function templateAnimation(handler, autoObject) {
         let tileHeight;
         let tileX;
         let tileY;
+        const templateTypes = ['sphere', 'cylinder', 'radius']
         //let scale = ((200 * handler.explosionRadius) / (canvas.dimensions.distance * videoData.width))
         switch (templateType) {
             case "ray":
@@ -96,7 +98,7 @@ export async function templateAnimation(handler, autoObject) {
                 yAnchor = 0.5;
                 break;
             case "rect":
-                if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && handler.item.data.data.target.type === "sphere") {
+                if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.data.data.target.type)) {
                     templateW = Math.sqrt(Math.pow(template.data.distance, 2) - Math.pow((handler.item.data.data.target.value * 2), 2));
                     templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
                     scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
@@ -146,10 +148,9 @@ export async function templateAnimation(handler, autoObject) {
                 break;
         }
         //const occlusionAlpha = parseInt(alpha);
-        if (data.persist && (data.type === "circle" || data.type === "rect")) {
-            let templateData;
-            if (data.overhead) {
-                templateData = {
+        if (data.persist && (data.type === "circle" || data.type === "rect") && data.persistType === 'overheadtile') {
+
+            const templateData = {
                     alpha: data.opacity,
                     width: tileWidth,
                     height: tileHeight,
@@ -169,8 +170,24 @@ export async function templateAnimation(handler, autoObject) {
                     y: tileY,
                     z: 100,
                 }
-            } else {
-                templateData = {
+            socketlibSocket.executeAsGM("placeTile", templateData)
+            new Sequence()
+                .sound()
+                .file(templateFile)
+                .playIf(handler.itemSound)
+                .delay(templateDelay)
+                .volume(templateVolume)
+                .repeats(data.repeat, data.delay)
+                .play()
+            if (data.removeTemplate) {
+                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+            }
+            AAanimationData.howToDelete("overheadtile")
+            //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
+        }
+        if (data.persist && (data.type === "circle" || data.type === "rect") && data.persistType === 'groundtile') {
+
+            const templateData = {
                     alpha: data.opacity,
                     width: tileWidth,
                     height: tileHeight,
@@ -186,7 +203,6 @@ export async function templateAnimation(handler, autoObject) {
                     y: tileY,
                     z: 100,
                 }
-            }
             socketlibSocket.executeAsGM("placeTile", templateData)
             new Sequence()
                 .sound()
@@ -194,13 +210,14 @@ export async function templateAnimation(handler, autoObject) {
                 .playIf(handler.itemSound)
                 .delay(templateDelay)
                 .volume(templateVolume)
-                .repeats(handler.animationLoops, handler.loopDelay)
+                .repeats(data.repeat, data.delay)
                 .play()
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }            
-            //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
-        } else {
+            AAanimationData.howToDelete("groundtile")
+        }
+        if (data.persist && data.persistType === 'sequencerground') {
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }        
@@ -214,9 +231,34 @@ export async function templateAnimation(handler, autoObject) {
                     .atLocation({ x: template.data.x, y: template.data.y })
                     .anchor({ x: xAnchor, y: yAnchor })
                     .rotate(rotate)
+                    .persist(data.persist)
                     .scale({ x: scaleX, y: scaleY })
-                    .belowTokens(false)
+                    .belowTokens(true)
                     .repeats(data.repeat, data.delay)
+                .sound()
+                    .file(templateFile)
+                    .playIf(handler.itemSound)
+                    .delay(templateDelay)
+                    .volume(templateVolume)
+                    .repeats(data.repeat, data.delay)
+                .play()
+            await wait(500)
+            Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
+            AAanimationData.howToDelete("sequencerground")
+        }
+
+        if (data.persist && data.persistType === 'attachtemplate') {
+            debugger
+            await new Sequence("Automated Animations")
+                .addSequence(sourceFX.sourceSeq)
+                .thenDo(function () {
+                    Hooks.callAll("aa.animationStart", sourceToken, "no-target")
+                })
+                .effect()
+                    .file(tempAnimation.file)
+                    .attachTo(templateObject)
+                    .persist(true)
+                    .scaleToObject()
                 .sound()
                     .file(templateFile)
                     .playIf(handler.itemSound)
@@ -228,6 +270,34 @@ export async function templateAnimation(handler, autoObject) {
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
         }
 
+        if (!data.persist) {
+            if (data.removeTemplate) {
+                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+            }        
+            await new Sequence("Automated Animations")
+                .addSequence(sourceFX.sourceSeq)
+                .thenDo(function () {
+                    Hooks.callAll("aa.animationStart", sourceToken, "no-target")
+                })
+                .effect()
+                    .file(tempAnimation.file)
+                    .atLocation({ x: template.data.x, y: template.data.y })
+                    .anchor({ x: xAnchor, y: yAnchor })
+                    .rotate(rotate)
+                    .persist(data.persist)
+                    .scale({ x: scaleX, y: scaleY })
+                    .belowTokens(true)
+                    .repeats(data.repeat, data.delay)
+                .sound()
+                    .file(templateFile)
+                    .playIf(handler.itemSound)
+                    .delay(templateDelay)
+                    .volume(templateVolume)
+                    .repeats(data.repeat, data.delay)
+                .play()
+            await wait(500)
+            Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
+        }
 
     }
     cast();
