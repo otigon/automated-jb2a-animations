@@ -402,6 +402,8 @@ export const flagMigrations = {
                             default:
                                 return { name: 'web', variant: '01' };
                         }
+                    default:
+                        return {};
                 }
             }
 
