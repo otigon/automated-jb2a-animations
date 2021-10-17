@@ -52,223 +52,226 @@ export const flagMigrations = {
                 version: 1,
             }
 
-            switch (type) {
-                case "t2":
-                    data.animType = 'melee';
-                    data.animation = replaceName(oldFlags.animName);
-                    data.color = replaceName(oldFlags.color);
-                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : { switchType: oldFlags.meleeSwitch?.switchType ?? 'on' };
-                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
-                    data.options = {
-                        meleeType: "weapon",
-                        variant: oldFlags.uaStrikeType ?? "01",
-                        repeat: oldFlags.options?.loops || 1,
-                        delay: oldFlags.options?.loopDelay || 250,
-                        scale: oldFlags.options?.scale ?? 1,
-                        enableCustom: oldFlags.options?.enableCustom01 ?? false,
-                        customPath: oldFlags.options?.customPath01 ?? "",
-                    }
+            if (oldFlags.override) {
 
-                    break;
-                case "t3":
-                    let genericList = ['flurryofblows', 'unarmedstrike'];
-
-                    data.animation = replaceName(oldFlags.animName);
-                    data.animType = "melee";
-                    data.color = replaceName(oldFlags.color);
-                    data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : { switchType: oldFlags.meleeSwitch?.switchType ?? 'on' };
-                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
-                    data.options = {
-                        meleeType: genericList.includes(data.animation) ? "weapon" : "generic",
-                        variant: oldFlags.uaStrikeType ?? "01",
-                        repeat: oldFlags.options?.loops || 1,
-                        delay: oldFlags.options?.loopDelay || 250,
-                        scale: oldFlags.options?.scale ?? 1,
-                        enableCustom: oldFlags.options?.enableCustom01 ?? false,
-                        customPath: oldFlags.options?.customPath01 ?? "",
-                    }
-
-                    break;
-                case "t4":
-                    data.animType = 'range';
-                    data.animation = replaceName(oldFlags.animName);
-                    data.color = replaceName(oldFlags.color);
-                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
-                    data.options = {
-                        rangeType: 'weapon',
-                        variant: t4VariantSwitch(replaceName(oldFlags.animName)),
-                        repeat: oldFlags.options?.loops || 1,
-                        delay: oldFlags.options?.loopDelay || 250,
-                    }
-
-                    function t4VariantSwitch(name) {
-                        switch (name) {
-                            case 'bolt':
-                            case 'bullet':
-                            case 'arrow':
-                                return oldFlags.rangedOptions?.rangeDmgType ?? "01";
-                            case 'lasersword':
-                            case 'dagger':
-                            case 'handaxe':
-                            case 'chakram':
-                                return oldFlags.dtvar ?? "01";
-                            default:
-                                return "01"
+                switch (type) {
+                    case "t2":
+                        data.animType = 'melee';
+                        data.animation = replaceName(oldFlags.animName);
+                        data.color = replaceName(oldFlags.color);
+                        data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : { switchType: oldFlags.meleeSwitch?.switchType ?? 'on' };
+                        data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                        data.options = {
+                            meleeType: "weapon",
+                            variant: oldFlags.uaStrikeType ?? "01",
+                            repeat: oldFlags.options?.loops || 1,
+                            delay: oldFlags.options?.loopDelay || 250,
+                            scale: oldFlags.options?.scale ?? 1,
+                            enableCustom: oldFlags.options?.enableCustom01 ?? false,
+                            customPath: oldFlags.options?.customPath01 ?? "",
                         }
-                    }
 
-                    break;
-                case "t5":
-                    data.animType = 'static';
-                    data.animation = replaceName(oldFlags.animName);
-                    data.color = replaceName(oldFlags.color);
-                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
-                    data.options = {
-                        staticType: 'target',
-                        staticOptions: 'creature',
-                        variant: "01",
-                        repeat: oldFlags.options?.loops || 1,
-                        delay: oldFlags.options?.loopDelay || 250,
-                        scale: oldFlags.options?.scale ?? 1,
-                        enableCustom: oldFlags.options?.enableCustom01 ?? false,
-                        customPath: oldFlags.options?.customPath01 ?? "",
-                    }
+                        break;
+                    case "t3":
+                        let genericList = ['flurryofblows', 'unarmedstrike'];
 
-                    break;
-                case "t6":
-                    data.animType = 'range';
-                    data.animation = replaceName(oldFlags.animName);
-                    data.color = replaceName(oldFlags.color);
-                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
-                    data.options = {
-                        rangeType: 'spell',
-                        variant: oldFlags.spellVar ?? "01",
-                        repeat: oldFlags.options?.loops || 1,
-                        delay: oldFlags.options?.loopDelay || 250,
-                    }
+                        data.animation = replaceName(oldFlags.animName);
+                        data.animType = "melee";
+                        data.color = replaceName(oldFlags.color);
+                        data.meleeSwitch = oldFlags.meleeSwitch?.switchType === "custom" ? await rangeSwitch() : { switchType: oldFlags.meleeSwitch?.switchType ?? 'on' };
+                        data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                        data.options = {
+                            meleeType: genericList.includes(data.animation) ? "weapon" : "generic",
+                            variant: oldFlags.uaStrikeType ?? "01",
+                            repeat: oldFlags.options?.loops || 1,
+                            delay: oldFlags.options?.loopDelay || 250,
+                            scale: oldFlags.options?.scale ?? 1,
+                            enableCustom: oldFlags.options?.enableCustom01 ?? false,
+                            customPath: oldFlags.options?.customPath01 ?? "",
+                        }
 
-                    break;
-                case "t7":
-                    data.animType = 'static';
-                    data.animation = replaceName(oldFlags.animName);
-                    data.color = replaceName(oldFlags.color);
-                    data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
-                    data.options = {
-                        staticType: "targetDefault",
-                        staticOptions: 'staticSpells',
-                        variant: oldFlags.spellVar ?? "01",
-                        repeat: oldFlags.options?.loops || 1,
-                        delay: oldFlags.options?.loopDelay || 250,
-                        scale: oldFlags.options?.scale ?? 1,
-                        enableCustom: oldFlags.options?.enableCustom01 ?? false,
-                        customPath: oldFlags.options?.customPath01 ?? "",
-                    }
+                        break;
+                    case "t4":
+                        data.animType = 'range';
+                        data.animation = replaceName(oldFlags.animName);
+                        data.color = replaceName(oldFlags.color);
+                        data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                        data.options = {
+                            rangeType: 'weapon',
+                            variant: t4VariantSwitch(replaceName(oldFlags.animName)),
+                            repeat: oldFlags.options?.loops || 1,
+                            delay: oldFlags.options?.loopDelay || 250,
+                        }
 
-                    break;
-                case "t8":
-                    const tempAnimVar = await templateAnimation()
-                    data.animType = 'template';
-                    data.animation = tempAnimVar.name;
-                    data.color = replaceName(oldFlags.templates?.tempColor);
-                    data.options = {
-                        tempType: oldFlags.templates?.tempType,
-                        variant: tempAnimVar.variant,
-                        removeTemplate: oldFlags.templates?.removeTemplate ?? false,
-                        enableCustom: oldFlags.templates?.customAnim ?? false,
-                        customPath: oldFlags.templates?.customPath ?? "",
-                        persistent: oldFlags.templates?.persistent ?? false,
-                        persistType: (oldFlags.templates?.persistent && oldFlags.templates?.overhead) ? 'overheadtile' : 'sequencerground',
-                        opacity: oldFlags.templates?.opacity ?? 0.75,
-                        overhead: oldFlags.templates?.overhead ?? false,
-                        occlusionMode: oldFlags.templates?.occlusionMode ?? "03",
-                        occlusionAlpha: oldFlags.templates?.occlusionAlpha ?? 0.75,
-                        repeat: oldFlags.templates?.tempLoop || 1,
-                        delay: oldFlags.templates?.loopDelay || 250,
-                    }
-
-                    break;
-                case "t9":
-                case "t10":
-                    data.animType = 'static';
-                    data.animation = replaceName(oldFlags.explodeVariant);
-                    data.color = replaceName(oldFlags.explodeColor);
-                    data.explosions = { enable: false };
-                    data.options = {
-                        staticType: type === 't9' ? 'target' : 'source',
-                        staticOptions: 'explosion',
-                        variant: oldFlags.options?.variant ?? "01",
-                        repeat: oldFlags.explodeLoop || 1,
-                        delay: oldFlags.explodeDelay || 250,
-                        scale: oldFlags.options?.scale ?? 1,
-                        enableCustom: oldFlags.options?.enableCustomExplosion ?? false,
-                        customPath: oldFlags.options?.customExplosion ?? "",
-                    }
-
-                    break;
-                case "t11":
-                    data.animType = 'aura';
-                    data.animation = replaceName(oldFlags.animName);
-                    data.color = replaceName(oldFlags.color);
-                    data.options = {
-                        variant: "01",
-                        enableCustom: oldFlags.options?.enableCustom01 ?? false,
-                        customPath: oldFlags.options?.customPath01 ?? "",
-                        auraRadius: oldFlags.selfRadius ?? 3.5,
-                        opacity: oldFlags.auraOpacity ?? 0.75,
-                        ignoreTarget: oldFlags.ignoreTarget ?? false,
-                    }
-
-                    break;
-                case "t12":
-                    data.animType = 'preset';
-                    data.animation = "teleportation";
-                    data.color = replaceName(oldFlags.color);
-                    data.options = {
-                        name: replaceName(oldFlags.animName),
-                        variant: "01",
-                        teleDist: oldFlags.teleDist ?? 30,
-                        scale: oldFlags.options?.scale ?? 1,
-                        hideTemplate: oldFlags.options?.hideTemplate ?? false,
-                        enableCustom: oldFlags.options?.enableCustom01 ?? false,
-                        customPath: oldFlags.options?.customPath01 ?? "",
-                    }
-
-                    break;
-                case "t13":
-                    const presetName = replaceName(oldFlags.animName);
-                    data.animType = 'preset';
-                    data.animation = presetName;
-                    data.color = replaceName(oldFlags.color);
-                    switch (presetName) {
-                        case 'shieldspell':
-                            data.options = {
-                                variant: oldFlags.spellVar ?? "01",
-                                shieldVar: oldFlags.shieldVar ?? 'outro_explode',
+                        function t4VariantSwitch(name) {
+                            switch (name) {
+                                case 'bolt':
+                                case 'bullet':
+                                case 'arrow':
+                                    return oldFlags.rangedOptions?.rangeDmgType ?? "01";
+                                case 'lasersword':
+                                case 'dagger':
+                                case 'handaxe':
+                                case 'chakram':
+                                    return oldFlags.dtvar ?? "01";
+                                default:
+                                    return "01"
                             }
-                            break;
-                        case 'bardicinspiration':
-                            data.bards = oldFlags.bards;
-                            break;
-                        case 'huntersmark':
-                            data.options = {
-                                variant: replaceName(oldFlags.hmAnim),
-                                persistent: oldFlags.ctaOption ?? false,
-                            }
-                            break;
-                        case 'sneakattack':
-                            data.options = {
-                                variant: "01",
-                            }
-                            break;
-                        case 'bless':
-                            data.options = {
-                                variant: "01",
-                                persistent: oldFlags.options.addCTA ?? false,
-                            }
-                            break;
-                    }
+                        }
 
-                    break;
+                        break;
+                    case "t5":
+                        data.animType = 'static';
+                        data.animation = replaceName(oldFlags.animName);
+                        data.color = replaceName(oldFlags.color);
+                        data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                        data.options = {
+                            staticType: 'target',
+                            staticOptions: 'creature',
+                            variant: "01",
+                            repeat: oldFlags.options?.loops || 1,
+                            delay: oldFlags.options?.loopDelay || 250,
+                            scale: oldFlags.options?.scale ?? 1,
+                            enableCustom: oldFlags.options?.enableCustom01 ?? false,
+                            customPath: oldFlags.options?.customPath01 ?? "",
+                        }
+
+                        break;
+                    case "t6":
+                        data.animType = 'range';
+                        data.animation = replaceName(oldFlags.animName);
+                        data.color = replaceName(oldFlags.color);
+                        data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                        data.options = {
+                            rangeType: 'spell',
+                            variant: oldFlags.spellVar ?? "01",
+                            repeat: oldFlags.options?.loops || 1,
+                            delay: oldFlags.options?.loopDelay || 250,
+                        }
+
+                        break;
+                    case "t7":
+                        data.animType = 'static';
+                        data.animation = replaceName(oldFlags.animName);
+                        data.color = replaceName(oldFlags.color);
+                        data.explosions = oldFlags.explosion ? await explosions() : { enable: false };
+                        data.options = {
+                            staticType: "targetDefault",
+                            staticOptions: 'staticSpells',
+                            variant: oldFlags.spellVar ?? "01",
+                            repeat: oldFlags.options?.loops || 1,
+                            delay: oldFlags.options?.loopDelay || 250,
+                            scale: oldFlags.options?.scale ?? 1,
+                            enableCustom: oldFlags.options?.enableCustom01 ?? false,
+                            customPath: oldFlags.options?.customPath01 ?? "",
+                        }
+
+                        break;
+                    case "t8":
+                        const tempAnimVar = await templateAnimation()
+                        data.animType = 'template';
+                        data.animation = tempAnimVar.name;
+                        data.color = replaceName(oldFlags.templates?.tempColor);
+                        data.options = {
+                            tempType: oldFlags.templates?.tempType,
+                            variant: tempAnimVar.variant,
+                            removeTemplate: oldFlags.templates?.removeTemplate ?? false,
+                            enableCustom: oldFlags.templates?.customAnim ?? false,
+                            customPath: oldFlags.templates?.customPath ?? "",
+                            persistent: oldFlags.templates?.persistent ?? false,
+                            persistType: (oldFlags.templates?.persistent && oldFlags.templates?.overhead) ? 'overheadtile' : 'sequencerground',
+                            opacity: oldFlags.templates?.opacity ?? 0.75,
+                            overhead: oldFlags.templates?.overhead ?? false,
+                            occlusionMode: oldFlags.templates?.occlusionMode ?? "03",
+                            occlusionAlpha: oldFlags.templates?.occlusionAlpha ?? 0.75,
+                            repeat: oldFlags.templates?.tempLoop || 1,
+                            delay: oldFlags.templates?.loopDelay || 250,
+                        }
+
+                        break;
+                    case "t9":
+                    case "t10":
+                        data.animType = 'static';
+                        data.animation = replaceName(oldFlags.explodeVariant);
+                        data.color = replaceName(oldFlags.explodeColor);
+                        data.explosions = { enable: false };
+                        data.options = {
+                            staticType: type === 't9' ? 'target' : 'source',
+                            staticOptions: 'explosion',
+                            variant: oldFlags.options?.variant ?? "01",
+                            repeat: oldFlags.explodeLoop || 1,
+                            delay: oldFlags.explodeDelay || 250,
+                            scale: oldFlags.options?.scale ?? 1,
+                            enableCustom: oldFlags.options?.enableCustomExplosion ?? false,
+                            customPath: oldFlags.options?.customExplosion ?? "",
+                        }
+
+                        break;
+                    case "t11":
+                        data.animType = 'aura';
+                        data.animation = replaceName(oldFlags.animName);
+                        data.color = replaceName(oldFlags.color);
+                        data.options = {
+                            variant: "01",
+                            enableCustom: oldFlags.options?.enableCustom01 ?? false,
+                            customPath: oldFlags.options?.customPath01 ?? "",
+                            auraRadius: oldFlags.selfRadius ?? 3.5,
+                            opacity: oldFlags.auraOpacity ?? 0.75,
+                            ignoreTarget: oldFlags.ignoreTarget ?? false,
+                        }
+
+                        break;
+                    case "t12":
+                        data.animType = 'preset';
+                        data.animation = "teleportation";
+                        data.color = replaceName(oldFlags.color);
+                        data.options = {
+                            name: replaceName(oldFlags.animName),
+                            variant: "01",
+                            teleDist: oldFlags.teleDist ?? 30,
+                            scale: oldFlags.options?.scale ?? 1,
+                            hideTemplate: oldFlags.options?.hideTemplate ?? false,
+                            enableCustom: oldFlags.options?.enableCustom01 ?? false,
+                            customPath: oldFlags.options?.customPath01 ?? "",
+                        }
+
+                        break;
+                    case "t13":
+                        const presetName = replaceName(oldFlags.animName);
+                        data.animType = 'preset';
+                        data.animation = presetName;
+                        data.color = replaceName(oldFlags.color);
+                        switch (presetName) {
+                            case 'shieldspell':
+                                data.options = {
+                                    variant: oldFlags.spellVar ?? "01",
+                                    shieldVar: oldFlags.shieldVar ?? 'outro_explode',
+                                }
+                                break;
+                            case 'bardicinspiration':
+                                data.bards = oldFlags.bards;
+                                break;
+                            case 'huntersmark':
+                                data.options = {
+                                    variant: replaceName(oldFlags.hmAnim),
+                                    persistent: oldFlags.ctaOption ?? false,
+                                }
+                                break;
+                            case 'sneakattack':
+                                data.options = {
+                                    variant: "01",
+                                }
+                                break;
+                            case 'bless':
+                                data.options = {
+                                    variant: "01",
+                                    persistent: oldFlags.options.addCTA ?? false,
+                                }
+                                break;
+                        }
+
+                        break;
+                }
             }
 
             async function overrideAuto() {
