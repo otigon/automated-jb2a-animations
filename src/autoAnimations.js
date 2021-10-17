@@ -325,7 +325,7 @@ async function specialCaseAnimations(msg) {
     }
 
     const data = AASystemData["dnd5e"](msg, true);
-    if (!data.item || !data.token) { return; }
+    if (!data || !data.item || !data.token) { return; }
     const itemType = data.item.data?.flags?.autoanimations?.animType;
 
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');

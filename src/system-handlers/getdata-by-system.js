@@ -23,7 +23,7 @@ export class AASystemData {
             if (!item || !token) { return; }
 
             const hitTargets = Array.from(input.hitTargets);
-            let targets = Array.from(input.targets);
+            let targets = input.item?.data?.data?.target?.type === 'self' ? Array.from(game.user.targets) : Array.from(input.targets);
             if (game.modules.get('midi-qol')?.active) {
                 switch (true) {
                     case (game.settings.get("autoanimations", "playonmiss")):
