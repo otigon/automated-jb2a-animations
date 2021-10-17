@@ -15,6 +15,7 @@ export class AAanimationData {
             data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
             data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
             data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
+            data.below = data.below ?? false;
         } else {
             data.animation = handler.animation;
             data.variant = handler.variant ?? "01";
@@ -98,6 +99,7 @@ export class AAanimationData {
             data.color = autoOverridden ? handler.autoOverride?.color : data.color;
             data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
             data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
+            data.below = data.below ?? false;
         } else {
             data.switchAnimation = meleeSwitch.switchType === 'custom' ? meleeSwitch.animation : handler.animation;
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
@@ -295,13 +297,13 @@ export class AAanimationData {
     static howToDelete(type) {
         switch (type) {
             case 'overheadtile':
-                ui.notifications.warn("This is an OVERHEAD Tile. Use the Tile Foreground Layer to remove the Animation")
+                ui.notifications.info("This is an OVERHEAD Tile. Use the Tile Foreground Layer to remove the Animation")
                 break;
             case 'groundtile':
-                ui.notifications.warn("This is an GROUND Tile. Use the Tile Layer to remove the Animation")
+                ui.notifications.info("This is an GROUND Tile. Use the Tile Layer to remove the Animation")
                 break;
             case 'sequencerground':
-                ui.notifications.warn("This is SEQUENCER Persistent Effect. Use the Sequencer Effect Manager to remove the Animation")
+                ui.notifications.info("This is SEQUENCER Persistent Effect. Use the Sequencer Effect Manager to remove the Animation")
                 break
         }
     }
