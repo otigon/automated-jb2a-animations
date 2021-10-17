@@ -1,10 +1,11 @@
-Hooks.once('aa.ready', await autoRecMigration()) 
-const autoRecMigration = {
+export const autoRecMigration = {
 
     async handle(autoObject) {
 
         if (!autoObject) { return; }
         if (this.upToDate(autoObject)) { return; }
+
+        ui.notifications.info("Automated Animations: Merging the Automatic Recognition Menu")
 
         for (let [version, migration] of Object.entries(this.migrations)) {
             let currentAutorec = game.settings.get('autoanimations', 'aaAutorec')
@@ -14,6 +15,7 @@ const autoRecMigration = {
 
             await migration(currentAutorec)
         }
+        ui.notifications.info("Automatic Recognition Menu merge is Complete!")
     },
 
     upToDate(autoObject) {
@@ -23,28 +25,28 @@ const autoRecMigration = {
 
     migrations: {
         "1": async (currentAutorec) => {
-            const static = currentAutorec.static;
-            const staticLength = Object.keys(static).length;
-            if (staticLength > 0) {
+            const staticObject = currentAutorec.static;
+            if (staticObject) {
+                const staticLength = Object.keys(staticObject).length;
                 for (var i = 0; i < staticLength; i++) {
-                    switch (static[i].animation) {
+                    switch (staticObject[i].animation) {
                         case 'curewounds':
                         case 'generichealing':
                         case 'tollthedead':
-                            static[i].staticOptions = 'staticSpells';
+                            staticObject[i].staticOptions = 'staticSpells';
                             break;
                         case 'bite':
                         case 'claw':
-                            static[i].staticOptions = 'creature';
+                            staticObject[i].staticOptions = 'creature';
                             break;
                         default:
-                            static[i].staticOptions = 'explosion';
+                            staticObject[i].staticOptions = 'explosion';
                     }
                 }
             }
             const templates = currentAutorec.templates;
-            const templateLength = Object.keys(templates).length;
-            if (templateLength > 0) {
+            if (templates) {
+                const templateLength = Object.keys(templates).length;
                 for (var i = 0; i < templateLength; i++) {
                     switch (true) {
                         case templates[i].persist:
@@ -58,7 +60,7 @@ const autoRecMigration = {
                 }
             }
             currentAutorec.version = 1;
-            console.log(currentAutorec)
+            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
         }
     }
 }

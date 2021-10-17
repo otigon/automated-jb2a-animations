@@ -1,4 +1,5 @@
 
+import { autoRecMigration } from "./autoRecMerge.js";
 export class aaAutorec {
     static get defaultConfiguration() {
         const defaultConfig = {
@@ -232,6 +233,7 @@ export class aaAutorec {
                     hidden: true,
                     name: 'Cure Wounds',
                     animation: 'curewounds',
+                    staticOptions: 'staticSpells',
                     variant: '01',
                     color: 'blue',
                     repeat: 1,
@@ -244,6 +246,7 @@ export class aaAutorec {
                     hidden: true,
                     name: 'Healing Word',
                     animation: 'generichealing',
+                    staticOptions: 'staticSpells',
                     variant: '01',
                     color: 'blue',
                     repeat: 1,
@@ -256,6 +259,7 @@ export class aaAutorec {
                     hidden: true,
                     name: 'Toll the Dead',
                     animation: 'tollthedead',
+                    staticOptions: 'staticSpells',
                     variant: 'complete',
                     color: 'green',
                     repeat: 1,
@@ -265,6 +269,7 @@ export class aaAutorec {
                     type: "target",
                 },
                 3: {
+                    staticOptions: 'creature',
                     animation: "bite",
                     below: false,
                     color: "red",
@@ -278,6 +283,7 @@ export class aaAutorec {
                     variant: "01",
                 },
                 4: {
+                    staticOptions: 'creature',
                     animation: "claw",
                     below: false,
                     color: "red",
@@ -305,6 +311,7 @@ export class aaAutorec {
                     opacity: 0.75,
                     overhead: true,
                     persist: true,
+                    persistType: 'overheadtile',
                     removeTemplate: true,
                     repeat: 1,
                     type: 'circle',
@@ -323,6 +330,7 @@ export class aaAutorec {
                     opacity: 0.75,
                     overhead: true,
                     persist: true,
+                    persistType: 'overheadtile',
                     removeTemplate: true,
                     repeat: 1,
                     type: 'circle',
@@ -408,7 +416,8 @@ export class aaAutorec {
                     scale: 1.5,
                     subAnimation: "mistystep",
                 }
-            }
+            },
+            version: 1,
         };
         return defaultConfig;
     }

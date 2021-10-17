@@ -13,7 +13,7 @@ import { teleportation } from "./animation-functions/teleportation.js";
 import { templateAnimation } from "./animation-functions/templateAnimation.js";
 import { setupSocket } from "./socketset.js";
 import { flagMigrations } from "./system-handlers/flagMerge.js";
-
+import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 const log = () => { };
 
 Hooks.once('setup', function () {
@@ -238,6 +238,7 @@ Hooks.once('ready', function () {
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error(game.i18n.format("AUTOANIM.error"));
     }
+    autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
     Hooks.callAll("aa.ready", obj01)
 });
 
