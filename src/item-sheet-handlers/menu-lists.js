@@ -19,6 +19,8 @@ function menuLists() {
         "chainlightning": game.i18n.localize("AUTOANIM.chainlightning"),
         "disintegrate": game.i18n.localize("AUTOANIM.itemDisintegrate"),
         "eldritchblast": game.i18n.localize("AUTOANIM.itemEldritchBlast"),
+        "energystrand": game.i18n.localize("AUTOANIM.energystrand"),
+        "energybeam": game.i18n.localize("AUTOANIM.energybeam"),
         "firebolt": game.i18n.localize("AUTOANIM.itemFireBolt"),
         "magicmissile": game.i18n.localize("AUTOANIM.itemMagicMissile"),
         "rayoffrost": game.i18n.localize("AUTOANIM.itemRayFrost"),
@@ -35,6 +37,7 @@ function menuLists() {
 
     aaMenuLists.meleeWeapons = {
         "a1": ``,
+        "club": game.i18n.localize("AUTOANIM.club"),
         "dagger": game.i18n.localize("AUTOANIM.itemDagger"),
         "falchion": game.i18n.localize("AUTOANIM.falchion"),
         "flurryofblows": game.i18n.localize("AUTOANIM.itemFlurryBlows"),
@@ -43,6 +46,7 @@ function menuLists() {
         "greatclub": game.i18n.localize("AUTOANIM.itemGreatclub"),
         "greatsword": game.i18n.localize("AUTOANIM.itemGreatsword"),
         "halberd": game.i18n.localize("AUTOANIM.halberd"),
+        "hammer": game.i18n.localize("AUTOANIM.hammer"),
         "handaxe": game.i18n.localize("AUTOANIM.itemHandaxe"),
         "lasersword": game.i18n.localize("AUTOANIM.itemLaserSword"),
         "mace": game.i18n.localize("AUTOANIM.itemMace"),
@@ -54,6 +58,8 @@ function menuLists() {
         "sword": game.i18n.localize("AUTOANIM.itemSword"),
         "rapier": game.i18n.localize("AUTOANIM.itemRapier"),
         "unarmedstrike": game.i18n.localize("AUTOANIM.itemUnarmedStrike"),
+        "warhammer": game.i18n.localize("AUTOANIM.warhammer"),
+        "wrench": game.i18n.localize("AUTOANIM.wrench"),
     };
 
     aaMenuLists.genericDmg = {
@@ -137,6 +143,7 @@ function menuLists() {
         "generichealing": game.i18n.localize("AUTOANIM.itemGenericHealing"),
         "sneakattack": game.i18n.localize("AUTOANIM.sneakattack"),
         "tollthedead": game.i18n.localize("AUTOANIM.tollthedead"),
+        "moonbeam": game.i18n.localize("AUTOANIM.moonbeam"),
         //"bless": game.i18n.localize("AUTOANIM.bless"),
     }
 
@@ -200,6 +207,7 @@ function menuLists() {
         "calllightning": game.i18n.localize("AUTOANIM.animCallLightning"),
         "sleetstorm": game.i18n.localize("AUTOANIM.animSleetstorm"),
         "cloudofdaggers": game.i18n.localize("AUTOANIM.cloudOfDaggers"),
+        "moonbeam": game.i18n.localize("AUTOANIM.moonbeam"),
     }
 
     aaMenuLists.rectangleAnimations = {
@@ -221,6 +229,7 @@ function menuLists() {
         "snowflake": game.i18n.localize("AUTOANIM.snowflake"),
         "sneakattack": game.i18n.localize("AUTOANIM.sneakattack"),
         "tollthedead": game.i18n.localize("AUTOANIM.tollthedead"),
+        "moonbeam": game.i18n.localize("AUTOANIM.moonbeam"),
     }
 
     aaMenuLists.autoself = {
@@ -239,6 +248,7 @@ function menuLists() {
         "shatter": game.i18n.localize("AUTOANIM.itemShatter"),
         "thunderwave": game.i18n.localize("AUTOANIM.itemThunderwave"),
         "tollthedead": game.i18n.localize("AUTOANIM.tollthedead"),
+        "moonbeam": game.i18n.localize("AUTOANIM.moonbeam"),
     }
 }
 

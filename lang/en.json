@@ -463,5 +463,16 @@
     "AUTOANIM.choosePreset": "Choose Preset",
     "AUTOANIM.overheadtile": "Overhead Tile",
     "AUTOANIM.groundtile": "Ground Tile",
-    "AUTOANIM.sequencereffect": "Sequencer Effect"
+    "AUTOANIM.sequencereffect": "Sequencer Effect",
+
+    "AUTOANIM.energystrand": "Energy Strand",
+    "AUTOANIM.energybeam": "Energy Beam",
+    "AUTOANIM.club": "Club",
+    "AUTOANIM.hammer": "Hammer",
+    "AUTOANIM.warhammer": "Warhammer",
+    "AUTOANIM.wrench": "Wrench",
+    "AUTOANIM.bluegreen": "Blue Green",
+    "AUTOANIM.moonbeam": "Moon Beam",
+    "AUTOANIM.nopulse": "No Pulse"
+
 }
