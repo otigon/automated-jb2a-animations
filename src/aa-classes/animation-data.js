@@ -220,6 +220,7 @@ export class AAanimationData {
             animation: target.name || "",
             color: target.color,
             variant: target.variant,
+            persistent: target.persistent || false,
         }
 
         if (target.enable && target.name === "a1" && !target.enableCustom) {
@@ -261,6 +262,7 @@ export class AAanimationData {
             .scale(targetFX.tFXScale * targetFX.scale)
             .repeats(targetFX.repeat, targetFX.delay)
             .belowTokens(targetFX.below)
+            .persist(targetFX.persistent)
             .gridSize(canvas.grid.size)
             .playIf(playNow)
 

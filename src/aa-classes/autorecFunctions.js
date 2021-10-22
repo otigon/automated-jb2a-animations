@@ -156,7 +156,7 @@ export class AutorecFunctions {
             var arrayLength = Object.keys(data[keys[i]]).length
             var currentObject = data[keys[i]];
             for (var k = 0; k < arrayLength; k++) {
-                if (currentObject[k].name === "") { break; }
+                if (!currentObject[k].name) { break; }
                 currentObject[k].menuSection = keys[i]
                 mergedArray.push(currentObject[k])
             }

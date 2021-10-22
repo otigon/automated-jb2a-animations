@@ -28,7 +28,7 @@ export async function templateAnimation(handler, autoObject) {
         data.color = handler.color;
         data.repeat = handler.options?.repeat;
         data.delay = handler.options?.delay;
-        data.customPath = handler.options?.customAnim ? handler.options.customPath : false;
+        data.customPath = handler.options?.enableCustom ? handler.options.customPath : false;
         data.below = handler.animLevel;
         data.type = handler.options?.tempType;
         data.persist = handler.options?.persistent;
@@ -248,7 +248,6 @@ export async function templateAnimation(handler, autoObject) {
         }
 
         if (data.persist && data.persistType === 'attachtemplate') {
-            debugger
             await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function () {

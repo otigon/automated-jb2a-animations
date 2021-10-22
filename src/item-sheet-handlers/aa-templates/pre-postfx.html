@@ -129,6 +129,8 @@
     </div>
     <div class='aa-item-container primary-animation' {{#unless flags.autoanimations.targetToken.enable}}
         style='box-shadow: 0 0 5px red;' {{/unless}}>
+
+
         <!--Target Token Animation Options-->
         <div class='form-group' style="grid-column: 1 / 4;grid-row: 1 / 2;justify-self: left;">
             <label>{{localize "AUTOANIM.targetToken"}}</label>
@@ -143,6 +145,10 @@
                 value="flags.autoanimations.targetToken.animLevel" data-dtype="{{Boolean}}" {{checked
                 flags.autoanimations.targetToken.animLevel}} />
         </div>
+        <div class="form-group option05">
+            <label>{{localize "AUTOANIM.persistant"}}?</label>
+            <input type="checkbox" name="flags.autoanimations.targetToken.persistent" {{checked flags.autoanimations.targetToken.persistent}}>
+        </div>    
         {{#unless flags.autoanimations.targetToken.enableCustom}}
         <div class="option03">
             <label>{{localize "AUTOANIM.animation"}}</label>
