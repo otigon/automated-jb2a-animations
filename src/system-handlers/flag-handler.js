@@ -69,7 +69,7 @@ export default class flagHandler {
 
         this._options = this._flags.options ?? "";
         this._variant = this._options.variant || "";
-        this._repeat = this._options.repeat || 1;
+        this._repeat = (this._options && this._options.enableCustom && this._options.repeat) || systemData.quantity || 1;
         this._repeatDelay = this._options.delay || 250;
         this._scale = this._options.scale || 1;
         this._opacity = this._options.opacity || 0.75;

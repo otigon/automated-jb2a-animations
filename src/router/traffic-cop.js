@@ -152,90 +152,96 @@ export async function trafficCop(handler) {
 
             if (isAuto) {
                 const autoObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName) // combines Autorec menus and sorts by name length, returns object
-                switch (autoObject.menuSection) {
-                    case 'melee':
-                        if (targets === 0) {
-                            Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                            if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
-                            return;
-                        }
-                        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                        if (aaDebug) { aaDebugger("Pre Melee Animation", autoObject) }
-                        itemSound(handler)
-                        meleeAnimation(handler, autoObject);
-                        break;
-                    case 'range':
-                        if (targets === 0) {
-                            Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                            if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
-                            return;
-                        }
-                        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                        if (aaDebug) { aaDebugger("Pre Range Animation", autoObject) }
-                        itemSound(handler)
-                        rangedAnimations(handler, autoObject);
-                        break;
-                    case 'static':
-                        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                        if (aaDebug) { aaDebugger("Pre Static Animation", autoObject) }
-                        itemSound(handler)
-                        staticAnimation(handler, autoObject);
-                        break;
-                    case 'templates':
-                        if (aaDebug) { aaDebugger("Pre Template Animation", autoObject) }
-                        Hooks.once("createMeasuredTemplate", () => {
-                            templateAnimation(handler, autoObject);
-                        })
-                        break;
-                    case 'auras':
-                        if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
-                        itemSound(handler)
-                        auras(handler, autoObject)
-                        break;
-                    case 'preset':
-                        if (aaDebug) { aaDebugger("Pre Preset Animation", autoObject) }
-                        switch (autoObject.animation) {
-                            case 'bardicinspiration':
-                                itemSound(handler)
-                                bardicInspiration(handler, autoObject);
-                                break;
-                            case 'bless':
-                                itemSound(handler)
-                                bless(handler, autoObject);
-                                break;
-                            case 'shieldspell':
-                                itemSound(handler)
-                                shieldSpell(handler, autoObject);
-                                break;
-                            case 'huntersmark':
-                                huntersMark(handler, autoObject);
-                                break;
-                            case 'teleportation':
-                                itemSound(handler)
-                                teleportation(handler, autoObject);
-                                break;
-                            case 'sneakattack':
-                                itemSound(handler);
-                                sneakAttack(handler, autoObject);
-                                break;
-                            case "fireball":
-                                switch (game.system.id) {
-                                    case "dnd5e":
-                                    case "pf2e":
-                                        if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
-                                            fireball(handler, autoObject, true);
-                                        } else {
-                                            Hooks.once("createMeasuredTemplate", () => {
+                for (let i = 1; i <= handler.repeat; i++) {
+                    switch (autoObject.menuSection) {
+                        case 'melee':
+                            if (targets === 0) {
+                                Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                                if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
+                                return;
+                            }
+                            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                            if (aaDebug) { aaDebugger("Pre Melee Animation", autoObject) }
+                            itemSound(handler)
+                            meleeAnimation(handler, autoObject);
+                            break;
+                        case 'range':
+                            if (targets === 0) {
+                                Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                                if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
+                                return;
+                            }
+                            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                            if (aaDebug) { aaDebugger("Pre Range Animation", autoObject) }
+                            itemSound(handler)
+                            rangedAnimations(handler, autoObject);
+                            break;
+                        case 'static':
+                            Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                            if (aaDebug) { aaDebugger("Pre Static Animation", autoObject) }
+                            itemSound(handler)
+                            staticAnimation(handler, autoObject);
+                            break;
+                        case 'templates':
+                            if (aaDebug) { aaDebugger("Pre Template Animation", autoObject) }
+                            Hooks.once("createMeasuredTemplate", () => {
+                                templateAnimation(handler, autoObject);
+                            })
+                            break;
+                        case 'auras':
+                            if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
+                            itemSound(handler)
+                            auras(handler, autoObject)
+                            break;
+                        case 'preset':
+                            if (aaDebug) { aaDebugger("Pre Preset Animation", autoObject) }
+                            switch (autoObject.animation) {
+                                case 'bardicinspiration':
+                                    itemSound(handler)
+                                    bardicInspiration(handler, autoObject);
+                                    break;
+                                case 'bless':
+                                    itemSound(handler)
+                                    bless(handler, autoObject);
+                                    break;
+                                case 'shieldspell':
+                                    itemSound(handler)
+                                    shieldSpell(handler, autoObject);
+                                    break;
+                                case 'huntersmark':
+                                    huntersMark(handler, autoObject);
+                                    break;
+                                case 'teleportation':
+                                    itemSound(handler)
+                                    teleportation(handler, autoObject);
+                                    break;
+                                case 'sneakattack':
+                                    itemSound(handler);
+                                    sneakAttack(handler, autoObject);
+                                    break;
+                                case "fireball":
+                                    switch (game.system.id) {
+                                        case "dnd5e":
+                                        case "pf2e":
+                                            if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
                                                 fireball(handler, autoObject, true);
-                                            });
-                                        }
-                                        break;
-                                    default:
-                                        fireball(handler, autoObject, true);
-                                }
-                                break;
-                        }
-                        break;
+                                            } else {
+                                                Hooks.once("createMeasuredTemplate", () => {
+                                                    fireball(handler, autoObject, true);
+                                                });
+                                            }
+                                            break;
+                                        default:
+                                            fireball(handler, autoObject, true);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+
+                    if (i != handler.repeat) {
+                        await wait(handler.delay)
+                    }
                 }
             } else {
                 itemSound(handler)

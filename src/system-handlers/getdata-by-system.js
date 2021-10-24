@@ -151,8 +151,9 @@ export class AASystemData {
         if (!item || !tokenId) { return; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null);
         const targets = Array.from(input.user.targets);
+        const quantity = Object.keys(input.data.flags.pf1.metadata?.rolls?.attacks ?? {}).length || 1;
 
-        return { item, token, targets };
+        return { item, token, targets, quantity };
     }
 
     static pf2e(input) {
