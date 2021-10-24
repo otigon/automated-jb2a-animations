@@ -32,7 +32,7 @@ Hooks.on('init', () => {
         if (a != b) { return options.fn(this); }
         return options.inverse(this);
     });
-    Handlebars.registerHelper('concat', function (...params) {
+    Handlebars.registerHelper('aaConcat', function (...params) {
         // Ignore the object appended by handlebars.
         if (typeof params[params.length - 1] === 'object') {
             params.pop();

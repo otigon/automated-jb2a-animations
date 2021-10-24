@@ -66,7 +66,7 @@
     <div style='padding:6px'>
 
     </div>
-    {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
     '/item-autoOverride.html')}}
     {{/undefined}}
     <div style='padding:6px'>
@@ -96,35 +96,35 @@
 {{#unless flags.autoanimations.killAnim}}
 <div class='animation-not-disabled'>
     {{#if melee}}
-    {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-melee.html')}}
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-melee.html')}}
     {{/undefined}}
     {{/if}}
 
     {{#if range}}
-    {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
     '/item-ranged.html')}}
     {{/undefined}}
     {{/if}}
 
     {{#if static}}
-    {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
     '/item-ontoken.html')}}
     {{/undefined}}
     {{/if}}
 
     {{#if template}}
-    {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
     '/item-templates.html')}}
     {{/undefined}}
     {{/if}}
 
     {{#if aura}}
-    {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-auras.html')}}
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-auras.html')}}
     {{/undefined}}
     {{/if}}
 
     {{#if preset}}
-    {{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
     '/item-presets.html')}}
     {{/undefined}}
     {{/if}}

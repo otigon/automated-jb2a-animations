@@ -61,16 +61,16 @@
     {{/unless}}
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.options.repeat" value={{repeat}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.options.repeat" value={{aaRepeat}} data-dtype="Number">
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.options.delay" value={{delay}}
+        <input type="Number" name="flags.autoanimations.options.delay" value={{aaDelay}}
             data-dtype="Number">
     </div>
     <div class="autorec-menu-options" style='grid-column: 3 / 5;grid-row: 2 / 3;'>
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.options.scale" value={{scale}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.options.scale" value={{aaScale}} data-dtype="Number">
     </div>
     <!--Add Custom Animation-->
     <div class='form-group option09'>
@@ -176,5 +176,5 @@
 <div style='padding:3px'>
 
 </div>
-{{#> (concat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/add-explosion.html')}}
+{{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/add-explosion.html')}}
 {{/undefined}}

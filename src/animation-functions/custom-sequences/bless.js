@@ -25,6 +25,7 @@ export async function bless(handler, autoObject) {
         data.animation = data.animation || "";
         data.color = autoOverridden ? handler.autoOverride?.color : data.color;
         data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+        data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
     } else {
         data.animation = handler.convertedName;
         data.color = handler.color;
