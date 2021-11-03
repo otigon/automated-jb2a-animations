@@ -71,7 +71,7 @@ export async function auras(handler, autoObject) {
             let target = targets[i];
             let randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
 
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: target.name + " " + aura.file }).length > 0
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: `${target.name}-${handler.itemName}` }).length > 0
             let playPersist = !checkAnim ? true : false;
 
             new Sequence()
@@ -79,7 +79,7 @@ export async function auras(handler, autoObject) {
                     //.atLocation(target)
                     .attachTo(target)
                     .persist()
-                    .name(target.name + " " + aura.file)
+                    .name(`${target.name}-${handler.itemName}`)
                     .size(data.size)
                     .gridSize(gridSize)
                     .playIf(playPersist)

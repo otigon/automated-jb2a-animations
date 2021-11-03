@@ -289,18 +289,18 @@ JB2APATREONDB.range = {
                 '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Poison_90ft_4000x400.webm`]
             },
             pink: {
-                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__05ft_600x400.webm`],
-                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink__90ft_4000x400.webm`]
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Poison_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Poison_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Poison_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Poison_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Pink_Poison_90ft_4000x400.webm`]
             },
             purple: {
-                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__05ft_600x400.webm`],
-                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple__90ft_4000x400.webm`]
+                '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Poison_05ft_600x400.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Poison_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Poison_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Poison_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Purple_Poison_90ft_4000x400.webm`]
             },
         },
         'fire': {
