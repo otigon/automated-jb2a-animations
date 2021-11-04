@@ -53,7 +53,7 @@ export async function auras(handler, autoObject) {
                 .file(aura.file)
                 .gridSize(gridSize)
                 .attachTo(sourceToken)
-                .name(sourceToken.name)
+                .name(`${sourceToken.name}-${handler.itemName}`)
                 .fadeIn(50)
                 .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                 .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
@@ -71,7 +71,7 @@ export async function auras(handler, autoObject) {
             let target = targets[i];
             let randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
 
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: `${target.name}-${handler.itemName}` }).length > 0
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: `${sourceToken.name}-${handler.itemName}` }).length > 0
             let playPersist = !checkAnim ? true : false;
 
             new Sequence()
@@ -79,7 +79,7 @@ export async function auras(handler, autoObject) {
                     //.atLocation(target)
                     .attachTo(target)
                     .persist()
-                    .name(`${target.name}-${handler.itemName}`)
+                    .name(`${sourceToken.name}-${handler.itemName}`)
                     .size(data.size)
                     .gridSize(gridSize)
                     .playIf(playPersist)
