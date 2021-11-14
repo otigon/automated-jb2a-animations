@@ -399,7 +399,7 @@ async function setUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler?.item || !handler?.actorToken || handler?.animKill) {
         return;
     }
 
