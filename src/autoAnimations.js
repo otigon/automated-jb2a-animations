@@ -467,7 +467,7 @@ async function onCreateChatMessage(msg) {
             handler = await flagHandler.make(msg);
             break;
     }
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler?.item || !handler?.actorToken || handler?.animKill) {
         return;
     }
     trafficCop(handler)
