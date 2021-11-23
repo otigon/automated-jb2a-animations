@@ -228,7 +228,7 @@ Hooks.once('ready', function () {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     
     Hooks.on("sequencer.ready", () => {
-        SequencerDatabase.registerEntries("autoanimations", obj01);
+        Sequencer.Database.registerEntries("autoanimations", obj01);
         if (game.settings.get("autoanimations", "killAllAnim") === "off") {
             console.log("ANIMATIONS ARE OFF")
             socket.off('module.sequencer')//

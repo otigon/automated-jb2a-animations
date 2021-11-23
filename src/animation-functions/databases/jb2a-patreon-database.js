@@ -547,7 +547,14 @@ JB2APATREONDB.range = {
                 '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_30ft_Primary_1600x400.webm`],
                 '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_60ft_Primary_2800x400.webm`],
                 '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_90ft_Primary_4000x400.webm`]
-            }
+            },
+            red: {
+                '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_05ft_Primary_600x400.webm`],
+                '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_15ft_Primary_1000x400.webm`],
+                '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_30ft_Primary_1600x400.webm`],
+                '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_60ft_Primary_2800x400.webm`],
+                '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_90ft_Primary_4000x400.webm`]
+            },
         },
         secondary: {
             darkpurple: {
@@ -577,7 +584,14 @@ JB2APATREONDB.range = {
                 '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_30ft_Primary_1600x400.webm`],
                 '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_60ft_Primary_2800x400.webm`],
                 '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_90ft_Primary_4000x400.webm`]
-            }
+            },
+            red: {
+                '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_05ft_Primary_600x400.webm`],
+                '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_15ft_Primary_1000x400.webm`],
+                '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_30ft_Primary_1600x400.webm`],
+                '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_60ft_Primary_2800x400.webm`],
+                '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_90ft_Primary_4000x400.webm`]
+            },
         }
     },
     chakram: {
@@ -606,6 +620,12 @@ JB2APATREONDB.range = {
                 '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_90ft_4000x400.webm`]
             },
+            blue: {
+                '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_90ft_4000x400.webm`]
+            },
             darkpurple: {
                 '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_15ft_1000x400.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_30ft_1600x400.webm`],
@@ -619,6 +639,12 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_90ft_4000x400.webm`]
+            },
+            blue: {
+                '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Blue_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Blue_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Blue_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Blue_90ft_4000x400.webm`],
             },
             darkpurple: {
                 '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_15ft_1000x400.webm`],
@@ -767,6 +793,26 @@ JB2APATREONDB.range = {
                 '60ft': [lg`Energy/EnergyBeam_01_Dark_Green_60ft_2800x400.webm`],
                 '90ft': [lg`Energy/EnergyBeam_01_Dark_Green_90ft_4000x400.webm`],
             },
+        },
+        reverse: {
+            blue: {
+                '15ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_90ft_4000x400.webm`],
+            },
+            bluegreen: {
+                '15ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_90ft_4000x400.webm`],
+            },
+            darkgreen: {
+                '15ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_90ft_4000x400.webm`],
+            },
         }
     },
     energystrand: {
@@ -800,6 +846,31 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Energy/EnergyStrand_02_Regular_Purple_30ft_1600x400.webm`],
                 '60ft': [lg`Energy/EnergyStrand_02_Regular_Purple_60ft_2800x400.webm`],
                 '90ft': [lg`Energy/EnergyStrand_02_Regular_Purple_90ft_4000x400.webm`],
+            },
+        },
+    },
+    fireballbeam: {
+        '01': {
+            blue: {
+                '05ft': [l3`Fireball/FireballBeam_01_Blue_05ft_600x400.webm`],
+                '15ft': [l3`Fireball/FireballBeam_01_Blue_15ft_1000x400.webm`],
+                '30ft': [l3`Fireball/FireballBeam_01_Blue_30ft_1600x400.webm`],
+                '60ft': [l3`Fireball/FireballBeam_01_Blue_60ft_2800x400.webm`],
+                '90ft': [l3`Fireball/FireballBeam_01_Blue_90ft_4000x400.webm`]
+            },
+            orange: {
+                '05ft': [l3`Fireball/FireballBeam_01_Orange_05ft_600x400.webm`],
+                '15ft': [l3`Fireball/FireballBeam_01_Orange_15ft_1000x400.webm`],
+                '30ft': [l3`Fireball/FireballBeam_01_Orange_30ft_1600x400.webm`],
+                '60ft': [l3`Fireball/FireballBeam_01_Orange_60ft_2800x400.webm`],
+                '90ft': [l3`Fireball/FireballBeam_01_Orange_90ft_4000x400.webm`]
+            },
+            purple: {
+                '05ft': [l3`Fireball/FireballBeam_01_Purple_05ft_600x400.webm`],
+                '15ft': [l3`Fireball/FireballBeam_01_Purple_15ft_1000x400.webm`],
+                '30ft': [l3`Fireball/FireballBeam_01_Purple_30ft_1600x400.webm`],
+                '60ft': [l3`Fireball/FireballBeam_01_Purple_60ft_2800x400.webm`],
+                '90ft': [l3`Fireball/FireballBeam_01_Purple_90ft_4000x400.webm`]
             },
         },
     },
@@ -918,7 +989,14 @@ JB2APATREONDB.range = {
                 '30ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_Pink_30ft_1600x400.webm`],
                 '60ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_Pink_60ft_2800x400.webm`],
                 '90ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_Pink_90ft_4000x400.webm`]
-            }
+            },
+            red: {
+                '05ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_Red_05ft_600x400.webm`],
+                '15ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_Red_15ft_1000x400.webm`],
+                '30ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_Red_30ft_1600x400.webm`],
+                '60ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_Red_60ft_2800x400.webm`],
+                '90ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_Red_90ft_4000x400.webm`]
+            },
         },
         '02': {
             yellowblue: {
@@ -941,6 +1019,13 @@ JB2APATREONDB.range = {
                 '30ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_Pink_30ft_1600x400.webm`],
                 '60ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_Pink_60ft_2800x400.webm`],
                 '90ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_Pink_90ft_4000x400.webm`]
+            },
+            red: {
+                '05ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_Red_05ft_600x400.webm`],
+                '15ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_Red_15ft_1000x400.webm`],
+                '30ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_Red_30ft_1600x400.webm`],
+                '60ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_Red_60ft_2800x400.webm`],
+                '90ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_Red_90ft_4000x400.webm`]
             },
             purplepink: {
                 '05ft': [l1`Guiding_Bolt/GuidingBolt_02_Regular_PurplePink_05ft_600x400.webm`],
@@ -1337,6 +1422,17 @@ JB2APATREONDB.range = {
             }
         }
     },
+    pumpkin: {
+        '01': {
+            regular: {
+                '05ft': [lg`Weapon_Attacks/Ranged/PumpkinToss01_01_Regular_Orange_05ft_600x500.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/PumpkinToss01_01_Regular_Orange_15ft_1000x500.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/PumpkinToss01_01_Regular_Orange_30ft_1600x500.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/PumpkinToss01_01_Regular_Orange_60ft_2800x500.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/PumpkinToss01_01_Regular_Orange_90ft_4000x500.webm`]
+            },
+        },
+    },
     rayoffrost: {
         '01': {
             blue: {
@@ -1454,6 +1550,33 @@ JB2APATREONDB.range = {
                     l2`Scorching_Ray/ScorchingRay_02_Regular_Blue_90ft_01_4000x400.webm`,
                     l2`Scorching_Ray/ScorchingRay_02_Regular_Blue_90ft_02_4000x400.webm`,
                     l2`Scorching_Ray/ScorchingRay_02_Regular_Blue_90ft_03_4000x400.webm`
+                ]
+            },
+            green: {
+                '05ft': [
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_05ft_01_600x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_05ft_02_600x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_05ft_03_600x400.webm`
+                ],
+                '15ft': [
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_15ft_01_1000x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_15ft_02_1000x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_15ft_03_1000x400.webm`
+                ],
+                '30ft': [
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_30ft_01_1600x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_30ft_02_1600x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_30ft_03_1600x400.webm`
+                ],
+                '60ft': [
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_60ft_01_2800x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_60ft_02_2800x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_60ft_03_2800x400.webm`
+                ],
+                '90ft': [
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_90ft_01_4000x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_90ft_02_4000x400.webm`,
+                    l2`Scorching_Ray/ScorchingRay_02_Regular_Green_90ft_03_4000x400.webm`
                 ]
             },
             orange: {
@@ -1805,7 +1928,15 @@ JB2APATREONDB.melee = {
             yellow: [
                 lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Yellow_Physical01_800x600.webm`
             ]
-        }
+        },
+        'nohit': {
+            blue: [
+                lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlowsNoHit_01_Regular_Blue_800x600.webm`,
+            ],
+            yellow: [
+                lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlowsNoHit_01_Regular_Yellow_800x600.webm`
+            ],
+        },
     },
     glaive: {
         '01': {
@@ -2587,7 +2718,15 @@ JB2APATREONDB.melee = {
                 lg`Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Regular_Yellow_Physical01_800x600.webm`,
                 lg`Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Regular_Yellow_Physical02_800x600.webm`
             ]
-        }
+        },
+        'nohit': {
+            blue: [
+                lg`Unarmed_Attacks/Unarmed_Strike/UnarmedStrikeNoHit_01_Regular_Blue_800x600.webm`,
+            ],
+            yellow: [
+                lg`Unarmed_Attacks/Unarmed_Strike/UnarmedStrikeNoHit_01_Regular_Yellow_800x600.webm`
+            ],
+        },
     },
     warhammer: {
         '01': {
@@ -2803,6 +2942,159 @@ JB2APATREONDB.static = {
             darkred: [lg`Creature/Claws_01_Dark_Red_400x400.webm`]
         }
     },
+    //conditions below
+    drop: {
+        '02': {
+            green: [lg`Marker/MarkerDrop_02_Dark_Green_400x400.webm`],
+            red: [lg`Marker/MarkerDrop_02_Regular_Red_400x400.webm`],
+        },
+        '03': {
+            green: [lg`Marker/MarkerDrop_03_Dark_Green_400x400.webm`],
+            red: [lg`Marker/MarkerDrop_03_Regular_Red_400x400.webm`],
+        },
+    },
+    energystrand: {
+        '01': {
+            darkred: [lg`Marker/EnergyStrands_01_Dark_Red_600x600.webm`],
+            blue: [lg`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`],
+            blueorange: [lg`Marker/EnergyStrands_01_Regular_BlueOrange_600x600.webm`],
+            orange: [lg`Marker/EnergyStrands_01_Regular_Orange_600x600.webm`],
+            pinkyellow: [lg`Marker/EnergyStrands_01_Regular_PinkYellow_600x600.webm`],
+            purple: [lg`Marker/EnergyStrands_01_Regular_Purple_600x600.webm`],
+        }
+    },
+    fear: {
+        '01': {
+            orange: [lg`Marker/MarkerFear_01_Dark_Orange_400x400.webm`],
+            darkpurple: [lg`Marker/MarkerFear_01_Dark_Purple_400x400.webm`],
+        },
+        '02': {
+            orange: [lg`Marker/MarkerFear_02_Regular_Orange_400x400.webm`],
+            darkpurple: [lg`Marker/MarkerFear_02_Dark_Purple_400x400.webm`],
+        },
+        '03': {
+            darkorange: [lg`Marker/MarkerFear_03_Regular_Orange_400x400.webm`],
+            darkpurple: [lg`Marker/MarkerFear_03_Dark_Purple_400x400.webm`],
+        },
+    },
+    heart: {
+        '01': {
+            pink: [lg`Marker/MarkerHeart_01_Regular_Pink_400x400.webm`],
+            teal: [lg`Marker/MarkerHeart_01_Regular_Teal_400x400.webm`],
+        },
+        '02': {
+            darkred: [lg`Marker/MarkerHeart_02_Dark_Red_400x400.webm`],
+            pink: [lg`Marker/MarkerHeart_02_Regular_Pink_400x400.webm`],
+        },
+        '03': {
+            darkred: [lg`Marker/MarkerHeart_03_Dark_Red_400x400.webm`],
+            pink: [lg`Marker/MarkerHeart_03_Regular_Pink_400x400.webm`],
+        },
+    },
+    horror: {
+        '01': {
+            purple: [lg`Marker/MarkerHorror_01_Regular_Purple_400x400.webm`],
+            teal: [lg`Marker/MarkerHorror_01_Regular_Teal_400x400.webm`],
+        },
+        '02': {
+            purple: [lg`Marker/MarkerHorror_02_Regular_Purple_400x400.webm`],
+            teal: [lg`Marker/MarkerHorror_02_Dark_Teal_400x400.webm`],
+        },
+        '03': {
+            purple: [lg`Marker/MarkerHorror_03_Dark_Teal_400x400.webm`],
+            darkteal: [lg`Marker/MarkerHorror_03_Regular_Purple_400x400.webm`],
+        },
+    },
+    light: {
+        pulse: {
+            blue: [lg`Marker/MarkerLight_01_Regular_Blue_400x400.webm`],
+            green: [lg`Marker/MarkerLight_01_Regular_Green_400x400.webm`],
+            yellow: [lg`Marker/MarkerLight_01_Regular_Yellow_400x400.webm`],
+        },
+        nopulse: {
+            blue: [lg`Marker/MarkerLightNoPulse_01_Regular_Blue_400x400.webm`],
+            green: [lg`Marker/MarkerLightNoPulse_01_Regular_Green_400x400.webm`],
+            yellow: [lg`Marker/MarkerLightNoPulse_01_Regular_Yellow_400x400.webm`],
+        },
+    },
+    poison: {
+        '02': {
+            darkgreen: [lg`Marker/MarkerPoison_02_Dark_Green_400x400.webm`],
+            purple: [lg`Marker/MarkerPoison_02_Regular_Purple_400x400.webm`],
+        },
+        '03': {
+            darkgreen: [lg`Marker/MarkerPoison_03_Dark_Green_400x400.webm`],
+            purple: [lg`Marker/MarkerPoison_03_Regular_Purple_400x400.webm`],
+        },
+    },
+    runes: {
+        '01': {
+            darkorange: [lg`Marker/MarkerRunes_01_Dark_Orange_400x400.webm`],
+        },
+        '02': {
+            orange: [lg`Marker/MarkerRunes_02_Regular_Orange_400x400.webm`],
+            darkred: [lg`Marker/MarkerRunes_02_Dark_Red_400x400.webm`],
+        },
+        '03': {
+            orange: [lg`Marker/MarkerRunes_03_Regular_Orange_400x400.webm`],
+            darkred: [lg`Marker/MarkerRunes_03_Dark_Red_400x400.webm`],
+        },
+    },
+    shields: {
+        '02': {
+            darkred: [lg`Marker/MarkerShield_02_Dark_Red_400x400.webm`],
+            green: [lg`Marker/MarkerShield_02_Regular_Green_400x400.webm`],
+        },
+        '03': {
+            darkred: [lg`Marker/MarkerShield_03_Dark_Red_400x400.webm`],
+            green: [lg`Marker/MarkerShield_03_Regular_Green_400x400.webm`],
+        },
+    },
+    crackedshield: {
+        '02': {
+            darkred: [lg`Marker/MarkerShieldCracked_02_Dark_Red_400x400.webm`],
+            purple: [lg`Marker/MarkerShieldCracked_02_Regular_Purple_400x400.webm`],
+        },
+        '03': {
+            darkred: [lg`Marker/MarkerShieldCracked_03_Dark_Red_400x400.webm`],
+            purple: [lg`Marker/MarkerShieldCracked_03_Regular_Purple_400x400.webm`],
+        },
+    },
+    skull: {
+        '01': {
+            darkgreen: [lg`Marker/MarkerSkull_01_Dark_Green_400x400.webm`],
+            darkorange: [lg`Marker/MarkerSkull_01_Dark_Orange_400x400.webm`],
+        },
+        '02': {
+            darkgreen: [lg`Marker/MarkerSkull_02_Dark_Green_400x400.webm`],
+            purple: [lg`Marker/MarkerSkull_02_Regular_Purple_400x400.webm`],
+        },
+        '03': {
+            darkgreen: [lg`Marker/MarkerSkull_03_Dark_Green_400x400.webm`],
+            purple: [lg`Marker/MarkerSkull_03_Regular_Purple_400x400.webm`],
+        },
+    },
+    snowflakes: {
+        '02': {
+            darkblue: [lg`Marker/MarkerSnowflake_02_Dark_Blue_400x400.webm`],
+            blue: [lg`Marker/MarkerSnowflake_02_Regular_Blue_400x400.webm`],
+        },
+        '03': {
+            darkblue: [lg`Marker/MarkerSnowflake_03_Dark_Blue_400x400.webm`],
+            blue: [lg`Marker/MarkerSnowflake_03_Regular_Blue_400x400.webm`],
+        },
+    },
+    stun: {
+        '02': {
+            darkteal: [lg`Marker/MarkerStun_02_Dark_Teal_400x400.webm`],
+            purple: [lg`Marker/MarkerStun_02_Regular_Purple_400x400.webm`],
+        },
+        '03': {
+            darkteal: [lg`Marker/MarkerStun_03_Dark_Teal_400x400.webm`],
+            purple: [lg`Marker/MarkerStun_03_Regular_Purple_400x400.webm`],
+        },
+    },
+    //conditions above
     curewounds: {
         '01': {
             blue: [l1`Cure_Wounds/CureWounds_01_Blue_400x400.webm`],
@@ -2849,6 +3141,36 @@ JB2APATREONDB.static = {
             yellow: [lg`Conditions/Dizzy_Stars/DizzyStars_01_Yellow_400x400.webm`]
         }
     },
+    dodecahedron: {
+        simple: {
+            blue: [lg`Energy/Dodecahedron_01_Regular_Blue_600x600.webm`],
+            green: [lg`Energy/Dodecahedron_01_Regular_Green_600x600.webm`],
+        },
+        rolled: {
+            blue: [lg`Energy/DodecahedronRoll_01_Regular_Blue_600x600.webm`],
+            green: [lg`Energy/DodecahedronRoll_01_Regular_Green_600x600.webm`],
+        },
+        runeabove: {
+            yellowblue: [lg`Energy/DodecahedronRuneAbove_01_Regular_BlueYellow_600x600.webm`],
+            darkgreenpurple: [lg`Energy/DodecahedronRuneAbove_01_Dark_GreenPurple_600x600.webm`],
+        },
+        runebelow: {
+            yellowblue: [lg`Energy/DodecahedronRuneBelow_01_Regular_BlueYellow_600x600.webm`],
+            darkgreenpurple: [lg`Energy/DodecahedronRuneBelow_01_Dark_GreenPurple_600x600.webm`],
+        },
+        skullabove: {
+            darkgreenpurple: [lg`Energy/DodecahedronSkullAbove_01_Dark_GreenPurple_600x600.webm`],
+        },
+        skullbelow: {
+            darkgreenpurple: [lg`Energy/DodecahedronSkullBelow_01_Dark_GreenPurple_600x600.webm`],
+        },
+        starabove: {
+            yellowblue: [lg`Energy/DodecahedronStarAbove_01_Regular_BlueYellow_600x600.webm`],
+        },
+        starbelow: {
+            yellowblue: [lg`Energy/DodecahedronStarBelow_01_Regular_BlueYellow_600x600.webm`],
+        },
+    },
     explosion: {
         '01': {
             blue: [
@@ -2869,6 +3191,9 @@ JB2APATREONDB.static = {
             purple: [
                 lg`Explosion/Explosion_01_Purple_400x400.webm`,
                 lg`Explosion/Explosion_02_Purple_400x400.webm`,
+            ],
+            red: [
+                lg`Explosion/Explosion_03_Regular_Red_400x400.webm`,
             ],
             yellow: [
                 lg`Explosion/Explosion_01_Yellow_400x400.webm`,
@@ -2897,6 +3222,25 @@ JB2APATREONDB.static = {
             ],
         }
     },
+    fireballloop: {
+        '01': {
+            blue: [l3`Fireball/FireballLoop_01_Blue_800x800.webm`],
+            orange: [l3`Fireball/FireballLoop_01_Orange_800x800.webm`],
+            purple: [l3`Fireball/FireballLoop_01_Purple_800x800.webm`],
+        },
+        nodebris: {
+            blue: [l3`Fireball/FireballLoopNoDebris_01_Blue_800x800.webm`],
+            orange: [l3`Fireball/FireballLoopNoDebris_01_Orange_800x800.webm`],
+            purple: [l3`Fireball/FireballLoopNoDebris_01_Purple_800x800.webm`],
+        },
+    },
+    fireballexplode: {
+        '01': {
+            blue: [l3`Fireball/FireballExplosion_01_Blue_800x800.webm`],
+            orange: [l3`Fireball/FireballExplosion_01_Orange_800x800.webm`],
+            purple: [l3`Fireball/FireballExplosion_01_Purple_800x800.webm`],
+        }
+    },
     fogcloud: {
         '01': {
             white: [l1`Fog_Cloud/FogCloud_01_White_800x800.webm`]
@@ -2911,6 +3255,7 @@ JB2APATREONDB.static = {
             blue: [lg`Healing/HealingAbility_01_Blue_400x400.webm`],
             green: [lg`Healing/HealingAbility_01_Green_400x400.webm`],
             purple: [lg`Healing/HealingAbility_01_Purple_400x400.webm`],
+            red: [lg`HealingAbility_01_Red_400x400.webm`],
             yellow: [lg`Healing/HealingAbility_01_Yellow_400x400.webm`],
         },
         '02': {
@@ -3007,7 +3352,9 @@ JB2APATREONDB.static = {
             red: [
                 lg`Impact/Impact_05_Regular_Red_400x400.webm`,
                 lg`Impact/Impact_08_Regular_Red_400x400.webm`,
-                lg`Impact/Impact_10_Regular_Red_400x400.webm`
+                lg`Impact/Impact_10_Regular_Red_400x400.webm`,
+                lg`Impact/Impact_11_Regular_Red_400x400.webm`,
+                lg`Impact/Impact_12_Regular_Red_400x400.webm`,
             ],
             white: [
                 lg`Impact/Impact_07_Regular_White_400x400.webm`,
@@ -3024,7 +3371,8 @@ JB2APATREONDB.static = {
             darkpurple: [lg`Lightning/LightningBall_01_Dark_Purple_400x400.webm`],
             blue: [lg`Lightning/LightningBall_01_Regular_Blue_400x400.webm`],
             green: [lg`Lightning/LightningBall_01_Regular_Green_400x400.webm`],
-            purple: [lg`Lightning/LightningBall_01_Regular_Purple_400x400.webm`]
+            purple: [lg`Lightning/LightningBall_01_Regular_Purple_400x400.webm`],
+            red: [lg`Lightning/LightningBall_01_Regular_Red_400x400.webm`],
         }
     },
     gustofwind: {
@@ -3049,6 +3397,7 @@ JB2APATREONDB.static = {
             greenorange: [lg`Marker/Marker_01_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_01_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_01_Regular_PurplePink_400x400.webm`],
+            red: [lg`Marker/Marker_01_Regular_Red_400x400.webm`],
         },
         '02': {
             whiteblue: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
@@ -3056,6 +3405,7 @@ JB2APATREONDB.static = {
             greenorange: [lg`Marker/Marker_02_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/Marker_02_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/Marker_02_Regular_PurplePink_400x400.webm`],
+            pink: [lg`Marker/Marker_02_Regular_Red_400x400.webm`],
         },
         '03': {
             darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
@@ -3063,6 +3413,11 @@ JB2APATREONDB.static = {
             greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
             pink: [lg`Marker/MusicMarker_01_Regular_Pink_400x400.webm`],
             purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
+        },
+        bubble: {
+            blue: [lg`Marker/MarkerBubble_01_Regular_Blue_400x400.webm`],
+            green: [lg`Marker/MarkerBubble_01_Regular_Green_400x400.webm`],
+            rainbow: [lg`Marker/MarkerBubble_01_Regular_Rainbow_400x400.webm`],
         },
         energystrands: {
             blue: [lg`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`],
@@ -3401,6 +3756,14 @@ JB2APATREONDB.static = {
             tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],
         }
     },
+    sparkles: {
+        '01': {
+            blue: [lg`Energy/SwirlingSparkles_01_Regular_Blue_400x400.webm`],
+            bluepink: [lg`Energy/SwirlingSparkles_01_Regular_BluePink_400x400.webm`],
+            greenorange: [lg`Energy/SwirlingSparkles_01_Regular_GreenOrange_400x400.webm`],
+            orangepurple: [lg`Energy/SwirlingSparkles_01_Regular_OrangePurple_400x400.webm`],
+        }
+    },
     spiritguardians: {
         '01': {
             darkblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Blue_600x600.webm`],
@@ -3409,21 +3772,27 @@ JB2APATREONDB.static = {
             yellowblue: [l3`Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm`],
             greenorange: [l3`Spirit_Guardians/SpiritGuardians_01_Light_GreenOrange_600x600.webm`],
             purplepink: [l3`Spirit_Guardians/SpiritGuardians_01_Light_PinkPurple_600x600.webm`],
-            darkwhiteblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_WhiteBlue_600x600.webm`]
-        }
+            darkwhiteblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_WhiteBlue_600x600.webm`],
+            lightorange: [l3`Spirit_Guardians/SpiritGuardians_01_Light_Orange_600x600.webm`],
+        },
+        noring: {
+            lightorange: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Light_Orange_600x600.webm`],
+        },
     },
     staticelectricity: {
         '01': {
             darkpurple: [lg`Lightning/StaticElectricity_01_Dark_Purple_400x400.webm`],
             blue: [lg`Lightning/StaticElectricity_01_Regular_Blue_400x400.webm`],
             green: [lg`Lightning/StaticElectricity_01_Regular_Green_400x400.webm`],
-            purple: [lg`Lightning/StaticElectricity_01_Regular_Purple_400x400.webm`]
+            purple: [lg`Lightning/StaticElectricity_01_Regular_Purple_400x400.webm`],
+            red: [lg`Lightning/StaticElectricity_01_Regular_Red_400x400.webm`],
         },
         '02': {
             darkpurple: [lg`Lightning/StaticElectricity_02_Dark_Purple_400x400.webm`],
             blue: [lg`Lightning/StaticElectricity_02_Regular_Blue_400x400.webm`],
             green: [lg`Lightning/StaticElectricity_02_Regular_Green_400x400.webm`],
-            purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`]
+            purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`],
+            red: [lg`Lightning/StaticElectricity_02_Regular_Red_400x400.webm`],
         }
     },
     tollthedead: {

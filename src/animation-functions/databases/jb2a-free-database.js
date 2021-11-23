@@ -152,6 +152,17 @@ JB2AFREEDB.range = {
             },
         },
     },
+    fireballbeam: {
+        '01': {
+            orange: {
+                '05ft': [l3`Fireball/FireballBeam_01_Orange_05ft_600x400.webm`],
+                '15ft': [l3`Fireball/FireballBeam_01_Orange_15ft_1000x400.webm`],
+                '30ft': [l3`Fireball/FireballBeam_01_Orange_30ft_1600x400.webm`],
+                '60ft': [l3`Fireball/FireballBeam_01_Orange_60ft_2800x400.webm`],
+                '90ft': [l3`Fireball/FireballBeam_01_Orange_90ft_4000x400.webm`]
+            },
+        },
+    },
     firebolt: {
         '01': {
             orange: {
@@ -656,6 +667,125 @@ JB2AFREEDB.static = {
             blue: [l1`Cure_Wounds/CureWounds_01_Blue_400x400.webm`]
         }
     },
+        //conditions below
+        drop: {
+            '02': {
+                red: [lg`Marker/MarkerDrop_02_Regular_Red_400x400.webm`],
+            },
+            '03': {
+                red: [lg`Marker/MarkerDrop_03_Regular_Red_400x400.webm`],
+            },
+        },
+        energystrand: {
+            '01': {
+                blue: [lg`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`],
+            }
+        },
+        fear: {
+            '01': {
+                darkpurple: [lg`Marker/MarkerFear_01_Dark_Purple_400x400.webm`],
+            },
+            '02': {
+                darkpurple: [lg`Marker/MarkerFear_02_Dark_Purple_400x400.webm`],
+            },
+            '03': {
+                darkpurple: [lg`Marker/MarkerFear_03_Dark_Purple_400x400.webm`],
+            },
+        },
+        heart: {
+            '01': {
+                pink: [lg`Marker/MarkerHeart_01_Regular_Pink_400x400.webm`],
+            },
+            '02': {
+                pink: [lg`Marker/MarkerHeart_02_Regular_Pink_400x400.webm`],
+            },
+            '03': {
+                pink: [lg`Marker/MarkerHeart_03_Regular_Pink_400x400.webm`],
+            },
+        },
+        horror: {
+            '01': {
+                purple: [lg`Marker/MarkerHorror_01_Regular_Purple_400x400.webm`],
+            },
+            '02': {
+                purple: [lg`Marker/MarkerHorror_02_Regular_Purple_400x400.webm`],
+            },
+            '03': {
+                purple: [lg`Marker/MarkerHorror_03_Dark_Teal_400x400.webm`],
+            },
+        },
+        light: {
+            pulse: {
+                blue: [lg`Marker/MarkerLight_01_Regular_Blue_400x400.webm`],
+            },
+            nopulse: {
+                blue: [lg`Marker/MarkerLightNoPulse_01_Regular_Blue_400x400.webm`],
+            },
+        },
+        poison: {
+            '02': {
+                darkgreen: [lg`Marker/MarkerPoison_02_Dark_Green_400x400.webm`],
+            },
+            '03': {
+                darkgreen: [lg`Marker/MarkerPoison_03_Dark_Green_400x400.webm`],
+            },
+        },
+        runes: {
+            '01': {
+                darkorange: [lg`Marker/MarkerRunes_01_Dark_Orange_400x400.webm`],
+            },
+            '02': {
+                orange: [lg`Marker/MarkerRunes_02_Regular_Orange_400x400.webm`],
+            },
+            '03': {
+                orange: [lg`Marker/MarkerRunes_03_Regular_Orange_400x400.webm`],
+            },
+        },
+        shields: {
+            '02': {
+                green: [lg`Marker/MarkerShield_02_Regular_Green_400x400.webm`],
+            },
+            '03': {
+                green: [lg`Marker/MarkerShield_03_Regular_Green_400x400.webm`],
+            },
+        },
+        crackedshield: {
+            '02': {
+                purple: [lg`Marker/MarkerShieldCracked_02_Regular_Purple_400x400.webm`],
+            },
+            '03': {
+                purple: [lg`Marker/MarkerShieldCracked_03_Regular_Purple_400x400.webm`],
+            },
+        },
+        skull: {
+            '01': {
+                darkorange: [lg`Marker/MarkerSkull_01_Dark_Orange_400x400.webm`],
+            },
+            '02': {
+                purple: [lg`Marker/MarkerSkull_02_Regular_Purple_400x400.webm`],
+            },
+            '03': {
+                purple: [lg`Marker/MarkerSkull_03_Regular_Purple_400x400.webm`],
+            },
+        },
+        snowflakes: {
+            '02': {
+                blue: [lg`Marker/MarkerSnowflake_02_Regular_Blue_400x400.webm`],
+            },
+            '03': {
+                blue: [lg`Marker/MarkerSnowflake_03_Regular_Blue_400x400.webm`],
+            },
+        },
+        stun: {
+            '02': {
+                purple: [lg`Marker/MarkerStun_02_Regular_Purple_400x400.webm`],
+            },
+            '03': {
+                purple: [lg`Marker/MarkerStun_03_Regular_Purple_400x400.webm`],
+            },
+        },
+        //conditions above
+    
     darkness: {
         '01': {
             black: [l2`Darkness/Darkness_01_Black_600x600.webm`],
@@ -674,6 +804,26 @@ JB2AFREEDB.static = {
         '01': {
             blueorange: [lg`Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm`],
         }
+    },
+    dodecahedron: {
+        simple: {
+            blue: [lg`Energy/Dodecahedron_01_Regular_Blue_600x600.webm`],
+        },
+        rolled: {
+            blue: [lg`Energy/DodecahedronRoll_01_Regular_Blue_600x600.webm`],
+        },
+        runeabove: {
+            yellowblue: [lg`Energy/DodecahedronRuneAbove_01_Regular_BlueYellow_600x600.webm`],
+        },
+        runebelow: {
+            yellowblue: [lg`Energy/DodecahedronRuneBelow_01_Regular_BlueYellow_600x600.webm`],
+        },
+        starabove: {
+            yellowblue: [lg`Energy/DodecahedronStarAbove_01_Regular_BlueYellow_600x600.webm`],
+        },
+        starbelow: {
+            yellowblue: [lg`Energy/DodecahedronStarBelow_01_Regular_BlueYellow_600x600.webm`],
+        },
     },
     entangle: {
         '01': {
@@ -696,6 +846,19 @@ JB2AFREEDB.static = {
             yellowblue: [
                 lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`
             ],
+        }
+    },
+    fireballloop: {
+        '01': {
+            orange: [l3`Fireball/FireballLoop_01_Orange_800x800.webm`],
+        },
+        nodebris: {
+            orange: [l3`Fireball/FireballLoopNoDebris_01_Orange_800x800.webm`],
+        },
+    },
+    fireballexplode: {
+        '01': {
+            orange: [l3`Fireball/FireballExplosion_01_Orange_800x800.webm`],
         }
     },
     fogcloud: {
@@ -786,6 +949,9 @@ JB2AFREEDB.static = {
             musicMarker: {
                 "greenorange": [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
             }
+        },
+        bubble: {
+            blue: [lg`Marker/MarkerBubble_01_Regular_Blue_400x400.webm`],
         },
         energystrands: {
             loop: {

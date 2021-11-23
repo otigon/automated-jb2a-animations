@@ -20,7 +20,7 @@ export class AASystemData {
             const ammo = input.item?.data?.flags?.autoanimations?.options?.ammo;
             const ammoType = input.item?.data?.data?.consume?.type;
             const item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.data.data.consume.target) : input.item;
-            if (!item || !token) { return; }
+            if (!item || !token) { return {}; }
 
             const hitTargets = Array.from(input.hitTargets);
             let targets = input.item?.data?.data?.target?.type === 'self' ? Array.from(game.user.targets) : Array.from(input.targets);
@@ -48,13 +48,14 @@ export class AASystemData {
         } else {
             const inputAtr = this._extractItemId(input.data?.content);
             const itemId = input.data?.flags?.dnd5e?.roll?.itemId || inputAtr || input.data?.flags?.["midi-qol"]?.itemId;
-            const tokenId = input.data?.speaker?.token;
-            if (!itemId || !tokenId) { return; }
+            console.log(itemId);
+            const tokenId = input.data?.speaker?.token || input.uuid;
+            if (!itemId || !tokenId) { return {}; }
 
-            const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+            const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.uuid)) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
 
             let item = token.actor?.items?.get(itemId);
-            if (!item) return;
+            if (!item) return {};
             if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
                 itemId = item.data.data.consume.target;
                 item = token.actor.items?.get(itemId) ?? "";
@@ -77,7 +78,7 @@ export class AASystemData {
     static d35e(input) {
         const itemId = this._extractItemId(input.data?.content);
         const tokenId = input.data?.speaker?.token;
-        if (!itemId || !tokenId) { return; }
+        if (!itemId || !tokenId) { return {}; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         const item = token.actor.items?.get(itemId) ?? null;
         const targets = Array.from(input.user.targets);
@@ -91,7 +92,7 @@ export class AASystemData {
             const ammo = input.item?.data?.flags?.autoanimations?.options?.ammo;
             const ammoType = input.item?.data?.data?.consume?.type;
             const item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.data.data.consume.target) : input.item;
-            if (!item || !token) { return; }
+            if (!item || !token) { return {}; }
 
             const hitTargets = Array.from(input.hitTargets);
             let targets = Array.from(input.targets);
@@ -121,7 +122,7 @@ export class AASystemData {
             const inputAtr = this._extractItemId(input.data?.content);
             const itemId = input.data?.flags?.sw5e?.roll?.itemId || inputAtr || input.data?.flags?.["midi-qol"]?.itemId;
             const tokenId = input.data?.speaker?.token;
-            if (!itemId || !tokenId) { return; }
+            if (!itemId || !tokenId) { return {}; }
 
             const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
 
@@ -148,7 +149,7 @@ export class AASystemData {
     static pf1(input) {
         const item = input?.itemSource;
         const tokenId = input.data?.speaker?.token;
-        if (!item || !tokenId) { return; }
+        if (!item || !tokenId) { return {}; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null);
         const targets = Array.from(input.user.targets);
 
@@ -159,7 +160,7 @@ export class AASystemData {
         const item = input.item;
         const token = input.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null);
         const targets = Array.from(input.user.targets);
-        if (!item || !token) { return; }
+        if (!item || !token) { return {}; }
 
         return { item, token, targets };
     }
@@ -167,7 +168,7 @@ export class AASystemData {
     static forbiddenlands(input) {
         const itemId = input._roll.options?.itemId;
         const tokenId = input._roll.options?.tokenId;
-        if (!itemId || !tokenId) { return; }
+        if (!itemId || !tokenId) { return {}; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemID) != null);
         const item = token.actor?.items?.get(itemId);
         const targets = Array.from(input.user.targets);
@@ -201,7 +202,7 @@ export class AASystemData {
         }
 
         if (input.eventType && !canRunAnimations()) {
-            return;
+            return {};
         }
 
         return { item, token, targets, hitTargets };
@@ -212,7 +213,7 @@ export class AASystemData {
         const actor = input.SwadeActor;
         const token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null) || canvas.tokens.ownedTokens.find(x => x.actor.id === actor.id);
         const targets = Array.from(game.user.targets);
-        if (!item || !token) { return; }
+        if (!item || !token) { return {}; }
 
         return { item, token, targets };
     }
@@ -220,7 +221,7 @@ export class AASystemData {
     static tormenta20(input) {
         const itemId = this._extractItemId(input.data?.content);
         const tokenId = input.data?.speaker?.token;
-        if (!itemId || !tokenId) { return; }
+        if (!itemId || !tokenId) { return {}; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         const item = token.actor.items?.get(itemId) ?? "";
         const targets = Array.from(input.user.targets);
@@ -235,7 +236,7 @@ export class AASystemData {
         const tokenId = input.info?.speaker?.token;
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != undefined);
         const targets = Array.from(input.targets);
-        if (!item || !token) { return; }
+        if (!item || !token) { return {}; }
 
         return { item, token, targets };
     }

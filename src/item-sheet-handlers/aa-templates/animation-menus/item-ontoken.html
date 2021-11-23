@@ -29,6 +29,7 @@
             <option value="creature">{{localize 'AUTOANIM.typeCreature'}}</option>
             <option value="explosion">{{localize 'AUTOANIM.explosion'}}</option>
             <option value="staticSpells">{{localize 'AUTOANIM.itemSpell'}}</option>
+            <option value="conditions">{{localize 'AUTOANIM.conditions'}}</option>
             {{/select}}
         </select>
     </div>
@@ -52,6 +53,12 @@
 
             {{#ifEquals flags.autoanimations.options.staticOptions 'staticSpells'}}
             {{#each menuLists.staticSpells as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/ifEquals}}
+
+            {{#ifEquals flags.autoanimations.options.staticOptions 'conditions'}}
+            {{#each menuLists.conditions as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/ifEquals}}

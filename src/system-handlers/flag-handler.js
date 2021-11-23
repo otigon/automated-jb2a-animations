@@ -7,7 +7,7 @@ export default class flagHandler {
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
         const data = external ? external : AASystemData[systemID](msg, isChat)
-        if (!data.item) { /*this._log("Retrieval Failed");*/ return; }
+        if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
         //this._log("Data Retrieved", data)
 
         //console.log(data.item.data.flags.autoanimations)
@@ -67,8 +67,8 @@ export default class flagHandler {
         this._color = this._flags?.color?.toLowerCase() ?? "";
         this._animation = this._flags.animation?.toLowerCase() ?? "";
 
-        this._options = this._flags.options ?? "";
-        this._variant = this._options.variant || "";
+        this._options = this._flags.options ?? {};
+        this._variant = this._options.variant || "01";
         this._repeat = this._options.repeat || 1;
         this._repeatDelay = this._options.delay || 250;
         this._scale = this._options.scale || 1;

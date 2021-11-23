@@ -34,7 +34,7 @@ export async function auras(handler, autoObject) {
 
     if (aaDebug) { aaDebugger("CTA Aura Animation Start", data) }
     const sourceToken = handler.actorToken;
-    const aura = await buildFile(true, data.animation, "static", "01", data.color, data.customPath);
+    const aura = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
     if (handler.allTargets.length === 0 || data.ignoretargets) {
         selfAura()
     } else {

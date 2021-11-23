@@ -40,7 +40,7 @@ async function huntersMark(handler, autoObject) {
     }
 
     const sourceToken = handler.actorToken;
-    let target = handler.allTargets[0];
+    let target = handler.allTargets[0] || null;
 
     const animLoop = data.variant + "loop";
     let hmPulse = data.color === 'random' ? `autoanimations.static.huntersmark.${data.variant}` : `autoanimations.static.huntersmark.${data.variant}.${data.color}`;
@@ -60,6 +60,7 @@ async function huntersMark(handler, autoObject) {
         .effect()
             .file(hmPulse)
             .atLocation(target)
+            .playIf(target)
             .waitUntilFinished()
         .effect()
             .file(hmLoop)

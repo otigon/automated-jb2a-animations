@@ -41,6 +41,7 @@
                                 <option value="creature">{{localize 'AUTOANIM.typeCreature'}}</option>
                                 <option value="explosion">{{localize 'AUTOANIM.explosion'}}</option>
                                 <option value="staticSpells">{{localize 'AUTOANIM.itemSpell'}}</option>
+                                <option value="conditions">{{localize 'AUTOANIM.conditions'}}</option>
                                 {{/select}}
                             </select>
                         </div>                    
@@ -65,6 +66,12 @@
 
                                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'staticSpells'}}
                                         {{#each ../staticSpells as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'conditions'}}
+                                        {{#each ../conditions as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/ifEquals}}
