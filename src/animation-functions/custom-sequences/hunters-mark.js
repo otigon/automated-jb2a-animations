@@ -72,6 +72,7 @@ async function huntersMark(handler, autoObject) {
             .belowTokens(false)
             .name("huntersmark")
             .persist(true)
+            .origin(handler.item.uuid)
         //.name(target.name)
         //.loopProperty("sprite", "rotation", { values: [0, 360], duration: 6000})
             .loopProperty("sprite", "scale.x", { from: (finalScale * 0.4), to: finalScale, duration: 4000, pingPong: true })

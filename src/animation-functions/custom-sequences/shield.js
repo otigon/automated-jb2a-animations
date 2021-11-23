@@ -91,6 +91,7 @@ export async function shieldSpell(handler, autoObject) {
                     .belowTokens(data.below)
                     .playIf(data.persistent)
                     .persist()
+                    .origin(handler.item.uuid)
                     .fadeIn(300)
                     .fadeOut(300)
                     .waitUntilFinished(-500)

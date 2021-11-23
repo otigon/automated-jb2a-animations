@@ -131,6 +131,7 @@ export async function fireball(handler, autoObject) {
             .atLocation(position)
             .belowTokens(true)
             .persist(true)
+            .origin(handler.item.uuid)
             .fadeIn(250)
             .playIf(data.afterEffect)
         .play()

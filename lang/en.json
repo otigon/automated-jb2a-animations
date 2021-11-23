@@ -511,6 +511,8 @@
     "AUTOANIM.bluepink": "Blue Pink",
     "AUTOANIM.orangepurple": "Orange Purple",
     "AUTOANIM.nodebris": "No Debris",
-    "AUTOANIM.fireballbeam": "Fireball Beam"
+    "AUTOANIM.fireballbeam": "Fireball Beam",
+
+    "AUTOANIM.attachtotemplate": "Attach to Template"
 
 }

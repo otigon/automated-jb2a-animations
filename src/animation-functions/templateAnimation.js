@@ -232,6 +232,7 @@ export async function templateAnimation(handler, autoObject) {
                     .anchor({ x: xAnchor, y: yAnchor })
                     .rotate(rotate)
                     .persist(data.persist)
+                    .origin(handler.item.uuid)
                     .scale({ x: scaleX, y: scaleY })
                     .belowTokens(true)
                     .repeats(data.repeat, data.delay)
@@ -248,6 +249,9 @@ export async function templateAnimation(handler, autoObject) {
         }
 
         if (data.persist && data.persistType === 'attachtemplate') {
+            if (data.removeTemplate) {
+                console.warn("You are attempting to delete the Template but the Animation is attached to it. You must manually delete it")
+            }
             await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function () {
@@ -257,6 +261,7 @@ export async function templateAnimation(handler, autoObject) {
                     .file(tempAnimation.file)
                     .attachTo(templateObject)
                     .persist(true)
+                    .origin(handler.item.uuid)
                     .scaleToObject()
                 .sound()
                     .file(templateFile)
@@ -284,6 +289,7 @@ export async function templateAnimation(handler, autoObject) {
                     .anchor({ x: xAnchor, y: yAnchor })
                     .rotate(rotate)
                     .persist(data.persist)
+                    .origin(handler.item.uuid)
                     .scale({ x: scaleX, y: scaleY })
                     .belowTokens(true)
                     .repeats(data.repeat, data.delay)
