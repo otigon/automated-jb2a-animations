@@ -1,4 +1,8 @@
-export const JB2APATREONDB = {}
+export const JB2APATREONDB = {
+    _templates: {
+        ranged: [200, 200, 200]
+    },
+}
 const BASE = 'modules/jb2a_patreon/Library/'
 const prefix = (str) => (strs, ...exprs) => `${BASE}${str}/${strs.reduce((a, c, i) => a + exprs[i - 1] + c)}`
 const l0 = prefix('Cantrip')
@@ -11,6 +15,7 @@ const l7 = prefix('7th_Level')
 const lg = prefix('Generic')
 
 JB2APATREONDB.range = {
+    _template: 'ranged',
     arrow: {
         'regular': {
             regular: {

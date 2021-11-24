@@ -63,7 +63,7 @@ export async function fireball(handler, autoObject) {
         data.afterEffectPath = fireballFlags.afterEffectPath ?? "";
         data.wait03 = fireballFlags.wait03 ?? 500;
     }
-
+    console.log(data)
     let templateSound = handler.allSounds?.item;
     let templateVolume = 0.25;
     let templateDelay = 1;
@@ -75,8 +75,8 @@ export async function fireball(handler, autoObject) {
     }
 
     const projectileAnimation = await buildFile(false, data.projectile, "range", data.projectileVariant, data.projectileColor);
-    const explosion01 = await buildFile(true, data.explosion01, "static", data.explosion01Variant, data.explosion01Color)
-    const explosion02 = await buildFile(true, data.explosion02, "static", data.explosion02Variant, data.explosion02Color)
+    const explosion01 = data.explosion01 !== "a1" ? await buildFile(true, data.explosion01, "static", data.explosion01Variant, data.explosion01Color) : "";
+    const explosion02 = data.explosion02 !== "a1" ? await buildFile(true, data.explosion02, "static", data.explosion02Variant, data.explosion02Color) : "";
 
     let fireballTemplate = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;//canvas.templates.get(args[0].templateId)
     let tokenD = handler.actorToken;
@@ -100,7 +100,7 @@ export async function fireball(handler, autoObject) {
             .reachTowards(position)
             .repeats(data.projectileRepeat, data.projectileDelay)
             .waitUntilFinished(data.wait01)
-            .JB2A()
+            //.JB2A()
         .sound()
             .file(templateFile)
             .playIf(handler.itemSound)
@@ -108,6 +108,7 @@ export async function fireball(handler, autoObject) {
             .volume(templateVolume)
         .effect()
             .file(explosion01.file)
+            .playIf(data.explosion01 !== "a1")
             .atLocation(position)
             .size(size * .35 * data.explosion01Scale)
             .repeats(data.explosion01Repeat, data.explosion01Delay)
@@ -115,12 +116,14 @@ export async function fireball(handler, autoObject) {
             .waitUntilFinished(data.wait02)
         .effect()
             .file(explosion02.file)
+            .playIf(data.explosion02 !== "a1")
             .atLocation(position)
             .size(size * data.explosion02Scale)
             .repeats(data.explosion02Repeat, data.explosion02Delay)
             .zIndex(1)
         .effect()
             .file(explosion02.file)
+            .playIf(data.explosion02 !== "a1")
             .atLocation(position)
             .size(size * data.explosion02Scale)
             .zIndex(5)

@@ -50,7 +50,7 @@ export async function rangedAnimations(handler, autoObject) {
                     .file(attack.file)
                     .atLocation(sourceToken)
                     .reachTowards(target)
-                    .JB2A()
+                    //.JB2A()
                     .randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
                     .missed(hit)

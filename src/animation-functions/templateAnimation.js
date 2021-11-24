@@ -29,7 +29,7 @@ export async function templateAnimation(handler, autoObject) {
         data.repeat = handler.options?.repeat;
         data.delay = handler.options?.delay;
         data.customPath = handler.options?.enableCustom ? handler.options.customPath : false;
-        data.below = handler.animLevel;
+        data.below = handler.below;
         data.type = handler.options?.tempType;
         data.persist = handler.options?.persistent;
         data.overhead = handler.options?.overhead;
@@ -38,6 +38,7 @@ export async function templateAnimation(handler, autoObject) {
         data.occlusionMode = parseInt(handler.options?.occlusionMode ?? "3");
         data.removeTemplate = handler.options?.removeTemplate;
         data.persistType = handler.options?.persistType || "sequencerground";
+        data.scale = handler.options?.scale || 1;
     }
 
     if (aaDebug) { aaDebugger("Template Animation Start", data) }
@@ -228,12 +229,21 @@ export async function templateAnimation(handler, autoObject) {
                 })
                 .effect()
                     .file(tempAnimation.file)
-                    .atLocation({ x: template.data.x, y: template.data.y })
-                    .anchor({ x: xAnchor, y: yAnchor })
+                    .atLocation(template)
+                    .addOverride(async (effect, data) => {
+                        
+                        if (templateType === "cone" || templateType === "ray") {
+                            data.anchor = { x: xAnchor, y: yAnchor };
+                            return data;
+                        }
+                        return data;
+
+                    })
+                    //.anchor({ x: xAnchor, y: yAnchor })
                     .rotate(rotate)
                     .persist(data.persist)
                     .origin(handler.item.uuid)
-                    .scale({ x: scaleX, y: scaleY })
+                    .scale({ x: scaleX * data.scale, y: scaleY * data.scale })
                     .belowTokens(true)
                     .repeats(data.repeat, data.delay)
                 .sound()
@@ -262,7 +272,7 @@ export async function templateAnimation(handler, autoObject) {
                     .attachTo(templateObject)
                     .persist(true)
                     .origin(handler.item.uuid)
-                    .scaleToObject()
+                    .scaleToObject(data.scale)
                 .sound()
                     .file(templateFile)
                     .playIf(handler.itemSound)
@@ -285,12 +295,21 @@ export async function templateAnimation(handler, autoObject) {
                 })
                 .effect()
                     .file(tempAnimation.file)
-                    .atLocation({ x: template.data.x, y: template.data.y })
-                    .anchor({ x: xAnchor, y: yAnchor })
+                    .atLocation(template)
+                    .addOverride(async (effect, data) => {
+                        
+                        if (templateType === "cone" || templateType === "ray") {
+                            data.anchor = { x: xAnchor, y: yAnchor };
+                            return data;
+                        }
+                        return data;
+
+                    })
+                    //.anchor({ x: xAnchor, y: yAnchor })
                     .rotate(rotate)
                     .persist(data.persist)
                     .origin(handler.item.uuid)
-                    .scale({ x: scaleX, y: scaleY })
+                    .scale({ x: scaleX * data.scale, y: scaleY * data.scale })
                     .belowTokens(true)
                     .repeats(data.repeat, data.delay)
                 .sound()
