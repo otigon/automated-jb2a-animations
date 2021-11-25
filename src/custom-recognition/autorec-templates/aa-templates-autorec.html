@@ -117,6 +117,12 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="option07 autorec-menu-options">
+                            <label>{{localize "AUTOANIM.scale"}}</label>
+                            <input type="Number" name="aaAutorec.templates.{{idx}}.scale"
+                                value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'scale'}}"
+                                data-dtype="Number">
+                        </div>
                         <div class="option08">
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
@@ -185,7 +191,7 @@
                                 <option value="overheadtile">{{localize "AUTOANIM.overheadtile"}}</option>
                                 <option value="groundtile">{{localize "AUTOANIM.groundtile"}}</option>
                                 <option value="sequencerground">{{localize "AUTOANIM.sequencereffect"}}</option>
-                                <!--<option value="attachtemplate">Attach to Template</option>-->
+                                <option value="attachtemplate">{{localize "AUTOANIM.attachtotemplate"}}</option>
                                 {{/select}}
                             </select>
                         </div>

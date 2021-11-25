@@ -22,6 +22,7 @@ export async function templateAnimation(handler, autoObject) {
         data.occlusionMode = parseInt(data.occlusionMode);
         data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
         data.persistType = data.overhead ? 'overheadtile' : data.persistType || 'sequencerground';
+        data.scale = autoOverridden ? handler.autoOverride?.scale || 1 : data.scale || 1;
     } else {
         data.itemName = handler.convertedName;
         data.variant = handler.options?.variant;
