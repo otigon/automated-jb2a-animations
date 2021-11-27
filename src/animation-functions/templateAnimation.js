@@ -220,9 +220,6 @@ export async function templateAnimation(handler, autoObject) {
             AAanimationData.howToDelete("groundtile")
         }
         if (data.persist && data.persistType === 'sequencerground') {
-            if (data.removeTemplate) {
-                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
-            }        
             await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function () {
@@ -254,6 +251,9 @@ export async function templateAnimation(handler, autoObject) {
                     .volume(templateVolume)
                     .repeats(data.repeat, data.delay)
                 .play()
+            if (data.removeTemplate) {
+                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+            }            
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
             AAanimationData.howToDelete("sequencerground")
@@ -286,9 +286,6 @@ export async function templateAnimation(handler, autoObject) {
         }
 
         if (!data.persist) {
-            if (data.removeTemplate) {
-                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
-            }        
             await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function () {
@@ -320,6 +317,9 @@ export async function templateAnimation(handler, autoObject) {
                     .volume(templateVolume)
                     .repeats(data.repeat, data.delay)
                 .play()
+            if (data.removeTemplate) {
+                canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+            }            
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
         }
