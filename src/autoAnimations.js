@@ -172,15 +172,33 @@ Hooks.on('init', () => {
                 }
                 break;
             case "swade":
-                Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
+                Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => { 
+                    const controlledTokens = canvas.tokens.controlled;
+                    let token;
+                    if (controlledTokens.length > 0) {
+                        token = controlledTokens.find(token => token.data.actorId === SwadeTokenOrActor.id);
+                    }
+                    if (token) { SwadeTokenOrActor = token; }
+                    swadeData(SwadeTokenOrActor, SwadeItem) 
+                });
                 Hooks.on("BRSW-RollItem", async (data, html) => {
-                    var actorId = data.getFlag("betterrolls-swade2", "actor");
-                    var actor = game.actors.get(actorId);
+                    var tokenId = data.getFlag("betterrolls-swade2", "token");
+                    if (tokenId) {
+                        var token = canvas.tokens.get(tokenId);
 
-                    var itemId = data.getFlag("betterrolls-swade2", "item_id");
-                    var item = actor.items.get(itemId);
+                        var itemId = data.getFlag("betterrolls-swade2", "item_id");
+                        var item = token.actor.items.get(itemId);
 
-                    swadeData(actor, item)
+                        swadeData(token, item)
+                    } else {
+                        var actorId = data.getFlag("betterrolls-swade2", "actor");
+                        var actor = game.actors.get(actorId);
+
+                        var itemId = data.getFlag("betterrolls-swade2", "item_id");
+                        var item = actor.items.get(itemId);
+
+                        swadeData(actor, item)
+                    }
                 });
                 break;
             case "wfrp4e":
@@ -226,7 +244,7 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
 // Registers Database with Sequencer
 Hooks.once('ready', function () {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    
+
     Hooks.on("sequencer.ready", () => {
         Sequencer.Database.registerEntries("autoanimations", obj01);
         if (game.settings.get("autoanimations", "killAllAnim") === "off") {
@@ -476,9 +494,9 @@ async function onCreateChatMessage(msg) {
 /*
 / Sets Handler for SWADE
 */
-async function swadeData(SwadeActor, SwadeItem) {
+async function swadeData(SwadeTokenOrActor, SwadeItem) {
     if (killAllAnimations) { return; }
-    let data = { SwadeActor, SwadeItem }
+    let data = { SwadeTokenOrActor, SwadeItem }
     let handler = await flagHandler.make(data);
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;

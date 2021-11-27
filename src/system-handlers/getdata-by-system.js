@@ -5,7 +5,7 @@ export class AASystemData {
     * Gather required data:
     * 
     * @param token the Source Token that is using the item
-    * @param item the originating item that is being rolled
+    * @param item the TokenOrActorating item that is being rolled
     * @param targets an Array from target Set, either through Chat Message, Hook or game.user.targets
     * @param hitTargets an Array from a list of HIT targets if supported by system
     * @param reach calculating the cumulative Reach from Race/Weapon/etc. if supported by system
@@ -210,8 +210,9 @@ export class AASystemData {
 
     static swade(input) {
         const item = input.SwadeItem;
-        const actor = input.SwadeActor;
-        const token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null) || canvas.tokens.ownedTokens.find(x => x.actor.id === actor.id);
+        const tokenOrActor = input.SwadeTokenOrActor;
+        let token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null) || canvas.tokens.ownedTokens.find(x => x.actor.id === tokenOrActor.id);
+        if (tokenOrActor instanceof Token) { token = tokenOrActor; }
         const targets = Array.from(game.user.targets);
         if (!item || !token) { return {}; }
 
