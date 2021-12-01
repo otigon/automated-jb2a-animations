@@ -48,7 +48,7 @@ export class AASystemData {
         } else {
             const inputAtr = this._extractItemId(input.data?.content);
             const itemId = input.data?.flags?.dnd5e?.roll?.itemId || inputAtr || input.data?.flags?.["midi-qol"]?.itemId;
-            console.log(itemId);
+            //console.log(itemId);
             const tokenId = input.data?.speaker?.token || input.uuid;
             if (!itemId || !tokenId) { return {}; }
 

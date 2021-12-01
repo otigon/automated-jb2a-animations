@@ -1,4 +1,8 @@
-export const JB2AFREEDB = {};
+export const JB2AFREEDB = {
+    _templates: {
+        ranged: [200, 200, 200]
+    },
+};
 
 const BASE = 'modules/JB2A_DnD5e/Library/'
 const prefix = (str) => (strs, ...exprs) => `${BASE}${str}/${strs.reduce((a, c, i) => a + exprs[i - 1] + c)}`
@@ -12,6 +16,7 @@ const l7 = prefix('7th_Level')
 const lg = prefix('Generic')
 
 JB2AFREEDB.range = {
+    _template: 'ranged',
     arrow: {
         "regular": {
             regular: {
