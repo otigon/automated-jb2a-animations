@@ -210,8 +210,9 @@ export class AASystemData {
 
     static swade(input) {
         const item = input.SwadeItem;
-        const actor = input.SwadeActor;
-        const token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null) || canvas.tokens.ownedTokens.find(x => x.actor.id === actor.id);
+        const tokenOrActor = input.SwadeTokenOrActor;
+        let token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null) || canvas.tokens.ownedTokens.find(x => x.actor.id === tokenOrActor.id);
+        if (tokenOrActor instanceof Token) { token = tokenOrActor; }
         const targets = Array.from(game.user.targets);
         if (!item || !token) { return {}; }
 
