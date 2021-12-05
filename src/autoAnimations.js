@@ -584,7 +584,8 @@ async function pf2eReady(msg) {
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
     const t5Template = handler.animType === "template" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
-    const damage = /*handler.item.damageValue ||*/ handler.item?.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
+    let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
+    //console.log(handler.item?.data.data.damage?.length)
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
     if (t5Template) {
@@ -599,6 +600,7 @@ async function pf2eReady(msg) {
     if (templateItem || fireball || t5Template) { return };
     switch (itemType) {
         case "spell":
+            damage = handler.item?.data?.data?.damage?.value["0"]?.value;
             switch (spellType) {
                 case "utility":
                     if (!damage) {

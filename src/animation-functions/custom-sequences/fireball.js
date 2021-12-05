@@ -62,6 +62,7 @@ export async function fireball(handler, autoObject) {
         data.afterEffect = fireballFlags.afterEffect;
         data.afterEffectPath = fireballFlags.afterEffectPath ?? "";
         data.wait03 = fireballFlags.wait03 ?? 500;
+        data.removeTemplate = handler.options?.removeTemplate ?? false;
     }
     console.log(data)
     let templateSound = handler.allSounds?.item;
@@ -82,16 +83,28 @@ export async function fireball(handler, autoObject) {
     let tokenD = handler.actorToken;
     let template = await canvas.templates.documentCollection.get(fireballTemplate)
 
-    const size = canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance);
-
+    let size;
+    let position;
+    if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3)) {
+        const scale5e = template.data.distance / Math.sqrt(2);
+        position = {
+            x: template.data.x + (((scale5e / canvas.dimensions.distance) * canvas.grid.size) / 2),
+            y: template.data.y + (((scale5e / canvas.dimensions.distance) * canvas.grid.size) / 2),
+        }
+        size = (canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance)) / 2;
+    } else {
+        position = {
+            x: template.data.x,
+            y: template.data.y,
+        }
+        size = canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance);
+    }
+    /*
     const position = {
         x: template.data.x,
         y: template.data.y,
     }
-
-    if (data.removeTemplate) {
-        canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
-    }
+    */
 
     new Sequence("Automated Animations")
         .effect()
@@ -139,4 +152,8 @@ export async function fireball(handler, autoObject) {
             .playIf(data.afterEffect)
         .play()
 
+        if (data.removeTemplate) {
+            canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+        }
+    
 }
