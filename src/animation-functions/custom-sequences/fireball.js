@@ -64,7 +64,7 @@ export async function fireball(handler, autoObject) {
         data.wait03 = fireballFlags.wait03 ?? 500;
         data.removeTemplate = handler.options?.removeTemplate ?? false;
     }
-    console.log(data)
+    //console.log(data)
     let templateSound = handler.allSounds?.item;
     let templateVolume = 0.25;
     let templateDelay = 1;
