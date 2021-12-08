@@ -117,7 +117,7 @@ function menuLists() {
         "light": game.i18n.localize("AUTOANIM.light"),
         "poison": game.i18n.localize("AUTOANIM.poison"),
         "runes": game.i18n.localize("AUTOANIM.runes"),
-        "shield": game.i18n.localize("AUTOANIM.shield"),
+        "shields": game.i18n.localize("AUTOANIM.shield"),
         "crackedshield": game.i18n.localize("AUTOANIM.crackedshield"),
         "skull": game.i18n.localize("AUTOANIM.skull"),
         "snowflakes": game.i18n.localize("AUTOANIM.snowflakes"),

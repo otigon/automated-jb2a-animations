@@ -26,7 +26,7 @@ export async function meleeAnimation(handler, autoObject) {
     const attack = await buildFile(false, data.animation, "melee", data.variant, data.color, data.customPath)
 
     const sourceToken = handler.actorToken;
-    const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
+    const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 || sourceToken.object.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5 || sourceToken.object.w / canvas.grid.size * 0.5;
 
     const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
     const explosionSound = AAanimationData._explosionSound(handler);

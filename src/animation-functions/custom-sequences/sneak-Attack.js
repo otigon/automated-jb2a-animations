@@ -25,14 +25,14 @@ export async function sneakAttack(handler, autoObject) {
     const sourceToken = handler.actorToken;
 
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-
+    const sourceScale = sourceToken.w ?? sourceToken.object.w;
     async function cast() {
         new Sequence("Automated Animations")
             .addSequence(sourceFX.sourceSeq)
             .effect()
                 .file(sneak.file)
                 .atLocation(sourceToken)
-                .scale((2 * sourceToken.w / sneak.metadata.width) * data.scale)
+                .scale((2 * sourceScale / sneak.metadata.width) * data.scale)
                 .gridSize(canvas.grid.size)
                 .belowTokens(data.below)
                 .anchor({ x: data.anchorX, y: data.anchorY })

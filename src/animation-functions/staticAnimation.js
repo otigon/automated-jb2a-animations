@@ -44,6 +44,7 @@ export async function staticAnimation(handler, autoObject) {
             break;
     }
     async function selfCast() {
+        const sourceScale = sourceToken.w ?? sourceToken.object.w;
         new Sequence()
         .addSequence(sourceFX.sourceSeq)
         .thenDo(function() {
@@ -54,14 +55,14 @@ export async function staticAnimation(handler, autoObject) {
             .atLocation(sourceToken)
             .name('animation')
             .repeats(data.repeat, data.delay)
-            .size(sourceToken.w * 1.5 * data.scale)
+            .size(sourceScale * 1.5 * data.scale)
             .belowTokens(data.below)
             .playIf(!data.persistent)
         .effect()
             .file(onToken.file)
             .attachTo(sourceToken)
             .name('animation')
-            .size(sourceToken.w * 1.5 * data.scale)
+            .size(sourceScale * 1.5 * data.scale)
             .belowTokens(data.below)
             .persist(data.persistent)
             .origin(handler.item.uuid)
@@ -87,6 +88,7 @@ export async function staticAnimation(handler, autoObject) {
     }
 
     async function targetCast() {
+        const sourceScale = sourceToken.w ?? sourceToken.object.w;
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
@@ -97,7 +99,7 @@ export async function staticAnimation(handler, autoObject) {
             */
             let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
 
-            let scale = data.animation === "bite" || data.animation === "claw" ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
+            let scale = data.animation === "bite" || data.animation === "claw" ? (sourceScale / animWidth) * 1.5 : (target.w / animWidth) * 1.75
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? false : true;

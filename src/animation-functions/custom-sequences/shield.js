@@ -59,7 +59,8 @@ export async function shieldSpell(handler, autoObject) {
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
     //let animWidth = onToken.metadata.width;
-    let scale = ((sourceToken.w / onToken.metadata.width) * 1.75) * data.scale
+    const sourceScale = sourceToken.w ?? sourceToken.object.w;
+    let scale = ((sourceScale / onToken.metadata.width) * 1.75) * data.scale
     const gridSize = canvas.grid.size;
 
 
