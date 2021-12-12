@@ -25,7 +25,7 @@ export async function sneakAttack(handler, autoObject) {
     const sourceToken = handler.actorToken;
 
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    const sourceScale = sourceToken.w ?? sourceToken.object.w;
+    const sourceScale = sourceToken.w;
     async function cast() {
         new Sequence("Automated Animations")
             .addSequence(sourceFX.sourceSeq)

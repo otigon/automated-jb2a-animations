@@ -513,6 +513,7 @@
     "AUTOANIM.nodebris": "No Debris",
     "AUTOANIM.fireballbeam": "Fireball Beam",
 
-    "AUTOANIM.attachtotemplate": "Attach to Template"
-
+    "AUTOANIM.attachtotemplate": "Attach to Template",
+    "AUTOANIM.grease": "Grease",
+    "AUTOANIM.shieldfx": "Shield Effects"
 }

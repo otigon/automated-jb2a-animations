@@ -38,7 +38,9 @@ export default class flagHandler {
 
         this._reach = data.reach || 0;
         this._item = data.item;
-        this._actorToken = data.token;
+        //this._actorToken = data.token;
+        //console.log(data.token.isEmbedded)
+        this._actorToken = data.token.isEmbedded ? data.token.object : data.token;
         this._actor = data.token.actor;
         this._allTargets = data.targets;
         this._hitTargets = data.hitTargets;

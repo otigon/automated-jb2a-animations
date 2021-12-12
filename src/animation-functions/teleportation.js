@@ -32,7 +32,7 @@ export async function teleportation(handler, autoObject) {
     const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
 
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    const sourceScale = sourceToken.w ?? sourceToken.object.w;
+    const sourceScale = sourceToken.w;
 
     let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
     if (!data.hideTemplate) {

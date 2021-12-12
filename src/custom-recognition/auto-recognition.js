@@ -17,6 +17,7 @@ export class aaAutoRecognition extends FormApplication {
             width: 700,
             height: "auto",
             closeOnSubmit: true,
+            submitOnClose: true,
             tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "name" }]
         });
     }
@@ -37,6 +38,7 @@ export class aaAutoRecognition extends FormApplication {
         data.rangeList = patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree;
         data.spellList = aaMenuLists.attackSpells;
         data.selfList = aaMenuLists.autoself;
+        data.shieldfx = aaMenuLists.shieldfx;
         data.templateCircle = aaMenuLists.circleAnimations;
         data.templateCone = aaMenuLists.coneAnimations;
         data.templateRect = aaMenuLists.rectangleAnimations;
@@ -66,9 +68,7 @@ export class aaAutoRecognition extends FormApplication {
         html.find('button.add-autorecog-templates').click(this._addTemplate.bind(this));
         html.find('button.add-autorecog-auras').click(this._addAura.bind(this));
         html.find('button.add-autorecog-preset').click(this._addPreset.bind(this));
-
         //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
-
         html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
         })

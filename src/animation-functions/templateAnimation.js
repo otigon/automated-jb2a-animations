@@ -14,6 +14,7 @@ export async function templateAnimation(handler, autoObject) {
         const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject)
         data.itemName = data.animation || "";
+        data.below = data.below || false;
         data.customPath = data.custom ? data.customPath : false;
         data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
         data.color = autoOverridden ? handler.autoOverride?.color : data.color;
@@ -308,7 +309,7 @@ export async function templateAnimation(handler, autoObject) {
                     .persist(data.persist)
                     .origin(handler.item.uuid)
                     .scale({ x: scaleX * data.scale, y: scaleY * data.scale })
-                    .belowTokens(true)
+                    .belowTokens(data.below)
                     .repeats(data.repeat, data.delay)
                 .sound()
                     .file(templateFile)

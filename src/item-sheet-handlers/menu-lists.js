@@ -160,6 +160,7 @@ function menuLists() {
 
     aaMenuLists.staticSpells = {
         "curewounds": game.i18n.localize("AUTOANIM.itemCureWounds"),
+        "divinesmite": game.i18n.localize("AUTOANIM.divineSmite"),
         "dodecahedron": game.i18n.localize("AUTOANIM.dodecahedron"),
         "generichealing": game.i18n.localize("AUTOANIM.itemGenericHealing"),
         "sneakattack": game.i18n.localize("AUTOANIM.sneakattack"),
@@ -236,13 +237,36 @@ function menuLists() {
         "snowflake": game.i18n.localize("AUTOANIM.snowflake"),
         "shatter": game.i18n.localize("AUTOANIM.itemShatter"),
         "sleetstorm": game.i18n.localize("AUTOANIM.animSleetstorm"),
+        "dropct": game.i18n.localize("AUTOANIM.drop"),
+        "fearct": game.i18n.localize("AUTOANIM.fear"),
+        "heartct": game.i18n.localize("AUTOANIM.heart"),
+        "horrorct": game.i18n.localize("AUTOANIM.horror"),
+        "poisonct": game.i18n.localize("AUTOANIM.poison"),
+        "runesct": game.i18n.localize("AUTOANIM.runes"),
+        "shieldsct": game.i18n.localize("AUTOANIM.shield"),
+        "crackedshieldct": game.i18n.localize("AUTOANIM.crackedshield"),
+        "skullct": game.i18n.localize("AUTOANIM.skull"),
+        "snowflakesct": game.i18n.localize("AUTOANIM.snowflakes"),
+        "stun": game.i18n.localize("AUTOANIM.stun"),
     }
 
     aaMenuLists.rectangleAnimations = {
         "a1": ``,
         "entangle": game.i18n.localize("AUTOANIM.entangle"),
+        "grease": game.i18n.localize("AUTOANIM.grease"),
         "thunderwave": game.i18n.localize("AUTOANIM.itemThunderwave"),
         "web": game.i18n.localize("AUTOANIM.web"),
+        "dropct": game.i18n.localize("AUTOANIM.drop"),
+        "fearct": game.i18n.localize("AUTOANIM.fear"),
+        "heartct": game.i18n.localize("AUTOANIM.heart"),
+        "horrorct": game.i18n.localize("AUTOANIM.horror"),
+        "poisonct": game.i18n.localize("AUTOANIM.poison"),
+        "runesct": game.i18n.localize("AUTOANIM.runes"),
+        "shieldsct": game.i18n.localize("AUTOANIM.shield"),
+        "crackedshieldct": game.i18n.localize("AUTOANIM.crackedshield"),
+        "skullct": game.i18n.localize("AUTOANIM.skull"),
+        "snowflakesct": game.i18n.localize("AUTOANIM.snowflakes"),
+        "stun": game.i18n.localize("AUTOANIM.stun"),
     }
 
     aaMenuLists.tokenAnimations = {
@@ -278,6 +302,11 @@ function menuLists() {
         "thunderwave": game.i18n.localize("AUTOANIM.itemThunderwave"),
         "tollthedead": game.i18n.localize("AUTOANIM.tollthedead"),
         "moonbeam": game.i18n.localize("AUTOANIM.moonbeam"),
+    }
+
+    aaMenuLists.shieldfx = {
+        "a1": ``,
+        "energyfieldtop": "Energy Shield",
     }
 }
 

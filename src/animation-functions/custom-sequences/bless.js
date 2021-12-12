@@ -40,7 +40,7 @@ export async function bless(handler, autoObject) {
     const sourceToken = handler.actorToken;
 
     //let animWidth = onToken.metadata.width;
-    const sourceScale = sourceToken.w ?? sourceToken.object.w;
+    const sourceScale = sourceToken.w;
     const scale = (sourceScale * 2.5 / bless.metadata.width) * data.scale// * handler.scale
     //const size = sourceToken.w * 1.5;
     //const scaledSize = (size * data.scale)

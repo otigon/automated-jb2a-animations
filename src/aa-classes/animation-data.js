@@ -15,6 +15,7 @@ export class AAanimationData {
             data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
             data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
             data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
+            data.menuType = data.staticOptions === 'shieldfx' ? true : false;
             data.below = data.below ?? false;
         } else {
             data.animation = handler.animation;
@@ -27,6 +28,7 @@ export class AAanimationData {
             data.scale = handler.scale;
             data.below = handler.below;
             data.type = handler.options?.staticType ?? "targetDefault";
+            data.menuType = handler.options?.staticOptions === 'shieldfx' ? true : false;
             data.persistent = handler.persistent;
         }
         return data;
@@ -189,7 +191,7 @@ export class AAanimationData {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
-        const sourceScale = sourceToken.w ?? sourceToken.object.w;
+        const sourceScale = sourceToken.w;
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
