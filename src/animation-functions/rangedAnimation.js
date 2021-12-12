@@ -30,8 +30,8 @@ export async function rangedAnimations(handler, autoObject) {
         for (var i = 0; i < arrayLength; i++) {
 
             let target = handler.allTargets[i];
-            console.log(target)
-            console.log(sourceToken)
+            //console.log(target)
+            //console.log(sourceToken)
             let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
 
             //Checks Range and sends it to Range Builder if true
