@@ -110,7 +110,7 @@ export class AAItemSettings extends FormApplication {
             aaDelay: flags.autoanimations?.options?.delay ?? 250,
             aaScale: flags.autoanimations?.options?.scale ?? 1,
             auraRadius: flags.autoanimations?.options?.auraRadius || 3.5,
-            aaOpacity: flags.autoanimations?.options?.opacity || ".75",
+            aaOpacity: flags.autoanimations?.options?.opacity || "1",
             teleRange: flags.autoanimations?.options?.teleDist || "30",
             anchorX: flags.autoanimations?.options?.anchorX || 0.5,
             anchorY: flags.autoanimations?.options?.anchorY || 0.7,
@@ -143,12 +143,14 @@ export class AAItemSettings extends FormApplication {
             sourceScale: flags.autoanimations?.sourceToken?.scale ?? 1,
             sourceDelayAfter: flags.autoanimations?.sourceToken?.delayAfter ?? 500,
             sourceAnimations: aaMenuLists.tokenAnimations,
+            sourceOpacity: flags.autoanimations?.sourceToken?.opacity ?? 1,
 
             targetLoops: flags.autoanimations?.targetToken?.loops ?? 1,
             targetLoopDelay: flags.autoanimations?.targetToken?.loopDelay ?? 250,
             targetScale: flags.autoanimations?.targetToken?.scale ?? 1,
             targetDelayStart: flags.autoanimations?.targetToken?.delayStart ?? 500,
             targetAnimations: aaMenuLists.tokenAnimations,
+            targetOpacity: flags.autoanimations?.targetToken?.opacity ?? 1,
 
             autoRepeat: flags.autoanimations?.autoOverride?.repeat || 1,
             autoDelay: flags.autoanimations?.autoOverride?.delay || 500,

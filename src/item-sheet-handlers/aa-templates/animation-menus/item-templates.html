@@ -71,15 +71,20 @@
         <input type="checkbox" name="flags.autoanimations.options.removeTemplate"
             value="flags.autoanimations.options.removeTemplate" {{checked flags.autoanimations.options.removeTemplate}}>
     </div>
+    <!--Set Tile Opacity-->
+    <div class="autorec-menu-options option12">
+        <label>{{localize "AUTOANIM.opacity"}} </label>
+        <input type="Number" name="flags.autoanimations.options.opacity" min="0" max="1" step=".01" value={{aaOpacity}}>
+    </div>
     <!--Choose Custom Animation?-->
-    <div class="form-group option09">
+    <div class="form-group option13">
         <label>{{localize "AUTOANIM.customAnim"}}</label>
         <input type="checkbox" name="flags.autoanimations.options.enableCustom"
             value="flags.autoanimations.options.enableCustom" {{checked flags.autoanimations.options.enableCustom}}>
     </div>
     {{#if flags.autoanimations.options.enableCustom}}
     <!--Custom Animation filePicker and Text field-->
-    <div class="form-group" style='grid-column: 2 / 5;grid-row: 3 / 4'>
+    <div class="form-group" style='grid-column: 2 / 5;grid-row: 4 / 5'>
         <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath"
             value="{{lookup flags.autoanimations.options 'customPath'}}">
         <button type="button" class="file-picker" data-type="image/video"
@@ -89,14 +94,14 @@
     </div>
     {{/if}}
     <!--Make effect a Tile on Canvas-->
-    <div class="form-group option13">
+    <div class="form-group option17">
         <label>{{localize "AUTOANIM.persistant"}}</label>
         <input type="checkbox" name="flags.autoanimations.options.persistent"
             value="flags.autoanimations.options.persistent" {{checked flags.autoanimations.options.persistent}}>
     </div>
     {{#if flags.autoanimations.options.persistent}}
     {{#if circRectPersist}}
-    <div class="option14">
+    <div class="option18">
         <label>Persistent Type</label>
         <select name="flags.autoanimations.options.persistType">
             {{#select flags.autoanimations.options.persistType}}
@@ -110,7 +115,7 @@
     </div>
     {{/if}}
     {{#unless circRectPersist}}
-    <div class="option14">
+    <div class="option18">
         <label>Persistent Type</label>
         <select name="flags.autoanimations.options.persistType">
             {{#select flags.autoanimations.options.persistType}}
@@ -123,13 +128,8 @@
     {{/unless}}
     {{/if}}
     {{#if persistent}}
-    <!--Set Tile Opacity-->
-    <div class="autorec-menu-options option16">
-        <label>{{localize "AUTOANIM.opacity"}} </label>
-        <input type="Number" name="flags.autoanimations.options.opacity" min="0" max="1" step=".01" value={{aaOpacity}}>
-    </div>
     {{#ifEquals flags.autoanimations.options.persistType 'overheadtile'}}
-    <div class="form-group" style='grid-column: 1 / 3;grid-row: 5 / 6;'>
+    <div class="form-group" style='grid-column: 1 / 3;grid-row: 6 / 7;'>
         <label>{{localize "AUTOANIM.occlusionMode"}}</label>
         <select name="flags.autoanimations.options.occlusionMode">
             {{#select flags.autoanimations.options.occlusionMode}}
@@ -140,7 +140,7 @@
             {{/select}}
         </select>
     </div>
-    <div class="form-group" style='grid-column: 3 / 5;grid-row: 5 / 6;'>
+    <div class="form-group" style='grid-column: 3 / 5;grid-row: 6 / 7;'>
         <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
         <div class="form-fields">
             <input type="range" name="flags.autoanimations.options.occlusionAlpha"
@@ -148,13 +148,13 @@
             <span class="range-value">{{lookup flags.autoanimations.options 'occlusionAlpha'}}</span>
         </div>
     </div>
-    <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7;justify-self: center;'>
+    <div class="form-group" style='grid-column: 1 / 5;grid-row: 7 / 8;justify-self: center;'>
         <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
     </div>
     {{/ifEquals}}
     {{/if}}
     {{#ifEquals flags.autoanimations.options.persistType 'groundtile'}}
-    <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7;justify-self: center;'>
+    <div class="form-group" style='grid-column: 1 / 5;grid-row: 7 / 8;justify-self: center;'>
         <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
     </div>
     {{/ifEquals}}
