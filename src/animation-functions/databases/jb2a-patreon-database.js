@@ -9,6 +9,7 @@ const l0 = prefix('Cantrip')
 const l1 = prefix('1st_Level')
 const l2 = prefix('2nd_Level')
 const l3 = prefix('3rd_Level')
+const l4 = prefix('4th_Level')
 const l5 = prefix('5th_Level')
 const l6 = prefix('6th_Level')
 const l7 = prefix('7th_Level')
@@ -567,6 +568,13 @@ JB2APATREONDB.range = {
                 '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_60ft_Primary_2800x400.webm`],
                 '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_90ft_Primary_4000x400.webm`]
             },
+            darkred: {
+                '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_05ft_Primary_600x400.webm`],
+                '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_15ft_Primary_1000x400.webm`],
+                '30ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_30ft_Primary_1600x400.webm`],
+                '60ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_60ft_Primary_2800x400.webm`],
+                '90ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_90ft_Primary_4000x400.webm`]
+            },
         },
         secondary: {
             darkpurple: {
@@ -598,18 +606,25 @@ JB2APATREONDB.range = {
                 '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_90ft_Secondary_4000x400.webm`]
             },
             purple: {
-                '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_05ft_Primary_600x400.webm`],
-                '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_15ft_Primary_1000x400.webm`],
-                '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_30ft_Primary_1600x400.webm`],
-                '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_60ft_Primary_2800x400.webm`],
-                '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_90ft_Primary_4000x400.webm`]
+                '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_05ft_Secondary_600x400.webm`],
+                '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_15ft_Secondary_1000x400.webm`],
+                '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_30ft_Secondary_1600x400.webm`],
+                '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_60ft_Secondary_2800x400.webm`],
+                '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_90ft_Secondary_4000x400.webm`]
             },
             red: {
-                '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_05ft_Primary_600x400.webm`],
-                '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_15ft_Primary_1000x400.webm`],
-                '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_30ft_Primary_1600x400.webm`],
-                '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_60ft_Primary_2800x400.webm`],
-                '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_90ft_Primary_4000x400.webm`]
+                '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_05ft_Secondary_600x400.webm`],
+                '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_15ft_Secondary_1000x400.webm`],
+                '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_30ft_Secondary_1600x400.webm`],
+                '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_60ft_Secondary_2800x400.webm`],
+                '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_90ft_Secondary_4000x400.webm`]
+            },
+            darkred: {
+                '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_05ft_Secondary_600x400.webm`],
+                '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_15ft_Secondary_1000x400.webm`],
+                '30ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_30ft_Secondary_1600x400.webm`],
+                '60ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_60ft_Secondary_2800x400.webm`],
+                '90ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_90ft_Secondary_4000x400.webm`]
             },
         }
     },
@@ -836,35 +851,197 @@ JB2APATREONDB.range = {
     },
     energystrand: {
         '01': {
+            darkgreen: {
+                '05ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Green_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Green_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Green_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Green_05ft_600x400.webm`,
+                ],
+                '15ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Green_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Green_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Green_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Green_15ft_1000x400.webm`,
+                ],
+                '30ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Green_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Green_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Green_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Green_30ft_1600x400.webm`,
+                ],
+                '60ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Green_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Green_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Green_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Green_60ft_2800x400.webm`,
+                ],
+                '90ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Green_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Green_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Green_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Green_90ft_4000x400.webm`,
+                ],
+            },
+            darkpurple: {
+                '05ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Purple_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Purple_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Purple_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Purple_05ft_600x400.webm`,
+                ],
+                '15ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Purple_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Purple_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Purple_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Purple_15ft_1000x400.webm`,
+                ],
+                '30ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Purple_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Purple_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Purple_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Purple_30ft_1600x400.webm`,
+                ],
+                '60ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Purple_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Purple_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Purple_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Purple_60ft_2800x400.webm`,
+                ],
+                '90ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Purple_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Purple_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Purple_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Purple_90ft_4000x400.webm`,
+                ],
+            },
             darkred: {
-                '05ft': [lg`Energy/EnergyStrand_01_Dark_Red_05ft_600x400.webm`],
-                '15ft': [lg`Energy/EnergyStrand_01_Dark_Red_15ft_1000x400.webm`],
-                '30ft': [lg`Energy/EnergyStrand_01_Dark_Red_30ft_1600x400.webm`],
-                '60ft': [lg`Energy/EnergyStrand_01_Dark_Red_60ft_2800x400.webm`],
-                '90ft': [lg`Energy/EnergyStrand_01_Dark_Red_90ft_4000x400.webm`],
+                '05ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Red_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Red_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Red_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Red_05ft_600x400.webm`,
+                ],
+                '15ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Red_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Red_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Red_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Red_15ft_1000x400.webm`,
+                ],
+                '30ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Red_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Red_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Red_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Red_30ft_1600x400.webm`,
+                ],
+                '60ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Red_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Red_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Red_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Red_60ft_2800x400.webm`,
+                ],
+                '90ft': [
+                    lg`Energy/EnergyStrand_01_Dark_Red_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Dark_Red_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Dark_Red_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Dark_Red_90ft_4000x400.webm`,
+                ],
+            },
+            blue: {
+                '05ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Blue_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Blue_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Blue_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Blue_05ft_600x400.webm`,
+                ],
+                '15ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Blue_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Blue_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Blue_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Blue_15ft_1000x400.webm`,
+                ],
+                '30ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Blue_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Blue_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Blue_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Blue_30ft_1600x400.webm`,
+                ],
+                '60ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Blue_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Blue_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Blue_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Blue_60ft_2800x400.webm`,
+                ],
+                '90ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Blue_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Blue_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Blue_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Blue_90ft_4000x400.webm`,
+                ],
+            },
+            orange: {
+                '05ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Orange_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Orange_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Orange_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Orange_05ft_600x400.webm`,
+                ],
+                '15ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Orange_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Orange_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Orange_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Orange_15ft_1000x400.webm`,
+                ],
+                '30ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Orange_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Orange_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Orange_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Orange_30ft_1600x400.webm`,
+                ],
+                '60ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Orange_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Orange_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Orange_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Orange_60ft_2800x400.webm`,
+                ],
+                '90ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Orange_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Orange_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Orange_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Orange_90ft_4000x400.webm`,
+                ],
             },
             purple: {
-                '05ft': [lg`Energy/EnergyStrand_01_Regular_Purple_05ft_600x400.webm`],
-                '15ft': [lg`Energy/EnergyStrand_01_Regular_Purple_15ft_1000x400.webm`],
-                '30ft': [lg`Energy/EnergyStrand_01_Regular_Purple_30ft_1600x400.webm`],
-                '60ft': [lg`Energy/EnergyStrand_01_Regular_Purple_60ft_2800x400.webm`],
-                '90ft': [lg`Energy/EnergyStrand_01_Regular_Purple_90ft_4000x400.webm`],
-            },
-        },
-        '02': {
-            darkred: {
-                '05ft': [lg`Energy/EnergyStrand_02_Dark_Red_05ft_600x400.webm`],
-                '15ft': [lg`Energy/EnergyStrand_02_Dark_Red_15ft_1000x400.webm`],
-                '30ft': [lg`Energy/EnergyStrand_02_Dark_Red_30ft_1600x400.webm`],
-                '60ft': [lg`Energy/EnergyStrand_02_Dark_Red_60ft_2800x400.webm`],
-                '90ft': [lg`Energy/EnergyStrand_02_Dark_Red_90ft_4000x400.webm`],
-            },
-            purple: {
-                '05ft': [lg`Energy/EnergyStrand_02_Regular_Purple_05ft_600x400.webm`],
-                '15ft': [lg`Energy/EnergyStrand_02_Regular_Purple_15ft_1000x400.webm`],
-                '30ft': [lg`Energy/EnergyStrand_02_Regular_Purple_30ft_1600x400.webm`],
-                '60ft': [lg`Energy/EnergyStrand_02_Regular_Purple_60ft_2800x400.webm`],
-                '90ft': [lg`Energy/EnergyStrand_02_Regular_Purple_90ft_4000x400.webm`],
+                '05ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Purple_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Purple_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Purple_05ft_600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Purple_05ft_600x400.webm`,
+                ],
+                '15ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Purple_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Purple_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Purple_15ft_1000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Purple_15ft_1000x400.webm`,
+                ],
+                '30ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Purple_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Purple_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Purple_30ft_1600x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Purple_30ft_1600x400.webm`,
+                ],
+                '60ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Purple_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Purple_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Purple_60ft_2800x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Purple_60ft_2800x400.webm`,
+                ],
+                '90ft': [
+                    lg`Energy/EnergyStrand_01_Regular_Purple_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_02_Regular_Purple_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_03_Regular_Purple_90ft_4000x400.webm`,
+                    lg`Energy/EnergyStrand_04_Regular_Purple_90ft_4000x400.webm`,
+                ],
             },
         },
     },
@@ -1680,6 +1857,17 @@ JB2APATREONDB.range = {
                 '90ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Red_90ft_4000x400.webm`]
             }
         }
+    },
+    snowball: {
+        '01': {
+            white: {
+                '05ft': [lg`Weapon_Attacks/Ranged/SnowballToss_01_Regular_White_05ft_600x500.webm`],
+                '15ft': [lg`Weapon_Attacks/Ranged/SnowballToss_01_Regular_White_15ft_1000x500.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/SnowballToss_01_Regular_White_30ft_1600x500.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/SnowballToss_01_Regular_White_60ft_2800x500.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/SnowballToss_01_Regular_White_90ft_4000x500.webm`],
+            },
+        },
     },
     spear: {
         '01': {
@@ -2853,6 +3041,13 @@ JB2APATREONDB.static = {
             blue: [l5`Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm`]
         }
     },
+    armsofhadar: {
+        '01': {
+            darkgreen: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm`],
+            darkpurple: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`],
+            darkred: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Red_500x500.webm`],
+        }
+    },
     bardicinspiration: {
         inspire: {
             yellowblue: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
@@ -2868,6 +3063,13 @@ JB2APATREONDB.static = {
             purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
             darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
         }
+    },
+    blacktentacles: {
+        '01': {
+            darkgreen: [l4`Black_Tentacles/BlackTentacles_01_Dark_Green_600x600.webm`],
+            darkpurple: [l4`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`],
+            darkred: [l4`Black_Tentacles/BlackTentacles_01_Dark_Red_600x600.webm`],
+        },
     },
     bless: {
         '01': {
@@ -2974,8 +3176,8 @@ JB2APATREONDB.static = {
     //conditions below
     drop: {
         '01': {
-            green: [lg`MarkerDrop_01_Dark_Green_400x400.webm`],
-            red: [lg`MarkerDrop_01_Regular_Red_400x400.webm`],
+            green: [lg`Marker/MarkerDrop_01_Dark_Green_400x400.webm`],
+            red: [lg`Marker/MarkerDrop_01_Regular_Red_400x400.webm`],
         },
         '02': {
             green: [lg`Marker/MarkerDrop_02_Dark_Green_400x400.webm`],
@@ -2994,8 +3196,8 @@ JB2APATREONDB.static = {
     },
     dropst: {
         '01': {
-            darkgreen: [lg`Template/Circle/TemplateDropSquare_01_Dark_Green_600x600.webm`],
-            red: [lg`Template/Circle/TemplateDropSquare_01_Regular_Red_600x600.webm`]
+            darkgreen: [lg`Template/Square/TemplateDropSquare_01_Dark_Green_600x600.webm`],
+            red: [lg`Template/Square/TemplateDropSquare_01_Regular_Red_600x600.webm`]
         }
     },
     energystrand: {
@@ -3055,9 +3257,9 @@ JB2APATREONDB.static = {
     },
     fearst: {
         '01': {
-            darkorange: [lg`Template/Circle/TemplateFearSquare_01_Dark_Orange_600x600.webm`],
-            darkpurple: [lg`Template/Circle/TemplateFearSquare_01_Dark_Purple_600x600.webm`],
-            orange: [lg`Template/Circle/TemplateFearSquare_01_Regular_Orange_600x600.webm`],
+            darkorange: [lg`Template/Square/TemplateFearSquare_01_Dark_Orange_600x600.webm`],
+            darkpurple: [lg`Template/Square/TemplateFearSquare_01_Dark_Purple_600x600.webm`],
+            orange: [lg`Template/Square/TemplateFearSquare_01_Regular_Orange_600x600.webm`],
         },
     },
     heart: {
@@ -3086,9 +3288,9 @@ JB2APATREONDB.static = {
     },
     heartst: {
         '01': {
-            darkred: [lg`Template/Circle/TemplateHeartSquare_01_Dark_Red_600x600.webm`],
-            pink: [lg`Template/Circle/TemplateHeartSquare_01_Regular_Pink_600x600.webm`],
-            teal: [lg`Template/Circle/TemplateHeartSquare_01_Regular_Teal_600x600.webm`],
+            darkred: [lg`Template/Square/TemplateHeartSquare_01_Dark_Red_600x600.webm`],
+            pink: [lg`Template/Square/TemplateHeartSquare_01_Regular_Pink_600x600.webm`],
+            teal: [lg`Template/Square/TemplateHeartSquare_01_Regular_Teal_600x600.webm`],
         },
     },
     horror: {
@@ -3117,9 +3319,9 @@ JB2APATREONDB.static = {
     },
     horrorst: {
         '01': {
-            darkteal: [lg`Template/Circle/TemplateHorrorSquare_01_Dark_Teal_600x600.webm`],
-            purple: [lg`Template/Circle/TemplateHorrorSquare_01_Regular_Purple_600x600.webm`],
-            teal: [lg`Template/Circle/TemplateHorrorSquare_01_Regular_Teal_600x600.webm`],
+            darkteal: [lg`Template/Square/TemplateHorrorSquare_01_Dark_Teal_600x600.webm`],
+            purple: [lg`Template/Square/TemplateHorrorSquare_01_Regular_Purple_600x600.webm`],
+            teal: [lg`Template/Square/TemplateHorrorSquare_01_Regular_Teal_600x600.webm`],
         },
     },
     light: {
@@ -3156,8 +3358,8 @@ JB2APATREONDB.static = {
     },
     poisonst: {
         '01': {
-            darkgreen: [lg`Template/Circle/TemplatePoisonSquare_01_Dark_Green_600x600.webm`],
-            purple: [lg`Template/Circle/TemplatePoisonSquare_01_Regular_Purple_600x600.webm`],
+            darkgreen: [lg`Template/Square/TemplatePoisonSquare_01_Dark_Green_600x600.webm`],
+            purple: [lg`Template/Square/TemplatePoisonSquare_01_Regular_Purple_600x600.webm`],
         },
     },
     runes: {
@@ -3183,8 +3385,8 @@ JB2APATREONDB.static = {
     },
     runesst: {
         '01': {
-            darkred: [lg`Template/Circle/TemplateRunesSquare_01_Dark_Red_600x600.webm`],
-            orange: [lg`Template/Circle/TemplateRunesSquare_01_Regular_Orange_600x600.webm`],
+            darkred: [lg`Template/Square/TemplateRunesSquare_01_Dark_Red_600x600.webm`],
+            orange: [lg`Template/Square/TemplateRunesSquare_01_Regular_Orange_600x600.webm`],
         },
     },
     shields: {
@@ -3209,8 +3411,8 @@ JB2APATREONDB.static = {
     },
     shieldsst: {
         '01': {
-            darkred: [lg`Template/Circle/TemplateShieldSquare01_Dark_Red_600x600.webm`],
-            green: [lg`Template/Circle/TemplateShieldSquare_01_Regular_Green_600x600.webm`],
+            darkred: [lg`Template/Square/TemplateShieldSquare_01_Dark_Red_600x600.webm`],
+            green: [lg`Template/Square/TemplateShieldSquare_01_Regular_Green_600x600.webm`],
         },
     },
     crackedshield: {
@@ -3235,8 +3437,8 @@ JB2APATREONDB.static = {
     },
     crackedshieldst: {
         '01': {
-            darkred: [lg`Template/Circle/TemplateShieldCrackedSquare_01_Dark_Red_600x600.webm`],
-            darkpurple: [lg`Template/Circle/TemplateShieldCrackedSquare_01_Regular_Purple_600x600.webm`],
+            darkred: [lg`Template/Square/TemplateShieldCrackedSquare_01_Dark_Red_600x600.webm`],
+            darkpurple: [lg`Template/Square/TemplateShieldCrackedSquare_01_Regular_Purple_600x600.webm`],
         },
     },
     skull: {
@@ -3265,9 +3467,9 @@ JB2APATREONDB.static = {
     },
     skullst: {
         '01': {
-            darkgreen: [lg`Template/Circle/TemplateSkullSquare_01_Dark_Green_600x600.webm`],
-            darkorange: [lg`Template/Circle/TemplateSkullSquare_01_Dark_Orange_600x600.webm`],
-            purple: [lg`Template/Circle/TemplateSkullSquare_01_Regular_Purple_600x600.webm`],
+            darkgreen: [lg`Template/Square/TemplateSkullSquare_01_Dark_Green_600x600.webm`],
+            darkorange: [lg`Template/Square/TemplateSkullSquare_01_Dark_Orange_600x600.webm`],
+            purple: [lg`Template/Square/TemplateSkullSquare_01_Regular_Purple_600x600.webm`],
         },
     },
     snowflakes: {
@@ -3292,8 +3494,8 @@ JB2APATREONDB.static = {
     },
     snowflakesst: {
         '01': {
-            darkblue: [lg`Template/Circle/TemplateSnowflakeSquare_01_Dark_Blue_600x600.webm`],
-            blue: [lg`Template/Circle/TemplateSnowflakeSquare_01_Regular_Blue_600x600.webm`],
+            darkblue: [lg`Template/Square/TemplateSnowflakeSquare_01_Dark_Blue_600x600.webm`],
+            blue: [lg`Template/Square/TemplateSnowflakeSquare_01_Regular_Blue_600x600.webm`],
         },
     },
     stun: {
@@ -3318,8 +3520,8 @@ JB2APATREONDB.static = {
     },
     stunst: {
         '01': {
-            darkteal: [lg`Template/Circle/TemplateStunSquare_01_Dark_Teal_600x600.webm`],
-            purple: [lg`Template/Circle/TemplateStunSquare_01_Regular_Purple_600x600.webm`],
+            darkteal: [lg`Template/Square/TemplateStunSquare_01_Dark_Teal_600x600.webm`],
+            purple: [lg`Template/Square/TemplateStunSquare_01_Regular_Purple_600x600.webm`],
         },
     },
     //conditions above
@@ -3483,7 +3685,7 @@ JB2APATREONDB.static = {
             blue: [lg`Healing/HealingAbility_01_Blue_400x400.webm`],
             green: [lg`Healing/HealingAbility_01_Green_400x400.webm`],
             purple: [lg`Healing/HealingAbility_01_Purple_400x400.webm`],
-            red: [lg`HealingAbility_01_Red_400x400.webm`],
+            red: [lg`Healing/HealingAbility_01_Red_400x400.webm`],
             yellow: [lg`Healing/HealingAbility_01_Yellow_400x400.webm`],
         },
         '02': {
@@ -3610,6 +3812,7 @@ JB2APATREONDB.static = {
             darkgreen: [lg`Lightning/LightningBall_01_Regular_Green02_400x400.webm`],
             purple: [lg`Lightning/LightningBall_01_Regular_Purple_400x400.webm`],
             red: [lg`Lightning/LightningBall_01_Regular_Red_400x400.webm`],
+            darkred: [lg`Lightning/LightningBall_01_Dark_Red_400x400.webm`],
         }
     },
     gustofwind: {
@@ -4024,6 +4227,7 @@ JB2APATREONDB.static = {
             darkgreen: [lg`Lightning/StaticElectricity_01_Regular_Green02_400x400.webm`],
             purple: [lg`Lightning/StaticElectricity_01_Regular_Purple_400x400.webm`],
             red: [lg`Lightning/StaticElectricity_01_Regular_Red_400x400.webm`],
+            darkred: [lg`Lightning/StaticElectricity_01_Dark_Red_400x400.webm`],
         },
         '02': {
             darkpurple: [lg`Lightning/StaticElectricity_02_Dark_Purple_400x400.webm`],
@@ -4032,6 +4236,7 @@ JB2APATREONDB.static = {
             darkgreen: [lg`Lightning/StaticElectricity_02_Regular_Green02_400x400.webm`],
             purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`],
             red: [lg`Lightning/StaticElectricity_02_Regular_Red_400x400.webm`],
+            darkred: [lg`Lightning/StaticElectricity_02_Dark_Red_400x400.webm`],
         }
     },
     tollthedead: {
@@ -4121,6 +4326,191 @@ JB2APATREONDB.static = {
             purple: [l7`Whirlwind/Whirlwind_01_Purple_400x400.webm`],
             red: [l7`Whirlwind/Whirlwind_01_Red_400x400.webm`],
         }
+    },
+    //shield effects; top and bottom variants
+    shieldeldritchwebtop: {
+        '01': {
+            darkgreen: [lg`Energy/ShieldEldritchWebAbove01_01_Dark_Green_400x400.webm`],
+            darkpurple: [lg`Energy/ShieldEldritchWebAbove01_01_Dark_Purple_400x400.webm`],
+        },
+    },
+    shieldeldritchwebbottom: {
+        '01': {
+            darkgreen: [lg`Energy/ShieldEldritchWebBelow01_02_Dark_Green_400x400.webm`],
+            darkpurple: [lg`Energy/ShieldEldritchWebBelow01_02_Dark_Purple_400x400.webm`],
+        },
+    },
+    shieldfiretop: {
+        '01': {
+            darkgreen: [lg`Fire/ShieldFireAbove01_01_Dark_Green_400x400.webm`],
+            orange: [lg`Fire/ShieldFireAbove01_01_Regular_Orange_400x400.webm`],
+        },
+    },
+    shieldfirebottom: {
+        '01': {
+            darkgreen: [lg`Fire/ShieldFireBelow01_02_Dark_Green_400x400.webm`],
+            orange: [lg`Fire/ShieldFireBelow01_02_Regular_Orange_400x400.webm`],
+        },
+    },
+    shieldearthtop: {
+        '01': {
+            darkorange: [lg`Fire/ShieldMoltenEarthAbove01_01_Dark_Orange_400x400.webm`],
+            orange: [lg`Fire/ShieldMoltenEarthAbove01_01_Regular_Orange_400x400.webm`],
+        },
+    },
+    shieldearthbottom: {
+        '01': {
+            darkorange: [lg`Fire/ShieldMoltenEarthBelow01_02_Dark_Orange_400x400.webm`],
+            orange: [lg`Fire/ShieldMoltenEarthBelow01_02_Regular_Orange_400x400.webm`],
+        },
+    },
+    shieldicetop: {
+        '01': {
+            blue: [lg`Ice/ShieldIceAbove01_01_Regular_Blue_400x400.webm`],
+            purple: [lg`Ice/ShieldIceAbove01_01_Regular_Purple_400x400.webm`],
+        }
+    },
+    shieldicebottom: {
+        '01': {
+            blue: [lg`Ice/ShieldIceBelow01_02_Regular_Blue_400x400.webm`],
+            purple: [lg`Ice/ShieldIceBelow01_02_Regular_Purple_400x400.webm`],
+        }
+    },
+    //token borders
+    staticborder: {
+        '01': {
+            blue: [lg`Token_Border/TokenBorderCircle_01_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_01_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_01_Regular_Purple_400x400.webm`],
+        },
+        '02': {
+            blue: [lg`Token_Border/TokenBorderCircle_02_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_02_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_02_Regular_Purple_400x400.webm`],
+        },
+        '03': {
+            blue: [lg`Token_Border/TokenBorderCircle_03_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_03_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_03_Regular_Purple_400x400.webm`],
+        },
+        '04': {
+            blue: [lg`Token_Border/TokenBorderCircle_04_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_04_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_04_Regular_Purple_400x400.webm`],
+        },
+        '05': {
+            blue: [lg`Token_Border/TokenBorderCircle_05_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_05_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_05_Regular_Purple_400x400.webm`],
+        },
+        '06': {
+            blue: [lg`Token_Border/TokenBorderCircle_06_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_06_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_06_Regular_Purple_400x400.webm`],
+        },
+        '07': {
+            blue: [lg`Token_Border/TokenBorderCircle_07_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_07_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_07_Regular_Purple_400x400.webm`],
+        },
+        '08': {
+            blue: [lg`Token_Border/TokenBorderCircle_08_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_08_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_08_Regular_Purple_400x400.webm`],
+        },
+        '09': {
+            blue: [lg`Token_Border/TokenBorderCircle_09_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_09_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_09_Regular_Purple_400x400.webm`],
+        },
+        '10': {
+            blue: [lg`Token_Border/TokenBorderCircle_10_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_10_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_10_Regular_Purple_400x400.webm`],
+        },
+        '11': {
+            blue: [lg`Token_Border/TokenBorderCircle_11_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_11_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_11_Regular_Purple_400x400.webm`],
+        },
+        '12': {
+            blue: [lg`Token_Border/TokenBorderCircle_12_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_12_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_12_Regular_Purple_400x400.webm`],
+        },
+        '13': {
+            blue: [lg`Token_Border/TokenBorderCircle_13_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircle_13_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircle_13_Regular_Purple_400x400.webm`],
+        },
+    },
+    spinningborder: {
+        '01': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_01_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_01_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_01_Regular_Purple_400x400.webm`],
+        },
+        '02': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_02_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_02_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_02_Regular_Purple_400x400.webm`],
+        },
+        '03': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_03_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_03_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_03_Regular_Purple_400x400.webm`],
+        },
+        '04': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_04_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_04_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_04_Regular_Purple_400x400.webm`],
+        },
+        '05': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_05_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_05_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_05_Regular_Purple_400x400.webm`],
+        },
+        '06': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_06_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_06_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_06_Regular_Purple_400x400.webm`],
+        },
+        '07': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_07_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_07_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_07_Regular_Purple_400x400.webm`],
+        },
+        '08': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_08_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_08_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_08_Regular_Purple_400x400.webm`],
+        },
+        '09': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_09_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_09_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_09_Regular_Purple_400x400.webm`],
+        },
+        '10': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_10_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_10_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_10_Regular_Purple_400x400.webm`],
+        },
+        '11': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_11_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_11_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_11_Regular_Purple_400x400.webm`],
+        },
+        '12': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_12_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_12_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_12_Regular_Purple_400x400.webm`],
+        },
+        '13': {
+            blue: [lg`Token_Border/TokenBorderCircleSpin_13_Regular_Blue_400x400.webm`],
+            orange: [lg`Token_Border/TokenBorderCircleSpin_13_Regular_Orange_400x400.webm`],
+            purple: [lg`Token_Border/TokenBorderCircleSpin_13_Regular_Purple_400x400.webm`],
+        },
+
     },
 }
 

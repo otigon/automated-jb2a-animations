@@ -43,6 +43,7 @@
                                 <option value="staticSpells">{{localize 'AUTOANIM.itemSpell'}}</option>
                                 <option value="conditions">{{localize 'AUTOANIM.conditions'}}</option>
                                 <option value="shieldfx">{{localize 'AUTOANIM.shieldfx'}}</option>
+                                <option value="tokenborder">{{localize 'AUTOANIM.token'}} {{localize "AUTOANIM.border"}}</option>
                                 {{/select}}
                             </select>
                         </div>                    
@@ -79,6 +80,12 @@
 
                                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'shieldfx'}}
                                         {{#each ../shieldfx as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'tokenborder'}}
+                                        {{#each ../tokenborder as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/ifEquals}}
