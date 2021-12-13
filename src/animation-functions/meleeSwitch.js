@@ -62,6 +62,22 @@ export async function meleeSwitch(handler, target, autoObject) {
                 .missed(hit)
                 .name("animation")
                 .belowTokens(data.below)
+            .sound()
+                .file(data.switchAudio.file)
+                .volume(data.switchAudio.volume)
+                .delay(data.switchAudio.delay)
+                .playIf(() => {
+                    return data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off";
+                })
+            /*
+            .sound()
+                .file(data.itemAudio.file)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .playIf(() => {
+                    return data.itemAudio.enable && data.itemAudio.file && data.switchType === "on";
+                })
+            */
             //.waitUntilFinished(-700/* + handler.explosionDelay*/)
             .effect()
                 .file(attack.returnFile)

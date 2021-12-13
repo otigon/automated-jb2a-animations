@@ -22,6 +22,7 @@ export async function meleeAnimation(handler, autoObject) {
     await wait(globalDelay);
 
     const data = AAanimationData._primaryData(handler, autoObject);
+
     if (aaDebug) { aaDebugger("Melee Animation Start", data) }
     const attack = await buildFile(false, data.animation, "melee", data.variant, data.color, data.customPath)
 
@@ -115,6 +116,13 @@ export async function meleeAnimation(handler, autoObject) {
                     .name("animation")
                     .belowTokens(data.below)
                     .playIf(moveTo)
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(() => {
+                        return data.itemAudio.enable && data.itemAudio.file;
+                    })
                 .effect()
                     .atLocation("animation")
                     .file(explosion.data?.file)

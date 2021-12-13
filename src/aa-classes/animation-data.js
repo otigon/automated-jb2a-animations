@@ -17,6 +17,12 @@ export class AAanimationData {
             data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
             data.menuType = data.staticOptions === 'shieldfx' ? true : false;
             data.below = data.below ?? false;
+            data.itemAudio = {
+                enable: data.enableSound || false,
+                file: data.soundFile,
+                volume: data.soundVolume || 0.25,
+                delay: data.soundDelay || 0,
+            }
         } else {
             data.animation = handler.animation;
             data.variant = handler.variant ?? "01";
@@ -30,7 +36,14 @@ export class AAanimationData {
             data.type = handler.options?.staticType ?? "targetDefault";
             data.menuType = handler.options?.staticOptions === 'shieldfx' ? true : false;
             data.persistent = handler.persistent;
+            data.itemAudio = {
+                enable: handler.allSounds?.items?.enable || false,
+                file: handler.allSounds?.items?.file,
+                volume: handler.allSounds?.items?.volume || 0.25,
+                delay: handler.allSounds?.items?.delay || 0,
+            }
         }
+        console.log(data)
         return data;
     }
     /*
@@ -102,6 +115,12 @@ export class AAanimationData {
             data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
             data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
             data.below = data.below ?? false;
+            data.switchAudio = {
+                enable: data.switchEnableSound || false,
+                file: data.switchSoundFile,
+                volume: data.switchSoundVolume || 0.25,
+                delay: data.switchSoundDelay || 0,
+            }
         } else {
             data.switchAnimation = meleeSwitch.switchType === 'custom' ? meleeSwitch.animation : handler.animation;
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
@@ -114,6 +133,12 @@ export class AAanimationData {
             data.below = handler.below;
             data.switchVariant = meleeSwitch.variant ?? "";
             data.range = meleeSwitch.range ?? 2;
+            data.switchAudio = {
+                enable: handler.allSounds?.switch?.enable || false,
+                file: handler.allSounds?.switch?.file,
+                volume: handler.allSounds?.switch?.volume || 0.25,
+                delay: handler.allSounds?.switch?.delay || 0,
+            }
         }
         return data;
     }

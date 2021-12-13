@@ -57,6 +57,13 @@ export async function rangedAnimations(handler, autoObject) {
                     .missed(hit)
                     .name("animation")
                     .belowTokens(data.below)
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(() => {
+                        return data.itemAudio.enable && data.itemAudio.file;
+                    })
                     //.waitUntilFinished(-500 + handler.explosionDelay)
                 .effect()
                     .atLocation("animation")

@@ -93,6 +93,13 @@ export async function staticAnimation(handler, autoObject) {
                 .persist(data.persistent)
                 .origin(handler.item.uuid)
                 .playIf(playPersist)
+            .sound()
+                .file(data.itemAudio.file)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .playIf(() => {
+                    return data.itemAudio.enable && data.itemAudio.file;
+                })
             .effect()
                 .atLocation("animation")
                 .file(explosion.data?.file)
@@ -176,6 +183,13 @@ export async function staticAnimation(handler, autoObject) {
                         .persist(data.persistent)
                         .origin(handler.item.uuid)
                         .playIf(playPersist)
+                    .sound()
+                        .file(data.itemAudio.file)
+                        .volume(data.itemAudio.volume)
+                        .delay(data.itemAudio.delay)
+                        .playIf(() => {
+                            return data.itemAudio.enable && data.itemAudio.file;
+                        })        
                     .effect()
                         .atLocation("animation")
                         .file(explosion.data?.file)
@@ -244,6 +258,13 @@ export async function staticAnimation(handler, autoObject) {
                 .persist(data.persistent)
                 .origin(handler.item.uuid)
                 .playIf(playPersist)
+            .sound()
+                .file(data.itemAudio.file)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .playIf(() => {
+                    return data.itemAudio.enable && data.itemAudio.file;
+                })
             .effect()
                 .atLocation("animation")
                 .file(explosion.data?.file)
@@ -309,6 +330,13 @@ export async function staticAnimation(handler, autoObject) {
                         .persist(data.persistent)
                         .origin(handler.item.uuid)
                         .playIf(playPersist)
+                    .sound()
+                        .file(data.itemAudio.file)
+                        .volume(data.itemAudio.volume)
+                        .delay(data.itemAudio.delay)
+                        .playIf(() => {
+                            return data.itemAudio.enable && data.itemAudio.file;
+                        })        
                     .effect()
                         .atLocation("animation")
                         .file(explosion.data?.file)

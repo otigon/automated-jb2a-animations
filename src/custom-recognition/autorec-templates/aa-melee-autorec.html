@@ -17,8 +17,7 @@
                         <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
                     </div>
                 </div>
-                <div {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }}
-                    style="display:none" {{/if}}>
+                <div {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }} style="display:none" {{/if}}>
                     <div class="aa-container">
                         {{#unless (lookup (lookup ../settings.aaAutorec.melee idx) 'custom')}}
                         <div class="meleespan">
@@ -118,7 +117,42 @@
                             </div>
                         </div>
                         {{/if}}
-                        <div class="option13">
+
+                        <div class='form-group option13' style='padding-top: 5px;padding-bottom: 4px;'>
+                            <label>Sound</label>
+                            <input type="checkbox" name="aaAutorec.melee.{{idx}}.enableSound" {{checked (lookup (lookup
+                                ../settings.aaAutorec.melee idx) 'enableSound' ) }}>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.melee idx) 'enableSound')}}
+                        <!--Explosion Audio filePicker and Text Input-->
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
+                            <input style='width: 25em' type="text" class="files"
+                                name="aaAutorec.melee.{{idx}}.soundFile"
+                                value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'soundFile'}}">
+                            <button type="button" class="file-picker" data-type="audio"
+                                data-target="aaAutorec.melee.{{idx}}.soundFile" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-music"></i>
+                            </button>
+                        </div>
+                        <!--Explosion Audio Delay-->
+                        <div style='grid-column: 3 / 4;grid-row: 5 / 6; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.delay"}}</label>
+                            <input type="Number" name="aaAutorec.melee.{{idx}}.soundDelay" min="0"
+                                value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'soundDelay'}}"
+                                style='width: 3em'>
+                        </div>
+                        <!--Explosion Audio Volume-->
+                        <div style='grid-column: 2 / 3;grid-row: 5 / 6; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.volume"}}</label>
+                            <input type="Number" name="aaAutorec.melee.{{idx}}.soundVolume" min="0" max="1" step="0.01"
+                                style='width: 3em'
+                                value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'soundVolume'}}">
+                        </div>
+                        {{/if}}
+                    </div>
+                    <div style="border: 1px solid black;"></div>
+                    <div class="aa-container">
+                        <div style='grid-column: 1 / 2;grid-row: 1 / 2; padding-top: 1em; justify-self: left;'>
                             <div class="form-group">
                                 <label>{{localize 'AUTOANIM.switch'}}: </label>
                                 <select name="aaAutorec.melee.{{idx}}.switchType">
@@ -131,7 +165,7 @@
                             </div>
                         </div>
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'switchType') 'custom'}}
-                        <div class="option14">
+                        <div style='grid-column: 2 / 3;grid-row: 1 / 2;padding-top: 1em'>
                             <div class="form-group">
                                 <label>{{localize 'AUTOANIM.animation'}}: </label>
                                 <select name="aaAutorec.melee.{{idx}}.switchAnimation">
@@ -143,7 +177,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="option15">
+                        <div style='grid-column: 3 / 4;grid-row: 1 / 2;padding-top: 1em'>
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
                                     <label>{{localize 'AUTOANIM.return'}}: </label>
@@ -152,7 +186,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="option17">
+                        <div style='grid-column: 1 / 2;grid-row: 2 / 3;'>
                             <label for="aaAutorec.melee.{{idx}}.switchVariant">{{localize 'AUTOANIM.variant'}}:
                                 <select name="aaAutorec.melee.{{idx}}.switchVariant">
                                     {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchVariant')}}
@@ -164,7 +198,7 @@
                                 </select>
                             </label>
                         </div>
-                        <div class="option18">
+                        <div style='grid-column: 2 / 3;grid-row: 2 / 3;'>
                             <label for="aaAutorec.melee.{{idx}}.switchColor">{{localize 'AUTOANIM.color'}}:
                                 <select name="aaAutorec.melee.{{idx}}.switchColor">
                                     {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'switchColor')}}
@@ -177,7 +211,7 @@
                                 </select>
                             </label>
                         </div>
-                        <div class='option21'>
+                        <div style='grid-column: 1 / 3;grid-row: 3 / 4;'>
                             <div class="form-group">
                                 <label>{{localize 'AUTOANIM.rangeDetect'}}: </label>
                                 <select name="aaAutorec.melee.{{idx}}.detect">
@@ -189,7 +223,7 @@
                             </div>
                         </div>
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'detect') 'manual'}}
-                        <div class='option22'>
+                        <div style='grid-column: 3 / 5;grid-row: 3 / 4;'>
                             <div class="autorec-menu-options">
                                 <label>{{localize 'AUTOANIM.gridSquares'}}:
                                     <input type="Number" name="aaAutorec.melee.{{idx}}.range"
@@ -200,6 +234,40 @@
                         </div>
                         {{/ifEquals}}
                         {{/ifEquals}}
+                        {{#ifnoteq (lookup (lookup ../settings.aaAutorec.melee idx) 'switchType') 'off'}}
+                        <div style='grid-column: 1 / 2;grid-row: 4 / 5;padding-top: 5px;padding-bottom: 4px;padding-left: 5px;justify-self: left;'>
+                            <label>Switch Sound</label>
+                            <input type="checkbox" name="aaAutorec.melee.{{idx}}.switchEnableSound" {{checked (lookup
+                                (lookup ../settings.aaAutorec.melee idx) 'switchEnableSound' ) }}>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.melee idx) 'switchEnableSound')}}
+                        <!--Explosion Audio filePicker and Text Input-->
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
+                            <input style='width: 25em' type="text" class="files"
+                                name="aaAutorec.melee.{{idx}}.switchSoundFile"
+                                value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'switchSoundFile'}}">
+                            <button type="button" class="file-picker" data-type="audio"
+                                data-target="aaAutorec.melee.{{idx}}.switchSoundFile" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-music"></i>
+                            </button>
+                        </div>
+                        <!--Explosion Audio Delay-->
+                        <div style='grid-column: 3 / 4;grid-row: 5 / 6'>
+                            <label>{{localize "AUTOANIM.delay"}}</label>
+                            <input type="Number" name="aaAutorec.melee.{{idx}}.switchSoundDelay" min="0"
+                                value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'switchSoundDelay'}}"
+                                style='width: 3em'>
+                        </div>
+                        <!--Explosion Audio Volume-->
+                        <div style='grid-column: 2 / 3;grid-row: 5 / 6'>
+                            <label>{{localize "AUTOANIM.volume"}}</label>
+                            <input type="Number" name="aaAutorec.melee.{{idx}}.switchSoundVolume" min="0" max="1"
+                                step="0.01" style='width: 3em'
+                                value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'switchSoundVolume'}}">
+                        </div>
+                        {{/if}}
+                        {{/ifnoteq}}
                     </div>
                 </div>
             </div>

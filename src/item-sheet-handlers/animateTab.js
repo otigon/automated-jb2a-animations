@@ -93,6 +93,11 @@ export class AAItemSettings extends FormApplication {
             genericDmg: aaMenuLists.genericDmg,
             auraList: aaMenuLists.aura,
 
+            itemAudioDelay: flags.autoanimations?.allSounds?.items?.delay || 0,
+            itemAudioVolume: flags.autoanimations?.allSounds?.items?.volume || 0.25,
+            switchAudioDelay: flags.autoanimations?.allSounds?.switch?.delay || 0,
+            switchAudioVolume: flags.autoanimations?.allSounds?.switch?.volume || 0.25,
+            
             explosionMenu: aaMenuLists.explosionMenu,
             autoRecognized: autoCheck,
             autoRecognizedNoOverride: autoCheck && !override,

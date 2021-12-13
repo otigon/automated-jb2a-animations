@@ -34,43 +34,6 @@
             {{/select}}
         </select>
     </div>
-    <!--Choose Damage Type-->
-    <!--{{#if rangedType}}
-    <div syle="grid-column: 1 / 2; grid-row: 2 / 3">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.rangedOptions.rangeDmgType">
-            {{#select flags.autoanimations.rangedOptions.rangeDmgType}}
-            {{#each (lookup variantmenu.range (lookup flags.autoanimations 'animation')) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    {{/if}}
-    {{#if thrownVariantShow}}
-    <div syle="grid-column: 1 / 2; grid-row: 2 / 3">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.dtvar">
-            {{#select flags.autoanimations.dtvar}}
-            {{#each (lookup variantmenu.range (lookup flags.autoanimations 'animation')) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    {{/if}}
-    {{#ifEquals flags.autoanimations.options.rangeType 'spell'}}
-    <div syle="grid-column: 1 / 2; grid-row: 2 / 3">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.spellVar">
-            {{#select flags.autoanimations.spellVar}}
-            {{#each rangeVariant as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    {{/ifEquals}}-->
     <div class='option03'>
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.options.variant">
@@ -101,6 +64,35 @@
         <input type="Number" name="flags.autoanimations.options.delay" value={{aaDelay}}
             data-dtype="Number">
     </div>
+    <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2;grid-row: 3 / 4;'>
+        <label>Sounds</label>
+        <input type="checkbox" name="flags.autoanimations.allSounds.items.enable"
+            value="flags.autoanimations.allSounds.items.enable" {{checked
+            flags.autoanimations.allSounds.items.enable}}>
+    </div>
+    {{#if flags.autoanimations.allSounds.items.enable}}
+    <!--Explosion Audio filePicker and Text Input-->
+    <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.allSounds.items.file"
+            value="{{lookup flags.autoanimations.allSounds.items 'file'}}">
+        <button type="button" class="file-picker" data-type="audio"
+            data-target="flags.autoanimations.allSounds.items.file" tabindex="-1" title="Browse Files">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>
+    <!--Explosion Audio Delay-->
+    <div style='grid-column: 3 / 4;grid-row: 4 / 5'>
+        <label>{{localize "AUTOANIM.delay"}}</label>
+        <input type="Number" name="flags.autoanimations.allSounds.items.delay" min="0" value={{itemAudioDelay}}
+            style='width: 3em'>
+    </div>
+    <!--Explosion Audio Volume-->
+    <div style='grid-column: 2 / 3;grid-row: 4 / 5'>
+        <label>{{localize "AUTOANIM.volume"}}</label>
+        <input type="Number" name="flags.autoanimations.allSounds.items.volume" min="0" max="1" step="0.01"
+            style='width: 3em' value={{itemAudioVolume}}>
+    </div>
+    {{/if}}
 </div>
 <div style='padding:3px'>
 
