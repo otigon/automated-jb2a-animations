@@ -209,34 +209,28 @@
                         </div>
                         {{/sequencerOnly}}
                         {{/if}}
-                    </div>
-                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType') 'groundtile'}}
-                    <div class="form-group">
-                        <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
-                    </div>
-                    {{/ifEquals}}
-                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType') 'overheadtile'}}
-                    <div class="form-group">
-                        <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
-                    </div>
-                    <div class='flexrow'>
-                        <div class="autorec-menu-options">
-                            <div class="form-group">
-                                <label>{{localize "AUTOANIM.occlusionMode"}}</label>
-                                <select name="aaAutorec.templates.{{idx}}.occlusionMode">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.templates idx)
-                                    'occlusionMode')}}
-                                    <option value="3">{{localize "AUTOANIM.occlusion03"}}</option>
-                                    <option value="1">{{localize "AUTOANIM.occlusion01"}}</option>
-                                    <option value="2">{{localize "AUTOANIM.occlusion02"}}</option>
-                                    <option value="0">{{localize "AUTOANIM.occlusion00"}}</option>
-                                    {{/select}}
-                                </select>
-                            </div>
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType') 'groundtile'}}
+                        <div class="form-group" style='grid-column: 1 / 5; grid-row: 7 / 8;justify-self: center;'>
+                            <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
                         </div>
-                    </div>
-                    <div class="autorec-menu-options">
-                        <div class="form-group">
+                        {{/ifEquals}}
+                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType') 'overheadtile'}}
+                        <div class="form-group" style='grid-column: 1 / 5; grid-row: 7 / 8;justify-self: center;'>
+                            <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
+                        </div>
+                        <div class='form-group' style='grid-column: 1 / 3; grid-row: 6 / 7;'>
+                            <label>{{localize "AUTOANIM.occlusionMode"}}</label>
+                            <select name="aaAutorec.templates.{{idx}}.occlusionMode">
+                                {{#select (lookup (lookup ../settings.aaAutorec.templates idx)
+                                'occlusionMode')}}
+                                <option value="3">{{localize "AUTOANIM.occlusion03"}}</option>
+                                <option value="1">{{localize "AUTOANIM.occlusion01"}}</option>
+                                <option value="2">{{localize "AUTOANIM.occlusion02"}}</option>
+                                <option value="0">{{localize "AUTOANIM.occlusion00"}}</option>
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="form-group" style='grid-column: 3 / 5; grid-row: 6 / 7;'>
                             <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
                             <div class="form-fields">
                                 <input type="range" name="aaAutorec.templates.{{idx}}.occlusionAlpha"
@@ -245,8 +239,40 @@
                                 <span class="range-value">{{occlusionAlpha}}</span>
                             </div>
                         </div>
+                        {{/ifEquals}}
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 8 / 9'>
+                            <label>Sound</label>
+                            <input type="checkbox" name="aaAutorec.templates.{{idx}}.enableSound" {{checked (lookup
+                                (lookup ../settings.aaAutorec.templates idx) 'enableSound' ) }}>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'enableSound')}}
+                        <!--Explosion Audio filePicker and Text Input-->
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 8 / 9'>
+                            <input style='width: 25em' type="text" class="files"
+                                name="aaAutorec.templates.{{idx}}.soundFile"
+                                value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'soundFile'}}">
+                            <button type="button" class="file-picker" data-type="audio"
+                                data-target="aaAutorec.templates.{{idx}}.soundFile" tabindex="-1" title="Browse Files">
+                                <i class="fas fa-music"></i>
+                            </button>
+                        </div>
+                        <!--Explosion Audio Delay-->
+                        <div style='grid-column: 3 / 4;grid-row: 9 / 10; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.delay"}}</label>
+                            <input type="Number" name="aaAutorec.templates.{{idx}}.soundDelay" min="0"
+                                value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'soundDelay'}}"
+                                style='width: 3em'>
+                        </div>
+                        <!--Explosion Audio Volume-->
+                        <div style='grid-column: 2 / 3;grid-row: 9 / 10; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.volume"}}</label>
+                            <input type="Number" name="aaAutorec.templates.{{idx}}.soundVolume" min="0" max="1"
+                                step="0.01" style='width: 3em'
+                                value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'soundVolume'}}">
+                        </div>
+                        {{/if}}
                     </div>
-                    {{/ifEquals}}
                 </div>
             </div>
         </div>

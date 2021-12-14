@@ -17,6 +17,12 @@ export async function auras(handler, autoObject) {
         data.customPath = data.custom ? data.customPath : false;
         data.color = autoOverridden ? handler.autoOverride?.color : data.color;
         data.size = data.scale * 2 * gridSize;
+        data.itemAudio = {
+            enable: data.enableSound || false,
+            file: data.soundFile,
+            volume: data.soundVolume || 0.25,
+            delay: data.soundDelay || 0,
+        }
         //data.tint = parseInt(data.tint.substr(1), 16);
     } else {
         data.animation = handler.animation;
@@ -28,6 +34,12 @@ export async function auras(handler, autoObject) {
         data.size = handler.auraRadius * 2 * gridSize
         data.ignoretargets = handler.options.ignoreTarget;
         data.below = handler.below;
+        data.itemAudio = {
+            enable: handler.allSounds?.items?.enable || false,
+            file: handler.allSounds?.items?.file,
+            volume: handler.allSounds?.items?.volume || 0.25,
+            delay: handler.allSounds?.items?.delay || 0,
+        }
     }
 
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
@@ -60,6 +72,13 @@ export async function auras(handler, autoObject) {
                 .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                 .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
                 .animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
+            .sound()
+                .file(data.itemAudio.file)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .playIf(() => {
+                    return data.itemAudio.enable && data.itemAudio.file;
+                })
             .play()
         AAanimationData.howToDelete("sequencerground")
     }
@@ -91,7 +110,14 @@ export async function auras(handler, autoObject) {
                     .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                     .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                     .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
-                    .animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})    
+                    .animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(() => {
+                        return data.itemAudio.enable && data.itemAudio.file;
+                    })
                 .play()
         }
         AAanimationData.howToDelete("sequencerground")

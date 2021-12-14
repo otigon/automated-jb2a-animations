@@ -361,7 +361,7 @@ export class aaAutorec {
                     hidden: true,
                     name: "Spirit Guardians",
                     opacity: 0.75,
-                    scale: 7,
+                    scale: 3.5,
                     static: false,
                     tint: '#ffffff',
                     variant: '01',
