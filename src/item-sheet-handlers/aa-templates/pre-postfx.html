@@ -15,6 +15,12 @@
                 flags.autoanimations.sourceToken.enable}} />
         </div>
         {{#if flags.autoanimations.sourceToken.enable}}
+        <!--Set Opacity-->
+        <div class="autorec-menu-options option02">
+            <label>{{localize "AUTOANIM.opacity"}} </label>
+            <input type="Number" name="flags.autoanimations.sourceToken.opacity" min="0" max="1" step=".01"
+                value={{sourceOpacity}}>
+        </div>
         <div class="form-group option06">
             <label>{{localize "AUTOANIM.below"}}</label>
             <input type="checkbox" name="flags.autoanimations.sourceToken.animLevel"
@@ -96,7 +102,7 @@
     </div>
     <div style='padding:3px'>
 
-    </div>    
+    </div>
     <div class="flexrow">
         <div class="AA-flow-chart-Source" {{#if flags.autoanimations.sourceToken.enable }}
             style="background-color: rgb(129, 248, 138);color: black" {{/if}} {{#unless
@@ -105,13 +111,17 @@
             <label>{{localize "AUTOANIM.source"}} {{localize "AUTOANIM.animation"}}</label>
         </div>
         <div class="aa-flow-arrow">
-            <i {{#if flags.autoanimations.sourceToken.enable}} style='color:rgb(6, 190, 6);text-shadow: 0 0 5px black' {{/if }} {{#unless flags.autoanimations.sourceToken.enable}} style='color:red;text-shadow: 0 0 5px black' {{/unless }} class="fas fa-angle-double-right fa-3x"></i>
+            <i {{#if flags.autoanimations.sourceToken.enable}} style='color:rgb(6, 190, 6);text-shadow: 0 0 5px black'
+                {{/if }} {{#unless flags.autoanimations.sourceToken.enable}}
+                style='color:red;text-shadow: 0 0 5px black' {{/unless }} class="fas fa-angle-double-right fa-3x"></i>
         </div>
         <div class="AA-flow-chart-Primary" style='color: black'>
             <label>{{localize "AUTOANIM.primary"}} {{localize "AUTOANIM.animation"}}</label>
         </div>
         <div class="aa-flow-arrow">
-            <i {{#if flags.autoanimations.targetToken.enable}} style='color:rgb(6, 190, 6);text-shadow: 0 0 5px black' {{/if }} {{#unless flags.autoanimations.targetToken.enable}} style='color:red;text-shadow: 0 0 5px black' {{/unless }} class="fas fa-angle-double-right fa-3x"></i>
+            <i {{#if flags.autoanimations.targetToken.enable}} style='color:rgb(6, 190, 6);text-shadow: 0 0 5px black'
+                {{/if }} {{#unless flags.autoanimations.targetToken.enable}}
+                style='color:red;text-shadow: 0 0 5px black' {{/unless }} class="fas fa-angle-double-right fa-3x"></i>
         </div>
         <div class="AA-flow-chart-Target" {{#if flags.autoanimations.targetToken.enable }}
             style="background-color: rgb(129, 248, 138);color: black" {{/if}} {{#unless
@@ -122,7 +132,7 @@
     </div>
     <div style='padding:3px'>
 
-    </div>    
+    </div>
     <div class='flexrow text-green' {{#unless flags.autoanimations.targetToken.enable }}
         style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered; text-align: center;' {{/unless}}>
         <label><strong>{{localize "AUTOANIM.target"}} {{localize "AUTOANIM.animation"}}</strong></label>
@@ -139,6 +149,12 @@
                 flags.autoanimations.targetToken.enable}} />
         </div>
         {{#if flags.autoanimations.targetToken.enable}}
+        <!--Set Opacity-->
+        <div class="autorec-menu-options option02">
+            <label>{{localize "AUTOANIM.opacity"}} </label>
+            <input type="Number" name="flags.autoanimations.targetToken.opacity" min="0" max="1" step=".01"
+                value={{targetOpacity}}>
+        </div>
         <div class="form-group option06">
             <label>{{localize "AUTOANIM.below"}}</label>
             <input type="checkbox" name="flags.autoanimations.targetToken.animLevel"
@@ -147,8 +163,9 @@
         </div>
         <div class="form-group option05">
             <label>{{localize "AUTOANIM.persistant"}}?</label>
-            <input type="checkbox" name="flags.autoanimations.targetToken.persistent" {{checked flags.autoanimations.targetToken.persistent}}>
-        </div>    
+            <input type="checkbox" name="flags.autoanimations.targetToken.persistent" {{checked
+                flags.autoanimations.targetToken.persistent}}>
+        </div>
         {{#unless flags.autoanimations.targetToken.enableCustom}}
         <div class="option03">
             <label>{{localize "AUTOANIM.animation"}}</label>

@@ -39,6 +39,7 @@ export class aaAutoRecognition extends FormApplication {
         data.spellList = aaMenuLists.attackSpells;
         data.selfList = aaMenuLists.autoself;
         data.shieldfx = aaMenuLists.shieldfx;
+        data.tokenborder = aaMenuLists.tokenborder;
         data.templateCircle = aaMenuLists.circleAnimations;
         data.templateCone = aaMenuLists.coneAnimations;
         data.templateRect = aaMenuLists.rectangleAnimations;

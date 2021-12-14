@@ -13,6 +13,7 @@ export class AAanimationData {
             data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
             data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
             data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+            data.opacity = data.opacity || 1;
             data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
             data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
             data.menuType = data.staticOptions === 'shieldfx' ? true : false;
@@ -32,6 +33,7 @@ export class AAanimationData {
             data.repeat = handler.repeat;
             data.delay = handler.delay
             data.scale = handler.scale;
+            data.opacity = handler.options?.opacity || 1;
             data.below = handler.below;
             data.type = handler.options?.staticType ?? "targetDefault";
             data.menuType = handler.options?.staticOptions === 'shieldfx' ? true : false;
@@ -210,6 +212,7 @@ export class AAanimationData {
             animation: source.name || "",
             color: source.color,
             variant: source.variant,
+            opacity: source.opacity || 1,
         }
 
         if (source.enable && source.name === "a1" && !source.enableCustom) {
@@ -227,6 +230,7 @@ export class AAanimationData {
             .scale(sourceFX.sFXScale * sourceFX.scale)
             .repeats(sourceFX.repeat, sourceFX.delay)
             .belowTokens(sourceFX.below)
+            .opacity(sourceFX.opacity)
             .waitUntilFinished(sourceFX.startDelay)
             .playIf(sourceFX.enabled)
 
@@ -248,6 +252,7 @@ export class AAanimationData {
             color: target.color,
             variant: target.variant,
             persistent: target.persistent || false,
+            opacity: target.opacity || 1,
         }
 
         if (target.enable && target.name === "a1" && !target.enableCustom) {
@@ -291,6 +296,7 @@ export class AAanimationData {
             .belowTokens(targetFX.below)
             .persist(targetFX.persistent)
             .gridSize(canvas.grid.size)
+            .opacity(targetFX.opacity)
             .playIf(playNow)
 
         return targetFX;

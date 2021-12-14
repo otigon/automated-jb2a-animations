@@ -78,6 +78,16 @@
     "AUTOANIM.01":"01",
     "AUTOANIM.02":"02",
     "AUTOANIM.03":"03",
+    "AUTOANIM.05":"05",
+    "AUTOANIM.06":"06",
+    "AUTOANIM.07":"07",
+    "AUTOANIM.08":"08",
+    "AUTOANIM.09":"09",
+    "AUTOANIM.10":"10",
+    "AUTOANIM.11":"11",
+    "AUTOANIM.12":"12",
+    "AUTOANIM.13":"13",
+
     "AUTOANIM.kunai":"Kunai",
 
 
@@ -515,5 +525,15 @@
 
     "AUTOANIM.attachtotemplate": "Attach to Template",
     "AUTOANIM.grease": "Grease",
-    "AUTOANIM.shieldfx": "Shield Effects"
+    "AUTOANIM.shieldfx": "Shield Effects",
+    "AUTOANIM.armsofhadar": "Arms of Hadar",
+    "AUTOANIM.blacktentacles": "Black Tentacles",
+    "AUTOANIM.ice": "Ice",
+    "AUTOANIM.earth": "Earth",
+    "AUTOANIM.eldritch": "Eldritch",
+    "AUTOANIM.snow": "Snow",
+    "AUTOANIM.ball": "Ball",
+    "AUTOANIM.border": "Border",
+    "AUTOANIM.token": "Token",
+    "AUTOANIM.spinning": "Spinning"
 }

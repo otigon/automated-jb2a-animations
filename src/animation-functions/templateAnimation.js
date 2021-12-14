@@ -21,6 +21,7 @@ export async function templateAnimation(handler, autoObject) {
         data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
         data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
         data.occlusionMode = parseInt(data.occlusionMode);
+        data.opacity = data.opacity || 1;
         data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
         data.persistType = data.overhead ? 'overheadtile' : data.persistType || 'sequencerground';
         data.scale = autoOverridden ? handler.autoOverride?.scale || 1 : data.scale || 1;
@@ -35,7 +36,7 @@ export async function templateAnimation(handler, autoObject) {
         data.type = handler.options?.tempType;
         data.persist = handler.options?.persistent;
         data.overhead = handler.options?.overhead;
-        data.opacity = handler.options?.opacity;
+        data.opacity = handler.options?.opacity || 1;
         data.occlusionAlpha = handler.options?.occlusionAlpha ?? "0";
         data.occlusionMode = parseInt(handler.options?.occlusionMode ?? "3");
         data.removeTemplate = handler.options?.removeTemplate;
@@ -242,8 +243,9 @@ export async function templateAnimation(handler, autoObject) {
                     .rotate(rotate)
                     .persist(data.persist)
                     .origin(handler.item.uuid)
+                    .opacity(data.opacity)
                     .scale({ x: scaleX * data.scale, y: scaleY * data.scale })
-                    .belowTokens(true)
+                    .belowTokens(data.below)
                     .repeats(data.repeat, data.delay)
                 .sound()
                     .file(templateFile)
@@ -273,6 +275,7 @@ export async function templateAnimation(handler, autoObject) {
                     .file(tempAnimation.file)
                     .attachTo(templateObject)
                     .persist(true)
+                    .opacity(data.opacity)
                     .origin(handler.item.uuid)
                     .scaleToObject(data.scale)
                 .sound()
@@ -306,7 +309,8 @@ export async function templateAnimation(handler, autoObject) {
                     })
                     //.anchor({ x: xAnchor, y: yAnchor })
                     .rotate(rotate)
-                    .persist(data.persist)
+                    .persist(false)
+                    .opacity(data.opacity)
                     .origin(handler.item.uuid)
                     .scale({ x: scaleX * data.scale, y: scaleY * data.scale })
                     .belowTokens(data.below)
