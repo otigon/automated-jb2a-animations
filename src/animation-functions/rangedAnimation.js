@@ -12,14 +12,14 @@ export async function rangedAnimations(handler, autoObject) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    const data = AAanimationData._primaryData(handler, autoObject);
+    const data = await AAanimationData._primaryData(handler, autoObject);
     if (aaDebug) { aaDebugger("Ranged Animation Start", data) }
     const attack = await buildFile(false, data.animation, "range", data.variant, data.color)
 
     const sourceToken = handler.actorToken;
 
-    const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
-    const explosionSound = AAanimationData._explosionSound(handler);
+    //const explosion = await AAanimationData._explosionData(handler);
+    //const explosionSound = AAanimationData._explosionSound(handler);
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const targetFX = await AAanimationData._targetFX(handler);
 
@@ -46,7 +46,14 @@ export async function rangedAnimations(handler, autoObject) {
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function() {
                     Hooks.callAll("aa.animationStart", sourceToken, target)
-                })                       
+                })
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(() => {
+                        return data.itemAudio.enable && data.itemAudio.file;
+                    })
                 .effect()
                     .file(attack.file)
                     .atLocation(sourceToken)
@@ -57,28 +64,21 @@ export async function rangedAnimations(handler, autoObject) {
                     .missed(hit)
                     .name("animation")
                     .belowTokens(data.below)
-                .sound()
-                    .file(data.itemAudio.file)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .playIf(() => {
-                        return data.itemAudio.enable && data.itemAudio.file;
-                    })
-                    //.waitUntilFinished(-500 + handler.explosionDelay)
+                    .waitUntilFinished(data.explosion?.delay)
                 .effect()
                     .atLocation("animation")
-                    .file(explosion.data?.file)
-                    .scale({ x: explosion.scale, y: explosion.scale })
-                    .delay(500 + explosion.delay)
+                    .file(data.explosion?.data?.file)
+                    .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                    .delay(500 + data.explosion?.delay)
                     .repeats(data.repeat, data.delay)
-                    .belowTokens(explosion.below)
-                    .playIf(explosion.enabled)
+                    .belowTokens(data.explosion?.below)
+                    .playIf(data.explosion?.enabled)
                     //.waitUntilFinished(explosionDelay)
                 .sound()
-                    .file(explosionSound.file)
-                    .playIf(() => {return explosion.enabled && handler.explodeSound})
-                    .delay(explosionSound.delay)
-                    .volume(explosionSound.volume)
+                    .file(data.explosion?.audio?.file)
+                    .playIf(() => {return explosion.enabled && data.explosion?.audio?.enable})
+                    .delay(data.explosion?.audio?.delay)
+                    .volume(data.explosion?.audio?.volume)
                     .repeats(data.repeat, data.delay)
                 .addSequence(targetSequence.targetSeq)
                 .play()

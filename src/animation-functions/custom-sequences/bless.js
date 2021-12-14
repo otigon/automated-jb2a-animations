@@ -26,12 +26,24 @@ export async function bless(handler, autoObject) {
         data.color = autoOverridden ? handler.autoOverride?.color : data.color;
         data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
         data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
+        data.itemAudio = {
+            enable: data.enableSound || false,
+            file: data.soundFile,
+            volume: data.soundVolume || 0.25,
+            delay: data.soundDelay || 0,
+        }
     } else {
         data.animation = handler.convertedName;
         data.color = handler.color;
         data.scale = handler.scale || 1;
         data.below = handler.animLevel;
         data.persistent = handler.options?.persistent;
+        data.itemAudio = {
+            enable: handler.allSounds?.items?.enable || false,
+            file: handler.allSounds?.items?.file,
+            volume: handler.allSounds?.items?.volume || 0.25,
+            delay: handler.allSounds?.items?.delay || 0,
+        }
     }
     const bless = await buildBlessFile(obj01, data.color);
     // builds Source Token file if Enabled, and pulls from flags if already set
@@ -51,6 +63,13 @@ export async function bless(handler, autoObject) {
         const playPersist = (!checkAnim && data.persistent) ? true : false;
 
         await new Sequence("Automated Animations")
+        .sound()
+            .file(data.itemAudio.file)
+            .volume(data.itemAudio.volume)
+            .delay(data.itemAudio.delay)
+            .playIf(() => {
+                return data.itemAudio.enable && data.itemAudio.file;
+            })
         .effect()
             .file(bless.file01)
             .attachTo(sourceToken)
@@ -67,7 +86,7 @@ export async function bless(handler, autoObject) {
             .playIf(!data.persistent)
             .loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
             .loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
-            .filter("ColorMatrix", {hue: 120})
+            //.filter("ColorMatrix", {hue: 120})
         .effect()
             .file(bless.file02)
             .scale(scale)
@@ -80,7 +99,7 @@ export async function bless(handler, autoObject) {
             .playIf(playPersist)
             .loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
             .loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
-            .filter("ColorMatrix", {hue: 120})
+            //.filter("ColorMatrix", {hue: 120})
         .play()
         if (playPersist) { AAanimationData.howToDelete("sequencerground") }
     }
@@ -96,6 +115,13 @@ export async function bless(handler, autoObject) {
             const playPersist = (!checkAnim && data.persistent) ? true : false;
 
             await new Sequence("Automated Animations")
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(() => {
+                        return data.itemAudio.enable && data.itemAudio.file;
+                    })
                 .effect()
                     .file(bless.file01)
                     .attachTo(target)

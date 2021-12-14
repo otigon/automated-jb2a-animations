@@ -93,11 +93,13 @@ export class AAItemSettings extends FormApplication {
             genericDmg: aaMenuLists.genericDmg,
             auraList: aaMenuLists.aura,
 
-            itemAudioDelay: flags.autoanimations?.allSounds?.items?.delay || 0,
-            itemAudioVolume: flags.autoanimations?.allSounds?.items?.volume || 0.25,
-            switchAudioDelay: flags.autoanimations?.allSounds?.switch?.delay || 0,
-            switchAudioVolume: flags.autoanimations?.allSounds?.switch?.volume || 0.25,
-            
+            itemAudioDelay01: flags.autoanimations?.audio?.a01?.delay || 0,
+            itemAudioVolume01: flags.autoanimations?.audio?.a01?.volume || 0.25,
+            itemAudioDelay02: flags.autoanimations?.audio?.a02?.delay || 0,
+            itemAudioVolume02: flags.autoanimations?.audio?.a02?.volume || 0.25,
+            delayExAudio: flags.autoanimations?.audio?.e01?.delay || 0,
+            volumeExAudio: flags.autoanimations?.audio?.e01?.volume || 0.25,
+
             explosionMenu: aaMenuLists.explosionMenu,
             autoRecognized: autoCheck,
             autoRecognizedNoOverride: autoCheck && !override,
@@ -129,11 +131,9 @@ export class AAItemSettings extends FormApplication {
             explosionLoops: explosionLoops || 1,
             explosionDelay: flags.autoanimations?.explosions?.delay ?? 0,
 
-            delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
-            volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
-            itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
-            delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
-            volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
+            //itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
+            //delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
+            //volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
 
             templateAnimations: AATabFunctions.animTemplates(templateType),
 

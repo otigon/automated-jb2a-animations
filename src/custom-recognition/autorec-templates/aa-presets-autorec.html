@@ -61,6 +61,7 @@
                             </div>
                         </div>
                         {{/ifnoteq}}
+
                         <!--Bardic Inspiration Menu-->
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'bardicinspiration'}}
                         <div class='option03'>
@@ -180,7 +181,43 @@
                             </select>
                         </div>
                         {{/if}}
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 5 / 6'>
+                            <label>Sound</label>
+                            <input type="checkbox" name="aaAutorec.preset.{{idx}}.audio.a01.enable" {{checked (lookup
+                                (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' ) 'enable'
+                                )}}>
+                        </div>
+                        {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' )
+                        'enable' )}}
+                        <!--Explosion Audio filePicker and Text Input-->
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 5 / 6'>
+                            <input style='width: 25em' type="text" class="files"
+                                name="aaAutorec.preset.{{idx}}.audio.a01.file"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'file'}}">
+                            <button type="button" class="file-picker" data-type="audio"
+                                data-target="aaAutorec.preset.{{idx}}.audio.a01.file" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-music"></i>
+                            </button>
+                        </div>
+                        <!--Explosion Audio Delay-->
+                        <div style='grid-column: 4 / 5;grid-row: 6 / 7; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.delay"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
+                                style='width: 3em'>
+                        </div>
+                        <!--Explosion Audio Volume-->
+                        <div style='grid-column: 3 / 4;grid-row: 6 / 7; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.volume"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.volume" min="0" max="1"
+                                step="0.01" style='width: 3em'
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
+                        </div>
+                        {{/if}}
                         {{/ifEquals}}
+
                         <!--Shield Menu-->
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'shieldspell'}}
                         <div class='option03'>
@@ -223,7 +260,43 @@
                                 </div>
                             </div>
                         </div>
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 3 / 4'>
+                            <label>Sound</label>
+                            <input type="checkbox" name="aaAutorec.preset.{{idx}}.audio.a01.enable" {{checked (lookup
+                                (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' ) 'enable'
+                                )}}>
+                        </div>
+                        {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' )
+                        'enable' )}}
+                        <!--Explosion Audio filePicker and Text Input-->
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
+                            <input style='width: 25em' type="text" class="files"
+                                name="aaAutorec.preset.{{idx}}.audio.a01.file"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'file'}}">
+                            <button type="button" class="file-picker" data-type="audio"
+                                data-target="aaAutorec.preset.{{idx}}.audio.a01.file" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-music"></i>
+                            </button>
+                        </div>
+                        <!--Explosion Audio Delay-->
+                        <div style='grid-column: 4 / 5;grid-row: 4 / 5; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.delay"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
+                                style='width: 3em'>
+                        </div>
+                        <!--Explosion Audio Volume-->
+                        <div style='grid-column: 3 / 4;grid-row: 4 / 5; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.volume"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.volume" min="0" max="1"
+                                step="0.01" style='width: 3em'
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
+                        </div>
+                        {{/if}}
                         {{/ifEquals}}
+
                         <!--Bless Menu-->
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'bless'}}
                         <div class="option03">
@@ -246,6 +319,41 @@
                                 </div>
                             </div>
                         </div>
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 3 / 4'>
+                            <label>Sound</label>
+                            <input type="checkbox" name="aaAutorec.preset.{{idx}}.audio.a01.enable" {{checked (lookup
+                                (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' ) 'enable'
+                                )}}>
+                        </div>
+                        {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' )
+                        'enable' )}}
+                        <!--Explosion Audio filePicker and Text Input-->
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
+                            <input style='width: 25em' type="text" class="files"
+                                name="aaAutorec.preset.{{idx}}.audio.a01.file"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'file'}}">
+                            <button type="button" class="file-picker" data-type="audio"
+                                data-target="aaAutorec.preset.{{idx}}.audio.a01.file" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-music"></i>
+                            </button>
+                        </div>
+                        <!--Explosion Audio Delay-->
+                        <div style='grid-column: 4 / 5;grid-row: 4 / 5; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.delay"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
+                                style='width: 3em'>
+                        </div>
+                        <!--Explosion Audio Volume-->
+                        <div style='grid-column: 3 / 4;grid-row: 4 / 5; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.volume"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.volume" min="0" max="1"
+                                step="0.01" style='width: 3em'
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
+                        </div>
+                        {{/if}}
                         {{/ifEquals}}
 
                         <!--Teleportation Menu-->
@@ -314,7 +422,43 @@
                             </div>
                         </div>
                         {{/if}}
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 4 / 5'>
+                            <label>Sound</label>
+                            <input type="checkbox" name="aaAutorec.preset.{{idx}}.audio.a01.enable" {{checked (lookup
+                                (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' ) 'enable'
+                                )}}>
+                        </div>
+                        {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' )
+                        'enable' )}}
+                        <!--Explosion Audio filePicker and Text Input-->
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
+                            <input style='width: 25em' type="text" class="files"
+                                name="aaAutorec.preset.{{idx}}.audio.a01.file"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'file'}}">
+                            <button type="button" class="file-picker" data-type="audio"
+                                data-target="aaAutorec.preset.{{idx}}.audio.a01.file" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-music"></i>
+                            </button>
+                        </div>
+                        <!--Explosion Audio Delay-->
+                        <div style='grid-column: 4 / 5;grid-row: 5 / 6; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.delay"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
+                                style='width: 3em'>
+                        </div>
+                        <!--Explosion Audio Volume-->
+                        <div style='grid-column: 3 / 4;grid-row: 5 / 6; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.volume"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.volume" min="0" max="1"
+                                step="0.01" style='width: 3em'
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
+                        </div>
+                        {{/if}}
                         {{/ifEquals}}
+
                         <!--Sneak Attack preset-->
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'sneakattack'}}
                         <div class='option03'>
@@ -357,6 +501,41 @@
                                 </label>
                             </div>
                         </div>
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 3 / 4'>
+                            <label>Sound</label>
+                            <input type="checkbox" name="aaAutorec.preset.{{idx}}.audio.a01.enable" {{checked (lookup
+                                (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' ) 'enable'
+                                )}}>
+                        </div>
+                        {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' )
+                        'enable' )}}
+                        <!--Explosion Audio filePicker and Text Input-->
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
+                            <input style='width: 25em' type="text" class="files"
+                                name="aaAutorec.preset.{{idx}}.audio.a01.file"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'file'}}">
+                            <button type="button" class="file-picker" data-type="audio"
+                                data-target="aaAutorec.preset.{{idx}}.audio.a01.file" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-music"></i>
+                            </button>
+                        </div>
+                        <!--Explosion Audio Delay-->
+                        <div style='grid-column: 4 / 5;grid-row: 4 / 5; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.delay"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
+                                style='width: 3em'>
+                        </div>
+                        <!--Explosion Audio Volume-->
+                        <div style='grid-column: 3 / 4;grid-row: 4 / 5; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.volume"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.volume" min="0" max="1"
+                                step="0.01" style='width: 3em'
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
+                        </div>
+                        {{/if}}
                         {{/ifEquals}}
 
                         <!--Fireball preset-->
@@ -593,6 +772,7 @@
                         {{/if}}
                         {{/ifEquals}}
 
+                        <!--Hunters Mark-->
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'huntersmark'}}
                         <div class='option03'>
                             <label>{{localize "AUTOANIM.variant"}}</label>
@@ -638,6 +818,41 @@
                                         data-dtype="Number">
                                 </label>
                             </div>
+                        </div>
+                        {{/if}}
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 3 / 4'>
+                            <label>Sound</label>
+                            <input type="checkbox" name="aaAutorec.preset.{{idx}}.audio.a01.enable" {{checked (lookup
+                                (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' ) 'enable'
+                                )}}>
+                        </div>
+                        {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' )
+                        'enable' )}}
+                        <!--Explosion Audio filePicker and Text Input-->
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
+                            <input style='width: 25em' type="text" class="files"
+                                name="aaAutorec.preset.{{idx}}.audio.a01.file"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'file'}}">
+                            <button type="button" class="file-picker" data-type="audio"
+                                data-target="aaAutorec.preset.{{idx}}.audio.a01.file" tabindex="-1"
+                                title="Browse Files">
+                                <i class="fas fa-music"></i>
+                            </button>
+                        </div>
+                        <!--Explosion Audio Delay-->
+                        <div style='grid-column: 4 / 5;grid-row: 4 / 5; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.delay"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
+                                style='width: 3em'>
+                        </div>
+                        <!--Explosion Audio Volume-->
+                        <div style='grid-column: 3 / 4;grid-row: 4 / 5; padding-bottom: 1em'>
+                            <label>{{localize "AUTOANIM.volume"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.volume" min="0" max="1"
+                                step="0.01" style='width: 3em'
+                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
                         </div>
                         {{/if}}
                         {{/ifEquals}}

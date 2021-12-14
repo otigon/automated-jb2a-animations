@@ -5,21 +5,21 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function meleeSwitch(handler, target, autoObject) {
+export async function meleeSwitch(handler, target, data, sourceFX, targetFX) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     //Builds Primary File Path and Pulls from flags if already set
-    const data = AAanimationData._switchData(handler, autoObject);
+    //const data = await AAanimationData._primaryData(handler, autoObject);
     if (aaDebug) { aaDebugger("Switch Animation Start", data) }
 
     const attack = await buildFile(false, data.switchAnimation, "range", data.switchVariant, data.switchColor);//need to finish
     
     const sourceToken = handler.actorToken;
 
-    const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
-    const explosionSound = AAanimationData._explosionSound(handler);
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    const targetFX = await AAanimationData._targetFX(handler);
+    //const explosion = await AAanimationData._explosionData(handler);
+    //const explosionSound = AAanimationData._explosionSound(handler);
+    //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    //const targetFX = await AAanimationData._targetFX(handler);
 
     //logging explosion Scale
     //const scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
@@ -52,6 +52,13 @@ export async function meleeSwitch(handler, target, autoObject) {
             .thenDo(function () {
                 Hooks.callAll("aaAnimationStart", sourceToken, target)
             })
+            .sound()
+                .file(data.switchAudio.file)
+                .volume(data.switchAudio.volume)
+                .delay(data.switchAudio.delay)
+                .playIf(() => {
+                    return data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off";
+                })
             .effect()
                 .file(attack.file)
                 .atLocation(sourceToken)
@@ -62,13 +69,6 @@ export async function meleeSwitch(handler, target, autoObject) {
                 .missed(hit)
                 .name("animation")
                 .belowTokens(data.below)
-            .sound()
-                .file(data.switchAudio.file)
-                .volume(data.switchAudio.volume)
-                .delay(data.switchAudio.delay)
-                .playIf(() => {
-                    return data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off";
-                })
             /*
             .sound()
                 .file(data.itemAudio.file)
@@ -89,17 +89,17 @@ export async function meleeSwitch(handler, target, autoObject) {
                 //.JB2A()
             .effect()
                 .atLocation("animation")
-                .file(explosion.data?.file)
-                .scale({ x: explosion.scale, y: explosion.scale })
-                .delay(500 + explosion.delay)
+                .file(data.explosion?.data?.file)
+                .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                .delay(500 + data.explosion?.delay)
                 .repeats(data.repeat, data.delay)
-                .belowTokens(explosion.below)
-                .playIf(explosion.enabled)
+                .belowTokens(data.explosion?.below)
+                .playIf(data.explosion?.enabled)
             .sound()
-                .file(explosionSound.file)
-                .playIf(() => { return handler.explosion && handler.explodeSound })
-                .delay(explosionSound.delay)
-                .volume(explosionSound.volume)
+                .file(data.explosion?.audio?.file)
+                .playIf(() => {return data.explosion?.enabled && data.explosion?.audio?.enable})
+                .delay(data.explosion?.audio?.delay)
+                .volume(data.explosion?.audio?.volume)
                 .repeats(data.repeat, data.delay)
             .addSequence(targetSequence.targetSeq)
             .play()

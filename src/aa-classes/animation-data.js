@@ -2,9 +2,10 @@ import { buildFile } from "../animation-functions/file-builder/build-filepath.js
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js";
 export class AAanimationData {
 
-    static _primaryData(handler, autoObject) {
-        const data = {};
+    static async _primaryData(handler, autoObject) {
+        
         if (autoObject) {
+            const data = {};
             const autoOverridden = handler.autoOverride?.enable
             Object.assign(data, autoObject);
             data.animation = data.animation || "";
@@ -19,12 +20,89 @@ export class AAanimationData {
             data.menuType = data.staticOptions === 'shieldfx' ? true : false;
             data.below = data.below ?? false;
             data.itemAudio = {
-                enable: data.enableSound || false,
-                file: data.soundFile,
-                volume: data.soundVolume || 0.25,
-                delay: data.soundDelay || 0,
+                enable: data.audio?.a01?.enable || false,
+                file: data.audio?.a01?.file,
+                volume: data.audio?.a01?.volume || 0.25,
+                delay: data.audio?.a01?.delay || 0,
             }
+
+            data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
+            data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
+            //data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+            //data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
+            //data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
+            //data.below = data.below ?? false;
+            data.switchAudio = {
+                enable: data.audio?.a02?.enable || false,
+                file: data.audio?.a02?.file,
+                volume: data.audio?.a02?.volume || 0.25,
+                delay: data.audio?.a02?.delay || 0,
+            }
+            //data.explosion = await this._explosionData(handler, true)
+
+            data.explosion = await this._explosionData(handler, true)
+            return data;
         } else {
+            const meleeSwitch = handler.meleeSwitch;
+            const data = {
+                animation: handler.animation,
+                variant: handler.variant ?? "01",
+                color: handler.color,
+                customPath: handler.enableCustom ? handler.customPath : false,
+                switchType: handler.meleeSwitch?.switchType ?? "on",
+                repeat: handler.repeat,
+                delay: handler.delay,
+                scale: handler.scale,
+                opacity: handler.options?.opacity || 1,
+                below: handler.below,
+                type: handler.options?.staticType ?? "targetDefault",
+                menuType: handler.options?.staticOptions === 'shieldfx' ? true : false,
+                persistent: handler.persistent,
+                itemAudio: {
+                    enable: handler.audio?.a01?.enable || false,
+                    file: handler.audio?.a01?.file,
+                    volume: handler.audio?.a01?.volume || 0.25,
+                    delay: handler.audio?.a01?.delay || 0,
+                },
+
+                switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation : handler.animation,
+                switchColor: meleeSwitch.color || "white",
+                detect: meleeSwitch.detect ?? "auto",
+                return: meleeSwitch.returning || false,
+                switchVariant: meleeSwitch.variant ?? "",
+                range: meleeSwitch.range ?? 2,
+                switchColor: meleeSwitch.color || "white",
+                switchType: meleeSwitch.switchType ?? "on",
+                switchAudio: {
+                    enable: handler.audio?.a02?.enable || false,
+                    file: handler.audio?.a02?.file,
+                    volume: handler.audio?.a02?.volume || 0.25,
+                    delay: handler.audio?.a02?.delay || 0,
+                },
+
+                explosion: await this._explosionData(handler, false),
+            }
+            //data.switchAnimation = meleeSwitch.switchType === 'custom' ? meleeSwitch.animation : handler.animation;
+            if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
+            //data.switchColor = meleeSwitch.color || "white";
+            //data.switchType = meleeSwitch.switchType ?? "on";
+            //data.detect = meleeSwitch.detect ?? "auto";
+            //data.repeat = handler.repeat;
+            //data.delay = handler.delay;
+            //data.return = meleeSwitch.returning;
+            //data.below = handler.below;
+            //data.switchVariant = meleeSwitch.variant ?? "";
+            //data.range = meleeSwitch.range ?? 2;
+            //data.switchAudio = {
+                //enable: handler.audio?.a02?.enable || false,
+                //file: handler.audio?.a02?.file,
+                //volume: handler.audio?.a02?.volume || 0.25,
+                //delay: handler.audio?.a02?.delay || 0,
+            //}
+            //data.explosion = await this._explosionData(handler, false)
+
+            return data;
+            /*
             data.animation = handler.animation;
             data.variant = handler.variant ?? "01";
             data.color = handler.color;
@@ -39,73 +117,19 @@ export class AAanimationData {
             data.menuType = handler.options?.staticOptions === 'shieldfx' ? true : false;
             data.persistent = handler.persistent;
             data.itemAudio = {
-                enable: handler.allSounds?.items?.enable || false,
-                file: handler.allSounds?.items?.file,
-                volume: handler.allSounds?.items?.volume || 0.25,
-                delay: handler.allSounds?.items?.delay || 0,
+                enable: handler.audio?.a01?.enable || false,
+                file: handler.audio?.a01?.file,
+                volume: handler.audio?.a01?.volume || 0.25,
+                delay: handler.audio?.a01?.delay || 0,
             }
+            data.explosion = await this._explosionData(handler, false)
+            */
         }
-        console.log(data)
-        return data;
+        //console.log(data)
+        //return data;
     }
-    /*
-    static _meleeData(handler, autoObject) {
-        const data = {};
-        if (autoObject) {
-            const autoOverridden = handler.options?.overrideAuto
-            Object.assign(data, autoObject);
-            data.animation = data.animation || "";
-            data.customPath = data.custom ? data.customPath : false;
-            data.color = autoOverridden ? handler.options?.autoColor : data.color;
-            data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-            data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-            data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-            data.variant = autoOverridden ? handler.options?.autoVariant : data.variant;
-        } else {
-            data.animation = handler.animation;
-            data.variant = handler.variant || "01";
-            data.color = handler.color;
-            data.customPath = handler.enableCustom ? handler.customPath : false;
-            data.switchType = handler.meleeSwitch.switchType || "on";
-            data.repeat = handler.repeat;
-            data.delay = handler.delay
-            data.scale = handler.scale;
-            data.below = handler.below;
-        }
-        return data;
-    }
-    
-    static _rangeData(handler, autoObject) {
-        const data = {}
-        if (autoObject) {
-            const autoOverridden = handler.options?.overrideAuto
-            Object.assign(data, autoObject)
-            data.animation = data.animation;
-            data.color = autoOverridden ? handler.options?.autoColor : data.color;
-            data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-            data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-        } else {
-            data.animation = handler.animation;
-            
-            //if (data.itemName === "arrow") { data.dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-                //data.dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
-            //}
-            //let dmgType;
-            //if (data.itemName === "arrow") { dmgType = handler.rangedOptions?.rangeDmgType ?? "regular" } else {
-                //dmgType = handler.rangedOptions?.rangeDmgType ?? "physical";
-            //}
-            
-            //const variant = AAITEMCHECK.spellattack.some(el => data.itemName.includes(el)) ? handler.spellVariant : dmgType;
-            data.variant = handler.variant;
-            data.color = handler.color;
-            data.repeat = handler.repeat;
-            data.delay = handler.delay;
-            data.below = handler.below;
-        }
-        return data;
-    }
-    */
-    static _switchData(handler, autoObject) {
+/*
+    static async _switchData(handler, autoObject) {
         const meleeSwitch = handler.meleeSwitch;
         const data = {};
         if (autoObject) {
@@ -118,11 +142,12 @@ export class AAanimationData {
             data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
             data.below = data.below ?? false;
             data.switchAudio = {
-                enable: data.switchEnableSound || false,
-                file: data.switchSoundFile,
-                volume: data.switchSoundVolume || 0.25,
-                delay: data.switchSoundDelay || 0,
+                enable: data.audio?.a02?.enable || false,
+                file: data.audio?.a02?.file,
+                volume: data.audio?.a02?.volume || 0.25,
+                delay: data.audio?.a02?.delay || 0,
             }
+            data.explosion = await this._explosionData(handler, true)
         } else {
             data.switchAnimation = meleeSwitch.switchType === 'custom' ? meleeSwitch.animation : handler.animation;
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
@@ -136,68 +161,75 @@ export class AAanimationData {
             data.switchVariant = meleeSwitch.variant ?? "";
             data.range = meleeSwitch.range ?? 2;
             data.switchAudio = {
-                enable: handler.allSounds?.switch?.enable || false,
-                file: handler.allSounds?.switch?.file,
-                volume: handler.allSounds?.switch?.volume || 0.25,
-                delay: handler.allSounds?.switch?.delay || 0,
+                enable: handler.audio?.a02?.enable || false,
+                file: handler.audio?.a02?.file,
+                volume: handler.audio?.a02?.volume || 0.25,
+                delay: handler.audio?.a02?.delay || 0,
             }
+            data.explosion = await this._explosionData(handler, false)
         }
         return data;
+    }
+*/
+    static async _explosionData(handler, autorec) {
+        if (autorec) {
+            const explosion = {
+                enabled: false,
+                animation: "",
+                variant: "",
+                color: "",
+                delay: 1,
+                radius: 1.5,
+                enableCustom: false,
+                customPath: false,
+                below: false,
+                audio: {
+                    enable: false,
+                    //file: handler.audio?.e01?.file,
+                    volume: 0.25,
+                    delay: 0,
+                }
+            }
+            explosion.data = "";
+            explosion.scale = 1;
+
+            return explosion;
+        } else {
+            const explosions = handler.explosion;
+            const explosion = {
+                enabled: explosions.enable || false,
+                animation: explosions.animation ?? "",
+                variant: explosions.variant ?? "",
+                color: explosions.color ?? "",
+                delay: explosions.delay ?? 1,
+                radius: explosions.radius ?? 1.5,
+                enableCustom: explosions.enableCustom || false,
+                customPath: explosions.enableCustom ? explosions.customPath : false,
+                below: explosions.below || false,
+                audio: {
+                    enable: handler.audio?.e01?.enable || false,
+                    file: handler.audio?.e01?.file,
+                    volume: handler.audio?.e01?.volume || 0.25,
+                    delay: handler.audio?.e01?.delay || 0,
+                }
+            };
+            explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
+            explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
+
+            return explosion;
+        }
     }
     /*
-    static _staticData(handler, autoObject) {
-        const data = {}
-        if (autoObject) {
-            const autoOverridden = handler.options?.overrideAuto
-            Object.assign(data, autoObject)
-            data.animation = data.animation || "";
-            data.customPath = data.custom ? data.customPath : false;
-            data.color = autoOverridden ? handler.options?.autoColor : data.color;
-            data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-            data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-            data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-        } else {
-            data.animation = handler.animation;
-            data.variant = handler.options?.variant;
-            data.color = handler.color;
-            data.repeat = handler.repeat;
-            data.delay = handler.delay;
-            data.customPath = handler.enableCustom ? handler.customPath : false;
-            data.below = handler.below;
-            data.scale = handler.scale;
-            data.type = handler.staticType;
-        }
-        return data;
-    }
-    */
-    static async _explosionData(handler) {
-        const explosions = handler.explosion;
-        const explosion = {
-            enabled: explosions.enable || false,
-            animation: explosions.animation ?? "",
-            variant: explosions.variant ?? "",
-            color: explosions.color ?? "",
-            delay: explosions.delay ?? 1,
-            radius: explosions.radius ?? 1.5,
-            enableCustom: explosions.enableCustom,
-            customPath: explosions.enableCustom ? explosions.customPath : false,
-            below: explosions.below || false,
-        };
-        explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
-        explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
-
-        return explosion;
-    }
-
     static _explosionSound(handler) {
         const explosionSound = {
-            volume: handler.allSounds?.explosion?.volume || 0.25,
-            delay: handler.allSounds?.explosion?.delay || 1,
-            file: handler.allSounds?.explosion?.file || "",
+            enable: handler.audio?.e01?.enable || false,
+            file: handler.audio?.e01?.file,
+            volume: handler.audio?.e01?.volume || 0.25,
+            delay: handler.audio?.e01?.delay || 0,
         }
         return explosionSound;
     }
-
+    */
     static async _sourceFX(handler, sourceToken) {
         const source = handler.flags?.sourceToken || {};
         const enableCustom = source.enableCustom || false;

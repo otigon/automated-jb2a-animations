@@ -28,6 +28,12 @@ async function huntersMark(handler, autoObject) {
         data.anchorX = autoOverridden ? handler.autoOverride?.anchorX : data.anchorX;
         data.anchorY = autoOverridden ? handler.autoOverride?.anchorY : data.anchorY;
         data.persist = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
+        data.itemAudio = {
+            enable: data.enableSound || false,
+            file: data.soundFile,
+            volume: data.soundVolume || 0.25,
+            delay: data.soundDelay || 0,
+        }
     } else {
         data.animation = handler.animation;
         data.variant = handler.variant ?? "paw";
@@ -37,6 +43,12 @@ async function huntersMark(handler, autoObject) {
         data.anchorX = handler.anchorX;
         data.anchorY = handler.anchorY;
         data.persist = handler.persistent;
+        data.itemAudio = {
+            enable: handler.allSounds?.items?.enable || false,
+            file: handler.allSounds?.items?.file,
+            volume: handler.allSounds?.items?.volume || 0.25,
+            delay: handler.allSounds?.items?.delay || 0,
+        }
     }
 
     const sourceToken = handler.actorToken;
@@ -54,6 +66,13 @@ async function huntersMark(handler, autoObject) {
 
     const playPersist = (!checkAnim && data.persist) ? true : false;
     await new Sequence("Automated Animations")
+        .sound()
+            .file(data.itemAudio.file)
+            .volume(data.itemAudio.volume)
+            .delay(data.itemAudio.delay)
+            .playIf(() => {
+                return data.itemAudio.enable && data.itemAudio.file;
+            })
         .effect()
             .file(hmPulse)
             .atLocation(sourceToken)

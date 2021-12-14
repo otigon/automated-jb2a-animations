@@ -86,9 +86,10 @@ export default class flagHandler {
 
         this._autoOverride = this._flags.autoOverride ?? {};
         
+        this._audio = this._flags.audio ?? {};
         this._allSounds = this._flags.allSounds ?? "";
         this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
-        this._explodeSound = this._flags.allSounds?.explosion?.audioExplodeEnabled ?? false;
+        this._explodeSound = this._flags.audio?.e01?.enable ?? false;
 
 
         this._animNameFinal;
@@ -141,6 +142,7 @@ export default class flagHandler {
 
     get hmAnim() { return this._hmAnim; }
 
+    get audio() { return this._audio }
     get allSounds() { return this._allSounds; }
     get itemSound() { return this._itemSound; }
     get explodeSound() { return this._explodeSound }

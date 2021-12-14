@@ -43,6 +43,12 @@ export async function shieldSpell(handler, autoObject) {
         data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
         data.persistent =  autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
         data.endeffect = autoOverridden ? handler.autoOverride?.endEffect : data.endeffect;
+        data.itemAudio = {
+            enable: data.enableSound || false,
+            file: data.soundFile,
+            volume: data.soundVolume || 0.25,
+            delay: data.soundDelay || 0,
+        }
     } else {
         data.animation = handler.animation;
         data.color = handler.color ?? "blue";
@@ -51,6 +57,12 @@ export async function shieldSpell(handler, autoObject) {
         data.persistent = handler.persistent ?? false;
         data.endeffect = handler.options.shieldVar ?? "outro_fade";
         data.variant = handler.variant ?? "01";
+        data.itemAudio = {
+            enable: handler.allSounds?.items?.enable || false,
+            file: handler.allSounds?.items?.file,
+            volume: handler.allSounds?.items?.volume || 0.25,
+            delay: handler.allSounds?.items?.delay || 0,
+        }
     }
 
     const sourceToken = handler.actorToken;
@@ -67,6 +79,13 @@ export async function shieldSpell(handler, autoObject) {
     async function cast() {
             new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(() => {
+                        return data.itemAudio.enable && data.itemAudio.file;
+                    })    
                 .effect()
                     .file(onToken.file01)
                     .scale(scale)
