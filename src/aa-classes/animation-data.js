@@ -245,6 +245,12 @@ export class AAanimationData {
             color: source.color,
             variant: source.variant,
             opacity: source.opacity || 1,
+            itemAudio: {
+                enable: handler.audio?.s01?.enable || false,
+                file: handler.audio?.s01?.file,
+                volume: handler.audio?.s01?.volume || 0.25,
+                delay: handler.audio?.s01?.delay || 0,
+            },
         }
 
         if (source.enable && source.name === "a1" && !source.enableCustom) {
@@ -255,6 +261,13 @@ export class AAanimationData {
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
+        sourceFX.sourceSeq.sound()
+            .file(sourceFX.itemAudio.file)
+            .volume(sourceFX.itemAudio.volume)
+            .delay(sourceFX.itemAudio.delay)
+            .playIf(() => {
+                return sourceFX.itemAudio.enable && sourceFX.itemAudio.file;
+            })
         sourceFX.sourceSeq.effect()
             .file(sourceFX.data.file)
             .atLocation(sourceToken)
@@ -285,6 +298,12 @@ export class AAanimationData {
             variant: target.variant,
             persistent: target.persistent || false,
             opacity: target.opacity || 1,
+            itemAudio: {
+                enable: handler.audio?.t01?.enable || false,
+                file: handler.audio?.t01?.file,
+                volume: handler.audio?.t01?.volume || 0.25,
+                delay: handler.audio?.t01?.delay || 0,
+            },
         }
 
         if (target.enable && target.name === "a1" && !target.enableCustom) {
@@ -319,6 +338,13 @@ export class AAanimationData {
 
         targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
+        targetFX.targetSeq.sound()
+            .file(targetFX.itemAudio.file)
+            .volume(targetFX.itemAudio.volume)
+            .delay(targetFX.itemAudio.delay)
+            .playIf(() => {
+                return targetFX.itemAudio.enable && targetFX.itemAudio.file;
+            })
         targetFX.targetSeq.effect()
             .delay(targetFX.startDelay)
             .file(targetFX.data?.file)
