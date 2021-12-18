@@ -5,7 +5,7 @@ async function bardicInspiration(handler, autoObject) {
 
     let token = handler.actorToken;
     let target = handler.allTargets[0];
-
+    const flags = handler.flags;
     const data = {};
     if (autoObject) {
         //const autoOverridden = handler.options?.overrideAuto
@@ -18,7 +18,7 @@ async function bardicInspiration(handler, autoObject) {
             delay: data.soundDelay || 0,
         }
     } else {
-        const bards = handler.bards;
+        const bards = flags.bards ?? {};
         data.animation = handler.convertedName;
         data.selfColor = bards.bardSelfColor;
         data.targetColor = bards.bardTargetColor;
@@ -30,11 +30,11 @@ async function bardicInspiration(handler, autoObject) {
         data.selfAnimation = bards.bardAnim;
         data.targetAnimation = bards.bardTargetAnim;
         data.itemAudio = {
-            enable: handler.allSounds?.items?.enable || false,
-            file: handler.allSounds?.items?.file,
-            volume: handler.allSounds?.items?.volume || 0.25,
-            delay: handler.allSounds?.items?.delay || 0,
-        }
+            enable: flags.audio?.a01?.enable || false,//
+            file: flags.audio?.a01?.file,//
+            volume: flags.audio?.a01?.volume || 0.25,//
+            delay: flags.audio?.a01?.delay || 0,//
+    }
     }
     const gridSize = canvas.grid.size;
 

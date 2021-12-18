@@ -33,38 +33,47 @@ export async function shieldSpell(handler, autoObject) {
     
         return { file01, file02, file03, metadata };
     }
+    /*
     const data = {};
     if (autoObject) {
         const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject);
-        data.animation = data.animation || "";
-        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
-        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+        //data.animation = data.animation || "";
+        //data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        //data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+        //data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
         data.persistent =  autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
         data.endeffect = autoOverridden ? handler.autoOverride?.endEffect : data.endeffect;
-        data.itemAudio = {
-            enable: data.enableSound || false,
-            file: data.soundFile,
-            volume: data.soundVolume || 0.25,
-            delay: data.soundDelay || 0,
-        }
+        //data.itemAudio = {
+           // enable: data.enableSound || false,
+            //file: data.soundFile,
+            //volume: data.soundVolume || 0.25,
+            //delay: data.soundDelay || 0,
+        //}
     } else {
-        data.animation = handler.animation;
-        data.color = handler.color ?? "blue";
-        data.scale = handler.scale ?? 1;
-        data.below = handler.below;
-        data.persistent = handler.persistent ?? false;
+        //data.animation = handler.animation;
+        //data.color = handler.color ?? "blue";
+        //data.scale = handler.scale ?? 1;
+        //data.below = handler.below;
+        //data.persistent = handler.persistent ?? false;
         data.endeffect = handler.options.shieldVar ?? "outro_fade";
-        data.variant = handler.variant ?? "01";
-        data.itemAudio = {
-            enable: handler.allSounds?.items?.enable || false,
-            file: handler.allSounds?.items?.file,
-            volume: handler.allSounds?.items?.volume || 0.25,
-            delay: handler.allSounds?.items?.delay || 0,
-        }
+        //data.variant = handler.variant ?? "01";
+        //data.itemAudio = {
+            //enable: handler.allSounds?.items?.enable || false,
+            //file: handler.allSounds?.items?.file,
+            //volume: handler.allSounds?.items?.volume || 0.25,
+            //delay: handler.allSounds?.items?.delay || 0,
+        //}
     }
-
+    */
+    const data = await AAanimationData._primaryData(handler, autoObject);
+    if (autoObject) {
+        const autoOverridden = handler.autoOverride?.enable
+        data.persistent =  autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
+        data.endeffect = autoOverridden ? handler.autoOverride?.endEffect : data.endeffect;
+    } else {
+        data.endeffect = data.options.shieldVar ?? "outro_fade";
+    }
     const sourceToken = handler.actorToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
     // builds Source Token file if Enabled, and pulls from flags if already set

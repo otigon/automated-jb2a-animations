@@ -297,7 +297,7 @@ async function setUpMidi(workflow) {
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
-    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride)) { return; }
+    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.flags?.animation === 'fireball' && handler.animOverride)) { return; }
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
@@ -310,7 +310,7 @@ async function setUpMidiNoAD(workflow) {
     }
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if (templateItem && !handler.animOverride) { return; }
-    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride)) { return; }
+    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.flags?.animation === 'fireball' && handler.animOverride)) { return; }
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
@@ -331,7 +331,7 @@ async function setUpMidiNoA(workflow) {
 
     const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
     if ((templateItem || fireball) && !handler.animOverride) { return; }
-    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride)) { return; }
+    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.flags.animation === 'fireball' && handler.animOverride)) { return; }
     trafficCop(handler)
 }
 
@@ -378,7 +378,7 @@ async function specialCaseAnimations(msg) {
             })
             return;
         }
-        if (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride) {
+        if (handler.animType === 'preset' && handler.flags?.animation === 'fireball' && handler.animOverride) {
             trafficCop(handler);
             return;
         }

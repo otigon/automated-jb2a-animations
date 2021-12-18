@@ -4,12 +4,12 @@ import { buildFile } from "../file-builder/build-filepath.js"
 export async function fireball(handler, autoObject) {
 
     const data = {}
-
+    const flags = handler.flags;
     if (autoObject) {
         Object.assign(data, autoObject);
-        const autoOverridden = handler.flags?.autoOverride?.enable ?? false;
-        const autoOverrideAfter = handler.flags?.autoOverride?.fireball?.afterEffect ?? false;
-        const autoFireball = handler.flags?.autoOverride?.fireball ?? {};
+        const autoOverridden = flags.autoOverride?.enable ?? false;
+        const autoOverrideAfter = flags.autoOverride?.fireball?.afterEffect ?? false;
+        const autoFireball = flags.autoOverride?.fireball ?? {};
         data.projectile = autoOverridden ? autoFireball.projectile : data.projectile;
         data.projectileVariant = autoFireball ? autoFireball.projectileVariant : data.projectilVariant ?? "01";
         data.projectileColor = autoOverridden ? autoFireball.projectileColor ?? data.projectileColor : data.projectileColor ?? "";
@@ -36,7 +36,7 @@ export async function fireball(handler, autoObject) {
         data.afterEffectPath = autoOverrideAfter ? autoFireball.afterEffectPath ?? "" : data.afterEffectPath ?? "";
         data.wait03 = autoOverrideAfter ? autoFireball.wait03 ?? 500 : data.wait03 ?? 500;
     } else {
-        const fireballFlags = handler.fireball ?? {};
+        const fireballFlags = flags.fireball ?? {};
         data.projectile = fireballFlags.projectile;
         data.projectileVariant = fireballFlags.projectileVariant ?? "01";
         data.projectileColor = fireballFlags.projectileColor ?? "";
@@ -62,8 +62,9 @@ export async function fireball(handler, autoObject) {
         data.afterEffect = fireballFlags.afterEffect;
         data.afterEffectPath = fireballFlags.afterEffectPath ?? "";
         data.wait03 = fireballFlags.wait03 ?? 500;
-        data.removeTemplate = handler.options?.removeTemplate ?? false;
+        data.removeTemplate = flags.options?.removeTemplate ?? false;
     }
+    /*
     //console.log(data)
     let templateSound = handler.allSounds?.item;
     let templateVolume = 0.25;
@@ -74,6 +75,13 @@ export async function fireball(handler, autoObject) {
         templateDelay = templateSound?.delay === 0 ? 1 : templateSound?.delay;
         templateFile = templateSound?.file;
     }
+    */
+    const itemAudio = {//
+        enable: flags.audio?.a01?.enable || false,//
+        file: flags.audio?.a01?.file,//
+        volume: flags.audio?.a01?.volume || 0.25,//
+        delay: flags.audio?.a01?.delay || 0,//
+    }//
 
     const projectileAnimation = await buildFile(false, data.projectile, "range", data.projectileVariant, data.projectileColor);
     const explosion01 = data.explosion01 !== "a1" ? await buildFile(true, data.explosion01, "static", data.explosion01Variant, data.explosion01Color) : "";
@@ -115,10 +123,12 @@ export async function fireball(handler, autoObject) {
             .waitUntilFinished(data.wait01)
             //.JB2A()
         .sound()
-            .file(templateFile)
-            .playIf(handler.itemSound)
-            .delay(templateDelay)
-            .volume(templateVolume)
+            .file(itemAudio.file)
+            .volume(itemAudio.volume)
+            .delay(itemAudio.delay)
+            .playIf(() => {
+                return itemAudio.enable && itemAudio.file;
+            })        
         .effect()
             .file(explosion01.file)
             .playIf(data.explosion01 !== "a1")

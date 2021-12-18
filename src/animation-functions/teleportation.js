@@ -10,23 +10,30 @@ export async function teleportation(handler, autoObject) {
     }
     const sourceToken = handler.actorToken;
     const actor = handler.actor;
-
+    /*
     const data = {};
     if (autoObject) {
-        const autoOverridden = handler.autoOverride?.enable
+        //const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject);
         data.itemName = data.subAnimation || "";
-        data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+        //data.customPath = data.custom ? data.customPath : false;
+        //data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        //data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
     } else {
         data.itemName = handler.options?.name;
-        data.variant = handler.option?.variant;
-        data.customPath = handler.options?.enableCustom ? handler.options.customPath : false;
-        data.color = handler.color;
-        data.scale = handler.scale;
-        data.range = handler.teleDist;
-        data.hideTemplate = handler.options?.hideTemplate;
+        //data.variant = handler.option?.variant;
+        //data.customPath = handler.options?.enableCustom ? handler.options.customPath : false;
+        //data.color = handler.color;
+        //data.scale = handler.scale;
+        //data.range = handler.teleDist;
+        //data.hideTemplate = handler.options?.hideTemplate;
+    }
+    */
+    const data = await AAanimationData._primaryData(handler, autoObject);
+    if (autoObject) {
+        data.itemName = data.subAnimation || "";
+    } else {
+        data.itemName = data.options?.name || "";
     }
     if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
     const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
@@ -42,7 +49,7 @@ export async function teleportation(handler, autoObject) {
             x: sourceToken.x + canvas.grid.size / 2,
             y: sourceToken.y + canvas.grid.size / 2,
             direction: 0,
-            distance: data.range,
+            distance: data.teleDist,
             borderColor: "#FF0000",
             flags: {
                 world: {
@@ -59,7 +66,7 @@ export async function teleportation(handler, autoObject) {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
         let ray = new Ray(sourceToken.center, pos)
-        if (ray.distance > ((canvas.grid.size * (data.range / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
+        if (ray.distance > ((canvas.grid.size * (data.teleDist / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
             ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
         } else {
             deleteTemplatesAndMove();

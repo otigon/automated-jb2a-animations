@@ -74,7 +74,7 @@ export default class flagHandler {
         this._repeat = this._options.repeat || 1;
         this._repeatDelay = this._options.delay || 250;
         this._scale = this._options.scale || 1;
-        this._opacity = this._options.opacity || 0.75;
+        this._opacity = this._options.opacity || 1;
         this._persistent = this._options.persistent ?? false;
         this._enableCustom = this._options.enableCustom || false;
         this._customPath = this._options.customPath || "";
@@ -91,7 +91,6 @@ export default class flagHandler {
         this._itemSound = this._flags.allSounds?.item?.enableAudio ?? false;
         this._explodeSound = this._flags.audio?.e01?.enable ?? false;
 
-
         this._animNameFinal;
         switch (true) {
             case ((!this._animOverride) || ((this._animOverride) && (this._animation === ``))):
@@ -101,7 +100,7 @@ export default class flagHandler {
                 this._animNameFinal = this._animation;
                 break;
         }
-        this._convertName = this._animation.replace(/\s+/g, '').toLowerCase();
+        this._convertName = this._animation.replace(/\s+/g, '');
         this._delay = endTiming(this._animNameFinal);
     }
 

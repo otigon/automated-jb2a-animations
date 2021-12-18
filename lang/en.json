@@ -433,7 +433,7 @@
     "AUTOANIM.04": "04",
     "AUTOANIM.sleep01": "Sleep 01",
     "AUTOANIM.sleep02": "Sleep 02",
-    "AUTOANIM.persistant": "Persistant",
+    "AUTOANIM.persistant": "Persistent",
     "AUTOANIM.fireball": "Fireball",
     "AUTOANIM.projectile": "Projectile",
     "AUTOANIM.addAfterImage": "Add After Image",
@@ -535,5 +535,8 @@
     "AUTOANIM.ball": "Ball",
     "AUTOANIM.border": "Border",
     "AUTOANIM.token": "Token",
-    "AUTOANIM.spinning": "Spinning"
+    "AUTOANIM.spinning": "Spinning",
+
+    "AUTOANIM.autorecognized": "is configured in the Global Settings",
+    "AUTOANIM.overrideauto": "Override Automatic Settings"
 }

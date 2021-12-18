@@ -18,32 +18,39 @@ export async function bless(handler, autoObject) {
 
     // Random Color pull given object path
     //Builds standard File Path
+    /*
     const data = {};
     if (autoObject) {
         const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject);
-        data.animation = data.animation || "";
-        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
+        //data.animation = data.animation || "";
+        //data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        //data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
         data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
-        data.itemAudio = {
-            enable: data.enableSound || false,
-            file: data.soundFile,
-            volume: data.soundVolume || 0.25,
-            delay: data.soundDelay || 0,
-        }
+        //data.itemAudio = {
+            //enable: data.enableSound || false,
+            //file: data.soundFile,
+            //volume: data.soundVolume || 0.25,
+            //delay: data.soundDelay || 0,
+        //}
     } else {
-        data.animation = handler.convertedName;
-        data.color = handler.color;
-        data.scale = handler.scale || 1;
-        data.below = handler.animLevel;
-        data.persistent = handler.options?.persistent;
-        data.itemAudio = {
-            enable: handler.allSounds?.items?.enable || false,
-            file: handler.allSounds?.items?.file,
-            volume: handler.allSounds?.items?.volume || 0.25,
-            delay: handler.allSounds?.items?.delay || 0,
-        }
+        //data.animation = handler.convertedName;
+        //data.color = handler.color;
+        //data.scale = handler.scale || 1;
+        //data.below = handler.animLevel;
+        //data.persistent = handler.options?.persistent;
+        //data.itemAudio = {
+            //enable: handler.allSounds?.items?.enable || false,
+            //file: handler.allSounds?.items?.file,
+            //volume: handler.allSounds?.items?.volume || 0.25,
+            //delay: handler.allSounds?.items?.delay || 0,
+        //}
+    }
+    */
+    const data = await AAanimationData._primaryData(handler, autoObject);
+    if (autoObject) {
+        const autoOverridden = handler.autoOverride?.enable
+        data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
     }
     const bless = await buildBlessFile(obj01, data.color);
     // builds Source Token file if Enabled, and pulls from flags if already set

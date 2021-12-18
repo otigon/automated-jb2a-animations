@@ -29,7 +29,7 @@ export async function staticAnimation(handler, autoObject) {
     if (data.menuType) {
         const bottomAnim = onToken.file.replace('top', 'bottom')
 
-        switch (data.type) {
+        switch (data.staticType) {
             case 'source':
                 selfCast()
                 break;
@@ -220,7 +220,7 @@ export async function staticAnimation(handler, autoObject) {
             }
         }    
     } else {
-        switch (data.type) {
+        switch (data.staticType) {
             case 'source':
                 selfCast()
                 break;

@@ -56,7 +56,7 @@ export async function meleeAnimation(handler, autoObject) {
                         break;
                     case "custom":
                         if (data.detect === "manual") {
-                            if ((handler.getDistanceTo(target) / canvas.dimensions.distance) > handler.switchRange) {
+                            if ((handler.getDistanceTo(target) / canvas.dimensions.distance) > data.switchRange) {
                                 noMelee = true;
                             }
                         } else if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {

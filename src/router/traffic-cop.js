@@ -40,7 +40,7 @@ export async function trafficCop(handler) {
     }
     //const itemName = handler.convertedName;
     const animType = handler.animType;
-    const animName = handler.animation;
+    const animName = handler.flags?.animation;
     const override = handler.animOverride;
     const targets = handler.allTargets?.length ?? 0;
     if (override) {
