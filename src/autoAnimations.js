@@ -3,7 +3,7 @@ import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.j
 import { trafficCop } from "./router/traffic-cop.js";
 import { AutorecFunctions } from "./aa-classes/autorecFunctions.js";
 
-import flagHandler from "./system-handlers/flag-handler.js";
+import flagHandler from "./system-handlers/system-data.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import aaSettings from "./settings.js";

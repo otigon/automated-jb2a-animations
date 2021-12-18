@@ -17,7 +17,7 @@ import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { fireball } from "../animation-functions/custom-sequences/fireball.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-
+/*
 async function itemSound(handler) {
     let audio = handler.allSounds.item;
     if (handler.itemSound) {
@@ -25,7 +25,7 @@ async function itemSound(handler) {
         AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
     }
 }
-
+*/
 export async function trafficCop(handler) {
     const aaDebug = game.settings.get("autoanimations", "debug")
     /*
@@ -33,11 +33,13 @@ export async function trafficCop(handler) {
         itemSound(handler);
     }
     */
+   /*
     if (handler.animKill) {
         if (aaDebug) { aaDebugger("Animations Disabled on Item") }
         itemSound(handler)
         return;
     }
+    */
     //const itemName = handler.convertedName;
     const animType = handler.animType;
     const animName = handler.flags?.animation;
@@ -161,7 +163,7 @@ export async function trafficCop(handler) {
                         }
                         Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                         if (aaDebug) { aaDebugger("Pre Melee Animation", autoObject) }
-                        itemSound(handler)
+                        //itemSound(handler)
                         meleeAnimation(handler, autoObject);
                         break;
                     case 'range':
@@ -172,13 +174,13 @@ export async function trafficCop(handler) {
                         }
                         Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                         if (aaDebug) { aaDebugger("Pre Range Animation", autoObject) }
-                        itemSound(handler)
+                        //itemSound(handler)
                         rangedAnimations(handler, autoObject);
                         break;
                     case 'static':
                         Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                         if (aaDebug) { aaDebugger("Pre Static Animation", autoObject) }
-                        itemSound(handler)
+                        //itemSound(handler)
                         staticAnimation(handler, autoObject);
                         break;
                     case 'templates':
@@ -189,33 +191,33 @@ export async function trafficCop(handler) {
                         break;
                     case 'auras':
                         if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
-                        itemSound(handler)
+                        //itemSound(handler)
                         auras(handler, autoObject)
                         break;
                     case 'preset':
                         if (aaDebug) { aaDebugger("Pre Preset Animation", autoObject) }
                         switch (autoObject.animation) {
                             case 'bardicinspiration':
-                                itemSound(handler)
+                                //itemSound(handler)
                                 bardicInspiration(handler, autoObject);
                                 break;
                             case 'bless':
-                                itemSound(handler)
+                                //itemSound(handler)
                                 bless(handler, autoObject);
                                 break;
                             case 'shieldspell':
-                                itemSound(handler)
+                                //itemSound(handler)
                                 shieldSpell(handler, autoObject);
                                 break;
                             case 'huntersmark':
                                 huntersMark(handler, autoObject);
                                 break;
                             case 'teleportation':
-                                itemSound(handler)
+                                //itemSound(handler)
                                 teleportation(handler, autoObject);
                                 break;
                             case 'sneakattack':
-                                itemSound(handler);
+                                //itemSound(handler);
                                 sneakAttack(handler, autoObject);
                                 break;
                             case "fireball":
@@ -238,94 +240,8 @@ export async function trafficCop(handler) {
                         break;
                 }
             } else {
-                itemSound(handler)
+                //itemSound(handler)
             }
-            /*
-            switch (true) {
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'melee'), autoName):
-                    if (targets === 0) {
-                        Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                        if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
-                        return;
-                    }
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const meleeAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'melee', autoName);
-                    if (aaDebug) { aaDebugger("Pre Melee Animation", meleeAutoObject) }
-                    meleeAnimation(handler, meleeAutoObject);
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'range'), autoName):
-                    if (targets === 0) {
-                        Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                        if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
-                        return;
-                    }
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const rangeAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'range', autoName);
-                    if (aaDebug) { aaDebugger("Pre Range Animation", rangeAutoObject) }
-                    rangedAnimations(handler, rangeAutoObject);
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'static'), autoName):
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const staticAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'static', autoName);
-                    if (aaDebug) { aaDebugger("Pre Static Animation", staticAutoObject) }
-                    staticAnimation(handler, staticAutoObject);
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), autoName):
-                    const templateAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'templates', autoName);
-                    if (aaDebug) { aaDebugger("Pre Template Animation", templateAutoObject) }
-                    Hooks.once("createMeasuredTemplate", () => {
-                        templateAnimation(handler, templateAutoObject);
-                    })
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'auras'), autoName):
-                    const auraAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'auras', autoName);
-                    if (aaDebug) { aaDebugger("Pre CTA Animation", auraAutoObject) }
-                    //ctaCall(handler, auraAutoObject);
-                    auras(handler, auraAutoObject)
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'preset'), autoName):
-                    const presetAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'preset', autoName);
-                    if (aaDebug) { aaDebugger("Pre Preset Animation", presetAutoObject) }
-                    switch (presetAutoObject[0].animation) {
-                        case 'bardicinspiration':
-                            bardicInspiration(handler, presetAutoObject);
-                            break;
-                        case 'bless':
-                            bless(handler, presetAutoObject);
-                            break;
-                        case 'shieldspell':
-                            shieldSpell(handler, presetAutoObject);
-                            break;
-                        case 'teleportation':
-                            teleportation(handler, presetAutoObject)
-                            break;
-                        case 'sneakattack':
-                            sneakAttack(handler, presetAutoObject)
-                            break;
-                        
-                        case "fireball":
-                            switch (game.system.id) {
-                                case "dnd5e":
-                                case "pf2e":
-                                    if (game.modules.get("mars-5e")?.active || game.modules.get('midi-qol')?.active) {
-                                        fireball(handler, presetAutoObject);
-                                    } else {
-                                        Hooks.once("createMeasuredTemplate", () => {
-                                            fireball(handler, presetAutoObject);
-                                        });
-                                    }
-                                    break;
-                                default:
-                                    fireball(handler, presetAutoObject);
-                            }            
-                            break;       
-                            
-                    }
-                    break;
-                default:
-                    aaDebugger(aaDebug, "No Automatic Recognition Found");
-            }
-            */
         }
     }
 }

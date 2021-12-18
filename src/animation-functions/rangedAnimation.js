@@ -76,7 +76,7 @@ export async function rangedAnimations(handler, autoObject) {
                     //.waitUntilFinished(explosionDelay)
                 .sound()
                     .file(data.explosion?.audio?.file)
-                    .playIf(() => {return explosion.enabled && data.explosion?.audio?.enable})
+                    .playIf(() => {return data.explosion.enabled && data.explosion?.audio?.enable})
                     .delay(data.explosion?.audio?.delay)
                     .volume(data.explosion?.audio?.volume)
                     .repeats(data.repeat, data.delay)
