@@ -36,14 +36,15 @@ export async function teleportation(handler, autoObject) {
 
     let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
     if (!data.hideTemplate) {
-        let range = MeasuredTemplate.create({
+        const templateData = ({
             t: "circle",
             user: game.user.id,
             x: sourceToken.x + canvas.grid.size / 2,
             y: sourceToken.y + canvas.grid.size / 2,
             direction: 0,
-            distance: data.range,
-            borderColor: "#FF0000",
+            distance: data.teleDist,
+            borderColor: "#00FFFFFF",
+            fillColor: "#00FFFFFF",
             flags: {
                 world: {
                     Teleportation: {
@@ -52,6 +53,8 @@ export async function teleportation(handler, autoObject) {
                 }
             }
         });
+        //let temp = new MeasuredTemplateDocument (templateData, canvas.scene)
+        canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [templateData])
     }
 
     let pos;
