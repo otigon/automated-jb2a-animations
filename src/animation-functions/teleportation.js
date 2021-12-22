@@ -1,7 +1,7 @@
 import { buildFile} from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
 import { AAanimationData } from "../aa-classes/animation-data.js";
-export async function teleportation(handler, autoObject) {
+export async function teleportation(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (handler.itemMacro.toLowerCase().includes("misty step")) {
@@ -29,8 +29,10 @@ export async function teleportation(handler, autoObject) {
         //data.hideTemplate = handler.options?.hideTemplate;
     }
     */
-    const data = await AAanimationData._primaryData(handler, autoObject);
-    if (autoObject) {
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+
+    if (data.isAuto) {
         data.itemName = data.subAnimation || "";
     } else {
         data.itemName = data.options?.name || "";
@@ -38,19 +40,19 @@ export async function teleportation(handler, autoObject) {
     if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
     const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
 
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const sourceScale = sourceToken.w;
 
     let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
     if (!data.hideTemplate) {
-        let range = MeasuredTemplate.create({
+        const templateData = ({
             t: "circle",
             user: game.user.id,
             x: sourceToken.x + canvas.grid.size / 2,
             y: sourceToken.y + canvas.grid.size / 2,
             direction: 0,
             distance: data.teleDist,
-            borderColor: "#FF0000",
+            borderColor: "#00FFFFFF",
+            fillColor: "#00FFFFFF",
             flags: {
                 world: {
                     Teleportation: {
@@ -59,6 +61,8 @@ export async function teleportation(handler, autoObject) {
                 }
             }
         });
+        //let temp = new MeasuredTemplateDocument (templateData, canvas.scene)
+        canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [templateData])
     }
 
     let pos;

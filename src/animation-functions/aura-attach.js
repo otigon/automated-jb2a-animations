@@ -4,46 +4,12 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function auras(handler, autoObject) {
+export async function auras(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
-    //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    //let animName = handler.animName.replace(/\s+/g, '')
-    /*
-    const data = {}
-    if (autoObject) {
-        //const autoOverridden = handler.autoOverride?.enable
-        Object.assign(data, autoObject)
-        //data.animation = data.animation || "";
-        //data.customPath = data.custom ? data.customPath : false;
-        //data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        data.size = data.scale * 2 * gridSize;
-        //data.itemAudio = {
-            //enable: data.enableSound || false,
-            //file: data.soundFile,
-            //volume: data.soundVolume || 0.25,
-            //delay: data.soundDelay || 0,
-        //}
-        //data.tint = parseInt(data.tint.substr(1), 16);
-    } else {
-        //data.animation = handler.animation;
-        //data.variant = handler.variant;
-        //data.color = handler.color;
-        //data.customPath = handler.enableCustom ? handler.customPath : false;
-        //data.tint = parseInt(handler.animTint.substr(1), 16);
-        //data.opacity = handler.opacity;
-        data.size = handler.auraRadius * 2 * gridSize
-        //data.ignoreTargets = handler.options.ignoreTarget;
-        //data.below = handler.below;
-        //data.itemAudio = {
-            //enable: handler.allSounds?.items?.enable || false,
-            //file: handler.allSounds?.items?.file,
-            //volume: handler.allSounds?.items?.volume || 0.25,
-            //delay: handler.allSounds?.items?.delay || 0,
-        //}
-    }
-    */
+
     const gridSize = canvas.grid.size
-    const data = await AAanimationData._primaryData(handler, autoObject);
+    const data = animationData.primary;
+    
     if (autoObject) {
         data.size = data.scale * 2 * gridSize;
     } else {
@@ -75,10 +41,11 @@ export async function auras(handler, autoObject) {
                 .gridSize(gridSize)
                 .attachTo(sourceToken)
                 .name(sourceToken.name)
-                .fadeIn(50)
                 .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                 .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                 .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
+                .fadeIn(250)
+                .fadeOut(500)
                 //.animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
             .sound()
                 .file(data.itemAudio.file)
@@ -114,10 +81,11 @@ export async function auras(handler, autoObject) {
                     .playIf(playPersist)
                     .belowTokens(data.below)
                     .file(aura.file)
-                    .fadeIn(50)
                     .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                     .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                     .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
+                    .fadeIn(250)
+                    .fadeOut(500)    
                     //.animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
                 .sound()
                     .file(data.itemAudio.file)

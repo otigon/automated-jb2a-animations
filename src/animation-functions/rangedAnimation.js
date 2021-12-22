@@ -4,7 +4,7 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function rangedAnimations(handler, autoObject) {
+export async function rangedAnimations(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Sets JB2A database and Global Delay
@@ -12,7 +12,10 @@ export async function rangedAnimations(handler, autoObject) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    const data = await AAanimationData._primaryData(handler, autoObject);
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+    const targetFX = animationData.targetFX;
+
     if (aaDebug) { aaDebugger("Ranged Animation Start", data) }
     const attack = await buildFile(false, data.animation, "range", data.variant, data.color)
 
@@ -20,8 +23,6 @@ export async function rangedAnimations(handler, autoObject) {
 
     //const explosion = await AAanimationData._explosionData(handler);
     //const explosionSound = AAanimationData._explosionSound(handler);
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    const targetFX = await AAanimationData._targetFX(handler);
 
     //const scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
 

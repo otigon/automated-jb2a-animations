@@ -57,9 +57,10 @@ export async function templateAnimation(handler, autoObject) {
         //}
     }
     */
-   const newData = handler
-    console.log(newData)
-    const data = await AAanimationData._primaryData(handler, autoObject);
+
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+
     if (autoObject) {
         data.type = data.type;
         data.persistent = data.persist || false;
@@ -74,8 +75,6 @@ export async function templateAnimation(handler, autoObject) {
     }
 
     const tempAnimation = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath)
-
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
     const videoWidth = tempAnimation.metadata.width;
     const videoHeight = tempAnimation.metadata.height;

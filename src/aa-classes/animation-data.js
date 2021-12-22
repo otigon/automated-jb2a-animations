@@ -2,12 +2,31 @@ import { buildFile } from "../animation-functions/file-builder/build-filepath.js
 import { AAITEMCHECK } from "../animation-functions/item-arrays.js";
 export class AAanimationData {
 
+    static async _getAnimationData(handler, autoObject) {
+        if (autoObject) {
+            const data = {
+                primary: await this._primaryData(handler, autoObject),
+                sourceFX: await this._sourceFX(handler),
+                targetFX: await this._targetFX(handler),
+            }
+            return data;
+        } else {
+            const data = {
+                primary: await this._primaryData(handler),
+                sourceFX: await this._sourceFX(handler),
+                targetFX: await this._targetFX(handler),
+            }
+            return data;
+        }
+    }
+
     static async _primaryData(handler, autoObject) {
         
         if (autoObject) {
             const data = {};
             const autoOverridden = handler.autoOverride?.enable
             Object.assign(data, autoObject);
+            data.isAuto = true;
             data.animation = data.animation || "";
             data.customPath = data.custom ? data.customPath : false;
             data.color = autoOverridden ? handler.autoOverride?.color : data.color;
@@ -50,6 +69,7 @@ export class AAanimationData {
             const meleeSwitch = flags.meleeSwitch || {};//
             const options = flags.options || {};
             const data = {
+                isAuto: false,
                 animation: flags.animation?.toLowerCase(),//
                 color: flags.color?.toLowerCase() ?? "",//
                 below: flags.animLevel || false,//
@@ -250,7 +270,7 @@ export class AAanimationData {
         return explosionSound;
     }
     */
-    static async _sourceFX(handler, sourceToken) {
+    static async _sourceFX(handler) {
         const source = handler.flags.sourceToken || {};
         const enableCustom = source.enableCustom || false;
         const sourceFX = {
@@ -277,7 +297,7 @@ export class AAanimationData {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
-        const sourceScale = sourceToken.w;
+        const sourceScale = handler.actorToken.w;
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
@@ -290,7 +310,7 @@ export class AAanimationData {
             })
         sourceFX.sourceSeq.effect()
             .file(sourceFX.data.file)
-            .atLocation(sourceToken)
+            .atLocation(handler.actorToken)
             .gridSize(canvas.grid.size)
             .scale(sourceFX.sFXScale * sourceFX.scale)
             .repeats(sourceFX.repeat, sourceFX.delay)

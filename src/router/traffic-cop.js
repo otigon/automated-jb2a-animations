@@ -15,6 +15,7 @@ import { auras } from "../animation-functions/aura-attach.js";
 import { aaDebugger } from "../constants/constants.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { fireball } from "../animation-functions/custom-sequences/fireball.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 /*
@@ -46,6 +47,7 @@ export async function trafficCop(handler) {
     const override = handler.animOverride;
     const targets = handler.allTargets?.length ?? 0;
     if (override) {
+        const animationData = await AAanimationData._getAnimationData(handler)
         if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets, handler.flags]) }
         //if (animType === 'template' || (animType === 'preset' && handler.animation === 'fireball')) { } else { itemSound(handler) }
         switch (animType) {
@@ -56,7 +58,7 @@ export async function trafficCop(handler) {
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                meleeAnimation(handler);
+                meleeAnimation(handler, animationData);
                 break;
             case "range":
                 if (targets === 0) {
@@ -65,7 +67,7 @@ export async function trafficCop(handler) {
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                rangedAnimations(handler);
+                rangedAnimations(handler, animationData);
                 break;
             case "static":
                 /*
@@ -76,7 +78,7 @@ export async function trafficCop(handler) {
                 }
                 */
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                staticAnimation(handler);
+                staticAnimation(handler, animationData);
                 break;
             case "template":
                 if (game.modules.get("midi-qol")?.active) { return; }
@@ -107,22 +109,22 @@ export async function trafficCop(handler) {
             case "preset":
                 switch (animName) {
                     case "bardicinspiration":
-                        bardicInspiration(handler);
+                        bardicInspiration(handler, animationData);
                         break;
                     case "shieldspell":
-                        shieldSpell(handler);
+                        shieldSpell(handler, animationData);
                         break;
                     case "huntersmark":
-                        huntersMark(handler)
+                        huntersMark(handler, animationData)
                         break;
                     case "sneakattack":
-                        sneakAttack(handler);
+                        sneakAttack(handler, animationData);
                         break;
                     case "bless":
-                        bless(handler);
+                        bless(handler, animationData);
                         break;
                     case "teleportation":
-                        teleportation(handler)
+                        teleportation(handler, animationData)
                         break;
                     case "fireball":
                         switch (game.system.id) {
@@ -154,6 +156,7 @@ export async function trafficCop(handler) {
 
             if (isAuto) {
                 const autoObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName) // combines Autorec menus and sorts by name length, returns object
+                const animationData = await AAanimationData._getAnimationData(handler, autoObject)
                 switch (autoObject.menuSection) {
                     case 'melee':
                         if (targets === 0) {

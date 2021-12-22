@@ -1,6 +1,7 @@
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "./flagMerge.js";
+import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 
 export default class flagHandler {
 
@@ -69,6 +70,22 @@ export default class flagHandler {
         
         this.convertedName = this.animation.replace(/\s+/g, '');
         this.animEnd = endTiming(this.animNameFinal);
+        this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    }
+
+    get overrideTemplate () {
+        return (this.animType === "template" && this.animOverride) || (this.animType === "preset" && this.flags.animation === "fireball" && this.animOverride)
+    }
+
+    get autorecTemplate () {
+        const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(this.itemName));
+        const autoName =  this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
+        const getObject = AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), autoName)
+        let fireball;
+        if (getObject) {
+            fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
+        }
+        return (templateItem || fireball) && !this.animOverride;
     }
 
     getDistanceTo(target) {

@@ -4,21 +4,19 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function staticAnimation(handler, autoObject) {
+export async function staticAnimation(handler, animationData) {
 
     const aaDebug = game.settings.get("autoanimations", "debug")
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
     const sourceToken = handler.actorToken;
 
-    const data = await AAanimationData._primaryData(handler, autoObject);
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+    const targetFX = animationData.targetFX;
+
     if (aaDebug) { aaDebugger("Static Animation Start", data) }
     const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
-
-    //const explosion = await AAanimationData._explosionData(handler);
-    //const explosionSound = AAanimationData._explosionSound(handler);
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    const targetFX = await AAanimationData._targetFX(handler);
 
     //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;
@@ -67,6 +65,8 @@ export async function staticAnimation(handler, autoObject) {
                 .opacity(data.opacity)
                 .size(sourceScale * 1.5 * data.scale)
                 .belowTokens(true)
+                .fadeIn(250)
+                .fadeOut(500)
                 .playIf(!data.persistent)
             .effect()
                 .file(onToken.file)
@@ -76,6 +76,8 @@ export async function staticAnimation(handler, autoObject) {
                 .opacity(data.opacity)
                 .size(sourceScale * 1.5 * data.scale)
                 .belowTokens(false)
+                .fadeIn(250)
+                .fadeOut(500)
                 .playIf(!data.persistent)
             .effect()
                 .file(bottomAnim)
@@ -86,6 +88,8 @@ export async function staticAnimation(handler, autoObject) {
                 .persist(data.persistent)
                 .opacity(data.opacity)
                 .origin(handler.item.uuid)
+                .fadeIn(250)
+                .fadeOut(500)
                 .playIf(playPersist)
             .effect()
                 .file(onToken.file)
@@ -96,6 +100,8 @@ export async function staticAnimation(handler, autoObject) {
                 .persist(data.persistent)
                 .opacity(data.opacity)
                 .origin(handler.item.uuid)
+                .fadeIn(250)
+                .fadeOut(500)
                 .playIf(playPersist)
             .sound()
                 .file(data.itemAudio.file)
@@ -160,6 +166,8 @@ export async function staticAnimation(handler, autoObject) {
                         .size(scale * 1.5 * data.scale)
                         .belowTokens(true)
                         .name("animation")
+                        .fadeIn(250)
+                        .fadeOut(500)        
                         .playIf(!data.persistent)
                     .effect()
                         .file(onToken.file)
@@ -170,6 +178,8 @@ export async function staticAnimation(handler, autoObject) {
                         .size(scale * 1.5 * data.scale)
                         .belowTokens(false)
                         .name("animation")
+                        .fadeIn(250)
+                        .fadeOut(500)        
                         .playIf(!data.persistent)
                     .effect()
                         .file(bottomAnim)
@@ -180,6 +190,8 @@ export async function staticAnimation(handler, autoObject) {
                         .persist(data.persistent)
                         .opacity(data.opacity)
                         .origin(handler.item.uuid)
+                        .fadeIn(250)
+                        .fadeOut(500)        
                         .playIf(playPersist)
                     .effect()
                         .file(onToken.file)
@@ -190,6 +202,8 @@ export async function staticAnimation(handler, autoObject) {
                         .persist(data.persistent)
                         .opacity(data.opacity)
                         .origin(handler.item.uuid)
+                        .fadeIn(250)
+                        .fadeOut(500)        
                         .playIf(playPersist)
                     .sound()
                         .file(data.itemAudio.file)
@@ -257,6 +271,8 @@ export async function staticAnimation(handler, autoObject) {
                 .opacity(data.opacity)
                 .size(sourceScale * 1.5 * data.scale)
                 .belowTokens(data.below)
+                .fadeIn(250)
+                .fadeOut(500)
                 .playIf(!data.persistent)
             .effect()
                 .file(onToken.file)
@@ -267,6 +283,8 @@ export async function staticAnimation(handler, autoObject) {
                 .persist(data.persistent)
                 .opacity(data.opacity)
                 .origin(handler.item.uuid)
+                .fadeIn(250)
+                .fadeOut(500)
                 .playIf(playPersist)
             .sound()
                 .file(data.itemAudio.file)
@@ -283,7 +301,6 @@ export async function staticAnimation(handler, autoObject) {
                 .repeats(data.repeat, data.delay)
                 .belowTokens(data.explosion?.below)
                 .playIf(data.explosion?.enabled)
-                //.waitUntilFinished(explosionDelay)
             .sound()
                 .file(data.explosion?.audio?.file)
                 .playIf(() => {return explosion.enabled && data.explosion?.audio?.enable})
@@ -331,6 +348,8 @@ export async function staticAnimation(handler, autoObject) {
                         .scale(scale * data.scale)
                         .belowTokens(data.below)
                         .name("animation")
+                        .fadeIn(250)
+                        .fadeOut(500)        
                         .playIf(!data.persistent)
                     .effect()
                         .file(onToken.file)
@@ -341,6 +360,8 @@ export async function staticAnimation(handler, autoObject) {
                         .persist(data.persistent)
                         .opacity(data.opacity)
                         .origin(handler.item.uuid)
+                        .fadeIn(250)
+                        .fadeOut(500)        
                         .playIf(playPersist)
                     .sound()
                         .file(data.itemAudio.file)

@@ -295,9 +295,10 @@ async function setUpMidi(workflow) {
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    if (templateItem && !handler.animOverride) { return; }
-    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.flags?.animation === 'fireball' && handler.animOverride)) { return; }
+    //const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
+    //if (templateItem && !handler.animOverride) { return; }
+    //if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.flags?.animation === 'fireball' && handler.animOverride)) { return; }
+    if (handler.overrideTemplate || handler.autorecTemplate) { return ;}
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
@@ -308,9 +309,10 @@ async function setUpMidiNoAD(workflow) {
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    if (templateItem && !handler.animOverride) { return; }
-    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.flags?.animation === 'fireball' && handler.animOverride)) { return; }
+    //const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
+    //if (templateItem && !handler.animOverride) { return; }
+    //if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.flags?.animation === 'fireball' && handler.animOverride)) { return; }
+    if (handler.overrideTemplate || handler.autorecTemplate) { return ;}
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
@@ -321,17 +323,18 @@ async function setUpMidiNoA(workflow) {
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    const autoName = AutorecFunctions._rinseName(handler.itemName);
-    const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
-    let fireball;
-    if (getObject) {
-        fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
-    }
+    //const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    //const autoName = AutorecFunctions._rinseName(handler.itemName);
+    //const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
+    //let fireball;
+    //if (getObject) {
+    //    fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
+    //}
 
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    if ((templateItem || fireball) && !handler.animOverride) { return; }
-    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.flags.animation === 'fireball' && handler.animOverride)) { return; }
+    //const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
+    //if ((templateItem || fireball) && !handler.animOverride) { return; }
+    //if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.flags.animation === 'fireball' && handler.animOverride)) { return; }
+    if (handler.overrideTemplate || handler.autorecTemplate) { return ;}
     trafficCop(handler)
 }
 
