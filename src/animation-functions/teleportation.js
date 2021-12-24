@@ -10,30 +10,13 @@ export async function teleportation(handler, animationData) {
     }
     const sourceToken = handler.actorToken;
     const actor = handler.actor;
-    /*
-    const data = {};
-    if (autoObject) {
-        //const autoOverridden = handler.autoOverride?.enable
-        Object.assign(data, autoObject);
-        data.itemName = data.subAnimation || "";
-        //data.customPath = data.custom ? data.customPath : false;
-        //data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        //data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
-    } else {
-        data.itemName = handler.options?.name;
-        //data.variant = handler.option?.variant;
-        //data.customPath = handler.options?.enableCustom ? handler.options.customPath : false;
-        //data.color = handler.color;
-        //data.scale = handler.scale;
-        //data.range = handler.teleDist;
-        //data.hideTemplate = handler.options?.hideTemplate;
-    }
-    */
+
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
     if (data.isAuto) {
         data.itemName = data.subAnimation || "";
+        data.teleDist = data.range || 30;
     } else {
         data.itemName = data.options?.name || "";
     }
@@ -88,6 +71,11 @@ export async function teleportation(handler, animationData) {
 
         new Sequence("Automated Animations")
             .addSequence(sourceFX.sourceSeq)
+            .sound()
+                .file(data.itemAudio.file)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .playIf(data.playSound)
             .effect()
                 .file(onToken.file)
                 .atLocation(sourceToken)

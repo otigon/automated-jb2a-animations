@@ -5,7 +5,7 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function staticAnimation(handler, animationData) {
-
+    console.log(animationData)
     const aaDebug = game.settings.get("autoanimations", "debug")
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
@@ -14,7 +14,7 @@ export async function staticAnimation(handler, animationData) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
-
+    
     if (aaDebug) { aaDebugger("Static Animation Start", data) }
     const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
 
@@ -382,7 +382,7 @@ export async function staticAnimation(handler, animationData) {
                     .sound()
                         .file(data.explosion?.audio?.file)
                         .playIf(() => {return data.explosion?.playSound})
-                        .delay(data.explosion?.audio?.delay)
+                        .delay(500 + data.explosion?.audio?.delay)
                         .volume(data.explosion?.audio?.volume)
                         .repeats(data.repeat, data.delay)
                     .addSequence(targetSequence.targetSeq)

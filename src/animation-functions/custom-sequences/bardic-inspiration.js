@@ -12,10 +12,10 @@ async function bardicInspiration(handler, autoObject) {
         Object.assign(data, autoObject);
         data.animation = data.animation || "";
         data.itemAudio = {
-            enable: data.enableSound || false,
-            file: data.soundFile,
-            volume: data.soundVolume || 0.25,
-            delay: data.soundDelay || 0,
+            enable: data.audio?.a01?.enable || false,
+            file: data.audio?.a01?.file,
+            volume: data.audio?.a01?.volume || 0.25,
+            delay: data.audio?.a01?.delay || 0,
         }
     } else {
         const bards = flags.bards ?? {};

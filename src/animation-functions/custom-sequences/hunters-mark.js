@@ -12,7 +12,7 @@ async function huntersMark(handler, animationData) {
     }
 
     const data = animationData.primary;
-    if (autoObject) {
+    if (data.isAuto) {
         const autoOverridden = handler.autoOverride?.enable
         data.anchorX = autoOverridden ? handler.autoOverride?.anchorX : data.anchorX || 0.5;
         data.anchorY = autoOverridden ? handler.autoOverride?.anchorY : data.anchorY || 0.7;

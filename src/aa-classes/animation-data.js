@@ -29,6 +29,8 @@ export class AAanimationData {
             data.isAuto = true;
             data.animation = data.animation || "";
             data.customPath = data.custom ? data.customPath : false;
+
+            data.staticType = data.type || "targetDefault";
             data.color = autoOverridden ? handler.autoOverride?.color : data.color;
             data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
             data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
@@ -61,6 +63,8 @@ export class AAanimationData {
             data.persistType = data.persistType || "sequencerground";
 
             data.ignoreTargets = data.ignoretargets || false;
+            
+            data.playSound = data.itemAudio.enable && data.itemAudio.file ? true : false;
 
             data.explosion = await this._explosionData(handler, true)
             return data;
@@ -118,11 +122,9 @@ export class AAanimationData {
                     volume: flags.audio?.a02?.volume || 0.25,//
                     delay: flags.audio?.a02?.delay || 0,//
                 },//
-
-
-        
                 explosion: await this._explosionData(handler, false),
             }
+            data.playSound = data.itemAudio.enable && data.itemAudio.file ? true : false;
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
             return data;
         }

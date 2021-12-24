@@ -100,7 +100,7 @@ export async function trafficCop(handler) {
             case "preset":
                 switch (animName) {
                     case "bardicinspiration":
-                        bardicInspiration(handler, animationData);
+                        bardicInspiration(handler);
                         break;
                     case "shieldspell":
                         shieldSpell(handler, animationData);

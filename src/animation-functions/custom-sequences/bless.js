@@ -16,37 +16,6 @@ export async function bless(handler, animationData) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    // Random Color pull given object path
-    //Builds standard File Path
-    /*
-    const data = {};
-    if (autoObject) {
-        const autoOverridden = handler.autoOverride?.enable
-        Object.assign(data, autoObject);
-        //data.animation = data.animation || "";
-        //data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        //data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
-        data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
-        //data.itemAudio = {
-            //enable: data.enableSound || false,
-            //file: data.soundFile,
-            //volume: data.soundVolume || 0.25,
-            //delay: data.soundDelay || 0,
-        //}
-    } else {
-        //data.animation = handler.convertedName;
-        //data.color = handler.color;
-        //data.scale = handler.scale || 1;
-        //data.below = handler.animLevel;
-        //data.persistent = handler.options?.persistent;
-        //data.itemAudio = {
-            //enable: handler.allSounds?.items?.enable || false,
-            //file: handler.allSounds?.items?.file,
-            //volume: handler.allSounds?.items?.volume || 0.25,
-            //delay: handler.allSounds?.items?.delay || 0,
-        //}
-    }
-    */
     const data = animationData.primary;
     if (data.isAuto) {
         const autoOverridden = handler.autoOverride?.enable
