@@ -7,7 +7,7 @@ import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function bless(handler, autoObject) {
+export async function bless(handler, animationData) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -47,8 +47,8 @@ export async function bless(handler, autoObject) {
         //}
     }
     */
-    const data = await AAanimationData._primaryData(handler, autoObject);
-    if (autoObject) {
+    const data = animationData.primary;
+    if (data.isAuto) {
         const autoOverridden = handler.autoOverride?.enable
         data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
     }

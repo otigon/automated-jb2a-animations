@@ -374,7 +374,8 @@ async function specialCaseAnimations(msg) {
         //let fireball;
         //if (getObject) {
         //    fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
-        //}    
+        //}
+        /*
         if (handler.animType === "template" && handler.animOverride) {
             Hooks.once("createMeasuredTemplate", (msg) => {
                 templateAnimation(handler);
@@ -388,6 +389,10 @@ async function specialCaseAnimations(msg) {
         //const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
         if ((templateItem || fireball) && !handler.animOverride) {
             trafficCop(handler)
+        }
+        */
+        if (handler.overrideTemplate || handler.autorecTemplate) { 
+            trafficCop(handler);
         }
     } else { return; }
 }

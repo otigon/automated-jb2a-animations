@@ -5,7 +5,7 @@ import { aaDebugger } from "../constants/constants.js"
 import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function templateAnimation(handler, autoObject) {
+export async function templateAnimation(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
     const sourceToken = handler.actorToken;
     /*
@@ -61,7 +61,7 @@ export async function templateAnimation(handler, autoObject) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
-    if (autoObject) {
+    if (data.isAuto) {
         data.type = data.type;
         data.persistent = data.persist || false;
     } else {

@@ -89,7 +89,7 @@ export async function meleeSwitch(handler, target, data, sourceFX, targetFX) {
                 .playIf(data.explosion?.enabled)
             .sound()
                 .file(data.explosion?.audio?.file)
-                .playIf(() => {return data.explosion?.enabled && data.explosion?.audio?.enable})
+                .playIf(() => {return data.explosion?.playSound})
                 .delay(data.explosion?.audio?.delay)
                 .volume(data.explosion?.audio?.volume)
                 .repeats(data.repeat, data.delay)

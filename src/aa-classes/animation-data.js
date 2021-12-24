@@ -124,93 +124,10 @@ export class AAanimationData {
                 explosion: await this._explosionData(handler, false),
             }
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
-            //data.switchColor = meleeSwitch.color || "white";
-            //data.switchType = meleeSwitch.switchType ?? "on";
-            //data.detect = meleeSwitch.detect ?? "auto";
-            //data.repeat = handler.repeat;
-            //data.delay = handler.delay;
-            //data.return = meleeSwitch.returning;
-            //data.below = handler.below;
-            //data.switchVariant = meleeSwitch.variant ?? "";
-            //data.range = meleeSwitch.range ?? 2;
-            //data.switchAudio = {
-                //enable: handler.audio?.a02?.enable || false,
-                //file: handler.audio?.a02?.file,
-                //volume: handler.audio?.a02?.volume || 0.25,
-                //delay: handler.audio?.a02?.delay || 0,
-            //}
-            //data.explosion = await this._explosionData(handler, false)
-
             return data;
-            /*
-            data.animation = handler.animation;
-            data.variant = handler.variant ?? "01";
-            data.color = handler.color;
-            data.customPath = handler.enableCustom ? handler.customPath : false;
-            data.switchType = handler.meleeSwitch?.switchType ?? "on";
-            data.repeat = handler.repeat;
-            data.delay = handler.delay
-            data.scale = handler.scale;
-            data.opacity = handler.options?.opacity || 1;
-            data.below = handler.below;
-            data.type = handler.options?.staticType ?? "targetDefault";
-            data.menuType = handler.options?.staticOptions === 'shieldfx' ? true : false;
-            data.persistent = handler.persistent;
-            data.itemAudio = {
-                enable: handler.audio?.a01?.enable || false,
-                file: handler.audio?.a01?.file,
-                volume: handler.audio?.a01?.volume || 0.25,
-                delay: handler.audio?.a01?.delay || 0,
-            }
-            data.explosion = await this._explosionData(handler, false)
-            */
         }
-        //console.log(data)
-        //return data;
     }
-/*
-    static async _switchData(handler, autoObject) {
-        const meleeSwitch = handler.meleeSwitch;
-        const data = {};
-        if (autoObject) {
-            const autoOverridden = handler.autoOverride?.enable
-            Object.assign(data, autoObject);
-            data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
-            data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
-            data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-            data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
-            data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
-            data.below = data.below ?? false;
-            data.switchAudio = {
-                enable: data.audio?.a02?.enable || false,
-                file: data.audio?.a02?.file,
-                volume: data.audio?.a02?.volume || 0.25,
-                delay: data.audio?.a02?.delay || 0,
-            }
-            data.explosion = await this._explosionData(handler, true)
-        } else {
-            data.switchAnimation = meleeSwitch.switchType === 'custom' ? meleeSwitch.animation : handler.animation;
-            if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
-            data.switchColor = meleeSwitch.color || "white";
-            data.switchType = meleeSwitch.switchType ?? "on";
-            data.detect = meleeSwitch.detect ?? "auto";
-            data.repeat = handler.repeat;
-            data.delay = handler.delay;
-            data.return = meleeSwitch.returning;
-            data.below = handler.below;
-            data.switchVariant = meleeSwitch.variant ?? "";
-            data.range = meleeSwitch.range ?? 2;
-            data.switchAudio = {
-                enable: handler.audio?.a02?.enable || false,
-                file: handler.audio?.a02?.file,
-                volume: handler.audio?.a02?.volume || 0.25,
-                delay: handler.audio?.a02?.delay || 0,
-            }
-            data.explosion = await this._explosionData(handler, false)
-        }
-        return data;
-    }
-*/
+
     static async _explosionData(handler, autorec) {
         if (autorec) {
             const explosion = {
@@ -251,25 +168,16 @@ export class AAanimationData {
                     file: handler.flags.audio?.e01?.file,
                     volume: handler.flags.audio?.e01?.volume || 0.25,
                     delay: handler.flags.audio?.e01?.delay || 0,
-                }
+                },
             };
+            explosion.playSound = explosion.enabled && explosion.audio.enable && explosion.audio.file !== "";
             explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
             explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             console.log(explosion)
             return explosion;
         }
     }
-    /*
-    static _explosionSound(handler) {
-        const explosionSound = {
-            enable: handler.audio?.e01?.enable || false,
-            file: handler.audio?.e01?.file,
-            volume: handler.audio?.e01?.volume || 0.25,
-            delay: handler.audio?.e01?.delay || 0,
-        }
-        return explosionSound;
-    }
-    */
+
     static async _sourceFX(handler) {
         const source = handler.flags.sourceToken || {};
         const enableCustom = source.enableCustom || false;
@@ -351,18 +259,6 @@ export class AAanimationData {
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
         targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
-        /*
-        targetFX.targetSeq = new Sequence();
-        targetFX.targetSeq.effect()
-            .delay(targetFX.startDelay)
-            .file(targetFX.data?.file)
-            //.atLocation(target)
-            //.scale(targetFX.tFXScale * targetFX.scale)
-            .repeats(targetFX.repeat, targetFX.delay)
-            .belowTokens(targetFX.below)
-            .gridSize(canvas.grid.size)
-            .playIf(targetFX.enabled)
-        */
         return targetFX
     }
 

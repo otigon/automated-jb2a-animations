@@ -5,53 +5,13 @@ import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function huntersMark(handler, autoObject) {
+async function huntersMark(handler, animationData) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
 
-    let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    /*
-    const data = {};
-    if (autoObject) {
-        const autoOverridden = handler.autoOverride?.enable
-        Object.assign(data, autoObject);
-        //data.animation = data.animation || "";
-        //data.variant = data.variant ?? "paw";
-        //data.scale = data.scale ?? 1;
-        //data.anchorX = data.anchorX ?? 0.5;
-        //data.anchorY = data.anchorY ?? 0.7;
-        //data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        //data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
-        //data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
-        data.anchorX = autoOverridden ? handler.autoOverride?.anchorX : data.anchorX || 0.5;
-        data.anchorY = autoOverridden ? handler.autoOverride?.anchorY : data.anchorY || 0.7;
-        //data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
-        //data.itemAudio = {
-            //enable: data.enableSound || false,
-            //file: data.soundFile,
-            //volume: data.soundVolume || 0.25,
-            //delay: data.soundDelay || 0,
-        //}
-    } else {
-        //data.animation = handler.animation;
-        //data.variant = handler.variant ?? "paw";
-        //data.color = handler.color;
-        //data.scale = handler.scale;
-        //data.below = false;
-        data.anchorX = handler.anchorX;
-        data.anchorY = handler.anchorY;
-        //data.persistent = handler.persistent;
-        //data.itemAudio = {
-            //enable: handler.allSounds?.items?.enable || false,
-            //file: handler.allSounds?.items?.file,
-            //volume: handler.allSounds?.items?.volume || 0.25,
-            //delay: handler.allSounds?.items?.delay || 0,
-        //}
-    }
-    */
-    const data = await AAanimationData._primaryData(handler, autoObject);
+    const data = animationData.primary;
     if (autoObject) {
         const autoOverridden = handler.autoOverride?.enable
         data.anchorX = autoOverridden ? handler.autoOverride?.anchorX : data.anchorX || 0.5;

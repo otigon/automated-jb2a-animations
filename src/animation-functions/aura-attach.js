@@ -10,7 +10,7 @@ export async function auras(handler, animationData) {
     const gridSize = canvas.grid.size
     const data = animationData.primary;
     
-    if (autoObject) {
+    if (data.isAuto) {
         data.size = data.scale * 2 * gridSize;
     } else {
         data.size = data.auraRadius * 2 * gridSize;
@@ -44,7 +44,7 @@ export async function auras(handler, animationData) {
                 .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                 .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                 .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
-                .fadeIn(250)
+                //.fadeIn(250)
                 .fadeOut(500)
                 //.animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
             .sound()

@@ -4,7 +4,7 @@ import { AAanimationData } from "../../aa-classes/animation-data.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function shieldSpell(handler, autoObject) {
+export async function shieldSpell(handler, animationData) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -66,7 +66,8 @@ export async function shieldSpell(handler, autoObject) {
         //}
     }
     */
-    const data = await AAanimationData._primaryData(handler, autoObject);
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
     if (autoObject) {
         const autoOverridden = handler.autoOverride?.enable
         data.persistent =  autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
@@ -77,7 +78,7 @@ export async function shieldSpell(handler, autoObject) {
     const sourceToken = handler.actorToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
     // builds Source Token file if Enabled, and pulls from flags if already set
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
     //let animWidth = onToken.metadata.width;
     const sourceScale = sourceToken.w;

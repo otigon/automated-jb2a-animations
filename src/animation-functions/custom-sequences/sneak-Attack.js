@@ -2,7 +2,7 @@ import { buildFile } from "../file-builder/build-filepath.js";
 import { AAanimationData } from "../../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function sneakAttack(handler, autoObject) {
+export async function sneakAttack(handler, animationData) {
     /*
     const data = {}
     if (autoObject) {
@@ -34,11 +34,12 @@ export async function sneakAttack(handler, autoObject) {
         //}
     }
     */
-    const data = await AAanimationData._primaryData(handler, autoObject);
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
     const sneak = await buildFile(true, data.animation, "static", "01", data.color)
     const sourceToken = handler.actorToken;
 
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const sourceScale = sourceToken.w;
     async function cast() {
         new Sequence("Automated Animations")

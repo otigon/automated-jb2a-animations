@@ -1,6 +1,6 @@
 import { buildFile} from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
-import { AAanimationData } from "../aa-classes/animation-data.js";
+
 export async function teleportation(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
