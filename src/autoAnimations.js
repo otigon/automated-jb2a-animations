@@ -79,13 +79,13 @@ Hooks.on('init', () => {
         switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
-                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAD(workflow) });
+                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttackDamage(workflow) });
                 break;
             case (false):
                 Hooks.on("midi-qol.AttackRollComplete", (workflow) => { setUpMidi(workflow) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoA(workflow) });
-                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttack(workflow) });
+                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
                 break;
         }
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
@@ -263,7 +263,7 @@ Hooks.once('ready', function () {
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 /* External call for animations
-* sourcToken as the originating token
+* sourceToken as the originating token
 * targets as an array from the user
 * item as the item instance being used
 */
@@ -292,6 +292,7 @@ function moduleIncludes(test) {
 async function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(workflow);
+    console.log(handler)
     if (!handler.item || !handler.actorToken) {
         return;
     }
@@ -302,7 +303,7 @@ async function setUpMidi(workflow) {
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
-async function setUpMidiNoAD(workflow) {
+async function setUpMidiNoAttackDamage(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = await flagHandler.make(workflow);
@@ -316,7 +317,7 @@ async function setUpMidiNoAD(workflow) {
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
-async function setUpMidiNoA(workflow) {
+async function setUpMidiNoAttack(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = await flagHandler.make(workflow);
@@ -339,7 +340,7 @@ async function setUpMidiNoA(workflow) {
 }
 
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
-async function specialCaseAnimations(msg) {
+async function midiTemplateAnimations(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user?.id) {
         return;
@@ -425,7 +426,13 @@ async function setUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
+    /*
     if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
+    */
+
+    if (!handler.item || !handler.actorToken) {
         return;
     }
 
@@ -493,7 +500,12 @@ async function onCreateChatMessage(msg) {
             handler = await flagHandler.make(msg);
             break;
     }
+    /*
     if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
+    */
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     trafficCop(handler)
@@ -506,7 +518,12 @@ async function swadeData(SwadeTokenOrActor, SwadeItem) {
     if (killAllAnimations) { return; }
     let data = { SwadeTokenOrActor, SwadeItem }
     let handler = await flagHandler.make(data);
+    /*
     if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
+    */
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     trafficCop(handler);
@@ -530,7 +547,12 @@ async function starFinder(data, msg) {
 async function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(msg);
+    /*
     if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
+    */
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     if (game.user.id === msg.user.id) {
@@ -553,7 +575,12 @@ async function fblReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = await flagHandler.make(msg);
+    /*
     if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
+    */
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     trafficCop(handler);
@@ -564,7 +591,12 @@ async function fblReady(msg) {
 async function setupDemonLord(data) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(data);
+    /*
     if (!handler.item || !handler.actorToken || handler.animKill) {
+        return;
+    }
+    */
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     trafficCop(handler);
@@ -577,10 +609,14 @@ async function pf2eReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = await flagHandler.make(msg);
+    /*
     if (!handler.item || !handler.actorToken || handler.animKill) {
         return;
     }
-
+    */
+    if (!handler.item || !handler.actorToken) {
+        return;
+    }
     const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
     const autoName = AutorecFunctions._rinseName(handler.itemName);
     const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)

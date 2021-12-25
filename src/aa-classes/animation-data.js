@@ -63,7 +63,6 @@ export class AAanimationData {
             data.persistType = data.persistType || "sequencerground";
 
             data.ignoreTargets = data.ignoretargets || false;
-            
             data.playSound = data.itemAudio.enable && data.itemAudio.file ? true : false;
 
             data.explosion = await this._explosionData(handler, true)

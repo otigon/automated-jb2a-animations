@@ -21,19 +21,18 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
     const aaDebug = game.settings.get("autoanimations", "debug")
-    /*
-    if (handler.itemSound) {
-        itemSound(handler);
-    }
-    */
-   /*
-    if (handler.animKill) {
-        if (aaDebug) { aaDebugger("Animations Disabled on Item") }
-        itemSound(handler)
+
+    if (handler.soundNoAnimation) {
+        new Sequence()
+            .sound()
+                .file(handler.flags?.audio?.a01?.file)
+                .volume(handler.flags?.audio?.a01?.volume)
+                .delay(handler.flags?.audio?.a01?.delay)
+            .play()
+        return;
+    } else if (handler.animKill) {
         return;
     }
-    */
-    //const itemName = handler.convertedName;
     const animType = handler.animType;
     const animName = handler.flags?.animation;
     const override = handler.animOverride;
@@ -62,13 +61,6 @@ export async function trafficCop(handler) {
                 rangedAnimations(handler, animationData);
                 break;
             case "static":
-                /*
-                if (targets === 0) {
-                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                    if (aaDebug) { aaDebugger("Creature Animation End", "NO TARGETS") }
-                    return;
-                }
-                */
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                 staticAnimation(handler, animationData);
                 break;
@@ -90,11 +82,6 @@ export async function trafficCop(handler) {
                 }
                 break;
             case "aura":
-                /*
-                if (game.modules.get("Custom-Token-Animations")?.active) {
-                    ctaCall(handler);
-                } else { ui.notifications.error("Custom Token Animations module must be Active") }
-                */
                 auras(handler, animationData)
                 break;
             case "preset":

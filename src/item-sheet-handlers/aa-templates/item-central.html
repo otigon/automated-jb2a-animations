@@ -1,9 +1,9 @@
 <form class="flexcol" autocomplete='off' novalidate>
 	<nav class='sheet-tabs tabs' data-group="sections" style='font-size: medium;'>
-        <a class="aa-options aaFGimage" data-tab="animations"><i class="fas fa-bomb"></i> {{localize "AUTOANIM.primary"}} {{localize "AUTOANIM.animation"}} </a>
+        <a class="aa-options aaFGimage" style="width:40%" data-tab="animations"><i class="fas fa-bomb"></i> {{localize "AUTOANIM.primary"}} {{localize "AUTOANIM.animation"}} </a>
         <!--<a class="aa-options aaFGimage" data-tab="audio"><i class="fas fa-guitar"></i> Audio </a>-->
-        <a class="aa-options aaFGimage" data-tab="sourceTokenFX"><i class="fas fa-user-plus"></i> {{localize "AUTOANIM.source"}} / {{localize "AUTOANIM.target"}} FX</a>
-		<a class="aa-options aaFGimage" data-tab="macros"><i class="fas fa-toilet-paper"></i> Macros </a>
+        <a class="aa-options aaFGimage" style="width:40%" data-tab="sourceTokenFX"><i class="fas fa-user-plus"></i> {{localize "AUTOANIM.source"}} / {{localize "AUTOANIM.target"}} FX</a>
+		<!--<a class="aa-options aaFGimage" style="width:20%" data-tab="macros"><i class="fas fa-toilet-paper"></i> Macros </a>-->
 
 	</nav>
 
@@ -12,12 +12,6 @@
 			{{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates' '/animations.html')}}
 			{{/undefined}}
 		</div>
-		<!--
-		<div class='tab' data-tab='audio' data-group='sections'>
-			{{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates' '/item-audio.html')}}
-			{{/undefined}}
-		</div>
-		-->
 		<div class='tab' data-tab='sourceTokenFX' data-group='sections'>
 			{{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates' '/pre-postfx.html')}}
 			{{/undefined}}

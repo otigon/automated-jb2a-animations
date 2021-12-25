@@ -88,6 +88,10 @@ export default class flagHandler {
         return (templateItem || fireball) && !this.animOverride;
     }
 
+    get soundNoAnimation () {
+        return this.animKill && this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
+    }
+
     getDistanceTo(target) {
         if (game.system.id === 'pf1') {
             const scene = game.scenes.active;
