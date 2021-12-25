@@ -198,7 +198,7 @@
                         </div>
                         {{/if}}
                         <div class='form-group option17' style='padding-top: 5px;padding-bottom: 4px;'>
-                            <label>Sound</label>
+                            <label>{{localize "AUTOANIM.sound"}}</label>
                             <input type="checkbox" name="aaAutorec.static.{{idx}}.audio.a01.enable" {{checked (lookup
                                 (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio' ) 'a01' ) 'enable'
                                 )}}>

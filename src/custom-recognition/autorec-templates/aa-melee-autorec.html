@@ -119,7 +119,7 @@
                         {{/if}}
 
                         <div class='form-group option13' style='padding-top: 5px;padding-bottom: 4px;'>
-                            <label>Sound</label>
+                            <label>{{localize "AUTOANIM.sound"}}</label>
                             <input type="checkbox" name="aaAutorec.melee.{{idx}}.audio.a01.enable" {{checked (lookup (lookup (lookup (lookup
                                 ../settings.aaAutorec.melee idx) 'audio' ) 'a01' ) 'enable' )}}>
                         </div>
@@ -236,7 +236,7 @@
                         {{/ifEquals}}
                         {{#ifnoteq (lookup (lookup ../settings.aaAutorec.melee idx) 'switchType') 'off'}}
                         <div class='form-group option13' style='padding-top: 5px;padding-bottom: 4px;'>
-                            <label>Sound</label>
+                            <label>{{localize "AUTOANIM.sound"}}</label>
                             <input type="checkbox" name="aaAutorec.melee.{{idx}}.audio.a02.enable" {{checked (lookup (lookup (lookup (lookup
                                 ../settings.aaAutorec.melee idx) 'audio' ) 'a02' ) 'enable' )}}>
                         </div>

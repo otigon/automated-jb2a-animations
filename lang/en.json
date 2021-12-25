@@ -538,5 +538,6 @@
     "AUTOANIM.spinning": "Spinning",
 
     "AUTOANIM.autorecognized": "is configured in the Global Settings",
-    "AUTOANIM.overrideauto": "Override Automatic Settings"
+    "AUTOANIM.overrideauto": "Override Automatic Settings",
+    "AUTOANIM.sound": "Sound"
 }

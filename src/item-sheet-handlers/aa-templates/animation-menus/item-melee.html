@@ -88,7 +88,7 @@
     </div>
     {{/if}}
     <div class='form-group option13' style='padding-top: 5px;padding-bottom: 4px;'>
-        <label>Sounds</label>
+        <label>{{localize "AUTOANIM.sound"}}</label>
         <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
             value="flags.autoanimations.audio.a01.enable" {{checked
             flags.autoanimations.audio.a01.enable}}>
@@ -201,7 +201,7 @@
     {{/ifEquals}}
     {{#ifnoteq flags.autoanimations.meleeSwitch.switchType 'off'}}
     <div class='form-group' style='grid-column: 1 / 2; grid-row: 4 / 5; padding-top: 5px;padding-bottom: 4px;'>
-        <label>Sounds</label>
+        <label>{{localize "AUTOANIM.sound"}}</label>
         <input type="checkbox" name="flags.autoanimations.audio.a02.enable"
             value="flags.autoanimations.audio.a02.enable" {{checked
             flags.autoanimations.audio.a02.enable}}>

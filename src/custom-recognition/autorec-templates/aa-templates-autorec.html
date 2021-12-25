@@ -242,7 +242,7 @@
                         {{/ifEquals}}
                         <div class='form-group'
                             style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 8 / 9'>
-                            <label>Sound</label>
+                            <label>{{localize "AUTOANIM.sound"}}</label>
                             <input type="checkbox" name="aaAutorec.templates.{{idx}}.audio.a01.enable" {{checked (lookup
                                 (lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'audio' ) 'a01' ) 'enable'
                                 )}}>
