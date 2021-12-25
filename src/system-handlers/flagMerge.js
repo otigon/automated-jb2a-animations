@@ -419,7 +419,7 @@ export const flagMigrations = {
             return data;
         },
         "2": async (item) => {
-            debugger
+            //debugger
             /**
              * allSounds.item.enableAudio --------------> audio.a01.enable
              * allSounds.item.file ---------------------> audio.a01.file
@@ -433,19 +433,20 @@ export const flagMigrations = {
              */
             const v2Flags = item.data?.flags?.autoanimations || {};
             const allSounds = v2Flags.allSounds || {};
-            if (allSounds.item?.enableAudio) {
-                v2Flags.audio.a01.enable = true;
-                v2Flags.audio.a01.file = allSounds.item?.file || "";
-                v2Flags.audio.a01.delay = allSounds.item?.delay || 0;
-                v2Flags.audio.a01.volume = allSounds.item?.volume || 0.25;
+            v2Flags.audio = {
+                a01: {
+                    enable: allSounds.item?.enableAudio || false,
+                    file: allSounds.item?.file || "",
+                    delay: allSounds.item?.delay || 0,
+                    volume: allSounds.item?.volume || 0.25,
+                },
+                e01: {
+                    enable: allSounds.explosion?.audioExplodeEnabled || false,
+                    file: allSounds.explosion?.file || "",
+                    delay: allSounds.explosion?.delay || 0,
+                    volume: allSounds.explosion?.volume || 0.25,
+                }
             }
-            if (allSounds.explosion?.audioExplodeEnabled) {
-                v2Flags.audio.e01.enable = true;
-                v2Flags.audio.e01.file = allSounds.explosion?.file || "";
-                v2Flags.audio.e01.delay = allSounds.explosion?.delay || 0;
-                v2Flags.audio.e01.volume = allSounds.explosion?.volume || 0.25;
-            }
-
             v2Flags.version = 2;
 
             await item.update({ 'flags.-=autoanimations': null })
