@@ -17,7 +17,6 @@ export class aaAutoRecognition extends FormApplication {
             width: 700,
             height: "auto",
             closeOnSubmit: true,
-            submitOnClose: true,
             tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "name" }]
         });
     }
