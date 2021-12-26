@@ -71,21 +71,25 @@ export default class flagHandler {
         this.convertedName = this.animation.replace(/\s+/g, '');
         this.animEnd = endTiming(this.animNameFinal);
         this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    }
 
-    get overrideTemplate () {
-        return (this.animType === "template" && this.animOverride) || (this.animType === "preset" && this.flags.animation === "fireball" && this.animOverride)
-    }
+        this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
+        this.AutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(this.autorecSettings, 'templates'), this.rinsedName);
+        this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
 
-    get autorecTemplate () {
-        const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(this.itemName));
-        const autoName =  this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
-        const getObject = AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), autoName)
-        let fireball;
-        if (getObject) {
-            fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
+        this.isAutorecFireball = false;
+        this.isAutorecAura = false;
+        if (this.autorecObject && !this.animOverride) {
+            this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
+            this.isAutorecAura = this.autorecObject.menuSection === "aura" ? true : false
         }
-        return (templateItem || fireball) && !this.animOverride;
+        this.isAutorecTemplate = (this.AutorecTemplateItem || this.isAutorecFireball) && !this.animOverride ? true : false;
+
+        this.isOverrideTemplate = (this.animType === "template" && this.animOverride) || (this.animType === "preset" && this.flags.animation === "fireball" && this.animOverride) ? true : false;
+        this.isOverrideAura = this.animType === "aura" && this.animOverride ? true: false;
+    }
+
+    get isTemplateOrAuraAnimation () {
+        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate;
     }
 
     get soundNoAnimation () {

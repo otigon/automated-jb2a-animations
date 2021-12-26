@@ -65,9 +65,7 @@
     <div style='padding:6px'>
 
     </div>
-    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
-    '/item-autoOverride.html')}}
-    {{/undefined}}
+    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-autoOverride.html' }}
     <div style='padding:6px'>
 
     </div>
@@ -95,37 +93,27 @@
 {{#unless flags.autoanimations.killAnim}}
 <div class='animation-not-disabled'>
     {{#if melee}}
-    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-melee.html')}}
-    {{/undefined}}
+    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-melee.html' }}
     {{/if}}
 
     {{#if range}}
-    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
-    '/item-ranged.html')}}
-    {{/undefined}}
+    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ranged.html' }}
     {{/if}}
 
     {{#if static}}
-    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
-    '/item-ontoken.html')}}
-    {{/undefined}}
+    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ontoken.html' }}
     {{/if}}
 
     {{#if template}}
-    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
-    '/item-templates.html')}}
-    {{/undefined}}
+    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-templates.html' }}
     {{/if}}
 
     {{#if aura}}
-    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-auras.html')}}
-    {{/undefined}}
+    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-auras.html' }}
     {{/if}}
 
     {{#if preset}}
-    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
-    '/item-presets.html')}}
-    {{/undefined}}
+    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-presets.html' }}
     {{/if}}
 </div>
 {{/unless}}

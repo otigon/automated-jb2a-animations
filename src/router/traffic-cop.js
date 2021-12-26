@@ -126,14 +126,15 @@ export async function trafficCop(handler) {
     } else {
         if (!game.settings.get("autoanimations", "disableAutoRec")) {
             if (aaDebug) { aaDebugger("Automatic Recognition Beginning") }
-            const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+            //const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
             //const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);//gets ALL names in Autorec sorted longest to shortest
             //const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName); //checks autoNameList against current name
             const autoName = AutorecFunctions._rinseName(handler.itemName); //removes all spaces in the name
-            const isAuto = AutorecFunctions.foundInAutorec(autoRecSettings, autoName);
+            const isAuto = AutorecFunctions.foundInAutorec(handler.autorecSettings, autoName);
 
             if (isAuto) {
-                const autoObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName) // combines Autorec menus and sorts by name length, returns object
+                //const autoObject = AutorecFunctions._findObjectFromArray(handler.autorecSettings, autoName) // combines Autorec menus and sorts by name length, returns object
+                const autoObject = handler.autorecObject;
                 const animationData = await AAanimationData._getAnimationData(handler, autoObject)
                 switch (autoObject.menuSection) {
                     case 'melee':
