@@ -17,7 +17,6 @@ export class aaAutoRecognition extends FormApplication {
             width: 700,
             height: "auto",
             closeOnSubmit: true,
-            submitOnClose: true,
             tabs: [{ navSelector: ".tabs", contentSelector: "form", initial: "name" }]
         });
     }
@@ -303,6 +302,7 @@ export class aaAutoRecognition extends FormApplication {
     }
 }
 
+// Credit to Tim Poseny of Midi-QOL for the import/export functions for settings
 async function importFromJSONDialog() {
 	const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
 	let dialog = new Promise((resolve, reject) => {

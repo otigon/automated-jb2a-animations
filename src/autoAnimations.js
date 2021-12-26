@@ -358,7 +358,7 @@ async function midiTemplateAnimations(msg) {
         fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
     }
 
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(data.item.name.toLowerCase()));
+    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(data.item.name.toLowerCase()));
     if (((itemType === "template" || itemType === "t8") || itemType === "preset" && data.item.data?.flags?.autoanimations?.animation === "fireball") || ((templateItem || fireball) && !data.item.data?.flags?.autoanimations?.override)) { } else {
         return;
     }
@@ -436,7 +436,7 @@ async function setUp5eCore(msg) {
         return;
     }
 
-    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    const autoRecSettings = handler.autorecSettings;
 
     const autoName = AutorecFunctions._rinseName(handler.itemName);
 
@@ -617,7 +617,7 @@ async function pf2eReady(msg) {
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    const autoRecSettings = handler.autorecSettings;
     const autoName = AutorecFunctions._rinseName(handler.itemName);
     const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
     let fireball;

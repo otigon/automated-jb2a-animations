@@ -21,11 +21,6 @@ export async function rangedAnimations(handler, animationData) {
 
     const sourceToken = handler.actorToken;
 
-    //const explosion = await AAanimationData._explosionData(handler);
-    //const explosionSound = AAanimationData._explosionSound(handler);
-
-    //const scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
-
     async function cast() {
         let arrayLength = handler.allTargets.length;
         for (var i = 0; i < arrayLength; i++) {
