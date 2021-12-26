@@ -40,7 +40,6 @@ export async function trafficCop(handler) {
     if (override) {
         const animationData = await AAanimationData._getAnimationData(handler)
         if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets, handler.flags]) }
-        //if (animType === 'template' || (animType === 'preset' && handler.animation === 'fireball')) { } else { itemSound(handler) }
         switch (animType) {
             case "melee":
                 if (targets === 0) {
@@ -145,7 +144,6 @@ export async function trafficCop(handler) {
                         }
                         Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                         if (aaDebug) { aaDebugger("Pre Melee Animation", autoObject) }
-                        //itemSound(handler)
                         meleeAnimation(handler, animationData);
                         break;
                     case 'range':
@@ -156,13 +154,11 @@ export async function trafficCop(handler) {
                         }
                         Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                         if (aaDebug) { aaDebugger("Pre Range Animation", autoObject) }
-                        //itemSound(handler)
                         rangedAnimations(handler, animationData);
                         break;
                     case 'static':
                         Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                         if (aaDebug) { aaDebugger("Pre Static Animation", autoObject) }
-                        //itemSound(handler)
                         staticAnimation(handler, animationData);
                         break;
                     case 'templates':
@@ -173,33 +169,27 @@ export async function trafficCop(handler) {
                         break;
                     case 'auras':
                         if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
-                        //itemSound(handler)
                         auras(handler, animationData)
                         break;
                     case 'preset':
                         if (aaDebug) { aaDebugger("Pre Preset Animation", autoObject) }
                         switch (autoObject.animation) {
                             case 'bardicinspiration':
-                                //itemSound(handler)
                                 bardicInspiration(handler, autoObject);
                                 break;
                             case 'bless':
-                                //itemSound(handler)
                                 bless(handler, animationData);
                                 break;
                             case 'shieldspell':
-                                //itemSound(handler)
                                 shieldSpell(handler, animationData);
                                 break;
                             case 'huntersmark':
                                 huntersMark(handler, animationData);
                                 break;
                             case 'teleportation':
-                                //itemSound(handler)
                                 teleportation(handler, animationData);
                                 break;
                             case 'sneakattack':
-                                //itemSound(handler);
                                 sneakAttack(handler, animationData);
                                 break;
                             case "fireball":

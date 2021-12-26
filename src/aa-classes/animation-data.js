@@ -3,25 +3,16 @@ import { AAITEMCHECK } from "../animation-functions/item-arrays.js";
 export class AAanimationData {
 
     static async _getAnimationData(handler, autoObject) {
-        if (autoObject) {
-            const data = {
-                primary: await this._primaryData(handler, autoObject),
-                sourceFX: await this._sourceFX(handler),
-                targetFX: await this._targetFX(handler),
-            }
-            return data;
-        } else {
-            const data = {
-                primary: await this._primaryData(handler),
-                sourceFX: await this._sourceFX(handler),
-                targetFX: await this._targetFX(handler),
-            }
-            return data;
+        const data = {
+            primary: autoObject ? await this._primaryData(handler, autoObject) : await this._primaryData(handler),
+            sourceFX: await this._sourceFX(handler),
+            targetFX: await this._targetFX(handler),
         }
+        return data;
     }
 
     static async _primaryData(handler, autoObject) {
-        
+
         if (autoObject) {
             const data = {};
             const autoOverridden = handler.autoOverride?.enable
@@ -55,7 +46,6 @@ export class AAanimationData {
                 volume: data.audio?.a02?.volume || 0.25,
                 delay: data.audio?.a02?.delay || 0,
             }
-            //data.explosion = await this._explosionData(handler, true)
 
             data.removeTemplate = data.removeTemplate || false;
             data.occlusionMode = parseInt(data.occlusionMode ?? "3");
@@ -69,30 +59,30 @@ export class AAanimationData {
             return data;
         } else {
             const flags = handler.flags;
-            const meleeSwitch = flags.meleeSwitch || {};//
+            const meleeSwitch = flags.meleeSwitch || {};
             const options = flags.options || {};
             const data = {
                 isAuto: false,
-                animation: flags.animation?.toLowerCase(),//
-                color: flags.color?.toLowerCase() ?? "",//
-                below: flags.animLevel || false,//
+                animation: flags.animation?.toLowerCase(),
+                color: flags.color?.toLowerCase() ?? "",
+                below: flags.animLevel || false,
 
                 options: options,
-                variant: options.variant || "01",//
-                repeat: options.repeat || 1,//
-                delay: options.delay || 250,//
-                scale: options.scale || 1,//
-                opacity: options.opacity || 1,//
-                persistent: options.persistent || false,//
-                enableCustom: options.enableCustom || false,//
-                customPath: options.enableCustom ? options.customPath : false,//
-                staticType: options.staticType || "targetDefault",//
-                menuType: options.staticOptions === 'shieldfx' ? true : false,//
+                variant: options.variant || "01",
+                repeat: options.repeat || 1,
+                delay: options.delay || 250,
+                scale: options.scale || 1,
+                opacity: options.opacity || 1,
+                persistent: options.persistent || false,
+                enableCustom: options.enableCustom || false,
+                customPath: options.enableCustom ? options.customPath : false,
+                staticType: options.staticType || "targetDefault",
+                menuType: options.staticOptions === 'shieldfx' ? true : false,
                 anchorX: options.anchorX || 1,
                 anchorY: options.anchorY || 1,
-                auraRadius: options.auraRadius || 3.5,//
-                teleDist: options.teleDist || 30,//
-                ignoreTargets: options.ignoreTargets || false,//
+                auraRadius: options.auraRadius || 3.5,
+                teleDist: options.teleDist || 30,
+                ignoreTargets: options.ignoreTargets || false,
                 tempType: options.tempType || "circle",
                 hideTemplate: options.hideTemplate || false,
                 removeTemplate: options.removeTemplate ?? false,
@@ -100,27 +90,27 @@ export class AAanimationData {
                 occlusionAlpha: options.occlusionAlpha ?? "0",
                 persistType: options.persistType || "sequencerground",
 
-                itemAudio: {//
-                    enable: flags.audio?.a01?.enable || false,//
-                    file: flags.audio?.a01?.file,//
-                    volume: flags.audio?.a01?.volume || 0.25,//
-                    delay: flags.audio?.a01?.delay || 0,//
-                },//
+                itemAudio: {
+                    enable: flags.audio?.a01?.enable || false,
+                    file: flags.audio?.a01?.file,
+                    volume: flags.audio?.a01?.volume || 0.25,
+                    delay: flags.audio?.a01?.delay || 0,
+                },
 
-                switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation || "" : flags.animation || "",//
-                switchType: meleeSwitch.switchType || "on",//
-                switchColor: meleeSwitch.color || "white",//
-                detect: meleeSwitch.detect ?? "auto",//
-                return: meleeSwitch.returning || false,//
+                switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation || "" : flags.animation || "",
+                switchType: meleeSwitch.switchType || "on",
+                switchColor: meleeSwitch.color || "white",
+                detect: meleeSwitch.detect ?? "auto",
+                return: meleeSwitch.returning || false,
                 switchVariant: meleeSwitch.variant ?? "01",
-                range: meleeSwitch.range ?? 2,//
-                switchType: meleeSwitch.switchType ?? "on",//
-                switchAudio: {//
-                    enable: flags.audio?.a02?.enable || false,//
-                    file: flags.audio?.a02?.file,//
-                    volume: flags.audio?.a02?.volume || 0.25,//
-                    delay: flags.audio?.a02?.delay || 0,//
-                },//
+                range: meleeSwitch.range ?? 2,
+                switchType: meleeSwitch.switchType ?? "on",
+                switchAudio: {
+                    enable: flags.audio?.a02?.enable || false,
+                    file: flags.audio?.a02?.file,
+                    volume: flags.audio?.a02?.volume || 0.25,
+                    delay: flags.audio?.a02?.delay || 0,
+                },
                 explosion: await this._explosionData(handler, false),
             }
             data.playSound = data.itemAudio.enable && data.itemAudio.file ? true : false;

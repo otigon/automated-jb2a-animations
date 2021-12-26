@@ -20,28 +20,32 @@
                 <div {{#if ( lookup (lookup ../settings.aaAutorec.preset idx) 'hidden' ) }} style="display:none"
                     {{/if}}>
                     <div class="aa-container">
-                        <div class="meleespan">
-                            <div class='animation-choice'>
-                                <label for="aaAutorec.preset.{{idx}}.animation">{{localize 'AUTOANIM.preset'}}:
-                                    <select name="aaAutorec.preset.{{idx}}.animation"
-                                        style="min-width: 15em; text-align: center;">
-                                        {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
-                                        'animation')}}
-                                        <option value=""></option>
-                                        <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}
-                                        </option>
-                                        <option value="bless">{{localize "AUTOANIM.bless"}}</option>
-                                        <option value="fireball">{{localize "AUTOANIM.fireball"}}</option>
-                                        <option value='huntersmark'>{{localize "AUTOANIM.itemHM"}}</option>
-                                        <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
-                                        <option value="sneakattack">{{localize "AUTOANIM.sneakattack"}}</option>
-                                        <option value="teleportation">{{localize "AUTOANIM.animTeleportation"}}</option>
-                                        {{/select}}
-                                    </select>
-                                </label>
-                            </div>
+                        <div class='animation-choice' style="grid-row:1 / 2; grid-column: 1 / 5;justify-self: center;padding-bottom: 4px; padding-top: 2px;">
+                            <label for="aaAutorec.preset.{{idx}}.animation">{{localize 'AUTOANIM.preset'}}:
+                                <select name="aaAutorec.preset.{{idx}}.animation"
+                                    style="min-width: 15em; text-align: center;">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
+                                    'animation')}}
+                                    <option value=""></option>
+                                    <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}
+                                    </option>
+                                    <option value="bless">{{localize "AUTOANIM.bless"}}</option>
+                                    <option value="fireball">{{localize "AUTOANIM.fireball"}}</option>
+                                    <option value='huntersmark'>{{localize "AUTOANIM.itemHM"}}</option>
+                                    <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
+                                    <option value="sneakattack">{{localize "AUTOANIM.sneakattack"}}</option>
+                                    <option value="teleportation">{{localize "AUTOANIM.animTeleportation"}}</option>
+                                    {{/select}}
+                                </select>
+                            </label>
                         </div>
-                        {{#ifnoteq (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'fireball'}}
+                    </div>
+
+                    <div style="border: 1px solid rgba(0, 0, 0, .4);"></div>
+
+                    <!--Bardic Inspiration Menu-->
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'bardicinspiration'}}
+                    <div class="aa-container">
                         <div class="option05">
                             <div class="autorec-menu-options">
                                 <label>{{localize 'AUTOANIM.ctaScale'}}:
@@ -60,10 +64,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{/ifnoteq}}
-
-                        <!--Bardic Inspiration Menu-->
-                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'bardicinspiration'}}
                         <div class='option03'>
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
@@ -216,10 +216,30 @@
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
                         </div>
                         {{/if}}
-                        {{/ifEquals}}
+                    </div>
+                    {{/ifEquals}}
 
-                        <!--Shield Menu-->
-                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'shieldspell'}}
+                    <!--Shield Menu-->
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'shieldspell'}}
+                    <div class="aa-container">
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.ctaScale'}}:
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'scale'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.below'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.below' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.preset idx) 'below' ) }}>
+                                </div>
+                            </div>
+                        </div>
                         <div class='option03'>
                             <label>{{localize 'AUTOANIM.variant'}}:</label>
                             <select name="aaAutorec.preset.{{idx}}.variant">
@@ -295,10 +315,30 @@
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
                         </div>
                         {{/if}}
-                        {{/ifEquals}}
+                    </div>
+                    {{/ifEquals}}
 
-                        <!--Bless Menu-->
-                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'bless'}}
+                    <!--Bless Menu-->
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'bless'}}
+                    <div class="aa-container">
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.ctaScale'}}:
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'scale'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.below'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.below' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.preset idx) 'below' ) }}>
+                                </div>
+                            </div>
+                        </div>
                         <div class="option03">
                             <label>{{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.color">
@@ -354,10 +394,30 @@
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
                         </div>
                         {{/if}}
-                        {{/ifEquals}}
+                    </div>
+                    {{/ifEquals}}
 
-                        <!--Teleportation Menu-->
-                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'teleportation'}}
+                    <!--Teleportation Menu-->
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'teleportation'}}
+                    <div class="aa-container">
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.ctaScale'}}:
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'scale'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.below'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.below' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.preset idx) 'below' ) }}>
+                                </div>
+                            </div>
+                        </div>
                         {{#unless (lookup (lookup ../settings.aaAutorec.preset idx) 'custom')}}
                         <div class="option03">
                             <div class='animation-choice'>
@@ -457,10 +517,30 @@
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
                         </div>
                         {{/if}}
-                        {{/ifEquals}}
+                    </div>
+                    {{/ifEquals}}
 
-                        <!--Sneak Attack preset-->
-                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'sneakattack'}}
+                    <!--Sneak Attack preset-->
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'sneakattack'}}
+                    <div class="aa-container">
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.ctaScale'}}:
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'scale'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.below'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.below' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.preset idx) 'below' ) }}>
+                                </div>
+                            </div>
+                        </div>
                         <div class='option03'>
                             <label>{{localize 'AUTOANIM.variant'}}:</label>
                             <select name="aaAutorec.preset.{{idx}}.variant">
@@ -536,71 +616,63 @@
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
                         </div>
                         {{/if}}
-                        {{/ifEquals}}
+                    </div>
+                    {{/ifEquals}}
 
-                        <!--Fireball preset-->
-                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'fireball'}}
-                        <div class="option05">
-                            <div class="autorec-menu-options">
-                                <div class='form-group'>
-                                    <label>{{localize 'AUTOANIM.remove'}}: </label>
-                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.removeTemplate' {{checked
-                                        (lookup (lookup ../settings.aaAutorec.preset idx) 'removeTemplate' ) }}>
-                                </div>
+                    <!--Fireball preset-->
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'fireball'}}
+                    <div class="aa-container">
+                        <div class="autorec-menu-options" style='grid-column: 3 / 5; grid-row: 1 / 2;'>
+                            <div class='form-group'>
+                                <label>{{localize 'AUTOANIM.remove'}}: </label>
+                                <input type='checkbox' name='aaAutorec.preset.{{idx}}.removeTemplate' {{checked (lookup
+                                    (lookup ../settings.aaAutorec.preset idx) 'removeTemplate' ) }}>
                             </div>
                         </div>
 
-                        <div class='option03'>
-                            <div class='autorec-menu-pad'>
-                                <label for="aaAutorec.preset.{{idx}}.projectile">{{localize 'AUTOANIM.projectile'}}:
-                                </label>
-                                <select name="aaAutorec.preset.{{idx}}.projectile">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
-                                    'projectile')}}
-                                    {{#each ../spellList as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
+                        <div class='autorec-menu-pad' style='grid-column: 1 / 2; grid-row: 2 / 3;'>
+                            <label for="aaAutorec.preset.{{idx}}.projectile">{{localize 'AUTOANIM.projectile'}}:
+                            </label>
+                            <select name="aaAutorec.preset.{{idx}}.projectile">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx)
+                                'projectile')}}
+                                {{#each ../spellList as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
                         </div>
-                        <div class='option04'>
-                            <div class='autorec-menu-pad'>
-                                <label for="aaAutorec.preset.{{idx}}.projectilVariant">{{localize 'AUTOANIM.variant'}}:
-                                </label>
-                                <select name="aaAutorec.preset.{{idx}}.projectilVariant">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'projectilVariant')}}
-                                    {{#each (lookup (lookup ../variants 'range') (lookup (lookup
-                                    ../settings.aaAutorec.preset idx) 'projectile')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
+                        <div class='autorec-menu-pad' style='grid-column: 2 / 3; grid-row: 2 / 3;'>
+                            <label for="aaAutorec.preset.{{idx}}.projectilVariant">{{localize 'AUTOANIM.variant'}}:
+                            </label>
+                            <select name="aaAutorec.preset.{{idx}}.projectilVariant">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'projectilVariant')}}
+                                {{#each (lookup (lookup ../variants 'range') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'projectile')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
                         </div>
-                        <div class='option07'>
-                            <div class='autorec-menu-pad'>
-                                <label for="aaAutorec.preset.{{idx}}.projectileColor">{{localize 'AUTOANIM.color'}}:
-                                </label>
-                                <select name="aaAutorec.preset.{{idx}}.projectileColor">
-                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'projectileColor')}}
-                                    {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
-                                    ../settings.aaAutorec.preset idx) 'projectile')) (lookup (lookup
-                                    ../settings.aaAutorec.preset idx) 'projectilVariant')) as |name key|}}
-                                    <option value="{{key}}">{{name}}</option>
-                                    {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
+                        <div class='autorec-menu-pad' style='grid-column: 3 / 4; grid-row: 2 / 3;'>
+                            <label for="aaAutorec.preset.{{idx}}.projectileColor">{{localize 'AUTOANIM.color'}}:
+                            </label>
+                            <select name="aaAutorec.preset.{{idx}}.projectileColor">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'projectileColor')}}
+                                {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'projectile')) (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'projectilVariant')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
                         </div>
-                        <div class='option08'>
-                            <div class="autorec-menu-options">
-                                <label>{{localize "AUTOANIM.wait"}}
-                                    <input type="Number" name="aaAutorec.preset.{{idx}}.wait01"
-                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'wait01'}}"
-                                        data-dtype="Number">
-                                </label>
-                            </div>
+                        <div class="autorec-menu-options" style='grid-column: 4 / 5; grid-row: 2 / 3;'>
+                            <label>{{localize "AUTOANIM.wait"}}
+                                <input type="Number" name="aaAutorec.preset.{{idx}}.wait01"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'wait01'}}"
+                                    data-dtype="Number">
+                            </label>
                         </div>
                         <div class="autorec-menu-options" style='grid-column: 2 / 3; grid-row: 3 / 4;'>
                             <label>{{localize 'AUTOANIM.repeat'}}:
@@ -616,7 +688,8 @@
                                     data-dtype="Number">
                             </label>
                         </div>
-                        <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 4 / 5;'>
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 4 / 5;'>
                             <label>{{localize "AUTOANIM.sound"}}</label>
                             <input type="checkbox" name="aaAutorec.preset.{{idx}}.audio.a01.enable" {{checked (lookup
                                 (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'a01' ) 'enable'
@@ -650,10 +723,12 @@
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
                         </div>
                         {{/if}}
+                    </div>
 
+                    <div style="border: 1px dashed rgba(0, 0, 0, .4);"></div>
 
-
-                        <div class='autorec-menu-pad' style='grid-column: 1 / 2; grid-row: 6 / 7;'>
+                    <div class="aa-container">
+                        <div class='autorec-menu-pad' style='grid-column: 1 / 2; grid-row: 6 / 7;padding-top: 1em'>
                             <label for="aaAutorec.preset.{{idx}}.explosion01">{{localize 'AUTOANIM.explosion'}} 01:
                             </label>
                             <select name="aaAutorec.preset.{{idx}}.explosion01">
@@ -719,7 +794,8 @@
                                     data-dtype="Number">
                             </label>
                         </div>
-                        <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 8 / 9;'>
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 8 / 9;'>
                             <label>{{localize "AUTOANIM.sound"}}</label>
                             <input type="checkbox" name="aaAutorec.preset.{{idx}}.audio.e01.enable" {{checked (lookup
                                 (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'e01' ) 'enable'
@@ -753,9 +829,12 @@
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e01') 'volume'}}">
                         </div>
                         {{/if}}
+                    </div>
 
+                    <div style="border: 1px dashed rgba(0, 0, 0, .4);"></div>
 
-                        <div class='autorec-menu-pad' style='grid-column: 1 / 2; grid-row: 10 / 11;'>
+                    <div class="aa-container">
+                        <div class='autorec-menu-pad' style='grid-column: 1 / 2; grid-row: 10 / 11;padding-top: 1em'>
                             <label for="aaAutorec.preset.{{idx}}.explosion02">{{localize 'AUTOANIM.explosion'}} 02:
                             </label>
                             <select name="aaAutorec.preset.{{idx}}.explosion02">
@@ -814,7 +893,8 @@
                                     data-dtype="Number">
                             </label>
                         </div>
-                        <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 12 / 13;'>
+                        <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 12 / 13;'>
                             <label>{{localize "AUTOANIM.sound"}}</label>
                             <input type="checkbox" name="aaAutorec.preset.{{idx}}.audio.e02.enable" {{checked (lookup
                                 (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'e02' ) 'enable'
@@ -848,9 +928,13 @@
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e02') 'volume'}}">
                         </div>
                         {{/if}}
+                    </div>
 
+                    <div style="border: 1px dashed rgba(0, 0, 0, .4);"></div>
 
-                        <div class="autorec-menu-options" style='grid-column: 1 / 2; grid-row: 14 / 15;'>
+                    <div class="aa-container">
+                        <div class="autorec-menu-options"
+                            style='grid-column: 1 / 2; grid-row: 14 / 15;padding-top: 1em'>
                             <div class='form-group'>
                                 <label>{{localize 'AUTOANIM.addAfterImage'}}: </label>
                                 <input type='checkbox' name='aaAutorec.preset.{{idx}}.afterEffect' {{checked (lookup
@@ -876,10 +960,30 @@
                             </button>
                         </div>
                         {{/if}}
-                        {{/ifEquals}}
+                    </div>
+                    {{/ifEquals}}
 
-                        <!--Hunters Mark-->
-                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'huntersmark'}}
+                    <!--Hunters Mark-->
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'huntersmark'}}
+                    <div class="aa-container">
+                        <div class="option05">
+                            <div class="autorec-menu-options">
+                                <label>{{localize 'AUTOANIM.ctaScale'}}:
+                                    <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
+                                        value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'scale'}}"
+                                        data-dtype="Number">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option06">
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.below'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.below' {{checked (lookup
+                                        (lookup ../settings.aaAutorec.preset idx) 'below' ) }}>
+                                </div>
+                            </div>
+                        </div>
                         <div class='option03'>
                             <label>{{localize "AUTOANIM.variant"}}</label>
                             <select name="aaAutorec.preset.{{idx}}.variant">
@@ -961,8 +1065,8 @@
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}">
                         </div>
                         {{/if}}
-                        {{/ifEquals}}
                     </div>
+                    {{/ifEquals}}
                 </div>
             </div>
         </div>

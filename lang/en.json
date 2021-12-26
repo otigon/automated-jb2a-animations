@@ -539,5 +539,7 @@
 
     "AUTOANIM.autorecognized": "is configured in the Global Settings",
     "AUTOANIM.overrideauto": "Override Automatic Settings",
-    "AUTOANIM.sound": "Sound"
+    "AUTOANIM.sound": "Sound",
+    "AUTOANIM.enabled": "Enabled",
+    "AUTOANIM.disabled": "Disabled"
 }
