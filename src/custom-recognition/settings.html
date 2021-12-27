@@ -35,8 +35,12 @@
 	</section>
 
 	<footer class='sheet-footer flexrow'>
-		<button type='submit' name='submit' value='1' class='aa-autorec-submit'><i
-				class='far fa-save'></i>{{localize "AUTOANIM.submit"}}</button>
+		<div class='form-group'>
+			<button value='1' class='aa-autorec-submit-open' style="width: 40%; background-color: rgba(128, 128, 128, 0.5);"><i
+				class='far fa-save'></i>Submit</button>
+			<button type='submit' name='submit' value='1' class='aa-autorec-submit' style="width: 40%; background-color: rgba(100, 100, 100, 0.5);"><i
+				class='far fa-save'></i>Submit and Close</button>
+		</div>
 	</footer>
 	<div class='flexrow' id='aa-import-export'>
         <button type="button" name="aa-export" id="aa-autorec-export" style="background-color: rgb(160, 160, 160);">

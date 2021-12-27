@@ -75,6 +75,9 @@ export class aaAutoRecognition extends FormApplication {
         html.find('.aa-container input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
         })
+        html.find('.aa-autorec-submit-open').click(evt => {
+            this.submit({ preventClose: true }).then(() => this.render())
+        })
         //html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
         html.find('.remove-autorecog').click(this._onRemoveOverride.bind(this))
         html.find('.aa-autorecognition select').change(evt => {
