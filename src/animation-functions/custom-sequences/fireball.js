@@ -158,6 +158,7 @@ export async function fireball(handler, autoObject) {
             .file(data.itemAudio.file)
             .volume(data.itemAudio.volume)
             .delay(data.itemAudio.delay)
+            .repeats(data.projectileRepeat, data.projectileDelay)
             .playIf(() => {
                 return data.itemAudio.enable && data.itemAudio.file;
             })
@@ -171,6 +172,7 @@ export async function fireball(handler, autoObject) {
             .file(data.exAudio01.file)
             .volume(data.exAudio01.volume)
             .delay(data.exAudio01.delay)
+            .repeats(data.explosion01Repeat, data.explosion01Delay)
             .playIf(() => {
                 return data.exAudio01.enable && data.exAudio01.file;
             })
