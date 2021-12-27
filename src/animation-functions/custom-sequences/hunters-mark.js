@@ -37,9 +37,7 @@ async function huntersMark(handler, animationData) {
             .file(data.itemAudio.file)
             .volume(data.itemAudio.volume)
             .delay(data.itemAudio.delay)
-            .playIf(() => {
-                return data.itemAudio.enable && data.itemAudio.file;
-            })
+            .playIf(data.playSound)
         .effect()
             .file(hmPulse)
             .atLocation(sourceToken)

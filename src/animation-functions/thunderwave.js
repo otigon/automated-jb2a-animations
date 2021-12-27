@@ -161,9 +161,7 @@ export async function thunderwaveAuto(handler, data) {
                 .file(data.itemAudio.file)
                 .volume(data.itemAudio.volume)
                 .delay(data.itemAudio.delay)
-                .playIf(() => {
-                    return data.itemAudio.enable && data.itemAudio.file;
-                })        
+                .playIf(data.playSound)        
             .play()
         if (data.removeTemplate) {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
@@ -178,6 +176,11 @@ export async function thunderwaveAuto(handler, data) {
             .thenDo(function () {
                 Hooks.callAll("aa.animationStart", sourceToken, "no-target")
             })
+            .sound()
+                .file(data.itemAudio.file)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .playIf(data.playSound)        
             .effect()
                 .file(anFile)
                 .atLocation({x: tempX + (gridSize * 1.5), y: tempY + (gridSize * 1.5)})
@@ -186,13 +189,6 @@ export async function thunderwaveAuto(handler, data) {
                 .scale(scale)
                 .belowTokens(false)
                 .repeats(data.repeat, data.delay)
-            .sound()
-                .file(data.itemAudio.file)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-                .playIf(() => {
-                    return data.itemAudio.enable && data.itemAudio.file;
-                })        
             .play()
         await wait(500)
         Hooks.callAll("aa.animationEnd", sourceToken, "no-target")

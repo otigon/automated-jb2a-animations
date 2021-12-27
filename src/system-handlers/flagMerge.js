@@ -429,22 +429,34 @@ export const flagMigrations = {
              * allSounds.explosion.file ----------------> audio.e01.file
              * allSounds.explosion.delay ---------------> audio.e01.delay
              * allSounds.explosion.volume --------------> audio.e01.volume
+             * 
+             * Subtracting 1 second from Explosion, Explosion Sound, and TargetFX delays
              */
             const v2Flags = item.data?.flags?.autoanimations || {};
             const allSounds = v2Flags.allSounds || {};
             v2Flags.audio = {
                 a01: {
-                    enable: allSounds.item?.enableAudio || false,
-                    file: allSounds.item?.file || "",
-                    delay: allSounds.item?.delay || 0,
-                    volume: allSounds.item?.volume || 0.25,
+                    enable: allSounds.item?.enableAudio ?? false,
+                    file: allSounds.item?.file ?? "",
+                    delay: allSounds.item?.delay ?? 0,
+                    volume: allSounds.item?.volume ?? 0.25,
                 },
                 e01: {
                     enable: allSounds.explosion?.audioExplodeEnabled || false,
-                    file: allSounds.explosion?.file || "",
-                    delay: allSounds.explosion?.delay || 0,
-                    volume: allSounds.explosion?.volume || 0.25,
+                    file: allSounds.explosion?.file ?? "",
+                    delay: (allSounds.explosion?.delay ?? 0) -1000,
+                    volume: allSounds.explosion?.volume ?? 0.25,
                 }
+            }
+            if (v2Flags.explosions?.enable) {
+                const explosions = v2Flags.explosions;
+                explosions.delay = (explosions.delay || 0) - 1000;
+                v2Flags.explosions = explosions;
+            }
+            if (v2Flags.targetToken?.enable) {
+                const targetFX = v2Flags.targetToken;
+                targetFX.delayStart = (targetFX.delayStart || 0) -1000;
+                v2Flags.targetToken = targetFX;
             }
             v2Flags.version = 2;
 

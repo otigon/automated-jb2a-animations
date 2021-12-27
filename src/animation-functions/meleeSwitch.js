@@ -16,14 +16,6 @@ export async function meleeSwitch(handler, target, data, sourceFX, targetFX) {
     
     const sourceToken = handler.actorToken;
 
-    //const explosion = await AAanimationData._explosionData(handler);
-    //const explosionSound = AAanimationData._explosionSound(handler);
-    //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    //const targetFX = await AAanimationData._targetFX(handler);
-
-    //logging explosion Scale
-    //const scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
-
     const returnWeapons = ['dagger', 'hammer', 'greatsword', 'chakram']
     const switchReturn = returnWeapons.some(el => data.switchAnimation.includes(el)) ? data.return : false;
     let returnDelay;
@@ -88,7 +80,7 @@ export async function meleeSwitch(handler, target, data, sourceFX, targetFX) {
                 .playIf(data.explosion?.enabled)
             .sound()
                 .file(data.explosion?.audio?.file)
-                .playIf(() => {return data.explosion?.playSound})
+                .playIf(data.explosion?.playSound)
                 .delay(data.explosion?.audio?.delay)
                 .volume(data.explosion?.audio?.volume)
                 .repeats(data.repeat, data.delay)

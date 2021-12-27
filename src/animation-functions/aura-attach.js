@@ -31,6 +31,11 @@ export async function auras(handler, animationData) {
     async function selfAura() {
         const randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
         new Sequence()
+            .sound()
+                .file(data.itemAudio.file)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .playIf(data.playSound)
             .effect()
                 //.atLocation(sourceToken)
                 .persist()
@@ -47,13 +52,6 @@ export async function auras(handler, animationData) {
                 //.fadeIn(250)
                 .fadeOut(500)
                 //.animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
-            .sound()
-                .file(data.itemAudio.file)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-                .playIf(() => {
-                    return data.itemAudio.enable && data.itemAudio.file;
-                })
             .play()
         AAanimationData.howToDelete("sequencerground")
     }
@@ -70,6 +68,13 @@ export async function auras(handler, animationData) {
             let playPersist = !checkAnim ? true : false;
 
             new Sequence()
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(() => {
+                        return data.itemAudio.enable && data.itemAudio.file;
+                    })
                 .effect()
                     //.atLocation(target)
                     .attachTo(target)
@@ -87,13 +92,6 @@ export async function auras(handler, animationData) {
                     .fadeIn(250)
                     .fadeOut(500)    
                     //.animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
-                .sound()
-                    .file(data.itemAudio.file)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .playIf(() => {
-                        return data.itemAudio.enable && data.itemAudio.file;
-                    })
                 .play()
         }
         AAanimationData.howToDelete("sequencerground")

@@ -8,55 +8,6 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 export async function templateAnimation(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
     const sourceToken = handler.actorToken;
-    /*
-    const data = {}
-    if (autoObject) {
-        //const autoOverridden = handler.autoOverride?.enable
-        //Object.assign(data, autoObject)
-        //data.itemName = data.animation || "";
-        //data.below = data.below || false;
-        //data.customPath = data.custom ? data.customPath : false;
-        //data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
-        //data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        //data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
-        //data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
-        //data.occlusionMode = parseInt(data.occlusionMode);
-        //data.opacity = data.opacity || 1;
-        //data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
-        //data.persistent = data.persist || false;
-        //data.persistType = data.overhead ? 'overheadtile' : data.persistType || 'sequencerground';
-        //data.scale = autoOverridden ? handler.autoOverride?.scale || 1 : data.scale || 1;
-        //data.itemAudio = {
-            //enable: data.enableSound || false,
-            //file: data.soundFile,
-            //volume: data.soundVolume || 0.25,
-            //delay: data.soundDelay || 0,
-        //}
-    } else {
-        //data.itemName = handler.convertedName;
-        //data.variant = handler.options?.variant;
-        //data.color = handler.color;
-        //data.repeat = handler.options?.repeat;
-        //data.delay = handler.options?.delay;
-        //data.customPath = handler.options?.enableCustom ? handler.options.customPath : false;
-        //data.below = handler.below;
-        data.type = handler.options?.tempType;
-        //data.persistent = handler.options?.persistent;
-        //data.overhead = handler.options?.overhead;//
-        //data.opacity = handler.options?.opacity || 1;
-        //data.occlusionAlpha = handler.options?.occlusionAlpha ?? "0";
-        //data.occlusionMode = parseInt(handler.options?.occlusionMode ?? "3");
-        //data.removeTemplate = handler.options?.removeTemplate;
-        //data.persistType = handler.options?.persistType || "sequencerground";
-        //data.scale = handler.options?.scale || 1;
-        //data.itemAudio = {
-            //enable: handler.allSounds?.items?.enable || false,
-            //file: handler.allSounds?.items?.file,
-            //volume: handler.allSounds?.items?.volume || 0.25,
-            //delay: handler.allSounds?.items?.delay || 0,
-        //}
-    }
-    */
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
@@ -81,17 +32,7 @@ export async function templateAnimation(handler, animationData) {
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
-    /*
-    let templateSound = handler.allSounds?.item;
-    let templateVolume = 0.25;
-    let templateDelay = 1;
-    let templateFile = "";
-    if (handler.itemSound) {
-        templateVolume = templateSound?.volume || 0.25;
-        templateDelay = templateSound?.delay === 0 ? 1 : templateSound?.delay;
-        templateFile = templateSound?.file;
-    }
-    */
+
     async function cast() {
         const templateObject = canvas.templates.placeables[canvas.templates.placeables.length - 1]
 
@@ -202,9 +143,7 @@ export async function templateAnimation(handler, animationData) {
                 .file(data.itemAudio.file)
                 .volume(data.itemAudio.volume)
                 .delay(data.itemAudio.delay)
-                .playIf(() => {
-                    return data.itemAudio.enable && data.itemAudio.file;
-                })
+                .playIf(data.playSound)
             .play()
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
@@ -236,9 +175,7 @@ export async function templateAnimation(handler, animationData) {
                 .file(data.itemAudio.file)
                 .volume(data.itemAudio.volume)
                 .delay(data.itemAudio.delay)
-                .playIf(() => {
-                    return data.itemAudio.enable && data.itemAudio.file;
-                })
+                .playIf(data.playSound)
             .play()
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
@@ -251,6 +188,11 @@ export async function templateAnimation(handler, animationData) {
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, "no-target")
                 })
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(data.playSound)
                 .effect()
                     .file(tempAnimation.file)
                     .atLocation(template)
@@ -271,13 +213,6 @@ export async function templateAnimation(handler, animationData) {
                     .scale({ x: scaleX * data.scale, y: scaleY * data.scale })
                     .belowTokens(data.below)
                     .repeats(data.repeat, data.delay)
-                .sound()
-                    .file(data.itemAudio.file)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .playIf(() => {
-                        return data.itemAudio.enable && data.itemAudio.file;
-                    })
                 .play()
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
@@ -296,6 +231,11 @@ export async function templateAnimation(handler, animationData) {
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, "no-target")
                 })
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(data.playSound)
                 .effect()
                     .file(tempAnimation.file)
                     .attachTo(templateObject)
@@ -303,13 +243,6 @@ export async function templateAnimation(handler, animationData) {
                     .opacity(data.opacity)
                     .origin(handler.item.uuid)
                     .scaleToObject(data.scale)
-                .sound()
-                    .file(data.itemAudio.file)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .playIf(() => {
-                        return data.itemAudio.enable && data.itemAudio.file;
-                    })
                 .play()
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
@@ -321,6 +254,11 @@ export async function templateAnimation(handler, animationData) {
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, "no-target")
                 })
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(data.playSound)
                 .effect()
                     .file(tempAnimation.file)
                     .atLocation(template)
@@ -341,13 +279,6 @@ export async function templateAnimation(handler, animationData) {
                     .scale({ x: scaleX * data.scale, y: scaleY * data.scale })
                     .belowTokens(data.below)
                     .repeats(data.repeat, data.delay)
-                .sound()
-                    .file(data.itemAudio.file)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .playIf(() => {
-                        return data.itemAudio.enable && data.itemAudio.file;
-                    })
                 .play()
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])

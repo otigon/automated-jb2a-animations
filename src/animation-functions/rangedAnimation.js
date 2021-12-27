@@ -47,9 +47,7 @@ export async function rangedAnimations(handler, animationData) {
                     .file(data.itemAudio.file)
                     .volume(data.itemAudio.volume)
                     .delay(data.itemAudio.delay)
-                    .playIf(() => {
-                        return data.itemAudio.enable && data.itemAudio.file;
-                    })
+                    .playIf(data.playSound)
                 .effect()
                     .file(attack.file)
                     .atLocation(sourceToken)
@@ -72,7 +70,7 @@ export async function rangedAnimations(handler, animationData) {
                     //.waitUntilFinished(explosionDelay)
                 .sound()
                     .file(data.explosion?.audio?.file)
-                    .playIf(() => {return data.explosion?.playSound})
+                    .playIf(data.explosion?.playSound)
                     .delay(data.explosion?.audio?.delay)
                     .volume(data.explosion?.audio?.volume)
                     .repeats(data.repeat, data.delay)

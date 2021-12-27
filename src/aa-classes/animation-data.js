@@ -1,5 +1,5 @@
 import { buildFile } from "../animation-functions/file-builder/build-filepath.js";
-import { AAITEMCHECK } from "../animation-functions/item-arrays.js";
+
 export class AAanimationData {
 
     static async _getAnimationData(handler, autoObject) {
@@ -113,7 +113,7 @@ export class AAanimationData {
                 },
                 explosion: await this._explosionData(handler, false),
             }
-            data.playSound = data.itemAudio.enable && data.itemAudio.file ? true : false;
+            data.playSound = data.itemAudio?.enable && data.itemAudio?.file ? true : false;
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
             return data;
         }
@@ -161,7 +161,7 @@ export class AAanimationData {
                     delay: handler.flags.audio?.e01?.delay || 0,
                 },
             };
-            explosion.playSound = explosion.enabled && explosion.audio.enable && explosion.audio.file !== "";
+            explosion.playSound = explosion.enabled && explosion.audio?.enable && explosion.audio?.file !== "";
             explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
             explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             console.log(explosion)
