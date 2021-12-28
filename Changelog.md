@@ -15,6 +15,7 @@ Sound/Audio options are now available for every animation section. List of upgra
 * Added a timeout of 30 seconds for template animations. Once activated, if a template is not placed on the cavnas within 30 seconds the item must be activated again. This should help when using Dice so Nice to prevent incorrect animations playing.  
 * Added a **duplicate** button to the Automatic Recognition menus. You can duplicate an entire section to a new item by clicking this button. See the WIKI for more information.  
 * PF2e upgrade. Now has the option to **Play Animations on Hit/Miss**. This requires that animations be played on Attack Rolls (so the Animations on Damage option in the A-A settings must not be checked). If targeting only one token, if the check is either a **failure** or **critical failure**, the Ranged or Melee animation will show as a miss. From what I can gather, the check system in PF2e only functions if targeting one token at a time. If multiple tokens are targeted, A-A will assume they all hit.  
+* Generic Damage types: Option in melee menus now correctly shows only if Patreon package is installed. Added these options to the Automatic Recognition menu  
 
 0.5.0  
 * BREAKING: SEQUENCER module is now a Dependency of Automated Animations. You MUST have it installed and ACTIVE

@@ -98,6 +98,10 @@ export class AAItemSettings extends FormApplication {
             itemAudioVolume01: flags.autoanimations?.audio?.a01?.volume || 0.25,
             itemAudioDelay02: flags.autoanimations?.audio?.a02?.delay || 0,
             itemAudioVolume02: flags.autoanimations?.audio?.a02?.volume || 0.25,
+            sourceAudioDelay01: flags.autoanimations?.audio?.s01?.delay || 0,
+            sourceAudioVolume01: flags.autoanimations?.audio?.s01?.volume || 0.25,
+            targetAudioDelay01: flags.autoanimations?.audio?.t01?.delay || 0,
+            targetAudioVolume01: flags.autoanimations?.audio?.t01?.volume || 0.25,
             delayExAudio: flags.autoanimations?.audio?.e01?.delay || 0,
             volumeExAudio: flags.autoanimations?.audio?.e01?.volume || 0.25,
 
