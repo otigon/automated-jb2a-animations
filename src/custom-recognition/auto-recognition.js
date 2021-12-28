@@ -35,7 +35,9 @@ export class aaAutoRecognition extends FormApplication {
         data.currentAutoVersion = Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
         data.settings = this.getSettingsData();
         data.meleeList = aaMenuLists.meleeWeapons;
+        data.genericList = aaMenuLists.genericDmg;
         data.rangeList = patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree;
+        data.meleeTypes = patreon ? aaMenuLists.meleeTypes : aaMenuLists.meleeTypesFree;
         data.spellList = aaMenuLists.attackSpells;
         data.selfList = aaMenuLists.autoself;
         data.shieldfx = aaMenuLists.shieldfx;

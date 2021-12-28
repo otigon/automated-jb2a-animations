@@ -1,3 +1,21 @@
+1.0.0
+* BREAKING: Sound/Audio refactor for Automated Animations  
+All Sequences were required to be reworked to accomodate the Sound/Audio refactor. As such, Items using multiple animations with delays/timing may need to be tweaked to get them back into order. I have adjusted the existing ones to subtract 1 second from each delay, which should work for the majority of existing animations.  
+  
+* Sound/Audio refactor for Automated Animations:  
+Sound/Audio options are now available for every animation section. List of upgrades:  
+1. The Audio is paired with the animation, and will repeat the same number of times the animation section is set to repeat. 
+2. The sounds will start when the Animation begins, and can have a delay set to adjust and pair more precisely.  
+3. You can disable Animations on a given item, and have ONLY a sound play.  
+4. Sounds accept the wildcard input, see the WIKI for a more indepth usage explanation.  
+5. Sounds are avaible in both the Item Menu, and in the Automatic Recognition window.  
+  
+**Other feature updates**  
+* Template and Aura animations have been refactored to ALWAYS play directly on Item usage and will ignore Attack/Damage rolls being required to activate the animation.  
+* Added a timeout of 30 seconds for template animations. Once activated, if a template is not placed on the cavnas within 30 seconds the item must be activated again. This should help when using Dice so Nice to prevent incorrect animations playing.  
+* Added a **duplicate** button to the Automatic Recognition menus. You can duplicate an entire section to a new item by clicking this button. See the WIKI for more information.  
+* PF2e upgrade. Now has the option to **Play Animations on Hit/Miss**. This requires that animations be played on Attack Rolls (so the Animations on Damage option in the A-A settings must not be checked). If targeting only one token, if the check is either a **failure** or **critical failure**, the Ranged or Melee animation will show as a miss. From what I can gather, the check system in PF2e only functions if targeting one token at a time. If multiple tokens are targeted, A-A will assume they all hit.  
+
 0.5.0  
 * BREAKING: SEQUENCER module is now a Dependency of Automated Animations. You MUST have it installed and ACTIVE
 * BREAKING: Weapon Animations with Explosions added will need to be reconfigured. Explosion options changed slightly
