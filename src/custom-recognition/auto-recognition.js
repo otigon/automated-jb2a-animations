@@ -2,6 +2,7 @@ import { aaMenuLists } from "../item-sheet-handlers/menu-lists.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { autoRecMigration } from "./autoRecMerge.js";
+import { aaAutorec } from "./aaAutoRecList.js";
 
 export class aaAutoRecognition extends FormApplication {
     constructor(object = {}, options) {
@@ -68,6 +69,14 @@ export class aaAutoRecognition extends FormApplication {
         html.find('button.add-autorecog-templates').click(this._addTemplate.bind(this));
         html.find('button.add-autorecog-auras').click(this._addAura.bind(this));
         html.find('button.add-autorecog-preset').click(this._addPreset.bind(this));
+
+        html.find('.duplicate-melee').click(this._duplicateMelee.bind(this))
+        html.find('.duplicate-range').click(this._duplicateRange.bind(this))
+        html.find('.duplicate-static').click(this._duplicateStatic.bind(this))
+        html.find('.duplicate-templates').click(this._duplicateTemplate.bind(this))
+        html.find('.duplicate-auras').click(this._duplicateAura.bind(this))
+        html.find('.duplicate-preset').click(this._duplicatePreset.bind(this))
+
         //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
         html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
@@ -134,6 +143,7 @@ export class aaAutoRecognition extends FormApplication {
 
 
     async _addMelee(event) {
+        console.log(event)
         event.preventDefault();
         let idx = 0;
         const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
@@ -248,6 +258,108 @@ export class aaAutoRecognition extends FormApplication {
         }
         el.remove();
         await this._onSubmit(event, { preventClose: true });
+        this.render();
+    }
+
+    async _duplicateMelee(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.melee[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.melee.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicateRange(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.range-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.range[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.range.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicateStatic(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.static-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.static[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.static.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicateTemplate(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.templates-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.templates[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.templates.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicateAura(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.auras-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.auras[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.auras.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicatePreset(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.preset-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.preset[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.preset.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
     }
 

@@ -541,5 +541,7 @@
     "AUTOANIM.overrideauto": "Override Automatic Settings",
     "AUTOANIM.sound": "Sound",
     "AUTOANIM.enabled": "Enabled",
-    "AUTOANIM.disabled": "Disabled"
+    "AUTOANIM.disabled": "Disabled",
+    "AUTOANIM.close": "Close",
+    "AUTOANIM.and": "and"
 }

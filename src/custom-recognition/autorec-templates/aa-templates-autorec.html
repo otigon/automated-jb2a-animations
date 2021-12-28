@@ -11,6 +11,7 @@
                             class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
                             ../settings.aaAutorec.templates idx) 'hidden' ) }} class="fas fa-minus collapse-button"
                             {{/unless}}></i>
+                        <i class='far fa-clone duplicate-templates' data-idx="{{idx}}" style="max-width: 1.5rem;"></i>
                         <input type='text' name="aaAutorec.templates.{{idx}}.name"
                             placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
                             value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'name'}}" />

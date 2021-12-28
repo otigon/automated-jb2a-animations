@@ -176,6 +176,26 @@
     margin-left: 0.75rem;
 }
 
+#automatic-recognition .duplicate-melee:hover {
+    text-shadow: 0 0 5px red
+}
+#automatic-recognition .duplicate-range:hover {
+    text-shadow: 0 0 5px red
+}
+#automatic-recognition .duplicate-static:hover {
+    text-shadow: 0 0 5px red
+}
+#automatic-recognition .duplicate-templates:hover {
+    text-shadow: 0 0 5px red
+}
+#automatic-recognition .duplicate-auras:hover {
+    text-shadow: 0 0 5px red
+}
+#automatic-recognition .duplicate-preset:hover {
+    text-shadow: 0 0 5px red
+}
+
+
 .aa-autorec-submit {
     max-height: 2rem;
 }
