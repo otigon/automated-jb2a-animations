@@ -37,6 +37,7 @@ export async function trafficCop(handler) {
     const animName = handler.flags?.animation;
     const override = handler.animOverride;
     const targets = handler.allTargets?.length ?? 0;
+    let aaTemplateHook;
     if (override) {
         const animationData = await AAanimationData._getAnimationData(handler)
         if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets, handler.flags]) }
@@ -71,9 +72,10 @@ export async function trafficCop(handler) {
                         if (game.modules.get("mars-5e")?.active) {
                             templateAnimation(handler, animationData);
                         } else {
-                            Hooks.once("createMeasuredTemplate", () => {
+                            aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
                                 templateAnimation(handler, animationData);
                             });
+                            setTimeout(killHook, 30000)
                         }
                         break;
                     default:
@@ -110,9 +112,10 @@ export async function trafficCop(handler) {
                                 if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
                                     fireball(handler);
                                 } else {
-                                    Hooks.once("createMeasuredTemplate", () => {
+                                    aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
                                         fireball(handler);
                                     });
+                                    setTimeout(killHook, 30000)
                                 }
                                 break;
                             default:
@@ -163,9 +166,10 @@ export async function trafficCop(handler) {
                         break;
                     case 'templates':
                         if (aaDebug) { aaDebugger("Pre Template Animation", autoObject) }
-                        Hooks.once("createMeasuredTemplate", () => {
+                        aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
                             templateAnimation(handler, animationData);
                         })
+                        setTimeout(killHook, 30000)
                         break;
                     case 'auras':
                         if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
@@ -199,9 +203,10 @@ export async function trafficCop(handler) {
                                         if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
                                             fireball(handler, autoObject, true);
                                         } else {
-                                            Hooks.once("createMeasuredTemplate", () => {
+                                            aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
                                                 fireball(handler, autoObject, true);
                                             });
+                                            setTimeout(killHook, 30000)
                                         }
                                         break;
                                     default:
@@ -215,5 +220,8 @@ export async function trafficCop(handler) {
                 //itemSound(handler)
             }
         }
+    }
+    function killHook () {
+        Hooks.off("createMeasuredTemplate", aaTemplateHook)
     }
 }

@@ -87,6 +87,7 @@ export class AAItemSettings extends FormApplication {
             colormenu: aaColorMenu,
             variantmenu: aaVariantMenu,
             rangeList: patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree,
+            meleeList: patreon ? aaMenuLists.meleeTypes : aaMenuLists.meleeTypesFree,
             spellList: aaMenuLists.attackSpells,
             onTokenList: aaMenuLists.autoself,
             meleeWeapons: aaMenuLists.meleeWeapons,

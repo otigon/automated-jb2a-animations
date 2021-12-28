@@ -10,9 +10,9 @@
         <label>{{localize 'AUTOANIM.type'}}:
             <select name="flags.autoanimations.options.meleeType">
                 {{#select flags.autoanimations.options.meleeType}}
-                <option value=""></option>
-                <option value="weapon">{{localize "AUTOANIM.itemWeapon"}}</option>
-                <option value="generic">{{localize "AUTOANIM.generic"}}</option>
+                {{#each meleeList as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
                 {{/select}}
             </select>
         </label>
