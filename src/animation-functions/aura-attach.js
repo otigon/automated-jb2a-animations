@@ -30,7 +30,7 @@ export async function auras(handler, animationData) {
 
     async function selfAura() {
         const randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
-        let checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: `${sourceToken.name}` }).length > 0
+        let checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, name: `${sourceToken.name}` }).length > 0
         let playPersist = !checkAnim ? true : false;
         new Sequence()
             .sound()
