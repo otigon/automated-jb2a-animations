@@ -13,7 +13,7 @@ export class AASystemData {
     * system name for new field should be in all Lower Case with special characters removed
     * 
     */
-   
+
     static dnd5e(input, isChat) {
         if (game.modules.get('midi-qol')?.active && !isChat) {
             const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
@@ -162,7 +162,19 @@ export class AASystemData {
         const targets = Array.from(input.user.targets);
         if (!item || !token) { return {}; }
 
-        return { item, token, targets };
+        let outcome = input.data?.flags?.pf2e?.context?.outcome;
+        outcome = outcome ? outcome.toLowerCase() : "";
+        let hitTargets;
+        if (targets.length < 2 && !game.settings.get('autoanimations', 'playonDamageCore')) {
+            if (outcome === 'success' || outcome === 'criticalsuccess') {
+                hitTargets = targets;
+            } else {
+                hitTargets = false
+            }
+        } else {
+            hitTargets = targets;
+        }
+        return { item, token, targets, hitTargets };
     }
 
     static forbiddenlands(input) {
@@ -249,5 +261,5 @@ export class AASystemData {
             console.log("Autoanimations | Couldn´t extract data-item-id for message :", content);
             return null;
         }
-    }    
+    }
 }

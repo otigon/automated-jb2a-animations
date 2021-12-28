@@ -40,11 +40,12 @@ export default class flagHandler {
         this.actor = data.token.actor;
         this.allTargets = data.targets;
         this.hitTargets = data.hitTargets;
-        this.hitTargetsId = data.hitTargets ? Array.from(this.hitTargets.filter(actor => actor.id).map(actor => actor.id)) : undefined;
+        this.hitTargetsId = data.hitTargets ? Array.from(this.hitTargets.filter(actor => actor.id).map(actor => actor.id)) : [];
         this.targetsId = Array.from(this.allTargets.filter(actor => actor.id).map(actor => actor.id));
 
         //midi-qol specific settings
-        this.playOnMiss = midiActive ? game.settings.get("autoanimations", "playonmiss") : false;
+        this.playOnMiss = midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false;
+        //this.playOnMiss = true;
         const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
         this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
         this._userAD = midiActive ? midiSettings?.autoRollDamage : "";

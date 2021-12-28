@@ -164,7 +164,6 @@ export class AAanimationData {
             explosion.playSound = explosion.enabled && explosion.audio?.enable && explosion.audio?.file !== "";
             explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
             explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
-            console.log(explosion)
             return explosion;
         }
     }
