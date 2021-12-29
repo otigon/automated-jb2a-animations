@@ -146,11 +146,11 @@ export class AAanimationData {
             const explosions = handler.flags.explosions || {};
             const explosion = {
                 enabled: explosions.enable || false,
-                animation: explosions.animation ?? "",
+                animation: explosions.animation || "",
                 variant: explosions.variant ?? "",
-                color: explosions.color ?? "",
-                delay: explosions.delay ?? 1,
-                radius: explosions.radius ?? 1.5,
+                color: explosions.color || "",
+                delay: (explosions.delay || 1) + 500,
+                radius: explosions.radius || 1.5,
                 enableCustom: explosions.enableCustom || false,
                 customPath: explosions.enableCustom ? explosions.customPath : false,
                 below: explosions.below || false,
@@ -265,11 +265,12 @@ export class AAanimationData {
         targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
         targetFX.targetSeq.sound()
-            .file(targetFX.itemAudio.file)
-            .volume(targetFX.itemAudio.volume)
-            .delay(targetFX.itemAudio.delay)
+            .file(targetFX.itemAudio?.file)
+            .volume(targetFX.itemAudio?.volume)
+            .delay(targetFX.itemAudio?.delay)
+            .repeats(targetFX.repeat, targetFX.delay)
             .playIf(() => {
-                return targetFX.itemAudio.enable && targetFX.itemAudio.file && targetFX.enabled;
+                return targetFX.itemAudio?.enable && targetFX.itemAudio?.file && targetFX.enabled;
             })
         targetFX.targetSeq.effect()
             .delay(targetFX.startDelay)
@@ -284,10 +285,6 @@ export class AAanimationData {
             .playIf(playNow)
 
         return targetFX;
-    }
-
-    static async _variant(handler) {
-
     }
 
     static removePersistentEffect(token, effectName, sceneID) {

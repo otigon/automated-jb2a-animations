@@ -444,19 +444,9 @@ export const flagMigrations = {
                 e01: {
                     enable: allSounds.explosion?.audioExplodeEnabled || false,
                     file: allSounds.explosion?.file ?? "",
-                    delay: (allSounds.explosion?.delay ?? 0) -1000,
+                    delay: allSounds.explosion?.delay ?? 0,
                     volume: allSounds.explosion?.volume ?? 0.25,
                 }
-            }
-            if (v2Flags.explosions?.enable) {
-                const explosions = v2Flags.explosions;
-                explosions.delay = (explosions.delay || 0) - 1000;
-                v2Flags.explosions = explosions;
-            }
-            if (v2Flags.targetToken?.enable) {
-                const targetFX = v2Flags.targetToken;
-                targetFX.delayStart = (targetFX.delayStart || 0) -1000;
-                v2Flags.targetToken = targetFX;
             }
             v2Flags.version = 2;
 

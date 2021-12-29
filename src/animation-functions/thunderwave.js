@@ -12,35 +12,7 @@ export async function thunderwaveAuto(handler, data) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    /*
-    const data = {}
-    if (autoObject) {
-        const autoOverridden = handler.autoOverride?.enable
-        Object.assign(data, autoObject)
-        //data.itemName = data.animation || "";
-        data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
-        data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
-        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
-        data.occlusionMode = parseInt(data.occlusionMode);
-    } else {
-        //data.itemName = handler.convertedName;
-        data.variant = handler.options?.variant;
-        data.color = handler.color;
-        data.repeat = handler.options?.repeat;
-        data.delay = handler.options?.delay;
-        data.customPath = handler.options?.customAnim ? handler.options.customPath : false;
-        data.below = handler.animLevel;
-        data.type = handler.options?.tempType;
-        data.persist = handler.options?.persistent;
-        data.overhead = handler.options?.overhead;
-        data.opacity = handler.options?.opacity;
-        data.occlusionAlpha = handler.options?.occlusionAlpha ?? "0";
-        data.occlusionMode = parseInt(handler.options?.occlusionMode ?? "3");
-        data.removeTemplate = handler.options?.removeTemplate;
-    }
-    */
+
     const sourceToken = handler.actorToken;
     if (aaDebug) { aaDebugger("Thunderwave Animation Start", data) }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;

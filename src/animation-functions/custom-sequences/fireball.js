@@ -102,26 +102,7 @@ export async function fireball(handler, autoObject) {
             delay: handler.flags?.audio?.e02?.delay || 0,
         }
     }
-    /*
-    //console.log(data)
-    let templateSound = handler.allSounds?.item;
-    let templateVolume = 0.25;
-    let templateDelay = 1;
-    let templateFile = "";
-    if (handler.itemSound) {
-        templateVolume = templateSound?.volume ?? 0.25;
-        templateDelay = templateSound?.delay === 0 ? 1 : templateSound?.delay;
-        templateFile = templateSound?.file;
-    }
-    */
-   /*
-    const itemAudio = {//
-        enable: flags.audio?.a01?.enable || false,//
-        file: flags.audio?.a01?.file,//
-        volume: flags.audio?.a01?.volume || 0.25,//
-        delay: flags.audio?.a01?.delay || 0,//
-    }//
-    */
+
     const projectileAnimation = await buildFile(false, data.projectile, "range", data.projectileVariant, data.projectileColor);
     const explosion01 = data.explosion01 !== "a1" ? await buildFile(true, data.explosion01, "static", data.explosion01Variant, data.explosion01Color) : "";
     const explosion02 = data.explosion02 !== "a1" ? await buildFile(true, data.explosion02, "static", data.explosion02Variant, data.explosion02Color) : "";
@@ -146,12 +127,6 @@ export async function fireball(handler, autoObject) {
         }
         size = canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance);
     }
-    /*
-    const position = {
-        x: template.data.x,
-        y: template.data.y,
-    }
-    */
 
     new Sequence("Automated Animations")
         .sound()
