@@ -1,16 +1,13 @@
 import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
-import { AutorecFunctions } from "./aa-classes/autorecFunctions.js";
 
-import flagHandler from "./system-handlers/flag-handler.js";
+import flagHandler from "./system-handlers/system-data.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import aaSettings from "./settings.js";
-import { AASystemData } from "./system-handlers/getdata-by-system.js";
 
 import { teleportation } from "./animation-functions/teleportation.js";
-import { templateAnimation } from "./animation-functions/templateAnimation.js";
 import { setupSocket } from "./socketset.js";
 import { flagMigrations } from "./system-handlers/flagMerge.js";
 import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
@@ -31,14 +28,6 @@ Hooks.on('init', () => {
     Handlebars.registerHelper('ifnoteq', function (a, b, options) {
         if (a != b) { return options.fn(this); }
         return options.inverse(this);
-    });
-    Handlebars.registerHelper('aaConcat', function (...params) {
-        // Ignore the object appended by handlebars.
-        if (typeof params[params.length - 1] === 'object') {
-            params.pop();
-        }
-
-        return params.join('');
     });
     Handlebars.registerHelper('matchOverhead', function (autoObj, options) {
         if (autoObj.persist && (autoObj.type === 'circle' || autoObj.type === 'rect')) {
@@ -79,13 +68,13 @@ Hooks.on('init', () => {
         switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
-                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAD(workflow) });
+                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttackDamage(workflow) });
                 break;
             case (false):
                 Hooks.on("midi-qol.AttackRollComplete", (workflow) => { setUpMidi(workflow) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoA(workflow) });
-                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttack(workflow) });
+                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
                 break;
         }
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
@@ -103,9 +92,7 @@ Hooks.on('init', () => {
                 Hooks.on("createChatMessage", async (msg) => {
                     setUp5eCore
                         (msg);
-                    //specialCaseAnimations(msg);
                 });
-                //Hooks.on("preCreateChatMessage", async (msg, options, userId) => {dnd5ecrits(msg)});
                 break;
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
@@ -172,14 +159,14 @@ Hooks.on('init', () => {
                 }
                 break;
             case "swade":
-                Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => { 
+                Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => {
                     const controlledTokens = canvas.tokens.controlled;
                     let token;
                     if (controlledTokens.length > 0) {
                         token = controlledTokens.find(token => token.data.actorId === SwadeTokenOrActor.id);
                     }
                     if (token) { SwadeTokenOrActor = token; }
-                    swadeData(SwadeTokenOrActor, SwadeItem) 
+                    swadeData(SwadeTokenOrActor, SwadeItem)
                 });
                 Hooks.on("BRSW-RollItem", async (data, html) => {
                     var tokenId = data.getFlag("betterrolls-swade2", "token");
@@ -224,9 +211,9 @@ Hooks.on('init', () => {
                 });
                 break;
         }
-        //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
 })
+
 // sets the A-A button on the Item Sheet title bar
 Hooks.on(`renderItemSheet`, async (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
@@ -241,6 +228,7 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
     let titleElement = html.closest('.app').find('.window-title');
     aaBtn.insertAfter(titleElement);
 });
+
 // Registers Database with Sequencer
 Hooks.once('ready', function () {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
@@ -263,7 +251,7 @@ Hooks.once('ready', function () {
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 /* External call for animations
-* sourcToken as the originating token
+* sourceToken as the originating token
 * targets as an array from the user
 * item as the item instance being used
 */
@@ -292,100 +280,50 @@ function moduleIncludes(test) {
 async function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(workflow);
+    console.log(handler)
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    if (templateItem && !handler.animOverride) { return; }
-    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride)) { return; }
+    if (handler.isTemplateOrAuraAnimation) { return; }
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
-async function setUpMidiNoAD(workflow) {
+async function setUpMidiNoAttackDamage(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
     let handler = await flagHandler.make(workflow);
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    if (templateItem && !handler.animOverride) { return; }
-    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride)) { return; }
+    if (handler.isTemplateOrAuraAnimation) { return; }
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
-async function setUpMidiNoA(workflow) {
+async function setUpMidiNoAttack(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = await flagHandler.make(workflow);
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    const autoName = AutorecFunctions._rinseName(handler.itemName);
-    const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
-    let fireball;
-    if (getObject) {
-        fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
-    }
-
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    if ((templateItem || fireball) && !handler.animOverride) { return; }
-    if ((handler.animType === "template" && handler.animOverride) || (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride)) { return; }
+    if (handler.isTemplateOrAuraAnimation) { return; }
     trafficCop(handler)
 }
 
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
-async function specialCaseAnimations(msg) {
+async function midiTemplateAnimations(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user?.id) {
         return;
     }
-
-    const data = AASystemData["dnd5e"](msg, true);
-    if (!data || !data.item || !data.token) { return; }
-    const itemType = data.item.data?.flags?.autoanimations?.animType;
-
-    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    const autoName = data.item.name ? AutorecFunctions._rinseName(data.item.name.toLowerCase()) : "noitem";
-    const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName);
-    let fireball;
-    if (getObject) {
-        fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
-    }
-
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(data.item.name.toLowerCase()));
-    if (((itemType === "template" || itemType === "t8") || itemType === "preset" && data.item.data?.flags?.autoanimations?.animation === "fireball") || ((templateItem || fireball) && !data.item.data?.flags?.autoanimations?.override)) { } else {
+    const handler = await flagHandler.make(msg, true);
+    if (!handler.item || !handler.actorToken) {
         return;
     }
 
     let breakOut = checkMessege(msg);
-    if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
-        let handler = await flagHandler.make(msg, true);
-        if (!handler.item || !handler.actorToken) {
-            return;
-        }
-        //const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-        //const autoName = AutorecFunctions._rinseName(handler.itemName);
-        //const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
-        //let fireball;
-        //if (getObject) {
-        //    fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
-        //}    
-        if (handler.animType === "template" && handler.animOverride) {
-            Hooks.once("createMeasuredTemplate", (msg) => {
-                templateAnimation(handler);
-            })
-            return;
-        }
-        if (handler.animType === 'preset' && handler.animation === 'fireball' && handler.animOverride) {
-            trafficCop(handler);
-            return;
-        }
-        //const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), AutorecFunctions._rinseName(handler.itemName));
-        if ((templateItem || fireball) && !handler.animOverride) {
-            trafficCop(handler)
-        }
+    if ((handler.isTemplateOrAuraAnimation) && (breakOut === 0 || game.modules.get("betterrolls5e")?.active)) {
+        trafficCop(handler);
     } else { return; }
 }
 
@@ -417,36 +355,21 @@ async function setUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+
+    if (!handler.item || !handler.actorToken) {
         return;
     }
 
-    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-
-    const autoName = AutorecFunctions._rinseName(handler.itemName);
-
-    const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
-
-    let fireball;
-    if (getObject) {
-        fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
-    }
-
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    const t5Template = handler.animType === "template" && handler.animOverride ? true : false;
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
             trafficCop(handler);
             break;
-        case handler.animType === "template" && !rollType.includes("damage") && handler.animOverride:
-            trafficCop(handler);
-            break;
-        case (templateItem || fireball) && !rollType.includes("damage") && !rollType.includes("attack"):
+        case (handler.isTemplateOrAuraAnimation) && !rollType.includes("damage") && !rollType.includes("attack"):
             trafficCop(handler);
             break;
         case animationNow:
             if (rollType.includes("damage")) {
-                if (t5Template || templateItem || fireball) { return; }
+                if (handler.isTemplateOrAuraAnimation) { return; }
                 trafficCop(handler);
             }
             break;
@@ -457,11 +380,11 @@ async function setUp5eCore(msg) {
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
-                    if (t5Template || templateItem || fireball) { return; }
+                    if (handler.isTemplateOrAuraAnimation) { return; }
                     trafficCop(handler);
                     break;
                 case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (t5Template || templateItem || fireball) { return; }
+                    if (handler.isTemplateOrAuraAnimation) { return; }
                     trafficCop(handler);
                     break;
             }
@@ -485,7 +408,7 @@ async function onCreateChatMessage(msg) {
             handler = await flagHandler.make(msg);
             break;
     }
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     trafficCop(handler)
@@ -498,7 +421,7 @@ async function swadeData(SwadeTokenOrActor, SwadeItem) {
     if (killAllAnimations) { return; }
     let data = { SwadeTokenOrActor, SwadeItem }
     let handler = await flagHandler.make(data);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     trafficCop(handler);
@@ -522,7 +445,7 @@ async function starFinder(data, msg) {
 async function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(msg);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     if (game.user.id === msg.user.id) {
@@ -545,7 +468,7 @@ async function fblReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = await flagHandler.make(msg);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     trafficCop(handler);
@@ -556,7 +479,7 @@ async function fblReady(msg) {
 async function setupDemonLord(data) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(data);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler.item || !handler.actorToken) {
         return;
     }
     trafficCop(handler);
@@ -569,35 +492,19 @@ async function pf2eReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = await flagHandler.make(msg);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    if (!handler.item || !handler.actorToken) {
         return;
     }
 
-    const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    const autoName = AutorecFunctions._rinseName(handler.itemName);
-    const getObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName)
-    let fireball;
-    if (getObject) {
-        fireball = getObject.menuSection === 'preset' && (getObject.animation === 'fireball') ? true : false;
-    }
-
-    const templateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), AutorecFunctions._rinseName(handler.itemName));
-    const t5Template = handler.animType === "template" && handler.animOverride ? true : false;
     const itemType = handler.itemType;
     let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
-    //console.log(handler.item?.data.data.damage?.length)
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (t5Template) {
-        if (msg.data.flavor?.toLowerCase().includes("damage")) { return; }
+    if (handler.isTemplateOrAuraAnimation && !msg.data.flavor?.toLowerCase().includes("damage")) {
         trafficCop(handler);
         return;
     }
-    if ((templateItem || fireball) && !t5Template && !msg.data.flavor?.toLowerCase().includes("damage")) {
-        trafficCop(handler);
-        return;
-    }
-    if (templateItem || fireball || t5Template) { return };
+    if (handler.isTemplateOrAuraAnimation) { return };
     switch (itemType) {
         case "spell":
             damage = handler.item?.data?.data?.damage?.value["0"]?.value;

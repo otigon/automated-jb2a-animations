@@ -4,30 +4,16 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function auras(handler, autoObject) {
+export async function auras(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
-    //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    //let animName = handler.animName.replace(/\s+/g, '')
+
     const gridSize = canvas.grid.size
-    const data = {}
-    if (autoObject) {
-        const autoOverridden = handler.autoOverride?.enable
-        Object.assign(data, autoObject)
-        data.animation = data.animation || "";
-        data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+    const data = animationData.primary;
+    
+    if (data.isAuto) {
         data.size = data.scale * 2 * gridSize;
-        //data.tint = parseInt(data.tint.substr(1), 16);
     } else {
-        data.animation = handler.animation;
-        data.variant = handler.variant;
-        data.color = handler.color;
-        data.customPath = handler.enableCustom ? handler.customPath : false;
-        //data.tint = parseInt(handler.animTint.substr(1), 16);
-        data.opacity = handler.opacity;
-        data.size = handler.auraRadius * 2 * gridSize
-        data.ignoretargets = handler.options.ignoreTarget;
-        data.below = handler.below;
+        data.size = data.auraRadius * 2 * gridSize;
     }
 
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
@@ -35,7 +21,7 @@ export async function auras(handler, autoObject) {
     if (aaDebug) { aaDebugger("CTA Aura Animation Start", data) }
     const sourceToken = handler.actorToken;
     const aura = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
-    if (handler.allTargets.length === 0 || data.ignoretargets) {
+    if (handler.allTargets.length === 0 || data.ignoreTargets) {
         selfAura()
     } else {
         targetAura();
@@ -44,7 +30,14 @@ export async function auras(handler, autoObject) {
 
     async function selfAura() {
         const randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
+        let checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, name: `${sourceToken.name}` }).length > 0
+        let playPersist = !checkAnim ? true : false;
         new Sequence()
+            .sound()
+                .file(data.itemAudio.file)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .playIf(data.playSound)
             .effect()
                 //.atLocation(sourceToken)
                 .persist()
@@ -52,14 +45,16 @@ export async function auras(handler, autoObject) {
                 .size(data.size)
                 .belowTokens(data.below)
                 .file(aura.file)
+                .playIf(playPersist)
                 .gridSize(gridSize)
                 .attachTo(sourceToken)
                 .name(sourceToken.name)
-                .fadeIn(50)
                 .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                 .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                 .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
-                .animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
+                //.fadeIn(250)
+                .fadeOut(500)
+                //.animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
             .play()
         AAanimationData.howToDelete("sequencerground")
     }
@@ -76,6 +71,13 @@ export async function auras(handler, autoObject) {
             let playPersist = !checkAnim ? true : false;
 
             new Sequence()
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(() => {
+                        return data.itemAudio.enable && data.itemAudio.file;
+                    })
                 .effect()
                     //.atLocation(target)
                     .attachTo(target)
@@ -87,11 +89,12 @@ export async function auras(handler, autoObject) {
                     .playIf(playPersist)
                     .belowTokens(data.below)
                     .file(aura.file)
-                    .fadeIn(50)
                     .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                     .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
                     .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
-                    .animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})    
+                    .fadeIn(250)
+                    .fadeOut(500)    
+                    //.animateProperty("sprite", "rotation", {from: 0, to: 360, duration: 2500, ease: randomEase})
                 .play()
         }
         AAanimationData.howToDelete("sequencerground")
