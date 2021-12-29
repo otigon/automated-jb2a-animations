@@ -131,9 +131,9 @@ export default function aaSettings() {
                 onChange: () => { window.location.reload() }
             });
         }
+            break;
         case "dnd5e":
         case "sw5e":
-        case "pf2e":
             if (game.modules.get("midi-qol")?.active) {
                 game.settings.register("autoanimations", "playonhit", {
                     name: game.i18n.format("AUTOANIM.midionhit_name"),
@@ -198,6 +198,25 @@ export default function aaSettings() {
                     name: game.i18n.format("AUTOANIM.coreondmg_name"),
                     hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
                     scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                });
+            }
+            break;
+            case "pf2e": {
+                game.settings.register("autoanimations", "playonDamageCore", {
+                    name: game.i18n.format("AUTOANIM.coreondmg_name"),
+                    hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                });
+                game.settings.register("autoanimations", "playonmiss", {
+                    name: game.i18n.format("AUTOANIM.midionmiss_name"),
+                    hint: "Requires Animations to be played on Attack rolls",
+                    scope: `world`,
                     type: Boolean,
                     default: false,
                     config: true,
