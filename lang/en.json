@@ -543,5 +543,8 @@
     "AUTOANIM.enabled": "Enabled",
     "AUTOANIM.disabled": "Disabled",
     "AUTOANIM.close": "Close",
-    "AUTOANIM.and": "and"
+    "AUTOANIM.and": "and",
+    "AUTOANIM.extra": "Extra",
+    "AUTOANIM.effects": "Effects",
+    "AUTOANIM.extraexplain": "Requires a Primary animation, either Custom or Automatic Recognition"
 }

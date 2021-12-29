@@ -1,9 +1,12 @@
 <!--Token Animation Options-->
 <div class='pre-post-animations'>
+    <div style="text-align: center; font-weight: bold; padding-top: 6px; padding-bottom: 6px;font-size:large">
+        {{localize "AUTOANIM.extraexplain"}}
+    </div>
     <!--Source Token Animation Options-->
     <div class='flexrow text-green' {{#unless flags.autoanimations.sourceToken.enable }}
         style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered; text-align: center;' {{/unless}}>
-        <label><strong>{{localize "AUTOANIM.source"}} {{localize "AUTOANIM.animation"}}</strong></label>
+        <label><strong>On {{localize "AUTOANIM.source"}}</strong></label>
     </div>
     <div class='aa-item-container primary-animation' {{#unless flags.autoanimations.sourceToken.enable}}
         style='box-shadow: 0 0 5px red;' {{/unless}}>
@@ -164,7 +167,7 @@
     </div>
     <div class='flexrow text-green' {{#unless flags.autoanimations.targetToken.enable }}
         style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered; text-align: center;' {{/unless}}>
-        <label><strong>{{localize "AUTOANIM.target"}} {{localize "AUTOANIM.animation"}}</strong></label>
+        <label><strong>On {{localize "AUTOANIM.target"}}</strong></label>
     </div>
     <div class='aa-item-container primary-animation' {{#unless flags.autoanimations.targetToken.enable}}
         style='box-shadow: 0 0 5px red;' {{/unless}}>
