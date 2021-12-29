@@ -11,7 +11,6 @@
                             class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
                             ../settings.aaAutorec.static idx) 'hidden' ) }} class="fas fa-minus collapse-button"
                             {{/unless}}></i>
-                        <i class='far fa-clone duplicate-static' data-idx="{{idx}}" style="max-width: 1.5rem;"></i>
                         <input type='text' name="aaAutorec.static.{{idx}}.name"
                             placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
                             value="{{lookup (lookup ../settings.aaAutorec.static idx) 'name'}}" />
@@ -44,11 +43,10 @@
                                 <option value="staticSpells">{{localize 'AUTOANIM.itemSpell'}}</option>
                                 <option value="conditions">{{localize 'AUTOANIM.conditions'}}</option>
                                 <option value="shieldfx">{{localize 'AUTOANIM.shieldfx'}}</option>
-                                <option value="tokenborder">{{localize 'AUTOANIM.token'}} {{localize "AUTOANIM.border"}}
-                                </option>
+                                <option value="tokenborder">{{localize 'AUTOANIM.token'}} {{localize "AUTOANIM.border"}}</option>
                                 {{/select}}
                             </select>
-                        </div>
+                        </div>                    
                         <div class="option04">
                             <div class='animation-choice'>
                                 <label for="aaAutorec.static.{{idx}}.animation">{{localize 'AUTOANIM.animation'}}:
@@ -56,43 +54,37 @@
                                         {{#select (lookup (lookup ../settings.aaAutorec.static idx)
                                         'animation')}}
 
-                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions')
-                                        'creature'}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'creature'}}
                                         {{#each ../creatureList as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/ifEquals}}
 
-                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions')
-                                        'explosion'}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'explosion'}}
                                         {{#each ../explosionMenu as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/ifEquals}}
 
-                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions')
-                                        'staticSpells'}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'staticSpells'}}
                                         {{#each ../staticSpells as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/ifEquals}}
 
-                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions')
-                                        'conditions'}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'conditions'}}
                                         {{#each ../conditions as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/ifEquals}}
 
-                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions')
-                                        'shieldfx'}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'shieldfx'}}
                                         {{#each ../shieldfx as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/ifEquals}}
 
-                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions')
-                                        'tokenborder'}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.static idx) 'staticOptions') 'tokenborder'}}
                                         {{#each ../tokenborder as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
@@ -189,48 +181,15 @@
                             </div>
                         </div>
                         {{#if (lookup (lookup ../settings.aaAutorec.static idx) 'custom')}}
-                        <div class="form-group" style="grid-column: 2 / 5;grid-row: 4 / 5;">
-                            <input type="text" class="files" style="width:25em" name="aaAutorec.static.{{idx}}.customPath"
-                                value="{{lookup (lookup ../settings.aaAutorec.static idx) 'customPath'}}">
-                            <button type="button" class="file-picker" data-type="image/video"
-                                data-target="aaAutorec.static.{{idx}}.customPath" tabindex="-1" title="Browse Files">
-                                <i class="fas fa-file-video"></i>
-                            </button>
-                        </div>
-                        {{/if}}
-                        <div class='form-group option17' style='padding-top: 5px;padding-bottom: 4px;'>
-                            <label>{{localize "AUTOANIM.sound"}}</label>
-                            <input type="checkbox" name="aaAutorec.static.{{idx}}.audio.a01.enable" {{checked (lookup
-                                (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio' ) 'a01' ) 'enable'
-                                )}}>
-                        </div>
-                        {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio' ) 'a01' )
-                        'enable' )}}
-                        <!--Explosion Audio filePicker and Text Input-->
-                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 5 / 6'>
-                            <input style='width: 25em' type="text" class="files"
-                                name="aaAutorec.static.{{idx}}.audio.a01.file"
-                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio') 'a01') 'file'}}">
-                            <button type="button" class="file-picker" data-type="audio"
-                                data-target="aaAutorec.static.{{idx}}.audio.a01.file" tabindex="-1"
-                                title="Browse Files">
-                                <i class="fas fa-music"></i>
-                            </button>
-                        </div>
-                        <!--Explosion Audio Delay-->
-                        <div style='grid-column: 4 / 5;grid-row: 6 / 7; padding-bottom: 1em'>
-                            <label>{{localize "AUTOANIM.delay"}}</label>
-                            <input type="Number" name="aaAutorec.static.{{idx}}.audio.a01.delay" min="0"
-                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio') 'a01') 'delay'}}"
-                                style='width: 3em'>
-                        </div>
-                        <!--Explosion Audio Volume-->
-                        <div style='grid-column: 3 / 4;grid-row: 6 / 7; padding-bottom: 1em'>
-                            <label>{{localize "AUTOANIM.volume"}}</label>
-                            <input type="Number" name="aaAutorec.static.{{idx}}.audio.a01.volume" min="0" max="1"
-                                step="0.01" style='width: 3em'
-                                value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio') 'a01') 'volume'}}">
-                        </div>
+                            <div class="form-group" style="grid-column: 2 / 5;grid-row: 4 / 5;">
+                                <input type="text" class="files" name="aaAutorec.static.{{idx}}.customPath"
+                                    value="{{lookup (lookup ../settings.aaAutorec.static idx) 'customPath'}}">
+                                <button type="button" class="file-picker" data-type="image/video"
+                                    data-target="aaAutorec.static.{{idx}}.customPath" tabindex="-1"
+                                    title="Browse Files">
+                                    <i class="fas fa-file-video"></i>
+                                </button>
+                            </div>
                         {{/if}}
                     </div>
                 </div>

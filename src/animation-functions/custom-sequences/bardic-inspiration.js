@@ -5,20 +5,15 @@ async function bardicInspiration(handler, autoObject) {
 
     let token = handler.actorToken;
     let target = handler.allTargets[0];
-    const flags = handler.flags;
+
     const data = {};
     if (autoObject) {
         //const autoOverridden = handler.options?.overrideAuto
         Object.assign(data, autoObject);
         data.animation = data.animation || "";
-        data.itemAudio = {
-            enable: data.audio?.a01?.enable || false,
-            file: data.audio?.a01?.file,
-            volume: data.audio?.a01?.volume || 0.25,
-            delay: data.audio?.a01?.delay || 0,
-        }
+
     } else {
-        const bards = flags.bards ?? {};
+        const bards = handler.bards;
         data.animation = handler.convertedName;
         data.selfColor = bards.bardSelfColor;
         data.targetColor = bards.bardTargetColor;
@@ -29,12 +24,6 @@ async function bardicInspiration(handler, autoObject) {
         data.marker = bards.marker;
         data.selfAnimation = bards.bardAnim;
         data.targetAnimation = bards.bardTargetAnim;
-        data.itemAudio = {
-            enable: flags.audio?.a01?.enable || false,//
-            file: flags.audio?.a01?.file,//
-            volume: flags.audio?.a01?.volume || 0.25,//
-            delay: flags.audio?.a01?.delay || 0,//
-    }
     }
     const gridSize = canvas.grid.size;
 
@@ -43,11 +32,11 @@ async function bardicInspiration(handler, autoObject) {
     async function markerCreate(tokenMarker, path) {
         new Sequence("Automated Animations")
         .effect()
-            .file(path)
-            .atLocation(tokenMarker)
-            .scale((tokenMarker.w / 400) * 2)
-            .gridSize(gridSize)
-            .belowTokens(true)
+        .file(path)
+        .atLocation(tokenMarker)
+        .scale((tokenMarker.w / 400) * 2)
+        .gridSize(gridSize)
+        .belowTokens(true)
         .play()
     }
 
@@ -57,12 +46,12 @@ async function bardicInspiration(handler, autoObject) {
         
         let musicPlay = new Sequence("Automated Animations")
         .effect()
-            .file(path)
-            .atLocation(token)
-            .scale(token.w / 200)
-            .gridSize(gridSize)
-            .repeats(10, 350)
-            .randomOffset()
+        .file(path)
+        .atLocation(token)
+        .scale(token.w / 200)
+        .gridSize(gridSize)
+        .repeats(10, 350)
+        .randomOffset()
 
         musicPlay.play()
     }
@@ -79,18 +68,6 @@ async function bardicInspiration(handler, autoObject) {
             .gridSize(gridSize)
 
         bardicPlay.play()
-    }
-
-    async function playSound() {
-        new Sequence()
-        .sound()
-            .file(data.itemAudio.file)
-            .volume(data.itemAudio.volume)
-            .delay(data.itemAudio.delay)
-            .playIf(() => {
-                return data.itemAudio.enable && data.itemAudio.file;
-            })
-        .play()
     }
 
     if (data.animateSelf) {
@@ -135,6 +112,5 @@ async function bardicInspiration(handler, autoObject) {
                 }
         }
     }
-    playSound()
 }
 export default bardicInspiration;

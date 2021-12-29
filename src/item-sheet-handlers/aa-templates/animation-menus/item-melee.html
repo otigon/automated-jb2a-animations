@@ -5,14 +5,14 @@
     <label><strong>{{localize "AUTOANIM.animation"}}</strong></label>
 </div>
 <div class='aa-item-container primary-animation'>
-    {{#unless flags.autoanimations.options.enableCustom}}
+    {{#unless flags.autoanimations.options.enableCustom01}}
     <div class="option01">
         <label>{{localize 'AUTOANIM.type'}}:
             <select name="flags.autoanimations.options.meleeType">
                 {{#select flags.autoanimations.options.meleeType}}
-                {{#each meleeList as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
+                <option value=""></option>
+                <option value="weapon">{{localize "AUTOANIM.itemWeapon"}}</option>
+                <option value="generic">{{localize "AUTOANIM.generic"}}</option>
                 {{/select}}
             </select>
         </label>
@@ -87,35 +87,6 @@
         </button>
     </div>
     {{/if}}
-    <div class='form-group option13' style='padding-top: 5px;padding-bottom: 4px;'>
-        <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            value="flags.autoanimations.audio.a01.enable" {{checked
-            flags.autoanimations.audio.a01.enable}}>
-    </div>
-    {{#if flags.autoanimations.audio.a01.enable}}
-    <!--Audio filePicker and Text Input-->
-    <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
-        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.audio.a01.file"
-            value="{{lookup flags.autoanimations.audio.a01 'file'}}">
-        <button type="button" class="file-picker" data-type="audio"
-            data-target="flags.autoanimations.audio.a01.file" tabindex="-1" title="Browse Files">
-            <i class="fas fa-music"></i>
-        </button>
-    </div>
-    <!--Audio Delay-->
-    <div style='grid-column: 4 / 5;grid-row: 5 / 6'>
-        <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value={{itemAudioDelay01}}
-            style='width: 3em'>
-    </div>
-    <!--Audio Volume-->
-    <div style='grid-column: 3 / 4;grid-row: 5 / 6'>
-        <label>{{localize "AUTOANIM.volume"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.volume" min="0" max="1" step="0.01"
-            style='width: 3em' value={{itemAudioVolume01}}>
-    </div>
-    {{/if}}
 </div>
 <div style='padding:3px'>
 
@@ -130,7 +101,7 @@
     style='box-shadow: 0 0 5px red;' {{/ifEquals}} {{#ifEquals flags.autoanimations.meleeSwitch.switchType 'custom' }}
     style='box-shadow: 0 0 5px orange;' {{/ifEquals}}>
     <!--<div class="aa-ridged" style='grid-column: 1 / 5;grid-row: 4 / 7;'>-->
-    <div style='grid-column: 1 / 3;grid-row: 1 / 2; padding-top: 5px;padding-bottom: 4px;justify-self: left;'>
+    <div style='grid-column: 1 / 2;grid-row: 1 / 2; padding-top: 5px;padding-bottom: 4px;justify-self: left;'>
         <label>Range Switch</label>
         <select name="flags.autoanimations.meleeSwitch.switchType">
             {{#select flags.autoanimations.meleeSwitch.switchType}}
@@ -199,39 +170,9 @@
     {{/ifEquals}}
     <!--</div>-->
     {{/ifEquals}}
-    {{#ifnoteq flags.autoanimations.meleeSwitch.switchType 'off'}}
-    <div class='form-group' style='grid-column: 1 / 2; grid-row: 4 / 5; padding-top: 5px;padding-bottom: 4px;'>
-        <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a02.enable"
-            value="flags.autoanimations.audio.a02.enable" {{checked
-            flags.autoanimations.audio.a02.enable}}>
-    </div>
-    {{#if flags.autoanimations.audio.a02.enable}}
-    <!--Explosion Audio filePicker and Text Input-->
-    <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
-        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.audio.a02.file"
-            value="{{lookup flags.autoanimations.audio.a02 'file'}}">
-        <button type="button" class="file-picker" data-type="audio"
-            data-target="flags.autoanimations.audio.a02.file" tabindex="-1" title="Browse Files">
-            <i class="fas fa-music"></i>
-        </button>
-    </div>
-    <!--Explosion Audio Delay-->
-    <div style='grid-column: 4 / 5;grid-row: 5 / 6'>
-        <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a02.delay" min="0" value={{itemAudioDelay02}}
-            style='width: 3em'>
-    </div>
-    <!--Explosion Audio Volume-->
-    <div style='grid-column: 3 / 4;grid-row: 5 / 6'>
-        <label>{{localize "AUTOANIM.volume"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a02.volume" min="0" max="1" step="0.01"
-            style='width: 3em' value={{itemAudioVolume02}}>
-    </div>
-    {{/if}}
-    {{/ifnoteq}}
 </div>
 <div style='padding:3px'>
 
 </div>
-{{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html' }}
+{{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/add-explosion.html')}}
+{{/undefined}}

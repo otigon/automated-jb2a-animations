@@ -6,7 +6,7 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 //import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function meleeAnimation(handler, animationData) {
+export async function meleeAnimation(handler, autoObject) {
     const aaDebug = game.settings.get("autoanimations", "debug")
     function moduleIncludes(test) {
         return !!game.modules.get(test);
@@ -21,15 +21,17 @@ export async function meleeAnimation(handler, animationData) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    const data = animationData.primary;
-    const sourceFX = animationData.sourceFX;
-    const targetFX = animationData.targetFX;
-
+    const data = AAanimationData._primaryData(handler, autoObject);
     if (aaDebug) { aaDebugger("Melee Animation Start", data) }
     const attack = await buildFile(false, data.animation, "melee", data.variant, data.color, data.customPath)
 
     const sourceToken = handler.actorToken;
     const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
+
+    const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
+    const explosionSound = AAanimationData._explosionSound(handler);
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    const targetFX = await AAanimationData._targetFX(handler);
     
     async function cast() {
         let arrayLength = handler.allTargets.length;
@@ -53,7 +55,7 @@ export async function meleeAnimation(handler, animationData) {
                         break;
                     case "custom":
                         if (data.detect === "manual") {
-                            if ((handler.getDistanceTo(target) / canvas.dimensions.distance) > data.switchRange) {
+                            if ((handler.getDistanceTo(target) / canvas.dimensions.distance) > handler.switchRange) {
                                 noMelee = true;
                             }
                         } else if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
@@ -63,7 +65,7 @@ export async function meleeAnimation(handler, animationData) {
                 }
             }
             if (noMelee) {
-                await meleeSwitch(handler, target, data, sourceFX, targetFX)
+                await meleeSwitch(handler, target, autoObject)
             }
             else {
                 /*
@@ -84,12 +86,6 @@ export async function meleeAnimation(handler, animationData) {
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, target)
                 })
-                .sound()
-                    .file(data.itemAudio.file)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .repeats(data.repeat, data.delay)
-                    .playIf(data.playSound)
                 .effect()
                     //.delay(sourceOptions.delayAfter)
                     .file(attack.file)
@@ -107,7 +103,6 @@ export async function meleeAnimation(handler, animationData) {
                         return data;
                     })
                     .playIf(!moveTo)
-                    .waitUntilFinished(data.explosion?.delay)
                 .effect()
                     .file(attack.file)
                     .atLocation(sourceToken)
@@ -120,22 +115,21 @@ export async function meleeAnimation(handler, animationData) {
                     .name("animation")
                     .belowTokens(data.below)
                     .playIf(moveTo)
-                    .waitUntilFinished(data.explosion?.delay)
-                .sound()
-                    .file(data.explosion?.audio?.file)
-                    .playIf(data.explosion?.playSound)
-                    .delay(data.explosion?.audio?.delay)
-                    .volume(data.explosion?.audio?.volume)
-                    .repeats(data.repeat, data.delay)
                 .effect()
                     .atLocation("animation")
-                    .file(data.explosion?.data?.file)
-                    .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
-                    //.delay(500 + data.explosion?.delay)
+                    .file(explosion.data?.file)
+                    .scale({ x: explosion.scale, y: explosion.scale })
+                    .delay(500 + explosion.delay)
                     .repeats(data.repeat, data.delay)
-                    .belowTokens(data.explosion?.below)
-                    .playIf(data.explosion?.enabled)
+                    .belowTokens(explosion.below)
+                    .playIf(explosion.enabled)
                     //.waitUntilFinished(explosionDelay)
+                .sound()
+                    .file(explosionSound.file)
+                    .playIf(() => {return explosion.data && handler.explodeSound})
+                    .delay(explosionSound.delay)
+                    .volume(explosionSound.volume)
+                    .repeats(data.repeat, data.delay)
                 .addSequence(targetSequence.targetSeq)
                 .play()
                 await wait(handler.animEnd)

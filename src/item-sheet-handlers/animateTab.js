@@ -87,23 +87,11 @@ export class AAItemSettings extends FormApplication {
             colormenu: aaColorMenu,
             variantmenu: aaVariantMenu,
             rangeList: patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree,
-            meleeList: patreon ? aaMenuLists.meleeTypes : aaMenuLists.meleeTypesFree,
             spellList: aaMenuLists.attackSpells,
             onTokenList: aaMenuLists.autoself,
             meleeWeapons: aaMenuLists.meleeWeapons,
             genericDmg: aaMenuLists.genericDmg,
             auraList: aaMenuLists.aura,
-
-            itemAudioDelay01: flags.autoanimations?.audio?.a01?.delay || 0,
-            itemAudioVolume01: flags.autoanimations?.audio?.a01?.volume || 0.25,
-            itemAudioDelay02: flags.autoanimations?.audio?.a02?.delay || 0,
-            itemAudioVolume02: flags.autoanimations?.audio?.a02?.volume || 0.25,
-            sourceAudioDelay01: flags.autoanimations?.audio?.s01?.delay || 0,
-            sourceAudioVolume01: flags.autoanimations?.audio?.s01?.volume || 0.25,
-            targetAudioDelay01: flags.autoanimations?.audio?.t01?.delay || 0,
-            targetAudioVolume01: flags.autoanimations?.audio?.t01?.volume || 0.25,
-            delayExAudio: flags.autoanimations?.audio?.e01?.delay || 0,
-            volumeExAudio: flags.autoanimations?.audio?.e01?.volume || 0.25,
 
             explosionMenu: aaMenuLists.explosionMenu,
             autoRecognized: autoCheck,
@@ -136,9 +124,11 @@ export class AAItemSettings extends FormApplication {
             explosionLoops: explosionLoops || 1,
             explosionDelay: flags.autoanimations?.explosions?.delay ?? 0,
 
-            //itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
-            //delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
-            //volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
+            delayExAudio: flags.autoanimations?.allSounds?.explosion?.delay || 0,
+            volumeExAudio: flags.autoanimations?.allSounds?.explosion?.volume || 0.25,
+            itemAudio: flags.autoanimations?.allSounds?.item?.file || "",
+            delayAudio: flags.autoanimations?.allSounds?.item?.delay || 0,
+            volumeAudio: flags.autoanimations?.allSounds?.item?.volume || 0.25,
 
             templateAnimations: AATabFunctions.animTemplates(templateType),
 
@@ -188,9 +178,6 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render());
         });
         html.find('.animation-not-disabled input[type="checkbox"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.animation-disabled input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.animation-not-disabled input[type="Number"]').change(evt => {

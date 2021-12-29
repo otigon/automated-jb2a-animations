@@ -7,7 +7,6 @@ export class aaAutorec {
             melee: {
                 0: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Dagger',
                     animation: 'dagger',
                     variant: '01',
@@ -18,7 +17,6 @@ export class aaAutorec {
                 },
                 1: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Flurry of Blows',
                     animation: 'flurryofblows',
                     variant: 'physical',
@@ -29,7 +27,6 @@ export class aaAutorec {
                 },
                 2: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Greataxe',
                     animation: 'greataxe',
                     variant: '01',
@@ -40,7 +37,6 @@ export class aaAutorec {
                 },
                 3: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Greatclub',
                     animation: 'greatclub',
                     variant: '01',
@@ -51,7 +47,6 @@ export class aaAutorec {
                 },
                 4: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Greatsword',
                     animation: 'greatsword',
                     variant: '01',
@@ -62,7 +57,6 @@ export class aaAutorec {
                 },
                 5: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Handaxe',
                     animation: 'handaxe',
                     variant: '01',
@@ -73,7 +67,6 @@ export class aaAutorec {
                 },
                 6: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Sword',
                     animation: 'sword',
                     variant: '01',
@@ -84,7 +77,6 @@ export class aaAutorec {
                 },
                 7: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Mace',
                     animation: 'mace',
                     variant: '01',
@@ -95,7 +87,6 @@ export class aaAutorec {
                 },
                 8: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Maul',
                     animation: 'maul',
                     variant: '01',
@@ -106,7 +97,6 @@ export class aaAutorec {
                 },
                 9: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Spear',
                     animation: 'spear',
                     variant: '01',
@@ -117,7 +107,6 @@ export class aaAutorec {
                 },
                 10: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Rapier',
                     animation: 'rapier',
                     variant: '01',
@@ -128,7 +117,6 @@ export class aaAutorec {
                 },
                 11: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: 'Unarmed Strike',
                     animation: 'unarmedstrike',
                     variant: 'physical',
@@ -373,7 +361,7 @@ export class aaAutorec {
                     hidden: true,
                     name: "Spirit Guardians",
                     opacity: 0.75,
-                    scale: 3.5,
+                    scale: 7,
                     static: false,
                     tint: '#ffffff',
                     variant: '01',
@@ -429,7 +417,7 @@ export class aaAutorec {
                     subAnimation: "mistystep",
                 }
             },
-            version: 2,
+            version: 1,
         };
         return defaultConfig;
     }

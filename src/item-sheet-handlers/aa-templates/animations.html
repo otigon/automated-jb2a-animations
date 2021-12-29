@@ -45,10 +45,11 @@
         {{#if autoRecognized}}
         <!--If auto-recognized, Animation name will be listed here-->
         <div class="form-group auto-recognized" style='grid-column: 1 / 2;grid-row: 5 / 6;'>
-            <label><strong>{{OldName}}</strong> {{localize "AUTOANIM.autorecognized"}} </label>
+            <label><strong>{{OldName}}</strong> is configured in the Global
+                Settings</label>
         </div>
         <div class="form-group" style='grid-column: 1 / 2;grid-row: 6 / 7;'>
-            <label style='text-align: left;'><strong>{{localize "AUTOANIM.overrideauto"}}</strong></label>
+            <label style='text-align: left;'><strong>Override Automatic Settings</strong></label>
             <div class="aa-divider"></div>
             <input type="checkbox" name="flags.autoanimations.autoOverride.enable"
                 value="flags.autoanimations.autoOverride.enable" {{checked flags.autoanimations.autoOverride.enable}}>
@@ -65,7 +66,9 @@
     <div style='padding:6px'>
 
     </div>
-    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-autoOverride.html' }}
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    '/item-autoOverride.html')}}
+    {{/undefined}}
     <div style='padding:6px'>
 
     </div>
@@ -93,64 +96,41 @@
 {{#unless flags.autoanimations.killAnim}}
 <div class='animation-not-disabled'>
     {{#if melee}}
-    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-melee.html' }}
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-melee.html')}}
+    {{/undefined}}
     {{/if}}
 
     {{#if range}}
-    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ranged.html' }}
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    '/item-ranged.html')}}
+    {{/undefined}}
     {{/if}}
 
     {{#if static}}
-    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ontoken.html' }}
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    '/item-ontoken.html')}}
+    {{/undefined}}
     {{/if}}
 
     {{#if template}}
-    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-templates.html' }}
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    '/item-templates.html')}}
+    {{/undefined}}
     {{/if}}
 
     {{#if aura}}
-    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-auras.html' }}
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/item-auras.html')}}
+    {{/undefined}}
     {{/if}}
 
     {{#if preset}}
-    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-presets.html' }}
+    {{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus'
+    '/item-presets.html')}}
+    {{/undefined}}
     {{/if}}
 </div>
 {{/unless}}
 
-{{#if flags.autoanimations.killAnim}}
-<div class='aa-item-container animation-disabled'>
-<div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2;grid-row: 1 / 2;'>
-    <label>{{localize "AUTOANIM.sound"}}</label>
-    <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-        value="flags.autoanimations.audio.a01.enable" {{checked
-        flags.autoanimations.audio.a01.enable}}>
-</div>
-{{#if flags.autoanimations.audio.a01.enable}}
-<!--Explosion Audio filePicker and Text Input-->
-<div class='form-group' style='grid-column: 2 / 5;grid-row: 1 / 2'>
-    <input style='width: 25em' type="text" class="files" name="flags.autoanimations.audio.a01.file"
-        value="{{lookup flags.autoanimations.audio.a01 'file'}}">
-    <button type="button" class="file-picker" data-type="audio"
-        data-target="flags.autoanimations.audio.a01.file" tabindex="-1" title="Browse Files">
-        <i class="fas fa-music"></i>
-    </button>
-</div>
-<!--Explosion Audio Delay-->
-<div style='grid-column: 4 / 5;grid-row: 2 / 3'>
-    <label>{{localize "AUTOANIM.delay"}}</label>
-    <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value={{itemAudioDelay01}}
-        style='width: 3em'>
-</div>
-<!--Explosion Audio Volume-->
-<div style='grid-column: 3 / 4;grid-row: 2 / 3'>
-    <label>{{localize "AUTOANIM.volume"}}</label>
-    <input type="Number" name="flags.autoanimations.audio.a01.volume" min="0" max="1" step="0.01"
-        style='width: 3em' value={{itemAudioVolume01}}>
-</div>
-{{/if}}
-{{/if}}
-</div>
 {{#unless flags.autoanimations.killAnim}}
 <div class="aa-video">
     {{{content}}}

@@ -7,17 +7,16 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function thunderwaveAuto(handler, data) {
+export async function thunderwaveAuto(handler, autoObject) {
     const aaDebug = game.settings.get("autoanimations", "debug")
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    /*
     const data = {}
     if (autoObject) {
         const autoOverridden = handler.autoOverride?.enable
         Object.assign(data, autoObject)
-        //data.itemName = data.animation || "";
+        data.itemName = data.animation || "";
         data.customPath = data.custom ? data.customPath : false;
         data.color = autoOverridden ? handler.autoOverride?.color : data.color;
         data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
@@ -25,7 +24,7 @@ export async function thunderwaveAuto(handler, data) {
         data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
         data.occlusionMode = parseInt(data.occlusionMode);
     } else {
-        //data.itemName = handler.convertedName;
+        data.itemName = handler.convertedName;
         data.variant = handler.options?.variant;
         data.color = handler.color;
         data.repeat = handler.options?.repeat;
@@ -40,7 +39,6 @@ export async function thunderwaveAuto(handler, data) {
         data.occlusionMode = parseInt(handler.options?.occlusionMode ?? "3");
         data.removeTemplate = handler.options?.removeTemplate;
     }
-    */
     const sourceToken = handler.actorToken;
     if (aaDebug) { aaDebugger("Thunderwave Animation Start", data) }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
@@ -58,6 +56,16 @@ export async function thunderwaveAuto(handler, data) {
             color = random_item(colors);
         default:
             color = data.color;
+    }
+
+    let templateSound = handler.allSounds?.item;
+    let templateVolume = 0.25;
+    let templateDelay = 1;
+    let templateFile = "";
+    if (handler.itemSound) {
+        templateVolume = templateSound?.volume || 0.25;
+        templateDelay = templateSound?.delay === 0 ? 1 : templateSound?.delay;
+        templateFile = templateSound?.file;
     }
 
     const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
@@ -158,10 +166,11 @@ export async function thunderwaveAuto(handler, data) {
         socketlibSocket.executeAsGM("placeTile", tileData)
         new Sequence("Automated Animations")
             .sound()
-                .file(data.itemAudio.file)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-                .playIf(data.playSound)        
+            .file(templateFile)
+            .playIf(handler.itemSound)
+            .delay(templateDelay)
+            .volume(templateVolume)
+            .repeats(handler.animationLoops, handler.loopDelay)
             .play()
         if (data.removeTemplate) {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
@@ -176,19 +185,20 @@ export async function thunderwaveAuto(handler, data) {
             .thenDo(function () {
                 Hooks.callAll("aa.animationStart", sourceToken, "no-target")
             })
-            .sound()
-                .file(data.itemAudio.file)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-                .repeats(data.repeat, data.delay)
-                .playIf(data.playSound)        
             .effect()
+
                 .file(anFile)
                 .atLocation({x: tempX + (gridSize * 1.5), y: tempY + (gridSize * 1.5)})
                 .anchor({x: 0.5, y: 0.5})
                 .rotate(ang)
                 .scale(scale)
                 .belowTokens(false)
+                .repeats(data.repeat, data.delay)
+            .sound()
+                .file(templateFile)
+                .playIf(handler.itemSound)
+                .delay(templateDelay)
+                .volume(templateVolume)
                 .repeats(data.repeat, data.delay)
             .play()
         await wait(500)

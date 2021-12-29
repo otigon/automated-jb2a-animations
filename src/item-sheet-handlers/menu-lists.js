@@ -332,18 +332,6 @@ function menuLists() {
         "staticborder": game.i18n.localize("AUTOANIM.static"),
         "spinningborder": game.i18n.localize("AUTOANIM.spinning")
     }
-
-    aaMenuLists.meleeTypes = {
-        "a1": ``,
-        "weapon": game.i18n.localize("AUTOANIM.itemWeapon"),
-        "generic": game.i18n.localize("AUTOANIM.generic"),
-    }
-
-    aaMenuLists.meleeTypesFree = {
-        "a1": ``,
-        "weapon": game.i18n.localize("AUTOANIM.itemWeapon"),
-    }
-
 }
 
 export { aaMenuLists }

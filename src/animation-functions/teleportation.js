@@ -1,7 +1,7 @@
 import { buildFile} from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
-
-export async function teleportation(handler, animationData) {
+import { AAanimationData } from "../aa-classes/animation-data.js";
+export async function teleportation(handler, autoObject) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (handler.itemMacro.toLowerCase().includes("misty step")) {
@@ -11,18 +11,27 @@ export async function teleportation(handler, animationData) {
     const sourceToken = handler.actorToken;
     const actor = handler.actor;
 
-    const data = animationData.primary;
-    const sourceFX = animationData.sourceFX;
-
-    if (data.isAuto) {
+    const data = {};
+    if (autoObject) {
+        const autoOverridden = handler.autoOverride?.enable
+        Object.assign(data, autoObject);
         data.itemName = data.subAnimation || "";
-        data.teleDist = data.range || 30;
+        data.customPath = data.custom ? data.customPath : false;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
     } else {
-        data.itemName = data.options?.name || "";
+        data.itemName = handler.options?.name;
+        data.variant = handler.option?.variant;
+        data.customPath = handler.options?.enableCustom ? handler.options.customPath : false;
+        data.color = handler.color;
+        data.scale = handler.scale;
+        data.range = handler.teleDist;
+        data.hideTemplate = handler.options?.hideTemplate;
     }
     if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
     const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
 
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const sourceScale = sourceToken.w;
 
     let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
@@ -53,7 +62,7 @@ export async function teleportation(handler, animationData) {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
         let ray = new Ray(sourceToken.center, pos)
-        if (ray.distance > ((canvas.grid.size * (data.teleDist / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
+        if (ray.distance > ((canvas.grid.size * (data.range / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
             ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
         } else {
             deleteTemplatesAndMove();
@@ -71,11 +80,6 @@ export async function teleportation(handler, animationData) {
 
         new Sequence("Automated Animations")
             .addSequence(sourceFX.sourceSeq)
-            .sound()
-                .file(data.itemAudio.file)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-                .playIf(data.playSound)
             .effect()
                 .file(onToken.file)
                 .atLocation(sourceToken)

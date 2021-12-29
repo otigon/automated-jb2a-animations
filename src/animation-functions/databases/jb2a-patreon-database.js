@@ -4515,7 +4515,6 @@ JB2APATREONDB.static = {
 }
 
 JB2APATREONDB.return = {
-    _template: 'ranged',
     chakram: {
         '01': {
             white: {

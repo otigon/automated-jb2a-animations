@@ -5,33 +5,70 @@ import { aaDebugger } from "../constants/constants.js"
 import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function templateAnimation(handler, animationData) {
+export async function templateAnimation(handler, autoObject) {
     const aaDebug = game.settings.get("autoanimations", "debug")
     const sourceToken = handler.actorToken;
 
-    const data = animationData.primary;
-    const sourceFX = animationData.sourceFX;
-
-    if (data.isAuto) {
-        data.type = data.type;
-        data.persistent = data.persist || false;
+    const data = {}
+    if (autoObject) {
+        const autoOverridden = handler.autoOverride?.enable
+        Object.assign(data, autoObject)
+        data.itemName = data.animation || "";
+        data.below = data.below || false;
+        data.customPath = data.custom ? data.customPath : false;
+        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+        data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
+        data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
+        data.occlusionMode = parseInt(data.occlusionMode);
+        data.opacity = data.opacity || 1;
+        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+        data.persistType = data.overhead ? 'overheadtile' : data.persistType || 'sequencerground';
+        data.scale = autoOverridden ? handler.autoOverride?.scale || 1 : data.scale || 1;
     } else {
+        data.itemName = handler.convertedName;
+        data.variant = handler.options?.variant;
+        data.color = handler.color;
+        data.repeat = handler.options?.repeat;
+        data.delay = handler.options?.delay;
+        data.customPath = handler.options?.enableCustom ? handler.options.customPath : false;
+        data.below = handler.below;
         data.type = handler.options?.tempType;
+        data.persist = handler.options?.persistent;
+        data.overhead = handler.options?.overhead;
+        data.opacity = handler.options?.opacity || 1;
+        data.occlusionAlpha = handler.options?.occlusionAlpha ?? "0";
+        data.occlusionMode = parseInt(handler.options?.occlusionMode ?? "3");
+        data.removeTemplate = handler.options?.removeTemplate;
+        data.persistType = handler.options?.persistType || "sequencerground";
+        data.scale = handler.options?.scale || 1;
     }
 
     if (aaDebug) { aaDebugger("Template Animation Start", data) }
-    if (data.animation === 'thunderwave') {
-        thunderwaveAuto(handler, data);
+    if (data.itemName === 'thunderwave') {
+        thunderwaveAuto(handler, autoObject);
         return;
     }
 
-    const tempAnimation = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath)
+    const tempAnimation = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath)
+
+    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
     const videoWidth = tempAnimation.metadata.width;
     const videoHeight = tempAnimation.metadata.height;
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
+
+    let templateSound = handler.allSounds?.item;
+    let templateVolume = 0.25;
+    let templateDelay = 1;
+    let templateFile = "";
+    if (handler.itemSound) {
+        templateVolume = templateSound?.volume || 0.25;
+        templateDelay = templateSound?.delay === 0 ? 1 : templateSound?.delay;
+        templateFile = templateSound?.file;
+    }
 
     async function cast() {
         const templateObject = canvas.templates.placeables[canvas.templates.placeables.length - 1]
@@ -65,8 +102,8 @@ export async function templateAnimation(handler, animationData) {
                 yAnchor = 0.5;
                 break;
             case "rect":
-                if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.data?.data?.target?.type)) {
-                    templateW = Math.sqrt(Math.pow(template.data.distance, 2) - Math.pow((handler.item.data?.data?.target?.value * 2), 2));
+                if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.data.data.target.type)) {
+                    templateW = Math.sqrt(Math.pow(template.data.distance, 2) - Math.pow((handler.item.data.data.target.value * 2), 2));
                     templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
                     scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
                     scaleY = scaleX;
@@ -115,7 +152,7 @@ export async function templateAnimation(handler, animationData) {
                 break;
         }
         //const occlusionAlpha = parseInt(alpha);
-        if (data.persistent && (data.type === "circle" || data.type === "rect") && data.persistType === 'overheadtile') {
+        if (data.persist && (data.type === "circle" || data.type === "rect") && data.persistType === 'overheadtile') {
 
             const templateData = {
                     alpha: data.opacity,
@@ -139,19 +176,20 @@ export async function templateAnimation(handler, animationData) {
                 }
             socketlibSocket.executeAsGM("placeTile", templateData)
             new Sequence()
-            .sound()
-                .file(data.itemAudio.file)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-                .playIf(data.playSound)
-            .play()
+                .sound()
+                .file(templateFile)
+                .playIf(handler.itemSound)
+                .delay(templateDelay)
+                .volume(templateVolume)
+                .repeats(data.repeat, data.delay)
+                .play()
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }
             AAanimationData.howToDelete("overheadtile")
             //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
         }
-        if (data.persistent && (data.type === "circle" || data.type === "rect") && data.persistType === 'groundtile') {
+        if (data.persist && (data.type === "circle" || data.type === "rect") && data.persistType === 'groundtile') {
 
             const templateData = {
                     alpha: data.opacity,
@@ -171,28 +209,24 @@ export async function templateAnimation(handler, animationData) {
                 }
             socketlibSocket.executeAsGM("placeTile", templateData)
             new Sequence()
-            .sound()
-                .file(data.itemAudio.file)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-                .playIf(data.playSound)
-            .play()
+                .sound()
+                .file(templateFile)
+                .playIf(handler.itemSound)
+                .delay(templateDelay)
+                .volume(templateVolume)
+                .repeats(data.repeat, data.delay)
+                .play()
             if (data.removeTemplate) {
                 canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
             }            
             AAanimationData.howToDelete("groundtile")
         }
-        if (data.persistent && data.persistType === 'sequencerground') {
+        if (data.persist && data.persistType === 'sequencerground') {
             await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, "no-target")
                 })
-                .sound()
-                    .file(data.itemAudio.file)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .playIf(data.playSound)
                 .effect()
                     .file(tempAnimation.file)
                     .atLocation(template)
@@ -207,11 +241,17 @@ export async function templateAnimation(handler, animationData) {
                     })
                     //.anchor({ x: xAnchor, y: yAnchor })
                     .rotate(rotate)
-                    .persist(data.persistent)
+                    .persist(data.persist)
                     .origin(handler.item.uuid)
                     .opacity(data.opacity)
                     .scale({ x: scaleX * data.scale, y: scaleY * data.scale })
                     .belowTokens(data.below)
+                    .repeats(data.repeat, data.delay)
+                .sound()
+                    .file(templateFile)
+                    .playIf(handler.itemSound)
+                    .delay(templateDelay)
+                    .volume(templateVolume)
                     .repeats(data.repeat, data.delay)
                 .play()
             if (data.removeTemplate) {
@@ -222,7 +262,7 @@ export async function templateAnimation(handler, animationData) {
             AAanimationData.howToDelete("sequencerground")
         }
 
-        if (data.persistent && data.persistType === 'attachtemplate') {
+        if (data.persist && data.persistType === 'attachtemplate') {
             if (data.removeTemplate) {
                 console.warn("You are attempting to delete the Template but the Animation is attached to it. You must manually delete it")
             }
@@ -231,11 +271,6 @@ export async function templateAnimation(handler, animationData) {
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, "no-target")
                 })
-                .sound()
-                    .file(data.itemAudio.file)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .playIf(data.playSound)
                 .effect()
                     .file(tempAnimation.file)
                     .attachTo(templateObject)
@@ -243,23 +278,23 @@ export async function templateAnimation(handler, animationData) {
                     .opacity(data.opacity)
                     .origin(handler.item.uuid)
                     .scaleToObject(data.scale)
+                .sound()
+                    .file(templateFile)
+                    .playIf(handler.itemSound)
+                    .delay(templateDelay)
+                    .volume(templateVolume)
+                    .repeats(data.repeat, data.delay)
                 .play()
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
         }
 
-        if (!data.persistent) {
+        if (!data.persist) {
             await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function () {
                     Hooks.callAll("aa.animationStart", sourceToken, "no-target")
                 })
-                .sound()
-                    .file(data.itemAudio.file)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .repeats(data.repeat, data.delay)
-                    .playIf(data.playSound)
                 .effect()
                     .file(tempAnimation.file)
                     .atLocation(template)
@@ -279,6 +314,12 @@ export async function templateAnimation(handler, animationData) {
                     .origin(handler.item.uuid)
                     .scale({ x: scaleX * data.scale, y: scaleY * data.scale })
                     .belowTokens(data.below)
+                    .repeats(data.repeat, data.delay)
+                .sound()
+                    .file(templateFile)
+                    .playIf(handler.itemSound)
+                    .delay(templateDelay)
+                    .volume(templateVolume)
                     .repeats(data.repeat, data.delay)
                 .play()
             if (data.removeTemplate) {
