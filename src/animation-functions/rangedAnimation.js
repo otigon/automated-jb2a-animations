@@ -4,7 +4,7 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function rangedAnimations(handler, autoObject) {
+export async function rangedAnimations(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Sets JB2A database and Global Delay
@@ -12,18 +12,14 @@ export async function rangedAnimations(handler, autoObject) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    const data = AAanimationData._primaryData(handler, autoObject);
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+    const targetFX = animationData.targetFX;
+
     if (aaDebug) { aaDebugger("Ranged Animation Start", data) }
     const attack = await buildFile(false, data.animation, "range", data.variant, data.color)
 
     const sourceToken = handler.actorToken;
-
-    const explosion = handler.explosion.enable ? await AAanimationData._explosionData(handler) : {};
-    const explosionSound = AAanimationData._explosionSound(handler);
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    const targetFX = await AAanimationData._targetFX(handler);
-
-    //const scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
 
     async function cast() {
         let arrayLength = handler.allTargets.length;
@@ -46,33 +42,37 @@ export async function rangedAnimations(handler, autoObject) {
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function() {
                     Hooks.callAll("aa.animationStart", sourceToken, target)
-                })                       
+                })
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .repeats(data.repeat, data.delay)
+                    .playIf(data.playSound)
                 .effect()
                     .file(attack.file)
                     .atLocation(sourceToken)
                     .reachTowards(target)
-                    //.JB2A()
                     .randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
                     .missed(hit)
                     .name("animation")
                     .belowTokens(data.below)
-                    //.waitUntilFinished(-500 + handler.explosionDelay)
+                    //.waitUntilFinished(data.explosion?.delay)
+                .sound()
+                    .file(data.explosion?.audio?.file)
+                    .playIf(data.explosion?.playSound)
+                    .delay(data.explosion?.audio?.delay + data.explosion?.delay)
+                    .volume(data.explosion?.audio?.volume)
+                    .repeats(data.repeat, data.delay)
                 .effect()
                     .atLocation("animation")
-                    .file(explosion.data?.file)
-                    .scale({ x: explosion.scale, y: explosion.scale })
-                    .delay(500 + explosion.delay)
+                    .file(data.explosion?.data?.file)
+                    .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                    .delay(data.explosion?.delay)
                     .repeats(data.repeat, data.delay)
-                    .belowTokens(explosion.below)
-                    .playIf(explosion.enabled)
-                    //.waitUntilFinished(explosionDelay)
-                .sound()
-                    .file(explosionSound.file)
-                    .playIf(() => {return explosion.enabled && handler.explodeSound})
-                    .delay(explosionSound.delay)
-                    .volume(explosionSound.volume)
-                    .repeats(data.repeat, data.delay)
+                    .belowTokens(data.explosion?.below)
+                    .playIf(data.explosion?.enabled)
                 .addSequence(targetSequence.targetSeq)
                 .play()
                 await wait(handler.animEnd)
