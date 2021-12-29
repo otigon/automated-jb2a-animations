@@ -15,37 +15,32 @@ import { auras } from "../animation-functions/aura-attach.js";
 import { aaDebugger } from "../constants/constants.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { fireball } from "../animation-functions/custom-sequences/fireball.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function itemSound(handler) {
-    let audio = handler.allSounds.item;
-    if (handler.itemSound) {
-        await wait(audio.delay);
-        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-    }
-}
-
 export async function trafficCop(handler) {
     const aaDebug = game.settings.get("autoanimations", "debug")
-    /*
-    if (handler.itemSound) {
-        itemSound(handler);
-    }
-    */
-    if (handler.animKill) {
-        if (aaDebug) { aaDebugger("Animations Disabled on Item") }
-        itemSound(handler)
+
+    if (handler.soundNoAnimation) {
+        new Sequence()
+            .sound()
+                .file(handler.flags?.audio?.a01?.file)
+                .volume(handler.flags?.audio?.a01?.volume)
+                .delay(handler.flags?.audio?.a01?.delay)
+            .play()
+        return;
+    } else if (handler.animKill) {
         return;
     }
-    //const itemName = handler.convertedName;
     const animType = handler.animType;
-    const animName = handler.animation;
+    const animName = handler.flags?.animation;
     const override = handler.animOverride;
     const targets = handler.allTargets?.length ?? 0;
+    let aaTemplateHook;
     if (override) {
+        const animationData = await AAanimationData._getAnimationData(handler)
         if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets, handler.flags]) }
-        if (animType === 'template' || (animType === 'preset' && handler.animation === 'fireball')) { } else { itemSound(handler) }
         switch (animType) {
             case "melee":
                 if (targets === 0) {
@@ -54,7 +49,7 @@ export async function trafficCop(handler) {
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                meleeAnimation(handler);
+                meleeAnimation(handler, animationData);
                 break;
             case "range":
                 if (targets === 0) {
@@ -63,44 +58,32 @@ export async function trafficCop(handler) {
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                rangedAnimations(handler);
+                rangedAnimations(handler, animationData);
                 break;
             case "static":
-                /*
-                if (targets === 0) {
-                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                    if (aaDebug) { aaDebugger("Creature Animation End", "NO TARGETS") }
-                    return;
-                }
-                */
                 Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                staticAnimation(handler);
+                staticAnimation(handler, animationData);
                 break;
             case "template":
-                if (game.modules.get("midi-qol")?.active) { return; }
                 //some do not need hook on template, depends on when damage is rolled
                 switch (game.system.id) {
                     case "dnd5e":
                     case "pf2e":
                         if (game.modules.get("mars-5e")?.active) {
-                            templateAnimation(handler);
+                            templateAnimation(handler, animationData);
                         } else {
-                            Hooks.once("createMeasuredTemplate", () => {
-                                templateAnimation(handler);
+                            aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
+                                templateAnimation(handler, animationData);
                             });
+                            setTimeout(killHook, 30000)
                         }
                         break;
                     default:
-                        templateAnimation(handler);
+                        templateAnimation(handler, animationData);
                 }
                 break;
             case "aura":
-                /*
-                if (game.modules.get("Custom-Token-Animations")?.active) {
-                    ctaCall(handler);
-                } else { ui.notifications.error("Custom Token Animations module must be Active") }
-                */
-                auras(handler)
+                auras(handler, animationData)
                 break;
             case "preset":
                 switch (animName) {
@@ -108,19 +91,19 @@ export async function trafficCop(handler) {
                         bardicInspiration(handler);
                         break;
                     case "shieldspell":
-                        shieldSpell(handler);
+                        shieldSpell(handler, animationData);
                         break;
                     case "huntersmark":
-                        huntersMark(handler)
+                        huntersMark(handler, animationData)
                         break;
                     case "sneakattack":
-                        sneakAttack(handler);
+                        sneakAttack(handler, animationData);
                         break;
                     case "bless":
-                        bless(handler);
+                        bless(handler, animationData);
                         break;
                     case "teleportation":
-                        teleportation(handler)
+                        teleportation(handler, animationData)
                         break;
                     case "fireball":
                         switch (game.system.id) {
@@ -129,9 +112,10 @@ export async function trafficCop(handler) {
                                 if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
                                     fireball(handler);
                                 } else {
-                                    Hooks.once("createMeasuredTemplate", () => {
+                                    aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
                                         fireball(handler);
                                     });
+                                    setTimeout(killHook, 30000)
                                 }
                                 break;
                             default:
@@ -144,14 +128,16 @@ export async function trafficCop(handler) {
     } else {
         if (!game.settings.get("autoanimations", "disableAutoRec")) {
             if (aaDebug) { aaDebugger("Automatic Recognition Beginning") }
-            const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+            //const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
             //const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);//gets ALL names in Autorec sorted longest to shortest
             //const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName); //checks autoNameList against current name
             const autoName = AutorecFunctions._rinseName(handler.itemName); //removes all spaces in the name
-            const isAuto = AutorecFunctions.foundInAutorec(autoRecSettings, autoName);
+            const isAuto = AutorecFunctions.foundInAutorec(handler.autorecSettings, autoName);
 
             if (isAuto) {
-                const autoObject = AutorecFunctions._findObjectFromArray(autoRecSettings, autoName) // combines Autorec menus and sorts by name length, returns object
+                //const autoObject = AutorecFunctions._findObjectFromArray(handler.autorecSettings, autoName) // combines Autorec menus and sorts by name length, returns object
+                const autoObject = handler.autorecObject;
+                const animationData = await AAanimationData._getAnimationData(handler, autoObject)
                 switch (autoObject.menuSection) {
                     case 'melee':
                         if (targets === 0) {
@@ -161,8 +147,7 @@ export async function trafficCop(handler) {
                         }
                         Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                         if (aaDebug) { aaDebugger("Pre Melee Animation", autoObject) }
-                        itemSound(handler)
-                        meleeAnimation(handler, autoObject);
+                        meleeAnimation(handler, animationData);
                         break;
                     case 'range':
                         if (targets === 0) {
@@ -172,51 +157,44 @@ export async function trafficCop(handler) {
                         }
                         Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                         if (aaDebug) { aaDebugger("Pre Range Animation", autoObject) }
-                        itemSound(handler)
-                        rangedAnimations(handler, autoObject);
+                        rangedAnimations(handler, animationData);
                         break;
                     case 'static':
                         Hooks.callAll("aa.preAnimationStart", handler.actorToken);
                         if (aaDebug) { aaDebugger("Pre Static Animation", autoObject) }
-                        itemSound(handler)
-                        staticAnimation(handler, autoObject);
+                        staticAnimation(handler, animationData);
                         break;
                     case 'templates':
                         if (aaDebug) { aaDebugger("Pre Template Animation", autoObject) }
-                        Hooks.once("createMeasuredTemplate", () => {
-                            templateAnimation(handler, autoObject);
+                        aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
+                            templateAnimation(handler, animationData);
                         })
+                        setTimeout(killHook, 30000)
                         break;
                     case 'auras':
                         if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
-                        itemSound(handler)
-                        auras(handler, autoObject)
+                        auras(handler, animationData)
                         break;
                     case 'preset':
                         if (aaDebug) { aaDebugger("Pre Preset Animation", autoObject) }
                         switch (autoObject.animation) {
                             case 'bardicinspiration':
-                                itemSound(handler)
                                 bardicInspiration(handler, autoObject);
                                 break;
                             case 'bless':
-                                itemSound(handler)
-                                bless(handler, autoObject);
+                                bless(handler, animationData);
                                 break;
                             case 'shieldspell':
-                                itemSound(handler)
-                                shieldSpell(handler, autoObject);
+                                shieldSpell(handler, animationData);
                                 break;
                             case 'huntersmark':
-                                huntersMark(handler, autoObject);
+                                huntersMark(handler, animationData);
                                 break;
                             case 'teleportation':
-                                itemSound(handler)
-                                teleportation(handler, autoObject);
+                                teleportation(handler, animationData);
                                 break;
                             case 'sneakattack':
-                                itemSound(handler);
-                                sneakAttack(handler, autoObject);
+                                sneakAttack(handler, animationData);
                                 break;
                             case "fireball":
                                 switch (game.system.id) {
@@ -225,9 +203,10 @@ export async function trafficCop(handler) {
                                         if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
                                             fireball(handler, autoObject, true);
                                         } else {
-                                            Hooks.once("createMeasuredTemplate", () => {
+                                            aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
                                                 fireball(handler, autoObject, true);
                                             });
+                                            setTimeout(killHook, 30000)
                                         }
                                         break;
                                     default:
@@ -238,94 +217,11 @@ export async function trafficCop(handler) {
                         break;
                 }
             } else {
-                itemSound(handler)
+                //itemSound(handler)
             }
-            /*
-            switch (true) {
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'melee'), autoName):
-                    if (targets === 0) {
-                        Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                        if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
-                        return;
-                    }
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const meleeAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'melee', autoName);
-                    if (aaDebug) { aaDebugger("Pre Melee Animation", meleeAutoObject) }
-                    meleeAnimation(handler, meleeAutoObject);
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'range'), autoName):
-                    if (targets === 0) {
-                        Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                        if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
-                        return;
-                    }
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const rangeAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'range', autoName);
-                    if (aaDebug) { aaDebugger("Pre Range Animation", rangeAutoObject) }
-                    rangedAnimations(handler, rangeAutoObject);
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'static'), autoName):
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const staticAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'static', autoName);
-                    if (aaDebug) { aaDebugger("Pre Static Animation", staticAutoObject) }
-                    staticAnimation(handler, staticAutoObject);
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'templates'), autoName):
-                    const templateAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'templates', autoName);
-                    if (aaDebug) { aaDebugger("Pre Template Animation", templateAutoObject) }
-                    Hooks.once("createMeasuredTemplate", () => {
-                        templateAnimation(handler, templateAutoObject);
-                    })
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'auras'), autoName):
-                    const auraAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'auras', autoName);
-                    if (aaDebug) { aaDebugger("Pre CTA Animation", auraAutoObject) }
-                    //ctaCall(handler, auraAutoObject);
-                    auras(handler, auraAutoObject)
-                    break;
-                case AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(autoRecSettings, 'preset'), autoName):
-                    const presetAutoObject = AutorecFunctions._findObjectByName(autoRecSettings, 'preset', autoName);
-                    if (aaDebug) { aaDebugger("Pre Preset Animation", presetAutoObject) }
-                    switch (presetAutoObject[0].animation) {
-                        case 'bardicinspiration':
-                            bardicInspiration(handler, presetAutoObject);
-                            break;
-                        case 'bless':
-                            bless(handler, presetAutoObject);
-                            break;
-                        case 'shieldspell':
-                            shieldSpell(handler, presetAutoObject);
-                            break;
-                        case 'teleportation':
-                            teleportation(handler, presetAutoObject)
-                            break;
-                        case 'sneakattack':
-                            sneakAttack(handler, presetAutoObject)
-                            break;
-                        
-                        case "fireball":
-                            switch (game.system.id) {
-                                case "dnd5e":
-                                case "pf2e":
-                                    if (game.modules.get("mars-5e")?.active || game.modules.get('midi-qol')?.active) {
-                                        fireball(handler, presetAutoObject);
-                                    } else {
-                                        Hooks.once("createMeasuredTemplate", () => {
-                                            fireball(handler, presetAutoObject);
-                                        });
-                                    }
-                                    break;
-                                default:
-                                    fireball(handler, presetAutoObject);
-                            }            
-                            break;       
-                            
-                    }
-                    break;
-                default:
-                    aaDebugger(aaDebug, "No Automatic Recognition Found");
-            }
-            */
         }
+    }
+    function killHook () {
+        Hooks.off("createMeasuredTemplate", aaTemplateHook)
     }
 }
