@@ -255,7 +255,7 @@ function menuLists() {
         "crackedshieldct": game.i18n.localize("AUTOANIM.crackedshield"),
         "skullct": game.i18n.localize("AUTOANIM.skull"),
         "snowflakesct": game.i18n.localize("AUTOANIM.snowflakes"),
-        "stunct": game.i18n.localize("AUTOANIM.stun"),
+        "stun": game.i18n.localize("AUTOANIM.stun"),
     }
 
     aaMenuLists.rectangleAnimations = {
@@ -266,17 +266,17 @@ function menuLists() {
         "grease": game.i18n.localize("AUTOANIM.grease"),
         "thunderwave": game.i18n.localize("AUTOANIM.itemThunderwave"),
         "web": game.i18n.localize("AUTOANIM.web"),
-        "dropst": game.i18n.localize("AUTOANIM.drop"),
-        "fearst": game.i18n.localize("AUTOANIM.fear"),
-        "heartst": game.i18n.localize("AUTOANIM.heart"),
-        "horrorst": game.i18n.localize("AUTOANIM.horror"),
-        "poisonst": game.i18n.localize("AUTOANIM.poison"),
-        "runesst": game.i18n.localize("AUTOANIM.runes"),
-        "shieldsst": game.i18n.localize("AUTOANIM.shield"),
-        "crackedshieldst": game.i18n.localize("AUTOANIM.crackedshield"),
-        "skullst": game.i18n.localize("AUTOANIM.skull"),
-        "snowflakesst": game.i18n.localize("AUTOANIM.snowflakes"),
-        "stunst": game.i18n.localize("AUTOANIM.stun"),
+        "dropct": game.i18n.localize("AUTOANIM.drop"),
+        "fearct": game.i18n.localize("AUTOANIM.fear"),
+        "heartct": game.i18n.localize("AUTOANIM.heart"),
+        "horrorct": game.i18n.localize("AUTOANIM.horror"),
+        "poisonct": game.i18n.localize("AUTOANIM.poison"),
+        "runesct": game.i18n.localize("AUTOANIM.runes"),
+        "shieldsct": game.i18n.localize("AUTOANIM.shield"),
+        "crackedshieldct": game.i18n.localize("AUTOANIM.crackedshield"),
+        "skullct": game.i18n.localize("AUTOANIM.skull"),
+        "snowflakesct": game.i18n.localize("AUTOANIM.snowflakes"),
+        "stun": game.i18n.localize("AUTOANIM.stun"),
     }
 
     aaMenuLists.tokenAnimations = {
@@ -332,6 +332,18 @@ function menuLists() {
         "staticborder": game.i18n.localize("AUTOANIM.static"),
         "spinningborder": game.i18n.localize("AUTOANIM.spinning")
     }
+
+    aaMenuLists.meleeTypes = {
+        "a1": ``,
+        "weapon": game.i18n.localize("AUTOANIM.itemWeapon"),
+        "generic": game.i18n.localize("AUTOANIM.generic"),
+    }
+
+    aaMenuLists.meleeTypesFree = {
+        "a1": ``,
+        "weapon": game.i18n.localize("AUTOANIM.itemWeapon"),
+    }
+
 }
 
 export { aaMenuLists }
