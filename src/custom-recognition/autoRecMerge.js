@@ -61,6 +61,17 @@ export const autoRecMigration = {
             }
             currentAutorec.version = 1;
             await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+        },
+        "2": async (currentAutorec) => {
+            const meleeObject = currentAutorec.melee;
+            if (meleeObject) {
+                const meleeLength = Object.keys(meleeObject).length;
+                for (var i = 0; i < meleeLength; i++) {
+                    meleeObject[i].meleeType = "weapon";
+                }
+            }
+            currentAutorec.version = 2;
+            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
         }
     }
 }

@@ -4,52 +4,53 @@
 		<a class='item' data-tab='range'><i class="fas fa-people-arrows fa-lg"></i>{{localize "AUTOANIM.ranged"}}</a>
 		<a class='item' data-tab='self'><i class="fas fa-child fa-lg"></i></i>{{localize "AUTOANIM.onToken"}}</a>
 		<a class='item' data-tab='template'><i class="fas fa-shapes fa-lg"></i></i>{{localize "AUTOANIM.templates"}}</a>
-		<a class='item' data-tab='aura'><i class="fab fa-creative-commons-by fa-lg"></i></i>{{localize "AUTOANIM.typeAuras"}}</a>
+		<a class='item' data-tab='aura'><i class="fab fa-creative-commons-by fa-lg"></i></i>{{localize
+			"AUTOANIM.typeAuras"}}</a>
 		<a class='item' data-tab='presets'><i class="fas fa-gift fa-lg"></i></i>{{localize "AUTOANIM.presets"}}</a>
 	</nav>
 
 	<section class='content'>
 		<input type='Number' class='hideme' name='aaAutorec.version' style="display:none" value={{currentAutoVersion}}>
 		<div class='form-fields'>
-			<input type='text' name="aaAutorec.search" value="{{settings.aaAutorec.search}}" placeholder="{{localize 'AUTOANIM.search'}}"
-				id="aatest" autofocus class='auto-search' />
+			<input type='text' name="aaAutorec.search" value="{{settings.aaAutorec.search}}"
+				placeholder="{{localize 'AUTOANIM.search'}}" id="aatest" autofocus class='auto-search' />
 		</div>
 		<div class='tab' data-tab='melee' data-group='sections'>
-			{{#> (aaConcat 'modules/autoanimations/src/custom-recognition/autorec-templates' '/aa-melee-autorec.html')}}
-			{{/undefined}}
+			{{> 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-melee-autorec.html' }}
 		</div>
 		<div class='tab' data-tab='range' data-group='sections'>
-			{{#> (aaConcat 'modules/autoanimations/src/custom-recognition/autorec-templates' '/aa-ranged-autorec.html')}}
-			{{/undefined}}
+			{{> 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-ranged-autorec.html' }}
 		</div>
 		<div class='tab' data-tab='self' data-group='sections'>
-			{{#> (aaConcat 'modules/autoanimations/src/custom-recognition/autorec-templates' '/aa-static-autorec.html')}}
-			{{/undefined}}
+			{{> 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-static-autorec.html' }}
 		</div>
 		<div class='tab' data-tab='template' data-group='sections'>
-			{{#> (aaConcat 'modules/autoanimations/src/custom-recognition/autorec-templates' '/aa-templates-autorec.html')}}
-			{{/undefined}}
+			{{> 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-templates-autorec.html' }}
 		</div>
 		<div class='tab' data-tab='aura' data-group='sections'>
-			{{#> (aaConcat 'modules/autoanimations/src/custom-recognition/autorec-templates' '/aa-auras-autorec.html')}}
-			{{/undefined}}
+			{{> 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-auras-autorec.html' }}
 		</div>
 		<div class='tab' data-tab='presets' data-group='sections'>
-			{{#> (aaConcat 'modules/autoanimations/src/custom-recognition/autorec-templates' '/aa-presets-autorec.html')}}
-			{{/undefined}}
+			{{> 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-presets-autorec.html' }}
 		</div>
 	</section>
 
 	<footer class='sheet-footer flexrow'>
-		<button type='submit' name='submit' value='1' class='aa-autorec-submit'><i
-				class='far fa-save'></i>{{localize "AUTOANIM.submit"}}</button>
+		<div class='form-group'>
+			<button value='1' class='aa-autorec-submit-open'
+				style="width: 40%; background-color: rgba(128, 128, 128, 0.5);"><i class='far fa-save'></i>{{localize
+				"AUTOANIM.submit"}}</button>
+			<button type='submit' name='submit' value='1' class='aa-autorec-submit'
+				style="width: 40%; background-color: rgba(100, 100, 100, 0.5);"><i class='far fa-save'></i>{{localize
+				"AUTOANIM.submit"}} {{localize "AUTOANIM.and"}} {{localize "AUTOANIM.close"}}</button>
+		</div>
 	</footer>
 	<div class='flexrow' id='aa-import-export'>
-        <button type="button" name="aa-export" id="aa-autorec-export" style="background-color: rgb(160, 160, 160);">
+		<button type="button" name="aa-export" id="aa-autorec-export" style="background-color: rgb(160, 160, 160);">
 			<i class="fas fa-dice-d20"></i> {{localize "AUTOANIM.export"}}
-		  </button>
-		  <button type="button" name="aa-import" id="aa-autorec-import" style="background-color: rgb(160, 160, 160);">
+		</button>
+		<button type="button" name="aa-import" id="aa-autorec-import" style="background-color: rgb(160, 160, 160);">
 			<i class="fas fa-dice-d20"></i> {{localize "AUTOANIM.import"}}
-		  </button>
-	  </div>
+		</button>
+	</div>
 </form>
