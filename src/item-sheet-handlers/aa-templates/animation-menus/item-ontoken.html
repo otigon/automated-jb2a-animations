@@ -149,9 +149,37 @@
         </button>
     </div>
     {{/if}}
+    <div class='form-group option17' style='padding-top: 5px;padding-bottom: 4px;'>
+        <label>{{localize "AUTOANIM.sound"}}</label>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
+            value="flags.autoanimations.audio.a01.enable" {{checked
+                flags.autoanimations.audio.a01.enable}}>
+    </div>
+    {{#if flags.autoanimations.audio.a01.enable}}
+    <!--Explosion Audio filePicker and Text Input-->
+    <div class='form-group' style='grid-column: 2 / 5;grid-row: 5 / 6'>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.audio.a01.file"
+            value="{{lookup flags.autoanimations.audio.a01 'file'}}">
+        <button type="button" class="file-picker" data-type="audio"
+            data-target="flags.autoanimations.audio.a01.file" tabindex="-1" title="Browse Files">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>
+    <!--Explosion Audio Delay-->
+    <div style='grid-column: 4 / 5;grid-row: 6 / 7'>
+        <label>{{localize "AUTOANIM.delay"}}</label>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value={{itemAudioDelay01}}
+            style='width: 3em'>
+    </div>
+    <!--Explosion Audio Volume-->
+    <div style='grid-column: 3 / 4;grid-row: 6 / 7'>
+        <label>{{localize "AUTOANIM.volume"}}</label>
+        <input type="Number" name="flags.autoanimations.audio.a01.volume" min="0" max="1" step="0.01"
+            style='width: 3em' value={{itemAudioVolume01}}>
+    </div>
+    {{/if}}
 </div>
 <div style='padding:3px'>
 
 </div>
-{{#> (aaConcat 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus' '/add-explosion.html')}}
-{{/undefined}}
+{{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html' }}
