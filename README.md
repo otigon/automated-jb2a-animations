@@ -17,7 +17,9 @@ I will not be expanding support for any more systems until I rework the way they
 
 I am not affiliated with JB2A, and am working on this only as a side project to make these great animation more easily accesible. 
 
-## [**Tutorial Video**](https://www.youtube.com/watch?v=x5Y668eIAl0)
+## [**Tutorial Video**](https://www.youtube.com/watch?v=x5Y668eIAl0)  
+  
+## [**Version 1.0 Overview**](https://www.youtube.com/watch?v=edhUEPjQNtQ)
   
 ## [**DOCUMENTATION is on the Wiki Page**](https://github.com/otigon/automated-jb2a-animations/wiki)
 # Introduction
@@ -53,11 +55,6 @@ Supported Modules for DnD5e (Those that mess with rolling):
 - Better Rolls; version 1.4.5 and above will play the animation on Attack Rolls through Better Rolls. I'll work on optional play on Damage Rolls for BR  
 - Minimal Rolling Enhancements  
 - Mars 5e  
-
-## Roadmap (subject to change) in no particular Order yet:  
-     
-1. Adding customizable TMFX options on a per item basis (versus a global on/off setting currently)    
-2. Audio Revamp for better play of sounds, wildcard feature, linking the sound directly to a particular animation, etc.  
 
 # Overview
 ## Attack Spells and Melee attacks require a token(s) to be Targeted

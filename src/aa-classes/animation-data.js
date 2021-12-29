@@ -267,7 +267,7 @@ export class AAanimationData {
         targetFX.targetSeq.sound()
             .file(targetFX.itemAudio?.file)
             .volume(targetFX.itemAudio?.volume)
-            .delay(targetFX.itemAudio?.delay)
+            .delay(targetFX.itemAudio?.delay + targetFX.startDelay)
             .repeats(targetFX.repeat, targetFX.delay)
             .playIf(() => {
                 return targetFX.itemAudio?.enable && targetFX.itemAudio?.file && targetFX.enabled;
