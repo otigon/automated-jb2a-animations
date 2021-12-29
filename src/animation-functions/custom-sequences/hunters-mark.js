@@ -5,40 +5,19 @@ import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function huntersMark(handler, autoObject) {
+async function huntersMark(handler, animationData) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
 
-    let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
-    const data = {};
-    if (autoObject) {
+    const data = animationData.primary;
+    if (data.isAuto) {
         const autoOverridden = handler.autoOverride?.enable
-        Object.assign(data, autoObject);
-        data.animation = data.animation || "";
-        data.variant = data.variant ?? "paw";
-        data.scale = data.scale ?? 1;
-        data.anchorX = data.anchorX ?? 0.5;
-        data.anchorY = data.anchorY ?? 0.7;
-        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
-        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
-        data.anchorX = autoOverridden ? handler.autoOverride?.anchorX : data.anchorX;
-        data.anchorY = autoOverridden ? handler.autoOverride?.anchorY : data.anchorY;
-        data.persist = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
-    } else {
-        data.animation = handler.animation;
-        data.variant = handler.variant ?? "paw";
-        data.color = handler.color;
-        data.scale = handler.scale;
-        data.below = false;
-        data.anchorX = handler.anchorX;
-        data.anchorY = handler.anchorY;
-        data.persist = handler.persistent;
+        data.anchorX = autoOverridden ? handler.autoOverride?.anchorX : data.anchorX || 0.5;
+        data.anchorY = autoOverridden ? handler.autoOverride?.anchorY : data.anchorY || 0.7;
     }
-
+    
     const sourceToken = handler.actorToken;
     let target = handler.allTargets[0] || null;
 
@@ -52,8 +31,13 @@ async function huntersMark(handler, autoObject) {
     const scale = data.scale || 1
     const finalScale = (canvas.grid.size / 200) * scale
 
-    const playPersist = (!checkAnim && data.persist) ? true : false;
+    const playPersist = (!checkAnim && data.persistent) ? true : false;
     await new Sequence("Automated Animations")
+        .sound()
+            .file(data.itemAudio.file)
+            .volume(data.itemAudio.volume)
+            .delay(data.itemAudio.delay)
+            .playIf(data.playSound)
         .effect()
             .file(hmPulse)
             .atLocation(sourceToken)

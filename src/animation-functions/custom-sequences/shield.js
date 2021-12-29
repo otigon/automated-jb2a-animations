@@ -1,10 +1,9 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-import { AAanimationData } from "../../aa-classes/animation-data.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function shieldSpell(handler, autoObject) {
+export async function shieldSpell(handler, animationData) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -33,30 +32,20 @@ export async function shieldSpell(handler, autoObject) {
     
         return { file01, file02, file03, metadata };
     }
-    const data = {};
-    if (autoObject) {
+
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+    if (data.isAuto) {
         const autoOverridden = handler.autoOverride?.enable
-        Object.assign(data, autoObject);
-        data.animation = data.animation || "";
-        data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-        data.scale = autoOverridden ? handler.autoOverride?.scale : data.scale;
-        data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
         data.persistent =  autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
         data.endeffect = autoOverridden ? handler.autoOverride?.endEffect : data.endeffect;
     } else {
-        data.animation = handler.animation;
-        data.color = handler.color ?? "blue";
-        data.scale = handler.scale ?? 1;
-        data.below = handler.below;
-        data.persistent = handler.persistent ?? false;
-        data.endeffect = handler.options.shieldVar ?? "outro_fade";
-        data.variant = handler.variant ?? "01";
+        data.endeffect = data.options.shieldVar ?? "outro_fade";
     }
-
     const sourceToken = handler.actorToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
     // builds Source Token file if Enabled, and pulls from flags if already set
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
     //let animWidth = onToken.metadata.width;
     const sourceScale = sourceToken.w;
@@ -67,6 +56,11 @@ export async function shieldSpell(handler, autoObject) {
     async function cast() {
             new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
+                .sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .playIf(data.playSound)    
                 .effect()
                     .file(onToken.file01)
                     .scale(scale)

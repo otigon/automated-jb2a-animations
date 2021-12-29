@@ -4,12 +4,12 @@ import { buildFile } from "../file-builder/build-filepath.js"
 export async function fireball(handler, autoObject) {
 
     const data = {}
-
+    const flags = handler.flags;
     if (autoObject) {
         Object.assign(data, autoObject);
-        const autoOverridden = handler.flags?.autoOverride?.enable ?? false;
-        const autoOverrideAfter = handler.flags?.autoOverride?.fireball?.afterEffect ?? false;
-        const autoFireball = handler.flags?.autoOverride?.fireball ?? {};
+        const autoOverridden = flags.autoOverride?.enable ?? false;
+        const autoOverrideAfter = flags.autoOverride?.fireball?.afterEffect ?? false;
+        const autoFireball = flags.autoOverride?.fireball ?? {};
         data.projectile = autoOverridden ? autoFireball.projectile : data.projectile;
         data.projectileVariant = autoFireball ? autoFireball.projectileVariant : data.projectilVariant ?? "01";
         data.projectileColor = autoOverridden ? autoFireball.projectileColor ?? data.projectileColor : data.projectileColor ?? "";
@@ -35,8 +35,27 @@ export async function fireball(handler, autoObject) {
         data.afterEffect = autoOverrideAfter ? autoFireball.afterEffect ?? false : data.afterEffect;
         data.afterEffectPath = autoOverrideAfter ? autoFireball.afterEffectPath ?? "" : data.afterEffectPath ?? "";
         data.wait03 = autoOverrideAfter ? autoFireball.wait03 ?? 500 : data.wait03 ?? 500;
+
+        data.itemAudio = {
+            enable: data.audio?.a01?.enable || false,
+            file: data.audio?.a01?.file,
+            volume: data.audio?.a01?.volume || 0.25,
+            delay: data.audio?.a01?.delay || 0,
+        }
+        data.exAudio01 = {
+            enable: data.audio?.e01?.enable || false,
+            file: data.audio?.e01?.file,
+            volume: data.audio?.e01?.volume || 0.25,
+            delay: data.audio?.e01?.delay || 0,
+        }
+        data.exAudio02 = {
+            enable: data.audio?.e02?.enable || false,
+            file: data.audio?.e02?.file,
+            volume: data.audio?.e02?.volume || 0.25,
+            delay: data.audio?.e02?.delay || 0,
+        }
     } else {
-        const fireballFlags = handler.fireball ?? {};
+        const fireballFlags = flags.fireball ?? {};
         data.projectile = fireballFlags.projectile;
         data.projectileVariant = fireballFlags.projectileVariant ?? "01";
         data.projectileColor = fireballFlags.projectileColor ?? "";
@@ -62,17 +81,26 @@ export async function fireball(handler, autoObject) {
         data.afterEffect = fireballFlags.afterEffect;
         data.afterEffectPath = fireballFlags.afterEffectPath ?? "";
         data.wait03 = fireballFlags.wait03 ?? 500;
-        data.removeTemplate = handler.options?.removeTemplate ?? false;
-    }
-    //console.log(data)
-    let templateSound = handler.allSounds?.item;
-    let templateVolume = 0.25;
-    let templateDelay = 1;
-    let templateFile = "";
-    if (handler.itemSound) {
-        templateVolume = templateSound?.volume ?? 0.25;
-        templateDelay = templateSound?.delay === 0 ? 1 : templateSound?.delay;
-        templateFile = templateSound?.file;
+        data.removeTemplate = flags.options?.removeTemplate ?? false;
+
+        data.itemAudio = {
+            enable: handler.flags?.audio?.a01?.enable || false,
+            file: handler.flags?.audio?.a01?.file,
+            volume: handler.flags?.audio?.a01?.volume || 0.25,
+            delay: handler.flags?.audio?.a01?.delay || 0,
+        }
+        data.exAudio01 = {
+            enable: handler.flags?.audio?.e01?.enable || false,
+            file: handler.flags?.audio?.e01?.file,
+            volume: handler.flags?.audio?.e01?.volume || 0.25,
+            delay: handler.flags?.audio?.e01?.delay || 0,
+        }
+        data.exAudio02 = {
+            enable: handler.flags?.audio?.e02?.enable || false,
+            file: handler.flags?.audio?.e02?.file,
+            volume: handler.flags?.audio?.e02?.volume || 0.25,
+            delay: handler.flags?.audio?.e02?.delay || 0,
+        }
     }
 
     const projectileAnimation = await buildFile(false, data.projectile, "range", data.projectileVariant, data.projectileColor);
@@ -99,26 +127,30 @@ export async function fireball(handler, autoObject) {
         }
         size = canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance);
     }
-    /*
-    const position = {
-        x: template.data.x,
-        y: template.data.y,
-    }
-    */
 
     new Sequence("Automated Animations")
+        .sound()
+            .file(data.itemAudio.file)
+            .volume(data.itemAudio.volume)
+            .delay(data.itemAudio.delay)
+            .repeats(data.projectileRepeat, data.projectileDelay)
+            .playIf(() => {
+                return data.itemAudio.enable && data.itemAudio.file;
+            })
         .effect()
             .file(projectileAnimation.file)
             .atLocation(tokenD)
             .reachTowards(position)
             .repeats(data.projectileRepeat, data.projectileDelay)
             .waitUntilFinished(data.wait01)
-            //.JB2A()
         .sound()
-            .file(templateFile)
-            .playIf(handler.itemSound)
-            .delay(templateDelay)
-            .volume(templateVolume)
+            .file(data.exAudio01.file)
+            .volume(data.exAudio01.volume)
+            .delay(data.exAudio01.delay)
+            .repeats(data.explosion01Repeat, data.explosion01Delay)
+            .playIf(() => {
+                return data.exAudio01.enable && data.exAudio01.file;
+            })
         .effect()
             .file(explosion01.file)
             .playIf(data.explosion01 !== "a1")
@@ -127,13 +159,13 @@ export async function fireball(handler, autoObject) {
             .repeats(data.explosion01Repeat, data.explosion01Delay)
             .timeRange(0, 1200)
             .waitUntilFinished(data.wait02)
-        .effect()
-            .file(explosion02.file)
-            .playIf(data.explosion02 !== "a1")
-            .atLocation(position)
-            .size(size * data.explosion02Scale)
-            .repeats(data.explosion02Repeat, data.explosion02Delay)
-            .zIndex(1)
+        .sound()
+            .file(data.exAudio02.file)
+            .volume(data.exAudio02.volume)
+            .delay(data.exAudio02.delay)
+            .playIf(() => {
+                return data.exAudio02.enable && data.exAudio02.file;
+            })
         .effect()
             .file(explosion02.file)
             .playIf(data.explosion02 !== "a1")
