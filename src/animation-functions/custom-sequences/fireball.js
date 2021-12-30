@@ -23,7 +23,7 @@ export async function fireball(handler, autoObject) {
         data.explosion01Repeat = data.explosion01Repeat ?? 1;
         data.explosion01Delay = data.explosion01Delay ?? 250;
         data.explosion01Scale = data.explosion01Scale ?? 1;
-        data.wait02 = data.wait02 ?? 500;
+        data.wait02 = data.wait02 ?? -500;
 
         data.explosion02 = data.explosion02;
         data.explosion02Variant = data.explosion02Variant ?? "01";
@@ -69,7 +69,7 @@ export async function fireball(handler, autoObject) {
         data.explosion01Repeat = fireballFlags.explosion01Repeat ?? 1;
         data.explosion01Delay = fireballFlags.explosion01Delay ?? 250;
         data.explosion01Scale = fireballFlags.explosion01Scale ?? 1;
-        data.wait02 = fireballFlags.wait01 ?? -500;
+        data.wait02 = fireballFlags.wait02 ?? -500;
 
         data.explosion02 = fireballFlags.explosion02;
         data.explosion02Variant = fireballFlags.explosion02Variant ?? "01";
