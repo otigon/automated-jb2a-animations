@@ -2,7 +2,7 @@ import { aaMenuLists } from "../item-sheet-handlers/menu-lists.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { autoRecMigration } from "./autoRecMerge.js";
-import { aaAutorec } from "./aaAutoRecList.js";
+//import { aaAutorec } from "./aaAutoRecList.js";
 
 export class aaAutoRecognition extends FormApplication {
     constructor(object = {}, options) {

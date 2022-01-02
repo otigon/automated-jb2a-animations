@@ -546,5 +546,6 @@
     "AUTOANIM.and": "and",
     "AUTOANIM.extra": "Extra",
     "AUTOANIM.effects": "Effects",
-    "AUTOANIM.extraexplain": "Requires a Primary animation, either Custom or Automatic Recognition"
+    "AUTOANIM.extraexplain": "Requires a Primary animation, either Custom or Automatic Recognition",
+    "AUTOANIM.bow": "Bow"
 }

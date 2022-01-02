@@ -41,7 +41,6 @@ Hooks.on('init', () => {
         }
         return options.inverse(this);
     });
-    aaSettings();
     loadTemplates([
         'modules/autoanimations/src/custom-recognition/settings.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-melee-autorec.html',
@@ -63,6 +62,41 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html',
     ]);
 
+})
+
+// sets the A-A button on the Item Sheet title bar
+Hooks.on(`renderItemSheet`, async (app, html, data) => {
+    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
+        return;
+    }
+    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
+    aaBtn.click(async ev => {
+        await flagMigrations.handle(app.document);
+        new AAItemSettings(app.document, {}).render(true);
+    });
+    html.closest('.app').find('.aa-item-settings').remove();
+    let titleElement = html.closest('.app').find('.window-title');
+    aaBtn.insertAfter(titleElement);
+});
+
+// Registers Database with Sequencer
+Hooks.once('ready', function () {
+    aaSettings();
+
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+
+    Hooks.on("sequencer.ready", () => {
+        Sequencer.Database.registerEntries("autoanimations", obj01);
+        if (game.settings.get("autoanimations", "killAllAnim") === "off") {
+            console.log("ANIMATIONS ARE OFF")
+            socket.off('module.sequencer')//
+            killAllAnimations = true;
+        }
+    });
+    if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
+        ui.notifications.error(game.i18n.format("AUTOANIM.error"));
+    }
+    autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
         switch (game.settings.get("autoanimations", "playonDamage")) {
@@ -212,39 +246,7 @@ Hooks.on('init', () => {
                 break;
         }
     }
-})
 
-// sets the A-A button on the Item Sheet title bar
-Hooks.on(`renderItemSheet`, async (app, html, data) => {
-    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
-        return;
-    }
-    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    aaBtn.click(async ev => {
-        await flagMigrations.handle(app.document);
-        new AAItemSettings(app.document, {}).render(true);
-    });
-    html.closest('.app').find('.aa-item-settings').remove();
-    let titleElement = html.closest('.app').find('.window-title');
-    aaBtn.insertAfter(titleElement);
-});
-
-// Registers Database with Sequencer
-Hooks.once('ready', function () {
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
-    Hooks.on("sequencer.ready", () => {
-        Sequencer.Database.registerEntries("autoanimations", obj01);
-        if (game.settings.get("autoanimations", "killAllAnim") === "off") {
-            console.log("ANIMATIONS ARE OFF")
-            socket.off('module.sequencer')//
-            killAllAnimations = true;
-        }
-    });
-    if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
-        ui.notifications.error(game.i18n.format("AUTOANIM.error"));
-    }
-    autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
     Hooks.callAll("aa.ready", obj01)
 });
 

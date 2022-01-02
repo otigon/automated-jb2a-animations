@@ -1,6 +1,7 @@
 import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js"
 import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js"
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js"
+import { autoRecMigration } from "../custom-recognition/autoRecMerge.js"
 
 export class AutorecFunctions {
 
@@ -193,10 +194,11 @@ export class AutorecFunctions {
      * 
      * @param {Imported JSON file from an Export} json 
      */
-    static _importAutorecFromJSON(json) {
+    static async _importAutorecFromJSON(json) {
         const data = JSON.parse(json);
         console.warn("autoanimations | Import settings ", data);
-        game.settings.set("autoanimations", "aaAutorec", data);
+        await game.settings.set("autoanimations", "aaAutorec", data);
+        await autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
     }
 
     static _autoPreview(name, patreon, flags) {
