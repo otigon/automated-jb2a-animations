@@ -282,7 +282,7 @@ function moduleIncludes(test) {
 async function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(workflow);
-    console.log(handler)
+    //console.log(handler)
     if (!handler.item || !handler.actorToken) {
         return;
     }
