@@ -240,6 +240,7 @@ function menuLists() {
         "fireballloop": game.i18n.localize("AUTOANIM.fireball") + " " + game.i18n.localize("AUTOANIM.loop"),
         "fogcloud": game.i18n.localize("AUTOANIM.animFogCloud"),
         "moonbeam": game.i18n.localize("AUTOANIM.moonbeam"),
+        "musicnotect": game.i18n.localize("AUTOANIM.musicNotes"),
         "outpulse01": game.i18n.localize("AUTOANIM.outpulse01"),
         "outpulse02": game.i18n.localize("AUTOANIM.outpulse02"),
         "snowflake": game.i18n.localize("AUTOANIM.snowflake"),
@@ -270,6 +271,7 @@ function menuLists() {
         "fearct": game.i18n.localize("AUTOANIM.fear"),
         "heartct": game.i18n.localize("AUTOANIM.heart"),
         "horrorct": game.i18n.localize("AUTOANIM.horror"),
+        "musicnotest": game.i18n.localize("AUTOANIM.musicNotes"),
         "poisonct": game.i18n.localize("AUTOANIM.poison"),
         "runesct": game.i18n.localize("AUTOANIM.runes"),
         "shieldsct": game.i18n.localize("AUTOANIM.shield"),
@@ -344,6 +346,18 @@ function menuLists() {
         "weapon": game.i18n.localize("AUTOANIM.itemWeapon"),
     }
 
+    aaMenuLists.genericProjectile = {
+        "a1": ``,
+        "heart": game.i18n.localize("AUTOANIM.heart"),
+        "iceshard": game.i18n.localize("AUTOANIM.iceshard"),
+        "musicnote": game.i18n.localize("AUTOANIM.musicNotes"),
+        "skull": game.i18n.localize("AUTOANIM.skull"),
+    }
+
+    aaMenuLists.genericProjectileFree = {
+        "a1": ``,
+        "iceshard": game.i18n.localize("AUTOANIM.iceshard"),
+    }
 }
 
 export { aaMenuLists }

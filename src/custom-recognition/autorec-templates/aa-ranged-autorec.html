@@ -27,6 +27,7 @@
                                     <option value=""></option>
                                     <option value="weapon">{{localize "AUTOANIM.itemWeapon"}}</option>
                                     <option value="spell">{{localize "AUTOANIM.itemSpell"}}</option>
+                                    <option value="genericprojectile">{{localize "AUTOANIM.itemGeneric"}}</option>
                                     {{/select}}
                                 </select>
                             </label>
@@ -47,6 +48,12 @@
                                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
                                         'spell'}}
                                         {{#each ../spellList as |name key|}}
+                                        <option value="{{key}}">{{name}}</option>
+                                        {{/each}}
+                                        {{/ifEquals}}
+                                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
+                                        'genericprojectile'}}
+                                        {{#each ../genericProjectile as |name key|}}
                                         <option value="{{key}}">{{name}}</option>
                                         {{/each}}
                                         {{/ifEquals}}

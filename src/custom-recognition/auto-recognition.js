@@ -34,6 +34,7 @@ export class aaAutoRecognition extends FormApplication {
         let data = super.getData();
         data.currentAutoVersion = Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
         data.settings = this.getSettingsData();
+        data.genericProjectile = patreon ? aaMenuLists.genericProjectile : aaMenuLists.genericProjectileFree;
         data.meleeList = aaMenuLists.meleeWeapons;
         data.genericList = aaMenuLists.genericDmg;
         data.rangeList = patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree;

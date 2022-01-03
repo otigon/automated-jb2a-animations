@@ -12,6 +12,7 @@
                 <option value=""></option>
                 <option value="weapon">{{localize "AUTOANIM.itemWeapon"}}</option>
                 <option value="spell">{{localize "AUTOANIM.itemSpell"}}</option>
+                <option value="genericprojectile">{{localize "AUTOANIM.itemGeneric"}}</option>
                 {{/select}}
             </select>
         </label>
@@ -28,6 +29,11 @@
             {{/ifEquals}}
             {{#ifEquals (lookup flags.autoanimations.options 'rangeType') 'spell'}}
             {{#each spellList as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/ifEquals}}
+            {{#ifEquals (lookup flags.autoanimations.options 'rangeType') 'genericprojectile'}}
+            {{#each genericProjectile as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/ifEquals}}
