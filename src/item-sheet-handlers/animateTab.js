@@ -47,6 +47,7 @@ export class AAItemSettings extends FormApplication {
 
         const switchName = flags.autoanimations?.meleeSwitch?.animation ?? "";
 
+        const levels3d = game.modules.get("levels-3d-preview")?.active;
         const animType = flags.autoanimations?.animType;
         const templateType = flags.autoanimations?.options?.tempType ?? "";
 
@@ -115,6 +116,7 @@ export class AAItemSettings extends FormApplication {
             template: override && animType === "template",
             aura: override && animType === "aura",
             preset: override && animType === "preset",
+            menu3d: override && animType === "menu3d",
 
             bardAnimName: aaMenuLists.bardAnimType,
             bardAnimTarget: aaMenuLists.bardAnimType,
@@ -130,7 +132,7 @@ export class AAItemSettings extends FormApplication {
             //persistent: flags.autoanimations?.options?.persistent && (templateType === "circle" || templateType === "rect"),
             persistent: flags.autoanimations?.options?.persistent && (flags.autoanimations?.options?.persistType === 'overheadtile'),
             circRectPersist: flags.autoanimations?.options?.persistent && (templateType === 'circle' || templateType === 'rect') ? true : false,
-            animationType: aaMenuLists.menuOptions,
+            animationType: levels3d ? aaMenuLists.menuOptions3D : aaMenuLists.menuOptions,
 
             explosionVariants: aaMenuLists.explodeVariant,
             explosionRadius: flags.autoanimations?.explosions?.radius ?? 1.5,
@@ -174,6 +176,14 @@ export class AAItemSettings extends FormApplication {
 
             ammo5e: game.system.id === "dnd5e" ? true : false,
 
+            levels3d: levels3d ? true : false,
+            speed3D: flags.autoanimations?.levels3d?.speed ?? 1,
+            repeat3D: flags.autoanimations?.levels3d?.repeat ?? 1,
+            arc3D: flags.autoanimations?.levels3d?.arc ?? 0,
+            delay3D: flags.autoanimations?.levels3d?.delay ?? 500,
+            scale3D: flags.autoanimations?.levels3d?.scale ?? 1,
+            color3D01: flags.autoanimations?.levels3d?.color01?.toString(16).padStart(6, '0').toUpperCase() || "FFFFFF",
+            color3D02: flags.autoanimations?.levels3d?.color02?.toString(16).padStart(6, '0').toUpperCase() || "FFFFFF",
             //currentVersion: !flags.autoanimations?.version ? this.object.setFlag('autoanimations', 'version', currentFlagVersion) : "",
             currentVersion: currentFlagVersion, 
         };

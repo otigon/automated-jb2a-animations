@@ -1,0 +1,64 @@
+<div class='flexrow text-green' {{#unless flags.autoanimations.levels3d.explosions.enable }} style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered; text-align: center;' {{/unless}}>
+    <label><strong>{{localize "AUTOANIM.addExplosion"}}</strong></label>
+</div>
+<div class='aa-item-container add-explosion' {{#if flags.autoanimations.levels3d.explosions.enable }} style='box-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;' {{/if}}>
+    <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-row: 1 / 2; grid-column: 1 / 2;'>
+        <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
+        <input type="checkbox" name="flags.autoanimations.levels3d.explosions.enable" value="flags.autoanimations.levels3d.explosions.enable" {{checked
+            flags.autoanimations.levels3d.explosions.enable}}>
+    </div>
+    {{#if flags.autoanimations.levels3d.explosions.enable}}
+    <div class="form-group" style="grid-row: 2 / 3; grid-column: 1 / 2;justify-self: right;">
+        <label>{{localize 'AUTOANIM.color'}} 01</label>
+        <input type="Text" value={{color3D01}}>
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.explosions.color01" value="{{lookup flags.autoanimations.levels3d.explosions 'color01'}}">
+    </div>
+    <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;justify-self: right;">
+        <label>{{localize 'AUTOANIM.color'}} 02</label>
+        <input type="Text" value={{color3D02}}>
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.explosions.color02" value="{{lookup flags.autoanimations.levels3d.explosions 'color02'}}">
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+        <label>Speed </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosions.speed" step=".01" value="{{lookup flags.autoanimations.levels3d.explosions 'speed'}}">
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+        <label>Gravity </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosions.gravity" step=".01" value="{{lookup flags.autoanimations.levels3d.explosions 'gravity'}}">
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+        <label>Life </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosions.life" step=".01" value="{{lookup flags.autoanimations.levels3d.explosions 'life'}}">
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+        <label>Rate </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosions.rate" step=".01" value="{{lookup flags.autoanimations.levels3d.explosions 'rate'}}">
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 3 / 5;">
+        <label>Emmiter Size </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosions.emitterSize" step=".01" value="{{lookup flags.autoanimations.levels3d.explosions 'emitterSize'}}">
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 2 / 3;">
+        <label>Alpha </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosions.alpha" step=".01" value="{{lookup flags.autoanimations.levels3d.explosions 'alpha'}}">
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 3 / 4;">
+        <label>Mass </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosions.mass" step=".01" value="{{lookup flags.autoanimations.levels3d.explosions 'mass'}}">
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+        <label>Scale </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosions.scale" step=".01" value="{{lookup flags.autoanimations.levels3d.explosions 'scale'}}">
+    </div>
+
+    <div class="form-group" style='grid-column: 1 / 5;grid-row: 4 / 5'>
+        <label>Choose a Sprite</label>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.levels3d.explosions.sprite"
+            value="{{lookup flags.autoanimations.levels3d.explosions 'sprite'}}">
+        <button type="button" class="file-picker" data-type="image/video"
+            data-target="flags.autoanimations.levels3d.explosions.sprite" tabindex="-1" title="Browse Files">
+            <i class="fas fa-file-video"></i>
+        </button>
+    </div>
+    {{/if}}
+</div>

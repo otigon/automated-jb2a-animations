@@ -14,6 +14,17 @@ function menuLists() {
         "preset": game.i18n.localize("AUTOANIM.presets"),
     }
 
+    aaMenuLists.menuOptions3D = {
+        "t1": ``,
+        "melee": game.i18n.localize("AUTOANIM.melee"),
+        "range": game.i18n.localize("AUTOANIM.ranged"),
+        'static': game.i18n.localize("AUTOANIM.onToken"),
+        "template": game.i18n.localize("AUTOANIM.templates"),
+        "aura": game.i18n.localize("AUTOANIM.typeAuras"),
+        "preset": game.i18n.localize("AUTOANIM.presets"),
+        "menu3d": "3D Particles",
+    }
+
     aaMenuLists.attackSpells = {
         "a1": ``,
         "chainlightning": game.i18n.localize("AUTOANIM.chainlightning"),
