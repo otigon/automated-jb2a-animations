@@ -157,6 +157,11 @@
     min-width: 5em
 }
 
+#AA-item-settings ::placeholder {
+    color: rgb(61, 61, 61);
+    opacity: .6;
+}
+
 #automatic-recognition .item{
     font-size: 15px;
     text-align:center;
