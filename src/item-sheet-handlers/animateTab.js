@@ -177,13 +177,21 @@ export class AAItemSettings extends FormApplication {
             ammo5e: game.system.id === "dnd5e" ? true : false,
 
             levels3d: levels3d ? true : false,
-            speed3D: flags.autoanimations?.levels3d?.speed ?? 1,
-            repeat3D: flags.autoanimations?.levels3d?.repeat ?? 1,
-            arc3D: flags.autoanimations?.levels3d?.arc ?? 0,
-            delay3D: flags.autoanimations?.levels3d?.delay ?? 500,
-            scale3D: flags.autoanimations?.levels3d?.scale ?? 1,
-            color3D01: flags.autoanimations?.levels3d?.color01?.toString(16).padStart(6, '0').toUpperCase() || "FFFFFF",
-            color3D02: flags.autoanimations?.levels3d?.color02?.toString(16).padStart(6, '0').toUpperCase() || "FFFFFF",
+            color3D01Projectile: flags.autoanimations?.levels3d?.projectile?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D02Projectile: flags.autoanimations?.levels3d?.projectile?.color02?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D01Ray: flags.autoanimations?.levels3d?.ray?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D02Ray: flags.autoanimations?.levels3d?.ray?.color02?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D01Explosion: flags.autoanimations?.levels3d?.explosion?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D02Explosion: flags.autoanimations?.levels3d?.explosion?.color02?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D01AddExplosion: flags.autoanimations?.levels3d?.addexplosion?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D02AddExplosion: flags.autoanimations?.levels3d?.addexplosion?.color02?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D01Sprite: flags.autoanimations?.levels3d?.sprite?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+
+            sprite3DProjectile: flags.autoanimations?.levels3d?.projectile?.sprite ?? "modules/levels-3d-preview/assets/particles/emberssmall.png",
+            sprite3DRay: flags.autoanimations?.levels3d?.projectile?.sprite ?? "modules/levels-3d-preview/assets/particles/emberssmall.png",
+            sprite3DExplosion: flags.autoanimations?.levels3d?.explosion?.sprite ?? "modules/levels-3d-preview/assets/particles/dust.png",
+            sprite3DAddExplosion: flags.autoanimations?.levels3d?.addexplosion?.sprite ?? "modules/levels-3d-preview/assets/particles/dust.png",
+            sprite3DSprite: flags.autoanimations?.levels3d?.sprite?.sprite ?? "modules/levels-3d-preview/assets/particles/emberssmall.png",
             //currentVersion: !flags.autoanimations?.version ? this.object.setFlag('autoanimations', 'version', currentFlagVersion) : "",
             currentVersion: currentFlagVersion, 
         };
@@ -235,6 +243,19 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.sourceOptions input[type="Number"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+
+        html.find('.particles input[type="color"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.particles input[type="Number"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.particles select').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render());
+        });
+        html.find('.particles input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
 
