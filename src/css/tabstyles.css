@@ -153,6 +153,15 @@
     margin-left: 0.75rem;
 }
 
+#automatic-recognition .button-2d {
+    max-width: 1.5rem;
+    margin-left: 0.75rem;
+}
+
+#automatic-recognition .button-2d:hover {
+    text-shadow: 0 0 5px red
+}
+
 #automatic-recognition select{
     min-width: 5em
 }

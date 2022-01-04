@@ -104,6 +104,15 @@ export class aaAutoRecognition extends FormApplication {
             }
             this.submit({ preventClose: true }).then(() => this.render())
         });
+        html.on('click', '.button-2d', (evt) => {
+            var change = $(evt.currentTarget).closest('.form-fields').find('.anim2d').is(":checked")
+            if (change === true) {
+                $(evt.currentTarget).closest('.form-fields').find('.anim2d').prop('checked', false)
+            } else {
+                $(evt.currentTarget).closest('.form-fields').find('.anim2d').prop('checked', true)
+            }
+            this.submit({ preventClose: true }).then(() => this.render())
+        });
         html.on('keyup', '#aatest', this._onSearch.bind(this))
         //html.on('focus', '.aa-autorecognition', this._loadSearch.bind(this))
         html.on(this._loadSearch())
@@ -116,6 +125,11 @@ export class aaAutoRecognition extends FormApplication {
 				this.close();
 			}
 		});
+
+        html.find('.particles input[type="color"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+
     }
 
     _loadSearch(evt) {
