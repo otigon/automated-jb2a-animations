@@ -11,12 +11,12 @@ export async function templateAnimation(handler, animationData) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
-
+    console.log(data)
     if (data.isAuto) {
         data.type = data.type;
         data.persistent = data.persist || false;
     } else {
-        data.type = handler.options?.tempType;
+        data.type = handler.flags?.options?.tempType;
     }
 
     if (aaDebug) { aaDebugger("Template Animation Start", data) }
@@ -116,7 +116,7 @@ export async function templateAnimation(handler, animationData) {
         }
         //const occlusionAlpha = parseInt(alpha);
         if (data.persistent && (data.type === "circle" || data.type === "rect") && data.persistType === 'overheadtile') {
-
+            debugger
             const templateData = {
                     alpha: data.opacity,
                     width: tileWidth,
@@ -152,7 +152,7 @@ export async function templateAnimation(handler, animationData) {
             //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
         }
         if (data.persistent && (data.type === "circle" || data.type === "rect") && data.persistType === 'groundtile') {
-
+            debugger
             const templateData = {
                     alpha: data.opacity,
                     width: tileWidth,
