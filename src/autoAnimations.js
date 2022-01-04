@@ -60,6 +60,8 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-presets.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-autoOverride.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/levels3d.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html',
     ]);
 
 })

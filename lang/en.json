@@ -548,5 +548,15 @@
     "AUTOANIM.effects": "Effects",
     "AUTOANIM.extraexplain": "Requires a Primary animation, either Custom or Automatic Recognition",
     "AUTOANIM.bow": "Bow",
-    "AUTOANIM.iceshard": "Ice Shard"
+    "AUTOANIM.iceshard": "Ice Shard",
+
+    "AUTOANIM.speed": "Speed",
+    "AUTOANIM.arc": "Arc",
+    "AUTOANIM.alpha": "Alpha",
+    "AUTOANIM.gravity": "Gravity",
+    "AUTOANIM.mass": "Mass",
+    "AUTOANIM.life": "Life",
+    "AUTOANIM.emiterSize": "Emiter Size",
+    "AUTOANIM.rate": "Rate",
+    "AUTOANIM.sprite": "Sprite"
 }

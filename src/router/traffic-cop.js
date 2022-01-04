@@ -16,10 +16,19 @@ import { aaDebugger } from "../constants/constants.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { fireball } from "../animation-functions/custom-sequences/fireball.js";
 import { AAanimationData } from "../aa-classes/animation-data.js";
+import { particleEffects } from "../animation-functions/particleSystem.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
+    if (game.Levels3DPreview?._active) {
+        if (handler.flags?.levels3d?.type) {
+            particleEffects(handler);
+            return;
+        } else {
+            return;
+        }
+    }
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (handler.soundNoAnimation) {
@@ -221,7 +230,7 @@ export async function trafficCop(handler) {
             }
         }
     }
-    function killHook () {
+    function killHook() {
         Hooks.off("createMeasuredTemplate", aaTemplateHook)
     }
 }

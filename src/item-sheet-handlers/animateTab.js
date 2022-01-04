@@ -47,6 +47,7 @@ export class AAItemSettings extends FormApplication {
 
         const switchName = flags.autoanimations?.meleeSwitch?.animation ?? "";
 
+        const levels3d = game.modules.get("levels-3d-preview")?.active;
         const animType = flags.autoanimations?.animType;
         const templateType = flags.autoanimations?.options?.tempType ?? "";
 
@@ -115,6 +116,7 @@ export class AAItemSettings extends FormApplication {
             template: override && animType === "template",
             aura: override && animType === "aura",
             preset: override && animType === "preset",
+            menu3d: override && animType === "menu3d",
 
             bardAnimName: aaMenuLists.bardAnimType,
             bardAnimTarget: aaMenuLists.bardAnimType,
@@ -130,7 +132,7 @@ export class AAItemSettings extends FormApplication {
             //persistent: flags.autoanimations?.options?.persistent && (templateType === "circle" || templateType === "rect"),
             persistent: flags.autoanimations?.options?.persistent && (flags.autoanimations?.options?.persistType === 'overheadtile'),
             circRectPersist: flags.autoanimations?.options?.persistent && (templateType === 'circle' || templateType === 'rect') ? true : false,
-            animationType: aaMenuLists.menuOptions,
+            animationType: levels3d ? aaMenuLists.menuOptions3D : aaMenuLists.menuOptions,
 
             explosionVariants: aaMenuLists.explodeVariant,
             explosionRadius: flags.autoanimations?.explosions?.radius ?? 1.5,
@@ -174,6 +176,22 @@ export class AAItemSettings extends FormApplication {
 
             ammo5e: game.system.id === "dnd5e" ? true : false,
 
+            levels3d: levels3d ? true : false,
+            color3D01Projectile: flags.autoanimations?.levels3d?.projectile?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D02Projectile: flags.autoanimations?.levels3d?.projectile?.color02?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D01Ray: flags.autoanimations?.levels3d?.ray?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D02Ray: flags.autoanimations?.levels3d?.ray?.color02?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D01Explosion: flags.autoanimations?.levels3d?.explosion?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D02Explosion: flags.autoanimations?.levels3d?.explosion?.color02?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D01AddExplosion: flags.autoanimations?.levels3d?.addexplosion?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D02AddExplosion: flags.autoanimations?.levels3d?.addexplosion?.color02?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+            color3D01Sprite: flags.autoanimations?.levels3d?.sprite?.color01?.toString(16).padStart(6, '0').toUpperCase() || "#FFFFFF",
+
+            sprite3DProjectile: flags.autoanimations?.levels3d?.projectile?.sprite ?? "modules/levels-3d-preview/assets/particles/emberssmall.png",
+            sprite3DRay: flags.autoanimations?.levels3d?.projectile?.sprite ?? "modules/levels-3d-preview/assets/particles/emberssmall.png",
+            sprite3DExplosion: flags.autoanimations?.levels3d?.explosion?.sprite ?? "modules/levels-3d-preview/assets/particles/dust.png",
+            sprite3DAddExplosion: flags.autoanimations?.levels3d?.addexplosion?.sprite ?? "modules/levels-3d-preview/assets/particles/dust.png",
+            sprite3DSprite: flags.autoanimations?.levels3d?.sprite?.sprite ?? "modules/levels-3d-preview/assets/particles/emberssmall.png",
             //currentVersion: !flags.autoanimations?.version ? this.object.setFlag('autoanimations', 'version', currentFlagVersion) : "",
             currentVersion: currentFlagVersion, 
         };
@@ -225,6 +243,19 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.sourceOptions input[type="Number"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+
+        html.find('.particles input[type="color"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.particles input[type="Number"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.particles select').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render());
+        });
+        html.find('.particles input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
 
