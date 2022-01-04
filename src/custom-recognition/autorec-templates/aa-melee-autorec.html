@@ -7,20 +7,38 @@
                     <div class='form-fields'>
                         <input type='checkbox' class='hideme' name='aaAutorec.melee.{{idx}}.hidden' {{checked (lookup
                             (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }} style="display:none">
-                        <i {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }}
-                            class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
-                            ../settings.aaAutorec.melee idx) 'hidden' ) }} class="fas fa-minus collapse-button"
-                            {{/unless}}></i>
-                        <i class='far fa-clone duplicate-melee' data-idx="{{idx}}" style="max-width: 1.5rem;"></i>
+                        <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;"><i {{#if ( lookup (lookup
+                                ../settings.aaAutorec.melee idx) 'hidden' ) }} class="fas fa-plus collapse-button"
+                                {{/if}} {{#unless ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }}
+                                class="fas fa-minus collapse-button" {{/unless}}></i>
+                            <span class='aaToggle01'>
+                                {{#if (lookup (lookup ../settings.aaAutorec.melee idx) 'hidden')}}
+                                {{localize 'AUTOANIM.expand'}}
+                                {{/if}}
+                                {{#unless (lookup (lookup ../settings.aaAutorec.melee idx) 'hidden')}}
+                                {{localize 'AUTOANIM.collapse'}}
+                                {{/unless}}
+                            </span>
+                        </div>
+                        <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;"><i
+                                class='far fa-clone duplicate-melee' data-idx="{{idx}}"></i>
+                            <span class='aaToggle01'>{{localize 'AUTOANIM.duplicate'}}</span>
+                        </div>
                         <input type='checkbox' class='anim2d' name='aaAutorec.melee.{{idx}}.anim2d' {{checked (lookup
                             (lookup ../settings.aaAutorec.melee idx) 'anim2d' ) }} style="display:none">
-                        <i {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'anim2d' ) }}
-                            class="fas fa-cubes button-2d" {{/if}} {{#unless ( lookup (lookup ../settings.aaAutorec.melee
-                            idx) 'anim2d' ) }} class="fas fa-cube button-2d" {{/unless}}></i>
+                        <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;"><i {{#if ( lookup (lookup
+                                ../settings.aaAutorec.melee idx) 'anim2d' ) }} class="fas fa-cubes button-2d" {{/if}}
+                                {{#unless ( lookup (lookup ../settings.aaAutorec.melee idx) 'anim2d' ) }}
+                                class="fas fa-cube button-2d" {{/unless}}></i>
+                            <span class='aaToggle01'>{{localize 'AUTOANIM.toggle3d'}}</span>
+                        </div>
                         <input type='text' name="aaAutorec.melee.{{idx}}.name"
                             placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
                             value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'name'}}" />
-                        <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
+                        <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;">
+                            <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
+                            <span class='aaToggle02'>{{localize 'AUTOANIM.delete'}}</span>
+                        </div>
                     </div>
                 </div>
 
@@ -306,12 +324,13 @@
                             {{/ifnoteq}}
                         </div>
                     </div>
+
+                    <!--Particle System-->
                     <div {{#unless ( lookup (lookup ../settings.aaAutorec.melee idx) 'anim2d' ) }} style="display:none"
                         {{/unless}}>
                         <div class='aa-item-container particles'>
                             <div class='form-group' style='justify-self: center;grid-row: 1 / 2;grid-column: 1 / 5;'>
-                                <label style='font-weight: bold;font-size: large;'>Particle Settings for 3D
-                                    Canvas</label>
+                                <label style='font-weight: bold;font-size: large;'>{{localize 'AUTOANIM.particlenote'}}</label>
                             </div>
                             <div style="justify-self: center;grid-row: 2 / 3;grid-column: 1 / 5;">
                                 <label>{{localize 'AUTOANIM.type'}}:
@@ -342,7 +361,8 @@
                                 <input type="Text"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'color01'}}">
                                 <input type="color" id="tint" name="aaAutorec.melee.{{idx}}.levels3d.color01"
-                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'color01'}}">
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'color01'}}"
+                                    placeholder=#ffffff>
                             </div>
                             <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;">
                                 <label>{{localize 'AUTOANIM.color'}} 02</label>
@@ -355,7 +375,8 @@
                                 <label>{{localize 'AUTOANIM.speed'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.speed" step=".01"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'speed'}}"
-                                    placeholder=5>
+                                    {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d'
+                                    ) 'type' ) "explosion" }} placeholder=0 {{/ifEquals}} placeholder=5>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 3 / 4;">
                                 <label>{{localize 'AUTOANIM.repeat'}} </label>
@@ -382,7 +403,8 @@
                                 <label>{{localize 'AUTOANIM.scale'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.scale" step=".01"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'scale'}}"
-                                    placeholder=0.7>
+                                    {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d'
+                                    ) 'type' ) "explosion" }} placeholder=2 {{/ifEquals}} placeholder=0.7>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 4 / 5;">
                                 <label>{{localize 'AUTOANIM.alpha'}} </label>
@@ -394,25 +416,29 @@
                                 <label>{{localize 'AUTOANIM.gravity'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.gravity" step=".01"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'gravity'}}"
-                                    placeholder=0>
+                                    {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d'
+                                    ) 'type' ) "explosion" }} placeholder=2 {{/ifEquals}} placeholder=0>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 3 / 4;">
                                 <label>{{localize 'AUTOANIM.mass'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.mass" step=".01"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'mass'}}"
-                                    placeholder=100>
+                                    {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d'
+                                    ) 'type' ) "explosion" }} placeholder=400 {{/ifEquals}} placeholder=100>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 4 / 5;">
                                 <label>{{localize 'AUTOANIM.life'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.life" step=".01"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'life'}}"
-                                    placeholder=500>
+                                    {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d'
+                                    ) 'type' ) "explosion" }} placeholder=700 {{/ifEquals}} placeholder=500>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 2 / 3;">
                                 <label>{{localize 'AUTOANIM.emiterSize'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.emittersize" step=".0001"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'emittersize'}}"
-                                    placeholder=.0001>
+                                    {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d'
+                                    ) 'type' ) "explosion" }} placeholder=1 {{/ifEquals}} placeholder=.0001>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 3 / 4;">
                                 <label>{{localize 'AUTOANIM.rate'}} </label>
@@ -420,11 +446,21 @@
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'rate'}}"
                                     placeholder=10>
                             </div>
-
+                            {{#ifnoteq (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'type') "explosion"}}
+                            <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-row: 4 / 5; grid-column: 1 / 2;'>
+                            <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
+                            <input type="checkbox" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.enable"
+                                {{checked ( lookup ( lookup ( lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d' ) 'addexplosion' ) 'enable' )}}>
+                            </div>
+                            {{/ifnoteq}}
                             <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7'>
                                 <label>{{localize 'AUTOANIM.sprite'}}</label>
                                 <input style='width: 25em' type="text" class="files"
                                     name="aaAutorec.melee.{{idx}}.levels3d.sprite"
+                                    {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'sprite') "" }}
+                                    value="modules/levels-3d-preview/assets/particles/emberssmall.png"
+                                    {{/ifEquals}}
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'sprite'}}">
                                 <button type="button" class="file-picker" data-type="image/video"
                                     data-target="aaAutorec.melee.{{idx}}.levels3d.sprite" tabindex="-1"
@@ -434,56 +470,161 @@
                             </div>
                         </div>
                         {{/ifnoteq}}
-                        {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'type') 'sprite'
+                        {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'type')
+                        'sprite'
                         }}
                         <div class='aa-item-container particles'>
                             <div class="form-group" style="grid-row: 2 / 3; grid-column: 1 / 2;">
                                 <label>{{localize 'AUTOANIM.color'}} 01</label>
-                                <input type="Text" value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'color01'}}">
+                                <input type="Text"
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'color01'}}">
                                 <input type="color" id="tint" name="aaAutorec.melee.{{idx}}.levels3d.color01"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'color01'}}">
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
                                 <label>{{localize 'AUTOANIM.speed'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.speed" step=".01"
-                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'speed'}}" placeholder=5>
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'speed'}}"
+                                    placeholder=5>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 3 / 4;">
                                 <label>{{localize 'AUTOANIM.repeat'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.repeat" step=".01"
-                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'repeat'}}" placeholder=1>
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'repeat'}}"
+                                    placeholder=1>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 4 / 5;">
                                 <label>{{localize 'AUTOANIM.delayMS'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.delay" step=".01"
-                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'delay'}}" placeholder=500>
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'delay'}}"
+                                    placeholder=500>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 2 / 3;">
                                 <label>{{localize 'AUTOANIM.scale'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.scale" step=".01"
-                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'scale'}}" placeholder=0.7>
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'scale'}}"
+                                    placeholder=0.7>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 4 / 5;">
                                 <label>{{localize 'AUTOANIM.alpha'}} </label>
                                 <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.alpha" step=".01"
-                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'alpha'}}" placeholder=0.7>
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'alpha'}}"
+                                    placeholder=0.7>
                             </div>
-                        
+                            <div class='form-group'
+                            style='padding-top: 5px;padding-bottom: 4px;grid-row: 4 / 5; grid-column: 1 / 2;'>
+                            <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
+                            <input type="checkbox" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.enable"
+                                {{checked ( lookup ( lookup ( lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d' ) 'addexplosion' ) 'enable' )}}>
+                            </div>
+
                             <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7'>
                                 <label>{{localize 'AUTOANIM.sprite'}}</label>
-                                <input style='width: 25em' type="text" class="files" name="aaAutorec.melee.{{idx}}.levels3d.sprite"
-                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'sprite'}}">
+                                <input style='width: 25em' type="text" class="files"
+                                    name="aaAutorec.melee.{{idx}}.levels3d.sprite"
+                                    {{#ifEquals (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'sprite') "" }}
+                                    value="modules/levels-3d-preview/assets/particles/emberssmall.png"
+                                    {{/ifEquals}}
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'sprite'}}" placeholder="modules/levels-3d-preview/assets/particles/emberssmall.png">
                                 <button type="button" class="file-picker" data-type="image/video"
-                                    data-target="aaAutorec.melee.{{idx}}.levels3d.sprite" tabindex="-1" title="Browse Files">
+                                    data-target="aaAutorec.melee.{{idx}}.levels3d.sprite" tabindex="-1"
+                                    title="Browse Files">
                                     <i class="fas fa-file-video"></i>
                                 </button>
                             </div>
-                        </div>                        
+                        </div>
                         {{/ifEquals}}
-
                         <div style='padding:3px'>
                         </div>
-                        <div style='padding:3px'>
+                        <!--Add Particle Explosion on End-->
+                        <div {{#unless ( lookup ( lookup ( lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d' ) 'addexplosion' ) 'enable' ) }} style='display: none;' {{/unless}}>
+                            <div class='flexrow text-green' {{#unless ( lookup ( lookup ( lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d' ) 'addexplosion' ) 'enable' ) }}
+                                style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered; text-align: center;'
+                                {{/unless}}>
+                                <label><strong>{{localize "AUTOANIM.addExplosion"}}</strong></label>
+                            </div>
+                            <div class='aa-item-container add-explosion particles' {{#if ( lookup ( lookup ( lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d' ) 'addexplosion' ) 'enable' ) }}
+                                style='box-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;'
+                                {{/if}}>
+                                <div class="form-group" style="grid-row: 2 / 3; grid-column: 1 / 2;visibility: h;">
+                                    <label>{{localize 'AUTOANIM.color'}} 01</label>
+                                    <input type="Text"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'color01'}}">
+                                    <input type="color" id="tint" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.color01"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'color01'}}"
+                                        placeholder=#ffffff>
+                                </div>
+                                <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;">
+                                    <label>{{localize 'AUTOANIM.color'}} 02</label>
+                                    <input type="Text"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'color02'}}">
+                                    <input type="color" id="tint" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.color02"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'color02'}}">
+                                </div>
+                                <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+                                    <label>{{localize 'AUTOANIM.speed'}} </label>
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.speed" step=".01"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'speed'}}"
+                                        placeholder=0>
+                                </div>
+                                <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 2 / 3;">
+                                    <label>{{localize 'AUTOANIM.scale'}} </label>
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.scale" step=".01"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'scale'}}"
+                                        placeholder=2>
+                                </div>
+                                <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+                                    <label>{{localize 'AUTOANIM.alpha'}} </label>
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.alpha" step=".01"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'alpha'}}"
+                                        placeholder=0.5>
+                                </div>
+                                <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 2 / 3;">
+                                    <label>{{localize 'AUTOANIM.gravity'}} </label>
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.gravity" step=".01"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'gravity'}}"
+                                        placeholder=2>
+                                </div>
+                                <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 3 / 4;">
+                                    <label>{{localize 'AUTOANIM.mass'}} </label>
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.mass" step=".01"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'mass'}}"
+                                        placeholder=400>
+                                </div>
+                                <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 4 / 5;">
+                                    <label>{{localize 'AUTOANIM.life'}} </label>
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.life" step=".01"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'life'}}"
+                                        placeholder=700>
+                                </div>
+                                <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 2 / 3;">
+                                    <label>{{localize 'AUTOANIM.emiterSize'}} </label>
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.emittersize" step=".0001"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'emittersize'}}"
+                                        placeholder=1>
+                                </div>
+                                <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 3 / 4;">
+                                    <label>{{localize 'AUTOANIM.rate'}} </label>
+                                    <input type="Number" name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.rate" step=".01"
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'rate'}}"
+                                        placeholder=10>
+                                </div>
+    
+                                <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7'>
+                                    <label>{{localize 'AUTOANIM.sprite'}}</label>
+                                    <input style='width: 25em' type="text" class="files"
+                                        name="aaAutorec.melee.{{idx}}.levels3d.addexplosion.sprite"
+                                        {{#ifEquals (lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'sprite') "" }}
+                                        value="modules/levels-3d-preview/assets/particles/dust.png";
+                                        {{/ifEquals}}    
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'levels3d') 'addexplosion' ) 'sprite'}}">
+                                    <button type="button" class="file-picker" data-type="image/video"
+                                        data-target="aaAutorec.melee.{{idx}}.levels3d.addexplosion.sprite" tabindex="-1"
+                                        title="Browse Files">
+                                        <i class="fas fa-file-video"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

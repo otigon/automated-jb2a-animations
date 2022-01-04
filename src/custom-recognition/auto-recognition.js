@@ -129,6 +129,9 @@ export class aaAutoRecognition extends FormApplication {
         html.find('.particles input[type="color"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        html.find('.particles input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render())
+        })
 
     }
 
