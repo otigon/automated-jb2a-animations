@@ -52,7 +52,6 @@ export async function particleEffects(handler) {
                 scale: explode3d.scale || 1,
             }
         }
-        console.log(data)
         if (data.explosion.enable) {
             new Particle3D(data.type)
                 .from(sourceToken)
@@ -176,7 +175,6 @@ export async function particleEffects(handler) {
                 scale: explode3d.scale || 1,
             }
         }
-        console.log(data)
         if (data.explosion.enable) {
             new Particle3D(data.type)
                 .from(sourceToken)
