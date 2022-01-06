@@ -133,6 +133,11 @@ export class aaAutoRecognition extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render())
         })
 
+        html.on('click', '.sort-menu', async (evt) => {
+            evt.preventDefault()
+            await this.sortAutorec()
+            this.render()
+        })
     }
 
     _loadSearch(evt) {
@@ -435,6 +440,44 @@ export class aaAutoRecognition extends FormApplication {
             await game.settings.set('autoanimations', key, value);
         }
     }
+
+    async sortAutorec() {
+        const autoRec = await game.settings.get('autoanimations', 'aaAutorec');
+        const sortedMenu = {};
+    
+        sortedMenu.version = autoRec.version;
+        sortedMenu.search = autoRec.search;
+        sortedMenu.melee = await this.sortMenu(autoRec.melee);
+        sortedMenu.range = await this.sortMenu(autoRec.range);
+        sortedMenu.static = await this.sortMenu(autoRec.static);
+        sortedMenu.templates = await this.sortMenu(autoRec.templates);
+        sortedMenu.auras = await this.sortMenu(autoRec.auras);
+        sortedMenu.preset = await this.sortMenu(autoRec.preset)
+    
+        await game.settings.set("autoanimations", "aaAutorec", sortedMenu);
+    }
+    
+    async sortMenu(data) {
+        const mergedArray = [];
+        const keys = Object.keys(data);
+        const keyLength = keys.length;
+        for (var i = 0; i < keyLength; i++) {
+            var currentObject = data[keys[i]];
+            if (!currentObject.name) { break; }
+            currentObject.menuSection = keys[i]
+            mergedArray.push(currentObject)
+        }
+        mergedArray.sort((a, b) => b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 1)
+    
+        const sortedMenu = {};
+        const newLength = mergedArray.length;
+        for (var i = 0; i < newLength; i++) {
+            var currentKey = i.toString()
+            sortedMenu[currentKey] = mergedArray[currentKey];
+        }
+        return sortedMenu;
+    }
+    
 }
 
 // Credit to Tim Poseny of Midi-QOL for the import/export functions for settings
