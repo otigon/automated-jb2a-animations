@@ -565,5 +565,6 @@
     "AUTOANIM.duplicate": "Duplicate",
     "AUTOANIM.toggle3d": "Toggle 3D",
     "AUTOANIM.delete": "Delete",
-    "AUTOANIM.particlenote": "Particle Settings for 3D Canvas Module"
+    "AUTOANIM.particlenote": "Particle Settings for 3D Canvas Module",
+    "AUTOANIM.sortmenu": "Sort Menu"
 }
