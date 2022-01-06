@@ -253,7 +253,7 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.particles select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render());
+            this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.particles input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
