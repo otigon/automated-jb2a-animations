@@ -152,7 +152,7 @@ export async function thunderwaveAuto(handler, data) {
                 .file(data.itemAudio.file)
                 .volume(data.itemAudio.volume)
                 .delay(data.itemAudio.delay)
-                .repeats(data.repeat, data.delay)
+                .repeats(data.itemAudio.repeat, data.delay)
                 .playIf(data.playSound)        
             .effect()
                 .file(anFile)

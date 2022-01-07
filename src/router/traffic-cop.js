@@ -21,22 +21,37 @@ import { particleEffects } from "../animation-functions/particleSystem.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
+    const aaDebug = game.settings.get("autoanimations", "debug")
+
     if (game.Levels3DPreview?._active) {
+
         if (handler.flags?.levels3d?.type) {
+            if (aaDebug) { aaDebugger("Beginning Particle Animation for Custom Item Setting") }
             particleEffects(handler);
             return;
-        } else {
-            return;
         }
+
+        if (!game.settings.get("autoanimations", "disableAutoRec")) {
+            if (aaDebug) { aaDebugger("Automatic Recognition Beginning for Particle System") }
+            const autoName = AutorecFunctions._rinseName(handler.itemName); //removes all spaces in the name
+            const isAuto = AutorecFunctions.foundInAutorec(handler.autorecSettings, autoName);
+            if (isAuto) {
+                const autoObject = handler.autorecObject;
+                particleEffects(handler, autoObject);
+                return;
+            }
+        } else {
+            if (aaDebug) { aaDebugger("No Automatic Recognition Found") }
+        }
+        return;
     }
-    const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (handler.soundNoAnimation) {
         new Sequence()
             .sound()
-                .file(handler.flags?.audio?.a01?.file)
-                .volume(handler.flags?.audio?.a01?.volume)
-                .delay(handler.flags?.audio?.a01?.delay)
+            .file(handler.flags?.audio?.a01?.file)
+            .volume(handler.flags?.audio?.a01?.volume)
+            .delay(handler.flags?.audio?.a01?.delay)
             .play()
         return;
     } else if (handler.animKill) {
@@ -226,7 +241,7 @@ export async function trafficCop(handler) {
                         break;
                 }
             } else {
-                //itemSound(handler)
+                if (aaDebug) { aaDebugger("No Automatic Recognition Found") }
             }
         }
     }

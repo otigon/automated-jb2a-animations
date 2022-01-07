@@ -5,17 +5,32 @@
             <div class='flexcol'>
                 <div class='form-group'>
                     <div class='form-fields'>
-                        <input type='checkbox' class='hideme' name='aaAutorec.templates.{{idx}}.hidden' {{checked
-                            (lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }} style="display:none">
-                        <i {{#if ( lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }}
-                            class="fas fa-plus collapse-button" {{/if}} {{#unless ( lookup (lookup
-                            ../settings.aaAutorec.templates idx) 'hidden' ) }} class="fas fa-minus collapse-button"
-                            {{/unless}}></i>
-                        <i class='far fa-clone duplicate-templates' data-idx="{{idx}}" style="max-width: 1.5rem;"></i>
+                        <input type='checkbox' class='hideme' name='aaAutorec.templates.{{idx}}.hidden' {{checked (lookup
+                            (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }} style="display:none">
+                        <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;"><i {{#if ( lookup (lookup
+                                ../settings.aaAutorec.templates idx) 'hidden' ) }} class="fas fa-plus collapse-button"
+                                {{/if}} {{#unless ( lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }}
+                                class="fas fa-minus collapse-button" {{/unless}}></i>
+                            <span class='aaToggle01'>
+                                {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'hidden')}}
+                                {{localize 'AUTOANIM.expand'}}
+                                {{/if}}
+                                {{#unless (lookup (lookup ../settings.aaAutorec.templates idx) 'hidden')}}
+                                {{localize 'AUTOANIM.collapse'}}
+                                {{/unless}}
+                            </span>
+                        </div>
+                        <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;"><i
+                                class='far fa-clone duplicate-templates' data-idx="{{idx}}"></i>
+                            <span class='aaToggle01'>{{localize 'AUTOANIM.duplicate'}}</span>
+                        </div>
                         <input type='text' name="aaAutorec.templates.{{idx}}.name"
                             placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
                             value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'name'}}" />
-                        <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
+                        <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;">
+                            <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
+                            <span class='aaToggle02'>{{localize 'AUTOANIM.delete'}}</span>
+                        </div>
                     </div>
                 </div>
                 <div {{#if ( lookup (lookup ../settings.aaAutorec.templates idx) 'hidden' ) }} style="display:none"

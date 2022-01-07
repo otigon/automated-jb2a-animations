@@ -255,7 +255,7 @@ export async function templateAnimation(handler, animationData) {
                     .file(data.itemAudio.file)
                     .volume(data.itemAudio.volume)
                     .delay(data.itemAudio.delay)
-                    .repeats(data.repeat, data.delay)
+                    .repeats(data.itemAudio.repeat, data.delay)
                     .playIf(data.playSound)
                 .effect()
                     .file(tempAnimation.file)

@@ -91,6 +91,14 @@ export default function aaSettings() {
         type: Boolean,
         default: false,
     });
+    game.settings.register("autoanimations", "decoupleSound", {
+        name: game.i18n.format("AUTOANIM.decoupleSounds"),
+        hint: game.i18n.format("AUTOANIM.decoupleSounds_hint"),
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+    })
     game.settings.register("autoanimations", "rangeSwitch", {
         name: game.i18n.format("AUTOANIM.settingRangeSwitch"),
         hint: game.i18n.format("AUTOANIM.settingRangeSwitchhint"),

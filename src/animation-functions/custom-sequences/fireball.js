@@ -41,18 +41,21 @@ export async function fireball(handler, autoObject) {
             file: data.audio?.a01?.file,
             volume: data.audio?.a01?.volume || 0.25,
             delay: data.audio?.a01?.delay || 0,
+            repeat: handler.decoupleSound ? 1 : data.projectileRepeat || 1,
         }
         data.exAudio01 = {
             enable: data.audio?.e01?.enable || false,
             file: data.audio?.e01?.file,
             volume: data.audio?.e01?.volume || 0.25,
             delay: data.audio?.e01?.delay || 0,
+            repeat: handler.decoupleSound ? 1 : data.explosion01Repeat || 1,
         }
         data.exAudio02 = {
             enable: data.audio?.e02?.enable || false,
             file: data.audio?.e02?.file,
             volume: data.audio?.e02?.volume || 0.25,
             delay: data.audio?.e02?.delay || 0,
+            repeat: handler.decoupleSound ? 1 : data.explosion02Repeat || 1,
         }
     } else {
         const fireballFlags = flags.fireball ?? {};
@@ -88,18 +91,21 @@ export async function fireball(handler, autoObject) {
             file: handler.flags?.audio?.a01?.file,
             volume: handler.flags?.audio?.a01?.volume || 0.25,
             delay: handler.flags?.audio?.a01?.delay || 0,
+            repeat: handler.decoupleSound ? 1 : data.projectileRepeat || 1,
         }
         data.exAudio01 = {
             enable: handler.flags?.audio?.e01?.enable || false,
             file: handler.flags?.audio?.e01?.file,
             volume: handler.flags?.audio?.e01?.volume || 0.25,
             delay: handler.flags?.audio?.e01?.delay || 0,
+            repeat: handler.decoupleSound ? 1 : data.explosion01Repeat || 1,
         }
         data.exAudio02 = {
             enable: handler.flags?.audio?.e02?.enable || false,
             file: handler.flags?.audio?.e02?.file,
             volume: handler.flags?.audio?.e02?.volume || 0.25,
             delay: handler.flags?.audio?.e02?.delay || 0,
+            repeat: handler.decoupleSound ? 1 : data.explosion02Repeat || 1,
         }
     }
 
@@ -133,7 +139,7 @@ export async function fireball(handler, autoObject) {
             .file(data.itemAudio.file)
             .volume(data.itemAudio.volume)
             .delay(data.itemAudio.delay)
-            .repeats(data.projectileRepeat, data.projectileDelay)
+            .repeats(data.itemAudio.repeat, data.projectileDelay)
             .playIf(() => {
                 return data.itemAudio.enable && data.itemAudio.file;
             })
@@ -147,7 +153,7 @@ export async function fireball(handler, autoObject) {
             .file(data.exAudio01.file)
             .volume(data.exAudio01.volume)
             .delay(data.exAudio01.delay)
-            .repeats(data.explosion01Repeat, data.explosion01Delay)
+            .repeats(data.exAudio01.repeat, data.explosion01Delay)
             .playIf(() => {
                 return data.exAudio01.enable && data.exAudio01.file;
             })
@@ -163,6 +169,7 @@ export async function fireball(handler, autoObject) {
             .file(data.exAudio02.file)
             .volume(data.exAudio02.volume)
             .delay(data.exAudio02.delay)
+            .repeats(data.exAudio02.repeat, data.explosion02Delay)
             .playIf(() => {
                 return data.exAudio02.enable && data.exAudio02.file;
             })

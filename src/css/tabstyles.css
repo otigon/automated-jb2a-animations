@@ -138,6 +138,48 @@
     opacity: 0.50;
 }
 
+.aaToolTip {
+    position:relative;
+    display: inline-block;
+}
+
+.aaToolTip .aaToggle01 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    top:100%;
+    left:50%;
+    margin-left: -60%;
+    z-index: 1;
+}
+
+.aaToolTip .aaToggle02 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    top:100%;
+    right:5%;
+    z-index: 1;
+}
+
+.aaToolTip:hover .aaToggle01 {
+    visibility: visible;
+}
+
+.aaToolTip:hover .aaToggle02 {
+    visibility: visible;
+}
+
 #automatic-recognition input.auto-search{
     text-align: center;
     font-weight: bold;
@@ -148,9 +190,8 @@
     font-weight: bold;
 }
 
-#automatic-recognition .collapse-button {
-    max-width: 1.5rem;
-    margin-left: 0.75rem;
+#automatic-recognition .button-2d:hover {
+    text-shadow: 0 0 5px red
 }
 
 #automatic-recognition select{
@@ -158,6 +199,11 @@
 }
 
 #AA-item-settings ::placeholder {
+    color: rgb(61, 61, 61);
+    opacity: .6;
+}
+
+#automatic-recognition ::placeholder {
     color: rgb(61, 61, 61);
     opacity: .6;
 }
@@ -174,11 +220,6 @@
 
 #automatic-recognition .remove-autorecog:hover {
     text-shadow: 0 0 5px red
-}
-
-#automatic-recognition .remove-autorecog {
-    max-width: 1.5rem;
-    margin-left: 0.75rem;
 }
 
 #automatic-recognition .duplicate-melee:hover {
@@ -198,11 +239,6 @@
 }
 #automatic-recognition .duplicate-preset:hover {
     text-shadow: 0 0 5px red
-}
-
-
-.aa-autorec-submit {
-    max-height: 2rem;
 }
 
 .autorec-menu-options {

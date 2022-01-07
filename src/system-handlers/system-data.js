@@ -87,6 +87,7 @@ export default class flagHandler {
 
         this.isOverrideTemplate = (this.animType === "template" && this.animOverride) || (this.animType === "preset" && this.flags.animation === "fireball" && this.animOverride) ? true : false;
         this.isOverrideAura = this.animType === "aura" && this.animOverride ? true: false;
+        this.decoupleSound = game.settings.get("autoanimations", "decoupleSound")
     }
 
     get isTemplateOrAuraAnimation () {
