@@ -104,13 +104,15 @@ Hooks.once('ready', function () {
         switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
-                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
+                Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
+                //Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
                 Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttackDamage(workflow) });
                 break;
             case (false):
                 Hooks.on("midi-qol.AttackRollComplete", (workflow) => { setUpMidi(workflow) });
                 Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttack(workflow) });
-                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
+                Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
+                //Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
                 break;
         }
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
@@ -313,7 +315,18 @@ async function setUpMidiNoAttack(workflow) {
     if (handler.isTemplateOrAuraAnimation) { return; }
     trafficCop(handler)
 }
-
+// For AOE items when using Midi QOL
+async function midiAOE(workflow) {
+    if (killAllAnimations) { return; }
+    const handler = await flagHandler.make(workflow);
+    if (!handler.item || !handler.actorToken) {
+        return;
+    }
+    if (handler.isTemplateOrAuraAnimation) {
+        trafficCop(handler);
+    } else { return; }
+}
+/*
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
 async function midiTemplateAnimations(msg) {
     if (killAllAnimations) { return; }
@@ -330,7 +343,8 @@ async function midiTemplateAnimations(msg) {
         trafficCop(handler);
     } else { return; }
 }
-
+*/
+/*
 function checkMessege(msg) {
     try {
         return msg.data?.flags['midi-qol'].type;
@@ -338,7 +352,7 @@ function checkMessege(msg) {
         return false;
     }
 }
-
+*/
 /*
 / Set up DnD5e and SW5e CORE (NON MIDI)
 */

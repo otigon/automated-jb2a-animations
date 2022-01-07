@@ -307,15 +307,18 @@
                                 <input type="Text"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color01'}}">
                                 <input type="color" id="tint" name="aaAutorec.static.{{idx}}.levels3d.color01"
+                                    {{#if (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color01') }}
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color01'}}"
-                                    placeholder=#ffffff>
+                                    {{/if}}>
                             </div>
                             <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;">
                                 <label>{{localize 'AUTOANIM.color'}} 02</label>
                                 <input type="Text"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color02'}}">
                                 <input type="color" id="tint" name="aaAutorec.static.{{idx}}.levels3d.color02"
-                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color02'}}">
+                                    {{#if (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color02') }}
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color02'}}"
+                                    {{/if}}>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
                                 <label>{{localize 'AUTOANIM.speed'}} </label>
@@ -426,7 +429,9 @@
                                 <input type="Text"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color01'}}">
                                 <input type="color" id="tint" name="aaAutorec.static.{{idx}}.levels3d.color01"
-                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color01'}}">
+                                    {{#if (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color01') }}
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'color01'}}"
+                                    {{/if}}>
                             </div>
                             <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
                                 <label>{{localize 'AUTOANIM.speed'}} </label>
@@ -503,8 +508,9 @@
                                         value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'addexplosion' ) 'color01'}}">
                                     <input type="color" id="tint"
                                         name="aaAutorec.static.{{idx}}.levels3d.addexplosion.color01"
+                                        {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'addexplosion' ) 'color01') }}
                                         value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'addexplosion' ) 'color01'}}"
-                                        placeholder=#ffffff>
+                                        {{/if}}>
                                 </div>
                                 <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;">
                                     <label>{{localize 'AUTOANIM.color'}} 02</label>
@@ -512,7 +518,9 @@
                                         value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'addexplosion' ) 'color02'}}">
                                     <input type="color" id="tint"
                                         name="aaAutorec.static.{{idx}}.levels3d.addexplosion.color02"
-                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'addexplosion' ) 'color02'}}">
+                                        {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'addexplosion' ) 'color02') }}
+                                        value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'levels3d') 'addexplosion' ) 'color02'}}"
+                                        {{/if}}>
                                 </div>
                                 <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
                                     <label>{{localize 'AUTOANIM.speed'}} </label>
