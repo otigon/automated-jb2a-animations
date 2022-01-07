@@ -141,6 +141,7 @@ export class AAanimationData {
                     //file: handler.audio?.e01?.file,
                     volume: 0.25,
                     delay: 0,
+                    repeat: 1,
                 }
             }
             explosion.data = "";
