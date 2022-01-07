@@ -566,5 +566,8 @@
     "AUTOANIM.toggle3d": "Toggle 3D",
     "AUTOANIM.delete": "Delete",
     "AUTOANIM.particlenote": "Particle Settings for 3D Canvas Module",
-    "AUTOANIM.sortmenu": "Sort Menu"
+    "AUTOANIM.sortmenu": "Sort Menu",
+    "AUTOANIM.decoupleSounds": "Decouple Sounds",
+    "AUTOANIM.decoupleSounds_hint": "Prevents Sounds from Repeating with Animations"
+
 }

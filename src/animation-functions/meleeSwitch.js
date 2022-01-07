@@ -48,7 +48,7 @@ export async function meleeSwitch(handler, target, data, sourceFX, targetFX) {
                 .file(data.switchAudio.file)
                 .volume(data.switchAudio.volume)
                 .delay(data.switchAudio.delay)
-                .repeats(data.repeat, data.delay)
+                .repeats(data.switchAudio.repeat, data.delay)
                 .playIf(() => {
                     return data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off";
                 })
@@ -74,7 +74,7 @@ export async function meleeSwitch(handler, target, data, sourceFX, targetFX) {
                 .playIf(data.explosion?.playSound)
                 .delay(data.explosion?.audio?.delay + data.explosion?.delay)
                 .volume(data.explosion?.audio?.volume)
-                .repeats(data.repeat, data.delay)
+                .repeats(data.explosion?.audio?.repeat, data.delay)
             .effect()
                 .atLocation("animation")
                 .file(data.explosion?.data?.file)
