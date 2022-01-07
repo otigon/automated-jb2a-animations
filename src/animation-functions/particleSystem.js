@@ -190,12 +190,14 @@ export async function particleEffects(handler, autoObject) {
                     .start()
             }
         }
+
     
     }
 
     ParticleFunctions[options3d.type](data, sourceToken, targets)
     /*
     function projectileRay() {
+
         if (data.explosion.enable) {
             new Particle3D(data.type)
                 .from(sourceToken)
@@ -266,7 +268,44 @@ export async function particleEffects(handler, autoObject) {
             .start()
     }
 
+
     function sprite() {
+
+    function spriteShoot() {
+        const options = options3d.sprite;
+        const type = options3d.type === "ray" ? "ray" : "projectile";
+        const data = {
+            type: type,
+            speed: options.speed ?? 5,
+            repeat: options.repeat || 1,
+            //arc: options.arc || 2,
+            delay: options.delay ?? 0,
+            scale: options.scale || 0.7,
+            color01: options.color01 ?? "#FFFFFF",
+            //color02: options.color02 ?? "#FFFFFF",
+            sprite: options.sprite || "modules/levels-3d-preview/assets/particles/emberssmall.png",
+            //life: options.life || 500,
+            //emitterSize: options.emittersize || .0001,
+            alpha: options.alpha || 0.7,
+            //mass: options.mass || 100,
+            //gravity: options.gravity ?? 0,
+            //rate: options.rate || 10,
+            explosion: {
+                enable: explode3d.enable || false,
+                color01: explode3d.color01,
+                color02: explode3d.color02,
+                speed: explode3d.speed || 1,
+                gravity: explode3d.gravity || 2,
+                life: explode3d.life || 500,
+                rate: explode3d.rate || 10,
+                emitterSize: explode3d.emittersize || 1,
+                alpha: explode3d.alpha || 0.5,
+                mass: explode3d.mass || 100,
+                sprite: explode3d.sprite || "modules/levels-3d-preview/assets/particles/dust.png",
+                scale: explode3d.scale || 1,
+            }
+        }
+
         if (data.explosion.enable) {
             new Particle3D(data.type)
                 .from(sourceToken)

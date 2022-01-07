@@ -292,3 +292,53 @@ export class AutorecFunctions {
     }
 
 }
+
+/*
+async function sortAutorec() {
+    const autoRec = await game.settings.get('autoanimations', 'aaAutorec');
+    console.log(autoRec)
+    const sortedMenu = {};
+
+    sortedMenu.version = autoRec.version;
+    sortedMenu.search = autoRec.search;
+    sortedMenu.melee = await sortMenu(autoRec.melee);
+    sortedMenu.range = await sortMenu(autoRec.range);
+    sortedMenu.static = await sortMenu(autoRec.static);
+    sortedMenu.templates = await sortMenu(autoRec.templates);
+    sortedMenu.auras = await sortMenu(autoRec.auras);
+    sortedMenu.preset = await sortMenu(autoRec.preset)
+
+    console.log(sortedMenu)
+}
+
+async function sortMenu(data) {
+    const mergedArray = [];
+    const keys = Object.keys(data);
+    const keyLength = keys.length;
+    for (var i = 0; i < keyLength; i++) {
+        var currentObject = data[keys[i]];
+        if (!currentObject.name) { break; }
+        currentObject.menuSection = keys[i]
+        mergedArray.push(currentObject)
+    }
+    mergedArray.sort((a, b) => b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 1)
+
+    const melee = {};
+    const newLength = mergedArray.length;
+    for (var i = 0; i < newLength; i++) {
+        var currentKey = i.toString()
+        melee[currentKey] = mergedArray[currentKey];
+    }
+    return melee;
+}
+
+async function newMenu(data) {
+    const melee = {};
+    const keyLength = data.length;
+    for (var i = 0; i < keyLength; i++) {
+        var currentKey = i.toString()
+        melee[currentKey] = data[currentKey];
+    }
+    return melee;
+}
+*/

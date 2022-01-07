@@ -64,6 +64,7 @@ export async function teleportation(handler, animationData) {
     async function deleteTemplatesAndMove() {
 
         let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
+        let centerPos = canvas.grid.getCenter(pos.x, pos.y);
 
         let removeTemplates = canvas.templates.placeables.filter(i => i.data.flags.world?.Teleportation?.ActorId === actor.id);
         removeTemplates = removeTemplates.map(template => template.id);
@@ -83,37 +84,22 @@ export async function teleportation(handler, animationData) {
                 .randomRotation()
                 .wait(750)
             .thenDo(async () => {
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    await sourceToken.update({
-                        x: gridPos[0],
-                        y: gridPos[1],
-                        hidden: true
-                    }, { animate: false });
-                } else {
-                    await sourceToken.document.update({
-                        x: gridPos[0],
-                        y: gridPos[1],
-                        hidden: true
-                    }, { animate: false });
-                }
+                await sourceToken.document.update({
+                    x: gridPos[0],
+                    y: gridPos[1],
+                    hidden: true
+                }, { animate: false });
             })  
             .effect()
                 .file(onToken.msFile)
-                .atLocation(sourceToken)
+                .atLocation({x: centerPos[0], y: centerPos[1]})
                 .scale(Scale)
                 .randomRotation()
             .wait(1500)
             .thenDo(async () => {
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    await sourceToken.update({
-                        hidden: false
-                    }, { animate: false });
-                    0
-                } else {
-                    await sourceToken.document.update({
-                        hidden: false
-                    }, { animate: false });
-                }
+                await sourceToken.document.update({
+                    hidden: false
+                }, { animate: false });
             })
             .play();
     };
