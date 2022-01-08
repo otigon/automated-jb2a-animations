@@ -14,7 +14,7 @@ export class AASystemData {
     * 
     */
 
-    static dnd5e(input, isChat) {
+    static async dnd5e(input, isChat) {
         if (game.modules.get('midi-qol')?.active && !isChat) {
             const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
             const ammo = input.item?.data?.flags?.autoanimations?.options?.ammo;
@@ -54,7 +54,8 @@ export class AASystemData {
 
             const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.uuid)) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
 
-            let item = token.actor?.items?.get(itemId);
+            let item = token.actor?.items?.get(itemId) || await fromUuid(`Item.${itemId}`);
+            console.log(item)
             if (!item) return {};
             if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
                 itemId = item.data.data.consume.target;
@@ -75,7 +76,7 @@ export class AASystemData {
         }
     }
 
-    static d35e(input) {
+    static async d35e(input) {
         const itemId = this._extractItemId(input.data?.content);
         const tokenId = input.data?.speaker?.token;
         if (!itemId || !tokenId) { return {}; }
@@ -86,7 +87,7 @@ export class AASystemData {
         return { item, token, targets };
     }
 
-    static sw5e(input, isChat) {
+    static async sw5e(input, isChat) {
         if (game.modules.get('midi-qol')?.active && !isChat) {
             const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
             const ammo = input.item?.data?.flags?.autoanimations?.options?.ammo;
@@ -146,7 +147,7 @@ export class AASystemData {
         }
     }
 
-    static pf1(input) {
+    static async pf1(input) {
         const item = input?.itemSource;
         const tokenId = input.data?.speaker?.token;
         if (!item || !tokenId) { return {}; }
@@ -156,7 +157,7 @@ export class AASystemData {
         return { item, token, targets };
     }
 
-    static pf2e(input) {
+    static async pf2e(input) {
         const item = input.item;
         const token = input.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null);
         const targets = Array.from(input.user.targets);
@@ -177,7 +178,7 @@ export class AASystemData {
         return { item, token, targets, hitTargets };
     }
 
-    static forbiddenlands(input) {
+    static async forbiddenlands(input) {
         const itemId = input._roll.options?.itemId;
         const tokenId = input._roll.options?.tokenId;
         if (!itemId || !tokenId) { return {}; }
@@ -188,7 +189,7 @@ export class AASystemData {
         return { item, token, targets };
     }
 
-    static demonlord(input) {
+    static async demonlord(input) {
         const itemId = input.itemId;
         const token = input.sourceToken || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         const item = token.actor?.items?.get(itemId);
@@ -220,7 +221,7 @@ export class AASystemData {
         return { item, token, targets, hitTargets };
     }
 
-    static swade(input) {
+    static async swade(input) {
         const item = input.SwadeItem;
         const tokenOrActor = input.SwadeTokenOrActor;
         let token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null) || canvas.tokens.ownedTokens.find(x => x.actor.id === tokenOrActor.id);
@@ -231,7 +232,7 @@ export class AASystemData {
         return { item, token, targets };
     }
 
-    static tormenta20(input) {
+    static async tormenta20(input) {
         const itemId = this._extractItemId(input.data?.content);
         const tokenId = input.data?.speaker?.token;
         if (!itemId || !tokenId) { return {}; }
@@ -242,7 +243,7 @@ export class AASystemData {
         return { item, token, targets };
     }
 
-    static wfrp4e(input) {
+    static async wfrp4e(input) {
 
         const item = input.item;
         const itemId = item._id;
