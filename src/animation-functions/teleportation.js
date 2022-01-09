@@ -18,14 +18,17 @@ export async function teleportation(handler, animationData) {
         data.itemName = data.subAnimation || "";
         data.teleDist = data.range || 30;
     } else {
-        data.itemName = data.options?.name || "";
+        data.itemName01 = data.options?.name01 || "";
+        data.itemName02 = data.options?.name02 || "";
     }
     if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
-    const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
+    const onToken = await buildFile(true, data.itemName01, "static", data.variant, data.color, data.customPath);
+    const onToken02 = await buildFile(true, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
 
     const sourceScale = sourceToken.w;
 
     let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
+    let Scale02 = ((sourceScale / onToken02.metadata.width) * data.scale02) * 1.75;
     if (!data.hideTemplate) {
         const templateData = ({
             t: "circle",
@@ -91,9 +94,9 @@ export async function teleportation(handler, animationData) {
                 }, { animate: false });
             })  
             .effect()
-                .file(onToken.msFile)
+                .file(onToken02.file)
                 .atLocation({x: centerPos[0], y: centerPos[1]})
-                .scale(Scale)
+                .scale(Scale02)
                 .randomRotation()
             .wait(1500)
             .thenDo(async () => {
