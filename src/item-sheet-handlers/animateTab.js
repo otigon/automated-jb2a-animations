@@ -171,6 +171,8 @@ export class AAItemSettings extends FormApplication {
             autoRepeat: flags.autoanimations?.autoOverride?.repeat || 1,
             autoDelay: flags.autoanimations?.autoOverride?.delay || 500,
             autoScale: flags.autoanimations?.autoOverride?.scale || 1,
+            autoScaleX: flags.autoanimations?.autoOverride?.scaleX || 1,
+            autoScaleY: flags.autoanimations?.autoOverride?.scaleY || 1,
             autoOpacity: flags.autoanimations?.autoOverride?.opacity || 0.75,
             autoRadius: flags.autoanimations?.autoOverride?.radius || 3.5,
             autoAnchorX: flags.autoanimations?.autoOverride?.anchorX || 0.5,
