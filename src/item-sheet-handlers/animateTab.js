@@ -124,6 +124,8 @@ export class AAItemSettings extends FormApplication {
             aaRepeat: animationRepeat || 1,
             aaDelay: flags.autoanimations?.options?.delay ?? 250,
             aaScale: flags.autoanimations?.options?.scale ?? 1,
+            aaScaleX: flags.autoanimations?.options?.scaleX ?? 1,
+            aaScaleY: flags.autoanimations?.options?.scaleY ?? 1,
             aaScale02: flags.autoanimations?.options?.scale02 ?? 1,
             auraRadius: flags.autoanimations?.options?.auraRadius || 3.5,
             aaOpacity: flags.autoanimations?.options?.opacity || "1",

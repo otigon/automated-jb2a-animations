@@ -77,6 +77,8 @@ export class AAanimationData {
                 repeat: options.repeat || 1,
                 delay: options.delay || 250,
                 scale: options.scale || 1,
+                scaleX: options.scaleX || 1,
+                scaleY: options.scaleY || 1,
                 scale02: options.scale02 || 1,
                 opacity: options.opacity || 1,
                 persistent: options.persistent || false,

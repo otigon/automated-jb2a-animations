@@ -42,11 +42,11 @@ export async function templateAnimation(handler, animationData) {
         let templateType = template.data?.t;
         let templateW;
         let templateLength;
-        let scaleX;
-        let scaleY;
-        let rotate;
-        let xAnchor;
-        let yAnchor;
+        //let scaleX;
+        //let scaleY;
+        //let rotate;
+        //let xAnchor;
+        //let yAnchor;
         let tileWidth;
         let tileHeight;
         let tileX;
@@ -54,24 +54,26 @@ export async function templateAnimation(handler, animationData) {
         const templateTypes = ['sphere', 'cylinder', 'radius']
         //let scale = ((200 * handler.explosionRadius) / (canvas.dimensions.distance * videoData.width))
         switch (templateType) {
+            /*
             case "ray":
                 templateW = template.data.distance;
                 templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
-                scaleY = 1;
-                rotate = -template.data.direction;
-                xAnchor = 0;
-                yAnchor = 0.5;
+                //scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
+                //scaleY = 1;
+                //rotate = -template.data.direction;
+                //xAnchor = 0;
+                //yAnchor = 0.5;
                 break;
+            */
             case "rect":
                 if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.data?.data?.target?.type)) {
                     templateW = Math.sqrt(Math.pow(template.data.distance, 2) - Math.pow((handler.item.data?.data?.target?.value * 2), 2));
                     templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                    scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
-                    scaleY = scaleX;
-                    rotate = 0;
-                    xAnchor = 0;
-                    yAnchor = 0;
+                    //scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
+                    //scaleY = scaleX;
+                    //rotate = 0;
+                    //xAnchor = 0;
+                    //yAnchor = 0;
                     tileWidth = videoWidth * (templateLength / videoWidth);
                     tileHeight = videoHeight * (templateLength / videoHeight);
                     tileX = template.data.x;
@@ -79,11 +81,11 @@ export async function templateAnimation(handler, animationData) {
                 } else {
                     templateW = template.data.width;
                     templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                    scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
-                    scaleY = scaleX;
-                    rotate = 0;
-                    xAnchor = 0;
-                    yAnchor = 0;
+                    //scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
+                    //scaleY = scaleX;
+                    //rotate = 0;
+                    //xAnchor = 0;
+                    //yAnchor = 0;
                     tileWidth = videoWidth * (templateLength / videoWidth);
                     tileHeight = videoHeight * (templateLength / videoHeight);
                     tileX = template.data.x;
@@ -93,28 +95,31 @@ export async function templateAnimation(handler, animationData) {
             case "circle":
                 templateW = template.data.distance * 2;
                 templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
-                scaleY = scaleX;
-                rotate = -template.data.direction;
-                xAnchor = 0.5;
-                yAnchor = 0.5;
+                //scaleX = (100 / canvas.grid.size) * templateLength / videoWidth;
+                //scaleY = scaleX;
+                //rotate = -template.data.direction;
+                //xAnchor = 0.5;
+                //yAnchor = 0.5;
                 tileWidth = videoWidth * (templateLength / videoWidth);
                 tileHeight = videoHeight * (templateLength / videoHeight);
                 tileX = template.data.x - (tileWidth / 2);
                 tileY = template.data.y - (tileHeight / 2);
                 break;
+            /*
             case "cone":
+                
                 templateW = template.data.distance;
                 templateLength = canvas.grid.size * (templateW / canvas.dimensions.distance);
-                scaleX = (100 / canvas.grid.size) * (templateLength / videoWidth);
-                scaleY = scaleX * (template.data.angle * 0.026);
-                rotate = -template.data.direction;
-                xAnchor = 0;
-                yAnchor = 0.5;
+                //scaleX = (100 / canvas.grid.size) * (templateLength / videoWidth);
+                //scaleY = scaleX * (template.data.angle * 0.026);
+                //rotate = -template.data.direction;
+                //xAnchor = 0;
+                //yAnchor = 0.5;
                 break;
+            */
         }
         //const occlusionAlpha = parseInt(alpha);
-        if (data.persistent && (data.type === "circle" || data.type === "rect") && data.persistType === 'overheadtile') {
+        if (data.persistent /*&& (data.type === "circle" || data.type === "rect") */&& data.persistType === 'overheadtile') {
             const templateData = {
                     alpha: data.opacity,
                     width: tileWidth,
@@ -149,7 +154,7 @@ export async function templateAnimation(handler, animationData) {
             AAanimationData.howToDelete("overheadtile")
             //const newTile = await canvas.scene.createEmbeddedDocuments("Tile", [data]);    
         }
-        if (data.persistent && (data.type === "circle" || data.type === "rect") && data.persistType === 'groundtile') {
+        if (data.persistent /*&& (data.type === "circle" || data.type === "rect") */&& data.persistType === 'groundtile') {
             const templateData = {
                     alpha: data.opacity,
                     width: tileWidth,
@@ -179,6 +184,7 @@ export async function templateAnimation(handler, animationData) {
             }            
             AAanimationData.howToDelete("groundtile")
         }
+        /*
         if (data.persistent && data.persistType === 'sequencerground') {
             await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
@@ -218,7 +224,7 @@ export async function templateAnimation(handler, animationData) {
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
             AAanimationData.howToDelete("sequencerground")
         }
-
+        */
         if (data.persistent && data.persistType === 'attachtemplate') {
             if (data.removeTemplate) {
                 console.warn("You are attempting to delete the Template but the Animation is attached to it. You must manually delete it")
@@ -244,7 +250,7 @@ export async function templateAnimation(handler, animationData) {
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
         }
-
+/*
         if (!data.persistent) {
             await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
@@ -284,6 +290,79 @@ export async function templateAnimation(handler, animationData) {
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
         }
+*/
+        if (!data.persistent || (data.persistent && data.persistType === 'sequencerground')) {
+            console.log(template)
+            const templateType = template.data.t;
+            
+            const rawr = await new Sequence("Automated Animations")
+                rawr.addSequence(sourceFX.sourceSeq)
+                rawr.thenDo(function () {
+                    Hooks.callAll("aa.animationStart", sourceToken, "no-target")
+                })
+                rawr.sound()
+                    .file(data.itemAudio.file)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .repeats(data.itemAudio.repeat, data.delay)
+                    .playIf(data.playSound)
+                if (templateType == 'cone') {
+                rawr.effect()
+                    .file(tempAnimation.file)
+                    .atLocation(template)
+                    //.reachTowards(template)
+                    .rotateTowards(template)
+                    .size({
+                        width: (canvas.grid.size * (template.data.distance / canvas.dimensions.distance)) * data.scaleX,
+                        height: (canvas.grid.size * (template.data.distance / canvas.dimensions.distance)) * data.scaleY,
+                    })
+                    .scale(data.scale)
+                    .anchor({ x: 0, y: 0.5 })
+                    .opacity(data.opacity)
+                    .origin(handler.item.uuid)
+                    .belowTokens(data.below)
+                    .repeats(data.repeat, data.delay)
+                    .persist(data.persistent)
+                }
+                if (templateType === 'ray') {
+                    rawr.effect()
+                        .file(tempAnimation.file)
+                        .atLocation(template)
+                        //.reachTowards(template)
+                        .rotateTowards(template)
+                        .size({
+                            width: (canvas.grid.size * (template.data.distance / canvas.dimensions.distance)) * data.scaleX,
+                            height: ((canvas.grid.size * (template.data.width / canvas.dimensions.distance)) * 2)  * data.scaleY,
+                        })
+                        .anchor({ x: 0, y: 0.5 })
+                        .opacity(data.opacity)
+                        .origin(handler.item.uuid)
+                        .belowTokens(data.below)
+                        .repeats(data.repeat, data.delay)
+                        .persist(data.persistent)
+                }    
+                if (templateType === 'rect' || templateType === 'circle') {
+                rawr.effect()
+                    .file(tempAnimation.file)
+                    .atLocation(template)
+                    .scaleToObject(data.scale)
+                    //.anchor({ x: 0.25, y: 0.5 }) 
+                    .opacity(data.opacity)
+                    .origin(handler.item.uuid)
+                    .belowTokens(data.below)
+                    .repeats(data.repeat, data.delay)
+                }
+                rawr.thenDo(function () {
+                    if (data.removeTemplate) {
+                        canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
+                    }            
+                })
+                rawr.play()
+                if (data.persistType === 'sequencerground' && data.persistent) { AAanimationData.howToDelete("sequencerground") }
+            await wait(500)
+            Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
+        }
+
 
     }
     cast();
