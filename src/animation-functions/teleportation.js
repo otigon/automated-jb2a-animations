@@ -1,5 +1,6 @@
 import { buildFile} from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
+import { socketlibSocket } from "../socketset.js";
 
 export async function teleportation(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
@@ -31,11 +32,24 @@ export async function teleportation(handler, animationData) {
 
     let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
     let Scale02 = ((sourceScale / onToken02.metadata.width) * data.scale02) * 1.75;
-    const x = data.teleDist;
-    const y = canvas.dimensions.distance;
-    const z = canvas.grid.size;
 
-    if (!data.hideTemplate && data.measureType === 'alternating') {
+    const w = sourceToken.data.width;
+    const x = data.teleDist;
+    const y = canvas.dimensions.distance * w;
+    const z = canvas.grid.size;
+    function centerDrawing() {
+        const tokenCenterX = sourceToken.x + ((sourceToken.data.width * canvas.grid.size) / 2)// in pixels
+        const tokenCenterY = sourceToken.y + ((sourceToken.data.width * canvas.grid.size) / 2)// in pixels
+        const tokenWidth = sourceToken.data?.width * canvas.grid.size;// in pixels
+        const drawingSize = tokenWidth + (2 * ((data.teleDist / canvas.dimensions.distance) * canvas.grid.size));
+        const drawingX = tokenCenterX - (drawingSize / 2);
+        const drawingY = tokenCenterY - (drawingSize / 2);
+
+        return [drawingSize, drawingX, drawingY]
+    }
+    if (!data.hideTemplate) {
+        const drawingType = data.measureType === 'alternating' ? "e" : "r";
+        const drawingData = centerDrawing();
         /*
         const templateData = ({
             t: "circle",
@@ -56,14 +70,14 @@ export async function teleportation(handler, animationData) {
         });
         canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [templateData])
         */
-        const circleDrawing = await canvas.scene.createEmbeddedDocuments("Drawing", [{
-            type: "e",
-            x: sourceToken.x - (((x / y) * z)),
-            y: sourceToken.y - (((x / y) * z)),
+        const circleDrawing = {
+            type: drawingType,
+            x: drawingData[1],
+            y: drawingData[2],
             strokeWidth: 10,
-            width: (((2 * x) + y) / y) * z,
-            height: (((2 * x) + y) / y) * z,
-            strokeColor: "#17FF00",
+            width: drawingData[0],
+            height: drawingData[0],
+            strokeColor: /*"#17FF00"*/ game.user?.data?.color ?? "#FFFFFF",
             strokeAlpha: 0.5,
             flags: {
                 world: {
@@ -72,10 +86,11 @@ export async function teleportation(handler, animationData) {
                     }
                 }
             }
-        }])
+        }
+        socketlibSocket.executeAsGM("placeDrawing", circleDrawing)
     }
 
-    if (!data.hideTemplate && data.measureType === 'equidistant') {
+    //if (!data.hideTemplate && data.measureType === 'equidistant') {
         /*
         const length = data.teleDist + (canvas.dimensions.distance / 2);
         const templateData = ({
@@ -98,14 +113,15 @@ export async function teleportation(handler, animationData) {
         });
         canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [templateData])
         */
-        const squareDrawing = await canvas.scene.createEmbeddedDocuments("Drawing", [{
+       /*
+        const squareDrawing = {
             type: "r",
             x: sourceToken.x - (((x / y) * z)),
             y: sourceToken.y - (((x / y) * z)),
             strokeWidth: 10,
             width: (((2 * x) + y) / y) * z,
             height: (((2 * x) + y) / y) * z,
-            strokeColor: "#17FF00",
+            strokeColor: game.user?.data?.color ?? "#FFFFFF",
             strokeAlpha: 0.5,
             flags: {
                 world: {
@@ -114,16 +130,39 @@ export async function teleportation(handler, animationData) {
                     }
                 }
             }
-        }])
+        }
+        */
+       /*
+        let drawingData = centerDrawing();
+        console.log(drawingData)
+        const squareDrawing = {
+            type: "r",
+            x: drawingData[1],
+            y: drawingData[2],
+            strokeWidth: 10,
+            width: drawingData[0],
+            height: drawingData[0],
+            strokeColor: game.user?.data?.color ?? "#FFFFFF",
+            strokeAlpha: 0.5,
+            flags: {
+                world: {
+                    Teleportation: {
+                        ActorId: actor.id
+                    }
+                }
+            }
+        }
+        socketlibSocket.executeAsGM("placeDrawing", squareDrawing)
     }
-
+    */
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
-        let ray = new Ray(sourceToken.center, pos)
+        //let ray = new Ray(sourceToken.center, pos)
         let centerPos = canvas.grid.getCenter(pos.x, pos.y);
-        console.log(canvas.grid.measureDistance(sourceToken.center, {x: centerPos[0], y: centerPos[1]}, {gridSpaces: true}))
+        //console.log(canvas.grid.measureDistance(sourceToken.center, {x: centerPos[0], y: centerPos[1]}, {gridSpaces: true}))
+        /*
         if (data.measureType === 'alternating') {
             if (ray.distance > ((canvas.grid.size * (data.teleDist / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
                 ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
@@ -139,6 +178,13 @@ export async function teleportation(handler, animationData) {
                 ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
            }
         }
+        */
+        if (canvas.grid.measureDistance(sourceToken.center, {x: centerPos[0], y: centerPos[1]},  {gridSpaces: true}) <= data.teleDist) {
+            deleteTemplatesAndMove();
+            canvas.app.stage.removeListener('pointerdown');
+        } else {
+            ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
+       }
     });
 
     async function deleteTemplatesAndMove() {
@@ -152,7 +198,7 @@ export async function teleportation(handler, animationData) {
         */
         let removeDrawing = canvas.drawings.placeables.filter(i => i.data.flags.world?.Teleportation?.ActorId === actor.id);
         removeDrawing = removeDrawing.map(template => template.id);
-        if (removeDrawing) await canvas.scene.deleteEmbeddedDocuments("Drawing", removeDrawing);
+        if (removeDrawing) socketlibSocket.executeAsGM("deleteDrawing", removeDrawing);
 
         new Sequence("Automated Animations")
             .addSequence(sourceFX.sourceSeq)
