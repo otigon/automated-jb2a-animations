@@ -84,6 +84,9 @@ export class aaAutoRecognition extends FormApplication {
         html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
         })
+        html.find('.aa-item-container input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render())
+        })
         html.find('.aa-container input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
         })
