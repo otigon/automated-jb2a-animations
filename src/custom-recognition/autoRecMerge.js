@@ -98,6 +98,7 @@ export const autoRecMigration = {
                 }
             }
             currentAutorec.version = 3;
+            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
         }
     }
 }
