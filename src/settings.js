@@ -109,23 +109,21 @@ export default function aaSettings() {
     })
     switch (game.system.id) {
         case "demonlord": {
-            if (!(game.data.version === "0.7.9" || game.data.version === "0.7.10")) {
-                game.settings.register("autoanimations", "playtrigger", {
-                    name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
-                    hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
-                    scope: "world",
-                    type: String,
-                    choices: {
-                        "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
-                        "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
-                        "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
-                        "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
-                        "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
-                    },
-                    default: "rollattack",
-                    config: true
-                })
-            }
+            game.settings.register("autoanimations", "playtrigger", {
+                name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
+                hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
+                scope: "world",
+                type: String,
+                choices: {
+                    "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
+                    "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
+                    "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
+                    "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
+                    "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
+                },
+                default: "rollattack",
+                config: true
+            })
             break
         }
         case "sfrpg": {
@@ -212,24 +210,24 @@ export default function aaSettings() {
                 });
             }
             break;
-            case "pf2e": {
-                game.settings.register("autoanimations", "playonDamageCore", {
-                    name: game.i18n.format("AUTOANIM.coreondmg_name"),
-                    hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
-                    scope: 'world',
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                });
-                game.settings.register("autoanimations", "playonmiss", {
-                    name: game.i18n.format("AUTOANIM.midionmiss_name"),
-                    hint: "Requires Animations to be played on Attack rolls",
-                    scope: `world`,
-                    type: Boolean,
-                    default: false,
-                    config: true,
-                });
-            }
+        case "pf2e": {
+            game.settings.register("autoanimations", "playonDamageCore", {
+                name: game.i18n.format("AUTOANIM.coreondmg_name"),
+                hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            });
+            game.settings.register("autoanimations", "playonmiss", {
+                name: game.i18n.format("AUTOANIM.midionmiss_name"),
+                hint: "Requires Animations to be played on Attack rolls",
+                scope: `world`,
+                type: Boolean,
+                default: false,
+                config: true,
+            });
+        }
             break;
     }
 

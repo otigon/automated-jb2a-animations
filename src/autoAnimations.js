@@ -137,7 +137,20 @@ Hooks.once('ready', function () {
                 break;
             case "demonlord":
                 Hooks.on("DL.Action", setupDemonLord);
+                /*
+                switch (game.settings.get("autoanimations", "playtrigger")) {
+                    case "rolldamage":
+                        Hooks.on("DL.RollDamage", setupDemonLord);
+                        break;
+                    case "applydamage":
+                        Hooks.on("DL.ApplyDamage", setupDemonLord);
+                        break;
+                    default:
+                        Hooks.on("DL.RollAttack", setupDemonLord);
+                    }
+
                 break;
+                */
             case "pf2e":
                 Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
                 break;
