@@ -198,7 +198,8 @@ export class AAItemSettings extends FormApplication {
             sprite3DAddExplosion: flags.autoanimations?.levels3d?.addexplosion?.sprite ?? "modules/levels-3d-preview/assets/particles/dust.png",
             sprite3DSprite: flags.autoanimations?.levels3d?.sprite?.sprite ?? "modules/levels-3d-preview/assets/particles/emberssmall.png",
             //currentVersion: !flags.autoanimations?.version ? this.object.setFlag('autoanimations', 'version', currentFlagVersion) : "",
-            currentVersion: currentFlagVersion, 
+            currentVersion: currentFlagVersion,
+            isGM: game.user.isGM ? true : false,
         };
 
     }

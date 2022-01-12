@@ -40,6 +40,7 @@ export class AAanimationData {
             data.menuType = data.staticOptions === 'shieldfx' ? true : false;
             data.below = data.below ?? false;
             data.measureType = data.measureType ?? 'alternating';
+            data.hideFromPlayers = false,
 
             data.itemAudio = {
                 enable: data.audio?.a01?.enable || false,
@@ -110,6 +111,7 @@ export class AAanimationData {
                 occlusionAlpha: options.occlusionAlpha ?? "0",
                 persistType: options.persistType || "sequencerground",
                 measureType: options.measureType || "alternating",
+                hideFromPlayers: options.hideFromPlayers || false,
 
                 itemAudio: {
                     enable: flags.audio?.a01?.enable || false,

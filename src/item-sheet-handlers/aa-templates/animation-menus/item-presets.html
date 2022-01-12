@@ -761,11 +761,13 @@
         <input type="Number" name="flags.autoanimations.options.teleDist" min="5" max="500" step=".01"
             value={{teleRange}}>
     </div>
+    {{#if isGM}}
     <div class="form-group" style='grid-column: 3 / 5;grid-row: 1 / 2;'>
-        <label>{{localize "AUTOANIM.noTemplate"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.hideTemplate"
-            value="flags.autoanimations.options.hideTemplate" {{checked flags.autoanimations.options.hideTemplate}}>
+        <label>{{localize "AUTOANIM.hideBorder"}}</label>
+        <input type="checkbox" name="flags.autoanimations.options.hideFromPlayers"
+            value="flags.autoanimations.options.hideFromPlayers" {{checked flags.autoanimations.options.hideFromPlayers}}>
     </div>
+    {{/if}}
     <div style='grid-column: 1 / 5;grid-row: 2 / 3;'>
         <p style='font-weight: bold;'>NOTE: If your Game System supports specific Diagonal Movement rules for grids, the Measurement Type chosen should match your System Setting</p>
     </div>
