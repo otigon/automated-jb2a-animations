@@ -421,11 +421,11 @@
                     </div>                    
                     <div class="aa-item-container">
                         <div class="option01">
-                            <label>Measurement Type</label>
+                            <label>{{localize 'AUTOANIM.gridMeasure'}}</label>
                             <select name="aaAutorec.preset.{{idx}}.measureType">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'measureType')}}
-                                <option value="alternating">Alternating (5/10/5)</option>
-                                <option value="equidistant">Equidistant (5/5/5)</option>
+                                <option value="alternating"> 5/10/5 </option>
+                                <option value="equidistant"> 5/5/5 </option>
                                 {{/select}}
                             </select>
                         </div>

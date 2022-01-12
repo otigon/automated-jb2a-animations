@@ -1,3 +1,20 @@
+1.2.0  
+* **SOCKETLIB IS NOW A DEPENDANCY**. I've listed this as such since Sequencer 2.0 will require it as well. 
+* Updates for Template Animations and Teleportation Preset animation  
+* Template Animations now accept both ScaleX and ScaleY. Keep both the same for uniformity  
+Teleport Preset  
+* Now accepts a Start and End animation separately, with custom option for both  
+* New option to set the Grid Measurement type for either 5/5/5 or 5/10/5. Spawning either a Circular or Square overlay to show distance on use.  
+* Teleportation no longer summons a Template. Now a simple Border is used via Sequencer, colored as the User Color.  
+* Removed the "Do Not Show Template" option. Replaced with "Hide From Players. This is a GM ONLY setting, and ONLY on the Item menus. If checked, the distance border will only be visible to the GM, and not the Players (Great for hiding the BBG escaping)  
+* In the 2nd Animation field, you can set the "Delay (ms) Token Alpha". This option accepts positive and negative values to time the reapperance of the Token. Token is no longer put in a hidden state, but the Alpha is changed by Sequencer. Base value for reappearing is time for Misty Step animation.  
+  
+1.1.0 - 1.1.6  
+* Support for the 3D Canvas module by Ripper. Adds 3D Canvas Particle animations to all item menus, and the Melee, Range and On Token Autorec Menus.  
+* Added SORT button to the Autorec Menu to sort your menu alphabetically  
+* Added Global setting to Decouple Sounds from animations. If checked, Sounds will NOT repeat with the animation they are assigned to.  
+* Fixed some issues with the 5e Magic Items module and Template animations not working correctly  
+  
 1.0.1 and 1.0.2  
 * Corrected Automatic Recognition Menu import errors.  
 * Automatic Recognition Menu is now localized. This only affects new installations. Command line prompt of game.settings.set('autoanimations', 'aaAutorec') will revert your menu to the base menu, but localized if you need to change it.  

@@ -3705,6 +3705,12 @@ JB2APATREONDB.static = {
     },
     explosion: {
         '01': {
+            darkpurple: [
+                lg`Explosion/Explosion_04_Dark_Purple_400x400.webm`,
+            ],
+            darkred: [
+                lg`Explosion/Explosion_04_Dark_Red_400x400.webm`,
+            ],
             blue: [
                 lg`Explosion/Explosion_01_Blue_400x400.webm`,
                 lg`Explosion/Explosion_02_Blue_400x400.webm`,
@@ -3715,10 +3721,19 @@ JB2APATREONDB.static = {
                 lg`Explosion/Explosion_02_Green_400x400.webm`,
                 lg`Explosion/Explosion_04_Regular_Green_400x400.webm`,
             ],
+            greenorange: [
+                lg`Explosion/Explosion_03_Regular_GreenOrange_400x400.webm`,
+            ],
             orange: [
                 lg`Explosion/Explosion_01_Orange_400x400.webm`,
                 lg`Explosion/Explosion_02_Orange_400x400.webm`,
                 lg`Explosion/Explosion_04_Regular_Orange_400x400.webm`,
+            ],
+            pink: [
+                lg`Explosion/Explosion_03_Regular_Pink_400x400.webm`,
+            ],
+            purplepink: [
+                lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`,
             ],
             purple: [
                 lg`Explosion/Explosion_01_Purple_400x400.webm`,
@@ -3734,23 +3749,8 @@ JB2APATREONDB.static = {
             yellowblue: [
                 lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`,
             ],
-            greenorange: [
-                lg`Explosion/Explosion_03_Regular_GreenOrange_400x400.webm`,
-            ],
-            purplepink: [
-                lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`,
-            ],
             whiteblue: [
                 lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`,
-            ],
-            pink: [
-                lg`Explosion/Explosion_03_Regular_Pink_400x400.webm`,
-            ],
-            darkpurple: [
-                lg`Explosion/Explosion_04_Dark_Purple_400x400.webm`,
-            ],
-            darkred: [
-                lg`Explosion/Explosion_04_Dark_Red_400x400.webm`,
             ],
         }
     },
@@ -3836,12 +3836,6 @@ JB2APATREONDB.static = {
     },
     impact: {
         '01': {
-            darkred: [
-                lg`Impact/Impact_01_Dark_Red_400x400.webm`,
-                lg`Impact/Impact_02_Dark_Red_400x400.webm`,
-                lg`Impact/Impact_03_Dark_Red_400x400.webm`,
-                lg`Impact/Impact_04_Dark_Red_400x400.webm`,
-            ],
             blue: [
                 lg`Impact/Impact_01_Regular_Blue_400x400.webm`,
                 lg`Impact/Impact_02_Regular_Blue_400x400.webm`,
@@ -3854,6 +3848,22 @@ JB2APATREONDB.static = {
                 lg`Impact/Impact_10_Regular_Blue_400x400.webm`,
                 lg`Impact/Impact_11_Regular_Blue_400x400.webm`,
                 lg`Impact/Impact_12_Regular_Blue_400x400.webm`
+            ],
+            darkpurple: [
+                lg`Impact/Impact_01_Dark_Purple_400x400.webm`,
+                lg`Impact/Impact_02_Dark_Purple_400x400.webm`,
+                lg`Impact/Impact_03_Dark_Purple_400x400.webm`,
+                lg`Impact/Impact_04_Dark_Purple_400x400.webm`,
+                lg`Impact/Impact_11_Dark_Purple_400x400.webm`,
+                lg`Impact/Impact_12_Dark_Purple_400x400.webm`
+            ],
+            darkred: [
+                lg`Impact/Impact_01_Dark_Red_400x400.webm`,
+                lg`Impact/Impact_02_Dark_Red_400x400.webm`,
+                lg`Impact/Impact_03_Dark_Red_400x400.webm`,
+                lg`Impact/Impact_04_Dark_Red_400x400.webm`,
+                lg`Impact/Impact_11_Dark_Red_400x400.webm`,
+                lg`Impact/Impact_12_Dark_Red_400x400.webm`,
             ],
             green: [
                 lg`Impact/Impact_01_Regular_Green_400x400.webm`,
@@ -3868,26 +3878,33 @@ JB2APATREONDB.static = {
                 lg`Impact/Impact_11_Regular_Blue_400x400.webm`,
                 lg`Impact/Impact_12_Regular_Blue_400x400.webm`
             ],
-            yellow: [
-                lg`Impact/Impact_01_Regular_Yellow_400x400.webm`,
-                lg`Impact/Impact_02_Regular_Yellow_400x400.webm`,
-                lg`Impact/Impact_03_Regular_Yellow_400x400.webm`,
-                lg`Impact/Impact_04_Regular_Yellow_400x400.webm`,
-                lg`Impact/Impact_05_Regular_Yellow_400x400.webm`,
-                lg`Impact/Impact_06_Regular_Yellow_400x400.webm`,
-                lg`Impact/Impact_07_Regular_Yellow_400x400.webm`,
-            ],
             orange: [
+                lg`Impact/Impact_01_Regular_Orange_400x400.webm`,
+                lg`Impact/Impact_02_Regular_Orange_400x400.webm`,
+                lg`Impact/Impact_03_Regular_Orange_400x400.webm`,
+                lg`Impact/Impact_04_Regular_Orange_400x400.webm`,
                 lg`Impact/Impact_05_Regular_Orange_400x400.webm`,
                 lg`Impact/Impact_07_Regular_Orange_400x400.webm`,
                 lg`Impact/Impact_08_Regular_Orange_400x400.webm`,
                 lg`Impact/Impact_09_Regular_Orange_400x400.webm`,
                 lg`Impact/Impact_10_Regular_Orange_400x400.webm`,
             ],
+            pink: [
+                lg`Impact/Impact_07_Regular_Pink_400x400.webm`,
+                lg`Impact/Impact_09_Regular_Pink_400x400.webm`,
+            ],
+            purplepink: [
+                lg`Impact/Impact_01_Regular_PinkPurple_400x400.webm`,
+                lg`Impact/Impact_02_Regular_PinkPurple_400x400.webm`,
+                lg`Impact/Impact_03_Regular_PinkPurple_400x400.webm`,
+                lg`Impact/Impact_04_Regular_PinkPurple_400x400.webm`,
+            ],
             purple: [
                 lg`Impact/Impact_05_Regular_Purple_400x400.webm`,
-                lg`Impact/Impact_11_Regular_Blue_400x400.webm`,
-                lg`Impact/Impact_12_Regular_Blue_400x400.webm`
+                lg`Impact/Impact_07_Regular_Purple_400x400.webm`,
+                lg`Impact/Impact_09_Regular_Purple_400x400.webm`,
+                lg`Impact/Impact_11_Regular_Purple_400x400.webm`,
+                lg`Impact/Impact_12_Regular_Purple_400x400.webm`
             ],
             red: [
                 lg`Impact/Impact_05_Regular_Red_400x400.webm`,
@@ -3900,10 +3917,15 @@ JB2APATREONDB.static = {
                 lg`Impact/Impact_07_Regular_White_400x400.webm`,
                 lg`Impact/Impact_09_Regular_White_400x400.webm`,
             ],
-            darkpurple: [
-                lg`Impact/Impact_11_Dark_Purple_400x400.webm`,
-                lg`Impact/Impact_12_Dark_Purple_400x400.webm`
-            ]
+            yellow: [
+                lg`Impact/Impact_01_Regular_Yellow_400x400.webm`,
+                lg`Impact/Impact_02_Regular_Yellow_400x400.webm`,
+                lg`Impact/Impact_03_Regular_Yellow_400x400.webm`,
+                lg`Impact/Impact_04_Regular_Yellow_400x400.webm`,
+                lg`Impact/Impact_05_Regular_Yellow_400x400.webm`,
+                lg`Impact/Impact_06_Regular_Yellow_400x400.webm`,
+                lg`Impact/Impact_07_Regular_Yellow_400x400.webm`,
+            ],
         }
     },
     lightningball: {

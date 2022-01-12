@@ -571,6 +571,7 @@
     "AUTOANIM.decoupleSounds_hint": "Prevents Sounds from Repeating with Animations",
 
     "AUTOANIM.end": "End",
-    "AUTOANIM.hideBorder": "Hide from Players"
+    "AUTOANIM.hideBorder": "Hide from Players",
+    "AUTOANIM.gridMeasure": "Grid Measurement"
 
 }
