@@ -430,7 +430,6 @@ export const flagMigrations = {
              * allSounds.explosion.delay ---------------> audio.e01.delay
              * allSounds.explosion.volume --------------> audio.e01.volume
              * 
-             * Subtracting 1 second from Explosion, Explosion Sound, and TargetFX delays
              */
             const v2Flags = item.data?.flags?.autoanimations || {};
             const allSounds = v2Flags.allSounds || {};
@@ -452,6 +451,38 @@ export const flagMigrations = {
 
             await item.update({ 'flags.-=autoanimations': null })
             await item.update({ 'flags.autoanimations': v2Flags })
+            console.warn(`DEBUG | Automated Animations | Version 2 Flag Migration Complete`, v2Flags)
+        },
+        "3": async(item) => {
+            const v3Flags = item.data?.flags?.autoanimations || {};
+            if (v3Flags.killAnim) {
+                v3Flags.version = 3;
+                await item.update({ 'flags.-=autoanimations': null })
+                await item.update({ 'flags.autoanimations': v3Flags })
+                return;
+            }
+            if (v3Flags.override) {
+                if (v3Flags.animType === 'template') {
+                    v3Flags.options.scaleX = v3Flags.options.scale || 1;
+                    v3Flags.options.scaleY = v3Flags.options.scale || 1;
+                }
+                if (v3Flags.animType === 'preset') {
+                    if (v3Flags.animation === 'teleportation') {
+                        v3Flags.options.measureType = 'alternating';
+                        v3Flags.options.hideFromPlayers = v3Flags.options?.hideTemplate === true ? true : false;
+                        v3Flags.options.enableCustom02 = v3Flags.options?.enableCustom ? true : false;
+                        v3Flags.options.customPath02 = v3Flags.options?.enableCustom ? v3Flags.options?.customPath : "";
+                        v3Flags.options.name02 = v3Flags.options?.name ?? "mistystep";
+                        v3Flags.options.variant02 = "02";
+                        v3Flags.color02 = v3Flags.color || "blue";
+                        v3Flags.options.scale02 = v3Flags.options?.scale ?? 1;
+                    }
+                }
+                v3Flags.version = 3;
+                await item.update({ 'flags.-=autoanimations': null })
+                await item.update({ 'flags.autoanimations': v3Flags })
+                console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v3Flags)
+            }
         }
     }
 }
