@@ -1,5 +1,6 @@
 1.2.0  
 * **SOCKETLIB IS NOW A DEPENDANCY**. I've listed this as such since Sequencer 2.0 will require it as well.  
+* Fix for Shadow of the Demonlord animations running on every button press  
 * Fix for Forbidden Lands system animations failing if the "Link Actor Data" option was checked on the token  
 * Updates for Template Animations and Teleportation Preset animation  
 * Template Animations now accept both ScaleX and ScaleY. Keep both the same for uniformity  
