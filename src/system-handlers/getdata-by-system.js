@@ -181,8 +181,9 @@ export class AASystemData {
     static async forbiddenlands(input) {
         const itemId = input._roll.options?.itemId;
         const tokenId = input._roll.options?.tokenId;
-        if (!itemId || !tokenId) { return {}; }
-        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemID) != null);
+        if (!itemId) { return {}; }
+        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+        if (!token) { return {}; }
         const item = token.actor?.items?.get(itemId);
         const targets = Array.from(input.user.targets);
 
