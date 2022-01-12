@@ -17,7 +17,6 @@ export class AAanimationData {
         if (autoObject) {
             const data = {};
             const autoOverridden = handler.autoOverride?.enable
-            console.log(autoObject)
             Object.assign(data, autoObject);
             data.isAuto = true;
             data.animation = data.animation || "";
@@ -69,7 +68,6 @@ export class AAanimationData {
             data.playSound = data.itemAudio.enable && data.itemAudio.file ? true : false;
 
             data.explosion = await this._explosionData(handler, true)
-            console.log(data)
             return data;
         } else {
             const flags = handler.flags;

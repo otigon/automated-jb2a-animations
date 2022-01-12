@@ -116,7 +116,6 @@ export async function fireball(handler, autoObject) {
     let fireballTemplate = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;//canvas.templates.get(args[0].templateId)
     let tokenD = handler.actorToken;
     let template = await canvas.templates.documentCollection.get(fireballTemplate)
-    console.log(template)
     let size;
     let position;
     if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3)) {
