@@ -28,7 +28,7 @@ export class AAanimationData {
             data.color = autoOverridden ? handler.autoOverride?.color : data.color;
             data.color02 = autoOverridden ? handler.autoOverride?.color02 : data.color02;
             data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
-            data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
+            data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay || 0;
             data.scale = autoOverridden ? handler.autoOverride?.scale || 1 : data.scale || 1;
             data.scale02 = autoOverridden ? handler.autoOverride?.scale02 || 1 : data.scale02 || 1;
             data.scaleX = autoOverridden ? handler.autoOverride?.scaleX || 1 : data.scaleX || 1;
