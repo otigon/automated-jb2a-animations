@@ -191,6 +191,7 @@ export class AASystemData {
     }
 
     static async demonlord(input) {
+        const eventType = input.type
         const itemId = input.itemId;
         const token = input.sourceToken || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         const item = token.actor?.items?.get(itemId);
@@ -215,7 +216,7 @@ export class AASystemData {
             return commonEventTypes.concat(["roll-attack"]).includes(eventType)
         }
 
-        if (input.eventType && !canRunAnimations()) {
+        if (eventType && !canRunAnimations()) {
             return {};
         }
 
