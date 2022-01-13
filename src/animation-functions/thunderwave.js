@@ -82,10 +82,12 @@ export async function thunderwaveAuto(handler, data) {
             ang = 270;
             anFile = filePath['mid'][color];
             break;
+        default:
+            anFile = filePath['mid'][color];
     }
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
-
+    console.log(anFile)
     if (data.persist && (data.type === "circle" || data.type === "rect")) {
         let tileData;
         if (data.overhead) {
