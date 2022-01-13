@@ -146,7 +146,7 @@ export async function fireball(handler, autoObject) {
         .effect()
             .file(projectileAnimation.file)
             .atLocation(tokenD)
-            .reachTowards(position)
+            .stretchTo(position)
             .repeats(data.projectileRepeat, data.projectileDelay)
             .waitUntilFinished(data.wait01)
         .sound()

@@ -52,7 +52,7 @@ export async function rangedAnimations(handler, animationData) {
                 .effect()
                     .file(attack.file)
                     .atLocation(sourceToken)
-                    .reachTowards(target)
+                    .stretchTo(target)
                     .randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
                     .missed(hit)
