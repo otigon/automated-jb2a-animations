@@ -55,7 +55,7 @@ export class AASystemData {
             const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.uuid)) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
 
             let item = token.actor?.items?.get(itemId) || await fromUuid(`Item.${itemId}`);
-            console.log(item)
+
             if (!item) return {};
             if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
                 itemId = item.data.data.consume.target;
@@ -181,8 +181,9 @@ export class AASystemData {
     static async forbiddenlands(input) {
         const itemId = input._roll.options?.itemId;
         const tokenId = input._roll.options?.tokenId;
-        if (!itemId || !tokenId) { return {}; }
-        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemID) != null);
+        if (!itemId) { return {}; }
+        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+        if (!token) { return {}; }
         const item = token.actor?.items?.get(itemId);
         const targets = Array.from(input.user.targets);
 
@@ -190,6 +191,7 @@ export class AASystemData {
     }
 
     static async demonlord(input) {
+        const eventType = input.type
         const itemId = input.itemId;
         const token = input.sourceToken || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         const item = token.actor?.items?.get(itemId);
@@ -214,7 +216,7 @@ export class AASystemData {
             return commonEventTypes.concat(["roll-attack"]).includes(eventType)
         }
 
-        if (input.eventType && !canRunAnimations()) {
+        if (eventType && !canRunAnimations()) {
             return {};
         }
 

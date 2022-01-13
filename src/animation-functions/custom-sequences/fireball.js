@@ -116,7 +116,6 @@ export async function fireball(handler, autoObject) {
     let fireballTemplate = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;//canvas.templates.get(args[0].templateId)
     let tokenD = handler.actorToken;
     let template = await canvas.templates.documentCollection.get(fireballTemplate)
-
     let size;
     let position;
     if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3)) {
@@ -125,7 +124,14 @@ export async function fireball(handler, autoObject) {
             x: template.data.x + (((scale5e / canvas.dimensions.distance) * canvas.grid.size) / 2),
             y: template.data.y + (((scale5e / canvas.dimensions.distance) * canvas.grid.size) / 2),
         }
-        size = (canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance)) / 2;
+        size = (canvas.grid.size * (template.data.distance / canvas.dimensions.distance));
+    } else if (template.data?.t === 'rect') {
+        const offset = canvas.grid.size * (template.data?.width / canvas.dimensions.distance);
+        position = {
+            x: template.data.x + (offset / 2),
+            y: template.data.y + (offset / 2),
+        }
+        size = (canvas.grid.size * (template.data.distance / canvas.dimensions.distance));
     } else {
         position = {
             x: template.data.x,
@@ -163,7 +169,7 @@ export async function fireball(handler, autoObject) {
             .atLocation(position)
             .size(size * .35 * data.explosion01Scale)
             .repeats(data.explosion01Repeat, data.explosion01Delay)
-            .timeRange(0, 1200)
+            //.timeRange(0, 1200)
             .waitUntilFinished(data.wait02)
         .sound()
             .file(data.exAudio02.file)

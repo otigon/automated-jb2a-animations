@@ -154,9 +154,13 @@
         <label>{{localize "AUTOANIM.delayMS"}}</label>
         <input type="Number" name="flags.autoanimations.autoOverride.delay" value={{autoDelay}} data-dtype="Number">
     </div>
+    <div class="autorec-menu-options option07">
+        <label>{{localize "AUTOANIM.scale"}} X</label>
+        <input type="Number" name="flags.autoanimations.autoOverride.scaleX" value={{autoScaleX}} data-dtype="Number">
+    </div>
     <div class="autorec-menu-options option08">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value={{autoScale}} data-dtype="Number">
+        <label>{{localize "AUTOANIM.scale"}} Y</label>
+        <input type="Number" name="flags.autoanimations.autoOverride.scaleY" value={{autoScaleY}} data-dtype="Number">
     </div>
 </div>
 {{/ifEquals}}
@@ -226,7 +230,8 @@
             <label>{{localize 'AUTOANIM.variant'}}: </label>
             <select name="flags.autoanimations.autoOverride.fireball.projectileVariant">
                 {{#select flags.autoanimations.fireball.projectileVariant}}
-                {{#each (lookup variantmenu.range (lookup flags.autoanimations.autoOverride.fireball 'projectile')) as |name key|}}
+                {{#each (lookup variantmenu.range (lookup flags.autoanimations.autoOverride.fireball 'projectile')) as
+                |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -237,7 +242,8 @@
         <label>{{localize 'AUTOANIM.color'}}: </label>
         <select name="flags.autoanimations.autoOverride.fireball.projectileColor">
             {{#select flags.autoanimations.autoOverride.fireball.projectileColor}}
-            {{#each (lookup (lookup colormenu.range flags.autoanimations.autoOverride.fireball.projectile) flags.autoanimations.autoOverride.fireball.projectileVariant)
+            {{#each (lookup (lookup colormenu.range flags.autoanimations.autoOverride.fireball.projectile)
+            flags.autoanimations.autoOverride.fireball.projectileVariant)
             as
             |name
             key|}}
@@ -493,25 +499,79 @@
 
 {{#ifEquals autoObject.animation 'teleportation'}}
 <div class='aa-item-container primary-animation'>
+    {{#unless autoObject.custom}}
+    <div class="option03">
+        <label>{{localize "AUTOANIM.variant"}}</label>
+        <select name="flags.autoanimations.autoOverride.variant">
+            {{#select flags.autoanimations.autoOverride.variant}}
+            {{#each (lookup variantmenu.static autoObject.subAnimation) as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
     <!--Choose Standard Animation Color-->
-    <div class="option01">
+    <div class="option04">
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.autoOverride.color">
             {{#select flags.autoanimations.autoOverride.color}}
-            {{#each (lookup (lookup colormenu.static autoObject.subAnimation) '01') as
+            {{#each (lookup (lookup colormenu.static autoObject.subAnimation) flags.autoanimations.autoOverride.variant)
+            as
             |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}
         </select>
     </div>
-    <div class="autorec-menu-options option05">
+    {{/unless}}
+    {{#if autoObject.custom}}
+    <div style='grid-row: 2 / 3; grid-column: 2 / 3;'>
+        <label style='font-weight: bold;'>Custom Animation Set</label>
+    </div>
+    {{/if}}
+    <div class="autorec-menu-options option07">
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value={{autoScale}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.scale"
+            value={{flags.autoanimations.autoOverride.scale}} data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.ranged"}}</label>
         <input type="Number" name="flags.autoanimations.autoOverride.range" value={{autoRange}} data-dtype="Number">
+    </div>
+    {{#unless autoObject.custom02}}
+    <div class="option09">
+        <label>{{localize "AUTOANIM.variant"}}</label>
+        <select name="flags.autoanimations.autoOverride.variant02">
+            {{#select flags.autoanimations.autoOverride.varian02}}
+            {{#each (lookup variantmenu.static autoObject.subAnimation) as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <!--Choose Standard Animation Color-->
+    <div class="option10">
+        <label>{{localize "AUTOANIM.color"}}</label>
+        <select name="flags.autoanimations.autoOverride.color02">
+            {{#select flags.autoanimations.autoOverride.color02}}
+            {{#each (lookup (lookup colormenu.static autoObject.subAnimation02) flags.autoanimations.autoOverride.variant02)
+            as
+            |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    {{/unless}}
+    {{#if autoObject.custom02}}
+    <div style='grid-row: 3 / 4; grid-column: 2 / 3;'>
+        <label style='font-weight: bold;'>Custom Animation Set</label>
+    </div>
+    {{/if}}
+    <div class="autorec-menu-options option11">
+        <label>{{localize "AUTOANIM.scale"}}</label>
+        <input type="Number" name="flags.autoanimations.autoOverride.scale02"
+            value={{flags.autoanimations.autoOverride.scale02}} data-dtype="Number" placeholder=1>
     </div>
 </div>
 {{/ifEquals}}

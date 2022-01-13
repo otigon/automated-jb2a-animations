@@ -136,7 +136,7 @@ Hooks.once('ready', function () {
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
             case "demonlord":
-                Hooks.on("DL.Action", setupDemonLord);
+                Hooks.on("DL.Action", async (data) => { setupDemonLord(data)});
                 break;
             case "pf2e":
                 Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });

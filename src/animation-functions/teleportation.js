@@ -1,63 +1,81 @@
 import { buildFile} from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
+import { socketlibSocket } from "../socketset.js";
 
 export async function teleportation(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
-
+    /*
     if (handler.itemMacro.toLowerCase().includes("misty step")) {
         console.log("A-A Misty Step will not work with DAE SRD Misty Step");
         return;
     }
+    */
     const sourceToken = handler.actorToken;
-    const actor = handler.actor;
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
     if (data.isAuto) {
-        data.itemName = data.subAnimation || "";
+        data.itemName01 = data.subAnimation || "";
+        data.itemName02 = data.subAnimation02 || "";
         data.teleDist = data.range || 30;
     } else {
-        data.itemName = data.options?.name || "";
+        data.itemName01 = data.options?.name || "";
+        data.itemName02 = data.options?.name02 || "";
     }
+
     if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
-    const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
+    const onToken = await buildFile(true, data.itemName01, "static", data.variant, data.color, data.customPath);
+    const onToken02 = await buildFile(true, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
 
     const sourceScale = sourceToken.w;
 
     let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
-    if (!data.hideTemplate) {
-        const templateData = ({
-            t: "circle",
-            user: game.user.id,
-            x: sourceToken.x + canvas.grid.size / 2,
-            y: sourceToken.y + canvas.grid.size / 2,
-            direction: 0,
-            distance: data.teleDist,
-            borderColor: "#00FFFFFF",
-            fillColor: "#00FFFFFF",
-            flags: {
-                world: {
-                    Teleportation: {
-                        ActorId: actor.id
-                    }
-                }
-            }
-        });
-        //let temp = new MeasuredTemplateDocument (templateData, canvas.scene)
-        canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [templateData])
-    }
+    let Scale02 = ((sourceScale / onToken02.metadata.width) * data.scale02) * 1.75;
+
+    const drawingSize = (sourceToken.data?.width * canvas.grid.size) + (2 * ((data.teleDist / canvas.dimensions.distance) * canvas.grid.size));
+
+    let userIDs = Array.from(game.users).map(user => user.id);
+    let gmIDs = Array.from(game.users).filter(i => i.isGM).map(user => user.id)
+
+    const hideBorder = data.hideFromPlayers ? gmIDs : userIDs;
+    const userColor = game.user?.data?.color ? "0x" + game.user.data.color.replace(/^#/, '') : 0x0D26FF;
+    const filePath = data.measureType === 'equidistant' ? "modules/autoanimations/pictures/teleportSquare.png" : "modules/autoanimations/pictures/teleportCircle.png"
+    
+    new Sequence()
+        .effect()
+            .file(filePath)
+            .atLocation(sourceToken)
+            .size({ width: drawingSize, height: drawingSize })
+            .fadeIn(500)
+            .scaleIn(0, 500)
+            .fadeOut(500)
+            .name("teleportation")
+            .belowTokens(true)
+            .persist(true)
+            .opacity(0.5)
+            .filter("Glow", {
+                distance: 10,
+                outerStrength: 5,
+                innerStrength: 5,
+                color: userColor,
+                quality: 0.2,
+               })
+            .forUsers(hideBorder)
+        .play()
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
-        let ray = new Ray(sourceToken.center, pos)
-        if (ray.distance > ((canvas.grid.size * (data.teleDist / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
-            ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
-        } else {
+
+        let topLeft = canvas.grid.getTopLeft(pos.x, pos.y);
+
+        if (checkDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }) <= data.teleDist) {
             deleteTemplatesAndMove();
             canvas.app.stage.removeListener('pointerdown');
+        } else {
+            ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
         }
     });
 
@@ -66,10 +84,7 @@ export async function teleportation(handler, animationData) {
         let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
         let centerPos = canvas.grid.getCenter(pos.x, pos.y);
 
-        let removeTemplates = canvas.templates.placeables.filter(i => i.data.flags.world?.Teleportation?.ActorId === actor.id);
-        removeTemplates = removeTemplates.map(template => template.id);
-        if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
-
+        Sequencer.EffectManager.endEffects({name: "teleportation"})
         new Sequence("Automated Animations")
             .addSequence(sourceFX.sourceSeq)
             .sound()
@@ -82,27 +97,95 @@ export async function teleportation(handler, animationData) {
                 .atLocation(sourceToken)
                 .scale(Scale)
                 .randomRotation()
-                .wait(750)
-            .thenDo(async () => {
-                await sourceToken.document.update({
-                    x: gridPos[0],
-                    y: gridPos[1],
-                    hidden: true
-                }, { animate: false });
-            })  
+            .wait(250)
+            .animation()
+                .on(sourceToken)
+                .opacity(0)
+                .teleportTo({x: gridPos[0], y: gridPos[1]})
             .effect()
-                .file(onToken.msFile)
+                .file(onToken02.file)
                 .atLocation({x: centerPos[0], y: centerPos[1]})
-                .scale(Scale)
+                .scale(Scale02)
                 .randomRotation()
-            .wait(1500)
-            .thenDo(async () => {
-                await sourceToken.document.update({
-                    hidden: false
-                }, { animate: false });
-            })
+            .wait(1250 + data.delay)
+            .animation()
+                .on(sourceToken)
+                .opacity(1)
             .play();
     };
 
-
+    // Credit to TPosney / Midi-QOL for the Range Check
+    function checkDistance (source, target) {
+        var x, x1, y, y1, d, r, segments = [], rdistance, distance;
+        for (x = 0; x < source.data.width; x++) {
+            for (y = 0; y < source.data.height; y++) {
+                const origin = new PIXI.Point(...canvas.grid.getCenter(source.data.x + (canvas.dimensions.size * x), source.data.y + (canvas.dimensions.size * y)));
+                for (x1 = 0; x1 < 1; x1++) {
+                    for (y1 = 0; y1 < 1; y1++) {
+                        const dest = new PIXI.Point(...canvas.grid.getCenter(target.x + (canvas.dimensions.size * x1), target.y + (canvas.dimensions.size * y1)));
+                        const r = new Ray(origin, dest);
+                        segments.push({ ray: r });
+                    }
+                }
+            }
+        }
+        if (segments.length === 0) {
+            return -1;
+        }
+        rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
+        distance = rdistance[0];
+        rdistance.forEach(d => {
+            if (d < distance)
+                distance = d;
+        });
+        return distance;
+    }
+    // Converting hex colors to HSL format
+    /*
+    function hexToHSL(H) {
+        // Convert hex to RGB first
+        let r = 0, g = 0, b = 0;
+        if (H.length == 4) {
+          r = "0x" + H[1] + H[1];
+          g = "0x" + H[2] + H[2];
+          b = "0x" + H[3] + H[3];
+        } else if (H.length == 7) {
+          r = "0x" + H[1] + H[2];
+          g = "0x" + H[3] + H[4];
+          b = "0x" + H[5] + H[6];
+        }
+        // Then to HSL
+        r /= 255;
+        g /= 255;
+        b /= 255;
+        let cmin = Math.min(r,g,b),
+            cmax = Math.max(r,g,b),
+            delta = cmax - cmin,
+            h = 0,
+            s = 0,
+            l = 0;
+      
+        if (delta == 0)
+          h = 0;
+        else if (cmax == r)
+          h = ((g - b) / delta) % 6;
+        else if (cmax == g)
+          h = (b - r) / delta + 2;
+        else
+          h = (r - g) / delta + 4;
+      
+        h = Math.round(h * 60);
+      
+        if (h < 0)
+          h += 360;
+      
+        l = (cmax + cmin) / 2;
+        s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+        s = +(s * 100).toFixed(1);
+        l = +(l * 100).toFixed(1);
+      
+        //return "hsl(" + h + "," + s + "%," + l + "%)";
+        return [h, s * 0.01, l * 0.01]
+      }
+      */
 }

@@ -124,6 +124,9 @@ export class AAItemSettings extends FormApplication {
             aaRepeat: animationRepeat || 1,
             aaDelay: flags.autoanimations?.options?.delay ?? 250,
             aaScale: flags.autoanimations?.options?.scale ?? 1,
+            aaScaleX: flags.autoanimations?.options?.scaleX ?? 1,
+            aaScaleY: flags.autoanimations?.options?.scaleY ?? 1,
+            aaScale02: flags.autoanimations?.options?.scale02 ?? 1,
             auraRadius: flags.autoanimations?.options?.auraRadius || 3.5,
             aaOpacity: flags.autoanimations?.options?.opacity || "1",
             teleRange: flags.autoanimations?.options?.teleDist || "30",
@@ -168,6 +171,8 @@ export class AAItemSettings extends FormApplication {
             autoRepeat: flags.autoanimations?.autoOverride?.repeat || 1,
             autoDelay: flags.autoanimations?.autoOverride?.delay || 500,
             autoScale: flags.autoanimations?.autoOverride?.scale || 1,
+            autoScaleX: flags.autoanimations?.autoOverride?.scaleX || 1,
+            autoScaleY: flags.autoanimations?.autoOverride?.scaleY || 1,
             autoOpacity: flags.autoanimations?.autoOverride?.opacity || 0.75,
             autoRadius: flags.autoanimations?.autoOverride?.radius || 3.5,
             autoAnchorX: flags.autoanimations?.autoOverride?.anchorX || 0.5,
@@ -193,7 +198,8 @@ export class AAItemSettings extends FormApplication {
             sprite3DAddExplosion: flags.autoanimations?.levels3d?.addexplosion?.sprite ?? "modules/levels-3d-preview/assets/particles/dust.png",
             sprite3DSprite: flags.autoanimations?.levels3d?.sprite?.sprite ?? "modules/levels-3d-preview/assets/particles/emberssmall.png",
             //currentVersion: !flags.autoanimations?.version ? this.object.setFlag('autoanimations', 'version', currentFlagVersion) : "",
-            currentVersion: currentFlagVersion, 
+            currentVersion: currentFlagVersion,
+            isGM: game.user.isGM ? true : false,
         };
 
     }

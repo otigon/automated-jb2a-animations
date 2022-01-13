@@ -21,17 +21,26 @@ export class AAanimationData {
             data.isAuto = true;
             data.animation = data.animation || "";
             data.customPath = data.custom ? data.customPath : false;
+            data.customPath02 = data.custom02 ? data.customPath02 : false;
 
             data.staticType = data.type || "targetDefault";
             data.color = autoOverridden ? handler.autoOverride?.color : data.color;
+            data.color02 = autoOverridden ? handler.autoOverride?.color02 : data.color02;
             data.repeat = autoOverridden ? handler.autoOverride?.repeat : data.repeat;
-            data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay;
+            data.delay = autoOverridden ? handler.autoOverride?.delay : data.delay || 0;
             data.scale = autoOverridden ? handler.autoOverride?.scale || 1 : data.scale || 1;
+            data.scale02 = autoOverridden ? handler.autoOverride?.scale02 || 1 : data.scale02 || 1;
+            data.scaleX = autoOverridden ? handler.autoOverride?.scaleX || 1 : data.scaleX || 1;
+            data.scaleY = autoOverridden ? handler.autoOverride?.scaleY || 1 : data.scaleY || 1;
             data.opacity = data.opacity || 1;
             data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
+            data.variant02 = autoOverridden ? handler.autoOverride?.variant02 || "01" : data.variant02 || "01";
             data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
             data.menuType = data.staticOptions === 'shieldfx' ? true : false;
             data.below = data.below ?? false;
+            data.measureType = data.measureType ?? 'alternating';
+            data.hideFromPlayers = false,
+
             data.itemAudio = {
                 enable: data.audio?.a01?.enable || false,
                 file: data.audio?.a01?.file,
@@ -68,17 +77,24 @@ export class AAanimationData {
                 isAuto: false,
                 animation: flags.animation?.toLowerCase(),
                 color: flags.color?.toLowerCase() ?? "",
+                color02: flags.color02?.toLowerCase() ?? "",
                 below: flags.animLevel || false,
 
                 options: options,
                 variant: options.variant || "01",
+                variant02: options.variant02 || "01",
                 repeat: options.repeat || 1,
                 delay: options.delay || 250,
                 scale: options.scale || 1,
+                scaleX: options.scaleX || 1,
+                scaleY: options.scaleY || 1,
+                scale02: options.scale02 || 1,
                 opacity: options.opacity || 1,
                 persistent: options.persistent || false,
                 enableCustom: options.enableCustom || false,
+                enableCustom02: options.enableCustom02 || false,
                 customPath: options.enableCustom ? options.customPath : false,
+                customPath02: options.enableCustom02 ? options.customPath02 : false,
                 staticType: options.staticType || "targetDefault",
                 menuType: options.staticOptions === 'shieldfx' ? true : false,
                 anchorX: options.anchorX || 1,
@@ -92,6 +108,8 @@ export class AAanimationData {
                 occlusionMode: parseInt(options.occlusionMode ?? "3"),
                 occlusionAlpha: options.occlusionAlpha ?? "0",
                 persistType: options.persistType || "sequencerground",
+                measureType: options.measureType || "alternating",
+                hideFromPlayers: options.hideFromPlayers || false,
 
                 itemAudio: {
                     enable: flags.audio?.a01?.enable || false,

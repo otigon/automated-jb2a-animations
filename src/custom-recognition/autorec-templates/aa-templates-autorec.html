@@ -134,12 +134,18 @@
                             </div>
                         </div>
                         <div class="option07 autorec-menu-options">
-                            <label>{{localize "AUTOANIM.scale"}}</label>
-                            <input type="Number" name="aaAutorec.templates.{{idx}}.scale"
-                                value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'scale'}}"
+                            <label>{{localize "AUTOANIM.scale"}} X</label>
+                            <input type="Number" name="aaAutorec.templates.{{idx}}.scaleX"
+                                value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'scaleX'}}"
                                 data-dtype="Number">
                         </div>
-                        <div class="option08">
+                        <div class="option08 autorec-menu-options">
+                            <label>{{localize "AUTOANIM.scale"}} Y</label>
+                            <input type="Number" name="aaAutorec.templates.{{idx}}.scaleY"
+                                value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'scaleY'}}"
+                                data-dtype="Number">
+                        </div>
+                        <div class="option08" style='grid-column: 4 / 5; grid-row: 3 / 4'>
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
                                     <label>{{localize 'AUTOANIM.below'}}: </label>
@@ -148,7 +154,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="option09">
+                        <div style='grid-column: 1 / 2; grid-row: 4 / 5'>
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
                                     <label>{{localize 'AUTOANIM.custom'}}: </label>
@@ -158,7 +164,7 @@
                             </div>
                         </div>
                         {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'custom')}}
-                        <div class="pickerspan">
+                        <div style='grid-column: 2 / 5; grid-row: 4 / 5;width: 25em'>
                             <div class="form-group">
                                 <input type="text" class="files" name="aaAutorec.templates.{{idx}}.customPath"
                                     value="{{lookup (lookup ../settings.aaAutorec.templates idx) 'customPath'}}">
@@ -170,7 +176,7 @@
                             </div>
                         </div>
                         {{/if}}
-                        <div class="option13">
+                        <div style='grid-column: 1 / 2; grid-row: 5 / 6'>
                             <div class="autorec-menu-options">
                                 <label>{{localize 'AUTOANIM.opacity'}}:
                                     <input type="Number" name="aaAutorec.templates.{{idx}}.opacity"
@@ -179,7 +185,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="option14">
+                        <div style='grid-column: 2 / 3; grid-row: 5 / 6'>
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
                                     <label>{{localize 'AUTOANIM.remove'}}: </label>
@@ -188,7 +194,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="option17">
+                        <div style='grid-column: 1 / 2; grid-row: 7 / 8'>
                             <div class="autorec-menu-options">
                                 <div class='form-group'>
                                     <label>{{localize 'AUTOANIM.persistant'}}: </label>
@@ -199,7 +205,7 @@
                         </div>
                         {{#if (lookup (lookup ../settings.aaAutorec.templates idx) 'persist')}}
                         {{#matchOverhead (lookup ../settings.aaAutorec.templates idx)}}
-                        <div class="option18">
+                        <div style='grid-column: 2 / 3; grid-row: 7 / 8'>
                             <label>Persistent Type</label>
                             <select name="aaAutorec.templates.{{idx}}.persistType">
                                 {{#select (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType')}}
@@ -213,7 +219,7 @@
                         </div>
                         {{/matchOverhead}}
                         {{#sequencerOnly (lookup ../settings.aaAutorec.templates idx)}}
-                        <div class="option18">
+                        <div style='grid-column: 2 / 3; grid-row: 7 / 8'>
                             <label>Persistent Type</label>
                             <select name="aaAutorec.templates.{{idx}}.persistType">
                                 {{#select (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType')}}
@@ -225,16 +231,8 @@
                         </div>
                         {{/sequencerOnly}}
                         {{/if}}
-                        {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType') 'groundtile'}}
-                        <div class="form-group" style='grid-column: 1 / 5; grid-row: 7 / 8;justify-self: center;'>
-                            <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
-                        </div>
-                        {{/ifEquals}}
                         {{#ifEquals (lookup (lookup ../settings.aaAutorec.templates idx) 'persistType') 'overheadtile'}}
-                        <div class="form-group" style='grid-column: 1 / 5; grid-row: 7 / 8;justify-self: center;'>
-                            <label class="socketlibWarn">SOCKETLIB {{localize "AUTOANIM.socketLibAA"}}</label>
-                        </div>
-                        <div class='form-group' style='grid-column: 1 / 3; grid-row: 6 / 7;'>
+                        <div class='form-group' style='grid-column: 1 / 3; grid-row: 8 / 9;'>
                             <label>{{localize "AUTOANIM.occlusionMode"}}</label>
                             <select name="aaAutorec.templates.{{idx}}.occlusionMode">
                                 {{#select (lookup (lookup ../settings.aaAutorec.templates idx)
@@ -246,7 +244,7 @@
                                 {{/select}}
                             </select>
                         </div>
-                        <div class="form-group" style='grid-column: 3 / 5; grid-row: 6 / 7;'>
+                        <div class="form-group" style='grid-column: 3 / 5; grid-row: 8 / 9;'>
                             <label>{{localize "AUTOANIM.occlusionAlpha"}}</label>
                             <div class="form-fields">
                                 <input type="range" name="aaAutorec.templates.{{idx}}.occlusionAlpha"
@@ -257,7 +255,7 @@
                         </div>
                         {{/ifEquals}}
                         <div class='form-group'
-                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 8 / 9'>
+                            style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 9 / 10'>
                             <label>{{localize "AUTOANIM.sound"}}</label>
                             <input type="checkbox" name="aaAutorec.templates.{{idx}}.audio.a01.enable" {{checked (lookup
                                 (lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'audio' ) 'a01' ) 'enable'
@@ -266,7 +264,7 @@
                         {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'audio' ) 'a01' )
                         'enable' )}}
                         <!--Explosion Audio filePicker and Text Input-->
-                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 8 / 9'>
+                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 9 / 10'>
                             <input style='width: 25em' type="text" class="files"
                                 name="aaAutorec.templates.{{idx}}.audio.a01.file"
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'audio') 'a01') 'file'}}">
@@ -277,14 +275,14 @@
                             </button>
                         </div>
                         <!--Explosion Audio Delay-->
-                        <div style='grid-column: 4 / 5;grid-row: 9 / 10; padding-bottom: 1em'>
+                        <div style='grid-column: 4 / 5;grid-row: 10 / 11; padding-bottom: 1em'>
                             <label>{{localize "AUTOANIM.delay"}}</label>
                             <input type="Number" name="aaAutorec.templates.{{idx}}.audio.a01.delay" min="0"
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'audio') 'a01') 'delay'}}"
                                 style='width: 3em'>
                         </div>
                         <!--Explosion Audio Volume-->
-                        <div style='grid-column: 3 / 4;grid-row: 9 / 10; padding-bottom: 1em'>
+                        <div style='grid-column: 3 / 4;grid-row: 10 / 11; padding-bottom: 1em'>
                             <label>{{localize "AUTOANIM.volume"}}</label>
                             <input type="Number" name="aaAutorec.templates.{{idx}}.audio.a01.volume" min="0" max="1"
                                 step="0.01" style='width: 3em'

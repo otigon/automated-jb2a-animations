@@ -9,7 +9,6 @@ export async function particleEffects(handler, autoObject) {
     const targets = handler.allTargets;
 
     const data = await AAanimationData.compileParticleData(autoObject, options3d)
-    console.log(data)
 /*
     switch (options3d.type) {
         case "projectile":
