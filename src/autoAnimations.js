@@ -85,7 +85,7 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
 Hooks.on("sequencerReady", () => {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    Sequencer.Database.registerEntries("autoanimations", obj01, isPrivate = true);
+    Sequencer.Database.registerEntries("autoanimations", obj01, true);
     if (game.settings.get("autoanimations", "killAllAnim") === "off") {
         console.log("ANIMATIONS ARE OFF")
         socket.off('module.sequencer')//
