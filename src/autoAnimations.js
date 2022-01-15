@@ -82,19 +82,22 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
 });
 
 // Registers Database with Sequencer
+Hooks.on("sequencerReady", () => {
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+
+    Sequencer.Database.registerEntries("autoanimations", obj01, isPrivate = true);
+    if (game.settings.get("autoanimations", "killAllAnim") === "off") {
+        console.log("ANIMATIONS ARE OFF")
+        socket.off('module.sequencer')//
+        killAllAnimations = true;
+    }
+});
+
 Hooks.once('ready', function () {
     aaSettings();
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    Hooks.on("sequencer.ready", () => {
-        Sequencer.Database.registerEntries("autoanimations", obj01);
-        if (game.settings.get("autoanimations", "killAllAnim") === "off") {
-            console.log("ANIMATIONS ARE OFF")
-            socket.off('module.sequencer')//
-            killAllAnimations = true;
-        }
-    });
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error(game.i18n.format("AUTOANIM.error"));
     }

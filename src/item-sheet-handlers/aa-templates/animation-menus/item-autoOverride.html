@@ -542,8 +542,8 @@
     <div class="option09">
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.autoOverride.variant02">
-            {{#select flags.autoanimations.autoOverride.varian02}}
-            {{#each (lookup variantmenu.static autoObject.subAnimation) as |name key|}}
+            {{#select flags.autoanimations.autoOverride.variant02}}
+            {{#each (lookup variantmenu.static autoObject.subAnimation02) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
             {{/select}}

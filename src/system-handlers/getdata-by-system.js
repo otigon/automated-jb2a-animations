@@ -53,7 +53,7 @@ export class AASystemData {
             if (!itemId || !tokenId) { return {}; }
 
             const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.uuid)) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
-
+            if (!token) { return {}; }
             let item = token.actor?.items?.get(itemId) || await fromUuid(`Item.${itemId}`);
 
             if (!item) return {};
