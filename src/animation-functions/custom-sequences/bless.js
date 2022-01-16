@@ -40,7 +40,7 @@ export async function bless(handler, animationData) {
 
         await new Sequence("Automated Animations")
         .sound()
-            .file(data.itemAudio.file)
+            .file(data.itemAudio.file, true)
             .volume(data.itemAudio.volume)
             .delay(data.itemAudio.delay)
             .playIf(data.playSound)
@@ -90,7 +90,7 @@ export async function bless(handler, animationData) {
 
             await new Sequence("Automated Animations")
                 .sound()
-                    .file(data.itemAudio.file)
+                    .file(data.itemAudio.file, true)
                     .volume(data.itemAudio.volume)
                     .delay(data.itemAudio.delay)
                     .playIf(() => {

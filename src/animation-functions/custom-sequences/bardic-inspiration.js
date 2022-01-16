@@ -84,7 +84,7 @@ async function bardicInspiration(handler, autoObject) {
     async function playSound() {
         new Sequence()
         .sound()
-            .file(data.itemAudio.file)
+            .file(data.itemAudio.file, true)
             .volume(data.itemAudio.volume)
             .delay(data.itemAudio.delay)
             .playIf(() => {

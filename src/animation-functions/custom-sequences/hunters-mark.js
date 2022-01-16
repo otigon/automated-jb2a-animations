@@ -34,7 +34,7 @@ async function huntersMark(handler, animationData) {
     const playPersist = (!checkAnim && data.persistent) ? true : false;
     await new Sequence("Automated Animations")
         .sound()
-            .file(data.itemAudio.file)
+            .file(data.itemAudio.file, true)
             .volume(data.itemAudio.volume)
             .delay(data.itemAudio.delay)
             .playIf(data.playSound)

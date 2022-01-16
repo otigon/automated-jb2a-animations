@@ -34,7 +34,7 @@ export async function auras(handler, animationData) {
         let playPersist = !checkAnim ? true : false;
         new Sequence()
             .sound()
-                .file(data.itemAudio.file)
+                .file(data.itemAudio.file, true)
                 .volume(data.itemAudio.volume)
                 .delay(data.itemAudio.delay)
                 .playIf(data.playSound)
@@ -72,7 +72,7 @@ export async function auras(handler, animationData) {
 
             new Sequence()
                 .sound()
-                    .file(data.itemAudio.file)
+                    .file(data.itemAudio.file, true)
                     .volume(data.itemAudio.volume)
                     .delay(data.itemAudio.delay)
                     .playIf(() => {

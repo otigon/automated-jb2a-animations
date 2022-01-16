@@ -88,7 +88,7 @@ export async function teleportation(handler, animationData) {
         new Sequence("Automated Animations")
             .addSequence(sourceFX.sourceSeq)
             .sound()
-                .file(data.itemAudio.file)
+                .file(data.itemAudio.file, true)
                 .volume(data.itemAudio.volume)
                 .delay(data.itemAudio.delay)
                 .playIf(data.playSound)

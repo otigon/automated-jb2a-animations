@@ -39,7 +39,8 @@ export async function buildFile(getMeta, name, animationType, animationVariant, 
         msFile = color === "random" ? `autoanimations.${type}.${path}.02` : `autoanimations.${type}.${path}.02.${color}`;
         //let file = color === "random" ? `autoanimations.${type}.${path}.${variant}` : `autoanimations.${type}.${path}.${variant}.${color}`;
         //let msFile = color === "random" ? `autoanimations.${type}.${path}.02` : `autoanimations.${type}.${path}.02.${color}`;
-        returnFile = `autoanimations.return.${path}.${variant}.${color}`
+        const returnArray = Object.keys(jb2a.return);
+        returnFile = returnArray.some(el => path === el) ? `autoanimations.return.${path}.${variant}.${color}` : "";
         if (getMeta) {
             fileData = color === "random" ? jb2a[type][path][variant][Object.keys(jb2a[type][path][variant])[0]][0] : jb2a[type][path][variant][color][0];
             metadata = await getVideoDimensionsOf(fileData);

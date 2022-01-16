@@ -226,14 +226,14 @@ export class AAanimationData {
         sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
         sourceFX.sourceSeq.sound()
-            .file(sourceFX.itemAudio.file)
+            .file(sourceFX.itemAudio.file, true)
             .volume(sourceFX.itemAudio.volume)
             .delay(sourceFX.itemAudio.delay)
             .playIf(() => {
                 return sourceFX.itemAudio.enable && sourceFX.itemAudio.file && sourceFX.enabled;
             })
         sourceFX.sourceSeq.effect()
-            .file(sourceFX.data.file)
+            .file(sourceFX.data.file, true)
             .atLocation(handler.actorToken)
             .gridSize(canvas.grid.size)
             .scale(sourceFX.sFXScale * sourceFX.scale)
@@ -292,7 +292,7 @@ export class AAanimationData {
         targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
         targetFX.targetSeq.sound()
-            .file(targetFX.itemAudio?.file)
+            .file(targetFX.itemAudio?.file, true)
             .volume(targetFX.itemAudio?.volume)
             .delay(targetFX.itemAudio?.delay + targetFX.startDelay)
             .repeats(targetFX.repeat, targetFX.delay)
@@ -301,7 +301,7 @@ export class AAanimationData {
             })
         targetFX.targetSeq.effect()
             .delay(targetFX.startDelay)
-            .file(targetFX.data?.file)
+            .file(targetFX.data?.file, true)
             .atLocation(target)
             .scale(targetFX.tFXScale * targetFX.scale)
             .repeats(targetFX.repeat, targetFX.delay)
