@@ -293,7 +293,7 @@ async function setUpMidi(workflow) {
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    if (handler.isTemplateOrAuraAnimation) { return; }
+    if (handler.shouldPlayImmediately) { return; }
     console.log("Damage vs Attack Hook, AA Settings")
     trafficCop(handler);
 }
@@ -305,7 +305,7 @@ async function setUpMidiNoAttackDamage(workflow) {
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    if (handler.isTemplateOrAuraAnimation) { return; }
+    if (handler.shouldPlayImmediately) { return; }
     console.log("no Attack or Damage, Midi-Roll Complete hook")
     console.log(workflow)
     trafficCop(handler)
@@ -318,7 +318,7 @@ async function setUpMidiNoAttack(workflow) {
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    if (handler.isTemplateOrAuraAnimation) { return; }
+    if (handler.shouldPlayImmediately) { return; }
     console.log("no Attack, Midi Roll Complete Hook")
     trafficCop(handler)
 }
@@ -330,7 +330,7 @@ async function midiAOE(workflow) {
     if (!handler.item || !handler.actorToken) {
         return;
     }
-    if (handler.isTemplateOrAuraAnimation) {
+    if (handler.shouldPlayImmediately) {
         trafficCop(handler);
     } else { return; }
 }
@@ -345,9 +345,8 @@ async function midiTemplateAnimations(msg) {
     if (!handler.item || !handler.actorToken) {
         return;
     }
-
     let breakOut = checkMessege(msg);
-    if ((handler.isTemplateOrAuraAnimation) && (breakOut === 0 || game.modules.get("betterrolls5e")?.active)) {
+    if ((handler.shouldPlayImmediately) && (breakOut === 0 || game.modules.get("betterrolls5e")?.active)) {
         trafficCop(handler);
     } else { return; }
 }
@@ -390,12 +389,12 @@ async function setUp5eCore(msg) {
         case !handler.hasAttack && !handler.hasDamage:
             trafficCop(handler);
             break;
-        case (handler.isTemplateOrAuraAnimation) && !rollType.includes("damage") && !rollType.includes("attack"):
+        case (handler.shouldPlayImmediately) && !rollType.includes("damage") && !rollType.includes("attack"):
             trafficCop(handler);
             break;
         case animationNow:
             if (rollType.includes("damage")) {
-                if (handler.isTemplateOrAuraAnimation) { return; }
+                if (handler.shouldPlayImmediately) { return; }
                 trafficCop(handler);
             }
             break;
@@ -406,11 +405,11 @@ async function setUp5eCore(msg) {
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
-                    if (handler.isTemplateOrAuraAnimation) { return; }
+                    if (handler.shouldPlayImmediately) { return; }
                     trafficCop(handler);
                     break;
                 case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (handler.isTemplateOrAuraAnimation) { return; }
+                    if (handler.shouldPlayImmediately) { return; }
                     trafficCop(handler);
                     break;
             }
@@ -526,11 +525,11 @@ async function pf2eReady(msg) {
     let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (handler.isTemplateOrAuraAnimation && !msg.data.flavor?.toLowerCase().includes("damage")) {
+    if (handler.shouldPlayImmediately && !msg.data.flavor?.toLowerCase().includes("damage")) {
         trafficCop(handler);
         return;
     }
-    if (handler.isTemplateOrAuraAnimation) { return };
+    if (handler.shouldPlayImmediately) { return };
     switch (itemType) {
         case "spell":
             damage = handler.item?.data?.data?.damage?.value["0"]?.value;
