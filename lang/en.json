@@ -572,6 +572,7 @@
 
     "AUTOANIM.end": "End",
     "AUTOANIM.hideBorder": "Hide from Players",
-    "AUTOANIM.gridMeasure": "Grid Measurement"
+    "AUTOANIM.gridMeasure": "Grid Measurement",
+    "AUTOANIM.playbackRate": "Playback Rate"
 
 }

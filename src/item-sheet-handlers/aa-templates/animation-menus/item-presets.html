@@ -9,6 +9,7 @@
         <option value=""></option>
         <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}</option>
         <option value="bless">{{localize "AUTOANIM.bless"}}</option>
+        <option value="dualattach">Dual Attach</option>
         <option value="fireball">{{localize "AUTOANIM.fireball"}}</option>
         <option value='huntersmark'>{{localize "AUTOANIM.itemHM"}}</option>
         <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
@@ -23,7 +24,83 @@
 <div style='padding:3px'>
 
 </div>
+{{#ifEquals flags.autoanimations.animation "dualattach"}}
+<div class='aa-item-container primary-animation'>
+    {{#unless flags.autoanimations.options.enableCustom}}
+    <div style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+        <label>{{localize 'AUTOANIM.playOn'}}:
+            <select name="flags.autoanimations.options.menuType">
+                {{#select flags.autoanimations.options.menuType}}
+                <option value=""> </option>
+                <option value="spell">{{localize "AUTOANIM.itemSpell"}}</option>
+                {{/select}}
+            </select>
+        </label>
+    </div>
+    <div style='grid-row: 1 / 2; grid-column: 2 / 3;padding-top: 5px; padding-bottom: 5px;'>
+        <label>{{localize "AUTOANIM.animation"}}</label>
+        <select name="flags.autoanimations.options.name">
+            {{#select flags.autoanimations.options.name}}
 
+            {{#ifEquals flags.autoanimations.options.menuType 'spell'}}
+            {{#each spellList as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/ifEquals}}
+
+            {{/select}}
+        </select>
+    </div>
+    <div style='grid-row: 2 / 3; grid-column: 1 / 2;'>
+        <label>{{localize "AUTOANIM.variant"}}</label>
+        <select name="flags.autoanimations.options.variant">
+            {{#select flags.autoanimations.options.variant}}
+            {{#each (lookup variantmenu.range (lookup flags.autoanimations.options 'name')) as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <!--Choose Standard Animation Color-->
+    <div style='grid-row: 2 / 3; grid-column: 2 / 3;'>
+        <label>{{localize "AUTOANIM.color"}}</label>
+        <select name="flags.autoanimations.color">
+            {{#select flags.autoanimations.color}}
+            {{#each (lookup (lookup colormenu.range (lookup flags.autoanimations.options 'name')) (lookup
+            flags.autoanimations.options 'variant')) as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    {{/unless}}
+    <div style='grid-row: 1 / 2; grid-column: 3 / 5;'>
+        <label>{{localize "AUTOANIM.playbackRate"}}</label>
+        <input type="Number" name="flags.autoanimations.options.playbackRate" step="0.01" style='width: 3em'
+            value="{{lookup flags.autoanimations.options 'playbackRate'}}" placeholder=1>
+    </div>
+    <div class="form-group" style='grid-column: 1 / 2;grid-row: 3 / 4;'>
+        <label>{{localize "AUTOANIM.customAnim"}}</label>
+        <input type="checkbox" name="flags.autoanimations.options.enableCustom"
+            value="flags.autoanimations.options.enableCustom" {{checked flags.autoanimations.options.enableCustom}}>
+    </div>
+    {{#if flags.autoanimations.options.enableCustom}}
+    <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4;'>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath"
+            value="{{lookup flags.autoanimations.options 'customPath'}}">
+        <button type="button" class="file-picker" data-type="image/video"
+            data-target="flags.autoanimations.options.customPath" tabindex="-1" title="Browse Files">
+            <i class="fas fa-file-video"></i>
+        </button>
+    </div>
+    <div class="form-group" style='grid-column: 1 / 3;grid-row: 4 / 5;'>
+        <label>Constant Y Scale</label>
+        <input type="checkbox" name="flags.autoanimations.options.onlyX"
+            value="flags.autoanimations.options.onlyX" {{checked flags.autoanimations.options.onlyX}}>
+    </div>
+    {{/if}}
+</div>
+{{/ifEquals}}
 {{#ifEquals flags.autoanimations.animation "shieldspell"}}
 <div class='aa-item-container primary-animation'>
     <!--Spell Variant Option-->

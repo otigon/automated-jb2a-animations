@@ -110,6 +110,8 @@ export class AAanimationData {
                 persistType: options.persistType || "sequencerground",
                 measureType: options.measureType || "alternating",
                 hideFromPlayers: options.hideFromPlayers || false,
+                playbackRate: options.playbackRate || 1,
+                onlyX: options.onlyX ?? false,
 
                 itemAudio: {
                     enable: flags.audio?.a01?.enable || false,
