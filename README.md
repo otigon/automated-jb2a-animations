@@ -1,14 +1,14 @@
 ## A Note on adding support for more systems: 
 I will **NOT** be adding support for any more systems. The vast majority of systems in Foundry do not supply the necessary data for Automated Animationms to run, and it has become redundant for me to spend the time trying to figure out if a system is compatible when it is requested. At some point I will add a section on the Wiki detailing how to add support via a pull request, and what information to ask the System Dev to provide in the system.  
   
-If you enjoy Automated Animations, consider sending some love on Patreon
-### Patreon Link: https://www.patreon.com/otigon : Not required, but appreciated  
-
 MIT License provided:  
 - Code from Midi-QOL (Tim Posney) is used to check distance between tokens: Copyright (c) 2020 Tim Posney  
 - Honeybadger (Trioderigon) provided the framework for the Misty Step Animation  
 - The SEQUENCER module is now a dependancy of Automated Animations.  
 Many thanks to WASP for creating a great animation framework with the **SEQUENCER** Module. Check out his website [**here**](https://app.fantasy-calendar.com/) and get the **SEQUENCER** module asap!  
+  
+If you enjoy Automated Animations, consider sending some love on Patreon
+### Patreon Link: https://www.patreon.com/otigon : Not required, but appreciated  
   
 # Automated Animations
 **No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
