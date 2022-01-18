@@ -23,7 +23,7 @@ export async function bless(handler, animationData) {
     }
     const bless = await buildBlessFile(obj01, data.color);
 
-    if (handler.debug) { aaDebugger("Aura Animation Start", data, bless) }
+    if (handler.debug) { aaDebugger("Aura Animation Start", animationData, bless) }
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);

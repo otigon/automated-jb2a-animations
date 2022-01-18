@@ -9,7 +9,7 @@ export async function sneakAttack(handler, animationData) {
     const sneak = await buildFile(true, data.animation, "static", "01", data.color)
     const sourceToken = handler.actorToken;
 
-    if (handler.debug) { aaDebugger("Sneak Attack Animation Start", data, sneak) }
+    if (handler.debug) { aaDebugger("Sneak Attack Animation Start", animationData, sneak) }
 
     const sourceScale = sourceToken.w;
     async function cast() {

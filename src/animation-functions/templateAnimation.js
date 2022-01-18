@@ -25,7 +25,7 @@ export async function templateAnimation(handler, animationData) {
 
     const tempAnimation = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath)
 
-    if (handler.debug) { aaDebugger("Template Animation Start", data, tempAnimation) }
+    if (handler.debug) { aaDebugger("Template Animation Start", animationData, tempAnimation) }
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);

@@ -32,7 +32,7 @@ export async function thunderwaveAuto(handler, data) {
             color = data.color;
     }
 
-    const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    const sourceFX = await AAanimationData._sourceFX(handler, data, sourceToken);
 
     const templateID = await canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
     let template = await canvas.templates.get(templateID);

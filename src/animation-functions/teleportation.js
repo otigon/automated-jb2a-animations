@@ -27,7 +27,7 @@ export async function teleportation(handler, animationData) {
     const onToken = await buildFile(true, data.itemName01, "static", data.variant, data.color, data.customPath);
     const onToken02 = await buildFile(true, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
 
-    if (handler.debug) { aaDebugger("Teleportation Animation Start", data, onToken, onToken02) }
+    if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, onToken, onToken02) }
 
     const sourceScale = sourceToken.w;
 

@@ -21,7 +21,7 @@ export async function dualAttach(handler, animationData) {
 
     const animFile = await buildFile(false, data.itemName, "range", data.variant, data.color, data.customPath)
 
-    if (handler.debug) { aaDebugger("Dual Attach Animation Start", data, animFile) }
+    if (handler.debug) { aaDebugger("Dual Attach Animation Start", animationData, animFile) }
 
     const onlyX = data.enableCustom ? data.onlyX : false;
 

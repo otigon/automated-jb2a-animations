@@ -17,7 +17,7 @@ export async function staticAnimation(handler, animationData) {
     
     const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
 
-    if (handler.debug) { aaDebugger("Static Animation Start", data, onToken) }
+    if (handler.debug) { aaDebugger("Static Animation Start", animationData, onToken) }
 
     //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;

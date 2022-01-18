@@ -20,7 +20,7 @@ export async function auras(handler, animationData) {
     const sourceToken = handler.actorToken;
     const aura = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
 
-    if (handler.debug) { aaDebugger("Aura Animation Start", data, aura) }
+    if (handler.debug) { aaDebugger("Aura Animation Start", animationData, aura) }
 
     if (handler.allTargets.length === 0 || data.ignoreTargets) {
         selfAura()
