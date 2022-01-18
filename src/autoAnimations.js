@@ -297,7 +297,7 @@ async function setUpMidi(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
-    console.log("Damage vs Attack Hook, AA Settings")
+    //console.log("Damage vs Attack Hook, AA Settings")
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
@@ -309,8 +309,8 @@ async function setUpMidiNoAttackDamage(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
-    console.log("no Attack or Damage, Midi-Roll Complete hook")
-    console.log(workflow)
+    //console.log("no Attack or Damage, Midi-Roll Complete hook")
+    //console.log(workflow)
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
@@ -322,7 +322,7 @@ async function setUpMidiNoAttack(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
-    console.log("no Attack, Midi Roll Complete Hook")
+    //console.log("no Attack, Midi Roll Complete Hook")
     trafficCop(handler)
 }
 /*

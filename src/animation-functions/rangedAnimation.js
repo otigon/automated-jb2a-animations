@@ -17,9 +17,10 @@ export async function rangedAnimations(handler, animationData) {
     const targetFX = animationData.targetFX;
 
     if (aaDebug) { aaDebugger("Ranged Animation Start", data) }
-    const attack = await buildFile(false, data.animation, "range", data.variant, data.color)
+    const attack = await buildFile(false, data.animation, "range", data.variant, data.color, data.customPath)
 
     const sourceToken = handler.actorToken;
+    const onlyX = data.enableCustom ? data.onlyX : false;
 
     async function cast() {
         let arrayLength = handler.allTargets.length;
@@ -52,7 +53,7 @@ export async function rangedAnimations(handler, animationData) {
                 .effect()
                     .file(attack.file)
                     .atLocation(sourceToken)
-                    .stretchTo(target)
+                    .stretchTo(target, {onlyX: onlyX})
                     .randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
                     .missed(hit)
