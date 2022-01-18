@@ -87,7 +87,7 @@ export default class flagHandler {
 
         this.isOverrideTemplate = (this.animType === "template" && this.animOverride) || (this.animType === "preset" && this.flags.animation === "fireball" && this.animOverride) ? true : false;
         this.isOverrideAura = this.animType === "aura" && this.animOverride ? true: false;
-        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || (this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation') ? true : false;
+        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || (this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation') ? true : false;
         //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
     }
