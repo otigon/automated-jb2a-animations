@@ -38,7 +38,13 @@ export async function rangedAnimations(handler, animationData) {
             } else {
                 hit = false;
             }
-
+            if (data.macro.enabled && data.macro.name) {
+                let executeMacro = new Sequence("Automated Animations");
+                let userData = data.macro.args.split(',').map(s => s.trim());
+                executeMacro.macro(data.macro.name, {sourceToken, target, animationData, handler}, ...userData)
+                executeMacro.play()
+            }
+            
             await new Sequence("Automated Animations")
                 .addSequence(sourceFX.sourceSeq)
                 .thenDo(function() {

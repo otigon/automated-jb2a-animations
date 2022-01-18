@@ -141,6 +141,12 @@ export class AAanimationData {
                     repeat: handler.decoupleSound ? 1 : options.repeat || 1,
                 },
                 explosion: await this._explosionData(handler, false),
+
+                macro: {
+                    enabled: flags.macro?.enable ?? false,
+                    name: flags.macro?.name ?? "",
+                    args: flags.macro?.args ?? "",
+                }
             }
             data.playSound = data.itemAudio?.enable && data.itemAudio?.file ? true : false;
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
