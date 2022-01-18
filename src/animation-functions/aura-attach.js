@@ -6,13 +6,13 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function auras(handler, animationData) {
 
-    const gridSize = canvas.grid.size
+    //const gridSize = canvas.grid.size
     const data = animationData.primary;
     
     if (data.isAuto) {
-        data.size = data.scale * 2 * gridSize;
+        data.size = data.scale * 2;
     } else {
-        data.size = data.auraRadius * 2 * gridSize;
+        data.size = data.auraRadius * 2;
     }
 
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
@@ -21,7 +21,7 @@ export async function auras(handler, animationData) {
     const aura = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
 
     if (handler.debug) { aaDebugger("Aura Animation Start", animationData, aura) }
-
+    console.log(data)
     if (handler.allTargets.length === 0 || data.ignoreTargets) {
         selfAura()
     } else {
@@ -43,15 +43,14 @@ export async function auras(handler, animationData) {
                 //.atLocation(sourceToken)
                 .persist()
                 .origin(handler.item.uuid)
-                .size(data.size)
+                .size(data.size, { gridUnits: true })
                 .belowTokens(data.below)
                 .file(aura.file)
                 .playIf(playPersist)
-                .gridSize(gridSize)
                 .attachTo(sourceToken)
                 .name(sourceToken.name)
-                .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})
-                .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
+                .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true})
+                .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true})
                 .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
                 //.fadeIn(250)
                 .fadeOut(500)
@@ -85,13 +84,12 @@ export async function auras(handler, animationData) {
                     .persist()
                     .origin(handler.item.uuid)
                     .name(`${target.name}-${handler.itemName}`)
-                    .size(data.size)
-                    .gridSize(gridSize)
+                    .size(data.size, { gridUnits: true })
                     .playIf(playPersist)
                     .belowTokens(data.below)
                     .file(aura.file)
-                    .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase})
-                    .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase})
+                    .animateProperty("sprite", "width", {from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true})
+                    .animateProperty("sprite", "height", {from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true})
                     .animateProperty("sprite", "alpha", {from: 0, to: data.opacity, duration: 2500})
                     .fadeIn(250)
                     .fadeOut(500)    

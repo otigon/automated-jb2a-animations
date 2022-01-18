@@ -1,4 +1,3 @@
-
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function bardicInspiration(handler, autoObject) {
@@ -46,7 +45,6 @@ async function bardicInspiration(handler, autoObject) {
             .file(path)
             .atLocation(tokenMarker)
             .scale((tokenMarker.w / 400) * 2)
-            .gridSize(gridSize)
             .belowTokens(true)
         .play()
     }
@@ -60,7 +58,6 @@ async function bardicInspiration(handler, autoObject) {
             .file(path)
             .atLocation(token)
             .scale(token.w / 200)
-            .gridSize(gridSize)
             .repeats(10, 350)
             .randomOffset()
 
@@ -76,7 +73,6 @@ async function bardicInspiration(handler, autoObject) {
             .file(path)
             .atLocation(biToken)
             .scale((biToken.w / 400) * 2)
-            .gridSize(gridSize)
 
         bardicPlay.play()
     }
@@ -92,8 +88,6 @@ async function bardicInspiration(handler, autoObject) {
             })
         .play()
     }
-
-    if (handler.debug) { aaDebugger("Aura Animation Start", data) }
 
     if (data.animateSelf) {
         switch (true) {

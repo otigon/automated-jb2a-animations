@@ -1,6 +1,8 @@
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
+import { aaDebugger } from "../../constants/constants.js";
+
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function shieldSpell(handler, animationData) {
@@ -63,14 +65,12 @@ export async function shieldSpell(handler, animationData) {
                 .effect()
                     .file(onToken.file01)
                     .scale(scale)
-                    .gridSize(gridSize)
                     .atLocation(sourceToken)
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)        
                 .effect()
                     .file(onToken.file02)
                     .scale(scale)
-                    .gridSize(gridSize)
                     .atLocation(sourceToken)
                     .belowTokens(data.below)
                     .playIf(!data.persistent)
@@ -80,7 +80,6 @@ export async function shieldSpell(handler, animationData) {
                 .effect()
                     .file(onToken.file02)
                     .scale(scale)
-                    .gridSize(gridSize)
                     .attachTo(sourceToken)
                     .belowTokens(data.below)
                     .playIf(data.persistent)
@@ -92,7 +91,6 @@ export async function shieldSpell(handler, animationData) {
                 .effect()
                     .file(onToken.file03)
                     .scale(scale)
-                    .gridSize(gridSize)
                     .belowTokens(data.below)
                     .atLocation(sourceToken)                          
                 .play()

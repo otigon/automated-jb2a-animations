@@ -1,7 +1,5 @@
-import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { aaDebugger } from "../../constants/constants.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -54,7 +52,6 @@ async function huntersMark(handler, animationData) {
             .anchor({ x: data.anchorX, y: data.anchorY })
             .playIf(playPersist)
             .scale(finalScale)
-            .gridSize(canvas.grid.size)
             .belowTokens(false)
             .name("huntersmark")
             .persist(true)

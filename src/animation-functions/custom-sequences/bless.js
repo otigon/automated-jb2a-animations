@@ -3,6 +3,7 @@ import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { aaDebugger } from "../../constants/constants.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -51,13 +52,11 @@ export async function bless(handler, animationData) {
             .file(bless.file01)
             .attachTo(sourceToken)
             .scale(scale)
-            .gridSize(gridSize)
             .belowTokens(data.below)
             .waitUntilFinished(-500)
         .effect()
             .file(bless.file02)
             .scale(scale)
-            .gridSize(gridSize)
             .attachTo(sourceToken)
             .belowTokens(data.below)
             .playIf(!data.persistent)
@@ -68,7 +67,6 @@ export async function bless(handler, animationData) {
             .file(bless.file02)
             .scale(scale)
             .name("bless")
-            .gridSize(gridSize)
             .attachTo(sourceToken)
             .belowTokens(data.below)
             .persist(data.persistent)
@@ -103,14 +101,12 @@ export async function bless(handler, animationData) {
                     .file(bless.file01)
                     .attachTo(target)
                     .scale(targetScale)
-                    .gridSize(gridSize)
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)
                 .effect()
                     .file(bless.file02)
                     .name("bless")
                     .scale(targetScale)
-                    .gridSize(gridSize)
                     .attachTo(target)
                     .belowTokens(data.below)
                     .playIf(!data.persistent)
@@ -120,7 +116,6 @@ export async function bless(handler, animationData) {
                     .file(bless.file02)
                     .name("bless")
                     .scale(targetScale)
-                    .gridSize(gridSize)
                     .attachTo(target)
                     .belowTokens(data.below)
                     .persist(data.persistent)

@@ -1,4 +1,5 @@
 import { buildFile } from "../file-builder/build-filepath.js";
+import { aaDebugger } from "../../constants/constants.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -24,7 +25,6 @@ export async function sneakAttack(handler, animationData) {
                 .file(sneak.file)
                 .atLocation(sourceToken)
                 .scale((2 * sourceScale / sneak.metadata.width) * 1)
-                .gridSize(canvas.grid.size)
                 .belowTokens(false)
                 .anchor({ x: data.anchorX, y: data.anchorY })
             .play()

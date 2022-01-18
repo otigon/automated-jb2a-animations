@@ -241,7 +241,6 @@ export class AAanimationData {
         sourceFX.sourceSeq.effect()
             .file(sourceFX.data.file, true)
             .atLocation(handler.actorToken)
-            .gridSize(canvas.grid.size)
             .scale(sourceFX.sFXScale * sourceFX.scale)
             .repeats(sourceFX.repeat, sourceFX.delay)
             .belowTokens(sourceFX.below)
@@ -313,7 +312,6 @@ export class AAanimationData {
             .repeats(targetFX.repeat, targetFX.delay)
             .belowTokens(targetFX.below)
             .persist(targetFX.persistent)
-            .gridSize(canvas.grid.size)
             .opacity(targetFX.opacity)
             .playIf(playNow)
 
