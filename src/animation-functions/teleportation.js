@@ -3,7 +3,7 @@ import { aaDebugger } from "../constants/constants.js"
 import { socketlibSocket } from "../socketset.js";
 
 export async function teleportation(handler, animationData) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
+
     /*
     if (handler.itemMacro.toLowerCase().includes("misty step")) {
         console.log("A-A Misty Step will not work with DAE SRD Misty Step");
@@ -24,9 +24,10 @@ export async function teleportation(handler, animationData) {
         data.itemName02 = data.options?.name02 || "";
     }
 
-    if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
     const onToken = await buildFile(true, data.itemName01, "static", data.variant, data.color, data.customPath);
     const onToken02 = await buildFile(true, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
+
+    if (handler.debug) { aaDebugger("Teleportation Animation Start", data, onToken, onToken02) }
 
     const sourceScale = sourceToken.w;
 

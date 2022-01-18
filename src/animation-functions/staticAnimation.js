@@ -6,7 +6,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function staticAnimation(handler, animationData) {
     //console.log(animationData)
-    const aaDebug = game.settings.get("autoanimations", "debug")
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
     const sourceToken = handler.actorToken;
@@ -15,8 +15,9 @@ export async function staticAnimation(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
     
-    if (aaDebug) { aaDebugger("Static Animation Start", data) }
     const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
+
+    if (handler.debug) { aaDebugger("Static Animation Start", data, onToken) }
 
     //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;

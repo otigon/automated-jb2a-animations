@@ -22,6 +22,9 @@ export async function bless(handler, animationData) {
         data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
     }
     const bless = await buildBlessFile(obj01, data.color);
+
+    if (handler.debug) { aaDebugger("Aura Animation Start", data, bless) }
+
     // builds Source Token file if Enabled, and pulls from flags if already set
     //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const gridSize = canvas.grid.size;

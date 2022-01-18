@@ -5,7 +5,6 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function rangedAnimations(handler, animationData) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Sets JB2A database and Global Delay
     //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
@@ -16,8 +15,9 @@ export async function rangedAnimations(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
 
-    if (aaDebug) { aaDebugger("Ranged Animation Start", data) }
     const attack = await buildFile(false, data.animation, "range", data.variant, data.color, data.customPath)
+
+    if (handler.debug) { aaDebugger("Ranged Animation Start", attack) }
 
     const sourceToken = handler.actorToken;
     const onlyX = data.enableCustom ? data.onlyX : false;

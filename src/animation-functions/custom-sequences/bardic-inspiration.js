@@ -93,6 +93,8 @@ async function bardicInspiration(handler, autoObject) {
         .play()
     }
 
+    if (handler.debug) { aaDebugger("Aura Animation Start", data) }
+
     if (data.animateSelf) {
         switch (true) {
             case data.selfAnimation === "music":

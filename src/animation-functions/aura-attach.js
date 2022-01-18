@@ -5,7 +5,6 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function auras(handler, animationData) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
 
     const gridSize = canvas.grid.size
     const data = animationData.primary;
@@ -18,9 +17,11 @@ export async function auras(handler, animationData) {
 
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
 
-    if (aaDebug) { aaDebugger("CTA Aura Animation Start", data) }
     const sourceToken = handler.actorToken;
     const aura = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
+
+    if (handler.debug) { aaDebugger("Aura Animation Start", data, aura) }
+
     if (handler.allTargets.length === 0 || data.ignoreTargets) {
         selfAura()
     } else {

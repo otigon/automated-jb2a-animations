@@ -8,13 +8,13 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function thunderwaveAuto(handler, data) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
 
     const sourceToken = handler.actorToken;
-    if (aaDebug) { aaDebugger("Thunderwave Animation Start", data) }
+
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let color;
     const colors = ['green', 'orange', 'purple', 'red', 'blue']
@@ -85,9 +85,12 @@ export async function thunderwaveAuto(handler, data) {
         default:
             anFile = filePath['mid'][color];
     }
+
+    if (handler.debug) { aaDebugger("Thunderwave Animation Start", data, anFile) }
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
-    console.log(anFile)
+    //console.log(anFile)
     if (data.persist && (data.type === "circle" || data.type === "rect")) {
         let tileData;
         if (data.overhead) {

@@ -113,6 +113,8 @@ export async function fireball(handler, autoObject) {
     const explosion01 = data.explosion01 !== "a1" ? await buildFile(true, data.explosion01, "static", data.explosion01Variant, data.explosion01Color) : "";
     const explosion02 = data.explosion02 !== "a1" ? await buildFile(true, data.explosion02, "static", data.explosion02Variant, data.explosion02Color) : "";
 
+    if (handler.debug) { aaDebugger("Fireball Animation Start", data, projectileAnimation, explosion01, explosion02) }
+
     let fireballTemplate = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;//canvas.templates.get(args[0].templateId)
     let tokenD = handler.actorToken;
     let template = await canvas.templates.documentCollection.get(fireballTemplate)

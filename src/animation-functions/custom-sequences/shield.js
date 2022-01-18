@@ -44,10 +44,9 @@ export async function shieldSpell(handler, animationData) {
     }
     const sourceToken = handler.actorToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
-    // builds Source Token file if Enabled, and pulls from flags if already set
-    //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
 
-    //let animWidth = onToken.metadata.width;
+    if (handler.debug) { aaDebugger("Shield Animation Start", data, onToken) }
+
     const sourceScale = sourceToken.w;
     let scale = ((sourceScale / onToken.metadata.width) * 1.75) * data.scale
     const gridSize = canvas.grid.size;

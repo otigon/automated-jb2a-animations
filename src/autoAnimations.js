@@ -364,6 +364,40 @@ function checkMessege(msg) {
 }
 
 /*
+* Midi-QOL Critical Hit and Fumble animations
+*
+*/
+async function criticalCheck(workflow) {
+    if (killAllAnimations) { return; }
+    if (!workflow.isCritical && !workflow.isFumble) { return; }
+    let critical = workflow.isCritical;
+    let fumble = workflow.isFumble;
+    let token;
+
+    let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
+    let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
+
+    switch (true) {
+        case (game.settings.get("autoanimations", "EnableCritical") && critical):
+            token = canvas.tokens.get(workflow.tokenId);
+            new Sequence()
+                .effect()
+                .file(critAnim)
+                .atLocation(token)
+                .play()
+            break;
+        case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
+            token = canvas.tokens.get(workflow.tokenId);
+            new Sequence()
+                .effect()
+                .file(critMissAnim)
+                .atLocation(token)
+                .play()
+            break;
+    }
+}
+
+/*
 / Set up DnD5e and SW5e CORE (NON MIDI)
 */
 async function setUp5eCore(msg) {
@@ -598,35 +632,6 @@ async function pf2eReady(msg) {
     }
 }
 
-async function criticalCheck(workflow) {
-    if (killAllAnimations) { return; }
-    if (!workflow.isCritical && !workflow.isFumble) { return; }
-    let critical = workflow.isCritical;
-    let fumble = workflow.isFumble;
-    let token;
-
-    let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
-    let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
-
-    switch (true) {
-        case (game.settings.get("autoanimations", "EnableCritical") && critical):
-            token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
-                .effect()
-                .file(critAnim)
-                .atLocation(token)
-                .play()
-            break;
-        case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
-            token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
-                .effect()
-                .file(critMissAnim)
-                .atLocation(token)
-                .play()
-            break;
-    }
-}
 /*
 / WFRP Functions
 */

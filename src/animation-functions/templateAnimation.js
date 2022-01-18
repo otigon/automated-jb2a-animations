@@ -6,7 +6,7 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function templateAnimation(handler, animationData) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
+
     const sourceToken = handler.actorToken;
 
     const data = animationData.primary;
@@ -18,13 +18,14 @@ export async function templateAnimation(handler, animationData) {
         data.type = handler.flags?.options?.tempType;
     }
 
-    if (aaDebug) { aaDebugger("Template Animation Start", data) }
     if (data.animation === 'thunderwave') {
         thunderwaveAuto(handler, data);
         return;
     }
 
     const tempAnimation = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath)
+
+    if (handler.debug) { aaDebugger("Template Animation Start", data, tempAnimation) }
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);

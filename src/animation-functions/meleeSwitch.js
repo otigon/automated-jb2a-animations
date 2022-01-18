@@ -6,14 +6,14 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function meleeSwitch(handler, target, data, sourceFX, targetFX) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
 
     //Builds Primary File Path and Pulls from flags if already set
     //const data = await AAanimationData._primaryData(handler, autoObject);
-    if (aaDebug) { aaDebugger("Switch Animation Start", data) }
 
     const attack = await buildFile(false, data.switchAnimation, "range", data.switchVariant, data.switchColor);//need to finish
     
+    if (handler.debug) { aaDebugger("Switch Animation Start", data, attack) }
+
     const sourceToken = handler.actorToken;
 
     const returnWeapons = ['dagger', 'hammer', 'greatsword', 'chakram']

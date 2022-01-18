@@ -7,7 +7,7 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function meleeAnimation(handler, animationData) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -25,8 +25,9 @@ export async function meleeAnimation(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
 
-    if (aaDebug) { aaDebugger("Melee Animation Start", data) }
     const attack = await buildFile(false, data.animation, "melee", data.variant, data.color, data.customPath)
+
+    if (handler.debug) { aaDebugger("Melee Animation Start", data, attack) }
 
     const sourceToken = handler.actorToken;
     const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;

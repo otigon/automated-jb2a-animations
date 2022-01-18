@@ -31,6 +31,8 @@ async function huntersMark(handler, animationData) {
     const scale = data.scale || 1
     const finalScale = (canvas.grid.size / 200) * scale
 
+    if (handler.debug) { aaDebugger("Aura Animation Start", data) }
+
     const playPersist = (!checkAnim && data.persistent) ? true : false;
     await new Sequence("Automated Animations")
         .sound()
