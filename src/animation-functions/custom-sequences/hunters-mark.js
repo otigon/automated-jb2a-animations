@@ -3,7 +3,7 @@ import { aaDebugger } from "../../constants/constants.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function huntersMark(handler, animationData) {
+export async function huntersMark(handler, animationData) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
@@ -65,5 +65,3 @@ async function huntersMark(handler, animationData) {
         //AAanimationData.removePersistentEffect(target, "huntersmark", canvas.scene.id)
         if (playPersist) { AAanimationData.howToDelete("sequencerground") }
 }
-
-export default huntersMark;

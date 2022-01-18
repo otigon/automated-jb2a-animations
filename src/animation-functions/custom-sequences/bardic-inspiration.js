@@ -1,6 +1,7 @@
+import { aaDebugger } from "../../constants/constants.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function bardicInspiration(handler, autoObject) {
+export async function bardicInspiration(handler, autoObject) {
 
     let token = handler.actorToken;
     let target = handler.allTargets[0];
@@ -33,9 +34,10 @@ async function bardicInspiration(handler, autoObject) {
             file: flags.audio?.a01?.file,//
             volume: flags.audio?.a01?.volume || 0.25,//
             delay: flags.audio?.a01?.delay || 0,//
+        }
     }
-    }
-    const gridSize = canvas.grid.size;
+
+    if (handler.debug) { aaDebugger("Bardic Inspiration Animation Start", data) }
 
     let selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.selfMarkerColor}`;
     let targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.targetMarkerColor}`
@@ -133,4 +135,3 @@ async function bardicInspiration(handler, autoObject) {
     }
     playSound()
 }
-export default bardicInspiration;

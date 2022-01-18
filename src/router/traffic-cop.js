@@ -1,7 +1,7 @@
 //import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
 //import thunderwaveAuto from "../animation-functions/thunderwave.js";
-import huntersMark from "../animation-functions/custom-sequences/hunters-mark.js";
-import bardicInspiration from "../animation-functions/custom-sequences/bardic-inspiration.js";
+import { huntersMark } from "../animation-functions/custom-sequences/hunters-mark.js";
+import { bardicInspiration } from "../animation-functions/custom-sequences/bardic-inspiration.js";
 import { rangedAnimations } from "../animation-functions/rangedAnimation.js";
 import { meleeAnimation } from "../animation-functions/meleeAnimation.js";
 import { teleportation } from "../animation-functions/teleportation.js";
