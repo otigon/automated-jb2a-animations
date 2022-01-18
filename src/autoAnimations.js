@@ -251,6 +251,9 @@ Hooks.once('ready', function () {
                     wfrpSkill(data, targets, info)
                 });
                 break;
+            case 'ose':
+                Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
+                break;
         }
     }
 
@@ -686,6 +689,16 @@ async function wfrpSkill(data, targets, info) {
         default:
             trafficCop(handler);
     }
+}
+
+async function oseReady(input) {
+    if (killAllAnimations) { return; }
+    if (input.user.id !== game.user.id) { return };
+    let handler = await flagHandler.make(input)
+    if (!handler.item || !handler.actorToken) {
+        return;
+    }
+    trafficCop(handler);
 }
 
 

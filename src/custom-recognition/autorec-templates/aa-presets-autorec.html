@@ -47,6 +47,7 @@
                                     <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}
                                     </option>
                                     <option value="bless">{{localize "AUTOANIM.bless"}}</option>
+                                    <option value="dualattach">Dual Attach</option>
                                     <option value="fireball">{{localize "AUTOANIM.fireball"}}</option>
                                     <option value='huntersmark'>{{localize "AUTOANIM.itemHM"}}</option>
                                     <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
@@ -59,6 +60,94 @@
                     </div>
 
                     <div style="border: 1px solid rgba(0, 0, 0, .4);"></div>
+
+                    <!--Dual Attach Animaiton menu-->
+                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'dualattach'}}
+                    <div class='aa-item-container'>
+                        {{#unless (lookup (lookup ../settings.aaAutorec.preset idx) 'custom')}}
+                        <div style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+                            <label>{{localize 'AUTOANIM.type'}}:
+                                <select name="aaAutorec.preset.{{idx}}.menuType">
+                                    {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'menuType')}}
+                                    <option value=""> </option>
+                                    <option value="spell">{{localize "AUTOANIM.itemSpell"}}</option>
+                                    {{/select}}
+                                </select>
+                            </label>
+                        </div>
+                        <div style='grid-row: 1 / 2; grid-column: 2 / 3;padding-top: 5px; padding-bottom: 5px;'>
+                            <label>{{localize "AUTOANIM.animation"}}</label>
+                            <select name="aaAutorec.preset.{{idx}}.subAnimation">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'subAnimation')}}
+
+                                {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'menuType') 'spell'}}
+                                {{#each ../spellList as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/ifEquals}}
+
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div style='grid-row: 2 / 3; grid-column: 1 / 2;'>
+                            <label>{{localize "AUTOANIM.variant"}}</label>
+                            <select name="aaAutorec.preset.{{idx}}.variant">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'variant')}}
+                                {{#each (lookup (lookup ../variants 'range') (lookup (lookup ../settings.aaAutorec.preset idx) 'subAnimation')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        <!--Choose Standard Animation Color-->
+                        <div style='grid-row: 2 / 3; grid-column: 2 / 3;'>
+                            <label>{{localize "AUTOANIM.color"}}</label>
+                            <select name="aaAutorec.preset.{{idx}}.color">
+                                {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color')}}
+                                {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup ../settings.aaAutorec.preset idx) 'subAnimation')) (lookup (lookup ../settings.aaAutorec.preset idx) 'variant')) as |name key|}}
+                                <option value="{{key}}">{{name}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                        {{/unless}}
+                        <div style='grid-row: 1 / 2; grid-column: 3 / 5;'>
+                            <label>{{localize "AUTOANIM.playbackRate"}}</label>
+                            <input type="Number" name="aaAutorec.preset.{{idx}}.playbackRate" step="0.01"
+                                style='width: 3em' value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'playbackRate'}}"
+                                placeholder=1>
+                        </div>
+                        <div class="form-group" style='grid-column: 1 / 2;grid-row: 3 / 4;'>
+                            <div class="autorec-menu-options">
+                                <div class='form-group'>
+                                    <label>{{localize 'AUTOANIM.custom'}}: </label>
+                                    <input type='checkbox' name='aaAutorec.preset.{{idx}}.custom' {{checked (lookup (lookup ../settings.aaAutorec.preset idx) 'custom' ) }}>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'custom')}}
+                        <div style='grid-column: 2 / 5;grid-row: 3 / 4'>
+                            <div class="form-group">
+                                <input type="text" class="files" name="aaAutorec.preset.{{idx}}.customPath"
+                                    value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'customPath'}}">
+                                <button type="button" class="file-picker" data-type="image/video"
+                                    data-target="aaAutorec.preset.{{idx}}.customPath" tabindex="-1" title="Browse Files"
+                                    style='width:15em;'>
+                                    <i class="fas fa-file-video"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group" style='grid-column: 3 / 5;grid-row: 2 / 3;'>
+                            <label>{{localize 'AUTOANIM.constantScaleY'}}</label>
+                            <input type="checkbox" name="aaAutorec.preset.{{idx}}.onlyX"
+                            {{checked (lookup (lookup ../settings.aaAutorec.preset idx) 'onlyX' ) }}>
+                        </div>
+                        {{/if}}
+                        <div style='justify-self: center;grid-row: 5 / 6;grid-column: 1 / 5;'>
+                            <label style='font-weight: bold;'>Dual Attach does not utilize Extra Effects (Source / Target)</label>
+                        </div>                        
+                    </div>
+                    {{/ifEquals}}
 
                     <!--Bardic Inspiration Menu-->
                     {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'bardicinspiration'}}
@@ -418,7 +507,7 @@
                     {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'teleportation'}}
                     <div style='padding:3px'>
 
-                    </div>                    
+                    </div>
                     <div class="aa-item-container">
                         <div class="option01">
                             <label>{{localize 'AUTOANIM.gridMeasure'}}</label>
@@ -448,17 +537,19 @@
                             </div>
                         </div>
                         <div style='grid-column: 1 / 5;grid-row: 2 / 3;'>
-                            <p style='font-weight: bold;'>NOTE: If your Game System supports specific Diagonal Movement rules for grids, the Measurement Type chosen should match your System Setting</p>
-                        </div>                    
+                            <p style='font-weight: bold;'>NOTE: If your Game System supports specific Diagonal Movement
+                                rules for grids, the Measurement Type chosen should match your System Setting</p>
+                        </div>
                     </div>
                     <div style='padding:3px'>
 
-                    </div>                    
+                    </div>
                     <div class="aa-item-container">
                         {{#unless (lookup (lookup ../settings.aaAutorec.preset idx) 'custom')}}
                         <div class="option01">
                             <div class='animation-choice'>
-                                <label for="aaAutorec.preset.{{idx}}.subAnimation">{{localize "AUTOANIM.start"}} {{localize 'AUTOANIM.animation'}}:
+                                <label for="aaAutorec.preset.{{idx}}.subAnimation">{{localize "AUTOANIM.start"}}
+                                    {{localize 'AUTOANIM.animation'}}:
                                     <select name="aaAutorec.preset.{{idx}}.subAnimation">
                                         {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'subAnimation')}}
                                         <option value=""></option>
@@ -483,7 +574,9 @@
                             <label>{{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.color">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color')}}
-                                {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup ../settings.aaAutorec.preset idx) 'subAnimation')) (lookup (lookup ../settings.aaAutorec.preset idx) 'variant')) as |name key|}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'subAnimation')) (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'variant')) as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -514,8 +607,8 @@
                                 <input type="text" class="files" name="aaAutorec.preset.{{idx}}.customPath"
                                     value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'customPath'}}">
                                 <button type="button" class="file-picker" data-type="image/video"
-                                    data-target="aaAutorec.preset.{{idx}}.customPath" tabindex="-1"
-                                    title="Browse Files" style='width:15em;'>
+                                    data-target="aaAutorec.preset.{{idx}}.customPath" tabindex="-1" title="Browse Files"
+                                    style='width:15em;'>
                                     <i class="fas fa-file-video"></i>
                                 </button>
                             </div>
@@ -524,12 +617,13 @@
                     </div>
                     <div style='padding:3px'>
 
-                    </div>                    
+                    </div>
                     <div class="aa-item-container">
                         {{#unless (lookup (lookup ../settings.aaAutorec.preset idx) 'custom02')}}
                         <div class="option01">
                             <div class='animation-choice'>
-                                <label for="aaAutorec.preset.{{idx}}.subAnimation02">{{localize "AUTOANIM.end"}} {{localize 'AUTOANIM.animation'}}:
+                                <label for="aaAutorec.preset.{{idx}}.subAnimation02">{{localize "AUTOANIM.end"}}
+                                    {{localize 'AUTOANIM.animation'}}:
                                     <select name="aaAutorec.preset.{{idx}}.subAnimation02">
                                         {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'subAnimation02')}}
                                         <option value=""></option>
@@ -554,7 +648,9 @@
                             <label>{{localize "AUTOANIM.color"}}: </label>
                             <select name="aaAutorec.preset.{{idx}}.color02">
                                 {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color02')}}
-                                {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup ../settings.aaAutorec.preset idx) 'subAnimation02')) (lookup (lookup ../settings.aaAutorec.preset idx) 'variant02')) as |name key|}}
+                                {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'subAnimation02')) (lookup (lookup
+                                ../settings.aaAutorec.preset idx) 'variant02')) as |name key|}}
                                 <option value="{{key}}">{{name}}</option>
                                 {{/each}}
                                 {{/select}}
@@ -563,7 +659,8 @@
                         {{/unless}}
                         <div style='grid-row: 1 / 2; grid-column: 2 / 4;'>
                             <div class="autorec-menu-options">
-                                <label>{{localize "AUTOANIM.delayMS"}} {{localize "AUTOANIM.token"}} {{localize "AUTOANIM.alpha"}}
+                                <label>{{localize "AUTOANIM.delayMS"}} {{localize "AUTOANIM.token"}} {{localize
+                                    "AUTOANIM.alpha"}}
                                     <input type="Number" name="aaAutorec.preset.{{idx}}.delay"
                                         value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'delay'}}"
                                         data-dtype="Number" placeholder=250>
@@ -604,7 +701,7 @@
                     </div>
                     <div style='padding:3px'>
 
-                    </div>                    
+                    </div>
                     <div class="aa-item-container">
                         <div class='form-group'
                             style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 4 / 5'>
@@ -617,12 +714,11 @@
                         'enable' )}}
                         <!--Explosion Audio filePicker and Text Input-->
                         <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
-                            <input type="text" class="files"
-                                name="aaAutorec.preset.{{idx}}.audio.a01.file"
+                            <input type="text" class="files" name="aaAutorec.preset.{{idx}}.audio.a01.file"
                                 value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'file'}}">
                             <button type="button" class="file-picker" data-type="audio"
-                                data-target="aaAutorec.preset.{{idx}}.audio.a01.file" tabindex="-1"
-                                title="Browse Files" style='width:15em;'>
+                                data-target="aaAutorec.preset.{{idx}}.audio.a01.file" tabindex="-1" title="Browse Files"
+                                style='width:15em;'>
                                 <i class="fas fa-music"></i>
                             </button>
                         </div>
@@ -644,7 +740,7 @@
                     </div>
                     <div style='padding:3px'>
 
-                    </div>                    
+                    </div>
                     {{/ifEquals}}
 
                     <!--Sneak Attack preset-->

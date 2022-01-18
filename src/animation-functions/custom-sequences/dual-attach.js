@@ -14,7 +14,7 @@ export async function dualAttach(handler, animationData) {
     const data = animationData.primary;
 
     if (data.isAuto) {
-        data.itemName01 = data.subAnimation || "";
+        data.itemName = data.subAnimation || "";
     } else {
         data.itemName = data.options?.name || "";
     }

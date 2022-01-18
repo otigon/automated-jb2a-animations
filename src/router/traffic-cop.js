@@ -218,6 +218,9 @@ export async function trafficCop(handler) {
                             case 'huntersmark':
                                 huntersMark(handler, animationData);
                                 break;
+                            case "dualattach":
+                                dualAttach(handler, animationData)
+                                break;            
                             case 'teleportation':
                                 teleportation(handler, animationData);
                                 break;
