@@ -17,6 +17,7 @@ import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { fireball } from "../animation-functions/custom-sequences/fireball.js";
 import { AAanimationData } from "../aa-classes/animation-data.js";
 import { particleEffects } from "../animation-functions/particleSystem.js";
+import { dualAttach } from "../animation-functions/custom-sequences/dual-attach.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -120,6 +121,9 @@ export async function trafficCop(handler) {
                     case "huntersmark":
                         huntersMark(handler, animationData)
                         break;
+                    case "dualattach":
+                        dualAttach(handler, animationData)
+                        break;
                     case "sneakattack":
                         sneakAttack(handler, animationData);
                         break;
@@ -214,6 +218,9 @@ export async function trafficCop(handler) {
                             case 'huntersmark':
                                 huntersMark(handler, animationData);
                                 break;
+                            case "dualattach":
+                                dualAttach(handler, animationData)
+                                break;            
                             case 'teleportation':
                                 teleportation(handler, animationData);
                                 break;

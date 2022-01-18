@@ -20,6 +20,8 @@ export class AAanimationData {
             Object.assign(data, autoObject);
             data.isAuto = true;
             data.animation = data.animation || "";
+            data.enableCustom = data.custom || false,
+            data.enableCustom02 = data.custom02 || false,
             data.customPath = data.custom ? data.customPath : false;
             data.customPath02 = data.custom02 ? data.customPath02 : false;
 
@@ -40,13 +42,15 @@ export class AAanimationData {
             data.below = data.below ?? false;
             data.measureType = data.measureType ?? 'alternating';
             data.hideFromPlayers = false,
+            data.playbackRate = data.playbackRate || 1,
+            data.onlyX = data.onlyX ?? false,
 
             data.itemAudio = {
                 enable: data.audio?.a01?.enable || false,
                 file: data.audio?.a01?.file,
                 volume: data.audio?.a01?.volume || 0.25,
                 delay: data.audio?.a01?.delay || 0,
-                repeat: handler.decoupleSound ? 1 : data.repeat,
+                repeat: handler.decoupleSound ? 1 : data.repeat || 1,
             }
 
             data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
@@ -56,7 +60,7 @@ export class AAanimationData {
                 file: data.audio?.a02?.file,
                 volume: data.audio?.a02?.volume || 0.25,
                 delay: data.audio?.a02?.delay || 0,
-                repeat: handler.decoupleSound ? 1 : data.repeat,
+                repeat: handler.decoupleSound ? 1 : data.repeat || 1,
             }
 
             data.removeTemplate = data.removeTemplate || false;
@@ -110,6 +114,8 @@ export class AAanimationData {
                 persistType: options.persistType || "sequencerground",
                 measureType: options.measureType || "alternating",
                 hideFromPlayers: options.hideFromPlayers || false,
+                playbackRate: options.playbackRate || 1,
+                onlyX: options.onlyX ?? false,
 
                 itemAudio: {
                     enable: flags.audio?.a01?.enable || false,
