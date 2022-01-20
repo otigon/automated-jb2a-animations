@@ -94,6 +94,7 @@ export async function trafficCop(handler) {
                 switch (game.system.id) {
                     case "dnd5e":
                     case "pf2e":
+                    case "sw5e":
                         if (game.modules.get("mars-5e")?.active) {
                             templateAnimation(handler, animationData);
                         } else {
@@ -137,6 +138,7 @@ export async function trafficCop(handler) {
                         switch (game.system.id) {
                             case "dnd5e":
                             case "pf2e":
+                            case "sw5e":
                                 if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
                                     fireball(handler);
                                 } else {
@@ -194,10 +196,22 @@ export async function trafficCop(handler) {
                         break;
                     case 'templates':
                         if (aaDebug) { aaDebugger("Pre Template Animation", autoObject) }
-                        aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
-                            templateAnimation(handler, animationData);
-                        })
-                        setTimeout(killHook, 30000)
+                        switch (game.system.id) {
+                            case "dnd5e":
+                            case "pf2e":
+                            case "sw5e":
+                                if (game.modules.get("mars-5e")?.active) {
+                                    templateAnimation(handler, animationData);
+                                } else {
+                                    aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
+                                        templateAnimation(handler, animationData);
+                                    });
+                                    setTimeout(killHook, 30000)
+                                }
+                                break;
+                            default:
+                                templateAnimation(handler, animationData);
+                        }        
                         break;
                     case 'auras':
                         if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
@@ -231,6 +245,7 @@ export async function trafficCop(handler) {
                                 switch (game.system.id) {
                                     case "dnd5e":
                                     case "pf2e":
+                                    case "sw5e":
                                         if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
                                             fireball(handler, autoObject, true);
                                         } else {

@@ -144,7 +144,7 @@ export async function templateAnimation(handler, animationData) {
                     const trueHeight = templateType === 'cone' ? template.data.distance : template.data.width * 2;
                 rawr.effect()
                     .file(tempAnimation.file)
-                    .atLocation(template)
+                    .atLocation(template, { cacheLocation: true })
                     .rotateTowards(template)
                     .size({
                         width: (canvas.grid.size * (template.data.distance / canvas.dimensions.distance)) * data.scaleX,
@@ -172,7 +172,7 @@ export async function templateAnimation(handler, animationData) {
                     }
                 rawr.effect()
                     .file(tempAnimation.file)
-                    .atLocation(template)
+                    .atLocation(template, { cacheLocation: true })
                     .size({
                         width: canvas.grid.size * (trueSize / canvas.dimensions.distance) * data.scaleX,
                         height: canvas.grid.size * (trueSize / canvas.dimensions.distance)  * data.scaleY,
