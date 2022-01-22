@@ -136,20 +136,6 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="option05">
-                                <div class="autorec-menu-options">
-                                    <label>{{localize 'AUTOANIM.opacity'}}:
-                                        <input type="Number" name="aaAutorec.static.{{idx}}.opacity"
-                                            value="{{lookup (lookup ../settings.aaAutorec.static idx) 'opacity'}}"
-                                            data-dtype="Number">
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group option06">
-                                <label>{{localize "AUTOANIM.persistant"}}?</label>
-                                <input type='checkbox' class='hideme' name='aaAutorec.static.{{idx}}.persistent'
-                                    {{checked (lookup (lookup ../settings.aaAutorec.static idx) 'persistent' ) }}>
-                            </div>
                             <div class="option09">
                                 <label for="aaAutorec.static.{{idx}}.variant">{{localize 'AUTOANIM.variant'}}:
                                     <select name="aaAutorec.static.{{idx}}.variant" sytle="width:5em">
@@ -176,6 +162,20 @@
                                 </label>
                             </div>
                             {{/unless}}
+                            <div class="option05">
+                                <div class="autorec-menu-options">
+                                    <label>{{localize 'AUTOANIM.opacity'}}:
+                                        <input type="Number" name="aaAutorec.static.{{idx}}.opacity"
+                                            value="{{lookup (lookup ../settings.aaAutorec.static idx) 'opacity'}}"
+                                            data-dtype="Number">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group option06">
+                                <label>{{localize "AUTOANIM.persistant"}}?</label>
+                                <input type='checkbox' class='hideme' name='aaAutorec.static.{{idx}}.persistent'
+                                    {{checked (lookup (lookup ../settings.aaAutorec.static idx) 'persistent' ) }}>
+                            </div>
                             <div class="option07">
                                 <div class="autorec-menu-options">
                                     <label>{{localize 'AUTOANIM.repeat'}}:

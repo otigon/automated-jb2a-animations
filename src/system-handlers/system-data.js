@@ -80,15 +80,17 @@ export default class flagHandler {
 
         this.isAutorecFireball = false;
         this.isAutorecAura = false;
+        this.isAutoTeleport = false;
         if (this.autorecObject && !this.animOverride) {
             this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
-            this.isAutorecAura = this.autorecObject.menuSection === "aura" ? true : false
+            this.isAutorecAura = this.autorecObject.menuSection === "aura" ? true : false;
+            this.isAutoTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
         }
         this.isAutorecTemplate = (this.AutorecTemplateItem || this.isAutorecFireball) && !this.animOverride ? true : false;
 
         this.isOverrideTemplate = (this.animType === "template" && this.animOverride) || (this.animType === "preset" && this.flags.animation === "fireball" && this.animOverride) ? true : false;
         this.isOverrideAura = this.animType === "aura" && this.animOverride ? true: false;
-        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || (this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation') ? true : false;
+        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutoTeleport ? true : false;
         //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
     }
