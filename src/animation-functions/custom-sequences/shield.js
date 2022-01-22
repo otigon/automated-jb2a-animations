@@ -44,7 +44,7 @@ export async function shieldSpell(handler, animationData) {
     } else {
         data.endeffect = data.options.shieldVar ?? "outro_fade";
     }
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
 
     if (handler.debug) { aaDebugger("Shield Animation Start", animationData, onToken) }

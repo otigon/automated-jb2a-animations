@@ -10,7 +10,7 @@ export async function teleportation(handler, animationData) {
         return;
     }
     */
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;

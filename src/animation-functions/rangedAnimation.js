@@ -19,7 +19,7 @@ export async function rangedAnimations(handler, animationData) {
 
     if (handler.debug) { aaDebugger("Ranged Animation Start", animationData, attack) }
 
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
     const onlyX = data.enableCustom ? data.onlyX : false;
 
     async function cast() {
@@ -55,7 +55,7 @@ export async function rangedAnimations(handler, animationData) {
             })
             if (data.playMacro && data.macro.playWhen === 'primary') {
                 let userData = data.macro.args;
-                rs.macro(data.macro.name, {sourceToken, target, animationData, handler}, ...userData)
+                rs.macro(data.macro.name, handler.workflow, handler, [...userData])
             }
             if (data.itemAudio.enable){
                 rs.sound()

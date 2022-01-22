@@ -14,7 +14,7 @@ export async function meleeSwitch(handler, target, data, sourceFX, targetFX) {
     
     if (handler.debug) { aaDebugger("Switch Animation Start", data, attack) }
 
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
 
     const returnWeapons = ['dagger', 'hammer', 'greatsword', 'chakram']
     const switchReturn = returnWeapons.some(el => data.switchAnimation.includes(el)) ? data.return : false;

@@ -4,7 +4,7 @@ export async function particleEffects(handler, autoObject) {
 
     const options3d = autoObject ? autoObject.levels3d ?? {} : handler.flags?.levels3d ?? {};
     if (!options3d.type) { return; }
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
     //const target = handler.allTargets[0];
     const targets = handler.allTargets;
 

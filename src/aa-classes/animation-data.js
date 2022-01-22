@@ -236,7 +236,7 @@ export class AAanimationData {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
-        const sourceScale = handler.actorToken.w;
+        const sourceScale = handler.sourceToken.w;
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
@@ -249,7 +249,7 @@ export class AAanimationData {
             })
         sourceFX.sourceSeq.effect()
             .file(sourceFX.data.file, true)
-            .atLocation(handler.actorToken)
+            .atLocation(handler.sourceToken)
             .scale(sourceFX.sFXScale * sourceFX.scale)
             .repeats(sourceFX.repeat, sourceFX.delay)
             .belowTokens(sourceFX.below)

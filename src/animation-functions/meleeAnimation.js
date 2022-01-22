@@ -29,7 +29,7 @@ export async function meleeAnimation(handler, animationData) {
 
     if (handler.debug) { aaDebugger("Melee Animation Start", animationData, attack) }
 
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
     const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
     
     async function cast() {

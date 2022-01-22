@@ -29,7 +29,7 @@ export async function bless(handler, animationData) {
     // builds Source Token file if Enabled, and pulls from flags if already set
     //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
     const gridSize = canvas.grid.size;
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
 
     //let animWidth = onToken.metadata.width;
     const sourceScale = sourceToken.w;

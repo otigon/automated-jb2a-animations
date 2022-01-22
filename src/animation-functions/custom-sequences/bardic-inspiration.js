@@ -3,7 +3,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function bardicInspiration(handler, autoObject) {
 
-    let token = handler.actorToken;
+    let token = handler.sourceToken;
     let target = handler.allTargets[0];
     const flags = handler.flags;
     const data = {};

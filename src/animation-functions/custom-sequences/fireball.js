@@ -117,7 +117,7 @@ export async function fireball(handler, autoObject) {
     if (handler.debug) { aaDebugger("Fireball Animation Start", data, projectileAnimation, explosion01, explosion02) }
 
     let fireballTemplate = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;//canvas.templates.get(args[0].templateId)
-    let tokenD = handler.actorToken;
+    let tokenD = handler.sourceToken;
     let template = await canvas.templates.documentCollection.get(fireballTemplate)
     let size;
     let position;

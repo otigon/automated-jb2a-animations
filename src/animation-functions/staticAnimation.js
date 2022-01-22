@@ -9,7 +9,7 @@ export async function staticAnimation(handler, animationData) {
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;

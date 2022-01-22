@@ -14,10 +14,10 @@ export default class flagHandler {
         //console.log(data.item.data.flags.autoanimations)
         const flags = await flagMigrations.handle(data.item);
 
-        return new flagHandler(data, flags)
+        return new flagHandler(data, flags, msg)
     }
 
-    constructor(systemData, flagData) {
+    constructor(systemData, flagData, msg) {
         this.debug = game.settings.get("autoanimations", "debug");
         this._log("Getting System Data")
 
@@ -25,6 +25,7 @@ export default class flagHandler {
 
         const midiActive = game.modules.get('midi-qol')?.active;
 
+        this.workflow = msg;
         this.flags = flagData ?? {};
         this.animation = this.flags.animation || "";
 
@@ -36,7 +37,7 @@ export default class flagHandler {
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
         this.itemType = this.item.data?.type?.toLowerCase() ?? "";
 
-        this.actorToken = data.token.isEmbedded ? data.token.object : data.token;
+        this.sourceToken = data.token.isEmbedded ? data.token.object : data.token;
         this.actor = data.token.actor;
         this.allTargets = data.targets;
         this.hitTargets = data.hitTargets;
@@ -110,25 +111,25 @@ export default class flagHandler {
             const top = (token) => token.data.y;
             const bottom = (token) => token.data.y + token.h;
 
-            const isLeftOf = right(this.actorToken) <= left(target);
-            const isRightOf = left(this.actorToken) >= right(target);
-            const isAbove = bottom(this.actorToken) <= top(target);
-            const isBelow = top(this.actorToken) >= bottom(target);
+            const isLeftOf = right(this.sourceToken) <= left(target);
+            const isRightOf = left(this.sourceToken) >= right(target);
+            const isAbove = bottom(this.sourceToken) <= top(target);
+            const isBelow = top(this.sourceToken) >= bottom(target);
 
-            let x1 = left(this.actorToken);
+            let x1 = left(this.sourceToken);
             let x2 = left(target);
-            let y1 = top(this.actorToken);
+            let y1 = top(this.sourceToken);
             let y2 = top(target);
 
             if (isLeftOf) {
-                x1 += (this.actorToken.data.width - 1) * gridSize;
+                x1 += (this.sourceToken.data.width - 1) * gridSize;
             }
             else if (isRightOf) {
                 x2 += (target.data.width - 1) * gridSize;
             }
 
             if (isAbove) {
-                y1 += (this.actorToken.data.height - 1) * gridSize;
+                y1 += (this.sourceToken.data.height - 1) * gridSize;
             }
             else if (isBelow) {
                 y2 += (target.data.height - 1) * gridSize;
@@ -139,9 +140,9 @@ export default class flagHandler {
             return distance;
         } else {
             var x, x1, y, y1, d, r, segments = [], rdistance, distance;
-            for (x = 0; x < this.actorToken.data.width; x++) {
-                for (y = 0; y < this.actorToken.data.height; y++) {
-                    const origin = new PIXI.Point(...canvas.grid.getCenter(this.actorToken.data.x + (canvas.dimensions.size * x), this.actorToken.data.y + (canvas.dimensions.size * y)));
+            for (x = 0; x < this.sourceToken.data.width; x++) {
+                for (y = 0; y < this.sourceToken.data.height; y++) {
+                    const origin = new PIXI.Point(...canvas.grid.getCenter(this.sourceToken.data.x + (canvas.dimensions.size * x), this.sourceToken.data.y + (canvas.dimensions.size * y)));
                     for (x1 = 0; x1 < target.data.width; x1++) {
                         for (y1 = 0; y1 < target.data.height; y1++) {
                             const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));

@@ -13,7 +13,7 @@ export async function thunderwaveAuto(handler, data) {
         return !!game.modules.get(test);
     }
 
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
     let color;

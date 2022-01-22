@@ -293,7 +293,7 @@ async function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(workflow);
     //console.log(handler)
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
@@ -305,7 +305,7 @@ async function setUpMidiNoAttackDamage(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack || workflow.item?.hasDamage) { return; }
     let handler = await flagHandler.make(workflow);
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
@@ -318,7 +318,7 @@ async function setUpMidiNoAttack(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = await flagHandler.make(workflow);
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
@@ -330,7 +330,7 @@ async function setUpMidiNoAttack(workflow) {
 async function midiAOE(workflow) {
     if (killAllAnimations) { return; }
     const handler = await flagHandler.make(workflow);
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) {
@@ -345,7 +345,7 @@ async function midiTemplateAnimations(msg) {
         return;
     }
     const handler = await flagHandler.make(msg, true);
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     let breakOut = checkMessege(msg);
@@ -418,7 +418,7 @@ async function setUp5eCore(msg) {
             break;
     }
 
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
 
@@ -470,7 +470,7 @@ async function onCreateChatMessage(msg) {
             handler = await flagHandler.make(msg);
             break;
     }
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler)
@@ -483,7 +483,7 @@ async function swadeData(SwadeTokenOrActor, SwadeItem) {
     if (killAllAnimations) { return; }
     let data = { SwadeTokenOrActor, SwadeItem }
     let handler = await flagHandler.make(data);
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler);
@@ -507,7 +507,7 @@ async function starFinder(data, msg) {
 async function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(msg);
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (game.user.id === msg.user.id) {
@@ -530,7 +530,7 @@ async function fblReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = await flagHandler.make(msg);
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler);
@@ -541,7 +541,7 @@ async function fblReady(msg) {
 async function setupDemonLord(data) {
     if (killAllAnimations) { return; }
     let handler = await flagHandler.make(data);
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler);
@@ -554,7 +554,7 @@ async function pf2eReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = await flagHandler.make(msg);
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
 
@@ -700,7 +700,7 @@ async function oseReady(input) {
     if (killAllAnimations) { return; }
     if (input.user.id !== game.user.id) { return };
     let handler = await flagHandler.make(input)
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler);

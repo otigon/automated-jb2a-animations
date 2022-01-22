@@ -7,7 +7,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function templateAnimation(handler, animationData) {
 
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;

@@ -17,7 +17,7 @@ export async function auras(handler, animationData) {
 
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
 
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
     const aura = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
 
     if (handler.debug) { aaDebugger("Aura Animation Start", animationData, aura) }

@@ -69,24 +69,24 @@ export async function trafficCop(handler) {
         switch (animType) {
             case "melee":
                 if (targets === 0) {
-                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                    Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
                     if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
                     return;
                 }
-                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
                 meleeAnimation(handler, animationData);
                 break;
             case "range":
                 if (targets === 0) {
-                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                    Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
                     if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
                     return;
                 }
-                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
                 rangedAnimations(handler, animationData);
                 break;
             case "static":
-                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
                 staticAnimation(handler, animationData);
                 break;
             case "template":
@@ -169,26 +169,26 @@ export async function trafficCop(handler) {
                 switch (autoObject.menuSection) {
                     case 'melee':
                         if (targets === 0) {
-                            Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                            Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
                             if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
                             return;
                         }
-                        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                        Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
                         if (aaDebug) { aaDebugger("Pre Melee Animation", autoObject) }
                         meleeAnimation(handler, animationData);
                         break;
                     case 'range':
                         if (targets === 0) {
-                            Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                            Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
                             if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
                             return;
                         }
-                        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                        Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
                         if (aaDebug) { aaDebugger("Pre Range Animation", autoObject) }
                         rangedAnimations(handler, animationData);
                         break;
                     case 'static':
-                        Hooks.callAll("aa.preAnimationStart", handler.actorToken);
+                        Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
                         if (aaDebug) { aaDebugger("Pre Static Animation", autoObject) }
                         staticAnimation(handler, animationData);
                         break;
