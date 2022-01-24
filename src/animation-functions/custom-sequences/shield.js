@@ -10,7 +10,7 @@ export async function shieldSpell(handler, animationData) {
         return !!game.modules.get(test);
     }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    //let itemName = handler.convertedName;
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
@@ -38,9 +38,9 @@ export async function shieldSpell(handler, animationData) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
     if (data.isAuto) {
-        const autoOverridden = handler.autoOverride?.enable
-        data.persistent =  autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
-        data.endeffect = autoOverridden ? handler.autoOverride?.endEffect : data.endeffect;
+        const autoOverridden = handler.autorecOverrides?.enable
+        data.persistent =  autoOverridden ? handler.autorecOverrides?.persistent : data.addCTA;
+        data.endeffect = autoOverridden ? handler.autorecOverrides?.endEffect : data.endeffect;
     } else {
         data.endeffect = data.options.shieldVar ?? "outro_fade";
     }

@@ -119,7 +119,7 @@ export async function templateAnimation(handler, animationData) {
                     .persist(true)
                     .opacity(data.opacity)
                     .origin(handler.item.uuid)
-                    .scaleToObject(data.scale)
+                    .scaleToObject({x: data.scaleX, y: data.scaleY})
                 .play()
             await wait(500)
             Hooks.callAll("aa.animationEnd", sourceToken, "no-target")

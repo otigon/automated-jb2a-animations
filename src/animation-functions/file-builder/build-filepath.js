@@ -25,6 +25,7 @@ export async function buildFile(getMeta, name, animationType, animationVariant, 
         });
         color = animationColor.replace(/\s+/g, '');
         const type = animationType;
+        if (!jb2a[type][path]) { return {}; }
         const variantArray = Object.keys(jb2a[type][path]);
         const variant = variantArray.some(el => animationVariant === el) ? animationVariant : variantArray[0];
 

@@ -55,12 +55,12 @@ export async function trafficCop(handler) {
             .delay(handler.flags?.audio?.a01?.delay)
             .play()
         return;
-    } else if (handler.animKill) {
+    } else if (handler.isDisabled) {
         return;
     }
     const animType = handler.animType;
     const animName = handler.flags?.animation;
-    const override = handler.animOverride;
+    const override = handler.isCustomized;
     const targets = handler.allTargets?.length ?? 0;
     let aaTemplateHook;
     if (override) {

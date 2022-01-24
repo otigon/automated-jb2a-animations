@@ -83,7 +83,13 @@ export async function teleportation(handler, animationData) {
     async function deleteTemplatesAndMove() {
 
         let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
-        let centerPos = canvas.grid.getCenter(pos.x, pos.y);
+        let centerPos;
+        if (canvas.scene.gridType === 0) {
+            centerPos = [gridPos[0] + sourceToken.w, gridPos[1] + sourceToken.w];
+        } else {
+            centerPos = canvas.grid.getCenter(pos.x, pos.y);
+        }
+        //let centerPos = canvas.grid.getCenter(pos.x, pos.y);
 
         Sequencer.EffectManager.endEffects({name: "teleportation"})
         new Sequence("Automated Animations")

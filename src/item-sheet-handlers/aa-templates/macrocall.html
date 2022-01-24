@@ -1,0 +1,26 @@
+<div class='flexrow text-green'>
+    <label><strong>Call Macro</strong></label>
+</div>
+<div class='aa-item-container'>
+    <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2;grid-row: 1 / 2;'>
+        <label>Enable Macro</label>
+        <input type="checkbox" name="flags.autoanimations.macro.enable" value="flags.autoanimations.macro.enable"
+            {{checked flags.autoanimations.macro.enable}}>
+    </div>
+    <!--Macro Name input Field-->
+    <div class='form-group' style='grid-column: 2 / 5;grid-row: 1 / 2'>
+        <label>Macro Name</label>
+        <input style='width: 25em' type="text" name="flags.autoanimations.macro.name"
+            value="{{lookup flags.autoanimations.macro 'name'}}">
+    </div>
+    <div style='grid-row: 2 / 3; grid-column: 1 / 2;text-align: right;'>
+        Send Args
+    </div>
+    <div class='form-group' style='grid-column: 2 / 5;grid-row: 2 / 3;text-align: left;'>
+        <input style='width: 35em' type="text" name="flags.autoanimations.macro.args"
+            value="{{lookup flags.autoanimations.macro 'args'}}">
+    </div>
+</div>
+<div style='padding:3px'>
+
+</div>

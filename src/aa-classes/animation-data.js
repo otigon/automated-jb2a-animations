@@ -16,7 +16,7 @@ export class AAanimationData {
 
         if (autoObject) {
             const data = {};
-            const autoOverridden = handler.autoOverride?.enable
+            const autoOverridden = handler.autorecOverrides?.enable
             Object.assign(data, autoObject);
             data.isAuto = true;
             data.animation = data.animation || "";
@@ -26,18 +26,18 @@ export class AAanimationData {
             data.customPath02 = data.custom02 ? data.customPath02 : false;
 
             data.staticType = data.type || "targetDefault";
-            data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-            data.color02 = autoOverridden ? handler.autoOverride?.color02 : data.color02;
-            data.repeat = autoOverridden ? handler.autoOverride?.repeat || 1 : data.repeat;
-            data.delay = autoOverridden ? handler.autoOverride?.delay || 0 : data.delay || 0;
-            data.scale = autoOverridden ? handler.autoOverride?.scale || 1 : data.scale || 1;
-            data.scale02 = autoOverridden ? handler.autoOverride?.scale02 || 1 : data.scale02 || 1;
-            data.scaleX = autoOverridden ? handler.autoOverride?.scaleX || 1 : data.scaleX || 1;
-            data.scaleY = autoOverridden ? handler.autoOverride?.scaleY || 1 : data.scaleY || 1;
+            data.color = autoOverridden ? handler.autorecOverrides?.color : data.color;
+            data.color02 = autoOverridden ? handler.autorecOverrides?.color02 : data.color02;
+            data.repeat = autoOverridden ? handler.autorecOverrides?.repeat || 1 : data.repeat;
+            data.delay = autoOverridden ? handler.autorecOverrides?.delay || 0 : data.delay || 0;
+            data.scale = autoOverridden ? handler.autorecOverrides?.scale || 1 : data.scale || 1;
+            data.scale02 = autoOverridden ? handler.autorecOverrides?.scale02 || 1 : data.scale02 || 1;
+            data.scaleX = autoOverridden ? handler.autorecOverrides?.scaleX || 1 : data.scaleX || 1;
+            data.scaleY = autoOverridden ? handler.autorecOverrides?.scaleY || 1 : data.scaleY || 1;
             data.opacity = data.opacity || 1;
-            data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
-            data.variant02 = autoOverridden ? handler.autoOverride?.variant02 || "01" : data.variant02 || "01";
-            data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
+            data.variant = autoOverridden ? handler.autorecOverrides?.variant : data.variant;
+            data.variant02 = autoOverridden ? handler.autorecOverrides?.variant02 || "01" : data.variant02 || "01";
+            data.persistent = autoOverridden ? handler.autorecOverrides?.persistent : data.persistent;
             data.menuType = data.staticOptions === 'shieldfx' ? true : false;
             data.below = data.below ?? false;
             data.measureType = data.measureType ?? 'alternating';
@@ -146,7 +146,7 @@ export class AAanimationData {
                     enabled: flags.macro?.enable ?? false,
                     name: flags.macro?.name ?? "",
                     preArgs: flags.macro?.args ?? "",
-                    playWhen: flags.macro?.playWhen ?? "primary",
+                    playWhen: flags.macro?.playWhen ?? "0",
                 }
             }
             data.macro.args = data.macro.preArgs.split(',').map(s => s.trim());
@@ -194,14 +194,14 @@ export class AAanimationData {
                 customPath: explosions.enableCustom ? explosions.customPath : false,
                 below: explosions.below || false,
                 audio: {
-                    enable: handler.flags.audio?.e01?.enable || false,
+                    enabled: handler.flags.audio?.e01?.enable || false,
                     file: handler.flags.audio?.e01?.file,
                     volume: handler.flags.audio?.e01?.volume || 0.25,
                     delay: handler.flags.audio?.e01?.delay || 0,
                     repeat: handler.decoupleSound ? 1 : handler.flags?.options?.repeat || 1,
                 },
             };
-            explosion.playSound = explosion.enabled && explosion.audio?.enable && explosion.audio?.file !== "";
+            explosion.playSound = explosion.enabled && explosion.audio?.enabled && explosion.audio?.file !== "";
             explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
             explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             return explosion;

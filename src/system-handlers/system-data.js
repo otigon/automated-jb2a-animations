@@ -3,7 +3,7 @@ import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "./flagMerge.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 
-export default class flagHandler {
+export default class systemData {
 
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
@@ -11,10 +11,9 @@ export default class flagHandler {
         if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
         //this._log("Data Retrieved", data)
 
-        //console.log(data.item.data.flags.autoanimations)
         const flags = await flagMigrations.handle(data.item);
 
-        return new flagHandler(data, flags, msg)
+        return new systemData(data, flags, msg)
     }
 
     constructor(systemData, flagData, msg) {
@@ -44,21 +43,21 @@ export default class flagHandler {
         this.hitTargetsId = data.hitTargets ? Array.from(this.hitTargets.filter(actor => actor.id).map(actor => actor.id)) : [];
         this.targetsId = Array.from(this.allTargets.filter(actor => actor.id).map(actor => actor.id));
 
-        //midi-qol specific settings
+        //midi-qol and PF2e specific setting
         this.playOnMiss = midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false;
-        //this.playOnMiss = true;
+
         const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
         this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
         this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
 
 
-        this.animKill = this.flags.killAnim || false;
-        this.animOverride = this.flags.override || false;
+        this.isDisabled = this.flags.killAnim || false;
+        this.isCustomized = this.flags.override || false;
         this.animType = this.flags.animType || "";
 
         this.bards = this.flags.bards ?? {};
 
-        this.autoOverride = this.flags.autoOverride ?? {};
+        this.autorecOverrides = this.flags.autoOverride ?? {};
 
         this.animNameFinal;
         switch (true) {
@@ -70,27 +69,26 @@ export default class flagHandler {
                 break;
         }
         
-        this.convertedName = this.animation.replace(/\s+/g, '');
         this.animEnd = endTiming(this.animNameFinal);
         this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
         this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
-        this.AutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(this.autorecSettings, 'templates'), this.rinsedName);
+        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(this.autorecSettings, 'templates'), this.rinsedName);
         this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
 
         this.isAutorecFireball = false;
         this.isAutorecAura = false;
-        this.isAutoTeleport = false;
+        this.isAutorecTeleport = false;
         if (this.autorecObject && !this.animOverride) {
             this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
             this.isAutorecAura = this.autorecObject.menuSection === "aura" ? true : false;
-            this.isAutoTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
+            this.isAutorecTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
         }
-        this.isAutorecTemplate = (this.AutorecTemplateItem || this.isAutorecFireball) && !this.animOverride ? true : false;
+        this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.animOverride ? true : false;
 
         this.isOverrideTemplate = (this.animType === "template" && this.animOverride) || (this.animType === "preset" && this.flags.animation === "fireball" && this.animOverride) ? true : false;
         this.isOverrideAura = this.animType === "aura" && this.animOverride ? true: false;
-        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutoTeleport ? true : false;
+        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutorecTeleport ? true : false;
         //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
     }
@@ -100,7 +98,7 @@ export default class flagHandler {
     }
 
     get soundNoAnimation () {
-        return this.animKill && this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
+        return this.isDisabled && this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
     }
 
     getDistanceTo(target) {

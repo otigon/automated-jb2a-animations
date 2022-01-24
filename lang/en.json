@@ -575,6 +575,9 @@
     "AUTOANIM.gridMeasure": "Grid Measurement",
 
     "AUTOANIM.playbackRate": "Playback Rate",
-    "AUTOANIM.constantScaleY": "Constant Y Scale"
+    "AUTOANIM.constantScaleY": "Constant Y Scale",
+    "AUTOANIM.macro": "Macro",
+    "AUTOANIM.add": "Add",
+    "AUTOANIM.args": "Send Args"
 
 }

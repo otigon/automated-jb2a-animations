@@ -13,14 +13,14 @@ export async function bless(handler, animationData) {
         return !!game.modules.get(test);
     }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    //let itemName = handler.convertedName;
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     const data = animationData.primary;
     if (data.isAuto) {
-        const autoOverridden = handler.autoOverride?.enable
-        data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
+        const autoOverridden = handler.autorecOverrides?.enable
+        data.persistent = autoOverridden ? handler.autorecOverrides?.persistent : data.addCTA;
     }
     const bless = await buildBlessFile(obj01, data.color);
 

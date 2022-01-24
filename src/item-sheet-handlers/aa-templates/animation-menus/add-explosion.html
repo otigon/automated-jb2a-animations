@@ -19,14 +19,14 @@
     <div style='grid-column: 3 / 5;grid-row: 2 / 3; padding-top: 5px;padding-bottom: 4px;'>
         <label>{{localize "AUTOANIM.radius"}}
             <input style='width: 3em;' type="Number" name="flags.autoanimations.explosions.radius" min="0" step=".01"
-                value={{explosionRadius}} data-type="Number">
+                value="{{lookup flags.autoanimations.explosions 'radius'}}" data-type="Number" placeholder=1.5>
         </label>
     </div>
     <!--Adjust the delay for explosion effect-->
     <div class='option05'>
         <label>{{localize "AUTOANIM.delayMS"}}
             <input style='width: 3em;' type="Number" name="flags.autoanimations.explosions.delay" value="{{lookup flags.autoanimations.explosions 'delay'}}"
-                data-dtype="Number">
+                data-dtype="Number" placeholder=1>
         </label>
     </div>
     {{#unless flags.autoanimations.explosions.enableCustom}}
@@ -100,14 +100,14 @@
     <!--Explosion Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 5 / 6'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.e01.delay" min="0" value={{delayExAudio}}
+        <input type="Number" name="flags.autoanimations.audio.e01.delay" min="0" value="{{lookup flags.autoanimations.audio.e01 'delay'}}" placeholder=0
             style='width: 3em'>
     </div>
     <!--Explosion Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 5 / 6'>
         <label>{{localize "AUTOANIM.volume"}}</label>
         <input type="Number" name="flags.autoanimations.audio.e01.volume" min="0" max="1" step="0.01"
-            style='width: 3em' value={{volumeExAudio}}>
+            style='width: 3em' value="{{lookup flags.autoanimations.audio.e01 'volume'}}" placeholder=0.5>
     </div>
     {{/if}}
     {{/if}}

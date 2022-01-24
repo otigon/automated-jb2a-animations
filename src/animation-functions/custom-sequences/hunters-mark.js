@@ -11,9 +11,9 @@ export async function huntersMark(handler, animationData) {
 
     const data = animationData.primary;
     if (data.isAuto) {
-        const autoOverridden = handler.autoOverride?.enable
-        data.anchorX = autoOverridden ? handler.autoOverride?.anchorX : data.anchorX || 0.5;
-        data.anchorY = autoOverridden ? handler.autoOverride?.anchorY : data.anchorY || 0.7;
+        const autoOverridden = handler.autorecOverrides?.enable
+        data.anchorX = autoOverridden ? handler.autorecOverrides?.anchorX : data.anchorX || 0.5;
+        data.anchorY = autoOverridden ? handler.autorecOverrides?.anchorY : data.anchorY || 0.7;
     }
     
     const sourceToken = handler.sourceToken;

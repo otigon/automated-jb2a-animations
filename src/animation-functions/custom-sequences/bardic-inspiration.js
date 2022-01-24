@@ -19,7 +19,7 @@ export async function bardicInspiration(handler, autoObject) {
         }
     } else {
         const bards = flags.bards ?? {};
-        data.animation = handler.convertedName;
+
         data.selfColor = bards.bardSelfColor;
         data.targetColor = bards.bardTargetColor;
         data.selfMarkerColor = bards.markerColor;
