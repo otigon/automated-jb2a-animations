@@ -44,7 +44,7 @@ export default class flagHandler {
         this.targetsId = Array.from(this.allTargets.filter(actor => actor.id).map(actor => actor.id));
 
         //midi-qol specific settings
-        this.playOnMiss = data.playOnMiss || midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false;
+        this.playOnMiss = data.playOnMiss || (midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false);
         //this.playOnMiss = true;
         const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
         this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
