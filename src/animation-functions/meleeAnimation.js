@@ -99,23 +99,23 @@ export async function meleeAnimation(handler, animationData) {
         }
         */
         let aaSeq = await new Sequence("Automated Animations");
-        // Macro section if Awaiting
+        // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
             aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
                 .play()
         }
-        // Extra Effects => SourceToken effect section
+        // Extra Effects => Source Token if active
         if (sourceFX.enabled) {
             aaSeq.addSequence(sourceFX.sourceSeq)
         }
 
-        // Animation Start AA Hook
+        // Animation Start Hook
         aaSeq.thenDo(function () {
             Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
         })
 
-        // Item Sound section
+        // Sounds if enabled
         if (data.itemAudio.enable) {
             aaSeq.sound()
                 .file(data.itemAudio.file, true)
@@ -124,9 +124,7 @@ export async function meleeAnimation(handler, animationData) {
                 //.repeats(data.itemAudio.repeat, data.delay)
                 .playIf(data.playSound)
         }
-        // Explosion Sound section
         if (data.explosion.audio.enabled && data.explosion.enabled) {
-            console.log("ADDING EXPLOSION AUDIO")
             aaSeq.sound()
                 .file(data.explosion?.audio?.file, true)
                 .playIf(data.explosion?.playSound)
@@ -135,7 +133,7 @@ export async function meleeAnimation(handler, animationData) {
                 .repeats(data.explosion?.audio?.repeat, data.delay)
         }
 
-        // Build Effect Sections for each Target
+        // Target Effect sections
         for (let target of handler.allTargets) {
             let distanceTo = handler.getDistanceTo(target)
             let moveTo = distanceTo > 5 ? true : false;
@@ -245,6 +243,7 @@ export async function meleeAnimation(handler, animationData) {
                 aaSeq.addSequence(targetSequence.targetSeq)
             }
         }
+        // Macro if Concurrent
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
@@ -253,6 +252,7 @@ export async function meleeAnimation(handler, animationData) {
         }
         aaSeq.play()
         await wait(handler.animEnd)
+        // Animation End Hook
         Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
         /*
         await new Sequence("Automated Animations")
