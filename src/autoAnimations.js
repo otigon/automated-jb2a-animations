@@ -266,14 +266,16 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 * sourceToken as the originating token
 * targets as an array from the user
 * item as the item instance being used
+* options to override settings e.g. playOnMiss: true, hitTargets: Array of TokenIDs
 */
 class AutoAnimations {
-    static async playAnimation(sourceToken, targets, item) {
+    static async playAnimation(sourceToken, targets, item, options = {}) {
         if (killAllAnimations) { return; }
         const data = {
             token: sourceToken,
             targets: targets,
             item: item,
+            ...options
         }
         let handler = await flagHandler.make(null, null, data)
         trafficCop(handler);
