@@ -2,6 +2,7 @@ import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 import { aaDebugger } from "../../constants/constants.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -18,20 +19,19 @@ export async function shieldSpell(handler, animationData) {
         //const spellVariant = handler.spellVariant || "01";
         let color = baseColor;
         color = color.replace(/\s+/g, '');
-        function random_item(items)
-        {
-        return items[Math.floor(Math.random()*items.length)];
+        function random_item(items) {
+            return items[Math.floor(Math.random() * items.length)];
         }
         color = color === "random" ? random_item(Object.keys(aaColorMenu.static.bless[variant])) : color;
         //const shieldVar = handler.options.shieldVar || "outro_fade";
-    
+
         const file01 = `autoanimations.static.shieldspell.${variant}.${color}.intro`;
         const file02 = `autoanimations.static.shieldspell.${variant}.${color}.loop`;
         const file03 = `autoanimations.static.shieldspell.${variant}.${color}.${endeffect}`;
-    
+
         const fileData = jb2a.static.shieldspell["01"]["blue"]["intro"];
         const metadata = await getVideoDimensionsOf(fileData);
-    
+
         return { file01, file02, file03, metadata };
     }
 
@@ -39,7 +39,7 @@ export async function shieldSpell(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     if (data.isAuto) {
         const autoOverridden = handler.autorecOverrides?.enable
-        data.persistent =  autoOverridden ? handler.autorecOverrides?.persistent : data.addCTA;
+        data.persistent = autoOverridden ? handler.autorecOverrides?.persistent : data.addCTA;
         data.endeffect = autoOverridden ? handler.autorecOverrides?.endEffect : data.endeffect;
     } else {
         data.endeffect = data.options.shieldVar ?? "outro_fade";
@@ -55,46 +55,53 @@ export async function shieldSpell(handler, animationData) {
 
 
     async function cast() {
-            new Sequence("Automated Animations")
-                .addSequence(sourceFX.sourceSeq)
-                .sound()
-                    .file(data.itemAudio.file, true)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .playIf(data.playSound)    
-                .effect()
-                    .file(onToken.file01)
-                    .scale(scale)
-                    .atLocation(sourceToken)
-                    .belowTokens(data.below)
-                    .waitUntilFinished(-500)        
-                .effect()
-                    .file(onToken.file02)
-                    .scale(scale)
-                    .atLocation(sourceToken)
-                    .belowTokens(data.below)
-                    .playIf(!data.persistent)
-                    .fadeIn(300)
-                    .fadeOut(300)
-                    .waitUntilFinished(-500)
-                .effect()
-                    .file(onToken.file02)
-                    .scale(scale)
-                    .attachTo(sourceToken)
-                    .belowTokens(data.below)
-                    .playIf(data.persistent)
-                    .persist()
-                    .origin(handler.item.uuid)
-                    .fadeIn(300)
-                    .fadeOut(300)
-                    .waitUntilFinished(-500)
-                .effect()
-                    .file(onToken.file03)
-                    .scale(scale)
-                    .belowTokens(data.below)
-                    .atLocation(sourceToken)                          
+        let aaSeq = await new Sequence()
+        // Play Macro if Awaiting
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+        }
+        // Extra Effects => Source Token if active
+        if (sourceFX.enabled) {
+            aaSeq.addSequence(sourceFX.sourceSeq)
+        }
+        if (data.playSound) {
+            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+        }
+        // Animation Start Hook
+        aaSeq.thenDo(function () {
+            Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+        })
+        aaSeq.effect()
+            .file(onToken.file01)
+            .scale(scale)
+            .atLocation(sourceToken)
+            .belowTokens(data.below)
+            .waitUntilFinished(-500)
+        let persistSwitch = aaSeq.effect();
+        persistSwitch.file(onToken.file02)
+        persistSwitch.scale(scale)
+        persistSwitch.atLocation(sourceToken)
+        persistSwitch.belowTokens(data.below)
+        persistSwitch.fadeIn(300)
+        persistSwitch.fadeOut(300)
+        persistSwitch.origin(handler.item.uuid)
+        if (data.persistent) { persistSwitch.attachTo(sourceToken); persistSwitch.persist() }
+        else { persistSwitch.atLocation(sourceToken) }
+        persistSwitch.waitUntilFinished(-1000)
+        aaSeq.effect()
+            .file(onToken.file03)
+            .scale(scale)
+            .belowTokens(data.below)
+            .atLocation(sourceToken)
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, [...userData])
                 .play()
-            //await wait(250)
+        }
+        aaSeq.play()
+        Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
     }
     cast()
 }
