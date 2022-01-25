@@ -183,11 +183,11 @@ export class AAanimationData {
                 macro: {
                     enabled: flags.macro?.enable ?? false,
                     name: flags.macro?.name ?? "",
-                    preArgs: flags.macro?.args ?? "",
+                    args: flags.macro?.args ? flags.macro.args.split(',').map(s => s.trim()) : "",
                     playWhen: flags.macro?.playWhen ?? "0",
                 }
             }
-            data.macro.args = data.macro.preArgs.split(',').map(s => s.trim());
+            //data.macro.args = data.macro.preArgs.split(',').map(s => s.trim());
             data.playMacro = data.macro.enabled && data.macro.name ? true : false;
             data.playSound = data.itemAudio?.enable && data.itemAudio?.file ? true : false;
             data.playSwitchSound = data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off" ? true : false;

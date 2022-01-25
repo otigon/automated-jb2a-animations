@@ -79,22 +79,22 @@ export default class systemData {
         this.isAutorecFireball = false;
         this.isAutorecAura = false;
         this.isAutorecTeleport = false;
-        if (this.autorecObject && !this.animOverride) {
+        if (this.autorecObject && !this.isCustomized) {
             this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
             this.isAutorecAura = this.autorecObject.menuSection === "aura" ? true : false;
             this.isAutorecTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
         }
-        this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.animOverride ? true : false;
+        this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;
 
-        this.isOverrideTemplate = (this.animType === "template" && this.animOverride) || (this.animType === "preset" && this.flags.animation === "fireball" && this.animOverride) ? true : false;
-        this.isOverrideAura = this.animType === "aura" && this.animOverride ? true: false;
+        this.isOverrideTemplate = (this.animType === "template" && this.isCustomized) || (this.animType === "preset" && this.flags.animation === "fireball" && this.isCustomized) ? true : false;
+        this.isOverrideAura = this.animType === "aura" && this.isCustomized ? true: false;
         this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutorecTeleport ? true : false;
         //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
     }
 
     get shouldPlayImmediately () {
-        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport;
+        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport;
     }
 
     get soundNoAnimation () {
