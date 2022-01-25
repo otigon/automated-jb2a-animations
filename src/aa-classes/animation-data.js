@@ -12,6 +12,44 @@ export class AAanimationData {
         return data;
     }
 
+    static async _sounds(soundSettings) {
+        const data = soundSettings.animationData.primary;
+        //const sourceFX = flagData.sourceFX;
+        const targetFX = soundSettings.animationData.targetFX;
+        let soundSeq = new Sequence();
+        if (data.playSound || data.playSwitchSound) {
+            if (!soundSettings.switchSound) {
+                soundSeq.sound()
+                    .file(data.itemAudio.file, true)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .repeats(data.itemAudio.repeat, data.delay)
+            } else {
+                soundSeq.sound()
+                    .file(data.switchAudio.file, true)
+                    .volume(data.switchAudio.volume)
+                    .delay(data.switchAudio.delay)
+                    .repeats(data.switchAudio.repeat, data.delay)
+            }
+        }
+        if (data.explosion.playSound && soundSettings.explosionSound) {
+            soundSeq.sound()
+                .file(data.explosion?.audio?.file, true)
+                .playIf(data.explosion?.playSound)
+                .delay(data.explosion?.audio?.delay + data.explosion?.delay)
+                .volume(data.explosion?.audio?.volume)
+                .repeats(data.explosion?.audio?.repeat, data.delay)
+        }
+        if (targetFX.playSound && soundSettings.targetSound) {
+            soundSeq.sound()
+                .file(targetFX.itemAudio?.file, true)
+                .volume(targetFX.itemAudio?.volume)
+                .delay(targetFX.itemAudio?.delay + targetFX.startDelay)
+                .repeats(targetFX.itemAudio?.repeat, targetFX.itemAudio?.soundDelay)
+        }
+        return soundSeq;
+    }
+
     static async _primaryData(handler, autoObject) {
 
         if (autoObject) {
@@ -152,6 +190,7 @@ export class AAanimationData {
             data.macro.args = data.macro.preArgs.split(',').map(s => s.trim());
             data.playMacro = data.macro.enabled && data.macro.name ? true : false;
             data.playSound = data.itemAudio?.enable && data.itemAudio?.file ? true : false;
+            data.playSwitchSound = data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off" ? true : false;
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
             return data;
         }
@@ -282,6 +321,7 @@ export class AAanimationData {
                 volume: handler.flags.audio?.t01?.volume || 0.25,
                 delay: handler.flags.audio?.t01?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : target.loops || 1,
+                soundDelay: handler.decoupleSound ? 1 : target.loopDelay || 250,
             },
         }
 
@@ -289,6 +329,7 @@ export class AAanimationData {
             targetFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
+        targetFX.playSound = targetFX.itemAudio.enable && targetFX.enabled && targetFX.itemAudio.file ? true : false;
         targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
         return targetFX
     }
@@ -305,6 +346,7 @@ export class AAanimationData {
 
         targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
+        /*
         targetFX.targetSeq.sound()
             .file(targetFX.itemAudio?.file, true)
             .volume(targetFX.itemAudio?.volume)
@@ -313,6 +355,7 @@ export class AAanimationData {
             .playIf(() => {
                 return targetFX.itemAudio?.enable && targetFX.itemAudio?.file && targetFX.enabled;
             })
+        */
         targetFX.targetSeq.effect()
             .delay(targetFX.startDelay)
             .file(targetFX.data?.file, true)

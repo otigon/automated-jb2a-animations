@@ -14,14 +14,13 @@ export async function staticAnimation(handler, animationData) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
-    
+
     const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
 
     if (handler.debug) { aaDebugger("Static Animation Start", animationData, onToken) }
 
     //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;
-    const arrayLength = handler.allTargets.length;
 
     let aaSeq = await new Sequence("Automated Animations")
     const bottomAnim = onToken.file.replace('top', 'bottom')
@@ -40,212 +39,135 @@ export async function staticAnimation(handler, animationData) {
     aaSeq.thenDo(function () {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
-    // Sounds if enabled
-    if (data.itemAudio.enable) {
-        aaSeq.sound()
-            .file(data.itemAudio.file, true)
-            .volume(data.itemAudio.volume)
-            .delay(data.itemAudio.delay)
-            .repeats(data.itemAudio.repeat, data.delay)
-            .playIf(data.playSound)
-    }
-    if (data.explosion.audio.enabled && data.explosion.enabled && handler.allTargets.length > 0 && data.staticType !== "source") {
-        aaSeq.sound()
-            .file(data.explosion?.audio?.file, true)
-            .playIf(data.explosion?.playSound)
-            .delay(data.explosion?.audio?.delay + data.explosion?.delay)
-            .volume(data.explosion?.audio?.volume)
-            .repeats(data.explosion?.audio?.repeat, data.delay)
-    }
-    // Source Effect sections
     if (data.staticType === "source" || data.staticType === "sourcetarget" || (data.staticType === "targetDefault" && handler.allTargets.length < 1)) {
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
         const playPersist = (!checkAnim && data.persistent) ? true : false;
-        if (!data.persistent) {
-            if (data.staticOptions === 'shieldfx') {
-                aaSeq.effect()
-                    .file(bottomAnim)
-                    .atLocation(sourceToken)
-                    .name("spot" + ` ${sourceToken.id}`)
-                    .repeats(data.repeat, data.delay)
-                    .opacity(data.opacity)
-                    .size(sourceToken.w * 1.5 * data.scale)
-                    .belowTokens(true)
-                    .fadeIn(250)
-                    .fadeOut(500)
-                    //.playIf(!data.persistent)
-                aaSeq.effect()
-                    .file(onToken.file)
-                    .atLocation(sourceToken)
-                    .name("spot" + ` ${sourceToken.id}`)
-                    .repeats(data.repeat, data.delay)
-                    .opacity(data.opacity)
-                    .size(sourceToken.w * 1.5 * data.scale)
-                    .belowTokens(false)
-                    .fadeIn(250)
-                    .fadeOut(500)
-                    //.playIf(!data.persistent)
-            } else {
-                aaSeq.effect()
-                    .file(onToken.file)
-                    .atLocation(sourceToken)
-                    .name("spot" + ` ${sourceToken.id}`)
-                    .repeats(data.repeat, data.delay)
-                    .opacity(data.opacity)
-                    .size(sourceToken.w * 1.5 * data.scale)
-                    .belowTokens(data.below)
-                    .fadeIn(250)
-                    .fadeOut(500)
-                    //.playIf(!data.persistent)
-            }
-        }
-        if (playPersist) {
-            if (data.staticOptions === 'shieldfx') {
-                aaSeq.effect()
-                    .file(bottomAnim)
-                    .attachTo(sourceToken)
-                    .name("spot" + ` ${sourceToken.id}`)
-                    .size(sourceToken.w * 1.5 * data.scale)
-                    .belowTokens(true)
-                    .persist(data.persistent)
-                    .opacity(data.opacity)
-                    .origin(handler.item.uuid)
-                    .fadeIn(250)
-                    .fadeOut(500)
-                    //.playIf(playPersist)
-                aaSeq.effect()
-                    .file(onToken.file)
-                    .attachTo(sourceToken)
-                    .name("spot" + ` ${sourceToken.id}`)
-                    .size(sourceToken.w * 1.5 * data.scale)
-                    .belowTokens(false)
-                    .persist(data.persistent)
-                    .opacity(data.opacity)
-                    .origin(handler.item.uuid)
-                    .fadeIn(250)
-                    .fadeOut(500)
-                    //.playIf(playPersist)
-            } else {
-                aaSeq.effect()
-                    .file(onToken.file)
-                    .attachTo(sourceToken)
-                    .name("spot" + ` ${sourceToken.id}`)
-                    .size(sourceToken.w * 1.5 * data.scale)
-                    .belowTokens(data.below)
-                    .persist(data.persistent)
-                    .opacity(data.opacity)
-                    .origin(handler.item.uuid)
-                    .fadeIn(250)
-                    .fadeOut(500)
-                    //.playIf(playPersist)
-            }
+        if (data.staticOptions === 'shieldfx') {
+            let bottomEffect = aaSeq.effect();
+            bottomEffect.file(bottomAnim)
+            bottomEffect.name("spot" + ` ${sourceToken.id}`)
+            bottomEffect.repeats(data.repeat, data.delay)
+            bottomEffect.opacity(data.opacity)
+            bottomEffect.size(sourceToken.w * 1.5 * data.scale)
+            bottomEffect.belowTokens(true)
+            bottomEffect.fadeIn(250)
+            bottomEffect.fadeOut(500)
+            if (!data.persistent) { bottomEffect.atLocation(sourceToken) }
+            if (playPersist) { bottomEffect.attachTo(sourceToken); bottomEffect.persist(true); bottomEffect.origin(handler.item.uuid) }
+            if (checkAnim) { bottomEffect.playIf(false); }
+
+            let topEffect = aaSeq.effect();
+            topEffect.file(onToken.file)
+            topEffect.name("spot" + ` ${sourceToken.id}`)
+            topEffect.repeats(data.repeat, data.delay)
+            topEffect.opacity(data.opacity)
+            topEffect.size(sourceToken.w * 1.5 * data.scale)
+            topEffect.belowTokens(false)
+            topEffect.fadeIn(250)
+            topEffect.fadeOut(500)
+            if (!data.persistent) { topEffect.atLocation(sourceToken) }
+            if (playPersist) { topEffect.attachTo(sourceToken); topEffect.persist(true); topEffect.origin(handler.item.uuid) }
+            if (checkAnim) { topEffect.playIf(false); }
+
+        } else {
+            let aaEffect = aaSeq.effect();
+            aaEffect.file(onToken.file)
+            aaEffect.name("spot" + ` ${sourceToken.id}`)
+            aaEffect.repeats(data.repeat, data.delay)
+            aaEffect.opacity(data.opacity)
+            aaEffect.size(sourceToken.w * 1.5 * data.scale)
+            aaEffect.belowTokens(data.below)
+            aaEffect.fadeIn(250)
+            aaEffect.fadeOut(500)
+            if (!data.persistent) { aaEffect.atLocation(sourceToken) }
+            if (playPersist) { aaEffect.attachTo(sourceToken); aaEffect.persist(true); aaEffect.origin(handler.item.uuid) }
+            if (checkAnim) { aaEffect.playIf(false); }
 
         }
     }
+    let explosionSound = false;
+    let targetSound = false;
     // Target Effect sections
     if ((data.staticType === 'target' || data.staticType === 'targetDefault' || data.staticType === 'sourcetarget') && handler.allTargets.length > 0) {
+        //for (var i = 0; i < handler.allTargets.length; i++) {
+        //let target = handler.allTargets[i]
         for (let target of handler.allTargets) {
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
-            let playPersist = (!checkAnim && data.persistent) ? true : false;
-            if (!data.persistent) {
+            let hit;
+            if (handler.playOnMiss) {
+                hit = handler.hitTargetsId.includes(target.id) ? true : false;
+            } else {
+                hit = true;
+            }
+            if (hit) { targetSound = true }
+            if ((data.persistent && !checkAnim) || !data.persistent) {
                 if (data.staticOptions === 'shieldfx') {
-                    aaSeq.effect()
-                        .file(bottomAnim)
-                        .atLocation(target)
-                        .repeats(data.repeat, data.delay)
-                        .opacity(data.opacity)
-                        .size(target.w * 1.5 * data.scale)
-                        .belowTokens(true)
-                        .name("spot" + ` ${target.id}`)
-                        .fadeIn(250)
-                        .fadeOut(500)
-                        //.playIf(!data.persistent)
-                    aaSeq.effect()
-                        .file(onToken.file)
-                        .atLocation(target)
-                        .repeats(data.repeat, data.delay)
-                        .opacity(data.opacity)
-                        .size(target.w * 1.5 * data.scale)
-                        .belowTokens(false)
-                        .name("spot" + ` ${target.id}`)
-                        .fadeIn(250)
-                        .fadeOut(500)
-                        //.playIf(!data.persistent)
+                    let bottomEffect = aaSeq.effect();
+                    bottomEffect.file(bottomAnim)
+                    bottomEffect.name("spot" + ` ${target.id}`)
+                    bottomEffect.repeats(data.repeat, data.delay)
+                    bottomEffect.opacity(data.opacity)
+                    bottomEffect.size(target.w * 1.5 * data.scale)
+                    bottomEffect.belowTokens(true)
+                    bottomEffect.fadeIn(250)
+                    bottomEffect.fadeOut(500)
+                    if (!data.persistent) { bottomEffect.atLocation(target); bottomEffect.missed(!hit) }
+                    else { bottomEffect.attachTo(target); bottomEffect.persist(true); bottomEffect.origin(handler.item.uuid) }
+
+                    let topEffect = aaSeq.effect();
+                    topEffect.file(onToken.file)
+                    topEffect.name("spot" + ` ${target.id}`)
+                    topEffect.repeats(data.repeat, data.delay)
+                    topEffect.opacity(data.opacity)
+                    topEffect.size(target.w * 1.5 * data.scale)
+                    topEffect.belowTokens(false)
+                    topEffect.fadeIn(250)
+                    topEffect.fadeOut(500)
+                    if (!data.persistent) { topEffect.atLocation(target); topEffect.missed(!hit) }
+                    else { topEffect.attachTo(target); topEffect.persist(true); topEffect.origin(handler.item.uuid) }
+
                 } else {
                     let scale = data.animation === "bite" || data.animation === "claw" ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
+                    let aaEffect = aaSeq.effect();
+                    aaEffect.file(onToken.file)
+                    aaEffect.name("spot" + ` ${target.id}`)
+                    aaEffect.repeats(data.repeat, data.delay)
+                    aaEffect.opacity(data.opacity)
+                    aaEffect.scale(scale * data.scale)
+                    aaEffect.belowTokens(data.below)
+                    aaEffect.fadeIn(250)
+                    aaEffect.fadeOut(500)
+                    if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit) }
+                    else { aaEffect.attachTo(target); aaEffect.persist(true); aaEffect.origin(handler.item.uuid) }
+                }
+
+                if (data.explosion.enabled) {
                     aaSeq.effect()
-                        .file(onToken.file)
-                        .atLocation(target)
+                        .atLocation("spot" + ` ${target.id}`)
+                        .file(data.explosion?.data?.file, true)
+                        .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                        .delay(data.explosion?.delay)
                         .repeats(data.repeat, data.delay)
-                        .opacity(data.opacity)
-                        .scale(scale * data.scale)
-                        .belowTokens(data.below)
-                        .name("spot" + ` ${target.id}`)
-                        .fadeIn(250)
-                        .fadeOut(500)
-                        //.playIf(!data.persistent)
+                        .belowTokens(data.explosion?.below)
+                        .playIf(data.explosion?.enabled)
                 }
-            }
-            if (playPersist) {
-                if (data.staticOptions === 'shieldfx') {
-                    aaSeq.effect()
-                        .file(bottomAnim)
-                        .attachTo(target)
-                        .name("spot" + ` ${target.id}`)
-                        .size(scale * 1.5 * data.scale)
-                        .belowTokens(true)
-                        .persist(data.persistent)
-                        .opacity(data.opacity)
-                        .origin(handler.item.uuid)
-                        .fadeIn(250)
-                        .fadeOut(500)
-                        //.playIf(playPersist)
-                    aaSeq.effect()
-                        .file(onToken.file)
-                        .attachTo(target)
-                        .name("spot" + ` ${target.id}`)
-                        .size(scale * 1.5 * data.scale)
-                        .belowTokens(false)
-                        .persist(data.persistent)
-                        .opacity(data.opacity)
-                        .origin(handler.item.uuid)
-                        .fadeIn(250)
-                        .fadeOut(500)
-                        //.playIf(playPersist)
-                } else {
-                    aaSeq.effect()
-                        .file(onToken.file)
-                        .attachTo(target)
-                        .name("spot" + ` ${target.id}`)
-                        .scale(scale * data.scale)
-                        .belowTokens(data.below)
-                        .persist(data.persistent)
-                        .opacity(data.opacity)
-                        .origin(handler.item.uuid)
-                        .fadeIn(250)
-                        .fadeOut(500)
-                        //.playIf(playPersist)
-                }
+                explosionSound = true;
             }
             if (targetFX.enabled) {
                 let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
                 aaSeq.addSequence(targetSequence.targetSeq)
             }
-            if (data.explosion.enabled) {
-                aaSeq.effect()
-                    .atLocation("spot" + ` ${target.id}`)
-                    .file(data.explosion?.data?.file, true)
-                    .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
-                    .delay(data.explosion?.delay)
-                    .repeats(data.repeat, data.delay)
-                    .belowTokens(data.explosion?.below)
-                    .playIf(data.explosion?.enabled)
-            }
         }
     }
-
+    aaSeq.addSequence(await AAanimationData._sounds({ animationData, explosionSound: data.staticType !== "source" && explosionSound, targetSound }))
+    // Macro if Concurrent
+    if (data.playMacro && data.macro.playWhen === "0") {
+        let userData = data.macro.args;
+        new Sequence()
+            .macro(data.macro.name, handler.workflow, handler, [...userData])
+            .play()
+    }
     aaSeq.play()
-    //await wait(500)
     Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
 
     /*
