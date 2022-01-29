@@ -117,7 +117,6 @@ export async function meleeAnimation(handler, animationData) {
                         .atLocation(sourceToken)
                         .repeats(data.repeat, data.delay)
                         .stretchTo("spot" + ` ${target.id}`)
-                        .playIf(switchReturn)
                 }
             } else {
                 // Standard Melee Animation effect sections
@@ -156,7 +155,6 @@ export async function meleeAnimation(handler, animationData) {
                     .delay(data.explosion?.delay)
                     .repeats(data.repeat, data.delay)
                     .belowTokens(data.explosion?.below)
-                    .playIf(data.explosion?.enabled)
             }
 
             // Extra Effects => Target effect section

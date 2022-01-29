@@ -29,7 +29,6 @@
             {{/select}}
         </select>
     </div>
-    {{#ifnoteq flags.autoanimations.animation 'thunderwave'}}
     <!--Choose a Variant-->
     <div class="option03" style="padding: 5px">
         <label>{{localize "AUTOANIM.variant"}}</label>
@@ -41,23 +40,15 @@
             {{/select}}
         </select>
     </div>
-    {{/ifnoteq}}
     <!--Choose Template Animation Color-->
     <div class="option04">
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
-            {{#ifEquals flags.autoanimations.animation 'thunderwave'}}
-            {{#each (lookup (lookup colormenu.static flags.autoanimations.animation) 'mid') as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/ifEquals}}
-            {{#ifnoteq flags.autoanimations.animation 'thunderwave'}}
             {{#each (lookup (lookup colormenu.static flags.autoanimations.animation)
             flags.autoanimations.options.variant) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
-            {{/ifnoteq}}
             {{/select}}
         </select>
     </div>
@@ -125,7 +116,7 @@
             {{#select flags.autoanimations.options.persistType}}
             <option value=""></option>
             <option value="sequencerground">{{localize "AUTOANIM.sequencereffect"}}</option>
-            <!--<option value="attachtemplate">Attach to Template</option>-->
+            <option value="attachtemplate">Attach to Template</option>
             {{/select}}
         </select>
     </div>

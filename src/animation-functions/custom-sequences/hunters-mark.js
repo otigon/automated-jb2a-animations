@@ -60,7 +60,7 @@ export async function huntersMark(handler, animationData) {
         aaSeq.effect()
             .file(hmPulse)
             .atLocation(target)
-            .playIf(target)
+            //.playIf(target)
         if (!checkAnim && data.persistent) {
             aaSeq.effect()
                 .file(hmLoop)

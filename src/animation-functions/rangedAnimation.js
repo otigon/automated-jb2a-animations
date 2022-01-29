@@ -66,7 +66,6 @@ export async function rangedAnimations(handler, animationData) {
                     .delay(data.explosion?.delay)
                     .repeats(data.repeat, data.delay)
                     .belowTokens(data.explosion?.below)
-                    .playIf(data.explosion?.enabled)
             }
             if (targetFX.enabled) {
                 let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);

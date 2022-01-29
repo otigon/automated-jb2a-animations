@@ -18,10 +18,11 @@ import { fireball } from "../animation-functions/custom-sequences/fireball.js";
 import { AAanimationData } from "../aa-classes/animation-data.js";
 import { particleEffects } from "../animation-functions/particleSystem.js";
 import { dualAttach } from "../animation-functions/custom-sequences/dual-attach.js";
+import { thunderwaveAuto } from "../animation-functions/thunderwave.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function trafficCop(handler) {
+export async function trafficCop(handler, config) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (game.Levels3DPreview?._active) {
@@ -96,16 +97,16 @@ export async function trafficCop(handler) {
                     case "pf2e":
                     case "sw5e":
                         if (game.modules.get("mars-5e")?.active) {
-                            templateAnimation(handler, animationData);
+                            templateAnimation(handler, animationData, config);
                         } else {
-                            aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
-                                templateAnimation(handler, animationData);
+                            aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                templateAnimation(handler, animationData, config);
                             });
                             setTimeout(killHook, 30000)
                         }
                         break;
                     default:
-                        templateAnimation(handler, animationData);
+                        templateAnimation(handler, animationData, config);
                 }
                 break;
             case "aura":
@@ -133,6 +134,24 @@ export async function trafficCop(handler) {
                         break;
                     case "teleportation":
                         teleportation(handler, animationData)
+                        break;
+                    case "thunderwave":
+                        switch (game.system.id) {
+                            case "dnd5e":
+                            case "pf2e":
+                            case "sw5e":
+                                if (game.modules.get("mars-5e")?.active) {
+                                    thunderwaveAuto(handler, animationData, config);
+                                } else {
+                                    aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                        thunderwaveAuto(handler, animationData, config);
+                                    });
+                                    setTimeout(killHook, 30000)
+                                }
+                                break;
+                            default:
+                                thunderwaveAuto(handler, animationData, config);
+                        }
                         break;
                     case "fireball":
                         switch (game.system.id) {
@@ -211,7 +230,7 @@ export async function trafficCop(handler) {
                                 break;
                             default:
                                 templateAnimation(handler, animationData);
-                        }        
+                        }
                         break;
                     case 'auras':
                         if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
@@ -234,7 +253,7 @@ export async function trafficCop(handler) {
                                 break;
                             case "dualattach":
                                 dualAttach(handler, animationData)
-                                break;            
+                                break;
                             case 'teleportation':
                                 teleportation(handler, animationData);
                                 break;
