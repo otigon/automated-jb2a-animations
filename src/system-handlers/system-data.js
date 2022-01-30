@@ -98,7 +98,11 @@ export default class systemData {
     }
 
     get soundNoAnimation () {
-        return this.isDisabled && this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
+        return this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
+    }
+
+    get macroOnly () {
+        return this.flags.macro?.enable && this.flags.macro?.name
     }
 
     getDistanceTo(target) {

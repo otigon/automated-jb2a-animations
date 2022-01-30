@@ -45,7 +45,7 @@
                 <div {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }} style="display:none" {{/if}}>
                     <div {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'anim2d' ) }} style="display:none"
                         {{/if}}>
-                        <div class="aa-container">
+                        <div class="aa-item-container">
                             {{#unless (lookup (lookup ../settings.aaAutorec.melee idx) 'custom')}}
                             <div class="option01">
                                 <label>{{localize 'AUTOANIM.type'}}</label>
@@ -201,8 +201,8 @@
                             </div>
                             {{/if}}
                         </div>
-                        <div style="border: 1px dashed rgba(0, 0, 0, .4);"></div>
-                        <div class="aa-container">
+                        <div style="padding:3px"></div>
+                        <div class="aa-item-container">
                             <div style='grid-column: 1 / 2;grid-row: 1 / 2; padding-top: 1em; justify-self: left;'>
                                 <div class="form-group">
                                     <label>{{localize 'AUTOANIM.switch'}}: </label>

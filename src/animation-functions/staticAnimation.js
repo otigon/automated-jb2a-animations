@@ -152,7 +152,7 @@ export async function staticAnimation(handler, animationData) {
                 }
                 explosionSound = true;
             }
-            if (targetFX.enabled) {
+            if (targetFX.enabled && hit) {
                 let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
                 aaSeq.addSequence(targetSequence.targetSeq)
             }

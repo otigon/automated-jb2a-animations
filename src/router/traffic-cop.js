@@ -31,9 +31,7 @@ export async function trafficCop(handler, config) {
             if (aaDebug) { aaDebugger("Beginning Particle Animation for Custom Item Setting") }
             particleEffects(handler);
             return;
-        }
-
-        if (!game.settings.get("autoanimations", "disableAutoRec")) {
+        } else if (!game.settings.get("autoanimations", "disableAutoRec")) {
             if (aaDebug) { aaDebugger("Automatic Recognition Beginning for Particle System") }
             const autoName = AutorecFunctions._rinseName(handler.itemName); //removes all spaces in the name
             const isAuto = AutorecFunctions.foundInAutorec(handler.autorecSettings, autoName);
@@ -48,6 +46,24 @@ export async function trafficCop(handler, config) {
         return;
     }
 
+    if (handler.isDisabled) {
+        if (handler.soundNoAnimation || handler.macroOnly) {
+            let aaSeq = new Sequence()
+            if (handler.soundNoAnimation) {
+                aaSeq.sound()
+                    .file(handler.flags?.audio?.a01?.file)
+                    .volume(handler.flags?.audio?.a01?.volume)
+                    .delay(handler.flags?.audio?.a01?.delay)
+            }
+            if (handler.macroOnly) {
+                let userData = handler.flags?.macro?.args ? handler.flags.macro.args.split(',').map(s => s.trim()) : "";
+                aaSeq.macro(handler.flags?.macro?.name, handler.workflow, handler, [...userData])
+            }
+            aaSeq.play()
+        }
+        return
+    }
+    /*
     if (handler.soundNoAnimation) {
         new Sequence()
             .sound()
@@ -59,6 +75,7 @@ export async function trafficCop(handler, config) {
     } else if (handler.isDisabled) {
         return;
     }
+    */
     const animType = handler.animType;
     const animName = handler.flags?.animation;
     const override = handler.isCustomized;
@@ -115,7 +132,7 @@ export async function trafficCop(handler, config) {
             case "preset":
                 switch (animName) {
                     case "bardicinspiration":
-                        bardicInspiration(handler);
+                        bardicInspiration(handler, animationData);
                         break;
                     case "shieldspell":
                         shieldSpell(handler, animationData);

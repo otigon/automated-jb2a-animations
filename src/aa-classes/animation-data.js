@@ -59,8 +59,8 @@ export class AAanimationData {
             data.isAuto = true;
             data.animation = data.animation || "";
             data.enableCustom = data.custom || false,
-            data.enableCustom02 = data.custom02 || false,
-            data.customPath = data.custom ? data.customPath : false;
+                data.enableCustom02 = data.custom02 || false,
+                data.customPath = data.custom ? data.customPath : false;
             data.customPath02 = data.custom02 ? data.customPath02 : false;
 
             data.staticType = data.type || "targetDefault";
@@ -80,16 +80,16 @@ export class AAanimationData {
             data.below = data.below ?? false;
             data.measureType = data.measureType ?? 'alternating';
             data.hideFromPlayers = false,
-            data.playbackRate = data.playbackRate || 1,
-            data.onlyX = data.onlyX ?? false,
+                data.playbackRate = data.playbackRate || 1,
+                data.onlyX = data.onlyX ?? false,
 
-            data.itemAudio = {
-                enable: data.audio?.a01?.enable || false,
-                file: data.audio?.a01?.file,
-                volume: data.audio?.a01?.volume || 0.25,
-                delay: data.audio?.a01?.delay || 0,
-                repeat: handler.decoupleSound ? 1 : data.repeat || 1,
-            }
+                data.itemAudio = {
+                    enable: data.audio?.a01?.enable || false,
+                    file: data.audio?.a01?.file,
+                    volume: data.audio?.a01?.volume || 0.25,
+                    delay: data.audio?.a01?.delay || 0,
+                    repeat: handler.decoupleSound ? 1 : data.repeat || 1,
+                }
 
             data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
             data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
@@ -279,22 +279,23 @@ export class AAanimationData {
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
-        sourceFX.sourceSeq.sound()
-            .file(sourceFX.itemAudio.file, true)
-            .volume(sourceFX.itemAudio.volume)
-            .delay(sourceFX.itemAudio.delay)
-            .playIf(() => {
-                return sourceFX.itemAudio.enable && sourceFX.itemAudio.file && sourceFX.enabled;
-            })
-        sourceFX.sourceSeq.effect()
-            .file(sourceFX.data.file, true)
-            .atLocation(handler.sourceToken)
-            .scale(sourceFX.sFXScale * sourceFX.scale)
-            .repeats(sourceFX.repeat, sourceFX.delay)
-            .belowTokens(sourceFX.below)
-            .opacity(sourceFX.opacity)
-            .waitUntilFinished(sourceFX.startDelay)
-            .playIf(sourceFX.enabled)
+        if (sourceFX.itemAudio.enable && sourceFX.itemAudio.file && sourceFX.enabled) {
+            sourceFX.sourceSeq.sound()
+                .file(sourceFX.itemAudio.file, true)
+                .volume(sourceFX.itemAudio.volume)
+                .delay(sourceFX.itemAudio.delay)
+        }
+        if (sourceFX.enabled) {
+            sourceFX.sourceSeq.effect()
+                .file(sourceFX.data.file, true)
+                .atLocation(handler.sourceToken)
+                .scale(sourceFX.sFXScale * sourceFX.scale)
+                .repeats(sourceFX.repeat, sourceFX.delay)
+                .belowTokens(sourceFX.below)
+                .opacity(sourceFX.opacity)
+                .waitUntilFinished(sourceFX.startDelay)
+            //.playIf(sourceFX.enabled)
+        }
 
         return sourceFX;
     }
@@ -365,7 +366,7 @@ export class AAanimationData {
             .belowTokens(targetFX.below)
             .persist(targetFX.persistent)
             .opacity(targetFX.opacity)
-            .playIf(playNow)
+            //.playIf(playNow)
 
         return targetFX;
     }

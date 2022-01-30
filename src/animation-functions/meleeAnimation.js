@@ -158,7 +158,7 @@ export async function meleeAnimation(handler, animationData) {
             }
 
             // Extra Effects => Target effect section
-            if (targetFX.enabled) {
+            if (targetFX.enabled && hit) {
                 let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
                 aaSeq.addSequence(targetSequence.targetSeq)
             }

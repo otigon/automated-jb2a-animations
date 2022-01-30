@@ -101,39 +101,18 @@ export async function templateAnimation(handler, animationData, config) {
             }
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [templateData._id])
         }
-    }
-    /*
-    if (data.persistent && data.persistType === 'attachtemplate') {
-        if (data.removeTemplate) {
-            console.warn("You are attempting to delete the Template but the Animation is attached to it. You must manually delete it")
-        }
-        await new Sequence("Automated Animations")
-            .addSequence(sourceFX.sourceSeq)
-            .thenDo(function () {
-                Hooks.callAll("aa.animationStart", sourceToken, "no-target")
-            })
-            .sound()
-                .file(data.itemAudio.file, true)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-                .playIf(data.playSound)
-            .effect()
-                .file(tempAnimation.file)
-                .attachTo(templateObject)
-                .persist(true)
-                .opacity(data.opacity)
-                .origin(handler.item.uuid)
-                .scaleToObject({x: data.scaleX, y: data.scaleY})
-            .play()
-        await wait(500)
-        Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
-    }
-    */
-    if (!data.persistent || (data.persistent && (data.persistType === 'sequencerground' || data.persistType === 'attachtemplate'))) {
+    } else {
 
         const templateType = templateData.t;
 
         let aaSeq = await new Sequence("Automated Animations")
+        if ((data.persistent && data.persistType !== "attachtemplate") || !data.persistent) {
+            aaSeq.thenDo(function () {
+                if (data.removeTemplate) {
+                    canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
+                }
+            })
+        }
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
@@ -151,32 +130,28 @@ export async function templateAnimation(handler, animationData, config) {
         })
         if (templateType === 'cone' || templateType === 'ray') {
             const trueHeight = templateType === 'cone' ? templateData.distance : templateData.width * 2;
-            let coneRaySeq = aaSeq.effect()
-            //aaSeq.effect()
+            const coneRaySeq = aaSeq.effect()
             coneRaySeq.file(tempAnimation.file)
-            //coneRaySeq.atLocation(template, { cacheLocation: true })
-            coneRaySeq.rotateTowards(template)
             coneRaySeq.size({
                 width: (canvas.grid.size * (templateData.distance / canvas.dimensions.distance)) * data.scaleX,
                 height: (canvas.grid.size * (trueHeight / canvas.dimensions.distance)) * data.scaleY,
             })
-            //coneRaySeq.scale(data.scale)
-            coneRaySeq.anchor({ x: 0, y: 0.5 })
             coneRaySeq.opacity(data.opacity)
             coneRaySeq.origin(handler.item.uuid)
             coneRaySeq.belowTokens(data.below)
-            //coneRaySeq.repeats(data.repeat, data.delay)
-            //coneRaySeq.persist(data.persistent)
             if (data.persistent) {
                 coneRaySeq.persist(true)
                 if (data.persistType === 'attachtemplate') {
-                    coneRaySeq.attachTo(template, { followRotation: true })
+                    coneRaySeq.attachTo(template)
+                    coneRaySeq.rotateTowards(template, {attachTo: true})
                 } else {
                     coneRaySeq.atLocation(template, { cacheLocation: true })
+                    coneRaySeq.rotateTowards(template, {cacheLocation: true})
                 }
             } else {
                 coneRaySeq.atLocation(template, { cacheLocation: true })
                 coneRaySeq.repeats(data.repeat, data.delay)
+                coneRaySeq.rotateTowards(template, {cacheLocation: true})
             }
         }
 
@@ -192,9 +167,7 @@ export async function templateAnimation(handler, animationData, config) {
                 trueSize = templateData.distance * 2;
             }
             let circRectSeq = aaSeq.effect()
-            //aaSeq.effect()
             circRectSeq.file(tempAnimation.file)
-            //circRectSeq.atLocation(template, { cacheLocation: true })
             circRectSeq.size({
                 width: canvas.grid.size * (trueSize / canvas.dimensions.distance) * data.scaleX,
                 height: canvas.grid.size * (trueSize / canvas.dimensions.distance) * data.scaleY,
@@ -202,26 +175,19 @@ export async function templateAnimation(handler, animationData, config) {
             circRectSeq.opacity(data.opacity)
             circRectSeq.origin(handler.item.uuid)
             circRectSeq.belowTokens(data.below)
-            //circRectSeq.repeats(data.repeat, data.delay)
-            //circRectSeq.persist(data.persistent)
             if (data.persistent) {
                 circRectSeq.persist(true)
                 if (data.persistType === 'attachtemplate') {
                     circRectSeq.attachTo(template, { followRotation: true })
                 } else {
                     circRectSeq.atLocation(template, { cacheLocation: true })
+                    circRectSeq.persist()
                 }
             } else {
                 circRectSeq.atLocation(template, { cacheLocation: true })
                 circRectSeq.repeats(data.repeat, data.delay)
             }
         }
-        if (data.persistType !== "attachtemplate")
-            aaSeq.thenDo(function () {
-                if (data.removeTemplate) {
-                    canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
-                }
-            })
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()

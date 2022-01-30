@@ -67,7 +67,7 @@ export async function rangedAnimations(handler, animationData) {
                     .repeats(data.repeat, data.delay)
                     .belowTokens(data.explosion?.below)
             }
-            if (targetFX.enabled) {
+            if (targetFX.enabled && hit) {
                 let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
                 aaSeq.addSequence(targetSequence.targetSeq)
             }
