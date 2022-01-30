@@ -179,7 +179,7 @@ export async function trafficCop(handler, config) {
                                     fireball(handler);
                                 } else {
                                     aaTemplateHook = Hooks.once("createMeasuredTemplate", () => {
-                                        fireball(handler);
+                                        fireball(handler, animationData, config);
                                     });
                                     setTimeout(killHook, 30000)
                                 }

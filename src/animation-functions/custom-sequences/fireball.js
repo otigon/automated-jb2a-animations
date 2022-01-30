@@ -1,13 +1,16 @@
 import { buildFile } from "../file-builder/build-filepath.js";
 import { aaDebugger } from "../../constants/constants.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 // Credit goes to Wasp-Sequencer Guy for the structure of the Fireball Sequence
-export async function fireball(handler, autoObject) {
+export async function fireball(handler, animationData, config) {
 
-    const data = {}
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+
     const flags = handler.flags;
-    if (autoObject) {
-        Object.assign(data, autoObject);
+    if (data.isAuto) {
+        //Object.assign(data, autoObject);
         const autoOverridden = flags.autoOverride?.enable ?? false;
         const autoOverrideAfter = flags.autoOverride?.fireball?.afterEffect ?? false;
         const autoFireball = flags.autoOverride?.fireball ?? {};
@@ -33,7 +36,7 @@ export async function fireball(handler, autoObject) {
         data.explosion02Delay = data.explosion02Delay ?? 250;
         data.explosion02Scale = data.explosion02Scale ?? 1;
 
-        data.afterEffect = autoOverrideAfter ? autoFireball.afterEffect ?? false : data.afterEffect;
+        data.afterEffect = autoOverrideAfter ? autoFireball.afterEffect ?? false : data.afterEffect || false;
         data.afterEffectPath = autoOverrideAfter ? autoFireball.afterEffectPath ?? "" : data.afterEffectPath ?? "";
         data.wait03 = autoOverrideAfter ? autoFireball.wait03 ?? 500 : data.wait03 ?? 500;
 
@@ -82,7 +85,7 @@ export async function fireball(handler, autoObject) {
         data.explosion02Delay = fireballFlags.explosion02Delay ?? 250;
         data.explosion02Scale = fireballFlags.explosion02Scale ?? 1;
 
-        data.afterEffect = fireballFlags.afterEffect;
+        data.afterEffect = fireballFlags.afterEffect || false;
         data.afterEffectPath = fireballFlags.afterEffectPath ?? "";
         data.wait03 = fireballFlags.wait03 ?? 500;
         data.removeTemplate = flags.options?.removeTemplate ?? false;
@@ -116,9 +119,8 @@ export async function fireball(handler, autoObject) {
 
     if (handler.debug) { aaDebugger("Fireball Animation Start", data, projectileAnimation, explosion01, explosion02) }
 
-    let fireballTemplate = canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;//canvas.templates.get(args[0].templateId)
-    let tokenD = handler.sourceToken;
-    let template = await canvas.templates.documentCollection.get(fireballTemplate)
+    const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
+    const sourceToken = handler.sourceToken;
     let size;
     let position;
     if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3)) {
@@ -142,7 +144,85 @@ export async function fireball(handler, autoObject) {
         }
         size = canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance);
     }
+    let aaSeq = await new Sequence("Automated Animations")
+    if (data.removeTemplate) {
+        aaSeq.thenDo(function () {
+            canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
+        })
+    }
+    // Play Macro if Awaiting
+    if (data.playMacro && data.macro.playWhen === "1") {
+        let userData = data.macro.args;
+        aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+    }
+    // Extra Effects => Source Token if active
+    if (sourceFX.enabled) {
+        aaSeq.addSequence(sourceFX.sourceSeq)
+    }
+    if (data.itemAudio.enable && data.itemAudio.file) {
+        aaSeq.sound()
+            .file(data.itemAudio.file, true)
+            .volume(data.itemAudio.volume)
+            .delay(data.itemAudio.delay)
+            .repeats(data.itemAudio.repeat, data.projectileDelay)
+    }
+    aaSeq.effect()
+        .file(projectileAnimation.file)
+        .atLocation(sourceToken)
+        .stretchTo(position)
+        .repeats(data.projectileRepeat, data.projectileDelay)
+        .waitUntilFinished(data.wait01)
+    if (data.exAudio01.enable && data.exAudio01.file) {
+        aaSeq.sound()
+            .file(data.exAudio01.file, true)
+            .volume(data.exAudio01.volume)
+            .delay(data.exAudio01.delay)
+            .repeats(data.exAudio01.repeat, data.explosion01Delay)
+    }
+    if (data.explosion01 !== "a1") {
+        aaSeq.effect()
+            .file(explosion01.file, true)
+            .atLocation(position)
+            .size(size * .35 * data.explosion01Scale)
+            .repeats(data.explosion01Repeat, data.explosion01Delay)
+            .waitUntilFinished(data.wait02)
+    }
+    if (data.exAudio02.enable && data.exAudio02.file) {
+        aaSeq.sound()
+            .file(data.exAudio02.file, true)
+            .volume(data.exAudio02.volume)
+            .delay(data.exAudio02.delay)
+            .repeats(data.exAudio02.repeat, data.explosion02Delay)
+    }
+    if (data.explosion02 !== "a1") {
+        aaSeq.effect()
+            .file(explosion02.file, true)
+            .atLocation(position)
+            .size(size * data.explosion02Scale)
+            .zIndex(5)
+            .waitUntilFinished(-750 + data.wait03)
+    }
+    if (data.afterEffect && data.afterEffectPath) {
+        aaSeq.effect()
+            .file(data.afterEffectPath, true)
+            .size(size)
+            .atLocation(position)
+            .belowTokens(true)
+            .persist(true)
+            .origin(handler.item.uuid)
+            .fadeIn(250)
+            .fadeOut(500)
+    }
+    if (data.playMacro && data.macro.playWhen === "0") {
+        let userData = data.macro.args;
+        new Sequence()
+            .macro(data.macro.name, handler.workflow, handler, [...userData])
+            .play()
+    }
+    if (data.afterEffect && data.afterEffectPath) { AAanimationData.howToDelete("sequencerground") }
+    aaSeq.play()
 
+    /*
     new Sequence("Automated Animations")
         .sound()
             .file(data.itemAudio.file, true)
@@ -154,7 +234,7 @@ export async function fireball(handler, autoObject) {
             })
         .effect()
             .file(projectileAnimation.file)
-            .atLocation(tokenD)
+            .atLocation(sourceToken)
             .stretchTo(position)
             .repeats(data.projectileRepeat, data.projectileDelay)
             .waitUntilFinished(data.wait01)
@@ -203,5 +283,5 @@ export async function fireball(handler, autoObject) {
         if (data.removeTemplate) {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
         }
-    
+        */
 }
