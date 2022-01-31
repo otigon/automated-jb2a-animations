@@ -1,3 +1,18 @@
+1.2.9 **JB2A Essek and Frumpkin add-ins  
+Adds in all new animations with exception of the Zoning effects  
+* Energy Conduit Square and Circle => Range-Generic  
+* Energy Beam variant 02 and 03 => Range-Spell-Energy Beam  
+* Energy Strands (Multiple) variant 02 => Range-Spell-Energy Strands  
+* Eruption and Liquid Splash => added to OnToken Type Explosion, Explosion Menus, and Extra Effect menus  
+* Aura option "Ignore Targets" is now working correctly
+  
+1.2.8 **Adds support for external Animation calls to utilize Play of Miss effects via option object that accepts and array of the Hit Targets, and an option to override the Play on Miss feature in A-A  
+  
+1.2.3  
+* **Adds support for the OSE system**  
+* Teleportation preset will now activate immediately on Item use  
+* New "Dual Attach" preset is now available in the Preset menus. **NOTE, this is an experimental feature that can sometimes be buggy**  
+* 
 1.2.0  
 * **SOCKETLIB IS NOW A DEPENDANCY**. I've listed this as such since Sequencer 2.0 will require it as well.  
 * Fix for Shadow of the Demonlord animations running on every button press  

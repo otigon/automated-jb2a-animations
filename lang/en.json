@@ -575,6 +575,17 @@
     "AUTOANIM.gridMeasure": "Grid Measurement",
 
     "AUTOANIM.playbackRate": "Playback Rate",
-    "AUTOANIM.constantScaleY": "Constant Y Scale"
+    "AUTOANIM.constantScaleY": "Constant Y Scale",
 
+    "AUTOANIM.darkwhite": "Dark White",
+    "AUTOANIM.darkpurplered": "Dark Purple Red",
+    "AUTOANIM.energy": "Energy",
+    "AUTOANIM.conduit": "Conduit",
+    "AUTOANIM.liquid": "Liquid",
+    "AUTOANIM.splash": "Splash",
+    "AUTOANIM.brightgreen": "Bright Green",
+    "AUTOANIM.brightblue": "Bright Blue",
+    "AUTOANIM.purplegreen": "Purple Green",
+    "AUTOANIM.eruption": "Eruption",
+    "AUTOANIM.circleofstars": "Circle of Stars"
 }

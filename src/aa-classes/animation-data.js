@@ -105,7 +105,7 @@ export class AAanimationData {
                 anchorY: options.anchorY || 1,
                 auraRadius: options.auraRadius || 3.5,
                 teleDist: options.teleDist || 30,
-                ignoreTargets: options.ignoreTargets || false,
+                ignoreTargets: options.ignoreTarget || false,
                 tempType: options.tempType || "circle",
                 hideTemplate: options.hideTemplate || false,
                 removeTemplate: options.removeTemplate ?? false,

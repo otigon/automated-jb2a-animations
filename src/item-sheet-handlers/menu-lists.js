@@ -122,6 +122,7 @@ function menuLists() {
 
     aaMenuLists.conditions = {
         "a1": ``,
+        "circleofstars": game.i18n.localize("AUTOANIM.circleofstars"),
         "drop": game.i18n.localize("AUTOANIM.drop"),
         "fear": game.i18n.localize("AUTOANIM.fear"),
         "heart": game.i18n.localize("AUTOANIM.heart"),
@@ -159,15 +160,18 @@ function menuLists() {
         "a1": "",
         "antilifeshell": game.i18n.localize("AUTOANIM.animAntiLifeShell"),
         "boulderimpact": game.i18n.localize("AUTOANIM.itemBoulder"),
+        "eruption": game.i18n.localize("AUTOANIM.eruption"),
         "explosion": game.i18n.localize("AUTOANIM.explosion"),
         "fireballexplode": game.i18n.localize("AUTOANIM.fireball"),
         "impact": game.i18n.localize("AUTOANIM.impact"),
+        "liquidsplash": game.i18n.localize("AUTOANIM.liquid") + " " + game.i18n.localize("AUTOANIM.splash"),
         "marker": game.i18n.localize("AUTOANIM.marker"),
         "outpulse01": game.i18n.localize("AUTOANIM.outpulse01"),
         "outpulse02": game.i18n.localize("AUTOANIM.outpulse02"),
         "shatter": game.i18n.localize("AUTOANIM.itemShatter"),
         "snowflake": game.i18n.localize("AUTOANIM.snowflake"),
         "thunderwave": game.i18n.localize("AUTOANIM.itemThunderwave"),
+        "tollthedead": game.i18n.localize("AUTOANIM.tollthedead"),
     }
 
     aaMenuLists.staticSpells = {
@@ -298,9 +302,11 @@ function menuLists() {
         "blacktentacles": game.i18n.localize("AUTOANIM.blacktentacles"),
         "divinesmite": game.i18n.localize("AUTOANIM.divineSmite"),
         "dizzystars": game.i18n.localize("AUTOANIM.stars"),
+        "eruption": game.i18n.localize("AUTOANIM.eruption"),
         "explosion": game.i18n.localize("AUTOANIM.explosion"),
         "icespikes": game.i18n.localize("AUTOANIM.iceSpikes"),
         "impact": game.i18n.localize("AUTOANIM.impact"),
+        "liquidsplash": game.i18n.localize("AUTOANIM.liquid") + " " + game.i18n.localize("AUTOANIM.splash"),
         "magicSign": game.i18n.localize("AUTOANIM.magicSign"),
         "marker": game.i18n.localize("AUTOANIM.marker"),
         "snowflake": game.i18n.localize("AUTOANIM.snowflake"),
@@ -363,6 +369,8 @@ function menuLists() {
         "iceshard": game.i18n.localize("AUTOANIM.iceshard"),
         "musicnote": game.i18n.localize("AUTOANIM.musicNotes"),
         "skull": game.i18n.localize("AUTOANIM.skull"),
+        "energyconduitsquare": game.i18n.localize("AUTOANIM.energy") + " " + game.i18n.localize("AUTOANIM.conduit") + " " + game.i18n.localize("AUTOANIM.square"),
+        "energyconduitcircle": game.i18n.localize("AUTOANIM.energy") + " " + game.i18n.localize("AUTOANIM.conduit") + " " + game.i18n.localize("AUTOANIM.circle")
     }
 
     aaMenuLists.genericProjectileFree = {

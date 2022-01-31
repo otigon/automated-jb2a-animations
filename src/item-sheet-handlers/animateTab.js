@@ -137,7 +137,7 @@ export class AAItemSettings extends FormApplication {
             circRectPersist: flags.autoanimations?.options?.persistent && (templateType === 'circle' || templateType === 'rect') ? true : false,
             animationType: levels3d ? aaMenuLists.menuOptions3D : aaMenuLists.menuOptions,
 
-            explosionVariants: aaMenuLists.explodeVariant,
+            explosionVariants: aaMenuLists.explosionMenu,
             explosionRadius: flags.autoanimations?.explosions?.radius ?? 1.5,
             explosionLoops: explosionLoops || 1,
             explosionDelay: flags.autoanimations?.explosions?.delay ?? 0,
