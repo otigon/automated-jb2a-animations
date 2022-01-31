@@ -65,22 +65,22 @@
     {{/unless}}
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.options.repeat" value="{{lookup flags.autoanimations.options 'repeat'}}" data-dtype="Number" placeholder=1>
+        <input type="Number" name="flags.autoanimations.options.repeat" value="{{flags.autoanimations.options.repeat}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.options.delay" value="{{lookup flags.autoanimations.options 'delay'}}" placeholder=250
+        <input type="Number" name="flags.autoanimations.options.delay" value="{{flags.autoanimations.options.delay}}" placeholder=250
             data-dtype="Number">
     </div>
     <div class='form-group option09'>
         <label>{{localize "AUTOANIM.custom"}}: </label>
         <input type="checkbox" name="flags.autoanimations.options.enableCustom"
-            value="flags.autoanimations.options.enableCustom" {{checked flags.autoanimations.options.enableCustom}}>
+           {{checked flags.autoanimations.options.enableCustom}}>
     </div>
     {{#if flags.autoanimations.options.enableCustom}}
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
         <input style='width: 25em' type="text" class="files" name="flags.autoanimations.options.customPath"
-            value="{{lookup flags.autoanimations.options 'customPath'}}">
+            value="{{flags.autoanimations.options.customPath}}">
         <button type="button" class="file-picker" data-type="image/video"
             data-target="flags.autoanimations.options.customPath" tabindex="-1" title="Browse Files">
             <i class="fas fa-file-video"></i>
@@ -88,21 +88,20 @@
     </div>
     <div class="form-group" style='grid-column: 3 / 5;grid-row: 2 / 3;'>
         <label>{{localize 'AUTOANIM.constantScaleY'}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.onlyX" value="flags.autoanimations.options.onlyX"
+        <input type="checkbox" name="flags.autoanimations.options.onlyX"
             {{checked flags.autoanimations.options.onlyX}}>
     </div>
     {{/if}}
     <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2;grid-row: 4 / 5;'>
         <label>{{localize "AUTOANIM.sound"}}</label>
         <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            value="flags.autoanimations.audio.a01.enable" {{checked
-            flags.autoanimations.audio.a01.enable}}>
+            {{checked flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Explosion Audio filePicker and Text Input-->
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
         <input style='width: 25em' type="text" class="files" name="flags.autoanimations.audio.a01.file"
-            value="{{lookup flags.autoanimations.audio.a01 'file'}}">
+            value="{{flags.autoanimations.audio.a01.file}}">
         <button type="button" class="file-picker" data-type="audio"
             data-target="flags.autoanimations.audio.a01.file" tabindex="-1" title="Browse Files">
             <i class="fas fa-music"></i>
@@ -111,14 +110,14 @@
     <!--Explosion Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 5 / 6'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{lookup flags.autoanimations.audio.a01 'delay'}}" placeholder=0
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}" placeholder=0
             style='width: 3em'>
     </div>
     <!--Explosion Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 5 / 6'>
         <label>{{localize "AUTOANIM.volume"}}</label>
         <input type="Number" name="flags.autoanimations.audio.a01.volume" min="0" max="1" step="0.01"
-            style='width: 3em' value="{{lookup flags.autoanimations.audio.a01 'volume'}}" placeholder=0.5>
+            style='width: 3em' value="{{flags.autoanimations.audio.a01.volume}}" placeholder=0.5>
     </div>
     {{/if}}
 </div>
