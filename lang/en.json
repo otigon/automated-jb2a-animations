@@ -578,6 +578,18 @@
     "AUTOANIM.constantScaleY": "Constant Y Scale",
     "AUTOANIM.macro": "Macro",
     "AUTOANIM.add": "Add",
-    "AUTOANIM.args": "Send Args"
+    "AUTOANIM.args": "Send Args",
 
+
+    "AUTOANIM.darkwhite": "Dark White",
+    "AUTOANIM.darkpurplered": "Dark Purple Red",
+    "AUTOANIM.energy": "Energy",
+    "AUTOANIM.conduit": "Conduit",
+    "AUTOANIM.liquid": "Liquid",
+    "AUTOANIM.splash": "Splash",
+    "AUTOANIM.brightgreen": "Bright Green",
+    "AUTOANIM.brightblue": "Bright Blue",
+    "AUTOANIM.purplegreen": "Purple Green",
+    "AUTOANIM.eruption": "Eruption",
+    "AUTOANIM.circleofstars": "Circle of Stars"
 }

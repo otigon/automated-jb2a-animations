@@ -719,6 +719,13 @@ JB2APATREONDB.range = {
                 '60ft': [l6`Disintegrate/Disintegrate_01_Regular_OrangePink_60ft_2800x400.webm`],
                 '90ft': [l6`Disintegrate/Disintegrate_01_Regular_OrangePink_90ft_4000x400.webm`]
             },
+            pink: {
+                '05ft': [l6`Disintegrate/Disintegrate_01_Regular_Pink_05ft_600x400.webm`],
+                '15ft': [l6`Disintegrate/Disintegrate_01_Regular_Pink_15ft_1000x400.webm`],
+                '30ft': [l6`Disintegrate/Disintegrate_01_Regular_Pink_30ft_1600x400.webm`],
+                '60ft': [l6`Disintegrate/Disintegrate_01_Regular_Pink_60ft_2800x400.webm`],
+                '90ft': [l6`Disintegrate/Disintegrate_01_Regular_Pink_90ft_4000x400.webm`]
+            },
             purpleblue: {
                 '05ft': [l6`Disintegrate/Disintegrate_01_Regular_PurpleBlue_05ft_600x400.webm`],
                 '15ft': [l6`Disintegrate/Disintegrate_01_Regular_PurpleBlue_15ft_1000x400.webm`],
@@ -828,6 +835,66 @@ JB2APATREONDB.range = {
                 '90ft': [lg`Energy/EnergyBeam_01_Dark_Green_90ft_4000x400.webm`],
             },
         },
+        '02': {
+            darkgreenpurple: {
+                '05ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_90ft_4000x400.webm`],
+            },
+            darkpurplered: {
+                '05ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_90ft_4000x400.webm`],
+            },
+            bluepink: {
+                '05ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_90ft_4000x400.webm`],
+            },
+            greenyellow: {
+                '05ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_90ft_4000x400.webm`],
+            },
+        },
+        '03': {
+            darkgreenpurple: {
+                '05ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_90ft_4000x400.webm`],
+            },
+            darkpurplered: {
+                '05ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_90ft_4000x400.webm`],
+            },
+            bluepink: {
+                '05ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_90ft_4000x400.webm`],
+            },
+            greenyellow: {
+                '05ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_90ft_4000x400.webm`],
+            },
+        },
         reverse: {
             blue: {
                 '15ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_15ft_1000x400.webm`],
@@ -848,6 +915,42 @@ JB2APATREONDB.range = {
                 '90ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_90ft_4000x400.webm`],
             },
         }
+    },
+    energyconduitsquare: {
+        '01': {
+            purpleblue: {
+                '05ft': [lg`Energy/EnergyConduitSquare_01_Regular_BluePurple_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyConduitSquare_01_Regular_BluePurple_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyConduitSquare_01_Regular_BluePurple_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyConduitSquare_01_Regular_BluePurple_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyConduitSquare_01_Regular_BluePurple_90ft_4000x400.webm`],
+            },
+            greenyellow: {
+                '05ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_90ft_4000x400.webm`],
+            },
+        },
+    },
+    energyconduitcircle: {
+        '01': {
+            purpleblue: {
+                '05ft': [lg`Energy/EnergyConduitCircle_01_Regular_BluePurple_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyConduitCircle_01_Regular_BluePurple_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyConduitCircle_01_Regular_BluePurple_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyConduitCircle_01_Regular_BluePurple_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyConduitCircle_01_Regular_BluePurple_90ft_4000x400.webm`],
+            },
+            greenyellow: {
+                '05ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_90ft_4000x400.webm`],
+            },
+        },
     },
     energystrand: {
         '01': {
@@ -1045,6 +1148,13 @@ JB2APATREONDB.range = {
             },
         },
         '02': {
+            darkgreen: {
+                '05ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_90ft_4000x400.webm`]
+            },
             darkpurple: {
                 '05ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_05ft_600x400.webm`],
                 '15ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_15ft_1000x400.webm`],
@@ -1074,6 +1184,36 @@ JB2APATREONDB.range = {
                 '90ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_90ft_4000x400.webm`]
             },
         },
+        '03': {
+            bluepink: {
+                '05ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_90ft_4000x400.webm`]
+            },
+            greenyellow: {
+                '05ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_90ft_4000x400.webm`]
+            },
+            darkpurplered: {
+                '05ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_90ft_4000x400.webm`]
+            },
+            darkgreenpurple: {
+                '05ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_05ft_600x400.webm`],
+                '15ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_15ft_1000x400.webm`],
+                '30ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_30ft_1600x400.webm`],
+                '60ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_60ft_2800x400.webm`],
+                '90ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_90ft_4000x400.webm`]
+            }
+        }
     },
     fireballbeam: {
         '01': {
@@ -1382,43 +1522,67 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_90ft_4000x600.webm`]
-
+            },
+            darkred: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Dark_Red_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Dark_Red_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Dark_Red_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Dark_Red_90ft_4000x600.webm`]
+            },
+            darkwhite: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Dark_White_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Dark_White_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Dark_White_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Dark_White_90ft_4000x600.webm`]
+            },
+            darkblue: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue02_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue02_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue02_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue02_90ft_4000x600.webm`]
             },
             green: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Green_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Green_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Green_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Green_90ft_4000x600.webm`]
-
+            },
+            palegreen: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Green02_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Green02_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Green02_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Green02_90ft_4000x600.webm`]
             },
             orange: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Orange_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Orange_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Orange_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Orange_90ft_4000x600.webm`]
-
             },
             purple: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Purple_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Purple_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Purple_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Purple_90ft_4000x600.webm`]
-
             },
             red: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Red_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Red_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Red_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Red_90ft_4000x600.webm`]
-
             },
             yellow: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Yellow_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Yellow_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Yellow_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Yellow_90ft_4000x600.webm`]
-
-            }
+            },
+            white: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_White_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_White_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_White_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_White_90ft_4000x600.webm`]
+            },
         },
         '02': {
             blue: {
@@ -1426,41 +1590,66 @@ JB2APATREONDB.range = {
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Blue_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Blue_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Blue_90ft_4000x600.webm`]
-
+            },
+            darkred: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Dark_Red_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Dark_Red_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Dark_Red_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Dark_Red_90ft_4000x600.webm`]
+            },
+            darkwhite: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Dark_White_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Dark_White_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Dark_White_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Dark_White_90ft_4000x600.webm`]
+            },
+            darkblue: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Blue02_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Blue02_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Blue02_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Blue02_90ft_4000x600.webm`]
             },
             green: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Green_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Green_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Green_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Green_90ft_4000x600.webm`]
-
+            },
+            palegreen: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Green02_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Green02_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Green02_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Green02_90ft_4000x600.webm`]
             },
             orange: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Orange_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Orange_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Orange_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Orange_90ft_4000x600.webm`]
-
             },
             purple: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Purple_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Purple_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Purple_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Purple_90ft_4000x600.webm`]
-
             },
             red: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Red_90ft_4000x600.webm`]
-
             },
             yellow: {
                 '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Yellow_15ft_1000x600.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Yellow_30ft_1600x600.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Yellow_60ft_2800x600.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Yellow_90ft_4000x600.webm`]
+            },
+            white: {
+                '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_White_15ft_1000x600.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_White_30ft_1600x600.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_White_60ft_2800x600.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_White_90ft_4000x600.webm`]
             }
         }
     },
@@ -3195,6 +3384,14 @@ JB2APATREONDB.static = {
             yellow: [l3`Call_Lightning/CallLightning_01_Yellow_1000x1000.webm`]
         }
     },
+    circleofstars: {
+        '01': {
+            blue: [lg`Marker/MarkerCircleOfStars_Regular_Blue_400x400.webm`],
+            orangepurple: [lg`Marker/MarkerCircleOfStars_Regular_OrangePurple_400x400.webm`],
+            purplegreen: [lg`Marker/MarkerCircleOfStars_Regular_PurpleGreen_400x400.webm`],
+            yellowblue: [lg`Marker/MarkerCircleOfStars_Regular_YellowBlue_400x400.webm`]
+        },
+    },
     cloudofdaggers: {
         '01': {
             darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Purple_400x400.webm`],
@@ -3238,13 +3435,14 @@ JB2APATREONDB.static = {
     },
     claw: {
         '01': {
-            red: [lg`Creature/Claws_01_Regular_Red_400x400.webm`],
             blue: [lg`Creature/Claws_01_Bright_Blue_400x400.webm`],
+            brown: [lg`Creature/Claws_01_Regular_Brown_400x400.webm`],
+            darkred: [lg`Creature/Claws_01_Dark_Red_400x400.webm`],
             green: [lg`Creature/Claws_01_Bright_Green_400x400.webm`],
             orange: [lg`Creature/Claws_01_Bright_Orange_400x400.webm`],
             purple: [lg`Creature/Claws_01_Bright_Purple_400x400.webm`],
+            red: [lg`Creature/Claws_01_Regular_Red_400x400.webm`],
             yellow: [lg`Creature/Claws_01_Bright_Yellow_400x400.webm`],
-            darkred: [lg`Creature/Claws_01_Dark_Red_400x400.webm`]
         }
     },
     //conditions below
@@ -3304,6 +3502,13 @@ JB2APATREONDB.static = {
             green: [lg`Energy/EnergyFieldTop_02_Regular_Green_400x400.webm`],
             purple: [lg`Energy/EnergyFieldTop_02_Regular_Purple_400x400.webm`],
         }
+    },
+    eruption: {
+        '01': {
+            blue: [lg`Fire/Eruption_01_Regular_Blue_600x600.webm`],
+            green: [lg`Fire/Eruption_01_Regular_Green_600x600.webm`],
+            orange: [lg`Fire/Eruption_01_Regular_Orange_600x600.webm`]
+        },
     },
     fear: {
         '01': {
@@ -3410,19 +3615,29 @@ JB2APATREONDB.static = {
             yellow: [lg`Marker/MarkerLightNoPulse_01_Regular_Yellow_400x400.webm`],
         },
     },
+    liquidsplash: {
+        '01': {
+            blue: [lg`Liquid/LiquidSplash01_Regular_Blue_400x400.webm`],
+            green: [lg`Liquid/LiquidSplash01_Regular_Green_400x400.webm`],
+            brightgreen: [lg`Liquid/LiquidSplash01_Bright_Green_400x400.webm`],
+            brightblue: [lg`Liquid/LiquidSplash01_Bright_Blue_400x400.webm`],
+            purple: [lg`Liquid/LiquidSplash01_Bright_Purple_400x400.webm`],
+            red: [lg`Liquid/LiquidSplash01_Regular_Red_400x400.webm`],
+        },
+    },
     musicnotect: {
         '01': {
             blue: [lg`Template/Circle/TemplateMusicNoteCircle_01_Regular_Blue_800x800.webm`],
             darkred: [lg`Template/Circle/TemplateMusicNoteCircle_01_Dark_Red_800x800.webm`],
             purple: [lg`Template/Circle/TemplateMusicNoteCircle_01_Regular_Purple_800x800.webm`],
-            },
+        },
     },
     musicnotest: {
         '01': {
             blue: [lg`Template/Square/TemplateMusicNoteSquare_01_Regular_Blue_600x600.webm`],
             darkred: [lg`Template/Square/TemplateMusicNoteSquare_01_Dark_Red_600x600.webm`],
             purple: [lg`Template/Square/TemplateMusicNoteSquare_01_Regular_Purple_600x600.webm`],
-            },
+        },
     },
     poison: {
         '01': {
@@ -3994,6 +4209,7 @@ JB2APATREONDB.static = {
     },
     mistystep: {
         '01': {
+            black: [l2`Misty_Step/MistyStep_01_Dark_Black_400x400.webm`],
             blue: [l2`Misty_Step/MistyStep_01_Regular_Blue_400x400.webm`],
             green: [l2`Misty_Step/MistyStep_01_Regular_Green_400x400.webm`],
             orange: [l2`Misty_Step/MistyStep_01_Regular_Orange_400x400.webm`],
@@ -4003,6 +4219,7 @@ JB2APATREONDB.static = {
             grey: [l2`Misty_Step/MistyStep_01_Regular_Grey_400x400.webm`]
         },
         '02': {
+            black: [l2`Misty_Step/MistyStep_02_Dark_Black_400x400.webm`],
             blue: [l2`Misty_Step/MistyStep_02_Regular_Blue_400x400.webm`],
             green: [l2`Misty_Step/MistyStep_02_Regular_Green_400x400.webm`],
             orange: [l2`Misty_Step/MistyStep_02_Regular_Orange_400x400.webm`],
@@ -4731,6 +4948,26 @@ JB2APATREONDB.return = {
                 '30ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Hammer01_01_Regular_White_Return_90ft_4000x400.webm`]
+            }
+        }
+    },
+    javelin: {
+        '01': {
+            white: {
+                '15ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_90ft_4000x400.webm`],
+            }
+        }
+    },
+    spear: {
+        '01': {
+            white: {
+                '15ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_90ft_4000x400.webm`],
             }
         }
     },
