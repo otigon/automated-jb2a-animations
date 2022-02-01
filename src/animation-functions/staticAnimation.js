@@ -168,7 +168,7 @@ export async function staticAnimation(handler, animationData) {
     }
     aaSeq.play()
     Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
-
+    if (data.persistent) { AAanimationData.howToDelete("sequencerground") }
     /*
     if (data.menuType) {
         const bottomAnim = onToken.file.replace('top', 'bottom')
