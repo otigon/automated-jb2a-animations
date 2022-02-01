@@ -40,7 +40,7 @@ export async function auras(handler, animationData) {
         if (!checkAnim) {
             if (data.playMacro && data.macro.playWhen === "1") {
                 let userData = data.macro.args;
-                aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+                aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
                     .play()
             }
             aaSeq.addSequence(sourceFX.sourceSeq)
