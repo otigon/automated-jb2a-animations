@@ -89,7 +89,7 @@ export async function trafficCop(handler, config) {
         const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(handler, isAutorec);
 
         if (!isCustom && isAutorec) {
-            if (!animationData.primary.animation || animationData.primary.animation === 'a1') {
+            if (!animationData.primary.animation || animationData.primary.animation === 'a1' || animationData.primary.macro.playWhen === "2") {
                 const primaryData = animationData.primary;
                 const macroData = primaryData.macro;
 
