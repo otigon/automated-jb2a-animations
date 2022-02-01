@@ -83,6 +83,9 @@ export class AAItemSettings extends FormApplication {
             projectile: aaMenuLists.attackSpells,
             OldName: oldName,
 
+            showMacroOption: flags.autoanimations?.killAnim || flags.autoanimations?.override ? true : false,
+            isMacroChecked: flags.autoanimations?.killAnim || flags.autoanimations?.override ? flags.autoanimations?.macro?.enable : false,
+
             fireball: autoObject.animation === 'fireball' && autoObject.menuSection === 'preset' ? autoObject : false,
             autoObject: autoObject,
             colormenu: aaColorMenu,

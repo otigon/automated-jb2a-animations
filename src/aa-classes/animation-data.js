@@ -79,23 +79,24 @@ export class AAanimationData {
             data.menuType = data.staticOptions === 'shieldfx' ? true : false;
             data.below = data.below ?? false;
             data.measureType = data.measureType ?? 'alternating';
-            data.hideFromPlayers = false,
-                data.playbackRate = data.playbackRate || 1,
-                data.onlyX = data.onlyX ?? false,
+            data.hideFromPlayers = false;
+            data.playbackRate = data.playbackRate || 1;
+            data.onlyX = data.onlyX ?? false;
 
-                data.itemAudio = {
-                    enable: data.audio?.a01?.enable || false,
-                    file: data.audio?.a01?.file,
-                    volume: data.audio?.a01?.volume || 0.25,
-                    delay: data.audio?.a01?.delay || 0,
-                    repeat: handler.decoupleSound ? 1 : data.repeat || 1,
-                }
+            data.itemAudio = {
+                enable: data.audio?.a01?.enable || false,
+                file: data.audio?.a01?.file ?? "",
+                volume: data.audio?.a01?.volume || 0.25,
+                delay: data.audio?.a01?.delay || 0,
+                repeat: handler.decoupleSound ? 1 : data.repeat || 1,
+            }
 
             data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
             data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
+            data.switchType = data.switchType || "on";
             data.switchAudio = {
                 enable: data.audio?.a02?.enable || false,
-                file: data.audio?.a02?.file,
+                file: data.audio?.a02?.file ?? "",
                 volume: data.audio?.a02?.volume || 0.25,
                 delay: data.audio?.a02?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : data.repeat || 1,
@@ -110,6 +111,17 @@ export class AAanimationData {
             data.playSound = data.itemAudio.enable && data.itemAudio.file ? true : false;
 
             data.explosion = await this._explosionData(handler, true)
+
+            data.macro = {
+                enabled: data.macro?.enable ?? false,
+                name: data.macro?.name ?? "",
+                args: data.macro?.args ? data.macro.args.split(',').map(s => s.trim()) : "",
+                playWhen: data.macro?.playWhen ?? "0",
+            }
+            data.playMacro = data.macro.enabled && data.macro.name ? true : false;
+            data.playSound = data.itemAudio?.enable && data.itemAudio?.file ? true : false;
+            data.playSwitchSound = data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off" ? true : false;
+
             return data;
         } else {
             const flags = handler.flags;
@@ -170,7 +182,6 @@ export class AAanimationData {
                 return: meleeSwitch.returning || false,
                 switchVariant: meleeSwitch.variant ?? "01",
                 range: meleeSwitch.range ?? 2,
-                switchType: meleeSwitch.switchType ?? "on",
                 switchAudio: {
                     enable: flags.audio?.a02?.enable || false,
                     file: flags.audio?.a02?.file,
@@ -366,7 +377,7 @@ export class AAanimationData {
             .belowTokens(targetFX.below)
             .persist(targetFX.persistent)
             .opacity(targetFX.opacity)
-            //.playIf(playNow)
+        //.playIf(playNow)
 
         return targetFX;
     }

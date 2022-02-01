@@ -41,28 +41,31 @@
     </div>
     <div class="autorec-menu-options" style='grid-column: 2 / 3;grid-row: 1 / 2;'>
         <label>{{localize "AUTOANIM.scale"}} X</label>
-        <input type="Number" name="flags.autoanimations.options.scaleX" value="{{flags.autoanimations.options.scaleX}}" data-dtype="Number" placeholder=1>
+        <input type="Number" name="flags.autoanimations.options.scaleX" value="{{flags.autoanimations.options.scaleX}}"
+            data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options" style='grid-column: 2 / 3;grid-row: 2 / 3;'>
         <label>{{localize "AUTOANIM.scale"}} Y</label>
-        <input type="Number" name="flags.autoanimations.options.scaleY" value="{{flags.autoanimations.options.scaleY}}" data-dtype="Number" placeholder=1>
+        <input type="Number" name="flags.autoanimations.options.scaleY" value="{{flags.autoanimations.options.scaleY}}"
+            data-dtype="Number" placeholder=1>
     </div>
     <div class="form-group" style='grid-column: 4 / 5;grid-row: 1 / 2'>
         <label>{{localize 'AUTOANIM.remove'}}: </label>
-        <input type="checkbox" name="flags.autoanimations.options.removeTemplate"
-            {{checked flags.autoanimations.options.removeTemplate}}>
+        <input type="checkbox" name="flags.autoanimations.options.removeTemplate" {{checked
+            flags.autoanimations.options.removeTemplate}}>
     </div>
     <!--Set Tile Opacity-->
     <div class="autorec-menu-options" style='grid-column: 4 / 5;grid-row: 2 / 3;'>
         <label>{{localize "AUTOANIM.opacity"}} </label>
-        <input type="Number" name="flags.autoanimations.options.opacity" min="0" max="1" step=".01" value="{{flags.autoanimations.options.opacity}}" placeholder=1>
+        <input type="Number" name="flags.autoanimations.options.opacity" min="0" max="1" step=".01"
+            value="{{flags.autoanimations.options.opacity}}" placeholder=1>
     </div>
     <!--Choose Custom Animation?-->
     <!--Make effect a Tile on Canvas-->
     <div class="form-group option17">
         <label>{{localize "AUTOANIM.persistant"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.persistent"
-            {{checked flags.autoanimations.options.persistent}}>
+        <input type="checkbox" name="flags.autoanimations.options.persistent" {{checked
+            flags.autoanimations.options.persistent}}>
     </div>
     {{#if flags.autoanimations.options.persistent}}
     <div class="option18">
@@ -104,41 +107,41 @@
     {{#unless flags.autoanimations.options.persistent}}
     <div class="autorec-menu-options" style='grid-column: 3 / 4;grid-row: 1 / 2;'>
         <label>{{localize "AUTOANIM.repeat"}} </label>
-        <input type="Number" style='width: 3em;' name="flags.autoanimations.options.repeat" value="{{flags.autoanimations.options.repeat}}"
-            data-dtype="Number" placeholder=1>
+        <input type="Number" style='width: 3em;' name="flags.autoanimations.options.repeat"
+            value="{{flags.autoanimations.options.repeat}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options" style='grid-column: 3 / 4;grid-row: 2 / 3;'>
         <label>{{localize "AUTOANIM.delayMS"}} </label>
-        <input type="Number" style='width: 3em;' name="flags.autoanimations.options.delay" value="{{flags.autoanimations.options.delay}}"
-            data-dtype="Number" placeholder=250>
+        <input type="Number" style='width: 3em;' name="flags.autoanimations.options.delay"
+            value="{{flags.autoanimations.options.delay}}" data-dtype="Number" placeholder=250>
     </div>
     {{/unless}}
     <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2; grid-row: 8 / 9'>
         <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            {{checked flags.autoanimations.audio.a01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable" {{checked
+            flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Explosion Audio filePicker and Text Input-->
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 8 / 9'>
         <input style='width: 25em' type="text" class="files" name="flags.autoanimations.audio.a01.file"
             value="{{flags.autoanimations.audio.a01.file}}">
-        <button type="button" class="file-picker" data-type="audio"
-            data-target="flags.autoanimations.audio.a01.file" tabindex="-1" title="Browse Files">
+        <button type="button" class="file-picker" data-type="audio" data-target="flags.autoanimations.audio.a01.file"
+            tabindex="-1" title="Browse Files">
             <i class="fas fa-music"></i>
         </button>
     </div>
     <!--Explosion Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 9 / 10'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{flags.autoanimations.audio.a01.delay}}" style='width: 3em' placeholder=0>
     </div>
     <!--Explosion Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 9 / 10'>
         <label>{{localize "AUTOANIM.volume"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.volume" min="0" max="1" step="0.01"
-            style='width: 3em' value="{{flags.autoanimations.audio.a01.volume}}" placeholder=0.5>
+        <input type="Number" name="flags.autoanimations.audio.a01.volume" min="0" max="1" step="0.01" style='width: 3em'
+            value="{{flags.autoanimations.audio.a01.volume}}" placeholder=0.5>
     </div>
     {{/if}}
 </div>
@@ -202,8 +205,8 @@
     </div>
     <div class="form-group" style='grid-column: 1 / 2;grid-row: 3 / 4;'>
         <label>{{localize "AUTOANIM.customAnim"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.enableCustom"
-           {{checked flags.autoanimations.options.enableCustom}}>
+        <input type="checkbox" name="flags.autoanimations.options.enableCustom" {{checked
+            flags.autoanimations.options.enableCustom}}>
     </div>
     {{#if flags.autoanimations.options.enableCustom}}
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4;'>
@@ -216,14 +219,13 @@
     </div>
     <div class="form-group" style='grid-column: 3 / 5;grid-row: 2 / 3;'>
         <label>{{localize 'AUTOANIM.constantScaleY'}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.onlyX" 
-            {{checked flags.autoanimations.options.onlyX}}>
+        <input type="checkbox" name="flags.autoanimations.options.onlyX" {{checked flags.autoanimations.options.onlyX}}>
     </div>
     {{/if}}
     <div class='form-group' style='grid-column: 1 / 2;grid-row: 5 / 6'>
         <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            {{checked flags.autoanimations.audio.a01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable" {{checked
+            flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Audio filePicker and Text Input-->
@@ -238,8 +240,8 @@
     <!--Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 6 / 7'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{flags.autoanimations.audio.a01.delay}}" style='width: 3em' placeholder=0>
     </div>
     <!--Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 6 / 7'>
@@ -294,8 +296,8 @@
     </div>
     <div class='form-group' style='grid-column: 1 / 2;grid-row: 3 / 4'>
         <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            {{checked flags.autoanimations.audio.a01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable" {{checked
+            flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Audio filePicker and Text Input-->
@@ -310,8 +312,8 @@
     <!--Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 4 / 5'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{flags.autoanimations.audio.a01.delay}}" style='width: 3em' placeholder=0>
     </div>
     <!--Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 4 / 5'>
@@ -330,8 +332,8 @@
     <!--Bardic Inspiration: Animation on Self?-->
     <div class="form-group option01">
         <label>{{localize "AUTOANIM.bardSelf"}}</label>
-        <input type="checkbox" name="flags.autoanimations.bards.bardSelf" 
-            data-dtype="{{Boolean}}" {{checked flags.autoanimations.bards.bardSelf}}>
+        <input type="checkbox" name="flags.autoanimations.bards.bardSelf" data-dtype="{{Boolean}}" {{checked
+            flags.autoanimations.bards.bardSelf}}>
     </div>
     {{#if flags.autoanimations.bards.bardSelf}}
     <!--Bardic Inspiration Self Animation-->
@@ -377,8 +379,8 @@
     <!--Bardic Inspiration: Animate on Target?-->
     <div class="form-group option01">
         <label>{{localize "AUTOANIM.bardTarget"}}</label>
-        <input type="checkbox" name="flags.autoanimations.bards.bardTarget"
-            data-dtype="{{Boolean}}" {{checked flags.autoanimations.bards.bardTarget}}>
+        <input type="checkbox" name="flags.autoanimations.bards.bardTarget" data-dtype="{{Boolean}}" {{checked
+            flags.autoanimations.bards.bardTarget}}>
     </div>
     {{#if flags.autoanimations.bards.bardTarget}}
     <!--Bardic Inspiration: Target Animation-->
@@ -424,8 +426,8 @@
     <!--Enable Marker? Can be used in other spots as well-->
     <div class="form-group option01">
         <label>{{localize "AUTOANIM.markerEnable"}}</label>
-        <input type="checkbox" name="flags.autoanimations.bards.marker" 
-            data-dtype="{{Boolean}}" {{checked flags.autoanimations.bards.marker}}>
+        <input type="checkbox" name="flags.autoanimations.bards.marker" data-dtype="{{Boolean}}" {{checked
+            flags.autoanimations.bards.marker}}>
     </div>
     {{#if flags.autoanimations.bards.marker}}
     <!--Self Marker Color-->
@@ -460,8 +462,8 @@
     <!--Bardic Inspiration: Animate on Target?-->
     <div class='form-group option01'>
         <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            {{checked flags.autoanimations.audio.a01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable" {{checked
+            flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Audio filePicker and Text Input-->
@@ -476,8 +478,8 @@
     <!--Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 2 / 3'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{flags.autoanimations.audio.a01.delay}}" style='width: 3em' placeholder=0>
     </div>
     <!--Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 2 / 3'>
@@ -520,23 +522,24 @@
     {{#if flags.autoanimations.options.persistent}}
     <div class='autorec-menu-options' style='grid-column: 2 / 3;grid-row: 2 / 3;'>
         <label>{{localize "AUTOANIM.anchorX"}} (0 - 1)</label>
-        <input type="Number" name="flags.autoanimations.options.anchorX" min="0" step=".01" value="{{flags.autoanimations.options.anchorX}}"
-            data-type="Number" min="0" max="1" placeholder=0.5>
+        <input type="Number" name="flags.autoanimations.options.anchorX" min="0" step=".01"
+            value="{{flags.autoanimations.options.anchorX}}" data-type="Number" min="0" max="1" placeholder=0.5>
     </div>
     <div class="autorec-menu-options option03">
         <label>{{localize "AUTOANIM.anchorY"}} (0 - 1)</label>
-        <input type="Number" name="flags.autoanimations.options.anchorY" value="{{flags.autoanimations.options.anchorY}}" data-dtype="Number" min="0"
-            max="1" placeholder=0.5>
+        <input type="Number" name="flags.autoanimations.options.anchorY"
+            value="{{flags.autoanimations.options.anchorY}}" data-dtype="Number" min="0" max="1" placeholder=0.5>
     </div>
     {{/if}}
     <div class="autorec-menu-options option08">
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.options.scale" value="{{flags.autoanimations.options.scale}}" data-dtype="Number" placeholder=1>
+        <input type="Number" name="flags.autoanimations.options.scale" value="{{flags.autoanimations.options.scale}}"
+            data-dtype="Number" placeholder=1>
     </div>
     <div class='form-group' style='grid-column: 1 / 2;grid-row: 3 / 4'>
         <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-           {{checked flags.autoanimations.audio.a01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable" {{checked
+            flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Audio filePicker and Text Input-->
@@ -551,8 +554,8 @@
     <!--Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 4 / 5'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{flags.autoanimations.audio.a01.delay}}" style='width: 3em' placeholder=0>
     </div>
     <!--Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 4 / 5'>
@@ -591,19 +594,19 @@
     <!--Choose Explosion Radius-->
     <div class="autorec-menu-options option03">
         <label>{{localize "AUTOANIM.anchorX"}} (0 - 1)</label>
-        <input type="Number" name="flags.autoanimations.options.anchorX" min="0" step=".01" value="{{flags.autoanimations.options.anchorX}}"
-            data-type="Number" min="0" max="1" placeholder=0.5>
+        <input type="Number" name="flags.autoanimations.options.anchorX" min="0" step=".01"
+            value="{{flags.autoanimations.options.anchorX}}" data-type="Number" min="0" max="1" placeholder=0.5>
     </div>
     <!--Set Explosion Loops-->
     <div class="autorec-menu-options option04">
         <label>{{localize "AUTOANIM.anchorY"}} (0 - 1)</label>
-        <input type="Number" name="flags.autoanimations.options.anchorY" value="{{flags.autoanimations.options.anchorY}}" data-dtype="Number" min="0"
-            max="1" placeholder=0.5>
+        <input type="Number" name="flags.autoanimations.options.anchorY"
+            value="{{flags.autoanimations.options.anchorY}}" data-dtype="Number" min="0" max="1" placeholder=0.5>
     </div>
     <div class='form-group' style='grid-column: 1 / 2;grid-row: 3 / 4'>
         <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            {{checked flags.autoanimations.audio.a01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable" {{checked
+            flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Audio filePicker and Text Input-->
@@ -618,8 +621,8 @@
     <!--Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 4 / 5'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{flags.autoanimations.audio.a01.delay}}" style='width: 3em' placeholder=0>
     </div>
     <!--Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 4 / 5'>
@@ -651,12 +654,13 @@
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.options.scale" value="{{flags.autoanimations.options.scale}}" data-dtype="Number" placeholder=1>
+        <input type="Number" name="flags.autoanimations.options.scale" value="{{flags.autoanimations.options.scale}}"
+            data-dtype="Number" placeholder=1>
     </div>
     <div class='form-group' style='grid-column: 1 / 2;grid-row: 2 / 3'>
         <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            {{checked flags.autoanimations.audio.a01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable" {{checked
+            flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Audio filePicker and Text Input-->
@@ -671,8 +675,8 @@
     <!--Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 3 / 4'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{flags.autoanimations.audio.a01.delay}}" style='width: 3em' placeholder=0>
     </div>
     <!--Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 3 / 4'>
@@ -749,12 +753,12 @@
     <div class="autorec-menu-options option12">
         <label>{{localize 'AUTOANIM.delayMS'}}:</label>
         <input type="Number" name="flags.autoanimations.fireball.projectileDelay"
-            value="{{flags.autoanimations.fireball.projectileDelay}}" data-dtype="Number" placeholder=0>
+            value="{{flags.autoanimations.fireball.projectileDelay}}" data-dtype="Number" placeholder=250>
     </div>
     <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2;grid-row: 4 / 5;'>
         <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            {{checked flags.autoanimations.audio.a01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable" {{checked
+            flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Explosion Audio filePicker and Text Input-->
@@ -769,8 +773,8 @@
     <!--Explosion Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 5 / 6'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{flags.autoanimations.audio.a01.delay}}" style='width: 3em' placeholder=0>
     </div>
     <!--Explosion Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 5 / 6'>
@@ -837,8 +841,8 @@
     </div>
     <div class='form-group option09' style='padding-top: 5px;padding-bottom: 4px;'>
         <label>{{localize "AUTOANIM.explosionAudio"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.e01.enable"
-            {{checked flags.autoanimations.audio.e01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.e01.enable" {{checked
+            flags.autoanimations.audio.e01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.e01.enable}}
     <!--Explosion Audio filePicker and Text Input-->
@@ -916,8 +920,8 @@
     </div>
     <div class='form-group option09' style='padding-top: 5px;padding-bottom: 4px;'>
         <label>{{localize "AUTOANIM.explosionAudio"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.e02.enable"
-            {{checked flags.autoanimations.audio.e02.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.e02.enable" {{checked
+            flags.autoanimations.audio.e02.enable}}>
     </div>
     {{#if flags.autoanimations.audio.e02.enable}}
     <!--Explosion Audio filePicker and Text Input-->
@@ -993,8 +997,8 @@
     {{#if isGM}}
     <div class="form-group" style='grid-column: 3 / 5;grid-row: 1 / 2;'>
         <label>{{localize "AUTOANIM.hideBorder"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.hideFromPlayers"
-            {{checked flags.autoanimations.options.hideFromPlayers}}>
+        <input type="checkbox" name="flags.autoanimations.options.hideFromPlayers" {{checked
+            flags.autoanimations.options.hideFromPlayers}}>
     </div>
     {{/if}}
     <div style='grid-column: 1 / 5;grid-row: 2 / 3;'>
@@ -1039,13 +1043,14 @@
     {{/unless}}
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.scale"}} 1</label>
-        <input type="Number" name="flags.autoanimations.options.scale" value="{{flags.autoanimations.options.scale}}" data-dtype="Number" placeholder=1>
+        <input type="Number" name="flags.autoanimations.options.scale" value="{{flags.autoanimations.options.scale}}"
+            data-dtype="Number" placeholder=1>
     </div>
     <!--Add Custom Animation-->
     <div class="form-group" style='grid-column: 1 / 2;grid-row: 3 / 4;'>
         <label>{{localize "AUTOANIM.customAnim"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.enableCustom"
-            {{checked flags.autoanimations.options.enableCustom}}>
+        <input type="checkbox" name="flags.autoanimations.options.enableCustom" {{checked
+            flags.autoanimations.options.enableCustom}}>
     </div>
     {{#if flags.autoanimations.options.enableCustom}}
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4;'>
@@ -1099,13 +1104,14 @@
     </div>
     <div class="autorec-menu-options" style='grid-column: 4 / 5;grid-row: 1 / 2;'>
         <label>{{localize "AUTOANIM.scale"}} 2</label>
-        <input type="Number" name="flags.autoanimations.options.scale02" value="{{flags.autoanimations.options.scale02}}" data-dtype="Number" placeholder=1>
+        <input type="Number" name="flags.autoanimations.options.scale02"
+            value="{{flags.autoanimations.options.scale02}}" data-dtype="Number" placeholder=1>
     </div>
     <!--Add Custom Animation-->
     <div class="form-group" style='grid-column: 1 / 2;grid-row: 3 / 4;'>
         <label>{{localize "AUTOANIM.customAnim"}}</label>
-        <input type="checkbox" name="flags.autoanimations.options.enableCustom02"
-            {{checked flags.autoanimations.options.enableCustom02}}>
+        <input type="checkbox" name="flags.autoanimations.options.enableCustom02" {{checked
+            flags.autoanimations.options.enableCustom02}}>
     </div>
     {{#if flags.autoanimations.options.enableCustom02}}
     <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4;'>
@@ -1121,8 +1127,8 @@
 <div class='aa-item-container primary-animation'>
     <div class='form-group' style='grid-column: 1 / 2;grid-row: 1 / 2'>
         <label>{{localize "AUTOANIM.sound"}}</label>
-        <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
-            {{checked flags.autoanimations.audio.a01.enable}}>
+        <input type="checkbox" name="flags.autoanimations.audio.a01.enable" {{checked
+            flags.autoanimations.audio.a01.enable}}>
     </div>
     {{#if flags.autoanimations.audio.a01.enable}}
     <!--Audio filePicker and Text Input-->
@@ -1137,8 +1143,8 @@
     <!--Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 2 / 3'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{flags.autoanimations.audio.a01.delay}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{flags.autoanimations.audio.a01.delay}}" style='width: 3em' placeholder=0>
     </div>
     <!--Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 2 / 3'>

@@ -15,21 +15,26 @@
                 data-dtype="{{Boolean}}" {{checked flags.autoanimations.killAnim}} />
         </div>
     </div>
+    {{#if showMacroOption}}
     <div class="kill-animation" style='grid-column: 1 / 2;grid-row: 3 / 4;'>
         <div class="form-group">
-            <label style='text-align: left;'><strong>{{localize "AUTOANIM.add"}} {{localize "AUTOANIM.macro"}}</strong></label>
+            <label style='text-align: left;'><strong>{{localize "AUTOANIM.add"}} {{localize
+                    "AUTOANIM.macro"}}</strong></label>
             <div class="aa-divider"></div>
             <input type="checkbox" name="flags.autoanimations.macro.enable" value="flags.autoanimations.macro.enable"
-                data-dtype="{{Boolean}}" {{checked flags.autoanimations.macro.enable}} />
+                data-dtype="{{Boolean}}" {{checked isMacroChecked}} />
         </div>
     </div>
+    {{/if}}
     {{#if flags.autoanimations.killAnim}}
     <div class="kill-animation" style='grid-column: 1 / 2;grid-row: 2 / 3;'>
         <div class="form-group">
-            <label style='text-align: left;'><strong>{{localize "AUTOANIM.add"}} {{localize "AUTOANIM.sound"}}</strong></label>
+            <label style='text-align: left;'><strong>{{localize "AUTOANIM.add"}} {{localize
+                    "AUTOANIM.sound"}}</strong></label>
             <div class="aa-divider"></div>
-            <input type="checkbox" name="flags.autoanimations.audio.a01.enable" value="flags.autoanimations.audio.a01.enable"
-                data-dtype="{{Boolean}}" {{checked flags.autoanimations.audio.a01.enable}} />
+            <input type="checkbox" name="flags.autoanimations.audio.a01.enable"
+                value="flags.autoanimations.audio.a01.enable" data-dtype="{{Boolean}}" {{checked
+                flags.autoanimations.audio.a01.enable}} />
         </div>
     </div>
     {{/if}}
@@ -157,8 +162,8 @@
     <!--Explosion Audio Delay-->
     <div style='grid-column: 4 / 5;grid-row: 2 / 3'>
         <label>{{localize "AUTOANIM.delay"}}</label>
-        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0" value="{{lookup flags.autoanimations.audio.a01 'delay'}}"
-            style='width: 3em' placeholder=0>
+        <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
+            value="{{lookup flags.autoanimations.audio.a01 'delay'}}" style='width: 3em' placeholder=0>
     </div>
     <!--Explosion Audio Volume-->
     <div style='grid-column: 3 / 4;grid-row: 2 / 3'>
@@ -169,7 +174,7 @@
 </div>
 {{/if}}
 {{/if}}
-{{#if flags.autoanimations.macro.enable}}
+{{#if isMacroChecked}}
 <div style='padding:3px'>
 
 </div>
@@ -181,12 +186,12 @@
     <!--Choose how/when to Play the Macro-->
     <div class='form-group' style='grid-column: 1 / 3; grid-row: 1 / 2;'>
         <label style='font-weight: bold;'>When to Play
-        <select name="flags.autoanimations.macro.playWhen">
-            {{#select flags.autoanimations.macro.playWhen}}
-            <option value="0">Concurrent with Animation</option>
-            <option value="1">Await Macro Completion</option>
-            {{/select}}
-        </select> </label>
+            <select name="flags.autoanimations.macro.playWhen">
+                {{#select flags.autoanimations.macro.playWhen}}
+                <option value="0">Concurrent with Animation</option>
+                <option value="1">Await Macro Completion</option>
+                {{/select}}
+            </select> </label>
     </div>
     {{/unless}}
     <!--Macro Name input Field-->

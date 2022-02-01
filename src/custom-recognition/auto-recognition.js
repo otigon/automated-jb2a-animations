@@ -95,6 +95,15 @@ export class aaAutoRecognition extends FormApplication {
         })
         //html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
         html.find('.remove-autorecog').click(this._onRemoveOverride.bind(this))
+        html.on('click', '.enableMacro', (evt) => {
+            var change = $(evt.currentTarget).closest('.form-fields').find('.showMacro').is(":checked")
+            if (change === true) {
+                $(evt.currentTarget).closest('.form-fields').find('.showMacro').prop('checked', false)
+            } else {
+                $(evt.currentTarget).closest('.form-fields').find('.showMacro').prop('checked', true)
+            }
+            this.submit({ preventClose: true }).then(() => this.render())
+        });
         html.find('.aa-autorecognition select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
         });
@@ -180,9 +189,9 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.melee.${idx}.repeat`] = 1;
-        updateData[`aaAutorec.melee.${idx}.delay`] = 500;
-        updateData[`aaAutorec.melee.${idx}.scale`] = 1;
+        //updateData[`aaAutorec.melee.${idx}.repeat`] = 1;
+        //updateData[`aaAutorec.melee.${idx}.delay`] = 500;
+        //updateData[`aaAutorec.melee.${idx}.scale`] = 1;
         updateData[`aaAutorec.melee.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
@@ -198,8 +207,8 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.range.${idx}.repeat`] = 1;
-        updateData[`aaAutorec.range.${idx}.delay`] = 500;
+        //updateData[`aaAutorec.range.${idx}.repeat`] = 1;
+        //updateData[`aaAutorec.range.${idx}.delay`] = 500;
         updateData[`aaAutorec.range.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
@@ -215,9 +224,9 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.static.${idx}.repeat`] = 1;
-        updateData[`aaAutorec.static.${idx}.delay`] = 500;
-        updateData[`aaAutorec.static.${idx}.scale`] = 1;
+        //updateData[`aaAutorec.static.${idx}.repeat`] = 1;
+        //updateData[`aaAutorec.static.${idx}.delay`] = 500;
+        //updateData[`aaAutorec.static.${idx}.scale`] = 1;
         updateData[`aaAutorec.static.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
@@ -233,10 +242,10 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.templates.${idx}.repeat`] = 1;
-        updateData[`aaAutorec.templates.${idx}.delay`] = 500;
+        //updateData[`aaAutorec.templates.${idx}.repeat`] = 1;
+        //updateData[`aaAutorec.templates.${idx}.delay`] = 500;
         updateData[`aaAutorec.templates.${idx}.below`] = false;
-        updateData[`aaAutorec.templates.${idx}.opacity`] = 0.75;
+        //updateData[`aaAutorec.templates.${idx}.opacity`] = 0.75;
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
     }
@@ -251,8 +260,8 @@ export class aaAutoRecognition extends FormApplication {
         }
         let updateData = {}
         updateData[`aaAutorec.auras.${idx}.tint`] = '#ffffff';
-        updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
-        updateData[`aaAutorec.auras.${idx}.scale`] = 1;
+        //updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
+        //updateData[`aaAutorec.auras.${idx}.scale`] = 1;
         updateData[`aaAutorec.auras.${idx}.below`] = true;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
@@ -268,10 +277,10 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.preset.${idx}.scale`] = 1;
+        //updateData[`aaAutorec.preset.${idx}.scale`] = 1;
         updateData[`aaAutorec.preset.${idx}.below`] = false;
-        updateData[`aaAutorec.preset.${idx}.anchorX`] = 0.5;
-        updateData[`aaAutorec.preset.${idx}.anchorY`] = 0.5;
+        //updateData[`aaAutorec.preset.${idx}.anchorX`] = 0.5;
+        //updateData[`aaAutorec.preset.${idx}.anchorY`] = 0.5;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
