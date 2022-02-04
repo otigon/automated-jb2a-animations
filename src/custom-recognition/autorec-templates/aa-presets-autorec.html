@@ -32,7 +32,7 @@
                             style="display:none">
                         <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;">
                             <i class='far fa-keyboard fa-lg enableMacro' data-idx="{{idx}}"></i>
-                            <span class='aaToggle02'>Add Macro</span>
+                            <span class='aaToggle02'>{{localize 'AUTOANIM.add'}} {{localize 'AUTOANIM.macro'}}</span>
                         </div>
                         <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;">
                             <i class='far fa-trash-alt remove-autorecog' data-idx="{{idx}}"></i>
@@ -1517,15 +1517,16 @@
                                     <select name="aaAutorec.preset.{{idx}}.macro.playWhen">
                                         {{#select (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'macro')
                                         'playWhen' )}}
-                                        <option value="0">Concurrent with Animation</option>
-                                        <option value="1">Await Macro Completion</option>
-                                        <option value="2">Macro with No Animation</option>
+                                        <option value="0">{{localize 'AUTOANIM.macroconcurrent'}}</option>
+                                        <option value="1">{{localize 'AUTOANIM.awaitmacro'}}</option>
+                                        <option value="2">{{localize 'AUTOANIM.macroonly'}}</option>
                                         {{/select}}
                                     </select> </label>
                             </div>
                             <!--Macro Name input Field-->
                             <div class='form-group' style='grid-column: 3 / 5;grid-row: 2 / 3'>
-                                <label style='font-weight: bold;'>Macro Name</label>
+                                <label style='font-weight: bold;'>{{localize 'AUTOANIM.macro'}} {{localize
+                                    'AUTOANIM.name'}}</label>
                                 <input style='width: 10em' type="text" name="aaAutorec.preset.{{idx}}.macro.name"
                                     value="{{lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'macro') 'name'}}">
                             </div>

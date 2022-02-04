@@ -188,15 +188,15 @@
         <label style='font-weight: bold;'>When to Play
             <select name="flags.autoanimations.macro.playWhen">
                 {{#select flags.autoanimations.macro.playWhen}}
-                <option value="0">Concurrent with Animation</option>
-                <option value="1">Await Macro Completion</option>
+                <option value="0">{{localize 'AUTOANIM.macroconcurrent'}}</option>
+                <option value="1">{{localize 'AUTOANIM.awaitmacro'}}</option>
                 {{/select}}
             </select> </label>
     </div>
     {{/unless}}
     <!--Macro Name input Field-->
     <div class='form-group' style='grid-column: 3 / 5;grid-row: 1 / 2'>
-        <label style='font-weight: bold;'>Macro Name</label>
+        <label style='font-weight: bold;'>{{localize 'AUTOANIM.macro'}} {{localize 'AUTOANIM.name'}}</label>
         <input style='width: 10em' type="text" name="flags.autoanimations.macro.name"
             value="{{lookup flags.autoanimations.macro 'name'}}">
     </div>

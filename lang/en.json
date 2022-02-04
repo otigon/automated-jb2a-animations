@@ -595,5 +595,9 @@
     "AUTOANIM.dualattach": "Dual Attach",
     "AUTOANIM.noTips": "Disable Persistent Effect Tips",
     "AUTOANIM.noTipsHint": "Disables the Tooltip for how to Delete Persistent Effects",
-    "AUTOANIM.only": "Only"
+    "AUTOANIM.only": "Only",
+    "AUTOANIM.name": "Name",
+    "AUTOANIM.macroconcurrent": "Concurrent with Animation",
+    "AUTOANIM.awaitmacro": "Await Macro Completion",
+    "AUTOANIM.macroonly": "Macro only, No Animation"
 }
