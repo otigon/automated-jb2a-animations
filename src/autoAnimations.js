@@ -139,7 +139,7 @@ Hooks.once('ready', function () {
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
             case "demonlord":
-                Hooks.on("DL.Action", async (data) => { setupDemonLord(data)});
+                Hooks.on("DL.Action", async (data) => { setupDemonLord(data) });
                 break;
             case "pf2e":
                 Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
@@ -405,8 +405,10 @@ async function setUp5eCore(msg) {
             break;
         case !animationNow:
             switch (true) {
-                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") & !rollType.includes("damage"):
+                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && !handler.hasAttack && handler.hasDamage && !rollType.includes("damage"):
                     trafficCop(handler);
+                    break;
+                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && rollType.includes("damage"):
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
