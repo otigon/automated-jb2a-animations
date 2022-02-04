@@ -87,7 +87,6 @@ export async function trafficCop(handler, config) {
         const presetType = isCustom ? handler.flags?.animation : isAutorec.animation;
         const targets = handler.allTargets?.length ?? 0;
         const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(handler, isAutorec);
-
         if (!isCustom && isAutorec) {
             if (/*animationData.primary.soundOnly.enable || */animationData.primary.macro.playWhen === "2") {
                 const primaryData = animationData.primary;
@@ -140,6 +139,7 @@ export async function trafficCop(handler, config) {
                 staticAnimation(handler, animationData);
                 break;
             case "template":
+            case "templates":
                 //some do not need hook on template, depends on when damage is rolled
                 switch (game.system.id) {
                     case "dnd5e":

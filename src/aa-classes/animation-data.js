@@ -58,9 +58,9 @@ export class AAanimationData {
             Object.assign(data, autoObject);
             data.isAuto = true;
             data.animation = data.animation || "";
-            data.enableCustom = data.custom || false,
-                data.enableCustom02 = data.custom02 || false,
-                data.customPath = data.custom ? data.customPath : false;
+            data.enableCustom = data.custom || false;
+            data.enableCustom02 = data.custom02 || false;
+            data.customPath = data.custom ? data.customPath : false;
             data.customPath02 = data.custom02 ? data.customPath02 : false;
 
             data.staticType = data.type || "targetDefault";
@@ -356,7 +356,8 @@ export class AAanimationData {
 
         const playNow = (targetFX.enabled && hit) ? true : false;
 
-        targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata?.width : 1;
+        targetFX.tFXScale = targetFX.enable ? 2 * target.w / targetFX.data.metadata?.width : 1;
+        console.log(targetFX.tFXScale)
         targetFX.targetSeq = new Sequence();
         /*
         targetFX.targetSeq.sound()

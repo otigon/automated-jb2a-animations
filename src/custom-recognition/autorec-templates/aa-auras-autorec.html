@@ -41,6 +41,8 @@
                     </div>
                 </div>
                 <div {{#if ( lookup (lookup ../settings.aaAutorec.auras idx) 'hidden' ) }} style="display:none" {{/if}}>
+                    <div {{#ifEquals ( lookup ( lookup (lookup ../settings.aaAutorec.auras idx) 'macro' ) 'playWhen'
+                    ) '2' }} style="display:none" {{/ifEquals}}>
                     <div class="aa-container">
                         {{#unless (lookup (lookup ../settings.aaAutorec.auras idx) 'custom')}}
                         <div class="aura01">
@@ -178,6 +180,7 @@
                                 placeholder=0.5>
                         </div>
                         {{/if}}
+                    </div>
                     </div>
                     <div style="padding:3px"></div>
                     <div {{#unless (lookup ( lookup (lookup ../settings.aaAutorec.auras idx) 'macro' ) 'enable' )}}

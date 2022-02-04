@@ -81,7 +81,7 @@ export default class systemData {
         this.isAutorecTeleport = false;
         if (this.autorecObject && !this.isCustomized) {
             this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
-            this.isAutorecAura = this.autorecObject.menuSection === "aura" ? true : false;
+            this.isAutorecAura = this.autorecObject.menuSection === "auras" ? true : false;
             this.isAutorecTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
         }
         this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;

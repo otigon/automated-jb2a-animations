@@ -53,6 +53,8 @@
                     {{/if}}>
                     <div {{#if ( lookup (lookup ../settings.aaAutorec.static idx) 'anim2d' ) }} style="display:none"
                         {{/if}}>
+                        <div {{#ifEquals ( lookup ( lookup (lookup ../settings.aaAutorec.static idx) 'macro' ) 'playWhen'
+                        ) '2' }} style="display:none" {{/ifEquals}}>
                         <div class="aa-container">
                             <div class="option01">
                                 <label for="aaAutorec.static.{{idx}}.type">{{localize 'AUTOANIM.playOn'}}:
@@ -275,6 +277,7 @@
                                     placeholder=0.5>
                             </div>
                             {{/if}}
+                        </div>
                         </div>
                         <div style="padding:3px"></div>
                         <div {{#unless (lookup ( lookup (lookup ../settings.aaAutorec.static idx) 'macro' ) 'enable' )}}

@@ -33,7 +33,7 @@
             <label>{{localize "AUTOANIM.animation"}}</label>
             <select name="flags.autoanimations.sourceToken.name">
                 {{#select flags.autoanimations.sourceToken.name}}
-                {{#each sourceAnimations as |name key|}}
+                {{#each menuLists.tokenAnimations as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -197,7 +197,7 @@
             <label>{{localize "AUTOANIM.animation"}}</label>
             <select name="flags.autoanimations.targetToken.name">
                 {{#select flags.autoanimations.targetToken.name}}
-                {{#each targetAnimations as |name key|}}
+                {{#each menuLists.tokenAnimations as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
