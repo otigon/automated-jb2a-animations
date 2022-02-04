@@ -107,6 +107,14 @@ export default function aaSettings() {
         type: Boolean,
         default: false,
     })
+    game.settings.register("autoanimations", "noTips", {
+        name: game.i18n.format("AUTOANIM.noTips"),
+        hint: game.i18n.format("AUTOANIM.noTipsHint"),
+        scope: "client",
+        config: true,
+        type: Boolean,
+        default: false,
+    })
     switch (game.system.id) {
         case "demonlord": {
             game.settings.register("autoanimations", "playtrigger", {

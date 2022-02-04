@@ -3,6 +3,7 @@ import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
 import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { aaDebugger } from "../../constants/constants.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -12,20 +13,23 @@ export async function bless(handler, animationData) {
         return !!game.modules.get(test);
     }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    //let itemName = handler.convertedName;
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
     const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
     if (data.isAuto) {
-        const autoOverridden = handler.autoOverride?.enable
-        data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.addCTA;
+        const autoOverridden = handler.autorecOverrides?.enable
+        data.persistent = autoOverridden ? handler.autorecOverrides?.persistent : data.addCTA;
     }
     const bless = await buildBlessFile(obj01, data.color);
+
+    if (handler.debug) { aaDebugger("Aura Animation Start", animationData, bless) }
+
     // builds Source Token file if Enabled, and pulls from flags if already set
     //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
-    const gridSize = canvas.grid.size;
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
 
     //let animWidth = onToken.metadata.width;
     const sourceScale = sourceToken.w;
@@ -35,101 +39,104 @@ export async function bless(handler, animationData) {
 
     if (handler.allTargets.length === 0) {
 
-        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, name: "bless" }).length > 0
+        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
         const playPersist = (!checkAnim && data.persistent) ? true : false;
+        let aaSeq = await new Sequence()
+        // Play Macro if Awaiting
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+        }
+        // Extra Effects => Source Token if active
+        if (sourceFX.enabled) {
+            aaSeq.addSequence(sourceFX.sourceSeq)
+        }
+        if (data.playSound) {
+            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+        }
+        // Animation Start Hook
+        aaSeq.thenDo(function () {
+            Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+        })
+        if (!checkAnim) {
+            aaSeq.effect()
+                .file(bless.file01)
+                .attachTo(sourceToken)
+                .scale(scale)
+                .belowTokens(data.below)
+                .waitUntilFinished(-500)
+            let endSection = aaSeq.effect();
+            endSection.file(bless.file02)
+            endSection.scale(scale)
+            endSection.origin(handler.item.uuid)
+            endSection.attachTo(sourceToken)
+            endSection.belowTokens(data.below)
+            endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+            endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+            if (playPersist) { endSection.persist() }
+        }
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, ...userData)
+                .play()
+        }
+        aaSeq.play()
 
-        await new Sequence("Automated Animations")
-        .sound()
-            .file(data.itemAudio.file, true)
-            .volume(data.itemAudio.volume)
-            .delay(data.itemAudio.delay)
-            .playIf(data.playSound)
-        .effect()
-            .file(bless.file01)
-            .attachTo(sourceToken)
-            .scale(scale)
-            .gridSize(gridSize)
-            .belowTokens(data.below)
-            .waitUntilFinished(-500)
-        .effect()
-            .file(bless.file02)
-            .scale(scale)
-            .gridSize(gridSize)
-            .attachTo(sourceToken)
-            .belowTokens(data.below)
-            .playIf(!data.persistent)
-            .loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
-            .loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
-            //.filter("ColorMatrix", {hue: 120})
-        .effect()
-            .file(bless.file02)
-            .scale(scale)
-            .name("bless")
-            .gridSize(gridSize)
-            .attachTo(sourceToken)
-            .belowTokens(data.below)
-            .persist(data.persistent)
-            .origin(handler.item.uuid)
-            .playIf(playPersist)
-            .loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
-            .loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong:true})
-            //.filter("ColorMatrix", {hue: 120})
-        .play()
         if (playPersist) { AAanimationData.howToDelete("sequencerground") }
     }
 
-    async function cast() {
-        let arrayLength = handler.allTargets.length;
-        for (var i = 0; i < arrayLength; i++) {
+    if (handler.allTargets.length > 0) {
 
-            let target = handler.allTargets[i];
-            let targetScale = (target.w * 2 / bless.metadata.width) * data.scale
+        let aaSeq = await new Sequence()
+        // Play Macro if Awaiting
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+        }
+        // Extra Effects => Source Token if active
+        if (sourceFX.enabled) {
+            aaSeq.addSequence(sourceFX.sourceSeq)
+        }
+        if (data.playSound) {
+            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+        }
+        // Animation Start Hook
+        aaSeq.thenDo(function () {
+            Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+        })
 
-            const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "bless" }).length > 0
-            const playPersist = (!checkAnim && data.persistent) ? true : false;
-
-            await new Sequence("Automated Animations")
-                .sound()
-                    .file(data.itemAudio.file, true)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .playIf(() => {
-                        return data.itemAudio.enable && data.itemAudio.file;
-                    })
-                .effect()
+        for (let target of handler.allTargets) {
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+            let playPersist = (!checkAnim && data.persistent) ? true : false;  
+            let targetScale = (target.w * 2 / bless.metadata.width) * data.scale 
+            if (!checkAnim) {
+                aaSeq.effect()
                     .file(bless.file01)
                     .attachTo(target)
                     .scale(targetScale)
-                    .gridSize(gridSize)
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)
-                .effect()
-                    .file(bless.file02)
-                    .name("bless")
-                    .scale(targetScale)
-                    .gridSize(gridSize)
-                    .attachTo(target)
-                    .belowTokens(data.below)
-                    .playIf(!data.persistent)
-                    .loopProperty("sprite", "scale.x", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})
-                    .loopProperty("sprite", "scale.y", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})        
-                .effect()
-                    .file(bless.file02)
-                    .name("bless")
-                    .scale(targetScale)
-                    .gridSize(gridSize)
-                    .attachTo(target)
-                    .belowTokens(data.below)
-                    .persist(data.persistent)
-                    .origin(handler.item.uuid)
-                    .playIf(playPersist)
-                    .loopProperty("sprite", "scale.x", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})
-                    .loopProperty("sprite", "scale.y", { from: (targetScale * 0.85), to: (targetScale * 1.15), duration: 2000, pingPong:true})        
-                .play()
-                if (playPersist) { AAanimationData.howToDelete("sequencerground") }
+                let endSection = aaSeq.effect();
+                endSection.file(bless.file02)
+                endSection.scale(scale)
+                endSection.origin(handler.item.uuid)
+                endSection.attachTo(target)
+                endSection.belowTokens(data.below)
+                endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+                endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+                if (playPersist) { endSection.persist() }
+            }
         }
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, ...userData)
+                .play()
+        }
+        aaSeq.play()
+        //if (playPersist) { AAanimationData.howToDelete("sequencerground") }
     }
-    cast()
 }
 
 async function buildBlessFile(jb2a, baseColor) {

@@ -3,7 +3,7 @@ import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "./flagMerge.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 
-export default class flagHandler {
+export default class systemData {
 
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
@@ -11,13 +11,12 @@ export default class flagHandler {
         if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
         //this._log("Data Retrieved", data)
 
-        //console.log(data.item.data.flags.autoanimations)
         const flags = await flagMigrations.handle(data.item);
 
-        return new flagHandler(data, flags)
+        return new systemData(data, flags, msg)
     }
 
-    constructor(systemData, flagData) {
+    constructor(systemData, flagData, msg) {
         this.debug = game.settings.get("autoanimations", "debug");
         this._log("Getting System Data")
 
@@ -25,6 +24,7 @@ export default class flagHandler {
 
         const midiActive = game.modules.get('midi-qol')?.active;
 
+        this.workflow = msg;
         this.flags = flagData ?? {};
         this.animation = this.flags.animation || "";
 
@@ -36,7 +36,7 @@ export default class flagHandler {
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
         this.itemType = this.item.data?.type?.toLowerCase() ?? "";
 
-        this.actorToken = data.token.isEmbedded ? data.token.object : data.token;
+        this.sourceToken = data.token.isEmbedded ? data.token.object : data.token;
         this.actor = data.token.actor;
         this.allTargets = data.targets;
         this.hitTargets = data.hitTargets;
@@ -51,13 +51,13 @@ export default class flagHandler {
         this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
 
 
-        this.animKill = this.flags.killAnim || false;
-        this.animOverride = this.flags.override || false;
+        this.isDisabled = this.flags.killAnim || false;
+        this.isCustomized = this.flags.override || false;
         this.animType = this.flags.animType || "";
 
         this.bards = this.flags.bards ?? {};
 
-        this.autoOverride = this.flags.autoOverride ?? {};
+        this.autorecOverrides = this.flags.autoOverride ?? {};
 
         this.animNameFinal;
         switch (true) {
@@ -69,37 +69,40 @@ export default class flagHandler {
                 break;
         }
         
-        this.convertedName = this.animation.replace(/\s+/g, '');
         this.animEnd = endTiming(this.animNameFinal);
         this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
         this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
-        this.AutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(this.autorecSettings, 'templates'), this.rinsedName);
+        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(this.autorecSettings, 'templates'), this.rinsedName);
         this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
 
         this.isAutorecFireball = false;
         this.isAutorecAura = false;
-        this.isAutoTeleport = false;
-        if (this.autorecObject && !this.animOverride) {
+        this.isAutorecTeleport = false;
+        if (this.autorecObject && !this.isCustomized) {
             this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
-            this.isAutorecAura = this.autorecObject.menuSection === "aura" ? true : false;
-            this.isAutoTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
+            this.isAutorecAura = this.autorecObject.menuSection === "auras" ? true : false;
+            this.isAutorecTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
         }
-        this.isAutorecTemplate = (this.AutorecTemplateItem || this.isAutorecFireball) && !this.animOverride ? true : false;
+        this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;
 
-        this.isOverrideTemplate = (this.animType === "template" && this.animOverride) || (this.animType === "preset" && this.flags.animation === "fireball" && this.animOverride) ? true : false;
-        this.isOverrideAura = this.animType === "aura" && this.animOverride ? true: false;
-        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutoTeleport ? true : false;
+        this.isOverrideTemplate = (this.animType === "template" && this.isCustomized) || (this.animType === "preset" && this.flags.animation === "fireball" && this.isCustomized) ? true : false;
+        this.isOverrideAura = this.animType === "aura" && this.isCustomized ? true: false;
+        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutorecTeleport ? true : false;
         //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
     }
 
     get shouldPlayImmediately () {
-        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport;
+        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport;
     }
 
     get soundNoAnimation () {
-        return this.animKill && this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
+        return this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
+    }
+
+    get macroOnly () {
+        return this.flags.macro?.enable && this.flags.macro?.name
     }
 
     getDistanceTo(target) {
@@ -112,25 +115,25 @@ export default class flagHandler {
             const top = (token) => token.data.y;
             const bottom = (token) => token.data.y + token.h;
 
-            const isLeftOf = right(this.actorToken) <= left(target);
-            const isRightOf = left(this.actorToken) >= right(target);
-            const isAbove = bottom(this.actorToken) <= top(target);
-            const isBelow = top(this.actorToken) >= bottom(target);
+            const isLeftOf = right(this.sourceToken) <= left(target);
+            const isRightOf = left(this.sourceToken) >= right(target);
+            const isAbove = bottom(this.sourceToken) <= top(target);
+            const isBelow = top(this.sourceToken) >= bottom(target);
 
-            let x1 = left(this.actorToken);
+            let x1 = left(this.sourceToken);
             let x2 = left(target);
-            let y1 = top(this.actorToken);
+            let y1 = top(this.sourceToken);
             let y2 = top(target);
 
             if (isLeftOf) {
-                x1 += (this.actorToken.data.width - 1) * gridSize;
+                x1 += (this.sourceToken.data.width - 1) * gridSize;
             }
             else if (isRightOf) {
                 x2 += (target.data.width - 1) * gridSize;
             }
 
             if (isAbove) {
-                y1 += (this.actorToken.data.height - 1) * gridSize;
+                y1 += (this.sourceToken.data.height - 1) * gridSize;
             }
             else if (isBelow) {
                 y2 += (target.data.height - 1) * gridSize;
@@ -141,9 +144,9 @@ export default class flagHandler {
             return distance;
         } else {
             var x, x1, y, y1, d, r, segments = [], rdistance, distance;
-            for (x = 0; x < this.actorToken.data.width; x++) {
-                for (y = 0; y < this.actorToken.data.height; y++) {
-                    const origin = new PIXI.Point(...canvas.grid.getCenter(this.actorToken.data.x + (canvas.dimensions.size * x), this.actorToken.data.y + (canvas.dimensions.size * y)));
+            for (x = 0; x < this.sourceToken.data.width; x++) {
+                for (y = 0; y < this.sourceToken.data.height; y++) {
+                    const origin = new PIXI.Point(...canvas.grid.getCenter(this.sourceToken.data.x + (canvas.dimensions.size * x), this.sourceToken.data.y + (canvas.dimensions.size * y)));
                     for (x1 = 0; x1 < target.data.width; x1++) {
                         for (y1 = 0; y1 < target.data.height; y1++) {
                             const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));

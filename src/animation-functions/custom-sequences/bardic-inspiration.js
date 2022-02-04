@@ -1,25 +1,22 @@
+import { aaDebugger } from "../../constants/constants.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function bardicInspiration(handler, autoObject) {
+export async function bardicInspiration(handler, animationData) {
 
-    let token = handler.actorToken;
-    let target = handler.allTargets[0];
+    const sourceToken = handler.sourceToken;
     const flags = handler.flags;
-    const data = {};
-    if (autoObject) {
-        //const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject);
-        data.animation = data.animation || "";
-        data.itemAudio = {
-            enable: data.audio?.a01?.enable || false,
-            file: data.audio?.a01?.file,
-            volume: data.audio?.a01?.volume || 0.25,
-            delay: data.audio?.a01?.delay || 0,
-        }
+
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+    const targetFX = animationData.targetFX;
+
+    if (data.isAuto) {
+
     } else {
         const bards = flags.bards ?? {};
-        data.animation = handler.convertedName;
+
         data.selfColor = bards.bardSelfColor;
         data.targetColor = bards.bardTargetColor;
         data.selfMarkerColor = bards.markerColor;
@@ -29,112 +26,89 @@ async function bardicInspiration(handler, autoObject) {
         data.marker = bards.marker;
         data.selfAnimation = bards.bardAnim;
         data.targetAnimation = bards.bardTargetAnim;
-        data.itemAudio = {
-            enable: flags.audio?.a01?.enable || false,//
-            file: flags.audio?.a01?.file,//
-            volume: flags.audio?.a01?.volume || 0.25,//
-            delay: flags.audio?.a01?.delay || 0,//
-    }
-    }
-    const gridSize = canvas.grid.size;
-
-    let selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.selfMarkerColor}`;
-    let targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.targetMarkerColor}`
-    async function markerCreate(tokenMarker, path) {
-        new Sequence("Automated Animations")
-        .effect()
-            .file(path)
-            .atLocation(tokenMarker)
-            .scale((tokenMarker.w / 400) * 2)
-            .gridSize(gridSize)
-            .belowTokens(true)
-        .play()
     }
 
-    let selfMusicPath = data.selfColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${data.selfColor}`
-    let targetMusicPath = data.targetColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${data.targetColor}`
-    async function music(token, path) {
-        
-        let musicPlay = new Sequence("Automated Animations")
-        .effect()
-            .file(path)
-            .atLocation(token)
-            .scale(token.w / 200)
-            .gridSize(gridSize)
-            .repeats(10, 350)
-            .randomOffset()
+    if (handler.debug) { aaDebugger("Bardic Inspiration Animation Start", data) }
 
-        musicPlay.play()
+    const selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.selfMarkerColor}`;
+    const targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.targetMarkerColor}`
+    const selfMusicPath = data.selfColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${data.selfColor}`
+    const targetMusicPath = data.targetColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${data.targetColor}`
+    const selfBIPath = data.selfColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${data.selfColor}`
+    const targetBIPath = data.targetColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${data.targetColor}`
+
+    let aaSeq = await new Sequence("Automated Animations")
+
+    // Play Macro if Awaiting
+    if (data.playMacro && data.macro.playWhen === "1") {
+        let userData = data.macro.args;
+        aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
     }
-
-    let selfBIPath = data.selfColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${data.selfColor}`
-    let targetBIPath = data.targetColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${data.targetColor}`
-    async function bardicInspiration(biToken, path) {
-
-        let bardicPlay = new Sequence("Automated Animations")
-        .effect()
-            .file(path)
-            .atLocation(biToken)
-            .scale((biToken.w / 400) * 2)
-            .gridSize(gridSize)
-
-        bardicPlay.play()
+    // Extra Effects => Source Token if active
+    if (sourceFX.enabled) {
+        aaSeq.addSequence(sourceFX.sourceSeq)
     }
-
-    async function playSound() {
-        new Sequence()
-        .sound()
-            .file(data.itemAudio.file, true)
-            .volume(data.itemAudio.volume)
-            .delay(data.itemAudio.delay)
-            .playIf(() => {
-                return data.itemAudio.enable && data.itemAudio.file;
-            })
-        .play()
-    }
-
+    // Animation Start Hook
+    aaSeq.thenDo(function () {
+        Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+    })
     if (data.animateSelf) {
-        switch (true) {
-            case data.selfAnimation === "music":
-                music(token, selfMusicPath);
-                if (data.marker) {
-                    if (data.animateSelf) {
-                        markerCreate(token, selfMarkerPath);
-                    }
-                    //await wait(3750);
-                }
-                break;
-            default:
-                bardicInspiration(token, selfBIPath);
-                if (data.marker) {
-                    if (data.animateSelf) {
-                        markerCreate(token, selfMarkerPath);
-                    }
-                    //await wait(3750);
-                }
+        let selfEffect = aaSeq.effect()
+        selfEffect.atLocation(sourceToken)
+        if (data.selfAnimation === 'music') {
+            selfEffect.file(selfMusicPath)
+            selfEffect.scale(sourceToken.w / 200)
+            selfEffect.repeats(10, 350)
+            selfEffect.randomOffset()
+        } else {
+            selfEffect.file(selfBIPath)
+            selfEffect.scale((sourceToken.w / 400) * 2)
+        }
+        if (data.marker) {
+            aaSeq.effect()
+                .file(selfMarkerPath)
+                .atLocation(sourceToken)
+                .scale((sourceToken.w / 400) * 2)
+                .belowTokens(true)
         }
     }
-    if (data.animateTarget && target !== undefined) {
-        switch (true) {
-            case data.targetAnimation === "music":
-                music(target, targetMusicPath);
-                if (data.marker) {
-                    if (target && data.animateTarget) {
-                        markerCreate(target, targetMarkerPath);
-                    }
-                    //await wait(3750);
-                }
-                break;
-            default:
-                bardicInspiration(target, targetBIPath);
-                if (data.marker) {
-                    if (target && data.animateTarget) {
-                        markerCreate(target, targetMarkerPath);
-                    }
-                    //await wait(3750);
-                }
+    let targetSound = false;
+    if (data.animateTarget && handler.allTargets.length > 0) {
+        for (let target of handler.allTargets) {
+            let targetEffect = aaSeq.effect()
+            targetEffect.atLocation(target)
+            if (data.targetAnimation === 'music') {
+                targetEffect.file(targetMusicPath)
+                targetEffect.scale(target.w / 200)
+                targetEffect.repeats(10, 350)
+                targetEffect.randomOffset()
+            } else {
+                targetEffect.file(targetBIPath)
+                targetEffect.scale((target.w / 400) * 2)
+            }
+            if (data.marker) {
+                aaSeq.effect()
+                    .file(targetMarkerPath)
+                    .atLocation(target)
+                    .scale((target.w / 400) * 2)
+                    .belowTokens(true)
+            }
+            if (targetFX.enabled) {
+                let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
+                aaSeq.addSequence(targetSequence.targetSeq)
+                targetSound = true;
+            }
         }
     }
-    playSound()
+    aaSeq.addSequence(await AAanimationData._sounds({ animationData, targetSound }))
+    // Macro if Concurrent
+    if (data.playMacro && data.macro.playWhen === "0") {
+        let userData = data.macro.args;
+        new Sequence()
+            .macro(data.macro.name, handler.workflow, handler, ...userData)
+            .play()
+    }
+    aaSeq.play()
+    // Animation End Hook
+    Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
 }
-export default bardicInspiration;

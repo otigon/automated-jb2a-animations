@@ -12,42 +12,80 @@ export class AAanimationData {
         return data;
     }
 
+    static async _sounds(soundSettings) {
+        const data = soundSettings.animationData.primary;
+        //const sourceFX = flagData.sourceFX;
+        const targetFX = soundSettings.animationData.targetFX;
+        let soundSeq = new Sequence();
+        if (data.playSound || data.playSwitchSound) {
+            if (!soundSettings.switchSound) {
+                soundSeq.sound()
+                    .file(data.itemAudio.file, true)
+                    .volume(data.itemAudio.volume)
+                    .delay(data.itemAudio.delay)
+                    .repeats(data.itemAudio.repeat, data.delay)
+            } else {
+                soundSeq.sound()
+                    .file(data.switchAudio.file, true)
+                    .volume(data.switchAudio.volume)
+                    .delay(data.switchAudio.delay)
+                    .repeats(data.switchAudio.repeat, data.delay)
+            }
+        }
+        if (data.explosion.playSound && soundSettings.explosionSound) {
+            soundSeq.sound()
+                .file(data.explosion?.audio?.file, true)
+                .playIf(data.explosion?.playSound)
+                .delay(data.explosion?.audio?.delay + data.explosion?.delay)
+                .volume(data.explosion?.audio?.volume)
+                .repeats(data.explosion?.audio?.repeat, data.delay)
+        }
+        if (targetFX.playSound && soundSettings.targetSound) {
+            soundSeq.sound()
+                .file(targetFX.itemAudio?.file, true)
+                .volume(targetFX.itemAudio?.volume)
+                .delay(targetFX.itemAudio?.delay + targetFX.startDelay)
+                .repeats(targetFX.itemAudio?.repeat, targetFX.itemAudio?.soundDelay)
+        }
+        return soundSeq;
+    }
+
     static async _primaryData(handler, autoObject) {
 
         if (autoObject) {
             const data = {};
-            const autoOverridden = handler.autoOverride?.enable
+            const autoOverridden = handler.autorecOverrides?.enable
             Object.assign(data, autoObject);
             data.isAuto = true;
             data.animation = data.animation || "";
-            data.enableCustom = data.custom || false,
-            data.enableCustom02 = data.custom02 || false,
+            data.enableCustom = data.custom || false;
+            data.enableCustom02 = data.custom02 || false;
             data.customPath = data.custom ? data.customPath : false;
             data.customPath02 = data.custom02 ? data.customPath02 : false;
 
             data.staticType = data.type || "targetDefault";
-            data.color = autoOverridden ? handler.autoOverride?.color : data.color;
-            data.color02 = autoOverridden ? handler.autoOverride?.color02 : data.color02;
-            data.repeat = autoOverridden ? handler.autoOverride?.repeat || 1 : data.repeat;
-            data.delay = autoOverridden ? handler.autoOverride?.delay || 0 : data.delay || 0;
-            data.scale = autoOverridden ? handler.autoOverride?.scale || 1 : data.scale || 1;
-            data.scale02 = autoOverridden ? handler.autoOverride?.scale02 || 1 : data.scale02 || 1;
-            data.scaleX = autoOverridden ? handler.autoOverride?.scaleX || 1 : data.scaleX || 1;
-            data.scaleY = autoOverridden ? handler.autoOverride?.scaleY || 1 : data.scaleY || 1;
+            data.color = autoOverridden ? handler.autorecOverrides?.color : data.color;
+            data.color02 = autoOverridden ? handler.autorecOverrides?.color02 : data.color02;
+            data.repeat = autoOverridden ? handler.autorecOverrides?.repeat || 1 : data.repeat;
+            data.delay = autoOverridden ? handler.autorecOverrides?.delay || 0 : data.delay || 0;
+            data.scale = autoOverridden ? handler.autorecOverrides?.scale || 1 : data.scale || 1;
+            data.scale02 = autoOverridden ? handler.autorecOverrides?.scale02 || 1 : data.scale02 || 1;
+            data.scaleX = autoOverridden ? handler.autorecOverrides?.scaleX || 1 : data.scaleX || 1;
+            data.scaleY = autoOverridden ? handler.autorecOverrides?.scaleY || 1 : data.scaleY || 1;
             data.opacity = data.opacity || 1;
-            data.variant = autoOverridden ? handler.autoOverride?.variant : data.variant;
-            data.variant02 = autoOverridden ? handler.autoOverride?.variant02 || "01" : data.variant02 || "01";
-            data.persistent = autoOverridden ? handler.autoOverride?.persistent : data.persistent;
+            data.variant = autoOverridden ? handler.autorecOverrides?.variant : data.variant;
+            data.variant02 = autoOverridden ? handler.autorecOverrides?.variant02 || "01" : data.variant02 || "01";
+            data.persistent = autoOverridden ? handler.autorecOverrides?.persistent : data.persistent;
             data.menuType = data.staticOptions === 'shieldfx' ? true : false;
             data.below = data.below ?? false;
             data.measureType = data.measureType ?? 'alternating';
-            data.hideFromPlayers = false,
-            data.playbackRate = data.playbackRate || 1,
-            data.onlyX = data.onlyX ?? false,
+            data.hideFromPlayers = false;
+            data.playbackRate = data.playbackRate || 1;
+            data.onlyX = data.onlyX ?? false;
 
             data.itemAudio = {
                 enable: data.audio?.a01?.enable || false,
-                file: data.audio?.a01?.file,
+                file: data.audio?.a01?.file ?? "",
                 volume: data.audio?.a01?.volume || 0.25,
                 delay: data.audio?.a01?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : data.repeat || 1,
@@ -55,9 +93,10 @@ export class AAanimationData {
 
             data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
             data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
+            data.switchType = data.switchType || "on";
             data.switchAudio = {
                 enable: data.audio?.a02?.enable || false,
-                file: data.audio?.a02?.file,
+                file: data.audio?.a02?.file ?? "",
                 volume: data.audio?.a02?.volume || 0.25,
                 delay: data.audio?.a02?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : data.repeat || 1,
@@ -72,6 +111,17 @@ export class AAanimationData {
             data.playSound = data.itemAudio.enable && data.itemAudio.file ? true : false;
 
             data.explosion = await this._explosionData(handler, true)
+
+            data.macro = {
+                enabled: data.macro?.enable ?? false,
+                name: data.macro?.name ?? "",
+                args: data.macro?.args ? data.macro.args.split(',').map(s => s.trim()) : "",
+                playWhen: data.macro?.playWhen ?? "0",
+            }
+            data.playMacro = data.macro.enabled && data.macro.name ? true : false;
+            data.playSound = data.itemAudio?.enable && data.itemAudio?.file ? true : false;
+            data.playSwitchSound = data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off" ? true : false;
+
             return data;
         } else {
             const flags = handler.flags;
@@ -132,7 +182,6 @@ export class AAanimationData {
                 return: meleeSwitch.returning || false,
                 switchVariant: meleeSwitch.variant ?? "01",
                 range: meleeSwitch.range ?? 2,
-                switchType: meleeSwitch.switchType ?? "on",
                 switchAudio: {
                     enable: flags.audio?.a02?.enable || false,
                     file: flags.audio?.a02?.file,
@@ -141,8 +190,18 @@ export class AAanimationData {
                     repeat: handler.decoupleSound ? 1 : options.repeat || 1,
                 },
                 explosion: await this._explosionData(handler, false),
+
+                macro: {
+                    enabled: flags.macro?.enable ?? false,
+                    name: flags.macro?.name ?? "",
+                    args: flags.macro?.args ? flags.macro.args.split(',').map(s => s.trim()) : "",
+                    playWhen: flags.macro?.playWhen ?? "0",
+                }
             }
+            //data.macro.args = data.macro.preArgs.split(',').map(s => s.trim());
+            data.playMacro = data.macro.enabled && data.macro.name ? true : false;
             data.playSound = data.itemAudio?.enable && data.itemAudio?.file ? true : false;
+            data.playSwitchSound = data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off" ? true : false;
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
             return data;
         }
@@ -185,14 +244,14 @@ export class AAanimationData {
                 customPath: explosions.enableCustom ? explosions.customPath : false,
                 below: explosions.below || false,
                 audio: {
-                    enable: handler.flags.audio?.e01?.enable || false,
+                    enabled: handler.flags.audio?.e01?.enable || false,
                     file: handler.flags.audio?.e01?.file,
                     volume: handler.flags.audio?.e01?.volume || 0.25,
                     delay: handler.flags.audio?.e01?.delay || 0,
                     repeat: handler.decoupleSound ? 1 : handler.flags?.options?.repeat || 1,
                 },
             };
-            explosion.playSound = explosion.enabled && explosion.audio?.enable && explosion.audio?.file !== "";
+            explosion.playSound = explosion.enabled && explosion.audio?.enabled && explosion.audio?.file !== "";
             explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
             explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             return explosion;
@@ -227,27 +286,27 @@ export class AAanimationData {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
-        const sourceScale = handler.actorToken.w;
+        const sourceScale = handler.sourceToken.w;
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
-        sourceFX.sourceSeq.sound()
-            .file(sourceFX.itemAudio.file, true)
-            .volume(sourceFX.itemAudio.volume)
-            .delay(sourceFX.itemAudio.delay)
-            .playIf(() => {
-                return sourceFX.itemAudio.enable && sourceFX.itemAudio.file && sourceFX.enabled;
-            })
-        sourceFX.sourceSeq.effect()
-            .file(sourceFX.data.file, true)
-            .atLocation(handler.actorToken)
-            .gridSize(canvas.grid.size)
-            .scale(sourceFX.sFXScale * sourceFX.scale)
-            .repeats(sourceFX.repeat, sourceFX.delay)
-            .belowTokens(sourceFX.below)
-            .opacity(sourceFX.opacity)
-            .waitUntilFinished(sourceFX.startDelay)
-            .playIf(sourceFX.enabled)
+        if (sourceFX.itemAudio.enable && sourceFX.itemAudio.file && sourceFX.enabled) {
+            sourceFX.sourceSeq.sound()
+                .file(sourceFX.itemAudio.file, true)
+                .volume(sourceFX.itemAudio.volume)
+                .delay(sourceFX.itemAudio.delay)
+        }
+        if (sourceFX.enabled) {
+            sourceFX.sourceSeq.effect()
+                .file(sourceFX.data.file, true)
+                .atLocation(handler.sourceToken)
+                .scale(sourceFX.sFXScale * sourceFX.scale)
+                .repeats(sourceFX.repeat, sourceFX.delay)
+                .belowTokens(sourceFX.below)
+                .opacity(sourceFX.opacity)
+                .waitUntilFinished(sourceFX.startDelay)
+            //.playIf(sourceFX.enabled)
+        }
 
         return sourceFX;
     }
@@ -274,6 +333,7 @@ export class AAanimationData {
                 volume: handler.flags.audio?.t01?.volume || 0.25,
                 delay: handler.flags.audio?.t01?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : target.loops || 1,
+                soundDelay: handler.decoupleSound ? 1 : target.loopDelay || 250,
             },
         }
 
@@ -281,6 +341,7 @@ export class AAanimationData {
             targetFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
+        targetFX.playSound = targetFX.itemAudio.enable && targetFX.enabled && targetFX.itemAudio.file ? true : false;
         targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
         return targetFX
     }
@@ -295,8 +356,9 @@ export class AAanimationData {
 
         const playNow = (targetFX.enabled && hit) ? true : false;
 
-        targetFX.tFXScale = targetFX.enabled ? 2 * target.w / targetFX.data.metadata?.width : 1;
+        targetFX.tFXScale = targetFX.enable ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
+        /*
         targetFX.targetSeq.sound()
             .file(targetFX.itemAudio?.file, true)
             .volume(targetFX.itemAudio?.volume)
@@ -305,6 +367,7 @@ export class AAanimationData {
             .playIf(() => {
                 return targetFX.itemAudio?.enable && targetFX.itemAudio?.file && targetFX.enabled;
             })
+        */
         targetFX.targetSeq.effect()
             .delay(targetFX.startDelay)
             .file(targetFX.data?.file, true)
@@ -313,9 +376,8 @@ export class AAanimationData {
             .repeats(targetFX.repeat, targetFX.delay)
             .belowTokens(targetFX.below)
             .persist(targetFX.persistent)
-            .gridSize(canvas.grid.size)
             .opacity(targetFX.opacity)
-            .playIf(playNow)
+        //.playIf(playNow)
 
         return targetFX;
     }
@@ -344,6 +406,7 @@ export class AAanimationData {
     }
 
     static howToDelete(type) {
+        if (game.settings.get("autoanimations", "noTips")) { return; }
         switch (type) {
             case 'overheadtile':
                 ui.notifications.info("This is an OVERHEAD Tile. Use the Tile Foreground Layer to remove the Animation")

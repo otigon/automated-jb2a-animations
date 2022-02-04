@@ -24,15 +24,15 @@
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{autoRepeat}}" data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.delay" value={{autoDelay}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.delay" value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
     </div>
     <div class="autorec-menu-options option08">
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value={{autoScale}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
     </div>
 </div>
 {{/ifEquals}}
@@ -63,11 +63,11 @@
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{autoRepeat}}" data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.delay" value={{autoDelay}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.delay" value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
     </div>
 </div>
 {{/ifEquals}}
@@ -109,15 +109,15 @@
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{autoRepeat}}" data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.delay" value={{autoDelay}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.delay" value="{{flags.autoanimations.autoOverride.delay}"} data-dtype="Number" placeholder=250>
     </div>
     <div class="autorec-menu-options option08">
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value={{autoScale}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
     </div>
 </div>
 {{/ifEquals}}
@@ -148,19 +148,19 @@
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{autoRepeat}}" data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.delay" value={{autoDelay}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.delay" value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
     </div>
     <div class="autorec-menu-options option07">
         <label>{{localize "AUTOANIM.scale"}} X</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scaleX" value={{autoScaleX}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.scaleX" value="{{flags.autoanimations.autoOverride.scaleX}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option08">
         <label>{{localize "AUTOANIM.scale"}} Y</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scaleY" value={{autoScaleY}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.scaleY" value="{{flags.autoanimations.autoOverride.scaleY}}" data-dtype="Number" placeholder=1>
     </div>
 </div>
 {{/ifEquals}}
@@ -191,12 +191,12 @@
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.opacity"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.opacity" value="{{autoOpacity}}"
-            data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.opacity" value="{{flags.autoanimations.autoOverride.opacity}}"
+            data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option04">
         <label>{{localize "AUTOANIM.radius"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.radius" value={{autoRadius}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.radius" value="{{flags.autoanimations.autoOverride.radius}}" data-dtype="Number" placeholder=3.5>
     </div>
     <div class="autorec-menu-options" style='grid-column: 3 / 5; grid-row: 2 / 3;'>
         <div class='form-group'>
@@ -255,7 +255,7 @@
     <div class='autorec-menu-options option07'>
         <label>{{localize 'AUTOANIM.wait'}}:
             <input type="Number" style='width:5em' name="flags.autoanimations.autoOverride.fireball.wait01"
-                value="{{lookup flags.autoanimations.autoOverride.fireball 'wait01'}}" data-dtype="Number">
+                value="{{flags.autoanimations.autoOverride.fireball.wait01}}" data-dtype="Number" placeholder=0>
         </label>
     </div>
     <!--<div class='form-group'>
@@ -309,14 +309,13 @@
     <div class="form-group option17">
         <label>{{localize "AUTOANIM.addAfterImage"}}</label>
         <input type="checkbox" name="flags.autoanimations.autoOverride.fireball.afterEffect"
-            value="flags.autoanimations.autoOverride.fireball.afterEffect" data-dtype="{{Boolean}}" {{checked
-            flags.autoanimations.autoOverride.fireball.afterEffect}}>
+            data-dtype="{{Boolean}}" {{checked flags.autoanimations.autoOverride.fireball.afterEffect}}>
     </div>
     {{#if flags.autoanimations.autoOverride.fireball.afterEffect}}
     <div class='autorec-menu-options option18'>
         <label>{{localize "AUTOANIM.wait"}}</label>
         <input type="Number" style='width:3em' name="flags.autoanimations.autoOverride.fireball.wait03"
-            value="{{flags.autoanimations.autoOverride.fireball.wait03}}" data-dtype="Number">
+            value="{{flags.autoanimations.autoOverride.fireball.wait03}}" data-dtype="Number" placeholder=0>
     </div>
     <div class='form-group' style='grid-column: 3 / 5;grid-row: 5 / 6;'>
         <input style="width:15em" type="text" class="files"
@@ -345,7 +344,7 @@
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value={{autoScale}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option06">
         <div class='form-group'>
@@ -398,7 +397,7 @@
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value={{autoScale}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option06">
         <div class='form-group'>
@@ -436,7 +435,7 @@
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value={{autoScale}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
     </div>
     <div class="autorec-menu-options option06">
         <div class='form-group'>
@@ -448,11 +447,11 @@
     {{#if flags.autoanimations.autoOverride.persistent }}
     <div class="autorec-menu-options option03">
         <label>{{localize "AUTOANIM.anchorX"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.anchorX" value={{autoAnchorX}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.anchorX" value="{{flags.autoanimations.autoOverride.anchorX}}" data-dtype="Number" placeholder=0.5>
     </div>
     <div class="autorec-menu-options option04">
         <label>{{localize "AUTOANIM.anchorY"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.anchorY" value={{autoAnchorY}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.anchorY" value="{{flags.autoanimations.autoOverride.anchorY}}" data-dtype="Number" placeholder=0.5>
     </div>
     {{/if}}
 </div>
@@ -484,15 +483,15 @@
     </div>
     <div class="autorec-menu-options option02">
         <label>{{localize "AUTOANIM.anchorX"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.anchorX" value={{autoAnchorX}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.anchorX" value="{{flags.autoanimations.autoOverride.anchorX}}" data-dtype="Number" placeholder=0.5>
     </div>
     <div class="autorec-menu-options option04">
         <label>{{localize "AUTOANIM.anchorY"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.anchorY" value={{autoAnchorY}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.anchorY" value="{{flags.autoanimations.autoOverride.anchorY}}" data-dtype="Number" placeholder=0.5>
     </div>
     <div class="autorec-menu-options option05">
         <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value={{autoScale}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
     </div>
 </div>
 {{/ifEquals}}
@@ -536,7 +535,7 @@
     </div>
     <div class="autorec-menu-options option06">
         <label>{{localize "AUTOANIM.ranged"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.range" value={{autoRange}} data-dtype="Number">
+        <input type="Number" name="flags.autoanimations.autoOverride.range" value="{{flags.autoanimations.autoOverride.range}}" data-dtype="Number" placeholder=30>
     </div>
     {{#unless autoObject.custom02}}
     <div class="option09">

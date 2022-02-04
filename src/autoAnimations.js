@@ -2,7 +2,7 @@ import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-data
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
 
-import flagHandler from "./system-handlers/system-data.js";
+import systemData from "./system-handlers/system-data.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import aaSettings from "./settings.js";
@@ -62,6 +62,7 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/levels3d.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html'
     ]);
 
 })
@@ -277,7 +278,7 @@ class AutoAnimations {
             item: item,
             ...options
         }
-        let handler = await flagHandler.make(null, null, data)
+        let handler = await systemData.make(null, null, data)
         trafficCop(handler);
     }
 }
@@ -293,9 +294,9 @@ function moduleIncludes(test) {
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 async function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
-    let handler = await flagHandler.make(workflow);
+    let handler = await systemData.make(workflow);
     //console.log(handler)
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
@@ -306,8 +307,8 @@ async function setUpMidi(workflow) {
 async function setUpMidiNoAttackDamage(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack || workflow.item?.hasDamage) { return; }
-    let handler = await flagHandler.make(workflow);
-    if (!handler.item || !handler.actorToken) {
+    let handler = await systemData.make(workflow);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
@@ -319,8 +320,8 @@ async function setUpMidiNoAttackDamage(workflow) {
 async function setUpMidiNoAttack(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
-    let handler = await flagHandler.make(workflow);
-    if (!handler.item || !handler.actorToken) {
+    let handler = await systemData.make(workflow);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
@@ -331,8 +332,8 @@ async function setUpMidiNoAttack(workflow) {
 // For AOE items when using Midi QOL
 async function midiAOE(workflow) {
     if (killAllAnimations) { return; }
-    const handler = await flagHandler.make(workflow);
-    if (!handler.item || !handler.actorToken) {
+    const handler = await systemData.make(workflow);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) {
@@ -346,8 +347,8 @@ async function midiTemplateAnimations(msg) {
     if (game.user.id !== msg.user?.id) {
         return;
     }
-    const handler = await flagHandler.make(msg, true);
-    if (!handler.item || !handler.actorToken) {
+    const handler = await systemData.make(msg, true);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     let breakOut = checkMessege(msg);
@@ -366,6 +367,40 @@ function checkMessege(msg) {
 }
 
 /*
+* Midi-QOL Critical Hit and Fumble animations
+*
+*/
+async function criticalCheck(workflow) {
+    if (killAllAnimations) { return; }
+    if (!workflow.isCritical && !workflow.isFumble) { return; }
+    let critical = workflow.isCritical;
+    let fumble = workflow.isFumble;
+    let token;
+
+    let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
+    let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
+
+    switch (true) {
+        case (game.settings.get("autoanimations", "EnableCritical") && critical):
+            token = canvas.tokens.get(workflow.tokenId);
+            new Sequence()
+                .effect()
+                .file(critAnim)
+                .atLocation(token)
+                .play()
+            break;
+        case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
+            token = canvas.tokens.get(workflow.tokenId);
+            new Sequence()
+                .effect()
+                .file(critMissAnim)
+                .atLocation(token)
+                .play()
+            break;
+    }
+}
+
+/*
 / Set up DnD5e and SW5e CORE (NON MIDI)
 */
 async function setUp5eCore(msg) {
@@ -377,16 +412,16 @@ async function setUp5eCore(msg) {
     let rollType;
     switch (game.system.id) {
         case "dnd5e":
-            handler = await flagHandler.make(msg);
+            handler = await systemData.make(msg);
             rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
             break;
         case "sw5e":
-            handler = await flagHandler.make(msg);
+            handler = await systemData.make(msg);
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
 
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
 
@@ -434,13 +469,13 @@ async function onCreateChatMessage(msg) {
     let handler;
     switch (game.system.id) {
         case "pf1":
-            handler = await flagHandler.make(msg);
+            handler = await systemData.make(msg);
             break;
         case "D35E":
-            handler = await flagHandler.make(msg);
+            handler = await systemData.make(msg);
             break;
     }
-    if (!handler.item || !handler.actorToken) {
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler)
@@ -452,8 +487,8 @@ async function onCreateChatMessage(msg) {
 async function swadeData(SwadeTokenOrActor, SwadeItem) {
     if (killAllAnimations) { return; }
     let data = { SwadeTokenOrActor, SwadeItem }
-    let handler = await flagHandler.make(data);
-    if (!handler.item || !handler.actorToken) {
+    let handler = await systemData.make(data);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler);
@@ -476,13 +511,13 @@ async function starFinder(data, msg) {
 */
 async function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
-    let handler = await flagHandler.make(msg);
-    if (!handler.item || !handler.actorToken) {
+    let handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (game.user.id === msg.user.id) {
         switch (true) {
-            case ((handler.animType === "t12") && (handler.animOverride)):
+            case ((handler.animType === "t12") && (handler.isCustomized)):
                 teleportation(handler);
                 break;
         }
@@ -499,8 +534,8 @@ async function setupTormenta20(msg) {
 async function fblReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = await flagHandler.make(msg);
-    if (!handler.item || !handler.actorToken) {
+    const handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler);
@@ -510,8 +545,8 @@ async function fblReady(msg) {
 */
 async function setupDemonLord(data) {
     if (killAllAnimations) { return; }
-    let handler = await flagHandler.make(data);
-    if (!handler.item || !handler.actorToken) {
+    let handler = await systemData.make(data);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler);
@@ -523,8 +558,8 @@ async function setupDemonLord(data) {
 async function pf2eReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = await flagHandler.make(msg);
-    if (!handler.item || !handler.actorToken) {
+    const handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
 
@@ -602,44 +637,15 @@ async function pf2eReady(msg) {
     }
 }
 
-async function criticalCheck(workflow) {
-    if (killAllAnimations) { return; }
-    if (!workflow.isCritical && !workflow.isFumble) { return; }
-    let critical = workflow.isCritical;
-    let fumble = workflow.isFumble;
-    let token;
-
-    let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
-    let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
-
-    switch (true) {
-        case (game.settings.get("autoanimations", "EnableCritical") && critical):
-            token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
-                .effect()
-                .file(critAnim)
-                .atLocation(token)
-                .play()
-            break;
-        case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
-            token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
-                .effect()
-                .file(critMissAnim)
-                .atLocation(token)
-                .play()
-            break;
-    }
-}
 /*
 / WFRP Functions
 */
 async function wfrpWeapon(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await flagHandler.make({ item: data.weapon, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.weapon, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
@@ -649,9 +655,9 @@ async function wfrpWeapon(data, targets, info) {
 async function wfrpPrayer(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await flagHandler.make({ item: data.prayer, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.prayer, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
@@ -661,9 +667,9 @@ async function wfrpPrayer(data, targets, info) {
 async function wfrpCast(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await flagHandler.make({ item: data.spell, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.spell, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
@@ -673,9 +679,9 @@ async function wfrpCast(data, targets, info) {
 async function wfrpTrait(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await flagHandler.make({ item: data.trait, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.trait, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
@@ -685,9 +691,9 @@ async function wfrpTrait(data, targets, info) {
 async function wfrpSkill(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await flagHandler.make({ item: data.skill, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.skill, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
@@ -698,8 +704,8 @@ async function wfrpSkill(data, targets, info) {
 async function oseReady(input) {
     if (killAllAnimations) { return; }
     if (input.user.id !== game.user.id) { return };
-    let handler = await flagHandler.make(input)
-    if (!handler.item || !handler.actorToken) {
+    let handler = await systemData.make(input)
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler);

@@ -1,16 +1,10 @@
-import { buildFile} from "./file-builder/build-filepath.js"
+import { buildFile } from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
-import { socketlibSocket } from "../socketset.js";
-
+//import { socketlibSocket } from "../socketset.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 export async function teleportation(handler, animationData) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
-    /*
-    if (handler.itemMacro.toLowerCase().includes("misty step")) {
-        console.log("A-A Misty Step will not work with DAE SRD Misty Step");
-        return;
-    }
-    */
-    const sourceToken = handler.actorToken;
+
+    const sourceToken = handler.sourceToken;
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
@@ -24,9 +18,10 @@ export async function teleportation(handler, animationData) {
         data.itemName02 = data.options?.name02 || "";
     }
 
-    if (aaDebug) { aaDebugger("Teleportation Animation Start", data) }
     const onToken = await buildFile(true, data.itemName01, "static", data.variant, data.color, data.customPath);
     const onToken02 = await buildFile(true, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
+
+    if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, onToken, onToken02) }
 
     const sourceScale = sourceToken.w;
 
@@ -41,28 +36,28 @@ export async function teleportation(handler, animationData) {
     const hideBorder = data.hideFromPlayers ? gmIDs : userIDs;
     const userColor = game.user?.data?.color ? "0x" + game.user.data.color.replace(/^#/, '') : 0x0D26FF;
     const filePath = data.measureType === 'equidistant' ? "modules/autoanimations/src/images/teleportSquare.png" : "modules/autoanimations/src/images/teleportCircle.png"
-    
-    new Sequence()
-        .effect()
-            .file(filePath)
-            .atLocation(sourceToken)
-            .size({ width: drawingSize, height: drawingSize })
-            .fadeIn(500)
-            .scaleIn(0, 500)
-            .fadeOut(500)
-            .name("teleportation")
-            .belowTokens(true)
-            .persist(true)
-            .opacity(0.5)
-            .filter("Glow", {
-                distance: 10,
-                outerStrength: 5,
-                innerStrength: 5,
-                color: userColor,
-                quality: 0.2,
-               })
-            .forUsers(hideBorder)
-        .play()
+
+    let aaSeq01 = new Sequence()
+    aaSeq01.effect()
+        .file(filePath)
+        .atLocation(sourceToken)
+        .size({ width: drawingSize, height: drawingSize })
+        .fadeIn(500)
+        .scaleIn(0, 500)
+        .fadeOut(500)
+        .name("teleportation")
+        .belowTokens(true)
+        .persist(true)
+        .opacity(0.5)
+        .filter("Glow", {
+            distance: 10,
+            outerStrength: 5,
+            innerStrength: 5,
+            color: userColor,
+            quality: 0.2,
+        })
+        .forUsers(hideBorder)
+    aaSeq01.play()
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {
@@ -82,9 +77,52 @@ export async function teleportation(handler, animationData) {
     async function deleteTemplatesAndMove() {
 
         let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
-        let centerPos = canvas.grid.getCenter(pos.x, pos.y);
+        let centerPos;
+        if (canvas.scene.gridType === 0) {
+            centerPos = [gridPos[0] + sourceToken.w, gridPos[1] + sourceToken.w];
+        } else {
+            centerPos = canvas.grid.getCenter(pos.x, pos.y);
+        }
+        //let centerPos = canvas.grid.getCenter(pos.x, pos.y);
 
-        Sequencer.EffectManager.endEffects({name: "teleportation"})
+        Sequencer.EffectManager.endEffects({ name: "teleportation" })
+
+        let aaSeq = new Sequence();
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+        }
+        aaSeq.addSequence(sourceFX.sourceSeq)
+        if (data.playSound) {
+            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+        }
+        aaSeq.effect()
+            .file(onToken.file)
+            .atLocation(sourceToken)
+            .scale(Scale)
+            .randomRotation()
+        aaSeq.wait(250)
+        aaSeq.animation()
+            .on(sourceToken)
+            .opacity(0)
+            .teleportTo({ x: gridPos[0], y: gridPos[1] })
+        aaSeq.effect()
+            .file(onToken02.file)
+            .atLocation({ x: centerPos[0], y: centerPos[1] })
+            .scale(Scale02)
+            .randomRotation()
+        aaSeq.wait(1250 + data.delay)
+        aaSeq.animation()
+            .on(sourceToken)
+            .opacity(1)
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, ...userData)
+                .play()
+        }
+        aaSeq.play()
+        /*
         new Sequence("Automated Animations")
             .addSequence(sourceFX.sourceSeq)
             .sound()
@@ -112,10 +150,11 @@ export async function teleportation(handler, animationData) {
                 .on(sourceToken)
                 .opacity(1)
             .play();
+        */
     };
 
     // Credit to TPosney / Midi-QOL for the Range Check
-    function checkDistance (source, target) {
+    function checkDistance(source, target) {
         var x, x1, y, y1, d, r, segments = [], rdistance, distance;
         for (x = 0; x < source.data.width; x++) {
             for (y = 0; y < source.data.height; y++) {

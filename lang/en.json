@@ -576,6 +576,10 @@
 
     "AUTOANIM.playbackRate": "Playback Rate",
     "AUTOANIM.constantScaleY": "Constant Y Scale",
+    "AUTOANIM.macro": "Macro",
+    "AUTOANIM.add": "Add",
+    "AUTOANIM.args": "Send Args",
+
 
     "AUTOANIM.darkwhite": "Dark White",
     "AUTOANIM.darkpurplered": "Dark Purple Red",
@@ -587,5 +591,13 @@
     "AUTOANIM.brightblue": "Bright Blue",
     "AUTOANIM.purplegreen": "Purple Green",
     "AUTOANIM.eruption": "Eruption",
-    "AUTOANIM.circleofstars": "Circle of Stars"
+    "AUTOANIM.circleofstars": "Circle of Stars",
+    "AUTOANIM.dualattach": "Dual Attach",
+    "AUTOANIM.noTips": "Disable Persistent Effect Tips",
+    "AUTOANIM.noTipsHint": "Disables the Tooltip for how to Delete Persistent Effects",
+    "AUTOANIM.only": "Only",
+    "AUTOANIM.name": "Name",
+    "AUTOANIM.macroconcurrent": "Concurrent with Animation",
+    "AUTOANIM.awaitmacro": "Await Macro Completion",
+    "AUTOANIM.macroonly": "Macro only, No Animation"
 }
