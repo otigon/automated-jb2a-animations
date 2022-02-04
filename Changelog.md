@@ -1,3 +1,19 @@
+2.0.0 **Macro Support**  
+**BREAKING** With the addition of Macros into A-A, the Advanced Macros module is required to use this feature. This will not be set as a dependency since it is an optional feature of the Module.  
+* Adds the ability to use Custom Macros on all Item and Automatic Recognition Menus. **See the WIKI for detailed information on how to use these at** https://github.com/otigon/automated-jb2a-animations/wiki/Adding-Macros.  
+* All Animation Sequences have been reworked to accomodate the Addition of Macros. As such, you may notice some different behavior on some animations. The basic Sequence will work as:  
+1. Macro (If playing in Sequence)  
+2. Extra Effects - Source Token (If Enabled)  
+3. Primary Effect and Sound.  
+4. Explosion (if enabled)  
+5. Extra Effects - Target Token(s) (If Enabled)  
+**NOTE:** For Targeted effects, 3, 4 and 5 will play on all targets Simultaneously (respecting wait/delay times) with any associated Sounds. Previously many of the effects would incorrectly play the full Sequence from Source to Target, then Repeat again for the next target.  
+  
+
+* All menus should now have have proper placeholders representing the default value if the field is left blank.  
+* Corrected an issue with Templates => Thunderwave. Previously if the Thunderwave animation was chosen it would direct it to a custom Sequence designed for DnD 5e. This is now moved to the Preset menus.  
+  
+  
 1.2.9 **JB2A Essek and Frumpkin add-ins  
 Adds in all new animations with exception of the Zoning effects  
 * Energy Conduit Square and Circle => Range-Generic  
