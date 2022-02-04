@@ -4,12 +4,6 @@ import { aaDebugger } from "../constants/constants.js"
 import { AAanimationData } from "../aa-classes/animation-data.js";
 export async function teleportation(handler, animationData) {
 
-    /*
-    if (handler.itemMacro.toLowerCase().includes("misty step")) {
-        console.log("A-A Misty Step will not work with DAE SRD Misty Step");
-        return;
-    }
-    */
     const sourceToken = handler.sourceToken;
 
     const data = animationData.primary;

@@ -357,7 +357,6 @@ export class AAanimationData {
         const playNow = (targetFX.enabled && hit) ? true : false;
 
         targetFX.tFXScale = targetFX.enable ? 2 * target.w / targetFX.data.metadata?.width : 1;
-        console.log(targetFX.tFXScale)
         targetFX.targetSeq = new Sequence();
         /*
         targetFX.targetSeq.sound()

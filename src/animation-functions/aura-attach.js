@@ -24,10 +24,8 @@ export async function auras(handler, animationData) {
 
     if (handler.debug) { aaDebugger("Aura Animation Start", animationData, aura) }
     if (handler.allTargets.length === 0 || data.ignoreTargets) {
-        console.log("source sequence start")
         selfAura()
     } else {
-        console.log("target sequence start")
         targetAura();
     }
 
@@ -77,14 +75,12 @@ export async function auras(handler, animationData) {
 
         let aaSeq = new Sequence()
         if (data.playMacro && data.macro.playWhen === "1") {
-            console.log("Playing Macro in Sequence")
             let userData = data.macro.args;
             aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
         }
         aaSeq.addSequence(sourceFX.sourceSeq)
         for (let target of handler.allTargets) {
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
-            console.log(handler)
 
             if (!checkAnim) {
                 aaSeq.effect()
@@ -107,7 +103,6 @@ export async function auras(handler, animationData) {
         }
         // Macro if Concurrent
         if (data.playMacro && data.macro.playWhen === "0") {
-            console.log("Playing Macro out of Sequence")
             let userData = data.macro.args;
             new Sequence()
                 .macro(data.macro.name, handler.workflow, handler, [...userData])
