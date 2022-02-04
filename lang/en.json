@@ -594,5 +594,6 @@
     "AUTOANIM.circleofstars": "Circle of Stars",
     "AUTOANIM.dualattach": "Dual Attach",
     "AUTOANIM.noTips": "Disable Persistent Effect Tips",
-    "AUTOANIM.noTipsHint": "Disables the Tooltip for how to Delete Persistent Effects"
+    "AUTOANIM.noTipsHint": "Disables the Tooltip for how to Delete Persistent Effects",
+    "AUTOANIM.only": "Only"
 }

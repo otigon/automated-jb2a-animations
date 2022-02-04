@@ -52,6 +52,7 @@
                 <div {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'hidden' ) }} style="display:none" {{/if}}>
                     <div {{#if ( lookup (lookup ../settings.aaAutorec.melee idx) 'anim2d' ) }} style="display:none"
                         {{/if}}>
+                        <div {{#ifEquals ( lookup ( lookup (lookup ../settings.aaAutorec.melee idx) 'macro' ) 'playWhen' ) '2' }} style="display:none" {{/ifEquals}}>
                         <div class="aa-item-container">
                             {{#unless (lookup (lookup ../settings.aaAutorec.melee idx) 'custom')}}
                             <div class="option01">
@@ -331,6 +332,7 @@
                             </div>
                             {{/if}}
                             {{/ifnoteq}}
+                        </div>
                         </div>
                         <div style="padding:3px"></div>
                         <div {{#unless (lookup ( lookup (lookup ../settings.aaAutorec.melee idx) 'macro' ) 'enable' )}}
