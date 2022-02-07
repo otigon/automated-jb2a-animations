@@ -157,20 +157,17 @@ Hooks.once('ready', function () {
                             return null;
                         }
                     }
-                    let itemId = extractItemId(msg.data.content);
-                    let tokenId;
-                    let sourceToken;
-                    let targets;
-                    let item;
-                    if (itemId === undefined) {
-                        return
-                    } else {
-                        item = sourceToken.actor.items?.get(itemId)
-                    }
+                    const itemId = extractItemId(msg.data.content);
+                    if (!itemId) { return; }
+                    const tokenId = msg.data.speaker.token;
+                    const sourceToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId));
+
+                    if (!sourceToken) { return; }
+
+                    const item = sourceToken.actor?.items?.get(itemId)
+
                     if (!item.hasAttack && !item.hasDamage) {
-                        tokenId = msg.data.speaker.token;
-                        sourceToken = canvas.tokens.get(tokenId);
-                        targets = Array.from(msg.user.targets)
+                        const targets = Array.from(msg.user.targets)
                         AutoAnimations.playAnimation(sourceToken, targets, item)
                     }
                 });
@@ -183,12 +180,14 @@ Hooks.once('ready', function () {
                     });
                 } else {
                     Hooks.on("attackRolled", async (data) => {
+                        console.log("Attack Roll HOOK!!!!")
                         Hooks.once("createChatMessage", async (msg) => {
                             if (msg.user.id !== game.user.id) { return };
                             starFinder(data, msg)
                         });
                     })
                     Hooks.on("damageRolled", async (data) => {
+                        console.log("Damage Roll HOOK!!!!")
                         Hooks.once("createChatMessage", async (msg) => {
                             if (msg.user.id !== game.user.id) { return };
                             if (data.item.hasAttack) {

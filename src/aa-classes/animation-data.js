@@ -66,7 +66,7 @@ export class AAanimationData {
             data.staticType = data.type || "targetDefault";
             data.color = autoOverridden ? handler.autorecOverrides?.color : data.color;
             data.color02 = autoOverridden ? handler.autorecOverrides?.color02 : data.color02;
-            data.repeat = autoOverridden ? handler.autorecOverrides?.repeat || 1 : data.repeat;
+            data.repeat = autoOverridden ? handler.autorecOverrides?.repeat || 1 : data.repeat || 1;
             data.delay = autoOverridden ? handler.autorecOverrides?.delay || 0 : data.delay || 0;
             data.scale = autoOverridden ? handler.autorecOverrides?.scale || 1 : data.scale || 1;
             data.scale02 = autoOverridden ? handler.autorecOverrides?.scale02 || 1 : data.scale02 || 1;
@@ -75,13 +75,16 @@ export class AAanimationData {
             data.opacity = data.opacity || 1;
             data.variant = autoOverridden ? handler.autorecOverrides?.variant : data.variant;
             data.variant02 = autoOverridden ? handler.autorecOverrides?.variant02 || "01" : data.variant02 || "01";
-            data.persistent = autoOverridden ? handler.autorecOverrides?.persistent : data.persistent;
+            data.persistent = autoOverridden ? handler.autorecOverrides?.persistent || false : data.persistent || false;
             data.menuType = data.staticOptions === 'shieldfx' ? true : false;
             data.below = data.below ?? false;
             data.measureType = data.measureType ?? 'alternating';
             data.hideFromPlayers = false;
             data.playbackRate = data.playbackRate || 1;
             data.onlyX = data.onlyX ?? false;
+            data.anchorX = autoOverridden ? handler.autorecOverrides?.anchorX || 0.5 : data.anchorX || 0.5;
+            data.anchorY = autoOverridden ? handler.autorecOverrides?.anchorY || 0.7 : data.anchorY || 0.7;    
+            data.teleDist = autoOverridden ? handler.autorecOverrides?.range || 30 : data.range || 30;
 
             data.itemAudio = {
                 enable: data.audio?.a01?.enable || false,
@@ -89,6 +92,14 @@ export class AAanimationData {
                 volume: data.audio?.a01?.volume || 0.25,
                 delay: data.audio?.a01?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : data.repeat || 1,
+            }
+
+            data.soundOnly = {
+                enable: data.soundOnly?.enable || false,
+                file: data.soundOnly?.file ?? "",
+                volume: data.soundOnly?.volume || 0.25,
+                delay: data.soundOnly?.delay || 0,
+                //repeat: handler.decoupleSound ? 1 : data.repeat || 1,
             }
 
             data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;

@@ -88,13 +88,13 @@ export async function trafficCop(handler, config) {
         const targets = handler.allTargets?.length ?? 0;
         const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(handler, isAutorec);
         if (!isCustom && isAutorec) {
-            if (/*animationData.primary.soundOnly.enable || */animationData.primary.macro.playWhen === "2") {
+            if (animationData.primary.soundOnly.enable || animationData.primary.macro.playWhen === "2") {
                 const primaryData = animationData.primary;
                 const macroData = primaryData.macro;
 
                 let aaSeq = new Sequence();
                 let play = false;
-                /*
+
                 if (primaryData.soundOnly.enable && primaryData.soundOnly.file) {
                     play = true;
                     aaSeq.sound()
@@ -102,7 +102,7 @@ export async function trafficCop(handler, config) {
                         .volume(primaryData.soundOnly.volume)
                         .delay(primaryData.soundOnly.delay)
                 }
-                */
+
                 if (primaryData.playMacro && macroData.playWhen === '2') {
                     play = true;
                     //let aaSeq = new Sequence()
