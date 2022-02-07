@@ -41,6 +41,7 @@
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.options.variant">
             {{#select flags.autoanimations.options.variant}}
+            <option value=""> </option>
             {{#each (lookup variantmenu.melee (lookup flags.autoanimations 'animation')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
@@ -51,6 +52,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
+            <option value=""> </option>
             {{#each (lookup (lookup colormenu.melee (lookup flags.autoanimations 'animation')) (lookup
             flags.autoanimations.options 'variant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
@@ -158,6 +160,7 @@
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.meleeSwitch.variant">
             {{#select flags.autoanimations.meleeSwitch.variant}}
+            <option value=""> </option>
             {{#each (lookup variantmenu.range (lookup flags.autoanimations.meleeSwitch 'animation')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
@@ -176,6 +179,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.meleeSwitch.color">
             {{#select flags.autoanimations.meleeSwitch.color}}
+            <option value=""> </option>
             {{#each (lookup (lookup colormenu.range (lookup flags.autoanimations.meleeSwitch 'animation')) (lookup
             flags.autoanimations.meleeSwitch 'variant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>

@@ -10,6 +10,7 @@
         <label>{{localize "AUTOANIM.templateType"}}</label>
         <select name="flags.autoanimations.options.tempType">
             {{#select flags.autoanimations.options.tempType}}
+            <option value=""> </option>
             <option value="cone">{{localize "AUTOANIM.cone"}}</option>
             <option value="rect">{{localize "AUTOANIM.square"}}</option>
             <option value="circle">{{localize "AUTOANIM.circle"}}</option>
@@ -34,6 +35,7 @@
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.options.variant">
             {{#select flags.autoanimations.options.variant}}
+            <option value=""> </option>
             {{#each (lookup variantmenu.static (lookup flags.autoanimations 'animation')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
@@ -45,6 +47,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
+            <option value=""> </option>
             {{#each (lookup (lookup colormenu.static flags.autoanimations.animation)
             flags.autoanimations.options.variant) as |name key|}}
             <option value="{{key}}">{{name}}</option>
