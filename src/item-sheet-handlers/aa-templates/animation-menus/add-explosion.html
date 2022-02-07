@@ -48,6 +48,7 @@
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.explosions.variant">
             {{#select flags.autoanimations.explosions.variant}}
+            <option value=""> </option>
             {{#each (lookup variantmenu.static flags.autoanimations.explosions.animation) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
@@ -59,6 +60,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.explosions.color">
             {{#select flags.autoanimations.explosions.color}}
+            <option value=""> </option>
             {{#each (lookup (lookup colormenu.static flags.autoanimations.explosions.animation)
             flags.autoanimations.explosions.variant) as |name key|}}
             <option value="{{key}}">{{name}}</option>

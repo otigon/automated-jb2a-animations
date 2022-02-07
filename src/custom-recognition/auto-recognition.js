@@ -104,8 +104,17 @@ export class aaAutoRecognition extends FormApplication {
             }
             this.submit({ preventClose: true }).then(() => this.render())
         });
+        html.on('click', '.showSoundOnly', (evt) => {
+            var change = $(evt.currentTarget).closest('.form-fields').find('.showSound').is(":checked")
+            if (change === true) {
+                $(evt.currentTarget).closest('.form-fields').find('.showSound').prop('checked', false)
+            } else {
+                $(evt.currentTarget).closest('.form-fields').find('.showSound').prop('checked', true)
+            }
+            this.submit({ preventClose: true }).then(() => this.render())
+        });
         html.find('.aa-autorecognition select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
+            this.submit({ preventClose: true }).then(() => this.render())
         });
         html.on('click', '.collapse-button', (evt) => {
             var change = $(evt.currentTarget).closest('.form-fields').find('.hideme').is(":checked")
@@ -184,6 +193,7 @@ export class aaAutoRecognition extends FormApplication {
         event.preventDefault();
         let idx = 0;
         const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
+        console.log(entries)
         const last = entries[entries.length - 1];
         if (last) {
             idx = last.dataset.idx + 1;
@@ -402,15 +412,51 @@ export class aaAutoRecognition extends FormApplication {
 
     /** @override */
     async _updateObject(_, formData) {
+        //console.log(formData)
         const data = expandObject(formData);
+        //console.log(data)
+        //console.log(Object.entries(data))        
         for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.melee)}
-            catch (exception) {return}
-            Object.values(value.melee).forEach((val, idx) => compacted[idx] = val);
-            value.melee = compacted;
+            /*
+            const meleeCompacted = {};
+            const rangeCompacted = {};
+            const staticCompacted = {};
+            const templatesCompacted = {};
+            const aurasCompacted = {};
+            const presetCompacted = {};
+            */
+            //console.log(key)
+            //console.log(value)
+            //const compacted = {};
+            const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
+            for (let i = 0; i < menuType.length; i ++) {
+                let compacted = {}
+                try {Object.values(value[menuType[i]])}
+                catch (exception) {continue}
+                Object.values(value[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
+                value[menuType[i]] = compacted;
+            }
+            //try {Object.values(value.melee)}
+            //catch (exception) {return}
+            /*
+            Object.values(value.melee).forEach((val, idx) => meleeCompacted[idx] = val);
+            value.melee = meleeCompacted;
+            Object.values(value.range).forEach((val, idx) => rangeCompacted[idx] = val);
+            value.range = rangeCompacted;
+            Object.values(value.static).forEach((val, idx) => staticCompacted[idx] = val);
+            value.static = staticCompacted;
+            Object.values(value.templates).forEach((val, idx) => templatesCompacted[idx] = val);
+            value.templates = templatesCompacted;
+            Object.values(value.auras).forEach((val, idx) => aurasCompacted[idx] = val);
+            value.auras = aurasCompacted;
+            Object.values(value.preset).forEach((val, idx) => presetCompacted[idx] = val);
+            value.preset = presetCompacted;
+            */
+            //console.log(key)
+            //console.log(value)
             await game.settings.set('autoanimations', key, value);
         }
+        /*
         for (let [key, value] of Object.entries(data)) {
             const compacted = {};
             try {Object.values(value.range)}
@@ -451,6 +497,7 @@ export class aaAutoRecognition extends FormApplication {
             value.preset = compacted;
             await game.settings.set('autoanimations', key, value);
         }
+        */
     }
 
     async sortAutorec() {

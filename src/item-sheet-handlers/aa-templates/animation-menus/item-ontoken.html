@@ -32,6 +32,7 @@
         <label>{{localize 'AUTOANIM.type'}}:</label>
         <select name="flags.autoanimations.options.staticOptions">
             {{#select flags.autoanimations.options.staticOptions}}
+            <option value=""> </option>
             <option value="creature">{{localize 'AUTOANIM.typeCreature'}}</option>
             <option value="explosion">{{localize 'AUTOANIM.explosion'}}</option>
             <option value="staticSpells">{{localize 'AUTOANIM.itemSpell'}}</option>
@@ -102,6 +103,7 @@
         <label>{{localize "AUTOANIM.variant"}}</label>
         <select name="flags.autoanimations.options.variant">
             {{#select flags.autoanimations.options.variant}}
+            <option value=""> </option>
             {{#each (lookup variantmenu.static (lookup flags.autoanimations 'animation')) as |name key|}}
             <option value="{{key}}">{{name}}</option>
             {{/each}}
@@ -113,6 +115,7 @@
         <label>{{localize "AUTOANIM.color"}}</label>
         <select name="flags.autoanimations.color">
             {{#select flags.autoanimations.color}}
+            <option value=""> </option>
             {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations 'animation')) (lookup
             flags.autoanimations.options 'variant')) as |name key|}}
             <option value="{{key}}">{{name}}</option>

@@ -213,7 +213,7 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.animation-not-disabled select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render());
+            this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.animation-not-disabled input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
@@ -228,7 +228,7 @@ export class AAItemSettings extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.pre-post-animations select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render());
+            this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.pre-post-animations input[type="Number"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());

@@ -35,6 +35,13 @@
                         <input type='text' name="aaAutorec.range.{{idx}}.name"
                             placeholder="{{localize 'AUTOANIM.itemName'}}" class='auto-name'
                             value="{{lookup (lookup ../settings.aaAutorec.range idx) 'name'}}" />
+                        <input type='checkbox' class='showSound' name='aaAutorec.range.{{idx}}.soundOnly.enable'
+                            {{checked ( lookup ( lookup (lookup ../settings.aaAutorec.range idx) 'soundOnly' ) 'enable'
+                            ) }} style="display:none">
+                        <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;">
+                            <i class='fas fa-music fa-lg showSoundOnly' data-idx="{{idx}}"></i>
+                            <span class='aaToggle02'>{{localize 'AUTOANIM.sound'}} {{localize 'AUTOANIM.only'}}</span>
+                        </div>
                         <input type='checkbox' class='showMacro' name='aaAutorec.range.{{idx}}.macro.enable' {{checked (
                             lookup (lookup (lookup ../settings.aaAutorec.range idx) 'macro' ) 'enable' )}}
                             style="display:none">
@@ -53,149 +60,191 @@
                     <div {{#if ( lookup (lookup ../settings.aaAutorec.range idx) 'anim2d' ) }} style="display:none"
                         {{/if}}>
                         <div {{#ifEquals ( lookup ( lookup (lookup ../settings.aaAutorec.range idx) 'macro' ) 'playWhen'
-                        ) '2' }} style="display:none" {{/ifEquals}}>
-
-                        <div class="aa-container">
-                            {{#unless (lookup (lookup ../settings.aaAutorec.range idx) 'custom')}}
-                            <div class="option01">
-                                <label for="aaAutorec.range.{{idx}}.type">{{localize 'AUTOANIM.type'}}:
-                                    <select name="aaAutorec.range.{{idx}}.type">
-                                        {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'type')}}
-                                        <option value=""></option>
-                                        <option value="weapon">{{localize "AUTOANIM.itemWeapon"}}</option>
-                                        <option value="spell">{{localize "AUTOANIM.itemSpell"}}</option>
-                                        <option value="genericprojectile">{{localize "AUTOANIM.itemGeneric"}}</option>
-                                        {{/select}}
-                                    </select>
-                                </label>
-                            </div>
-                            <div class="option02">
-                                <div class='animation-choice'>
-                                    <label for="aaAutorec.range.{{idx}}.animation">{{localize 'AUTOANIM.animation'}}:
-                                        <select name="aaAutorec.range.{{idx}}.animation">
-                                            {{#select (lookup (lookup ../settings.aaAutorec.range idx)
-                                            'animation')}}
-                                            "range"}}
-                                            {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
-                                            'weapon'}}
-                                            {{#each ../rangeList as |name key|}}
-                                            <option value="{{key}}">{{name}}</option>
-                                            {{/each}}
-                                            {{/ifEquals}}
-                                            {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
-                                            'spell'}}
-                                            {{#each ../spellList as |name key|}}
-                                            <option value="{{key}}">{{name}}</option>
-                                            {{/each}}
-                                            {{/ifEquals}}
-                                            {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
-                                            'genericprojectile'}}
-                                            {{#each ../genericProjectile as |name key|}}
-                                            <option value="{{key}}">{{name}}</option>
-                                            {{/each}}
-                                            {{/ifEquals}}
-                                            {{/select}}
-                                        </select>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="option03">
-                                <label for="aaAutorec.range.{{idx}}.variant">{{localize 'AUTOANIM.variant'}}:
-                                    <select name="aaAutorec.range.{{idx}}.variant">
-                                        {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'variant')}}
-                                        {{#each (lookup (lookup ../variants 'range') (lookup (lookup
-                                        ../settings.aaAutorec.range idx) 'animation')) as |name key|}}
-                                        <option value="{{key}}">{{name}}</option>
-                                        {{/each}}
-                                        {{/select}}
-                                    </select>
-                                </label>
-                            </div>
-                            <div class="option04">
-                                <label for="aaAutorec.range.{{idx}}.color">{{localize 'AUTOANIM.color'}}:
-                                    <select name="aaAutorec.range.{{idx}}.color">
-                                        {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'color')}}
-                                        {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
-                                        ../settings.aaAutorec.range idx) 'animation')) (lookup (lookup
-                                        ../settings.aaAutorec.range idx) 'variant')) as |name key|}}
-                                        <option value="{{key}}">{{name}}</option>
-                                        {{/each}}
-                                        {{/select}}
-                                    </select>
-                                </label>
-                            </div>
-                            {{/unless}}
-                            <div class="option05">
-                                <div class="autorec-menu-options">
-                                    <label>{{localize 'AUTOANIM.repeat'}}:
-                                        <input type="Number" name="aaAutorec.range.{{idx}}.repeat"
-                                            value="{{lookup (lookup ../settings.aaAutorec.range idx) 'repeat'}}"
-                                            data-dtype="Number" placeholder=1>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="option06">
-                                <div class="autorec-menu-options">
-                                    <label>{{localize 'AUTOANIM.delayMS'}}:
-                                        <input type="Number" name="aaAutorec.range.{{idx}}.delay"
-                                            value="{{lookup (lookup ../settings.aaAutorec.range idx) 'delay'}}"
-                                            data-dtype="Number" placeholder=250>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="option08">
-                                <div class="autorec-menu-options">
-                                    <div class='form-group'>
-                                        <label>{{localize 'AUTOANIM.below'}}: </label>
-                                        <input type='checkbox' name='aaAutorec.range.{{idx}}.below' {{checked (lookup
-                                            (lookup ../settings.aaAutorec.range idx) 'below' ) }}>
+                            ) '2' }} style="display:none" {{/ifEquals}}>
+                            <div {{#if ( lookup ( lookup (lookup ../settings.aaAutorec.range idx) 'soundOnly' ) 'enable'
+                                ) }} style="display:none" {{/if}}>
+                                <div class="aa-container">
+                                    {{#unless (lookup (lookup ../settings.aaAutorec.range idx) 'custom')}}
+                                    <div class="option01">
+                                        <label for="aaAutorec.range.{{idx}}.type">{{localize 'AUTOANIM.type'}}:
+                                            <select name="aaAutorec.range.{{idx}}.type">
+                                                {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'type')}}
+                                                <option value=""></option>
+                                                <option value="weapon">{{localize "AUTOANIM.itemWeapon"}}</option>
+                                                <option value="spell">{{localize "AUTOANIM.itemSpell"}}</option>
+                                                <option value="genericprojectile">{{localize "AUTOANIM.itemGeneric"}}
+                                                </option>
+                                                {{/select}}
+                                            </select>
+                                        </label>
                                     </div>
-                                </div>
-                            </div>
-                            <div style="grid-row: 3 / 4; grid-column: 1 / 2;">
-                                <div class="autorec-menu-options">
-                                    <div class='form-group'>
-                                        <label>{{localize 'AUTOANIM.custom'}}: </label>
-                                        <input type='checkbox' name='aaAutorec.range.{{idx}}.custom' {{checked (lookup
-                                            (lookup ../settings.aaAutorec.range idx) 'custom' ) }}>
+                                    <div class="option02">
+                                        <div class='animation-choice'>
+                                            <label for="aaAutorec.range.{{idx}}.animation">{{localize
+                                                'AUTOANIM.animation'}}:
+                                                <select name="aaAutorec.range.{{idx}}.animation">
+                                                    {{#select (lookup (lookup ../settings.aaAutorec.range idx)
+                                                    'animation')}}
+                                                    "range"}}
+                                                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
+                                                    'weapon'}}
+                                                    {{#each ../rangeList as |name key|}}
+                                                    <option value="{{key}}">{{name}}</option>
+                                                    {{/each}}
+                                                    {{/ifEquals}}
+                                                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
+                                                    'spell'}}
+                                                    {{#each ../spellList as |name key|}}
+                                                    <option value="{{key}}">{{name}}</option>
+                                                    {{/each}}
+                                                    {{/ifEquals}}
+                                                    {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
+                                                    'genericprojectile'}}
+                                                    {{#each ../genericProjectile as |name key|}}
+                                                    <option value="{{key}}">{{name}}</option>
+                                                    {{/each}}
+                                                    {{/ifEquals}}
+                                                    {{/select}}
+                                                </select>
+                                            </label>
+                                        </div>
                                     </div>
+                                    <div class="option03">
+                                        <label for="aaAutorec.range.{{idx}}.variant">{{localize 'AUTOANIM.variant'}}:
+                                            <select name="aaAutorec.range.{{idx}}.variant">
+                                                {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'variant')}}
+                                                <option value=""> </option>
+                                                {{#each (lookup (lookup ../variants 'range') (lookup (lookup
+                                                ../settings.aaAutorec.range idx) 'animation')) as |name key|}}
+                                                <option value="{{key}}">{{name}}</option>
+                                                {{/each}}
+                                                {{/select}}
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="option04">
+                                        <label for="aaAutorec.range.{{idx}}.color">{{localize 'AUTOANIM.color'}}:
+                                            <select name="aaAutorec.range.{{idx}}.color">
+                                                {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'color')}}
+                                                <option value=""> </option>
+                                                {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
+                                                ../settings.aaAutorec.range idx) 'animation')) (lookup (lookup
+                                                ../settings.aaAutorec.range idx) 'variant')) as |name key|}}
+                                                <option value="{{key}}">{{name}}</option>
+                                                {{/each}}
+                                                {{/select}}
+                                            </select>
+                                        </label>
+                                    </div>
+                                    {{/unless}}
+                                    <div class="option05">
+                                        <div class="autorec-menu-options">
+                                            <label>{{localize 'AUTOANIM.repeat'}}:
+                                                <input type="Number" name="aaAutorec.range.{{idx}}.repeat"
+                                                    value="{{lookup (lookup ../settings.aaAutorec.range idx) 'repeat'}}"
+                                                    data-dtype="Number" placeholder=1>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="option06">
+                                        <div class="autorec-menu-options">
+                                            <label>{{localize 'AUTOANIM.delayMS'}}:
+                                                <input type="Number" name="aaAutorec.range.{{idx}}.delay"
+                                                    value="{{lookup (lookup ../settings.aaAutorec.range idx) 'delay'}}"
+                                                    data-dtype="Number" placeholder=250>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="option08">
+                                        <div class="autorec-menu-options">
+                                            <div class='form-group'>
+                                                <label>{{localize 'AUTOANIM.below'}}: </label>
+                                                <input type='checkbox' name='aaAutorec.range.{{idx}}.below' {{checked
+                                                    (lookup (lookup ../settings.aaAutorec.range idx) 'below' ) }}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="grid-row: 3 / 4; grid-column: 1 / 2;">
+                                        <div class="autorec-menu-options">
+                                            <div class='form-group'>
+                                                <label>{{localize 'AUTOANIM.custom'}}: </label>
+                                                <input type='checkbox' name='aaAutorec.range.{{idx}}.custom' {{checked
+                                                    (lookup (lookup ../settings.aaAutorec.range idx) 'custom' ) }}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{#if (lookup (lookup ../settings.aaAutorec.range idx) 'custom')}}
+                                    <div style="grid-row: 3 / 4; grid-column: 2 / 5;">
+                                        <div class="form-group">
+                                            <input style='width: 25em' type="text" class="files"
+                                                name="aaAutorec.range.{{idx}}.customPath"
+                                                value="{{lookup (lookup ../settings.aaAutorec.range idx) 'customPath'}}">
+                                            <button type="button" class="file-picker" data-type="image/video"
+                                                data-target="aaAutorec.range.{{idx}}.customPath" tabindex="-1"
+                                                title="Browse Files">
+                                                <i class="fas fa-file-video"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style='grid-column: 3 / 4;grid-row: 2 / 3;'>
+                                        <label>{{localize 'AUTOANIM.constantScaleY'}}</label>
+                                        <input type="checkbox" name="aaAutorec.range.{{idx}}.onlyX" {{checked (lookup
+                                            (lookup ../settings.aaAutorec.range idx) 'onlyX' ) }}>
+                                    </div>
+                                    {{/if}}
+                                    <div class='form-group'
+                                        style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2;grid-row: 4 / 5'>
+                                        <label>{{localize "AUTOANIM.sound"}}</label>
+                                        <input type="checkbox" name="aaAutorec.range.{{idx}}.audio.a01.enable" {{checked
+                                            (lookup (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio'
+                                            ) 'a01' ) 'enable' )}}>
+                                    </div>
+                                    {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio' )
+                                    'a01' )
+                                    'enable' )}}
+                                    <!--Explosion Audio filePicker and Text Input-->
+                                    <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
+                                        <input style='width: 25em' type="text" class="files"
+                                            name="aaAutorec.range.{{idx}}.audio.a01.file"
+                                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio') 'a01') 'file'}}">
+                                        <button type="button" class="file-picker" data-type="audio"
+                                            data-target="aaAutorec.range.{{idx}}.audio.a01.file" tabindex="-1"
+                                            title="Browse Files">
+                                            <i class="fas fa-music"></i>
+                                        </button>
+                                    </div>
+                                    <!--Explosion Audio Delay-->
+                                    <div style='grid-column: 4 / 5;grid-row: 5 / 6; padding-bottom: 1em'>
+                                        <label>{{localize "AUTOANIM.delay"}}</label>
+                                        <input type="Number" name="aaAutorec.range.{{idx}}.audio.a01.delay" min="0"
+                                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio') 'a01') 'delay'}}"
+                                            style='width: 3em' placeholder=0>
+                                    </div>
+                                    <!--Explosion Audio Volume-->
+                                    <div style='grid-column: 3 / 4;grid-row: 5 / 6; padding-bottom: 1em'>
+                                        <label>{{localize "AUTOANIM.volume"}}</label>
+                                        <input type="Number" name="aaAutorec.range.{{idx}}.audio.a01.volume" min="0"
+                                            max="1" step="0.01" style='width: 3em'
+                                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio') 'a01') 'volume'}}"
+                                            placeholder=0.5>
+                                    </div>
+                                    {{/if}}
                                 </div>
                             </div>
-                            {{#if (lookup (lookup ../settings.aaAutorec.range idx) 'custom')}}
-                            <div style="grid-row: 3 / 4; grid-column: 2 / 5;">
-                                <div class="form-group">
-                                    <input style='width: 25em' type="text" class="files"
-                                        name="aaAutorec.range.{{idx}}.customPath"
-                                        value="{{lookup (lookup ../settings.aaAutorec.range idx) 'customPath'}}">
-                                    <button type="button" class="file-picker" data-type="image/video"
-                                        data-target="aaAutorec.range.{{idx}}.customPath" tabindex="-1"
-                                        title="Browse Files">
-                                        <i class="fas fa-file-video"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="form-group" style='grid-column: 3 / 4;grid-row: 2 / 3;'>
-                                <label>{{localize 'AUTOANIM.constantScaleY'}}</label>
-                                <input type="checkbox" name="aaAutorec.range.{{idx}}.onlyX" {{checked (lookup (lookup
-                                    ../settings.aaAutorec.range idx) 'onlyX' ) }}>
-                            </div>
-                            {{/if}}
-                            <div class='form-group'
-                                style='padding-top: 5px;padding-bottom: 4px;grid-column: 1 / 2;grid-row: 4 / 5'>
-                                <label>{{localize "AUTOANIM.sound"}}</label>
-                                <input type="checkbox" name="aaAutorec.range.{{idx}}.audio.a01.enable" {{checked (lookup
-                                    (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio' ) 'a01' ) 'enable'
-                                    )}}>
-                            </div>
-                            {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio' ) 'a01' )
-                            'enable' )}}
+                        </div>
+                        {{#if (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'soundOnly' ) 'enable' ) }}
+                        <div style="padding:3px"></div>
+                        <div class='flexrow text-green'>
+                            <label><strong>{{localize "AUTOANIM.sound"}} {{localize "AUTOANIM.only"}}</strong></label>
+                        </div>
+                        <div class="aa-item-container">
                             <!--Explosion Audio filePicker and Text Input-->
                             <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
                                 <input style='width: 25em' type="text" class="files"
-                                    name="aaAutorec.range.{{idx}}.audio.a01.file"
-                                    value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio') 'a01') 'file'}}">
+                                    name="aaAutorec.range.{{idx}}.soundOnly.file"
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.range idx) 'soundOnly') 'file'}}">
                                 <button type="button" class="file-picker" data-type="audio"
-                                    data-target="aaAutorec.range.{{idx}}.audio.a01.file" tabindex="-1"
+                                    data-target="aaAutorec.range.{{idx}}.soundOnly.file" tabindex="-1"
                                     title="Browse Files">
                                     <i class="fas fa-music"></i>
                                 </button>
@@ -203,21 +252,20 @@
                             <!--Explosion Audio Delay-->
                             <div style='grid-column: 4 / 5;grid-row: 5 / 6; padding-bottom: 1em'>
                                 <label>{{localize "AUTOANIM.delay"}}</label>
-                                <input type="Number" name="aaAutorec.range.{{idx}}.audio.a01.delay" min="0"
-                                    value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio') 'a01') 'delay'}}"
+                                <input type="Number" name="aaAutorec.range.{{idx}}.soundOnly.delay" min="0"
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.range idx) 'soundOnly') 'delay'}}"
                                     style='width: 3em' placeholder=0>
                             </div>
                             <!--Explosion Audio Volume-->
                             <div style='grid-column: 3 / 4;grid-row: 5 / 6; padding-bottom: 1em'>
                                 <label>{{localize "AUTOANIM.volume"}}</label>
-                                <input type="Number" name="aaAutorec.range.{{idx}}.audio.a01.volume" min="0" max="1"
+                                <input type="Number" name="aaAutorec.range.{{idx}}.soundOnly.volume" min="0" max="1"
                                     step="0.01" style='width: 3em'
-                                    value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'audio') 'a01') 'volume'}}"
+                                    value="{{lookup (lookup (lookup ../settings.aaAutorec.range idx) 'soundOnly') 'volume'}}"
                                     placeholder=0.5>
                             </div>
-                            {{/if}}
                         </div>
-                        </div>
+                        {{/if}}
                         <div style="padding:3px"></div>
                         <div {{#unless (lookup ( lookup (lookup ../settings.aaAutorec.range idx) 'macro' ) 'enable' )}}
                             style="display:none" {{/unless}}>
