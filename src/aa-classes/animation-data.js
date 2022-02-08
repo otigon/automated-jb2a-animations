@@ -102,9 +102,13 @@ export class AAanimationData {
                 //repeat: handler.decoupleSound ? 1 : data.repeat || 1,
             }
 
-            data.switchAnimation = data.switchAnimation === undefined ? data.animation : data.switchAnimation;
-            data.switchColor = data.switchColor === undefined ? data.color : data.switchColor;
+            data.switchAnimation = data.switchType === "custom" ? data.switchAnimation || "" : data.animation || "";
             data.switchType = data.switchType || "on";
+            data.switchVariant = data.switchVariant ?? "01";
+            data.switchColor = data.switchColor || "white";
+            data.detect = data.detect ?? "auto";
+            data.return = data.returning || false;
+            data.range = data.range ?? 2;
             data.switchAudio = {
                 enable: data.audio?.a02?.enable || false,
                 file: data.audio?.a02?.file ?? "",

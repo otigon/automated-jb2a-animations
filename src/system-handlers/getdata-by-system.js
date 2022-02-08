@@ -166,7 +166,7 @@ export class AASystemData {
         let outcome = input.data?.flags?.pf2e?.context?.outcome;
         outcome = outcome ? outcome.toLowerCase() : "";
         let hitTargets;
-        if (targets.length < 2 && !game.settings.get('autoanimations', 'playonDamageCore')) {
+        if (targets.length < 2 && !game.settings.get('autoanimations', 'playonDamageCore') && outcome) {
             if (outcome === 'success' || outcome === 'criticalsuccess') {
                 hitTargets = targets;
             } else {

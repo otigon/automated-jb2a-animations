@@ -231,7 +231,7 @@
                                     <div
                                         style='grid-column: 1 / 2;grid-row: 1 / 2; padding-top: 1em; justify-self: left;'>
                                         <div class="form-group">
-                                            <label>{{localize 'AUTOANIM.switch'}}: </label>
+                                            <label>{{localize 'AUTOANIM.ranged'}} {{localize 'AUTOANIM.switch'}}: </label>
                                             <select name="aaAutorec.melee.{{idx}}.switchType">
                                                 {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
                                                 'switchType')}}
@@ -272,6 +272,7 @@
                                             <select name="aaAutorec.melee.{{idx}}.switchVariant">
                                                 {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
                                                 'switchVariant')}}
+                                                <option value=""> </option>
                                                 {{#each (lookup (lookup ../variants 'range') (lookup (lookup
                                                 ../settings.aaAutorec.melee idx) 'switchAnimation')) as |name key|}}
                                                 <option value="{{key}}">{{name}}</option>
@@ -285,6 +286,7 @@
                                             <select name="aaAutorec.melee.{{idx}}.switchColor">
                                                 {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
                                                 'switchColor')}}
+                                                <option value=""> </option>
                                                 {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
                                                 ../settings.aaAutorec.melee idx) 'switchAnimation')) (lookup (lookup
                                                 ../settings.aaAutorec.melee idx) 'switchVariant')) as |name key|}}

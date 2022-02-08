@@ -23,7 +23,7 @@ export default class systemData {
         const data = systemData;
 
         const midiActive = game.modules.get('midi-qol')?.active;
-
+        this.systemId = game.system.id;
         this.workflow = msg;
         this.flags = flagData ?? {};
         this.animation = this.flags.animation || "";

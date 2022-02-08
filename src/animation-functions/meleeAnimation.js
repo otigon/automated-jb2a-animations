@@ -12,7 +12,7 @@ export async function meleeAnimation(handler, animationData) {
     }
     let rangeSwitch;
     if (moduleIncludes("jb2a_patreon")) {
-        rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword']
+        rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword', 'hammer', 'chakram']
     } else {
         rangeSwitch = ['dagger', 'lasersword']
     }
@@ -100,7 +100,7 @@ export async function meleeAnimation(handler, animationData) {
                 }
             }
             if (!noMelee) { switchSound = false }
-            if (noMelee) {
+            if (noMelee && range.file) {
                 aaSeq.effect()
                     .file(range.file)
                     .atLocation(sourceToken)
