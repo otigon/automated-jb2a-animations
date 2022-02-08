@@ -82,7 +82,7 @@ export async function meleeAnimation(handler, animationData) {
             if (!rangeSwitchActive) {
                 switch (data.switchType) {
                     case "on":
-                        if (rangeSwitch.some(el => data.animation.includes(el))) {
+                        if (rangeSwitch.some(el => data.animation.includes(el)) && range.file) {
                             if (distanceTo > (5 + handler.reachCheck)) {
                                 noMelee = true;
                             }
@@ -100,7 +100,7 @@ export async function meleeAnimation(handler, animationData) {
                 }
             }
             if (!noMelee) { switchSound = false }
-            if (noMelee && range.file) {
+            if (noMelee) {
                 aaSeq.effect()
                     .file(range.file)
                     .atLocation(sourceToken)
