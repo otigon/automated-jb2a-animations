@@ -76,6 +76,20 @@ export class AASystemData {
         }
     }
 
+    static async sfrpg(input) {
+        const itemId = input.data?.item?.id || this._extractItemId(input.msg?.data?.content);
+        if (!itemId) { return {}; }
+        const tokenId = input.msg?.data?.speaker?.token;
+        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId));
+        if (!token) { return {}; }
+        const item = input.data?.item ? input.data.item : token.actor?.items?.get(itemId);
+        if (!item) { return {}; }
+
+        const targets = Array.from(input.msg.user.targets);
+
+        return { item, token, targets };
+    }
+
     static async d35e(input) {
         const itemId = this._extractItemId(input.data?.content);
         const tokenId = input.data?.speaker?.token;

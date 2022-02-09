@@ -193,7 +193,6 @@ export class aaAutoRecognition extends FormApplication {
         event.preventDefault();
         let idx = 0;
         const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
-        console.log(entries)
         const last = entries[entries.length - 1];
         if (last) {
             idx = last.dataset.idx + 1;

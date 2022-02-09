@@ -167,8 +167,8 @@ Hooks.once('ready', function () {
                     const item = sourceToken.actor?.items?.get(itemId)
 
                     if (!item.hasAttack && !item.hasDamage) {
-                        const targets = Array.from(msg.user.targets)
-                        AutoAnimations.playAnimation(sourceToken, targets, item)
+                        let data = {}
+                        starFinder(data, msg)
                     }
                 });
                 if (game.settings.get("autoanimations", "playonDamage")) {
@@ -180,14 +180,12 @@ Hooks.once('ready', function () {
                     });
                 } else {
                     Hooks.on("attackRolled", async (data) => {
-                        console.log("Attack Roll HOOK!!!!")
                         Hooks.once("createChatMessage", async (msg) => {
                             if (msg.user.id !== game.user.id) { return };
                             starFinder(data, msg)
                         });
                     })
                     Hooks.on("damageRolled", async (data) => {
-                        console.log("Damage Roll HOOK!!!!")
                         Hooks.once("createChatMessage", async (msg) => {
                             if (msg.user.id !== game.user.id) { return };
                             if (data.item.hasAttack) {
@@ -498,11 +496,14 @@ async function swadeData(SwadeTokenOrActor, SwadeItem) {
 */
 async function starFinder(data, msg) {
     if (killAllAnimations) { return; }
-    let tokenId = msg.data.speaker.token;
-    let sourceToken = canvas.tokens.get(tokenId);
-    let targets = Array.from(msg.user.targets);
-    let item = data.item;
-    AutoAnimations.playAnimation(sourceToken, targets, item)
+    const sfrpgData = {data, msg}
+    const handler = await systemData.make(sfrpgData)
+    //let tokenId = msg.data.speaker.token;
+    //let sourceToken = canvas.tokens.get(tokenId);
+    //let targets = Array.from(msg.user.targets);
+    //let item = data.item;
+    //AutoAnimations.playAnimation(sourceToken, targets, item)
+    trafficCop(handler);
 }
 
 /*
