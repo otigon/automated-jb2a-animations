@@ -297,14 +297,21 @@ export class aaAutoRecognition extends FormApplication {
 
     async _onRemoveOverride(event) {
         event.preventDefault();
+        const  data = await game.settings.get('autoanimations', 'aaAutorec');
         let idx = event.target.dataset.idx;
-        const el = event.target.closest(`div[data-idx="${idx}"]`);
-        if (!el) {
-            return true;
+        delete data[event.target.classList[3]][idx]
+
+        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
+        for (let i = 0; i < menuType.length; i ++) {
+            let compacted = {}
+            try {Object.values(data[menuType[i]])}
+            catch (exception) {continue}
+            Object.values(data[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
+            data[menuType[i]] = compacted;
         }
-        el.remove();
-        await this._onSubmit(event, { preventClose: true });
-        this.render();
+
+        await game.settings.set('autoanimations', "aaAutorec", data);
+        this.render()
     }
 
     async _duplicateMelee(event) {
@@ -411,92 +418,21 @@ export class aaAutoRecognition extends FormApplication {
 
     /** @override */
     async _updateObject(_, formData) {
-        //console.log(formData)
-        const data = expandObject(formData);
-        //console.log(data)
-        //console.log(Object.entries(data))        
-        for (let [key, value] of Object.entries(data)) {
-            /*
-            const meleeCompacted = {};
-            const rangeCompacted = {};
-            const staticCompacted = {};
-            const templatesCompacted = {};
-            const aurasCompacted = {};
-            const presetCompacted = {};
-            */
-            //console.log(key)
-            //console.log(value)
-            //const compacted = {};
-            const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
+
+        const data = expandObject(formData).aaAutorec;
+
+        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
             for (let i = 0; i < menuType.length; i ++) {
                 let compacted = {}
-                try {Object.values(value[menuType[i]])}
+                try {Object.values(data[menuType[i]])}
                 catch (exception) {continue}
-                Object.values(value[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
-                value[menuType[i]] = compacted;
+                Object.values(data[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
+                data[menuType[i]] = compacted;
             }
-            //try {Object.values(value.melee)}
-            //catch (exception) {return}
-            /*
-            Object.values(value.melee).forEach((val, idx) => meleeCompacted[idx] = val);
-            value.melee = meleeCompacted;
-            Object.values(value.range).forEach((val, idx) => rangeCompacted[idx] = val);
-            value.range = rangeCompacted;
-            Object.values(value.static).forEach((val, idx) => staticCompacted[idx] = val);
-            value.static = staticCompacted;
-            Object.values(value.templates).forEach((val, idx) => templatesCompacted[idx] = val);
-            value.templates = templatesCompacted;
-            Object.values(value.auras).forEach((val, idx) => aurasCompacted[idx] = val);
-            value.auras = aurasCompacted;
-            Object.values(value.preset).forEach((val, idx) => presetCompacted[idx] = val);
-            value.preset = presetCompacted;
-            */
-            //console.log(key)
-            //console.log(value)
-            await game.settings.set('autoanimations', key, value);
-        }
-        /*
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.range)}
-            catch (exception) {return}
-            Object.values(value.range).forEach((val, idx) => compacted[idx] = val);
-            value.range = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.static)}
-            catch (exception) {return}
-            Object.values(value.static).forEach((val, idx) => compacted[idx] = val);
-            value.static = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.templates)}
-            catch (exception) {return}
-            Object.values(value.templates).forEach((val, idx) => compacted[idx] = val);
-            value.templates = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.auras)}
-            catch (exception) {return}
-            Object.values(value.auras).forEach((val, idx) => compacted[idx] = val);
-            value.auras = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.preset)}
-            catch (exception) {return}
-            Object.values(value.preset).forEach((val, idx) => compacted[idx] = val);
-            value.preset = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        */
+            const oldData = await game.settings.get('autoanimations', 'aaAutorec');
+            const newData = mergeObject(oldData, data);
+            //console.log(newData);
+            await game.settings.set('autoanimations', "aaAutorec", newData);
     }
 
     async sortAutorec() {

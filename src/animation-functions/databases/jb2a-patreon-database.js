@@ -4903,32 +4903,44 @@ JB2APATREONDB.return = {
     },
     dagger: {
         '01': {
-            white: {
-                '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm`]
+            blue: {
+                '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_Return_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_Return_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_Return_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_Return_90ft_4000x400.webm`]
             },
             darkpurple: {
                 '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_Return_15ft_1000x400.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_Return_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_Return_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_Return_90ft_4000x400.webm`]
-            }
+            },
+            white: {
+                '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm`]
+            },
         },
         '02': {
-            white: {
-                '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_15ft_1000x400.webm`],
-                '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_30ft_1600x400.webm`],
-                '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_60ft_2800x400.webm`],
-                '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_90ft_4000x400.webm`]
+            blue: {
+                '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Blue_Return_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Blue_Return_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Blue_Return_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Blue_Return_90ft_4000x400.webm`]
             },
             darkpurple: {
                 '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_Return_15ft_1000x400.webm`],
                 '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_Return_30ft_1600x400.webm`],
                 '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_Return_60ft_2800x400.webm`],
                 '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_Return_90ft_4000x400.webm`]
-            }
+            },
+            white: {
+                '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_15ft_1000x400.webm`],
+                '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_30ft_1600x400.webm`],
+                '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_60ft_2800x400.webm`],
+                '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_90ft_4000x400.webm`]
+            },
         }
     },
     greatsword: {
