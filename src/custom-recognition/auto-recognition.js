@@ -296,25 +296,21 @@ export class aaAutoRecognition extends FormApplication {
     }
 
     async _onRemoveOverride(event) {
-        debugger
         event.preventDefault();
-        const  oldData = await game.settings.get('autoanimations', 'aaAutorec');
-        //console.log(oldData)
-        const newData = {};
-        Object.assign(newData, oldData)
+        const  data = await game.settings.get('autoanimations', 'aaAutorec');
         let idx = event.target.dataset.idx;
-        delete newData[event.target.classList[3]][idx]
-        //console.log(newData)
+        delete data[event.target.classList[3]][idx]
+
         const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
         for (let i = 0; i < menuType.length; i ++) {
             let compacted = {}
-            try {Object.values(newData[menuType[i]])}
+            try {Object.values(data[menuType[i]])}
             catch (exception) {continue}
-            Object.values(newData[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
-            newData[menuType[i]] = compacted;
+            Object.values(data[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
+            data[menuType[i]] = compacted;
         }
 
-        await game.settings.set('autoanimations', "aaAutorec", newData);
+        await game.settings.set('autoanimations', "aaAutorec", data);
         this.render()
     }
 
