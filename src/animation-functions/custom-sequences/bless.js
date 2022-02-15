@@ -71,8 +71,8 @@ export async function bless(handler, animationData) {
             endSection.origin(handler.item.uuid)
             endSection.attachTo(sourceToken)
             endSection.belowTokens(data.below)
-            endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
-            endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+            endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.95), to: (scale * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine' })
+            endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.95), to: (scale * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine' })
             if (playPersist) { endSection.persist() }
         }
         if (data.playMacro && data.macro.playWhen === "0") {
@@ -123,8 +123,8 @@ export async function bless(handler, animationData) {
                 endSection.origin(handler.item.uuid)
                 endSection.attachTo(target)
                 endSection.belowTokens(data.below)
-                endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
-                endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+                endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.95), to: (scale * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine' })
+                endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.95), to: (scale * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine' })
                 if (playPersist) { endSection.persist() }
             }
         }

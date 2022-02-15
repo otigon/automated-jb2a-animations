@@ -81,13 +81,7 @@ export class aaAutoRecognition extends FormApplication {
         html.find('.duplicate-preset').click(this._duplicatePreset.bind(this))
 
         //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
-        html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render())
-        })
-        html.find('.aa-item-container input[type="checkbox"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render())
-        })
-        html.find('.aa-container input[type="checkbox"]').change(evt => {
+        html.find('.aa-autorecognition input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
         })
         html.find('.aa-autorec-submit-open').click(evt => {
