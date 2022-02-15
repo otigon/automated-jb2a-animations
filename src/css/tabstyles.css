@@ -190,6 +190,10 @@
     font-weight: bold;
 }
 
+#AA-item-settings label {
+    font-weight: bold;
+}
+
 #automatic-recognition .button-2d:hover {
     text-shadow: 0 0 5px red
 }

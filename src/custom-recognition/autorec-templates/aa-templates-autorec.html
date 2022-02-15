@@ -88,7 +88,8 @@
                 <div class="aa-primary-container">
                     <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.type'}}</label>
-                        <select name="aaAutorec.templates.{{idx}}.type">
+                        <select name="aaAutorec.templates.{{idx}}.type" {{#if (lookup (lookup
+                            ../settings.aaAutorec.templates idx) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup ../settings.aaAutorec.templates idx)
                             'type')}}
                             <option value=""></option>
