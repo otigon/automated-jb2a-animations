@@ -182,7 +182,7 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.repeat'}}</label>
                         <input type="Number" name="aaAutorec.melee.{{idx}}.repeat"
@@ -438,20 +438,20 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+                <div class="aa-options-odd aa-options-settings">
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.radius'}}</label>
                         <input type="Number" name="aaAutorec.melee.{{idx}}.explosion.radius"
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'explosion') 'radius'}}"
                             data-dtype="Number" placeholder=1>
                     </div>
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
                         <label>{{localize "AUTOANIM.delayMS"}}</label>
                         <input type="Number" name="aaAutorec.melee.{{idx}}.explosion.delay"
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'explosion') 'delay'}}"
                             data-dtype="Number" placeholder=250>
                     </div>
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
                         <label>{{localize 'AUTOANIM.below'}}</label>
                         <input type='checkbox' name='aaAutorec.melee.{{idx}}.explosion.below' {{checked (lookup (lookup
                             (lookup ../settings.aaAutorec.melee idx) 'explosion' ) 'below' ) }}>

@@ -120,7 +120,7 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.repeat'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.repeat"
@@ -327,7 +327,7 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize "AUTOANIM.playbackRate"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.playbackRate" step="0.01"
@@ -513,7 +513,7 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.ctaScale'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
@@ -607,7 +607,7 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-odd aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.ctaScale'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
@@ -684,7 +684,7 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-odd aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.ctaScale'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
@@ -752,8 +752,8 @@
                         "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
-                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 1 / 2;'>
+                <div class="aa-options-odd aa-options-settings">
+                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.gridMeasure'}}</label>
                         <select name="aaAutorec.preset.{{idx}}.measureType">
                             {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'measureType')}}
@@ -762,18 +762,18 @@
                             {{/select}}
                         </select>
                     </div>
-                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 4;'>
                         <label>{{localize 'AUTOANIM.ranged'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.range"
                             value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'range'}}" data-dtype="Number"
                             placeholder=30>
                     </div>
-                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 4;'>
+                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 4 / 5;'>
                         <label>{{localize 'AUTOANIM.below'}}</label>
                         <input type='checkbox' name='aaAutorec.preset.{{idx}}.below' {{checked (lookup (lookup
                             ../settings.aaAutorec.preset idx) 'below' ) }}>
                     </div>
-                    <div style='grid-column: 1 / 5;grid-row: 2 / 3;text-align: center;'>
+                    <div style='grid-column: 1 / 6;grid-row: 2 / 3;text-align: center;'>
                         <p style='font-weight: bold;'>NOTE: If your Game System supports specific Diagonal Movement
                             rules for grids, the Measurement Type chosen should match your System Setting</p>
                     </div>
@@ -846,8 +846,8 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+                <div class="aa-options-odd aa-options-settings">
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
                         <label>{{localize 'AUTOANIM.ctaScale'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
                             value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'scale'}}" data-dtype="Number"
@@ -922,14 +922,14 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+                <div class="aa-options-even aa-options-settings">
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.ctaScale'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.scale02"
                             value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'scale02'}}" data-dtype="Number"
                             placeholder=1>
                     </div>
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
                         <label>{{localize "AUTOANIM.delayMS"}} {{localize "AUTOANIM.token"}} {{localize
                             "AUTOANIM.alpha"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.delay"
@@ -979,7 +979,7 @@
 
                 <!--Sneak Attack preset-->
                 {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'sneakattack'}}
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.variant'}}</label>
                         <select name="aaAutorec.preset.{{idx}}.variant">
@@ -1009,7 +1009,7 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.ctaScale'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
@@ -1123,7 +1123,7 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.repeat'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.projectileRepeat"
@@ -1235,7 +1235,7 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.repeat'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.explosion01Repeat"
@@ -1349,27 +1349,24 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
-                        <label>{{localize 'AUTOANIM.repeat'}}:
+                <div class="aa-options-odd aa-options-settings">
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+                        <label>{{localize 'AUTOANIM.repeat'}}</label>
                             <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Repeat"
                                 value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Repeat'}}"
                                 data-dtype="Number" placeholder=1>
-                        </label>
                     </div>
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
-                        <label>{{localize 'AUTOANIM.repeat'}} {{localize 'AUTOANIM.delay'}}:
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+                        <label>{{localize 'AUTOANIM.repeat'}} {{localize 'AUTOANIM.delay'}}</label>
                             <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Delay"
                                 value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Delay'}}"
                                 data-dtype="Number" placeholder=250>
-                        </label>
                     </div>
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
-                        <label>{{localize 'AUTOANIM.scale'}}:
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
+                        <label>{{localize 'AUTOANIM.scale'}}</label>
                             <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Scale"
                                 value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Scale'}}"
                                 data-dtype="Number" placeholder=1>
-                        </label>
                     </div>
                 </div>
                 <div class='aa-checkbox-label' style="text-align: center;">
@@ -1441,11 +1438,12 @@
 
                 <!--Hunters Mark-->
                 {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'huntersmark'}}
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                         <label>{{localize "AUTOANIM.variant"}}</label>
                         <select name="aaAutorec.preset.{{idx}}.variant">
                             {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'variant') }}
+                            <option value=""> </option>
                             <option value="eye">{{localize "AUTOANIM.eye"}}</option>
                             <option value="paw">{{localize "AUTOANIM.paw"}}</option>
                             {{/select}}
@@ -1469,19 +1467,19 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+                <div class="aa-options-odd aa-options-settings">
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.ctaScale'}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.scale"
                             value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'scale'}}" data-dtype="Number"
                             placeholder=1>
                     </div>
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
                         <label>{{localize 'AUTOANIM.below'}}</label>
                         <input type='checkbox' name='aaAutorec.preset.{{idx}}.below' {{checked (lookup (lookup
                             ../settings.aaAutorec.preset idx) 'below' ) }}>
                     </div>
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
                         <label>{{localize "AUTOANIM.persistant"}}?</label>
                         <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.persistent' {{checked
                             (lookup (lookup ../settings.aaAutorec.preset idx) 'persistent' ) }}>

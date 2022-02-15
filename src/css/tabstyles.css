@@ -375,7 +375,7 @@
     vertical-align: top;
 }
 
-.aa-options-container {
+.aa-options-even {
     /*text-align: center;*/
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
@@ -386,18 +386,29 @@
     margin-left: 5%;
 }
 
-.aa-options-container select {
+.aa-options-odd {
+    /*text-align: center;*/
+    display: grid;
+    grid-template-columns: 10% 25% 25% 25% 10%;
+    grid-gap: 5px;
+    padding: 5px;
+    align-items: center;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.aa-options-settings select {
     text-align: center;
     font-weight: bold;
     min-height: 2em;
 }
 
-.aa-options-container label {
+.aa-options-settings label {
     align-self: center;
     vertical-align: top;
 }
 
-.aa-options-container input {
+.aa-options-settings input {
     text-align: center;
     align-self: center;
     min-height: 2em;

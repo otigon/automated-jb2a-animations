@@ -112,8 +112,8 @@
                     </div>
                     <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.type'}}:</label>
-                        <select name="aaAutorec.static.{{idx}}.staticOptions" {{#if (lookup (lookup ../settings.aaAutorec.static idx) 'custom' )}}
-                        disabled {{/if }}>
+                        <select name="aaAutorec.static.{{idx}}.staticOptions" {{#if (lookup (lookup
+                            ../settings.aaAutorec.static idx) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup ../settings.aaAutorec.static idx)
                             'staticOptions')}}
                             <option value="creature">{{localize 'AUTOANIM.typeCreature'}}</option>
@@ -129,8 +129,8 @@
                     </div>
                     <div class='flexcol' style='grid-row: 3 / 4;grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.animation'}}</label>
-                        <select name="aaAutorec.static.{{idx}}.animation" {{#if (lookup (lookup ../settings.aaAutorec.static idx) 'custom' )}}
-                        disabled {{/if }}>
+                        <select name="aaAutorec.static.{{idx}}.animation" {{#if (lookup (lookup
+                            ../settings.aaAutorec.static idx) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup ../settings.aaAutorec.static idx)
                             'animation')}}
 
@@ -187,8 +187,8 @@
                     </div>
                     <div class='flexcol' style='grid-row: 3 / 4;grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.variant'}}</label>
-                        <select name="aaAutorec.static.{{idx}}.variant" sytle="width:5em" {{#if (lookup (lookup ../settings.aaAutorec.static idx) 'custom' )}}
-                        disabled {{/if }}>
+                        <select name="aaAutorec.static.{{idx}}.variant" sytle="width:5em" {{#if (lookup (lookup
+                            ../settings.aaAutorec.static idx) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup ../settings.aaAutorec.static idx) 'variant')}}
                             <option value=""> </option>
                             {{#each (lookup (lookup ../variants 'static') (lookup (lookup
@@ -200,8 +200,8 @@
                     </div>
                     <div class='flexcol' style='grid-row: 3 / 4;grid-column: 3 / 4;'>
                         <label>{{localize 'AUTOANIM.color'}}</label>
-                        <select name="aaAutorec.static.{{idx}}.color" {{#if (lookup (lookup ../settings.aaAutorec.static idx) 'custom' )}}
-                        disabled {{/if }}>
+                        <select name="aaAutorec.static.{{idx}}.color" {{#if (lookup (lookup ../settings.aaAutorec.static
+                            idx) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup ../settings.aaAutorec.static idx) 'color')}}
                             <option value=""> </option>
                             {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup
@@ -234,18 +234,20 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
+                <div class="aa-options-even aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.repeat'}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.repeat"
                             value="{{lookup (lookup ../settings.aaAutorec.static idx) 'repeat'}}" data-dtype="Number"
-                            placeholder=1>
+                            placeholder=1 {{#if (lookup (lookup ../settings.aaAutorec.static idx) 'persistent' ) }}
+                            disabled {{/if }}>
                     </div>
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.repeat'}} {{localize 'AUTOANIM.delay'}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.delay"
                             value="{{lookup (lookup ../settings.aaAutorec.static idx) 'delay'}}" data-dtype="Number"
-                            placeholder=250>
+                            placeholder=250 placeholder=1 {{#if (lookup (lookup ../settings.aaAutorec.static
+                            idx) 'persistent' ) }} disabled {{/if }}>
                     </div>
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
                         <label>{{localize 'AUTOANIM.ctaScale'}}</label>
@@ -311,8 +313,8 @@
                     <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label style="font-size: large;">{{localize "AUTOANIM.add"}} {{localize
                             "AUTOANIM.explosion"}}</label>
-                        <input type="checkbox" name="aaAutorec.static.{{idx}}.explosion.enable" {{checked (lookup (lookup
-                            (lookup ../settings.aaAutorec.static idx) 'explosion' ) 'enable' ) }}>
+                        <input type="checkbox" name="aaAutorec.static.{{idx}}.explosion.enable" {{checked (lookup
+                            (lookup (lookup ../settings.aaAutorec.static idx) 'explosion' ) 'enable' ) }}>
                     </div>
                 </div>
                 <div class="aa-section-divider"></div>
@@ -362,8 +364,8 @@
                 <div class="aa-customAnim-container">
                     <div class='form-group' style='justify-self: left; grid-row: 1 / 2; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.custom'}}: </label>
-                        <input type='checkbox' name='aaAutorec.static.{{idx}}.explosion.custom' {{checked (lookup (lookup
-                            (lookup ../settings.aaAutorec.static idx) 'explosion' ) 'custom' ) }}>
+                        <input type='checkbox' name='aaAutorec.static.{{idx}}.explosion.custom' {{checked (lookup
+                            (lookup (lookup ../settings.aaAutorec.static idx) 'explosion' ) 'custom' ) }}>
                     </div>
                     {{#if (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'explosion') 'custom')}}
                     <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 5;'>
@@ -381,31 +383,31 @@
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
                 <div class="aa-subSection-divider"></div>
-                <div class="aa-options-container">
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+                <div class="aa-options-odd aa-options-settings">
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.radius'}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.explosion.radius"
-                            value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'explosion') 'radius'}}" data-dtype="Number"
-                            placeholder=1>
-                    </div>
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
-                        <label>{{localize "AUTOANIM.delayMS"}}</label>
-                        <input type="Number" name="aaAutorec.static.{{idx}}.explosion.delay"
-                            value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'explosion') 'delay'}}" data-dtype="Number"
-                            placeholder=250>
+                            value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'explosion') 'radius'}}"
+                            data-dtype="Number" placeholder=1>
                     </div>
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+                        <label>{{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="aaAutorec.static.{{idx}}.explosion.delay"
+                            value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'explosion') 'delay'}}"
+                            data-dtype="Number" placeholder=250>
+                    </div>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
                         <label>{{localize 'AUTOANIM.below'}}</label>
-                        <input type='checkbox' name='aaAutorec.static.{{idx}}.explosion.below' {{checked (lookup (lookup (lookup
-                            ../settings.aaAutorec.static idx) 'explosion') 'below' ) }}>
+                        <input type='checkbox' name='aaAutorec.static.{{idx}}.explosion.below' {{checked (lookup (lookup
+                            (lookup ../settings.aaAutorec.static idx) 'explosion' ) 'below' ) }}>
                     </div>
                 </div>
                 <div class='aa-checkbox-label' style='text-align: center;'>
                     <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label style="font-size: large;">{{localize "AUTOANIM.explosion"}} {{localize
                             "AUTOANIM.sound"}}</label>
-                        <input type="checkbox" name="aaAutorec.static.{{idx}}.audio.e01.enable" {{checked (lookup (lookup
-                            (lookup (lookup ../settings.aaAutorec.static idx) 'audio' ) 'e01' ) 'enable' )}}>
+                        <input type="checkbox" name="aaAutorec.static.{{idx}}.audio.e01.enable" {{checked (lookup
+                            (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio' ) 'e01' ) 'enable' )}}>
                     </div>
                 </div>
                 <div class="aa-subSection-divider"></div>
@@ -424,7 +426,8 @@
                     <!--Explosion Audio Volume-->
                     <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
-                        <input type="Number" name="aaAutorec.static.{{idx}}.audio.e01.volume" min="0" max="1" step="0.01"
+                        <input type="Number" name="aaAutorec.static.{{idx}}.audio.e01.volume" min="0" max="1"
+                            step="0.01"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio') 'e01') 'volume'}}"
                             placeholder=0.5>
                     </div>
