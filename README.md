@@ -1,23 +1,23 @@
-## NOTE: 0.5.0 now requires the SEQUENCER module as a dependency 
-If you enjoy Automated Animations, consider sending some love on Patreon
-### Patreon Link: https://www.patreon.com/otigon : Not required, but appreciated  
-
+## A Note on adding support for more systems: 
+I will **NOT** be adding support for any more systems. The vast majority of systems in Foundry do not supply the necessary data for Automated Animationms to run, and it has become redundant for me to spend the time trying to figure out if a system is compatible when it is requested. At some point I will add a section on the Wiki detailing how to add support via a pull request, and what information to ask the System Dev to provide in the system.  
+  
 MIT License provided:  
 - Code from Midi-QOL (Tim Posney) is used to check distance between tokens: Copyright (c) 2020 Tim Posney  
 - Honeybadger (Trioderigon) provided the framework for the Misty Step Animation  
 - The SEQUENCER module is now a dependancy of Automated Animations.  
-Many thanks to WASP for creating a great animation framework with the **SEQUENCER** Module. Check out his website [**here**](https://app.fantasy-calendar.com/) and get the **SEQUENCER** module asap!
-
-# A Note on adding support for more systems:  
-
-I will not be expanding support for any more systems until I rework the way they are handled in Automated Animations. Currently they are all separate entities, and I'm actively working on a way to combine them to make them easier to handle in bulk  
-
+Many thanks to WASP for creating a great animation framework with the **SEQUENCER** Module. Check out his website [**here**](https://app.fantasy-calendar.com/) and get the **SEQUENCER** module asap!  
+  
+If you enjoy Automated Animations, consider sending some love on Patreon
+### Patreon Link: https://www.patreon.com/otigon : Not required, but appreciated  
+  
 # Automated Animations
 **No animations are provided in this module. It is designed to work in conjunction with the JB2A Animated Assets module. This module has been reviewed, approved and recommended by JB2A**  
 
 I am not affiliated with JB2A, and am working on this only as a side project to make these great animation more easily accesible. 
 
-## [**Tutorial Video**](https://www.youtube.com/watch?v=x5Y668eIAl0)
+## [**Tutorial Video**](https://www.youtube.com/watch?v=x5Y668eIAl0)  
+  
+## [**Version 1.0 Overview**](https://www.youtube.com/watch?v=edhUEPjQNtQ)
   
 ## [**DOCUMENTATION is on the Wiki Page**](https://github.com/otigon/automated-jb2a-animations/wiki)
 # Introduction
@@ -34,7 +34,7 @@ Current System Compatibility:
 - Tormenta 20  
 - Starfinder  
 - Warhammer 4e
-- Swade (WIP, it seems to broken atm)  
+- Swade (Support is sketchy and I will not be updating further. If you can help out please send a PR)  
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  
@@ -44,7 +44,6 @@ REQUIRED MODULES:
 - **Sequencer** by Wasp
 
 Optional Modules: 
-- Custom Token Animations by Kandashi (For Aura effects)  
 - Socketlib (for placing Tile effects *see Wiki*)
 
 Supported Modules for DnD5e (Those that mess with rolling):  
@@ -54,11 +53,6 @@ Supported Modules for DnD5e (Those that mess with rolling):
 - Better Rolls; version 1.4.5 and above will play the animation on Attack Rolls through Better Rolls. I'll work on optional play on Damage Rolls for BR  
 - Minimal Rolling Enhancements  
 - Mars 5e  
-
-## Roadmap (subject to change) in no particular Order yet:  
-     
-1. Adding customizable TMFX options on a per item basis (versus a global on/off setting currently)    
-2. Audio Revamp for better play of sounds, wildcard feature, linking the sound directly to a particular animation, etc.  
 
 # Overview
 ## Attack Spells and Melee attacks require a token(s) to be Targeted

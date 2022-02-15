@@ -1,7 +1,8 @@
-import { AUTOANIM } from "../item-sheet-handlers/config.js";
+import { aaMenuLists } from "../item-sheet-handlers/menu-lists.js";
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
-import ctaCall from "../animation-functions/CTAcall.js";
-import { exportAutorecToJSON, importAutorecFromJSON } from "./autoFunctions.js";
+import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
+import { autoRecMigration } from "./autoRecMerge.js";
+//import { aaAutorec } from "./aaAutoRecList.js";
 
 export class aaAutoRecognition extends FormApplication {
     constructor(object = {}, options) {
@@ -31,18 +32,29 @@ export class aaAutoRecognition extends FormApplication {
     getData() {
         const patreon = moduleIncludes("jb2a_patreon")
         let data = super.getData();
+        data.currentAutoVersion = Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
         data.settings = this.getSettingsData();
-        data.meleeList = AUTOANIM.localized(AUTOANIM.meleeWeapons);
-        data.rangeList = patreon ? AUTOANIM.localized(AUTOANIM.animNameRangeWeapon) : AUTOANIM.localized(AUTOANIM.animNameRangeWeaponFree);
-        data.spellList = AUTOANIM.localized(AUTOANIM.animNameAttackSpell);
-        data.selfList = AUTOANIM.localized(AUTOANIM.autoself);
-        data.templateCircle = AUTOANIM.localized(AUTOANIM.circleAnimations);
-        data.templateCone = AUTOANIM.localized(AUTOANIM.coneAnimations);
-        data.templateRect = AUTOANIM.localized(AUTOANIM.rectangleAnimations);
-        data.templateRay = AUTOANIM.localized(AUTOANIM.rayAnimations);
-        data.auraList = AUTOANIM.localized(AUTOANIM.aura);
-        data.presetList = AUTOANIM.localized(AUTOANIM.animNameClassFeatures);
-        data.bardAnimName = AUTOANIM.localized(AUTOANIM.bardAnimType)
+        data.genericProjectile = patreon ? aaMenuLists.genericProjectile : aaMenuLists.genericProjectileFree;
+        data.meleeList = aaMenuLists.meleeWeapons;
+        data.genericList = aaMenuLists.genericDmg;
+        data.rangeList = patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree;
+        data.meleeTypes = patreon ? aaMenuLists.meleeTypes : aaMenuLists.meleeTypesFree;
+        data.spellList = aaMenuLists.attackSpells;
+        data.selfList = aaMenuLists.autoself;
+        data.shieldfx = aaMenuLists.shieldfx;
+        data.tokenborder = aaMenuLists.tokenborder;
+        data.templateCircle = aaMenuLists.circleAnimations;
+        data.templateCone = aaMenuLists.coneAnimations;
+        data.templateRect = aaMenuLists.rectangleAnimations;
+        data.templateRay = aaMenuLists.rayAnimations;
+        data.auraList = aaMenuLists.aura;
+        data.creatureList = aaMenuLists.creatureAttacks;
+        data.staticSpells = aaMenuLists.staticSpells;
+        data.conditions = aaMenuLists.conditions;
+        data.explosionMenu = aaMenuLists.explosionMenu;
+        //data.presetList = aaMenuLists.animNameClassFeatures);
+        data.bardAnimName = aaMenuLists.bardAnimType;
+        data.explosionMenu = aaMenuLists.explosionMenu;
 
         data.colors = aaColorMenu;
         data.variants = aaVariantMenu;
@@ -61,18 +73,48 @@ export class aaAutoRecognition extends FormApplication {
         html.find('button.add-autorecog-auras').click(this._addAura.bind(this));
         html.find('button.add-autorecog-preset').click(this._addPreset.bind(this));
 
-        //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
+        html.find('.duplicate-melee').click(this._duplicateMelee.bind(this))
+        html.find('.duplicate-range').click(this._duplicateRange.bind(this))
+        html.find('.duplicate-static').click(this._duplicateStatic.bind(this))
+        html.find('.duplicate-templates').click(this._duplicateTemplate.bind(this))
+        html.find('.duplicate-auras').click(this._duplicateAura.bind(this))
+        html.find('.duplicate-preset').click(this._duplicatePreset.bind(this))
 
+        //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
         html.find('.autorec-menu-options input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render())
+        })
+        html.find('.aa-item-container input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
         })
         html.find('.aa-container input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render())
         })
+        html.find('.aa-autorec-submit-open').click(evt => {
+            this.submit({ preventClose: true }).then(() => this.render())
+        })
         //html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
         html.find('.remove-autorecog').click(this._onRemoveOverride.bind(this))
+        html.on('click', '.enableMacro', (evt) => {
+            var change = $(evt.currentTarget).closest('.form-fields').find('.showMacro').is(":checked")
+            if (change === true) {
+                $(evt.currentTarget).closest('.form-fields').find('.showMacro').prop('checked', false)
+            } else {
+                $(evt.currentTarget).closest('.form-fields').find('.showMacro').prop('checked', true)
+            }
+            this.submit({ preventClose: true }).then(() => this.render())
+        });
+        html.on('click', '.showSoundOnly', (evt) => {
+            var change = $(evt.currentTarget).closest('.form-fields').find('.showSound').is(":checked")
+            if (change === true) {
+                $(evt.currentTarget).closest('.form-fields').find('.showSound').prop('checked', false)
+            } else {
+                $(evt.currentTarget).closest('.form-fields').find('.showSound').prop('checked', true)
+            }
+            this.submit({ preventClose: true }).then(() => this.render())
+        });
         html.find('.aa-autorecognition select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render()).then(() => this.submit({ preventClose: true })).then(() => this.render())
+            this.submit({ preventClose: true }).then(() => this.render())
         });
         html.on('click', '.collapse-button', (evt) => {
             var change = $(evt.currentTarget).closest('.form-fields').find('.hideme').is(":checked")
@@ -83,18 +125,40 @@ export class aaAutoRecognition extends FormApplication {
             }
             this.submit({ preventClose: true }).then(() => this.render())
         });
+        html.on('click', '.button-2d', (evt) => {
+            var change = $(evt.currentTarget).closest('.form-fields').find('.anim2d').is(":checked")
+            if (change === true) {
+                $(evt.currentTarget).closest('.form-fields').find('.anim2d').prop('checked', false)
+            } else {
+                $(evt.currentTarget).closest('.form-fields').find('.anim2d').prop('checked', true)
+            }
+            this.submit({ preventClose: true }).then(() => this.render())
+        });
         html.on('keyup', '#aatest', this._onSearch.bind(this))
         //html.on('focus', '.aa-autorecognition', this._loadSearch.bind(this))
         html.on(this._loadSearch())
         html.on('open', '#aatest', (evt) => { 
             evt.preventDefault()
         })
-        html.find("#aa-autorec-export").click(exportAutorecToJSON);
+        html.find("#aa-autorec-export").click(AutorecFunctions._exportAutorecToJSON);
 		html.find("#aa-autorec-import").on("click", async () => {
 			if (await importFromJSONDialog()) {
 				this.close();
 			}
 		});
+
+        html.find('.particles input[type="color"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.particles input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render())
+        })
+
+        html.on('click', '.sort-menu', async (evt) => {
+            evt.preventDefault()
+            await this.sortAutorec()
+            this.render()
+        })
     }
 
     _loadSearch(evt) {
@@ -125,6 +189,7 @@ export class aaAutoRecognition extends FormApplication {
 
 
     async _addMelee(event) {
+        //console.log(event)
         event.preventDefault();
         let idx = 0;
         const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
@@ -133,9 +198,9 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.melee.${idx}.repeat`] = 1;
-        updateData[`aaAutorec.melee.${idx}.delay`] = 500;
-        updateData[`aaAutorec.melee.${idx}.scale`] = 1;
+        //updateData[`aaAutorec.melee.${idx}.repeat`] = 1;
+        //updateData[`aaAutorec.melee.${idx}.delay`] = 500;
+        //updateData[`aaAutorec.melee.${idx}.scale`] = 1;
         updateData[`aaAutorec.melee.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
@@ -151,8 +216,8 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.range.${idx}.repeat`] = 1;
-        updateData[`aaAutorec.range.${idx}.delay`] = 500;
+        //updateData[`aaAutorec.range.${idx}.repeat`] = 1;
+        //updateData[`aaAutorec.range.${idx}.delay`] = 500;
         updateData[`aaAutorec.range.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
@@ -168,9 +233,9 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.static.${idx}.repeat`] = 1;
-        updateData[`aaAutorec.static.${idx}.delay`] = 500;
-        updateData[`aaAutorec.static.${idx}.scale`] = 1;
+        //updateData[`aaAutorec.static.${idx}.repeat`] = 1;
+        //updateData[`aaAutorec.static.${idx}.delay`] = 500;
+        //updateData[`aaAutorec.static.${idx}.scale`] = 1;
         updateData[`aaAutorec.static.${idx}.below`] = false;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
@@ -186,10 +251,10 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.templates.${idx}.repeat`] = 1;
-        updateData[`aaAutorec.templates.${idx}.delay`] = 500;
+        //updateData[`aaAutorec.templates.${idx}.repeat`] = 1;
+        //updateData[`aaAutorec.templates.${idx}.delay`] = 500;
         updateData[`aaAutorec.templates.${idx}.below`] = false;
-        updateData[`aaAutorec.templates.${idx}.opacity`] = 0.75;
+        //updateData[`aaAutorec.templates.${idx}.opacity`] = 0.75;
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
     }
@@ -204,8 +269,8 @@ export class aaAutoRecognition extends FormApplication {
         }
         let updateData = {}
         updateData[`aaAutorec.auras.${idx}.tint`] = '#ffffff';
-        updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
-        updateData[`aaAutorec.auras.${idx}.scale`] = 1;
+        //updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
+        //updateData[`aaAutorec.auras.${idx}.scale`] = 1;
         updateData[`aaAutorec.auras.${idx}.below`] = true;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
@@ -221,10 +286,10 @@ export class aaAutoRecognition extends FormApplication {
             idx = last.dataset.idx + 1;
         }
         let updateData = {}
-        updateData[`aaAutorec.preset.${idx}.scale`] = 1;
+        //updateData[`aaAutorec.preset.${idx}.scale`] = 1;
         updateData[`aaAutorec.preset.${idx}.below`] = false;
-        updateData[`aaAutorec.preset.${idx}.anchorX`] = 0.5;
-        updateData[`aaAutorec.preset.${idx}.anchorY`] = 0.5;
+        //updateData[`aaAutorec.preset.${idx}.anchorX`] = 0.5;
+        //updateData[`aaAutorec.preset.${idx}.anchorY`] = 0.5;
 
         await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
@@ -232,70 +297,184 @@ export class aaAutoRecognition extends FormApplication {
 
     async _onRemoveOverride(event) {
         event.preventDefault();
+        const  data = await game.settings.get('autoanimations', 'aaAutorec');
         let idx = event.target.dataset.idx;
-        const el = event.target.closest(`div[data-idx="${idx}"]`);
-        if (!el) {
-            return true;
+        delete data[event.target.classList[3]][idx]
+
+        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
+        for (let i = 0; i < menuType.length; i ++) {
+            let compacted = {}
+            try {Object.values(data[menuType[i]])}
+            catch (exception) {continue}
+            Object.values(data[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
+            data[menuType[i]] = compacted;
         }
-        el.remove();
-        await this._onSubmit(event, { preventClose: true });
+
+        await game.settings.set('autoanimations', "aaAutorec", data);
+        this.render()
+    }
+
+    async _duplicateMelee(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.melee[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.melee.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicateRange(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.range-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.range[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.range.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicateStatic(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.static-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.static[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.static.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicateTemplate(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.templates-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.templates[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.templates.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicateAura(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.auras-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.auras[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.auras.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
+    async _duplicatePreset(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.preset-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.preset[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.preset.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
         this.render();
     }
 
     /** @override */
     async _updateObject(_, formData) {
-        const data = expandObject(formData);
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.melee)}
-            catch (exception) {return}
-            Object.values(value.melee).forEach((val, idx) => compacted[idx] = val);
-            value.melee = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.range)}
-            catch (exception) {return}
-            Object.values(value.range).forEach((val, idx) => compacted[idx] = val);
-            value.range = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.static)}
-            catch (exception) {return}
-            Object.values(value.static).forEach((val, idx) => compacted[idx] = val);
-            value.static = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.templates)}
-            catch (exception) {return}
-            Object.values(value.templates).forEach((val, idx) => compacted[idx] = val);
-            value.templates = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.auras)}
-            catch (exception) {return}
-            Object.values(value.auras).forEach((val, idx) => compacted[idx] = val);
-            value.auras = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
-        for (let [key, value] of Object.entries(data)) {
-            const compacted = {};
-            try {Object.values(value.preset)}
-            catch (exception) {return}
-            Object.values(value.preset).forEach((val, idx) => compacted[idx] = val);
-            value.preset = compacted;
-            await game.settings.set('autoanimations', key, value);
-        }
+
+        const data = expandObject(formData).aaAutorec;
+
+        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
+            for (let i = 0; i < menuType.length; i ++) {
+                let compacted = {}
+                try {Object.values(data[menuType[i]])}
+                catch (exception) {continue}
+                Object.values(data[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
+                data[menuType[i]] = compacted;
+            }
+            const oldData = await game.settings.get('autoanimations', 'aaAutorec');
+            const newData = mergeObject(oldData, data);
+            //console.log(newData);
+            await game.settings.set('autoanimations', "aaAutorec", newData);
     }
+
+    async sortAutorec() {
+        const autoRec = await game.settings.get('autoanimations', 'aaAutorec');
+        const sortedMenu = {};
+    
+        sortedMenu.version = autoRec.version;
+        sortedMenu.search = autoRec.search;
+        sortedMenu.melee = await this.sortMenu(autoRec.melee);
+        sortedMenu.range = await this.sortMenu(autoRec.range);
+        sortedMenu.static = await this.sortMenu(autoRec.static);
+        sortedMenu.templates = await this.sortMenu(autoRec.templates);
+        sortedMenu.auras = await this.sortMenu(autoRec.auras);
+        sortedMenu.preset = await this.sortMenu(autoRec.preset)
+    
+        await game.settings.set("autoanimations", "aaAutorec", sortedMenu);
+    }
+    
+    async sortMenu(data) {
+        const mergedArray = [];
+        const keys = Object.keys(data);
+        const keyLength = keys.length;
+        for (var i = 0; i < keyLength; i++) {
+            var currentObject = data[keys[i]];
+            if (!currentObject.name) { break; }
+            currentObject.menuSection = keys[i]
+            mergedArray.push(currentObject)
+        }
+        mergedArray.sort((a, b) => b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 1)
+    
+        const sortedMenu = {};
+        const newLength = mergedArray.length;
+        for (var i = 0; i < newLength; i++) {
+            var currentKey = i.toString()
+            sortedMenu[currentKey] = mergedArray[currentKey];
+        }
+        return sortedMenu;
+    }
+    
 }
 
+// Credit to Tim Poseny of Midi-QOL for the import/export functions for settings
 async function importFromJSONDialog() {
 	const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
 	let dialog = new Promise((resolve, reject) => {
@@ -312,7 +491,7 @@ async function importFromJSONDialog() {
 						if (!form.data.files.length)
 							return ui.notifications?.error("You did not upload a data file!");
 						readTextFromFile(form.data.files[0]).then(json => {
-							importAutorecFromJSON(json);
+							AutorecFunctions._importAutorecFromJSON(json);
 							resolve(true);
 						});
 					}

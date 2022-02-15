@@ -1,143 +1,230 @@
-import { buildFile} from "./file-builder/build-filepath.js"
+import { buildFile } from "./file-builder/build-filepath.js"
+import { aaDebugger } from "../constants/constants.js"
+//import { socketlibSocket } from "../socketset.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
+export async function teleportation(handler, animationData) {
 
-export async function teleportation(handler, autoObject) {
+    const sourceToken = handler.sourceToken;
 
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
 
-    if (handler.itemMacro.toLowerCase().includes("misty step")) {
-        console.log("A-A Misty Step will not work with DAE SRD Misty Step");
-        return;
-    }
-    const token = handler.actorToken;
-    const actor = handler.actor;
-
-    const data = {};
-    if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject[0]);
-        data.itemName = data.subAnimation || "";
-        data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
+    if (data.isAuto) {
+        data.itemName01 = data.subAnimation || "";
+        data.itemName02 = data.subAnimation02 || "";
+        data.teleDist = data.range || 30;
     } else {
-        data.itemName = handler.convertedName;
-        data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";
-        data.customPath = handler.enableCustom01 ? handler.custom01 : false;
-        data.color = handler.color;
-        data.switchType = handler.switchType;
-        data.detect = handler.switchDetect;
-        data.scale = handler.scale;
-        data.range = handler.teleRange;
-        data.hideTemplate = handler.options?.hideTemplate;
+        data.itemName01 = data.options?.name || "";
+        data.itemName02 = data.options?.name02 || "";
     }
 
-    const onToken = await buildFile(true, data.itemName, "static", "01", data.color, data.customPath);
+    const onToken = await buildFile(true, data.itemName01, "static", data.variant, data.color, data.customPath);
+    const onToken02 = await buildFile(true, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
 
-    let sourceFX;
-    let sFXScale;
-    let customSourcePath; 
-    if (handler.sourceEnable) {
-        customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, customSourcePath);
-        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
-    }
+    if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, onToken, onToken02) }
 
+    const sourceScale = sourceToken.w;
 
-    let Scale = ((token.w / onToken.metadata.width) * data.scale) * 1.75;
-    if (!data.hideTemplate) {
-        let range = MeasuredTemplate.create({
-            t: "circle",
-            user: game.user.id,
-            x: token.x + canvas.grid.size / 2,
-            y: token.y + canvas.grid.size / 2,
-            direction: 0,
-            distance: data.range,
-            borderColor: "#FF0000",
-            flags: {
-                world: {
-                    Teleportation: {
-                        ActorId: actor.id
-                    }
-                }
-            }
-        });
-    }
+    let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
+    let Scale02 = ((sourceScale / onToken02.metadata.width) * data.scale02) * 1.75;
+
+    const drawingSize = (sourceToken.data?.width * canvas.grid.size) + (2 * ((data.teleDist / canvas.dimensions.distance) * canvas.grid.size));
+
+    let userIDs = Array.from(game.users).map(user => user.id);
+    let gmIDs = Array.from(game.users).filter(i => i.isGM).map(user => user.id)
+
+    const hideBorder = data.hideFromPlayers ? gmIDs : userIDs;
+    const userColor = game.user?.data?.color ? "0x" + game.user.data.color.replace(/^#/, '') : 0x0D26FF;
+    const filePath = data.measureType === 'equidistant' ? "modules/autoanimations/src/images/teleportSquare.png" : "modules/autoanimations/src/images/teleportCircle.png"
+
+    let aaSeq01 = new Sequence()
+    aaSeq01.effect()
+        .file(filePath)
+        .atLocation(sourceToken)
+        .size({ width: drawingSize, height: drawingSize })
+        .fadeIn(500)
+        .scaleIn(0, 500)
+        .fadeOut(500)
+        .name("teleportation")
+        .belowTokens(true)
+        .persist(true)
+        .opacity(0.5)
+        .filter("Glow", {
+            distance: 10,
+            outerStrength: 5,
+            innerStrength: 5,
+            color: userColor,
+            quality: 0.2,
+        })
+        .forUsers(hideBorder)
+    aaSeq01.play()
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
-        let ray = new Ray(token.center, pos)
-        if (ray.distance > ((canvas.grid.size * (data.range / canvas.dimensions.distance)) + (canvas.grid.size / 2))) {
-            ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
-        } else {
+
+        let topLeft = canvas.grid.getTopLeft(pos.x, pos.y);
+
+        if (checkDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }) <= data.teleDist) {
             deleteTemplatesAndMove();
             canvas.app.stage.removeListener('pointerdown');
+        } else {
+            ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
         }
     });
 
     async function deleteTemplatesAndMove() {
 
         let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
+        let centerPos;
+        if (canvas.scene.gridType === 0) {
+            centerPos = [gridPos[0] + sourceToken.w, gridPos[1] + sourceToken.w];
+        } else {
+            centerPos = canvas.grid.getCenter(pos.x, pos.y);
+        }
+        //let centerPos = canvas.grid.getCenter(pos.x, pos.y);
 
-        let removeTemplates = canvas.templates.placeables.filter(i => i.data.flags.world?.Teleportation?.ActorId === actor.id);
-        removeTemplates = removeTemplates.map(template => template.id);
-        if (removeTemplates) await canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", removeTemplates);
+        Sequencer.EffectManager.endEffects({ name: "teleportation" })
 
-        new Sequence()
-            .effect()
-                .atLocation(token)
-                .scale(sFXScale * handler.sourceScale)
-                .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                .belowTokens(handler.sourceLevel)
-                .waitUntilFinished(handler.sourceDelay)
-                .playIf(handler.sourceEnable)
-                .addOverride(async (effect, data) => {
-                    if (handler.sourceEnable) {
-                        data.file = sourceFX.file;
-                    }
-                    return data;
-                })
+        let aaSeq = new Sequence();
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+        }
+        aaSeq.addSequence(sourceFX.sourceSeq)
+        if (data.playSound) {
+            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+        }
+        aaSeq.effect()
+            .file(onToken.file)
+            .atLocation(sourceToken)
+            .scale(Scale)
+            .randomRotation()
+        aaSeq.wait(250)
+        aaSeq.animation()
+            .on(sourceToken)
+            .opacity(0)
+            .teleportTo({ x: gridPos[0], y: gridPos[1] })
+        aaSeq.effect()
+            .file(onToken02.file)
+            .atLocation({ x: centerPos[0], y: centerPos[1] })
+            .scale(Scale02)
+            .randomRotation()
+        aaSeq.wait(1250 + data.delay)
+        aaSeq.animation()
+            .on(sourceToken)
+            .opacity(1)
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, ...userData)
+                .play()
+        }
+        aaSeq.play()
+        /*
+        new Sequence("Automated Animations")
+            .addSequence(sourceFX.sourceSeq)
+            .sound()
+                .file(data.itemAudio.file, true)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .playIf(data.playSound)
             .effect()
                 .file(onToken.file)
-                .atLocation(token)
+                .atLocation(sourceToken)
                 .scale(Scale)
                 .randomRotation()
-                .wait(750)
-            .thenDo(async () => {
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    await token.update({
-                        x: gridPos[0],
-                        y: gridPos[1],
-                        hidden: true
-                    }, { animate: false });
-                } else {
-                    await token.document.update({
-                        x: gridPos[0],
-                        y: gridPos[1],
-                        hidden: true
-                    }, { animate: false });
-                }
-            })  
+            .wait(250)
+            .animation()
+                .on(sourceToken)
+                .opacity(0)
+                .teleportTo({x: gridPos[0], y: gridPos[1]})
             .effect()
-                .file(onToken.msFile)
-                .atLocation(token)
-                .scale(Scale)
+                .file(onToken02.file)
+                .atLocation({x: centerPos[0], y: centerPos[1]})
+                .scale(Scale02)
                 .randomRotation()
-            .wait(1500)
-            .thenDo(async () => {
-                if (game.data.version === "0.7.9" || game.data.version === "0.7.10") {
-                    await token.update({
-                        hidden: false
-                    }, { animate: false });
-                    0
-                } else {
-                    await token.document.update({
-                        hidden: false
-                    }, { animate: false });
-                }
-            })
+            .wait(1250 + data.delay)
+            .animation()
+                .on(sourceToken)
+                .opacity(1)
             .play();
+        */
     };
 
-
+    // Credit to TPosney / Midi-QOL for the Range Check
+    function checkDistance(source, target) {
+        var x, x1, y, y1, d, r, segments = [], rdistance, distance;
+        for (x = 0; x < source.data.width; x++) {
+            for (y = 0; y < source.data.height; y++) {
+                const origin = new PIXI.Point(...canvas.grid.getCenter(source.data.x + (canvas.dimensions.size * x), source.data.y + (canvas.dimensions.size * y)));
+                for (x1 = 0; x1 < 1; x1++) {
+                    for (y1 = 0; y1 < 1; y1++) {
+                        const dest = new PIXI.Point(...canvas.grid.getCenter(target.x + (canvas.dimensions.size * x1), target.y + (canvas.dimensions.size * y1)));
+                        const r = new Ray(origin, dest);
+                        segments.push({ ray: r });
+                    }
+                }
+            }
+        }
+        if (segments.length === 0) {
+            return -1;
+        }
+        rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
+        distance = rdistance[0];
+        rdistance.forEach(d => {
+            if (d < distance)
+                distance = d;
+        });
+        return distance;
+    }
+    // Converting hex colors to HSL format
+    /*
+    function hexToHSL(H) {
+        // Convert hex to RGB first
+        let r = 0, g = 0, b = 0;
+        if (H.length == 4) {
+          r = "0x" + H[1] + H[1];
+          g = "0x" + H[2] + H[2];
+          b = "0x" + H[3] + H[3];
+        } else if (H.length == 7) {
+          r = "0x" + H[1] + H[2];
+          g = "0x" + H[3] + H[4];
+          b = "0x" + H[5] + H[6];
+        }
+        // Then to HSL
+        r /= 255;
+        g /= 255;
+        b /= 255;
+        let cmin = Math.min(r,g,b),
+            cmax = Math.max(r,g,b),
+            delta = cmax - cmin,
+            h = 0,
+            s = 0,
+            l = 0;
+      
+        if (delta == 0)
+          h = 0;
+        else if (cmax == r)
+          h = ((g - b) / delta) % 6;
+        else if (cmax == g)
+          h = (b - r) / delta + 2;
+        else
+          h = (r - g) / delta + 4;
+      
+        h = Math.round(h * 60);
+      
+        if (h < 0)
+          h += 360;
+      
+        l = (cmax + cmin) / 2;
+        s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+        s = +(s * 100).toFixed(1);
+        l = +(l * 100).toFixed(1);
+      
+        //return "hsl(" + h + "," + s + "%," + l + "%)";
+        return [h, s * 0.01, l * 0.01]
+      }
+      */
 }

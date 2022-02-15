@@ -1,3 +1,74 @@
+2.0.0 **Macro Support**  
+**BREAKING** With the addition of Macros into A-A, the Advanced Macros module is required to use this feature. This will not be set as a dependency since it is an optional feature of the Module.  
+* Adds the ability to use Custom Macros on all Item and Automatic Recognition Menus. **See the WIKI for detailed information on how to use these at** https://github.com/otigon/automated-jb2a-animations/wiki/Adding-Macros.  
+* All Animation Sequences have been reworked to accomodate the Addition of Macros. As such, you may notice some different behavior on some animations. The basic Sequence will work as:  
+1. Macro (If playing in Sequence)  
+2. Extra Effects - Source Token (If Enabled)  
+3. Primary Effect and Sound.  
+4. Explosion (if enabled)  
+5. Extra Effects - Target Token(s) (If Enabled)  
+**NOTE:** For Targeted effects, 3, 4 and 5 will play on all targets Simultaneously (respecting wait/delay times) with any associated Sounds. Previously many of the effects would incorrectly play the full Sequence from Source to Target, then Repeat again for the next target.  
+  
+
+* All menus should now have have proper placeholders representing the default value if the field is left blank.  
+* Corrected an issue with Templates => Thunderwave. Previously if the Thunderwave animation was chosen it would direct it to a custom Sequence designed for DnD 5e. This is now moved to the Preset menus.  
+  
+  
+1.2.9 **JB2A Essek and Frumpkin add-ins  
+Adds in all new animations with exception of the Zoning effects  
+* Energy Conduit Square and Circle => Range-Generic  
+* Energy Beam variant 02 and 03 => Range-Spell-Energy Beam  
+* Energy Strands (Multiple) variant 02 => Range-Spell-Energy Strands  
+* Eruption and Liquid Splash => added to OnToken Type Explosion, Explosion Menus, and Extra Effect menus  
+* Aura option "Ignore Targets" is now working correctly
+  
+1.2.8 **Adds support for external Animation calls to utilize Play of Miss effects via option object that accepts and array of the Hit Targets, and an option to override the Play on Miss feature in A-A  
+  
+1.2.3  
+* **Adds support for the OSE system**  
+* Teleportation preset will now activate immediately on Item use  
+* New "Dual Attach" preset is now available in the Preset menus. **NOTE, this is an experimental feature that can sometimes be buggy**  
+* 
+1.2.0  
+* **SOCKETLIB IS NOW A DEPENDANCY**. I've listed this as such since Sequencer 2.0 will require it as well.  
+* Fix for Shadow of the Demonlord animations running on every button press  
+* Fix for Forbidden Lands system animations failing if the "Link Actor Data" option was checked on the token  
+* Updates for Template Animations and Teleportation Preset animation  
+* Template Animations now accept both ScaleX and ScaleY. Keep both the same for uniformity  
+Teleport Preset  
+* Now accepts a Start and End animation separately, with custom option for both  
+* New option to set the Grid Measurement type for either 5/5/5 or 5/10/5. Spawning either a Circular or Square overlay to show distance on use.  
+* Teleportation no longer summons a Template. Now a simple Border is used via Sequencer, colored as the User Color.  
+* Removed the "Do Not Show Template" option. Replaced with "Hide From Players. This is a GM ONLY setting, and ONLY on the Item menus. If checked, the distance border will only be visible to the GM, and not the Players (Great for hiding the BBG escaping)  
+* In the 2nd Animation field, you can set the "Delay (ms) Token Alpha". This option accepts positive and negative values to time the reapperance of the Token. Token is no longer put in a hidden state, but the Alpha is changed by Sequencer. Base value for reappearing is time for Misty Step animation.  
+  
+1.1.0 - 1.1.6  
+* Support for the 3D Canvas module by Ripper. Adds 3D Canvas Particle animations to all item menus, and the Melee, Range and On Token Autorec Menus.  
+* Added SORT button to the Autorec Menu to sort your menu alphabetically  
+* Added Global setting to Decouple Sounds from animations. If checked, Sounds will NOT repeat with the animation they are assigned to.  
+* Fixed some issues with the 5e Magic Items module and Template animations not working correctly  
+  
+1.0.1 and 1.0.2  
+* Corrected Automatic Recognition Menu import errors.  
+* Automatic Recognition Menu is now localized. This only affects new installations. Command line prompt of game.settings.set('autoanimations', 'aaAutorec') will revert your menu to the base menu, but localized if you need to change it.  
+* Updated menus for the JB2A Darrington release (minus Side Impacts for now)  
+* Updated Japanese localization file thanks to Touge  
+  
+1.0.0  
+**Feature Upgrades**  
+* PF2e - Animate on Hit and Miss. Enabled in the Module Settings. Does not function if animating on Damage Rolls. Requires only 1 token to be targeted when rolling the attack (otherwise PF2e does not run the check)  
+* Automatic Recognition Menu: Submit & Submit and Close button added. Submit will save the current settings and NOT close the menu, while Submit and Close will save and close.  
+* Automatic Recognition Menu: Duplicate button added to sections to quickly copy an existing section to a new one.  
+* Aura animations will now play immediately on Item use, irrespective of Attack and/or Damage rolls.  
+* Generic Damage animations: Generic option in Melee menu will now only show if the Patreon Package is installed. Generic options are also now available in the Automatic Recognition Menu.  
+  
+**SOUNDS/AUDIO**  
+* Sound options have been added to ALL animation sections on Item Menus AND Automatic Recognition Menus.  
+* If animations are disabled on an item, you will still have the option to only play a Sound if so desired.  
+* Existing sounds should still remain in place  
+* Sounds are tied directly to the animations that they are defined on. Options are Volume and Delay.  
+* Delay for sounds accepts both negative (-) and positive (+) numbers to start later or sooner than the animation.  
+  
 0.5.0  
 * BREAKING: SEQUENCER module is now a Dependency of Automated Animations. You MUST have it installed and ACTIVE
 * BREAKING: Weapon Animations with Explosions added will need to be reconfigured. Explosion options changed slightly

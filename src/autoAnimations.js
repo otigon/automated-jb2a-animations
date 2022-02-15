@@ -2,38 +2,22 @@ import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-data
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
 
-import Dnd5Handler from "./system-handlers/dnd5-handler.js";
-import MidiHandler from "./system-handlers/midi-handler.js";
-import Pf1Handler from "./system-handlers/pf1-handler.js";
-import Dnd35Handler from "./system-handlers/dnd35-handler.js";
-import Tormenta20Handler from './system-handlers/tormenta20-handler.js';
-import DemonLordHandler from './system-handlers/demonlord-handler.js';
-import StarWarsFfgHandler from './system-handlers/starwarsffg-handler.js';
-import SwadeHandler from './system-handlers/swade-handler.js';
-import GeneralAnimHandler from "./system-handlers/generalAnim-handler.js";
-import SW5eHandler from "./system-handlers/sw5e-handler.js";
-import WFRP4eHandler from "./system-handlers/wfrp4e-handler.js";
-import PF2Handler from "./system-handlers/pf2-handler.js";
-import ForbiddenLandsHandler from "./system-handlers/forbidden-lands-handler.js";
+import systemData from "./system-handlers/system-data.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import aaSettings from "./settings.js";
 
 import { teleportation } from "./animation-functions/teleportation.js";
-import { templateAnimation } from "./animation-functions/templateAnimation.js";
-import { setupSocket, socketlibSocket } from "./socketset.js";
-import { autorecNameCheck, getAllNames, rinseName } from "./custom-recognition/autoFunctions.js";
-
-//import menuOptions from "./animation-functions/databases/jb2a-patreon-menus.js";
-// just swap which of these two lines is commented to turn on/off all logging
-//const log = console.log.bind(window.console);
+import { setupSocket } from "./socketset.js";
+import { flagMigrations } from "./system-handlers/flagMerge.js";
+import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 const log = () => { };
 
 Hooks.once('setup', function () {
     setupSocket();
 });
 var killAllAnimations;
-function disableAnimations() {
+export function disableAnimations() {
     socket.off('module.sequencer')
     killAllAnimations = true;
 }
@@ -45,25 +29,18 @@ Hooks.on('init', () => {
         if (a != b) { return options.fn(this); }
         return options.inverse(this);
     });
-    Handlebars.registerHelper("aaEach", function (colors, type, name, variant, options) {
-        var ret = "";
-
-        let context;
-        context = colors[type][name][variant]
-        for (var i = 0, j = context.length; i < j; i++) {
-            ret = ret + options.fn(context[i]);
+    Handlebars.registerHelper('matchOverhead', function (autoObj, options) {
+        if (autoObj.persist && (autoObj.type === 'circle' || autoObj.type === 'rect')) {
+            return options.fn(this);
         }
-        return ret;
+        return options.inverse(this);
     });
-    Handlebars.registerHelper('concat', function (...params) {
-        // Ignore the object appended by handlebars.
-        if (typeof params[params.length - 1] === 'object') {
-            params.pop();
+    Handlebars.registerHelper('sequencerOnly', function (autoObj, options) {
+        if (autoObj.persist && (autoObj.type === 'ray' || autoObj.type === 'cone')) {
+            return options.fn(this);
         }
-
-        return params.join('');
+        return options.inverse(this);
     });
-    aaSettings();
     loadTemplates([
         'modules/autoanimations/src/custom-recognition/settings.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-melee-autorec.html',
@@ -72,20 +49,74 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-templates-autorec.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-auras-autorec.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-presets-autorec.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animations.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/item-audio.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/pre-postfx.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-melee.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ranged.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ontoken.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-templates.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-auras.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-presets.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-autoOverride.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/levels3d.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html'
     ]);
 
+})
+
+// sets the A-A button on the Item Sheet title bar
+Hooks.on(`renderItemSheet`, async (app, html, data) => {
+    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
+        return;
+    }
+    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
+    aaBtn.click(async ev => {
+        await flagMigrations.handle(app.document);
+        new AAItemSettings(app.document, {}).render(true);
+    });
+    html.closest('.app').find('.aa-item-settings').remove();
+    let titleElement = html.closest('.app').find('.window-title');
+    aaBtn.insertAfter(titleElement);
+});
+
+// Registers Database with Sequencer
+Hooks.on("sequencerReady", () => {
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+
+    Sequencer.Database.registerEntries("autoanimations", obj01, true);
+    if (game.settings.get("autoanimations", "killAllAnim") === "off") {
+        console.log("ANIMATIONS ARE OFF")
+        socket.off('module.sequencer')//
+        killAllAnimations = true;
+    }
+});
+
+Hooks.once('ready', function () {
+    aaSettings();
+
+    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+
+    if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
+        ui.notifications.error(game.i18n.format("AUTOANIM.error"));
+    }
+    autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
         switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
-                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAD(workflow) });
+                //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
+                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttackDamage(workflow) });
                 break;
             case (false):
                 Hooks.on("midi-qol.AttackRollComplete", (workflow) => { setUpMidi(workflow) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoA(workflow) });
-                Hooks.on("createChatMessage", (msg) => { specialCaseAnimations(msg) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttack(workflow) });
+                //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
+                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
                 break;
         }
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
@@ -103,33 +134,13 @@ Hooks.on('init', () => {
                 Hooks.on("createChatMessage", async (msg) => {
                     setUp5eCore
                         (msg);
-                    //specialCaseAnimations(msg);
                 });
-                //Hooks.on("preCreateChatMessage", async (msg, options, userId) => {dnd5ecrits(msg)});
                 break;
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
                 break;
-            case "demonlord": {
-                if (!(game.data.version === "0.7.9" || game.data.version === "0.7.10")) {
-                    game.settings.register("autoanimations", "playtrigger", {
-                        name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
-                        hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
-                        scope: "world",
-                        type: String,
-                        choices: {
-                            "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
-                            "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
-                            "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
-                            "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
-                            "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
-                        },
-                        default: "rollattack",
-                        config: true
-                    })
-                }
-                break
-            }
+            case "demonlord":
+                Hooks.on("DL.Action", async (data) => { setupDemonLord(data) });
                 break;
             case "pf2e":
                 Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
@@ -146,21 +157,18 @@ Hooks.on('init', () => {
                             return null;
                         }
                     }
-                    let itemId = extractItemId(msg.data.content);
-                    let tokenId;
-                    let sourceToken;
-                    let targets;
-                    let item;
-                    if (itemId === undefined) {
-                        return
-                    } else {
-                        item = sourceToken.actor.items?.get(itemId)
-                    }
+                    const itemId = extractItemId(msg.data.content);
+                    if (!itemId) { return; }
+                    const tokenId = msg.data.speaker.token;
+                    const sourceToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId));
+
+                    if (!sourceToken) { return; }
+
+                    const item = sourceToken.actor?.items?.get(itemId)
+
                     if (!item.hasAttack && !item.hasDamage) {
-                        tokenId = msg.data.speaker.token;
-                        sourceToken = canvas.tokens.get(tokenId);
-                        targets = Array.from(msg.user.targets)
-                        AutoAnimations.playAnimation(sourceToken, targets, item)
+                        let data = {}
+                        starFinder(data, msg)
                     }
                 });
                 if (game.settings.get("autoanimations", "playonDamage")) {
@@ -193,15 +201,33 @@ Hooks.on('init', () => {
                 Hooks.on("createChatMessage", async (msg) => { swffgReady(msg) });
                 break;
             case "swade":
-                Hooks.on("swadeAction", async (SwadeActor, SwadeItem) => { swadeData(SwadeActor, SwadeItem) });
+                Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => {
+                    const controlledTokens = canvas.tokens.controlled;
+                    let token;
+                    if (controlledTokens.length > 0) {
+                        token = controlledTokens.find(token => token.data.actorId === SwadeTokenOrActor.id);
+                    }
+                    if (token) { SwadeTokenOrActor = token; }
+                    swadeData(SwadeTokenOrActor, SwadeItem)
+                });
                 Hooks.on("BRSW-RollItem", async (data, html) => {
-                    var actorId = data.getFlag("betterrolls-swade2", "actor");
-                    var actor = game.actors.get(actorId);
+                    var tokenId = data.getFlag("betterrolls-swade2", "token");
+                    if (tokenId) {
+                        var token = canvas.tokens.get(tokenId);
 
-                    var itemId = data.getFlag("betterrolls-swade2", "item_id");
-                    var item = actor.items.get(itemId);
+                        var itemId = data.getFlag("betterrolls-swade2", "item_id");
+                        var item = token.actor.items.get(itemId);
 
-                    swadeData(actor, item) 
+                        swadeData(token, item)
+                    } else {
+                        var actorId = data.getFlag("betterrolls-swade2", "actor");
+                        var actor = game.actors.get(actorId);
+
+                        var itemId = data.getFlag("betterrolls-swade2", "item_id");
+                        var item = actor.items.get(itemId);
+
+                        swadeData(actor, item)
+                    }
                 });
                 break;
             case "wfrp4e":
@@ -226,52 +252,33 @@ Hooks.on('init', () => {
                     wfrpSkill(data, targets, info)
                 });
                 break;
+            case 'ose':
+                Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
+                break;
         }
-        //Hooks.on("createMeasuredTemplate", async (msg) => { getTemplateParams(msg) });
     }
-})
-// sets the A-A button on the Item Sheet title bar
-Hooks.on(`renderItemSheet`, async (app, html, data) => {
-    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
-        return;
-    }
-    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    aaBtn.click(ev => {
-        new AAItemSettings(app.document, {}).render(true);
-    });
-    html.closest('.app').find('.aa-item-settings').remove();
-    let titleElement = html.closest('.app').find('.window-title');
-    aaBtn.insertAfter(titleElement);
-});
-// Registers Database with Sequencer
-Hooks.once('ready', function () {
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
-    Hooks.on("sequencer.ready", () => {
-        SequencerDatabase.registerEntries("autoanimations", obj01);
-        if (game.settings.get("autoanimations", "killAllAnim") === "off") {
-            console.log("ANIMATIONS ARE OFF")
-            socket.off('module.sequencer')//
-            killAllAnimations = true;
-        }
-    });
-    if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
-        ui.notifications.error(game.i18n.format("AUTOANIM.error"));
-    }
     Hooks.callAll("aa.ready", obj01)
 });
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 /* External call for animations
-* sourcToken as the originating token
+* sourceToken as the originating token
 * targets as an array from the user
 * item as the item instance being used
+* options to override settings e.g. playOnMiss: true, hitTargets: Array of TokenIDs
 */
 class AutoAnimations {
-    static playAnimation(sourceToken, targets, item) {
+    static async playAnimation(sourceToken, targets, item, options = {}) {
         if (killAllAnimations) { return; }
-        let handler = new GeneralAnimHandler(sourceToken, targets, item);
+        const data = {
+            token: sourceToken,
+            targets: targets,
+            item: item,
+            ...options
+        }
+        let handler = await systemData.make(null, null, data)
         trafficCop(handler);
     }
 }
@@ -285,55 +292,72 @@ function moduleIncludes(test) {
 / Midi-QOL Functions for DnD 5e and Star Wars 5e
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
-function setUpMidi(workflow) {
+async function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
-    let handler = new MidiHandler(workflow);
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
-    if (templateItem && !handler.animOverride) { return; }
-    if (handler.animType === "t8" && handler.animOverride) { return; }
+    let handler = await systemData.make(workflow);
+    //console.log(handler)
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    if (handler.shouldPlayImmediately) { return; }
+    //console.log("Damage vs Attack Hook, AA Settings")
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
-function setUpMidiNoAD(workflow) {
+async function setUpMidiNoAttackDamage(workflow) {
     if (killAllAnimations) { return; }
-    if (workflow.item?.hasAttack && workflow.item?.hasDamage) { return; }
-    let handler = new MidiHandler(workflow);
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
-    if (templateItem && !handler.animOverride) { return; }
-    if (handler.animType === "t8" && handler.animOverride) { return; }
+    if (workflow.item?.hasAttack || workflow.item?.hasDamage) { return; }
+    let handler = await systemData.make(workflow);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    if (handler.shouldPlayImmediately) { return; }
+    //console.log("no Attack or Damage, Midi-Roll Complete hook")
+    //console.log(workflow)
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
-function setUpMidiNoA(workflow) {
+async function setUpMidiNoAttack(workflow) {
     if (killAllAnimations) { return; }
     if (workflow.item?.hasAttack) { return; }
-    let handler = new MidiHandler(workflow);
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
-    if (templateItem && !handler.animOverride) { return; }
-    if (handler.animType === "t8" && handler.animOverride) { return; }
+    let handler = await systemData.make(workflow);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    if (handler.shouldPlayImmediately) { return; }
+    //console.log("no Attack, Midi Roll Complete Hook")
     trafficCop(handler)
 }
+/*
+// For AOE items when using Midi QOL
+async function midiAOE(workflow) {
+    if (killAllAnimations) { return; }
+    const handler = await systemData.make(workflow);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    if (handler.shouldPlayImmediately) {
+        trafficCop(handler);
+    } else { return; }
+}
+*/
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
-async function specialCaseAnimations(msg) {
+async function midiTemplateAnimations(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user?.id) {
         return;
     }
+    const handler = await systemData.make(msg, true);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
     let breakOut = checkMessege(msg);
-    if (breakOut === 0 || game.modules.get("betterrolls5e")?.active) {
-        let handler = new Dnd5Handler(msg);
-        if (handler.animType === "t8" && handler.animOverride) {
-            Hooks.once("createMeasuredTemplate", (msg) => {
-                templateAnimation(handler);
-            })
-            return;
-        }
-        const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
-        if (templateItem && !handler.animOverride) {
-            trafficCop(handler)
-        }
+    if ((handler.shouldPlayImmediately) && (breakOut === 0 || game.modules.get("betterrolls5e")?.active)) {
+        trafficCop(handler);
     } else { return; }
 }
+
+
 function checkMessege(msg) {
     try {
         return msg.data?.flags['midi-qol'].type;
@@ -343,9 +367,43 @@ function checkMessege(msg) {
 }
 
 /*
+* Midi-QOL Critical Hit and Fumble animations
+*
+*/
+async function criticalCheck(workflow) {
+    if (killAllAnimations) { return; }
+    if (!workflow.isCritical && !workflow.isFumble) { return; }
+    let critical = workflow.isCritical;
+    let fumble = workflow.isFumble;
+    let token;
+
+    let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
+    let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
+
+    switch (true) {
+        case (game.settings.get("autoanimations", "EnableCritical") && critical):
+            token = canvas.tokens.get(workflow.tokenId);
+            new Sequence()
+                .effect()
+                .file(critAnim)
+                .atLocation(token)
+                .play()
+            break;
+        case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
+            token = canvas.tokens.get(workflow.tokenId);
+            new Sequence()
+                .effect()
+                .file(critMissAnim)
+                .atLocation(token)
+                .play()
+            break;
+    }
+}
+
+/*
 / Set up DnD5e and SW5e CORE (NON MIDI)
 */
-function setUp5eCore(msg) {
+async function setUp5eCore(msg) {
     if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
 
@@ -354,45 +412,46 @@ function setUp5eCore(msg) {
     let rollType;
     switch (game.system.id) {
         case "dnd5e":
-            handler = new Dnd5Handler(msg);
+            handler = await systemData.make(msg);
             rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
             break;
         case "sw5e":
-            handler = new SW5eHandler(msg);
+            handler = await systemData.make(msg);
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
-    if (!handler.item || handler.animKill) { return }
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
-    const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
+
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+
     switch (true) {
         case !handler.hasAttack && !handler.hasDamage:
             trafficCop(handler);
             break;
-        case handler.animType === "t8" && !rollType.includes("damage") && handler.animOverride:
-            trafficCop(handler);
-            break;
-        case templateItem && !rollType.includes("damage") && !rollType.includes("attack"):
+        case (handler.shouldPlayImmediately) && !rollType.includes("damage") && !rollType.includes("attack"):
             trafficCop(handler);
             break;
         case animationNow:
             if (rollType.includes("damage")) {
-                if (t8Template || templateItem) { return; }
+                if (handler.shouldPlayImmediately) { return; }
                 trafficCop(handler);
             }
             break;
         case !animationNow:
             switch (true) {
-                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") & !rollType.includes("damage"):
+                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && !handler.hasAttack && handler.hasDamage && !rollType.includes("damage"):
                     trafficCop(handler);
+                    break;
+                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && rollType.includes("damage"):
                     break;
                 case rollType.includes("damage") && !handler.hasAttack:
                 case rollType.includes('attack'):
-                    if (t8Template || templateItem) { return; }
+                    if (handler.shouldPlayImmediately) { return; }
                     trafficCop(handler);
                     break;
                 case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (t8Template || templateItem) { return; }
+                    if (handler.shouldPlayImmediately) { return; }
                     trafficCop(handler);
                     break;
             }
@@ -403,28 +462,22 @@ function setUp5eCore(msg) {
 /*
 / sets Handler for PF1 and DnD3.5
 */
-function onCreateChatMessage(msg) {
+async function onCreateChatMessage(msg) {
     if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
     log('onCreateChatMessage', msg);
     let handler;
     switch (game.system.id) {
         case "pf1":
-            handler = new Pf1Handler(msg);
+            handler = await systemData.make(msg);
             break;
         case "D35E":
-            handler = new Dnd35Handler(msg);
+            handler = await systemData.make(msg);
             break;
     }
-    /*
-    if (game.user.id === msg.user.id) {
-        switch (true) {
-            case ((handler.animType === "t12") && (handler.animOverride)):
-                teleportation(handler);
-                break;
-        }
+    if (!handler.item || !handler.sourceToken) {
+        return;
     }
-    */
     trafficCop(handler)
 }
 
@@ -440,38 +493,48 @@ function swffgReady(msg) {
 /*
 / Sets Handler for SWADE
 */
-function swadeData(SwadeActor, SwadeItem) {
+async function swadeData(SwadeTokenOrActor, SwadeItem) {
     if (killAllAnimations) { return; }
-    let handler = new SwadeHandler(SwadeActor, SwadeItem);
+    let data = { SwadeTokenOrActor, SwadeItem }
+    let handler = await systemData.make(data);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
     trafficCop(handler);
 }
 
 /*
 / Sets Handler for Starfinder
 */
-function starFinder(data, msg) {
+async function starFinder(data, msg) {
     if (killAllAnimations) { return; }
-    let tokenId = msg.data.speaker.token;
-    let sourceToken = canvas.tokens.get(tokenId);
-    let targets = Array.from(msg.user.targets);
-    let item = data.item;
-    AutoAnimations.playAnimation(sourceToken, targets, item)
+    const sfrpgData = {data, msg}
+    const handler = await systemData.make(sfrpgData)
+    //let tokenId = msg.data.speaker.token;
+    //let sourceToken = canvas.tokens.get(tokenId);
+    //let targets = Array.from(msg.user.targets);
+    //let item = data.item;
+    //AutoAnimations.playAnimation(sourceToken, targets, item)
+    trafficCop(handler);
 }
 
 /*
 / Sets Handler for Tormenta 20
 */
-function setupTormenta20(msg) {
+async function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
-    let handler = new Tormenta20Handler(msg);
+    let handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
     if (game.user.id === msg.user.id) {
         switch (true) {
-            case ((handler.animType === "t12") && (handler.animOverride)):
+            case ((handler.animType === "t12") && (handler.isCustomized)):
                 teleportation(handler);
                 break;
         }
     }
-    if (game.user.id === msg.user.id) {
+    if (game.user.id !== msg.user.id) {
         return;
     }
     trafficCop(handler);
@@ -483,8 +546,8 @@ function setupTormenta20(msg) {
 async function fblReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = new ForbiddenLandsHandler(msg);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    const handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
     trafficCop(handler);
@@ -492,9 +555,12 @@ async function fblReady(msg) {
 /*
 / Sets Handler for Demon Lord
 */
-function setupDemonLord(data) {
+async function setupDemonLord(data) {
     if (killAllAnimations) { return; }
-    let handler = new DemonLordHandler(data);
+    let handler = await systemData.make(data);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
     trafficCop(handler);
 }
 
@@ -504,31 +570,30 @@ function setupDemonLord(data) {
 async function pf2eReady(msg) {
     if (killAllAnimations) { return; }
     if (game.user.id !== msg.user.id) { return; }
-    const handler = new PF2Handler(msg);
-    if (!handler.item || !handler.actorToken || handler.animKill) {
+    const handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
         return;
     }
-    const templateItem = autorecNameCheck(getAllNames(game.settings.get('autoanimations', 'aaAutorec'), 'templates'), rinseName(handler.itemName));
-    const t8Template = handler.animType === "t8" && handler.animOverride ? true : false;
+
     const itemType = handler.itemType;
-    const damage = handler.item.damageValue;
+    let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
     const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (t8Template) {
-        if (msg.data.flavor?.toLowerCase().includes("damage")) { return; }
+    if (handler.shouldPlayImmediately && !msg.data.flavor?.toLowerCase().includes("damage")) {
         trafficCop(handler);
         return;
     }
-    if (templateItem && !t8Template && !msg.data.flavor?.toLowerCase().includes("damage")) {
-        trafficCop(handler);
-        return;
-    }
-    if (templateItem || t8Template) { return };
+    if (handler.shouldPlayImmediately) { return };
     switch (itemType) {
         case "spell":
+            damage = handler.item?.data?.data?.damage?.value["0"]?.value;
             switch (spellType) {
                 case "utility":
-                    trafficCop(handler);
+                    if (!damage) {
+                        trafficCop(handler);
+                    } else if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                        trafficCop(handler);
+                    }
                     break;
                 case "save":
                     if (!damage) {
@@ -539,6 +604,9 @@ async function pf2eReady(msg) {
                     break;
                 case "heal":
                     if (msg.data.flavor?.toLowerCase().includes('healing')) {
+                        trafficCop(handler);
+                    }
+                    if (handler.item.data?.data?.category?.value === "focus") {
                         trafficCop(handler);
                     }
                     break;
@@ -581,115 +649,78 @@ async function pf2eReady(msg) {
     }
 }
 
-async function itemSound(handler) {
-    let audio = handler.allSounds.item;
-    if (handler.itemSound) {
-        await wait(audio.delay);
-        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-    }
-}
-async function criticalCheck(workflow) {
-    if (killAllAnimations) { return; }
-    if (!workflow.isCritical && !workflow.isFumble) { return; }
-    let critical = workflow.isCritical;
-    let fumble = workflow.isFumble;
-
-    let token;
-
-    let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
-    let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
-
-    switch (true) {
-        case (game.settings.get("autoanimations", "EnableCritical") && critical):
-            token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
-                .effect()
-                .file(critAnim)
-                .atLocation(token)
-                .play()
-            break;
-        case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
-            token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
-                .effect()
-                .file(critMissAnim)
-                .atLocation(token)
-                .play()
-            break;
-    }
-}
 /*
 / WFRP Functions
 */
-function wfrpWeapon(data, targets, info) {
+async function wfrpWeapon(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.weapon;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = await systemData.make({ item: data.weapon, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
             trafficCop(handler);
     }
 }
-function wfrpPrayer(data, targets, info) {
+async function wfrpPrayer(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.prayer;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = await systemData.make({ item: data.prayer, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
             trafficCop(handler);
     }
 }
-function wfrpCast(data, targets, info) {
+async function wfrpCast(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.spell;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = await systemData.make({ item: data.spell, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
             trafficCop(handler);
     }
 }
-function wfrpTrait(data, targets, info) {
+async function wfrpTrait(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.trait;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = await systemData.make({ item: data.trait, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
             trafficCop(handler);
     }
 }
-function wfrpSkill(data, targets, info) {
+async function wfrpSkill(data, targets, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let item = data.skill;
-    let allTargets = Array.from(targets);
-    let handler = new WFRP4eHandler(item, allTargets);
+    let handler = await systemData.make({ item: data.skill, targets: targets, info: info });
     switch (true) {
-        case ((handler.animType === "t12") && (handler.animOverride)):
+        case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
             break;
         default:
             trafficCop(handler);
     }
+}
+
+async function oseReady(input) {
+    if (killAllAnimations) { return; }
+    if (input.user.id !== game.user.id) { return };
+    let handler = await systemData.make(input)
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    trafficCop(handler);
 }
 
 

@@ -1,16 +1,18 @@
 import { buildFile } from "./file-builder/build-filepath.js"
-import { meleeSwitch } from "./meleeSwitch.js";
+import { aaDebugger } from "../constants/constants.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 //import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function meleeAnimation(handler, autoObject) {
+export async function meleeAnimation(handler, animationData) {
+
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
     let rangeSwitch;
     if (moduleIncludes("jb2a_patreon")) {
-        rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword']
+        rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword', 'hammer', 'chakram']
     } else {
         rangeSwitch = ['dagger', 'lasersword']
     }
@@ -18,215 +20,161 @@ export async function meleeAnimation(handler, autoObject) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    //Builds Primary File Path and Pulls from flags if already set
-    /*
-    let itemName = handler.convertedName;
-    let variant = itemName === "unarmedstrike" || itemName === "flurryofblows" ? handler.uaStrikeType : "01";
-    let customPath = handler.enableCustom01 ? handler.custom01 : false;
-    */
-    const data = {};
-    if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject[0]);
-        data.itemName = data.animation || "";
-        data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-    } else {
-        data.itemName = handler.convertedName;
-        data.variant = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? handler.uaStrikeType : "01";
-        data.customPath = handler.enableCustom01 ? handler.custom01 : false;
-        data.color = handler.color;
-        data.switchType = handler.switchType;
-        data.detect = handler.switchDetect;
-        data.repeat = handler.animationLoops;
-        data.delay = handler.loopDelay;
-        data.scale = handler.scale;
-    }
-    const attack = await buildFile(false, data.itemName, "melee", data.variant, data.color, data.customPath)
-    //let attack = await buildWeaponFile(obj01, itemName, handler)
-    const sourceToken = handler.actorToken;
-    const sourceScale = data.itemName === "unarmedstrike" || data.itemName === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+    const targetFX = animationData.targetFX;
 
-    //Builds Explosion File Path if Enabled, and pulls from flags if already set
-    //let explosion;
-    //let customExplosionPath;
-    const explosion = {};
-    if (handler.flags.explosion) {
-        explosion.customExplosionPath = handler.customExplode ? handler.customExplosionPath : false;
-        explosion.data = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath)
+    const returnWeapons = ['dagger', 'hammer', 'greatsword', 'chakram']
+    const switchReturn = returnWeapons.some(el => data.switchAnimation.includes(el)) ? data.return : false;
+    let returnDelay;
+    switch (true) {
+        case data.switchAnimation.includes('dagger'):
+        case data.switchAnimation.includes('hammer'):
+            returnDelay = 1000;
+            break;
+        default:
+            returnDelay = 1500;
     }
 
-    //const explosionSound = handler.allSounds?.explosion;
-    //let explosionVolume = 0.25;
-    //let explosionDelay = 1;
-    //let explosionFile = "";
-    const explosionSound = {};
-    explosionSound.volume = handler.allSounds?.explosion?.volume || 0.25;
-    explosionSound.delay = handler.allSounds?.explosion?.delay || 1;
-    explosionSound.file = handler.allSounds?.explosion?.file || "";
-    /*
-    if (handler.explodeSound) {
-        explosionVolume = explosionSound?.volume || 0.25;
-        explosionDelay = explosionSound?.delay === 0 ? 1 : explosionSound?.delay;
-        explosionFile = explosionSound?.file;
-    }
-    */
-    // builds Source Token file if Enabled, and pulls from flags if already set
-    //let sourceFX;
-    //let sFXScale;
-    //let customSourcePath;
-    const sourceFX = {};
-    if (handler.sourceEnable) {
-        sourceFX.customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX.data = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath);
-        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.data.metadata.width;
-    }
-    // builds Target Token file if Enabled, and pulls from flags if already set
-    //let targetFX;
-    //let tFXScale;
-    //let customTargetPath; 
-    const targetFX = {};
-    if (handler.targetEnable) {
-        targetFX.customTargetPath = handler.targetCustomEnable ? handler.targetCustomPath : false;
-        targetFX.data = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, targetFX.customTargetPath);
-    }
+    const attack = await buildFile(false, data.animation, "melee", data.variant, data.color, data.customPath);
+    const range = await buildFile(false, data.switchAnimation, "range", data.switchVariant, data.switchColor);
 
-    //logging explosion Scale
-    let scale = ((200 * handler.explosionRadius) / explosion?.data?.metadata?.width) ?? 1;
+    if (handler.debug) { aaDebugger("Melee Animation Start", animationData, attack) }
+
+    const sourceToken = handler.sourceToken;
+    const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
 
     async function cast() {
-        let arrayLength = handler.allTargets.length;
-        for (var i = 0; i < arrayLength; i++) {
 
-            let target = handler.allTargets[i];
+        const rangeSwitchActive = game.settings.get("autoanimations", "rangeSwitch")
 
-            let moveTo = handler.getDistanceTo(target) > 5 ? true : false;
-            //const switchName = handler.switchName;
-            //const switchType = handler.switchType;
-            //const switchDetect = handler.switchDetect;
+        let aaSeq = await new Sequence("Automated Animations");
+        // Play Macro if Awaiting
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+        }
+        // Extra Effects => Source Token if active
+        if (sourceFX.enabled) {
+            aaSeq.addSequence(sourceFX.sourceSeq)
+        }
+
+        // Animation Start Hook
+        aaSeq.thenDo(function () {
+            Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+        })
+
+        let targetSound = false;
+        let switchSound = true;
+        // Target Effect sections
+        for (let target of handler.allTargets) {
+            let distanceTo = handler.getDistanceTo(target)
+            let moveTo = distanceTo > 5 ? true : false;
+            let hit;
+            if (handler.playOnMiss) {
+                hit = handler.hitTargetsId.includes(target.id) ? true : false;
+            } else {
+                hit = true;
+            }
+            if (hit) { targetSound = true }
+            // check if this target gets a melee or range animation
             let noMelee = false;
-            if (!game.settings.get("autoanimations", "rangeSwitch")) {
+            if (!rangeSwitchActive) {
                 switch (data.switchType) {
                     case "on":
-                        if (rangeSwitch.some(el => data.itemName.includes(el))) {
-                            if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
+                        if (rangeSwitch.some(el => data.animation.includes(el)) && range.file) {
+                            if (distanceTo > (5 + handler.reachCheck)) {
                                 noMelee = true;
                             }
                         }
                         break;
                     case "custom":
                         if (data.detect === "manual") {
-                            if ((handler.getDistanceTo(target) / canvas.dimensions.distance) > handler.switchRange) {
+                            if ((distanceTo / canvas.dimensions.distance) > data.switchRange) {
                                 noMelee = true;
                             }
-                        } else if (handler.getDistanceTo(target) > (5 + handler.reachCheck)) {
+                        } else if (distanceTo > (5 + handler.reachCheck)) {
                             noMelee = true;
                         }
                         break;
                 }
             }
+            if (!noMelee) { switchSound = false }
             if (noMelee) {
-                await meleeSwitch(handler, target, autoObject)
-            }
-            else {
-                if (handler.targetEnable) {
-                    targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
+                aaSeq.effect()
+                    .file(range.file)
+                    .atLocation(sourceToken)
+                    .stretchTo(target)
+                    .randomizeMirrorY()
+                    .repeats(data.repeat, data.delay)
+                    .missed(!hit)
+                    .name("spot" + ` ${target.id}`)
+                    .belowTokens(data.below)
+                if (switchReturn) {
+                    aaSeq.effect()
+                        .file(range.returnFile, true)
+                        .delay(returnDelay)
+                        .atLocation(sourceToken)
+                        .repeats(data.repeat, data.delay)
+                        .stretchTo("spot" + ` ${target.id}`)
                 }
-
-                let hit;
-                if (handler.playOnMiss) {
-                    hit = handler.hitTargetsId.includes(target.id) ? false : true;
+            } else {
+                // Standard Melee Animation effect sections
+                if (moveTo) {
+                    aaSeq.effect()
+                        .file(attack.file)
+                        .atLocation(sourceToken)
+                        .moveTowards(target)
+                        .scale(sourceScale * data.scale)
+                        .repeats(data.repeat, data.delay)
+                        .randomizeMirrorY()
+                        .missed(!hit)
+                        .name("spot" + ` ${target.id}`)
+                        .belowTokens(data.below)
                 } else {
-                    hit = false;
+                    aaSeq.effect()
+                        .file(attack.file)
+                        .atLocation(sourceToken)
+                        .rotateTowards(target)
+                        .scale(sourceScale * data.scale)
+                        .repeats(data.repeat, data.delay)
+                        .randomizeMirrorY()
+                        .missed(!hit)
+                        .name("spot" + ` ${target.id}`)
+                        .belowTokens(data.below)
+                        .anchor({ x: 0.4, y: 0.5 })
                 }
-                await new Sequence()
-                .effect()
-                    .atLocation(sourceToken)
-                    .scale(sourceFX.sFXScale * handler.sourceScale)
-                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                    .belowTokens(handler.sourceLevel)
-                    .waitUntilFinished(handler.sourceDelay)
-                    .playIf(handler.sourceEnable)
-                    .addOverride(async (effect, data) => {
-                        if (handler.sourceEnable) {
-                            data.file = sourceFX.data.file;
-                        }
-                        return data;
-                    })
-                .thenDo(function () {
-                    Hooks.callAll("aa.animationStart", sourceToken, target)
-                })
-                .effect()
-                    //.delay(sourceOptions.delayAfter)
-                    .file(attack.file)
-                    .atLocation(sourceToken)
-                    .rotateTowards(target)
-                    //.JB2A()
-                    .scale(sourceScale * data.scale)
+            }
+
+            // add-on Explosion Animation effect sections
+            if (data.explosion.enabled) {
+                aaSeq.effect()
+                    .atLocation("spot" + ` ${target.id}`)
+                    .file(data.explosion?.data?.file, true)
+                    .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                    .delay(data.explosion?.delay)
                     .repeats(data.repeat, data.delay)
-                    .randomizeMirrorY()
-                    .missed(hit)
-                    .name("animation")
-                    .belowTokens(handler.animLevel)
-                    .addOverride(async (effect, data) => {
-                        data.anchor = { x: 0.4, y: 0.5 }
-                        return data;
-                    })
-                    .playIf(!moveTo)
-                .effect()
-                    .file(attack.file)
-                    .atLocation(sourceToken)
-                    .moveTowards(target)
-                    //.JB2A()
-                    .scale(sourceScale * data.scale)
-                    .repeats(data.repeat, data.delay)
-                    .randomizeMirrorY()
-                    .missed(hit)
-                    .name("animation")
-                    .belowTokens(handler.animLevel)
-                    .playIf(moveTo)
-                .effect()
-                    .atLocation("animation")
-                    //.file(explosion.file)
-                    .scale({ x: scale, y: scale })
-                    .delay(500 + handler.explosionDelay)
-                    .repeats(data.repeat, data.delay)
-                    .belowTokens(handler.explosionLevel)
-                    .playIf(() => { return explosion.data })
-                    .addOverride(async (effect, data) => {
-                        if (explosion.data) {
-                            data.file = explosion.data.file;
-                        }
-                        return data;
-                    })
-                    //.waitUntilFinished(explosionDelay)
-                .sound()
-                    .file(explosionSound.file)
-                    .playIf(() => {return explosion.data && handler.explodeSound})
-                    .delay(explosionSound.delay)
-                    .volume(explosionSound.volume)
-                    .repeats(data.repeat, data.delay)
-                .effect()
-                    .delay(handler.targetDelay)
-                    .atLocation(target)
-                    .scale(targetFX.tFXScale * handler.targetScale)
-                    .repeats(handler.targetLoops, handler.targetLoopDelay)
-                    .belowTokens(handler.targetLevel)
-                    .playIf(handler.targetEnable)
-                    .addOverride(async (effect, data) => {
-                        if (handler.targetEnable) {
-                            data.file = targetFX.data.file;
-                        }
-                        return data;
-                    })
-                    .play()
-                await wait(handler.animEnd)
-                Hooks.callAll("aa.animationEnd", sourceToken, target)
+                    .belowTokens(data.explosion?.below)
+            }
+
+            // Extra Effects => Target effect section
+            if (targetFX.enabled && hit) {
+                let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
+                aaSeq.addSequence(targetSequence.targetSeq)
             }
         }
+        aaSeq.addSequence(await AAanimationData._sounds({ animationData, switchSound, targetSound, explosionSound: true }))
+        // Macro if Concurrent
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, ...userData)
+                .play()
+        }
+        aaSeq.play()
+        await wait(handler.animEnd)
+        // Animation End Hook
+        Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
     }
     cast()
 }

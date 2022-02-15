@@ -1,53 +1,51 @@
-import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { buildFile } from "../file-builder/build-filepath.js";
+import { aaDebugger } from "../../constants/constants.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
+
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function sneakAttack(handler) {
+export async function sneakAttack(handler, animationData) {
 
-    let itemName = handler.convertedName;
-    let sneak = await buildFile(true, itemName, "static", "01", handler.color)
-    let sourceToken = handler.actorToken;
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+    const sneak = await buildFile(true, data.animation, "static", "01", data.color)
+    const sourceToken = handler.sourceToken;
 
-    // builds Source Token file if Enabled, and pulls from flags if already set
-    let sourceFX;
-    let sFXScale;
-    if (handler.sourceEnable) {
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
-        sFXScale = 2 * sourceToken.w / sourceFX.metadata.width;
-    }
-    // builds Target Token file if Enabled, and pulls from flags if already set
-    /*
-    let targetFX;
-    if (handler.targetEnable) {
-        targetFX = await buildTargetTokenFile(obj01, handler.targetName, handler)
-    }
-    */
-    const anchorX = handler.options?.anchorX || 0.5;
-    const anchorY = handler.options?.anchorY || 0.7;
+    if (handler.debug) { aaDebugger("Sneak Attack Animation Start", animationData, sneak) }
 
+    const sourceScale = sourceToken.w;
     async function cast() {
-        new Sequence()
-            .effect()
-            .atLocation(sourceToken)
-            .scale(sFXScale * handler.sourceScale)
-            .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-            .belowTokens(handler.sourceLevel)
-            .waitUntilFinished(handler.sourceDelay)
-            .playIf(handler.sourceEnable)
-            .addOverride(async (effect, data) => {
-                if (handler.sourceEnable) {
-                    data.file = sourceFX.file;
-                }
-                return data;
-            })
-
-            .effect()
+        let aaSeq = await new Sequence()
+        // Play Macro if Awaiting
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+        }
+        // Extra Effects => Source Token if active
+        if (sourceFX.enabled) {
+            aaSeq.addSequence(sourceFX.sourceSeq)
+        }
+        // Animation Start Hook
+        aaSeq.thenDo(function () {
+            Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+        })
+        aaSeq.effect()
             .file(sneak.file)
             .atLocation(sourceToken)
-            .scale(2 * sourceToken.w / sneak.metadata.width)
-            .anchor({ x: anchorX, y: anchorY })
-            .play()
+            .scale((2 * sourceScale / sneak.metadata.width) * 1)
+            .belowTokens(false)
+            .anchor({ x: data.anchorX, y: data.anchorY })
+        if (data.playSound) {
+            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+        }
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, ...userData)
+                .play()
+        }
+        aaSeq.play()
+        Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
     }
     cast();
 

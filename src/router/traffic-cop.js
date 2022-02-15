@@ -1,202 +1,482 @@
-import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
-import thunderwaveAuto from "../animation-functions/thunderwave.js";
-import ctaCall from "../animation-functions/CTAcall.js";
-import huntersMark from "../animation-functions/custom-sequences/hunters-mark.js";
-import bardicInspiration from "../animation-functions/custom-sequences/bardic-inspiration.js";
+//import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
+//import thunderwaveAuto from "../animation-functions/thunderwave.js";
+import { huntersMark } from "../animation-functions/custom-sequences/hunters-mark.js";
+import { bardicInspiration } from "../animation-functions/custom-sequences/bardic-inspiration.js";
 import { rangedAnimations } from "../animation-functions/rangedAnimation.js";
 import { meleeAnimation } from "../animation-functions/meleeAnimation.js";
-import { onTokenAnimation } from "../animation-functions/onTokenAnimation.js";
-import { explodeOnToken } from "../animation-functions/explodeOnToken.js";
 import { teleportation } from "../animation-functions/teleportation.js";
 import { templateAnimation } from "../animation-functions/templateAnimation.js";
 import { shieldSpell } from "../animation-functions/custom-sequences/shield.js";
 import { sneakAttack } from "../animation-functions/custom-sequences/sneak-Attack.js";
 import { bless } from "../animation-functions/custom-sequences/bless.js";
 import { staticAnimation } from "../animation-functions/staticAnimation.js";
-import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
+import { auras } from "../animation-functions/aura-attach.js";
+//import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
+import { aaDebugger } from "../constants/constants.js";
+import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
+import { fireball } from "../animation-functions/custom-sequences/fireball.js";
+import { AAanimationData } from "../aa-classes/animation-data.js";
+import { particleEffects } from "../animation-functions/particleSystem.js";
+import { dualAttach } from "../animation-functions/custom-sequences/dual-attach.js";
+import { thunderwaveAuto } from "../animation-functions/thunderwave.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-function moduleIncludes(test) {
-    return !!game.modules.get(test);
-}
-async function itemSound(handler) {
-    let audio = handler.allSounds.item;
-    if (handler.itemSound) {
-        await wait(audio.delay);
-        AudioHelper.play({ src: audio.file, volume: audio.volume, autoplay: true, loop: false }, true);
-    }
-}
+export async function trafficCop(handler, config) {
+    const aaDebug = game.settings.get("autoanimations", "debug")
 
-export async function trafficCop(handler) {
-    if (handler.itemSound) {
-        itemSound(handler);
+    if (game.Levels3DPreview?._active) {
+
+        if (handler.flags?.levels3d?.type) {
+            if (aaDebug) { aaDebugger("Beginning Particle Animation for Custom Item Setting") }
+            particleEffects(handler);
+            return;
+        } else if (!game.settings.get("autoanimations", "disableAutoRec")) {
+            if (aaDebug) { aaDebugger("Automatic Recognition Beginning for Particle System") }
+            const autoName = AutorecFunctions._rinseName(handler.itemName); //removes all spaces in the name
+            const isAuto = AutorecFunctions.foundInAutorec(handler.autorecSettings, autoName);
+            if (isAuto) {
+                const autoObject = handler.autorecObject;
+                particleEffects(handler, autoObject);
+                return;
+            }
+        } else {
+            if (aaDebug) { aaDebugger("No Automatic Recognition Found") }
+        }
+        return;
     }
-    if (handler.animKill) { return; }
-    //const itemName = handler.convertedName;
-    const animName = handler.animName;
-    const animType = handler.animType;
-    const override = handler.animOverride;
-    const targets = handler.allTargets?.length ?? 0;
-    if (override) {
+
+    if (handler.isDisabled) {
+        if (handler.soundNoAnimation || handler.macroOnly) {
+            let aaSeq = new Sequence()
+            if (handler.soundNoAnimation) {
+                aaSeq.sound()
+                    .file(handler.flags?.audio?.a01?.file)
+                    .volume(handler.flags?.audio?.a01?.volume)
+                    .delay(handler.flags?.audio?.a01?.delay)
+            }
+            if (handler.macroOnly) {
+                let userData = handler.flags?.macro?.args ? handler.flags.macro.args.split(',').map(s => s.trim()) : "";
+                aaSeq.macro(handler.flags?.macro?.name, handler.workflow, handler, ...userData)
+            }
+            aaSeq.play()
+        }
+        return
+    }
+    /*
+    if (handler.soundNoAnimation) {
+        new Sequence()
+            .sound()
+            .file(handler.flags?.audio?.a01?.file)
+            .volume(handler.flags?.audio?.a01?.volume)
+            .delay(handler.flags?.audio?.a01?.delay)
+            .play()
+        return;
+    } else if (handler.isDisabled) {
+        return;
+    }
+    */
+
+    const isCustom = handler.isCustomized;
+    const isAutorec = handler.autorecObject;
+    let aaTemplateHook;
+
+    //const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(isAutorec)
+    if (isCustom || (isAutorec && !game.settings.get("autoanimations", "disableAutoRec"))) {
+        const animType = isCustom ? handler.animType : isAutorec.menuSection;
+        const presetType = isCustom ? handler.flags?.animation : isAutorec.animation;
+        const targets = handler.allTargets?.length ?? 0;
+        const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(handler, isAutorec);
+        if (!isCustom && isAutorec) {
+            if (animationData.primary.soundOnly.enable || animationData.primary.macro.playWhen === "2") {
+                const primaryData = animationData.primary;
+                const macroData = primaryData.macro;
+
+                let aaSeq = new Sequence();
+                let play = false;
+
+                if (primaryData.soundOnly.enable && primaryData.soundOnly.file) {
+                    play = true;
+                    aaSeq.sound()
+                        .file(primaryData.soundOnly.file, true)
+                        .volume(primaryData.soundOnly.volume)
+                        .delay(primaryData.soundOnly.delay)
+                }
+
+                if (primaryData.playMacro && macroData.playWhen === '2') {
+                    play = true;
+                    //let aaSeq = new Sequence()
+                    let userData = macroData.args;
+                    aaSeq.macro(macroData.name, handler.workflow, handler, [...userData])
+                    //aaSeq.play()
+                }
+                if (play) { aaSeq.play() }
+                return;
+            }
+        }
+
         switch (animType) {
-            case "t2":
-            case "t3":
+            case "melee":
                 if (targets === 0) {
-                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                    Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
+                    if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
                     return;
                 }
-                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                meleeAnimation(handler);
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
+                meleeAnimation(handler, animationData);
                 break;
-            case "t4":
+            case "range":
                 if (targets === 0) {
-                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
+                    Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
+                    if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
                     return;
                 }
-                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                rangedAnimations(handler);
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
+                rangedAnimations(handler, animationData);
                 break;
-            case "t5":
-                if (targets === 0) {
-                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                    return;
-                }
-                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                onTokenAnimation(handler);
+            case "static":
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
+                staticAnimation(handler, animationData);
                 break;
-            case "t6":
-                if (targets === 0) {
-                    Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                    return;
-                }
-                Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                rangedAnimations(handler);
-                break;
-            case "t7":
-                onTokenAnimation(handler);
-                break;
-            case "t8":
-                if (game.modules.get("midi-qol")?.active) { return; }
+            case "template":
+            case "templates":
                 //some do not need hook on template, depends on when damage is rolled
                 switch (game.system.id) {
                     case "dnd5e":
                     case "pf2e":
+                    case "sw5e":
                         if (game.modules.get("mars-5e")?.active) {
-                            templateAnimation(handler);
+                            templateAnimation(handler, animationData, config);
                         } else {
-                            Hooks.once("createMeasuredTemplate", () => {
-                                templateAnimation(handler);
+                            aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                templateAnimation(handler, animationData, config);
                             });
+                            setTimeout(killHook, 30000)
                         }
                         break;
                     default:
-                        templateAnimation(handler);
+                        templateAnimation(handler, animationData);
                 }
                 break;
-            case "t9":
-            case "t10":
-                explodeOnToken(handler);
+            case "aura":
+            case "auras":
+                auras(handler, animationData)
                 break;
-            case "t11":
-                if (game.modules.get("Custom-Token-Animations")?.active) {
-                    ctaCall(handler);
-                } else { ui.notifications.error("Custom Token Animations module must be Active") }
-                break;
-            case "t12":
-                teleportation(handler);
-                break;
-            case "t13":
-                switch (animName) {
+            case "preset":
+                switch (presetType) {
                     case "bardicinspiration":
-                        bardicInspiration(handler);
+                        bardicInspiration(handler, animationData);
                         break;
                     case "shieldspell":
-                        shieldSpell(handler);
+                        shieldSpell(handler, animationData);
                         break;
                     case "huntersmark":
-                        huntersMark(handler)
+                        huntersMark(handler, animationData)
+                        break;
+                    case "dualattach":
+                        dualAttach(handler, animationData)
                         break;
                     case "sneakattack":
-                        sneakAttack(handler);
+                        sneakAttack(handler, animationData);
                         break;
                     case "bless":
-                        bless(handler);
+                        bless(handler, animationData);
+                        break;
+                    case "teleportation":
+                        teleportation(handler, animationData)
+                        break;
+                    case "thunderwave":
+                        switch (game.system.id) {
+                            case "dnd5e":
+                            case "pf2e":
+                            case "sw5e":
+                                if (game.modules.get("mars-5e")?.active) {
+                                    thunderwaveAuto(handler, animationData, config);
+                                } else {
+                                    aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                        thunderwaveAuto(handler, animationData, config);
+                                    });
+                                    setTimeout(killHook, 30000)
+                                }
+                                break;
+                            default:
+                                thunderwaveAuto(handler, animationData);
+                        }
+                        break;
+                    case "fireball":
+                        switch (game.system.id) {
+                            case "dnd5e":
+                            case "pf2e":
+                            case "sw5e":
+                                if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
+                                    fireball(handler, animationData);
+                                } else {
+                                    aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                        fireball(handler, animationData, config);
+                                    });
+                                    setTimeout(killHook, 30000)
+                                }
+                                break;
+                            default:
+                                fireball(handler, animationData);
+                        }
                         break;
                 }
                 break;
         }
-    } else {
-        if (!game.settings.get("autoanimations", "disableAutoRec")) {
-            const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
-            //const fullArray = getAllTheNames(autoRecSettings)
-            const autoName = rinseName(handler.itemName);
-            /*
-            if (!autorecNameCheck(fullArray, autoName)) {
-                return;
-            }
-            
-            //const autoObject = findObjectByNameFull(autoRecSettings, autoName)
-            const nameArrays = {
-                melee: getAllNames(autoRecSettings, 'melee'),
-                range: getAllNames(autoRecSettings, 'range'),
-                static: getAllNames(autoRecSettings, 'static'),
-                templates: getAllNames(autoRecSettings, 'templates'),
-                auras: getAllNames(autoRecSettings, 'auras'),
-            }
-            */
-            switch (true) {
-                case autorecNameCheck(getAllNames(autoRecSettings, 'melee'), autoName):
-                    if (targets === 0) {
-                        Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                        return;
-                    }
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const meleeAutoObject = findObjectByName(autoRecSettings, 'melee', autoName);
-                    meleeAnimation(handler, meleeAutoObject);
-                    break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'range'), autoName):
-                    if (targets === 0) {
-                        Hooks.callAll("aa.animationEnd", handler.actorToken, "no-target");
-                        return;
-                    }
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const rangeAutoObject = findObjectByName(autoRecSettings, 'range', autoName);
-                    rangedAnimations(handler, rangeAutoObject);
-                    break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'static'), autoName):
-                    Hooks.callAll("aa.preAnimationStart", handler.actorToken);
-                    const staticAutoObject = findObjectByName(autoRecSettings, 'static', autoName);
-                    staticAnimation(handler, staticAutoObject);
-                    break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'templates'), autoName):
-                    const templateAutoObject = findObjectByName(autoRecSettings, 'templates', autoName);
-                    Hooks.once("createMeasuredTemplate", () => {
-                        templateAnimation(handler, templateAutoObject);
-                    })
-                    break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'auras'), autoName):
-                    const auraAutoObject = findObjectByName(autoRecSettings, 'auras', autoName);
-                    ctaCall(handler, auraAutoObject);
-                    break;
-                case autorecNameCheck(getAllNames(autoRecSettings, 'preset'), autoName):
-                    const presetAutoObject = findObjectByName(autoRecSettings, 'preset', autoName);
-                    switch (presetAutoObject[0].animation) {
-                        case 'bardicinspiration':
-                            bardicInspiration(handler, presetAutoObject);
-                            break;
-                        case 'bless':
-                            bless(handler, presetAutoObject);
-                            break;
-                        case 'shieldspell':
-                            shieldSpell(handler, presetAutoObject);
-                            break;
-                        case 'teleportation':
-                            teleportation(handler, presetAutoObject)
-                            break;
-                    }
-                    break;
-            }
+    }
+    /*
+    const animType = handler.animType;
+    const animName = handler.flags?.animation;
+    const override = handler.isCustomized;
+    const targets = handler.allTargets?.length ?? 0;
+    let aaTemplateHook;
+    if (override) {
+        const animationData = await AAanimationData._getAnimationData(handler)
+        if (aaDebug) { aaDebugger("Custom Switch Beginning", [animName, animType, override, targets, handler.flags]) }
+        switch (animType) {
+            case "melee":
+                if (targets === 0) {
+                    Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
+                    if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
+                    return;
+                }
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
+                meleeAnimation(handler, animationData);
+                break;
+            case "range":
+                if (targets === 0) {
+                    Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
+                    if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
+                    return;
+                }
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
+                rangedAnimations(handler, animationData);
+                break;
+            case "static":
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
+                staticAnimation(handler, animationData);
+                break;
+            case "template":
+                //some do not need hook on template, depends on when damage is rolled
+                switch (game.system.id) {
+                    case "dnd5e":
+                    case "pf2e":
+                    case "sw5e":
+                        if (game.modules.get("mars-5e")?.active) {
+                            templateAnimation(handler, animationData, config);
+                        } else {
+                            aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                templateAnimation(handler, animationData, config);
+                            });
+                            setTimeout(killHook, 30000)
+                        }
+                        break;
+                    default:
+                        templateAnimation(handler, animationData);
+                }
+                break;
+            case "aura":
+                auras(handler, animationData)
+                break;
+            case "preset":
+                switch (animName) {
+                    case "bardicinspiration":
+                        bardicInspiration(handler, animationData);
+                        break;
+                    case "shieldspell":
+                        shieldSpell(handler, animationData);
+                        break;
+                    case "huntersmark":
+                        huntersMark(handler, animationData)
+                        break;
+                    case "dualattach":
+                        dualAttach(handler, animationData)
+                        break;
+                    case "sneakattack":
+                        sneakAttack(handler, animationData);
+                        break;
+                    case "bless":
+                        bless(handler, animationData);
+                        break;
+                    case "teleportation":
+                        teleportation(handler, animationData)
+                        break;
+                    case "thunderwave":
+                        switch (game.system.id) {
+                            case "dnd5e":
+                            case "pf2e":
+                            case "sw5e":
+                                if (game.modules.get("mars-5e")?.active) {
+                                    thunderwaveAuto(handler, animationData, config);
+                                } else {
+                                    aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                        thunderwaveAuto(handler, animationData, config);
+                                    });
+                                    setTimeout(killHook, 30000)
+                                }
+                                break;
+                            default:
+                                thunderwaveAuto(handler, animationData);
+                        }
+                        break;
+                    case "fireball":
+                        switch (game.system.id) {
+                            case "dnd5e":
+                            case "pf2e":
+                            case "sw5e":
+                                if (game.modules.get("mars-5e")?.active) {
+                                    fireball(handler, animationData);
+                                } else {
+                                    aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                        fireball(handler, animationData, config);
+                                    });
+                                    setTimeout(killHook, 30000)
+                                }
+                                break;
+                            default:
+                                fireball(handler, animationData);
+                        }
+                        break;
+                }
+                break;
         }
+    } else if (!game.settings.get("autoanimations", "disableAutoRec") && handler.autorecObject) {
+        if (aaDebug) { aaDebugger("Automatic Recognition Beginning") }
+        //const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        //const autoNameList = AutorecFunctions._getAllTheNames(autoRecSettings);//gets ALL names in Autorec sorted longest to shortest
+        //const isAuto = AutorecFunctions._autorecNameCheck(autoNameList, autoName); //checks autoNameList against current name
+        //const autoName = AutorecFunctions._rinseName(handler.itemName); //removes all spaces in the name
+        //const isAuto = AutorecFunctions.foundInAutorec(handler.autorecSettings, autoName);
+        //console.log(handler)
+        //if (isAuto) {
+        //const autoObject = AutorecFunctions._findObjectFromArray(handler.autorecSettings, autoName) // combines Autorec menus and sorts by name length, returns object
+        const autoObject = handler.autorecObject;
+        const animationData = await AAanimationData._getAnimationData(handler, autoObject)
+        //debugger
+        if (!animationData.primary.animation || animationData.primary.animation === 'a1') {
+            const primaryData = animationData.primary;
+            const macroData = primaryData.macro;
+
+            let aaSeq = new Sequence();
+            let play = false;
+            if (primaryData.playSound) {
+                play = true;
+                aaSeq.sound()
+                    .file(primaryData.itemAudio.file, true)
+                    .volume(primaryData.itemAudio.volume)
+                    .delay(primaryData.itemAudio.delay)
+            }
+            if (primaryData.playMacro && macroData.playWhen === '2') {
+                play = true;
+                //let aaSeq = new Sequence()
+                let userData = macroData.args;
+                aaSeq.macro(macroData.name, handler.workflow, handler, [...userData])
+                //aaSeq.play()
+            }
+            if (play) { aaSeq.play() }
+            return;
+        }
+        switch (autoObject.menuSection) {
+            case 'melee':
+                if (targets === 0) {
+                    Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
+                    if (aaDebug) { aaDebugger("Melee Animation End", "NO TARGETS") }
+                    return;
+                }
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
+                if (aaDebug) { aaDebugger("Pre Melee Animation", autoObject) }
+                meleeAnimation(handler, animationData);
+                break;
+            case 'range':
+                if (targets === 0) {
+                    Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
+                    if (aaDebug) { aaDebugger("Range Animation End", "NO TARGETS") }
+                    return;
+                }
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
+                if (aaDebug) { aaDebugger("Pre Range Animation", autoObject) }
+                rangedAnimations(handler, animationData);
+                break;
+            case 'static':
+                Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
+                if (aaDebug) { aaDebugger("Pre Static Animation", autoObject) }
+                staticAnimation(handler, animationData);
+                break;
+            case 'templates':
+                if (aaDebug) { aaDebugger("Pre Template Animation", autoObject) }
+                switch (game.system.id) {
+                    case "dnd5e":
+                    case "pf2e":
+                    case "sw5e":
+                        if (game.modules.get("mars-5e")?.active) {
+                            templateAnimation(handler, animationData);
+                        } else {
+                            aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                templateAnimation(handler, animationData, config);
+                            });
+                            setTimeout(killHook, 30000)
+                        }
+                        break;
+                    default:
+                        templateAnimation(handler, animationData);
+                }
+                break;
+            case 'auras':
+                if (aaDebug) { aaDebugger("Pre CTA Animation", autoObject) }
+                auras(handler, animationData)
+                break;
+            case 'preset':
+                if (aaDebug) { aaDebugger("Pre Preset Animation", autoObject) }
+                switch (autoObject.animation) {
+                    case 'bardicinspiration':
+                        bardicInspiration(handler, animationData);
+                        break;
+                    case 'bless':
+                        bless(handler, animationData);
+                        break;
+                    case 'shieldspell':
+                        shieldSpell(handler, animationData);
+                        break;
+                    case 'huntersmark':
+                        huntersMark(handler, animationData);
+                        break;
+                    case "dualattach":
+                        dualAttach(handler, animationData)
+                        break;
+                    case 'teleportation':
+                        teleportation(handler, animationData);
+                        break;
+                    case 'sneakattack':
+                        sneakAttack(handler, animationData);
+                        break;
+                    case "fireball":
+                        switch (game.system.id) {
+                            case "dnd5e":
+                            case "pf2e":
+                            case "sw5e":
+                                if (game.modules.get("mars-5e")?.active) {
+                                    fireball(handler, animationData);
+                                } else {
+                                    aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                                        fireball(handler, animationData, config);
+                                    });
+                                    setTimeout(killHook, 30000)
+                                }
+                                break;
+                            default:
+                                fireball(handler, animationData);
+                        }
+                        break;
+                }
+                break;
+        }
+        //} else {
+        //    if (aaDebug) { aaDebugger("No Automatic Recognition Found") }
+        //}
+    }
+    */
+    function killHook() {
+        Hooks.off("createMeasuredTemplate", aaTemplateHook)
     }
 }

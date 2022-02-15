@@ -1,0 +1,117 @@
+<div class='flexrow text-green' {{#unless flags.autoanimations.explosions.enable }}
+    style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered; text-align: center;' {{/unless}}>
+    <label><strong>{{localize "AUTOANIM.addExplosion"}}</strong></label>
+</div>
+<div class='aa-explosion-container add-explosion' {{#if flags.autoanimations.explosions.enable }}
+    style='box-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;' {{/if}}>
+    <!--Enable Explosion? Checkbox-->
+    <div class='form-group option01' style='padding-top: 5px;padding-bottom: 4px;'>
+        <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
+        <input type="checkbox" name="flags.autoanimations.explosions.enable" {{checked
+            flags.autoanimations.explosions.enable}}>
+    </div>
+    {{#if flags.autoanimations.explosions.enable}}
+    <!--Play Explosion Under Token?-->
+    <div class="form-group option06">
+        <label>{{localize "AUTOANIM.below"}}</label>
+        <input type="checkbox" name="flags.autoanimations.explosions.below" {{checked
+            flags.autoanimations.explosions.below}}>
+    </div>
+    <!--Choose Explosion Radius-->
+    <div style='grid-column: 3 / 5;grid-row: 2 / 3; padding-top: 5px;padding-bottom: 4px;'>
+        <label>{{localize "AUTOANIM.radius"}}
+            <input style='width: 3em;' type="Number" name="flags.autoanimations.explosions.radius" min="0" step=".01"
+                value="{{flags.autoanimations.explosions.radius}}" data-type="Number" placeholder=1.5>
+        </label>
+    </div>
+    <!--Adjust the delay for explosion effect-->
+    <div class='option05'>
+        <label>{{localize "AUTOANIM.delayMS"}}
+            <input style='width: 3em;' type="Number" name="flags.autoanimations.explosions.delay"
+                value="{{flags.autoanimations.explosions.delay}}" data-dtype="Number" placeholder=1>
+        </label>
+    </div>
+    {{#unless flags.autoanimations.explosions.enableCustom}}
+    <!--Choose Explosion Variant-->
+    <div class='option02'>
+        <label>{{localize "AUTOANIM.animation"}}</label>
+        <select name="flags.autoanimations.explosions.animation">
+            {{#select flags.autoanimations.explosions.animation}}
+            {{#each explosionVariants as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <!--Choose Explosion Variant-->
+    <div class='option03'>
+        <label>{{localize "AUTOANIM.variant"}}</label>
+        <select name="flags.autoanimations.explosions.variant">
+            {{#select flags.autoanimations.explosions.variant}}
+            <option value=""> </option>
+            {{#each (lookup variantmenu.static flags.autoanimations.explosions.animation) as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <!--Choose Explosion Color-->
+    <div class='option04'>
+        <label>{{localize "AUTOANIM.color"}}</label>
+        <select name="flags.autoanimations.explosions.color">
+            {{#select flags.autoanimations.explosions.color}}
+            <option value=""> </option>
+            {{#each (lookup (lookup colormenu.static flags.autoanimations.explosions.animation)
+            flags.autoanimations.explosions.variant) as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    {{/unless}}
+    <div class='form-group option09' style='padding-top: 5px;padding-bottom: 4px;'>
+        <label>{{localize "AUTOANIM.customAnim"}}</label>
+        <input type="checkbox" name="flags.autoanimations.explosions.enableCustom" {{checked
+            flags.autoanimations.explosions.enableCustom}}>
+    </div>
+    {{#if flags.autoanimations.explosions.enableCustom}}
+    <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4'>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.explosions.customPath"
+            value="{{flags.autoanimations.explosions.customPath}}">
+        <button type="button" class="file-picker" data-type="image/video"
+            data-target="flags.autoanimations.explosions.customPath" tabindex="-1" title="Browse Files">
+            <i class="fas fa-file-video"></i>
+        </button>
+    </div>
+    {{/if}}
+    <!--Enable Explosion Audio?-->
+    <div class='form-group option13' style='padding-top: 5px;padding-bottom: 4px;'>
+        <label>{{localize "AUTOANIM.explosionAudio"}}</label>
+        <input type="checkbox" name="flags.autoanimations.audio.e01.enable" {{checked
+            flags.autoanimations.audio.e01.enable}}>
+    </div>
+    {{#if flags.autoanimations.audio.e01.enable}}
+    <!--Explosion Audio filePicker and Text Input-->
+    <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.audio.e01.file"
+            value="{{flags.autoanimations.audio.e01.file}}">
+        <button type="button" class="file-picker" data-type="audio" data-target="flags.autoanimations.audio.e01.file"
+            tabindex="-1" title="Browse Files">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>
+    <!--Explosion Audio Delay-->
+    <div style='grid-column: 4 / 5;grid-row: 5 / 6'>
+        <label>{{localize "AUTOANIM.delay"}}</label>
+        <input type="Number" name="flags.autoanimations.audio.e01.delay" min="0"
+            value="{{flags.autoanimations.audio.e01.delay}}" placeholder=0 style='width: 3em'>
+    </div>
+    <!--Explosion Audio Volume-->
+    <div style='grid-column: 3 / 4;grid-row: 5 / 6'>
+        <label>{{localize "AUTOANIM.volume"}}</label>
+        <input type="Number" name="flags.autoanimations.audio.e01.volume" min="0" max="1" step="0.01" style='width: 3em'
+            value="{{flags.autoanimations.audio.e01.volume}}" placeholder=0.5>
+    </div>
+    {{/if}}
+    {{/if}}
+</div>

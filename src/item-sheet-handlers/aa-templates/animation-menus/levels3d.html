@@ -1,0 +1,322 @@
+<div style='padding:3px'>
+
+</div>
+<div class='aa-item-container particles'>
+    <div style="justify-self: center;grid-row: 1 / 2;grid-column: 1 / 5;">
+        <label>{{localize 'AUTOANIM.type'}}:
+            <select name="flags.autoanimations.levels3d.type">
+                {{#select flags.autoanimations.levels3d.type}}
+                <option value=""></option>
+                <option value="projectile">{{localize 'AUTOANIM.projectile'}}</option>
+                <option value="sprite">{{localize 'AUTOANIM.sprite'}}</option>
+                <option value="ray">{{localize 'AUTOANIM.ray'}}</option>
+                <option value="explosion">{{localize 'AUTOANIM.explosion'}}</option>
+                {{/select}}
+            </select>
+        </label>
+    </div>
+</div>
+<div style='padding:5px'>
+</div>
+<div class='flexrow text-green'>
+    <label><strong>{{localize "AUTOANIM.animation"}}</strong></label>
+</div>
+
+{{#ifEquals flags.autoanimations.levels3d.type 'projectile'}}
+<div class='aa-item-container particles'>
+    <div class="form-group" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+        <label>{{localize 'AUTOANIM.color'}} 01</label>
+        <input type="Text" value="{{lookup flags.autoanimations.levels3d.projectile 'color01'}}">
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.projectile.color01"
+            value={{color3D01Projectile}}>
+    </div>
+    <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;">
+        <label>{{localize 'AUTOANIM.color'}} 02</label>
+        <input type="Text" value="{{lookup flags.autoanimations.levels3d.projectile 'color02'}}">
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.projectile.color02"
+            value={{color3D02Projectile}}>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.speed'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.speed" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'speed'}}" placeholder=5>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.repeat'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.repeat" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'repeat'}}" placeholder=1>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.arc'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.arc" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'arc'}}" placeholder=2>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.delayMS'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.delay" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'delay'}}" placeholder=0>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.scale'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.scale" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'scale'}}" placeholder=0.7>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.alpha'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.alpha" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'alpha'}}" placeholder=0.5>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.gravity'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.gravity" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'gravity'}}" placeholder=0>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.mass'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.mass" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'mass'}}" placeholder=100>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.life'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.life" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'life'}}" placeholder=500>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.emiterSize'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.emittersize" step=".0001"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'emittersize'}}" placeholder=.0001>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.rate'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.projectile.rate" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.projectile 'rate'}}" placeholder=10>
+    </div>
+
+    <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7'>
+        <label>{{localize 'AUTOANIM.sprite'}}</label>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.levels3d.projectile.sprite"
+            value={{sprite3DProjectile}}>
+        <button type="button" class="file-picker" data-type="image/video"
+            data-target="flags.autoanimations.levels3d.projectile.sprite" tabindex="-1" title="Browse Files">
+            <i class="fas fa-file-video"></i>
+        </button>
+    </div>
+</div>
+<div style='padding:3px'>
+</div>
+{{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html' }}
+<div style='padding:3px'>
+</div>
+{{/ifEquals}}
+
+{{#ifEquals flags.autoanimations.levels3d.type 'ray'}}
+<div class='aa-item-container particles'>
+    <div class="form-group" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+        <label>{{localize 'AUTOANIM.color'}} 01</label>
+        <input type="Text" value="{{lookup flags.autoanimations.levels3d.ray 'color01'}}">
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.ray.color01" value={{color3D01Ray}}>
+    </div>
+    <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;">
+        <label>{{localize 'AUTOANIM.color'}} 02</label>
+        <input type="Text" value="{{lookup flags.autoanimations.levels3d.ray 'color02'}}">
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.ray.color02" value={{color3D02Ray}}>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.speed'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.speed" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'speed'}}" placeholder=5>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.repeat'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.repeat" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'repeat'}}" placeholder=1>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.arc'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.arc" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'arc'}}" placeholder=2>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.delayMS'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.delay" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'delay'}}" placeholder=0>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.scale'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.scale" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'scale'}}" placeholder=0.7>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.alpha'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.alpha" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'alpha'}}" placeholder=0.5>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.gravity'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.gravity" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'gravity'}}" placeholder=0>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.mass'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.mass" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'mass'}}" placeholder=100>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.life'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.life" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'life'}}" placeholder=500>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.emiterSize'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.emittersize" step=".0001"
+            value="{{lookup flags.autoanimations.levels3d.ray 'emittersize'}}" placeholder=.0001>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.rate'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.ray.rate" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.ray 'rate'}}" placeholder=10>
+    </div>
+
+    <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7'>
+        <label>{{localize 'AUTOANIM.sprite'}}</label>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.levels3d.ray.sprite"
+            value={{sprite3DRay}}>
+        <button type="button" class="file-picker" data-type="image/video"
+            data-target="flags.autoanimations.levels3d.ray.sprite" tabindex="-1" title="Browse Files">
+            <i class="fas fa-file-video"></i>
+        </button>
+    </div>
+</div>
+<div style='padding:3px'>
+</div>
+{{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html' }}
+<div style='padding:3px'>
+</div>
+{{/ifEquals}}
+
+{{#ifEquals flags.autoanimations.levels3d.type 'explosion'}}
+<div class='aa-item-container particles'>
+    <div class="form-group" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+        <label>{{localize 'AUTOANIM.color'}} 01</label>
+        <input type="Text" value="{{lookup flags.autoanimations.levels3d.explosion 'color01'}}">
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.explosion.color01"
+            value={{color3D01Explosion}}>
+    </div>
+    <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;">
+        <label>{{localize 'AUTOANIM.color'}} 02</label>
+        <input type="Text" value="{{lookup flags.autoanimations.levels3d.explosion 'color02'}}">
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.explosion.color02"
+            value={{color3D02Explosion}}>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.speed'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.speed" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'speed'}}" placeholder=0>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.repeat'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.repeat" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'repeat'}}" placeholder=1>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.delayMS'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.delay" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'delay'}}" placeholder=500>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.scale'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.scale" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'scale'}}" placeholder=2>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.alpha'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.alpha" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'alpha'}}" placeholder=0.2>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.gravity'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.gravity" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'gravity'}}" placeholder=2>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.mass'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.mass" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'mass'}}" placeholder=400>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.life'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.life" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'life'}}" placeholder=700>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.emiterSize'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.emittersize" step=".0001"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'emittersize'}}" placeholder=1>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.rate'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.explosion.rate" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.explosion 'rate'}}" placeholder=10>
+    </div>
+
+    <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7'>
+        <label>{{localize 'AUTOANIM.sprite'}}</label>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.levels3d.explosion.sprite"
+            value={{sprite3DExplosion}}>
+        <button type="button" class="file-picker" data-type="image/video"
+            data-target="flags.autoanimations.levels3d.explosion.sprite" tabindex="-1" title="Browse Files">
+            <i class="fas fa-file-video"></i>
+        </button>
+    </div>
+</div>
+<div style='padding:3px'>
+</div>
+{{/ifEquals}}
+
+{{#ifEquals flags.autoanimations.levels3d.type 'sprite'}}
+<div class='aa-item-container particles'>
+    <div class="form-group" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+        <label>{{localize 'AUTOANIM.color'}} 01</label>
+        <input type="Text" value="{{lookup flags.autoanimations.levels3d.sprite 'color01'}}">
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.sprite.color01"
+            value={{color3D01Sprite}}>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.speed'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.sprite.speed" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.sprite 'speed'}}" placeholder=5>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.repeat'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.sprite.repeat" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.sprite 'repeat'}}" placeholder=1>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.delayMS'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.sprite.delay" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.sprite 'delay'}}" placeholder=500>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.scale'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.sprite.scale" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.sprite 'scale'}}" placeholder=0.7>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.alpha'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.sprite.alpha" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.sprite 'alpha'}}" placeholder=0.7>
+    </div>
+
+    <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7'>
+        <label>{{localize 'AUTOANIM.sprite'}}</label>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.levels3d.sprite.sprite"
+            value={{sprite3DSprite}}>
+        <button type="button" class="file-picker" data-type="image/video"
+            data-target="flags.autoanimations.levels3d.sprite.sprite" tabindex="-1" title="Browse Files">
+            <i class="fas fa-file-video"></i>
+        </button>
+    </div>
+</div>
+<div style='padding:3px'>
+</div>
+{{/ifEquals}}

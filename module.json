@@ -2,12 +2,14 @@
     "name": "autoanimations",
     "title": "Automated Animations",
     "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
-    "version": "0.6.05",
+    "version": "2.0.5",
     "author": "Otigon",
     "url": "https://github.com/otigon/automated-jb2a-animations",
     "minimumCoreVersion": "0.8.1",
-    "compatibleCoreVersion": "0.8.9",
-    "styles": ["src/css/tabstyles.css"],
+    "compatibleCoreVersion": "9",
+    "styles": [
+        "src/css/tabstyles.css"
+    ],
     "esmodules": [
         "src/autoAnimations.js"
     ],
@@ -46,15 +48,18 @@
             "lang": "de",
             "name": "Deutsch",
             "path": "lang/de.json"
-        }  
+        }
     ],
-    "dependencies" : [
+    "dependencies": [
         {
-          "name": "sequencer",
-          "manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json"
+            "name": "sequencer",
+            "manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json"
+        },
+        {
+            "name": "socketlib"
         }
     ],
     "socket": true,
-    "manifest": "https://raw.githubusercontent.com/otigon/automated-jb2a-animations/main/module.json",
-    "download": "https://github.com/otigon/automated-jb2a-animations/archive/main.zip"
+    "manifest": "https://github.com/otigon/automated-jb2a-animations/releases/latest/download/module.json",
+    "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/0.6.71/module.zip"
 }

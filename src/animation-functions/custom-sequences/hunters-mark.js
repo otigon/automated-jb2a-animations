@@ -1,111 +1,92 @@
-import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-import { aaColorMenu } from "../databases/jb2a-menu-options.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { aaDebugger } from "../../constants/constants.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-async function huntersMark(handler) {
+export async function huntersMark(handler, animationData) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
 
-    let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
-    let myToken = handler.actorToken;
-    let target = handler.allTargets[0];
-
-    let animLoop = handler.hmAnim + "loop";
-    let hmPulse = handler.color === 'random' ? `autoanimations.static.huntersmark.${handler.hmAnim}` : `autoanimations.static.huntersmark.${handler.hmAnim}.${handler.color}`;
-    function random_item(items)
-    {
-    return items[Math.floor(Math.random()*items.length)];
-    }
-    let ctaColor = handler.color === "random" ? random_item(Object.keys(aaColorMenu.static.huntersmark[animLoop])) : handler.color;
-    let hmLoop = jb2a.static.huntersmark[animLoop][ctaColor];
-
-    let Scale = 0.5 //(target.w / hmAnim.metadata.width);
-
-    let tintPre = "#FFFFFF";
-    let tintPost = parseInt(tintPre.substr(1), 16);
-    let rotationData = {
-        texturePath: hmLoop,
-        scale: Scale,
-        speed: 10,
-        multiple: 1,
-        rotation: "rotation",
-        xScale: 0.5,
-        yScale: 0.5,
-        belowToken: false,
-        radius: .25,
-        opacity: 1,
-        tint: tintPost,
-        equip: false
+    const data = animationData.primary;
+    if (data.isAuto) {
+        const autoOverridden = handler.autorecOverrides?.enable
+        data.anchorX = autoOverridden ? handler.autorecOverrides?.anchorX : data.anchorX || 0.5;
+        data.anchorY = autoOverridden ? handler.autorecOverrides?.anchorY : data.anchorY || 0.7;
     }
 
-    let staticData = {
-        belowToken: false,
-        multiple: 1,
-        opacity: 1,
-        radius: 2,
-        rotation: "static",
-        scale: Scale,
-        speed: 0,
-        texturePath: hmLoop,
-        tint: tintPost,
-        xScale: 1,
-        yScale: 0.5
+    const sourceToken = handler.sourceToken;
+    const sourceFX = animationData.sourceFX;
+    const targetFX = animationData.targetFX;
+    //let target = handler.allTargets[0] || null;
+
+    const animLoop = data.variant + "loop";
+    let hmPulse = data.color === 'random' ? `autoanimations.static.huntersmark.${data.variant}` : `autoanimations.static.huntersmark.${data.variant}.${data.color}`;
+
+    let hmLoop = data.color === 'random' ? `autoanimations.static.huntersmark.${animLoop}` : `autoanimations.static.huntersmark.${animLoop}.${data.color}`
+
+    //const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "huntersmark" }).length > 0
+
+    const scale = data.scale || 1
+    const finalScale = (canvas.grid.size / 200) * scale
+
+    if (handler.debug) { aaDebugger("Aura Animation Start", data) }
+
+    //const playPersist = (!checkAnim && data.persistent) ? true : false;
+    let aaSeq = await new Sequence()
+    // Play Macro if Awaiting
+    if (data.playMacro && data.macro.playWhen === "1") {
+        let userData = data.macro.args;
+        aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
     }
+    // Extra Effects => Source Token if active
+    if (sourceFX.enabled) {
+        aaSeq.addSequence(sourceFX.sourceSeq)
+    }
+    if (data.playSound) {
+        aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+    }
+    // Animation Start Hook
+    aaSeq.thenDo(function () {
+        Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+    })
+    aaSeq.effect()
+        .file(hmPulse)
+        .atLocation(sourceToken)
+    for (let target of handler.allTargets) {
+        let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
 
-    let textureData = rotationData;
-
-    if (handler.ctaOption) { textureData = staticData }
-
-    let pushToken = true;
-
-    let pushActor = false;
-
-    let name = "Hunter's Mark";
-
-    let update = false;
-
-    let tokenName = target.name;
-
-    new Sequence()
-        .effect()
-            .file(hmPulse)
-            .atLocation(myToken)
-        .effect()
+        aaSeq.effect()
             .file(hmPulse)
             .atLocation(target)
-        .play()
-
-        if (game.modules.get("Custom-Token-Animations")?.active) {
-        await wait(3000);
-
-        CTA.addAnimation(target, textureData, pushActor, name)
-
-        let clsd = false;
-        let d = new Dialog({
-            title: tokenName,
-            buttons: {
-                yes: {
-                    label: game.i18n.format("AUTOANIM.removeAura"),
-                    callback: (html) => { clsd = true }
-                },
-            },
-            default: 'yes',
-            close: () => {
-                if (clsd === false) console.log('This was closed without using a button');
-                if (clsd === true) CTA.removeAnimByName(target, name, true, true);
-            }
-        },
-        { width: 100, height: 75}
-        );
-        d.options.resizable = true;
-        d.render(true)
-
+            //.playIf(target)
+        if (!checkAnim && data.persistent) {
+            aaSeq.effect()
+                .file(hmLoop)
+                .attachTo(target)
+                .anchor({ x: data.anchorX, y: data.anchorY })
+                .delay(1500)
+                .scale(finalScale)
+                .belowTokens(false)
+                .name("huntersmark")
+                .persist()
+                .origin(handler.item.uuid)
+                .loopProperty("sprite", "scale.x", { from: (finalScale * 0.4), to: finalScale, duration: 4000, pingPong: true })
+                .loopProperty("sprite", "scale.y", { from: (finalScale * 0.4), to: finalScale, duration: 4000, pingPong: true })
+                .loopProperty("sprite", "alpha", { from: 0.25, to: 1, duration: 4000, pingPong: true })
+        }
+        if (targetFX.enabled) {
+            let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
+            aaSeq.addSequence(targetSequence.targetSeq)
+        }
     }
+    if (data.playMacro && data.macro.playWhen === "0") {
+        let userData = data.macro.args;
+        new Sequence()
+            .macro(data.macro.name, handler.workflow, handler, ...userData)
+            .play()
+    }
+    aaSeq.play()
+    Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
 }
-
-export default huntersMark;

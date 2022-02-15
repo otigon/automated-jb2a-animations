@@ -1,224 +1,533 @@
 import { buildFile } from "./file-builder/build-filepath.js"
+import { aaDebugger } from "../constants/constants.js"
+import { AAanimationData } from "../aa-classes/animation-data.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function staticAnimation(handler, autoObject) {
+export async function staticAnimation(handler, animationData) {
+    //console.log(animationData)
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
-    const sourceToken = handler.actorToken;
+    const sourceToken = handler.sourceToken;
 
-    const data = {}
-    if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject[0])
-        data.itemName = data.animation || "";
-        data.customPath = data.custom ? data.customPath : false;
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.repeat = autoOverridden ? handler.options?.autoRepeat : data.repeat;
-        data.delay = autoOverridden ? handler.options?.autoDelay : data.delay;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-    } else {
-        data.itemName = handler.convertedName;
-        data.variant = handler.spellVariant;
-        data.color = handler.color;
-        data.repeat = handler.animationLoops;
-        data.delay = handler.loopDelay;
-        data.customPath = handler.enableCustom01 ? handler.custom01 : false;
-        data.below = handler.animLevel;
-        data.scale = handler.scale;
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+    const targetFX = animationData.targetFX;
+
+    const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
+
+    if (handler.debug) { aaDebugger("Static Animation Start", animationData, onToken) }
+
+    //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
+    const animWidth = onToken.metadata.width;
+
+    let aaSeq = await new Sequence("Automated Animations")
+    const bottomAnim = onToken.file.replace('top', 'bottom')
+
+    // Play Macro if Awaiting
+    if (data.playMacro && data.macro.playWhen === "1") {
+        let userData = data.macro.args;
+        aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
     }
-    const onToken = await buildFile(true, data.itemName, "static", data.variant, data.color, data.customPath);
-    // builds Source Token file if Enabled, and pulls from flags if already set
-    const sourceFX = {};
-    if (handler.sourceEnable) {
-        sourceFX.customSourcePath = handler.sourceCustomEnable ? handler.sourceCustomPath : false;
-        sourceFX.data = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor, sourceFX.customSourcePath);
-        sourceFX.sFXScale = 2 * sourceToken.w / sourceFX.data.metadata.width;
+    // Extra Effects => Source Token if active
+    if (sourceFX.enabled) {
+        aaSeq.addSequence(sourceFX.sourceSeq)
     }
-    // builds Target Token file if Enabled, and pulls from flags if already set
-    const targetFX = {};
-    if (handler.targetEnable) {
-        targetFX.customTargetPath = handler.targetCustomEnable ? handler.targetCustomPath : false;
-        targetFX.data = await buildFile(true, handler.targetName, "static", handler.targetVariant, handler.targetColor, targetFX.customTargetPath);
-    }
+    // Animation Start Hook
+    aaSeq.thenDo(function () {
+        Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+    })
+    if (data.staticType === "source" || data.staticType === "sourcetarget" || (data.staticType === "targetDefault" && handler.allTargets.length < 1)) {
+        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+        const playPersist = (!checkAnim && data.persistent) ? true : false;
+        if (data.staticOptions === 'shieldfx') {
+            let bottomEffect = aaSeq.effect();
+            bottomEffect.file(bottomAnim)
+            bottomEffect.name("spot" + ` ${sourceToken.id}`)
+            bottomEffect.repeats(data.repeat, data.delay)
+            bottomEffect.opacity(data.opacity)
+            bottomEffect.size(sourceToken.w * 1.5 * data.scale)
+            bottomEffect.belowTokens(true)
+            bottomEffect.fadeIn(250)
+            bottomEffect.fadeOut(500)
+            if (!data.persistent) { bottomEffect.atLocation(sourceToken) }
+            if (playPersist) { bottomEffect.attachTo(sourceToken); bottomEffect.persist(true); bottomEffect.origin(handler.item.uuid) }
+            if (checkAnim) { bottomEffect.playIf(false); }
 
-    const explosion = {};
-    if (handler.flags.explosion) {
-        explosion.customExplosionPath = handler.customExplode ? handler.customExplosionPath : false;
-        explosion.data = await buildFile(true, handler.explosionVariant, "static", "01", handler.explosionColor, explosion.customExplosionPath)
-    }
+            let topEffect = aaSeq.effect();
+            topEffect.file(onToken.file)
+            topEffect.name("spot" + ` ${sourceToken.id}`)
+            topEffect.repeats(data.repeat, data.delay)
+            topEffect.opacity(data.opacity)
+            topEffect.size(sourceToken.w * 1.5 * data.scale)
+            topEffect.belowTokens(false)
+            topEffect.fadeIn(250)
+            topEffect.fadeOut(500)
+            if (!data.persistent) { topEffect.atLocation(sourceToken) }
+            if (playPersist) { topEffect.attachTo(sourceToken); topEffect.persist(true); topEffect.origin(handler.item.uuid) }
+            if (checkAnim) { topEffect.playIf(false); }
 
-    const explosionSound = {};
-    explosionSound.volume = handler.allSounds?.explosion?.volume || 0.25;
-    explosionSound.delay = handler.allSounds?.explosion?.delay || 1;
-    explosionSound.file = handler.allSounds?.explosion?.file || "";
+        } else {
+            let aaEffect = aaSeq.effect();
+            aaEffect.file(onToken.file)
+            aaEffect.name("spot" + ` ${sourceToken.id}`)
+            aaEffect.repeats(data.repeat, data.delay)
+            aaEffect.opacity(data.opacity)
+            aaEffect.size(sourceToken.w * 1.5 * data.scale)
+            aaEffect.belowTokens(data.below)
+            aaEffect.fadeIn(250)
+            aaEffect.fadeOut(500)
+            if (!data.persistent) { aaEffect.atLocation(sourceToken) }
+            if (playPersist) { aaEffect.attachTo(sourceToken); aaEffect.persist(true); aaEffect.origin(handler.item.uuid) }
+            if (checkAnim) { aaEffect.playIf(false); }
 
-    let exScale = ((200 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
-    let animWidth = onToken.metadata.width;
-    const arrayLength = handler.allTargets.length;
-
-    switch (data.type) {
-        case 'source':
-            selfCast()
-            break;
-        case 'target':
-            if (arrayLength === 0) { return; }
-            targetCast()
-            break;
-        case 'targetDefault':
-            if (arrayLength === 0) {
-                selfCast()
-            } else { targetCast() }
-            break;
-        case 'sourcetarget':
-            selfCast()
-            if (arrayLength === 0) { return; }
-            targetCast()
-            break;
-    }
-    if (data.type === 'source') {
-        selfCast()
-    }
-
-    if (data.type === 'target') {
-        targetCast()
-    }
-
-    if (data.type === 'sourcetarget') {
-        selfCast()
-        targetCast()
-    }
-
-    async function selfCast() {
-        new Sequence()
-        .effect()
-            .atLocation(sourceToken)
-            .scale(sourceFX.sFXScale * handler.sourceScale)
-            .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-            .belowTokens(handler.sourceLevel)
-            .waitUntilFinished(handler.sourceDelay)
-            .playIf(handler.sourceEnable)
-            .addOverride(async (effect, data) => {
-                if (handler.sourceEnable) {
-                    data.file = sourceFX.data.file;
-                }
-                return data;
-            })
-        .thenDo(function() {
-            Hooks.callAll("aa.animationStart", sourceToken, "no-target")
-        })             
-        .effect()
-            .file(onToken.file)
-            .atLocation(sourceToken)
-            //.randomizeMirrorY()
-            .repeats(data.repeat, data.delay)
-            //.missed(hit)
-            .scale(((sourceToken.w / animWidth) * 1.5) * data.scale)
-            .belowTokens(data.below)
-        .effect()
-            .atLocation(sourceToken)
-            .scale(exScale)
-            .delay(handler.explosionDelay)
-            //.randomizeMirrorY()
-            .repeats(data.repeat, data.delay)
-            .belowTokens(handler.explosionLevel)
-            .playIf(() => {return explosion.data})
-            .addOverride(async (effect, data) => {
-                if (explosion.data) {
-                    data.file = explosion.data.file;
-                }
-                return data;
-            })
-        .sound()
-            .file(explosionSound.file)
-            .playIf(() => {return explosion.data && handler.explodeSound})
-            .delay(explosionSound.delay)
-            .volume(explosionSound.volume)
-            .repeats(data.repeat, data.delay)
-        .play()
-        //await wait(500)
-        Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
-    }
-
-    async function targetCast() {
-        for (var i = 0; i < arrayLength; i++) {
-
-            let target = handler.allTargets[i];
-            if (handler.targetEnable) {
-                tFXScale = 2 * target.w / targetFX.metadata.width;
-            }        
-
-            let scale = data.itemName.includes("creature") ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
-            let hit;
-            if (handler.playOnMiss) {
-                hit = handler.hitTargetsId.includes(target.id) ? false : true;
-            } else {
-                hit = false;
-            }
-
-            new Sequence()
-                .effect()
-                    .atLocation(sourceToken)
-                    .scale(sourceFX.sFXScale * handler.sourceScale)
-                    .repeats(handler.sourceLoops, handler.sourceLoopDelay)
-                    .belowTokens(handler.sourceLevel)
-                    .waitUntilFinished(handler.sourceDelay)
-                    .playIf(handler.sourceEnable)
-                    .addOverride(async (effect, data) => {
-                        if (handler.sourceEnable) {
-                            data.file = sourceFX.data.file;
-                        }
-                        return data;
-                    })
-                .thenDo(function() {
-                    Hooks.callAll("aa.animationStart", sourceToken, target)
-                })             
-                .effect()
-                    .file(onToken.file)
-                    .atLocation(target)
-                    //.randomizeMirrorY()
-                    .repeats(data.repeat, data.delay)
-                    .scale(scale * data.scale)
-                    .belowTokens(data.below)
-                    .name("animation")
-                    .playIf(() => { return arrayLength })
-                .effect()
-                    .atLocation("animation")
-                    .scale(exScale)
-                    .delay(handler.explosionDelay)
-                    //.randomizeMirrorY()
-                    .repeats(data.repeat, data.delay)
-                    .belowTokens(handler.explosionLevel)
-                    .playIf(() => {return explosion.data})
-                    .addOverride(async (effect, data) => {
-                        if (explosion.data) {
-                            data.file = explosion.data.file;
-                        }
-                        return data;
-                    })
-                .sound()
-                    .file(explosionSound.file)
-                    .playIf(() => {return explosion.data && handler.explodeSound})
-                    .delay(explosionSound.delay)
-                    .volume(explosionSound.volume)
-                    .repeats(data.repeat, data.delay)
-                .effect()
-                    .delay(handler.targetDelay)
-                    .atLocation("animation")
-                    .scale(targetFX.tFXScale * handler.targetScale)
-                    .repeats(handler.targetLoops, handler.targetLoopDelay)
-                    .belowTokens(handler.targetLevel)
-                    .playIf(handler.targetEnable)
-                    .addOverride(async (effect, data) => {
-                        if (handler.targetEnable) {
-                            data.file = targetFX.data.file;
-                        }
-                        return data;
-                    })            
-                .play()
-                //await wait(500)
-                Hooks.callAll("aa.animationEnd", sourceToken, target)
         }
     }
+    let explosionSound = false;
+    let targetSound = false;
+    // Target Effect sections
+    if ((data.staticType === 'target' || data.staticType === 'targetDefault' || data.staticType === 'sourcetarget') && handler.allTargets.length > 0) {
+        //for (var i = 0; i < handler.allTargets.length; i++) {
+        //let target = handler.allTargets[i]
+        for (let target of handler.allTargets) {
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+            let hit;
+            if (handler.playOnMiss) {
+                hit = handler.hitTargetsId.includes(target.id) ? true : false;
+            } else {
+                hit = true;
+            }
+            if (hit) { targetSound = true }
+            if ((data.persistent && !checkAnim) || !data.persistent) {
+                if (data.staticOptions === 'shieldfx') {
+                    let bottomEffect = aaSeq.effect();
+                    bottomEffect.file(bottomAnim)
+                    bottomEffect.name("spot" + ` ${target.id}`)
+                    bottomEffect.repeats(data.repeat, data.delay)
+                    bottomEffect.opacity(data.opacity)
+                    bottomEffect.size(target.w * 1.5 * data.scale)
+                    bottomEffect.belowTokens(true)
+                    bottomEffect.fadeIn(250)
+                    bottomEffect.fadeOut(500)
+                    if (!data.persistent) { bottomEffect.atLocation(target); bottomEffect.missed(!hit) }
+                    else { bottomEffect.attachTo(target); bottomEffect.persist(true); bottomEffect.origin(handler.item.uuid) }
+
+                    let topEffect = aaSeq.effect();
+                    topEffect.file(onToken.file)
+                    topEffect.name("spot" + ` ${target.id}`)
+                    topEffect.repeats(data.repeat, data.delay)
+                    topEffect.opacity(data.opacity)
+                    topEffect.size(target.w * 1.5 * data.scale)
+                    topEffect.belowTokens(false)
+                    topEffect.fadeIn(250)
+                    topEffect.fadeOut(500)
+                    if (!data.persistent) { topEffect.atLocation(target); topEffect.missed(!hit) }
+                    else { topEffect.attachTo(target); topEffect.persist(true); topEffect.origin(handler.item.uuid) }
+
+                } else {
+                    let scale = data.animation === "bite" || data.animation === "claw" ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
+                    let aaEffect = aaSeq.effect();
+                    aaEffect.file(onToken.file)
+                    aaEffect.name("spot" + ` ${target.id}`)
+                    aaEffect.repeats(data.repeat, data.delay)
+                    aaEffect.opacity(data.opacity)
+                    aaEffect.scale(scale * data.scale)
+                    aaEffect.belowTokens(data.below)
+                    aaEffect.fadeIn(250)
+                    aaEffect.fadeOut(500)
+                    if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit) }
+                    else { aaEffect.attachTo(target); aaEffect.persist(true); aaEffect.origin(handler.item.uuid) }
+                }
+
+                if (data.explosion.enabled) {
+                    aaSeq.effect()
+                        .atLocation("spot" + ` ${target.id}`)
+                        .file(data.explosion?.data?.file, true)
+                        .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                        .delay(data.explosion?.delay)
+                        .repeats(data.repeat, data.delay)
+                        .belowTokens(data.explosion?.below)
+                        .playIf(data.explosion?.enabled)
+                }
+                explosionSound = true;
+            }
+            if (targetFX.enabled && hit) {
+                let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
+                aaSeq.addSequence(targetSequence.targetSeq)
+            }
+        }
+    }
+    aaSeq.addSequence(await AAanimationData._sounds({ animationData, explosionSound: data.staticType !== "source" && explosionSound, targetSound }))
+    // Macro if Concurrent
+    if (data.playMacro && data.macro.playWhen === "0") {
+        let userData = data.macro.args;
+        new Sequence()
+            .macro(data.macro.name, handler.workflow, handler, ...userData)
+            .play()
+    }
+    aaSeq.play()
+    Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
+    if (data.persistent) { AAanimationData.howToDelete("sequencerground") }
+    /*
+    if (data.menuType) {
+        const bottomAnim = onToken.file.replace('top', 'bottom')
+
+        switch (data.staticType) {
+            case 'source':
+                selfCast()
+                break;
+            case 'target':
+                if (arrayLength === 0) { return; }
+                targetCast()
+                break;
+            case 'targetDefault':
+                if (arrayLength === 0) {
+                    selfCast()
+                } else { targetCast() }
+                break;
+            case 'sourcetarget':
+                selfCast()
+                if (arrayLength === 0) { return; }
+                targetCast()
+                break;
+        }
+
+        async function selfCast() {
+            const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+            const playPersist = (!checkAnim && data.persistent) ? true : false;
+
+            const sourceScale = sourceToken.w;
+            new Sequence()
+            .addSequence(sourceFX.sourceSeq)
+            .thenDo(function() {
+                Hooks.callAll("aa.animationStart", sourceToken, "no-target")
+            })
+            .sound()
+                .file(data.itemAudio.file, true)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .repeats(data.itemAudio.repeat, data.delay)
+                .playIf(data.playSound)
+            .effect()
+                .file(bottomAnim)
+                .atLocation(sourceToken)
+                .name('animation')
+                .repeats(data.repeat, data.delay)
+                .opacity(data.opacity)
+                .size(sourceScale * 1.5 * data.scale)
+                .belowTokens(true)
+                .fadeIn(250)
+                .fadeOut(500)
+                .playIf(!data.persistent)
+            .effect()
+                .file(onToken.file)
+                .atLocation(sourceToken)
+                .name('animation')
+                .repeats(data.repeat, data.delay)
+                .opacity(data.opacity)
+                .size(sourceScale * 1.5 * data.scale)
+                .belowTokens(false)
+                .fadeIn(250)
+                .fadeOut(500)
+                .playIf(!data.persistent)
+            .effect()
+                .file(bottomAnim)
+                .attachTo(sourceToken)
+                .name('animation')
+                .size(sourceScale * 1.5 * data.scale)
+                .belowTokens(true)
+                .persist(data.persistent)
+                .opacity(data.opacity)
+                .origin(handler.item.uuid)
+                .fadeIn(250)
+                .fadeOut(500)
+                .playIf(playPersist)
+            .effect()
+                .file(onToken.file)
+                .attachTo(sourceToken)
+                .name('animation')
+                .size(sourceScale * 1.5 * data.scale)
+                .belowTokens(false)
+                .persist(data.persistent)
+                .opacity(data.opacity)
+                .origin(handler.item.uuid)
+                .fadeIn(250)
+                .fadeOut(500)
+                .playIf(playPersist)
+            .sound()
+                .file(data.explosion?.audio?.file, true)
+                .playIf(data.explosion?.playSound)
+                .delay(data.explosion?.audio?.delay + data.explosion?.delay)
+                .volume(data.explosion?.audio?.volume)
+                .repeats(data.explosion?.audio?.repeat, data.delay)
+            .effect()
+                .atLocation("animation")
+                .file(data.explosion?.data?.file, true)
+                .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                .delay(data.explosion?.delay)
+                .repeats(data.repeat, data.delay)
+                .belowTokens(data.explosion?.below)
+                .playIf(data.explosion?.enabled)
+            .play()
+            //await wait(500)
+            Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
+        }
+    
+        async function targetCast() {
+
+            for (var i = 0; i < arrayLength; i++) {
+    
+                let target = handler.allTargets[i];
+                const checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+                const playPersist = (!checkAnim && data.persistent) ? true : false;    
+                /
+                if (targetFX.enabled) {
+                    targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
+                }        
+                /
+                let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
+    
+                let scale = target.w;
+                let hit;
+                if (handler.playOnMiss) {
+                    hit = handler.hitTargetsId.includes(target.id) ? false : true;
+                } else {
+                    hit = false;
+                }
+    
+                new Sequence("Automated Animations")
+                    .addSequence(sourceFX.sourceSeq)
+                    .thenDo(function() {
+                        Hooks.callAll("aa.animationStart", sourceToken, target)
+                    })
+                    .sound()
+                        .file(data.itemAudio.file, true)
+                        .volume(data.itemAudio.volume)
+                        .delay(data.itemAudio.delay)
+                        .repeats(data.itemAudio.repeat, data.delay)
+                        .playIf(data.playSound)    
+                    .effect()
+                        .file(bottomAnim)
+                        .atLocation(target)
+                        .repeats(data.repeat, data.delay)
+                        .opacity(data.opacity)
+                        .size(scale * 1.5 * data.scale)
+                        .belowTokens(true)
+                        .name("animation")
+                        .fadeIn(250)
+                        .fadeOut(500)        
+                        .playIf(!data.persistent)
+                    .effect()
+                        .file(onToken.file)
+                        .atLocation(target)
+                        .repeats(data.repeat, data.delay)
+                        .opacity(data.opacity)
+                        .size(scale * 1.5 * data.scale)
+                        .belowTokens(false)
+                        .name("animation")
+                        .fadeIn(250)
+                        .fadeOut(500)        
+                        .playIf(!data.persistent)
+                    .effect()
+                        .file(bottomAnim)
+                        .attachTo(target)
+                        .name('animation')
+                        .size(scale * 1.5 * data.scale)
+                        .belowTokens(true)
+                        .persist(data.persistent)
+                        .opacity(data.opacity)
+                        .origin(handler.item.uuid)
+                        .fadeIn(250)
+                        .fadeOut(500)        
+                        .playIf(playPersist)
+                    .effect()
+                        .file(onToken.file)
+                        .attachTo(target)
+                        .name('animation')
+                        .size(scale * 1.5 * data.scale)
+                        .belowTokens(false)
+                        .persist(data.persistent)
+                        .opacity(data.opacity)
+                        .origin(handler.item.uuid)
+                        .fadeIn(250)
+                        .fadeOut(500)        
+                        .playIf(playPersist)
+                    .sound()
+                        .file(data.explosion?.audio?.file, true)
+                        .playIf(data.explosion?.playSound)
+                        .delay(data.explosion?.audio?.delay + data.explosion?.delay)
+                        .volume(data.explosion?.audio?.volume)
+                        .repeats(data.explosion?.audio?.repeat, data.delay)
+                    .effect()
+                        .atLocation("animation")
+                        .file(data.explosion?.data?.file, true)
+                        .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                        .delay(data.explosion?.delay)
+                        .repeats(data.repeat, data.delay)
+                        .belowTokens(data.explosion?.below)
+                        .playIf(data.explosion?.enabled)
+                    .addSequence(targetSequence.targetSeq)
+                    .play()
+                    //await wait(500)
+                    Hooks.callAll("aa.animationEnd", sourceToken, target)
+            }
+        }    
+    } else {
+        switch (data.staticType) {
+            case 'source':
+                selfCast()
+                break;
+            case 'target':
+                if (arrayLength === 0) { return; }
+                targetCast()
+                break;
+            case 'targetDefault':
+                if (arrayLength === 0) {
+                    selfCast()
+                } else { targetCast() }
+                break;
+            case 'sourcetarget':
+                selfCast()
+                if (arrayLength === 0) { return; }
+                targetCast()
+                break;
+        }
+    
+        async function selfCast() {
+            const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+            const playPersist = (!checkAnim && data.persistent) ? true : false;
+            const sourceScale = sourceToken.w;
+            new Sequence()
+            .addSequence(sourceFX.sourceSeq)
+            .thenDo(function() {
+                Hooks.callAll("aa.animationStart", sourceToken, "no-target")
+            })
+            .sound()
+                .file(data.itemAudio.file, true)
+                .volume(data.itemAudio.volume)
+                .delay(data.itemAudio.delay)
+                .repeats(data.itemAudio.repeat, data.delay)
+                .playIf(data.playSound)    
+            .effect()
+                .file(onToken.file)
+                .atLocation(sourceToken)
+                .name('animation')
+                .repeats(data.repeat, data.delay)
+                .opacity(data.opacity)
+                .size(sourceScale * 1.5 * data.scale)
+                .belowTokens(data.below)
+                .fadeIn(250)
+                .fadeOut(500)
+                .playIf(!data.persistent)
+            .effect()
+                .file(onToken.file)
+                .attachTo(sourceToken)
+                .name('animation')
+                .size(sourceScale * 1.5 * data.scale)
+                .belowTokens(data.below)
+                .persist(data.persistent)
+                .opacity(data.opacity)
+                .origin(handler.item.uuid)
+                .fadeIn(250)
+                .fadeOut(500)
+                .playIf(playPersist)
+            .sound()
+                .file(data.explosion?.audio?.file, true)
+                .playIf(data.explosion?.playSound)
+                .delay(data.explosion?.audio?.delay + data.explosion?.delay)
+                .volume(data.explosion?.audio?.volume)
+                .repeats(data.explosion?.audio?.repeat, data.delay)
+            .effect()
+                .atLocation("animation")
+                .file(data.explosion?.data?.file, true)
+                .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                .delay(data.explosion?.delay)
+                .repeats(data.repeat, data.delay)
+                .belowTokens(data.explosion?.below)
+                .playIf(data.explosion?.enabled)
+            .play()
+            //await wait(500)
+            Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
+        }
+    
+        async function targetCast() {
+            const sourceScale = sourceToken.w;
+            for (var i = 0; i < arrayLength; i++) {
+    
+                let target = handler.allTargets[i];
+                const checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+                const playPersist = (!checkAnim && data.persistent) ? true : false;    
+                /
+                if (targetFX.enabled) {
+                    targetFX.tFXScale = 2 * target.w / targetFX.data.metadata.width;
+                }        
+                /
+                let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
+    
+                let scale = data.animation === "bite" || data.animation === "claw" ? (sourceScale / animWidth) * 1.5 : (target.w / animWidth) * 1.75
+                let hit;
+                if (handler.playOnMiss) {
+                    hit = handler.hitTargetsId.includes(target.id) ? false : true;
+                } else {
+                    hit = false;
+                }
+    
+                new Sequence("Automated Animations")
+                    .addSequence(sourceFX.sourceSeq)
+                    .thenDo(function() {
+                        Hooks.callAll("aa.animationStart", sourceToken, target)
+                    })
+                    .sound()
+                        .file(data.itemAudio.file, true)
+                        .volume(data.itemAudio.volume)
+                        .delay(data.itemAudio.delay)
+                        .repeats(data.itemAudio.repeat, data.delay)
+                        .playIf(data.playSound)        
+                    .effect()
+                        .file(onToken.file)
+                        .atLocation(target)
+                        .repeats(data.repeat, data.delay)
+                        .opacity(data.opacity)
+                        .scale(scale * data.scale)
+                        .belowTokens(data.below)
+                        .name("animation")
+                        .fadeIn(250)
+                        .fadeOut(500)        
+                        .playIf(!data.persistent)
+                    .effect()
+                        .file(onToken.file)
+                        .attachTo(target)
+                        .name('animation')
+                        .scale(scale * data.scale)
+                        .belowTokens(data.below)
+                        .persist(data.persistent)
+                        .opacity(data.opacity)
+                        .origin(handler.item.uuid)
+                        .fadeIn(250)
+                        .fadeOut(500)        
+                        .playIf(playPersist)
+                    .sound()
+                        .file(data.explosion?.audio?.file, true)
+                        .playIf(data.explosion?.playSound)
+                        .delay(data.explosion?.audio?.delay + data.explosion?.delay)
+                        .volume(data.explosion?.audio?.volume)
+                        .repeats(data.explosion?.audio?.repeat, data.delay)
+                    .effect()
+                        .atLocation("animation")
+                        .file(data.explosion?.data?.file, true)
+                        .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                        .delay(data.explosion?.delay)
+                        .repeats(data.repeat, data.delay)
+                        .belowTokens(data.explosion?.below)
+                        .playIf(data.explosion?.enabled)
+                        //.waitUntilFinished(explosionDelay)
+                    .addSequence(targetSequence.targetSeq)
+                    .play()
+                    //await wait(500)
+                    Hooks.callAll("aa.animationEnd", sourceToken, target)
+            }
+        }
+    }
+    */
 }

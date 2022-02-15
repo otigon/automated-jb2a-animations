@@ -1,5 +1,6 @@
 import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js"
 import { aaAutorec } from "./custom-recognition/aaAutoRecList.js";
+import { disableAnimations } from "./autoAnimations.js";
 export default function aaSettings() {
 
     const menuAAAutoRecSettings = {
@@ -90,6 +91,14 @@ export default function aaSettings() {
         type: Boolean,
         default: false,
     });
+    game.settings.register("autoanimations", "decoupleSound", {
+        name: game.i18n.format("AUTOANIM.decoupleSounds"),
+        hint: game.i18n.format("AUTOANIM.decoupleSounds_hint"),
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+    })
     game.settings.register("autoanimations", "rangeSwitch", {
         name: game.i18n.format("AUTOANIM.settingRangeSwitch"),
         hint: game.i18n.format("AUTOANIM.settingRangeSwitchhint"),
@@ -98,25 +107,31 @@ export default function aaSettings() {
         type: Boolean,
         default: false,
     })
+    game.settings.register("autoanimations", "noTips", {
+        name: game.i18n.format("AUTOANIM.noTips"),
+        hint: game.i18n.format("AUTOANIM.noTipsHint"),
+        scope: "client",
+        config: true,
+        type: Boolean,
+        default: false,
+    })
     switch (game.system.id) {
         case "demonlord": {
-            if (!(game.data.version === "0.7.9" || game.data.version === "0.7.10")) {
-                game.settings.register("autoanimations", "playtrigger", {
-                    name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
-                    hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
-                    scope: "world",
-                    type: String,
-                    choices: {
-                        "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
-                        "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
-                        "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
-                        "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
-                        "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
-                    },
-                    default: "rollattack",
-                    config: true
-                })
-            }
+            game.settings.register("autoanimations", "playtrigger", {
+                name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
+                hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
+                scope: "world",
+                type: String,
+                choices: {
+                    "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
+                    "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
+                    "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
+                    "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
+                    "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage"),
+                },
+                default: "rollattack",
+                config: true
+            })
             break
         }
         case "sfrpg": {
@@ -130,9 +145,9 @@ export default function aaSettings() {
                 onChange: () => { window.location.reload() }
             });
         }
+            break;
         case "dnd5e":
         case "sw5e":
-        case "pf2e":
             if (game.modules.get("midi-qol")?.active) {
                 game.settings.register("autoanimations", "playonhit", {
                     name: game.i18n.format("AUTOANIM.midionhit_name"),
@@ -203,6 +218,33 @@ export default function aaSettings() {
                 });
             }
             break;
+        case "pf2e": {
+            game.settings.register("autoanimations", "playonDamageCore", {
+                name: game.i18n.format("AUTOANIM.coreondmg_name"),
+                hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            });
+            game.settings.register("autoanimations", "playonmiss", {
+                name: game.i18n.format("AUTOANIM.midionmiss_name"),
+                hint: "Requires Animations to be played on Attack rolls",
+                scope: `world`,
+                type: Boolean,
+                default: false,
+                config: true,
+            });
+        }
+            break;
     }
+
+    game.settings.register("autoanimations", "debug", {
+        name: game.i18n.format("AUTOANIM.debugging"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
 
 }

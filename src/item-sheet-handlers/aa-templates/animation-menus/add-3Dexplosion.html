@@ -1,0 +1,77 @@
+<div class='flexrow text-green' {{#unless flags.autoanimations.levels3d.addexplosion.enable }}
+    style='text-shadow: 1px 1px 2px lightpink, 0 0 25px red, 0 0 5px orangered; text-align: center;' {{/unless}}>
+    <label><strong>{{localize "AUTOANIM.addExplosion"}}</strong></label>
+</div>
+<div class='aa-item-container add-explosion particles' {{#if flags.autoanimations.levels3d.addexplosion.enable }}
+    style='box-shadow: 1px 1px 2px lightseagreen, 0 0 25px green, 0 0 5px lightgreen;' {{/if}}>
+    <div class='form-group' style='padding-top: 5px;padding-bottom: 4px;grid-row: 1 / 2; grid-column: 1 / 2;'>
+        <label>{{localize "AUTOANIM.menuEnableExplode"}}</label>
+        <input type="checkbox" name="flags.autoanimations.levels3d.addexplosion.enable"
+            value="flags.autoanimations.levels3d.addexplosion.enable" {{checked
+            flags.autoanimations.levels3d.addexplosion.enable}}>
+    </div>
+    {{#if flags.autoanimations.levels3d.addexplosion.enable}}
+    <div class="form-group" style="grid-row: 2 / 3; grid-column: 1 / 2;justify-self: right;">
+        <label>{{localize 'AUTOANIM.color'}} 01</label>
+        <input type="Text" value="{{lookup flags.autoanimations.levels3d.addexplosion 'color01'}}">
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.addexplosion.color01"
+            value={{color3D01AddExplosion}}>
+    </div>
+    <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;justify-self: right;">
+        <label>{{localize 'AUTOANIM.color'}} 02</label>
+        <input type="Text" value="{{lookup flags.autoanimations.levels3d.addexplosion 'color02'}}">
+        <input type="color" id="tint" name="flags.autoanimations.levels3d.addexplosion.color02"
+            value={{color3D02AddExplosion}}>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.speed'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.addexplosion.speed" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.addexplosion 'speed'}}" placeholder=0>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.gravity'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.addexplosion.gravity" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.addexplosion 'gravity'}}" placeholder=2>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.life'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.addexplosion.life" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.addexplosion 'life'}}" placeholder=700>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.rate'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.addexplosion.rate" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.addexplosion 'rate'}}" placeholder=10>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 5 / 6; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.emiterSize'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.addexplosion.emittersize" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.addexplosion 'emittersize'}}" placeholder=1>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+        <label>{{localize 'AUTOANIM.alpha'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.addexplosion.alpha" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.addexplosion 'alpha'}}" placeholder=0.2>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 4 / 5; grid-column: 3 / 4;">
+        <label>{{localize 'AUTOANIM.mass'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.addexplosion.mass" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.addexplosion 'mass'}}" placeholder=400>
+    </div>
+    <div class="autorec-menu-options" style="grid-row: 3 / 4; grid-column: 2 / 3;">
+        <label>{{localize 'AUTOANIM.scale'}} </label>
+        <input type="Number" name="flags.autoanimations.levels3d.addexplosion.scale" step=".01"
+            value="{{lookup flags.autoanimations.levels3d.addexplosion 'scale'}}" placeholder=2>
+    </div>
+
+    <div class="form-group" style='grid-column: 1 / 5;grid-row: 6 / 7'>
+        <label>{{localize 'AUTOANIM.sprite'}} </label>
+        <input style='width: 25em' type="text" class="files" name="flags.autoanimations.levels3d.addexplosion.sprite"
+            value={{sprite3DAddExplosion}}>
+        <button type="button" class="file-picker" data-type="image/video"
+            data-target="flags.autoanimations.levels3d.addexplosion.sprite" tabindex="-1" title="Browse Files">
+            <i class="fas fa-file-video"></i>
+        </button>
+    </div>
+    {{/if}}
+</div>

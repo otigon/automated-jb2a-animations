@@ -2,155 +2,140 @@ import { buildFile } from "../file-builder/build-filepath.js"
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { aaDebugger } from "../../constants/constants.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function bless(handler, autoObject) {
+export async function bless(handler, animationData) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    //let itemName = handler.convertedName;
+
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    // Random Color pull given object path
-    //Builds standard File Path
-    const data = {};
-    if (autoObject) {
-        const autoOverridden = handler.options?.overrideAuto
-        Object.assign(data, autoObject[0]);
-        data.itemName = data.animation || "";
-        data.color = autoOverridden ? handler.options?.autoColor : data.color;
-        data.scale = autoOverridden ? handler.options?.autoScale : data.scale;
-    } else {
-        data.itemName = handler.convertedName;
-        data.color = handler.color;
-        data.scale = handler.scale || 1;
-        data.below = handler.animLevel;
-        data.addCTA = handler.options?.addCTA;
+    const data = animationData.primary;
+    const sourceFX = animationData.sourceFX;
+    if (data.isAuto) {
+        const autoOverridden = handler.autorecOverrides?.enable
+        data.persistent = autoOverridden ? handler.autorecOverrides?.persistent : data.addCTA;
     }
     const bless = await buildBlessFile(obj01, data.color);
+
+    if (handler.debug) { aaDebugger("Aura Animation Start", animationData, bless) }
+
     // builds Source Token file if Enabled, and pulls from flags if already set
-    let sourceFX;
-    if (handler.sourceEnable) {
-        sourceFX = await buildFile(true, handler.sourceName, "static", handler.sourceVariant, handler.sourceColor);
-    }
+    //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
+    const sourceToken = handler.sourceToken;
 
-    const sourceToken = handler.actorToken;
     //let animWidth = onToken.metadata.width;
-    const scale = ((sourceToken.w / bless.metadata.width) * 2)// * handler.scale
-    let addCTA = data.addCTA ? false : true
+    const sourceScale = sourceToken.w;
+    const scale = (sourceScale * 2.5 / bless.metadata.width) * data.scale// * handler.scale
+    //const size = sourceToken.w * 1.5;
+    //const scaledSize = (size * data.scale)
+
     if (handler.allTargets.length === 0) {
-        new Sequence()
-        .effect()
-            .file(bless.file01)
-            .atLocation(sourceToken)
-            .scale(scale * data.scale)
-            .belowTokens(data.below)
-            .waitUntilFinished(-500)
-        .effect()
-            .file(bless.file02)
-            .scale(scale)
-            .atLocation(sourceToken)
-            .belowTokens(data.below)
-            .play()
+
+        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+        const playPersist = (!checkAnim && data.persistent) ? true : false;
+        let aaSeq = await new Sequence()
+        // Play Macro if Awaiting
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+        }
+        // Extra Effects => Source Token if active
+        if (sourceFX.enabled) {
+            aaSeq.addSequence(sourceFX.sourceSeq)
+        }
+        if (data.playSound) {
+            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+        }
+        // Animation Start Hook
+        aaSeq.thenDo(function () {
+            Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+        })
+        if (!checkAnim) {
+            aaSeq.effect()
+                .file(bless.file01)
+                .attachTo(sourceToken)
+                .scale(scale)
+                .belowTokens(data.below)
+                .waitUntilFinished(-500)
+            let endSection = aaSeq.effect();
+            endSection.file(bless.file02)
+            endSection.scale(scale)
+            endSection.origin(handler.item.uuid)
+            endSection.attachTo(sourceToken)
+            endSection.belowTokens(data.below)
+            endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+            endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+            if (playPersist) { endSection.persist() }
+        }
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, ...userData)
+                .play()
+        }
+        aaSeq.play()
+
+        if (playPersist) { AAanimationData.howToDelete("sequencerground") }
     }
 
-    async function cast() {
-        let arrayLength = handler.allTargets.length;
-        for (var i = 0; i < arrayLength; i++) {
+    if (handler.allTargets.length > 0) {
 
-            let target = handler.allTargets[i];
-            if (handler.targetEnable) {
-                tFXScale = 2 * target.w / targetFX.metadata.width;
-            }
+        let aaSeq = await new Sequence()
+        // Play Macro if Awaiting
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+        }
+        // Extra Effects => Source Token if active
+        if (sourceFX.enabled) {
+            aaSeq.addSequence(sourceFX.sourceSeq)
+        }
+        if (data.playSound) {
+            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+        }
+        // Animation Start Hook
+        aaSeq.thenDo(function () {
+            Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
+        })
 
-            let targetScale = ((target.w / bless.metadata.width) * 2)
-            new Sequence()
-                .effect()
+        for (let target of handler.allTargets) {
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+            let playPersist = (!checkAnim && data.persistent) ? true : false;  
+            let targetScale = (target.w * 2 / bless.metadata.width) * data.scale 
+            if (!checkAnim) {
+                aaSeq.effect()
                     .file(bless.file01)
-                    .atLocation(target)
-                    .scale(targetScale * data.scale)
+                    .attachTo(target)
+                    .scale(targetScale)
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)
-                .effect()
-                    .file(bless.file02)
-                    .scale(targetScale * data.scale)
-                    .atLocation(target)
-                    .belowTokens(data.below)
-                    .playIf(addCTA)
+                let endSection = aaSeq.effect();
+                endSection.file(bless.file02)
+                endSection.scale(scale)
+                endSection.origin(handler.item.uuid)
+                endSection.attachTo(target)
+                endSection.belowTokens(data.below)
+                endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+                endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.85), to: (scale * 1.15), duration: 2000, pingPong: true })
+                if (playPersist) { endSection.persist() }
+            }
+        }
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, ...userData)
                 .play()
-            //await wait(250)
-
         }
-        if (data.addCTA) {
-            await wait((bless.metadata.duration * 1000) - 500)
-            cTa()
-        }
-    }
-    cast()
-
-    async function cTa() {
-        let arrayLength = handler.allTargets.length;
-        for (var i = 0; i < arrayLength; i++) {
-
-            let target = handler.allTargets[i];
-
-            let textureData = {
-                belowToken: true,
-                multiple: 0,
-                opacity: 1.0,
-                radius: 2,
-                rotation: "static",
-                scale: 2 * handler.scale,
-                speed: 0,
-                texturePath: bless.ctaFile02,
-                tint: 16777215,
-                xScale: 0.5,
-                yScale: 0.5
-            }
-
-            let pushActor = false;
-
-            let name = handler.animName;
-
-
-            CTA.addAnimation(target, textureData, pushActor, name)
-        }
-    }
-    if (data.addCTA) {
-        await wait ((bless.metadata.duration * 1000) - 500);
-        removeCTA()
-    }
-    async function removeCTA() {
-        let clsd = false;
-        let d = new Dialog({
-            title: "A-A",
-            buttons: {
-                yes: {
-                    label: game.i18n.format("AUTOANIM.removeAura"),
-                    icon: '<i class="fas fa-biohazard"></i>',
-                    callback: (html) => { clsd = true }
-                },
-            },
-            default: 'yes',
-            close: () => {
-                if (clsd === false) console.log('This was closed without using a button');
-                if (clsd === true) {
-                    let arrayLength = handler.allTargets.length;
-                    let name = handler.animName;
-                    for (var i = 0; i < arrayLength; i++) {
-                        let target = handler.allTargets[i];
-                        CTA.removeAnimByName(target, name, true, true);
-                    }
-                }
-            }
-        },
-            { width: 'auto', height: 'auto' }
-        );
-        d.render(true)
+        aaSeq.play()
+        //if (playPersist) { AAanimationData.howToDelete("sequencerground") }
     }
 }
 

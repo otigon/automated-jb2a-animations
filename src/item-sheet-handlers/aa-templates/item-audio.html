@@ -1,0 +1,30 @@
+<!--Audio Settings-->
+<div style='padding:3px'>
+
+</div>
+<div class="aa-audio-checkbox aaFGimage">
+    <div class="form-group">
+        <label>{{localize "AUTOANIM.itemAudio"}}</label>
+        <input type="checkbox" name="flags.autoanimations.allSounds.item.enableAudio" {{checked
+            flags.autoanimations.allSounds.item.enableAudio}}>
+    </div>
+    {{#if flags.autoanimations.allSounds.item.enableAudio}}
+    <div class="form-group">
+        <label>{{localize "AUTOANIM.chooseAudio"}}</label>
+        <input type="text" class="files" name="flags.autoanimations.allSounds.item.file" value={{itemAudio}}>
+        <button type="button" class="file-picker" data-type="audio"
+            data-target="flags.autoanimations.allSounds.item.file" tabindex="-1" title="Browse Files">
+            <i class="fas fa-music fa-sm"></i>
+        </button>
+    </div>
+    <div class="form-group">
+        <label>{{localize "AUTOANIM.audioDelay"}}</label>
+        <input type="Number" name="flags.autoanimations.allSounds.item.delay" min="0" value={{delayAudio}}>
+    </div>
+    <div class="form-group">
+        <label>{{localize "AUTOANIM.volume"}}</label>
+        <input type="Number" name="flags.autoanimations.allSounds.item.volume" min="0" max="10" step="0.01"
+            value={{volumeAudio}}>
+    </div>
+    {{/if}}
+</div>
