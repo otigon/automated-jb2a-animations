@@ -102,7 +102,7 @@
                 </div>
 
                 <div style="border: 1px solid rgba(0, 0, 0, .4);"></div>
-
+                <!--Thunderwave Preset Option-->
                 {{#ifEquals (lookup (lookup ../settings.aaAutorec.preset idx) 'animation') 'thunderwave'}}
                 <div class="aa-primary-container">
                     <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
@@ -479,8 +479,8 @@
                     </div>
                 </div>
                 <div class="aa-subSection-divider"></div>
+                {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'marker')}}
                 <div class="aa-primary-container">
-                    {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'marker')}}
                     <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
                         <label>Self {{localize "AUTOANIM.color"}}</label>
                         <select name="aaAutorec.preset.{{idx}}.selfMarkerColor">
@@ -507,8 +507,8 @@
                             {{/select}}
                         </select>
                     </div>
-                    {{/if}}
                 </div>
+                {{/if}}
                 <div class='flexrow aa-section-label'>
                     <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
                 </div>
@@ -1055,20 +1055,20 @@
                             <i class="fas fa-music"></i>
                         </button>
                     </div>
-                    <!--Audio Delay-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 2 / 3;'>
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
-                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
-                            placeholder=0>
-                    </div>
                     <!--Audio Volume-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.volume" min="0" max="1"
                             step="0.01"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}"
                             placeholder=0.5>
+                    </div>
+                    <!--Audio Delay-->
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+                        <label>{{localize "AUTOANIM.delay"}}</label>
+                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
+                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
+                            placeholder=0>
                     </div>
                 </div>
                 {{/if}}
@@ -1352,21 +1352,21 @@
                 <div class="aa-options-odd aa-options-settings">
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.repeat'}}</label>
-                            <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Repeat"
-                                value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Repeat'}}"
-                                data-dtype="Number" placeholder=1>
+                        <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Repeat"
+                            value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Repeat'}}"
+                            data-dtype="Number" placeholder=1>
                     </div>
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
                         <label>{{localize 'AUTOANIM.repeat'}} {{localize 'AUTOANIM.delay'}}</label>
-                            <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Delay"
-                                value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Delay'}}"
-                                data-dtype="Number" placeholder=250>
+                        <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Delay"
+                            value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Delay'}}"
+                            data-dtype="Number" placeholder=250>
                     </div>
                     <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
                         <label>{{localize 'AUTOANIM.scale'}}</label>
-                            <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Scale"
-                                value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Scale'}}"
-                                data-dtype="Number" placeholder=1>
+                        <input type="Number" name="aaAutorec.preset.{{idx}}.explosion02Scale"
+                            value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'explosion02Scale'}}"
+                            data-dtype="Number" placeholder=1>
                     </div>
                 </div>
                 <div class='aa-checkbox-label' style="text-align: center;">
@@ -1391,20 +1391,20 @@
                             <i class="fas fa-music"></i>
                         </button>
                     </div>
-                    <!--Explosion Audio Delay-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 2 / 3;'>
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.e02.delay" min="0"
-                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e02') 'delay'}}"
-                            placeholder=0>
-                    </div>
                     <!--Explosion Audio Volume-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.e02.volume" min="0" max="1"
                             step="0.01"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e02') 'volume'}}"
                             placeholder=0.5>
+                    </div>
+                    <!--Explosion Audio Delay-->
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+                        <label>{{localize "AUTOANIM.delay"}}</label>
+                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.e02.delay" min="0"
+                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e02') 'delay'}}"
+                            placeholder=0>
                     </div>
                 </div>
                 {{/if}}
@@ -1484,20 +1484,20 @@
                         <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.persistent' {{checked
                             (lookup (lookup ../settings.aaAutorec.preset idx) 'persistent' ) }}>
                     </div>
-                    {{#if (lookup (lookup ../settings.aaAutorec.preset idx) 'persistent')}}
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 3 / 4;'>
                         <label>{{localize "AUTOANIM.anchorX"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.anchorX"
                             value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'anchorX'}}" data-dtype="Number"
-                            placeholder=0.5>
+                            placeholder=0.5 {{#unless (lookup (lookup ../settings.aaAutorec.preset idx) 'persistent' )}}
+                            disabled {{/unless}}>
                     </div>
                     <div class="flexcol" style='grid-row: 2 / 3; grid-column: 4 / 5;'>
                         <label>{{localize "AUTOANIM.anchorY"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.anchorY"
                             value="{{lookup (lookup ../settings.aaAutorec.preset idx) 'anchorY'}}" data-dtype="Number"
-                            placeholder=0.5>
+                            placeholder=0.5 {{#unless (lookup (lookup ../settings.aaAutorec.preset idx) 'persistent' )}}
+                            disabled {{/unless}}>
                     </div>
-                    {{/if}}
                 </div>
                 <div class='aa-checkbox-label' style="text-align: center;">
                     <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>
