@@ -484,9 +484,12 @@ async function onCreateChatMessage(msg) {
 /*
 / Sets Handler for Star Wars FFG
 */
-function swffgReady(msg) {
+async function swffgReady(msg) {
     if (killAllAnimations) { return; }
-    let handler = new StarWarsFfgHandler(msg);
+    let handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
     trafficCop(handler);
 }
 
