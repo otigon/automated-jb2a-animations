@@ -468,9 +468,18 @@
     margin: 3px
 }
 
+.aa-itemSection-divider {
+    flex-grow: 1;
+    border: 2px inset rgba(0, 0, 0, 0.75);
+    border-radius: 6px;
+    margin: 3px;
+    background: url("aaMenuFG.jpg") repeat;
+}
+
 .aa-subSection-divider {
     flex-grow: 1;
     border-bottom: 2px dashed rgba(116, 116, 116, 0.562);
+    background: url("aaMenuFG.jpg") repeat;
     margin-left: 5%;
     margin-right: 5%;
     margin-bottom: 3px;

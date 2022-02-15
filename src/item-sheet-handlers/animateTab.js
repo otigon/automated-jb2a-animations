@@ -218,6 +218,9 @@ export class AAItemSettings extends FormApplication {
         html.find('.animation-not-disabled input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        html.find('.aa-checkbox-label input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
         html.find('.animation-disabled input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });

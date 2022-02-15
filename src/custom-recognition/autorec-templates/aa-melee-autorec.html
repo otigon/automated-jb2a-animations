@@ -347,19 +347,19 @@
                             <i class="fas fa-music"></i>
                         </button>
                     </div>
-                    <!--Audio Delay-->
-                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="Number" name="aaAutorec.melee.{{idx}}.audio.a02.delay" min="0"
-                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'audio') 'a02') 'delay'}}"
-                            placeholder=250>
-                    </div>
                     <!--Audio Volume-->
-                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="aaAutorec.melee.{{idx}}.audio.a02.volume" min="0" max="1" step="0.01"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'audio') 'a02') 'volume'}}"
                             placeholder=0.5>
+                    </div>
+                    <!--Audio Delay-->
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+                        <label>{{localize "AUTOANIM.delay"}}</label>
+                        <input type="Number" name="aaAutorec.melee.{{idx}}.audio.a02.delay" min="0"
+                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'audio') 'a02') 'delay'}}"
+                            placeholder=250>
                     </div>
                 </div>
                 {{/if}}
@@ -433,6 +433,29 @@
                         </button>
                     </div>
                     {{/if}}
+                </div>
+                <div class='flexrow aa-section-label'>
+                    <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
+                </div>
+                <div class="aa-subSection-divider"></div>
+                <div class="aa-options-container">
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+                        <label>{{localize 'AUTOANIM.radius'}}</label>
+                        <input type="Number" name="aaAutorec.melee.{{idx}}.explosion.radius"
+                            value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'explosion') 'radius'}}"
+                            data-dtype="Number" placeholder=1>
+                    </div>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+                        <label>{{localize "AUTOANIM.delayMS"}}</label>
+                        <input type="Number" name="aaAutorec.melee.{{idx}}.explosion.delay"
+                            value="{{lookup (lookup (lookup ../settings.aaAutorec.melee idx) 'explosion') 'delay'}}"
+                            data-dtype="Number" placeholder=250>
+                    </div>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+                        <label>{{localize 'AUTOANIM.below'}}</label>
+                        <input type='checkbox' name='aaAutorec.melee.{{idx}}.explosion.below' {{checked (lookup (lookup
+                            (lookup ../settings.aaAutorec.melee idx) 'explosion' ) 'below' ) }}>
+                    </div>
                 </div>
                 <div class='aa-checkbox-label'>
                     <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>
