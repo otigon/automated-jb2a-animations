@@ -246,13 +246,13 @@ export class AAanimationData {
                 audio: {
                     enable: autorec.audio?.e01?.enable || false,
                     file: autorec.audio?.e01?.file ?? "",
-                    volume: autorec.audio?.e01?.volume || 0.25,
+                    volume: autorec.audio?.e01?.volume || 0.75,
                     delay: autorec.audio?.e01?.delay || 0,
                     repeat: handler.decoupleSound ? 1 : autorec.repeat || 1,
                     startTime: autorec.audio?.e01?.startTime || 0,
                 },
             };
-            explosion.playSound = explosion.enabled && explosion.audio?.enabled && explosion.audio?.file !== "";
+            explosion.playSound = explosion.enabled && explosion.audio?.enable && explosion.audio?.file !== "";
             explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
             explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             return explosion;

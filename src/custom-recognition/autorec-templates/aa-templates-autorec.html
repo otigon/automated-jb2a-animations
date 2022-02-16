@@ -315,7 +315,7 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.templates.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>

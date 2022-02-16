@@ -232,7 +232,7 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>
@@ -370,7 +370,7 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>
@@ -563,7 +563,7 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>
@@ -669,25 +669,25 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>
                     </div>
-                    <!--Audio Delay-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
-                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
-                            placeholder=0>
-                    </div>
                     <!--Audio Volume-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 5 / 6;'>
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.volume" min="0" max="1"
                             step="0.01"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}"
                             placeholder=0.5>
+                    </div>
+                    <!--Audio Delay-->
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 5 / 6;'>
+                        <label>{{localize "AUTOANIM.delay"}}</label>
+                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
+                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
+                            placeholder=0>
                     </div>
                 </div>
                 {{/if}}
@@ -753,7 +753,7 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>
@@ -995,7 +995,7 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>
@@ -1099,7 +1099,7 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>
@@ -1221,7 +1221,7 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>
@@ -1329,7 +1329,7 @@
                 {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio' ) 'e01' )
                 'enable' )}}
                 <div class="aa-options-odd aa-options-settings">
-                    <!--Explosion Audio filePicker and Text Input-->
+                    <!--Audio filePicker and Text Input-->
                     <div class='form-group' style='grid-row: 1 / 2;grid-column: 1 / 6;'>
                         <input type="text" class="files" name="aaAutorec.preset.{{idx}}.audio.e01.file"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e01') 'file'}}">
@@ -1340,25 +1340,25 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.e01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e01') 'startTime'}}"
                             placeholder=0>
                     </div>
-                    <!--Explosion Audio Delay-->
+                    <!--Audio Volume-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.e01.delay" min="0"
-                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e01') 'delay'}}"
-                            placeholder=0>
-                    </div>
-                    <!--Explosion Audio Volume-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 5 / 6;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.e01.volume" min="0" max="1"
                             step="0.01"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e01') 'volume'}}"
                             placeholder=0.5>
+                    </div>
+                    <!--Audio Delay-->
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 5 / 6;'>
+                        <label>{{localize "AUTOANIM.delay"}}</label>
+                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.e01.delay" min="0"
+                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e01') 'delay'}}"
+                            placeholder=0>
                     </div>
                 </div>
                 {{/if}}
@@ -1455,7 +1455,7 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.e02.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'e02') 'startTime'}}"
                             placeholder=0>
@@ -1591,25 +1591,25 @@
                     </div>
                     <!--Set Sound Start Time-->
                     <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.volume"}}</label>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.startTime" step="1"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'startTime'}}"
                             placeholder=0>
                     </div>
-                    <!--Audio Delay-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
-                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
-                            placeholder=0>
-                    </div>
                     <!--Audio Volume-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 5 / 6;'>
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.volume" min="0" max="1"
                             step="0.01"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'volume'}}"
                             placeholder=0.5>
+                    </div>
+                    <!--Audio Delay-->
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 5 / 6;'>
+                        <label>{{localize "AUTOANIM.delay"}}</label>
+                        <input type="Number" name="aaAutorec.preset.{{idx}}.audio.a01.delay" min="0"
+                            value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.preset idx) 'audio') 'a01') 'delay'}}"
+                            placeholder=0>
                     </div>
                 </div>
                 {{/if}}
