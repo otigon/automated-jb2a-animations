@@ -237,6 +237,20 @@ export class AASystemData {
         return { item, token, targets, hitTargets };
     }
 
+    static async starwarsffg(input) {
+        const itemId = input.roll.data._id;
+        const tokenId = input.data.speaker.token;
+
+        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+        if (!itemId || !token) {return {};}
+
+        const item = token.actor.items?.get(itemId) ?? "";
+        const targets = Array.from(input.user.targets);
+        const hitTargets = input.roll.ffg.success > 0 ? targets : [];
+
+        return { item, token, targets, hitTargets };
+    }
+
     static async swade(input) {
         const item = input.SwadeItem;
         const tokenOrActor = input.SwadeTokenOrActor;

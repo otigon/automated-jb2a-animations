@@ -50,6 +50,7 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-auras-autorec.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-presets-autorec.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animations.html',
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/item-audio.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/pre-postfx.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-melee.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ranged.html',
@@ -195,6 +196,9 @@ Hooks.once('ready', function () {
                         });
                     })
                 }
+                break;
+            case "starwarsffg":
+                Hooks.on("createChatMessage", async (msg) => { swffgReady(msg) });
                 break;
             case "swade":
                 Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => {
@@ -478,6 +482,18 @@ async function onCreateChatMessage(msg) {
 }
 
 /*
+/ Sets Handler for Star Wars FFG
+*/
+async function swffgReady(msg) {
+    if (killAllAnimations) { return; }
+    let handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    trafficCop(handler);
+}
+
+/*
 / Sets Handler for SWADE
 */
 async function swadeData(SwadeTokenOrActor, SwadeItem) {
@@ -709,15 +725,3 @@ async function oseReady(input) {
     }
     trafficCop(handler);
 }
-
-
-
-
-
-
-
-
-
-
-
-
