@@ -73,7 +73,7 @@
         <div class="aa-subSection-divider"></div>
         <div class="aa-options-odd aa-options-settings">
             <!--Choose Explosion Radius-->
-            <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
                 <label>{{localize "AUTOANIM.radius"}}</label>
                 <input type="Number" name="flags.autoanimations.explosions.radius" min="0" step=".01"
                     value="{{flags.autoanimations.explosions.radius}}" data-type="Number" placeholder=1.5>
@@ -85,7 +85,7 @@
                     value="{{flags.autoanimations.explosions.delay}}" data-dtype="Number" placeholder=1>
             </div>
             <!--Play Explosion Under Token?-->
-            <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
+            <div class="flexcol" style='grid-row: 1 / 2; grid-column: 5 / 6;'>
                 <label>{{localize "AUTOANIM.below"}}</label>
                 <input type="checkbox" name="flags.autoanimations.explosions.below" {{checked
                     flags.autoanimations.explosions.below}}>
@@ -101,11 +101,11 @@
         </div>
         <div class="aa-subSection-divider"></div>
         {{#if flags.autoanimations.audio.e01.enable}}
-        <div class="aa-sound-container">
+        <div class="aa-options-odd aa-options-settings">
             <!--Explosion Audio filePicker and Text Input-->
-            <div class='form-group' style='grid-row: 1 / 2;grid-column: 1 / 5;'>
+            <div class='form-group' style='grid-row: 1 / 2;grid-column: 1 / 6;'>
                 <input type="text" class="files" name="flags.autoanimations.audio.e01.file"
-                    value="{{flags.autoanimations.audio.e01.file}}">
+                    value="{{flags.autoanimations.audio.e01.file}}" style='text-align: start;'>
                 <button type="button" class="file-picker" data-type="audio"
                     data-target="flags.autoanimations.audio.e01.file" tabindex="-1" title="Browse Files">
                     <i class="fas fa-music"></i>
@@ -118,13 +118,13 @@
                     value="{{flags.autoanimations.audio.e01.startTime}}" placeholder=0>
             </div>
             <!--Explosion Audio Delay-->
-            <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
+            <div class='flexcol' style='grid-row: 2 / 3;grid-column: 3 / 4;'>
                 <label>{{localize "AUTOANIM.delay"}}</label>
                 <input type="Number" name="flags.autoanimations.audio.e01.delay" min="0"
                     value="{{flags.autoanimations.audio.e01.delay}}" placeholder=0>
             </div>
             <!--Explosion Audio Volume-->
-            <div class='flexcol' style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+            <div class='flexcol' style='grid-row: 2 / 3;grid-column: 5 / 6;'>
                 <label>{{localize "AUTOANIM.volume"}}</label>
                 <input type="Number" name="flags.autoanimations.audio.e01.volume" min="0" max="1" step="0.01"
                     value="{{flags.autoanimations.audio.e01.volume}}" placeholder=0.5>

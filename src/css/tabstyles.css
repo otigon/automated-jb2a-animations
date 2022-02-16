@@ -92,6 +92,8 @@
     border-radius: 5px;
     padding: 3px;
     margin-bottom: 5px;
+    margin-right: 5%;
+    margin-left: 5%
 }
 
 
@@ -243,7 +245,7 @@
 
 .aa-primary-container {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 33.3% 33.3% 33.3%;
     grid-gap: 5px;
     padding: 5px;
     align-items: center;
@@ -330,7 +332,7 @@
 .aa-options-odd {
     /*text-align: center;*/
     display: grid;
-    grid-template-columns: 10% 25% 25% 25% 10%;
+    grid-template-columns: 30% 5% 30% 5% 30%;
     grid-gap: 5px;
     padding: 5px;
     align-items: center;

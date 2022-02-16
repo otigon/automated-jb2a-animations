@@ -282,9 +282,9 @@
                 </div>
                 <div class="aa-subSection-divider"></div>
                 {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio' ) 'a01' ) 'enable' )}}
-                <div class="aa-sound-container">
+                <div class="aa-options-odd aa-options-settings">
                     <!--Audio filePicker and Text Input-->
-                    <div class='form-group' style='grid-row: 1 / 2;grid-column: 1 / 5;'>
+                    <div class='form-group' style='grid-row: 1 / 2;grid-column: 1 / 6;'>
                         <input type="text" class="files" name="aaAutorec.static.{{idx}}.audio.a01.file"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio') 'a01') 'file'}}">
                         <button type="button" class="file-picker" data-type="audio"
@@ -300,7 +300,7 @@
                             placeholder=0>
                     </div>
                     <!--Audio Volume-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 2 / 3;'>
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.audio.a01.volume" min="0" max="1"
                             step="0.01"
@@ -308,7 +308,7 @@
                             placeholder=0.5>
                     </div>
                     <!--Audio Delay-->
-                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+                    <div class="flexcol" style='grid-row: 2 / 3;grid-column: 5 / 6;'>
                         <label>{{localize "AUTOANIM.delay"}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.audio.a01.delay" min="0"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio') 'a01') 'delay'}}"
@@ -391,7 +391,7 @@
                 </div>
                 <div class="aa-subSection-divider"></div>
                 <div class="aa-options-odd aa-options-settings">
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.radius'}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.explosion.radius"
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'explosion') 'radius'}}"
@@ -403,7 +403,7 @@
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'explosion') 'delay'}}"
                             data-dtype="Number" placeholder=250>
                     </div>
-                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 5 / 6;'>
                         <label>{{localize 'AUTOANIM.below'}}</label>
                         <input type='checkbox' name='aaAutorec.static.{{idx}}.explosion.below' {{checked (lookup (lookup
                             (lookup ../settings.aaAutorec.static idx) 'explosion' ) 'below' ) }}>
@@ -419,9 +419,9 @@
                 </div>
                 <div class="aa-subSection-divider"></div>
                 {{#if (lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio' ) 'e01' ) 'enable' )}}
-                <div class="aa-sound-container">
+                <div class="aa-options-odd aa-options-settings">
                     <!--Explosion Audio filePicker and Text Input-->
-                    <div class='form-group' style='grid-row: 1 / 2;grid-column: 1 / 5;'>
+                    <div class='form-group' style='grid-row: 1 / 2;grid-column: 1 / 6;'>
                         <input style='width: 25em' type="text" class="files"
                             name="aaAutorec.static.{{idx}}.audio.e01.file"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio') 'e01') 'file'}}">
@@ -438,7 +438,7 @@
                             placeholder=0>
                     </div>
                     <!--Explosion Audio Volume-->
-                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 3 / 4;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.audio.e01.volume" min="0" max="1"
                             step="0.01"
@@ -446,7 +446,7 @@
                             placeholder=0.5>
                     </div>
                     <!--Explosion Audio Delay-->
-                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 5 / 6;'>
                         <label>{{localize "AUTOANIM.delay"}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.audio.e01.delay" min="0"
                             value="{{lookup (lookup (lookup (lookup ../settings.aaAutorec.static idx) 'audio') 'e01') 'delay'}}"
@@ -464,7 +464,7 @@
                 </div>
                 <div class="aa-section-divider"></div>
                 <div class="aa-options-odd aa-options-settings">
-                    <div class='form-group' style='grid-row: 1 / 2;grid-column: 2 / 5;'>
+                    <div class='form-group' style='grid-row: 1 / 2;grid-column: 1 / 6;'>
                         <input type="text" class="files" name="aaAutorec.static.{{idx}}.soundOnly.file"
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'soundOnly') 'file'}}">
                         <button type="button" class="file-picker" data-type="audio"
@@ -472,7 +472,7 @@
                             <i class="fas fa-music"></i>
                         </button>
                     </div>
-                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 2 / 3;'>
+                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 1 / 2;'>
                         <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.soundOnly.startTime" min="0" max="1"
                             step="0.01"
@@ -486,7 +486,7 @@
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'soundOnly') 'volume'}}"
                             placeholder=0.5>
                     </div>
-                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 4 / 5;'>
+                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 5 / 6;'>
                         <label>{{localize "AUTOANIM.delay"}}</label>
                         <input type="Number" name="aaAutorec.static.{{idx}}.soundOnly.delay" min="0"
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.static idx) 'soundOnly') 'delay'}}"
@@ -849,7 +849,7 @@
     {{/each}}
 </div>
 <footer class='sheet-footer flexrow add-static-wrapper'>
-    <button class='add-autorecog-static'>
+    <button class='add-autorecog-static' style='margin-right: 5%; margin-left: 5%;'>
         <i class='far fa-plus-square'></i>{{localize 'AUTOANIM.addItem'}}
     </button>
 </footer>
