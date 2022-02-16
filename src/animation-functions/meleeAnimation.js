@@ -47,7 +47,7 @@ export async function meleeAnimation(handler, animationData) {
     async function cast() {
 
         const rangeSwitchActive = game.settings.get("autoanimations", "rangeSwitch")
-
+        console.log(handler)
         let aaSeq = await new Sequence("Automated Animations");
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {

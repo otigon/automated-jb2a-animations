@@ -1,213 +1,271 @@
 {{#ifEquals autoObject.menuSection 'melee'}}
-<div class='aa-item-container primary-animation'>
-    <div class="option01">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant">
-            {{#select flags.autoanimations.autoOverride.variant}}
-            {{#each (lookup variantmenu.melee autoObject.animation) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-even aa-options-settings">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant">
+                {{#select flags.autoanimations.autoOverride.variant}}
+                {{#each (lookup variantmenu.melee autoObject.animation) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <!--Choose Standard Animation Color-->
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                {{#each (lookup (lookup colormenu.melee autoObject.animation) flags.autoanimations.autoOverride.variant)
+                as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
     </div>
-    <!--Choose Standard Animation Color-->
-    <div class="option02">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            {{#each (lookup (lookup colormenu.melee autoObject.animation) flags.autoanimations.autoOverride.variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
     </div>
-    <div class="autorec-menu-options option05">
-        <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
-    </div>
-    <div class="autorec-menu-options option06">
-        <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.delay" value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
-    </div>
-    <div class="autorec-menu-options option08">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+            <label>{{localize "AUTOANIM.repeat"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.repeat"
+                value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize 'AUTOANIM.repeat'}} {{localize 'AUTOANIM.delay'}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.delay"
+                value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 5 / 6;'>
+            <label>{{localize "AUTOANIM.scale"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scale"
+                value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+        </div>
     </div>
 </div>
 {{/ifEquals}}
 
 {{#ifEquals autoObject.menuSection 'range'}}
-<div class='aa-item-container primary-animation'>
-    <div class="option01">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant">
-            {{#select flags.autoanimations.autoOverride.variant}}
-            <option value=""> </option>
-            {{#each (lookup variantmenu.range autoObject.animation) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-even aa-options-settings">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant">
+                {{#select flags.autoanimations.autoOverride.variant}}
+                <option value=""> </option>
+                {{#each (lookup variantmenu.range autoObject.animation) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <!--Choose Standard Animation Color-->
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.range autoObject.animation)
+                flags.autoanimations.autoOverride.variant) as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
     </div>
-    <!--Choose Standard Animation Color-->
-    <div class="option02">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.range autoObject.animation) flags.autoanimations.autoOverride.variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
     </div>
-    <div class="autorec-menu-options option05">
-        <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
-    </div>
-    <div class="autorec-menu-options option06">
-        <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.delay" value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-even aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.repeat"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.repeat"
+                value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.delayMS"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.delay"
+                value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
+        </div>
     </div>
 </div>
 {{/ifEquals}}
 
 {{#ifEquals autoObject.menuSection 'static'}}
-<div class='aa-item-container primary-animation'>
-    <div class="option01">
-        <label></label>{{localize 'AUTOANIM.playOn'}}: </label>
-        <select name="flags.autoanimations.autoOverride.staticType">
-            {{#select flags.autoanimations.autoOverride.staticType}}
-            <option value="source">{{localize "AUTOANIM.source"}}</option>
-            <option value="target">{{localize "AUTOANIM.target"}}</option>
-            <option value="targetDefault">{{localize "AUTOANIM.targetDefault"}}</option>
-            <option value="sourcetarget">{{localize "AUTOANIM.both"}}</option>
-            {{/select}}
-        </select>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label></label>{{localize 'AUTOANIM.playOn'}}</label>
+            <select name="flags.autoanimations.autoOverride.staticType">
+                {{#select flags.autoanimations.autoOverride.staticType}}
+                <option value="source">{{localize "AUTOANIM.source"}}</option>
+                <option value="target">{{localize "AUTOANIM.target"}}</option>
+                <option value="targetDefault">{{localize "AUTOANIM.targetDefault"}}</option>
+                <option value="sourcetarget">{{localize "AUTOANIM.both"}}</option>
+                {{/select}}
+            </select>
+        </div>
     </div>
-    <div class="option02">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant">
-            {{#select flags.autoanimations.autoOverride.variant}}
-            <option value=""> </option>
-            {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+    <div class="aa-options-even aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant">
+                {{#select flags.autoanimations.autoOverride.variant}}
+                <option value=""> </option>
+                {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <!--Choose Standard Animation Color-->
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static autoObject.animation)
+                flags.autoanimations.autoOverride.variant) as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
     </div>
-    <!--Choose Standard Animation Color-->
-    <div class="option04">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static autoObject.animation) flags.autoanimations.autoOverride.variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
     </div>
-    <div class="autorec-menu-options option05">
-        <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
-    </div>
-    <div class="autorec-menu-options option06">
-        <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.delay" value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
-    </div>
-    <div class="autorec-menu-options option08">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+            <label>{{localize "AUTOANIM.repeat"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.repeat"
+                value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.delayMS"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.delay"
+                value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 5 / 6;'>
+            <label>{{localize "AUTOANIM.scale"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scale"
+                value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+        </div>
     </div>
 </div>
 {{/ifEquals}}
 
 {{#ifEquals autoObject.menuSection 'templates'}}
-<div class='aa-item-container primary-animation'>
-    <!--Choose Standard Animation Color-->
-    <div class="option01">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant">
-            {{#select flags.autoanimations.autoOverride.variant}}
-            <option value=""> </option>
-            {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-even aa-options-settings">
+        <!--Choose Standard Animation Color-->
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant">
+                {{#select flags.autoanimations.autoOverride.variant}}
+                <option value=""> </option>
+                {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static autoObject.animation)
+                flags.autoanimations.autoOverride.variant) as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
     </div>
-    <div class="option02">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static autoObject.animation) flags.autoanimations.autoOverride.variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
     </div>
-    <div class="autorec-menu-options option05">
-        <label>{{localize "AUTOANIM.repeat"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.repeat" value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
-    </div>
-    <div class="autorec-menu-options option06">
-        <label>{{localize "AUTOANIM.delayMS"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.delay" value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
-    </div>
-    <div class="autorec-menu-options option07">
-        <label>{{localize "AUTOANIM.scale"}} X</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scaleX" value="{{flags.autoanimations.autoOverride.scaleX}}" data-dtype="Number" placeholder=1>
-    </div>
-    <div class="autorec-menu-options option08">
-        <label>{{localize "AUTOANIM.scale"}} Y</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scaleY" value="{{flags.autoanimations.autoOverride.scaleY}}" data-dtype="Number" placeholder=1>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-even aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+            <label>{{localize "AUTOANIM.repeat"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.repeat"
+                value="{{flags.autoanimations.autoOverride.repeat}}" data-dtype="Number" placeholder=1>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.delayMS"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.delay"
+                value="{{flags.autoanimations.autoOverride.delay}}" data-dtype="Number" placeholder=250>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.scale"}} X</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scaleX"
+                value="{{flags.autoanimations.autoOverride.scaleX}}" data-dtype="Number" placeholder=1>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
+            <label>{{localize "AUTOANIM.scale"}} Y</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scaleY"
+                value="{{flags.autoanimations.autoOverride.scaleY}}" data-dtype="Number" placeholder=1>
+        </div>
     </div>
 </div>
 {{/ifEquals}}
 
 {{#ifEquals autoObject.menuSection 'auras'}}
-<div class='aa-item-container primary-animation'>
-    <div class="option01">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant">
-            {{#select flags.autoanimations.autoOverride.variant}}
-            <option value=""> </option>
-            {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-even aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant">
+                {{#select flags.autoanimations.autoOverride.variant}}
+                <option value=""> </option>
+                {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <!--Choose Standard Animation Color-->
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static autoObject.animation)
+                flags.autoanimations.autoOverride.variant) as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
     </div>
-    <!--Choose Standard Animation Color-->
-    <div class="option02">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static autoObject.animation) flags.autoanimations.autoOverride.variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
     </div>
-    <div class="autorec-menu-options option05">
-        <label>{{localize "AUTOANIM.opacity"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.opacity" value="{{flags.autoanimations.autoOverride.opacity}}"
-            data-dtype="Number" placeholder=1>
-    </div>
-    <div class="autorec-menu-options option04">
-        <label>{{localize "AUTOANIM.radius"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.radius" value="{{flags.autoanimations.autoOverride.radius}}" data-dtype="Number" placeholder=3.5>
-    </div>
-    <div class="autorec-menu-options" style='grid-column: 3 / 5; grid-row: 2 / 3;'>
-        <div class='form-group'>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+            <label>{{localize "AUTOANIM.opacity"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.opacity"
+                value="{{flags.autoanimations.autoOverride.opacity}}" data-dtype="Number" placeholder=1>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.radius"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.radius"
+                value="{{flags.autoanimations.autoOverride.radius}}" data-dtype="Number" placeholder=3.5>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 5 / 6;'>
             <label>{{localize 'AUTOANIM.ignoreTargets'}}: </label>
             <input type='checkbox' name='flags.autoanimations.autoOverride.ignoreTargets' {{checked
                 flags.autoanimations.autoOverride.ignoreTargets}}>
@@ -219,27 +277,75 @@
 {{#ifEquals autoObject.menuSection 'preset'}}
 
 {{#ifEquals autoObject.animation 'fireball'}}
-<div class='aa-item-container primary-animation'>
-    <div id='aaFireball' style='grid-column: 1 / 5;grid-row: 1 / 2;justify-self: center;'>
-        <label><strong>{{localize "AUTOANIM.fireball"}}</strong></label>
-    </div>
-    <div class='option03'>
-        <label>{{localize 'AUTOANIM.projectile'}}: </label>
-        <select name="flags.autoanimations.autoOverride.fireball.projectile">
-            {{#select flags.autoanimations.autoOverride.fireball.projectile}}
-            {{#each projectile as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    <div class='option09'>
-        <div class='autorec-menu-pad'>
-            <label>{{localize 'AUTOANIM.variant'}}: </label>
+<div div class='flexrow aa-section-label'>
+    <label style="font-size: large;">{{localize "AUTOANIM.projectile"}} {{localize
+        "AUTOANIM.animation"}}</label>
+</div>
+<div class="aa-itemSection-divider">
+    <div class="aa-primary-container">
+        <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
+            <label>{{localize 'AUTOANIM.animation'}}</label>
+            <select name="flags.autoanimations.autoOverride.fireball.projectile">
+                {{#select flags.autoanimations.autoOverride.fireball.projectile}}
+                {{#each projectile as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
+            <label>{{localize 'AUTOANIM.variant'}}</label>
             <select name="flags.autoanimations.autoOverride.fireball.projectileVariant">
                 {{#select flags.autoanimations.fireball.projectileVariant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.range (lookup flags.autoanimations.autoOverride.fireball 'projectile')) as
+                {{#each (lookup variantmenu.range (lookup flags.autoanimations.autoOverride.fireball
+                'projectile')) as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div class='flexcol' style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+            <label>{{localize 'AUTOANIM.color'}}</label>
+            <select name="flags.autoanimations.autoOverride.fireball.projectileColor">
+                {{#select flags.autoanimations.autoOverride.fireball.projectileColor}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.range flags.autoanimations.autoOverride.fireball.projectile)
+                flags.autoanimations.autoOverride.fireball.projectileVariant)
+                as
+                |name
+                key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
+    </div>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize 'AUTOANIM.wait'}}</label>
+            <input type="Number" style='width:5em' name="flags.autoanimations.autoOverride.fireball.wait01"
+                value="{{flags.autoanimations.autoOverride.fireball.wait01}}" data-dtype="Number" placeholder=0>
+        </div>
+    </div>
+</div>
+<div div class='flexrow aa-section-label'>
+    <label style="font-size: large;">{{localize "AUTOANIM.explosion"}} {{localize
+        "AUTOANIM.animation"}} 01</label>
+</div>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize 'AUTOANIM.color'}}</label>
+            <select name="flags.autoanimations.autoOverride.fireball.explosion01Color">
+                {{#select flags.autoanimations.autoOverride.fireball.explosion01Color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static fireball.explosion01) fireball.explosion01Variant) as
                 |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
@@ -247,119 +353,82 @@
             </select>
         </div>
     </div>
-    <div class='option10'>
-        <label>{{localize 'AUTOANIM.color'}}: </label>
-        <select name="flags.autoanimations.autoOverride.fireball.projectileColor">
-            {{#select flags.autoanimations.autoOverride.fireball.projectileColor}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.range flags.autoanimations.autoOverride.fireball.projectile)
-            flags.autoanimations.autoOverride.fireball.projectileVariant)
-            as
-            |name
-            key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    <div class='autorec-menu-options option07'>
-        <label>{{localize 'AUTOANIM.wait'}}:
-            <input type="Number" style='width:5em' name="flags.autoanimations.autoOverride.fireball.wait01"
-                value="{{flags.autoanimations.autoOverride.fireball.wait01}}" data-dtype="Number" placeholder=0>
-        </label>
-    </div>
-    <!--<div class='form-group'>
-            <label>Explosion 01
-                <select style='width:7em' name="flags.autoanimations.options.fireball.explosion01">
-                    {{#select flags.autoanimations.options.fireball.explosion01}}
-                    {{#each explosionMenu as |name key|}}
-                    <option value="{{key}}">{{name}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select></label>
-        </div>-->
-    <div class='option13' style='padding: 5px;'>
-        <label>{{localize 'AUTOANIM.explosion'}} 01 {{localize 'AUTOANIM.color'}}: </label>
-        <select name="flags.autoanimations.autoOverride.fireball.explosion01Color">
-            {{#select flags.autoanimations.autoOverride.fireball.explosion01Color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static fireball.explosion01) fireball.explosion01Variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    <!--<div class='form-group'>
-            <label>Wait
-                <input type="Number" style='width:3em' name="flags.autoanimations.fireball.wait02"
-                    value="{{lookup flags.autoanimations.fireball 'wait02'}}" data-dtype="Number">
-            </label>
-        </div>-->
-    <!--<div class='form-group'>
-            <label>Explosion 02
-                <select style='width:7em' name="flags.autoanimations.options.fireball.explosion02">
-                    {{#select flags.autoanimations.options.fireball.explosion02}}
-                    {{#each explosionMenu as |name key|}}
-                    <option value="{{key}}">{{name}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select></label>
-        </div>-->
-    <div style='grid-column: 2 / 4;grid-row: 4 / 5;'>
-        <label>{{localize 'AUTOANIM.explosion'}} 02 {{localize 'AUTOANIM.color'}}: </label>
-        <select name="flags.autoanimations.autoOverride.fireball.explosion02Color">
-            {{#select flags.autoanimations.autoOverride.fireball.explosion02Color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static fireball.explosion02) fireball.explosion02Variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    <div class="form-group option17">
-        <label>{{localize "AUTOANIM.addAfterImage"}}</label>
-        <input type="checkbox" name="flags.autoanimations.autoOverride.fireball.afterEffect"
-            data-dtype="{{Boolean}}" {{checked flags.autoanimations.autoOverride.fireball.afterEffect}}>
-    </div>
-    {{#if flags.autoanimations.autoOverride.fireball.afterEffect}}
-    <div class='autorec-menu-options option18'>
-        <label>{{localize "AUTOANIM.wait"}}</label>
-        <input type="Number" style='width:3em' name="flags.autoanimations.autoOverride.fireball.wait03"
-            value="{{flags.autoanimations.autoOverride.fireball.wait03}}" data-dtype="Number" placeholder=0>
-    </div>
-    <div class='form-group' style='grid-column: 3 / 5;grid-row: 5 / 6;'>
-        <input style="width:15em" type="text" class="files"
-            name="flags.autoanimations.autoOverride.fireball.afterEffectPath"
-            value="{{flags.autoanimations.autoOverride.fireball.afterEffectPath}}">
-        <button type="button" class="file-picker" data-type="image/video"
-            data-target="flags.autoanimations.autoOverride.fireball.afterEffectPath" tabindex="-1" title="Browse Files">
-            <i class="fas fa-file-video"></i>
-        </button>
-    </div>
-    {{/if}}
 </div>
+<div div class='flexrow aa-section-label'>
+    <label style="font-size: large;">{{localize "AUTOANIM.explosion"}} {{localize
+        "AUTOANIM.animation"}} 02</label>
+</div>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize 'AUTOANIM.explosion'}} 02 {{localize 'AUTOANIM.color'}}</label>
+            <select name="flags.autoanimations.autoOverride.fireball.explosion02Color">
+                {{#select flags.autoanimations.autoOverride.fireball.explosion02Color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static fireball.explosion02) fireball.explosion02Variant) as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+</div>
+<div class='aa-checkbox-label' style="text-align: center;">
+    <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+        <label style="font-size: large;">{{localize 'AUTOANIM.addAfterImage'}}</label>
+        <input type="checkbox" name="flags.autoanimations.autoOverride.fireball.afterEffect" data-dtype="{{Boolean}}"
+            {{checked flags.autoanimations.autoOverride.fireball.afterEffect}}>
+    </div>
+</div>
+{{#if flags.autoanimations.autoOverride.fireball.afterEffect}}
+<div class="aa-itemSection-divider">
+    <div class="aa-sound-container">
+        <div class='form-group' style='grid-row: 1 / 2;grid-column: 1 / 5;'>
+            <input style="width:15em" type="text" class="files"
+                name="flags.autoanimations.autoOverride.fireball.afterEffectPath"
+                value="{{flags.autoanimations.autoOverride.fireball.afterEffectPath}}">
+            <button type="button" class="file-picker" data-type="image/video"
+                data-target="flags.autoanimations.autoOverride.fireball.afterEffectPath" tabindex="-1"
+                title="Browse Files">
+                <i class="fas fa-file-video"></i>
+            </button>
+        </div>
+        <div class="flexcol" style='grid-row: 2 / 3;grid-column: 4 / 5;'>
+            <label>{{localize "AUTOANIM.wait"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.fireball.wait03"
+                value="{{flags.autoanimations.autoOverride.fireball.wait03}}" data-dtype="Number" placeholder=0>
+        </div>
+    </div>
+</div>
+{{/if}}
 {{/ifEquals}}
 
 {{#ifEquals autoObject.animation 'bless'}}
-<div class='aa-item-container primary-animation'>
-    <div class="option01">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            {{#each (lookup colormenu.static.bless '01') as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+<div class="aa-itemSection-divider">
+    <div class="aa-primary-container">
+        <div class="flexcol" style='grid-row: 2 / 3;grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                {{#each (lookup colormenu.static.bless '01') as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
     </div>
-    <div class="autorec-menu-options option05">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
     </div>
-    <div class="autorec-menu-options option06">
-        <div class='form-group'>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-even aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.scale"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scale"
+                value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
             <label>{{localize 'AUTOANIM.persistant'}}: </label>
             <input type='checkbox' name='flags.autoanimations.autoOverride.persistent' {{checked
                 flags.autoanimations.autoOverride.persistent}}>
@@ -369,52 +438,60 @@
 {{/ifEquals}}
 
 {{#ifEquals autoObject.animation 'bardicinspiration'}}
-<div class='aa-item-container primary-animation'>
+<div class='aa-item-container'>
 
 </div>
 {{/ifEquals}}
 
 {{#ifEquals autoObject.animation 'shieldspell'}}
-<div class='aa-item-container primary-animation'>
-    <div class="option01">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant">
-            {{#select flags.autoanimations.autoOverride.variant}}
-            <option value=""> </option>
-            {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+<div class="aa-itemSection-divider">
+    <div class="aa-primary-container">
+        <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant">
+                {{#select flags.autoanimations.autoOverride.variant}}
+                <option value=""> </option>
+                {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <!--Choose Standard Animation Color-->
+        <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static autoObject.animation)
+                flags.autoanimations.autoOverride.variant) as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div class='flexcol' style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.endEffect"}}</label>
+            <select name="flags.autoanimations.autoOverride.endEffect">
+                {{#select flags.autoanimations.autoOverride.endEffect}}
+                <option value="outro_explode">{{localize "AUTOANIM.explode"}}</option>
+                <option value="outro_fade">{{localize "AUTOANIM.fade"}}</option>
+                {{/select}}
+            </select>
+        </div>
     </div>
-    <!--Choose Standard Animation Color-->
-    <div class="option03">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static autoObject.animation) flags.autoanimations.autoOverride.variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
     </div>
-    <div class="option02">
-        <label>{{localize "AUTOANIM.endEffect"}}</label>
-        <select name="flags.autoanimations.autoOverride.endEffect">
-            {{#select flags.autoanimations.autoOverride.endEffect}}
-            <option value="outro_explode">{{localize "AUTOANIM.explode"}}</option>
-            <option value="outro_fade">{{localize "AUTOANIM.fade"}}</option>
-            {{/select}}
-        </select>
-    </div>
-    <div class="autorec-menu-options option05">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
-    </div>
-    <div class="autorec-menu-options option06">
-        <div class='form-group'>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-even aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.scale"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scale"
+                value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
             <label>{{localize 'AUTOANIM.persistant'}}: </label>
             <input type='checkbox' name='flags.autoanimations.autoOverride.persistent' {{checked
                 flags.autoanimations.autoOverride.persistent}}>
@@ -424,176 +501,248 @@
 {{/ifEquals}}
 
 {{#ifEquals autoObject.animation 'huntersmark'}}
-<div class='aa-item-container primary-animation'>
-    <div class="option01">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant">
-            {{#select flags.autoanimations.autoOverride.variant}}
-            <option value=""> </option>
-            {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    <!--Choose Standard Animation Color-->
-    <div class="option02">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static autoObject.animation) flags.autoanimations.autoOverride.variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    <div class="autorec-menu-options option05">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
-    </div>
-    <div class="autorec-menu-options option06">
-        <div class='form-group'>
-            <label>{{localize 'AUTOANIM.persistant'}}: </label>
-            <input type='checkbox' name='flags.autoanimations.autoOverride.persistent' {{checked
-                flags.autoanimations.autoOverride.persistent}}>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-even aa-options-settings">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant">
+                {{#select flags.autoanimations.autoOverride.variant}}
+                <option value=""> </option>
+                <option value="eye">{{localize "AUTOANIM.eye"}}</option>
+                <option value="paw">{{localize "AUTOANIM.paw"}}</option>
+                {{/select}}
+            </select>
+        </div>
+        <!--Choose Standard Animation Color-->
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static autoObject.animation)
+                flags.autoanimations.autoOverride.variant) as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
         </div>
     </div>
-    {{#if flags.autoanimations.autoOverride.persistent }}
-    <div class="autorec-menu-options option03">
-        <label>{{localize "AUTOANIM.anchorX"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.anchorX" value="{{flags.autoanimations.autoOverride.anchorX}}" data-dtype="Number" placeholder=0.5>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
     </div>
-    <div class="autorec-menu-options option04">
-        <label>{{localize "AUTOANIM.anchorY"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.anchorY" value="{{flags.autoanimations.autoOverride.anchorY}}" data-dtype="Number" placeholder=0.5>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-even aa-options-settings">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 1 / 2;'>
+            <label>{{localize "AUTOANIM.scale"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scale"
+                value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+        </div>
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <div class='form-group'>
+                <label>{{localize 'AUTOANIM.persistant'}}: </label>
+                <input type='checkbox' name='flags.autoanimations.autoOverride.persistent' {{checked
+                    flags.autoanimations.autoOverride.persistent}}>
+            </div>
+        </div>
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.anchorX"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.anchorX"
+                value="{{flags.autoanimations.autoOverride.anchorX}}" data-dtype="Number" placeholder=0.5 {{#if
+                flags.autoanimations.autoOverride.persistent}} disabled {{/if }}>
+        </div>
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 4 / 5;'>
+            <label>{{localize "AUTOANIM.anchorY"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.anchorY"
+                value="{{flags.autoanimations.autoOverride.anchorY}}" data-dtype="Number" placeholder=0.5 {{#if
+                flags.autoanimations.autoOverride.persistent}} disabled {{/if }}>
+        </div>
     </div>
-    {{/if}}
 </div>
 {{/ifEquals}}
 
 {{#ifEquals autoObject.animation 'sneakattack'}}
-<div class='aa-item-container primary-animation'>
-    <div class="option01">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant">
-            {{#select flags.autoanimations.autoOverride.variant}}
-            <option value=""> </option>
-            {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-even aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant">
+                {{#select flags.autoanimations.autoOverride.variant}}
+                <option value=""> </option>
+                {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <!--Choose Standard Animation Color-->
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static autoObject.animation)
+                flags.autoanimations.autoOverride.variant) as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
     </div>
-    <!--Choose Standard Animation Color-->
-    <div class="option03">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static autoObject.animation) flags.autoanimations.autoOverride.variant) as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
     </div>
-    <div class="autorec-menu-options option02">
-        <label>{{localize "AUTOANIM.anchorX"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.anchorX" value="{{flags.autoanimations.autoOverride.anchorX}}" data-dtype="Number" placeholder=0.5>
-    </div>
-    <div class="autorec-menu-options option04">
-        <label>{{localize "AUTOANIM.anchorY"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.anchorY" value="{{flags.autoanimations.autoOverride.anchorY}}" data-dtype="Number" placeholder=0.5>
-    </div>
-    <div class="autorec-menu-options option05">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale" value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+            <label>{{localize "AUTOANIM.anchorX"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.anchorX"
+                value="{{flags.autoanimations.autoOverride.anchorX}}" data-dtype="Number" placeholder=0.5>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.anchorY"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.anchorY"
+                value="{{flags.autoanimations.autoOverride.anchorY}}" data-dtype="Number" placeholder=0.5>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 5 / 6;'>
+            <label>{{localize "AUTOANIM.scale"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scale"
+                value="{{flags.autoanimations.autoOverride.scale}}" data-dtype="Number" placeholder=1>
+        </div>
     </div>
 </div>
 {{/ifEquals}}
 
 {{#ifEquals autoObject.animation 'teleportation'}}
-<div class='aa-item-container primary-animation'>
-    {{#unless autoObject.custom}}
-    <div class="option03">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant">
-            {{#select flags.autoanimations.autoOverride.variant}}
-            <option value=""> </option>
-            {{#each (lookup variantmenu.static autoObject.subAnimation) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    <!--Choose Standard Animation Color-->
-    <div class="option04">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color">
-            {{#select flags.autoanimations.autoOverride.color}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static autoObject.subAnimation) flags.autoanimations.autoOverride.variant)
-            as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    {{/unless}}
-    {{#if autoObject.custom}}
-    <div style='grid-row: 2 / 3; grid-column: 2 / 3;'>
-        <label style='font-weight: bold;'>Custom Animation Set</label>
-    </div>
-    {{/if}}
-    <div class="autorec-menu-options option07">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale"
-            value={{flags.autoanimations.autoOverride.scale}} data-dtype="Number" placeholder=1>
-    </div>
-    <div class="autorec-menu-options option06">
-        <label>{{localize "AUTOANIM.ranged"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.range" value="{{flags.autoanimations.autoOverride.range}}" data-dtype="Number" placeholder=30>
-    </div>
-    {{#unless autoObject.custom02}}
-    <div class="option09">
-        <label>{{localize "AUTOANIM.variant"}}</label>
-        <select name="flags.autoanimations.autoOverride.variant02">
-            {{#select flags.autoanimations.autoOverride.variant02}}
-            <option value=""> </option>
-            {{#each (lookup variantmenu.static autoObject.subAnimation02) as |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    <!--Choose Standard Animation Color-->
-    <div class="option10">
-        <label>{{localize "AUTOANIM.color"}}</label>
-        <select name="flags.autoanimations.autoOverride.color02">
-            {{#select flags.autoanimations.autoOverride.color02}}
-            <option value=""> </option>
-            {{#each (lookup (lookup colormenu.static autoObject.subAnimation02) flags.autoanimations.autoOverride.variant02)
-            as
-            |name key|}}
-            <option value="{{key}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    {{/unless}}
-    {{#if autoObject.custom02}}
-    <div style='grid-row: 3 / 4; grid-column: 2 / 3;'>
-        <label style='font-weight: bold;'>Custom Animation Set</label>
-    </div>
-    {{/if}}
-    <div class="autorec-menu-options option11">
-        <label>{{localize "AUTOANIM.scale"}}</label>
-        <input type="Number" name="flags.autoanimations.autoOverride.scale02"
-            value="{{flags.autoanimations.autoOverride.scale02}}" data-dtype="Number" placeholder=1>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-odd aa-options-settings">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.ranged"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.range"
+                value="{{flags.autoanimations.autoOverride.range}}" data-dtype="Number" placeholder=30>
+        </div>
     </div>
 </div>
+{{#if autoObject.custom}}
+<div class='flexrow aa-section-label'>
+    <label style="font-size: large;">{{localize "AUTOANIM.start"}} {{localize
+        "AUTOANIM.animation"}}</label>
+</div>
+<div class="aa-itemSection-divider">
+    <div class="aa-primary-container">
+        <div style='grid-column: 1 / 4;grid-row: 1 / 2;text-align: center;'>
+            <p style='font-weight: bold;'>Custom Animation Set</p>
+        </div>
+    </div>
+</div>
+{{/if}}
+{{#unless autoObject.custom}}
+<div class='flexrow aa-section-label'>
+    <label style="font-size: large;">{{localize "AUTOANIM.start"}} {{localize
+        "AUTOANIM.animation"}}</label>
+</div>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-even aa-options-settings">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant">
+                {{#select flags.autoanimations.autoOverride.variant}}
+                <option value=""> </option>
+                {{#each (lookup variantmenu.static autoObject.subAnimation) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <!--Choose Standard Animation Color-->
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color">
+                {{#select flags.autoanimations.autoOverride.color}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static autoObject.subAnimation)
+                flags.autoanimations.autoOverride.variant)
+                as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
+    </div>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.scale"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scale"
+                value={{flags.autoanimations.autoOverride.scale}} data-dtype="Number" placeholder=1>
+        </div>
+    </div>
+</div>
+{{/unless}}
+{{#if autoObject.custom02}}
+<div class='flexrow aa-section-label'>
+    <label style="font-size: large;">{{localize "AUTOANIM.start"}} {{localize
+        "AUTOANIM.animation"}}</label>
+</div>
+<div class="aa-itemSection-divider">
+    <div class="aa-primary-container">
+        <div style='grid-column: 1 / 4;grid-row: 1 / 2;text-align: center;'>
+            <p style='font-weight: bold;'>Custom Animation Set</p>
+        </div>
+    </div>
+</div>
+{{/if}}
+{{#unless autoObject.custom02}}
+<div class='flexrow aa-section-label'>
+    <label style="font-size: large;">{{localize "AUTOANIM.end"}} {{localize
+        "AUTOANIM.animation"}}</label>
+</div>
+<div class="aa-itemSection-divider">
+    <div class="aa-options-even aa-options-settings">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.variant"}}</label>
+            <select name="flags.autoanimations.autoOverride.variant02">
+                {{#select flags.autoanimations.autoOverride.variant02}}
+                <option value=""> </option>
+                {{#each (lookup variantmenu.static autoObject.subAnimation02) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <!--Choose Standard Animation Color-->
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.color"}}</label>
+            <select name="flags.autoanimations.autoOverride.color02">
+                {{#select flags.autoanimations.autoOverride.color02}}
+                <option value=""> </option>
+                {{#each (lookup (lookup colormenu.static autoObject.subAnimation02)
+                flags.autoanimations.autoOverride.variant02)
+                as
+                |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+    <div class='flexrow aa-section-label'>
+        <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
+    </div>
+    <div class="aa-subSection-divider"></div>
+    <div class="aa-options-odd aa-options-settings">
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.scale"}}</label>
+            <input type="Number" name="flags.autoanimations.autoOverride.scale02"
+                value="{{flags.autoanimations.autoOverride.scale02}}" data-dtype="Number" placeholder=1>
+        </div>
+    </div>
+</div>
+{{/unless}}
 {{/ifEquals}}
 {{/ifEquals}}

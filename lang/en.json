@@ -599,5 +599,10 @@
     "AUTOANIM.name": "Name",
     "AUTOANIM.macroconcurrent": "Concurrent with Animation",
     "AUTOANIM.awaitmacro": "Await Macro Completion",
-    "AUTOANIM.macroonly": "Macro only, No Animation"
+    "AUTOANIM.macroonly": "Macro only, No Animation",
+
+    "AUTOANIM.options": "Options",
+    "AUTOANIM.time": "Time",
+    "AUTOANIM.playwhen": "When to Play",
+    "AUTOANIM.settings": "Settings"
 }
