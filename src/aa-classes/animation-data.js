@@ -100,11 +100,11 @@ export class AAanimationData {
             }
 
             data.soundOnly = {
-                enable: data.soundOnly?.enable || false,
+                enable: data.soundOnly?.enable ?? false,
                 file: data.soundOnly?.file ?? "",
-                volume: data.soundOnly?.volume || 0.25,
-                delay: data.soundOnly?.delay || 0,
-                //repeat: handler.decoupleSound ? 1 : data.repeat || 1,
+                volume: data.soundOnly?.volume ?? 0.25,
+                delay: data.soundOnly?.delay ?? 0,
+                startTime: data.soundOnly?.startTime ?? 0,
             }
 
             data.switchAnimation = data.switchType === "custom" ? data.switchAnimation || "" : data.animation || "";

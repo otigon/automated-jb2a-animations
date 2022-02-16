@@ -94,12 +94,6 @@
     margin-bottom: 5px;
 }
 
-#automatic-recognition input.auto-name{
-    text-align: center;
-    font-weight: bold;
-    font-size: large;
-    background-color: rgb(187, 187, 173);
-}
 
 .auto-name:placeholder-shown{
     opacity: 0.50;
@@ -402,6 +396,8 @@
     padding: 5px;
     background: url("aaMenuFG.jpg") repeat;
     color: black;
+    margin-right: 10%;
+    margin-left: 10%;
 }
 
 .aa-divider {
@@ -421,6 +417,8 @@
     border: 2px inset rgba(0, 0, 0, 0.75);
     border-radius: 6px;
     margin: 3px;
+    margin-right: 5%;
+    margin-left: 5%;
     background: url("aaMenuFG.jpg") repeat;
 }
 
@@ -438,7 +436,7 @@ color: black;
 background:none;
 border: none;
 }
-
+    
 #AA-item-settings .form-group select{
 height: 27px;
 background: url("aaMenuFG.jpg") repeat;
@@ -453,6 +451,12 @@ text-align: center;
 
 #AA-item-settings select option {
     background: rgba(189, 189, 189, 0.4);
+}
+
+#AA-item-settings input {
+    color:black;
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: none;
 }
 
 .aa-item-container select {
@@ -486,6 +490,28 @@ height: 20px;
     padding: 8px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+#automatic-recognition .form-group label{
+    color: black;
+    background:none;
+    border: none;
+}
+
+#automatic-recognition input.auto-name{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    background-color: rgb(187, 187, 173);
+    color: black;
+    box-shadow: none;
+    border-radius: 3px;
+}
+
+#automatic-recognition input {
+    color:black;
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: none;
 }
 
 .text-green {

@@ -340,73 +340,70 @@
                 {{/unless}}
                 {{/ifnoteq}}
                 {{#if (lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'soundOnly' ) 'enable' ) }}
-                <div style="padding:3px"></div>
-                <div class='flexrow text-green'>
-                    <label><strong>{{localize "AUTOANIM.sound"}} {{localize "AUTOANIM.only"}}</strong></label>
+                <div div class='flexrow aa-section-label'>
+                    <label style="font-size: large;">{{localize "AUTOANIM.sound"}} {{localize "AUTOANIM.only"}}</label>
                 </div>
-                <div class="aa-item-container">
-                    <!--Explosion Audio filePicker and Text Input-->
-                    <div class='form-group' style='grid-column: 2 / 5;grid-row: 4 / 5'>
-                        <input style='width: 25em' type="text" class="files"
-                            name="aaAutorec.templates.{{idx}}.soundOnly.file"
+                <div class="aa-section-divider"></div>
+                <div class="aa-options-odd aa-options-settings">
+                    <div class='form-group' style='grid-row: 1 / 2;grid-column: 2 / 5;'>
+                        <input type="text" class="files" name="aaAutorec.templates.{{idx}}.soundOnly.file"
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'soundOnly') 'file'}}">
                         <button type="button" class="file-picker" data-type="audio"
                             data-target="aaAutorec.templates.{{idx}}.soundOnly.file" tabindex="-1" title="Browse Files">
                             <i class="fas fa-music"></i>
                         </button>
                     </div>
-                    <!--Explosion Audio Delay-->
-                    <div style='grid-column: 4 / 5;grid-row: 5 / 6; padding-bottom: 1em'>
-                        <label>{{localize "AUTOANIM.delay"}}</label>
-                        <input type="Number" name="aaAutorec.templates.{{idx}}.soundOnly.delay" min="0"
-                            value="{{lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'soundOnly') 'delay'}}"
-                            style='width: 3em' placeholder=0>
+                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 2 / 3;'>
+                        <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
+                        <input type="Number" name="aaAutorec.templates.{{idx}}.soundOnly.startTime" min="0" max="1"
+                            step="0.01"
+                            value="{{lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'soundOnly') 'startTime'}}"
+                            placeholder=0>
                     </div>
-                    <!--Explosion Audio Volume-->
-                    <div style='grid-column: 3 / 4;grid-row: 5 / 6; padding-bottom: 1em'>
+                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 3 / 4;'>
                         <label>{{localize "AUTOANIM.volume"}}</label>
                         <input type="Number" name="aaAutorec.templates.{{idx}}.soundOnly.volume" min="0" max="1"
-                            step="0.01" style='width: 3em'
+                            step="0.01"
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'soundOnly') 'volume'}}"
                             placeholder=0.5>
                     </div>
+                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 4 / 5;'>
+                        <label>{{localize "AUTOANIM.delay"}}</label>
+                        <input type="Number" name="aaAutorec.templates.{{idx}}.soundOnly.delay" min="0"
+                            value="{{lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'soundOnly') 'delay'}}"
+                            placeholder=0>
+                    </div>
                 </div>
                 {{/if}}
-                <div style="padding:3px"></div>
-                <div {{#unless (lookup ( lookup (lookup ../settings.aaAutorec.templates idx) 'macro' ) 'enable' )}}
-                    style="display:none" {{/unless}}>
-                    <div class='flexrow text-green'>
-                        <label><strong>{{localize "AUTOANIM.macro"}}</strong></label>
+                {{#if (lookup ( lookup (lookup ../settings.aaAutorec.templates idx) 'macro' ) 'enable' )}}
+                <div div class='flexrow aa-section-label'>
+                    <label style="font-size: large;">{{localize "AUTOANIM.macro"}}</label>
+                </div>
+                <div class="aa-section-divider"></div>
+                <div class="aa-options-even aa-options-settings">
+                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 1 / 3;'>
+                        <label style='font-weight: bold;'>{{localize 'AUTOANIM.playwhen'}}</label>
+                        <select name="aaAutorec.templates.{{idx}}.macro.playWhen">
+                            {{#select (lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'macro')
+                            'playWhen' )}}
+                            <option value="0">{{localize 'AUTOANIM.macroconcurrent'}}</option>
+                            <option value="1">{{localize 'AUTOANIM.awaitmacro'}}</option>
+                            {{/select}}
+                        </select>
                     </div>
-                    <div class="aa-item-container">
-                        <!--Choose how/when to Play the Macro-->
-                        <div class='form-group' style='grid-column: 1 / 3; grid-row: 2 / 3;'>
-                            <label style='font-weight: bold;'>When to Play
-                                <select name="aaAutorec.templates.{{idx}}.macro.playWhen">
-                                    {{#select (lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'macro')
-                                    'playWhen' )}}
-                                    <option value="0">{{localize 'AUTOANIM.macroconcurrent'}}</option>
-                                    <option value="1">{{localize 'AUTOANIM.awaitmacro'}}</option>
-                                    <option value="2">{{localize 'AUTOANIM.macroonly'}}</option>
-                                    {{/select}}
-                                </select> </label>
-                        </div>
-                        <!--Macro Name input Field-->
-                        <div class='form-group' style='grid-column: 3 / 5;grid-row: 2 / 3'>
-                            <label style='font-weight: bold;'>{{localize 'AUTOANIM.macro'}} {{localize
-                                'AUTOANIM.name'}}</label>
-                            <input style='width: 10em' type="text" name="aaAutorec.templates.{{idx}}.macro.name"
-                                value="{{lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'macro') 'name'}}">
-                        </div>
-                        <div style='grid-row: 3 / 4; grid-column: 1 / 2;text-align: right; font-weight: bold;'>
-                            {{localize "AUTOANIM.args"}}
-                        </div>
-                        <div class='form-group' style='grid-column: 2 / 5;grid-row: 3 / 4;text-align: left;'>
-                            <input style='width: 35em' type="text" name="aaAutorec.templates.{{idx}}.macro.args"
-                                value="{{lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'macro') 'args'}}">
-                        </div>
+                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 3 / 5;'>
+                        <label style='font-weight: bold;'>{{localize 'AUTOANIM.macro'}} {{localize
+                            'AUTOANIM.name'}}</label>
+                        <input type="text" name="aaAutorec.templates.{{idx}}.macro.name"
+                            value="{{lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'macro') 'name'}}">
+                    </div>
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 5;'>
+                        <label style='font-weight: bold;'>{{localize 'AUTOANIM.args'}}</label>
+                        <input type="text" name="aaAutorec.templates.{{idx}}.macro.args"
+                            value="{{lookup (lookup (lookup ../settings.aaAutorec.templates idx) 'macro') 'args'}}">
                     </div>
                 </div>
+                {{/if}}
             </div>
             {{/unless}}
         </div>
