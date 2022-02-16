@@ -46,6 +46,7 @@ export async function fireball(handler, animationData, config) {
             volume: data.audio?.a01?.volume || 0.25,
             delay: data.audio?.a01?.delay || 0,
             repeat: handler.decoupleSound ? 1 : data.projectileRepeat || 1,
+            startTime: data.audio?.a01?.startTime || 0,
         }
         data.exAudio01 = {
             enable: data.audio?.e01?.enable || false,
@@ -53,6 +54,7 @@ export async function fireball(handler, animationData, config) {
             volume: data.audio?.e01?.volume || 0.25,
             delay: data.audio?.e01?.delay || 0,
             repeat: handler.decoupleSound ? 1 : data.explosion01Repeat || 1,
+            startTime: data.audio?.e01?.startTime || 0,
         }
         data.exAudio02 = {
             enable: data.audio?.e02?.enable || false,
@@ -60,6 +62,7 @@ export async function fireball(handler, animationData, config) {
             volume: data.audio?.e02?.volume || 0.25,
             delay: data.audio?.e02?.delay || 0,
             repeat: handler.decoupleSound ? 1 : data.explosion02Repeat || 1,
+            startTime: data.audio?.e02?.startTime || 0,
         }
     } else {
         const fireballFlags = flags.fireball ?? {};
@@ -96,6 +99,7 @@ export async function fireball(handler, animationData, config) {
             volume: handler.flags?.audio?.a01?.volume || 0.25,
             delay: handler.flags?.audio?.a01?.delay || 0,
             repeat: handler.decoupleSound ? 1 : data.projectileRepeat || 1,
+            startTime: handler.flags?.audio?.a01?.startTime || 0,
         }
         data.exAudio01 = {
             enable: handler.flags?.audio?.e01?.enable || false,
@@ -103,6 +107,7 @@ export async function fireball(handler, animationData, config) {
             volume: handler.flags?.audio?.e01?.volume || 0.25,
             delay: handler.flags?.audio?.e01?.delay || 0,
             repeat: handler.decoupleSound ? 1 : data.explosion01Repeat || 1,
+            startTime: handler.flags?.audio?.e01?.startTime || 0,
         }
         data.exAudio02 = {
             enable: handler.flags?.audio?.e02?.enable || false,
@@ -110,6 +115,7 @@ export async function fireball(handler, animationData, config) {
             volume: handler.flags?.audio?.e02?.volume || 0.25,
             delay: handler.flags?.audio?.e02?.delay || 0,
             repeat: handler.decoupleSound ? 1 : data.explosion02Repeat || 1,
+            startTime: handler.flags?.audio?.e02?.startTime || 0,
         }
     }
 
@@ -165,6 +171,7 @@ export async function fireball(handler, animationData, config) {
             .volume(data.itemAudio.volume)
             .delay(data.itemAudio.delay)
             .repeats(data.itemAudio.repeat, data.projectileDelay)
+            .startTime(data.itemAudio.startTime)
     }
     aaSeq.effect()
         .file(projectileAnimation.file)
@@ -178,6 +185,7 @@ export async function fireball(handler, animationData, config) {
             .volume(data.exAudio01.volume)
             .delay(data.exAudio01.delay)
             .repeats(data.exAudio01.repeat, data.explosion01Delay)
+            .startTime(data.exAudio01.startTime)
     }
     if (data.explosion01 !== "a1") {
         aaSeq.effect()
@@ -193,6 +201,7 @@ export async function fireball(handler, animationData, config) {
             .volume(data.exAudio02.volume)
             .delay(data.exAudio02.delay)
             .repeats(data.exAudio02.repeat, data.explosion02Delay)
+            .startTime(data.exAudio02.startTime)
     }
     if (data.explosion02 !== "a1") {
         aaSeq.effect()

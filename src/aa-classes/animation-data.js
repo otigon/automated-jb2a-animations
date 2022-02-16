@@ -24,12 +24,14 @@ export class AAanimationData {
                     .volume(data.itemAudio.volume)
                     .delay(data.itemAudio.delay)
                     .repeats(data.itemAudio.repeat, data.delay)
+                    .startTime(data.itemAudio.startTime)
             } else {
                 soundSeq.sound()
                     .file(data.switchAudio.file, true)
                     .volume(data.switchAudio.volume)
                     .delay(data.switchAudio.delay)
                     .repeats(data.switchAudio.repeat, data.delay)
+                    .startTime(data.switchAudio.startTime)
             }
         }
         if (data.explosion.playSound && soundSettings.explosionSound) {
@@ -39,6 +41,7 @@ export class AAanimationData {
                 .delay(data.explosion?.audio?.delay + data.explosion?.delay)
                 .volume(data.explosion?.audio?.volume)
                 .repeats(data.explosion?.audio?.repeat, data.delay)
+                .startTime(data.explosion?.audio?.startTime)
         }
         if (targetFX.playSound && soundSettings.targetSound) {
             soundSeq.sound()
@@ -46,6 +49,7 @@ export class AAanimationData {
                 .volume(targetFX.itemAudio?.volume)
                 .delay(targetFX.itemAudio?.delay + targetFX.startDelay)
                 .repeats(targetFX.itemAudio?.repeat, targetFX.itemAudio?.soundDelay)
+                .startTime(targetFX.itemAudio?.startTime)
         }
         return soundSeq;
     }
@@ -92,14 +96,15 @@ export class AAanimationData {
                 volume: data.audio?.a01?.volume || 0.25,
                 delay: data.audio?.a01?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : data.repeat || 1,
+                startTime: data.audio?.a01?.startTime || 0,
             }
 
             data.soundOnly = {
-                enable: data.soundOnly?.enable || false,
+                enable: data.soundOnly?.enable ?? false,
                 file: data.soundOnly?.file ?? "",
-                volume: data.soundOnly?.volume || 0.25,
-                delay: data.soundOnly?.delay || 0,
-                //repeat: handler.decoupleSound ? 1 : data.repeat || 1,
+                volume: data.soundOnly?.volume ?? 0.25,
+                delay: data.soundOnly?.delay ?? 0,
+                startTime: data.soundOnly?.startTime ?? 0,
             }
 
             data.switchAnimation = data.switchType === "custom" ? data.switchAnimation || "" : data.animation || "";
@@ -115,6 +120,7 @@ export class AAanimationData {
                 volume: data.audio?.a02?.volume || 0.25,
                 delay: data.audio?.a02?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : data.repeat || 1,
+                startTime: data.audio?.a02?.startTime || 0,
             }
 
             data.removeTemplate = data.removeTemplate || false;
@@ -125,7 +131,7 @@ export class AAanimationData {
             data.ignoreTargets = data.ignoretargets || false;
             data.playSound = data.itemAudio.enable && data.itemAudio.file ? true : false;
 
-            data.explosion = await this._explosionData(handler, true)
+            data.explosion = await this._explosionData(handler, data)
 
             data.macro = {
                 enabled: data.macro?.enable ?? false,
@@ -188,6 +194,7 @@ export class AAanimationData {
                     volume: flags.audio?.a01?.volume || 0.25,
                     delay: flags.audio?.a01?.delay || 0,
                     repeat: handler.decoupleSound ? 1 : options.repeat || 1,
+                    startTime: flags.audio?.a01?.startTime || 0,
                 },
 
                 switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation || "" : flags.animation || "",
@@ -203,6 +210,7 @@ export class AAanimationData {
                     volume: flags.audio?.a02?.volume || 0.25,
                     delay: flags.audio?.a02?.delay || 0,
                     repeat: handler.decoupleSound ? 1 : options.repeat || 1,
+                    startTime: flags.audio?.a02?.startTime || 0,
                 },
                 explosion: await this._explosionData(handler, false),
 
@@ -224,27 +232,29 @@ export class AAanimationData {
 
     static async _explosionData(handler, autorec) {
         if (autorec) {
+            const explosions = autorec.explosion ?? {};
             const explosion = {
-                enabled: false,
-                animation: "",
-                variant: "",
-                color: "",
-                delay: 1,
-                radius: 1.5,
-                enableCustom: false,
-                customPath: false,
-                below: false,
+                enabled: explosions.enable || false,
+                animation: explosions.animation || "",
+                variant: explosions.variant ?? "",
+                color: explosions.color || "",
+                delay: (explosions.delay || 1) + 500,
+                radius: explosions.radius || 1.5,
+                enableCustom: explosions.custom || false,
+                customPath: explosions.custom ? explosions.customPath : false,
+                below: explosions.below || false,
                 audio: {
-                    enable: false,
-                    //file: handler.audio?.e01?.file,
-                    volume: 0.25,
-                    delay: 0,
-                    repeat: 1,
-                }
-            }
-            explosion.data = "";
-            explosion.scale = 1;
-
+                    enable: autorec.audio?.e01?.enable || false,
+                    file: autorec.audio?.e01?.file ?? "",
+                    volume: autorec.audio?.e01?.volume || 0.25,
+                    delay: autorec.audio?.e01?.delay || 0,
+                    repeat: handler.decoupleSound ? 1 : autorec.repeat || 1,
+                    startTime: autorec.audio?.e01?.startTime || 0,
+                },
+            };
+            explosion.playSound = explosion.enabled && explosion.audio?.enabled && explosion.audio?.file !== "";
+            explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
+            explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             return explosion;
         } else {
             const explosions = handler.flags.explosions || {};
@@ -264,6 +274,7 @@ export class AAanimationData {
                     volume: handler.flags.audio?.e01?.volume || 0.25,
                     delay: handler.flags.audio?.e01?.delay || 0,
                     repeat: handler.decoupleSound ? 1 : handler.flags?.options?.repeat || 1,
+                    startTime: handler.flags.audio?.e01?.startTime || 0,
                 },
             };
             explosion.playSound = explosion.enabled && explosion.audio?.enabled && explosion.audio?.file !== "";
@@ -294,6 +305,7 @@ export class AAanimationData {
                 volume: handler.flags.audio?.s01?.volume || 0.25,
                 delay: handler.flags.audio?.s01?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : source.loops || 1,
+                startTime: handler.flags.audio?.s01?.startTime || 0,
             },
         }
 
@@ -310,6 +322,7 @@ export class AAanimationData {
                 .file(sourceFX.itemAudio.file, true)
                 .volume(sourceFX.itemAudio.volume)
                 .delay(sourceFX.itemAudio.delay)
+                .startTime(sourceFX.itemAudio.startTime)
         }
         if (sourceFX.enabled) {
             sourceFX.sourceSeq.effect()
@@ -349,6 +362,7 @@ export class AAanimationData {
                 delay: handler.flags.audio?.t01?.delay || 0,
                 repeat: handler.decoupleSound ? 1 : target.loops || 1,
                 soundDelay: handler.decoupleSound ? 1 : target.loopDelay || 250,
+                startTime: handler.flags.audio?.t01?.startTime || 0,
             },
         }
 

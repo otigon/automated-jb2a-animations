@@ -50,10 +50,17 @@ export async function trafficCop(handler, config) {
         if (handler.soundNoAnimation || handler.macroOnly) {
             let aaSeq = new Sequence()
             if (handler.soundNoAnimation) {
+                const sound = {
+                    file: handler.flags?.audio?.a01?.file ?? "",
+                    volume: handler.flags?.audio?.a01?.volume ?? 0.75,
+                    delay: handler.flags?.audio?.a01?.delay ?? 0,
+                    startTime: handler.flags?.audio?.a01?.startTime ?? 0,
+                }
                 aaSeq.sound()
-                    .file(handler.flags?.audio?.a01?.file)
-                    .volume(handler.flags?.audio?.a01?.volume)
-                    .delay(handler.flags?.audio?.a01?.delay)
+                    .file(sound.file)
+                    .volume(sound.volume)
+                    .delay(sound.delay)
+                    .startTime(sound.startTime)
             }
             if (handler.macroOnly) {
                 let userData = handler.flags?.macro?.args ? handler.flags.macro.args.split(',').map(s => s.trim()) : "";
