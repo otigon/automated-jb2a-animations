@@ -111,6 +111,12 @@
                     <i class="fas fa-music"></i>
                 </button>
             </div>
+            <!--Set Sound Start Time-->
+            <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
+                <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
+                <input type="Number" name="flags.autoanimations.audio.e01.startTime" step="1"
+                    value="{{flags.autoanimations.audio.e01.startTime}}" placeholder=0>
+            </div>
             <!--Explosion Audio Delay-->
             <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                 <label>{{localize "AUTOANIM.delay"}}</label>

@@ -51,8 +51,8 @@ export class AAItemSettings extends FormApplication {
         const animType = flags.autoanimations?.animType;
         const templateType = flags.autoanimations?.options?.tempType ?? "";
 
-        const animationRepeat = flags.autoanimations?.options?.repeat > 50 ? 50 : flags.autoanimations?.options?.repeat;
-        const explosionLoops = flags.autoanimations?.explosions?.repeat > 50 ? 50 : flags.autoanimations?.explosions?.repeat;
+        //const animationRepeat = flags.autoanimations?.options?.repeat > 50 ? 50 : flags.autoanimations?.options?.repeat;
+        //const explosionLoops = flags.autoanimations?.explosions?.repeat > 50 ? 50 : flags.autoanimations?.explosions?.repeat;
         const returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
 
         const autoCheck = AutorecFunctions._checkAutoRec(oldName);
@@ -245,12 +245,14 @@ export class AAItemSettings extends FormApplication {
         html.find('.files').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        /*
         html.find('.aa-audio-checkbox input[type="checkbox"]').click(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.aa-audio-checkbox input[type="Number"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        */
         html.find('.sourceOptions input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });

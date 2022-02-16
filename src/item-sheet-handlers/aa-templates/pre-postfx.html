@@ -123,6 +123,12 @@
                     <i class="fas fa-music"></i>
                 </button>
             </div>
+            <!--Set Sound Start Time-->
+            <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
+                <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
+                <input type="Number" name="flags.autoanimations.audio.s01.startTime" step="1"
+                    value="{{flags.autoanimations.audio.s01.startTime}}" placeholder=0>
+            </div>
             <!--Audio Volume-->
             <div class="flexcol" style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                 <label>{{localize "AUTOANIM.volume"}}</label>
@@ -299,6 +305,12 @@
                     data-target="flags.autoanimations.audio.t01.file" tabindex="-1" title="Browse Files">
                     <i class="fas fa-music"></i>
                 </button>
+            </div>
+            <!--Set Sound Start Time-->
+            <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
+                <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
+                <input type="Number" name="flags.autoanimations.audio.t01.startTime" step="1"
+                    value="{{flags.autoanimations.audio.t02.startTime}}" placeholder=0>
             </div>
             <!--Audio Volume-->
             <div class="flexcol" style='grid-row: 2 / 3;grid-column: 2 / 3;'>

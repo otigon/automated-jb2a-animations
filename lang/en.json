@@ -601,5 +601,6 @@
     "AUTOANIM.awaitmacro": "Await Macro Completion",
     "AUTOANIM.macroonly": "Macro only, No Animation",
 
-    "AUTOANIM.options": "Options"
+    "AUTOANIM.options": "Options",
+    "AUTOANIM.time": "Time"
 }

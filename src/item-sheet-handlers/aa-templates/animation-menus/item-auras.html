@@ -107,6 +107,12 @@
                 <i class="fas fa-music"></i>
             </button>
         </div>
+        <!--Set Sound Start Time-->
+        <div class="flexcol" style='grid-row: 2 / 3;grid-column: 1 / 2;'>
+            <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
+            <input type="Number" name="flags.autoanimations.audio.a01.startTime" step="1"
+                value="{{flags.autoanimations.audio.a01.startTime}}" placeholder=0>
+        </div>
         <!--Audio Volume-->
         <div class="flexcol" style='grid-row: 2 / 3;grid-column: 2 / 3;'>
             <label>{{localize "AUTOANIM.volume"}}</label>
@@ -119,6 +125,18 @@
             <input type="Number" name="flags.autoanimations.audio.a01.delay" min="0"
                 value="{{flags.autoanimations.audio.a01.delay}}" placeholder=0>
         </div>
+    </div>
+    {{/if}}
+    <div class='aa-checkbox-label' style="text-align: center;">
+        <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+            <label style="font-size: large;">{{localize "AUTOANIM.animPreview"}}</label>
+            <input type="checkbox" name="flags.autoanimations.preview" {{checked flags.autoanimations.preview}}>
+        </div>
+    </div>
+    <div class="aa-subSection-divider"></div>
+    {{#if flags.autoanimations.preview}}
+    <div class="aa-video">
+        {{{content}}}
     </div>
     {{/if}}
 </div>
