@@ -279,7 +279,9 @@ export class AASystemData {
         const itemId = item.id;
         const tokenId = input.info?.speaker?.token;
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != undefined);
-        const targets = Array.from(input.targets);
+
+        let targets = Array.from(input.targets).filter(actor => actor.parent.object).map(actor => actor.parent.object);
+
         if (!item || !token) { return {}; }
 
         return { item, token, targets };

@@ -231,25 +231,27 @@ Hooks.once('ready', function () {
                 break;
             case "wfrp4e":
                 Hooks.on("wfrp4e:rollWeaponTest", async (data, info) => {
-                    let targets = game.user.targets;
-                    wfrpWeapon(data, targets, info)
+                    //let targets = game.user.targets;
+                    wfrpWeapon(data, info)
                 });
                 Hooks.on("wfrp4e:rollPrayerTest", async (data, info) => {
-                    let targets = game.user.targets;
-                    wfrpPrayer(data, targets, info)
+                    //let targets = game.user.targets;
+                    wfrpPrayer(data, info)
                 });
                 Hooks.on("wfrp4e:rollCastTest", async (data, info) => {
-                    let targets = game.user.targets;
-                    wfrpCast(data, targets, info)
+                    //let targets = game.user.targets;
+                    wfrpCast(data, info)
                 });
                 Hooks.on("wfrp4e:rollTraitTest", async (data, info) => {
-                    let targets = game.user.targets;
-                    wfrpTrait(data, targets, info)
+                    //let targets = game.user.targets;
+                    wfrpTrait(data, info)
                 });
+                /*
                 Hooks.on("wfrp4e:rollTest", async (data, info) => {
                     let targets = game.user.targets;
                     wfrpSkill(data, targets, info)
                 });
+                */
                 break;
             case 'ose':
                 Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
@@ -654,10 +656,10 @@ async function pf2eReady(msg) {
 /*
 / WFRP Functions
 */
-async function wfrpWeapon(data, targets, info) {
+async function wfrpWeapon(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.weapon, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.weapon, targets: data.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -666,10 +668,10 @@ async function wfrpWeapon(data, targets, info) {
             trafficCop(handler);
     }
 }
-async function wfrpPrayer(data, targets, info) {
+async function wfrpPrayer(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.prayer, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.prayer, targets: data.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -678,10 +680,10 @@ async function wfrpPrayer(data, targets, info) {
             trafficCop(handler);
     }
 }
-async function wfrpCast(data, targets, info) {
+async function wfrpCast(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.spell, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.spell, targets: data.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -690,10 +692,10 @@ async function wfrpCast(data, targets, info) {
             trafficCop(handler);
     }
 }
-async function wfrpTrait(data, targets, info) {
+async function wfrpTrait(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.trait, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.trait, targets: data.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -702,10 +704,11 @@ async function wfrpTrait(data, targets, info) {
             trafficCop(handler);
     }
 }
-async function wfrpSkill(data, targets, info) {
+/*
+async function wfrpSkill(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.skill, targets: targets, info: info });
+    let handler = await systemData.make({ item: data.skill, targets: data.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -714,7 +717,7 @@ async function wfrpSkill(data, targets, info) {
             trafficCop(handler);
     }
 }
-
+*/
 async function oseReady(input) {
     if (killAllAnimations) { return; }
     if (input.user.id !== game.user.id) { return };
