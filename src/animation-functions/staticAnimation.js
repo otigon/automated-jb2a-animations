@@ -38,6 +38,7 @@ export async function staticAnimation(handler, animationData) {
     aaSeq.thenDo(function () {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
+    let explosionSound = false;
     if (data.staticType === "source" || data.staticType === "sourcetarget" || (data.staticType === "targetDefault" && handler.allTargets.length < 1)) {
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
         const playPersist = (!checkAnim && data.persistent) ? true : false;
@@ -83,8 +84,19 @@ export async function staticAnimation(handler, animationData) {
             if (checkAnim) { aaEffect.playIf(false); }
 
         }
+
+        if (data.explosion.enabled) {
+            aaSeq.effect()
+                .atLocation("spot" + ` ${sourceToken.id}`)
+                .file(data.explosion?.data?.file, true)
+                .scale({ x: data.explosion?.scale, y: data.explosion?.scale })
+                .delay(data.explosion?.delay)
+                .repeats(data.repeat, data.delay)
+                .belowTokens(data.explosion?.below)
+                .playIf(data.explosion?.enabled)
+        }
+        explosionSound = true;
     }
-    let explosionSound = false;
     let targetSound = false;
     // Target Effect sections
     if ((data.staticType === 'target' || data.staticType === 'targetDefault' || data.staticType === 'sourcetarget') && handler.allTargets.length > 0) {

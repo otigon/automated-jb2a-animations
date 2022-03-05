@@ -1,6 +1,6 @@
 import { buildFile } from "./file-builder/build-filepath.js";
 import { socketlibSocket } from "../socketset.js";
-import { thunderwaveAuto } from "./thunderwave.js"
+//import { thunderwaveAuto } from "./thunderwave.js"
 import { aaDebugger } from "../constants/constants.js"
 import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -74,6 +74,11 @@ export async function templateAnimation(handler, animationData, config) {
                 loop: true,
                 volume: 0,
             },
+            flags: {
+                autoanimations: {
+                    origin: handler.item.uuid,
+                }
+            },
             x: tileX,
             y: tileY,
             z: 100,
@@ -81,6 +86,7 @@ export async function templateAnimation(handler, animationData, config) {
         let aaSeq = await new Sequence("Automated Animations")
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
+            handler.templateData = template;
             let userData = data.macro.args;
             aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
         }
@@ -116,6 +122,7 @@ export async function templateAnimation(handler, animationData, config) {
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
+            handler.templateData = template;
             aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
         }
         // Extra Effects => Source Token if active
@@ -189,6 +196,8 @@ export async function templateAnimation(handler, animationData, config) {
             }
         }
         if (data.playMacro && data.macro.playWhen === "0") {
+            handler.templateData = template;
+            //console.log(handler)
             let userData = data.macro.args;
             new Sequence()
                 .macro(data.macro.name, handler.workflow, handler, ...userData)

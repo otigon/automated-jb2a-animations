@@ -1,3 +1,9 @@
+2.1.3 **Fixes and Changes**  
+* Added a missing option in the Automatic Recognition Menu for macros: Only Macro, no Animation. This will disregard any animation settings to allow you to only run a macro when the item is rolled.  
+* Added missing "explosions" for the On Token menu when the Play On field was set to Source Token  
+* In most cases, the Template Data should now be passed to the Macro ARGS  
+* Added the item UUID tag to Persistent effects placed as Tiles under ``tile.data.flags.autoanimations.origin``  
+  
 2.0.0 **Macro Support**  
 **BREAKING** With the addition of Macros into A-A, the Advanced Macros module is required to use this feature. This will not be set as a dependency since it is an optional feature of the Module.  
 * Adds the ability to use Custom Macros on all Item and Automatic Recognition Menus. **See the WIKI for detailed information on how to use these at** https://github.com/otigon/automated-jb2a-animations/wiki/Adding-Macros.  

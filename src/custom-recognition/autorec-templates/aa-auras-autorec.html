@@ -88,7 +88,7 @@
                 <div class="aa-primary-container">
                     <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.animation'}}</label>
-                        <select name="aaAutorec.auras.{{idx}}.animation" style="min-width: 15em;" {{#if (lookup (lookup
+                        <select name="aaAutorec.auras.{{idx}}.animation" {{#if (lookup (lookup
                             ../settings.aaAutorec.auras idx) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup ../settings.aaAutorec.auras idx)
                             'animation')}}
@@ -100,7 +100,7 @@
                     </div>
                     <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.variant'}}</label>
-                        <select name="aaAutorec.auras.{{idx}}.variant" sytle="width:5em" {{#if (lookup (lookup
+                        <select name="aaAutorec.auras.{{idx}}.variant" {{#if (lookup (lookup
                             ../settings.aaAutorec.auras idx) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup ../settings.aaAutorec.auras idx) 'variant')}}
                             <option value=""> </option>
@@ -265,6 +265,7 @@
                             'playWhen' )}}
                             <option value="0">{{localize 'AUTOANIM.macroconcurrent'}}</option>
                             <option value="1">{{localize 'AUTOANIM.awaitmacro'}}</option>
+                            <option value="2">{{localize 'AUTOANIM.macroonly'}}</option>
                             {{/select}}
                         </select>
                     </div>

@@ -17,7 +17,7 @@ export class AAanimationData {
         //const sourceFX = flagData.sourceFX;
         const targetFX = soundSettings.animationData.targetFX;
         let soundSeq = new Sequence();
-        if (data.playSound || data.playSwitchSound) {
+        if (data.playSound || (data.playSwitchSound && soundSettings.switchSound)) {
             if (!soundSettings.switchSound) {
                 soundSeq.sound()
                     .file(data.itemAudio.file, true)

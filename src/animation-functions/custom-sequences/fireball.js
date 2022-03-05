@@ -158,6 +158,7 @@ export async function fireball(handler, animationData, config) {
     }
     // Play Macro if Awaiting
     if (data.playMacro && data.macro.playWhen === "1") {
+        handler.templateData = config;
         let userData = data.macro.args;
         aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
     }
@@ -223,6 +224,7 @@ export async function fireball(handler, animationData, config) {
             .fadeOut(500)
     }
     if (data.playMacro && data.macro.playWhen === "0") {
+        handler.templateData = config;
         let userData = data.macro.args;
         new Sequence()
             .macro(data.macro.name, handler.workflow, handler, ...userData)
