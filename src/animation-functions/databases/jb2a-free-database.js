@@ -769,6 +769,11 @@ JB2AFREEDB.static = {
             blue: [lg`Energy/EnergyFieldTop_02_Regular_Blue_400x400.webm`],
         }
     },
+    eruption: {
+        '01': {
+            orange: [lg`Fire/Eruption_01_Regular_Orange_600x600.webm`]
+        },
+    },
     fear: {
         '01': {
             darkpurple: [lg`Marker/MarkerFear_01_Dark_Purple_400x400.webm`],
@@ -980,12 +985,17 @@ JB2AFREEDB.static = {
             green: [l2`Darkness/Darkness_01_Green_600x600.webm`],
         }
     },
+    detectmagic: {
+        '01': {
+            blue: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Blue_1200x1200.webm`],
+        }
+    },
     divinesmite: {
-        'caster': {
-            blueyellow: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400`],
+        'source': {
+            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400`],
         },
         'target': {
-            blueyellow: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400`],
+            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400`],
         }
     },
     dizzystars: {

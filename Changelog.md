@@ -1,3 +1,7 @@
+2.1.4 **Database Fixes**  
+* Corrected some items in the Free JB2A database (Eruption and Divine Smite)  
+* Added Detect Magic to the Aura and Template menus  
+  
 2.1.3 **Fixes and Changes**  
 * Added a missing option in the Automatic Recognition Menu for macros: Only Macro, no Animation. This will disregard any animation settings to allow you to only run a macro when the item is rolled.  
 * Added missing "explosions" for the On Token menu when the Play On field was set to Source Token  

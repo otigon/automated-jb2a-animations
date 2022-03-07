@@ -792,8 +792,8 @@
                         <label>{{localize 'AUTOANIM.gridMeasure'}}</label>
                         <select name="aaAutorec.preset.{{idx}}.measureType">
                             {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'measureType')}}
-                            <option value="alternating"> 5/10/5 </option>
-                            <option value="equidistant"> 5/5/5 </option>
+                            <option value="alternating">{{localize 'AUTOANIM.circle'}}</option>
+                            <option value="equidistant">{{localize 'AUTOANIM.square'}}</option>
                             {{/select}}
                         </select>
                     </div>

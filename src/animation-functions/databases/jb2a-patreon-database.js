@@ -3857,6 +3857,15 @@ JB2APATREONDB.static = {
             green: [l2`Darkness/Darkness_01_Green_600x600.webm`]
         }
     },
+    detectmagic: {
+        '01': {
+            blue: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Blue_1200x1200.webm`],
+            green: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Green_1200x1200.webm`],
+            greenorange: [l1`Detect_Magic/DetectMagicCircle_01_Regular_GreenOrange_1200x1200.webm`],
+            grey: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Grey_1200x1200.webm`],
+            purple: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Purple_1200x1200.webm`],
+        }
+    },
     divinesmite: {
         'source': {
             yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
