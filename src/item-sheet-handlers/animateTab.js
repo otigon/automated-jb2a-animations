@@ -2,7 +2,7 @@ import { aaMenuLists } from "./menu-lists.js";
 import { AATabFunctions } from "../aa-classes/tab-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 //import { AAITEMCHECK } from "../animation-functions/item-arrays.js"
-import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
+import { aaTypeMenu, aaNameMenu, aaVariantMenu, aaColorMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 import { flagMigrations } from "../system-handlers/flagMerge.js";
 
 export class AAItemSettings extends FormApplication {
@@ -82,6 +82,11 @@ export class AAItemSettings extends FormApplication {
             menuLists: aaMenuLists,
             projectile: aaMenuLists.attackSpells,
             OldName: oldName,
+
+            menuTypes: aaTypeMenu,
+            menuNames: aaNameMenu,
+            menuVariants: aaVariantMenu,
+            menuColors: aaColorMenu,
 
             showMacroOption: flags.autoanimations?.killAnim || flags.autoanimations?.override ? true : false,
             isMacroChecked: flags.autoanimations?.killAnim || flags.autoanimations?.override ? flags.autoanimations?.macro?.enable : false,

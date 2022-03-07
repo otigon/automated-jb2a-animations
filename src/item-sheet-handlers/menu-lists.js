@@ -218,8 +218,8 @@ function menuLists() {
 
     aaMenuLists.bardAnimType = {
         'a1': ``,
-        'bardicinspiration': game.i18n.localize("AUTOANIM.bardicInspiration"),
-        'music': game.i18n.localize("AUTOANIM.musicNotes"),
+        'bardicinspiration': game.i18n.localize("AUTOANIM.bardicinspiration"),
+        'music': game.i18n.localize("AUTOANIM.musicnote"),
     }
 
     aaMenuLists.templateType = {
