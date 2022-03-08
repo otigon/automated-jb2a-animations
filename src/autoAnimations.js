@@ -515,7 +515,7 @@ async function swadeData(SwadeTokenOrActor, SwadeItem) {
 */
 async function starFinder(data, msg) {
     if (killAllAnimations) { return; }
-    const sfrpgData = {data, msg}
+    const sfrpgData = { data, msg }
     const handler = await systemData.make(sfrpgData)
     //let tokenId = msg.data.speaker.token;
     //let sourceToken = canvas.tokens.get(tokenId);
@@ -734,9 +734,19 @@ async function oseReady(input) {
 async function dccReady(input) {
     if (killAllAnimations) { return; }
     if (input.user.id !== game.user.id) { return };
-    let handler = await systemData.make(input)
-    if (!handler.item || !handler.sourceToken) {
-        return;
+
+    if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
+        let handler = await systemData.make(input)
+        if (!handler.item || !handler.sourceToken) {
+            return;
+        }
+        trafficCop(handler);
+    } else if (input.data?.flags?.dcc?.RollType === "Damage" || input.data?.flags?.dcc?.RollType === "SpellCheck") {
+        let handler = await systemData.make(input)
+        if (!handler.item || !handler.sourceToken) {
+            return;
+        }
+        trafficCop(handler);
     }
-    trafficCop(handler);
+
 }
