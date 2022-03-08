@@ -616,6 +616,19 @@
     "AUTOANIM.sparkles": "Sparkles",
     "AUTOANIM.energyfield": "Energy Field",
     "AUTOANIM.boulderimpact": "Boulder Impact",
-    "AUTOANIM.eldritchweb": "Eldritch Web"
+    "AUTOANIM.eldritchweb": "Eldritch Web",
+    "AUTOANIM.abjuration": "Abjuration",
+    "AUTOANIM.conjuration": "Conjuration",
+    "AUTOANIM.divination": "Divination",
+    "AUTOANIM.enchantment": "Enchantment",
+    "AUTOANIM.evocation": "Evocation",
+    "AUTOANIM.illusion": "Illusion",
+    "AUTOANIM.necromancy": "Necromancy",
+    "AUTOANIM.transmutation": "Transmutation",
+    "AUTOANIM.shimmer": "Shimmer",
+    "AUTOANIM.fireworks": "Fireworks",
+    "AUTOANIM.groundcrack": "Ground Cracks",
+    "AUTOANIM.greenred": "Green Red",
+    "AUTOANIM.orangeyellow": "Orange Yellow"
 
 }

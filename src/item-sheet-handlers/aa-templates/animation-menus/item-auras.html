@@ -39,7 +39,7 @@
                 disabled {{/if }}>
                 {{#select flags.autoanimations.options.variant}}
                 <option value=""> </option>
-                {{#each (lookup (lookup menuVariants.static (lookup flags.autoanimations.options 'staticOptions')) (lookup flags.autoanimations 'animation')) as |name key|}}
+                {{#each (lookup (lookup menuVariants.static flags.autoanimations.options.staticOptions) flags.autoanimations.animation) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -52,7 +52,7 @@
                 }}>
                 {{#select flags.autoanimations.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup (lookup menuColors.static (lookup flags.autoanimations.options 'staticOptions')) (lookup flags.autoanimations 'animation')) (lookup flags.autoanimations.options 'variant')) as |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.options.staticOptions) flags.autoanimations.animation) flags.autoanimations.options.variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
