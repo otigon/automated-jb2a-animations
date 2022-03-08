@@ -26,6 +26,7 @@ export class AATabFunctions {
     }
 
     static _customPreview(itemFlags, patreon) {
+
         const flags = itemFlags?.autoanimations;
         const jb2a = patreon? JB2APATREONDB : JB2AFREEDB;
         const colorMenu = aaColorMenu;
@@ -35,30 +36,32 @@ export class AATabFunctions {
         const data = {
             newName: flags.animation,
             type: flags.animType || "",
+            menuType: flags.options.menuType || false,
             variant: flags.options?.variant,
             color: flags.color,
             dbPath: this._dbPath(flags.animType),
         };
+        if (!data.menuType) { return; }
 
         let file = 'no preview';
 
-        const variantChoices = variantMenu[data.dbPath][data.newName];
+        const variantChoices = variantMenu[data.dbPath][data.menuType][data.newName];
         if (!variantChoices) { return file; }
         const variantCheck = this._variantCheck(data, variantMenu, jb2a)
         data.variant = variantCheck.defaultVariant;
 
-        const colorChoices = colorMenu[data.dbPath][data.newName][data.variant];
+        const colorChoices = colorMenu[data.dbPath][data.menuType][data.newName][data.variant];
         if (!colorChoices) { return file; }
         const colorCheck = this._colorCheck(data, colorMenu, jb2a)
         data.color = colorCheck.defaultColor.toLowerCase();
 
         switch (true) {
             case data.type === 'range':
-                try { file = jb2a[data.dbPath][data.newName][data.variant][data.color][Object.keys(jb2a[data.dbPath][data.newName][data.variant][data.color])[1]][0] }
+                try { file = jb2a[data.dbPath][data.menuType][data.newName][data.variant][data.color][Object.keys(jb2a[data.dbPath][data.menuType][data.newName][data.variant][data.color])[1]][0] }
                 catch (exception) { }
                 break;
             default:
-                try { file = jb2a[data.dbPath][data.newName][data.variant][data.color][0] }
+                try { file = jb2a[data.dbPath][data.menuType][data.newName][data.variant][data.color][0] }
                 catch (exception) { }
         }
 
@@ -68,9 +71,9 @@ export class AATabFunctions {
     static _variantCheck(data, variantMenu, jb2a) {
         let defaultVariant = data.variant;
         let inPlace = true;
-        if (!Object.keys(jb2a[data.dbPath][data.newName]).includes(data.variant)) {
+        if (!Object.keys(jb2a[data.dbPath][data.menuType][data.newName]).includes(data.variant)) {
             inPlace = false;
-            defaultVariant = variantMenu[data.dbPath][data.newName][Object.keys(variantMenu[data.dbPath][data.newName])[0]]
+            defaultVariant = variantMenu[data.dbPath][data.menuType][data.newName][Object.keys(variantMenu[data.dbPath][data.menuType][data.newName])[0]]
         }
         return { inPlace, defaultVariant };
     }
@@ -78,9 +81,9 @@ export class AATabFunctions {
     static _colorCheck(data, colorMenu, jb2a) {
         let defaultColor = data.color;
         let inPlace = true;
-        if (!Object.keys(jb2a[data.dbPath][data.newName][data.variant]).includes(data.color)) {
+        if (!Object.keys(jb2a[data.dbPath][data.menuType][data.newName][data.variant]).includes(data.color)) {
             inPlace = false;
-            defaultColor = colorMenu[data.dbPath][data.newName][data.variant][Object.keys(colorMenu[data.dbPath][data.newName][data.variant])[0]]
+            defaultColor = colorMenu[data.dbPath][data.menuType][data.newName][data.variant][Object.keys(colorMenu[data.dbPath][data.menuType][data.newName][data.variant])[0]]
         }
         return { inPlace, defaultColor };
     }
@@ -91,6 +94,8 @@ export class AATabFunctions {
                 return 'melee';
             case 'range':
                 return 'range';
+            case 'template':
+                return 'templatefx';
             default:
                 return 'static';
         }
