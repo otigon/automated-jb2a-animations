@@ -299,6 +299,19 @@ export class AASystemData {
         return { item, token, targets };
     }
 
+    static async dcc(input) {
+        const itemId = input.data?.flags?.dcc?.ItemId;
+        const tokenId = input.data?.speaker?.token;
+        if (!itemId) { return {}; }
+        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+        const item = token.actor?.items?.get(itemId)
+        if (!token || !item) { return {}; }
+        const targets = Array.from(input.user.targets);
+        
+        return { item, token, targets };
+
+    }
+
     static _extractItemId(content) {
         try {
             return $(content).attr("data-item-id");
