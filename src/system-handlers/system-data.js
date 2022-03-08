@@ -13,7 +13,7 @@ export default class systemData {
 
         const flags = await flagMigrations.handle(data.item);
 
-        return new systemData(data, flags, msg)
+        return new systemData(data, flags, msg);
     }
 
     constructor(systemData, flagData, msg) {
@@ -75,6 +75,18 @@ export default class systemData {
         this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
         this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(this.autorecSettings, 'templates'), this.rinsedName);
         this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+
+        // If there is no match and there are alternative names, then attempt to use those names instead
+        if (!this.autorecObject && data.extraNames?.length) {
+            for (const name of data.extraNames) {
+                const rinsedName = AutorecFunctions._rinseName(name);
+                this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, rinsedName);
+                if (this.autorecObject) {
+                    this.rinsedName = rinsedName;
+                    break;
+                }
+            }
+        }
 
         this.isAutorecFireball = false;
         this.isAutorecAura = false;

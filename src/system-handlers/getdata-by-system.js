@@ -189,7 +189,15 @@ export class AASystemData {
         } else {
             hitTargets = targets;
         }
-        return { item, token, targets, hitTargets };
+
+        const extraNames = [];
+        if (item.type === "weapon") {
+            const baseType = game.i18n.localize(CONFIG.PF2E.baseWeaponTypes[item.baseType]);
+            const group = game.i18n.localize(CONFIG.PF2E.weaponGroups[item.group]);
+            extraNames.push(baseType, group);
+        }
+
+        return { item, token, targets, hitTargets, extraNames };
     }
 
     static async forbiddenlands(input) {
