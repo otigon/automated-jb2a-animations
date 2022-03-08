@@ -171,7 +171,8 @@ export class AAanimationData {
                 customPath: options.enableCustom ? options.customPath : false,
                 customPath02: options.enableCustom02 ? options.customPath02 : false,
                 staticType: options.staticType || "targetDefault",
-                menuType: options.staticOptions === 'shieldfx' ? true : false,
+                menuType: options.menuType || false,
+                isShieldFX: options.menuType === 'shieldfx' ? true : false,
                 anchorX: options.anchorX || 1,
                 anchorY: options.anchorY || 1,
                 auraRadius: options.auraRadius || 3.5,
@@ -203,6 +204,7 @@ export class AAanimationData {
                 detect: meleeSwitch.detect ?? "auto",
                 return: meleeSwitch.returning || false,
                 switchVariant: meleeSwitch.variant ?? "01",
+                switchMenuType: meleeSwitch.menuType || false,
                 range: meleeSwitch.range ?? 2,
                 switchAudio: {
                     enable: flags.audio?.a02?.enable || false,
@@ -234,6 +236,7 @@ export class AAanimationData {
         if (autorec) {
             const explosions = autorec.explosion ?? {};
             const explosion = {
+                menuType: explosions.menuType || false,
                 enabled: explosions.enable || false,
                 animation: explosions.animation || "",
                 variant: explosions.variant ?? "",

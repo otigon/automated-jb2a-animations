@@ -13,9 +13,9 @@
         <div class="aa-primary-container">
             <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
                 <label>{{localize 'AUTOANIM.type'}}</label>
-                <select name="flags.autoanimations.explosions.explosionType" {{#if
+                <select name="flags.autoanimations.explosions.menuType" {{#if
                     flags.autoanimations.explosions.enableCustom}} disabled {{/if }}>
-                    {{#select flags.autoanimations.explosions.explosionType}}
+                    {{#select flags.autoanimations.explosions.menuType}}
                     <option value=""> </option>
                     {{#each menuTypes.static as |name key|}}
                     <option value="{{key}}">{{name}}</option>
@@ -29,7 +29,7 @@
                     flags.autoanimations.explosions.enableCustom}} disabled {{/if }}>
                     {{#select flags.autoanimations.explosions.animation}}
                     <option value=""></option>
-                    {{#each (lookup menuNames.static flags.autoanimations.explosions.explosionType) as |name key|}}
+                    {{#each (lookup menuNames.static flags.autoanimations.explosions.menuType) as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
@@ -42,7 +42,7 @@
                     flags.autoanimations.explosions.enableCustom}} disabled {{/if }}>
                     {{#select flags.autoanimations.explosions.variant}}
                     <option value=""> </option>
-                    {{#each (lookup (lookup menuVariants.static flags.autoanimations.explosions.explosionType) flags.autoanimations.explosions.animation) as |name key|}}
+                    {{#each (lookup (lookup menuVariants.static flags.autoanimations.explosions.menuType) flags.autoanimations.explosions.animation) as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
@@ -55,7 +55,7 @@
                     flags.autoanimations.explosions.enableCustom}} disabled {{/if }}>
                     {{#select flags.autoanimations.explosions.color}}
                     <option value=""> </option>
-                    {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.explosions.explosionType) flags.autoanimations.explosions.animation) flags.autoanimations.explosions.variant) as |name key|}}
+                    {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.explosions.menuType) flags.autoanimations.explosions.animation) flags.autoanimations.explosions.variant) as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}

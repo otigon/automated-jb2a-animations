@@ -18,8 +18,8 @@ export async function teleportation(handler, animationData) {
         data.itemName02 = data.options?.name02 || "";
     }
 
-    const onToken = await buildFile(true, data.itemName01, "static", data.variant, data.color, data.customPath);
-    const onToken02 = await buildFile(true, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
+    const onToken = await buildFile(true, data.menuType, data.itemName01, "static", data.variant, data.color, data.customPath);
+    const onToken02 = await buildFile(true, data.menuType02, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
 
     if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, onToken, onToken02) }
 

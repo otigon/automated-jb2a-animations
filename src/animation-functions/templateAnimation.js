@@ -27,7 +27,7 @@ export async function templateAnimation(handler, animationData, config) {
         return;
     }
     */
-    const tempAnimation = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath)
+    const tempAnimation = await buildFile(true, data.menuType, data.animation, "templatefx", data.variant, data.color, data.customPath)
 
     if (handler.debug) { aaDebugger("Template Animation Start", animationData, tempAnimation) }
 
