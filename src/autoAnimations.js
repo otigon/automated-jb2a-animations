@@ -256,6 +256,9 @@ Hooks.once('ready', function () {
             case 'ose':
                 Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
                 break;
+            case 'dcc':
+                Hooks.on("createChatMessage", async (msg) => { dccReady(msg) });
+                break;
         }
     }
 
@@ -719,6 +722,16 @@ async function wfrpSkill(data, info) {
 }
 */
 async function oseReady(input) {
+    if (killAllAnimations) { return; }
+    if (input.user.id !== game.user.id) { return };
+    let handler = await systemData.make(input)
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    trafficCop(handler);
+}
+
+async function dccReady(input) {
     if (killAllAnimations) { return; }
     if (input.user.id !== game.user.id) { return };
     let handler = await systemData.make(input)
