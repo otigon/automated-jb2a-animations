@@ -1,5 +1,5 @@
 import { aaMenuLists } from "../item-sheet-handlers/menu-lists.js";
-import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js";
+import { aaTypeMenu, aaNameMenu, aaVariantMenu, aaColorMenu } from "../animation-functions/databases/jb2a-menu-options.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { autoRecMigration } from "./autoRecMerge.js";
 //import { aaAutorec } from "./aaAutoRecList.js";
@@ -32,6 +32,12 @@ export class aaAutoRecognition extends FormApplication {
     getData() {
         const patreon = moduleIncludes("jb2a_patreon")
         let data = super.getData();
+
+        data.menuTypes = aaTypeMenu,
+        data.menuNames = aaNameMenu,
+        data.menuVariants = aaVariantMenu,
+        data.menuColors = aaColorMenu,
+
         data.currentAutoVersion = Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
         data.settings = this.getSettingsData();
         data.genericProjectile = patreon ? aaMenuLists.genericProjectile : aaMenuLists.genericProjectileFree;

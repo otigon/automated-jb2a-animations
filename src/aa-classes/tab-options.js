@@ -44,7 +44,7 @@ export class AATabFunctions {
         if (!data.menuType) { return; }
 
         let file = 'no preview';
-
+        if (!variantMenu[data.dbPath][data.menuType]) {return file;}
         const variantChoices = variantMenu[data.dbPath][data.menuType][data.newName];
         if (!variantChoices) { return file; }
         const variantCheck = this._variantCheck(data, variantMenu, jb2a)

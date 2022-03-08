@@ -262,6 +262,7 @@ export class AAanimationData {
         } else {
             const explosions = handler.flags.explosions || {};
             const explosion = {
+                menuType: explosions.menuType || false,
                 enabled: explosions.enable || false,
                 animation: explosions.animation || "",
                 variant: explosions.variant ?? "",
@@ -281,7 +282,7 @@ export class AAanimationData {
                 },
             };
             explosion.playSound = explosion.enabled && explosion.audio?.enabled && explosion.audio?.file !== "";
-            explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
+            explosion.data = explosion.enabled ? await buildFile(true, explosion.menuType, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
             explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             return explosion;
         }
