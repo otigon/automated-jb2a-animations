@@ -80,7 +80,9 @@ export class AAanimationData {
             data.variant = autoOverridden ? handler.autorecOverrides?.variant : data.variant;
             data.variant02 = autoOverridden ? handler.autorecOverrides?.variant02 || "01" : data.variant02 || "01";
             data.persistent = autoOverridden ? handler.autorecOverrides?.persistent || false : data.persistent || false;
-            data.menuType = data.staticOptions === 'shieldfx' ? true : false;
+            data.menuType = data.menuType || false,
+            data.menuType02 = data.menuType02 || false,
+            data.isShieldFX = data.menuType === 'shieldfx' ? true : false,
             data.below = data.below ?? false;
             data.measureType = data.measureType ?? 'alternating';
             data.hideFromPlayers = false;
@@ -172,6 +174,7 @@ export class AAanimationData {
                 customPath02: options.enableCustom02 ? options.customPath02 : false,
                 staticType: options.staticType || "targetDefault",
                 menuType: options.menuType || false,
+                menuType02: options.menuType02 || false,
                 isShieldFX: options.menuType === 'shieldfx' ? true : false,
                 anchorX: options.anchorX || 1,
                 anchorY: options.anchorY || 1,

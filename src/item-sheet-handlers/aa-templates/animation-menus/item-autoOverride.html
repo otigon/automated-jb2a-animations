@@ -284,11 +284,22 @@
 </div>
 <div class="aa-itemSection-divider">
     <div class="aa-primary-container">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize 'AUTOANIM.animation'}}</label>
+            <select name="flags.autoanimations.autoOverride.fireball.rangeType">
+                {{#select flags.autoanimations.autoOverride.fireball.rangeType}}
+                {{#each menuTypes.range as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
         <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
             <label>{{localize 'AUTOANIM.animation'}}</label>
             <select name="flags.autoanimations.autoOverride.fireball.projectile">
                 {{#select flags.autoanimations.autoOverride.fireball.projectile}}
-                {{#each projectile as |name key|}}
+                <option value=""> </option>
+                {{#each (lookup menuNames.range flags.autoanimations.autoOverride.fireball.rangeType) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -297,11 +308,9 @@
         <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
             <label>{{localize 'AUTOANIM.variant'}}</label>
             <select name="flags.autoanimations.autoOverride.fireball.projectileVariant">
-                {{#select flags.autoanimations.fireball.projectileVariant}}
+                {{#select flags.autoanimations.autoOverride.fireball.projectileVariant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.range (lookup flags.autoanimations.autoOverride.fireball
-                'projectile')) as
-                |name key|}}
+                {{#each (lookup (lookup menuVariants.range flags.autoanimations.autoOverride.fireball.rangeType) flags.autoanimations.autoOverride.fireball.projectile) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -312,11 +321,7 @@
             <select name="flags.autoanimations.autoOverride.fireball.projectileColor">
                 {{#select flags.autoanimations.autoOverride.fireball.projectileColor}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.range flags.autoanimations.autoOverride.fireball.projectile)
-                flags.autoanimations.autoOverride.fireball.projectileVariant)
-                as
-                |name
-                key|}}
+                {{#each (lookup (lookup (lookup menuColors.range flags.autoanimations.autoOverride.fireball.rangeType) flags.autoanimations.autoOverride.fireball.projectile) flags.autoanimations.autoOverride.fireball.projectileVariant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -346,7 +351,7 @@
             <select name="flags.autoanimations.autoOverride.fireball.explosion01Color">
                 {{#select flags.autoanimations.autoOverride.fireball.explosion01Color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static fireball.explosion01) fireball.explosion01Variant) as
+                {{#each (lookup (lookup (lookup menuColors.static autoObject.ex01Type) autoObject.explosion01) autoObject.explosion01Variant) as
                 |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
@@ -366,8 +371,8 @@
             <select name="flags.autoanimations.autoOverride.fireball.explosion02Color">
                 {{#select flags.autoanimations.autoOverride.fireball.explosion02Color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static fireball.explosion02) fireball.explosion02Variant) as
-                |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static autoObject.ex02Type) autoObject.explosion02) autoObject.explosion02Variant) as
+                    |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -412,7 +417,7 @@
             <label>{{localize "AUTOANIM.color"}}</label>
             <select name="flags.autoanimations.autoOverride.color">
                 {{#select flags.autoanimations.autoOverride.color}}
-                {{#each (lookup colormenu.static.bless '01') as |name key|}}
+                {{#each (lookup menuColors.static.spell.bless '01') as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -452,7 +457,7 @@
             <select name="flags.autoanimations.autoOverride.variant">
                 {{#select flags.autoanimations.autoOverride.variant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
+                {{#each menuVariants.static.spell.shieldspell as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -464,9 +469,7 @@
             <select name="flags.autoanimations.autoOverride.color">
                 {{#select flags.autoanimations.autoOverride.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static autoObject.animation)
-                flags.autoanimations.autoOverride.variant) as
-                |name key|}}
+                {{#each (lookup menuColors.static.spell.shieldspell flags.autoanimations.autoOverride.variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -520,9 +523,7 @@
             <select name="flags.autoanimations.autoOverride.color">
                 {{#select flags.autoanimations.autoOverride.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static autoObject.animation)
-                flags.autoanimations.autoOverride.variant) as
-                |name key|}}
+                {{#each (lookup menuColors.static.spell.huntersmark flags.autoanimations.autoOverride.variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -570,7 +571,7 @@
             <select name="flags.autoanimations.autoOverride.variant">
                 {{#select flags.autoanimations.autoOverride.variant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static autoObject.animation) as |name key|}}
+                {{#each menuVariants.static.spell.sneakattack as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -582,9 +583,7 @@
             <select name="flags.autoanimations.autoOverride.color">
                 {{#select flags.autoanimations.autoOverride.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static autoObject.animation)
-                flags.autoanimations.autoOverride.variant) as
-                |name key|}}
+                {{#each (lookup menuColors.static.spell.sneakattack flags.autoanimations.autoOverride.variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -650,7 +649,7 @@
             <select name="flags.autoanimations.autoOverride.variant">
                 {{#select flags.autoanimations.autoOverride.variant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static autoObject.subAnimation) as |name key|}}
+                {{#each (lookup (lookup menuVariants.static autoObject.menuType) autoObject.subAnimation) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -662,10 +661,7 @@
             <select name="flags.autoanimations.autoOverride.color">
                 {{#select flags.autoanimations.autoOverride.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static autoObject.subAnimation)
-                flags.autoanimations.autoOverride.variant)
-                as
-                |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static autoObject.menuType) autoObject.subAnimation) autoObject.variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -710,7 +706,7 @@
             <select name="flags.autoanimations.autoOverride.variant02">
                 {{#select flags.autoanimations.autoOverride.variant02}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static autoObject.subAnimation02) as |name key|}}
+                {{#each (lookup (lookup menuVariants.static autoObject.menuType02) autoObject.subAnimation02) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -722,10 +718,7 @@
             <select name="flags.autoanimations.autoOverride.color02">
                 {{#select flags.autoanimations.autoOverride.color02}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static autoObject.subAnimation02)
-                flags.autoanimations.autoOverride.variant02)
-                as
-                |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static autoObject.menuType02) autoObject.subAnimation02) autoObject.variant02) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}

@@ -7,7 +7,7 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
     }
     if (!dbType) {return false}
     let file;
-    let msFile;
+    //let msFile;
     let color;
     let returnFile;
     let fileData;
@@ -15,7 +15,7 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
 
     if (customPath) {
         file = customPath;
-        msFile = customPath;
+        //msFile = customPath;
         if (getMeta) {
             fileData = customPath;
             metadata = await getVideoDimensionsOf(fileData);
@@ -40,7 +40,7 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
         }
 
         file = color === "random" ? `autoanimations.${type}.${[menuType]}.${path}.${variant}` : `autoanimations.${type}.${[menuType]}.${path}.${variant}.${color}`;
-        msFile = color === "random" ? `autoanimations.${type}.${[menuType]}.${path}.02` : `autoanimations.${type}.${[menuType]}.${path}.02.${color}`;
+        //msFile = color === "random" ? `autoanimations.${type}.${[menuType]}.${path}.02` : `autoanimations.${type}.${[menuType]}.${path}.02.${color}`;
         //let file = color === "random" ? `autoanimations.${type}.${path}.${variant}` : `autoanimations.${type}.${path}.${variant}.${color}`;
         //let msFile = color === "random" ? `autoanimations.${type}.${path}.02` : `autoanimations.${type}.${path}.02.${color}`;
         const returnArray = Object.keys(jb2a.return);
@@ -51,7 +51,7 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
         }    
     }
 
-    return { file, msFile, metadata, returnFile, fileData }
+    return { file, metadata, returnFile, fileData }
 }
 
 function getVideoDimensionsOf(url) {
