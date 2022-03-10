@@ -662,7 +662,7 @@ async function pf2eReady(msg) {
 async function wfrpWeapon(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.weapon, targets: data.targets, info: info });
+    let handler = await systemData.make({ item: data.weapon, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -674,7 +674,7 @@ async function wfrpWeapon(data, info) {
 async function wfrpPrayer(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.prayer, targets: data.targets, info: info });
+    let handler = await systemData.make({ item: data.prayer, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -686,7 +686,7 @@ async function wfrpPrayer(data, info) {
 async function wfrpCast(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.spell, targets: data.targets, info: info });
+    let handler = await systemData.make({ item: data.spell, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -698,7 +698,7 @@ async function wfrpCast(data, info) {
 async function wfrpTrait(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.trait, targets: data.targets, info: info });
+    let handler = await systemData.make({ item: data.trait, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);

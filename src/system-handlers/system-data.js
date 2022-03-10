@@ -22,6 +22,8 @@ export default class systemData {
 
         const data = systemData;
 
+        this.gameSystem = game.system.id;
+
         const midiActive = game.modules.get('midi-qol')?.active;
         this.systemId = game.system.id;
         this.workflow = msg || "";
