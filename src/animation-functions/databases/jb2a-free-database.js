@@ -992,10 +992,10 @@ JB2AFREEDB.static = {
     },
     divinesmite: {
         'source': {
-            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400`],
+            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
         },
         'target': {
-            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400`],
+            yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
         }
     },
     dizzystars: {
