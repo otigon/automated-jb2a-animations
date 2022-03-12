@@ -100,6 +100,146 @@ export const autoRecMigration = {
             }
             currentAutorec.version = 3;
             await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+        },
+        "4": async (currentAutorec) => {
+            const meleeObject = currentAutorec.melee;
+            const rangeObject = currentAutorec.range;
+            const staticObject = currentAutorec.static;
+            const templateObject = currentAutorec.templates;
+            const presetObject = currentAutorec.preset;
+
+            if (meleeObject) {
+                const generic = ['1hs', '2hs', '1hp', '2hp', '1hb', '2hb']
+                const meleeLength = Object.keys(meleeObject).length;
+                for (var i = 0; i < meleeLength; i++) {
+                    if (meleeObject[i].custom) { } else {
+                        if (generic.some(el => meleeObject[i].animation === el)) {
+                            meleeObject[i].menuType = 'generic';
+                        } else {
+                            meleeObject[i].menuType = meleeObject[i].meleeType;
+                        }
+                    }
+                    if (meleeObject[i].switchType === 'custom') {
+                        const generic = ['conduit', 'energybeam', 'heart', 'iceshard', 'musicnote', 'skull', 'energystrand'];
+                        const spells = ['chainlightning', 'disintegrate', 'eldritchblast', 'fireballbeam', 'firebolt', 'guidingbolt', 'magicmissile', 'rayoffrost', 'scorchingray', 'witchbolt'];
+                        if (generic.some(el => meleeObject[i].switchAnimation === el)) {
+                            meleeObject[i].switchMenuType = 'generic';
+                        } else if (spells.some(el => meleeObject[i].switchAnimation === el)) {
+                            meleeObject[i].switchMenuType = 'spell';
+                        } else {
+                            meleeObject[i].switchMenuType = 'weapon';
+                        }
+                    }
+                }
+            }
+            if (rangeObject) {
+                const generic = ['conduit', 'energybeam', 'heart', 'iceshard', 'musicnote', 'skull', 'energystrand'];
+                const rangeLength = Object.keys(rangeObject).length;
+                for (var i = 0; i < rangeLength; i++) {
+                    if (generic.some(el => rangeObject[i].animation === el)) {
+                        rangeObject[i].menuType = 'generic';
+                    } else {
+                        rangeObject[i].menuType = rangeObject[i].type;
+                    }
+
+                }
+            }
+            if (staticObject) {
+                const conditions = ['drop', 'fear', 'heart', 'horror', 'light', 'poison', 'runes', 'shields', 'crackedshield', 'skull', 'snowflakes', 'stun', 'dizzystars'];
+                const creature = ['bite', 'claw'];
+                const energy = ['energyfield', 'dodecahedron', 'shimmer', 'sparkles'];
+                const fire = ['eruption', 'groundcrack', 'fireworks'];
+                const generic = ['boulderimpact', 'explosion', 'impact', 'outpulse01', 'outpulse02', 'vortex', 'whirl'];
+                const ice = ['icespikes', 'snowflake'];
+                const lightning = ['lightningball', 'staticelectricity'];
+                const liquid = ['liquidsplash'];
+                const magicsign = ['magicSign'];
+                const marker = ['marker'];
+                const shieldfx = ['energyfieldtop', 'shieldfiretop', 'shieldicetop', 'shieldearthtop', 'shieldeldritchwebtop'];
+                const tokenborder = ['staticborder', 'spinningborder'];
+
+                const staticLength = Object.keys(staticObject).length;
+                for (var i = 0; i < staticLength; i++) {
+                    switch (true) {
+                        case conditions.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'conditions';
+                            break;
+                        case creature.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'creature';
+                            break;
+                        case energy.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'energy';
+                            break;
+                        case fire.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'fire';
+                            break;
+                        case generic.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'generic';
+                            break;
+                        case ice.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'ice';
+                            break;
+                        case lightning.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'lightning';
+                            break;
+                        case liquid.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'liquid';
+                            break;
+                        case magicsign.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'magicsign';
+                            break;
+                        case marker.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'marker';
+                            break;
+                        case shieldfx.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'shieldfx';
+                            switch (staticObject[i].animation) {
+                                case 'energyfieldtop':
+                                    staticObject[i].animation = 'energyfield';
+                                    break;
+                                case 'shieldfiretop':
+                                    staticObject[i].animation = 'fire';
+                                    break;
+                                case 'shieldicetop':
+                                    staticObject[i].animation = 'ice';
+                                    break;
+                                case 'shieldearthtop':
+                                    staticObject[i].animation = 'earth';
+                                    break;
+                                case 'shieldeldritchwebtop':
+                                    staticObject[i].animation = 'eldritchweb';
+                                    break;
+                            }
+                            break;
+                        case tokenborder.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'tokenBorder';
+                            break;
+                        default:
+                            staticObject[i].menuType = 'spell';
+                    }
+                }
+            }
+            if (templateObject) {
+                const templateLength = Object.keys(templateObject).length;
+                for (var i = 0; i < templateLength; i++) {
+                    templateObject[i].menuType = templateObject[i].type
+                }
+            }
+            if (presetObject) {
+                const presetLength = Object.keys(presetObject).length;
+                for (var i = 0; i < presetLength; i++) {
+                    switch (presetObject[i].animation) {
+                        case 'teleportation':
+                                presetObject[i].menuType = 'spell';
+                                presetObject[i].menuType02 = 'spell';
+                            break;
+                        
+                    }
+                }
+            }
+            currentAutorec.version = 4;
+            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
         }
+
     }
 }

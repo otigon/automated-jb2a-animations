@@ -680,7 +680,7 @@ JB2AFREEDB.melee = {
  * 
  */
 
-JB2APATREONDB.templatefx = {
+ JB2AFREEDB.templatefx = {
     circle: {
         calllightning: {
             '01': {

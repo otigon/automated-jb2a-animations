@@ -483,6 +483,6 @@ export const flagMigrations = {
                 await item.update({ 'flags.autoanimations': v3Flags })
                 console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v3Flags)
             }
-        }
+        },
     }
 }

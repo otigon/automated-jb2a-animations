@@ -261,45 +261,55 @@
                     {{/ifnoteq}}
                     {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'switchType')
                     'custom'}}
-                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 1 / 2;'>
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
+                        <label>{{localize 'AUTOANIM.type'}}</label>
+                        <select name="aaAutorec.melee.{{idx}}.switchMenuType">
+                            {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
+                                'switchMenuType')}}
+                            <option value=""> </option>
+                            {{#each ../menuTypes.range as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>            
+                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.animation'}}</label>
                         <select name="aaAutorec.melee.{{idx}}.switchAnimation">
                             {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
                             'switchAnimation')}}
-                            {{#each ../rangeList as |name key|}}
+                            <option value=""> </option>
+                            {{#each (lookup ../menuNames.range (lookup (lookup ../settings.aaAutorec.melee idx) 'switchMenuType')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
                         </select>
                     </div>
-                    <div class='flexcol' style='grid-row: 2 / 3; grid-column: 2 / 3;'>
+                    <div class='flexcol' style='grid-row: 3 / 4; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.variant'}}</label>
                         <select name="aaAutorec.melee.{{idx}}.switchVariant">
                             {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
                             'switchVariant')}}
                             <option value=""> </option>
-                            {{#each (lookup (lookup ../variants 'range') (lookup (lookup
-                            ../settings.aaAutorec.melee idx) 'switchAnimation')) as |name key|}}
+                            {{#each (lookup (lookup ../menuVariants.range (lookup (lookup ../settings.aaAutorec.melee idx) 'switchMenuType')) (lookup (lookup ../settings.aaAutorec.melee idx) 'switchAnimation')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
                         </select>
                     </div>
-                    <div class='flexcol' style='grid-row: 2 / 3; grid-column: 3 / 4;'>
+                    <div class='flexcol' style='grid-row: 3 / 4; grid-column: 3 / 4;'>
                         <label>{{localize 'AUTOANIM.color'}}</label>
                         <select name="aaAutorec.melee.{{idx}}.switchColor">
                             {{#select (lookup (lookup ../settings.aaAutorec.melee idx)
                             'switchColor')}}
                             <option value=""> </option>
-                            {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
-                            ../settings.aaAutorec.melee idx) 'switchAnimation')) (lookup (lookup
-                            ../settings.aaAutorec.melee idx) 'switchVariant')) as |name key|}}
+                            {{#each (lookup (lookup (lookup ../menuColors.range (lookup (lookup ../settings.aaAutorec.melee idx) 'switchMenuType')) (lookup (lookup ../settings.aaAutorec.melee idx) 'switchAnimation')) (lookup (lookup ../settings.aaAutorec.melee idx) 'switchVariant')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
                         </select>
                     </div>
-                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 1 / 2;'>
+                    <div class="flexcol" style='grid-row: 4 / 5; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.rangeDetect'}}</label>
                         <select name="aaAutorec.melee.{{idx}}.detect">
                             {{#select (lookup (lookup ../settings.aaAutorec.melee idx) 'detect')}}
@@ -309,7 +319,7 @@
                         </select>
                     </div>
                     {{#ifEquals (lookup (lookup ../settings.aaAutorec.melee idx) 'detect') 'manual'}}
-                    <div class="flexcol" style='grid-row: 3 / 4; grid-column: 2 / 3;'>
+                    <div class="flexcol" style='grid-row: 4 / 5; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.gridSquares'}}</label>
                         <input type="Number" name="aaAutorec.melee.{{idx}}.range" style='text-align: center;'
                             value="{{lookup (lookup ../settings.aaAutorec.melee idx) 'range'}}" data-dtype="Number"
