@@ -106,6 +106,7 @@ export const autoRecMigration = {
             const rangeObject = currentAutorec.range;
             const staticObject = currentAutorec.static;
             const templateObject = currentAutorec.templates;
+            const auraObject = currentAutorec.auras;
             const presetObject = currentAutorec.preset;
 
             if (meleeObject) {
@@ -192,11 +193,11 @@ export const autoRecMigration = {
                             break;
                         case marker.some(el => staticObject[i].animation === el):
                             staticObject[i].menuType = 'marker';
-                                if (staticObject[i].animation === 'circleofstars') {}
-                                else if (staticObject[i].animation === 'energystrand') {
-                                    staticObject[i].animation = 'energystrand'
-                                }
-                                else {
+                            if (staticObject[i].animation === 'circleofstars') { }
+                            else if (staticObject[i].animation === 'energystrand') {
+                                staticObject[i].animation = 'energystrand'
+                            }
+                            else {
                                 switch (staticObject[i].variant) {
                                     case '03':
                                         staticObject[i].animation = 'music';
@@ -267,7 +268,7 @@ export const autoRecMigration = {
                         case "circle":
                             const circleTypes = ['dropct', 'fearct', 'heartct', 'horrorct', 'poisonct', 'runesct', 'shieldsct', 'crackedshieldct', 'skullct', 'snowflakesct', 'musicnotect'];
                             if (circleTypes.some(el => templateObject[i].animation === el)) {
-                                templateObject[i].animation = templateObject[i].animation.replace('ct','')
+                                templateObject[i].animation = templateObject[i].animation.replace('ct', '')
                             }
                             switch (templateObject[i].animation) {
                                 case 'outpulse01':
@@ -291,7 +292,7 @@ export const autoRecMigration = {
                         case "square":
                             const squareTypes = ['dropct', 'fearct', 'heartct', 'horrorct', 'poisonct', 'runesct', 'shieldsct', 'crackedshieldct', 'skullct', 'snowflakesct']
                             if (squareTypes.some(el => templateObject[i].animation === el)) {
-                                templateObject[i].animation = templateObject[i].animation.replace('ct','')
+                                templateObject[i].animation = templateObject[i].animation.replace('ct', '')
                             } else if (templateObject[i].animation === 'musicnotest') {
                                 templateObject[i].animation = 'musicnote';
                             }
@@ -304,6 +305,25 @@ export const autoRecMigration = {
                     }
                 }
             }
+            if (auraObject) {
+                const auraLength = Object.keys(auraObject).length;
+                for (var i = 0; i < auraLength; i++) {
+                    switch (auraObject[i].animation) {
+                        case "energystrand":
+                            auraObject[i].menuType = 'marker';
+                            break;
+                        case 'dodecahedron':
+                            auraObject[i].menuType = 'energy';
+                            break;
+                        case 'staticelectricity':
+                            auraObject[i].menuType = 'lightning';
+                            break;
+                        default:
+                            auraObject[i].menuType = 'spell';
+                    }
+                }
+
+            }
             if (presetObject) {
                 const presetLength = Object.keys(presetObject).length;
                 for (var i = 0; i < presetLength; i++) {
@@ -311,6 +331,79 @@ export const autoRecMigration = {
                         case 'teleportation':
                             presetObject[i].menuType = 'spell';
                             presetObject[i].menuType02 = 'spell';
+                            break;
+                        case "dualattach":
+                            switch (presetObject[i].subAnimation) {
+                                case 'energystrand':
+                                case 'energybeam':
+                                    presetObject[i].menuType = 'generic';
+                                    break;
+                                default:
+                                    presetObject[i].menuType = 'spell'
+                            }
+                            break;
+                        case 'fireball':
+                            const fire = ['eruption'];
+                            const generic = ['boulderimpact', 'explosion', 'impact', 'outpulse01', 'outpulse02'];
+                            const ice = ['snowflake'];
+                            const liquid = ['liquidsplash'];
+                            const fireball = ['fireballexplode']
+                            switch (presetObject[i].projectile) {
+                                case 'energystrand':
+                                case 'energybeam':
+                                    presetObject[i].rangeType = 'generic';
+                                    break;
+                                default:
+                                    presetObject[i].rangeType = 'spell'
+                            }
+                            if (presetObject[i].explosion01) {
+                                switch (true) {
+                                    case fire.some(el => presetObject[i].explosion01 === el):
+                                        presetObject[i].ex01Type = 'fire';
+                                        break;
+                                    case generic.some(el => presetObject[i].explosion01 === el):
+                                        presetObject[i].ex01Type = 'generic';
+                                        break;
+                                    case ice.some(el => presetObject[i].explosion01 === el):
+                                        presetObject[i].ex01Type = 'ice';
+                                        break;
+                                    case liquid.some(el => presetObject[i].explosion01 === el):
+                                        presetObject[i].ex01Type = 'liquid';
+                                        presetObject[i].explosion01 = 'splash';
+                                        break;
+                                    case fireball.some(el => presetObject[i].explosion01 === el):
+                                        presetObject[i].ex01Type = 'spell';
+                                        presetObject[i].explosion01 = 'fireball';
+                                        presetObject[i].explosion01Variant = 'explode';
+                                        break;
+                                    default:
+                                        presetObject[i].ex01Type = 'spell';
+                                }            
+                            }
+                            if (presetObject[i].explosion02) {
+                                switch (true) {
+                                    case fire.some(el => presetObject[i].explosion02 === el):
+                                        presetObject[i].ex02Type = 'fire';
+                                        break;
+                                    case generic.some(el => presetObject[i].explosion02 === el):
+                                        presetObject[i].ex02Type = 'generic';
+                                        break;
+                                    case ice.some(el => presetObject[i].explosion02 === el):
+                                        presetObject[i].ex02Type = 'ice';
+                                        break;
+                                    case liquid.some(el => presetObject[i].explosion02 === el):
+                                        presetObject[i].ex02Type = 'liquid';
+                                        presetObject[i].explosion02 = 'splash';
+                                        break;
+                                    case fireball.some(el => presetObject[i].explosion02 === el):
+                                        presetObject[i].ex02Type = 'spell';
+                                        presetObject[i].explosion02 = 'fireball';
+                                        presetObject[i].explosion02Variant = 'explode';
+                                        break;
+                                    default:
+                                        presetObject[i].ex02Type = 'spell';
+                                }            
+                            }
                             break;
 
                     }
