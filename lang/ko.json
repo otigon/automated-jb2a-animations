@@ -270,7 +270,7 @@
     "AUTOANIM.audioDelay": "오디오 딜레이 (milliseconds)",
     "AUTOANIM.markerColor": "마커 색상",
     
-    "AUTOANIM.breathWeapon": "숨결 무기",
+    "AUTOANIM.breathweapon": "숨결 무기",
     "AUTOANIM.bwWarning": "30 피트 선 템플릿",
     "AUTOANIM.selfColor": "자신 애니메이션 색상",
     "AUTOANIM.targetColor": "대상 애니메이션 색상",
@@ -292,8 +292,6 @@
     "AUTOANIM.explosion03": "폭발 03",
     "AUTOANIM.explosion04": "폭발 04",
     "AUTOANIM.snowflake": "눈송이 파열",
-    "AUTOANIM.outpulse01": "아웃펄스 01",
-    "AUTOANIM.outpulse02": "아웃펄스 02",
     "AUTOANIM.entangle": "얽혀듬",
 
     "AUTOANIM.customAnim": "커스텀 애니메이션?",
@@ -350,7 +348,7 @@
     "AUTOANIM.divinesmite": "신성한 강타",
     "AUTOANIM.stars": "별",
     "AUTOANIM.marker": "마커",
-    "AUTOANIM.magicSign": "마법 사인",
+    "AUTOANIM.magicsign": "마법 사인",
     "AUTOANIM.customize": "커스터마이즈",
     "AUTOANIM.ctaScale": "스케일",
     "AUTOANIM.volume": "볼륨 (0-1)",

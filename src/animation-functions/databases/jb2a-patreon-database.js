@@ -967,6 +967,20 @@ JB2APATREONDB.range = {
     spell: {
         chainlightning: {
             primary: {
+                blue: {
+                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_05ft_Primary_600x400.webm`],
+                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_15ft_Primary_1000x400.webm`],
+                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_30ft_Primary_1600x400.webm`],
+                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_60ft_Primary_2800x400.webm`],
+                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_90ft_Primary_4000x400.webm`]
+                },
+                darkgreen: {
+                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_05ft_Primary_600x400.webm`],
+                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_15ft_Primary_1000x400.webm`],
+                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_30ft_Primary_1600x400.webm`],
+                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_60ft_Primary_2800x400.webm`],
+                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_90ft_Primary_4000x400.webm`]
+                },
                 darkpurple: {
                     '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_05ft_Primary_600x400.webm`],
                     '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_15ft_Primary_1000x400.webm`],
@@ -974,12 +988,12 @@ JB2APATREONDB.range = {
                     '60ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_60ft_Primary_2800x400.webm`],
                     '90ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_90ft_Primary_4000x400.webm`]
                 },
-                blue: {
-                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_05ft_Primary_600x400.webm`],
-                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_15ft_Primary_1000x400.webm`],
-                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_30ft_Primary_1600x400.webm`],
-                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_60ft_Primary_2800x400.webm`],
-                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_90ft_Primary_4000x400.webm`]
+                darkred: {
+                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_05ft_Primary_600x400.webm`],
+                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_15ft_Primary_1000x400.webm`],
+                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_30ft_Primary_1600x400.webm`],
+                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_60ft_Primary_2800x400.webm`],
+                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_90ft_Primary_4000x400.webm`]
                 },
                 green: {
                     '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green_05ft_Primary_600x400.webm`],
@@ -988,12 +1002,12 @@ JB2APATREONDB.range = {
                     '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green_60ft_Primary_2800x400.webm`],
                     '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green_90ft_Primary_4000x400.webm`]
                 },
-                darkgreen: {
-                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_05ft_Primary_600x400.webm`],
-                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_15ft_Primary_1000x400.webm`],
-                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_30ft_Primary_1600x400.webm`],
-                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_60ft_Primary_2800x400.webm`],
-                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_90ft_Primary_4000x400.webm`]
+                orange: {
+                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_05ft_Primary_600x400.webm`],
+                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_15ft_Primary_1000x400.webm`],
+                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_30ft_Primary_1600x400.webm`],
+                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_60ft_Primary_2800x400.webm`],
+                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_90ft_Primary_4000x400.webm`]
                 },
                 purple: {
                     '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_05ft_Primary_600x400.webm`],
@@ -1009,15 +1023,22 @@ JB2APATREONDB.range = {
                     '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_60ft_Primary_2800x400.webm`],
                     '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_90ft_Primary_4000x400.webm`]
                 },
-                darkred: {
-                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_05ft_Primary_600x400.webm`],
-                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_15ft_Primary_1000x400.webm`],
-                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_30ft_Primary_1600x400.webm`],
-                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_60ft_Primary_2800x400.webm`],
-                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_90ft_Primary_4000x400.webm`]
-                },
             },
             secondary: {
+                blue: {
+                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_05ft_Secondary_600x400.webm`],
+                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_15ft_Secondary_1000x400.webm`],
+                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_30ft_Secondary_1600x400.webm`],
+                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_60ft_Secondary_2800x400.webm`],
+                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_90ft_Secondary_4000x400.webm`]
+                },
+                darkgreen: {
+                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_05ft_Secondary_600x400.webm`],
+                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_15ft_Secondary_1000x400.webm`],
+                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_30ft_Secondary_1600x400.webm`],
+                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_60ft_Secondary_2800x400.webm`],
+                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_90ft_Secondary_4000x400.webm`]
+                },
                 darkpurple: {
                     '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_05ft_Secondary_600x400.webm`],
                     '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_15ft_Secondary_1000x400.webm`],
@@ -1025,12 +1046,12 @@ JB2APATREONDB.range = {
                     '60ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_60ft_Secondary_2800x400.webm`],
                     '90ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Purple_90ft_Secondary_4000x400.webm`]
                 },
-                blue: {
-                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_05ft_Secondary_600x400.webm`],
-                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_15ft_Secondary_1000x400.webm`],
-                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_30ft_Secondary_1600x400.webm`],
-                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_60ft_Secondary_2800x400.webm`],
-                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_90ft_Secondary_4000x400.webm`]
+                darkred: {
+                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_05ft_Secondary_600x400.webm`],
+                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_15ft_Secondary_1000x400.webm`],
+                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_30ft_Secondary_1600x400.webm`],
+                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_60ft_Secondary_2800x400.webm`],
+                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_90ft_Secondary_4000x400.webm`]
                 },
                 green: {
                     '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green_05ft_Secondary_600x400.webm`],
@@ -1039,12 +1060,12 @@ JB2APATREONDB.range = {
                     '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green_60ft_Secondary_2800x400.webm`],
                     '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green_90ft_Secondary_4000x400.webm`]
                 },
-                darkgreen: {
-                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_05ft_Secondary_600x400.webm`],
-                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_15ft_Secondary_1000x400.webm`],
-                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_30ft_Secondary_1600x400.webm`],
-                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_60ft_Secondary_2800x400.webm`],
-                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Green02_90ft_Secondary_4000x400.webm`]
+                orange: {
+                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_05ft_Secondary_600x400.webm`],
+                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_15ft_Secondary_1000x400.webm`],
+                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_30ft_Secondary_1600x400.webm`],
+                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_60ft_Secondary_2800x400.webm`],
+                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Orange_90ft_Secondary_4000x400.webm`]
                 },
                 purple: {
                     '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Purple_05ft_Secondary_600x400.webm`],
@@ -1059,13 +1080,6 @@ JB2APATREONDB.range = {
                     '30ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_30ft_Secondary_1600x400.webm`],
                     '60ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_60ft_Secondary_2800x400.webm`],
                     '90ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Red_90ft_Secondary_4000x400.webm`]
-                },
-                darkred: {
-                    '05ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_05ft_Secondary_600x400.webm`],
-                    '15ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_15ft_Secondary_1000x400.webm`],
-                    '30ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_30ft_Secondary_1600x400.webm`],
-                    '60ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_60ft_Secondary_2800x400.webm`],
-                    '90ft': [l6`Chain_Lightning/ChainLightning_01_Dark_Red_90ft_Secondary_4000x400.webm`]
                 },
             }
         },
@@ -1184,371 +1198,6 @@ JB2APATREONDB.range = {
                     '30ft': [l0`Eldritch_Blast/EldritchBlast_01_Regular_LightBlue_30ft_1600x400.webm`],
                     '60ft': [l0`Eldritch_Blast/EldritchBlast_01_Regular_LightBlue_60ft_2800x400.webm`],
                     '90ft': [l0`Eldritch_Blast/EldritchBlast_01_Regular_LightBlue_90ft_4000x400.webm`]
-                }
-            }
-        },
-        energybeam: {
-            '01': {
-                blue: {
-                    '15ft': [lg`Energy/EnergyBeam_01_Regular_Blue_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_01_Regular_Blue_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_01_Regular_Blue_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_01_Regular_Blue_90ft_4000x400.webm`],
-                },
-                bluegreen: {
-                    '15ft': [lg`Energy/EnergyBeam_01_Regular_BlueGreen_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_01_Regular_BlueGreen_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_01_Regular_BlueGreen_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_01_Regular_BlueGreen_90ft_4000x400.webm`],
-                },
-                darkgreen: {
-                    '15ft': [lg`Energy/EnergyBeam_01_Dark_Green_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_01_Dark_Green_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_01_Dark_Green_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_01_Dark_Green_90ft_4000x400.webm`],
-                },
-            },
-            '02': {
-                darkgreenpurple: {
-                    '05ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_90ft_4000x400.webm`],
-                },
-                darkpurplered: {
-                    '05ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_90ft_4000x400.webm`],
-                },
-                bluepink: {
-                    '05ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_90ft_4000x400.webm`],
-                },
-                greenyellow: {
-                    '05ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_90ft_4000x400.webm`],
-                },
-            },
-            '03': {
-                darkgreenpurple: {
-                    '05ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_90ft_4000x400.webm`],
-                },
-                darkpurplered: {
-                    '05ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_90ft_4000x400.webm`],
-                },
-                bluepink: {
-                    '05ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_90ft_4000x400.webm`],
-                },
-                greenyellow: {
-                    '05ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_90ft_4000x400.webm`],
-                },
-            },
-            reverse: {
-                blue: {
-                    '15ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_90ft_4000x400.webm`],
-                },
-                bluegreen: {
-                    '15ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_90ft_4000x400.webm`],
-                },
-                darkgreen: {
-                    '15ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_90ft_4000x400.webm`],
-                },
-            }
-        },
-        energystrand: {
-            '01': {
-                darkgreen: {
-                    '05ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Green_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Green_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Green_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Green_05ft_600x400.webm`,
-                    ],
-                    '15ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Green_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Green_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Green_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Green_15ft_1000x400.webm`,
-                    ],
-                    '30ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Green_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Green_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Green_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Green_30ft_1600x400.webm`,
-                    ],
-                    '60ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Green_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Green_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Green_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Green_60ft_2800x400.webm`,
-                    ],
-                    '90ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Green_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Green_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Green_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Green_90ft_4000x400.webm`,
-                    ],
-                },
-                darkpurple: {
-                    '05ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Purple_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Purple_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Purple_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Purple_05ft_600x400.webm`,
-                    ],
-                    '15ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Purple_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Purple_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Purple_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Purple_15ft_1000x400.webm`,
-                    ],
-                    '30ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Purple_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Purple_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Purple_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Purple_30ft_1600x400.webm`,
-                    ],
-                    '60ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Purple_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Purple_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Purple_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Purple_60ft_2800x400.webm`,
-                    ],
-                    '90ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Purple_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Purple_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Purple_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Purple_90ft_4000x400.webm`,
-                    ],
-                },
-                darkred: {
-                    '05ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Red_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Red_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Red_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Red_05ft_600x400.webm`,
-                    ],
-                    '15ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Red_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Red_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Red_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Red_15ft_1000x400.webm`,
-                    ],
-                    '30ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Red_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Red_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Red_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Red_30ft_1600x400.webm`,
-                    ],
-                    '60ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Red_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Red_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Red_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Red_60ft_2800x400.webm`,
-                    ],
-                    '90ft': [
-                        lg`Energy/EnergyStrand_01_Dark_Red_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Dark_Red_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Dark_Red_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Dark_Red_90ft_4000x400.webm`,
-                    ],
-                },
-                blue: {
-                    '05ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Blue_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Blue_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Blue_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Blue_05ft_600x400.webm`,
-                    ],
-                    '15ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Blue_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Blue_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Blue_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Blue_15ft_1000x400.webm`,
-                    ],
-                    '30ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Blue_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Blue_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Blue_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Blue_30ft_1600x400.webm`,
-                    ],
-                    '60ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Blue_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Blue_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Blue_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Blue_60ft_2800x400.webm`,
-                    ],
-                    '90ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Blue_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Blue_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Blue_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Blue_90ft_4000x400.webm`,
-                    ],
-                },
-                orange: {
-                    '05ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Orange_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Orange_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Orange_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Orange_05ft_600x400.webm`,
-                    ],
-                    '15ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Orange_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Orange_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Orange_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Orange_15ft_1000x400.webm`,
-                    ],
-                    '30ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Orange_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Orange_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Orange_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Orange_30ft_1600x400.webm`,
-                    ],
-                    '60ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Orange_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Orange_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Orange_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Orange_60ft_2800x400.webm`,
-                    ],
-                    '90ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Orange_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Orange_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Orange_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Orange_90ft_4000x400.webm`,
-                    ],
-                },
-                purple: {
-                    '05ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Purple_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Purple_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Purple_05ft_600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Purple_05ft_600x400.webm`,
-                    ],
-                    '15ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Purple_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Purple_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Purple_15ft_1000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Purple_15ft_1000x400.webm`,
-                    ],
-                    '30ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Purple_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Purple_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Purple_30ft_1600x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Purple_30ft_1600x400.webm`,
-                    ],
-                    '60ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Purple_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Purple_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Purple_60ft_2800x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Purple_60ft_2800x400.webm`,
-                    ],
-                    '90ft': [
-                        lg`Energy/EnergyStrand_01_Regular_Purple_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_02_Regular_Purple_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_03_Regular_Purple_90ft_4000x400.webm`,
-                        lg`Energy/EnergyStrand_04_Regular_Purple_90ft_4000x400.webm`,
-                    ],
-                },
-            },
-            '02': {
-                darkgreen: {
-                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_90ft_4000x400.webm`]
-                },
-                darkpurple: {
-                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_90ft_4000x400.webm`]
-                },
-                darkred: {
-                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_90ft_4000x400.webm`]
-                },
-                blue: {
-                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_90ft_4000x400.webm`]
-                },
-                purple: {
-                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_90ft_4000x400.webm`]
-                },
-            },
-            '03': {
-                bluepink: {
-                    '05ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_90ft_4000x400.webm`]
-                },
-                greenyellow: {
-                    '05ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_90ft_4000x400.webm`]
-                },
-                darkpurplered: {
-                    '05ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_90ft_4000x400.webm`]
-                },
-                darkgreenpurple: {
-                    '05ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_05ft_600x400.webm`],
-                    '15ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_90ft_4000x400.webm`]
                 }
             }
         },
@@ -2179,6 +1828,371 @@ JB2APATREONDB.range = {
                     '90ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_90ft_4000x400.webm`],
                 },
             },
+        },
+        energybeam: {
+            '01': {
+                blue: {
+                    '15ft': [lg`Energy/EnergyBeam_01_Regular_Blue_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_01_Regular_Blue_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_01_Regular_Blue_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_01_Regular_Blue_90ft_4000x400.webm`],
+                },
+                bluegreen: {
+                    '15ft': [lg`Energy/EnergyBeam_01_Regular_BlueGreen_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_01_Regular_BlueGreen_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_01_Regular_BlueGreen_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_01_Regular_BlueGreen_90ft_4000x400.webm`],
+                },
+                darkgreen: {
+                    '15ft': [lg`Energy/EnergyBeam_01_Dark_Green_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_01_Dark_Green_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_01_Dark_Green_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_01_Dark_Green_90ft_4000x400.webm`],
+                },
+            },
+            '02': {
+                darkgreenpurple: {
+                    '05ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_02_Dark_GreenPurple_90ft_4000x400.webm`],
+                },
+                darkpurplered: {
+                    '05ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_02_Dark_PurpleRed_90ft_4000x400.webm`],
+                },
+                bluepink: {
+                    '05ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_90ft_4000x400.webm`],
+                },
+                greenyellow: {
+                    '05ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_90ft_4000x400.webm`],
+                },
+            },
+            '03': {
+                darkgreenpurple: {
+                    '05ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_03_Dark_GreenPurple_90ft_4000x400.webm`],
+                },
+                darkpurplered: {
+                    '05ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_03_Dark_PurpleRed_90ft_4000x400.webm`],
+                },
+                bluepink: {
+                    '05ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_90ft_4000x400.webm`],
+                },
+                greenyellow: {
+                    '05ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_90ft_4000x400.webm`],
+                },
+            },
+            reverse: {
+                blue: {
+                    '15ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeamReverse_01_Regular_Blue_90ft_4000x400.webm`],
+                },
+                bluegreen: {
+                    '15ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeamReverse_01_Regular_BlueGreen_90ft_4000x400.webm`],
+                },
+                darkgreen: {
+                    '15ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeamReverse_01_Dark_Green_90ft_4000x400.webm`],
+                },
+            }
+        },
+        energystrand: {
+            '01': {
+                darkgreen: {
+                    '05ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Green_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Green_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Green_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Green_05ft_600x400.webm`,
+                    ],
+                    '15ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Green_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Green_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Green_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Green_15ft_1000x400.webm`,
+                    ],
+                    '30ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Green_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Green_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Green_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Green_30ft_1600x400.webm`,
+                    ],
+                    '60ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Green_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Green_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Green_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Green_60ft_2800x400.webm`,
+                    ],
+                    '90ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Green_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Green_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Green_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Green_90ft_4000x400.webm`,
+                    ],
+                },
+                darkpurple: {
+                    '05ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Purple_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Purple_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Purple_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Purple_05ft_600x400.webm`,
+                    ],
+                    '15ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Purple_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Purple_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Purple_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Purple_15ft_1000x400.webm`,
+                    ],
+                    '30ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Purple_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Purple_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Purple_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Purple_30ft_1600x400.webm`,
+                    ],
+                    '60ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Purple_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Purple_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Purple_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Purple_60ft_2800x400.webm`,
+                    ],
+                    '90ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Purple_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Purple_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Purple_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Purple_90ft_4000x400.webm`,
+                    ],
+                },
+                darkred: {
+                    '05ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Red_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Red_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Red_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Red_05ft_600x400.webm`,
+                    ],
+                    '15ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Red_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Red_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Red_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Red_15ft_1000x400.webm`,
+                    ],
+                    '30ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Red_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Red_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Red_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Red_30ft_1600x400.webm`,
+                    ],
+                    '60ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Red_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Red_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Red_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Red_60ft_2800x400.webm`,
+                    ],
+                    '90ft': [
+                        lg`Energy/EnergyStrand_01_Dark_Red_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Dark_Red_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Dark_Red_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Dark_Red_90ft_4000x400.webm`,
+                    ],
+                },
+                blue: {
+                    '05ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Blue_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Blue_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Blue_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Blue_05ft_600x400.webm`,
+                    ],
+                    '15ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Blue_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Blue_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Blue_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Blue_15ft_1000x400.webm`,
+                    ],
+                    '30ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Blue_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Blue_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Blue_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Blue_30ft_1600x400.webm`,
+                    ],
+                    '60ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Blue_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Blue_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Blue_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Blue_60ft_2800x400.webm`,
+                    ],
+                    '90ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Blue_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Blue_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Blue_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Blue_90ft_4000x400.webm`,
+                    ],
+                },
+                orange: {
+                    '05ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Orange_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Orange_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Orange_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Orange_05ft_600x400.webm`,
+                    ],
+                    '15ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Orange_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Orange_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Orange_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Orange_15ft_1000x400.webm`,
+                    ],
+                    '30ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Orange_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Orange_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Orange_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Orange_30ft_1600x400.webm`,
+                    ],
+                    '60ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Orange_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Orange_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Orange_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Orange_60ft_2800x400.webm`,
+                    ],
+                    '90ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Orange_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Orange_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Orange_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Orange_90ft_4000x400.webm`,
+                    ],
+                },
+                purple: {
+                    '05ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Purple_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Purple_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Purple_05ft_600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Purple_05ft_600x400.webm`,
+                    ],
+                    '15ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Purple_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Purple_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Purple_15ft_1000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Purple_15ft_1000x400.webm`,
+                    ],
+                    '30ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Purple_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Purple_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Purple_30ft_1600x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Purple_30ft_1600x400.webm`,
+                    ],
+                    '60ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Purple_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Purple_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Purple_60ft_2800x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Purple_60ft_2800x400.webm`,
+                    ],
+                    '90ft': [
+                        lg`Energy/EnergyStrand_01_Regular_Purple_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_02_Regular_Purple_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_03_Regular_Purple_90ft_4000x400.webm`,
+                        lg`Energy/EnergyStrand_04_Regular_Purple_90ft_4000x400.webm`,
+                    ],
+                },
+            },
+            '02': {
+                darkgreen: {
+                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Green_90ft_4000x400.webm`]
+                },
+                darkpurple: {
+                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Purple_90ft_4000x400.webm`]
+                },
+                darkred: {
+                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Dark_Red_90ft_4000x400.webm`]
+                },
+                blue: {
+                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Blue_90ft_4000x400.webm`]
+                },
+                purple: {
+                    '05ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_Multiple01_Regular_Purple_90ft_4000x400.webm`]
+                },
+            },
+            '03': {
+                bluepink: {
+                    '05ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_Multiple02_Regular_BluePink_90ft_4000x400.webm`]
+                },
+                greenyellow: {
+                    '05ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_Multiple02_Regular_GreenYellow_90ft_4000x400.webm`]
+                },
+                darkpurplered: {
+                    '05ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_Multiple02_Dark_PurpleRed_90ft_4000x400.webm`]
+                },
+                darkgreenpurple: {
+                    '05ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_Multiple02_Dark_GreenPurple_90ft_4000x400.webm`]
+                }
+            }
         },
         heart: {
             '01': {
@@ -3361,86 +3375,6 @@ JB2APATREONDB.melee = {
  */
 JB2APATREONDB.templatefx = {
     circle: {
-        drop: {
-            '01': {
-                darkgreen: [lg`Template/Circle/TemplateDropCircle_01_Dark_Green_800x800.webm`],
-                red: [lg`Template/Circle/TemplateDropCircle_01_Regular_Red_800x800.webm`]
-            }
-        },
-        fear: {
-            '01': {
-                darkorange: [lg`Template/Circle/TemplateFearCircle_01_Dark_Orange_800x800.webm`],
-                darkpurple: [lg`Template/Circle/TemplateFearCircle_01_Dark_Purple_800x800.webm`],
-                orange: [lg`Template/Circle/TemplateFearCircle_01_Regular_Orange_800x800.webm`],
-            },
-        },
-        heart: {
-            '01': {
-                darkred: [lg`Template/Circle/TemplateHeartCircle_01_Dark_Red_800x800.webm`],
-                pink: [lg`Template/Circle/TemplateHeartCircle_01_Regular_Pink_800x800.webm`],
-                teal: [lg`Template/Circle/TemplateHeartCircle_01_Regular_Teal_800x800.webm`],
-            },
-        },
-        horror: {
-            '01': {
-                darkteal: [lg`Template/Circle/TemplateHorrorCircle_01_Dark_Teal_800x800.webm`],
-                purple: [lg`Template/Circle/TemplateHorrorCircle_01_Regular_Purple_800x800.webm`],
-                teal: [lg`Template/Circle/TemplateHorrorCircle_01_Regular_Teal_800x800.webm`],
-            },
-        },
-        musicnote: {
-            '01': {
-                blue: [lg`Template/Circle/TemplateMusicNoteCircle_01_Regular_Blue_800x800.webm`],
-                darkred: [lg`Template/Circle/TemplateMusicNoteCircle_01_Dark_Red_800x800.webm`],
-                purple: [lg`Template/Circle/TemplateMusicNoteCircle_01_Regular_Purple_800x800.webm`],
-            },
-        },
-        poison: {
-            '01': {
-                darkgreen: [lg`Template/Circle/TemplatePoisonCircle_01_Dark_Green_800x800.webm`],
-                purple: [lg`Template/Circle/TemplatePoisonCircle_01_Regular_Purple_800x800.webm`],
-            },
-        },
-        runes: {
-            '01': {
-                darkorange: [lg`Template/Circle/TemplateRunesCircle_01_Dark_Orange_800x800.webm`],
-                darkred: [lg`Template/Circle/TemplateRunesCircle_01_Dark_Red_800x800.webm`],
-                blue: [lg`Template/Circle/TemplateRunesCircle_01_Regular_Blue_800x800.webm`],
-                green: [lg`Template/Circle/TemplateRunesCircle_01_Regular_Green02_800x800.webm`],
-                orange: [lg`Template/Circle/TemplateRunesCircle_01_Regular_Orange_800x800.webm`],
-            },
-        },
-        shields: {
-            '01': {
-                darkred: [lg`Template/Circle/TemplateShieldCircle_01_Dark_Red_800x800.webm`],
-                green: [lg`Template/Circle/TemplateShieldCircle_01_Regular_Green_800x800.webm`],
-            },
-        },
-        crackedshield: {
-            '01': {
-                darkred: [lg`Template/Circle/TemplateShieldCrackedCircle_01_Dark_Red_800x800.webm`],
-                darkpurple: [lg`Template/Circle/TemplateShieldCrackedCircle_01_Regular_Purple_800x800.webm`],
-            },
-        },
-        skull: {
-            '01': {
-                darkgreen: [lg`Template/Circle/TemplateSkullCircle_01_Dark_Green_800x800.webm`],
-                darkorange: [lg`Template/Circle/TemplateSkullCircle_01_Dark_Orange_800x800.webm`],
-                purple: [lg`Template/Circle/TemplateSkullCircle_01_Regular_Purple_800x800.webm`],
-            },
-        },
-        snowflakes: {
-            '01': {
-                darkblue: [lg`Template/Circle/TemplateSnowflakeCircle_01_Dark_Blue_800x800.webm`],
-                blue: [lg`Template/Circle/TemplateSnowflakeCircle_01_Regular_Blue_800x800.webm`],
-            },
-        },
-        stun: {
-            '01': {
-                darkteal: [lg`Template/Circle/TemplateStunCircle_01_Dark_Teal_800x800.webm`],
-                purple: [lg`Template/Circle/TemplateStunCircle_01_Regular_Purple_800x800.webm`],
-            },
-        },
         calllightning: {
             '01': {
                 blue: [l3`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`],
@@ -3451,6 +3385,12 @@ JB2APATREONDB.templatefx = {
                 red: [l3`Call_Lightning/CallLightning_01_Red_1000x1000.webm`],
                 yellow: [l3`Call_Lightning/CallLightning_01_Yellow_1000x1000.webm`]
             }
+        },
+        crackedshield: {
+            '01': {
+                darkred: [lg`Template/Circle/TemplateShieldCrackedCircle_01_Dark_Red_800x800.webm`],
+                darkpurple: [lg`Template/Circle/TemplateShieldCrackedCircle_01_Regular_Purple_800x800.webm`],
+            },
         },
         darkness: {
             '01': {
@@ -3466,6 +3406,19 @@ JB2APATREONDB.templatefx = {
                 grey: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Grey_1200x1200.webm`],
                 purple: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Purple_1200x1200.webm`],
             }
+        },
+        drop: {
+            '01': {
+                darkgreen: [lg`Template/Circle/TemplateDropCircle_01_Dark_Green_800x800.webm`],
+                red: [lg`Template/Circle/TemplateDropCircle_01_Regular_Red_800x800.webm`]
+            }
+        },
+        fear: {
+            '01': {
+                darkorange: [lg`Template/Circle/TemplateFearCircle_01_Dark_Orange_800x800.webm`],
+                darkpurple: [lg`Template/Circle/TemplateFearCircle_01_Dark_Purple_800x800.webm`],
+                orange: [lg`Template/Circle/TemplateFearCircle_01_Regular_Orange_800x800.webm`],
+            },
         },
         fireball: {
             loop: {
@@ -3493,6 +3446,86 @@ JB2APATREONDB.templatefx = {
                 green: [l1`Fog_Cloud/FogCloud_02_Regular_Green_800x800.webm`]
             },
         },
+        heart: {
+            '01': {
+                darkred: [lg`Template/Circle/TemplateHeartCircle_01_Dark_Red_800x800.webm`],
+                pink: [lg`Template/Circle/TemplateHeartCircle_01_Regular_Pink_800x800.webm`],
+                teal: [lg`Template/Circle/TemplateHeartCircle_01_Regular_Teal_800x800.webm`],
+            },
+        },
+        horror: {
+            '01': {
+                darkteal: [lg`Template/Circle/TemplateHorrorCircle_01_Dark_Teal_800x800.webm`],
+                purple: [lg`Template/Circle/TemplateHorrorCircle_01_Regular_Purple_800x800.webm`],
+                teal: [lg`Template/Circle/TemplateHorrorCircle_01_Regular_Teal_800x800.webm`],
+            },
+        },
+        magicsign: {
+            abjuration: {
+                blue: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            },
+            conjuration: {
+                blue: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            },
+            divination: {
+                blue: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            },
+            enchantment: {
+                blue: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Yellow_800x800.webm`],
+            },
+            evocation: {
+                blue: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            },
+            illusion: {
+                blue: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Yellow_800x800.webm`],
+            },
+            necromancy: {
+                blue: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Yellow_800x800.webm`],
+            },
+            transmutation: {
+                blue: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            },
+        },
         moonbeam: {
             loop: {
                 blue: [l2`Moonbeam/Moonbeam_01_Regular_Blue_400x400.webm`],
@@ -3515,29 +3548,41 @@ JB2APATREONDB.templatefx = {
                 rainbow: [l2`Moonbeam/MoonbeamOutro_01_Regular_Rainbow_400x400.webm`],
             },
         },
-        outpulse01: {
+        musicnote: {
+            '01': {
+                blue: [lg`Template/Circle/TemplateMusicNoteCircle_01_Regular_Blue_800x800.webm`],
+                darkred: [lg`Template/Circle/TemplateMusicNoteCircle_01_Dark_Red_800x800.webm`],
+                purple: [lg`Template/Circle/TemplateMusicNoteCircle_01_Regular_Purple_800x800.webm`],
+            },
+        },
+        outpulse: {
             '01': {
                 whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
                 greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
                 purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
                 tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
-            }
-        },
-        outpulse02: {
-            '01': {
+            },
+            '02': {
                 whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
                 greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
                 purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
                 tealyellow: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm`],
             }
         },
-        snowflake: {
+        poison: {
             '01': {
-                whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
-                greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
-                purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
-                tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],
-            }
+                darkgreen: [lg`Template/Circle/TemplatePoisonCircle_01_Dark_Green_800x800.webm`],
+                purple: [lg`Template/Circle/TemplatePoisonCircle_01_Regular_Purple_800x800.webm`],
+            },
+        },
+        runes: {
+            '01': {
+                darkorange: [lg`Template/Circle/TemplateRunesCircle_01_Dark_Orange_800x800.webm`],
+                darkred: [lg`Template/Circle/TemplateRunesCircle_01_Dark_Red_800x800.webm`],
+                blue: [lg`Template/Circle/TemplateRunesCircle_01_Regular_Blue_800x800.webm`],
+                green: [lg`Template/Circle/TemplateRunesCircle_01_Regular_Green02_800x800.webm`],
+                orange: [lg`Template/Circle/TemplateRunesCircle_01_Regular_Orange_800x800.webm`],
+            },
         },
         shatter: {
             '01': {
@@ -3548,6 +3593,19 @@ JB2APATREONDB.templatefx = {
                 orange: [l2`Shatter/Shatter_01_Orange_400x400.webm`]
             }
         },
+        shields: {
+            '01': {
+                darkred: [lg`Template/Circle/TemplateShieldCircle_01_Dark_Red_800x800.webm`],
+                green: [lg`Template/Circle/TemplateShieldCircle_01_Regular_Green_800x800.webm`],
+            },
+        },
+        skull: {
+            '01': {
+                darkgreen: [lg`Template/Circle/TemplateSkullCircle_01_Dark_Green_800x800.webm`],
+                darkorange: [lg`Template/Circle/TemplateSkullCircle_01_Dark_Orange_800x800.webm`],
+                purple: [lg`Template/Circle/TemplateSkullCircle_01_Regular_Purple_800x800.webm`],
+            },
+        },
         sleetstorm: {
             '01': {
                 blue: [l3`Sleet_Storm/SleetStorm_01_Blue_800x800.webm`],
@@ -3556,18 +3614,41 @@ JB2APATREONDB.templatefx = {
                 tealyellow: [l3`Sleet_Storm/SleetStorm_01_TealYellow_800x800.webm`]
             }
         },
+        snowflakes: {
+            '01': {
+                darkblue: [lg`Template/Circle/TemplateSnowflakeCircle_01_Dark_Blue_800x800.webm`],
+                blue: [lg`Template/Circle/TemplateSnowflakeCircle_01_Regular_Blue_800x800.webm`],
+            },
+        },
+        stun: {
+            '01': {
+                darkteal: [lg`Template/Circle/TemplateStunCircle_01_Dark_Teal_800x800.webm`],
+                purple: [lg`Template/Circle/TemplateStunCircle_01_Regular_Purple_800x800.webm`],
+            },
+        },
+        snowflake: {
+            '01': {
+                whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
+                greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
+                purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
+                tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],
+            }
+        },
         vortex: {
             loop: {
+                black: [lg`Template/Circle/Vortex_01_Dark_Black_600x600.webm`],
                 blue: [lg`Template/Circle/Vortex_01_Regular_Blue_600x600.webm`],
                 green: [lg`Template/Circle/Vortex_01_Regular_Green_600x600.webm`],
                 purple: [lg`Template/Circle/Vortex_01_Regular_Purple_600x600.webm`]
             },
             intro: {
+                black: [lg`Template/Circle/VortexIntro_01_Dark_Black_600x600.webm`],
                 blue: [lg`Template/Circle/VortexIntro_01_Regular_Blue_600x600.webm`],
                 green: [lg`Template/Circle/VortexIntro_01_Regular_Green_600x600.webm`],
                 purple: [lg`Template/Circle/VortexIntro_01_Regular_Purple_600x600.webm`]
             },
             outro: {
+                black: [lg`Template/Circle/VortexOutro_01_Dark_Black_600x600.webm`],
                 blue: [lg`Template/Circle/VortexOutro_01_Regular_Blue_600x600.webm`],
                 green: [lg`Template/Circle/VortexOutro_01_Regular_Green_600x600.webm`],
                 purple: [lg`Template/Circle/VortexOutro_01_Regular_Purple_600x600.webm`]
@@ -3575,16 +3656,19 @@ JB2APATREONDB.templatefx = {
         },
         whirl: {
             loop: {
+                black: [lg`Template/Circle/Whirl_01_Dark_Black_600x600.webm`],
                 blue: [lg`Template/Circle/Whirl_01_Regular_Blue_600x600.webm`],
                 green: [lg`Template/Circle/Whirl_01_Regular_Green_600x600.webm`],
                 purple: [lg`Template/Circle/Whirl_01_Regular_Purple_600x600.webm`]
             },
             intro: {
+                black: [lg`Template/Circle/WhirlIntro_01_Dark_Black_600x600.webm`],
                 blue: [lg`Template/Circle/WhirlIntro_01_Regular_Blue_600x600.webm`],
                 green: [lg`Template/Circle/WhirlIntro_01_Regular_Green_600x600.webm`],
                 purple: [lg`Template/Circle/WhirlIntro_01_Regular_Purple_600x600.webm`]
             },
             outro: {
+                black: [lg`Template/Circle/WhirlOutro_01_Dark_Black_600x600.webm`],
                 blue: [lg`Template/Circle/WhirlOutro_01_Regular_Blue_600x600.webm`],
                 green: [lg`Template/Circle/WhirlOutro_01_Regular_Green_600x600.webm`],
                 purple: [lg`Template/Circle/WhirlOutro_01_Regular_Purple_600x600.webm`]
@@ -3592,7 +3676,7 @@ JB2APATREONDB.templatefx = {
         },
     },
     cone: {
-        breathweaponcone: {
+        breathweapon: {
             'cold': {
                 blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
                 green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
@@ -3658,6 +3742,18 @@ JB2APATREONDB.templatefx = {
                 darkred: [l4`Black_Tentacles/BlackTentacles_01_Dark_Red_600x600.webm`],
             },
         },
+        crackedshield: {
+            '01': {
+                darkred: [lg`Template/Square/TemplateShieldCrackedSquare_01_Dark_Red_600x600.webm`],
+                darkpurple: [lg`Template/Square/TemplateShieldCrackedSquare_01_Regular_Purple_600x600.webm`],
+            },
+        },
+        drop: {
+            '01': {
+                darkgreen: [lg`Template/Square/TemplateDropSquare_01_Dark_Green_600x600.webm`],
+                red: [lg`Template/Square/TemplateDropSquare_01_Regular_Red_600x600.webm`]
+            }
+        },
         entangle: {
             '01': {
                 brown: [l1`Entangle/Entangle_01_Brown_400x400.webm`],
@@ -3667,6 +3763,13 @@ JB2APATREONDB.templatefx = {
                 palegreen: [l1`Entangle/Entangle_01_Regular_Green02_400x400.webm`]
             }
         },
+        fear: {
+            '01': {
+                darkorange: [lg`Template/Square/TemplateFearSquare_01_Dark_Orange_600x600.webm`],
+                darkpurple: [lg`Template/Square/TemplateFearSquare_01_Dark_Purple_600x600.webm`],
+                orange: [lg`Template/Square/TemplateFearSquare_01_Regular_Orange_600x600.webm`],
+            },
+        },
         grease: {
             "01": {
                 brown: [l1`Grease/Grease_Dark_Brown_600x600.webm`],
@@ -3674,50 +3777,6 @@ JB2APATREONDB.templatefx = {
                 grey: [l1`Grease/Grease_Dark_Grey_600x600.webm`],
                 purple: [l1`Grease/Grease_Dark_Purple_600x600.webm`],
             }
-        },
-        thunderwave: {
-            left: {
-                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
-                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
-                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
-                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
-                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
-            },
-            mid: {
-                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
-                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
-                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
-                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
-                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
-            },
-            center: {
-                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
-                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`],
-                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`],
-                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
-                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
-            },
-        },
-        web: {
-            '01': {
-                white: [l2`Web/Web_01_White_01_400x400.webm`]
-            },
-            '02': {
-                white: [l2`Web/Web_01_White_02_400x400.webm`]
-            }
-        },
-        drop: {
-            '01': {
-                darkgreen: [lg`Template/Square/TemplateDropSquare_01_Dark_Green_600x600.webm`],
-                red: [lg`Template/Square/TemplateDropSquare_01_Regular_Red_600x600.webm`]
-            }
-        },
-        fear: {
-            '01': {
-                darkorange: [lg`Template/Square/TemplateFearSquare_01_Dark_Orange_600x600.webm`],
-                darkpurple: [lg`Template/Square/TemplateFearSquare_01_Dark_Purple_600x600.webm`],
-                orange: [lg`Template/Square/TemplateFearSquare_01_Regular_Orange_600x600.webm`],
-            },
         },
         heart: {
             '01': {
@@ -3751,7 +3810,7 @@ JB2APATREONDB.templatefx = {
                 darkorange: [lg`Template/Square/TemplateRunesSquare_01_Dark_Orange_600x600.webm`],
                 darkred: [lg`Template/Square/TemplateRunesSquare_01_Dark_Red_600x600.webm`],
                 blue: [lg`Template/Square/TemplateRunesSquare_01_Regular_Blue_600x600.webm`],
-                green: [lg`Template/Square/TemplateRunesSquare_01_Regular_Green_600x600.webm`],
+                green: [lg`Template/Square/TemplateRunesSquare_01_Regular_Green02_600x600.webm`],
                 orange: [lg`Template/Square/TemplateRunesSquare_01_Regular_Orange_600x600.webm`],
             },
         },
@@ -3761,10 +3820,10 @@ JB2APATREONDB.templatefx = {
                 green: [lg`Template/Square/TemplateShieldSquare_01_Regular_Green_600x600.webm`],
             },
         },
-        crackedshield: {
+        snowflakes: {
             '01': {
-                darkred: [lg`Template/Square/TemplateShieldCrackedSquare_01_Dark_Red_600x600.webm`],
-                darkpurple: [lg`Template/Square/TemplateShieldCrackedSquare_01_Regular_Purple_600x600.webm`],
+                darkblue: [lg`Template/Square/TemplateSnowflakeSquare_01_Dark_Blue_600x600.webm`],
+                blue: [lg`Template/Square/TemplateSnowflakeSquare_01_Regular_Blue_600x600.webm`],
             },
         },
         skull: {
@@ -3774,22 +3833,46 @@ JB2APATREONDB.templatefx = {
                 purple: [lg`Template/Square/TemplateSkullSquare_01_Regular_Purple_600x600.webm`],
             },
         },
-        snowflakes: {
-            '01': {
-                darkblue: [lg`Template/Square/TemplateSnowflakeSquare_01_Dark_Blue_600x600.webm`],
-                blue: [lg`Template/Square/TemplateSnowflakeSquare_01_Regular_Blue_600x600.webm`],
-            },
-        },
         stun: {
             '01': {
                 darkteal: [lg`Template/Square/TemplateStunSquare_01_Dark_Teal_600x600.webm`],
                 purple: [lg`Template/Square/TemplateStunSquare_01_Regular_Purple_600x600.webm`],
             },
         },
-
+        thunderwave: {
+            left: {
+                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
+                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
+                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
+                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
+                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
+            },
+            mid: {
+                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
+                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
+                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
+                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
+                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
+            },
+            center: {
+                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
+                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`],
+                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`],
+                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
+                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
+            },
+        },
+        web: {
+            '01': {
+                white: [l2`Web/Web_01_White_01_400x400.webm`]
+            },
+            '02': {
+                white: [l2`Web/Web_01_White_02_400x400.webm`]
+            }
+        },
     },
     ray: {
-        breathweaponline: {
+        breathweapon: {
             acid: {
                 blue: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Blue_30ft_Line_Burst_1200x200.webm`],
                 green: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Green_30ft_Line_Burst_1200x200.webm`],
@@ -3815,12 +3898,14 @@ JB2APATREONDB.templatefx = {
                 darkblue: [l3`Lightning_Bolt/LightningBolt_01_Dark_Blue_4000x200.webm`],
                 blue: [l3`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x200.webm`],
                 green: [l3`Lightning_Bolt/LightningBolt_01_Regular_Green_4000x200.webm`],
+                orange: [l3`Lightning_Bolt/LightningBolt_01_Regular_Orange_4000x200.webm`],
                 purple: [l3`Lightning_Bolt/LightningBolt_01_Regular_Purple_4000x200.webm`]
             },
             '02': {
                 darkblue: [l3`Lightning_Bolt/LightningBolt_01_Dark_Blue_4000x400.webm`],
                 blue: [l3`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x400.webm`],
                 green: [l3`Lightning_Bolt/LightningBolt_01_Regular_Green_4000x400.webm`],
+                orange: [l3`Lightning_Bolt/LightningBolt_01_Regular_Orange_4000x400.webm`],
                 purple: [l3`Lightning_Bolt/LightningBolt_01_Regular_Purple_4000x400.webm`]
             }
         },
@@ -3839,695 +3924,24 @@ JB2APATREONDB.templatefx = {
 /**
  * Static Types:
  * 
- * Creature Attack
- * Explosion
- * Spell
  * Conditions
- * Shield Effects
- * Token Border
- * Marker
+ * Creature
  * Energy
  * Fire
- * Liquid
+ * Generic
  * Ice
  * Lightning
+ * Liquid
  * Magic Signs
+ * Marker
  * Music
- * Generic
+ * Particles
+ * Shield Effects
+ * Spell
+ * Token Border
  * 
  */
 JB2APATREONDB.static = {
-    creature: {
-        bite: {
-            '01': {
-                red: [lg`Creature/Bite_01_Regular_Red_400x400.webm`],
-                blue: [lg`Creature/Bite_01_Regular_Blue_400x400.webm`],
-                green: [lg`Creature/Bite_01_Regular_Green_400x400.webm`],
-                grey: [lg`Creature/Bite_01_Regular_Grey_400x400.webm`],
-                orange: [lg`Creature/Bite_01_Regular_Orange_400x400.webm`],
-                purple: [lg`Creature/Bite_01_Regular_Purple_400x400.webm`],
-                yellow: [lg`Creature/Bite_01_Regular_Yellow_400x400.webm`]
-            }
-        },
-        claw: {
-            '01': {
-                blue: [lg`Creature/Claws_01_Bright_Blue_400x400.webm`],
-                brown: [lg`Creature/Claws_01_Regular_Brown_400x400.webm`],
-                darkred: [lg`Creature/Claws_01_Dark_Red_400x400.webm`],
-                green: [lg`Creature/Claws_01_Bright_Green_400x400.webm`],
-                orange: [lg`Creature/Claws_01_Bright_Orange_400x400.webm`],
-                purple: [lg`Creature/Claws_01_Bright_Purple_400x400.webm`],
-                red: [lg`Creature/Claws_01_Regular_Red_400x400.webm`],
-                yellow: [lg`Creature/Claws_01_Bright_Yellow_400x400.webm`],
-            }
-        },
-    },
-    explosion: {
-        boulderimpact: {
-            '01': {
-                white: [lg`Impact/BoulderImpact_01_Regular_White_500x500.webm`]
-            }
-        },
-        explosion: {
-            '01': {
-                darkpurple: [
-                    lg`Explosion/Explosion_04_Dark_Purple_400x400.webm`,
-                ],
-                darkred: [
-                    lg`Explosion/Explosion_04_Dark_Red_400x400.webm`,
-                ],
-                blue: [
-                    lg`Explosion/Explosion_01_Blue_400x400.webm`,
-                    lg`Explosion/Explosion_02_Blue_400x400.webm`,
-                    lg`Explosion/Explosion_04_Regular_Blue_400x400.webm`,
-                ],
-                green: [
-                    lg`Explosion/Explosion_01_Green_400x400.webm`,
-                    lg`Explosion/Explosion_02_Green_400x400.webm`,
-                    lg`Explosion/Explosion_04_Regular_Green_400x400.webm`,
-                ],
-                greenorange: [
-                    lg`Explosion/Explosion_03_Regular_GreenOrange_400x400.webm`,
-                ],
-                orange: [
-                    lg`Explosion/Explosion_01_Orange_400x400.webm`,
-                    lg`Explosion/Explosion_02_Orange_400x400.webm`,
-                    lg`Explosion/Explosion_04_Regular_Orange_400x400.webm`,
-                ],
-                pink: [
-                    lg`Explosion/Explosion_03_Regular_Pink_400x400.webm`,
-                ],
-                purplepink: [
-                    lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`,
-                ],
-                purple: [
-                    lg`Explosion/Explosion_01_Purple_400x400.webm`,
-                    lg`Explosion/Explosion_02_Purple_400x400.webm`,
-                ],
-                red: [
-                    lg`Explosion/Explosion_03_Regular_Red_400x400.webm`,
-                ],
-                yellow: [
-                    lg`Explosion/Explosion_01_Yellow_400x400.webm`,
-                    lg`Explosion/Explosion_02_Yellow_400x400.webm`,
-                ],
-                yellowblue: [
-                    lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`,
-                ],
-                whiteblue: [
-                    lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`,
-                ],
-            }
-        },
-        impact: {
-            '01': {
-                blue: [
-                    lg`Impact/Impact_01_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_02_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_03_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_04_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_05_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_07_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_08_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_09_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_10_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_11_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_12_Regular_Blue_400x400.webm`
-                ],
-                darkpurple: [
-                    lg`Impact/Impact_01_Dark_Purple_400x400.webm`,
-                    lg`Impact/Impact_02_Dark_Purple_400x400.webm`,
-                    lg`Impact/Impact_03_Dark_Purple_400x400.webm`,
-                    lg`Impact/Impact_04_Dark_Purple_400x400.webm`,
-                    lg`Impact/Impact_11_Dark_Purple_400x400.webm`,
-                    lg`Impact/Impact_12_Dark_Purple_400x400.webm`
-                ],
-                darkred: [
-                    lg`Impact/Impact_01_Dark_Red_400x400.webm`,
-                    lg`Impact/Impact_02_Dark_Red_400x400.webm`,
-                    lg`Impact/Impact_03_Dark_Red_400x400.webm`,
-                    lg`Impact/Impact_04_Dark_Red_400x400.webm`,
-                    lg`Impact/Impact_11_Dark_Red_400x400.webm`,
-                    lg`Impact/Impact_12_Dark_Red_400x400.webm`,
-                ],
-                green: [
-                    lg`Impact/Impact_01_Regular_Green_400x400.webm`,
-                    lg`Impact/Impact_02_Regular_Green_400x400.webm`,
-                    lg`Impact/Impact_03_Regular_Green_400x400.webm`,
-                    lg`Impact/Impact_04_Regular_Green_400x400.webm`,
-                    lg`Impact/Impact_05_Regular_Green_400x400.webm`,
-                    lg`Impact/Impact_07_Regular_Green_400x400.webm`,
-                    lg`Impact/Impact_08_Regular_Green_400x400.webm`,
-                    lg`Impact/Impact_09_Regular_Green_400x400.webm`,
-                    lg`Impact/Impact_10_Regular_Green_400x400.webm`,
-                    lg`Impact/Impact_11_Regular_Blue_400x400.webm`,
-                    lg`Impact/Impact_12_Regular_Blue_400x400.webm`
-                ],
-                orange: [
-                    lg`Impact/Impact_01_Regular_Orange_400x400.webm`,
-                    lg`Impact/Impact_02_Regular_Orange_400x400.webm`,
-                    lg`Impact/Impact_03_Regular_Orange_400x400.webm`,
-                    lg`Impact/Impact_04_Regular_Orange_400x400.webm`,
-                    lg`Impact/Impact_05_Regular_Orange_400x400.webm`,
-                    lg`Impact/Impact_07_Regular_Orange_400x400.webm`,
-                    lg`Impact/Impact_08_Regular_Orange_400x400.webm`,
-                    lg`Impact/Impact_09_Regular_Orange_400x400.webm`,
-                    lg`Impact/Impact_10_Regular_Orange_400x400.webm`,
-                ],
-                pink: [
-                    lg`Impact/Impact_07_Regular_Pink_400x400.webm`,
-                    lg`Impact/Impact_09_Regular_Pink_400x400.webm`,
-                ],
-                purplepink: [
-                    lg`Impact/Impact_01_Regular_PinkPurple_400x400.webm`,
-                    lg`Impact/Impact_02_Regular_PinkPurple_400x400.webm`,
-                    lg`Impact/Impact_03_Regular_PinkPurple_400x400.webm`,
-                    lg`Impact/Impact_04_Regular_PinkPurple_400x400.webm`,
-                ],
-                purple: [
-                    lg`Impact/Impact_05_Regular_Purple_400x400.webm`,
-                    lg`Impact/Impact_07_Regular_Purple_400x400.webm`,
-                    lg`Impact/Impact_09_Regular_Purple_400x400.webm`,
-                    lg`Impact/Impact_11_Regular_Purple_400x400.webm`,
-                    lg`Impact/Impact_12_Regular_Purple_400x400.webm`
-                ],
-                red: [
-                    lg`Impact/Impact_05_Regular_Red_400x400.webm`,
-                    lg`Impact/Impact_08_Regular_Red_400x400.webm`,
-                    lg`Impact/Impact_10_Regular_Red_400x400.webm`,
-                    lg`Impact/Impact_11_Regular_Red_400x400.webm`,
-                    lg`Impact/Impact_12_Regular_Red_400x400.webm`,
-                ],
-                white: [
-                    lg`Impact/Impact_07_Regular_White_400x400.webm`,
-                    lg`Impact/Impact_09_Regular_White_400x400.webm`,
-                ],
-                yellow: [
-                    lg`Impact/Impact_01_Regular_Yellow_400x400.webm`,
-                    lg`Impact/Impact_02_Regular_Yellow_400x400.webm`,
-                    lg`Impact/Impact_03_Regular_Yellow_400x400.webm`,
-                    lg`Impact/Impact_04_Regular_Yellow_400x400.webm`,
-                    lg`Impact/Impact_05_Regular_Yellow_400x400.webm`,
-                    lg`Impact/Impact_06_Regular_Yellow_400x400.webm`,
-                    lg`Impact/Impact_07_Regular_Yellow_400x400.webm`,
-                ],
-            }
-        },
-        outpulse01: {
-            '01': {
-                whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
-                greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
-                purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
-                tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
-            }
-        },
-        outpulse02: {
-            '01': {
-                whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
-                greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
-                purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
-                tealyellow: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm`],
-            }
-        },
-
-    },
-    spell: {
-        antilifeshell: {
-            '01': {
-                blue: [l5`Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm`]
-            }
-        },
-        armsofhadar: {
-            '01': {
-                darkgreen: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm`],
-                darkpurple: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`],
-                darkred: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Red_500x500.webm`],
-            }
-        },
-        bardicinspiration: {
-            inspire: {
-                yellowblue: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
-                greenorange: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm`],
-                purplepink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_PurplePink_400x400.webm`],
-                darkred: [l1`Bardic_Inspiration/BardicInspiration_01_Dark_Red_400x400.webm`],
-                pink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_Pink_400x400.webm`]
-            },
-            marker: {
-                yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
-                greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
-                pink: [lg`Marker/MusicMarker_01_Regular_Pink_400x400.webm`],
-                purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
-                darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
-            }
-        },
-        blacktentacles: {
-            '01': {
-                darkgreen: [l4`Black_Tentacles/BlackTentacles_01_Dark_Green_600x600.webm`],
-                darkpurple: [l4`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`],
-                darkred: [l4`Black_Tentacles/BlackTentacles_01_Dark_Red_600x600.webm`],
-            },
-        },
-        bless: {
-            '01': {
-                blue: {
-                    'intro': l1`Bless/Bless_01_Regular_Blue_Intro_400x400.webm`,
-                    'loop': l1`Bless/Bless_01_Regular_Blue_Loop_400x400.webm`,
-                },
-                green: {
-                    'intro': l1`Bless/Bless_01_Regular_Green_Intro_400x400.webm`,
-                    'loop': l1`Bless/Bless_01_Regular_Green_Loop_400x400.webm`,
-                },
-                purple: {
-                    'intro': l1`Bless/Bless_01_Regular_Purple_Intro_400x400.webm`,
-                    'loop': l1`Bless/Bless_01_Regular_Purple_Loop_400x400.webm`,
-                },
-                yellow: {
-                    'intro': l1`Bless/Bless_01_Regular_Yellow_Intro_400x400.webm`,
-                    'loop': l1`Bless/Bless_01_Regular_Yellow_Loop_400x400.webm`,
-                }
-            }
-        },
-        calllightning: {
-            '01': {
-                blue: [l3`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`],
-                blueorange: [l3`Call_Lightning/CallLightning_01_BlueOrange_1000x1000.webm`],
-                green: [l3`Call_Lightning/CallLightning_01_Green_1000x1000.webm`],
-                pinkyellow: [l3`Call_Lightning/CallLightning_01_PinkYellow_1000x1000.webm`],
-                purple: [l3`Call_Lightning/CallLightning_01_Purple_1000x1000.webm`],
-                red: [l3`Call_Lightning/CallLightning_01_Red_1000x1000.webm`],
-                yellow: [l3`Call_Lightning/CallLightning_01_Yellow_1000x1000.webm`]
-            }
-        },
-        cloudofdaggers: {
-            '01': {
-                darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Purple_400x400.webm`],
-                darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Red_400x400.webm`],
-                blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Blue_400x400.webm`],
-                green: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Green_400x400.webm`],
-                orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Orange_400x400.webm`],
-                purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Purple_400x400.webm`],
-                red: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Red_400x400.webm`],
-                yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Yellow_400x400.webm`]
-            },
-            kunai: {
-                darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Purple_400x400.webm`],
-                darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Red_400x400.webm`],
-                blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Blue_400x400.webm`],
-                green: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Green_400x400.webm`],
-                orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Orange_400x400.webm`],
-                purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Purple_400x400.webm`],
-                red: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Red_400x400.webm`],
-                yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Yellow_400x400.webm`]
-            },
-        },
-        curewounds: {
-            '01': {
-                blue: [l1`Cure_Wounds/CureWounds_01_Blue_400x400.webm`],
-                green: [l1`Cure_Wounds/CureWounds_01_Green_400x400.webm`],
-                pink: [l1`Cure_Wounds/CureWounds_01_Pink_400x400.webm`],
-                purple: [l1`Cure_Wounds/CureWounds_01_Purple_400x400.webm`],
-                red: [l1`Cure_Wounds/CureWounds_01_Red_400x400.webm`]
-            }
-        },
-        darkness: {
-            '01': {
-                black: [l2`Darkness/Darkness_01_Black_600x600.webm`],
-                green: [l2`Darkness/Darkness_01_Green_600x600.webm`]
-            }
-        },
-        detectmagic: {
-            '01': {
-                blue: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Blue_1200x1200.webm`],
-                green: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Green_1200x1200.webm`],
-                greenorange: [l1`Detect_Magic/DetectMagicCircle_01_Regular_GreenOrange_1200x1200.webm`],
-                grey: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Grey_1200x1200.webm`],
-                purple: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Purple_1200x1200.webm`],
-            }
-        },
-        divinesmite: {
-            'source': {
-                yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
-                greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm`],
-                purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm`],
-                darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Caster_400x400.webm`],
-                yellowwhite: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Caster_400x400.webm`],
-                darkred: [l2`Divine_Smite/DivineSmite_01_Dark_Red_Caster_400x400.webm`],
-            },
-            'target': {
-                yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
-                greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Target_400x400.webm`],
-                purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Target_400x400.webm`],
-                darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm`],
-                yellowwhite: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Target_400x400.webm`],
-                darkred: [l2`Divine_Smite/DivineSmite_01_Dark_Red_Target_400x400.webm`],
-            }
-        },
-        fireball: {
-            loop: {
-                blue: [l3`Fireball/FireballLoop_01_Blue_800x800.webm`],
-                orange: [l3`Fireball/FireballLoop_01_Orange_800x800.webm`],
-                purple: [l3`Fireball/FireballLoop_01_Purple_800x800.webm`],
-            },
-            explode: {
-                blue: [l3`Fireball/FireballExplosion_01_Blue_800x800.webm`],
-                orange: [l3`Fireball/FireballExplosion_01_Orange_800x800.webm`],
-                purple: [l3`Fireball/FireballExplosion_01_Purple_800x800.webm`],
-            },
-            nodebris: {
-                blue: [l3`Fireball/FireballLoopNoDebris_01_Blue_800x800.webm`],
-                orange: [l3`Fireball/FireballLoopNoDebris_01_Orange_800x800.webm`],
-                purple: [l3`Fireball/FireballLoopNoDebris_01_Purple_800x800.webm`],
-            },
-        },
-        fogcloud: {
-            '01': {
-                white: [l1`Fog_Cloud/FogCloud_01_White_800x800.webm`]
-            },
-            '02': {
-                white: [l1`Fog_Cloud/FogCloud_02_Regular_White_800x800.webm`],
-                green: [l1`Fog_Cloud/FogCloud_02_Regular_Green_800x800.webm`]
-            },
-        },
-        generichealing: {
-            '01': {
-                blue: [lg`Healing/HealingAbility_01_Blue_400x400.webm`],
-                green: [lg`Healing/HealingAbility_01_Green_400x400.webm`],
-                purple: [lg`Healing/HealingAbility_01_Purple_400x400.webm`],
-                red: [lg`Healing/HealingAbility_01_Red_400x400.webm`],
-                yellow: [lg`Healing/HealingAbility_01_Yellow_400x400.webm`],
-            },
-            '02': {
-                whiteblue: [lg`Healing/HealingAbility_02_Regular_BlueWhite_Burst_600x600.webm`],
-                greenorange: [lg`Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm`],
-                purplepink: [lg`Healing/HealingAbility_02_Regular_PurplePink_Burst_600x600.webm`],
-                tealyellow: [lg`Healing/HealingAbility_02_Regular_TealYellow_Burst_600x600.webm`],
-            }
-        },
-        grease: {
-            "01": {
-                brown: [l1`Grease/Grease_Dark_Brown_600x600.webm`],
-                green: [l1`Grease/Grease_Dark_Green_600x600.webm`],
-                grey: [l1`Grease/Grease_Dark_Grey_600x600.webm`],
-                purple: [l1`Grease/Grease_Dark_Purple_600x600.webm`],
-            }
-        },
-        huntersmark: {
-            'eye': {
-                blue: [l1`Hunters_Mark/HuntersMark_01_Regular_Blue_Pulse_200x200.webm`],
-                green: [l1`Hunters_Mark/HuntersMark_01_Regular_Green_Pulse_200x200.webm`],
-                purple: [l1`Hunters_Mark/HuntersMark_01_Regular_Purple_Pulse_200x200.webm`],
-            },
-            'eyeloop': {
-                blue: [l1`Hunters_Mark/HuntersMark_01_Regular_Blue_Loop_200x200.webm`],
-                green: [l1`Hunters_Mark/HuntersMark_01_Regular_Green_Loop_200x200.webm`],
-                purple: [l1`Hunters_Mark/HuntersMark_01_Regular_Purple_Loop_200x200.webm`],
-            },
-            'paw': {
-                blue: [l1`Hunters_Mark/HuntersMark_02_Regular_Blue_Pulse_200x200.webm`],
-                green: [l1`Hunters_Mark/HuntersMark_02_Regular_Green_Pulse_200x200.webm`],
-                purple: [l1`Hunters_Mark/HuntersMark_02_Regular_Purple_Pulse_200x200.webm`],
-            },
-            'pawloop': {
-                blue: [l1`Hunters_Mark/HuntersMark_02_Regular_Blue_Loop_200x200.webm`],
-                green: [l1`Hunters_Mark/HuntersMark_02_Regular_Green_Loop_200x200.webm`],
-                purple: [l1`Hunters_Mark/HuntersMark_02_Regular_Purple_Loop_200x200.webm`],
-            },
-        },
-        mistystep: {
-            '01': {
-                black: [l2`Misty_Step/MistyStep_01_Dark_Black_400x400.webm`],
-                blue: [l2`Misty_Step/MistyStep_01_Regular_Blue_400x400.webm`],
-                green: [l2`Misty_Step/MistyStep_01_Regular_Green_400x400.webm`],
-                orange: [l2`Misty_Step/MistyStep_01_Regular_Orange_400x400.webm`],
-                purple: [l2`Misty_Step/MistyStep_01_Regular_Purple_400x400.webm`],
-                darkgreen: [l2`Misty_Step/MistyStep_01_Dark_Green_400x400.webm`],
-                darkred: [l2`Misty_Step/MistyStep_01_Dark_Red_400x400.webm`],
-                grey: [l2`Misty_Step/MistyStep_01_Regular_Grey_400x400.webm`]
-            },
-            '02': {
-                black: [l2`Misty_Step/MistyStep_02_Dark_Black_400x400.webm`],
-                blue: [l2`Misty_Step/MistyStep_02_Regular_Blue_400x400.webm`],
-                green: [l2`Misty_Step/MistyStep_02_Regular_Green_400x400.webm`],
-                orange: [l2`Misty_Step/MistyStep_02_Regular_Orange_400x400.webm`],
-                purple: [l2`Misty_Step/MistyStep_02_Regular_Purple_400x400.webm`],
-                darkgreen: [l2`Misty_Step/MistyStep_02_Dark_Green_400x400.webm`],
-                darkred: [l2`Misty_Step/MistyStep_02_Dark_Red_400x400.webm`],
-                grey: [l2`Misty_Step/MistyStep_02_Regular_Grey_400x400.webm`]
-            }
-        },
-        moonbeam: {
-            loop: {
-                blue: [l2`Moonbeam/Moonbeam_01_Regular_Blue_400x400.webm`],
-                green: [l2`Moonbeam/Moonbeam_01_Regular_Green_400x400.webm`],
-                rainbow: [l2`Moonbeam/Moonbeam_01_Regular_Rainbow_400x400.webm`],
-            },
-            nopulse: {
-                blue: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Blue_400x400.webm`],
-                green: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Green_400x400.webm`],
-                rainbow: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Rainbow_400x400.webm`],
-            },
-            intro: {
-                blue: [l2`Moonbeam/MoonbeamIntro_01_Regular_Blue_400x400.webm`],
-                green: [l2`Moonbeam/MoonbeamIntro_01_Regular_Green_400x400.webm`],
-                rainbow: [l2`Moonbeam/MoonbeamIntro_01_Regular_Rainbow_400x400.webm`],
-            },
-            outro: {
-                blue: [l2`Moonbeam/MoonbeamOutro_01_Regular_Blue_400x400.webm`],
-                green: [l2`Moonbeam/MoonbeamOutro_01_Regular_Green_400x400.webm`],
-                rainbow: [l2`Moonbeam/MoonbeamOutro_01_Regular_Rainbow_400x400.webm`],
-            },
-        },
-        entangle: {
-            '01': {
-                brown: [l1`Entangle/Entangle_01_Brown_400x400.webm`],
-                green: [l1`Entangle/Entangle_01_Green_400x400.webm`],
-                yellow: [l1`Entangle/Entangle_01_Yellow_400x400.webm`],
-                darkpurple: [l1`Entangle/Entangle_01_Dark_Purple_400x400.webm`],
-                palegreen: [l1`Entangle/Entangle_01_Regular_Green02_400x400.webm`]
-            }
-        },
-        sneakattack: {
-            '01': {
-                darkgreen: [l1`Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm`],
-                darkpurple: [l1`Sneak_Attack/Sneak_Attack_Dark_Purple_300x300.webm`],
-                darkred: [l1`Sneak_Attack/Sneak_Attack_Dark_Red_300x300.webm`],
-                blue: [l1`Sneak_Attack/Sneak_Attack_Regular_Blue_300x300.webm`],
-                orange: [l1`Sneak_Attack/Sneak_Attack_Regular_Orange_300x300.webm`],
-                pink: [l1`Sneak_Attack/Sneak_Attack_Regular_Pink_300x300.webm`],
-                yellow: [l1`Sneak_Attack/Sneak_Attack_Regular_Yellow_300x300.webm`]
-            }
-        },
-        thunderwave: {
-            left: {
-                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
-                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
-                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
-                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
-                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
-            },
-            mid: {
-                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
-                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
-                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
-                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
-                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
-            },
-            center: {
-                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
-                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`],
-                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`],
-                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
-                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
-            },
-        },
-        shatter: {
-            '01': {
-                purple: [l2`Shatter/Shatter_01_Purple_400x400.webm`],
-                red: [l2`Shatter/Shatter_01_Red_400x400.webm`],
-                blue: [l2`Shatter/Shatter_01_Blue_400x400.webm`],
-                green: [l2`Shatter/Shatter_01_Green_400x400.webm`],
-                orange: [l2`Shatter/Shatter_01_Orange_400x400.webm`]
-            }
-        },
-        shieldspell: {
-            '01': {
-                blue: {
-                    'intro': l1`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_01_Regular_Blue_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_01_Regular_Blue_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_01_Regular_Blue_OutroFade_400x400.webm`,
-                },
-                green: {
-                    'intro': l1`Shield/Shield_01_Regular_Green_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_01_Regular_Green_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_01_Regular_Green_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_01_Regular_Green_OutroFade_400x400.webm`,
-                },
-                purple: {
-                    'intro': l1`Shield/Shield_01_Regular_Purple_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_01_Regular_Purple_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_01_Regular_Purple_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_01_Regular_Purple_OutroFade_400x400.webm`,
-                },
-                red: {
-                    'intro': l1`Shield/Shield_01_Regular_Red_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_01_Regular_Red_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_01_Regular_Red_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_01_Regular_Red_OutroFade_400x400.webm`,
-                },
-                yellow: {
-                    'intro': l1`Shield/Shield_01_Regular_Yellow_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_01_Regular_Yellow_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_01_Regular_Yellow_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_01_Regular_Yellow_OutroFade_400x400.webm`,
-                }
-
-
-            },
-            '02': {
-                blue: {
-                    'intro': l1`Shield/Shield_02_Regular_Blue_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_02_Regular_Blue_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_02_Regular_Blue_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_02_Regular_Blue_OutroFade_400x400.webm`,
-                },
-                green: {
-                    'intro': l1`Shield/Shield_02_Regular_Green_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_02_Regular_Green_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_02_Regular_Green_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_02_Regular_Green_OutroFade_400x400.webm`,
-                },
-                purple: {
-                    'intro': l1`Shield/Shield_02_Regular_Purple_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_02_Regular_Purple_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_02_Regular_Purple_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_02_Regular_Purple_OutroFade_400x400.webm`,
-                },
-                red: {
-                    'intro': l1`Shield/Shield_02_Regular_Red_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_02_Regular_Red_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_02_Regular_Red_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_02_Regular_Red_OutroFade_400x400.webm`,
-                },
-                yellow: {
-                    'intro': l1`Shield/Shield_02_Regular_Yellow_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_02_Regular_Yellow_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_02_Regular_Yellow_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_02_Regular_Yellow_OutroFade_400x400.webm`,
-                }
-
-            },
-            '03': {
-                blue: {
-                    'intro': l1`Shield/Shield_03_Regular_Blue_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_03_Regular_Blue_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_03_Regular_Blue_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_03_Regular_Blue_OutroFade_400x400.webm`,
-                },
-                green: {
-                    'intro': l1`Shield/Shield_03_Regular_Green_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_03_Regular_Green_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_03_Regular_Green_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_03_Regular_Green_OutroFade_400x400.webm`,
-                },
-                purple: {
-                    'intro': l1`Shield/Shield_03_Regular_Purple_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_03_Regular_Purple_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_03_Regular_Purple_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_03_Regular_Purple_OutroFade_400x400.webm`,
-                },
-                red: {
-                    'intro': l1`Shield/Shield_03_Regular_Red_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_03_Regular_Red_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_03_Regular_Red_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_03_Regular_Red_OutroFade_400x400.webm`,
-                },
-                yellow: {
-                    'intro': l1`Shield/Shield_03_Regular_Yellow_Intro_400x400.webm`,
-                    'loop': l1`Shield/Shield_03_Regular_Yellow_Loop_400x400.webm`,
-                    'outro_explode': l1`Shield/Shield_03_Regular_Yellow_OutroExplode_400x400.webm`,
-                    'outro_fade': l1`Shield/Shield_03_Regular_Yellow_OutroFade_400x400.webm`,
-                }
-            }
-        },
-        sleetstorm: {
-            '01': {
-                blue: [l3`Sleet_Storm/SleetStorm_01_Blue_800x800.webm`],
-                green: [l3`Sleet_Storm/SleetStorm_01_Green_800x800.webm`],
-                purple: [l3`Sleet_Storm/SleetStorm_01_Purple_800x800.webm`],
-                tealyellow: [l3`Sleet_Storm/SleetStorm_01_TealYellow_800x800.webm`]
-            }
-        },
-        spiritguardians: {
-            '01': {
-                darkblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Blue_600x600.webm`],
-                darkpurple: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Purple_600x600.webm`],
-                darkred: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Red_600x600.webm`],
-                yellowblue: [l3`Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm`],
-                greenorange: [l3`Spirit_Guardians/SpiritGuardians_01_Light_GreenOrange_600x600.webm`],
-                purplepink: [l3`Spirit_Guardians/SpiritGuardians_01_Light_PinkPurple_600x600.webm`],
-                darkwhiteblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_WhiteBlue_600x600.webm`],
-                lightorange: [l3`Spirit_Guardians/SpiritGuardians_01_Light_Orange_600x600.webm`],
-            },
-            noring: {
-                lightorange: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Light_Orange_600x600.webm`],
-            },
-        },
-        tollthedead: {
-            bell: {
-                blue: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Blue_400x400.webm`],
-                green: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Green_400x400.webm`],
-                purple: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Purple_400x400.webm`],
-                red: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Red_400x400.webm`],
-            },
-            complete: {
-                blue: [l0`Toll_The_Dead/TollTheDead_01_Regular_Blue_400x400.webm`],
-                green: [l0`Toll_The_Dead/TollTheDead_01_Regular_Green_400x400.webm`],
-                purple: [l0`Toll_The_Dead/TollTheDead_01_Regular_Purple_400x400.webm`],
-                red: [l0`Toll_The_Dead/TollTheDead_01_Regular_Red_400x400.webm`],
-            },
-            shockwave: {
-                blue: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Blue_400x400.webm`],
-                green: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Green_400x400.webm`],
-                purple: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Purple_400x400.webm`],
-                red: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Red_400x400.webm`],
-            },
-            skull: {
-                blue: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Blue_400x400.webm`],
-                green: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`],
-                purple: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Purple_400x400.webm`],
-                red: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Red_400x400.webm`],
-            },
-        },
-        wallofforce: {
-            '01': {
-                blue: [l5`Wall_Of_Force/WallOfForce_01_Blue_Sphere_400x400.webm`],
-                green: [l5`Wall_Of_Force/WallOfForce_01_Green_Sphere_400x400.webm`],
-                grey: [l5`Wall_Of_Force/WallOfForce_01_Grey_Sphere_400x400.webm`],
-                orange: [l5`Wall_Of_Force/WallOfForce_01_Orange_Sphere_400x400.webm`],
-                purple: [l5`Wall_Of_Force/WallOfForce_01_Purple_Sphere_400x400.webm`],
-                red: [l5`Wall_Of_Force/WallOfForce_01_Red_Sphere_400x400.webm`],
-                yellow: [l5`Wall_Of_Force/WallOfForce_01_Yellow_Sphere_400x400.webm`]
-            }
-        },
-        web: {
-            '01': {
-                white: [l2`Web/Web_01_White_01_400x400.webm`]
-            },
-            '02': {
-                white: [l2`Web/Web_01_White_02_400x400.webm`]
-            }
-        },
-        whirlwind: {
-            '01': {
-                blue: [l7`Whirlwind/Whirlwind_01_Blue_400x400.webm`],
-                bluegrey: [l7`Whirlwind/Whirlwind_01_BlueGrey_01_400x400.webm`],
-                green: [l7`Whirlwind/Whirlwind_01_Green_400x400.webm`],
-                purple: [l7`Whirlwind/Whirlwind_01_Purple_400x400.webm`],
-                red: [l7`Whirlwind/Whirlwind_01_Red_400x400.webm`],
-            }
-        },
-    },
     conditions: {
         drop: {
             '01': {
@@ -4730,6 +4144,684 @@ JB2APATREONDB.static = {
             }
         },
     },
+    creature: {
+        bite: {
+            '01': {
+                red: [lg`Creature/Bite_01_Regular_Red_400x400.webm`],
+                blue: [lg`Creature/Bite_01_Regular_Blue_400x400.webm`],
+                green: [lg`Creature/Bite_01_Regular_Green_400x400.webm`],
+                grey: [lg`Creature/Bite_01_Regular_Grey_400x400.webm`],
+                orange: [lg`Creature/Bite_01_Regular_Orange_400x400.webm`],
+                purple: [lg`Creature/Bite_01_Regular_Purple_400x400.webm`],
+                yellow: [lg`Creature/Bite_01_Regular_Yellow_400x400.webm`]
+            }
+        },
+        claw: {
+            '01': {
+                blue: [lg`Creature/Claws_01_Bright_Blue_400x400.webm`],
+                brown: [lg`Creature/Claws_01_Regular_Brown_400x400.webm`],
+                darkred: [lg`Creature/Claws_01_Dark_Red_400x400.webm`],
+                green: [lg`Creature/Claws_01_Bright_Green_400x400.webm`],
+                orange: [lg`Creature/Claws_01_Bright_Orange_400x400.webm`],
+                purple: [lg`Creature/Claws_01_Bright_Purple_400x400.webm`],
+                red: [lg`Creature/Claws_01_Regular_Red_400x400.webm`],
+                yellow: [lg`Creature/Claws_01_Bright_Yellow_400x400.webm`],
+            }
+        },
+    },
+    energy: {
+        energyfield: {
+            '01': {
+                blue: [lg`Energy/EnergyField_01_Regular_Blue_600x600.webm`],
+                green: [lg`Energy/EnergyField_01_Regular_Green_600x600.webm`],
+                rainbow: [lg`Energy/EnergyField_01_Regular_Rainbow_600x600.webm`],
+            }
+        },
+        dodecahedron: {
+            simple: {
+                blue: [lg`Energy/Dodecahedron_01_Regular_Blue_600x600.webm`],
+                green: [lg`Energy/Dodecahedron_01_Regular_Green_600x600.webm`],
+            },
+            rolled: {
+                blue: [lg`Energy/DodecahedronRoll_01_Regular_Blue_600x600.webm`],
+                green: [lg`Energy/DodecahedronRoll_01_Regular_Green_600x600.webm`],
+            },
+            runeabove: {
+                yellowblue: [lg`Energy/DodecahedronRuneAbove_01_Regular_BlueYellow_600x600.webm`],
+                darkgreenpurple: [lg`Energy/DodecahedronRuneAbove_01_Dark_GreenPurple_600x600.webm`],
+            },
+            runebelow: {
+                yellowblue: [lg`Energy/DodecahedronRuneBelow_01_Regular_BlueYellow_600x600.webm`],
+                darkgreenpurple: [lg`Energy/DodecahedronRuneBelow_01_Dark_GreenPurple_600x600.webm`],
+            },
+            skullabove: {
+                darkgreenpurple: [lg`Energy/DodecahedronSkullAbove_01_Dark_GreenPurple_600x600.webm`],
+            },
+            skullbelow: {
+                darkgreenpurple: [lg`Energy/DodecahedronSkullBelow_01_Dark_GreenPurple_600x600.webm`],
+            },
+            starabove: {
+                yellowblue: [lg`Energy/DodecahedronStarAbove_01_Regular_BlueYellow_600x600.webm`],
+            },
+            starbelow: {
+                yellowblue: [lg`Energy/DodecahedronStarBelow_01_Regular_BlueYellow_600x600.webm`],
+            },
+        },
+    },
+    fire: {
+        eruption: {
+            '01': {
+                blue: [lg`Fire/Eruption_01_Regular_Blue_600x600.webm`],
+                green: [lg`Fire/Eruption_01_Regular_Green_600x600.webm`],
+                orange: [lg`Fire/Eruption_01_Regular_Orange_600x600.webm`]
+            },
+        },
+        groundcrack: {
+            '01': {
+                blue: [lg`Fire/GroundCrackLoop_01_Regular_Blue_600x600.webm`],
+                green: [lg`Fire/GroundCrackLoop_01_Regular_Green_600x600.webm`],
+                orange: [lg`Fire/GroundCrackLoop_01_Regular_Orange_600x600.webm`],
+                purple: [lg`Fire/GroundCrackLoop_01_Regular_Purple_600x600.webm`],
+            },
+            '02': {
+                blue: [lg`Fire/GroundCrackLoop_02_Regular_Blue_600x600.webm`],
+                green: [lg`Fire/GroundCrackLoop_02_Regular_Green_600x600.webm`],
+                orange: [lg`Fire/GroundCrackLoop_02_Regular_Orange_600x600.webm`],
+                purple: [lg`Fire/GroundCrackLoop_02_Regular_Purple_600x600.webm`],
+            },
+            '03': {
+                blue: [lg`Fire/GroundCrackLoop_03_Regular_Blue_600x600.webm`],
+                green: [lg`Fire/GroundCrackLoop_03_Regular_Green_600x600.webm`],
+                orange: [lg`Fire/GroundCrackLoop_03_Regular_Orange_600x600.webm`],
+                purple: [lg`Fire/GroundCrackLoop_03_Regular_Purple_600x600.webm`],
+            },
+        },
+        fireworks: {
+            '01': {
+                green: [
+                    lg`Fireworks/Firework02_01_Regular_Green_600x600.webm`,
+                ],
+                greenorange: [
+                    lg`Fireworks/Firework01_01_Regular_GreenOrange_600x600.webm`,
+                ],
+                greenred: [
+                    lg`Fireworks/Firework01_01_Regular_GreenRed_600x600.webm`,
+                    lg`Fireworks/Firework03_01_Regular_GreenRed_600x600.webm`,
+                ],
+                orange: [
+                    lg`Fireworks/Firework02_01_Regular_Orange_600x600.webm`,
+                ],
+                orangeyellow: [
+                    lg`Fireworks/Firework01_01_Regular_OrangeYellow_600x600.webm`,
+                    lg`Fireworks/Firework03_01_Regular_OrangeYellow_600x600.webm`,
+                ],
+                yellow: [
+                    lg`Fireworks/Firework02_01_Regular_Yellow_600x600.webm`,
+                ],
+                bluepink: [
+                    lg`Fireworks/Firework03_01_Regular_BluePink_600x600.webm`,
+                ],
+            },
+            '02': {
+                green: [
+                    lg`Fireworks/Firework02_02_Regular_Green_600x600.webm`,
+                ],
+                greenorange: [
+                    lg`Fireworks/Firework01_02_Regular_GreenOrange_600x600.webm`,
+                ],
+                greenred: [
+                    lg`Fireworks/Firework03_02_Regular_GreenRed_600x600.webm`,
+                ],
+                orange: [
+                    lg`Fireworks/Firework02_02_Regular_Orange_600x600.webm`,
+                ],
+                orangeyellow: [
+                    lg`Fireworks/Firework01_02_Regular_OrangeYellow_600x600.webm`,
+                    lg`Fireworks/Firework03_02_Regular_OrangeYellow_600x600.webm`,
+                ],
+                yellow: [
+                    lg`Fireworks/Firework02_02_Regular_Yellow_600x600.webm`,
+                    lg`Fireworks/Firework03_02_Regular_OrangeYellow_600x600.webm`,
+                ],
+                bluepink: [
+                    lg`Fireworks/Firework03_02_Regular_BluePink_600x600.webm`,
+                ],
+            },
+        },
+    },
+    generic: {
+        boulderimpact: {
+            '01': {
+                white: [lg`Impact/BoulderImpact_01_Regular_White_500x500.webm`]
+            }
+        },
+        explosion: {
+            '01': {
+                darkpurple: [
+                    lg`Explosion/Explosion_04_Dark_Purple_400x400.webm`,
+                ],
+                darkred: [
+                    lg`Explosion/Explosion_04_Dark_Red_400x400.webm`,
+                ],
+                blue: [
+                    lg`Explosion/Explosion_01_Blue_400x400.webm`,
+                    lg`Explosion/Explosion_02_Blue_400x400.webm`,
+                    lg`Explosion/Explosion_04_Regular_Blue_400x400.webm`,
+                ],
+                green: [
+                    lg`Explosion/Explosion_01_Green_400x400.webm`,
+                    lg`Explosion/Explosion_02_Green_400x400.webm`,
+                    lg`Explosion/Explosion_04_Regular_Green_400x400.webm`,
+                ],
+                greenorange: [
+                    lg`Explosion/Explosion_03_Regular_GreenOrange_400x400.webm`,
+                ],
+                orange: [
+                    lg`Explosion/Explosion_01_Orange_400x400.webm`,
+                    lg`Explosion/Explosion_02_Orange_400x400.webm`,
+                    lg`Explosion/Explosion_04_Regular_Orange_400x400.webm`,
+                ],
+                pink: [
+                    lg`Explosion/Explosion_03_Regular_Pink_400x400.webm`,
+                ],
+                purplepink: [
+                    lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`,
+                ],
+                purple: [
+                    lg`Explosion/Explosion_01_Purple_400x400.webm`,
+                    lg`Explosion/Explosion_02_Purple_400x400.webm`,
+                ],
+                red: [
+                    lg`Explosion/Explosion_03_Regular_Red_400x400.webm`,
+                ],
+                yellow: [
+                    lg`Explosion/Explosion_01_Yellow_400x400.webm`,
+                    lg`Explosion/Explosion_02_Yellow_400x400.webm`,
+                ],
+                yellowblue: [
+                    lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`,
+                ],
+                whiteblue: [
+                    lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`,
+                ],
+            }
+        },
+        impact: {
+            '01': {
+                blue: [
+                    lg`Impact/Impact_01_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_02_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_03_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_04_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_05_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_07_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_08_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_09_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_10_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_11_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_12_Regular_Blue_400x400.webm`
+                ],
+                darkpurple: [
+                    lg`Impact/Impact_01_Dark_Purple_400x400.webm`,
+                    lg`Impact/Impact_02_Dark_Purple_400x400.webm`,
+                    lg`Impact/Impact_03_Dark_Purple_400x400.webm`,
+                    lg`Impact/Impact_04_Dark_Purple_400x400.webm`,
+                    lg`Impact/Impact_11_Dark_Purple_400x400.webm`,
+                    lg`Impact/Impact_12_Dark_Purple_400x400.webm`
+                ],
+                darkred: [
+                    lg`Impact/Impact_01_Dark_Red_400x400.webm`,
+                    lg`Impact/Impact_02_Dark_Red_400x400.webm`,
+                    lg`Impact/Impact_03_Dark_Red_400x400.webm`,
+                    lg`Impact/Impact_04_Dark_Red_400x400.webm`,
+                    lg`Impact/Impact_11_Dark_Red_400x400.webm`,
+                    lg`Impact/Impact_12_Dark_Red_400x400.webm`,
+                ],
+                green: [
+                    lg`Impact/Impact_01_Regular_Green_400x400.webm`,
+                    lg`Impact/Impact_02_Regular_Green_400x400.webm`,
+                    lg`Impact/Impact_03_Regular_Green_400x400.webm`,
+                    lg`Impact/Impact_04_Regular_Green_400x400.webm`,
+                    lg`Impact/Impact_05_Regular_Green_400x400.webm`,
+                    lg`Impact/Impact_07_Regular_Green_400x400.webm`,
+                    lg`Impact/Impact_08_Regular_Green_400x400.webm`,
+                    lg`Impact/Impact_09_Regular_Green_400x400.webm`,
+                    lg`Impact/Impact_10_Regular_Green_400x400.webm`,
+                    lg`Impact/Impact_11_Regular_Blue_400x400.webm`,
+                    lg`Impact/Impact_12_Regular_Blue_400x400.webm`
+                ],
+                orange: [
+                    lg`Impact/Impact_01_Regular_Orange_400x400.webm`,
+                    lg`Impact/Impact_02_Regular_Orange_400x400.webm`,
+                    lg`Impact/Impact_03_Regular_Orange_400x400.webm`,
+                    lg`Impact/Impact_04_Regular_Orange_400x400.webm`,
+                    lg`Impact/Impact_05_Regular_Orange_400x400.webm`,
+                    lg`Impact/Impact_07_Regular_Orange_400x400.webm`,
+                    lg`Impact/Impact_08_Regular_Orange_400x400.webm`,
+                    lg`Impact/Impact_09_Regular_Orange_400x400.webm`,
+                    lg`Impact/Impact_10_Regular_Orange_400x400.webm`,
+                ],
+                pink: [
+                    lg`Impact/Impact_07_Regular_Pink_400x400.webm`,
+                    lg`Impact/Impact_09_Regular_Pink_400x400.webm`,
+                ],
+                purplepink: [
+                    lg`Impact/Impact_01_Regular_PinkPurple_400x400.webm`,
+                    lg`Impact/Impact_02_Regular_PinkPurple_400x400.webm`,
+                    lg`Impact/Impact_03_Regular_PinkPurple_400x400.webm`,
+                    lg`Impact/Impact_04_Regular_PinkPurple_400x400.webm`,
+                ],
+                purple: [
+                    lg`Impact/Impact_05_Regular_Purple_400x400.webm`,
+                    lg`Impact/Impact_07_Regular_Purple_400x400.webm`,
+                    lg`Impact/Impact_09_Regular_Purple_400x400.webm`,
+                    lg`Impact/Impact_11_Regular_Purple_400x400.webm`,
+                    lg`Impact/Impact_12_Regular_Purple_400x400.webm`
+                ],
+                red: [
+                    lg`Impact/Impact_05_Regular_Red_400x400.webm`,
+                    lg`Impact/Impact_08_Regular_Red_400x400.webm`,
+                    lg`Impact/Impact_10_Regular_Red_400x400.webm`,
+                    lg`Impact/Impact_11_Regular_Red_400x400.webm`,
+                    lg`Impact/Impact_12_Regular_Red_400x400.webm`,
+                ],
+                white: [
+                    lg`Impact/Impact_07_Regular_White_400x400.webm`,
+                    lg`Impact/Impact_09_Regular_White_400x400.webm`,
+                ],
+                yellow: [
+                    lg`Impact/Impact_01_Regular_Yellow_400x400.webm`,
+                    lg`Impact/Impact_02_Regular_Yellow_400x400.webm`,
+                    lg`Impact/Impact_03_Regular_Yellow_400x400.webm`,
+                    lg`Impact/Impact_04_Regular_Yellow_400x400.webm`,
+                    lg`Impact/Impact_05_Regular_Yellow_400x400.webm`,
+                    lg`Impact/Impact_06_Regular_Yellow_400x400.webm`,
+                    lg`Impact/Impact_07_Regular_Yellow_400x400.webm`,
+                ],
+            }
+        },
+        outpulse: {
+            '01': {
+                whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
+                greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
+                purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
+                tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
+            },
+            '02': {
+                whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
+                greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
+                purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
+                tealyellow: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_TealYellow_Burst_600x600.webm`],
+            }
+        },
+        smoke: {
+            '01': {
+                black: [lg`Smoke/SmokePuff01_01_Dark_Black_400x400.webm`],
+                blue: [lg`Smoke/SmokePuff01_01_Regular_Blue_400x400.webm`],
+                darkgreen: [lg`Smoke/SmokePuff01_01_Dark_Green_400x400.webm`],
+                darkpurple: [lg`Smoke/SmokePuff01_01_Dark_Purple_400x400.webm`],
+                grey: [lg`Smoke/SmokePuff01_01_Regular_Grey_400x400.webm`],
+            },
+            '02': {
+                black: [lg`Smoke/SmokePuff01_02_Dark_Black_400x400.webm`],
+                blue: [lg`Smoke/SmokePuff01_02_Regular_Blue_400x400.webm`],
+                darkgreen: [lg`Smoke/SmokePuff01_02_Dark_Green_400x400.webm`],
+                darkpurple: [lg`Smoke/SmokePuff01_02_Dark_Purple_400x400.webm`],
+                grey: [lg`Smoke/SmokePuff01_02_Regular_Grey_400x400.webm`],
+            },
+            '03': {
+                black: [lg`Smoke/SmokePuff01_03_Dark_Black_400x400.webm`],
+                blue: [lg`Smoke/SmokePuff01_03_Regular_Blue_400x400.webm`],
+                darkgreen: [lg`Smoke/SmokePuff01_03_Dark_Green_400x400.webm`],
+                darkpurple: [lg`Smoke/SmokePuff01_03_Dark_Purple_400x400.webm`],
+                grey: [lg`Smoke/SmokePuff01_03_Regular_Grey_400x400.webm`],
+            },
+        },
+        vortex: {
+            loop: {
+                blue: [lg`Template/Circle/Vortex_01_Regular_Blue_600x600.webm`],
+                green: [lg`Template/Circle/Vortex_01_Regular_Green_600x600.webm`],
+                purple: [lg`Template/Circle/Vortex_01_Regular_Purple_600x600.webm`]
+            },
+            intro: {
+                blue: [lg`Template/Circle/VortexIntro_01_Regular_Blue_600x600.webm`],
+                green: [lg`Template/Circle/VortexIntro_01_Regular_Green_600x600.webm`],
+                purple: [lg`Template/Circle/VortexIntro_01_Regular_Purple_600x600.webm`]
+            },
+            outro: {
+                blue: [lg`Template/Circle/VortexOutro_01_Regular_Blue_600x600.webm`],
+                green: [lg`Template/Circle/VortexOutro_01_Regular_Green_600x600.webm`],
+                purple: [lg`Template/Circle/VortexOutro_01_Regular_Purple_600x600.webm`]
+            },
+        },
+        whirl: {
+            loop: {
+                blue: [lg`Template/Circle/Whirl_01_Regular_Blue_600x600.webm`],
+                green: [lg`Template/Circle/Whirl_01_Regular_Green_600x600.webm`],
+                purple: [lg`Template/Circle/Whirl_01_Regular_Purple_600x600.webm`]
+            },
+            intro: {
+                blue: [lg`Template/Circle/WhirlIntro_01_Regular_Blue_600x600.webm`],
+                green: [lg`Template/Circle/WhirlIntro_01_Regular_Green_600x600.webm`],
+                purple: [lg`Template/Circle/WhirlIntro_01_Regular_Purple_600x600.webm`]
+            },
+            outro: {
+                blue: [lg`Template/Circle/WhirlOutro_01_Regular_Blue_600x600.webm`],
+                green: [lg`Template/Circle/WhirlOutro_01_Regular_Green_600x600.webm`],
+                purple: [lg`Template/Circle/WhirlOutro_01_Regular_Purple_600x600.webm`]
+            }
+        },
+    },
+    ice: {
+        icespikes: {
+            '01': {
+                blue: [lg`Ice/IceSpikesRadialBurst_01_Regular_Blue_1000x1000.webm`],
+                red: [lg`Ice/IceSpikesRadialBurst_01_Regular_Red_1000x1000.webm`],
+                white: [lg`Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm`]
+            }
+        },
+        snowflake: {
+            '01': {
+                whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
+                greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
+                purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
+                tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],
+            }
+        },
+    },
+    lightning: {
+        ball: {
+            '01': {
+                blue: [lg`Lightning/LightningBall_01_Regular_Blue_400x400.webm`],
+                green: [lg`Lightning/LightningBall_01_Regular_Green_400x400.webm`],
+                darkgreen: [lg`Lightning/LightningBall_01_Regular_Green02_400x400.webm`],
+                darkpurple: [lg`Lightning/LightningBall_01_Dark_Purple_400x400.webm`],
+                darkred: [lg`Lightning/LightningBall_01_Dark_Red_400x400.webm`],
+                orange: [lg`Lightning/LightningBall_01_Regular_Orange_400x400.webm`],
+                purple: [lg`Lightning/LightningBall_01_Regular_Purple_400x400.webm`],
+                red: [lg`Lightning/LightningBall_01_Regular_Red_400x400.webm`],
+            }
+        },
+        staticelectricity: {
+            '01': {
+                blue: [lg`Lightning/StaticElectricity_01_Regular_Blue_400x400.webm`],
+                darkgreen: [lg`Lightning/StaticElectricity_01_Regular_Green02_400x400.webm`],
+                darkpurple: [lg`Lightning/StaticElectricity_01_Dark_Purple_400x400.webm`],
+                darkred: [lg`Lightning/StaticElectricity_01_Dark_Red_400x400.webm`],
+                green: [lg`Lightning/StaticElectricity_01_Regular_Green_400x400.webm`],
+                orange: [lg`Lightning/StaticElectricity_01_Regular_Orange_400x400.webm`],
+                purple: [lg`Lightning/StaticElectricity_01_Regular_Purple_400x400.webm`],
+                red: [lg`Lightning/StaticElectricity_01_Regular_Red_400x400.webm`],
+            },
+            '02': {
+                blue: [lg`Lightning/StaticElectricity_02_Regular_Blue_400x400.webm`],
+                darkgreen: [lg`Lightning/StaticElectricity_02_Regular_Green02_400x400.webm`],
+                darkpurple: [lg`Lightning/StaticElectricity_02_Dark_Purple_400x400.webm`],
+                darkred: [lg`Lightning/StaticElectricity_02_Dark_Red_400x400.webm`],
+                green: [lg`Lightning/StaticElectricity_02_Regular_Green_400x400.webm`],
+                orange: [lg`Lightning/StaticElectricity_02_Regular_Orange_400x400.webm`],
+                purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`],
+                red: [lg`Lightning/StaticElectricity_02_Regular_Red_400x400.webm`],
+            }
+        },
+    },
+    liquid: {
+        splash: {
+            '01': {
+                blue: [lg`Liquid/LiquidSplash01_Regular_Blue_400x400.webm`],
+                green: [lg`Liquid/LiquidSplash01_Regular_Green_400x400.webm`],
+                brightgreen: [lg`Liquid/LiquidSplash01_Bright_Green_400x400.webm`],
+                brightblue: [lg`Liquid/LiquidSplash01_Bright_Blue_400x400.webm`],
+                purple: [lg`Liquid/LiquidSplash01_Bright_Purple_400x400.webm`],
+                red: [lg`Liquid/LiquidSplash01_Regular_Red_400x400.webm`],
+            },
+        },
+    },
+    magicsign: {
+        abjuration: {
+            '01': {
+                blue: [lg`Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm`],
+                green: [lg`Magic_Signs/Abjuration_01_Green_Circle_800x800.webm`],
+                red: [lg`Magic_Signs/Abjuration_01_Red_Circle_800x800.webm`],
+            },
+            '02': {
+                blue: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            }
+        },
+        conjuration: {
+            '01': {
+                yellow: [lg`Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm`]
+            },
+            '02': {
+                blue: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            }
+        },
+        divination: {
+            '01': {
+                lightblue: [lg`Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm`]
+            },
+            '02': {
+                blue: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            }
+        },
+        enchantment: {
+            '02': {
+                blue: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Yellow_800x800.webm`],
+            }
+        },
+        evocation: {
+            '02': {
+                blue: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            }
+        },
+        illusion: {
+            '02': {
+                blue: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Yellow_800x800.webm`],
+            }
+        },
+        necromancy: {
+            '02': {
+                blue: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Yellow_800x800.webm`],
+            }
+        },
+        transmutation: {
+            '02': {
+                blue: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Blue_800x800.webm`],
+                green: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Green_800x800.webm`],
+                pink: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Pink_800x800.webm`],
+                purple: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Purple_800x800.webm`],
+                red: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Red_800x800.webm`],
+                yellow: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Yellow_800x800.webm`],
+            }
+        },
+    },
+    marker: {
+        bubble: {
+            '01': {
+                blue: [lg`Marker/MarkerBubble_01_Regular_Blue_400x400.webm`],
+                green: [lg`Marker/MarkerBubble_01_Regular_Green_400x400.webm`],
+                rainbow: [lg`Marker/MarkerBubble_01_Regular_Rainbow_400x400.webm`],
+            }
+        },
+        circleofstars: {
+            '01': {
+                blue: [lg`Marker/MarkerCircleOfStars_Regular_Blue_400x400.webm`],
+                orangepurple: [lg`Marker/MarkerCircleOfStars_Regular_OrangePurple_400x400.webm`],
+                purplegreen: [lg`Marker/MarkerCircleOfStars_Regular_PurpleGreen_400x400.webm`],
+                yellowblue: [lg`Marker/MarkerCircleOfStars_Regular_YellowBlue_400x400.webm`]
+            },
+        },
+        energystrands: {
+            '01': {
+                blue: [lg`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`],
+                blueorange: [lg`Marker/EnergyStrands_01_Regular_BlueOrange_600x600.webm`],
+                darkred: [lg`Marker/EnergyStrands_01_Dark_Red_600x600.webm`],
+                orange: [lg`Marker/EnergyStrands_01_Regular_Orange_600x600.webm`],
+                pinkyellow: [lg`Marker/EnergyStrands_01_Regular_PinkYellow_600x600.webm`],
+                purple: [lg`Marker/EnergyStrands_01_Regular_Purple_600x600.webm`],
+            }
+        },
+        music: {
+            '01': {
+                darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
+                yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
+                greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
+                pink: [lg`Marker/MusicMarker_01_Regular_Pink_400x400.webm`],
+                purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
+            },
+        },
+        standard: {
+            '01': {
+                whiteblue: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
+                yellowblue: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
+                greenorange: [lg`Marker/Marker_01_Regular_GreenOrange_400x400.webm`],
+                pink: [lg`Marker/Marker_01_Regular_Pink_400x400.webm`],
+                purplepink: [lg`Marker/Marker_01_Regular_PurplePink_400x400.webm`],
+                red: [lg`Marker/Marker_01_Regular_Red_400x400.webm`],
+            },
+            '02': {
+                whiteblue: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
+                yellowblue: [lg`Marker/Marker_02_Regular_BlueYellow_400x400.webm`],
+                greenorange: [lg`Marker/Marker_02_Regular_GreenOrange_400x400.webm`],
+                pink: [lg`Marker/Marker_02_Regular_Pink_400x400.webm`],
+                purplepink: [lg`Marker/Marker_02_Regular_PurplePink_400x400.webm`],
+                pink: [lg`Marker/Marker_02_Regular_Red_400x400.webm`],
+            },
+        },
+    },
+    music: {
+        notes: {
+            '01': {
+                blue: [
+                    lg`Music_Notation/BassClef_01_Regular_Blue_200x200.webm`,
+                    lg`Music_Notation/BeamedQuavers_01_Regular_Blue_200x200.webm`,
+                    lg`Music_Notation/Crotchet_01_Regular_Blue_200x200.webm`,
+                    lg`Music_Notation/Flat_01_Regular_Blue_200x200.webm`,
+                    lg`Music_Notation/Quaver_01_Regular_Blue_200x200.webm`,
+                    lg`Music_Notation/Sharp_01_Regular_Blue_200x200.webm`,
+                    lg`Music_Notation/TrebleClef_01_Regular_Blue_200x200.webm`
+                ],
+                green: [
+                    lg`Music_Notation/BassClef_01_Regular_Green_200x200.webm`,
+                    lg`Music_Notation/BeamedQuavers_01_Regular_Green_200x200.webm`,
+                    lg`Music_Notation/Crotchet_01_Regular_Green_200x200.webm`,
+                    lg`Music_Notation/Flat_01_Regular_Green_200x200.webm`,
+                    lg`Music_Notation/Quaver_01_Regular_Green_200x200.webm`,
+                    lg`Music_Notation/Sharp_01_Regular_Green_200x200.webm`,
+                    lg`Music_Notation/TrebleClef_01_Regular_Green_200x200.webm`
+                ],
+                orange: [
+                    lg`Music_Notation/BassClef_01_Regular_Orange_200x200.webm`,
+                    lg`Music_Notation/BeamedQuavers_01_Regular_Orange_200x200.webm`,
+                    lg`Music_Notation/Crotchet_01_Regular_Orange_200x200.webm`,
+                    lg`Music_Notation/Flat_01_Regular_Orange_200x200.webm`,
+                    lg`Music_Notation/Quaver_01_Regular_Orange_200x200.webm`,
+                    lg`Music_Notation/Sharp_01_Regular_Orange_200x200.webm`,
+                    lg`Music_Notation/TrebleClef_01_Regular_Orange_200x200.webm`
+                ],
+                purple: [
+                    lg`Music_Notation/BassClef_01_Regular_Purple_200x200.webm`,
+                    lg`Music_Notation/BeamedQuavers_01_Regular_Purple_200x200.webm`,
+                    lg`Music_Notation/Crotchet_01_Regular_Purple_200x200.webm`,
+                    lg`Music_Notation/Flat_01_Regular_Purple_200x200.webm`,
+                    lg`Music_Notation/Quaver_01_Regular_Purple_200x200.webm`,
+                    lg`Music_Notation/Sharp_01_Regular_Purple_200x200.webm`,
+                    lg`Music_Notation/TrebleClef_01_Regular_Purple_200x200.webm`
+                ]
+            }
+        }
+    },
+    particles: {
+        dots: {
+            '01': {
+                blue: [lg`Particles/ParticlesOutward01_01_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward01_01_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward01_01_Regular_Orange_400x400.webm`],
+            },
+            '02': {
+                blue: [lg`Particles/ParticlesOutward01_02_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward01_02_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward01_02_Regular_Orange_400x400.webm`],
+            },
+            '03': {
+                blue: [lg`Particles/ParticlesOutward01_03_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward01_03_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward01_03_Regular_Orange_400x400.webm`],
+            },
+            '04': {
+                blue: [lg`Particles/ParticlesOutward01_04_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward01_04_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward01_04_Regular_Orange_400x400.webm`],
+            },
+            '05': {
+                blue: [lg`Particles/ParticlesOutward01_05_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward01_05_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward01_05_Regular_Orange_400x400.webm`],
+            },
+        },
+        stars: {
+            '01': {
+                blue: [lg`Particles/ParticlesOutward02_01_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward02_01_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward02_01_Regular_Orange_400x400.webm`],
+            },
+            '02': {
+                blue: [lg`Particles/ParticlesOutward02_02_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward02_02_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward02_02_Regular_Orange_400x400.webm`],
+            },
+            '03': {
+                blue: [lg`Particles/ParticlesOutward02_03_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward02_03_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward02_03_Regular_Orange_400x400.webm`],
+            },
+            '04': {
+                blue: [lg`Particles/ParticlesOutward02_04_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward02_04_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward02_04_Regular_Orange_400x400.webm`],
+            },
+            '05': {
+                blue: [lg`Particles/ParticlesOutward02_05_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesOutward02_05_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesOutward02_05_Regular_Orange_400x400.webm`],
+            },
+        },
+    },
     shieldfx: {
         eldritchweb: {
             '01': {
@@ -4831,6 +4923,556 @@ JB2APATREONDB.static = {
                 blue: [lg`Energy/EnergyFieldTop_02_Regular_Blue_400x400.webm`],
                 green: [lg`Energy/EnergyFieldTop_02_Regular_Green_400x400.webm`],
                 purple: [lg`Energy/EnergyFieldTop_02_Regular_Purple_400x400.webm`],
+            }
+        },
+    },
+    spell: {
+        antilifeshell: {
+            '01': {
+                blue: [l5`Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm`]
+            }
+        },
+        armsofhadar: {
+            '01': {
+                darkgreen: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm`],
+                darkpurple: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`],
+                darkred: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Red_500x500.webm`],
+            }
+        },
+        bardicinspiration: {
+            inspire: {
+                yellowblue: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
+                greenorange: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm`],
+                purplepink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_PurplePink_400x400.webm`],
+                darkred: [l1`Bardic_Inspiration/BardicInspiration_01_Dark_Red_400x400.webm`],
+                pink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_Pink_400x400.webm`]
+            },
+            marker: {
+                yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
+                greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
+                pink: [lg`Marker/MusicMarker_01_Regular_Pink_400x400.webm`],
+                purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
+                darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
+            }
+        },
+        blacktentacles: {
+            '01': {
+                darkgreen: [l4`Black_Tentacles/BlackTentacles_01_Dark_Green_600x600.webm`],
+                darkpurple: [l4`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`],
+                darkred: [l4`Black_Tentacles/BlackTentacles_01_Dark_Red_600x600.webm`],
+            },
+        },
+        bless: {
+            '01': {
+                blue: {
+                    'intro': l1`Bless/Bless_01_Regular_Blue_Intro_400x400.webm`,
+                    'loop': l1`Bless/Bless_01_Regular_Blue_Loop_400x400.webm`,
+                },
+                green: {
+                    'intro': l1`Bless/Bless_01_Regular_Green_Intro_400x400.webm`,
+                    'loop': l1`Bless/Bless_01_Regular_Green_Loop_400x400.webm`,
+                },
+                purple: {
+                    'intro': l1`Bless/Bless_01_Regular_Purple_Intro_400x400.webm`,
+                    'loop': l1`Bless/Bless_01_Regular_Purple_Loop_400x400.webm`,
+                },
+                yellow: {
+                    'intro': l1`Bless/Bless_01_Regular_Yellow_Intro_400x400.webm`,
+                    'loop': l1`Bless/Bless_01_Regular_Yellow_Loop_400x400.webm`,
+                }
+            }
+        },
+        calllightning: {
+            '01': {
+                blue: [l3`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`],
+                blueorange: [l3`Call_Lightning/CallLightning_01_BlueOrange_1000x1000.webm`],
+                green: [l3`Call_Lightning/CallLightning_01_Green_1000x1000.webm`],
+                pinkyellow: [l3`Call_Lightning/CallLightning_01_PinkYellow_1000x1000.webm`],
+                purple: [l3`Call_Lightning/CallLightning_01_Purple_1000x1000.webm`],
+                red: [l3`Call_Lightning/CallLightning_01_Red_1000x1000.webm`],
+                yellow: [l3`Call_Lightning/CallLightning_01_Yellow_1000x1000.webm`]
+            }
+        },
+        cloudofdaggers: {
+            '01': {
+                darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Purple_400x400.webm`],
+                darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Red_400x400.webm`],
+                blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Blue_400x400.webm`],
+                green: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Green_400x400.webm`],
+                orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Orange_400x400.webm`],
+                purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Purple_400x400.webm`],
+                red: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Red_400x400.webm`],
+                yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Yellow_400x400.webm`]
+            },
+            kunai: {
+                darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Purple_400x400.webm`],
+                darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Red_400x400.webm`],
+                blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Blue_400x400.webm`],
+                green: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Green_400x400.webm`],
+                orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Orange_400x400.webm`],
+                purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Purple_400x400.webm`],
+                red: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Red_400x400.webm`],
+                yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Yellow_400x400.webm`]
+            },
+        },
+        curewounds: {
+            '01': {
+                blue: [l1`Cure_Wounds/CureWounds_01_Blue_400x400.webm`],
+                green: [l1`Cure_Wounds/CureWounds_01_Green_400x400.webm`],
+                pink: [l1`Cure_Wounds/CureWounds_01_Pink_400x400.webm`],
+                purple: [l1`Cure_Wounds/CureWounds_01_Purple_400x400.webm`],
+                red: [l1`Cure_Wounds/CureWounds_01_Red_400x400.webm`]
+            }
+        },
+        darkness: {
+            '01': {
+                black: [l2`Darkness/Darkness_01_Black_600x600.webm`],
+                green: [l2`Darkness/Darkness_01_Green_600x600.webm`]
+            }
+        },
+        detectmagic: {
+            '01': {
+                blue: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Blue_1200x1200.webm`],
+                green: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Green_1200x1200.webm`],
+                greenorange: [l1`Detect_Magic/DetectMagicCircle_01_Regular_GreenOrange_1200x1200.webm`],
+                grey: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Grey_1200x1200.webm`],
+                purple: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Purple_1200x1200.webm`],
+            }
+        },
+        divinesmite: {
+            'source': {
+                yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
+                greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm`],
+                purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm`],
+                darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Caster_400x400.webm`],
+                yellowwhite: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Caster_400x400.webm`],
+                darkred: [l2`Divine_Smite/DivineSmite_01_Dark_Red_Caster_400x400.webm`],
+            },
+            'target': {
+                yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
+                greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Target_400x400.webm`],
+                purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Target_400x400.webm`],
+                darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm`],
+                yellowwhite: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Target_400x400.webm`],
+                darkred: [l2`Divine_Smite/DivineSmite_01_Dark_Red_Target_400x400.webm`],
+            }
+        },
+        entangle: {
+            '01': {
+                brown: [l1`Entangle/Entangle_01_Brown_400x400.webm`],
+                green: [l1`Entangle/Entangle_01_Green_400x400.webm`],
+                yellow: [l1`Entangle/Entangle_01_Yellow_400x400.webm`],
+                darkpurple: [l1`Entangle/Entangle_01_Dark_Purple_400x400.webm`],
+                palegreen: [l1`Entangle/Entangle_01_Regular_Green02_400x400.webm`]
+            }
+        },
+        fireball: {
+            loop: {
+                blue: [l3`Fireball/FireballLoop_01_Blue_800x800.webm`],
+                orange: [l3`Fireball/FireballLoop_01_Orange_800x800.webm`],
+                purple: [l3`Fireball/FireballLoop_01_Purple_800x800.webm`],
+            },
+            explode: {
+                blue: [l3`Fireball/FireballExplosion_01_Blue_800x800.webm`],
+                orange: [l3`Fireball/FireballExplosion_01_Orange_800x800.webm`],
+                purple: [l3`Fireball/FireballExplosion_01_Purple_800x800.webm`],
+            },
+            nodebris: {
+                blue: [l3`Fireball/FireballLoopNoDebris_01_Blue_800x800.webm`],
+                orange: [l3`Fireball/FireballLoopNoDebris_01_Orange_800x800.webm`],
+                purple: [l3`Fireball/FireballLoopNoDebris_01_Purple_800x800.webm`],
+            },
+        },
+        fogcloud: {
+            '01': {
+                white: [l1`Fog_Cloud/FogCloud_01_White_800x800.webm`]
+            },
+            '02': {
+                white: [l1`Fog_Cloud/FogCloud_02_Regular_White_800x800.webm`],
+                green: [l1`Fog_Cloud/FogCloud_02_Regular_Green_800x800.webm`]
+            },
+        },
+        generichealing: {
+            '01': {
+                blue: [lg`Healing/HealingAbility_01_Blue_400x400.webm`],
+                green: [lg`Healing/HealingAbility_01_Green_400x400.webm`],
+                purple: [lg`Healing/HealingAbility_01_Purple_400x400.webm`],
+                red: [lg`Healing/HealingAbility_01_Red_400x400.webm`],
+                yellow: [lg`Healing/HealingAbility_01_Yellow_400x400.webm`],
+            },
+            '02': {
+                whiteblue: [lg`Healing/HealingAbility_02_Regular_BlueWhite_Burst_600x600.webm`],
+                greenorange: [lg`Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm`],
+                purplepink: [lg`Healing/HealingAbility_02_Regular_PurplePink_Burst_600x600.webm`],
+                tealyellow: [lg`Healing/HealingAbility_02_Regular_TealYellow_Burst_600x600.webm`],
+            }
+        },
+        grease: {
+            "01": {
+                brown: [l1`Grease/Grease_Dark_Brown_600x600.webm`],
+                green: [l1`Grease/Grease_Dark_Green_600x600.webm`],
+                grey: [l1`Grease/Grease_Dark_Grey_600x600.webm`],
+                purple: [l1`Grease/Grease_Dark_Purple_600x600.webm`],
+            }
+        },
+        huntersmark: {
+            'eye': {
+                blue: [l1`Hunters_Mark/HuntersMark_01_Regular_Blue_Pulse_200x200.webm`],
+                green: [l1`Hunters_Mark/HuntersMark_01_Regular_Green_Pulse_200x200.webm`],
+                purple: [l1`Hunters_Mark/HuntersMark_01_Regular_Purple_Pulse_200x200.webm`],
+            },
+            'eyeloop': {
+                blue: [l1`Hunters_Mark/HuntersMark_01_Regular_Blue_Loop_200x200.webm`],
+                green: [l1`Hunters_Mark/HuntersMark_01_Regular_Green_Loop_200x200.webm`],
+                purple: [l1`Hunters_Mark/HuntersMark_01_Regular_Purple_Loop_200x200.webm`],
+            },
+            'paw': {
+                blue: [l1`Hunters_Mark/HuntersMark_02_Regular_Blue_Pulse_200x200.webm`],
+                green: [l1`Hunters_Mark/HuntersMark_02_Regular_Green_Pulse_200x200.webm`],
+                purple: [l1`Hunters_Mark/HuntersMark_02_Regular_Purple_Pulse_200x200.webm`],
+            },
+            'pawloop': {
+                blue: [l1`Hunters_Mark/HuntersMark_02_Regular_Blue_Loop_200x200.webm`],
+                green: [l1`Hunters_Mark/HuntersMark_02_Regular_Green_Loop_200x200.webm`],
+                purple: [l1`Hunters_Mark/HuntersMark_02_Regular_Purple_Loop_200x200.webm`],
+            },
+        },
+        mistystep: {
+            '01': {
+                black: [l2`Misty_Step/MistyStep_01_Dark_Black_400x400.webm`],
+                blue: [l2`Misty_Step/MistyStep_01_Regular_Blue_400x400.webm`],
+                green: [l2`Misty_Step/MistyStep_01_Regular_Green_400x400.webm`],
+                orange: [l2`Misty_Step/MistyStep_01_Regular_Orange_400x400.webm`],
+                purple: [l2`Misty_Step/MistyStep_01_Regular_Purple_400x400.webm`],
+                darkgreen: [l2`Misty_Step/MistyStep_01_Dark_Green_400x400.webm`],
+                darkred: [l2`Misty_Step/MistyStep_01_Dark_Red_400x400.webm`],
+                grey: [l2`Misty_Step/MistyStep_01_Regular_Grey_400x400.webm`]
+            },
+            '02': {
+                black: [l2`Misty_Step/MistyStep_02_Dark_Black_400x400.webm`],
+                blue: [l2`Misty_Step/MistyStep_02_Regular_Blue_400x400.webm`],
+                green: [l2`Misty_Step/MistyStep_02_Regular_Green_400x400.webm`],
+                orange: [l2`Misty_Step/MistyStep_02_Regular_Orange_400x400.webm`],
+                purple: [l2`Misty_Step/MistyStep_02_Regular_Purple_400x400.webm`],
+                darkgreen: [l2`Misty_Step/MistyStep_02_Dark_Green_400x400.webm`],
+                darkred: [l2`Misty_Step/MistyStep_02_Dark_Red_400x400.webm`],
+                grey: [l2`Misty_Step/MistyStep_02_Regular_Grey_400x400.webm`]
+            }
+        },
+        moonbeam: {
+            loop: {
+                blue: [l2`Moonbeam/Moonbeam_01_Regular_Blue_400x400.webm`],
+                green: [l2`Moonbeam/Moonbeam_01_Regular_Green_400x400.webm`],
+                rainbow: [l2`Moonbeam/Moonbeam_01_Regular_Rainbow_400x400.webm`],
+            },
+            nopulse: {
+                blue: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Blue_400x400.webm`],
+                green: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Green_400x400.webm`],
+                rainbow: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Rainbow_400x400.webm`],
+            },
+            intro: {
+                blue: [l2`Moonbeam/MoonbeamIntro_01_Regular_Blue_400x400.webm`],
+                green: [l2`Moonbeam/MoonbeamIntro_01_Regular_Green_400x400.webm`],
+                rainbow: [l2`Moonbeam/MoonbeamIntro_01_Regular_Rainbow_400x400.webm`],
+            },
+            outro: {
+                blue: [l2`Moonbeam/MoonbeamOutro_01_Regular_Blue_400x400.webm`],
+                green: [l2`Moonbeam/MoonbeamOutro_01_Regular_Green_400x400.webm`],
+                rainbow: [l2`Moonbeam/MoonbeamOutro_01_Regular_Rainbow_400x400.webm`],
+            },
+        },
+        sneakattack: {
+            '01': {
+                darkgreen: [l1`Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm`],
+                darkpurple: [l1`Sneak_Attack/Sneak_Attack_Dark_Purple_300x300.webm`],
+                darkred: [l1`Sneak_Attack/Sneak_Attack_Dark_Red_300x300.webm`],
+                blue: [l1`Sneak_Attack/Sneak_Attack_Regular_Blue_300x300.webm`],
+                orange: [l1`Sneak_Attack/Sneak_Attack_Regular_Orange_300x300.webm`],
+                pink: [l1`Sneak_Attack/Sneak_Attack_Regular_Pink_300x300.webm`],
+                yellow: [l1`Sneak_Attack/Sneak_Attack_Regular_Yellow_300x300.webm`]
+            }
+        },
+        thunderwave: {
+            left: {
+                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
+                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
+                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
+                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
+                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
+            },
+            mid: {
+                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
+                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
+                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
+                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
+                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
+            },
+            center: {
+                blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
+                green: [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`],
+                orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`],
+                purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
+                red: [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
+            },
+        },
+        shatter: {
+            '01': {
+                purple: [l2`Shatter/Shatter_01_Purple_400x400.webm`],
+                red: [l2`Shatter/Shatter_01_Red_400x400.webm`],
+                blue: [l2`Shatter/Shatter_01_Blue_400x400.webm`],
+                green: [l2`Shatter/Shatter_01_Green_400x400.webm`],
+                orange: [l2`Shatter/Shatter_01_Orange_400x400.webm`]
+            }
+        },
+        shieldspell: {
+            '01': {
+                blue: {
+                    'intro': l1`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_01_Regular_Blue_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_01_Regular_Blue_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_01_Regular_Blue_OutroFade_400x400.webm`,
+                },
+                green: {
+                    'intro': l1`Shield/Shield_01_Regular_Green_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_01_Regular_Green_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_01_Regular_Green_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_01_Regular_Green_OutroFade_400x400.webm`,
+                },
+                purple: {
+                    'intro': l1`Shield/Shield_01_Regular_Purple_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_01_Regular_Purple_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_01_Regular_Purple_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_01_Regular_Purple_OutroFade_400x400.webm`,
+                },
+                red: {
+                    'intro': l1`Shield/Shield_01_Regular_Red_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_01_Regular_Red_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_01_Regular_Red_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_01_Regular_Red_OutroFade_400x400.webm`,
+                },
+                yellow: {
+                    'intro': l1`Shield/Shield_01_Regular_Yellow_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_01_Regular_Yellow_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_01_Regular_Yellow_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_01_Regular_Yellow_OutroFade_400x400.webm`,
+                }
+
+
+            },
+            '02': {
+                blue: {
+                    'intro': l1`Shield/Shield_02_Regular_Blue_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_02_Regular_Blue_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_02_Regular_Blue_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_02_Regular_Blue_OutroFade_400x400.webm`,
+                },
+                green: {
+                    'intro': l1`Shield/Shield_02_Regular_Green_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_02_Regular_Green_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_02_Regular_Green_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_02_Regular_Green_OutroFade_400x400.webm`,
+                },
+                purple: {
+                    'intro': l1`Shield/Shield_02_Regular_Purple_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_02_Regular_Purple_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_02_Regular_Purple_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_02_Regular_Purple_OutroFade_400x400.webm`,
+                },
+                red: {
+                    'intro': l1`Shield/Shield_02_Regular_Red_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_02_Regular_Red_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_02_Regular_Red_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_02_Regular_Red_OutroFade_400x400.webm`,
+                },
+                yellow: {
+                    'intro': l1`Shield/Shield_02_Regular_Yellow_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_02_Regular_Yellow_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_02_Regular_Yellow_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_02_Regular_Yellow_OutroFade_400x400.webm`,
+                }
+
+            },
+            '03': {
+                blue: {
+                    'intro': l1`Shield/Shield_03_Regular_Blue_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_03_Regular_Blue_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_03_Regular_Blue_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_03_Regular_Blue_OutroFade_400x400.webm`,
+                },
+                green: {
+                    'intro': l1`Shield/Shield_03_Regular_Green_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_03_Regular_Green_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_03_Regular_Green_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_03_Regular_Green_OutroFade_400x400.webm`,
+                },
+                purple: {
+                    'intro': l1`Shield/Shield_03_Regular_Purple_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_03_Regular_Purple_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_03_Regular_Purple_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_03_Regular_Purple_OutroFade_400x400.webm`,
+                },
+                red: {
+                    'intro': l1`Shield/Shield_03_Regular_Red_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_03_Regular_Red_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_03_Regular_Red_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_03_Regular_Red_OutroFade_400x400.webm`,
+                },
+                yellow: {
+                    'intro': l1`Shield/Shield_03_Regular_Yellow_Intro_400x400.webm`,
+                    'loop': l1`Shield/Shield_03_Regular_Yellow_Loop_400x400.webm`,
+                    'outro_explode': l1`Shield/Shield_03_Regular_Yellow_OutroExplode_400x400.webm`,
+                    'outro_fade': l1`Shield/Shield_03_Regular_Yellow_OutroFade_400x400.webm`,
+                }
+            }
+        },
+        sleep: {
+            '01': {
+                darkpurple: [l1`Sleep/Cloud01_01_Dark_Purple_400x400.webm`],
+                blue: [l1`Sleep/Cloud01_01_Regular_Blue_400x400.webm`],
+                green: [l1`Sleep/Cloud01_01_Regular_Green_400x400.webm`],
+                orangepurple: [l1`Sleep/Cloud01_01_Dark_OrangePurple_400x400.webm`],
+                pink: [l1`Sleep/Cloud01_01_Regular_Pink_400x400.webm`],
+                yellow: [l1`Sleep/Cloud01_01_Regular_Yellow_400x400.webm`],
+            },
+            '02': {
+                darkpurple: [l1`Sleep/Cloud01_02_Dark_Purple_400x400.webm`],
+                blue: [l1`Sleep/Cloud01_02_Regular_Blue_400x400.webm`],
+                green: [l1`Sleep/Cloud01_02_Regular_Green_400x400.webm`],
+                orangepurple: [l1`Sleep/Cloud01_02_Dark_OrangePurple_400x400.webm`],
+                pink: [l1`Sleep/Cloud01_02_Regular_Pink_400x400.webm`],
+                yellow: [l1`Sleep/Cloud01_02_Regular_Yellow_400x400.webm`],
+            },
+            marker: {
+                darkpurple: [l1`Sleep/SleepMarker01_01_Dark_Purple_400x400.webm`],
+                blue: [l1`Sleep/SleepMarker01_01_Regular_Blue_400x400.webm`],
+                green: [l1`Sleep/SleepMarker01_01_Regular_Green_400x400.webm`],
+                orangepurple: [l1`Sleep/SleepMarker01_01_Dark_OrangePurple_400x400.webm`],
+                pink: [l1`Sleep/SleepMarker01_01_Regular_Pink_400x400.webm`],
+                yellow: [l1`Sleep/SleepMarker01_01_Regular_Yellow_400x400.webm`],
+            },
+            symbol: {
+                darkpurple: [l1`Sleep/SleepSymbol01_01_Dark_Purple_400x400.webm`],
+                blue: [l1`Sleep/SleepSymbol01_01_Regular_Blue_400x400.webm`],
+                green: [l1`Sleep/SleepSymbol01_01_Regular_Green_400x400.webm`],
+                orangepurple: [l1`Sleep/SleepSymbol01_01_Dark_OrangePurple_400x400.webm`],
+                pink: [l1`Sleep/SleepSymbol01_01_Regular_Pink_400x400.webm`],
+                yellow: [l1`Sleep/SleepSymbol01_01_Regular_Yellow_400x400.webm`],
+            },
+        },
+        sleetstorm: {
+            '01': {
+                blue: [l3`Sleet_Storm/SleetStorm_01_Blue_800x800.webm`],
+                green: [l3`Sleet_Storm/SleetStorm_01_Green_800x800.webm`],
+                purple: [l3`Sleet_Storm/SleetStorm_01_Purple_800x800.webm`],
+                tealyellow: [l3`Sleet_Storm/SleetStorm_01_TealYellow_800x800.webm`]
+            }
+        },
+        spiritguardians: {
+            '01': {
+                black: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Black_600x600.webm`],
+                darkblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Blue_600x600.webm`],
+                darkpurple: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Purple_600x600.webm`],
+                darkred: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Red_600x600.webm`],
+                darkwhiteblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_WhiteBlue_600x600.webm`],
+                greenorange: [l3`Spirit_Guardians/SpiritGuardians_01_Light_GreenOrange_600x600.webm`],
+                lightblue: [l3`Spirit_Guardians/SpiritGuardians_01_Light_Blue_600x600.webm`],
+                lightgreen: [l3`Spirit_Guardians/SpiritGuardians_01_Light_Green_600x600.webm`],
+                lightorange: [l3`Spirit_Guardians/SpiritGuardians_01_Light_Orange_600x600.webm`],
+                yellowblue: [l3`Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm`],
+                purplepink: [l3`Spirit_Guardians/SpiritGuardians_01_Light_PinkPurple_600x600.webm`],
+            },
+            '02': {
+                black: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Dark_Black_600x600.webm`],
+                darkblue: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Dark_Blue_600x600.webm`],
+                darkpurple: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Dark_Purple_600x600.webm`],
+                darkred: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Dark_Red_600x600.webm`],
+                darkwhiteblue: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Dark_WhiteBlue_600x600.webm`],
+                greenorange: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Light_GreenOrange_600x600.webm`],
+                lightblue: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Light_Blue_600x600.webm`],
+                lightgreen: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Light_Green_600x600.webm`],
+                lightorange: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Light_Orange_600x600.webm`],
+                yellowblue: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Light_BlueYellow_600x600.webm`],
+                purplepink: [l3`Spirit_Guardians/SpiritGuardiansParticles_01_Light_PinkPurple_600x600.webm`],
+            },
+            '03': {
+                black: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Dark_Black_600x600.webm`],
+                darkblue: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Dark_Blue_600x600.webm`],
+                darkpurple: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Dark_Purple_600x600.webm`],
+                darkred: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Dark_Red_600x600.webm`],
+                darkwhiteblue: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Dark_WhiteBlue_600x600.webm`],
+                greenorange: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Light_GreenOrange_600x600.webm`],
+                lightblue: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Light_Blue_600x600.webm`],
+                lightgreen: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Light_Green_600x600.webm`],
+                lightorange: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Light_Orange_600x600.webm`],
+                yellowblue: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Light_BlueYellow_600x600.webm`],
+                purplepink: [l3`Spirit_Guardians/SpiritGuardiansSpirits_01_Light_PinkPurple_600x600.webm`],
+            },
+            noring: {
+                black: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Dark_Black_600x600.webm`],
+                darkblue: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Dark_Blue_600x600.webm`],
+                darkpurple: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Dark_Purple_600x600.webm`],
+                darkred: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Dark_Red_600x600.webm`],
+                darkwhiteblue: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Dark_WhiteBlue_600x600.webm`],
+                greenorange: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Light_GreenOrange_600x600.webm`],
+                lightblue: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Light_Blue_600x600.webm`],
+                lightgreen: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Light_Green_600x600.webm`],
+                lightorange: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Light_Orange_600x600.webm`],
+                yellowblue: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Light_BlueYellow_600x600.webm`],
+                purplepink: [l3`Spirit_Guardians/SpiritGuardiansNoRing_01_Light_PinkPurple_600x600.webm`],
+            },
+        },
+        tollthedead: {
+            bell: {
+                blue: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Blue_400x400.webm`],
+                green: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Green_400x400.webm`],
+                purple: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Purple_400x400.webm`],
+                red: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Red_400x400.webm`],
+            },
+            complete: {
+                blue: [l0`Toll_The_Dead/TollTheDead_01_Regular_Blue_400x400.webm`],
+                green: [l0`Toll_The_Dead/TollTheDead_01_Regular_Green_400x400.webm`],
+                purple: [l0`Toll_The_Dead/TollTheDead_01_Regular_Purple_400x400.webm`],
+                red: [l0`Toll_The_Dead/TollTheDead_01_Regular_Red_400x400.webm`],
+            },
+            shockwave: {
+                blue: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Blue_400x400.webm`],
+                green: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Green_400x400.webm`],
+                purple: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Purple_400x400.webm`],
+                red: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Red_400x400.webm`],
+            },
+            skull: {
+                blue: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Blue_400x400.webm`],
+                green: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`],
+                purple: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Purple_400x400.webm`],
+                red: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Red_400x400.webm`],
+            },
+        },
+        wallofforce: {
+            '01': {
+                blue: [l5`Wall_Of_Force/WallOfForce_01_Blue_Sphere_400x400.webm`],
+                green: [l5`Wall_Of_Force/WallOfForce_01_Green_Sphere_400x400.webm`],
+                grey: [l5`Wall_Of_Force/WallOfForce_01_Grey_Sphere_400x400.webm`],
+                orange: [l5`Wall_Of_Force/WallOfForce_01_Orange_Sphere_400x400.webm`],
+                purple: [l5`Wall_Of_Force/WallOfForce_01_Purple_Sphere_400x400.webm`],
+                red: [l5`Wall_Of_Force/WallOfForce_01_Red_Sphere_400x400.webm`],
+                yellow: [l5`Wall_Of_Force/WallOfForce_01_Yellow_Sphere_400x400.webm`]
+            }
+        },
+        web: {
+            '01': {
+                white: [l2`Web/Web_01_White_01_400x400.webm`]
+            },
+            '02': {
+                white: [l2`Web/Web_01_White_02_400x400.webm`]
+            }
+        },
+        whirlwind: {
+            '01': {
+                blue: [l7`Whirlwind/Whirlwind_01_Blue_400x400.webm`],
+                bluegrey: [l7`Whirlwind/Whirlwind_01_BlueGrey_01_400x400.webm`],
+                green: [l7`Whirlwind/Whirlwind_01_Green_400x400.webm`],
+                purple: [l7`Whirlwind/Whirlwind_01_Purple_400x400.webm`],
+                red: [l7`Whirlwind/Whirlwind_01_Red_400x400.webm`],
             }
         },
     },
@@ -4968,432 +5610,6 @@ JB2APATREONDB.static = {
                 orange: [lg`Token_Border/TokenBorderCircleSpin_13_Regular_Orange_400x400.webm`],
                 purple: [lg`Token_Border/TokenBorderCircleSpin_13_Regular_Purple_400x400.webm`],
             },
-
-        },
-    },
-    marker: {
-        '01': {
-            whiteblue: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
-            yellowblue: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
-            greenorange: [lg`Marker/Marker_01_Regular_GreenOrange_400x400.webm`],
-            pink: [lg`Marker/Marker_01_Regular_Pink_400x400.webm`],
-            purplepink: [lg`Marker/Marker_01_Regular_PurplePink_400x400.webm`],
-            red: [lg`Marker/Marker_01_Regular_Red_400x400.webm`],
-        },
-        '02': {
-            whiteblue: [lg`Marker/Marker_02_Dark_BlueWhite_400x400.webm`],
-            yellowblue: [lg`Marker/Marker_02_Regular_BlueYellow_400x400.webm`],
-            greenorange: [lg`Marker/Marker_02_Regular_GreenOrange_400x400.webm`],
-            pink: [lg`Marker/Marker_02_Regular_Pink_400x400.webm`],
-            purplepink: [lg`Marker/Marker_02_Regular_PurplePink_400x400.webm`],
-            pink: [lg`Marker/Marker_02_Regular_Red_400x400.webm`],
-        },
-        '03': {
-            darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
-            yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
-            greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
-            pink: [lg`Marker/MusicMarker_01_Regular_Pink_400x400.webm`],
-            purplepink: [lg`Marker/MusicMarker_01_Regular_PurplePink_400x400.webm`],
-        },
-        bubble: {
-            blue: [lg`Marker/MarkerBubble_01_Regular_Blue_400x400.webm`],
-            green: [lg`Marker/MarkerBubble_01_Regular_Green_400x400.webm`],
-            rainbow: [lg`Marker/MarkerBubble_01_Regular_Rainbow_400x400.webm`],
-        },
-        energystrands: {
-            blue: [lg`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`],
-            blueorange: [lg`Marker/EnergyStrands_01_Regular_BlueOrange_600x600.webm`],
-            darkred: [lg`Marker/EnergyStrands_01_Dark_Red_600x600.webm`],
-            orange: [lg`Marker/EnergyStrands_01_Regular_Orange_600x600.webm`],
-            pinkyellow: [lg`Marker/EnergyStrands_01_Regular_PinkYellow_600x600.webm`],
-            purple: [lg`Marker/EnergyStrands_01_Regular_Purple_600x600.webm`],
-        },
-        circleofstars: {
-            '01': {
-                blue: [lg`Marker/MarkerCircleOfStars_Regular_Blue_400x400.webm`],
-                orangepurple: [lg`Marker/MarkerCircleOfStars_Regular_OrangePurple_400x400.webm`],
-                purplegreen: [lg`Marker/MarkerCircleOfStars_Regular_PurpleGreen_400x400.webm`],
-                yellowblue: [lg`Marker/MarkerCircleOfStars_Regular_YellowBlue_400x400.webm`]
-            },
-        },
-        energystrand: {
-            '01': {
-                darkred: [lg`Marker/EnergyStrands_01_Dark_Red_600x600.webm`],
-                blue: [lg`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`],
-                blueorange: [lg`Marker/EnergyStrands_01_Regular_BlueOrange_600x600.webm`],
-                orange: [lg`Marker/EnergyStrands_01_Regular_Orange_600x600.webm`],
-                pinkyellow: [lg`Marker/EnergyStrands_01_Regular_PinkYellow_600x600.webm`],
-                purple: [lg`Marker/EnergyStrands_01_Regular_Purple_600x600.webm`],
-            }
-        },
-    },
-    energy: {
-        energyfield: {
-            '01': {
-                blue: [lg`Energy/EnergyField_01_Regular_Blue_600x600.webm`],
-                green: [lg`Energy/EnergyField_01_Regular_Green_600x600.webm`],
-                rainbow: [lg`Energy/EnergyField_01_Regular_Rainbow_600x600.webm`],
-            }
-        },
-        dodecahedron: {
-            simple: {
-                blue: [lg`Energy/Dodecahedron_01_Regular_Blue_600x600.webm`],
-                green: [lg`Energy/Dodecahedron_01_Regular_Green_600x600.webm`],
-            },
-            rolled: {
-                blue: [lg`Energy/DodecahedronRoll_01_Regular_Blue_600x600.webm`],
-                green: [lg`Energy/DodecahedronRoll_01_Regular_Green_600x600.webm`],
-            },
-            runeabove: {
-                yellowblue: [lg`Energy/DodecahedronRuneAbove_01_Regular_BlueYellow_600x600.webm`],
-                darkgreenpurple: [lg`Energy/DodecahedronRuneAbove_01_Dark_GreenPurple_600x600.webm`],
-            },
-            runebelow: {
-                yellowblue: [lg`Energy/DodecahedronRuneBelow_01_Regular_BlueYellow_600x600.webm`],
-                darkgreenpurple: [lg`Energy/DodecahedronRuneBelow_01_Dark_GreenPurple_600x600.webm`],
-            },
-            skullabove: {
-                darkgreenpurple: [lg`Energy/DodecahedronSkullAbove_01_Dark_GreenPurple_600x600.webm`],
-            },
-            skullbelow: {
-                darkgreenpurple: [lg`Energy/DodecahedronSkullBelow_01_Dark_GreenPurple_600x600.webm`],
-            },
-            starabove: {
-                yellowblue: [lg`Energy/DodecahedronStarAbove_01_Regular_BlueYellow_600x600.webm`],
-            },
-            starbelow: {
-                yellowblue: [lg`Energy/DodecahedronStarBelow_01_Regular_BlueYellow_600x600.webm`],
-            },
-        },
-        shimmer: {
-            '01': {
-                blue: [lg`Energy/Shimmer01_01_Regular_Blue_400x400.webm`],
-                green: [lg`Energy/Shimmer01_01_Regular_Green_400x400.webm`],
-                orange: [lg`Energy/Shimmer01_01_Regular_Orange_400x400.webm`],
-                purple: [lg`Energy/Shimmer01_01_Regular_Purple_400x400.webm`]
-            }
-        },
-        sparkles: {
-            '01': {
-                blue: [lg`Energy/SwirlingSparkles_01_Regular_Blue_400x400.webm`],
-                bluepink: [lg`Energy/SwirlingSparkles_01_Regular_BluePink_400x400.webm`],
-                greenorange: [lg`Energy/SwirlingSparkles_01_Regular_GreenOrange_400x400.webm`],
-                orangepurple: [lg`Energy/SwirlingSparkles_01_Regular_OrangePurple_400x400.webm`],
-            }
-        },
-    },
-    fire: {
-        eruption: {
-            '01': {
-                blue: [lg`Fire/Eruption_01_Regular_Blue_600x600.webm`],
-                green: [lg`Fire/Eruption_01_Regular_Green_600x600.webm`],
-                orange: [lg`Fire/Eruption_01_Regular_Orange_600x600.webm`]
-            },
-        },
-        groundcrack: {
-            '01': {
-                blue: [lg`Fire/GroundCrackLoop_01_Regular_Blue_600x600.webm`],
-                green: [lg`Fire/GroundCrackLoop_01_Regular_Green_600x600.webm`],
-                orange: [lg`Fire/GroundCrackLoop_01_Regular_Orange_600x600.webm`],
-                purple: [lg`Fire/GroundCrackLoop_01_Regular_Purple_600x600.webm`],
-            },
-            '02': {
-                blue: [lg`Fire/GroundCrackLoop_02_Regular_Blue_600x600.webm`],
-                green: [lg`Fire/GroundCrackLoop_02_Regular_Green_600x600.webm`],
-                orange: [lg`Fire/GroundCrackLoop_02_Regular_Orange_600x600.webm`],
-                purple: [lg`Fire/GroundCrackLoop_02_Regular_Purple_600x600.webm`],
-            },
-            '03': {
-                blue: [lg`Fire/GroundCrackLoop_03_Regular_Blue_600x600.webm`],
-                green: [lg`Fire/GroundCrackLoop_03_Regular_Green_600x600.webm`],
-                orange: [lg`Fire/GroundCrackLoop_03_Regular_Orange_600x600.webm`],
-                purple: [lg`Fire/GroundCrackLoop_03_Regular_Purple_600x600.webm`],
-            },
-        },
-        fireworks: {
-            '01': {
-                green: [
-                    lg`Fireworks/Firework02_01_Regular_Green_600x600.webm`,
-                ],
-                greenorange: [
-                    lg`Fireworks/Firework01_01_Regular_GreenOrange_600x600.webm`,
-                ],
-                greenred: [
-                    lg`Fireworks/Firework01_01_Regular_GreenRed_600x600.webm`,
-                    lg`Fireworks/Firework03_01_Regular_GreenRed_600x600.webm`,
-                ],
-                orange: [
-                    lg`Fireworks/Firework02_01_Regular_Orange_600x600.webm`,
-                ],
-                orangeyellow: [
-                    lg`Fireworks/Firework01_01_Regular_OrangeYellow_600x600.webm`,
-                    lg`Fireworks/Firework03_01_Regular_OrangeYellow_600x600.webm`,
-                ],
-                yellow: [
-                    lg`Fireworks/Firework02_01_Regular_Yellow_600x600.webm`,
-                ],
-                bluepink: [
-                    lg`Fireworks/Firework03_01_Regular_BluePink_600x600.webm`,
-                ],    
-            },
-            '02': {
-                green: [
-                    lg`Fireworks/Firework02_02_Regular_Green_600x600.webm`,
-                ],
-                greenorange: [
-                    lg`Fireworks/Firework01_02_Regular_GreenOrange_600x600.webm`,
-                ],
-                greenred: [
-                    lg`Fireworks/Firework03_02_Regular_GreenRed_600x600.webm`,
-                ],
-                orange: [
-                    lg`Fireworks/Firework02_02_Regular_Orange_600x600.webm`,
-                ],
-                orangeyellow: [
-                    lg`Fireworks/Firework01_02_Regular_OrangeYellow_600x600.webm`,
-                    lg`Fireworks/Firework03_02_Regular_OrangeYellow_600x600.webm`,
-                ],
-                yellow: [
-                    lg`Fireworks/Firework02_02_Regular_Yellow_600x600.webm`,
-                    lg`Fireworks/Firework03_02_Regular_OrangeYellow_600x600.webm`,
-                ],
-                bluepink: [
-                    lg`Fireworks/Firework03_02_Regular_BluePink_600x600.webm`,
-                ],    
-            },
-        },
-    },
-    liquid: {
-        splash: {
-            '01': {
-                blue: [lg`Liquid/LiquidSplash01_Regular_Blue_400x400.webm`],
-                green: [lg`Liquid/LiquidSplash01_Regular_Green_400x400.webm`],
-                brightgreen: [lg`Liquid/LiquidSplash01_Bright_Green_400x400.webm`],
-                brightblue: [lg`Liquid/LiquidSplash01_Bright_Blue_400x400.webm`],
-                purple: [lg`Liquid/LiquidSplash01_Bright_Purple_400x400.webm`],
-                red: [lg`Liquid/LiquidSplash01_Regular_Red_400x400.webm`],
-            },
-        },
-    },
-    ice: {
-        icespikes: {
-            '01': {
-                blue: [lg`Ice/IceSpikesRadialBurst_01_Regular_Blue_1000x1000.webm`],
-                red: [lg`Ice/IceSpikesRadialBurst_01_Regular_Red_1000x1000.webm`],
-                white: [lg`Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm`]
-            }
-        },
-        snowflake: {
-            '01': {
-                whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
-                greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
-                purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
-                tealyellow: [lg`Ice/SnowflakeBurst_01_Regular_TealYellow_Burst_600x600.webm`],
-            }
-        },
-    },
-    lightning: {
-        ball: {
-            '01': {
-                darkpurple: [lg`Lightning/LightningBall_01_Dark_Purple_400x400.webm`],
-                blue: [lg`Lightning/LightningBall_01_Regular_Blue_400x400.webm`],
-                green: [lg`Lightning/LightningBall_01_Regular_Green_400x400.webm`],
-                darkgreen: [lg`Lightning/LightningBall_01_Regular_Green02_400x400.webm`],
-                purple: [lg`Lightning/LightningBall_01_Regular_Purple_400x400.webm`],
-                red: [lg`Lightning/LightningBall_01_Regular_Red_400x400.webm`],
-                darkred: [lg`Lightning/LightningBall_01_Dark_Red_400x400.webm`],
-            }
-        },
-        staticelectricity: {
-            '01': {
-                darkpurple: [lg`Lightning/StaticElectricity_01_Dark_Purple_400x400.webm`],
-                blue: [lg`Lightning/StaticElectricity_01_Regular_Blue_400x400.webm`],
-                green: [lg`Lightning/StaticElectricity_01_Regular_Green_400x400.webm`],
-                darkgreen: [lg`Lightning/StaticElectricity_01_Regular_Green02_400x400.webm`],
-                purple: [lg`Lightning/StaticElectricity_01_Regular_Purple_400x400.webm`],
-                red: [lg`Lightning/StaticElectricity_01_Regular_Red_400x400.webm`],
-                darkred: [lg`Lightning/StaticElectricity_01_Dark_Red_400x400.webm`],
-            },
-            '02': {
-                darkpurple: [lg`Lightning/StaticElectricity_02_Dark_Purple_400x400.webm`],
-                blue: [lg`Lightning/StaticElectricity_02_Regular_Blue_400x400.webm`],
-                green: [lg`Lightning/StaticElectricity_02_Regular_Green_400x400.webm`],
-                darkgreen: [lg`Lightning/StaticElectricity_02_Regular_Green02_400x400.webm`],
-                purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`],
-                red: [lg`Lightning/StaticElectricity_02_Regular_Red_400x400.webm`],
-                darkred: [lg`Lightning/StaticElectricity_02_Dark_Red_400x400.webm`],
-            }
-        },
-    },
-    magicSign: {
-        abjuration: {
-            '01': {
-                blue: [lg`Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm`],
-                green: [lg`Magic_Signs/Abjuration_01_Green_Circle_800x800.webm`],
-                red: [lg`Magic_Signs/Abjuration_01_Red_Circle_800x800.webm`],
-            },
-            '02': {
-                blue: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Blue_800x800.webm`],
-                green: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Green_800x800.webm`],
-                pink: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Pink_800x800.webm`],
-                purple: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Purple_800x800.webm`],
-                red: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Red_800x800.webm`],
-                yellow: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
-            }
-        },
-        conjuration: {
-            '01': {
-                yellow: [lg`Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm`]
-            },
-            '02': {
-                blue: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Blue_800x800.webm`],
-                green: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Green_800x800.webm`],
-                pink: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Pink_800x800.webm`],
-                purple: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Purple_800x800.webm`],
-                red: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Red_800x800.webm`],
-                yellow: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
-            }
-        },
-        divination: {
-            '01': {
-                lightblue: [lg`Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm`]
-            },
-            '02': {
-                blue: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Blue_800x800.webm`],
-                green: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Green_800x800.webm`],
-                pink: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Pink_800x800.webm`],
-                purple: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Purple_800x800.webm`],
-                red: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Red_800x800.webm`],
-                yellow: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Yellow_800x800.webm`],
-            }
-        },
-        enchantment: {
-            '02': {
-                blue: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Blue_800x800.webm`],
-                green: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Green_800x800.webm`],
-                pink: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Pink_800x800.webm`],
-                purple: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Purple_800x800.webm`],
-                red: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Red_800x800.webm`],
-                yellow: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Yellow_800x800.webm`],
-            }
-        },
-        evocation: {
-            '02': {
-                blue: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Blue_800x800.webm`],
-                green: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Green_800x800.webm`],
-                pink: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Pink_800x800.webm`],
-                purple: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Purple_800x800.webm`],
-                red: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Red_800x800.webm`],
-                yellow: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Yellow_800x800.webm`],
-            }
-        },
-        illusion: {
-            '02': {
-                blue: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Blue_800x800.webm`],
-                green: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Green_800x800.webm`],
-                pink: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Pink_800x800.webm`],
-                purple: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Purple_800x800.webm`],
-                red: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Red_800x800.webm`],
-                yellow: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Yellow_800x800.webm`],
-            }
-        },
-        necromancy: {
-            '02': {
-                blue: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Blue_800x800.webm`],
-                green: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Green_800x800.webm`],
-                pink: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Pink_800x800.webm`],
-                purple: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Purple_800x800.webm`],
-                red: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Red_800x800.webm`],
-                yellow: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Yellow_800x800.webm`],
-            }
-        },
-        transmutation: {
-            '02': {
-                blue: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Blue_800x800.webm`],
-                green: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Green_800x800.webm`],
-                pink: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Pink_800x800.webm`],
-                purple: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Purple_800x800.webm`],
-                red: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Red_800x800.webm`],
-                yellow: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Yellow_800x800.webm`],
-            }
-        },
-    },
-    music: {
-        notes: {
-            '01': {
-                blue: [
-                    lg`Music_Notation/BassClef_01_Regular_Blue_200x200.webm`,
-                    lg`Music_Notation/BeamedQuavers_01_Regular_Blue_200x200.webm`,
-                    lg`Music_Notation/Crotchet_01_Regular_Blue_200x200.webm`,
-                    lg`Music_Notation/Flat_01_Regular_Blue_200x200.webm`,
-                    lg`Music_Notation/Quaver_01_Regular_Blue_200x200.webm`,
-                    lg`Music_Notation/Sharp_01_Regular_Blue_200x200.webm`,
-                    lg`Music_Notation/TrebleClef_01_Regular_Blue_200x200.webm`
-                ],
-                green: [
-                    lg`Music_Notation/BassClef_01_Regular_Green_200x200.webm`,
-                    lg`Music_Notation/BeamedQuavers_01_Regular_Green_200x200.webm`,
-                    lg`Music_Notation/Crotchet_01_Regular_Green_200x200.webm`,
-                    lg`Music_Notation/Flat_01_Regular_Green_200x200.webm`,
-                    lg`Music_Notation/Quaver_01_Regular_Green_200x200.webm`,
-                    lg`Music_Notation/Sharp_01_Regular_Green_200x200.webm`,
-                    lg`Music_Notation/TrebleClef_01_Regular_Green_200x200.webm`
-                ],
-                orange: [
-                    lg`Music_Notation/BassClef_01_Regular_Orange_200x200.webm`,
-                    lg`Music_Notation/BeamedQuavers_01_Regular_Orange_200x200.webm`,
-                    lg`Music_Notation/Crotchet_01_Regular_Orange_200x200.webm`,
-                    lg`Music_Notation/Flat_01_Regular_Orange_200x200.webm`,
-                    lg`Music_Notation/Quaver_01_Regular_Orange_200x200.webm`,
-                    lg`Music_Notation/Sharp_01_Regular_Orange_200x200.webm`,
-                    lg`Music_Notation/TrebleClef_01_Regular_Orange_200x200.webm`
-                ],
-                purple: [
-                    lg`Music_Notation/BassClef_01_Regular_Purple_200x200.webm`,
-                    lg`Music_Notation/BeamedQuavers_01_Regular_Purple_200x200.webm`,
-                    lg`Music_Notation/Crotchet_01_Regular_Purple_200x200.webm`,
-                    lg`Music_Notation/Flat_01_Regular_Purple_200x200.webm`,
-                    lg`Music_Notation/Quaver_01_Regular_Purple_200x200.webm`,
-                    lg`Music_Notation/Sharp_01_Regular_Purple_200x200.webm`,
-                    lg`Music_Notation/TrebleClef_01_Regular_Purple_200x200.webm`
-                ]
-            }
-        }
-    },
-    generic: {
-        vortex: {
-            loop: {
-                blue: [lg`Template/Circle/Vortex_01_Regular_Blue_600x600.webm`],
-                green: [lg`Template/Circle/Vortex_01_Regular_Green_600x600.webm`],
-                purple: [lg`Template/Circle/Vortex_01_Regular_Purple_600x600.webm`]
-            },
-            intro: {
-                blue: [lg`Template/Circle/VortexIntro_01_Regular_Blue_600x600.webm`],
-                green: [lg`Template/Circle/VortexIntro_01_Regular_Green_600x600.webm`],
-                purple: [lg`Template/Circle/VortexIntro_01_Regular_Purple_600x600.webm`]
-            },
-            outro: {
-                blue: [lg`Template/Circle/VortexOutro_01_Regular_Blue_600x600.webm`],
-                green: [lg`Template/Circle/VortexOutro_01_Regular_Green_600x600.webm`],
-                purple: [lg`Template/Circle/VortexOutro_01_Regular_Purple_600x600.webm`]
-            },
-        },
-        whirl: {
-            loop: {
-                blue: [lg`Template/Circle/Whirl_01_Regular_Blue_600x600.webm`],
-                green: [lg`Template/Circle/Whirl_01_Regular_Green_600x600.webm`],
-                purple: [lg`Template/Circle/Whirl_01_Regular_Purple_600x600.webm`]
-            },
-            intro: {
-                blue: [lg`Template/Circle/WhirlIntro_01_Regular_Blue_600x600.webm`],
-                green: [lg`Template/Circle/WhirlIntro_01_Regular_Green_600x600.webm`],
-                purple: [lg`Template/Circle/WhirlIntro_01_Regular_Purple_600x600.webm`]
-            },
-            outro: {
-                blue: [lg`Template/Circle/WhirlOutro_01_Regular_Blue_600x600.webm`],
-                green: [lg`Template/Circle/WhirlOutro_01_Regular_Green_600x600.webm`],
-                purple: [lg`Template/Circle/WhirlOutro_01_Regular_Purple_600x600.webm`]
-            }
         },
     },
 }
@@ -5483,20 +5699,20 @@ JB2APATREONDB.return = {
         javelin: {
             '01': {
                 white: {
-                    '15ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_15ft_1000x400.webm`],
-                    '30ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_30ft_1600x400.webm`],
-                    '60ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_60ft_2800x400.webm`],
-                    '90ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_90ft_4000x400.webm`],
+                    '15ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_15ft_1000x600.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_30ft_1600x600.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_60ft_2800x600.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Javelin01_01_Regular_White_Return_90ft_4000x600.webm`],
                 }
             }
         },
         spear: {
             '01': {
                 white: {
-                    '15ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_15ft_1000x400.webm`],
-                    '30ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_30ft_1600x400.webm`],
-                    '60ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_60ft_2800x400.webm`],
-                    '90ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_90ft_4000x400.webm`],
+                    '15ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_15ft_1000x600.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_30ft_1600x600.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_60ft_2800x600.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Spear01_01_Regular_White_Return_90ft_4000x600.webm`],
                 }
             }
         },

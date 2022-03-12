@@ -270,7 +270,7 @@
     "AUTOANIM.audioDelay": "Retraso de audio (milisegundos)",
     "AUTOANIM.markerColor": "Color del Marcador",
 
-    "AUTOANIM.breathWeapon": "Arma de Aliento",
+    "AUTOANIM.breathweapon": "Arma de Aliento",
     "AUTOANIM.bwWarning": "Asume una Plantilla en Línea de 30 pies",
     "AUTOANIM.selfColor": "Color de Animació sobre uno mismo",
     "AUTOANIM.targetColor": "Color de Animación sobre Objetivo",
@@ -292,8 +292,6 @@
     "AUTOANIM.explosion03": "Explosión 03",
     "AUTOANIM.explosion04": "Explosión 04",
     "AUTOANIM.snowflake": "Explosión de copos de nieve",
-    "AUTOANIM.outpulse01": "Pulso 01",
-    "AUTOANIM.outpulse02": "Pulso 02",
     "AUTOANIM.entangle": "Enmarañar",
 
     "AUTOANIM.customAnim": "¿Animación personalizada?",
@@ -350,7 +348,7 @@
     "AUTOANIM.divinesmite": "Castigo Divino",
     "AUTOANIM.stars": "Estrellas",
     "AUTOANIM.marker": "Marcador",
-    "AUTOANIM.magicSign": "Signo mágico",
+    "AUTOANIM.magicsign": "Signo mágico",
     "AUTOANIM.customize": "Personalizar",
     "AUTOANIM.ctaScale": "Escala",
     "AUTOANIM.volume": "Volumen (0-1)",

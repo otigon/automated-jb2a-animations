@@ -268,7 +268,7 @@
   "AUTOANIM.markerEnable": "Enable Marker (CTA Required)",
   "AUTOANIM.markerColor": "Marker Color",
     
-  "AUTOANIM.breathWeapon": "Breath Weapon",
+  "AUTOANIM.breathweapon": "Breath Weapon",
   "AUTOANIM.bwWarning": "Assumes 30 foot Line Template",
   "AUTOANIM.dsEffect": "Divine Smite Effect",
   "AUTOANIM.delay": "Delay (milliseconds)",
@@ -292,7 +292,5 @@
   "AUTOANIM.explosion03": "Explosion 03",
   "AUTOANIM.explosion04": "Explosion 04",
   "AUTOANIM.snowflake": "Snowflake Burst",
-  "AUTOANIM.outpulse01": "Outpulse 01",
-  "AUTOANIM.outpulse02": "Outpulse 02",
   "AUTOANIM.entangle": "Entangle"
 }

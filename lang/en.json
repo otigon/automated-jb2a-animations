@@ -270,7 +270,7 @@
     "AUTOANIM.audioDelay": "Delay Audio (milliseconds)",
     "AUTOANIM.markerColor": "Marker Color Self",
     
-    "AUTOANIM.breathWeapon": "Breath Weapon",
+    "AUTOANIM.breathweapon": "Breath Weapon",
     "AUTOANIM.bwWarning": "Assumes 30 foot Line Template",
     "AUTOANIM.selfColor": "Self Animation Color",
     "AUTOANIM.targetColor": "Target Animation Color",
@@ -288,8 +288,6 @@
     "AUTOANIM.explosion03": "Explosion 03",
     "AUTOANIM.explosion04": "Explosion 04",
     "AUTOANIM.snowflake": "Snowflake Burst",
-    "AUTOANIM.outpulse01": "Outpulse 01",
-    "AUTOANIM.outpulse02": "Outpulse 02",
     "AUTOANIM.entangle": "Entangle",
 
     "AUTOANIM.customAnim": "Custom Animation?",
@@ -346,7 +344,7 @@
     "AUTOANIM.divinesmite": "Divine Smite",
     "AUTOANIM.stars": "Stars",
     "AUTOANIM.marker": "Marker",
-    "AUTOANIM.magicSign": "Magic Sign",
+    "AUTOANIM.magicsign": "Magic Sign",
     "AUTOANIM.customize": "Customize",
     "AUTOANIM.ctaScale": "Scale",
     "AUTOANIM.volume": "Volume (0-1)",
@@ -457,8 +455,6 @@
     "AUTOANIM.generic": "Generic",
     "AUTOANIM.addExplosion": "Add Explosion",
     "AUTOANIM.endEffect": "End Effect",
-    "AUTOANIM.breathweaponcone": "Breath Weapon",
-    "AUTOANIM.breathweaponline": "Breath Weapon",
     "AUTOANIM.burninghands": "Burning Hands",
     "AUTOANIM.fire01": "Fire 01",
     "AUTOANIM.fire02": "Fire 02",
@@ -629,6 +625,6 @@
     "AUTOANIM.fireworks": "Fireworks",
     "AUTOANIM.groundcrack": "Ground Cracks",
     "AUTOANIM.greenred": "Green Red",
-    "AUTOANIM.orangeyellow": "Orange Yellow"
-
+    "AUTOANIM.orangeyellow": "Orange Yellow",
+    "AUTOANIM.outpulse": "Outpulse"
 }
