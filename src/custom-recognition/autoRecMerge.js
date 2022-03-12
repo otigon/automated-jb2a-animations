@@ -113,15 +113,49 @@ export const autoRecMigration = {
                 const generic = ['1hs', '2hs', '1hp', '2hp', '1hb', '2hb']
                 const meleeLength = Object.keys(meleeObject).length;
                 for (var i = 0; i < meleeLength; i++) {
-                    if (meleeObject[i].custom) { } else {
-                        if (generic.some(el => meleeObject[i].animation === el)) {
-                            meleeObject[i].menuType = 'generic';
+                    let co = meleeObject[i];
+                    if (co.custom) { } else {
+                        if (generic.some(el => co.animation === el)) {
+                            co.menuType = 'generic';
                         } else {
-                            meleeObject[i].menuType = meleeObject[i].meleeType;
+                            co.menuType = co.meleeType;
                         }
                     }
-                    if (meleeObject[i].switchType === 'custom') {
-                        meleeObject[i].switchMenuType = 'weapon';
+                    if (co.switchType === 'custom') {
+                        co.switchMenuType = 'weapon';
+                    }
+                    if (co.explosion?.enable && !co.explosion.custom) {
+                        const fire = ['eruption'];
+                        const generic = ['boulderimpact', 'explosion', 'impact', 'outpulse01', 'outpulse02'];
+                        const ice = ['snowflake'];
+                        const liquid = ['liquidsplash'];
+                        const fireball = ['fireballexplode']
+                        switch (true) {
+                            case fire.some(el => co.explosion.animation === el):
+                                co.explosion.menuType = 'fire';
+                                break;
+                            case generic.some(el => co.explosion.animation === el):
+                                co.explosion.menuType = 'generic';
+                                if (co.explosion.animation.includes('outpulse')) {
+                                    co.explosion.animation = 'outpulse';
+                                    co.explosion.variant = co.explosion.variant === 'outpulse02' ? '02' : '01';
+                                }
+                                break;
+                            case ice.some(el => co.explosion.animation === el):
+                                co.explosion.menuType = 'ice';
+                                break;
+                            case liquid.some(el => co.explosion.animation === el):
+                                co.explosion.menuType = 'liquid';
+                                co.explosion.animation = 'splash';
+                                break;
+                            case fireball.some(el => co.explosion.animation === el):
+                                co.explosion.menuType = 'spell';
+                                co.explosion.animation = 'fireball';
+                                co.explosion.variant = 'explode';
+                                break;
+                            default:
+                                co.explosion.menuType = 'spell';
+                        }            
                     }
                 }
             }
@@ -129,20 +163,53 @@ export const autoRecMigration = {
                 const generic = ['energyconduitsquare', 'energyconduitcircle', 'energybeam', 'heart', 'iceshard', 'musicnote', 'skull', 'energystrand'];
                 const rangeLength = Object.keys(rangeObject).length;
                 for (var i = 0; i < rangeLength; i++) {
-                    if (generic.some(el => rangeObject[i].animation === el)) {
-                        rangeObject[i].menuType = 'generic';
-                        if (rangeObject[i].animation === "energyconduitcircle") {
-                            rangeObject[i].animation = 'conduit';
-                            rangeObject[i].variant = 'circle';
+                    let ro = rangeObject[i]
+                    if (generic.some(el => ro.animation === el)) {
+                        ro.menuType = 'generic';
+                        if (ro.animation === "energyconduitcircle") {
+                            ro.animation = 'conduit';
+                            ro.variant = 'circle';
                         }
-                        if (rangeObject[i].animation === "energyconduitsquare") {
-                            rangeObject[i].animation = 'conduit';
-                            rangeObject[i].variant = 'square';
+                        if (ro.animation === "energyconduitsquare") {
+                            ro.animation = 'conduit';
+                            ro.variant = 'square';
                         }
                     } else {
-                        rangeObject[i].menuType = rangeObject[i].type;
+                        ro.menuType = ro.type;
                     }
-
+                    if (ro.explosion?.enable && !ro.explosion.custom) {
+                        const fire = ['eruption'];
+                        const generic = ['boulderimpact', 'explosion', 'impact', 'outpulse01', 'outpulse02'];
+                        const ice = ['snowflake'];
+                        const liquid = ['liquidsplash'];
+                        const fireball = ['fireballexplode']
+                        switch (true) {
+                            case fire.some(el => ro.explosion.animation === el):
+                                ro.explosion.menuType = 'fire';
+                                break;
+                            case generic.some(el => ro.explosion.animation === el):
+                                ro.explosion.menuType = 'generic';
+                                if (ro.explosion.animation.includes('outpulse')) {
+                                    ro.explosion.animation = 'outpulse';
+                                    ro.explosion.variant = ro.explosion.variant === 'outpulse02' ? '02' : '01';
+                                }
+                                break;
+                            case ice.some(el => ro.explosion.animation === el):
+                                ro.explosion.menuType = 'ice';
+                                break;
+                            case liquid.some(el => ro.explosion.animation === el):
+                                ro.explosion.menuType = 'liquid';
+                                ro.explosion.animation = 'splash';
+                                break;
+                            case fireball.some(el => ro.explosion.animation === el):
+                                ro.explosion.menuType = 'spell';
+                                ro.explosion.animation = 'fireball';
+                                ro.explosion.variant = 'explode';
+                                break;
+                            default:
+                                ro.explosion.menuType = 'spell';
+                        }            
+                    }
                 }
             }
             if (staticObject) {
@@ -162,144 +229,179 @@ export const autoRecMigration = {
 
                 const staticLength = Object.keys(staticObject).length;
                 for (var i = 0; i < staticLength; i++) {
+                    let so = staticObject[i];
                     switch (true) {
-                        case conditions.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'conditions';
+                        case conditions.some(el => so.animation === el):
+                            so.menuType = 'conditions';
                             break;
-                        case creature.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'creature';
+                        case creature.some(el => so.animation === el):
+                            so.menuType = 'creature';
                             break;
-                        case energy.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'energy';
+                        case energy.some(el => so.animation === el):
+                            so.menuType = 'energy';
                             break;
-                        case fire.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'fire';
+                        case fire.some(el => so.animation === el):
+                            so.menuType = 'fire';
                             break;
-                        case generic.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'generic';
+                        case generic.some(el => so.animation === el):
+                            so.menuType = 'generic';
                             break;
-                        case ice.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'ice';
+                        case ice.some(el => so.animation === el):
+                            so.menuType = 'ice';
                             break;
-                        case lightning.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'lightning';
+                        case lightning.some(el => so.animation === el):
+                            so.menuType = 'lightning';
                             break;
-                        case liquid.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'liquid';
-                            staticObject[i].animation = 'splash';
+                        case liquid.some(el => so.animation === el):
+                            so.menuType = 'liquid';
+                            so.animation = 'splash';
                             break;
-                        case magicsign.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'magicsign';
+                        case magicsign.some(el => so.animation === el):
+                            so.menuType = 'magicsign';
                             break;
-                        case marker.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'marker';
-                            if (staticObject[i].animation === 'circleofstars') { }
-                            else if (staticObject[i].animation === 'energystrand') {
-                                staticObject[i].animation = 'energystrand'
+                        case marker.some(el => so.animation === el):
+                            so.menuType = 'marker';
+                            if (so.animation === 'circleofstars') { }
+                            else if (so.animation === 'energystrand') {
+                                so.animation = 'energystrand'
                             }
                             else {
-                                switch (staticObject[i].variant) {
+                                switch (so.variant) {
                                     case '03':
-                                        staticObject[i].animation = 'music';
-                                        staticObject[i].variant = '01';
+                                        so.animation = 'music';
+                                        so.variant = '01';
                                         break;
                                     case 'bubble':
-                                        staticObject[i].animation = 'bubble';
-                                        staticObject[i].variant = '01';
+                                        so.animation = 'bubble';
+                                        so.variant = '01';
                                         break;
                                     case 'energystrand':
-                                        staticObject[i].animation = 'energystrands';
-                                        staticObject[i].variant = '01'
+                                        so.animation = 'energystrands';
+                                        so.variant = '01'
                                         break;
                                     default:
-                                        staticObject[i].animation = 'standard';
-                                        staticObject[i].variant = '01';
+                                        so.animation = 'standard';
+                                        so.variant = '01';
                                 }
                             }
                             break;
-                        case shieldfx.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'shieldfx';
-                            switch (staticObject[i].animation) {
+                        case shieldfx.some(el => so.animation === el):
+                            so.menuType = 'shieldfx';
+                            switch (so.animation) {
                                 case 'energyfieldtop':
-                                    staticObject[i].animation = 'energyfield';
+                                    so.animation = 'energyfield';
                                     break;
                                 case 'shieldfiretop':
-                                    staticObject[i].animation = 'fire';
+                                    so.animation = 'fire';
                                     break;
                                 case 'shieldicetop':
-                                    staticObject[i].animation = 'ice';
+                                    so.animation = 'ice';
                                     break;
                                 case 'shieldearthtop':
-                                    staticObject[i].animation = 'earth';
+                                    so.animation = 'earth';
                                     break;
                                 case 'shieldeldritchwebtop':
-                                    staticObject[i].animation = 'eldritchweb';
+                                    so.animation = 'eldritchweb';
                                     break;
                             }
                             break;
-                        case tokenborder.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'tokenborder';
-                            if (staticObject[i].animation === 'staticborder') {
-                                staticObject[i].animation = 'static';
+                        case tokenborder.some(el => so.animation === el):
+                            so.menuType = 'tokenborder';
+                            if (so.animation === 'staticborder') {
+                                so.animation = 'static';
                             } else {
-                                staticObject[i].animation = 'spinning';
+                                so.animation = 'spinning';
                             }
                             break;
-                        case fireball.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'spell';
-                            staticObject[i].animation = 'fireball';
-                            staticObject[i].variant = 'explode';
+                        case fireball.some(el => so.animation === el):
+                            so.menuType = 'spell';
+                            so.animation = 'fireball';
+                            so.variant = 'explode';
                             break;
                         default:
-                            staticObject[i].menuType = 'spell';
+                            so.menuType = 'spell';
+                    }
+                    if (so.explosion?.enable && !so.explosion.custom) {
+                        const fire = ['eruption'];
+                        const generic = ['boulderimpact', 'explosion', 'impact', 'outpulse01', 'outpulse02'];
+                        const ice = ['snowflake'];
+                        const liquid = ['liquidsplash'];
+                        const fireball = ['fireballexplode']
+                        switch (true) {
+                            case fire.some(el => so.explosion.animation === el):
+                                so.explosion.menuType = 'fire';
+                                break;
+                            case generic.some(el => so.explosion.animation === el):
+                                so.explosion.menuType = 'generic';
+                                if (so.explosion.animation.includes('outpulse')) {
+                                    so.explosion.animation = 'outpulse';
+                                    so.explosion.variant = so.explosion.variant === 'outpulse02' ? '02' : '01';
+                                }
+                                break;
+                            case ice.some(el => so.explosion.animation === el):
+                                so.explosion.menuType = 'ice';
+                                break;
+                            case liquid.some(el => so.explosion.animation === el):
+                                so.explosion.menuType = 'liquid';
+                                so.explosion.animation = 'splash';
+                                break;
+                            case fireball.some(el => so.explosion.animation === el):
+                                so.explosion.menuType = 'spell';
+                                so.explosion.animation = 'fireball';
+                                so.explosion.variant = 'explode';
+                                break;
+                            default:
+                                so.explosion.menuType = 'spell';
+                        }            
                     }
                 }
             }
             if (templateObject) {
                 const templateLength = Object.keys(templateObject).length;
                 for (var i = 0; i < templateLength; i++) {
-                    templateObject[i].menuType = templateObject[i].type === 'rect' ? 'square' : templateObject[i].type
-                    switch (templateObject[i].menuType) {
+                    let to = templateObject[i];
+                    to.menuType = to.type === 'rect' ? 'square' : to.type
+                    switch (to.menuType) {
                         case "cone":
-                            if (templateObject[i].animation === 'breathweaponcone') {
-                                templateObject[i].animation = 'breathweapon';
+                            if (to.animation === 'breathweaponcone') {
+                                to.animation = 'breathweapon';
                             }
                             break;
                         case "circle":
                             const circleTypes = ['dropct', 'fearct', 'heartct', 'horrorct', 'poisonct', 'runesct', 'shieldsct', 'crackedshieldct', 'skullct', 'snowflakesct', 'musicnotect'];
-                            if (circleTypes.some(el => templateObject[i].animation === el)) {
-                                templateObject[i].animation = templateObject[i].animation.replace('ct', '')
+                            if (circleTypes.some(el => to.animation === el)) {
+                                to.animation = to.animation.replace('ct', '')
                             }
-                            switch (templateObject[i].animation) {
+                            switch (to.animation) {
                                 case 'outpulse01':
-                                    templateObject[i].animation = 'outpulse';
-                                    templateObject[i].variant = '01';
+                                    to.animation = 'outpulse';
+                                    to.variant = '01';
                                     break;
                                 case 'outpulse02':
-                                    templateObject[i].animation = 'outpulse';
-                                    templateObject[i].variant = '02';
+                                    to.animation = 'outpulse';
+                                    to.variant = '02';
                                     break;
                                 case 'fireballloop':
-                                    templateObject[i].animation = 'fireball';
-                                    templateObject[i].variant = templateObject[i].variant === 'nodebris' ? 'nodebris' : 'loop';
+                                    to.animation = 'fireball';
+                                    to.variant = to.variant === 'nodebris' ? 'nodebris' : 'loop';
                                     break;
                                 case 'fireballexplode':
-                                    templateObject[i].animation = 'fireball';
-                                    templateObject[i].variant = 'explode';
+                                    to.animation = 'fireball';
+                                    to.variant = 'explode';
                                     break;
                             }
                             break;
                         case "square":
                             const squareTypes = ['dropct', 'fearct', 'heartct', 'horrorct', 'poisonct', 'runesct', 'shieldsct', 'crackedshieldct', 'skullct', 'snowflakesct']
-                            if (squareTypes.some(el => templateObject[i].animation === el)) {
-                                templateObject[i].animation = templateObject[i].animation.replace('ct', '')
-                            } else if (templateObject[i].animation === 'musicnotest') {
-                                templateObject[i].animation = 'musicnote';
+                            if (squareTypes.some(el => to.animation === el)) {
+                                to.animation = to.animation.replace('ct', '')
+                            } else if (to.animation === 'musicnotest') {
+                                to.animation = 'musicnote';
                             }
                             break;
                         case "ray":
-                            if (templateObject[i].animation === 'breathweaponline') {
-                                templateObject[i].animation = 'breathweapon';
+                            if (to.animation === 'breathweaponline') {
+                                to.animation = 'breathweapon';
                             }
                             break;
                     }
@@ -308,18 +410,19 @@ export const autoRecMigration = {
             if (auraObject) {
                 const auraLength = Object.keys(auraObject).length;
                 for (var i = 0; i < auraLength; i++) {
-                    switch (auraObject[i].animation) {
+                    let ao = auraObject[i];
+                    switch (ao.animation) {
                         case "energystrand":
-                            auraObject[i].menuType = 'marker';
+                            ao.menuType = 'marker';
                             break;
                         case 'dodecahedron':
-                            auraObject[i].menuType = 'energy';
+                            ao.menuType = 'energy';
                             break;
                         case 'staticelectricity':
-                            auraObject[i].menuType = 'lightning';
+                            ao.menuType = 'lightning';
                             break;
                         default:
-                            auraObject[i].menuType = 'spell';
+                            ao.menuType = 'spell';
                     }
                 }
 
@@ -327,19 +430,20 @@ export const autoRecMigration = {
             if (presetObject) {
                 const presetLength = Object.keys(presetObject).length;
                 for (var i = 0; i < presetLength; i++) {
-                    switch (presetObject[i].animation) {
+                    let po = presetObject[i];
+                    switch (po.animation) {
                         case 'teleportation':
-                            presetObject[i].menuType = 'spell';
-                            presetObject[i].menuType02 = 'spell';
+                            po.menuType = 'spell';
+                            po.menuType02 = 'spell';
                             break;
                         case "dualattach":
-                            switch (presetObject[i].subAnimation) {
+                            switch (po.subAnimation) {
                                 case 'energystrand':
                                 case 'energybeam':
-                                    presetObject[i].menuType = 'generic';
+                                    po.menuType = 'generic';
                                     break;
                                 default:
-                                    presetObject[i].menuType = 'spell'
+                                    po.menuType = 'spell'
                             }
                             break;
                         case 'fireball':
@@ -348,60 +452,68 @@ export const autoRecMigration = {
                             const ice = ['snowflake'];
                             const liquid = ['liquidsplash'];
                             const fireball = ['fireballexplode']
-                            switch (presetObject[i].projectile) {
+                            switch (po.projectile) {
                                 case 'energystrand':
                                 case 'energybeam':
-                                    presetObject[i].rangeType = 'generic';
+                                    po.rangeType = 'generic';
                                     break;
                                 default:
-                                    presetObject[i].rangeType = 'spell'
+                                    po.rangeType = 'spell'
                             }
-                            if (presetObject[i].explosion01) {
+                            if (po.explosion01) {
                                 switch (true) {
-                                    case fire.some(el => presetObject[i].explosion01 === el):
-                                        presetObject[i].ex01Type = 'fire';
+                                    case fire.some(el => po.explosion01 === el):
+                                        po.ex01Type = 'fire';
                                         break;
-                                    case generic.some(el => presetObject[i].explosion01 === el):
-                                        presetObject[i].ex01Type = 'generic';
+                                    case generic.some(el => po.explosion01 === el):
+                                        po.ex01Type = 'generic';
+                                        if (po.explosion01.includes('outpulse')) {
+                                            po.explosion01 = 'outpulse';
+                                            po.explosion01Variant = po.explosion01Variant === 'outpulse02' ? '02' : '01';
+                                        }
                                         break;
-                                    case ice.some(el => presetObject[i].explosion01 === el):
-                                        presetObject[i].ex01Type = 'ice';
+                                    case ice.some(el => po.explosion01 === el):
+                                        po.ex01Type = 'ice';
                                         break;
-                                    case liquid.some(el => presetObject[i].explosion01 === el):
-                                        presetObject[i].ex01Type = 'liquid';
-                                        presetObject[i].explosion01 = 'splash';
+                                    case liquid.some(el => po.explosion01 === el):
+                                        po.ex01Type = 'liquid';
+                                        po.explosion01 = 'splash';
                                         break;
-                                    case fireball.some(el => presetObject[i].explosion01 === el):
-                                        presetObject[i].ex01Type = 'spell';
-                                        presetObject[i].explosion01 = 'fireball';
-                                        presetObject[i].explosion01Variant = 'explode';
+                                    case fireball.some(el => po.explosion01 === el):
+                                        po.ex01Type = 'spell';
+                                        po.explosion01 = 'fireball';
+                                        po.explosion01Variant = 'explode';
                                         break;
                                     default:
-                                        presetObject[i].ex01Type = 'spell';
+                                        po.ex01Type = 'spell';
                                 }            
                             }
-                            if (presetObject[i].explosion02) {
+                            if (po.explosion02) {
                                 switch (true) {
-                                    case fire.some(el => presetObject[i].explosion02 === el):
-                                        presetObject[i].ex02Type = 'fire';
+                                    case fire.some(el => po.explosion02 === el):
+                                        po.ex02Type = 'fire';
                                         break;
-                                    case generic.some(el => presetObject[i].explosion02 === el):
-                                        presetObject[i].ex02Type = 'generic';
+                                    case generic.some(el => po.explosion02 === el):
+                                        po.ex02Type = 'generic';
+                                        if (po.explosion01.includes('outpulse')) {
+                                            po.explosion01 = 'outpulse';
+                                            po.explosion01Variant = po.explosion01Variant === 'outpulse02' ? '02' : '01';
+                                        }
                                         break;
-                                    case ice.some(el => presetObject[i].explosion02 === el):
-                                        presetObject[i].ex02Type = 'ice';
+                                    case ice.some(el => po.explosion02 === el):
+                                        po.ex02Type = 'ice';
                                         break;
-                                    case liquid.some(el => presetObject[i].explosion02 === el):
-                                        presetObject[i].ex02Type = 'liquid';
-                                        presetObject[i].explosion02 = 'splash';
+                                    case liquid.some(el => po.explosion02 === el):
+                                        po.ex02Type = 'liquid';
+                                        po.explosion02 = 'splash';
                                         break;
-                                    case fireball.some(el => presetObject[i].explosion02 === el):
-                                        presetObject[i].ex02Type = 'spell';
-                                        presetObject[i].explosion02 = 'fireball';
-                                        presetObject[i].explosion02Variant = 'explode';
+                                    case fireball.some(el => po.explosion02 === el):
+                                        po.ex02Type = 'spell';
+                                        po.explosion02 = 'fireball';
+                                        po.explosion02Variant = 'explode';
                                         break;
                                     default:
-                                        presetObject[i].ex02Type = 'spell';
+                                        po.ex02Type = 'spell';
                                 }            
                             }
                             break;
