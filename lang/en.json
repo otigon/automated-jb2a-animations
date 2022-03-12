@@ -605,7 +605,7 @@
     "AUTOANIM.detectmagic": "Detect Magic",
     "AUTOANIM.music": "Music",
     "AUTOANIM.notes": "Notes",
-    "AUTOANIM.tokenBorder": "Token Border",
+    "AUTOANIM.tokenborder": "Token Border",
     "AUTOANIM.snowball": "Snow Ball",
     "AUTOANIM.dizzystars": "Dizzy Stars",
     "AUTOANIM.shields": "Shields",
@@ -626,5 +626,6 @@
     "AUTOANIM.groundcrack": "Ground Cracks",
     "AUTOANIM.greenred": "Green Red",
     "AUTOANIM.orangeyellow": "Orange Yellow",
-    "AUTOANIM.outpulse": "Outpulse"
+    "AUTOANIM.outpulse": "Outpulse",
+    "AUTOANIM.standard": "Standard"
 }

@@ -120,24 +120,24 @@ export const autoRecMigration = {
                         }
                     }
                     if (meleeObject[i].switchType === 'custom') {
-                        const generic = ['conduit', 'energybeam', 'heart', 'iceshard', 'musicnote', 'skull', 'energystrand'];
-                        const spells = ['chainlightning', 'disintegrate', 'eldritchblast', 'fireballbeam', 'firebolt', 'guidingbolt', 'magicmissile', 'rayoffrost', 'scorchingray', 'witchbolt'];
-                        if (generic.some(el => meleeObject[i].switchAnimation === el)) {
-                            meleeObject[i].switchMenuType = 'generic';
-                        } else if (spells.some(el => meleeObject[i].switchAnimation === el)) {
-                            meleeObject[i].switchMenuType = 'spell';
-                        } else {
-                            meleeObject[i].switchMenuType = 'weapon';
-                        }
+                        meleeObject[i].switchMenuType = 'weapon';
                     }
                 }
             }
             if (rangeObject) {
-                const generic = ['conduit', 'energybeam', 'heart', 'iceshard', 'musicnote', 'skull', 'energystrand'];
+                const generic = ['energyconduitsquare', 'energyconduitcircle', 'energybeam', 'heart', 'iceshard', 'musicnote', 'skull', 'energystrand'];
                 const rangeLength = Object.keys(rangeObject).length;
                 for (var i = 0; i < rangeLength; i++) {
                     if (generic.some(el => rangeObject[i].animation === el)) {
                         rangeObject[i].menuType = 'generic';
+                        if (rangeObject[i].animation === "energyconduitcircle") {
+                            rangeObject[i].animation = 'conduit';
+                            rangeObject[i].variant = 'circle';
+                        }
+                        if (rangeObject[i].animation === "energyconduitsquare") {
+                            rangeObject[i].animation = 'conduit';
+                            rangeObject[i].variant = 'square';
+                        }
                     } else {
                         rangeObject[i].menuType = rangeObject[i].type;
                     }
@@ -154,9 +154,10 @@ export const autoRecMigration = {
                 const lightning = ['lightningball', 'staticelectricity'];
                 const liquid = ['liquidsplash'];
                 const magicsign = ['magicSign'];
-                const marker = ['marker'];
+                const marker = ['marker', 'circleofstars', 'energystrand'];
                 const shieldfx = ['energyfieldtop', 'shieldfiretop', 'shieldicetop', 'shieldearthtop', 'shieldeldritchwebtop'];
                 const tokenborder = ['staticborder', 'spinningborder'];
+                const fireball = ['fireballexplode']
 
                 const staticLength = Object.keys(staticObject).length;
                 for (var i = 0; i < staticLength; i++) {
@@ -184,12 +185,36 @@ export const autoRecMigration = {
                             break;
                         case liquid.some(el => staticObject[i].animation === el):
                             staticObject[i].menuType = 'liquid';
+                            staticObject[i].animation = 'splash';
                             break;
                         case magicsign.some(el => staticObject[i].animation === el):
                             staticObject[i].menuType = 'magicsign';
                             break;
                         case marker.some(el => staticObject[i].animation === el):
                             staticObject[i].menuType = 'marker';
+                                if (staticObject[i].animation === 'circleofstars') {}
+                                else if (staticObject[i].animation === 'energystrand') {
+                                    staticObject[i].animation = 'energystrand'
+                                }
+                                else {
+                                switch (staticObject[i].variant) {
+                                    case '03':
+                                        staticObject[i].animation = 'music';
+                                        staticObject[i].variant = '01';
+                                        break;
+                                    case 'bubble':
+                                        staticObject[i].animation = 'bubble';
+                                        staticObject[i].variant = '01';
+                                        break;
+                                    case 'energystrand':
+                                        staticObject[i].animation = 'energystrands';
+                                        staticObject[i].variant = '01'
+                                        break;
+                                    default:
+                                        staticObject[i].animation = 'standard';
+                                        staticObject[i].variant = '01';
+                                }
+                            }
                             break;
                         case shieldfx.some(el => staticObject[i].animation === el):
                             staticObject[i].menuType = 'shieldfx';
@@ -212,7 +237,17 @@ export const autoRecMigration = {
                             }
                             break;
                         case tokenborder.some(el => staticObject[i].animation === el):
-                            staticObject[i].menuType = 'tokenBorder';
+                            staticObject[i].menuType = 'tokenborder';
+                            if (staticObject[i].animation === 'staticborder') {
+                                staticObject[i].animation = 'static';
+                            } else {
+                                staticObject[i].animation = 'spinning';
+                            }
+                            break;
+                        case fireball.some(el => staticObject[i].animation === el):
+                            staticObject[i].menuType = 'spell';
+                            staticObject[i].animation = 'fireball';
+                            staticObject[i].variant = 'explode';
                             break;
                         default:
                             staticObject[i].menuType = 'spell';
@@ -222,7 +257,51 @@ export const autoRecMigration = {
             if (templateObject) {
                 const templateLength = Object.keys(templateObject).length;
                 for (var i = 0; i < templateLength; i++) {
-                    templateObject[i].menuType = templateObject[i].type
+                    templateObject[i].menuType = templateObject[i].type === 'rect' ? 'square' : templateObject[i].type
+                    switch (templateObject[i].menuType) {
+                        case "cone":
+                            if (templateObject[i].animation === 'breathweaponcone') {
+                                templateObject[i].animation = 'breathweapon';
+                            }
+                            break;
+                        case "circle":
+                            const circleTypes = ['dropct', 'fearct', 'heartct', 'horrorct', 'poisonct', 'runesct', 'shieldsct', 'crackedshieldct', 'skullct', 'snowflakesct', 'musicnotect'];
+                            if (circleTypes.some(el => templateObject[i].animation === el)) {
+                                templateObject[i].animation = templateObject[i].animation.replace('ct','')
+                            }
+                            switch (templateObject[i].animation) {
+                                case 'outpulse01':
+                                    templateObject[i].animation = 'outpulse';
+                                    templateObject[i].variant = '01';
+                                    break;
+                                case 'outpulse02':
+                                    templateObject[i].animation = 'outpulse';
+                                    templateObject[i].variant = '02';
+                                    break;
+                                case 'fireballloop':
+                                    templateObject[i].animation = 'fireball';
+                                    templateObject[i].variant = templateObject[i].variant === 'nodebris' ? 'nodebris' : 'loop';
+                                    break;
+                                case 'fireballexplode':
+                                    templateObject[i].animation = 'fireball';
+                                    templateObject[i].variant = 'explode';
+                                    break;
+                            }
+                            break;
+                        case "square":
+                            const squareTypes = ['dropct', 'fearct', 'heartct', 'horrorct', 'poisonct', 'runesct', 'shieldsct', 'crackedshieldct', 'skullct', 'snowflakesct']
+                            if (squareTypes.some(el => templateObject[i].animation === el)) {
+                                templateObject[i].animation = templateObject[i].animation.replace('ct','')
+                            } else if (templateObject[i].animation === 'musicnotest') {
+                                templateObject[i].animation = 'musicnote';
+                            }
+                            break;
+                        case "ray":
+                            if (templateObject[i].animation === 'breathweaponline') {
+                                templateObject[i].animation = 'breathweapon';
+                            }
+                            break;
+                    }
                 }
             }
             if (presetObject) {
@@ -230,10 +309,10 @@ export const autoRecMigration = {
                 for (var i = 0; i < presetLength; i++) {
                     switch (presetObject[i].animation) {
                         case 'teleportation':
-                                presetObject[i].menuType = 'spell';
-                                presetObject[i].menuType02 = 'spell';
+                            presetObject[i].menuType = 'spell';
+                            presetObject[i].menuType02 = 'spell';
                             break;
-                        
+
                     }
                 }
             }

@@ -682,6 +682,16 @@ JB2AFREEDB.melee = {
 
  JB2AFREEDB.templatefx = {
     circle: {
+        armsofhadar: {
+            '01': {
+                darkpurple: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`],
+            }
+        },
+        blacktentacles: {
+            '01': {
+                darkpurple: [l4`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`],
+            },
+        },
         calllightning: {
             '01': {
                 blue: [l3`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`],
@@ -722,6 +732,20 @@ JB2AFREEDB.melee = {
         drop: {
             '01': {
                 red: [lg`Template/Circle/TemplateDropCircle_01_Regular_Red_800x800.webm`]
+            }
+        },
+        explosion: {
+            '01': {
+                blue: [
+                    lg`Explosion/Explosion_02_Blue_400x400.webm`,
+                    lg`Explosion/Explosion_04_Regular_Blue_400x400.webm`,
+                ],
+                orange: [
+                    lg`Explosion/Explosion_01_Orange_400x400.webm`,
+                ],
+                yellowblue: [
+                    lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`
+                ],
             }
         },
         fear: {
@@ -1829,7 +1853,7 @@ JB2AFREEDB.static = {
             }
         },
     },
-    tokenBorder: {
+    tokenborder: {
         staticborder: {
             '01': {
                 blue: [lg`Token_Border/TokenBorderCircle_01_Regular_Blue_400x400.webm`],

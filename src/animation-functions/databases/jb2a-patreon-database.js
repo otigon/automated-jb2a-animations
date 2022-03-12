@@ -3375,6 +3375,20 @@ JB2APATREONDB.melee = {
  */
 JB2APATREONDB.templatefx = {
     circle: {
+        armsofhadar: {
+            '01': {
+                darkgreen: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm`],
+                darkpurple: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`],
+                darkred: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Red_500x500.webm`],
+            }
+        },
+        blacktentacles: {
+            '01': {
+                darkgreen: [l4`Black_Tentacles/BlackTentacles_01_Dark_Green_600x600.webm`],
+                darkpurple: [l4`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`],
+                darkred: [l4`Black_Tentacles/BlackTentacles_01_Dark_Red_600x600.webm`],
+            },
+        },
         calllightning: {
             '01': {
                 blue: [l3`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`],
@@ -3385,6 +3399,28 @@ JB2APATREONDB.templatefx = {
                 red: [l3`Call_Lightning/CallLightning_01_Red_1000x1000.webm`],
                 yellow: [l3`Call_Lightning/CallLightning_01_Yellow_1000x1000.webm`]
             }
+        },
+        cloudofdaggers: {
+            '01': {
+                darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Purple_400x400.webm`],
+                darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Red_400x400.webm`],
+                blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Blue_400x400.webm`],
+                green: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Green_400x400.webm`],
+                orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Orange_400x400.webm`],
+                purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Purple_400x400.webm`],
+                red: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Red_400x400.webm`],
+                yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Yellow_400x400.webm`]
+            },
+            kunai: {
+                darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Purple_400x400.webm`],
+                darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Dark_Red_400x400.webm`],
+                blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Blue_400x400.webm`],
+                green: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Green_400x400.webm`],
+                orange: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Orange_400x400.webm`],
+                purple: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Purple_400x400.webm`],
+                red: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Red_400x400.webm`],
+                yellow: [l2`Cloud_Of_Daggers/CloudOfDaggers_Kunai_01_Light_Yellow_400x400.webm`]
+            },
         },
         crackedshield: {
             '01': {
@@ -3413,6 +3449,57 @@ JB2APATREONDB.templatefx = {
                 red: [lg`Template/Circle/TemplateDropCircle_01_Regular_Red_800x800.webm`]
             }
         },
+        explosion: {
+            '01': {
+                darkpurple: [
+                    lg`Explosion/Explosion_04_Dark_Purple_400x400.webm`,
+                ],
+                darkred: [
+                    lg`Explosion/Explosion_04_Dark_Red_400x400.webm`,
+                ],
+                blue: [
+                    lg`Explosion/Explosion_01_Blue_400x400.webm`,
+                    lg`Explosion/Explosion_02_Blue_400x400.webm`,
+                    lg`Explosion/Explosion_04_Regular_Blue_400x400.webm`,
+                ],
+                green: [
+                    lg`Explosion/Explosion_01_Green_400x400.webm`,
+                    lg`Explosion/Explosion_02_Green_400x400.webm`,
+                    lg`Explosion/Explosion_04_Regular_Green_400x400.webm`,
+                ],
+                greenorange: [
+                    lg`Explosion/Explosion_03_Regular_GreenOrange_400x400.webm`,
+                ],
+                orange: [
+                    lg`Explosion/Explosion_01_Orange_400x400.webm`,
+                    lg`Explosion/Explosion_02_Orange_400x400.webm`,
+                    lg`Explosion/Explosion_04_Regular_Orange_400x400.webm`,
+                ],
+                pink: [
+                    lg`Explosion/Explosion_03_Regular_Pink_400x400.webm`,
+                ],
+                purplepink: [
+                    lg`Explosion/Explosion_03_Regular_PurplePink_400x400.webm`,
+                ],
+                purple: [
+                    lg`Explosion/Explosion_01_Purple_400x400.webm`,
+                    lg`Explosion/Explosion_02_Purple_400x400.webm`,
+                ],
+                red: [
+                    lg`Explosion/Explosion_03_Regular_Red_400x400.webm`,
+                ],
+                yellow: [
+                    lg`Explosion/Explosion_01_Yellow_400x400.webm`,
+                    lg`Explosion/Explosion_02_Yellow_400x400.webm`,
+                ],
+                yellowblue: [
+                    lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`,
+                ],
+                whiteblue: [
+                    lg`Explosion/Explosion_03_Dark_BlueWhite_400x400.webm`,
+                ],
+            }
+        },    
         fear: {
             '01': {
                 darkorange: [lg`Template/Circle/TemplateFearCircle_01_Dark_Orange_800x800.webm`],
@@ -4686,7 +4773,7 @@ JB2APATREONDB.static = {
                 yellowblue: [lg`Marker/MarkerCircleOfStars_Regular_YellowBlue_400x400.webm`]
             },
         },
-        energystrands: {
+        energystrand: {
             '01': {
                 blue: [lg`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`],
                 blueorange: [lg`Marker/EnergyStrands_01_Regular_BlueOrange_600x600.webm`],
@@ -5476,7 +5563,7 @@ JB2APATREONDB.static = {
             }
         },
     },
-    tokenBorder: {
+    tokenborder: {
         static: {
             '01': {
                 blue: [lg`Token_Border/TokenBorderCircle_01_Regular_Blue_400x400.webm`],
