@@ -873,6 +873,17 @@ export const flagMigrations = {
                         break;
                     case flags.name.includes('magicSign'):
                         flags.menuType = 'magicsign';
+                        switch (flags.color) {
+                            case 'blue':
+                                flags.name = 'abjuration';
+                                break;
+                            case 'yellow':
+                                flags.name = 'conjuration';
+                                break;
+                            default:
+                                flags.name = 'divination';
+                        }
+                        flags.variant = '01';
                         break;
                     case flags.name.includes('marker'):
                         flags.menuType = 'marker';
