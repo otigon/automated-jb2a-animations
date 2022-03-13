@@ -484,5 +484,167 @@ export const flagMigrations = {
                 console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v3Flags)
             }
         },
+        "4": async(item) => {
+            const v4Flags = item.data?.flags?.autoanimations || {};
+            if (v4Flags.killAnim) {
+                v4Flags.version = 4;
+                await item.update({ 'flags.-=autoanimations': null })
+                await item.update({ 'flags.autoanimations': v3Flags })
+                return;
+            }
+            if (v4Flags.override) {
+                const section = v4Flags.animType
+                switch (section) {
+                    case 'melee':
+                        v4Flags.options?.menuType = v4Flags.options?.meleeType;
+                        delete v4Flags.options?.meleeType;
+                        break;
+                    case 'range':
+                        const genericRange = ['energyconduitsquare', 'energyconduitcircle', 'energybeam', 'heart', 'iceshard', 'musicnote', 'skull', 'energystrand'];
+                        if (genericRange.some(el => v4Flags.animation === el)) {
+                            v4Flags.options?.menuType = 'generic';
+                            if (v4Flags.animation === "energyconduitcircle") {
+                                v4Flags.animation = 'conduit';
+                                v4Flags.options?.variant = 'circle';
+                            }
+                            if (v4Flags.animation === "energyconduitsquare") {
+                                v4Flags.animation = 'conduit';
+                                v4Flags.options?.variant = 'square';
+                            }    
+                        } else {
+                            v4Flags.options?.menuType = v4Flags.options?.rangeType;
+                        }
+                        delete v4Flags.options?.rangeType;
+                        break;
+                    case 'static':
+                        const conditions = ['drop', 'fear', 'heart', 'horror', 'light', 'poison', 'runes', 'shields', 'crackedshield', 'skull', 'snowflakes', 'stun', 'dizzystars'];
+                        const creature = ['bite', 'claw'];
+                        const energy = ['energyfield', 'dodecahedron', 'shimmer', 'sparkles'];
+                        const fire = ['eruption', 'groundcrack', 'fireworks'];
+                        const generic = ['boulderimpact', 'explosion', 'impact', 'outpulse01', 'outpulse02', 'vortex', 'whirl'];
+                        const ice = ['icespikes', 'snowflake'];
+                        const lightning = ['lightningball', 'staticelectricity'];
+                        const liquid = ['liquidsplash'];
+                        const magicsign = ['magicSign'];
+                        const marker = ['marker', 'circleofstars', 'energystrand'];
+                        const shieldfx = ['energyfieldtop', 'shieldfiretop', 'shieldicetop', 'shieldearthtop', 'shieldeldritchwebtop'];
+                        const tokenborder = ['staticborder', 'spinningborder'];
+                        const fireball = ['fireballexplode']
+        
+                        switch (true) {
+                            case conditions.some(el => v4Flags.animation === el):
+                                v4Flags.options?.menuType = 'conditions';
+                                break;
+                            case creature.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'creature';
+                                break;
+                            case energy.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'energy';
+                                break;
+                            case fire.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'fire';
+                                break;
+                            case generic.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'generic';
+                                break;
+                            case ice.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'ice';
+                                break;
+                            case lightning.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'lightning';
+                                break;
+                            case liquid.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'liquid';
+                                v4Flags.options?.animation = 'splash';
+                                break;
+                            case magicsign.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'magicsign';
+                                break;
+                            case marker.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'marker';
+                                if (so.animation === 'circleofstars') { }
+                                else if (so.animation === 'energystrand') {
+                                    so.animation = 'energystrand'
+                                }
+                                else {
+                                    switch (so.variant) {
+                                        case '03':
+                                            so.animation = 'music';
+                                            so.variant = '01';
+                                            break;
+                                        case 'bubble':
+                                            so.animation = 'bubble';
+                                            so.variant = '01';
+                                            break;
+                                        case 'energystrand':
+                                            so.animation = 'energystrands';
+                                            so.variant = '01'
+                                            break;
+                                        default:
+                                            so.animation = 'standard';
+                                            so.variant = '01';
+                                    }
+                                }
+                                break;
+                            case shieldfx.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'shieldfx';
+                                switch (so.animation) {
+                                    case 'energyfieldtop':
+                                        so.animation = 'energyfield';
+                                        break;
+                                    case 'shieldfiretop':
+                                        so.animation = 'fire';
+                                        break;
+                                    case 'shieldicetop':
+                                        so.animation = 'ice';
+                                        break;
+                                    case 'shieldearthtop':
+                                        so.animation = 'earth';
+                                        break;
+                                    case 'shieldeldritchwebtop':
+                                        so.animation = 'eldritchweb';
+                                        break;
+                                }
+                                break;
+                            case tokenborder.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'tokenborder';
+                                if (so.animation === 'staticborder') {
+                                    so.animation = 'static';
+                                } else {
+                                    so.animation = 'spinning';
+                                }
+                                break;
+                            case fireball.some(el => so.animation === el):
+                                v4Flags.options?.menuType = 'spell';
+                                so.animation = 'fireball';
+                                so.variant = 'explode';
+                                break;
+                            default:
+                                v4Flags.options?.menuType = 'spell';
+                        }
+    
+                        v4Flags.options?.menuType = v4Flags.options?.staticType;
+                        delete v4Flags.options?.staticType;
+
+                        break;
+                    case 'template':
+                        v4Flags.menuType = v4Flags.tempType;
+                        delete v4Flags.tempType;
+
+                        break;
+                    case 'aura':
+
+                        break;
+                    case 'preset':
+
+                        break;
+                }
+            }
+            v4Flags.version = 3;
+            await item.update({ 'flags.-=autoanimations': null })
+            await item.update({ 'flags.autoanimations': v4Flags })
+            console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v4Flags)
+
+        }
     }
 }
