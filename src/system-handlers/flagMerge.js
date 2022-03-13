@@ -499,7 +499,7 @@ export const flagMigrations = {
                     case 'melee':
                         options.menuType = options.meleeType;
                         if (v4Flags.explosions?.enable) {
-                            await convertExplosion(v4Flags)
+                            await convertExplosion(v4Flags.explosions)
                         }
                         delete options.meleeType;
                         break;
@@ -517,6 +517,9 @@ export const flagMigrations = {
                             }
                         } else {
                             options.menuType = options.rangeType;
+                        }
+                        if (v4Flags.explosions?.enable) {
+                            await convertExplosion(v4Flags.explosions)
                         }
                         delete options.rangeType;
                         break;
@@ -630,6 +633,10 @@ export const flagMigrations = {
                             default:
                                 options.menuType = 'spell';
                         }
+                        if (v4Flags.explosions?.enable) {
+                            await convertExplosion(v4Flags.explosions)
+                        }
+
                         delete options.staticOptions;
 
                         break;
@@ -832,6 +839,7 @@ export const flagMigrations = {
                                 }
                         }
                     }
+                    return flags;
                 }
             }
             v4Flags.version = 4;
