@@ -490,9 +490,16 @@ export const flagMigrations = {
             if (v4Flags.killAnim) {
                 v4Flags.version = 4;
                 await item.update({ 'flags.-=autoanimations': null })
-                await item.update({ 'flags.autoanimations': v3Flags })
+                await item.update({ 'flags.autoanimations': v4Flags })
                 return;
             }
+            if (v4Flags.sourceToken?.enable) {
+                await convertExtraFX(v4Flags.sourceToken)
+            }
+            if (v4Flags.sourceToken?.enable) {
+                await convertExtraFX(v4Flags.targetToken)
+            }
+
             if (v4Flags.override) {
                 const section = v4Flags.animType
                 switch (section) {
@@ -840,6 +847,66 @@ export const flagMigrations = {
                         }
                     }
                     return flags;
+                }
+            }
+            async function convertExtraFX(flags) {
+                const generic = ['explosion', 'impact'];
+                const ice = ['icespikes', 'snowflake'];
+                const fireball = ['fireballexplode']
+
+                switch (true) {
+                    case flags.name.includes('dizzystars'):
+                        flags.menuType = 'conditions';
+                        break;
+                    case flags.name.includes('eruption'):
+                        flags.menuType = 'fire';
+                        break;
+                    case generic.some(el => flags.name === el):
+                        flags.menuType = 'generic';
+                        break;
+                    case ice.some(el => flags.name === el):
+                        flags.menuType = 'ice';
+                        break;
+                    case flags.name.includes('liquidsplash'):
+                        flags.menuType = 'liquid';
+                        flags.name = 'splash';
+                        break;
+                    case flags.name.includes('magicSign'):
+                        flags.menuType = 'magicsign';
+                        break;
+                    case flags.name.includes('marker'):
+                        flags.menuType = 'marker';
+                        if (flags.name === 'circleofstars') { }
+                        else if (flags.name === 'energystrand') {
+                            flags.name = 'energystrand'
+                        }
+                        else {
+                            switch (flags.variant) {
+                                case '03':
+                                    flags.name = 'music';
+                                    flags.variant = '01';
+                                    break;
+                                case 'bubble':
+                                    flags.name = 'bubble';
+                                    flags.variant = '01';
+                                    break;
+                                case 'energystrand':
+                                    flags.name = 'energystrands';
+                                    flags.variant = '01'
+                                    break;
+                                default:
+                                    flags.name = 'standard';
+                                    flags.variant = '01';
+                            }
+                        }
+                        break;
+                    case fireball.some(el => flags.name === el):
+                        flags.menuType = 'spell';
+                        flags.name = 'fireball';
+                        flags.variant = 'explode';
+                        break;
+                    default:
+                        flags.menuType = 'spell';
                 }
             }
             v4Flags.version = 4;

@@ -16,9 +16,9 @@
         <div class="aa-primary-container">
             <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
                 <label>{{localize 'AUTOANIM.type'}}</label>
-                <select name="flags.autoanimations.sourceToken.staticOptions" {{#if
+                <select name="flags.autoanimations.sourceToken.menuType" {{#if
                     flags.autoanimations.sourceToken.enableCustom}} disabled {{/if }}>
-                    {{#select flags.autoanimations.sourceToken.staticOptions}}
+                    {{#select flags.autoanimations.sourceToken.menuType}}
                     <option value=""> </option>
                     {{#each menuTypes.static as |name key|}}
                     <option value="{{key}}">{{name}}</option>
@@ -32,7 +32,7 @@
                     flags.autoanimations.sourceToken.enableCustom}} disabled {{/if }}>
                     {{#select flags.autoanimations.sourceToken.name}}
                     <option value=""> </option>
-                    {{#each (lookup menuNames.static flags.autoanimations.sourceToken.staticOptions) as |name key|}}
+                    {{#each (lookup menuNames.static flags.autoanimations.sourceToken.menuType) as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
@@ -44,7 +44,7 @@
                     flags.autoanimations.sourceToken.enableCustom}} disabled {{/if }}>
                     {{#select flags.autoanimations.sourceToken.variant}}
                     <option value=""> </option>
-                    {{#each (lookup (lookup menuVariants.static flags.autoanimations.sourceToken.staticOptions) flags.autoanimations.sourceToken.name) as |name key|}}
+                    {{#each (lookup (lookup menuVariants.static flags.autoanimations.sourceToken.menuType) flags.autoanimations.sourceToken.name) as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
@@ -56,7 +56,7 @@
                     flags.autoanimations.sourceToken.enableCustom}} disabled {{/if }}>
                     {{#select flags.autoanimations.sourceToken.color}}
                     <option value=""> </option>
-                    {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.sourceToken.staticOptions) flags.autoanimations.sourceToken.name) flags.autoanimations.sourceToken.variant) as |name key|}}
+                    {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.sourceToken.menuType) flags.autoanimations.sourceToken.name) flags.autoanimations.sourceToken.variant) as |name key|}}
                     flags.autoanimations.sourceToken 'variant')) as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
@@ -207,9 +207,9 @@
         <div class="aa-primary-container">
             <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
                 <label>{{localize 'AUTOANIM.type'}}</label>
-                <select name="flags.autoanimations.targetToken.staticOptions" {{#if
+                <select name="flags.autoanimations.targetToken.menuType" {{#if
                     flags.autoanimations.targetToken.enableCustom}} disabled {{/if }}>
-                    {{#select flags.autoanimations.targetToken.staticOptions}}
+                    {{#select flags.autoanimations.targetToken.menuType}}
                     <option value=""> </option>
                     {{#each menuTypes.static as |name key|}}
                     <option value="{{key}}">{{name}}</option>
@@ -223,7 +223,7 @@
                     flags.autoanimations.targetToken.enableCustom}} disabled {{/if }}>
                     {{#select flags.autoanimations.targetToken.name}}
                     <option value=""> </option>
-                    {{#each (lookup menuNames.static flags.autoanimations.targetToken.staticOptions) as |name key|}}
+                    {{#each (lookup menuNames.static flags.autoanimations.targetToken.menuType) as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
@@ -235,7 +235,7 @@
                     flags.autoanimations.targetToken.enableCustom}} disabled {{/if }}>
                     {{#select flags.autoanimations.targetToken.variant}}
                     <option value=""> </option>
-                    {{#each (lookup (lookup menuVariants.static flags.autoanimations.targetToken.staticOptions) flags.autoanimations.targetToken.name) as |name key|}}
+                    {{#each (lookup (lookup menuVariants.static flags.autoanimations.targetToken.menuType) flags.autoanimations.targetToken.name) as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}
                     {{/select}}
@@ -247,7 +247,7 @@
                     flags.autoanimations.targetToken.enableCustom}} disabled {{/if }}>
                     {{#select flags.autoanimations.targetToken.color}}
                     <option value=""> </option>
-                    {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.targetToken.staticOptions) flags.autoanimations.targetToken.name) flags.autoanimations.targetToken.variant) as |name key|}}
+                    {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.targetToken.menuType) flags.autoanimations.targetToken.name) flags.autoanimations.targetToken.variant) as |name key|}}
                     flags.autoanimations.targetToken 'variant')) as |name key|}}
                     <option value="{{key}}">{{name}}</option>
                     {{/each}}

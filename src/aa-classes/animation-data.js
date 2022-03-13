@@ -295,6 +295,7 @@ export class AAanimationData {
         const source = handler.flags.sourceToken || {};
         const enableCustom = source.enableCustom || false;
         const sourceFX = {
+            menuType: source.menuType,
             enabled: source.enable || false,
             customSourcePath: enableCustom ? source.customPath : false,
             repeat: source.loops || 1,
@@ -321,7 +322,7 @@ export class AAanimationData {
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
         const sourceScale = handler.sourceToken.w;
-        sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
+        sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.menuType, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
         if (sourceFX.itemAudio.enable && sourceFX.itemAudio.file && sourceFX.enabled) {
@@ -350,6 +351,7 @@ export class AAanimationData {
         const target = handler.flags?.targetToken || {};
         const enableCustom = target.enableCustom || false;
         const targetFX = {
+            menuType: target.menuType,
             enabled: target.enable || false,
             customTargetPath: enableCustom ? target.customPath : false,
             repeat: target.loops || 1,
@@ -378,7 +380,7 @@ export class AAanimationData {
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
         targetFX.playSound = targetFX.itemAudio.enable && targetFX.enabled && targetFX.itemAudio.file ? true : false;
-        targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
+        targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.menuType, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
         return targetFX
     }
 
