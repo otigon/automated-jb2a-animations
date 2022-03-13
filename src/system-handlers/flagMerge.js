@@ -453,7 +453,7 @@ export const flagMigrations = {
             await item.update({ 'flags.autoanimations': v2Flags })
             console.warn(`DEBUG | Automated Animations | Version 2 Flag Migration Complete`, v2Flags)
         },
-        "3": async(item) => {
+        "3": async (item) => {
             const v3Flags = item.data?.flags?.autoanimations || {};
             if (v3Flags.killAnim) {
                 v3Flags.version = 3;
@@ -484,8 +484,10 @@ export const flagMigrations = {
                 console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v3Flags)
             }
         },
-        "4": async(item) => {
+        "4": async (item) => {
+            debugger
             const v4Flags = item.data?.flags?.autoanimations || {};
+            const options = v4Flags.options || {}
             if (v4Flags.killAnim) {
                 v4Flags.version = 4;
                 await item.update({ 'flags.-=autoanimations': null })
@@ -496,25 +498,25 @@ export const flagMigrations = {
                 const section = v4Flags.animType
                 switch (section) {
                     case 'melee':
-                        v4Flags.options?.menuType = v4Flags.options?.meleeType;
-                        delete v4Flags.options?.meleeType;
+                        options.menuType = options.meleeType;
+                        delete options.meleeType;
                         break;
                     case 'range':
                         const genericRange = ['energyconduitsquare', 'energyconduitcircle', 'energybeam', 'heart', 'iceshard', 'musicnote', 'skull', 'energystrand'];
                         if (genericRange.some(el => v4Flags.animation === el)) {
-                            v4Flags.options?.menuType = 'generic';
+                            options.menuType = 'generic';
                             if (v4Flags.animation === "energyconduitcircle") {
                                 v4Flags.animation = 'conduit';
-                                v4Flags.options?.variant = 'circle';
+                                options.variant = 'circle';
                             }
                             if (v4Flags.animation === "energyconduitsquare") {
                                 v4Flags.animation = 'conduit';
-                                v4Flags.options?.variant = 'square';
-                            }    
+                                options.variant = 'square';
+                            }
                         } else {
-                            v4Flags.options?.menuType = v4Flags.options?.rangeType;
+                            options.menuType = options.rangeType;
                         }
-                        delete v4Flags.options?.rangeType;
+                        delete options.rangeType;
                         break;
                     case 'static':
                         const conditions = ['drop', 'fear', 'heart', 'horror', 'light', 'poison', 'runes', 'shields', 'crackedshield', 'skull', 'snowflakes', 'stun', 'dizzystars'];
@@ -530,38 +532,38 @@ export const flagMigrations = {
                         const shieldfx = ['energyfieldtop', 'shieldfiretop', 'shieldicetop', 'shieldearthtop', 'shieldeldritchwebtop'];
                         const tokenborder = ['staticborder', 'spinningborder'];
                         const fireball = ['fireballexplode']
-        
+
                         switch (true) {
                             case conditions.some(el => v4Flags.animation === el):
-                                v4Flags.options?.menuType = 'conditions';
+                                options.menuType = 'conditions';
                                 break;
                             case creature.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'creature';
+                                options.menuType = 'creature';
                                 break;
                             case energy.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'energy';
+                                options.menuType = 'energy';
                                 break;
                             case fire.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'fire';
+                                options.menuType = 'fire';
                                 break;
                             case generic.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'generic';
+                                options.menuType = 'generic';
                                 break;
                             case ice.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'ice';
+                                options.menuType = 'ice';
                                 break;
                             case lightning.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'lightning';
+                                options.menuType = 'lightning';
                                 break;
                             case liquid.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'liquid';
-                                v4Flags.options?.animation = 'splash';
+                                options.menuType = 'liquid';
+                                options.animation = 'splash';
                                 break;
                             case magicsign.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'magicsign';
+                                options.menuType = 'magicsign';
                                 break;
                             case marker.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'marker';
+                                options.menuType = 'marker';
                                 if (so.animation === 'circleofstars') { }
                                 else if (so.animation === 'energystrand') {
                                     so.animation = 'energystrand'
@@ -587,7 +589,7 @@ export const flagMigrations = {
                                 }
                                 break;
                             case shieldfx.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'shieldfx';
+                                options.menuType = 'shieldfx';
                                 switch (so.animation) {
                                     case 'energyfieldtop':
                                         so.animation = 'energyfield';
@@ -607,7 +609,7 @@ export const flagMigrations = {
                                 }
                                 break;
                             case tokenborder.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'tokenborder';
+                                options.menuType = 'tokenborder';
                                 if (so.animation === 'staticborder') {
                                     so.animation = 'static';
                                 } else {
@@ -615,32 +617,173 @@ export const flagMigrations = {
                                 }
                                 break;
                             case fireball.some(el => so.animation === el):
-                                v4Flags.options?.menuType = 'spell';
+                                options.menuType = 'spell';
                                 so.animation = 'fireball';
                                 so.variant = 'explode';
                                 break;
                             default:
-                                v4Flags.options?.menuType = 'spell';
+                                options.menuType = 'spell';
                         }
-    
-                        v4Flags.options?.menuType = v4Flags.options?.staticType;
-                        delete v4Flags.options?.staticType;
+
+                        options.menuType = options.staticType;
+                        delete options.staticType;
 
                         break;
                     case 'template':
-                        v4Flags.menuType = v4Flags.tempType;
-                        delete v4Flags.tempType;
-
+                        options.menuType = options.tempType === 'rect' ? 'square' : options.tempType
+                        switch (options.menuType) {
+                            case "cone":
+                                if (v4Flags.animation === 'breathweaponcone') {
+                                    v4Flags.animation = 'breathweapon';
+                                }
+                                break;
+                            case "circle":
+                                const circleTypes = ['dropct', 'fearct', 'heartct', 'horrorct', 'poisonct', 'runesct', 'shieldsct', 'crackedshieldct', 'skullct', 'snowflakesct', 'musicnotect'];
+                                if (circleTypes.some(el => v4Flags.animation === el)) {
+                                    v4Flags.animation = v4Flags.animation.replace('ct', '')
+                                }
+                                switch (v4Flags.animation) {
+                                    case 'outpulse01':
+                                        v4Flags.animation = 'outpulse';
+                                        options.variant = '01';
+                                        break;
+                                    case 'outpulse02':
+                                        v4Flags.animation = 'outpulse';
+                                        options.variant = '02';
+                                        break;
+                                    case 'fireballloop':
+                                        v4Flags.animation = 'fireball';
+                                        options.variant = options.variant === 'nodebris' ? 'nodebris' : 'loop';
+                                        break;
+                                    case 'fireballexplode':
+                                        v4Flags.animation = 'fireball';
+                                        options.variant = 'explode';
+                                        break;
+                                }
+                                break;
+                            case "square":
+                                const squareTypes = ['dropct', 'fearct', 'heartct', 'horrorct', 'poisonct', 'runesct', 'shieldsct', 'crackedshieldct', 'skullct', 'snowflakesct']
+                                if (squareTypes.some(el => v4Flags.animation === el)) {
+                                    v4Flags.animation = v4Flags.animation.replace('ct', '')
+                                } else if (v4Flags.animation === 'musicnotest') {
+                                    v4Flags.animation = 'musicnote';
+                                }
+                                break;
+                            case "ray":
+                                if (v4Flags.animation === 'breathweaponline') {
+                                    v4Flags.animation = 'breathweapon';
+                                }
+                                break;
+                        }
                         break;
                     case 'aura':
-
+                        switch (v4Flags.animation) {
+                            case "energystrand":
+                                options.menuType = 'marker';
+                                break;
+                            case 'dodecahedron':
+                                options.menuType = 'energy';
+                                break;
+                            case 'staticelectricity':
+                                options.menuType = 'lightning';
+                                break;
+                            default:
+                                options.menuType = 'spell';
+                        }
                         break;
                     case 'preset':
-
+                        switch (v4Flags.animation) {
+                            case 'teleportation':
+                                options.menuType = 'spell';
+                                options.menuType02 = 'spell';
+                                break;
+                            case "dualattach":
+                                switch (options.name) {
+                                    case 'energystrand':
+                                    case 'energybeam':
+                                        options.menuType = 'generic';
+                                        break;
+                                    default:
+                                        options.menuType = 'spell'
+                                }
+                                break;
+                            case 'fireball':
+                                const fire = ['eruption'];
+                                const generic = ['boulderimpact', 'explosion', 'impact', 'outpulse01', 'outpulse02'];
+                                const ice = ['snowflake'];
+                                const liquid = ['liquidsplash'];
+                                const fireball = ['fireballexplode']
+                                const fireSettings = v4Flags.fireball || {};
+                                switch (fireSettings.projectile) {
+                                    case 'energystrand':
+                                    case 'energybeam':
+                                        fireSettings.rangeType = 'generic';
+                                        break;
+                                    default:
+                                        fireSettings.rangeType = 'spell'
+                                }
+                                if (fireSettings.explosion01) {
+                                    switch (true) {
+                                        case fire.some(el => fireSettings.explosion01 === el):
+                                            fireSettings.ex01Type = 'fire';
+                                            break;
+                                        case generic.some(el => fireSettings.explosion01 === el):
+                                            fireSettings.ex01Type = 'generic';
+                                            if (fireSettings.explosion01.includes('outpulse')) {
+                                                fireSettings.explosion01 = 'outpulse';
+                                                fireSettings.explosion01Variant = fireSettings.explosion01Variant === 'outpulse02' ? '02' : '01';
+                                            }
+                                            break;
+                                        case ice.some(el => fireSettings.explosion01 === el):
+                                            fireSettings.ex01Type = 'ice';
+                                            break;
+                                        case liquid.some(el => fireSettings.explosion01 === el):
+                                            fireSettings.ex01Type = 'liquid';
+                                            fireSettings.explosion01 = 'splash';
+                                            break;
+                                        case fireball.some(el => fireSettings.explosion01 === el):
+                                            fireSettings.ex01Type = 'spell';
+                                            fireSettings.explosion01 = 'fireball';
+                                            fireSettings.explosion01Variant = 'explode';
+                                            break;
+                                        default:
+                                            fireSettings.ex01Type = 'spell';
+                                    }
+                                }
+                                if (fireSettings.explosion02) {
+                                    switch (true) {
+                                        case fire.some(el => fireSettings.explosion02 === el):
+                                            fireSettings.ex02Type = 'fire';
+                                            break;
+                                        case generic.some(el => fireSettings.explosion02 === el):
+                                            fireSettings.ex02Type = 'generic';
+                                            if (fireSettings.explosion01.includes('outpulse')) {
+                                                fireSettings.explosion01 = 'outpulse';
+                                                fireSettings.explosion01Variant = fireSettings.explosion01Variant === 'outpulse02' ? '02' : '01';
+                                            }
+                                            break;
+                                        case ice.some(el => fireSettings.explosion02 === el):
+                                            fireSettings.ex02Type = 'ice';
+                                            break;
+                                        case liquid.some(el => fireSettings.explosion02 === el):
+                                            fireSettings.ex02Type = 'liquid';
+                                            fireSettings.explosion02 = 'splash';
+                                            break;
+                                        case fireball.some(el => fireSettings.explosion02 === el):
+                                            fireSettings.ex02Type = 'spell';
+                                            fireSettings.explosion02 = 'fireball';
+                                            fireSettings.explosion02Variant = 'explode';
+                                            break;
+                                        default:
+                                            fireSettings.ex02Type = 'spell';
+                                    }
+                                }
+                                break;
+                        }
                         break;
                 }
             }
-            v4Flags.version = 3;
+            v4Flags.version = 4;
             await item.update({ 'flags.-=autoanimations': null })
             await item.update({ 'flags.autoanimations': v4Flags })
             console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v4Flags)
