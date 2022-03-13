@@ -5,7 +5,7 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    if (!dbType) {return false}
+    if (!dbType && !customPath) {return false}
     let file;
     //let msFile;
     let color;
