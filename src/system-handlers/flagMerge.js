@@ -537,96 +537,98 @@ export const flagMigrations = {
                             case conditions.some(el => v4Flags.animation === el):
                                 options.menuType = 'conditions';
                                 break;
-                            case creature.some(el => so.animation === el):
+                            case creature.some(el => v4Flags.animation === el):
                                 options.menuType = 'creature';
                                 break;
-                            case energy.some(el => so.animation === el):
+                            case energy.some(el => v4Flags.animation === el):
                                 options.menuType = 'energy';
                                 break;
-                            case fire.some(el => so.animation === el):
+                            case fire.some(el => v4Flags.animation === el):
                                 options.menuType = 'fire';
                                 break;
-                            case generic.some(el => so.animation === el):
+                            case generic.some(el => v4Flags.animation === el):
                                 options.menuType = 'generic';
+                                if (v4Flags.animation.includes('outpulse')) {
+                                    options.variant = v4Flags.animation === 'outpulse02' ? '02' : '01';
+                                    v4Flags.animation = 'outpulse';
+                                }
                                 break;
-                            case ice.some(el => so.animation === el):
+                            case ice.some(el => v4Flags.animation === el):
                                 options.menuType = 'ice';
                                 break;
-                            case lightning.some(el => so.animation === el):
+                            case lightning.some(el => v4Flags.animation === el):
                                 options.menuType = 'lightning';
                                 break;
-                            case liquid.some(el => so.animation === el):
+                            case liquid.some(el => v4Flags.animation === el):
                                 options.menuType = 'liquid';
-                                options.animation = 'splash';
+                                v4Flags.animation = 'splash';
                                 break;
-                            case magicsign.some(el => so.animation === el):
+                            case magicsign.some(el => v4Flags.animation === el):
                                 options.menuType = 'magicsign';
                                 break;
-                            case marker.some(el => so.animation === el):
+                            case marker.some(el => v4Flags.animation === el):
                                 options.menuType = 'marker';
-                                if (so.animation === 'circleofstars') { }
-                                else if (so.animation === 'energystrand') {
-                                    so.animation = 'energystrand'
+                                if (v4Flags.animation === 'circleofstars') { }
+                                else if (v4Flags.animation === 'energystrand') {
+                                    v4Flags.animation = 'energystrand'
                                 }
                                 else {
-                                    switch (so.variant) {
+                                    switch (v4Flags.variant) {
                                         case '03':
-                                            so.animation = 'music';
-                                            so.variant = '01';
+                                            v4Flags.animation = 'music';
+                                            v4Flags.variant = '01';
                                             break;
                                         case 'bubble':
-                                            so.animation = 'bubble';
-                                            so.variant = '01';
+                                            v4Flags.animation = 'bubble';
+                                            v4Flags.variant = '01';
                                             break;
                                         case 'energystrand':
-                                            so.animation = 'energystrands';
-                                            so.variant = '01'
+                                            v4Flags.animation = 'energystrands';
+                                            v4Flags.variant = '01'
                                             break;
                                         default:
-                                            so.animation = 'standard';
-                                            so.variant = '01';
+                                            v4Flags.animation = 'standard';
+                                            v4Flags.variant = '01';
                                     }
                                 }
                                 break;
-                            case shieldfx.some(el => so.animation === el):
+                            case shieldfx.some(el => v4Flags.animation === el):
                                 options.menuType = 'shieldfx';
-                                switch (so.animation) {
+                                switch (v4Flags.animation) {
                                     case 'energyfieldtop':
-                                        so.animation = 'energyfield';
+                                        v4Flags.animation = 'energyfield';
                                         break;
                                     case 'shieldfiretop':
-                                        so.animation = 'fire';
+                                        v4Flags.animation = 'fire';
                                         break;
                                     case 'shieldicetop':
-                                        so.animation = 'ice';
+                                        v4Flags.animation = 'ice';
                                         break;
                                     case 'shieldearthtop':
-                                        so.animation = 'earth';
+                                        v4Flags.animation = 'earth';
                                         break;
                                     case 'shieldeldritchwebtop':
-                                        so.animation = 'eldritchweb';
+                                        v4Flags.animation = 'eldritchweb';
                                         break;
                                 }
                                 break;
-                            case tokenborder.some(el => so.animation === el):
+                            case tokenborder.some(el => v4Flags.animation === el):
                                 options.menuType = 'tokenborder';
-                                if (so.animation === 'staticborder') {
-                                    so.animation = 'static';
+                                if (v4Flags.animation === 'staticborder') {
+                                    v4Flags.animation = 'static';
                                 } else {
-                                    so.animation = 'spinning';
+                                    v4Flags.animation = 'spinning';
                                 }
                                 break;
-                            case fireball.some(el => so.animation === el):
+                            case fireball.some(el => v4Flags.animation === el):
                                 options.menuType = 'spell';
-                                so.animation = 'fireball';
-                                so.variant = 'explode';
+                                v4Flags.animation = 'fireball';
+                                options.variant = 'explode';
                                 break;
                             default:
                                 options.menuType = 'spell';
                         }
-
-                        options.menuType = options.staticType;
-                        delete options.staticType;
+                        delete options.staticOptions;
 
                         break;
                     case 'template':
