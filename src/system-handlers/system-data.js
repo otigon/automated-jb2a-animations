@@ -111,7 +111,7 @@ export default class systemData {
     }
 
     get shouldPlayImmediately () {
-        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e;
+        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
     }
 
     get soundNoAnimation () {
