@@ -498,6 +498,9 @@ export const flagMigrations = {
                 switch (section) {
                     case 'melee':
                         options.menuType = options.meleeType;
+                        if (v4Flags.explosions?.enable) {
+                            await convertExplosion(v4Flags)
+                        }
                         delete options.meleeType;
                         break;
                     case 'range':
@@ -748,7 +751,11 @@ export const flagMigrations = {
                                             fireSettings.explosion01Variant = 'explode';
                                             break;
                                         default:
-                                            fireSettings.ex01Type = 'spell';
+                                            if (fireSettings.explosion01 === 'a1' || !fireSettings.explosion01) {
+                                                fireSettings.ex01Type === ''
+                                            } else {
+                                                fireSettings.ex01Type = 'spell';
+                                            }
                                     }
                                 }
                                 if (fireSettings.explosion02) {
@@ -758,9 +765,9 @@ export const flagMigrations = {
                                             break;
                                         case generic.some(el => fireSettings.explosion02 === el):
                                             fireSettings.ex02Type = 'generic';
-                                            if (fireSettings.explosion01.includes('outpulse')) {
-                                                fireSettings.explosion01 = 'outpulse';
-                                                fireSettings.explosion01Variant = fireSettings.explosion01Variant === 'outpulse02' ? '02' : '01';
+                                            if (fireSettings.explosion02.includes('outpulse')) {
+                                                fireSettings.explosion02 = 'outpulse';
+                                                fireSettings.explosion02Variant = fireSettings.explosion02Variant === 'outpulse02' ? '02' : '01';
                                             }
                                             break;
                                         case ice.some(el => fireSettings.explosion02 === el):
@@ -776,12 +783,55 @@ export const flagMigrations = {
                                             fireSettings.explosion02Variant = 'explode';
                                             break;
                                         default:
-                                            fireSettings.ex02Type = 'spell';
+                                            if (fireSettings.explosion02 === 'a1' || !fireSettings.explosion02) {
+                                                fireSettings.ex02Type === ''
+                                            } else {
+                                                fireSettings.ex02Type = 'spell';
+                                            }
                                     }
                                 }
                                 break;
                         }
                         break;
+                }
+                async function convertExplosion(flags) {
+                    if (flags.enableCustom) { return; } else {
+                        const fire = ['eruption'];
+                        const generic = ['boulderimpact', 'explosion', 'impact', 'outpulse01', 'outpulse02'];
+                        const ice = ['snowflake'];
+                        const liquid = ['liquidsplash'];
+                        const fireball = ['fireballexplode']
+                        switch (true) {
+                            case fire.some(el => flags.animation === el):
+                                flags.menuType = 'fire';
+                                break;
+                            case generic.some(el => flags.animation === el):
+                                flags.menuType = 'generic';
+                                if (flags.animation.includes('outpulse')) {
+                                    flags.animation = 'outpulse';
+                                    flags.variant = flags.variant === 'outpulse02' ? '02' : '01';
+                                }
+                                break;
+                            case ice.some(el => flags.animation === el):
+                                flags.menuType = 'ice';
+                                break;
+                            case liquid.some(el => flags.animation === el):
+                                flags.menuType = 'liquid';
+                                flags.animation = 'splash';
+                                break;
+                            case fireball.some(el => flags.animation === el):
+                                flags.menuType = 'spell';
+                                flags.animation = 'fireball';
+                                flags.variant = 'explode';
+                                break;
+                            default:
+                                if (flags.animation === 'a1' || !flags.animation) {
+                                    flags.menuType === ''
+                                } else {
+                                    flags.menuType = 'spell';
+                                }
+                        }
+                    }
                 }
             }
             v4Flags.version = 4;
