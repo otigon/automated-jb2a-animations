@@ -627,5 +627,9 @@
     "AUTOANIM.greenred": "Green Red",
     "AUTOANIM.orangeyellow": "Orange Yellow",
     "AUTOANIM.outpulse": "Outpulse",
-    "AUTOANIM.standard": "Standard"
+    "AUTOANIM.standard": "Standard",
+    "AUTOANIM.sleep": "Sleep 01",
+    "AUTOANIM.smoke": "Smoke",
+    "AUTOANIM.particles": "Particles",
+    "AUTOANIM.dots": "Dots"
 }
