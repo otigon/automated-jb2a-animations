@@ -485,7 +485,6 @@ export const flagMigrations = {
             }
         },
         "4": async (item) => {
-            debugger
             const v4Flags = item.data?.flags?.autoanimations || {};
             const options = v4Flags.options || {}
             if (v4Flags.killAnim) {
