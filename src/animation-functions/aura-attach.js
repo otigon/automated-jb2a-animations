@@ -35,12 +35,12 @@ export async function auras(handler, animationData) {
         let checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
         //let playPersist = !checkAnim ? true : false;
         let aaSeq = new Sequence()
+        if (data.playMacro && data.macro.playWhen === "1") {
+            let userData = data.macro.args;
+            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+                .play()
+        }
         if (!checkAnim) {
-            if (data.playMacro && data.macro.playWhen === "1") {
-                let userData = data.macro.args;
-                aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
-                    .play()
-            }
             aaSeq.addSequence(sourceFX.sourceSeq)
             aaSeq.effect()
                 .persist()
@@ -55,13 +55,13 @@ export async function auras(handler, animationData) {
                 .animateProperty("sprite", "height", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
                 .fadeIn(2500)
                 .fadeOut(500)
-            if (data.playMacro && data.macro.playWhen === "0") {
-                let userData = data.macro.args;
-                new Sequence()
-                    .macro(data.macro.name, handler.workflow, handler, [...userData])
-                    .play()
-            }
             AAanimationData.howToDelete("sequencerground")
+        }
+        if (data.playMacro && data.macro.playWhen === "0") {
+            let userData = data.macro.args;
+            new Sequence()
+                .macro(data.macro.name, handler.workflow, handler, [...userData])
+                .play()
         }
         if (data.playSound) {
             aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
