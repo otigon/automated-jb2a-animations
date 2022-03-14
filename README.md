@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/otigon/automated-jb2a-animations/blob/main/pictures/ItemTab.JPG">
+  <img src="https://github.com/otigon/automated-jb2a-animations/blob/main/pictures/slavaukraine.jpg">
 </p> 
 
 ## A Note on adding support for more systems: 
