@@ -245,6 +245,11 @@ export const autoRecMigration = {
                             break;
                         case generic.some(el => so.animation === el):
                             so.menuType = 'generic';
+                            if (so.animation.includes('outpulse')) {
+                                so.variant = so.animation === 'outpulse02' ? '02' : '01';
+                                so.animation = 'outpulse';
+                            }
+                            break;
                             break;
                         case ice.some(el => so.animation === el):
                             so.menuType = 'ice';
