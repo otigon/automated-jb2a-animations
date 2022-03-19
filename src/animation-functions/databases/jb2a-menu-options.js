@@ -55,10 +55,6 @@ aaColorMenu.templatefx = templatefx.reduce((o, type) => ({...o, [type]: Object.k
 addRandom(aaColorMenu)
 */
 
-console.log(aaTypeMenu)
-console.log(aaNameMenu)
-console.log(aaColorMenu)
-console.log(aaVariantMenu)
 //return {aaColorsPatreon, aaVariantsPatreon}
 }
 
