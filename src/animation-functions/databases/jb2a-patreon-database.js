@@ -2709,7 +2709,7 @@ JB2APATREONDB.melee = {
         },
         mace: {
             '01': {
-                white: [lg`Weapon_Attacks/Melee/Mace01_01_Regular_White_800x600.webm`],
+                white: [lg`Weapon_Attacks/Melee/Legacy/Mace01_01_Regular_White_800x600.webm`],
                 orange: [lg`Weapon_Attacks/Melee/Mace01_Fire_Regular_Orange_800x600.webm`],
                 pink: [lg`Weapon_Attacks/Melee/Mace01_Fire_Regular_Pink_800x600.webm`],
                 red: [lg`Weapon_Attacks/Melee/Mace01_Fire_Regular_Red_800x600.webm`],
@@ -2945,7 +2945,7 @@ JB2APATREONDB.melee = {
         },
         rapier: {
             fire: {
-                white: [lg`Weapon_Attacks/Melee/Rapier01_01_Regular_White_800x600.webm`],
+                white: [lg`Weapon_Attacks/Melee/Legacy/Rapier01_01_Regular_White_800x600.webm`],
                 orange: [lg`Weapon_Attacks/Melee/Rapier01_Fire_Regular_Orange_800x600.webm`],
                 pink: [lg`Weapon_Attacks/Melee/Rapier01_Fire_Regular_Pink_800x600.webm`],
                 red: [lg`Weapon_Attacks/Melee/Rapier01_Fire_Regular_Red_800x600.webm`],
@@ -3087,7 +3087,7 @@ JB2APATREONDB.melee = {
         },
         spear: {
             'fire': {
-                white: [lg`Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm`],
+                white: [lg`Weapon_Attacks/Melee/Legacy/Spear01_01_Regular_White_800x600.webm`],
 
                 orange: [lg`Weapon_Attacks/Melee/Spear01_Fire_Regular_Orange_800x600.webm`],
                 pink: [lg`Weapon_Attacks/Melee/Spear01_Fire_Regular_Pink_800x600.webm`],
@@ -3150,7 +3150,7 @@ JB2APATREONDB.melee = {
         },
         sword: {
             fire: {
-                white: [lg`Weapon_Attacks/Melee/Sword01_01_Regular_White_800x600.webm`],
+                white: [lg`Weapon_Attacks/Melee/Legacy/Sword01_01_Regular_White_800x600.webm`],
                 black: [lg`Weapon_Attacks/Melee/Sword01_Fire_Regular_Black_800x600.webm`],
                 orange: [lg`Weapon_Attacks/Melee/Sword01_Fire_Regular_Orange_800x600.webm`],
                 pink: [lg`Weapon_Attacks/Melee/Sword01_Fire_Regular_Pink_800x600.webm`],
