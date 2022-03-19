@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/otigon/automated-jb2a-animations/blob/main/pictures/slavaukraine.jpg">
+</p> 
+
 ## A Note on adding support for more systems: 
 I will **NOT** be adding support for any more systems. The vast majority of systems in Foundry do not supply the necessary data for Automated Animationms to run, and it has become redundant for me to spend the time trying to figure out if a system is compatible when it is requested. At some point I will add a section on the Wiki detailing how to add support via a pull request, and what information to ask the System Dev to provide in the system.  
   
@@ -34,7 +38,8 @@ Current System Compatibility:
 - Tormenta 20  
 - Starfinder  
 - Warhammer 4e
-- Swade (Support is sketchy and I will not be updating further. If you can help out please send a PR)  
+- Swade (Support is sketchy and I will not be updating further. If you can help out please send a PR)
+- DCC  
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  

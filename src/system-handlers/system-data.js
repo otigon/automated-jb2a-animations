@@ -13,7 +13,7 @@ export default class systemData {
 
         const flags = await flagMigrations.handle(data.item);
 
-        return new systemData(data, flags, msg)
+        return new systemData(data, flags, msg);
     }
 
     constructor(systemData, flagData, msg) {
@@ -21,6 +21,8 @@ export default class systemData {
         this._log("Getting System Data")
 
         const data = systemData;
+
+        this.gameSystem = game.system.id;
 
         const midiActive = game.modules.get('midi-qol')?.active;
         this.systemId = game.system.id;
@@ -76,13 +78,27 @@ export default class systemData {
         this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(this.autorecSettings, 'templates'), this.rinsedName);
         this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
 
+        // If there is no match and there are alternative names, then attempt to use those names instead
+        if (!this.autorecObject && data.extraNames?.length) {
+            for (const name of data.extraNames) {
+                const rinsedName = AutorecFunctions._rinseName(name);
+                this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, rinsedName);
+                if (this.autorecObject) {
+                    this.rinsedName = rinsedName;
+                    break;
+                }
+            }
+        }
+
         this.isAutorecFireball = false;
         this.isAutorecAura = false;
         this.isAutorecTeleport = false;
+        this.isAutoThunderwave5e = false;
         if (this.autorecObject && !this.isCustomized) {
             this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
             this.isAutorecAura = this.autorecObject.menuSection === "auras" ? true : false;
             this.isAutorecTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
+            this.isAutoThunderwave5e = this.autorecObject?.menuSection === 'preset' && this.autorecObject?.animation === 'thunderwave' ? true : false;
         }
         this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;
 
@@ -91,10 +107,11 @@ export default class systemData {
         this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutorecTeleport ? true : false;
         //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
+        this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.animation === 'thunderwave'); 
     }
 
     get shouldPlayImmediately () {
-        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport;
+        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
     }
 
     get soundNoAnimation () {

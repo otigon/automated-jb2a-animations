@@ -1,3 +1,11 @@
+2.1.6 **Warhammer and SWADE fixes**  
+* Fixes A-A not working with the Warhammer rpg system thanks to silent_mark  
+* Fixes a range check issue in the SWADE system where Melee to Range switch animations were not working properly  
+  
+2.1.5  **PF2e Fallback and DCC Addition**  
+* Adds a fallback method for PF2e weapons where if no Automatic Recognition settings were found, it will default to the base weapon type and attempt to match that. Addition thanks to CarlosFdez on GitHub  
+* Add support for the DCC system thanks to Gazkhan of JB2A  
+
 2.1.4 **Database Fixes**  
 * Corrected some items in the Free JB2A database (Eruption and Divine Smite)  
 * Added Detect Magic to the Aura and Template menus  

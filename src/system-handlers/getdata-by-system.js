@@ -189,7 +189,15 @@ export class AASystemData {
         } else {
             hitTargets = targets;
         }
-        return { item, token, targets, hitTargets };
+
+        const extraNames = [];
+        if (item.type === "weapon") {
+            const baseType = game.i18n.localize(CONFIG.PF2E.baseWeaponTypes[item.baseType]);
+            const group = game.i18n.localize(CONFIG.PF2E.weaponGroups[item.group]);
+            extraNames.push(baseType, group);
+        }
+
+        return { item, token, targets, hitTargets, extraNames };
     }
 
     static async forbiddenlands(input) {
@@ -280,7 +288,7 @@ export class AASystemData {
         const tokenId = input.info?.speaker?.token;
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != undefined);
 
-        let targets = Array.from(input.targets).filter(actor => actor.parent.object).map(actor => actor.parent.object);
+        const targets = input.targets ? Array.from(input.targets).map(token => canvas.tokens.get(token.token)) : [];
 
         if (!item || !token) { return {}; }
 
@@ -297,6 +305,19 @@ export class AASystemData {
         const targets = Array.from(input.user.targets);
         
         return { item, token, targets };
+    }
+
+    static async dcc(input) {
+        const itemId = input.data?.flags?.dcc?.ItemId;
+        const tokenId = input.data?.speaker?.token;
+        if (!itemId) { return {}; }
+        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+        const item = token.actor?.items?.get(itemId)
+        if (!token || !item) { return {}; }
+        const targets = Array.from(input.user.targets);
+        
+        return { item, token, targets };
+
     }
 
     static _extractItemId(content) {

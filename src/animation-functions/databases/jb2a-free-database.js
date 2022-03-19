@@ -1273,6 +1273,7 @@ JB2AFREEDB.static = {
                 orange: [lg`Fire/Eruption_01_Regular_Orange_600x600.webm`]
             },
         },
+
         groundcrack: {
             '01': {
                 orange: [lg`Fire/GroundCrackLoop_01_Regular_Orange_600x600.webm`],

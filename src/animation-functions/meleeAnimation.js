@@ -70,7 +70,9 @@ export async function meleeAnimation(handler, animationData) {
         // Target Effect sections
         for (let target of handler.allTargets) {
             let distanceTo = handler.getDistanceTo(target)
-            let moveTo = distanceTo > 5 ? true : false;
+            let switchDistance = 5;
+            if (handler.gameSystem === "swade") { switchDistance = 1 }
+            let moveTo = distanceTo > switchDistance ? true : false;
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? true : false;
@@ -84,7 +86,7 @@ export async function meleeAnimation(handler, animationData) {
                 switch (data.switchType) {
                     case "on":
                         if (rangeSwitch.some(el => data.animation.includes(el)) && range.file) {
-                            if (distanceTo > (5 + handler.reachCheck)) {
+                            if (distanceTo > (switchDistance + handler.reachCheck)) {
                                 noMelee = true;
                             }
                         }
@@ -94,7 +96,7 @@ export async function meleeAnimation(handler, animationData) {
                             if ((distanceTo / canvas.dimensions.distance) > data.switchRange) {
                                 noMelee = true;
                             }
-                        } else if (distanceTo > (5 + handler.reachCheck)) {
+                        } else if (distanceTo > (switchDistance + handler.reachCheck)) {
                             noMelee = true;
                         }
                         break;

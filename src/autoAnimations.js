@@ -256,6 +256,9 @@ Hooks.once('ready', function () {
             case 'ose':
                 Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
                 break;
+            case 'dcc':
+                Hooks.on("createChatMessage", async (msg) => { dccReady(msg) });
+                break;
         }
     }
 
@@ -512,7 +515,7 @@ async function swadeData(SwadeTokenOrActor, SwadeItem) {
 */
 async function starFinder(data, msg) {
     if (killAllAnimations) { return; }
-    const sfrpgData = {data, msg}
+    const sfrpgData = { data, msg }
     const handler = await systemData.make(sfrpgData)
     //let tokenId = msg.data.speaker.token;
     //let sourceToken = canvas.tokens.get(tokenId);
@@ -659,7 +662,7 @@ async function pf2eReady(msg) {
 async function wfrpWeapon(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.weapon, targets: data.targets, info: info });
+    let handler = await systemData.make({ item: data.weapon, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -671,7 +674,7 @@ async function wfrpWeapon(data, info) {
 async function wfrpPrayer(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.prayer, targets: data.targets, info: info });
+    let handler = await systemData.make({ item: data.prayer, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -683,7 +686,7 @@ async function wfrpPrayer(data, info) {
 async function wfrpCast(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.spell, targets: data.targets, info: info });
+    let handler = await systemData.make({ item: data.spell, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -695,7 +698,7 @@ async function wfrpCast(data, info) {
 async function wfrpTrait(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.trait, targets: data.targets, info: info });
+    let handler = await systemData.make({ item: data.trait, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -726,4 +729,24 @@ async function oseReady(input) {
         return;
     }
     trafficCop(handler);
+}
+
+async function dccReady(input) {
+    if (killAllAnimations) { return; }
+    if (input.user.id !== game.user.id) { return };
+
+    if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
+        let handler = await systemData.make(input)
+        if (!handler.item || !handler.sourceToken) {
+            return;
+        }
+        trafficCop(handler);
+    } else if (input.data?.flags?.dcc?.RollType === "Damage" || input.data?.flags?.dcc?.RollType === "SpellCheck") {
+        let handler = await systemData.make(input)
+        if (!handler.item || !handler.sourceToken) {
+            return;
+        }
+        trafficCop(handler);
+    }
+
 }
