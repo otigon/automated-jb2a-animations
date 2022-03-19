@@ -79,8 +79,7 @@ export class AAItemSettings extends FormApplication {
 
         return {
             flags: this.object.data.flags,
-            menuLists: aaMenuLists,
-            projectile: aaMenuLists.attackSpells,
+
             OldName: oldName,
 
             menuTypes: aaTypeMenu,
@@ -91,20 +90,8 @@ export class AAItemSettings extends FormApplication {
             showMacroOption: flags.autoanimations?.killAnim || flags.autoanimations?.override ? true : false,
             isMacroChecked: flags.autoanimations?.killAnim || flags.autoanimations?.override ? flags.autoanimations?.macro?.enable : false,
 
-            fireball: autoObject.animation === 'fireball' && autoObject.menuSection === 'preset' ? autoObject : false,
             autoObject: autoObject,
-            colormenu: aaColorMenu,
-            variantmenu: aaVariantMenu,
-            rangeList: patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree,
-            meleeList: patreon ? aaMenuLists.meleeTypes : aaMenuLists.meleeTypesFree,
-            genericProjectile: patreon ? aaMenuLists.genericProjectile : aaMenuLists.genericProjectileFree,
-            spellList: aaMenuLists.attackSpells,
-            onTokenList: aaMenuLists.autoself,
-            meleeWeapons: aaMenuLists.meleeWeapons,
-            genericDmg: aaMenuLists.genericDmg,
-            auraList: aaMenuLists.aura,
 
-            explosionMenu: aaMenuLists.explosionMenu,
             autoRecognized: autoCheck,
             autoRecognizedNoOverride: autoCheck && !override,
             melee: override && animType === "melee",
@@ -115,20 +102,9 @@ export class AAItemSettings extends FormApplication {
             preset: override && animType === "preset",
             menu3d: override && animType === "menu3d",
 
-            bardAnimName: aaMenuLists.bardAnimType,
-            bardAnimTarget: aaMenuLists.bardAnimType,
-
             persistent: flags.autoanimations?.options?.persistent && (flags.autoanimations?.options?.persistType === 'overheadtile'),
             circRectPersist: flags.autoanimations?.options?.persistent && (templateType === 'circle' || templateType === 'rect') ? true : false,
             animationType: levels3d ? aaMenuLists.menuOptions3D : aaMenuLists.menuOptions,
-
-            explosionVariants: aaMenuLists.explosionMenu,
-
-            templateAnimations: AATabFunctions.animTemplates(templateType),
-
-            rangeSwitch: patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree,
-
-            returning: returnWeapons.some(el => switchName.includes(el)),
 
             content: content,
 

@@ -30,7 +30,7 @@ export class aaAutoRecognition extends FormApplication {
     }
 
     getData() {
-        const patreon = moduleIncludes("jb2a_patreon")
+
         let data = super.getData();
 
         data.menuTypes = aaTypeMenu,
@@ -40,30 +40,7 @@ export class aaAutoRecognition extends FormApplication {
 
         data.currentAutoVersion = Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
         data.settings = this.getSettingsData();
-        data.genericProjectile = patreon ? aaMenuLists.genericProjectile : aaMenuLists.genericProjectileFree;
-        data.meleeList = aaMenuLists.meleeWeapons;
-        data.genericList = aaMenuLists.genericDmg;
-        data.rangeList = patreon ? aaMenuLists.rangeWeapons : aaMenuLists.rangeWeaponsFree;
-        data.meleeTypes = patreon ? aaMenuLists.meleeTypes : aaMenuLists.meleeTypesFree;
-        data.spellList = aaMenuLists.attackSpells;
-        data.selfList = aaMenuLists.autoself;
-        data.shieldfx = aaMenuLists.shieldfx;
-        data.tokenborder = aaMenuLists.tokenborder;
-        data.templateCircle = aaMenuLists.circleAnimations;
-        data.templateCone = aaMenuLists.coneAnimations;
-        data.templateRect = aaMenuLists.rectangleAnimations;
-        data.templateRay = aaMenuLists.rayAnimations;
-        data.auraList = aaMenuLists.aura;
-        data.creatureList = aaMenuLists.creatureAttacks;
-        data.staticSpells = aaMenuLists.staticSpells;
-        data.conditions = aaMenuLists.conditions;
-        data.explosionMenu = aaMenuLists.explosionMenu;
-        //data.presetList = aaMenuLists.animNameClassFeatures);
-        data.bardAnimName = aaMenuLists.bardAnimType;
-        data.explosionMenu = aaMenuLists.explosionMenu;
 
-        data.colors = aaColorMenu;
-        data.variants = aaVariantMenu;
         data.show = false;
         data.system = { id: game.system.id, title: game.system.data.title }
         return data

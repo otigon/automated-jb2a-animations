@@ -242,7 +242,7 @@
             <select name="flags.autoanimations.autoOverride.color">
                 {{#select flags.autoanimations.autoOverride.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup (lookup colormenu.static autoObject.menuType) autoObject.animation)
+                {{#each (lookup (lookup (lookup menuColors.static autoObject.menuType) autoObject.animation)
                 flags.autoanimations.autoOverride.variant) as
                 |name key|}}
                 <option value="{{key}}">{{name}}</option>

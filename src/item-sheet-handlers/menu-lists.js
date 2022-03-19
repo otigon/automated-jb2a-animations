@@ -24,7 +24,7 @@ function menuLists() {
         "preset": game.i18n.localize("AUTOANIM.presets"),
         "menu3d": "3D Particles",
     }
-
+    /*
     aaMenuLists.attackSpells = {
         "a1": ``,
         "chainlightning": game.i18n.localize("AUTOANIM.chainlightning"),
@@ -379,6 +379,7 @@ function menuLists() {
         "a1": ``,
         "iceshard": game.i18n.localize("AUTOANIM.iceshard"),
     }
+    */
 }
 
 export { aaMenuLists }
