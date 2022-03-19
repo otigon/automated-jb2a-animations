@@ -355,8 +355,8 @@ async function midiTemplateAnimations(msg) {
     if (!handler.item || !handler.sourceToken) {
         return;
     }
-    let breakOut = checkMessege(msg);
-    if ((handler.shouldPlayImmediately) && (breakOut === 0 || game.modules.get("betterrolls5e")?.active)) {
+    //let breakOut = checkMessege(msg);
+    if ((handler.shouldPlayImmediately) /*&& (breakOut === 0 || game.modules.get("betterrolls5e")?.active)*/) {
         trafficCop(handler);
     } else { return; }
 }

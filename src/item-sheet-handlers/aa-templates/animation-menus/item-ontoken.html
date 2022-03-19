@@ -20,16 +20,13 @@
         </div>
         <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
             <label>{{localize 'AUTOANIM.type'}}</label>
-            <select name="flags.autoanimations.options.staticOptions" {{#if flags.autoanimations.options.enableCustom}}
+            <select name="flags.autoanimations.options.menuType" {{#if flags.autoanimations.options.enableCustom}}
                 disabled {{/if }}>
-                {{#select flags.autoanimations.options.staticOptions}}
+                {{#select flags.autoanimations.options.menuType}}
                 <option value=""> </option>
-                <option value="creature">{{localize 'AUTOANIM.typeCreature'}}</option>
-                <option value="explosion">{{localize 'AUTOANIM.explosion'}}</option>
-                <option value="staticSpells">{{localize 'AUTOANIM.itemSpell'}}</option>
-                <option value="conditions">{{localize 'AUTOANIM.conditions'}}</option>
-                <option value="shieldfx">{{localize 'AUTOANIM.shieldfx'}}</option>
-                <option value="tokenborder">{{localize 'AUTOANIM.token'}} {{localize "AUTOANIM.border"}}</option>
+                {{#each menuTypes.static as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
                 {{/select}}
             </select>
         </div>
@@ -39,43 +36,10 @@
             <select name="flags.autoanimations.animation" {{#if flags.autoanimations.options.enableCustom}} disabled
                 {{/if }}>
                 {{#select flags.autoanimations.animation}}
-
-                {{#ifEquals flags.autoanimations.options.staticOptions 'creature'}}
-                {{#each menuLists.creatureAttacks as |name key|}}
+                <option value=""> </option>
+                {{#each (lookup menuNames.static flags.autoanimations.options.menuType) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
-                {{/ifEquals}}
-
-                {{#ifEquals flags.autoanimations.options.staticOptions 'explosion'}}
-                {{#each menuLists.explosionMenu as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
-                {{/ifEquals}}
-
-                {{#ifEquals flags.autoanimations.options.staticOptions 'staticSpells'}}
-                {{#each menuLists.staticSpells as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
-                {{/ifEquals}}
-
-                {{#ifEquals flags.autoanimations.options.staticOptions 'conditions'}}
-                {{#each menuLists.conditions as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
-                {{/ifEquals}}
-
-                {{#ifEquals flags.autoanimations.options.staticOptions 'shieldfx'}}
-                {{#each menuLists.shieldfx as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
-                {{/ifEquals}}
-
-                {{#ifEquals flags.autoanimations.options.staticOptions 'tokenborder'}}
-                {{#each menuLists.tokenborder as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
-                {{/ifEquals}}
-
                 {{/select}}
             </select>
         </div>
@@ -85,7 +49,7 @@
                 disabled {{/if }}>
                 {{#select flags.autoanimations.options.variant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static (lookup flags.autoanimations 'animation')) as |name key|}}
+                {{#each (lookup (lookup menuVariants.static flags.autoanimations.options.menuType) flags.autoanimations.animation) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -98,8 +62,7 @@
                 }}>
                 {{#select flags.autoanimations.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations 'animation')) (lookup
-                flags.autoanimations.options 'variant')) as |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.options.menuType) flags.autoanimations.animation) flags.autoanimations.options.variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}

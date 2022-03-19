@@ -14,6 +14,11 @@ export async function fireball(handler, animationData, config) {
         const autoOverridden = flags.autoOverride?.enable ?? false;
         const autoOverrideAfter = flags.autoOverride?.fireball?.afterEffect ?? false;
         const autoFireball = flags.autoOverride?.fireball ?? {};
+
+        data.rangeType = autoFireball.rangeType;
+        data.ex01Type = autoFireball.ex01Type;
+        data.ex02Type = autoFireball.ex02Type
+
         data.projectile = autoOverridden ? autoFireball.projectile : data.projectile;
         data.projectileVariant = autoFireball ? autoFireball.projectileVariant : data.projectilVariant ?? "01";
         data.projectileColor = autoOverridden ? autoFireball.projectileColor ?? data.projectileColor : data.projectileColor ?? "";
@@ -66,6 +71,10 @@ export async function fireball(handler, animationData, config) {
         }
     } else {
         const fireballFlags = flags.fireball ?? {};
+        data.rangeType = fireballFlags.rangeType;
+        data.ex01Type = fireballFlags.ex01Type;
+        data.ex02Type = fireballFlags.ex02Type
+
         data.projectile = fireballFlags.projectile;
         data.projectileVariant = fireballFlags.projectileVariant ?? "01";
         data.projectileColor = fireballFlags.projectileColor ?? "";
@@ -119,9 +128,9 @@ export async function fireball(handler, animationData, config) {
         }
     }
 
-    const projectileAnimation = await buildFile(false, data.projectile, "range", data.projectileVariant, data.projectileColor);
-    const explosion01 = data.explosion01 !== "a1" ? await buildFile(true, data.explosion01, "static", data.explosion01Variant, data.explosion01Color) : "";
-    const explosion02 = data.explosion02 !== "a1" ? await buildFile(true, data.explosion02, "static", data.explosion02Variant, data.explosion02Color) : "";
+    const projectileAnimation = await buildFile(false, data.rangeType, data.projectile, "range", data.projectileVariant, data.projectileColor);
+    const explosion01 = data.explosion01 !== "a1" ? await buildFile(true, data.ex01Type, data.explosion01, "static", data.explosion01Variant, data.explosion01Color) : "";
+    const explosion02 = data.explosion02 !== "a1" ? await buildFile(true, data.ex02Type, data.explosion02, "static", data.explosion02Variant, data.explosion02Color) : "";
 
     if (handler.debug) { aaDebugger("Fireball Animation Start", data, projectileAnimation, explosion01, explosion02) }
 
@@ -188,7 +197,7 @@ export async function fireball(handler, animationData, config) {
             .repeats(data.exAudio01.repeat, data.explosion01Delay)
             .startTime(data.exAudio01.startTime)
     }
-    if (data.explosion01 !== "a1") {
+    if (data.ex01Type) {
         aaSeq.effect()
             .file(explosion01.file, true)
             .atLocation(position)
@@ -204,7 +213,7 @@ export async function fireball(handler, animationData, config) {
             .repeats(data.exAudio02.repeat, data.explosion02Delay)
             .startTime(data.exAudio02.startTime)
     }
-    if (data.explosion02 !== "a1") {
+    if (data.ex02Type) {
         aaSeq.effect()
             .file(explosion02.file, true)
             .atLocation(position)

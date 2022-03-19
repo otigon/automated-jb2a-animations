@@ -80,7 +80,9 @@ export class AAanimationData {
             data.variant = autoOverridden ? handler.autorecOverrides?.variant : data.variant;
             data.variant02 = autoOverridden ? handler.autorecOverrides?.variant02 || "01" : data.variant02 || "01";
             data.persistent = autoOverridden ? handler.autorecOverrides?.persistent || false : data.persistent || false;
-            data.menuType = data.staticOptions === 'shieldfx' ? true : false;
+            data.menuType = data.menuType || false,
+            data.menuType02 = data.menuType02 || false,
+            data.isShieldFX = data.menuType === 'shieldfx' ? true : false,
             data.below = data.below ?? false;
             data.measureType = data.measureType ?? 'alternating';
             data.hideFromPlayers = false;
@@ -171,7 +173,9 @@ export class AAanimationData {
                 customPath: options.enableCustom ? options.customPath : false,
                 customPath02: options.enableCustom02 ? options.customPath02 : false,
                 staticType: options.staticType || "targetDefault",
-                menuType: options.staticOptions === 'shieldfx' ? true : false,
+                menuType: options.menuType || false,
+                menuType02: options.menuType02 || false,
+                isShieldFX: options.menuType === 'shieldfx' ? true : false,
                 anchorX: options.anchorX || 1,
                 anchorY: options.anchorY || 1,
                 auraRadius: options.auraRadius || 3.5,
@@ -203,6 +207,7 @@ export class AAanimationData {
                 detect: meleeSwitch.detect ?? "auto",
                 return: meleeSwitch.returning || false,
                 switchVariant: meleeSwitch.variant ?? "01",
+                switchMenuType: meleeSwitch.menuType || false,
                 range: meleeSwitch.range ?? 2,
                 switchAudio: {
                     enable: flags.audio?.a02?.enable || false,
@@ -234,6 +239,7 @@ export class AAanimationData {
         if (autorec) {
             const explosions = autorec.explosion ?? {};
             const explosion = {
+                menuType: explosions.menuType || false,
                 enabled: explosions.enable || false,
                 animation: explosions.animation || "",
                 variant: explosions.variant ?? "",
@@ -259,6 +265,7 @@ export class AAanimationData {
         } else {
             const explosions = handler.flags.explosions || {};
             const explosion = {
+                menuType: explosions.menuType || false,
                 enabled: explosions.enable || false,
                 animation: explosions.animation || "",
                 variant: explosions.variant ?? "",
@@ -278,7 +285,7 @@ export class AAanimationData {
                 },
             };
             explosion.playSound = explosion.enabled && explosion.audio?.enabled && explosion.audio?.file !== "";
-            explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
+            explosion.data = explosion.enabled ? await buildFile(true, explosion.menuType, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
             explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             return explosion;
         }
@@ -288,6 +295,7 @@ export class AAanimationData {
         const source = handler.flags.sourceToken || {};
         const enableCustom = source.enableCustom || false;
         const sourceFX = {
+            menuType: source.menuType,
             enabled: source.enable || false,
             customSourcePath: enableCustom ? source.customPath : false,
             repeat: source.loops || 1,
@@ -314,7 +322,7 @@ export class AAanimationData {
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
         const sourceScale = handler.sourceToken.w;
-        sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
+        sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.menuType, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
         if (sourceFX.itemAudio.enable && sourceFX.itemAudio.file && sourceFX.enabled) {
@@ -343,6 +351,7 @@ export class AAanimationData {
         const target = handler.flags?.targetToken || {};
         const enableCustom = target.enableCustom || false;
         const targetFX = {
+            menuType: target.menuType,
             enabled: target.enable || false,
             customTargetPath: enableCustom ? target.customPath : false,
             repeat: target.loops || 1,
@@ -371,7 +380,7 @@ export class AAanimationData {
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
         targetFX.playSound = targetFX.itemAudio.enable && targetFX.enabled && targetFX.itemAudio.file ? true : false;
-        targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
+        targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.menuType, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
         return targetFX
     }
 

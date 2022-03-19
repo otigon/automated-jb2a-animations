@@ -15,7 +15,7 @@ export async function staticAnimation(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
 
-    const onToken = await buildFile(true, data.animation, "static", data.variant, data.color, data.customPath);
+    const onToken = await buildFile(true, data.menuType, data.animation, "static", data.variant, data.color, data.customPath);
 
     if (handler.debug) { aaDebugger("Static Animation Start", animationData, onToken) }
 

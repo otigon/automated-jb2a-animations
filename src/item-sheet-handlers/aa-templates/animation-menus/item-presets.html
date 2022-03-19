@@ -5,15 +5,15 @@
         <select name="flags.autoanimations.animation">
             {{#select flags.autoanimations.animation}}
             <option value=""></option>
-            <option value="bardicinspiration">{{localize "AUTOANIM.bardicInspiration"}}</option>
+            <option value="bardicinspiration">{{localize "AUTOANIM.bardicinspiration"}}</option>
             <option value="bless">{{localize "AUTOANIM.bless"}}</option>
             <option value="dualattach">{{localize "AUTOANIM.dualattach"}}</option>
             <option value="fireball">{{localize "AUTOANIM.fireball"}}</option>
-            <option value='huntersmark'>{{localize "AUTOANIM.itemHM"}}</option>
-            <option value="shieldspell">{{localize "AUTOANIM.itemShield"}}</option>
+            <option value='huntersmark'>{{localize "AUTOANIM.huntersmark"}}</option>
+            <option value="shieldspell">{{localize "AUTOANIM.shieldspell"}}</option>
             <option value="sneakattack">{{localize "AUTOANIM.sneakattack"}}</option>
             <option value="teleportation">{{localize "AUTOANIM.animTeleportation"}}</option>
-            <option value="thunderwave">{{localize "AUTOANIM.itemThunderwave"}} D&D 5e</option>
+            <option value="thunderwave">{{localize "AUTOANIM.thunderwave"}} D&D 5e</option>
             {{/select}}
         </select>
     </div>
@@ -34,7 +34,7 @@
             <label>{{localize "AUTOANIM.color"}}</label>
             <select name="flags.autoanimations.color">
                 {{#select flags.autoanimations.color}}
-                {{#each (lookup (lookup colormenu.static 'thunderwave') 'mid') as |name key|}}
+                {{#each (lookup (lookup menuColors.static.spell 'thunderwave') 'mid') as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -184,7 +184,9 @@
                 disabled {{/if }}>
                 {{#select flags.autoanimations.options.menuType}}
                 <option value=""> </option>
-                <option value="spell">{{localize "AUTOANIM.itemSpell"}}</option>
+                {{#each menuTypes.range as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
                 {{/select}}
             </select>
         </div>
@@ -194,11 +196,10 @@
                 {{/if }}>
                 {{#select flags.autoanimations.options.name}}
 
-                {{#ifEquals flags.autoanimations.options.menuType 'spell'}}
-                {{#each spellList as |name key|}}
+                <option value=""></option>
+                {{#each (lookup menuNames.range (lookup flags.autoanimations.options 'menuType')) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
-                {{/ifEquals}}
 
                 {{/select}}
             </select>
@@ -209,7 +210,7 @@
                 disabled {{/if }}>
                 {{#select flags.autoanimations.options.variant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.range (lookup flags.autoanimations.options 'name')) as |name key|}}
+                {{#each (lookup (lookup menuVariants.range (lookup flags.autoanimations.options 'menuType')) (lookup flags.autoanimations.options 'name')) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -222,8 +223,7 @@
                 }}>
                 {{#select flags.autoanimations.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.range (lookup flags.autoanimations.options 'name')) (lookup
-                flags.autoanimations.options 'variant')) as |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.range (lookup flags.autoanimations.options 'menuType')) (lookup flags.autoanimations.options 'name')) (lookup flags.autoanimations.options 'variant')) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -309,7 +309,7 @@
 </div>
 {{/ifEquals}}
 
-
+<!--Shield Spell-->
 {{#ifEquals flags.autoanimations.animation "shieldspell"}}
 <div div class='flexrow aa-section-label text-green'>
     <label style="font-size: large;">{{localize "AUTOANIM.primary"}} {{localize
@@ -322,7 +322,7 @@
             <select name="flags.autoanimations.options.variant">
                 {{#select flags.autoanimations.options.variant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static (lookup flags.autoanimations 'animation')) as |name key|}}
+                {{#each menuVariants.static.spell.shieldspell as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -333,8 +333,7 @@
             <select name="flags.autoanimations.color">
                 {{#select flags.autoanimations.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations 'animation')) (lookup
-                flags.autoanimations.options 'variant')) as |name key|}}
+                {{#each (lookup menuColors.static.spell.shieldspell (lookup flags.autoanimations.options 'variant')) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -425,9 +424,9 @@
             <label>{{localize "AUTOANIM.animation"}}</label>
             <select name="flags.autoanimations.bards.bardAnim">
                 {{#select flags.autoanimations.bards.bardAnim}}
-                {{#each bardAnimName as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
+                <option value=""> </option>
+                <option value="bardicinspiration">{{localize "AUTOANIM.bardicinspiration"}}</option>
+                <option value="music">{{localize "AUTOANIM.musicnote"}}</option>
                 {{/select}}
             </select>
         </div>
@@ -436,9 +435,16 @@
             <select name="flags.autoanimations.bards.bardVariant">
                 {{#select flags.autoanimations.bards.bardVariant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static (lookup flags.autoanimations.bards 'bardAnim')) as |name key|}}
+                {{#ifEquals flags.autoanimations.bards.bardAnim 'bardicinspiration'}}
+                {{#each (lookup menuVariants.static.spell 'bardicinspiration') as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
+                {{/ifEquals}}
+                {{#ifEquals flags.autoanimations.bards.bardAnim 'music'}}
+                {{#each (lookup menuVariants.static.music 'notes') as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/ifEquals}}
                 {{/select}}
             </select>
         </div>
@@ -448,10 +454,16 @@
             <select name="flags.autoanimations.bards.bardSelfColor">
                 {{#select flags.autoanimations.bards.bardSelfColor}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations.bards 'bardAnim')) (lookup
-                flags.autoanimations.bards 'bardVariant')) as |name key|}}
+                {{#ifEquals flags.autoanimations.bards.bardAnim 'bardicinspiration'}}
+                {{#each (lookup (lookup menuColors.static.spell 'bardicinspiration') (lookup flags.autoanimations.bards 'bardVariant')) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
+                {{/ifEquals}}
+                {{#ifEquals flags.autoanimations.bards.bardAnim 'music'}}
+                {{#each (lookup (lookup menuColors.static.music 'notes') (lookup flags.autoanimations.bards 'bardVariant')) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/ifEquals}}
                 {{/select}}
             </select>
         </div>
@@ -472,9 +484,9 @@
             <label>{{localize "AUTOANIM.animation"}}</label>
             <select name="flags.autoanimations.bards.bardTargetAnim">
                 {{#select flags.autoanimations.bards.bardTargetAnim}}
-                {{#each bardAnimTarget as |name key|}}
-                <option value="{{key}}">{{name}}</option>
-                {{/each}}
+                <option value=""> </option>
+                <option value="bardicinspiration">{{localize "AUTOANIM.bardicinspiration"}}</option>
+                <option value="music">{{localize "AUTOANIM.musicnote"}}</option>
                 {{/select}}
             </select>
         </div>
@@ -483,9 +495,16 @@
             <select name="flags.autoanimations.bards.bardTargetVariant">
                 {{#select flags.autoanimations.bards.bardTargetVariant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static (lookup flags.autoanimations.bards 'bardTargetAnim')) as |name key|}}
+                {{#ifEquals flags.autoanimations.bards.bardTargetAnim 'bardicinspiration'}}
+                {{#each (lookup menuVariants.static.spell 'bardicinspiration') as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
+                {{/ifEquals}}
+                {{#ifEquals flags.autoanimations.bards.bardTargetAnim 'music'}}
+                {{#each (lookup menuVariants.static.music 'notes') as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/ifEquals}}
                 {{/select}}
             </select>
         </div>
@@ -495,10 +514,16 @@
             <select name="flags.autoanimations.bards.bardTargetColor">
                 {{#select flags.autoanimations.bards.bardTargetColor}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations.bards 'bardTargetAnim')) (lookup
-                flags.autoanimations.bards 'bardTargetVariant')) as |name key|}}
+                {{#ifEquals flags.autoanimations.bards.bardTargetAnim 'bardicinspiration'}}
+                {{#each (lookup (lookup menuColors.static.spell 'bardicinspiration') (lookup flags.autoanimations.bards 'bardTargetVariant')) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
+                {{/ifEquals}}
+                {{#ifEquals flags.autoanimations.bards.bardTargetAnim 'music'}}
+                {{#each (lookup (lookup menuColors.static.music 'notes') (lookup flags.autoanimations.bards 'bardTargetVariant')) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/ifEquals}}
                 {{/select}}
             </select>
         </div>
@@ -519,7 +544,7 @@
             <label>{{localize "AUTOANIM.markerColor"}}</label>
             <select name="flags.autoanimations.bards.markerColor">
                 {{#select flags.autoanimations.bards.markerColor}}
-                {{#each colormenu.static.bardicinspiration.marker as |name key|}}
+                {{#each menuColors.static.spell.bardicinspiration.marker as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -530,7 +555,7 @@
             <label>{{localize "AUTOANIM.markerColorTarget"}}</label>
             <select name="flags.autoanimations.bards.markerColorTarget">
                 {{#select flags.autoanimations.bards.markerColorTarget}}
-                {{#each colormenu.static.bardicinspiration.marker as |name key|}}
+                {{#each menuColors.static.spell.bardicinspiration.marker as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -616,7 +641,7 @@
             <label>{{localize "AUTOANIM.color"}}</label>
             <select name="flags.autoanimations.color">
                 {{#select flags.autoanimations.color}}
-                {{#each (lookup colormenu.static.huntersmark (lookup flags.autoanimations.options 'variant')) as |name
+                {{#each (lookup menuColors.static.spell.huntersmark (lookup flags.autoanimations.options 'variant')) as |name
                 key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
@@ -708,7 +733,7 @@
             <select name="flags.autoanimations.options.variant">
                 {{#select flags.autoanimations.options.variant}}
                 <option value=""> </option>
-                {{#each variantmenu.static.sneakattack as |name key|}}
+                {{#each menuVariants.static.spell.sneakattack as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -719,7 +744,7 @@
             <select name="flags.autoanimations.color">
                 {{#select flags.autoanimations.color}}
                 <option value=""> </option>
-                {{#each (lookup colormenu.static.sneakattack (lookup flags.autoanimations.options 'variant')) as |name
+                {{#each (lookup menuColors.static.spell.sneakattack (lookup flags.autoanimations.options 'variant')) as |name
                 key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
@@ -803,7 +828,7 @@
             <label>{{localize "AUTOANIM.color"}}</label>
             <select name="flags.autoanimations.color">
                 {{#select flags.autoanimations.color}}
-                {{#each (lookup colormenu.static.bless '01') as |name key|}}
+                {{#each (lookup menuColors.static.spell.bless '01') as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -878,11 +903,22 @@
 </div>
 <div class="aa-itemSection-divider">
     <div class="aa-primary-container">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize 'AUTOANIM.type'}}</label>
+            <select name="flags.autoanimations.fireball.rangeType">
+                {{#select flags.autoanimations.fireball.rangeType}}
+                <option value=""> </option>
+                {{#each menuTypes.range as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
         <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
             <label>{{localize 'AUTOANIM.animation'}}: </label>
             <select name="flags.autoanimations.fireball.projectile">
                 {{#select flags.autoanimations.fireball.projectile }}
-                {{#each spellList as |name key|}}
+                {{#each (lookup menuNames.range flags.autoanimations.fireball.rangeType) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -893,7 +929,7 @@
             <select name="flags.autoanimations.fireball.projectileVariant">
                 {{#select flags.autoanimations.fireball.projectileVariant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.range (lookup flags.autoanimations.fireball 'projectile')) as |name key|}}
+                {{#each (lookup (lookup menuVariants.range flags.autoanimations.fireball.rangeType) flags.autoanimations.fireball.projectile) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -904,8 +940,7 @@
             <select name="flags.autoanimations.fireball.projectileColor">
                 {{#select flags.autoanimations.fireball.projectileColor}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.range (lookup flags.autoanimations.fireball 'projectile')) (lookup
-                flags.autoanimations.fireball 'projectileVariant')) as |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.range flags.autoanimations.fireball.rangeType) flags.autoanimations.fireball.projectile) flags.autoanimations.fireball.projectileVariant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -985,11 +1020,23 @@
 </div>
 <div class="aa-itemSection-divider">
     <div class="aa-primary-container">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize 'AUTOANIM.type'}}</label>
+            <select name="flags.autoanimations.fireball.ex01Type">
+                {{#select flags.autoanimations.fireball.ex01Type}}
+                <option value=""> </option>
+                {{#each menuTypes.static as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
         <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
-            <label>{{localize 'AUTOANIM.explosion'}}</label>
+            <label>{{localize 'AUTOANIM.animation'}}</label>
             <select name="flags.autoanimations.fireball.explosion01">
-                {{#select flags.autoanimations.fireball.animation}}
-                {{#each explosionMenu as |name key|}}
+                {{#select flags.autoanimations.fireball.explosion01}}
+                <option value=""> </option>
+                {{#each (lookup menuNames.static flags.autoanimations.fireball.ex01Type) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -1000,7 +1047,7 @@
             <select name="flags.autoanimations.fireball.explosion01Variant">
                 {{#select flags.autoanimations.fireball.explosion01Variant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static (lookup flags.autoanimations.fireball 'explosion01')) as |name key|}}
+                {{#each (lookup (lookup menuVariants.static flags.autoanimations.fireball.ex01Type) flags.autoanimations.fireball.explosion01) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -1011,8 +1058,7 @@
             <select name="flags.autoanimations.fireball.explosion01Color">
                 {{#select flags.autoanimations.fireball.explosion01Color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations.fireball 'explosion01')) (lookup
-                flags.autoanimations.fireball 'explosion01Variant')) as |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.fireball.ex01Type) flags.autoanimations.fireball.explosion01) flags.autoanimations.fireball.explosion01Variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -1093,11 +1139,23 @@
 </div>
 <div class="aa-itemSection-divider">
     <div class="aa-primary-container">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize 'AUTOANIM.type'}}</label>
+            <select name="flags.autoanimations.fireball.ex02Type">
+                {{#select flags.autoanimations.fireball.ex02Type}}
+                <option value=""> </option>
+                {{#each menuTypes.static as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
         <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
             <label>{{localize 'AUTOANIM.animation'}}</label>
             <select name="flags.autoanimations.fireball.explosion02">
                 {{#select flags.autoanimations.fireball.explosion02}}
-                {{#each explosionMenu as |name key|}}
+                <option value=""> </option>
+                {{#each (lookup menuNames.static flags.autoanimations.fireball.ex02Type) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -1108,7 +1166,7 @@
             <select name="flags.autoanimations.fireball.explosion02Variant">
                 {{#select flags.autoanimations.fireball.explosion02Variant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static (lookup flags.autoanimations.fireball 'explosion02')) as |name key|}}
+                {{#each (lookup (lookup menuVariants.static flags.autoanimations.fireball.ex02Type) flags.autoanimations.fireball.explosion02) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -1119,8 +1177,7 @@
             <select name="flags.autoanimations.fireball.explosion02Color">
                 {{#select flags.autoanimations.fireball.explosion02Color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations.fireball 'explosion02')) (lookup
-                flags.autoanimations.fireball 'explosion02Variant')) as |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.fireball.ex02Type) flags.autoanimations.fireball.explosion02) flags.autoanimations.fireball.explosion02Variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -1262,13 +1319,26 @@
 </div>
 <div class="aa-itemSection-divider">
     <div class="aa-primary-container">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize 'AUTOANIM.type'}}</label>
+            <select name="flags.autoanimations.options.menuType">
+                {{#select flags.autoanimations.options.menuType}}
+                <option value=""> </option>
+                {{#each menuTypes.static as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
         <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
             <label>{{localize "AUTOANIM.animation"}}</label>
             <select name="flags.autoanimations.options.name" {{#if flags.autoanimations.options.enableCustom}} disabled
                 {{/if }}>
                 {{#select flags.autoanimations.options.name}}
-                <option value="a1"></option>
-                <option value="mistystep">{{localize "AUTOANIM.itemMistyStep"}}</option>
+                <option value=""> </option>
+                {{#each (lookup menuNames.static flags.autoanimations.options.menuType) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
                 {{/select}}
             </select>
         </div>
@@ -1278,7 +1348,7 @@
                 disabled {{/if }}>
                 {{#select flags.autoanimations.options.variant}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static (lookup flags.autoanimations.options 'name')) as |name key|}}
+                {{#each (lookup (lookup menuVariants.static flags.autoanimations.options.menuType) flags.autoanimations.options.name) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -1291,8 +1361,7 @@
                 }}>
                 {{#select flags.autoanimations.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations.options 'name')) (lookup
-                flags.autoanimations.options 'variant')) as |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.options.menuType) flags.autoanimations.options.name) flags.autoanimations.options.variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -1335,13 +1404,26 @@
 </div>
 <div class="aa-itemSection-divider">
     <div class="aa-primary-container">
+        <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+            <label>{{localize 'AUTOANIM.type'}}</label>
+            <select name="flags.autoanimations.options.menuType02">
+                {{#select flags.autoanimations.options.menuType02}}
+                <option value=""> </option>
+                {{#each menuTypes.static as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
         <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
             <label>{{localize "AUTOANIM.animation"}}</label>
             <select name="flags.autoanimations.options.name02" {{#if flags.autoanimations.options.enableCustom02}}
                 disabled {{/if }}>
                 {{#select flags.autoanimations.options.name02}}
-                <option value="a1"></option>
-                <option value="mistystep">{{localize "AUTOANIM.itemMistyStep"}}</option>
+                <option value=""> </option>
+                {{#each (lookup menuNames.static flags.autoanimations.options.menuType02) as |name key|}}
+                <option value="{{key}}">{{name}}</option>
+                {{/each}}
                 {{/select}}
             </select>
         </div>
@@ -1351,7 +1433,7 @@
                 disabled {{/if }}>
                 {{#select flags.autoanimations.options.variant02}}
                 <option value=""> </option>
-                {{#each (lookup variantmenu.static (lookup flags.autoanimations.options 'name02')) as |name key|}}
+                {{#each (lookup (lookup menuVariants.static flags.autoanimations.options.menuType02) flags.autoanimations.options.name02) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -1364,8 +1446,7 @@
                 {{/if }}>
                 {{#select flags.autoanimations.color02}}
                 <option value=""> </option>
-                {{#each (lookup (lookup colormenu.static (lookup flags.autoanimations.options 'name02')) (lookup
-                flags.autoanimations.options 'variant02')) as |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.options.menuType02) flags.autoanimations.options.name02) flags.autoanimations.options.variant02) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}

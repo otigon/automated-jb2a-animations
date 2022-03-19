@@ -98,14 +98,13 @@
                 <div class="aa-primary-container">
                     <div class='flexcol' style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.type'}}</label>
-                        <select name="aaAutorec.range.{{idx}}.type" {{#if ( lookup (lookup ../settings.aaAutorec.range
+                        <select name="aaAutorec.range.{{idx}}.menuType" {{#if ( lookup (lookup ../settings.aaAutorec.range
                             idx) 'custom' )}} disabled {{/if }}>
-                            {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'type')}}
+                            {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'menuType')}}
                             <option value=""></option>
-                            <option value="weapon">{{localize "AUTOANIM.itemWeapon"}}</option>
-                            <option value="spell">{{localize "AUTOANIM.itemSpell"}}</option>
-                            <option value="genericprojectile">{{localize "AUTOANIM.itemGeneric"}}
-                            </option>
+                            {{#each ../menuTypes.range as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
                             {{/select}}
                         </select>
                     </div>
@@ -116,24 +115,10 @@
                             {{#select (lookup (lookup ../settings.aaAutorec.range idx)
                             'animation')}}
                             "range"}}
-                            {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
-                            'weapon'}}
-                            {{#each ../rangeList as |name key|}}
+                            <option value=""></option>
+                            {{#each (lookup ../menuNames.range (lookup (lookup ../settings.aaAutorec.range idx) 'menuType')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
-                            {{/ifEquals}}
-                            {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
-                            'spell'}}
-                            {{#each ../spellList as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/ifEquals}}
-                            {{#ifEquals (lookup (lookup ../settings.aaAutorec.range idx) 'type')
-                            'genericprojectile'}}
-                            {{#each ../genericProjectile as |name key|}}
-                            <option value="{{key}}">{{name}}</option>
-                            {{/each}}
-                            {{/ifEquals}}
                             {{/select}}
                         </select>
                     </div>
@@ -143,8 +128,7 @@
                             ../settings.aaAutorec.range idx) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'variant')}}
                             <option value=""> </option>
-                            {{#each (lookup (lookup ../variants 'range') (lookup (lookup
-                            ../settings.aaAutorec.range idx) 'animation')) as |name key|}}
+                            {{#each (lookup (lookup ../menuVariants.range (lookup (lookup ../settings.aaAutorec.range idx) 'menuType')) (lookup (lookup ../settings.aaAutorec.range idx) 'animation')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -156,9 +140,7 @@
                             idx) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup ../settings.aaAutorec.range idx) 'color')}}
                             <option value=""> </option>
-                            {{#each (lookup (lookup (lookup ../colors 'range') (lookup (lookup
-                            ../settings.aaAutorec.range idx) 'animation')) (lookup (lookup
-                            ../settings.aaAutorec.range idx) 'variant')) as |name key|}}
+                            {{#each (lookup (lookup (lookup ../menuColors.range (lookup (lookup ../settings.aaAutorec.range idx) 'menuType')) (lookup (lookup ../settings.aaAutorec.range idx) 'animation')) (lookup (lookup ../settings.aaAutorec.range idx) 'variant')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -270,13 +252,26 @@
                 <div class="aa-section-divider"></div>
                 {{#if (lookup ( lookup (lookup ../settings.aaAutorec.range idx) 'explosion' ) 'enable') }}
                 <div class="aa-primary-container">
+                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+                        <label>{{localize 'AUTOANIM.type'}}</label>
+                        <select name="aaAutorec.range.{{idx}}.explosion.menuType" {{#if (lookup (lookup
+                            ../settings.aaAutorec.range idx) 'custom' )}} disabled {{/if }}>
+                            {{#select (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion') 'menuType')}}
+                            <option value=""></option>
+                            {{#each ../menuTypes.static as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
                     <div class='flexcol' style='grid-row: 2 / 3; grid-column: 1 / 2;'>
                         <label>{{localize 'AUTOANIM.animation'}}</label>
                         <select name="aaAutorec.range.{{idx}}.explosion.animation" {{#if (lookup ( lookup (lookup
                             ../settings.aaAutorec.range idx) 'explosion' ) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion' )
                             'animation')}}
-                            {{#each ../explosionMenu as |name key|}}
+                            <option value=""></option>
+                            {{#each (lookup ../menuNames.static (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion') 'menuType')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -289,8 +284,7 @@
                             {{#select (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion' )
                             'variant')}}
                             <option value=""> </option>
-                            {{#each (lookup (lookup ../variants 'static') (lookup (lookup (lookup
-                            ../settings.aaAutorec.range idx) 'explosion' ) 'animation')) as |name key|}}
+                            {{#each (lookup (lookup ../menuVariants.static (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion') 'menuType')) (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion') 'animation')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -302,9 +296,7 @@
                             ../settings.aaAutorec.range idx) 'explosion' ) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion') 'color')}}
                             <option value=""> </option>
-                            {{#each (lookup (lookup (lookup ../colors 'static') (lookup (lookup (lookup
-                            ../settings.aaAutorec.range idx) 'explosion') 'animation')) (lookup (lookup (lookup
-                            ../settings.aaAutorec.range idx) 'explosion') 'variant')) as |name key|}}
+                            {{#each (lookup (lookup (lookup ../menuColors.static (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion') 'menuType')) (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion') 'animation')) (lookup (lookup (lookup ../settings.aaAutorec.range idx) 'explosion') 'variant')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}

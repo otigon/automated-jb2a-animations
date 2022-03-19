@@ -24,7 +24,7 @@ function menuLists() {
         "preset": game.i18n.localize("AUTOANIM.presets"),
         "menu3d": "3D Particles",
     }
-
+    /*
     aaMenuLists.attackSpells = {
         "a1": ``,
         "chainlightning": game.i18n.localize("AUTOANIM.chainlightning"),
@@ -218,8 +218,8 @@ function menuLists() {
 
     aaMenuLists.bardAnimType = {
         'a1': ``,
-        'bardicinspiration': game.i18n.localize("AUTOANIM.bardicInspiration"),
-        'music': game.i18n.localize("AUTOANIM.musicNotes"),
+        'bardicinspiration': game.i18n.localize("AUTOANIM.bardicinspiration"),
+        'music': game.i18n.localize("AUTOANIM.musicnote"),
     }
 
     aaMenuLists.templateType = {
@@ -379,6 +379,7 @@ function menuLists() {
         "a1": ``,
         "iceshard": game.i18n.localize("AUTOANIM.iceshard"),
     }
+    */
 }
 
 export { aaMenuLists }

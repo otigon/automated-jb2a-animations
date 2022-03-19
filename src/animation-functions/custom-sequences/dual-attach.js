@@ -19,7 +19,7 @@ export async function dualAttach(handler, animationData) {
         data.itemName = data.options?.name || "";
     }
 
-    const animFile = await buildFile(false, data.itemName, "range", data.variant, data.color, data.customPath)
+    const animFile = await buildFile(false, data.menuType, data.itemName, "range", data.variant, data.color, data.customPath)
 
     if (handler.debug) { aaDebugger("Dual Attach Animation Start", animationData, animFile) }
 
