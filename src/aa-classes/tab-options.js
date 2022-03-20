@@ -36,14 +36,14 @@ export class AATabFunctions {
         const data = {
             newName: flags.animation,
             type: flags.animType || "",
-            menuType: flags.options.menuType || false,
+            menuType: flags.options?.menuType || false,
             variant: flags.options?.variant,
             color: flags.color,
             dbPath: this._dbPath(flags.animType),
         };
-        if (!data.menuType) { return; }
 
         let file = 'no preview';
+        if (!data.menuType) { return file; }
         if (!variantMenu[data.dbPath][data.menuType]) {return file;}
         const variantChoices = variantMenu[data.dbPath][data.menuType][data.newName];
         if (!variantChoices) { return file; }

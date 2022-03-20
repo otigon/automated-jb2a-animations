@@ -1,23 +1,23 @@
-Hooks.once('aa.ready', async (jb2a) => { menuOptions(jb2a) });
+Hooks.once('aa.ready', async (jb2a) => { await menuOptions(jb2a) });
 const aaTypeMenu = {};
 const aaNameMenu = {};
 const aaColorMenu = {};
 const aaVariantMenu = {};
 
-function menuOptions(database) {
+async function menuOptions(database) {
 
 const jb2a = database;
 
 const menuSets = ['range', 'return', 'melee', 'static', 'templatefx']
 
 for (let section of menuSets) {
-    aaTypeMenu[section] =       Object.keys(jb2a[section]).reduce((o, type) => ({...o, [type]: game.i18n.localize(`AUTOANIM.${type}`)}), {});
+    aaTypeMenu[section] =       Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: game.i18n.localize(`AUTOANIM.${type}`) }), {});
     aaNameMenu[section] =       Object.keys(jb2a[section]).reduce((o, type) => ({...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({...o, [name]: game.i18n.localize(`AUTOANIM.${name}`)}), {})}), {});
     aaVariantMenu[section] =    Object.keys(jb2a[section]).reduce((o, type) => ({...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({...o, [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => ({...o, [variant]: game.i18n.localize(`AUTOANIM.${variant}`)}), {})}), {})}), {});
     aaColorMenu[section] =      Object.keys(jb2a[section]).reduce((o, type) => ({...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({...o, [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => ({...o, [variant]: Object.keys(jb2a[section][type][name][variant]).reduce((o, color) => ({...o, [color]: game.i18n.localize(`AUTOANIM.${color}`)}), {})}), {})}), {})}), {});
 }
-addRandom(aaColorMenu)
-remove_Template(aaTypeMenu)
+await addRandom(aaColorMenu)
+await remove_Template(aaTypeMenu)
 
 /*
 let range = Object.keys(jb2a.range)
@@ -60,7 +60,7 @@ addRandom(aaColorMenu)
 
 export {aaTypeMenu, aaNameMenu, aaVariantMenu, aaColorMenu}
 
-function addRandom(menu) {
+async function addRandom(menu) {
     const menuSection = Object.keys(menu);
     const length = menuSection.length;
     for (var a = 0; a < length; a++) {
@@ -80,7 +80,7 @@ function addRandom(menu) {
     }
 }
 
-function remove_Template(menu) {
+async function remove_Template(menu) {
     const menuSection = Object.keys(menu);
     for (let section of menuSection) {
          delete menu[section]._template
