@@ -22,9 +22,9 @@ export async function huntersMark(handler, animationData) {
     //let target = handler.allTargets[0] || null;
 
     const animLoop = data.variant + "loop";
-    let hmPulse = data.color === 'random' ? `autoanimations.static.huntersmark.${data.variant}` : `autoanimations.static.huntersmark.${data.variant}.${data.color}`;
+    let hmPulse = data.color === 'random' ? `autoanimations.static.spell.huntersmark.${data.variant}` : `autoanimations.static.spell.huntersmark.${data.variant}.${data.color}`;
 
-    let hmLoop = data.color === 'random' ? `autoanimations.static.huntersmark.${animLoop}` : `autoanimations.static.huntersmark.${animLoop}.${data.color}`
+    let hmLoop = data.color === 'random' ? `autoanimations.static.spell.huntersmark.${animLoop}` : `autoanimations.static.spell.huntersmark.${animLoop}.${data.color}`
 
     //const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "huntersmark" }).length > 0
 

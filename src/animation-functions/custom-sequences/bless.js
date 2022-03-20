@@ -146,11 +146,11 @@ async function buildBlessFile(jb2a, baseColor) {
     {
     return items[Math.floor(Math.random()*items.length)];
     }
-    color = color === "random" ? random_item(Object.keys(aaColorMenu.static.bless['01'])) : color;
-    const file01 = `autoanimations.static.bless.01.${color}.intro`;
-    const file02 = `autoanimations.static.bless.01.${color}.loop`;
-    const ctaFile01 = jb2a.static.bless['01'][color]["intro"];
-    const ctaFile02 = jb2a.static.bless['01'][color]["loop"];
+    color = color === "random" ? random_item(Object.keys(aaColorMenu.static.spell.bless['01'])) : color;
+    const file01 = `autoanimations.static.spell.bless.01.${color}.intro`;
+    const file02 = `autoanimations.static.spell.bless.01.${color}.loop`;
+    const ctaFile01 = jb2a.static.spell.bless['01'][color]["intro"];
+    const ctaFile02 = jb2a.static.spell.bless['01'][color]["loop"];
 
     let metadata = await getVideoDimensionsOf(ctaFile01);
     let metadata2 = await getVideoDimensionsOf(ctaFile02);

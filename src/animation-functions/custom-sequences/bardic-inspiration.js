@@ -30,12 +30,12 @@ export async function bardicInspiration(handler, animationData) {
 
     if (handler.debug) { aaDebugger("Bardic Inspiration Animation Start", data) }
 
-    const selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.selfMarkerColor}`;
-    const targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.bardicinspiration.marker` : `autoanimations.static.bardicinspiration.marker.${data.targetMarkerColor}`
-    const selfMusicPath = data.selfColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${data.selfColor}`
-    const targetMusicPath = data.targetColor === "random" ? `autoanimations.static.music.01` : `autoanimations.static.music.01.${data.targetColor}`
-    const selfBIPath = data.selfColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${data.selfColor}`
-    const targetBIPath = data.targetColor === "random" ? `autoanimations.static.bardicinspiration.inspire` : `autoanimations.static.bardicinspiration.inspire.${data.targetColor}`
+    const selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.spell.bardicinspiration.marker` : `autoanimations.static.spell.bardicinspiration.marker.${data.selfMarkerColor}`;
+    const targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.spell.bardicinspiration.marker` : `autoanimations.static.spell.bardicinspiration.marker.${data.targetMarkerColor}`
+    const selfMusicPath = data.selfColor === "random" ? `autoanimations.static.music.notes.01` : `autoanimations.static.music.notes.01.${data.selfColor}`
+    const targetMusicPath = data.targetColor === "random" ? `autoanimations.static.music.notes.01` : `autoanimations.static.music.notes.01.${data.targetColor}`
+    const selfBIPath = data.selfColor === "random" ? `autoanimations.static.spell.bardicinspiration.inspire` : `autoanimations.static.spell.bardicinspiration.inspire.${data.selfColor}`
+    const targetBIPath = data.targetColor === "random" ? `autoanimations.static.spell.bardicinspiration.inspire` : `autoanimations.static.spell.bardicinspiration.inspire.${data.targetColor}`
 
     let aaSeq = await new Sequence("Automated Animations")
 
