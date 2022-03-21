@@ -2,11 +2,12 @@ import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-data
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
 
-import { manageActiveEffects5e } from "./active-effects/ae5e.js";
+import { deleteActiveEffects5e, toggleActiveEffects5e, createActiveEffects5e } from "./active-effects/ae5e.js";
 
 import systemData from "./system-handlers/system-data.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
+import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
 import aaSettings from "./settings.js";
 
 import { teleportation } from "./animation-functions/teleportation.js";
@@ -63,7 +64,8 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/levels3d.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html'
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html',
+        'modules/autoanimations/src/active-effects/aeMenus/animations.html'
     ]);
 
 })
@@ -77,6 +79,20 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
     aaBtn.click(async ev => {
         await flagMigrations.handle(app.document);
         new AAItemSettings(app.document, {}).render(true);
+    });
+    html.closest('.app').find('.aa-item-settings').remove();
+    let titleElement = html.closest('.app').find('.window-title');
+    aaBtn.insertAfter(titleElement);
+});
+
+Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
+    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
+        return;
+    }
+    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
+    aaBtn.click(async ev => {
+        await flagMigrations.handle(app.document);
+        new AAActiveEffectMenu(app.document, {}).render(true);
     });
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
@@ -123,8 +139,9 @@ Hooks.once('ready', function () {
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
             Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
         }
-        Hooks.on("deleteActiveEffect", (data) => {manageActiveEffects5e(data) });
-        Hooks.on("updateActiveEffect", (data) => {manageActiveEffects5e(data) });
+        Hooks.on("createActiveEffect", (data) => {createActiveEffects5e(data) });
+        Hooks.on("deleteActiveEffect", (data) => {deleteActiveEffects5e(data) });
+        Hooks.on("updateActiveEffect", (data, toggle) => {toggleActiveEffects5e(data, toggle) });
 
     } else {
         switch (game.system.id) {

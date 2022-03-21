@@ -14,9 +14,9 @@ export async function staticAnimation(handler, animationData) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
-    console.log(data)
+
     const onToken = await buildFile(true, data.menuType, data.animation, "static", data.variant, data.color, data.customPath);
-    console.log(onToken)
+
     if (handler.debug) { aaDebugger("Static Animation Start", animationData, onToken) }
 
     //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
@@ -41,7 +41,7 @@ export async function staticAnimation(handler, animationData) {
     let sourceTokenGS = sourceToken.width / canvas.grid.size;
     let explosionSound = false;
     if (data.staticType === "source" || data.staticType === "sourcetarget" || (data.staticType === "targetDefault" && handler.allTargets.length < 1)) {
-        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         const playPersist = (!checkAnim && data.persistent) ? true : false;
         if (data.isShieldFX) {
             let bottomEffect = aaSeq.effect();
@@ -55,7 +55,7 @@ export async function staticAnimation(handler, animationData) {
             bottomEffect.fadeIn(250)
             bottomEffect.fadeOut(500)
             if (!data.persistent) { bottomEffect.atLocation(sourceToken) }
-            if (playPersist) { bottomEffect.attachTo(sourceToken); bottomEffect.persist(true); bottomEffect.origin(handler.item.uuid) }
+            if (playPersist) { bottomEffect.attachTo(sourceToken); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
             if (checkAnim) { bottomEffect.playIf(false); }
 
             let topEffect = aaSeq.effect();
@@ -68,7 +68,7 @@ export async function staticAnimation(handler, animationData) {
             topEffect.fadeIn(250)
             topEffect.fadeOut(500)
             if (!data.persistent) { topEffect.atLocation(sourceToken) }
-            if (playPersist) { topEffect.attachTo(sourceToken); topEffect.persist(true); topEffect.origin(handler.item.uuid) }
+            if (playPersist) { topEffect.attachTo(sourceToken); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
             if (checkAnim) { topEffect.playIf(false); }
 
         } else {
@@ -82,7 +82,7 @@ export async function staticAnimation(handler, animationData) {
             aaEffect.fadeIn(250)
             aaEffect.fadeOut(500)
             if (!data.persistent) { aaEffect.atLocation(sourceToken) }
-            if (playPersist) { aaEffect.attachTo(sourceToken); aaEffect.persist(true); aaEffect.origin(handler.item.uuid) }
+            if (playPersist) { aaEffect.attachTo(sourceToken); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
             if (checkAnim) { aaEffect.playIf(false); }
 
         }
@@ -106,7 +106,7 @@ export async function staticAnimation(handler, animationData) {
         //let target = handler.allTargets[i]
         for (let target of handler.allTargets) {
             let targetTokenGS = target.width / canvas.grid.size
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? true : false;
@@ -127,7 +127,7 @@ export async function staticAnimation(handler, animationData) {
                     bottomEffect.fadeIn(250)
                     bottomEffect.fadeOut(500)
                     if (!data.persistent) { bottomEffect.atLocation(target); bottomEffect.missed(!hit) }
-                    else { bottomEffect.attachTo(target); bottomEffect.persist(true); bottomEffect.origin(handler.item.uuid) }
+                    else { bottomEffect.attachTo(target); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
 
                     let topEffect = aaSeq.effect();
                     topEffect.file(onToken.fileData)
@@ -139,7 +139,7 @@ export async function staticAnimation(handler, animationData) {
                     topEffect.fadeIn(250)
                     topEffect.fadeOut(500)
                     if (!data.persistent) { topEffect.atLocation(target); topEffect.missed(!hit) }
-                    else { topEffect.attachTo(target); topEffect.persist(true); topEffect.origin(handler.item.uuid) }
+                    else { topEffect.attachTo(target); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
 
                 } else {
                     let effectScale = data.animation === 'bite' || data.animation === 'claw' ? sourceTokenGS : targetTokenGS
@@ -155,7 +155,7 @@ export async function staticAnimation(handler, animationData) {
                     aaEffect.fadeIn(250)
                     aaEffect.fadeOut(500)
                     if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit) }
-                    else { aaEffect.attachTo(target); aaEffect.persist(true); aaEffect.origin(handler.item.uuid) }
+                    else { aaEffect.attachTo(target); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
                 }
 
                 if (data.explosion.enabled) {

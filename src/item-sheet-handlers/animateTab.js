@@ -30,7 +30,7 @@ export class AAItemSettings extends FormApplication {
 
         const patreon = moduleIncludes("jb2a_patreon");
         const itemNameItem = this.object.name?.toLowerCase() ?? "";
-        const oldName = this.object.name;
+        const oldName = this.object.name || this.object.sourceName;
         const itemNameFlag = flags.autoanimations?.animation?.toLowerCase() ?? "";
 
         const override = flags.autoanimations?.override;
@@ -79,7 +79,7 @@ export class AAItemSettings extends FormApplication {
 
         return {
             flags: this.object.data.flags,
-
+            isActiveEffect: false,
             OldName: oldName,
 
             menuTypes: aaTypeMenu,

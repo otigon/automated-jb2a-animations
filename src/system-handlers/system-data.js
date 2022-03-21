@@ -32,9 +32,14 @@ export default class systemData {
 
         this.reachCheck = data.reach || 0;
         this.item = data.item;
+        this.itemUuid = this.item?.uuid;
+        if (this.systemId === 'dnd5e' && this.item?.uuid?.includes("ActiveEffect")) {
+            this.itemUuid = this.item.data?.origin
+        }
+
         this.hasAttack = this.item?.hasAttack ?? false;
         this.hasDamage = this.item?.hasDamage ?? false;
-        this.itemName = this.item.name?.toLowerCase() ?? "";
+        this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
         this.itemType = this.item.data?.type?.toLowerCase() ?? "";
 
