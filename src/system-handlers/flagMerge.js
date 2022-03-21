@@ -560,7 +560,7 @@ export const flagMigrations = {
                                 break;
                             case generic.some(el => v4Flags.animation === el):
                                 options.menuType = 'generic';
-                                if (v4Flags.animation.includes('outpulse')) {
+                                if (v4Flags.animation?.includes('outpulse')) {
                                     options.variant = v4Flags.animation === 'outpulse02' ? '02' : '01';
                                     v4Flags.animation = 'outpulse';
                                 }
@@ -747,7 +747,7 @@ export const flagMigrations = {
                                             break;
                                         case generic.some(el => fireSettings.explosion01 === el):
                                             fireSettings.ex01Type = 'generic';
-                                            if (fireSettings.explosion01.includes('outpulse')) {
+                                            if (fireSettings.explosion01?.includes('outpulse')) {
                                                 fireSettings.explosion01 = 'outpulse';
                                                 fireSettings.explosion01Variant = fireSettings.explosion01Variant === 'outpulse02' ? '02' : '01';
                                             }
@@ -779,7 +779,7 @@ export const flagMigrations = {
                                             break;
                                         case generic.some(el => fireSettings.explosion02 === el):
                                             fireSettings.ex02Type = 'generic';
-                                            if (fireSettings.explosion02.includes('outpulse')) {
+                                            if (fireSettings.explosion02?.includes('outpulse')) {
                                                 fireSettings.explosion02 = 'outpulse';
                                                 fireSettings.explosion02Variant = fireSettings.explosion02Variant === 'outpulse02' ? '02' : '01';
                                             }
@@ -821,7 +821,7 @@ export const flagMigrations = {
                                 break;
                             case generic.some(el => flags.animation === el):
                                 flags.menuType = 'generic';
-                                if (flags.animation.includes('outpulse')) {
+                                if (flags.animation?.includes('outpulse')) {
                                     flags.animation = 'outpulse';
                                     flags.variant = flags.variant === 'outpulse02' ? '02' : '01';
                                 }
@@ -855,10 +855,10 @@ export const flagMigrations = {
                 const fireball = ['fireballexplode']
 
                 switch (true) {
-                    case flags.name.includes('dizzystars'):
+                    case flags.name?.includes('dizzystars'):
                         flags.menuType = 'conditions';
                         break;
-                    case flags.name.includes('eruption'):
+                    case flags.name?.includes('eruption'):
                         flags.menuType = 'fire';
                         break;
                     case generic.some(el => flags.name === el):
@@ -867,11 +867,11 @@ export const flagMigrations = {
                     case ice.some(el => flags.name === el):
                         flags.menuType = 'ice';
                         break;
-                    case flags.name.includes('liquidsplash'):
+                    case flags.name?.includes('liquidsplash'):
                         flags.menuType = 'liquid';
                         flags.name = 'splash';
                         break;
-                    case flags.name.includes('magicSign'):
+                    case flags.name?.includes('magicSign'):
                         flags.menuType = 'magicsign';
                         switch (flags.color) {
                             case 'blue':
@@ -885,7 +885,7 @@ export const flagMigrations = {
                         }
                         flags.variant = '01';
                         break;
-                    case flags.name.includes('marker'):
+                    case flags.name?.includes('marker'):
                         flags.menuType = 'marker';
                         if (flags.name === 'circleofstars') { }
                         else if (flags.name === 'energystrand') {

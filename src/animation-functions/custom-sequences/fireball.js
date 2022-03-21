@@ -15,9 +15,9 @@ export async function fireball(handler, animationData, config) {
         const autoOverrideAfter = flags.autoOverride?.fireball?.afterEffect ?? false;
         const autoFireball = flags.autoOverride?.fireball ?? {};
 
-        data.rangeType = autoFireball.rangeType;
-        data.ex01Type = autoFireball.ex01Type;
-        data.ex02Type = autoFireball.ex02Type
+        data.rangeType = autoOverridden ? autoFireball.rangeType : data.rangeType;
+        data.ex01Type = data.ex01Type;
+        data.ex02Type = data.ex02Type
 
         data.projectile = autoOverridden ? autoFireball.projectile : data.projectile;
         data.projectileVariant = autoFireball ? autoFireball.projectileVariant : data.projectilVariant ?? "01";

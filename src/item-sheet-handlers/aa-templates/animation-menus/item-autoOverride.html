@@ -288,6 +288,7 @@
             <label>{{localize 'AUTOANIM.animation'}}</label>
             <select name="flags.autoanimations.autoOverride.fireball.rangeType">
                 {{#select flags.autoanimations.autoOverride.fireball.rangeType}}
+                <option value=""> </option>
                 {{#each menuTypes.range as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
@@ -367,7 +368,7 @@
 <div class="aa-itemSection-divider">
     <div class="aa-options-odd aa-options-settings">
         <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
-            <label>{{localize 'AUTOANIM.explosion'}} 02 {{localize 'AUTOANIM.color'}}</label>
+            <label>{{localize 'AUTOANIM.color'}}</label>
             <select name="flags.autoanimations.autoOverride.fireball.explosion02Color">
                 {{#select flags.autoanimations.autoOverride.fireball.explosion02Color}}
                 <option value=""> </option>

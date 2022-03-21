@@ -918,6 +918,7 @@
             <label>{{localize 'AUTOANIM.animation'}}: </label>
             <select name="flags.autoanimations.fireball.projectile">
                 {{#select flags.autoanimations.fireball.projectile }}
+                <option value=""> </option>
                 {{#each (lookup menuNames.range flags.autoanimations.fireball.rangeType) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}

@@ -43,7 +43,8 @@ export async function meleeAnimation(handler, animationData) {
     if (handler.debug) { aaDebugger("Melee Animation Start", animationData, attack) }
 
     const sourceToken = handler.sourceToken;
-    const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
+    //const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
+    const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 4;
 
     async function cast() {
 
@@ -128,7 +129,7 @@ export async function meleeAnimation(handler, animationData) {
                         .file(attack.file)
                         .atLocation(sourceToken)
                         .moveTowards(target)
-                        .scale(sourceScale * data.scale)
+                        .size(sourceTokenGS * data.scale, {gridUnits: true})
                         .repeats(data.repeat, data.delay)
                         .randomizeMirrorY()
                         .missed(!hit)
@@ -139,7 +140,7 @@ export async function meleeAnimation(handler, animationData) {
                         .file(attack.file)
                         .atLocation(sourceToken)
                         .rotateTowards(target)
-                        .scale(sourceScale * data.scale)
+                        .size(sourceTokenGS * data.scale, {gridUnits: true})
                         .repeats(data.repeat, data.delay)
                         .randomizeMirrorY()
                         .missed(!hit)
