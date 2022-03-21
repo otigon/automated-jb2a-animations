@@ -139,10 +139,6 @@ Hooks.once('ready', function () {
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
             Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
         }
-        Hooks.on("createActiveEffect", (data) => {createActiveEffects5e(data) });
-        Hooks.on("deleteActiveEffect", (data) => {deleteActiveEffects5e(data) });
-        Hooks.on("updateActiveEffect", (data, toggle) => {toggleActiveEffects5e(data, toggle) });
-
     } else {
         switch (game.system.id) {
             case "pf1":
@@ -155,6 +151,9 @@ Hooks.once('ready', function () {
                     setUp5eCore
                         (msg);
                 });
+                Hooks.on("createActiveEffect", (data) => {createActiveEffects5e(data) });
+                Hooks.on("deleteActiveEffect", (data) => {deleteActiveEffects5e(data) });
+                Hooks.on("updateActiveEffect", (data, toggle) => {toggleActiveEffects5e(data, toggle) });        
                 break;
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
