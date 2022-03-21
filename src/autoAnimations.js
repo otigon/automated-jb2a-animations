@@ -2,6 +2,8 @@ import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-data
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
 
+import { manageActiveEffects5e } from "./active-effects/ae5e.js";
+
 import systemData from "./system-handlers/system-data.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
@@ -121,6 +123,8 @@ Hooks.once('ready', function () {
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
             Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
         }
+        Hooks.on("deleteActiveEffect", (data) => {manageActiveEffects5e(data) });
+        Hooks.on("updateActiveEffect", (data) => {manageActiveEffects5e(data) });
 
     } else {
         switch (game.system.id) {
