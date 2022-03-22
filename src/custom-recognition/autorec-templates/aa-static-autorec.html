@@ -102,6 +102,7 @@
                         <select name="aaAutorec.static.{{idx}}.type">
                             {{#select (lookup (lookup ../settings.aaAutorec.static idx)
                             'type')}}
+                            <option value=""></option>
                             <option value="source">{{localize "AUTOANIM.source"}}</option>
                             <option value="target">{{localize "AUTOANIM.target"}}</option>
                             <option value="targetDefault">{{localize "AUTOANIM.targetDefault"}}

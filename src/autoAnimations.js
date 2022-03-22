@@ -65,7 +65,8 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/levels3d.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html',
-        'modules/autoanimations/src/active-effects/aeMenus/ae-animations.html'
+        'modules/autoanimations/src/active-effects/aeMenus/ae-animations.html',
+        'modules/autoanimations/src/active-effects/aeMenus/ae-autorecMenu.html'
     ]);
 
 })
