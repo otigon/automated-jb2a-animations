@@ -45,6 +45,7 @@ export async function toggleActiveEffects5e(effect, toggle) {
         console.log(aeItem)
         console.log(aeToken)
         let handler = AutoAnimations.playAnimation(aeToken, [], aeItem);
+
         if (!handler.item || !handler.sourceToken) {
             return;
         }

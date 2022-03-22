@@ -90,7 +90,10 @@ export async function trafficCop(handler) {
 
     //const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(isAutorec)
     if (isCustom || (isAutorec && !game.settings.get("autoanimations", "disableAutoRec"))) {
-        const animType = isCustom ? handler.animType : isAutorec.menuSection;
+        let animType = isCustom ? handler.animType : isAutorec.menuSection;
+        if (!isCustom && animType === 'aefx') {
+            animType = isAutorec.aeType;
+        }
         const presetType = isCustom ? handler.flags?.animation : isAutorec.animation;
         const targets = handler.allTargets?.length ?? 0;
         const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(handler, isAutorec);

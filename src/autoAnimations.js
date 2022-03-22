@@ -307,6 +307,7 @@ class AutoAnimations {
             ...options
         }
         let handler = await systemData.make(null, null, data)
+        console.log(handler)
         trafficCop(handler);
     }
 }
