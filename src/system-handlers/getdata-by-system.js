@@ -320,6 +320,25 @@ export class AASystemData {
 
     }
 
+    static async alienrpg(input) {
+        const inputAtr = this._extractItemId(input.data?.content);
+        let itemId = inputAtr;
+        //console.log(itemId);
+        //const tokenId = input.data?.speaker?.token;
+        if (!itemId) { return {}; }
+
+        const token = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+        //console.log(token)
+        if (!token) { return {}; }
+        let item = token.actor?.items?.get(itemId) || await fromUuid(`Item.${itemId}`);
+
+        if (!item) return {};
+
+        const targets = Array.from(input.user.targets);
+
+        return { item, token, targets };
+    }
+
     static _extractItemId(content) {
         try {
             return $(content).attr("data-item-id");

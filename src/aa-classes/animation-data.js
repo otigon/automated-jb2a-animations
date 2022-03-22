@@ -207,7 +207,7 @@ export class AAanimationData {
                 detect: meleeSwitch.detect ?? "auto",
                 return: meleeSwitch.returning || false,
                 switchVariant: meleeSwitch.variant ?? "01",
-                switchMenuType: meleeSwitch.menuType || false,
+                switchMenuType: meleeSwitch.menuType || "weapon",
                 range: meleeSwitch.range ?? 2,
                 switchAudio: {
                     enable: flags.audio?.a02?.enable || false,

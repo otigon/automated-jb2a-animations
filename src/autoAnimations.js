@@ -124,6 +124,9 @@ Hooks.once('ready', function () {
 
     } else {
         switch (game.system.id) {
+            case "alienrpg":
+                Hooks.on("createChatMessage", async (msg) => { setupAlienRPG(msg) });
+                break;
             case "pf1":
             case "D35E":
                 Hooks.on("createChatMessage", async (msg) => { onCreateChatMessage(msg) });
@@ -722,6 +725,16 @@ async function wfrpSkill(data, info) {
 }
 */
 async function oseReady(input) {
+    if (killAllAnimations) { return; }
+    if (input.user.id !== game.user.id) { return };
+    let handler = await systemData.make(input)
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    trafficCop(handler);
+}
+
+async function setupAlienRPG(input) {
     if (killAllAnimations) { return; }
     if (input.user.id !== game.user.id) { return };
     let handler = await systemData.make(input)
