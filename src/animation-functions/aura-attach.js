@@ -23,6 +23,11 @@ export async function auras(handler, animationData) {
     const aura = await buildFile(true, data.menuType, data.animation, "static", data.variant, data.color, data.customPath);
 
     if (handler.debug) { aaDebugger("Aura Animation Start", animationData, aura) }
+    
+    if (handler.isActiveEffect) {
+        await wait(data.aeDelay)
+    }
+
     if (handler.allTargets.length === 0 || data.ignoreTargets) {
         selfAura()
     } else {
@@ -32,7 +37,7 @@ export async function auras(handler, animationData) {
 
     async function selfAura() {
         const randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
-        let checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+        let checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         //let playPersist = !checkAnim ? true : false;
         let aaSeq = new Sequence()
         if (data.playMacro && data.macro.playWhen === "1") {
@@ -44,7 +49,7 @@ export async function auras(handler, animationData) {
             aaSeq.addSequence(sourceFX.sourceSeq)
             aaSeq.effect()
                 .persist()
-                .origin(handler.item.uuid)
+                .origin(handler.itemUuid)
                 .size(data.size, { gridUnits: true })
                 .belowTokens(data.below)
                 .file(aura.file)
@@ -80,13 +85,13 @@ export async function auras(handler, animationData) {
         }
         aaSeq.addSequence(sourceFX.sourceSeq)
         for (let target of handler.allTargets) {
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
 
             if (!checkAnim) {
                 aaSeq.effect()
                     .attachTo(target)
                     .persist()
-                    .origin(handler.item.uuid)
+                    .origin(handler.itemUuid)
                     .name(`${target.name}-${handler.itemName}`)
                     .size(data.size, { gridUnits: true })
                     .belowTokens(data.below)

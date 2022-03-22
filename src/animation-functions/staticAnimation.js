@@ -21,7 +21,9 @@ export async function staticAnimation(handler, animationData) {
 
     //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;
-
+    if (handler.isActiveEffect) {
+        await wait(data.aeDelay)
+    }
     let aaSeq = await new Sequence("Automated Animations")
     const bottomAnim = onToken.fileData.replace('Above', 'Below')
 
@@ -95,6 +97,7 @@ export async function staticAnimation(handler, animationData) {
                 .delay(data.explosion?.delay)
                 .repeats(data.repeat, data.delay)
                 .belowTokens(data.explosion?.below)
+                .fadeOut(500)
                 .playIf(data.explosion?.enabled)
         }
         explosionSound = true;

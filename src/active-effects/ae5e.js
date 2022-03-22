@@ -44,7 +44,7 @@ export async function toggleActiveEffects5e(effect, toggle) {
         const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(aeItem.id))
         console.log(aeItem)
         console.log(aeToken)
-        let handler = AutoAnimations.playAnimation(aeToken, Array.from(game.user.targets), aeItem);
+        let handler = AutoAnimations.playAnimation(aeToken, [], aeItem);
         if (!handler.item || !handler.sourceToken) {
             return;
         }

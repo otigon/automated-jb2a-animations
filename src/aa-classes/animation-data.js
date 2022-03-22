@@ -66,6 +66,7 @@ export class AAanimationData {
             data.enableCustom02 = data.custom02 || false;
             data.customPath = data.custom ? data.customPath : false;
             data.customPath02 = data.custom02 ? data.customPath02 : false;
+            data.aeDelay = data.aeDelay || 250,
 
             data.staticType = data.type || "targetDefault";
             data.color = autoOverridden ? handler.autorecOverrides?.color : data.color;
@@ -158,6 +159,7 @@ export class AAanimationData {
                 below: flags.animLevel || false,
 
                 options: options,
+                aeDelay: options.aeDelay || 250,
                 variant: options.variant || "01",
                 variant02: options.variant02 || "01",
                 repeat: options.repeat || 1,

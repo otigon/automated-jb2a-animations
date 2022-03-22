@@ -29,7 +29,8 @@ export class AAActiveEffectMenu extends FormApplication {
 
         const patreon = moduleIncludes("jb2a_patreon");
         const itemNameItem = this.object.name?.toLowerCase() ?? "";
-        const oldName = this.object.name || this.object.sourceName;
+        const oldName = this.object.data?.label;
+        console.log(oldName)
         const itemNameFlag = flags.autoanimations?.animation?.toLowerCase() ?? "";
 
         const override = flags.autoanimations?.override;
@@ -44,15 +45,7 @@ export class AAActiveEffectMenu extends FormApplication {
                 break;
         }
 
-        const switchName = flags.autoanimations?.meleeSwitch?.animation ?? "";
-
-        const levels3d = game.modules.get("levels-3d-preview")?.active;
         const animType = flags.autoanimations?.animType;
-        const templateType = flags.autoanimations?.options?.tempType ?? "";
-
-        //const animationRepeat = flags.autoanimations?.options?.repeat > 50 ? 50 : flags.autoanimations?.options?.repeat;
-        //const explosionLoops = flags.autoanimations?.explosions?.repeat > 50 ? 50 : flags.autoanimations?.explosions?.repeat;
-        const returnWeapons = ["dagger", "hammer", "greatsword", "chakram"];
 
         const autoCheck = AutorecFunctions._checkAutoRec(oldName);
         const autoObject = autoCheck ? AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
@@ -124,18 +117,27 @@ export class AAActiveEffectMenu extends FormApplication {
         html.find('.aa-checkbox-label input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        html.find('.aa-itemSection-divider select').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+        html.find('.aa-itemSection-divider input[type="checkbox"]').change(evt => {
+            this.submit({ preventClose: true }).then(() => this.render());
+        });
+
+        /*
         html.find('.aa-menus input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         html.find('.animation-disabled input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
-        });
+        })*/
         html.find('.animation-not-disabled input[type="Number"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        /*
         html.find('.animation-not-disabled input[type="color"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
-        });
+        })
         html.find('.pre-post-animations select').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
@@ -145,6 +147,7 @@ export class AAActiveEffectMenu extends FormApplication {
         html.find('.pre-post-animations input[type="checkbox"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
+        */
         html.find('.files').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
         });
@@ -156,28 +159,6 @@ export class AAActiveEffectMenu extends FormApplication {
             this.submit({ preventClose: true }).then(() => this.render());
         });
         */
-        html.find('.sourceOptions input[type="checkbox"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.sourceOptions select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.sourceOptions input[type="Number"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-
-        html.find('.particles input[type="color"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.particles input[type="Number"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.particles select').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
-        html.find('.particles input[type="checkbox"]').change(evt => {
-            this.submit({ preventClose: true }).then(() => this.render());
-        });
     }
 
     async _updateObject(event, formData) {

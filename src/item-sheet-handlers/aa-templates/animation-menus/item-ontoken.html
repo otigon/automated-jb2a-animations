@@ -122,11 +122,25 @@
             <input type="Number" name="flags.autoanimations.options.opacity" min="0" max="1" step=".01"
                 value="{{flags.autoanimations.options.opacity}}" placeholder=1>
         </div>
+        {{#if isActiveEffect}}
+        <div class="flexcol" style='grid-row: 2 / 3; grid-column: 2 / 3;'>
+            <label>{{localize "AUTOANIM.delay"}} {{localize "AUTOANIM.start"}}</label>
+            <input type="Number" name="flags.autoanimations.options.aeDelay" min="0" max="1" step=".01"
+                value="{{flags.autoanimations.options.aeDelay}}" placeholder=250>
+        </div>
+        <div class="flexcol" style='grid-row: 2 / 3; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.persistant"}}?</label>
+            <input type="checkbox" name="flags.autoanimations.options.persistent" {{checked
+                flags.autoanimations.options.persistent}}>
+        </div>
+        {{/if}}
+        {{#unless isActiveEffect}}
         <div class="flexcol" style='grid-row: 2 / 3; grid-column: 2 / 4;'>
             <label>{{localize "AUTOANIM.persistant"}}?</label>
             <input type="checkbox" name="flags.autoanimations.options.persistent" {{checked
                 flags.autoanimations.options.persistent}}>
         </div>
+        {{/unless}}
     </div>
     <div class='aa-checkbox-label' style="text-align: center;">
         <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>

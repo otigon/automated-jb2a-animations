@@ -56,49 +56,38 @@
             <input type="checkbox" name="flags.autoanimations.override" value="flags.autoanimations.override"
                 data-dtype="{{Boolean}}" {{checked flags.autoanimations.override}} />
         </div>
-        {{#unless flags.autoanimations.override}}
-        {{#if autoRecognized}}
-        <!--If auto-recognized, Animation name will be listed here-->
-        <div class="form-group auto-recognized" style='grid-column: 1 / 2;grid-row: 6 / 7;'>
-            <label><strong>{{OldName}}</strong> {{localize "AUTOANIM.autorecognized"}} </label>
-        </div>
-        <div class="form-group" style='grid-column: 1 / 2;grid-row: 7 / 8;'>
-            <label style='text-align: left;'><strong>{{localize "AUTOANIM.overrideauto"}}</strong></label>
-            <div class="aa-divider"></div>
-            <input type="checkbox" name="flags.autoanimations.autoOverride.enable"
-                value="flags.autoanimations.autoOverride.enable" {{checked flags.autoanimations.autoOverride.enable}}>
-        </div>
-        {{/if}}
-        {{/unless}}
         {{/unless}}
     </div>
 </div>
-{{#unless flags.autoanimations.override}}
-{{#unless flags.autoanimations.killAnim}}
-{{#if flags.autoanimations.autoOverride.enable}}
-<div class='animation-not-disabled'>
-    <div style='padding:6px'>
-
-    </div>
-    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-autoOverride.html' }}
-    <div style='padding:6px'>
-
-    </div>
-</div>
-{{/if}}
-{{/unless}}
-{{/unless}}
 
 {{#unless flags.autoanimations.killAnim}}
 {{#if flags.autoanimations.override}}
-<div class='flexcol' style='display:none'>
-    <input type="text" class="files" name="flags.autoanimations.animType"
-    value="static">
-</div>
-<div class='animation-not-disabled'>
-    {{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ontoken.html' }}
+<!--Choose the Animation Type-->
+<div class="aa-options-even aa-options-settings animation-not-disabled">
+    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 4;'>
+        <label style='font-size: large;'><strong>{{localize "AUTOANIM.animation"}} {{localize
+                "AUTOANIM.type"}}</strong></label>
+        <select style='text-align: center;' name="flags.autoanimations.animType">
+            {{#select flags.autoanimations.animType}}
+            <option value="static">{{localize "AUTOANIM.onToken"}}</option>
+            <option value="aura">{{localize "AUTOANIM.typeAuras"}}</option>
+            {{/select}}
+        </select>
+    </div>
 </div>
 {{/if}}
+{{/unless}}
+
+{{#unless flags.autoanimations.killAnim}}
+
+{{#if static}}
+{{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ontoken.html' }}
+{{/if}}
+
+{{#if aura}}
+{{> 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-auras.html' }}
+{{/if}}
+
 {{/unless}}
 
 

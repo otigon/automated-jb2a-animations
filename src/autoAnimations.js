@@ -65,7 +65,7 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/levels3d.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html',
-        'modules/autoanimations/src/active-effects/aeMenus/animations.html'
+        'modules/autoanimations/src/active-effects/aeMenus/ae-animations.html'
     ]);
 
 })
@@ -151,9 +151,6 @@ Hooks.once('ready', function () {
                     setUp5eCore
                         (msg);
                 });
-                Hooks.on("createActiveEffect", (data) => {createActiveEffects5e(data) });
-                Hooks.on("deleteActiveEffect", (data) => {deleteActiveEffects5e(data) });
-                Hooks.on("updateActiveEffect", (data, toggle) => {toggleActiveEffects5e(data, toggle) });        
                 break;
             case "tormenta20":
                 Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
@@ -281,7 +278,13 @@ Hooks.once('ready', function () {
                 break;
         }
     }
-
+    switch (game.system.id) {
+        case "dnd5e":
+            Hooks.on("createActiveEffect", (data) => {createActiveEffects5e(data) });
+            Hooks.on("deleteActiveEffect", (data) => {deleteActiveEffects5e(data) });
+            Hooks.on("updateActiveEffect", (data, toggle) => {toggleActiveEffects5e(data, toggle) });        
+        break;
+    }
     Hooks.callAll("aa.ready", obj01)
 });
 
