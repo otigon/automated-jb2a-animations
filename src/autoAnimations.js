@@ -30,13 +30,13 @@ Hooks.on('init', () => {
         return options.inverse(this);
     });
     Handlebars.registerHelper('matchOverhead', function (autoObj, options) {
-        if (autoObj.persist && (autoObj.type === 'circle' || autoObj.type === 'rect')) {
+        if (autoObj.persist && (autoObj.menuType === 'circle' || autoObj.menuType === 'square')) {
             return options.fn(this);
         }
         return options.inverse(this);
     });
     Handlebars.registerHelper('sequencerOnly', function (autoObj, options) {
-        if (autoObj.persist && (autoObj.type === 'ray' || autoObj.type === 'cone')) {
+        if (autoObj.persist && (autoObj.menuType === 'ray' || autoObj.menuType === 'cone')) {
             return options.fn(this);
         }
         return options.inverse(this);

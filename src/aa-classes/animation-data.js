@@ -317,7 +317,7 @@ export class AAanimationData {
             },
         }
 
-        if (source.enable && source.name === "a1" && !source.enableCustom) {
+        if (source.enable && (source.name === "a1" || !source.name) && !source.enableCustom) {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
@@ -377,7 +377,7 @@ export class AAanimationData {
             },
         }
 
-        if (target.enable && target.name === "a1" && !target.enableCustom) {
+        if (target.enable && (target.name === "a1" || !target.name) && !target.enableCustom) {
             targetFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
