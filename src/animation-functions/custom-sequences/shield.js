@@ -48,11 +48,11 @@ export async function shieldSpell(handler, animationData) {
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
 
     if (handler.debug) { aaDebugger("Shield Animation Start", animationData, onToken) }
+    const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
 
     const sourceScale = sourceToken.w;
-    let scale = ((sourceScale / onToken.metadata.width) * 1.75) * data.scale
-    const gridSize = canvas.grid.size;
 
+    const sourceTokenGS = sourceToken.width / canvas.grid.size;
 
     async function cast() {
         let aaSeq = await new Sequence()
@@ -74,13 +74,13 @@ export async function shieldSpell(handler, animationData) {
         })
         aaSeq.effect()
             .file(onToken.file01)
-            .scale(scale)
+            .size(sourceTokenGS * 1.75 * data.scale, {gridUnits: true})
             .atLocation(sourceToken)
             .belowTokens(data.below)
             .waitUntilFinished(-500)
         let persistSwitch = aaSeq.effect();
         persistSwitch.file(onToken.file02)
-        persistSwitch.scale(scale)
+        persistSwitch.size(sourceTokenGS * 1.75 * data.scale, {gridUnits: true})
         persistSwitch.atLocation(sourceToken)
         persistSwitch.belowTokens(data.below)
         persistSwitch.fadeIn(300)
@@ -91,7 +91,7 @@ export async function shieldSpell(handler, animationData) {
         persistSwitch.waitUntilFinished(-1000)
         aaSeq.effect()
             .file(onToken.file03)
-            .scale(scale)
+            .size(sourceTokenGS * 1.75 * data.scale, {gridUnits: true})
             .belowTokens(data.below)
             .atLocation(sourceToken)
         if (data.playMacro && data.macro.playWhen === "0") {
@@ -103,7 +103,9 @@ export async function shieldSpell(handler, animationData) {
         aaSeq.play()
         Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
     }
-    cast()
+    if (!checkAnim) {
+        cast()
+    }
 }
 
 function getVideoDimensionsOf(url) {
