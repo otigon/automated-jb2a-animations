@@ -50,8 +50,6 @@ export async function shieldSpell(handler, animationData) {
     if (handler.debug) { aaDebugger("Shield Animation Start", animationData, onToken) }
     const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
 
-    const sourceScale = sourceToken.w;
-
     const sourceTokenGS = sourceToken.width / canvas.grid.size;
 
     async function cast() {
