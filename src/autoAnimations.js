@@ -44,6 +44,12 @@ Hooks.on('init', () => {
         }
         return options.inverse(this);
     });
+    Handlebars.registerHelper('aaIs5e', function(options) {
+        if (game.system.id === 'dnd5e') {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
     loadTemplates([
         'modules/autoanimations/src/custom-recognition/settings.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-melee-autorec.html',
