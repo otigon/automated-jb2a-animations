@@ -10,8 +10,7 @@ export async function sneakAttack(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const sneak = await buildFile(true, "spell", data.animation, "static", "01", data.color)
     const sourceToken = handler.sourceToken;
-    const anchorX = handler.flags?.options?.anchorX || 0.5;
-    const anchorY = handler.flags?.options?.anchorY || 0.5;
+
     if (handler.debug) { aaDebugger("Sneak Attack Animation Start", animationData, sneak) }
 
     const sourceTokenGS = sourceToken.width / canvas.grid.size;
@@ -36,7 +35,7 @@ export async function sneakAttack(handler, animationData) {
             .atLocation(sourceToken)
             .size(sourceTokenGS * 2 * data.scale, {gridUnits: true})
             .belowTokens(false)
-            .anchor({ x: anchorX, y: anchorY })
+            .anchor({ x: data.anchorX, y: data.anchorY })
         if (data.playSound) {
             aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
         }

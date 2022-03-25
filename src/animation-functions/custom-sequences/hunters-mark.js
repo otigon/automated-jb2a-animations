@@ -29,10 +29,8 @@ export async function huntersMark(handler, animationData) {
     //const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "huntersmark" }).length > 0
 
     const scale = data.scale || 1
-    const finalScale = (canvas.grid.size / 200) * scale
+
     const sourceTokenGS = sourceToken.width / canvas.grid.size;
-    const anchorX = handler.flags?.options?.anchorX || 0.5;
-    const anchorY = handler.flags?.options?.anchorY || 0.5;
 
     if (handler.debug) { aaDebugger("Aura Animation Start", data) }
 
@@ -71,7 +69,7 @@ export async function huntersMark(handler, animationData) {
             aaSeq.effect()
                 .file(hmLoop)
                 .attachTo(target)
-                .anchor({ x: anchorX, y: anchorY })
+                .anchor({ x: data.anchorX, y: data.anchorY })
                 .delay(1500)
                 .size(targetTokenGS * .25, {gridUnits: true})
                 .belowTokens(false)
