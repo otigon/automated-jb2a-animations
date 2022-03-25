@@ -631,5 +631,6 @@
     "AUTOANIM.sleep": "Sleep 01",
     "AUTOANIM.smoke": "Smoke",
     "AUTOANIM.particles": "Particles",
-    "AUTOANIM.dots": "Dots"
+    "AUTOANIM.dots": "Dots",
+    "AUTOANIM.swirl": "Swirl"
 }

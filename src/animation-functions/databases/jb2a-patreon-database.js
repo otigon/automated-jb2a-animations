@@ -571,7 +571,19 @@ JB2APATREONDB.range = {
                     '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_30ft_1600x400.webm`],
                     '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_60ft_2800x400.webm`],
                     '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Dark_Purple_90ft_4000x400.webm`]
-                }
+                },
+                pink: {
+                    '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Pink_15ft_1000x400.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Pink_30ft_1600x400.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Pink_60ft_2800x400.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Pink_90ft_4000x400.webm`]
+                },
+                red: {
+                    '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Red_15ft_1000x400.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Red_30ft_1600x400.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Red_60ft_2800x400.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Red_90ft_4000x400.webm`]
+                },
             },
             '02': {
                 white: {
@@ -591,7 +603,19 @@ JB2APATREONDB.range = {
                     '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_30ft_1600x400.webm`],
                     '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_60ft_2800x400.webm`],
                     '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Dark_Purple_90ft_4000x400.webm`]
-                }
+                },
+                pink: {
+                    '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_15ft_1000x400.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_30ft_1600x400.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_60ft_2800x400.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_90ft_4000x400.webm`]
+                },
+                red: {
+                    '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_15ft_1000x400.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_30ft_1600x400.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_60ft_2800x400.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_90ft_4000x400.webm`]
+                },
             },
             'kunai': {
                 white: {
@@ -1209,6 +1233,13 @@ JB2APATREONDB.range = {
                     '30ft': [l3`Fireball/FireballBeam_01_Blue_30ft_1600x400.webm`],
                     '60ft': [l3`Fireball/FireballBeam_01_Blue_60ft_2800x400.webm`],
                     '90ft': [l3`Fireball/FireballBeam_01_Blue_90ft_4000x400.webm`]
+                },
+                darkpurple: {
+                    '05ft': [l3`Fireball/FireballBeam_01_Dark_Purple_05ft_600x400.webm`],
+                    '15ft': [l3`Fireball/FireballBeam_01_Dark_Purple_15ft_1000x400.webm`],
+                    '30ft': [l3`Fireball/FireballBeam_01_Dark_Purple_30ft_1600x400.webm`],
+                    '60ft': [l3`Fireball/FireballBeam_01_Dark_Purple_60ft_2800x400.webm`],
+                    '90ft': [l3`Fireball/FireballBeam_01_Dark_Purple_90ft_4000x400.webm`]
                 },
                 orange: {
                     '05ft': [l3`Fireball/FireballBeam_01_Orange_05ft_600x400.webm`],
@@ -1879,6 +1910,13 @@ JB2APATREONDB.range = {
                     '60ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_60ft_2800x400.webm`],
                     '90ft': [lg`Energy/EnergyBeam_02_Regular_GreenYellow_90ft_4000x400.webm`],
                 },
+                red: {
+                    '05ft': [lg`Energy/EnergyBeam_02_Regular_Red_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_02_Regular_Red_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_02_Regular_Red_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_02_Regular_Red_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_02_Regular_Red_90ft_4000x400.webm`],
+                },
             },
             '03': {
                 darkgreenpurple: {
@@ -1908,6 +1946,13 @@ JB2APATREONDB.range = {
                     '30ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_30ft_1600x400.webm`],
                     '60ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_60ft_2800x400.webm`],
                     '90ft': [lg`Energy/EnergyBeam_03_Regular_GreenYellow_90ft_4000x400.webm`],
+                },
+                red: {
+                    '05ft': [lg`Energy/EnergyBeam_03_Regular_Red_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_03_Regular_Red_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_03_Regular_Red_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_03_Regular_Red_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_03_Regular_Red_90ft_4000x400.webm`],
                 },
             },
             reverse: {
@@ -2124,6 +2169,13 @@ JB2APATREONDB.range = {
                         lg`Energy/EnergyStrand_03_Regular_Purple_90ft_4000x400.webm`,
                         lg`Energy/EnergyStrand_04_Regular_Purple_90ft_4000x400.webm`,
                     ],
+                },
+                red: {
+                    '05ft': [lg`Energy/EnergyStrand_05_Regular_Red_05ft_600x400.webm`],
+                    '15ft': [lg`Energy/EnergyStrand_05_Regular_Red_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyStrand_05_Regular_Red_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyStrand_05_Regular_Red_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyStrand_05_Regular_Red_90ft_4000x400.webm`],
                 },
             },
             '02': {
@@ -2643,44 +2695,52 @@ JB2APATREONDB.melee = {
         hammer: {
             '01': {
                 white: [
-                    [lg`Weapon_Attacks/Melee/Hammer01_01_Regular_White_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_02_Regular_White_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_03_Regular_White_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_04_Regular_White_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_05_Regular_White_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_06_Regular_White_800x600.webm`]
+                    lg`Weapon_Attacks/Melee/Hammer01_01_Regular_White_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_02_Regular_White_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_03_Regular_White_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_04_Regular_White_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_05_Regular_White_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_06_Regular_White_800x600.webm`
                 ],
                 blue: [
-                    [lg`Weapon_Attacks/Melee/Hammer01_01_Regular_Blue_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_02_Regular_Blue_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_03_Regular_Blue_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_04_Regular_Blue_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_05_Regular_Blue_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_06_Regular_Blue_800x600.webm`]
+                    lg`Weapon_Attacks/Melee/Hammer01_01_Regular_Blue_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_02_Regular_Blue_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_03_Regular_Blue_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_04_Regular_Blue_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_05_Regular_Blue_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_06_Regular_Blue_800x600.webm`
                 ],
                 orange: [
-                    [lg`Weapon_Attacks/Melee/Hammer01_01_Regular_Orange_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_02_Regular_Orange_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_03_Regular_Orange_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_04_Regular_Orange_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_05_Regular_Orange_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_06_Regular_Orange_800x600.webm`]
+                    lg`Weapon_Attacks/Melee/Hammer01_01_Regular_Orange_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_02_Regular_Orange_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_03_Regular_Orange_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_04_Regular_Orange_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_05_Regular_Orange_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_06_Regular_Orange_800x600.webm`
                 ],
                 purple: [
-                    [lg`Weapon_Attacks/Melee/Hammer01_01_Regular_Purple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_02_Regular_Purple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_03_Regular_Purple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_04_Regular_Purple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_05_Regular_Purple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_06_Regular_Purple_800x600.webm`]
+                    lg`Weapon_Attacks/Melee/Hammer01_01_Regular_Purple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_02_Regular_Purple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_03_Regular_Purple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_04_Regular_Purple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_05_Regular_Purple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_06_Regular_Purple_800x600.webm`
                 ],
                 darkorangepurple: [
-                    [lg`Weapon_Attacks/Melee/Hammer01_01_Dark_OrangePurple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_02_Dark_OrangePurple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_03_Dark_OrangePurple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_04_Dark_OrangePurple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_05_Dark_OrangePurple_800x600.webm`],
-                    [lg`Weapon_Attacks/Melee/Hammer01_06_Dark_OrangePurple_800x600.webm`]
+                    lg`Weapon_Attacks/Melee/Hammer01_01_Dark_OrangePurple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_02_Dark_OrangePurple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_03_Dark_OrangePurple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_04_Dark_OrangePurple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_05_Dark_OrangePurple_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_06_Dark_OrangePurple_800x600.webm`
+                ],
+                yellow: [
+                    lg`Weapon_Attacks/Melee/Hammer01_01_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_02_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_03_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_04_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_05_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Hammer01_06_Regular_Yellow_800x600.webm`
                 ],
             },
         },
@@ -3082,7 +3142,15 @@ JB2APATREONDB.melee = {
                     lg`Weapon_Attacks/Melee/Shortsword01_04_Regular_White_800x600.webm`,
                     lg`Weapon_Attacks/Melee/Shortsword01_05_Regular_White_800x600.webm`,
                     lg`Weapon_Attacks/Melee/Shortsword01_06_Regular_White_800x600.webm`
-                ]
+                ],
+                yellow: [
+                    lg`Weapon_Attacks/Melee/Shortsword01_01_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Shortsword01_02_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Shortsword01_03_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Shortsword01_04_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Shortsword01_05_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Shortsword01_06_Regular_Yellow_800x600.webm`
+                ],
             }
         },
         spear: {
@@ -3200,6 +3268,14 @@ JB2APATREONDB.melee = {
                     lg`Weapon_Attacks/Melee/Sword01_04_Regular_White_800x600.webm`,
                     lg`Weapon_Attacks/Melee/Sword01_05_Regular_White_800x600.webm`,
                     lg`Weapon_Attacks/Melee/Sword01_06_Regular_White_800x600.webm`
+                ],
+                yellow: [
+                    lg`Weapon_Attacks/Melee/Sword01_01_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Sword01_02_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Sword01_03_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Sword01_04_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Sword01_05_Regular_Yellow_800x600.webm`,
+                    lg`Weapon_Attacks/Melee/Sword01_06_Regular_Yellow_800x600.webm`
                 ]
             },
         },
@@ -3775,12 +3851,14 @@ JB2APATREONDB.templatefx = {
                 green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
                 orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
                 purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
+                yellow: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Yellow_30ft_Cone_Burst_600x600.webm`],
             },
             'fire02': {
                 blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
                 green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Green_30ft_Cone_Burst_600x600.webm`],
                 orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
                 purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
+                yellow: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Yellow_30ft_Cone_Burst_600x600.webm`],
             },
             'poison': {
                 black: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Dark_Black_30ft_Cone_Burst_600x600.webm`],
@@ -4123,25 +4201,37 @@ JB2APATREONDB.static = {
         },
         runes: {
             '01': {
+                black: [lg`Marker/MarkerRunes_01_Dark_Black_400x400.webm`],
                 blue: [lg`Marker/MarkerRunes_01_Regular_Blue_400x400.webm`],
                 darkorange: [lg`Marker/MarkerRunes_01_Dark_Orange_400x400.webm`],
                 green: [lg`Marker/MarkerRunes_01_Regular_Green02_400x400.webm`],
                 orange: [lg`Marker/MarkerRunes_01_Regular_Orange_400x400.webm`],
                 darkred: [lg`Marker/MarkerRunes_01_Dark_Red_400x400.webm`],
+                red: [lg`Marker/MarkerRunes_01_Regular_Red_400x400.webm`],
+                yellow: [lg`Marker/MarkerRunes_01_Regular_Yellow_400x400.webm`],
+                white: [lg`Marker/MarkerRunes_01_Regular_White_400x400.webm`],
             },
             '02': {
+                black: [lg`Marker/MarkerRunes_02_Dark_Black_400x400.webm`],
                 blue: [lg`Marker/MarkerRunes_02_Regular_Blue_400x400.webm`],
                 darkorange: [lg`Marker/MarkerRunes_02_Dark_Orange_400x400.webm`],
                 green: [lg`Marker/MarkerRunes_02_Regular_Green02_400x400.webm`],
                 orange: [lg`Marker/MarkerRunes_02_Regular_Orange_400x400.webm`],
                 darkred: [lg`Marker/MarkerRunes_02_Dark_Red_400x400.webm`],
+                red: [lg`Marker/MarkerRunes_02_Regular_Red_400x400.webm`],
+                yellow: [lg`Marker/MarkerRunes_02_Regular_Yellow_400x400.webm`],
+                white: [lg`Marker/MarkerRunes_02_Regular_White_400x400.webm`],
             },
             '03': {
+                black: [lg`Marker/MarkerRunes_03_Dark_Black_400x400.webm`],
                 blue: [lg`Marker/MarkerRunes_03_Regular_Blue_400x400.webm`],
                 darkorange: [lg`Marker/MarkerRunes_03_Dark_Orange_400x400.webm`],
                 green: [lg`Marker/MarkerRunes_03_Regular_Green02_400x400.webm`],
                 orange: [lg`Marker/MarkerRunes_03_Regular_Orange_400x400.webm`],
                 darkred: [lg`Marker/MarkerRunes_03_Dark_Red_400x400.webm`],
+                red: [lg`Marker/MarkerRunes_02_Regular_Red_400x400.webm`],
+                yellow: [lg`Marker/MarkerRunes_03_Regular_Yellow_400x400.webm`],
+                white: [lg`Marker/MarkerRunes_03_Regular_White_400x400.webm`],
             },
         },
         shields: {
@@ -4507,6 +4597,7 @@ JB2APATREONDB.static = {
                 ],
                 red: [
                     lg`Impact/Impact_05_Regular_Red_400x400.webm`,
+                    lg`Impact/Impact_07_Regular_Red_400x400.webm`,
                     lg`Impact/Impact_08_Regular_Red_400x400.webm`,
                     lg`Impact/Impact_10_Regular_Red_400x400.webm`,
                     lg`Impact/Impact_11_Regular_Red_400x400.webm`,
@@ -4649,6 +4740,16 @@ JB2APATREONDB.static = {
                 orange: [lg`Lightning/StaticElectricity_02_Regular_Orange_400x400.webm`],
                 purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`],
                 red: [lg`Lightning/StaticElectricity_02_Regular_Red_400x400.webm`],
+            },
+            '03': {
+                blue: [lg`Lightning/StaticElectricity_03_Regular_Blue_400x400.webm`],
+                darkgreen: [lg`Lightning/StaticElectricity_03_Regular_Green02_400x400.webm`],
+                darkpurple: [lg`Lightning/StaticElectricity_03_Dark_Purple_400x400.webm`],
+                darkred: [lg`Lightning/StaticElectricity_03_Dark_Red_400x400.webm`],
+                green: [lg`Lightning/StaticElectricity_03_Regular_Green_400x400.webm`],
+                orange: [lg`Lightning/StaticElectricity_03_Regular_Orange_400x400.webm`],
+                purple: [lg`Lightning/StaticElectricity_03_Regular_Purple_400x400.webm`],
+                red: [lg`Lightning/StaticElectricity_03_Regular_Red_400x400.webm`],
             }
         },
     },
@@ -4768,6 +4869,8 @@ JB2APATREONDB.static = {
         circleofstars: {
             '01': {
                 blue: [lg`Marker/MarkerCircleOfStars_Regular_Blue_400x400.webm`],
+                green: [lg`Marker/MarkerCircleOfStars_Regular_Green_400x400.webm`],
+                greenorange: [lg`Marker/MarkerCircleOfStars_Regular_GreenOrange_400x400.webm`],
                 orangepurple: [lg`Marker/MarkerCircleOfStars_Regular_OrangePurple_400x400.webm`],
                 purplegreen: [lg`Marker/MarkerCircleOfStars_Regular_PurpleGreen_400x400.webm`],
                 yellowblue: [lg`Marker/MarkerCircleOfStars_Regular_YellowBlue_400x400.webm`]
@@ -4906,6 +5009,18 @@ JB2APATREONDB.static = {
                 blue: [lg`Particles/ParticlesOutward02_05_Regular_Blue_400x400.webm`],
                 green: [lg`Particles/ParticlesOutward02_05_Regular_GreenYellow_400x400.webm`],
                 orange: [lg`Particles/ParticlesOutward02_05_Regular_Orange_400x400.webm`],
+            },
+        },
+        swirl: {
+            '01': {
+                blue: [lg`Particles/ParticlesSwirl01_01_Regular_Blue_400x400.webm`],
+                greenyellow: [lg`Particles/ParticlesSwirl01_01_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesSwirl01_01_Regular_Orange_400x400.webm`],
+            },
+            '02': {
+                blue: [lg`Particles/ParticlesSwirl02_01_Regular_Blue_400x400.webm`],
+                green: [lg`Particles/ParticlesSwirl02_01_Regular_GreenYellow_400x400.webm`],
+                orange: [lg`Particles/ParticlesSwirl02_01_Regular_Orange_400x400.webm`],
             },
         },
     },
@@ -5130,6 +5245,7 @@ JB2APATREONDB.static = {
             'source': {
                 yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
                 greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm`],
+                orange: [l2`Divine_Smite/DivineSmite_01_Regular_Orange_Caster_400x400.webm`],
                 purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Caster_400x400.webm`],
                 darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Caster_400x400.webm`],
                 yellowwhite: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Caster_400x400.webm`],
@@ -5138,6 +5254,7 @@ JB2APATREONDB.static = {
             'target': {
                 yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
                 greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Target_400x400.webm`],
+                orange: [l2`Divine_Smite/DivineSmite_01_Regular_Orange_Target_400x400.webm`],
                 purplepink: [l2`Divine_Smite/DivineSmite_01_Regular_PurplePink_Target_400x400.webm`],
                 darkpurple: [l2`Divine_Smite/DivineSmite_01_Dark_Purple_Target_400x400.webm`],
                 yellowwhite: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Target_400x400.webm`],
@@ -5741,6 +5858,18 @@ JB2APATREONDB.return = {
                     '60ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm`],
                     '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm`]
                 },
+                pink: {
+                    '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_Return_15ft_1000x400.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_Return_30ft_1600x400.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_Return_60ft_2800x400.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_Return_90ft_4000x400.webm`]
+                },
+                red: {
+                    '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_Return_15ft_1000x400.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_Return_30ft_1600x400.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_Return_60ft_2800x400.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_Return_90ft_4000x400.webm`]
+                },
             },
             '02': {
                 blue: {
@@ -5760,6 +5889,18 @@ JB2APATREONDB.return = {
                     '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_30ft_1600x400.webm`],
                     '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_60ft_2800x400.webm`],
                     '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_White_Return_90ft_4000x400.webm`]
+                },
+                pink: {
+                    '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_Return_15ft_1000x400.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_Return_30ft_1600x400.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_Return_60ft_2800x400.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Pink_Return_90ft_4000x400.webm`]
+                },
+                red: {
+                    '15ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_15ft_1000x400.webm`],
+                    '30ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_30ft_1600x400.webm`],
+                    '60ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_60ft_2800x400.webm`],
+                    '90ft': [lg`Weapon_Attacks/Ranged/Dagger02_01_Regular_Red_90ft_4000x400.webm`]
                 },
             }
         },
