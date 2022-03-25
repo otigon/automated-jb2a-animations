@@ -178,8 +178,8 @@ export class AAanimationData {
                 menuType: options.menuType || false,
                 menuType02: options.menuType02 || false,
                 isShieldFX: options.menuType === 'shieldfx' ? true : false,
-                anchorX: options.anchorX || 1,
-                anchorY: options.anchorY || 1,
+                anchorX: options.anchorX || 0.5,
+                anchorY: options.anchorY || 0.5,
                 auraRadius: options.auraRadius || 3.5,
                 teleDist: options.teleDist || 30,
                 ignoreTargets: options.ignoreTarget || false,
@@ -209,7 +209,7 @@ export class AAanimationData {
                 detect: meleeSwitch.detect ?? "auto",
                 return: meleeSwitch.returning || false,
                 switchVariant: meleeSwitch.variant ?? "01",
-                switchMenuType: meleeSwitch.menuType || false,
+                switchMenuType: meleeSwitch.menuType || "weapon",
                 range: meleeSwitch.range ?? 2,
                 switchAudio: {
                     enable: flags.audio?.a02?.enable || false,
@@ -261,7 +261,7 @@ export class AAanimationData {
                 },
             };
             explosion.playSound = explosion.enabled && explosion.audio?.enable && explosion.audio?.file !== "";
-            explosion.data = explosion.enabled ? await buildFile(true, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
+            explosion.data = explosion.enabled ? await buildFile(true, explosion.menuType, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
             explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             return explosion;
         } else {
@@ -319,13 +319,14 @@ export class AAanimationData {
             },
         }
 
-        if (source.enable && source.name === "a1" && !source.enableCustom) {
+        if (source.enable && (source.name === "a1" || !source.name) && !source.enableCustom) {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
-        const sourceScale = handler.sourceToken.w;
+        const sourceTokenGS = handler.sourceToken.width / canvas.grid.size;
+        //const sourceScale = handler.sourceToken.w;
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.menuType, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
-        sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
+        //sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
         if (sourceFX.itemAudio.enable && sourceFX.itemAudio.file && sourceFX.enabled) {
             sourceFX.sourceSeq.sound()
@@ -338,7 +339,8 @@ export class AAanimationData {
             sourceFX.sourceSeq.effect()
                 .file(sourceFX.data.file, true)
                 .atLocation(handler.sourceToken)
-                .scale(sourceFX.sFXScale * sourceFX.scale)
+                //.scale(sourceFX.sFXScale * sourceFX.scale)
+                .size(sourceTokenGS * 1.5 * sourceFX.scale, {gridUnits: true})
                 .repeats(sourceFX.repeat, sourceFX.delay)
                 .belowTokens(sourceFX.below)
                 .opacity(sourceFX.opacity)
@@ -377,7 +379,7 @@ export class AAanimationData {
             },
         }
 
-        if (target.enable && target.name === "a1" && !target.enableCustom) {
+        if (target.enable && (target.name === "a1" || !target.name) && !target.enableCustom) {
             targetFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
@@ -394,9 +396,10 @@ export class AAanimationData {
             hit = true;
         }
 
-        const playNow = (targetFX.enabled && hit) ? true : false;
+        //const playNow = (targetFX.enabled && hit) ? true : false;
+        let targetTokenGS = target.width / canvas.grid.size
 
-        targetFX.tFXScale = targetFX.enable ? 2 * target.w / targetFX.data.metadata?.width : 1;
+        //targetFX.tFXScale = targetFX.enable ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
         /*
         targetFX.targetSeq.sound()
@@ -412,7 +415,8 @@ export class AAanimationData {
             .delay(targetFX.startDelay)
             .file(targetFX.data?.file, true)
             .atLocation(target)
-            .scale(targetFX.tFXScale * targetFX.scale)
+            //.scale(targetFX.tFXScale * targetFX.scale)
+            .size(targetTokenGS * 1.5 * targetFX.scale, {gridUnits: true})
             .repeats(targetFX.repeat, targetFX.delay)
             .belowTokens(targetFX.below)
             .persist(targetFX.persistent)

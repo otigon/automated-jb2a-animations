@@ -29,7 +29,8 @@ export async function huntersMark(handler, animationData) {
     //const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "huntersmark" }).length > 0
 
     const scale = data.scale || 1
-    const finalScale = (canvas.grid.size / 200) * scale
+
+    const sourceTokenGS = sourceToken.width / canvas.grid.size;
 
     if (handler.debug) { aaDebugger("Aura Animation Start", data) }
 
@@ -54,12 +55,15 @@ export async function huntersMark(handler, animationData) {
     aaSeq.effect()
         .file(hmPulse)
         .atLocation(sourceToken)
+        .size(sourceTokenGS * data.scale, {gridUnits: true})
     for (let target of handler.allTargets) {
+        let targetTokenGS = target.width / canvas.grid.size;
         let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
 
         aaSeq.effect()
             .file(hmPulse)
             .atLocation(target)
+            .size(targetTokenGS * data.scale, {gridUnits: true})
             //.playIf(target)
         if (!checkAnim && data.persistent) {
             aaSeq.effect()
@@ -67,13 +71,13 @@ export async function huntersMark(handler, animationData) {
                 .attachTo(target)
                 .anchor({ x: data.anchorX, y: data.anchorY })
                 .delay(1500)
-                .scale(finalScale)
+                .size(targetTokenGS * .25, {gridUnits: true})
                 .belowTokens(false)
                 .name("huntersmark")
                 .persist()
                 .origin(handler.item.uuid)
-                .loopProperty("sprite", "scale.x", { from: (finalScale * 0.4), to: finalScale, duration: 4000, pingPong: true })
-                .loopProperty("sprite", "scale.y", { from: (finalScale * 0.4), to: finalScale, duration: 4000, pingPong: true })
+                .loopProperty("sprite", "width", { from: ((targetTokenGS * .5) * 0.7), to: (targetTokenGS * .5), duration: 4000, pingPong: true, gridUnits: true })
+                .loopProperty("sprite", "height", { from: ((targetTokenGS * .5) * 0.7), to: (targetTokenGS * .5), duration: 4000, pingPong: true, gridUnits: true })
                 .loopProperty("sprite", "alpha", { from: 0.25, to: 1, duration: 4000, pingPong: true })
         }
         if (targetFX.enabled) {

@@ -8,12 +8,13 @@ export async function sneakAttack(handler, animationData) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
-    const sneak = await buildFile(true, data.animation, "static", "01", data.color)
+    const sneak = await buildFile(true, "spell", data.animation, "static", "01", data.color)
     const sourceToken = handler.sourceToken;
 
     if (handler.debug) { aaDebugger("Sneak Attack Animation Start", animationData, sneak) }
 
-    const sourceScale = sourceToken.w;
+    const sourceTokenGS = sourceToken.width / canvas.grid.size;
+
     async function cast() {
         let aaSeq = await new Sequence()
         // Play Macro if Awaiting
@@ -32,7 +33,7 @@ export async function sneakAttack(handler, animationData) {
         aaSeq.effect()
             .file(sneak.file)
             .atLocation(sourceToken)
-            .scale((2 * sourceScale / sneak.metadata.width) * 1)
+            .size(sourceTokenGS * 2 * data.scale, {gridUnits: true})
             .belowTokens(false)
             .anchor({ x: data.anchorX, y: data.anchorY })
         if (data.playSound) {

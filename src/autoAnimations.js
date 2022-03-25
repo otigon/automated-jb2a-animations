@@ -33,13 +33,13 @@ Hooks.on('init', () => {
         return options.inverse(this);
     });
     Handlebars.registerHelper('matchOverhead', function (autoObj, options) {
-        if (autoObj.persist && (autoObj.type === 'circle' || autoObj.type === 'rect')) {
+        if (autoObj.persist && (autoObj.menuType === 'circle' || autoObj.menuType === 'square')) {
             return options.fn(this);
         }
         return options.inverse(this);
     });
     Handlebars.registerHelper('sequencerOnly', function (autoObj, options) {
-        if (autoObj.persist && (autoObj.type === 'ray' || autoObj.type === 'cone')) {
+        if (autoObj.persist && (autoObj.menuType === 'ray' || autoObj.menuType === 'cone')) {
             return options.fn(this);
         }
         return options.inverse(this);
@@ -148,6 +148,9 @@ Hooks.once('ready', function () {
         }
     } else {
         switch (game.system.id) {
+            case "alienrpg":
+                Hooks.on("createChatMessage", async (msg) => { setupAlienRPG(msg) });
+                break;
             case "pf1":
             case "D35E":
                 Hooks.on("createChatMessage", async (msg) => { onCreateChatMessage(msg) });
@@ -753,6 +756,16 @@ async function wfrpSkill(data, info) {
 }
 */
 async function oseReady(input) {
+    if (killAllAnimations) { return; }
+    if (input.user.id !== game.user.id) { return };
+    let handler = await systemData.make(input)
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    trafficCop(handler);
+}
+
+async function setupAlienRPG(input) {
     if (killAllAnimations) { return; }
     if (input.user.id !== game.user.id) { return };
     let handler = await systemData.make(input)

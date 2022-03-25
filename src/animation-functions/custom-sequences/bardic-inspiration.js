@@ -53,44 +53,46 @@ export async function bardicInspiration(handler, animationData) {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
     if (data.animateSelf) {
+        const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * data.scale;
         let selfEffect = aaSeq.effect()
         selfEffect.atLocation(sourceToken)
         if (data.selfAnimation === 'music') {
             selfEffect.file(selfMusicPath)
-            selfEffect.scale(sourceToken.w / 200)
+            selfEffect.size((sourceToken.width / canvas.grid.size), { gridUnits: true })
             selfEffect.repeats(10, 350)
             selfEffect.randomOffset()
         } else {
             selfEffect.file(selfBIPath)
-            selfEffect.scale((sourceToken.w / 400) * 2)
+            selfEffect.size(sourceTokenGS, { gridUnits: true })
         }
         if (data.marker) {
             aaSeq.effect()
                 .file(selfMarkerPath)
                 .atLocation(sourceToken)
-                .scale((sourceToken.w / 400) * 2)
+                .size(sourceTokenGS, { gridUnits: true })
                 .belowTokens(true)
         }
     }
     let targetSound = false;
     if (data.animateTarget && handler.allTargets.length > 0) {
         for (let target of handler.allTargets) {
+            let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * data.scale
             let targetEffect = aaSeq.effect()
             targetEffect.atLocation(target)
             if (data.targetAnimation === 'music') {
                 targetEffect.file(targetMusicPath)
-                targetEffect.scale(target.w / 200)
+                targetEffect.size((target.width / canvas.grid.size), { gridUnits: true })
                 targetEffect.repeats(10, 350)
                 targetEffect.randomOffset()
             } else {
                 targetEffect.file(targetBIPath)
-                targetEffect.scale((target.w / 400) * 2)
+                targetEffect.size(targetTokenGS, { gridUnits: true })
             }
             if (data.marker) {
                 aaSeq.effect()
                     .file(targetMarkerPath)
                     .atLocation(target)
-                    .scale((target.w / 400) * 2)
+                    .size(targetTokenGS, { gridUnits: true })
                     .belowTokens(true)
             }
             if (targetFX.enabled) {

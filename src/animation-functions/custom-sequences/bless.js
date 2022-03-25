@@ -34,10 +34,9 @@ export async function bless(handler, animationData) {
     //let animWidth = onToken.metadata.width;
     const sourceScale = sourceToken.w;
     const scale = (sourceScale * 2.5 / bless.metadata.width) * data.scale// * handler.scale
-    //const size = sourceToken.w * 1.5;
-    //const scaledSize = (size * data.scale)
 
     if (handler.allTargets.length === 0) {
+        const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * data.scale;
 
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
         const playPersist = (!checkAnim && data.persistent) ? true : false;
@@ -62,17 +61,17 @@ export async function bless(handler, animationData) {
             aaSeq.effect()
                 .file(bless.file01)
                 .attachTo(sourceToken)
-                .scale(scale)
+                .size(sourceTokenGS, { gridUnits: true })
                 .belowTokens(data.below)
                 .waitUntilFinished(-500)
             let endSection = aaSeq.effect();
             endSection.file(bless.file02)
-            endSection.scale(scale)
+                .size(sourceTokenGS, { gridUnits: true })
             endSection.origin(handler.item.uuid)
             endSection.attachTo(sourceToken)
             endSection.belowTokens(data.below)
-            endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.95), to: (scale * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine' })
-            endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.95), to: (scale * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine' })
+            endSection.loopProperty("sprite", "width", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
+            endSection.loopProperty("sprite", "height", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
             if (playPersist) { endSection.persist() }
         }
         if (data.playMacro && data.macro.playWhen === "0") {
@@ -107,24 +106,25 @@ export async function bless(handler, animationData) {
         })
 
         for (let target of handler.allTargets) {
+            let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * data.scale
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
-            let playPersist = (!checkAnim && data.persistent) ? true : false;  
-            let targetScale = (target.w * 2 / bless.metadata.width) * data.scale 
+            let playPersist = (!checkAnim && data.persistent) ? true : false;
+            let targetScale = (target.w * 2 / bless.metadata.width) * data.scale
             if (!checkAnim) {
                 aaSeq.effect()
                     .file(bless.file01)
                     .attachTo(target)
-                    .scale(targetScale)
+                    .size(targetTokenGS, { gridUnits: true })
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)
                 let endSection = aaSeq.effect();
                 endSection.file(bless.file02)
-                endSection.scale(scale)
+                endSection.size(targetTokenGS, { gridUnits: true })
                 endSection.origin(handler.item.uuid)
                 endSection.attachTo(target)
                 endSection.belowTokens(data.below)
-                endSection.loopProperty("sprite", "scale.x", { from: (scale * 0.95), to: (scale * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine' })
-                endSection.loopProperty("sprite", "scale.y", { from: (scale * 0.95), to: (scale * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine' })
+                endSection.loopProperty("sprite", "width", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
+                endSection.loopProperty("sprite", "height", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
                 if (playPersist) { endSection.persist() }
             }
         }
@@ -142,9 +142,8 @@ export async function bless(handler, animationData) {
 async function buildBlessFile(jb2a, baseColor) {
     let color = baseColor || "yellow";
     color = color.replace(/\s+/g, '');
-    function random_item(items)
-    {
-    return items[Math.floor(Math.random()*items.length)];
+    function random_item(items) {
+        return items[Math.floor(Math.random() * items.length)];
     }
     color = color === "random" ? random_item(Object.keys(aaColorMenu.static.spell.bless['01'])) : color;
     const file01 = `autoanimations.static.spell.bless.01.${color}.intro`;

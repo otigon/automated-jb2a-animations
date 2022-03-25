@@ -38,7 +38,7 @@ export async function thunderwaveAuto(handler, animationData, config) {
     //let template = await canvas.templates.get(templateID);
     const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
 
-    let filePath = obj01.static.thunderwave;
+    let filePath = obj01.static.spell.thunderwave;
 
     const getPosition = getRelativePosition(sourceToken, template)
     const angle = getPosition.angle;
