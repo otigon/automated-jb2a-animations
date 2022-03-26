@@ -144,6 +144,22 @@ export class AutorecFunctions {
         }
     }
 
+    static _findObjectIn5eAE(settings, name) {
+        if (!name) { return; }
+
+        const aeList = settings.aefx;
+        let newObject = Object.values(aeList)
+            .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+            .find(section => {
+                //added .replace()
+                return name.toLowerCase().includes(section.name.replace(/\s+/g, '').toLowerCase()) && section.name !== "" ? section : "";
+            })
+
+        if (newObject) { 
+            newObject.menuSection = 'aefx';
+            return newObject 
+        }
+    }
     /**
      * 
      * @param {game.settings.get('autoanimations', 'aaAutorec')} data 
@@ -153,7 +169,7 @@ export class AutorecFunctions {
         const mergedArray = [];
         const keys = Object.keys(data);
         const keyLength = keys.length;
-        for (var i = 1; i < keyLength; i++) {
+        for (var i = 1; i < keyLength - 1; i++) {
             var arrayLength = Object.keys(data[keys[i]]).length
             var currentObject = data[keys[i]];
             for (var k = 0; k < arrayLength; k++) {
