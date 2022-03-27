@@ -8,7 +8,18 @@ export function disableAnimations() {
 export async function createActiveEffects5e(effect) {
 
     if (killAllAnimations) { return; }
+    //const isDf = effect.data?.flags?.isConvenient ? true : false;
+
+    console.log(effect)
     const aeItem = effect;
+    /*
+    if (isDf) {
+        aeItem.data.origin = effect.uuid
+    }
+    */
+    aeItem.data.origin = aeItem.data.origin ? aeItem.data.origin : effect.uuid;
+    aeItem.isCreatedAe = true;
+    console.log(aeItem)
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(aeItem.id))
     console.log(aeItem)
     console.log(aeToken)
@@ -20,7 +31,10 @@ export async function createActiveEffects5e(effect) {
 }
 
 export async function deleteActiveEffects5e(effect) {
-    let aeOrigin = effect.data?.origin;
+    console.log(effect)
+    //let aeOrigin = effect.data?.flags?.isConvenient ? effect.data?.origin : effect.uuid;
+    let aeOrigin = effect.data?.origin || effect.uuid
+    console.log(aeOrigin)
     if (!aeOrigin) { return; };
 
     const tactorUuid = effect.data?.flags?.dae?.token;

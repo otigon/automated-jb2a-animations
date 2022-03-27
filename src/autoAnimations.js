@@ -442,6 +442,7 @@ async function criticalCheck(workflow) {
 / Set up DnD5e and SW5e CORE (NON MIDI)
 */
 async function setUp5eCore(msg) {
+    debugger
     if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
 

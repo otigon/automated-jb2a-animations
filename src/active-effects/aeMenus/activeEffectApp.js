@@ -47,11 +47,12 @@ export class AAActiveEffectMenu extends FormApplication {
 
         const animType = flags.autoanimations?.animType;
 
-        const autoCheck = AutorecFunctions._checkAutoRec(oldName);
-        const autoObject = autoCheck ? AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
-        const videoPreview = override ? AATabFunctions._customPreview(flags, patreon) : AutorecFunctions._autoPreview(oldName, patreon, flags)
-
+        const autoCheck = AutorecFunctions._checkAutoRecAefx(oldName);
+        const autoObject = autoCheck ? AutorecFunctions._findObjectFromAefx(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
+        console.log(autoObject)
+        const videoPreview = override ? AATabFunctions._customPreview(flags, patreon) : AutorecFunctions._autoPreviewAefx(oldName, patreon, flags)
         let content = "";
+
         switch (true) {
             case videoPreview === "no preview":
             case !videoPreview:
@@ -68,7 +69,6 @@ export class AAActiveEffectMenu extends FormApplication {
                         break;
                 }
         }
-
         return {
             flags: this.object.data.flags,
             isActiveEffect: true,
