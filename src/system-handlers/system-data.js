@@ -39,9 +39,11 @@ export default class systemData {
         this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
         this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") ? true : false;
         if (this.systemId === 'dnd5e' && this.isActiveEffect) {
-            this.itemUuid = this.item.data?.origin;
+            //this.itemUuid = this.item.data?.origin;
+            this.itemUuid = this.item.data?.flags?.autoanimations?.origin;
             this.itemName = this.item.data?.label;
-            this.workflow = this.item.data?.flags?.aaAeStatus;
+            //this.workflow = this.item.data?.flags?.aaAeStatus;
+            this.workflow = this.item.data?.flags?.autoanimations?.aaAeStatus;
         }
 
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";

@@ -1,6 +1,7 @@
 import { trafficCop } from "../router/traffic-cop.js";
 import systemData from "../system-handlers/system-data.js";
 import { aaDebugger } from "../constants/constants.js";
+import { flagMigrations } from "../system-handlers/flagMerge.js";
 
 var killAllAnimations;
 export function disableAnimations() {
@@ -9,21 +10,51 @@ export function disableAnimations() {
 }
 
 export async function createActiveEffects5e(effect) {
+    const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (killAllAnimations) { return; }
 
-    const aeItem = effect;
-
-    aeItem.data.origin = aeItem.data.origin ? aeItem.data.origin : effect.uuid;
-    aeItem.isCreatedAe = true;
-    aeItem.data.flags.aaAeStatus = 'on';
-
-    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(aeItem.id))
-
-    let handler = AutoAnimations.playAnimation(aeToken, [], aeItem);
-    if (!handler.item || !handler.sourceToken) {
+    // Sets data for the System Handler
+    const flagData = {
+        aaAeStatus: "on",
+        origin: effect.data.origin || effect.uuid,
+    }
+    if (!flagData.origin) {
+        if (aaDebug) { aaDebugger("Failed to find the Item origin or UUID") }
         return;
     }
+
+    // Gets the Token that the Active Effect is applied to
+    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
+    if (!aeToken) {
+        if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
+        return;
+    }
+
+    // If A-A flags are preset on the AE, ensure they are up-to-date
+    if (effect.data?.flags?.autoanimations) {
+        await flagMigrations.handle(effect);
+    }
+    if (!effect.data?.flags?.autoanimation?.version) {
+        flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
+    }
+    await effect.update({ 'flags.autoanimations': flagData })
+
+    // Initilizes the A-A System Handler
+    const data = {
+        token: aeToken,
+        targets: [],
+        item: effect,
+    }
+    let handler = await systemData.make(null, null, data);
+
+    // Exits early if Item or Source Token returns null. Total Failure
+    if (!handler.item || !handler.sourceToken) {
+        if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
+        return;
+    }
+
+    // Sends the data to begin the animation Sequence
     trafficCop(handler);
 }
 
@@ -33,12 +64,17 @@ export async function createActiveEffects5e(effect) {
  * 
  */
 export async function deleteActiveEffects5e(effect) {
+    const aaDebug = game.settings.get("autoanimations", "debug")
+
     // Origin UUID of the effect
     let aeOrigin = effect.data?.origin || effect.uuid
-    if (!aeOrigin) { return; };
+    if (!aeOrigin) {
+        if (aaDebug) { aaDebugger("Failed to find the Item origin or UUID") }
+        return;
+    };
 
     // Finds all active Animations on the scene that match aeOrigin
-    let aaEffects = Sequencer.EffectManager.getEffects({ origin: aeOrigin})
+    let aaEffects = Sequencer.EffectManager.getEffects({ origin: aeOrigin })
 
     // If no animations, exit early, Else continue with gathering data
     if (aaEffects.length < 1) { return; }
@@ -54,7 +90,7 @@ export async function deleteActiveEffects5e(effect) {
 
         // If a Macro is enabled on the Item, compile that data
         const macroData = {};
-        if ( itemData.macro?.enable && itemData.macro?.name && (itemData.override || itemData.killAnim) ) {
+        if (itemData.macro?.enable && itemData.macro?.name && (itemData.override || itemData.killAnim)) {
             //Sets macro data if it is defined on the Item and is active
             macroData.shouldRun = true;
             macroData.name = itemData.macro?.name ?? "";
@@ -78,13 +114,13 @@ export async function deleteActiveEffects5e(effect) {
             if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
             return;
         }
-    
+
         // If a Macro was defined, it will run here with "off" as args[0]
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-            .macro(macroData.name, "off", handler, ...userData)
-            .play()
+                .macro(macroData.name, "off", handler, ...userData)
+                .play()
         }
 
         // End all Animations on the token with .origin(aeOrigin)
@@ -94,24 +130,8 @@ export async function deleteActiveEffects5e(effect) {
 
 export async function toggleActiveEffects5e(effect, toggle) {
     if (toggle.disabled === true) {
-        let aeOrigin = effect.data?.origin;
-        if (!aeOrigin) { return; };
-        if (Sequencer.EffectManager.getEffects({ origin: aeOrigin }).length) {
-            Sequencer.EffectManager.endEffects({ origin: aeOrigin })
-        }
+        deleteActiveEffects5e(effect)
     } else if (toggle.disabled === false) {
-        if (killAllAnimations) { return; }
-
-        const aeItem = effect;
-        const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(aeItem.id))
-        console.log(aeItem)
-        console.log(aeToken)
-        let handler = AutoAnimations.playAnimation(aeToken, [], aeItem);
-
-        if (!handler.item || !handler.sourceToken) {
-            if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
-            return;
-        }
-        trafficCop(handler);
+        createActiveEffects5e(effect);
     }
 }
