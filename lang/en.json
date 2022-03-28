@@ -632,5 +632,8 @@
     "AUTOANIM.smoke": "Smoke",
     "AUTOANIM.particles": "Particles",
     "AUTOANIM.dots": "Dots",
-    "AUTOANIM.swirl": "Swirl"
+    "AUTOANIM.swirl": "Swirl",
+
+    "AUTOANIM.s3Name": "JB2A Asset Location",
+    "AUTOANIM.s3Hint": "REQUIRES A REFRESH: ONLY change if your JB2A module is hosted externally on an S3 bucket or similar. Otherwise, leave blank. Example: S3BucketLocation (No Slash at end)"
 }
