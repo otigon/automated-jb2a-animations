@@ -30,7 +30,7 @@ export class AAActiveEffectMenu extends FormApplication {
         const patreon = moduleIncludes("jb2a_patreon");
         const itemNameItem = this.object.name?.toLowerCase() ?? "";
         const oldName = this.object.data?.label;
-        console.log(oldName)
+
         const itemNameFlag = flags.autoanimations?.animation?.toLowerCase() ?? "";
 
         const override = flags.autoanimations?.override;
@@ -49,7 +49,7 @@ export class AAActiveEffectMenu extends FormApplication {
 
         const autoCheck = AutorecFunctions._checkAutoRecAefx(oldName);
         const autoObject = autoCheck ? AutorecFunctions._findObjectFromAefx(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
-        console.log(autoObject)
+
         const videoPreview = override ? AATabFunctions._customPreview(flags, patreon) : AutorecFunctions._autoPreviewAefx(oldName, patreon, flags)
         let content = "";
 

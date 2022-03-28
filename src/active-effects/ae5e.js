@@ -38,6 +38,7 @@ export async function createActiveEffects5e(effect) {
     if (!effect.data?.flags?.autoanimation?.version) {
         flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     }
+    // Adds the status and origin data to the AE A-A flags
     await effect.update({ 'flags.autoanimations': flagData })
 
     // Initilizes the A-A System Handler
