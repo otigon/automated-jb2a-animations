@@ -41,13 +41,14 @@ export default class systemData {
         if (this.systemId === 'dnd5e' && this.isActiveEffect) {
             this.itemUuid = this.item.data?.origin;
             this.itemName = this.item.data?.label;
+            this.workflow = this.item.data?.flags?.aaAeStatus;
         }
 
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
         this.itemType = this.item.data?.type?.toLowerCase() ?? "";
 
-        this.sourceToken = data.token.isEmbedded ? data.token.object : data.token;
-        this.actor = data.token.actor;
+        this.sourceToken = data.token?.isEmbedded ? data.token?.object : data.token;
+        this.actor = data.token?.actor;
         this.allTargets = data.targets;
         this.hitTargets = data.hitTargets;
         this.hitTargetsId = data.hitTargets ? Array.from(this.hitTargets.filter(actor => actor.id).map(actor => actor.id)) : [];

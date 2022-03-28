@@ -231,7 +231,6 @@ export class AutorecFunctions {
             if (keys[i] === 'version' || keys[i] === 'aefx') { continue; }
             var arrayLength = Object.keys(data[keys[i]]).length
             var currentObject = data[keys[i]];
-            console.log(keys[i])
             for (var k = 0; k < arrayLength; k++) {
                 if (!currentObject[k].name) { break; }
                 currentObject[k].menuSection = keys[i]

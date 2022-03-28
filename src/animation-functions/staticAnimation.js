@@ -84,7 +84,7 @@ export async function staticAnimation(handler, animationData) {
             aaEffect.fadeIn(250)
             aaEffect.fadeOut(500)
             if (!data.persistent) { aaEffect.atLocation(sourceToken) }
-            if (playPersist) { aaEffect.attachTo(sourceToken); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
+            if (playPersist) { aaEffect.attachTo(sourceToken, {bindAlpha: false, bindVisibility: false}); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
             if (checkAnim) { aaEffect.playIf(false); }
 
         }
