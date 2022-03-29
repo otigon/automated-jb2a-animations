@@ -286,6 +286,112 @@ export class AutorecFunctions {
         await autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
     }
 
+    static async _mergeAutorecFile(json) {
+        // Imported Autorec Menu
+        const newData = JSON.parse(json);
+        // Existing Autorec Menu
+        const oldData = game.settings.get('autoanimations', 'aaAutorec');
+        // New Autorec Menu
+        oldData.version = newData.version;
+        oldData.search = "";
+
+        let idx;
+
+        const menuSections = ['melee', 'range', 'static', 'templates', 'auras', 'preset', 'aefx']
+
+        await mergeMenus();
+
+        async function mergeMenus() {
+            for (var i = 0; i < menuSections.length; i++) {
+                // Resets IDX to 0
+                if (!oldData[menuSections[i]]) {
+                    oldData[menuSections[i]] = {};
+                }
+                let sectionLength = Object.keys(oldData[menuSections[i]]).length
+                idx = sectionLength === 0 ? 0 : sectionLength + 1;
+
+                // Sets Menu Section in new Merged Data
+                //mergedData[menuSections[i]] = {};
+
+                // Sets Old and New Names arrays from the Section, spaces removed and toLowerCase()
+                const newSectionNames = await getAllNamesInSection(newData, menuSections[i]);
+                const oldSectionNames = await getAllNamesInSection(oldData, menuSections[i]);
+
+                // If Existing Menu has no Section, check if New Menu has Section. If NO, return. If YES set Merged Section = New Section
+                if (!oldData[menuSections[i]]) {
+                    if (!newData[menuSections[i]]) {
+                        oldData[menuSections[i]] = {};
+                        return;
+                    } else {
+                        oldData[menuSections[i]] = newData[menuSections[i]];
+                        return;
+                    }
+                }
+
+                // Compare Existing versus New and build new Merged Object for Section
+                //await checkOldData(oldData, oldSectionNames, newSectionNames, menuSections[i]);
+                await checkNewData(newData, oldSectionNames, newSectionNames, menuSections[i]);
+            }
+        }
+
+        async function getAllNamesInSection(obj, type) {
+            const nameArray = []
+            try { Object.keys(obj[type]).length }
+            catch (exception) { return nameArray }
+            const arrayLength = Object.keys(obj[type]).length
+            for (var i = 0; i < arrayLength; i++) {
+                if (!obj[type][i].name) { continue }
+
+                nameArray.push(obj[type][i].name.replace(/\s+/g, '').toLowerCase())
+            }
+            return nameArray;
+        }
+
+        async function findObjectByName(data, type, name) {
+            var newObject = Object.values(data[type])
+                .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+                .find(section => {
+                    //cutting out all spaces
+                    return name.includes(section.name.replace(/\s+/g, '').toLowerCase()) ? section : "";
+                })
+
+            return newObject
+        }
+        /*
+        // Checks each Name field of Current Menu to see if it exists in the New Menu. If it exists, it pushes that one to the new Merged Menu and increase IDX, otherwise it continues
+        async function checkOldData(oldData, oldArray, newArray, section) {
+            let oldDataLength = Object.keys(oldData[section]).length;
+            for (var i = 0; i < oldDataLength; i++) {
+                for (var k = 0; k < oldArray.length; k++) {
+                    if (newArray.includes(oldArray[k])) {
+                        let newSection = await findObjectByName(oldData, section, oldArray[k]);
+                        mergedData[section][idx] = newSection;
+                        idx = idx + 1;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+        }
+        */
+        // Checks each Name field of the New Menu to see if it exists in the Current Menu. If it exists, continue, otherwise push to the new Merged Menu and increase IDX
+        async function checkNewData(newData, oldArray, newArray, section) {
+            let newDataLength = Object.keys(newData[section]).length;
+            for (var i = 0; i < newDataLength; i++) {
+                if (oldArray.includes(newArray[i])) {
+                    continue;
+                } else {
+                    let newSection = await findObjectByName(newData, section, newArray[i]);
+                    oldData[section][idx] = newSection;
+                    idx = idx + 1;
+                }
+            }
+        }
+
+        await game.settings.set("autoanimations", "aaAutorec", oldData);
+        await autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
+    }
+
     static _autoPreview(name, patreon, flags) {
 
         const data = {};

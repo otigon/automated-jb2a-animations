@@ -225,10 +225,6 @@
     padding: 5px;
 }
 
-#aa-import-export {
-    padding: 10px;
-}
-
 .aa-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15em, 1fr)) repeat(auto-fit, minmax(15em, 1fr)) 9em 9em;

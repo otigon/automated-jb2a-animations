@@ -632,5 +632,8 @@
     "AUTOANIM.smoke": "Smoke",
     "AUTOANIM.particles": "Particles",
     "AUTOANIM.dots": "Dots",
-    "AUTOANIM.swirl": "Swirl"
+    "AUTOANIM.swirl": "Swirl",
+    
+    "AUTOANIM.menuImport": "Import Automatic Recognition Menu",
+    "AUTOANIM.mergeMenu": "Merge Menus"
 }

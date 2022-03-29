@@ -125,6 +125,11 @@ export class aaAutoRecognition extends FormApplication {
 				this.close();
 			}
 		});
+        html.find("#aa-autorec-merge").on("click", async () => {
+			if (await importJSONAndMerge()) {
+				this.close();
+			}
+		});
 
         html.find('.particles input[type="color"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
@@ -295,7 +300,7 @@ export class aaAutoRecognition extends FormApplication {
         let idx = event.target.dataset.idx;
         delete data[event.target.classList[3]][idx]
 
-        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
+        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset', 'aefx'];
         for (let i = 0; i < menuType.length; i ++) {
             let compacted = {}
             try {Object.values(data[menuType[i]])}
@@ -491,7 +496,7 @@ async function importFromJSONDialog() {
 	const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
 	let dialog = new Promise((resolve, reject) => {
 		new Dialog({
-			title: `Import Automatic Recognition Settings`,
+			title: game.i18n.format("AUTOANIM.menuImport"),
 			content: content,
 			buttons: {
 				import: {
@@ -522,6 +527,43 @@ async function importFromJSONDialog() {
 	return await dialog;
 }
 
+async function importJSONAndMerge() {
+    const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
+    let dialog = new Promise((resolve, reject) => {
+        new Dialog({
+            title: game.i18n.format("AUTOANIM.mergeMenu"),
+            content: content,
+            buttons: {
+                import: {
+                    icon: '<i class="fas fa-file-import"></i>',
+                    label: "Import",
+                    callback: html => {
+                        //@ts-ignore
+                        const form = html.find("form")[0];
+                        if (!form.data.files.length)
+                            return ui.notifications?.error("You did not upload a data file!");
+                        readTextFromFile(form.data.files[0]).then(json => {
+                            AutorecFunctions._mergeAutorecFile(json);
+                            resolve(true);
+                        });
+                    }
+                },
+                no: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Cancel",
+                    callback: html => resolve(false)
+                }
+            },
+            default: "import"
+        }, {
+            width: 400
+        }).render(true);
+    });
+    return await dialog;
+}
+
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
+
+
