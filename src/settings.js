@@ -83,6 +83,15 @@ export default function aaSettings() {
         default: "0",
         config: true
     })
+    game.settings.register("autoanimations", "jb2aLocation", {
+        name: game.i18n.format("AUTOANIM.s3Name"),
+        hint: game.i18n.format("AUTOANIM.s3Hint"),
+        scope: 'world',
+        config: true,
+        type: String,
+        default: "modules",
+        onChange: () => { window.location.reload() }
+    });
     game.settings.register("autoanimations", "hideFromPlayers", {
         name: game.i18n.format("AUTOANIM.animtab_name"),
         hint: game.i18n.format("AUTOANIM.animtab_hint"),

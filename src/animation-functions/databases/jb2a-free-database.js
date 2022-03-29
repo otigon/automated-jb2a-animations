@@ -1,10 +1,11 @@
-export const JB2AFREEDB = {
-    _templates: {
+const JB2AFREEDB = {};
+export async function jb2aAAFreeDatabase(path) {
+
+JB2AFREEDB._templates = {
         ranged: [200, 200, 200]
-    },
 };
 
-const BASE = 'modules/JB2A_DnD5e/Library/'
+const BASE = `${path}/JB2A_DnD5e/Library/`
 const prefix = (str) => (strs, ...exprs) => `${BASE}${str}/${strs.reduce((a, c, i) => a + exprs[i - 1] + c)}`
 const l0 = prefix('Cantrip')
 const l1 = prefix('1st_Level')
@@ -1953,3 +1954,5 @@ JB2AFREEDB.return = {
         }
     },
 }
+}
+export { JB2AFREEDB }
