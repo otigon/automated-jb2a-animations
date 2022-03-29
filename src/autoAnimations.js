@@ -1,7 +1,8 @@
 import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
-
+import { jb2aAAPatreonDatabase } from "./animation-functions/databases/jb2a-patreon-database.js";
+import { jb2aAAFreeDatabase } from "./animation-functions/databases/jb2a-free-database.js";
 import systemData from "./system-handlers/system-data.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
@@ -82,9 +83,8 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
 });
 
 // Registers Database with Sequencer
-Hooks.on("sequencerReady", () => {
+Hooks.on("aa.ready", () => {
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
     Sequencer.Database.registerEntries("autoanimations", obj01, true);
     if (game.settings.get("autoanimations", "killAllAnim") === "off") {
         console.log("ANIMATIONS ARE OFF")
@@ -93,10 +93,18 @@ Hooks.on("sequencerReady", () => {
     }
 });
 
-Hooks.once('ready', function () {
+Hooks.once('ready', async function () {
     aaSettings();
-
+    let jb2aPath = game.settings.get('autoanimations', 'jb2aLocation');
+    if (!jb2aPath) { jb2aPath = 'modules'}
+    if (moduleIncludes("jb2a_patreon")) {
+        await jb2aAAPatreonDatabase(jb2aPath)
+    } else {
+        await jb2aAAFreeDatabase(jb2aPath)
+    }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    console.log(obj01)
+    //let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         ui.notifications.error(game.i18n.format("AUTOANIM.error"));
