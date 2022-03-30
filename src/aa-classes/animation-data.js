@@ -66,7 +66,11 @@ export class AAanimationData {
             data.enableCustom02 = data.custom02 || false;
             data.customPath = data.custom ? data.customPath : false;
             data.customPath02 = data.custom02 ? data.customPath02 : false;
-            data.aeDelay = data.aeDelay || 250,
+            data.aeDelay = data.aeDelay || 250;
+
+            if (handler.isActiveEffect) {
+                
+            }
 
             data.staticType = data.type || "targetDefault";
             data.color = autoOverridden ? handler.autorecOverrides?.color : data.color;

@@ -34,7 +34,7 @@ export async function bless(handler, animationData) {
     //let animWidth = onToken.metadata.width;
     const sourceScale = sourceToken.w;
     const scale = (sourceScale * 2.5 / bless.metadata.width) * data.scale// * handler.scale
-
+debugger
     if (handler.allTargets.length === 0) {
         const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * data.scale;
 
@@ -66,7 +66,7 @@ export async function bless(handler, animationData) {
                 .waitUntilFinished(-500)
             let endSection = aaSeq.effect();
             endSection.file(bless.file02)
-                .size(sourceTokenGS, { gridUnits: true })
+            endSection.size(sourceTokenGS, { gridUnits: true })
             endSection.origin(handler.item.uuid)
             endSection.attachTo(sourceToken)
             endSection.belowTokens(data.below)
@@ -120,7 +120,7 @@ export async function bless(handler, animationData) {
                 let endSection = aaSeq.effect();
                 endSection.file(bless.file02)
                 endSection.size(targetTokenGS, { gridUnits: true })
-                endSection.origin(handler.item.uuid)
+                endSection.origin(handler.itemUuid)
                 endSection.attachTo(target)
                 endSection.belowTokens(data.below)
                 endSection.loopProperty("sprite", "width", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })

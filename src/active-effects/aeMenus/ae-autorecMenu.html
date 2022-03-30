@@ -89,22 +89,134 @@
                 <div class="aa-section-divider"></div>
                 <div class="aa-primary-container">
                     <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
-                        <label>{{localize 'AUTOANIM.type'}}</label>
+                        <label>{{localize 'AUTOANIM.animation'}}</label>
                         <select name="aaAutorec.aefx.{{idx}}.aeType">
                             {{#select (lookup (lookup ../settings.aaAutorec.aefx idx)
                             'aeType')}}
                             <option value=""></option>
                             <option value="static">{{localize "AUTOANIM.onToken"}}</option>
                             <option value="auras">{{localize "AUTOANIM.typeAuras"}}</option>
+                            <option value="preset">{{localize "AUTOANIM.presets"}}</option>
                             {{/select}}
                         </select>
                     </div>
                 </div>
                 <div class='flexcol' style='display:none'>
-                    <input type="text" name="aaAutorec.aefx.{{idx}}.type"
-                    value="source">
+                    <input type="text" name="aaAutorec.aefx.{{idx}}.type" value="source">
                 </div>
                 <!--Static Menu options-->
+                {{#ifEquals (lookup (lookup ../settings.aaAutorec.aefx idx) 'aeType') 'preset' }}
+                <div class="aa-primary-container">
+                    <div class='flexcol' style='grid-row: 1 / 2;grid-column: 2 / 3;'>
+                        <label>{{localize 'AUTOANIM.type'}}:</label>
+                        <select name="aaAutorec.aefx.{{idx}}.menuType">
+                            {{#select (lookup (lookup ../settings.aaAutorec.aefx idx)
+                            'menuType')}}
+                            <option value=""></option>
+                            <option value="bless">{{localize "AUTOANIM.bless"}}</option>
+                            <option value="shieldspell">{{localize "AUTOANIM.shieldspell"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+                {{#ifEquals (lookup (lookup ../settings.aaAutorec.aefx idx) 'menuType') 'bless' }}
+                <div class="aa-primary-container">
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
+                        <label>{{localize "AUTOANIM.color"}}</label>
+                        <select name="aaAutorec.aefx.{{idx}}.color">
+                            {{#select (lookup (lookup ../settings.aaAutorec.aefx idx) 'color')}}
+                            {{#each (lookup ../menuColors.static.spell.bless '01') as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+                <div class='flexrow aa-section-label'>
+                    <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
+                </div>
+                <div class="aa-subSection-divider"></div>
+                <div class="aa-options-odd aa-options-settings">
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+                        <label>{{localize 'AUTOANIM.ctaScale'}}</label>
+                        <input type="Number" name="aaAutorec.aefx.{{idx}}.scale"
+                            value="{{lookup (lookup ../settings.aaAutorec.aefx idx) 'scale'}}" data-dtype="Number"
+                            placeholder=1>
+                    </div>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+                        <label>{{localize 'AUTOANIM.below'}}</label>
+                        <input type='checkbox' name='aaAutorec.aefx.{{idx}}.below' {{checked (lookup (lookup
+                            ../settings.aaAutorec.aefx idx) 'below' ) }}>
+                    </div>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 5 / 6;'>
+                        <label>{{localize "AUTOANIM.persistant"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.aefx.{{idx}}.addCTA' {{checked (lookup
+                            (lookup ../settings.aaAutorec.aefx idx) 'addCTA' ) }}>
+                    </div>
+                </div>
+                {{/ifEquals}}
+
+                {{#ifEquals (lookup (lookup ../settings.aaAutorec.aefx idx) 'menuType') 'shieldspell' }}
+                <div class="aa-primary-container">
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 1 / 2;'>
+                        <label>{{localize 'AUTOANIM.variant'}}</label>
+                        <select name="aaAutorec.aefx.{{idx}}.variant">
+                            {{#select (lookup (lookup ../settings.aaAutorec.aefx idx) 'variant')}}
+                            <option value=""> </option>
+                            {{#each (lookup ../menuVariants.static.spell 'shieldspell') as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
+                        <label>{{localize "AUTOANIM.color"}}</label>
+                        <select name="aaAutorec.aefx.{{idx}}.color">
+                            {{#select (lookup (lookup ../settings.aaAutorec.aefx idx) 'color')}}
+                            <option value=""> </option>
+                            {{#each (lookup (lookup ../menuColors.static.spell 'shieldspell') (lookup (lookup
+                            ../settings.aaAutorec.aefx idx) 'variant')) as |name key|}}
+                            <option value="{{key}}">{{name}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class='flexcol' style='grid-row: 2 / 3;grid-column: 3 / 4;'>
+                        <label>{{localize "AUTOANIM.endEffect"}}</label>
+                        <select name="aaAutorec.aefx.{{idx}}.endeffect">
+                            {{#select (lookup (lookup ../settings.aaAutorec.aefx idx) 'endeffect')}}
+                            <option value="outro_explode">{{localize "AUTOANIM.explode"}}</option>
+                            <option value="outro_fade">{{localize "AUTOANIM.fade"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+                <div class='flexrow aa-section-label'>
+                    <label style="font-size: large;">{{localize "AUTOANIM.options"}}</label>
+                </div>
+                <div class="aa-subSection-divider"></div>
+                <div class="aa-options-odd aa-options-settings">
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
+                        <label>{{localize 'AUTOANIM.ctaScale'}}</label>
+                        <input type="Number" name="aaAutorec.aefx.{{idx}}.scale"
+                            value="{{lookup (lookup ../settings.aaAutorec.aefx idx) 'scale'}}" data-dtype="Number"
+                            placeholder=1>
+                    </div>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+                        <label>{{localize 'AUTOANIM.below'}}</label>
+                        <input type='checkbox' name='aaAutorec.aefx.{{idx}}.below' {{checked (lookup (lookup
+                            ../settings.aaAutorec.aefx idx) 'below' ) }}>
+                    </div>
+                    <div class="flexcol" style='grid-row: 1 / 2; grid-column: 5 / 6;'>
+                        <label>{{localize "AUTOANIM.persistant"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.aefx.{{idx}}.addCTA' {{checked (lookup
+                            (lookup ../settings.aaAutorec.aefx idx) 'addCTA' ) }}>
+                    </div>
+                </div>
+                {{/ifEquals}}
+                {{/ifEquals}}
+
+                {{#ifnoteq (lookup (lookup ../settings.aaAutorec.aefx idx) 'aeType') 'preset' }}
                 <div class="aa-primary-container">
                     <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
                         <label>{{localize 'AUTOANIM.type'}}:</label>
@@ -257,6 +369,7 @@
                     </div>
                 </div>
                 {{/ifEquals}}
+                {{/ifnoteq}}
                 <div class='aa-checkbox-label' style="text-align: center;">
                     <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>
                         <label style="font-size: large;">{{localize "AUTOANIM.primary"}} {{localize
@@ -319,7 +432,7 @@
                             {{#select (lookup (lookup (lookup ../settings.aaAutorec.aefx idx) 'explosion')
                             'menuType')}}
                             <option value=""></option>
-                            {{#each ../menuTypes.aefx as |name key|}}
+                            {{#each ../menuTypes.static as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}
@@ -332,7 +445,7 @@
                             {{#select (lookup (lookup (lookup ../settings.aaAutorec.aefx idx) 'explosion' )
                             'animation')}}
                             <option value=""></option>
-                            {{#each (lookup ../menuNames.aefx (lookup (lookup (lookup ../settings.aaAutorec.aefx
+                            {{#each (lookup ../menuNames.static (lookup (lookup (lookup ../settings.aaAutorec.aefx
                             idx) 'explosion') 'menuType')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
@@ -346,7 +459,7 @@
                             {{#select (lookup (lookup (lookup ../settings.aaAutorec.aefx idx) 'explosion' )
                             'variant')}}
                             <option value=""> </option>
-                            {{#each (lookup (lookup ../menuVariants.aefx (lookup (lookup (lookup
+                            {{#each (lookup (lookup ../menuVariants.static (lookup (lookup (lookup
                             ../settings.aaAutorec.aefx idx) 'explosion') 'menuType')) (lookup (lookup (lookup
                             ../settings.aaAutorec.aefx idx) 'explosion') 'animation')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
@@ -360,7 +473,7 @@
                             ../settings.aaAutorec.aefx idx) 'explosion' ) 'custom' )}} disabled {{/if }}>
                             {{#select (lookup (lookup (lookup ../settings.aaAutorec.aefx idx) 'explosion') 'color')}}
                             <option value=""> </option>
-                            {{#each (lookup (lookup (lookup ../menuColors.aefx (lookup (lookup (lookup
+                            {{#each (lookup (lookup (lookup ../menuColors.static (lookup (lookup (lookup
                             ../settings.aaAutorec.aefx idx) 'explosion') 'menuType')) (lookup (lookup (lookup
                             ../settings.aaAutorec.aefx idx) 'explosion') 'animation')) (lookup (lookup (lookup
                             ../settings.aaAutorec.aefx idx) 'explosion') 'variant')) as |name key|}}
@@ -505,7 +618,8 @@
                     </div>
                     <div class="flexcol" style='grid-row: 3 / 4; grid-column: 1 / 2;'>
                         <label>{{localize "AUTOANIM.start"}} {{localize "AUTOANIM.time"}}</label>
-                        <input type="Number" name="aaAutorec.aefx.{{idx}}.soundOnly.startTime" min="0" max="1" step="0.01"
+                        <input type="Number" name="aaAutorec.aefx.{{idx}}.soundOnly.startTime" min="0" max="1"
+                            step="0.01"
                             value="{{lookup (lookup (lookup ../settings.aaAutorec.aefx idx) 'soundOnly') 'startTime'}}"
                             placeholder=0>
                     </div>

@@ -17,11 +17,6 @@ export async function createActiveEffects5e(effect) {
     // Sets data for the System Handler
     const flagData = {
         aaAeStatus: "on",
-        origin: effect.data.origin || effect.uuid,
-    }
-    if (!flagData.origin) {
-        if (aaDebug) { aaDebugger("Failed to find the Item origin or UUID") }
-        return;
     }
 
     // Gets the Token that the Active Effect is applied to
@@ -35,10 +30,10 @@ export async function createActiveEffects5e(effect) {
     if (effect.data?.flags?.autoanimations) {
         await flagMigrations.handle(effect);
     }
+    // If no A-A flags are present, grab current Flag version and apply it to the effect
     if (!effect.data?.flags?.autoanimation?.version) {
         flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     }
-    // Adds the status and origin data to the AE A-A flags
     await effect.update({ 'flags.autoanimations': flagData })
 
     // Initilizes the A-A System Handler
@@ -67,15 +62,8 @@ export async function createActiveEffects5e(effect) {
 export async function deleteActiveEffects5e(effect) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
-    // Origin UUID of the effect
-    let aeOrigin = effect.data?.origin || effect.uuid
-    if (!aeOrigin) {
-        if (aaDebug) { aaDebugger("Failed to find the Item origin or UUID") }
-        return;
-    };
-
     // Finds all active Animations on the scene that match aeOrigin
-    let aaEffects = Sequencer.EffectManager.getEffects({ origin: aeOrigin })
+    let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
     // If no animations, exit early, Else continue with gathering data
     if (aaEffects.length < 1) { return; }
@@ -125,7 +113,7 @@ export async function deleteActiveEffects5e(effect) {
         }
 
         // End all Animations on the token with .origin(aeOrigin)
-        Sequencer.EffectManager.endEffects({ origin: aeOrigin, object: handler.sourceToken })
+        Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
     }
 }
 
