@@ -33,8 +33,7 @@ export async function bless(handler, animationData) {
 
     //let animWidth = onToken.metadata.width;
     const sourceScale = sourceToken.w;
-    const scale = (sourceScale * 2.5 / bless.metadata.width) * data.scale// * handler.scale
-debugger
+
     if (handler.allTargets.length === 0) {
         const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * data.scale;
 

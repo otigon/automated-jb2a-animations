@@ -9,6 +9,11 @@ export function disableAnimations() {
     killAllAnimations = true;
 }
 
+/**
+ * 
+ * @param {*} // The Active Effect being applied 
+ * 
+ */
 export async function createActiveEffects5e(effect) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
@@ -30,7 +35,7 @@ export async function createActiveEffects5e(effect) {
     if (effect.data?.flags?.autoanimations) {
         await flagMigrations.handle(effect);
     }
-    // If no A-A flags are present, grab current Flag version and apply it to the effect
+    // If no A-A flags are present, grab current Flag version and apply it to the effect (bypasses flag merge issues)
     if (!effect.data?.flags?.autoanimation?.version) {
         flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     }
@@ -62,7 +67,7 @@ export async function createActiveEffects5e(effect) {
 export async function deleteActiveEffects5e(effect) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
-    // Finds all active Animations on the scene that match aeOrigin
+    // Finds all active Animations on the scene that match .origin(effect.uuid)
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
     // If no animations, exit early, Else continue with gathering data
@@ -112,7 +117,7 @@ export async function deleteActiveEffects5e(effect) {
                 .play()
         }
 
-        // End all Animations on the token with .origin(aeOrigin)
+        // End all Animations on the token with .origin(effect.uuid)
         Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
     }
 }
