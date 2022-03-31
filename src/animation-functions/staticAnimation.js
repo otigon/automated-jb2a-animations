@@ -49,27 +49,25 @@ export async function staticAnimation(handler, animationData) {
             let bottomEffect = aaSeq.effect();
             bottomEffect.file(bottomAnim)
             bottomEffect.name("spot" + ` ${sourceToken.id}`)
-            bottomEffect.repeats(data.repeat, data.delay)
             bottomEffect.opacity(data.opacity)
             bottomEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             bottomEffect.belowTokens(true)
             bottomEffect.rotate(180)
             bottomEffect.fadeIn(250)
             bottomEffect.fadeOut(500)
-            if (!data.persistent) { bottomEffect.atLocation(sourceToken) }
+            if (!data.persistent) { bottomEffect.atLocation(sourceToken); bottomEffect.repeats(data.repeat, data.delay) }
             if (playPersist) { bottomEffect.attachTo(sourceToken); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
             if (checkAnim) { bottomEffect.playIf(false); }
 
             let topEffect = aaSeq.effect();
             topEffect.file(onToken.fileData)
             topEffect.name("spot" + ` ${sourceToken.id}`)
-            topEffect.repeats(data.repeat, data.delay)
             topEffect.opacity(data.opacity)
             topEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             topEffect.belowTokens(false)
             topEffect.fadeIn(250)
             topEffect.fadeOut(500)
-            if (!data.persistent) { topEffect.atLocation(sourceToken) }
+            if (!data.persistent) { topEffect.atLocation(sourceToken); topEffect.repeats(data.repeat, data.delay) }
             if (playPersist) { topEffect.attachTo(sourceToken); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
             if (checkAnim) { topEffect.playIf(false); }
 
@@ -77,13 +75,12 @@ export async function staticAnimation(handler, animationData) {
             let aaEffect = aaSeq.effect();
             aaEffect.file(onToken.file)
             aaEffect.name("spot" + ` ${sourceToken.id}`)
-            aaEffect.repeats(data.repeat, data.delay)
             aaEffect.opacity(data.opacity)
             aaEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             aaEffect.belowTokens(data.below)
             aaEffect.fadeIn(250)
             aaEffect.fadeOut(500)
-            if (!data.persistent) { aaEffect.atLocation(sourceToken) }
+            if (!data.persistent) { aaEffect.atLocation(sourceToken); aaEffect.repeats(data.repeat, data.delay) }
             if (playPersist) { aaEffect.attachTo(sourceToken, {bindAlpha: false, bindVisibility: false}); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
             if (checkAnim) { aaEffect.playIf(false); }
 
@@ -123,26 +120,24 @@ export async function staticAnimation(handler, animationData) {
                     let bottomEffect = aaSeq.effect();
                     bottomEffect.file(bottomAnim)
                     bottomEffect.name("spot" + ` ${target.id}`)
-                    bottomEffect.repeats(data.repeat, data.delay)
                     bottomEffect.opacity(data.opacity)
                     bottomEffect.size(targetTokenGS * 1.5 * data.scale, {gridUnits: true})
                     bottomEffect.belowTokens(true)
                     bottomEffect.rotate(180)
                     bottomEffect.fadeIn(250)
                     bottomEffect.fadeOut(500)
-                    if (!data.persistent) { bottomEffect.atLocation(target); bottomEffect.missed(!hit) }
+                    if (!data.persistent) { bottomEffect.atLocation(target); bottomEffect.missed(!hit); bottomEffect.repeats(data.repeat, data.delay) }
                     else { bottomEffect.attachTo(target); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
 
                     let topEffect = aaSeq.effect();
                     topEffect.file(onToken.fileData)
                     topEffect.name("spot" + ` ${target.id}`)
-                    topEffect.repeats(data.repeat, data.delay)
                     topEffect.opacity(data.opacity)
                     topEffect.size(targetTokenGS * 1.5 * data.scale, {gridUnits: true})
                     topEffect.belowTokens(false)
                     topEffect.fadeIn(250)
                     topEffect.fadeOut(500)
-                    if (!data.persistent) { topEffect.atLocation(target); topEffect.missed(!hit) }
+                    if (!data.persistent) { topEffect.atLocation(target); topEffect.missed(!hit); topEffect.repeats(data.repeat, data.delay) }
                     else { topEffect.attachTo(target); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
 
                 } else {
@@ -151,14 +146,13 @@ export async function staticAnimation(handler, animationData) {
                     let aaEffect = aaSeq.effect();
                     aaEffect.file(onToken.file)
                     aaEffect.name("spot" + ` ${target.id}`)
-                    aaEffect.repeats(data.repeat, data.delay)
                     aaEffect.opacity(data.opacity)
                     //aaEffect.scale(scale * data.scale)
                     aaEffect.size(effectScale * 1.5 * data.scale, {gridUnits: true})
                     aaEffect.belowTokens(data.below)
                     aaEffect.fadeIn(250)
                     aaEffect.fadeOut(500)
-                    if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit) }
+                    if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit); aaEffect.repeats(data.repeat, data.delay) }
                     else { aaEffect.attachTo(target); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
                 }
 

@@ -122,6 +122,11 @@ export async function deleteActiveEffects5e(effect) {
     }
 }
 
+/**
+ * 
+ * @param {Active Effect being updated} effect 
+ * @param {Toggle Check On/Off for Effect} toggle 
+ */
 export async function toggleActiveEffects5e(effect, toggle) {
     if (toggle.disabled === true) {
         deleteActiveEffects5e(effect)

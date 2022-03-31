@@ -108,7 +108,6 @@ export async function bless(handler, animationData) {
             let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * data.scale
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
             let playPersist = (!checkAnim && data.persistent) ? true : false;
-            let targetScale = (target.w * 2 / bless.metadata.width) * data.scale
             if (!checkAnim) {
                 aaSeq.effect()
                     .file(bless.file01)
