@@ -118,7 +118,7 @@ Hooks.once('ready', async function () {
         await jb2aAAFreeDatabase(jb2aPath)
     }
     */
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    let obj01;
     if (jb2aPatreonFound || s3Patreon) {
         await jb2aAAPatreonDatabase(jb2aPath)
         obj01 = JB2APATREONDB;
