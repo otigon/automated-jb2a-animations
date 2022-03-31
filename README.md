@@ -36,7 +36,10 @@ Current System Compatibility:
 - Starfinder  
 - Warhammer 4e
 - Swade (Support is sketchy and I will not be updating further. If you can help out please send a PR)
-- DCC  
+- DCC
+- Alien RPG
+- Forbidden Lands
+- Star Wars FFG
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  
