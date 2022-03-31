@@ -4,7 +4,7 @@ export async function jb2aAAPatreonDatabase(path) {
 JB2APATREONDB._templates = {
         ranged: [200, 200, 200]
 }
-const BASE = `${path}/jb2a_patreon/Library/`;
+const BASE = `${path}/Library/`;
 const prefix = (str) => (strs, ...exprs) => `${BASE}${str}/${strs.reduce((a, c, i) => a + exprs[i - 1] + c)}`
 const l0 = prefix('Cantrip')
 const l1 = prefix('1st_Level')

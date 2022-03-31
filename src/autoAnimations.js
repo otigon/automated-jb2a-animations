@@ -95,19 +95,41 @@ Hooks.on("aa.ready", () => {
 
 Hooks.once('ready', async function () {
     aaSettings();
+    const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
+    const jb2aPatreonFound = moduleIncludes("jb2a_patreon");
+    //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");
     let jb2aPath = game.settings.get('autoanimations', 'jb2aLocation');
-    if (!jb2aPath) { jb2aPath = 'modules'}
+    let s3Patreon;
+    if (!jb2aPath) { 
+        if (jb2aPatreonFound) {
+            jb2aPath = 'modules/jb2a_patreon'
+        } else {
+            jb2aPath = 'modules/JB2A_DnD5e'
+        }
+    } else {
+        if (jb2aPath.includes('patreon')) {
+            s3Patreon = true;
+        }
+    }
+    /*
     if (moduleIncludes("jb2a_patreon")) {
         await jb2aAAPatreonDatabase(jb2aPath)
     } else {
         await jb2aAAFreeDatabase(jb2aPath)
     }
+    */
+    if (jb2aPatreonFound || s3Patreon) {
+        await jb2aAAPatreonDatabase(jb2aPath)
+    } else {
+        await jb2aAAFreeDatabase(jb2aPath)
+    }
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    console.log(obj01)
     //let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
 
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
-        ui.notifications.error(game.i18n.format("AUTOANIM.error"));
+        if (s3Check && (s3Check.includes('jb2a_patreon') || s3Check.includes('JB2A_DnD5e'))) {} else {
+            ui.notifications.error(game.i18n.format("AUTOANIM.error"));
+        }
     }
     autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
     if (game.modules.get("midi-qol")?.active) {

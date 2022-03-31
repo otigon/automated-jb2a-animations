@@ -5,7 +5,7 @@ JB2AFREEDB._templates = {
         ranged: [200, 200, 200]
 };
 
-const BASE = `${path}/JB2A_DnD5e/Library/`
+const BASE = `${path}/Library/`
 const prefix = (str) => (strs, ...exprs) => `${BASE}${str}/${strs.reduce((a, c, i) => a + exprs[i - 1] + c)}`
 const l0 = prefix('Cantrip')
 const l1 = prefix('1st_Level')
