@@ -89,7 +89,7 @@ export default function aaSettings() {
         scope: 'world',
         config: true,
         type: String,
-        default: "modules",
+        default: "",
         onChange: () => { window.location.reload() }
     });
     game.settings.register("autoanimations", "hideFromPlayers", {
