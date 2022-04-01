@@ -2,9 +2,9 @@ import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-data
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
 
-import { deleteActiveEffects5e, toggleActiveEffects5e, createActiveEffects5e } from "./active-effects/ae5e.js";
-
+import { socketlibSocket } from "./socketset.js";
 import systemData from "./system-handlers/system-data.js";
+import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggleActiveEffects5e } from "./active-effects/ae5e.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
@@ -16,7 +16,7 @@ import { flagMigrations } from "./system-handlers/flagMerge.js";
 import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 const log = () => { };
 
-Hooks.once('setup', function () {
+Hooks.once('socketlib.ready', function () {
     setupSocket();
 });
 var killAllAnimations;
@@ -288,11 +288,32 @@ Hooks.once('ready', function () {
                 break;
         }
     }
+    //Active Effect Hooks
     switch (game.system.id) {
         case "dnd5e":
-            Hooks.on("createActiveEffect", (data) => {createActiveEffects5e(data) });
-            Hooks.on("deleteActiveEffect", (data) => {deleteActiveEffects5e(data) });
-            Hooks.on("updateActiveEffect", (data, toggle) => {toggleActiveEffects5e(data, toggle) });        
+            //if(game.user === game.users.find((i) => i.isGM && i.active)) {
+                Hooks.on("createActiveEffect", (effect, data, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    //if (!game.user.isGM) { return; }
+                    //socketlibSocket.executeAsGM("createActiveEffects5e", effect)
+                    createActiveEffects5e(effect)
+                });
+                Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    //if (!game.user.isGM) { return; }
+                    //socketlibSocket.executeAsGM("deleteActiveEffects5e", effect)
+                    deleteActiveEffects5e(effect)
+                    if (game.modules.get('midi-qol')?.active) {
+                        //socketlibSocket.executeAsGM("checkConcentration", effect)
+                        checkConcentration(effect)
+                    }
+                });
+                Hooks.on("updateActiveEffect", (data, toggle, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    //if (!game.user.isGM) { return; }
+                    socketlibSocket.executeAsGM("toggleActiveEffects5e", data, toggle)
+                });        
+            //}
         break;
     }
     Hooks.callAll("aa.ready", obj01)

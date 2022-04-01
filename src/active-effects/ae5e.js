@@ -2,6 +2,7 @@ import { trafficCop } from "../router/traffic-cop.js";
 import systemData from "../system-handlers/system-data.js";
 import { aaDebugger } from "../constants/constants.js";
 import { flagMigrations } from "../system-handlers/flagMerge.js";
+import { socketlibSocket } from "../socketset.js";
 
 var killAllAnimations;
 export function disableAnimations() {
@@ -15,6 +16,7 @@ export function disableAnimations() {
  * 
  */
 export async function createActiveEffects5e(effect) {
+
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (killAllAnimations) { return; }
@@ -65,6 +67,7 @@ export async function createActiveEffects5e(effect) {
  * 
  */
 export async function deleteActiveEffects5e(effect) {
+
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
@@ -128,9 +131,47 @@ export async function deleteActiveEffects5e(effect) {
  * @param {Toggle Check On/Off for Effect} toggle 
  */
 export async function toggleActiveEffects5e(effect, toggle) {
+
     if (toggle.disabled === true) {
-        deleteActiveEffects5e(effect)
+        deleteActiveEffects5e(effect, userId)
     } else if (toggle.disabled === false) {
-        createActiveEffects5e(effect);
+        createActiveEffects5e(effect, userId);
     }
+}
+
+export async function checkConcentration(effect) {
+
+    // Check effect label and return if it is not equal to "concentrating"
+    const label = effect.data?.label || "";
+    if (label.toLowerCase() !== "concentrating") { return; }
+
+    // Get Originating Item. If no Origin, return
+    const origin = effect.data?.origin
+    if (!origin) { 
+        if (aaDebug) { aaDebugger("Failed to find an Origin for Concentration", handler) }
+        return; 
+    }
+
+    // Get arrays of Background and Foreground Tiles with the A-A Origin flag UUID matching the Effect Origin
+    const bgTiles = canvas.background.placeables.filter(i => i.data?.flags?.autoanimations?.origin === origin)
+    const fgTiles = canvas.foreground.placeables.filter(i => i.data?.flags?.autoanimations?.origin === origin);
+    if (bgTile.length < 1 && fgTiles.length < 1) { 
+        if (aaDebug) { aaDebugger("Failed to find any Tiles tied to Concentration", handler) }
+        return; 
+    }
+
+    if (bgTiles.length) {
+        let bgIdArray = [];
+        for (let tile of bgTiles) {
+            bgIdArray.push(tile.id)
+        }
+        socketlibSocket.executeAsGM("removeBackgroundTile", bgIdArray)
+    }
+    if (fgTiles.length) {
+        for (let tile of fgTiles) {
+            socketlibSocket.executeAsGM("removeTile", tile)
+        }
+    }
+    
+    
 }

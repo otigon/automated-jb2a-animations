@@ -1,4 +1,5 @@
 export var socketlibSocket = undefined;
+import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggleActiveEffects5e } from "./active-effects/ae5e.js";
 
 export let setupSocket = () => {
     //@ts-ignore
@@ -7,6 +8,11 @@ export let setupSocket = () => {
         socketlibSocket.register("placeTile", placeTile);
         socketlibSocket.register("placeDrawing", placeDrawing);
         socketlibSocket.register("deleteDrawing", deleteDrawing);
+        //socketlibSocket.register("removeBackgroundTile", removeBackgroundTile);
+        //socketlibSocket.register("createActiveEffects5e", createActiveEffects5e)
+        //socketlibSocket.register("deleteActiveEffects5e", deleteActiveEffects5e)
+        //socketlibSocket.register("checkConcentration", checkConcentration)
+        //socketlibSocket.register("toggleActiveEffects5e", toggleActiveEffects5e)
     }
 };
 
@@ -20,4 +26,8 @@ export async function placeDrawing(data) {
 
 export async function deleteDrawing(data) {
     await canvas.scene.deleteEmbeddedDocuments("Drawing", data);
+}
+
+export async function removeBackgroundTile(data) {
+    await canvas.scene.deleteEmbeddedDocuments("Tile", data);
 }

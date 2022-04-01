@@ -1,4 +1,5 @@
 export function endTiming(itemName) {
+    if (!itemName) { return 700 }
     let name = itemName.replace(/\s+/g, '').toLowerCase();
     let animEnd = 700;
 
