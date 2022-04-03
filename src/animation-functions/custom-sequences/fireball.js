@@ -29,17 +29,17 @@ export async function fireball(handler, animationData, config) {
         data.explosion01 = data.explosion01;
         data.explosion01Variant = data.explosion01Variant ?? "01";
         data.explosion01Color = autoOverridden ? autoFireball.explosion01Color ?? "" : data.explosion01Color ?? "";
-        data.explosion01Repeat = data.explosion01Repeat ?? 1;
-        data.explosion01Delay = data.explosion01Delay ?? 250;
-        data.explosion01Scale = data.explosion01Scale ?? 1;
+        data.explosion01Repeat = data.explosion01Repeat || 1;
+        data.explosion01Delay = data.explosion01Delay || 250;
+        data.explosion01Scale = data.explosion01Scale || 1;
         data.wait02 = data.wait02 ?? -500;
 
         data.explosion02 = data.explosion02;
         data.explosion02Variant = data.explosion02Variant ?? "01";
         data.explosion02Color = autoOverridden ? autoFireball.explosion02Color ?? "" : data.explosion02Color ?? "";
-        data.explosion02Repeat = data.explosion02Repeat ?? 1;
-        data.explosion02Delay = data.explosion02Delay ?? 250;
-        data.explosion02Scale = data.explosion02Scale ?? 1;
+        data.explosion02Repeat = data.explosion02Repeat || 1;
+        data.explosion02Delay = data.explosion02Delay || 250;
+        data.explosion02Scale = data.explosion02Scale || 1;
 
         data.afterEffect = autoOverrideAfter ? autoFireball.afterEffect ?? false : data.afterEffect || false;
         data.afterEffectPath = autoOverrideAfter ? autoFireball.afterEffectPath ?? "" : data.afterEffectPath ?? "";
@@ -218,6 +218,7 @@ export async function fireball(handler, animationData, config) {
             .file(explosion02.file, true)
             .atLocation(position)
             .size(size * data.explosion02Scale)
+            .repeats(data.explosion02Repeat, data.explosion02Delay)
             .zIndex(5)
             .waitUntilFinished(-750 + data.wait03)
     }
