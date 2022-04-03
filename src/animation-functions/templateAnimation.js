@@ -76,7 +76,7 @@ export async function templateAnimation(handler, animationData, config) {
             },
             flags: {
                 autoanimations: {
-                    origin: handler.item.uuid,
+                    origin: handler.itemUuid,
                 }
             },
             x: tileX,
@@ -144,7 +144,7 @@ export async function templateAnimation(handler, animationData, config) {
                 height: (canvas.grid.size * (trueHeight / canvas.dimensions.distance)) * data.scaleY,
             })
             coneRaySeq.opacity(data.opacity)
-            coneRaySeq.origin(handler.item.uuid)
+            coneRaySeq.origin(handler.itemUuid)
             coneRaySeq.belowTokens(data.below)
             if (data.persistent) {
                 coneRaySeq.persist(true)
@@ -180,7 +180,7 @@ export async function templateAnimation(handler, animationData, config) {
                 height: canvas.grid.size * (trueSize / canvas.dimensions.distance) * data.scaleY,
             })
             circRectSeq.opacity(data.opacity)
-            circRectSeq.origin(handler.item.uuid)
+            circRectSeq.origin(handler.itemUuid)
             circRectSeq.belowTokens(data.below)
             if (data.persistent) {
                 circRectSeq.persist(true)

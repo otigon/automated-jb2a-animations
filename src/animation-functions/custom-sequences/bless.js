@@ -37,7 +37,7 @@ export async function bless(handler, animationData) {
     if (handler.allTargets.length === 0) {
         const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * data.scale;
 
-        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         const playPersist = (!checkAnim && data.persistent) ? true : false;
         let aaSeq = await new Sequence()
         // Play Macro if Awaiting
@@ -66,7 +66,7 @@ export async function bless(handler, animationData) {
             let endSection = aaSeq.effect();
             endSection.file(bless.file02)
             endSection.size(sourceTokenGS, { gridUnits: true })
-            endSection.origin(handler.item.uuid)
+            endSection.origin(handler.itemUuid)
             endSection.attachTo(sourceToken)
             endSection.belowTokens(data.below)
             endSection.loopProperty("sprite", "width", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
@@ -106,7 +106,7 @@ export async function bless(handler, animationData) {
 
         for (let target of handler.allTargets) {
             let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * data.scale
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
             let playPersist = (!checkAnim && data.persistent) ? true : false;
             if (!checkAnim) {
                 aaSeq.effect()

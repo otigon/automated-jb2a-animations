@@ -26,7 +26,7 @@ export async function dualAttach(handler, animationData) {
     const onlyX = data.enableCustom ? data.onlyX : false;
 
     const sourceToken = handler.sourceToken;
-    let effectExists = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid })
+    let effectExists = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid })
     if (aaDebug) { aaDebugger("Dual Attach Animation Start", data, animFile) }
     async function cast() {
 
@@ -56,7 +56,7 @@ export async function dualAttach(handler, animationData) {
                 .stretchTo(target, { attachTo: true, onlyX: onlyX })
                 .persist(true)
                 .playbackRate(data.playbackRate)
-                .origin(handler.item.uuid)
+                .origin(handler.itemUuid)
                 .belowTokens(data.below)
                 //.playIf(!checkTarget)
             }

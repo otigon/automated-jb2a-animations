@@ -228,7 +228,7 @@ export async function fireball(handler, animationData, config) {
             .atLocation(position)
             .belowTokens(true)
             .persist(true)
-            .origin(handler.item.uuid)
+            .origin(handler.itemUuid)
             .fadeIn(250)
             .fadeOut(500)
     }
