@@ -59,7 +59,7 @@ export async function bless(handler, animationData) {
         if (!checkAnim) {
             aaSeq.effect()
                 .file(bless.file01)
-                .attachTo(sourceToken)
+                .attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
                 .size(sourceTokenGS, { gridUnits: true })
                 .belowTokens(data.below)
                 .waitUntilFinished(-500)
@@ -67,12 +67,19 @@ export async function bless(handler, animationData) {
             endSection.file(bless.file02)
             endSection.size(sourceTokenGS, { gridUnits: true })
             endSection.origin(handler.itemUuid)
-            endSection.attachTo(sourceToken)
+            endSection.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
             endSection.belowTokens(data.below)
             endSection.loopProperty("sprite", "width", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
             endSection.loopProperty("sprite", "height", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
-            if (playPersist) { endSection.persist() }
-        }
+            if (playPersist) { 
+                if (handler.isActiveEffect) {
+                    endSection.name("ae" + `${sourceToken.id}`)
+                } else {
+                    endSection.name(sourceToken.id)
+                }        
+                endSection.persist()
+            }
+    }
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
@@ -111,7 +118,7 @@ export async function bless(handler, animationData) {
             if (!checkAnim) {
                 aaSeq.effect()
                     .file(bless.file01)
-                    .attachTo(target)
+                    .attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
                     .size(targetTokenGS, { gridUnits: true })
                     .belowTokens(data.below)
                     .waitUntilFinished(-500)
@@ -119,11 +126,18 @@ export async function bless(handler, animationData) {
                 endSection.file(bless.file02)
                 endSection.size(targetTokenGS, { gridUnits: true })
                 endSection.origin(handler.itemUuid)
-                endSection.attachTo(target)
+                endSection.attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
                 endSection.belowTokens(data.below)
                 endSection.loopProperty("sprite", "width", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
                 endSection.loopProperty("sprite", "height", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
-                if (playPersist) { endSection.persist() }
+                if (playPersist) { 
+                    if (handler.isActiveEffect) {
+                        endSection.name("ae" + `${target.id}`)
+                    } else {
+                        endSection.name(target.id)
+                    }        
+                    endSection.persist()
+                }
             }
         }
         if (data.playMacro && data.macro.playWhen === "0") {

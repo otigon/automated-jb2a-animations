@@ -210,12 +210,22 @@
                             value="{{lookup (lookup ../settings.aaAutorec.static idx) 'opacity'}}" data-dtype="Number"
                             placeholder=1>
                     </div>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 1 / 2;'>
+                        <label>{{localize "AUTOANIM.unbindAlpha"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.static.{{idx}}.unbindAlpha' {{checked
+                            (lookup (lookup ../settings.aaAutorec.static idx) 'unbindAlpha' ) }}>
+                    </div>
                     <div class="flexcol" style='grid-row: 2 / 3; grid-column: 2 / 3;'>
+                        <label>{{localize "AUTOANIM.unbindVisibility"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.static.{{idx}}.unbindVisibility' {{checked
+                            (lookup (lookup ../settings.aaAutorec.static idx) 'unbindVisibility' ) }}>
+                    </div>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 3 / 4;'>
                         <label>{{localize "AUTOANIM.persistant"}}?</label>
                         <input type='checkbox' class='hideme' name='aaAutorec.static.{{idx}}.persistent' {{checked
                             (lookup (lookup ../settings.aaAutorec.static idx) 'persistent' ) }}>
                     </div>
-                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 3 / 4;'>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 4 / 5;'>
                         <label>{{localize 'AUTOANIM.below'}}: </label>
                         <input type='checkbox' name='aaAutorec.static.{{idx}}.below' {{checked (lookup (lookup
                             ../settings.aaAutorec.static idx) 'below' ) }}>

@@ -84,7 +84,16 @@ export async function shieldSpell(handler, animationData) {
         persistSwitch.fadeIn(300)
         persistSwitch.fadeOut(300)
         persistSwitch.origin(handler.itemUuid)
-        if (data.persistent) { persistSwitch.attachTo(sourceToken); persistSwitch.persist(); persistSwitch.origin(handler.itemUuid) }
+        if (data.persistent) {
+            if (handler.isActiveEffect) {
+                persistSwitch.name("ae" + `${sourceToken.id}`)
+            } else {
+                persistSwitch.name(`${sourceToken.id}`)
+            }
+            persistSwitch.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility});
+            persistSwitch.persist();
+            persistSwitch.origin(handler.itemUuid)
+        }
         else { persistSwitch.atLocation(sourceToken) }
         persistSwitch.waitUntilFinished(-1000)
         aaSeq.effect()

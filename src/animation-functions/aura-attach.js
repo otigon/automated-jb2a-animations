@@ -39,12 +39,19 @@ export async function auras(handler, animationData) {
         const randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
         let checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         //let playPersist = !checkAnim ? true : false;
+        let nameField;
+        if (handler.isActiveEffect) {
+            nameField = "ae" + `${sourceToken.id}`;
+        } else {
+            nameField = sourceToken.name;
+        }
         let aaSeq = new Sequence()
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
             aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
                 .play()
         }
+    
         if (!checkAnim) {
             aaSeq.addSequence(sourceFX.sourceSeq)
             aaSeq.effect()
@@ -53,8 +60,8 @@ export async function auras(handler, animationData) {
                 .size(data.size, { gridUnits: true })
                 .belowTokens(data.below)
                 .file(aura.file)
-                .attachTo(sourceToken)
-                .name(sourceToken.name)
+                .attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
+                .name(nameField)
                 .opacity(data.opacity)
                 .animateProperty("sprite", "width", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
                 .animateProperty("sprite", "height", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
@@ -89,7 +96,7 @@ export async function auras(handler, animationData) {
 
             if (!checkAnim) {
                 aaSeq.effect()
-                    .attachTo(target)
+                    .attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
                     .persist()
                     .origin(handler.itemUuid)
                     .name(`${target.name}-${handler.itemName}`)

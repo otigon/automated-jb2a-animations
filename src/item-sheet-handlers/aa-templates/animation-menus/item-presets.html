@@ -354,15 +354,25 @@
     </div>
     <div class="aa-subSection-divider"></div>
     <div class="aa-options-even aa-options-settings">
-        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
             <label>{{localize "AUTOANIM.scale"}}</label>
             <input type="Number" name="flags.autoanimations.options.scale"
                 value="{{flags.autoanimations.options.scale}}" data-dtype="Number" placeholder=1>
         </div>
-        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
             <label>{{localize "AUTOANIM.persistant"}}?</label>
             <input type="checkbox" name="flags.autoanimations.options.persistent" {{checked
                 flags.autoanimations.options.persistent}}>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.unbindAlpha"}}?</label>
+            <input type="checkbox" name="flags.autoanimations.options.unbindAlpha" {{checked
+                flags.autoanimations.options.unbindAlpha}}>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
+            <label>{{localize "AUTOANIM.unbindVisibility"}}?</label>
+            <input type="checkbox" name="flags.autoanimations.options.unbindVisibility" {{checked
+                flags.autoanimations.options.unbindVisibility}}>
         </div>
     </div>
     <div class='aa-checkbox-label' style="text-align: center;">
@@ -840,15 +850,25 @@
     </div>
     <div class="aa-subSection-divider"></div>
     <div class="aa-options-even aa-options-settings">
-        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 1 / 2;'>
             <label>{{localize "AUTOANIM.scale"}}</label>
             <input type="Number" name="flags.autoanimations.options.scale"
                 value="{{flags.autoanimations.options.scale}}" data-dtype="Number" placeholder=1>
         </div>
-        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 2 / 3;'>
             <label>{{localize "AUTOANIM.persistant"}}?</label>
             <input type="checkbox" name="flags.autoanimations.options.persistent" {{checked
                 flags.autoanimations.options.persistent}}>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 3 / 4;'>
+            <label>{{localize "AUTOANIM.unbindAlpha"}}?</label>
+            <input type="checkbox" name="flags.autoanimations.options.unbindAlpha" {{checked
+                flags.autoanimations.options.unbindAlpha}}>
+        </div>
+        <div class="flexcol" style='grid-row: 1 / 2; grid-column: 4 / 5;'>
+            <label>{{localize "AUTOANIM.unbindVisibility"}}?</label>
+            <input type="checkbox" name="flags.autoanimations.options.unbindVisibility" {{checked
+                flags.autoanimations.options.unbindVisibility}}>
         </div>
     </div>
     <div class='aa-checkbox-label' style="text-align: center;">

@@ -20,7 +20,6 @@ export async function createActiveEffects5e(effect) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (killAllAnimations) { return; }
-
     // Sets data for the System Handler
     const flagData = {
         aaAeStatus: "on",
@@ -30,6 +29,12 @@ export async function createActiveEffects5e(effect) {
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
     if (!aeToken) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
+        return;
+    }
+    const aeNameField = 'ae' + `${aeToken.id}`
+    const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
+    if (checkAnim) { 
+        if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
         return;
     }
 

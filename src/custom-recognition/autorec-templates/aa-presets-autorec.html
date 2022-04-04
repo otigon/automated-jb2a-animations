@@ -633,6 +633,16 @@
                         <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.addCTA' {{checked (lookup
                             (lookup ../settings.aaAutorec.preset idx) 'addCTA' ) }}>
                     </div>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 3 / 4;'>
+                        <label>{{localize "AUTOANIM.unbindAlpha"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.unbindAlpha' {{checked
+                            (lookup (lookup ../settings.aaAutorec.preset idx) 'unbindAlpha' ) }}>
+                    </div>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 5 / 6;'>
+                        <label>{{localize "AUTOANIM.unbindVisibility"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.unbindVisibility' {{checked
+                            (lookup (lookup ../settings.aaAutorec.preset idx) 'unbindVisibility' ) }}>
+                    </div>
                 </div>
                 <div class='aa-checkbox-label' style="text-align: center;">
                     <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>
@@ -715,6 +725,16 @@
                         <label>{{localize "AUTOANIM.persistant"}}?</label>
                         <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.addCTA' {{checked (lookup
                             (lookup ../settings.aaAutorec.preset idx) 'addCTA' ) }}>
+                    </div>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 3 / 4;'>
+                        <label>{{localize "AUTOANIM.unbindAlpha"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.unbindAlpha' {{checked
+                            (lookup (lookup ../settings.aaAutorec.preset idx) 'unbindAlpha' ) }}>
+                    </div>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 5 / 6;'>
+                        <label>{{localize "AUTOANIM.unbindVisibility"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.preset.{{idx}}.unbindVisibility' {{checked
+                            (lookup (lookup ../settings.aaAutorec.preset idx) 'unbindVisibility' ) }}>
                     </div>
                 </div>
                 <div class='aa-checkbox-label' style="text-align: center;">
@@ -1047,7 +1067,7 @@
                         <select name="aaAutorec.preset.{{idx}}.color">
                             {{#select (lookup (lookup ../settings.aaAutorec.preset idx) 'color')}}
                             <option value=""> </option>
-                            {{#each (lookup (lookup ../menuColors.static.spell 'shieldspell') (lookup (lookup ../settings.aaAutorec.preset idx) 'variant')) as |name key|}}
+                            {{#each (lookup (lookup ../menuColors.static.spell 'sneakattack') (lookup (lookup ../settings.aaAutorec.preset idx) 'variant')) as |name key|}}
                             <option value="{{key}}">{{name}}</option>
                             {{/each}}
                             {{/select}}

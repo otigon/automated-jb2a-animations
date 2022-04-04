@@ -635,5 +635,18 @@
     "AUTOANIM.swirl": "Swirl",
     
     "AUTOANIM.menuImport": "Import Automatic Recognition Menu",
-    "AUTOANIM.mergeMenu": "Merge Menus"
+    "AUTOANIM.mergeMenu": "Merge Menus",
+    "AUTOANIM.breathweaponspray01": "Breath Weapon Spray 01",
+    "AUTOANIM.breathweaponspray02": "Breath Weapon Spray 02",
+    "AUTOANIM.burst": "Burst",
+    "AUTOANIM.strike": "Strike",
+    "AUTOANIM.ui": "UI",
+    "AUTOANIM.rune01": "Rune 01",
+    "AUTOANIM.rune02": "Rune 02",
+    "AUTOANIM.rune03": "Rune 03",
+    "AUTOANIM.indicator": "Indicator",
+    "AUTOANIM.chevron": "Chevron",
+    "AUTOANIM.prototemp": "Projectile to Template",
+    "AUTOANIM.unbindAlpha": "Unbind Alpha",
+    "AUTOANIM.unbindVisibility": "Unbind Visibility"
 }

@@ -47,7 +47,11 @@ export async function staticAnimation(handler, animationData) {
         if (data.isShieldFX) {
             let bottomEffect = aaSeq.effect();
             bottomEffect.file(bottomAnim)
-            bottomEffect.name("spot" + ` ${sourceToken.id}`)
+            if (handler.isActiveEffect) {
+                bottomEffect.name("ae" + `${sourceToken.id}`)
+            } else {
+                bottomEffect.name("spot" + ` ${sourceToken.id}`)
+            }
             bottomEffect.opacity(data.opacity)
             bottomEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             bottomEffect.belowTokens(true)
@@ -55,32 +59,40 @@ export async function staticAnimation(handler, animationData) {
             bottomEffect.fadeIn(250)
             bottomEffect.fadeOut(500)
             if (!data.persistent) { bottomEffect.atLocation(sourceToken); bottomEffect.repeats(data.repeat, data.delay) }
-            if (playPersist) { bottomEffect.attachTo(sourceToken); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
+            if (playPersist) { bottomEffect.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility}); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
             if (checkAnim) { bottomEffect.playIf(false); }
 
             let topEffect = aaSeq.effect();
             topEffect.file(onToken.fileData)
-            topEffect.name("spot" + ` ${sourceToken.id}`)
+            if (handler.isActiveEffect) {
+                bottomEffect.name("ae" + `${sourceToken.id}`)
+            } else {
+                bottomEffect.name("spot" + ` ${sourceToken.id}`)
+            }
             topEffect.opacity(data.opacity)
             topEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             topEffect.belowTokens(false)
             topEffect.fadeIn(250)
             topEffect.fadeOut(500)
             if (!data.persistent) { topEffect.atLocation(sourceToken); topEffect.repeats(data.repeat, data.delay) }
-            if (playPersist) { topEffect.attachTo(sourceToken); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
+            if (playPersist) { topEffect.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility}); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
             if (checkAnim) { topEffect.playIf(false); }
 
         } else {
             let aaEffect = aaSeq.effect();
             aaEffect.file(onToken.file)
-            aaEffect.name("spot" + ` ${sourceToken.id}`)
+            if (handler.isActiveEffect) {
+                aaEffect.name("ae" + `${sourceToken.id}`)
+            } else {
+                aaEffect.name("spot" + ` ${sourceToken.id}`)
+            }
             aaEffect.opacity(data.opacity)
             aaEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             aaEffect.belowTokens(data.below)
             aaEffect.fadeIn(250)
             aaEffect.fadeOut(500)
             if (!data.persistent) { aaEffect.atLocation(sourceToken); aaEffect.repeats(data.repeat, data.delay) }
-            if (playPersist) { aaEffect.attachTo(sourceToken, {bindAlpha: false, bindVisibility: false}); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
+            if (playPersist) { aaEffect.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility}); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
             if (checkAnim) { aaEffect.playIf(false); }
 
         }
@@ -126,7 +138,7 @@ export async function staticAnimation(handler, animationData) {
                     bottomEffect.fadeIn(250)
                     bottomEffect.fadeOut(500)
                     if (!data.persistent) { bottomEffect.atLocation(target); bottomEffect.missed(!hit); bottomEffect.repeats(data.repeat, data.delay) }
-                    else { bottomEffect.attachTo(target); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
+                    else { bottomEffect.attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: false}); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
 
                     let topEffect = aaSeq.effect();
                     topEffect.file(onToken.fileData)
@@ -137,7 +149,7 @@ export async function staticAnimation(handler, animationData) {
                     topEffect.fadeIn(250)
                     topEffect.fadeOut(500)
                     if (!data.persistent) { topEffect.atLocation(target); topEffect.missed(!hit); topEffect.repeats(data.repeat, data.delay) }
-                    else { topEffect.attachTo(target); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
+                    else { topEffect.attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: false}); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
 
                 } else {
                     let effectScale = data.animation === 'bite' || data.animation === 'claw' ? sourceTokenGS : targetTokenGS
@@ -152,7 +164,7 @@ export async function staticAnimation(handler, animationData) {
                     aaEffect.fadeIn(250)
                     aaEffect.fadeOut(500)
                     if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit); aaEffect.repeats(data.repeat, data.delay) }
-                    else { aaEffect.attachTo(target); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
+                    else { aaEffect.attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: false}); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
                 }
 
                 if (data.explosion.enabled) {

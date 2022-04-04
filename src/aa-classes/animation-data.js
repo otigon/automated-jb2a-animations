@@ -96,6 +96,8 @@ export class AAanimationData {
             data.anchorX = autoOverridden ? handler.autorecOverrides?.anchorX || 0.5 : data.anchorX || 0.5;
             data.anchorY = autoOverridden ? handler.autorecOverrides?.anchorY || 0.7 : data.anchorY || 0.7;    
             data.teleDist = autoOverridden ? handler.autorecOverrides?.range || 30 : data.range || 30;
+            data.unbindAlpha = data.unbindAlpha ? false : true,
+            data.unbindVisibility = data.unbindVisibility ? false : true,
 
             data.itemAudio = {
                 enable: data.audio?.a01?.enable || false,
@@ -197,6 +199,8 @@ export class AAanimationData {
                 hideFromPlayers: options.hideFromPlayers || false,
                 playbackRate: options.playbackRate || 1,
                 onlyX: options.onlyX ?? false,
+                unbindAlpha: options.unbindAlpha ? false : true,
+                unbindVisibility: options.unbindVisibility ? false : true,
 
                 itemAudio: {
                     enable: flags.audio?.a01?.enable || false,
