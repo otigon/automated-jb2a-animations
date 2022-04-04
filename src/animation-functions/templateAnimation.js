@@ -197,7 +197,7 @@ export async function templateAnimation(handler, animationData, config) {
         }
         if (data.playMacro && data.macro.playWhen === "0") {
             handler.templateData = template;
-            //console.log(handler)
+
             let userData = data.macro.args;
             new Sequence()
                 .macro(data.macro.name, handler.workflow, handler, ...userData)

@@ -47,7 +47,7 @@ export async function thunderwaveAuto(handler, animationData, config) {
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
-    //console.log(anFile)
+
     if (data.removeTemplate) {
         canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
     }

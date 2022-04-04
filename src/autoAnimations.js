@@ -308,10 +308,10 @@ Hooks.once('ready', function () {
                         checkConcentration(effect)
                     }
                 });
-                Hooks.on("updateActiveEffect", (data, toggle, userId) => {
+                Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
                     if (game.user.id !== userId) { return; }
                     //if (!game.user.isGM) { return; }
-                    socketlibSocket.executeAsGM("toggleActiveEffects5e", data, toggle)
+                    toggleActiveEffects5e(data, toggle)
                 });        
             //}
         break;
@@ -336,9 +336,7 @@ class AutoAnimations {
             item: item,
             ...options
         }
-        console.log(data)
         let handler = await systemData.make(null, null, data)
-        console.log(handler)
         trafficCop(handler);
     }
 }
@@ -355,12 +353,10 @@ function moduleIncludes(test) {
 async function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = await systemData.make(workflow);
-    //console.log(handler)
     if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
-    //console.log("Damage vs Attack Hook, AA Settings")
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
@@ -372,8 +368,6 @@ async function setUpMidiNoAttackDamage(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
-    //console.log("no Attack or Damage, Midi-Roll Complete hook")
-    //console.log(workflow)
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
@@ -385,7 +379,6 @@ async function setUpMidiNoAttack(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
-    //console.log("no Attack, Midi Roll Complete Hook")
     trafficCop(handler)
 }
 /*

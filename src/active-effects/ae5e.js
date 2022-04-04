@@ -133,13 +133,14 @@ export async function deleteActiveEffects5e(effect) {
 export async function toggleActiveEffects5e(effect, toggle) {
 
     if (toggle.disabled === true) {
-        deleteActiveEffects5e(effect, userId)
+        deleteActiveEffects5e(effect)
     } else if (toggle.disabled === false) {
-        createActiveEffects5e(effect, userId);
+        createActiveEffects5e(effect);
     }
 }
 
 export async function checkConcentration(effect) {
+    const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Check effect label and return if it is not equal to "concentrating"
     const label = effect.data?.label || "";
@@ -147,31 +148,33 @@ export async function checkConcentration(effect) {
 
     // Get Originating Item. If no Origin, return
     const origin = effect.data?.origin
-    if (!origin) { 
-        if (aaDebug) { aaDebugger("Failed to find an Origin for Concentration", handler) }
-        return; 
+    if (!origin) {
+        if (aaDebug) { aaDebugger("Failed to find an Origin for Concentration") }
+        return;
     }
 
     // Get arrays of Background and Foreground Tiles with the A-A Origin flag UUID matching the Effect Origin
     const bgTiles = canvas.background.placeables.filter(i => i.data?.flags?.autoanimations?.origin === origin)
     const fgTiles = canvas.foreground.placeables.filter(i => i.data?.flags?.autoanimations?.origin === origin);
-    if (bgTile.length < 1 && fgTiles.length < 1) { 
-        if (aaDebug) { aaDebugger("Failed to find any Tiles tied to Concentration", handler) }
-        return; 
+    if (bgTiles.length < 1 && fgTiles.length < 1) {
+        if (aaDebug) { aaDebugger("Failed to find any Tiles tied to Concentration") }
+        return;
+    }
+    let tileIdArray = []
+    if (bgTiles.length || fgTiles.length) {
+        //if (bgTiles.length) {
+        for (let tile of bgTiles) {
+            tileIdArray.push(tile.id)
+        }
+        //}
+        //if (fgTiles.length) {
+        for (let tile of fgTiles) {
+            tileIdArray.push(tile.id)
+        }
+        //}
+        socketlibSocket.executeAsGM("removeTile", tileIdArray)
     }
 
-    if (bgTiles.length) {
-        let bgIdArray = [];
-        for (let tile of bgTiles) {
-            bgIdArray.push(tile.id)
-        }
-        socketlibSocket.executeAsGM("removeBackgroundTile", bgIdArray)
-    }
-    if (fgTiles.length) {
-        for (let tile of fgTiles) {
-            socketlibSocket.executeAsGM("removeTile", tile)
-        }
-    }
-    
-    
+    //Sequencer.EffectManager.endEffects({ origin: origin })
+
 }

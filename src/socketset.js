@@ -8,11 +8,7 @@ export let setupSocket = () => {
         socketlibSocket.register("placeTile", placeTile);
         socketlibSocket.register("placeDrawing", placeDrawing);
         socketlibSocket.register("deleteDrawing", deleteDrawing);
-        //socketlibSocket.register("removeBackgroundTile", removeBackgroundTile);
-        //socketlibSocket.register("createActiveEffects5e", createActiveEffects5e)
-        //socketlibSocket.register("deleteActiveEffects5e", deleteActiveEffects5e)
-        //socketlibSocket.register("checkConcentration", checkConcentration)
-        //socketlibSocket.register("toggleActiveEffects5e", toggleActiveEffects5e)
+        socketlibSocket.register("removeTile", removeTile);
     }
 };
 
@@ -28,6 +24,6 @@ export async function deleteDrawing(data) {
     await canvas.scene.deleteEmbeddedDocuments("Drawing", data);
 }
 
-export async function removeBackgroundTile(data) {
+export async function removeTile(data) {
     await canvas.scene.deleteEmbeddedDocuments("Tile", data);
 }

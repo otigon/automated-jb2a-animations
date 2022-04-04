@@ -141,7 +141,6 @@ export class AutorecFunctions {
     /*
     static _findObjectByNameFull(data, name) {
         const keys = Object.keys(data)
-        console.log(keys)
         const keyLength = keys.length
         //let newObject;
         for (var i = 1; i < keyLength; i++) {
@@ -535,7 +534,6 @@ export class AutorecFunctions {
 /*
 async function sortAutorec() {
     const autoRec = await game.settings.get('autoanimations', 'aaAutorec');
-    console.log(autoRec)
     const sortedMenu = {};
 
     sortedMenu.version = autoRec.version;
@@ -547,7 +545,6 @@ async function sortAutorec() {
     sortedMenu.auras = await sortMenu(autoRec.auras);
     sortedMenu.preset = await sortMenu(autoRec.preset)
 
-    console.log(sortedMenu)
 }
 
 async function sortMenu(data) {

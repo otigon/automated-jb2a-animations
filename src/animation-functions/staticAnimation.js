@@ -5,7 +5,6 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function staticAnimation(handler, animationData) {
-    //console.log(animationData)
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);

@@ -173,7 +173,7 @@ export class aaAutoRecognition extends FormApplication {
 
 
     async _addMelee(event) {
-        //console.log(event)
+
         event.preventDefault();
         let idx = 0;
         const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
@@ -447,7 +447,7 @@ export class aaAutoRecognition extends FormApplication {
             }
             const oldData = await game.settings.get('autoanimations', 'aaAutorec');
             const newData = mergeObject(oldData, data);
-            //console.log(newData);
+
             await game.settings.set('autoanimations', "aaAutorec", newData);
     }
 

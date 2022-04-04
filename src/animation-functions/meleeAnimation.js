@@ -39,8 +39,7 @@ export async function meleeAnimation(handler, animationData) {
     const attack = await buildFile(false, data.menuType, data.animation, "melee", data.variant, data.color, data.customPath);
     
     const range = await buildFile(false, data.switchMenuType, data.switchAnimation, "range", data.switchVariant, data.switchColor);
-    //console.log(attack);
-    //console.log(range);
+
     if (handler.debug) { aaDebugger("Melee Animation Start", animationData, attack) }
 
     const sourceToken = handler.sourceToken;
@@ -73,7 +72,7 @@ export async function meleeAnimation(handler, animationData) {
         for (let target of handler.allTargets) {
             let distanceTo = handler.getDistanceTo(target)
             let switchDistance = 5;
-            //console.log(distanceTo)
+
             if (handler.gameSystem === "swade") { switchDistance = 1 }
             if (handler.gameSystem === "alienrpg") { switchDistance = canvas.grid.distance * 1.5 }
             let moveTo = distanceTo > switchDistance ? true : false;
