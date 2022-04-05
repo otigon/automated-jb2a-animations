@@ -1,7 +1,9 @@
 3.0.0 **Active Effect Series**  
 * Added a Merge Menus button to the Automatic Recognition menu. When used, it will prompt you to choose a menu to import. This gives 100% priority to your existing menu, and only adds new fields being Merged from the incoming menu. ALWAYS review the merged menus to ensure you don't have strange duplicates so you know what you are getting.  
 * Added **Unbind Alpha** and **Unbind Visibility** to relevant A-A menus. This is useful for Persistent effects so you can choose whether the Animation remains visible even if the Token it is attached to goes invisible, or if you change it's Opacity.  
-* DnD 5e Active Effects integration - The beginning of the A-A Active Effect series provides full integration into the 5e Active Effect system. Check out the A-A Wiki for more information at https://github.com/otigon/automated-jb2a-animations/wiki/Active-Effect-Integration  
+* Updated A-A Databases to be current with the latest JB2A 4.0 release. This also addes in the Generic/UI animations that had previously been missing, Lightning Strikes and a few others.  
+  
+* **DnD 5e Active Effects integration** - The beginning of the A-A Active Effect series provides full integration into the 5e Active Effect system. Check out the A-A Wiki for more information at https://github.com/otigon/automated-jb2a-animations/wiki/Active-Effect-Integration  
 * Module Setting added for DnD 5e to Disable Active Effect Animations, useful for future troubleshooting  
 * I have provided an Autorec Mergable list for 5e for both the JB2A Patreon and Free versions that can be imported from the following location in the Modules folder: ``modules/autoanimations/active-effects/dnd5e``. For remote hosted users that may not easily be able to access this, I will provide these files on the A-A Announcements page (pinned) on the JB2A Discord for download.  
 * Further Active Effect integration for other systems will be ongoing, starting with PF2e and PF1. If your system is currently supported by A-A, and you know it utilizes some form of the Active Effects system in Foundry, feel free to log a Feature Request on the A-A GitHub issues page and let me know.  

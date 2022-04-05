@@ -1344,6 +1344,26 @@ JB2AFREEDB.static = {
                 ],
             }
         },
+        indicator: {
+            chevron: {
+                yellow: [lg`UI/3Chevrons_01_Regular_Yellow_200x200.webm`],
+            },
+            '01': {
+                yellow: [lg`UI/Indicator_01_Regular_Yellow_200x200.webm`],
+            },
+            '02': {
+                green: [lg`UI/Indicator01_02_Regular_BlueGreen_400x400.webm`],
+            },
+            '03': {
+                green: [lg`UI/Indicator01_03_Regular_BlueGreen_200x200.webm`],
+            },
+            '04': {
+                green: [lg`UI/Indicator02_02_Regular_BlueGreen_400x400.webm`],
+            },
+            '05': {
+                green: [lg`UI/Indicator02_03_Regular_BlueGreen_200x200.webm`],
+            },
+        },
         outpulse: {
             "01": {
                 whiteblue: [
@@ -1366,6 +1386,50 @@ JB2AFREEDB.static = {
             '03': {
                 grey: [lg`Smoke/SmokePuff01_03_Regular_Grey_400x400.webm`],
             },
+        },
+        ui: {
+            drop: {
+                red: [lg`UI/IconDrop_01_Regular_Red_200x200.webm`]
+            },
+            fear: {
+                darkpurple: [lg`UI/IconFear_01_Dark_Purple_200x200.webm`]
+            },
+            heart: {
+                pink: [lg`UI/IconHeart_01_Regular_Pink_200x200.webm`],
+            },
+            horror: {
+                purple: [lg`UI/IconHorror_01_Regular_Purple_200x200.webm`],
+            },
+            music: {
+                blue: [lg`UI/IconMusicNote_01_Regular_Blue_200x200.webm`],
+            },
+            poison: {
+                darkgreen: [lg`UI/IconPoison_01_Dark_Green_200x200.webm`],
+            },
+            rune01: {
+                orange: [lg`UI/IconRunes_01_Regular_Orange_200x200.webm`],
+            },
+            rune02: {
+                orange: [lg`UI/IconRunes02_01_Regular_Orange_200x200.webm`],
+            },
+            rune03: {
+                orange: [lg`UI/IconRunes03_01_Regular_Orange_200x200.webm`],
+            },
+            shields: {
+                green: [lg`UI/IconShield_01_Regular_Green_200x200.webm`]
+            },
+            crackedshield: {
+                purple: [lg`UI/IconShieldCracked_01_Regular_Purple_200x200.webm`],
+            },
+            skull: {
+                purple: [lg`UI/IconSkull_01_Regular_Purple_200x200.webm`],
+            },
+            snowflake: {
+                blue: [lg`UI/IconSnowflake_01_Regular_Blue_200x200.webm`]
+            },
+            stun: {
+                purple: [lg`UI/IconStun_01_Regular_Purple_200x200.webm`],
+            }
         },
         vortex: {
             loop: {
@@ -1559,6 +1623,14 @@ JB2AFREEDB.static = {
                 green: [lg`Particles/ParticlesOutward02_05_Regular_GreenYellow_400x400.webm`],
             },
         },
+        swirl: {
+            '01': {
+                greenyellow: [lg`Particles/ParticlesSwirl01_01_Regular_GreenYellow_400x400.webm`],
+            },
+            '02': {
+                greenyellow: [lg`Particles/ParticlesSwirl02_01_Regular_GreenYellow_400x400.webm`],
+            },
+        },
     },
     shieldfx: {
         eldritchweb: {
@@ -1609,7 +1681,7 @@ JB2AFREEDB.static = {
             }
         },
         */
-        icetop: {
+        ice: {
             '01': {
                 blue: [lg`Ice/ShieldIceAbove01_01_Regular_Blue_400x400.webm`],
             }

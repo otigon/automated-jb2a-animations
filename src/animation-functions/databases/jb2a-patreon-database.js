@@ -4440,6 +4440,22 @@ JB2APATREONDB.static = {
                 yellowblue: [lg`Energy/DodecahedronStarBelow_01_Regular_BlueYellow_600x600.webm`],
             },
         },
+        shimmer: {
+            '01': {
+                blue: [lg`Energy/Shimmer01_01_Regular_Blue_400x400.webm`],
+                green: [lg`Energy/Shimmer01_01_Regular_Green_400x400.webm`],
+                orange: [lg`Energy/Shimmer01_01_Regular_Orange_400x400.webm`],
+                purple: [lg`Energy/Shimmer01_01_Regular_Purple_400x400.webm`]
+            },
+        },
+        sparkles: {
+            '01': {
+                blue: [lg`Energy/SwirlingSparkles_01_Regular_Blue_400x400.webm`],
+                bluepink: [lg`Energy/SwirlingSparkles_01_Regular_BluePink_400x400.webm`],
+                greenorange: [lg`Energy/SwirlingSparkles_01_Regular_GreenOrange_400x400.webm`],
+                orangepurple: [lg`Energy/SwirlingSparkles_01_Regular_OrangePurple_400x400.webm`],
+            },
+        },
     },
     fire: {
         eruption: {
@@ -4579,44 +4595,6 @@ JB2APATREONDB.static = {
                 ],
             }
         },
-        indicator: {
-            chevron: {
-                green: [lg`UI/3Chevrons_01_Regular_Green_200x200.webm`],
-                purple: [lg`UI/3Chevrons_01_Regular_Purple_200x200.webm`],
-                red: [lg`UI/3Chevrons_01_Regular_Red_200x200.webm`],
-                yellow: [lg`UI/3Chevrons_01_Regular_Yellow_200x200.webm`],
-            },
-            '01': {
-                green: [lg`UI/Indicator_01_Regular_Green_200x200.webm`],
-                purple: [lg`UI/Indicator_01_Regular_Purple_200x200.webm`],
-                red: [lg`UI/Indicator_01_Regular_Red_200x200.webm`],
-                yellow: [lg`UI/Indicator_01_Regular_Yellow_200x200.webm`],
-            },
-            '02': {
-                green: [lg`UI/Indicator01_02_Regular_BlueGreen_400x400.webm`],
-                red: [lg`UI/Indicator01_02_Regular_RedYellow_400x400.webm`],
-            },
-            '03': {
-                green: [lg`UI/Indicator01_03_Regular_BlueGreen_200x200.webm`],
-                red: [lg`UI/Indicator01_03_Regular_RedYellow_200x200.webm`],
-            },
-            '04': {
-                green: [lg`UI/Indicator02_02_Regular_BlueGreen_400x400.webm`],
-                red: [lg`UI/Indicator02_02_Regular_RedYellow_400x400.webm`],
-            },
-            '05': {
-                green: [lg`UI/Indicator02_03_Regular_BlueGreen_200x200.webm`],
-                red: [lg`UI/Indicator02_03_Regular_RedYellow_200x200.webm`],
-            },
-            '06': {
-                green: [lg`UI/Indicator03_02_Regular_BlueGreen_400x400.webm`],
-                red: [lg`UI/Indicator03_02_Regular_RedYellow_400x400.webm`],
-            },
-            '07': {
-                green: [lg`UI/Indicator03_03_Regular_BlueGreen_200x200.webm`],
-                red: [lg`UI/Indicator03_03_Regular_RedYellow_200x200.webm`],
-            },
-        },
         impact: {
             '01': {
                 blue: [
@@ -4713,6 +4691,44 @@ JB2APATREONDB.static = {
                     lg`Impact/Impact_12_Regular_Yellow_400x400.webm`,
                 ],
             }
+        },
+        indicator: {
+            chevron: {
+                green: [lg`UI/3Chevrons_01_Regular_Green_200x200.webm`],
+                purple: [lg`UI/3Chevrons_01_Regular_Purple_200x200.webm`],
+                red: [lg`UI/3Chevrons_01_Regular_Red_200x200.webm`],
+                yellow: [lg`UI/3Chevrons_01_Regular_Yellow_200x200.webm`],
+            },
+            '01': {
+                green: [lg`UI/Indicator_01_Regular_Green_200x200.webm`],
+                purple: [lg`UI/Indicator_01_Regular_Purple_200x200.webm`],
+                red: [lg`UI/Indicator_01_Regular_Red_200x200.webm`],
+                yellow: [lg`UI/Indicator_01_Regular_Yellow_200x200.webm`],
+            },
+            '02': {
+                green: [lg`UI/Indicator01_02_Regular_BlueGreen_400x400.webm`],
+                red: [lg`UI/Indicator01_02_Regular_RedYellow_400x400.webm`],
+            },
+            '03': {
+                green: [lg`UI/Indicator01_03_Regular_BlueGreen_200x200.webm`],
+                red: [lg`UI/Indicator01_03_Regular_RedYellow_200x200.webm`],
+            },
+            '04': {
+                green: [lg`UI/Indicator02_02_Regular_BlueGreen_400x400.webm`],
+                red: [lg`UI/Indicator02_02_Regular_RedYellow_400x400.webm`],
+            },
+            '05': {
+                green: [lg`UI/Indicator02_03_Regular_BlueGreen_200x200.webm`],
+                red: [lg`UI/Indicator02_03_Regular_RedYellow_200x200.webm`],
+            },
+            '06': {
+                green: [lg`UI/Indicator03_02_Regular_BlueGreen_400x400.webm`],
+                red: [lg`UI/Indicator03_02_Regular_RedYellow_400x400.webm`],
+            },
+            '07': {
+                green: [lg`UI/Indicator03_03_Regular_BlueGreen_200x200.webm`],
+                red: [lg`UI/Indicator03_03_Regular_RedYellow_200x200.webm`],
+            },
         },
         outpulse: {
             '01': {
