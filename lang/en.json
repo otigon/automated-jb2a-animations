@@ -651,5 +651,9 @@
     "AUTOANIM.unbindVisibility": "Unbind Visibility",
     "AUTOANIM.disableAEAnimations": "Disable Active Effect Animations",
     "AUTOANIM.disableAEAnimationsHint": "Disable all Animations for Active Effects",
-    "AUTOANIM.trap": "Trap"
+    "AUTOANIM.trap": "Trap",
+
+    "AUTOANIM.s3Name": "JB2A Asset Location",
+    "AUTOANIM.s3Hint": "REQUIRES A REFRESH: ONLY change if your JB2A module is hosted externally on an S3 bucket or similar. Otherwise, leave blank. Example: S3Bucket/jb2a_patreon or S3Bucket/JB2A_DnD5e (No Slash at end)"
+
 }
