@@ -650,5 +650,6 @@
     "AUTOANIM.unbindAlpha": "Unbind Alpha",
     "AUTOANIM.unbindVisibility": "Unbind Visibility",
     "AUTOANIM.disableAEAnimations": "Disable Active Effect Animations",
-    "AUTOANIM.disableAEAnimationsHint": "Disable all Animations for Active Effects"
+    "AUTOANIM.disableAEAnimationsHint": "Disable all Animations for Active Effects",
+    "AUTOANIM.trap": "Trap"
 }

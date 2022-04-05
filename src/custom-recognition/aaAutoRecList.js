@@ -15,6 +15,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 1: {
                     hidden: true,
@@ -26,6 +27,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 2: {
                     hidden: true,
@@ -37,6 +39,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 3: {
                     hidden: true,
@@ -48,6 +51,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 4: {
                     hidden: true,
@@ -59,6 +63,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 5: {
                     hidden: true,
@@ -70,6 +75,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 6: {
                     hidden: true,
@@ -81,6 +87,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 7: {
                     hidden: true,
@@ -92,6 +99,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 8: {
                     hidden: true,
@@ -103,6 +111,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 9: {
                     hidden: true,
@@ -114,6 +123,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 10: {
                     hidden: true,
@@ -125,6 +135,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
                 11: {
                     hidden: true,
@@ -136,6 +147,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     scale: 1,
+                    menuType: "weapon",
                 },
             },
             range: {
@@ -148,6 +160,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     type: "weapon",
+                    menuType: "weapon",
                 },
                 1: {
                     hidden: true,
@@ -158,6 +171,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     type: "weapon",
+                    menuType: "weapon",
                 },
                 2: {
                     hidden: true,
@@ -168,6 +182,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     type: "spell",
+                    menuType: "spell",
                 },
                 3: {
                     hidden: true,
@@ -178,6 +193,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     type: "spell",
+                    menuType: "spell",
                 },
                 4: {
                     hidden: true,
@@ -188,6 +204,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     type: "spell",
+                    menuType: "spell",
                 },
                 5: {
                     hidden: true,
@@ -198,6 +215,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     type: "spell",
+                    menuType: "spell",
                 },
                 6: {
                     hidden: true,
@@ -208,6 +226,7 @@ export class aaAutorec {
                     repeat: 3,
                     delay: 500,
                     type: "spell",
+                    menuType: "spell",
                 },
                 7: {
                     hidden: true,
@@ -218,6 +237,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     type: "spell",
+                    menuType: "spell",
                 },
                 8: {
                     hidden: true,
@@ -228,6 +248,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     type: "spell",
+                    menuType: "spell",
                 },
                 9: {
                     hidden: true,
@@ -238,6 +259,7 @@ export class aaAutorec {
                     repeat: 1,
                     delay: 500,
                     type: "spell",
+                    menuType: "spell",
                 },
             },
             static: {
@@ -253,6 +275,7 @@ export class aaAutorec {
                     scale: 1.5,
                     below: true,
                     type: "targetDefault",
+                    menuType: "spell",
                 },
                 1: {
                     hidden: true,
@@ -266,6 +289,7 @@ export class aaAutorec {
                     scale: 1.5,
                     below: true,
                     type: "targetDefault",
+                    menuType: "spell",
                 },
                 2: {
                     hidden: true,
@@ -279,6 +303,7 @@ export class aaAutorec {
                     scale: 1,
                     below: false,
                     type: "target",
+                    menuType: "spell",
                 },
                 3: {
                     staticOptions: 'creature',
@@ -293,6 +318,7 @@ export class aaAutorec {
                     scale: 1,
                     type: "target",
                     variant: "01",
+                    menuType: "creature",
                 },
                 4: {
                     staticOptions: 'creature',
@@ -307,6 +333,7 @@ export class aaAutorec {
                     scale: 1,
                     type: "target",
                     variant: "01",
+                    menuType: "creature",
                 },
             },
             templates: {
@@ -328,6 +355,9 @@ export class aaAutorec {
                     repeat: 1,
                     type: 'circle',
                     variant: '01',
+                    scaleX: 1,
+                    scaleY: 1,
+                    menuType: "circle",              
                 },
                 1: {
                     animation: "fogcloud",
@@ -347,6 +377,9 @@ export class aaAutorec {
                     repeat: 1,
                     type: 'circle',
                     variant: '01',
+                    scaleX: 1,
+                    scaleY: 1,
+                    menuType: "circle",              
                 },
                 2: {
                     animation: "thunderwave",
@@ -362,6 +395,9 @@ export class aaAutorec {
                     repeat: 3,
                     type: "rect",
                     variant: "01",
+                    scaleX: 1,
+                    scaleY: 1,
+                    menuType: "square",              
                 }
             },
             auras: {
@@ -378,6 +414,7 @@ export class aaAutorec {
                     tint: '#ffffff',
                     variant: '01',
                     ignoretargets: true,
+                    menuType: "spell",
                 },
             },
             preset: {
@@ -427,9 +464,19 @@ export class aaAutorec {
                     range: 30,
                     scale: 1.5,
                     subAnimation: "mistystep",
+                    measureType: "alternating",
+                    custom02: false,
+                    customPath02: "",
+                    subAnimation02: "mistystep",
+                    variant: "01",
+                    variant02: "02",
+                    color02: "blue",
+                    scale02: 1.5,
+                    menuType: "spell",
+                    menuType02: "spell",
                 }
             },
-            version: 2,
+            version: 4,
         };
         return defaultConfig;
     }

@@ -6044,6 +6044,18 @@ JB2APATREONDB.static = {
             },
         },
     },
+    trap: {
+        fire: {
+            single: {
+                orange: [lg`Traps/FireTrap02_01_Regular_Orange_1400x1400.webm`],
+                green: [lg`Traps/FireTrap02_01_Regular_Green_1400x1400.webm`]
+            },
+            double: {
+                orange: [lg`Traps/FireTrapDual02_01_Regular_Orange_1400x1400.webm`],
+                green: [lg`Traps/FireTrapDual02_01_Regular_Green_1400x1400.webm`]
+            }
+        }
+    },
 }
 
 /**

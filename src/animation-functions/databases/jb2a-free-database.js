@@ -2011,6 +2011,16 @@ JB2AFREEDB.static = {
 
         },
     },
+    trap: {
+        fire: {
+            single: {
+                orange: [lg`Traps/FireTrap02_01_Regular_Orange_1400x1400.webm`],
+            },
+            double: {
+                orange: [lg`Traps/FireTrapDual02_01_Regular_Orange_1400x1400.webm`],
+            }
+        }
+    },
 }
 
 JB2AFREEDB.return = {
