@@ -205,6 +205,7 @@ export class AutorecFunctions {
         if (!name) { return; }
 
         const aeList = settings.aefx;
+        if (!aeList) { return; }
         let newObject = Object.values(aeList)
             .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
             .find(section => {
