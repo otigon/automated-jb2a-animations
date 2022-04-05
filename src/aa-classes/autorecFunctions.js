@@ -302,12 +302,13 @@ export class AutorecFunctions {
 
         async function mergeMenus() {
             for (var i = 0; i < menuSections.length; i++) {
+                if (!newData[menuSections[i]]) { return; }
                 // Resets IDX to 0
                 if (!oldData[menuSections[i]]) {
                     oldData[menuSections[i]] = {};
                 }
                 let sectionLength = Object.keys(oldData[menuSections[i]]).length
-                idx = sectionLength === 0 ? 0 : sectionLength + 1;
+                idx = sectionLength === 0 ? 0 : sectionLength;
 
                 // Sets Menu Section in new Merged Data
                 //mergedData[menuSections[i]] = {};
@@ -375,6 +376,7 @@ export class AutorecFunctions {
         */
         // Checks each Name field of the New Menu to see if it exists in the Current Menu. If it exists, continue, otherwise push to the new Merged Menu and increase IDX
         async function checkNewData(newData, oldArray, newArray, section) {
+
             let newDataLength = Object.keys(newData[section]).length;
             for (var i = 0; i < newDataLength; i++) {
                 if (oldArray.includes(newArray[i])) {
