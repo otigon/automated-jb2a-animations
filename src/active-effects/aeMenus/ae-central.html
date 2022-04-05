@@ -1,0 +1,16 @@
+<form class="flexcol" autocomplete='off' novalidate>
+	<nav class='sheet-tabs tabs' data-group="sections" style='font-size: medium;margin-right: 5%; margin-left: 5%;'>
+        <a class="aa-options aaFGimage" style="width:100%" data-tab="animations"><i class="fas fa-bomb"></i> {{localize "AUTOANIM.primary"}} {{localize "AUTOANIM.animation"}} </a>
+	</nav>
+
+	<section class='content'>
+		<div class='tab' data-tab='animations' data-group='sections'>
+			{{> 'modules/autoanimations/src/active-effects/aeMenus/ae-animations.html' }}
+		</div>
+	</section>
+
+	<footer class='sheet-footer flexrow'>
+		<button type='submit' name='submit' value='1' class='aa-item-submit aaFGimage'><i
+				class='far fa-save'></i>{{localize "AUTOANIM.submit"}}</button>
+	</footer>
+</form>

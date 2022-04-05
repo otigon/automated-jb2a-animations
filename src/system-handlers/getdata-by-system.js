@@ -48,7 +48,7 @@ export class AASystemData {
         } else {
             const inputAtr = this._extractItemId(input.data?.content);
             let itemId = input.data?.flags?.dnd5e?.roll?.itemId || inputAtr || input.data?.flags?.["midi-qol"]?.itemId;
-            //console.log(itemId);
+
             const tokenId = input.data?.speaker?.token || input.uuid;
             if (!itemId || !tokenId) { return {}; }
 
@@ -323,12 +323,12 @@ export class AASystemData {
     static async alienrpg(input) {
         const inputAtr = this._extractItemId(input.data?.content);
         let itemId = inputAtr;
-        //console.log(itemId);
+
         //const tokenId = input.data?.speaker?.token;
         if (!itemId) { return {}; }
 
         const token = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
-        //console.log(token)
+
         if (!token) { return {}; }
         let item = token.actor?.items?.get(itemId) || await fromUuid(`Item.${itemId}`);
 

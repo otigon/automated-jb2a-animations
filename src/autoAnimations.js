@@ -1,11 +1,17 @@
 import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
+
+import { socketlibSocket } from "./socketset.js";
+
 import { jb2aAAPatreonDatabase } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { jb2aAAFreeDatabase } from "./animation-functions/databases/jb2a-free-database.js";
+
 import systemData from "./system-handlers/system-data.js";
+import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggleActiveEffects5e } from "./active-effects/ae5e.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
+import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
 import aaSettings from "./settings.js";
 
 import { teleportation } from "./animation-functions/teleportation.js";
@@ -14,7 +20,7 @@ import { flagMigrations } from "./system-handlers/flagMerge.js";
 import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 const log = () => { };
 
-Hooks.once('setup', function () {
+Hooks.once('socketlib.ready', function () {
     setupSocket();
 });
 var killAllAnimations;
@@ -42,6 +48,12 @@ Hooks.on('init', () => {
         }
         return options.inverse(this);
     });
+    Handlebars.registerHelper('aaIs5e', function (options) {
+        if (game.system.id === 'dnd5e') {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
     loadTemplates([
         'modules/autoanimations/src/custom-recognition/settings.html',
         'modules/autoanimations/src/custom-recognition/autorec-templates/aa-melee-autorec.html',
@@ -62,7 +74,9 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/levels3d.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html'
+        'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html',
+        'modules/autoanimations/src/active-effects/aeMenus/ae-animations.html',
+        'modules/autoanimations/src/active-effects/aeMenus/ae-autorecMenu.html'
     ]);
 
 })
@@ -76,6 +90,20 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
     aaBtn.click(async ev => {
         await flagMigrations.handle(app.document);
         new AAItemSettings(app.document, {}).render(true);
+    });
+    html.closest('.app').find('.aa-item-settings').remove();
+    let titleElement = html.closest('.app').find('.window-title');
+    aaBtn.insertAfter(titleElement);
+});
+
+Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
+    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
+        return;
+    }
+    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
+    aaBtn.click(async ev => {
+        await flagMigrations.handle(app.document);
+        new AAActiveEffectMenu(app.document, {}).render(true);
     });
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
@@ -152,7 +180,6 @@ Hooks.once('ready', async function () {
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
             Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
         }
-
     } else {
         switch (game.system.id) {
             case "alienrpg":
@@ -295,7 +322,38 @@ Hooks.once('ready', async function () {
                 break;
         }
     }
+    //Active Effect Hooks
+    switch (game.system.id) {
+        case "dnd5e":
 
+            Hooks.on("createActiveEffect", (effect, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) { 
+                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                createActiveEffects5e(effect)
+            });
+            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+                if (game.user.id !== userId) { return; }
+
+                deleteActiveEffects5e(effect)
+                if (game.modules.get('midi-qol')?.active) {
+
+                    checkConcentration(effect)
+                }
+            });
+            Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) { 
+                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                toggleActiveEffects5e(data, toggle)
+            });
+            //}
+            break;
+    }
     Hooks.callAll("aa.ready", obj01)
 });
 
@@ -333,12 +391,10 @@ function moduleIncludes(test) {
 async function setUpMidi(workflow) {
     if (killAllAnimations) { return; }
     let handler = await systemData.make(workflow);
-    //console.log(handler)
     if (!handler.item || !handler.sourceToken) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
-    //console.log("Damage vs Attack Hook, AA Settings")
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
@@ -350,8 +406,6 @@ async function setUpMidiNoAttackDamage(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
-    //console.log("no Attack or Damage, Midi-Roll Complete hook")
-    //console.log(workflow)
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
@@ -363,7 +417,6 @@ async function setUpMidiNoAttack(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
-    //console.log("no Attack, Midi Roll Complete Hook")
     trafficCop(handler)
 }
 /*
@@ -442,6 +495,7 @@ async function criticalCheck(workflow) {
 / Set up DnD5e and SW5e CORE (NON MIDI)
 */
 async function setUp5eCore(msg) {
+
     if (killAllAnimations) { return; }
     if (msg.user.id !== game.user.id) { return };
 

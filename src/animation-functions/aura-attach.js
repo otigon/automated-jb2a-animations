@@ -23,6 +23,11 @@ export async function auras(handler, animationData) {
     const aura = await buildFile(true, data.menuType, data.animation, "static", data.variant, data.color, data.customPath);
 
     if (handler.debug) { aaDebugger("Aura Animation Start", animationData, aura) }
+    
+    if (handler.isActiveEffect) {
+        await wait(data.aeDelay)
+    }
+
     if (handler.allTargets.length === 0 || data.ignoreTargets) {
         selfAura()
     } else {
@@ -32,24 +37,31 @@ export async function auras(handler, animationData) {
 
     async function selfAura() {
         const randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
-        let checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+        let checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         //let playPersist = !checkAnim ? true : false;
+        let nameField;
+        if (handler.isActiveEffect) {
+            nameField = handler.itemName + `${sourceToken.id}`;
+        } else {
+            nameField = sourceToken.name;
+        }
         let aaSeq = new Sequence()
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
             aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
                 .play()
         }
+    
         if (!checkAnim) {
             aaSeq.addSequence(sourceFX.sourceSeq)
             aaSeq.effect()
                 .persist()
-                .origin(handler.item.uuid)
+                .origin(handler.itemUuid)
                 .size(data.size, { gridUnits: true })
                 .belowTokens(data.below)
                 .file(aura.file)
-                .attachTo(sourceToken)
-                .name(sourceToken.name)
+                .attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
+                .name(nameField)
                 .opacity(data.opacity)
                 .animateProperty("sprite", "width", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
                 .animateProperty("sprite", "height", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
@@ -80,13 +92,13 @@ export async function auras(handler, animationData) {
         }
         aaSeq.addSequence(sourceFX.sourceSeq)
         for (let target of handler.allTargets) {
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
 
             if (!checkAnim) {
                 aaSeq.effect()
-                    .attachTo(target)
+                    .attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
                     .persist()
-                    .origin(handler.item.uuid)
+                    .origin(handler.itemUuid)
                     .name(`${target.name}-${handler.itemName}`)
                     .size(data.size, { gridUnits: true })
                     .belowTokens(data.below)

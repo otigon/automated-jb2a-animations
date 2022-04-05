@@ -55,6 +55,7 @@ export class aaAutoRecognition extends FormApplication {
         html.find('button.add-autorecog-templates').click(this._addTemplate.bind(this));
         html.find('button.add-autorecog-auras').click(this._addAura.bind(this));
         html.find('button.add-autorecog-preset').click(this._addPreset.bind(this));
+        html.find('button.add-autorecog-aefx').click(this._addAefx.bind(this));
 
         html.find('.duplicate-melee').click(this._duplicateMelee.bind(this))
         html.find('.duplicate-range').click(this._duplicateRange.bind(this))
@@ -62,6 +63,7 @@ export class aaAutoRecognition extends FormApplication {
         html.find('.duplicate-templates').click(this._duplicateTemplate.bind(this))
         html.find('.duplicate-auras').click(this._duplicateAura.bind(this))
         html.find('.duplicate-preset').click(this._duplicatePreset.bind(this))
+        html.find('.duplicate-aefx').click(this._duplicateAefx.bind(this))
 
         //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
         html.find('.aa-autorecognition input[type="checkbox"]').change(evt => {
@@ -123,6 +125,11 @@ export class aaAutoRecognition extends FormApplication {
 				this.close();
 			}
 		});
+        html.find("#aa-autorec-merge").on("click", async () => {
+			if (await importJSONAndMerge()) {
+				this.close();
+			}
+		});
 
         html.find('.particles input[type="color"]').change(evt => {
             this.submit({ preventClose: true }).then(() => this.render());
@@ -166,7 +173,7 @@ export class aaAutoRecognition extends FormApplication {
 
 
     async _addMelee(event) {
-        //console.log(event)
+
         event.preventDefault();
         let idx = 0;
         const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
@@ -272,13 +279,28 @@ export class aaAutoRecognition extends FormApplication {
         this.render();
     }
 
+    async _addAefx(event) {
+        event.preventDefault();
+        let idx = 0;
+        const entries = event.target.closest('div.tab').querySelectorAll('div.aefx-settings');
+        const last = entries[entries.length - 1];
+        if (last) {
+            idx = last.dataset.idx + 1;
+        }
+        let updateData = {}
+        updateData[`aaAutorec.aefx.${idx}.below`] = false;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
     async _onRemoveOverride(event) {
         event.preventDefault();
         const  data = await game.settings.get('autoanimations', 'aaAutorec');
         let idx = event.target.dataset.idx;
         delete data[event.target.classList[3]][idx]
 
-        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
+        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset', 'aefx'];
         for (let i = 0; i < menuType.length; i ++) {
             let compacted = {}
             try {Object.values(data[menuType[i]])}
@@ -393,12 +415,29 @@ export class aaAutoRecognition extends FormApplication {
         this.render();
     }
 
+    async _duplicateAefx(event) {
+        event.preventDefault();
+        let currentIDX = event.target.dataset.idx;
+
+        const entries = event.target.closest('div.tab').querySelectorAll('div.aefx-settings');
+        const last = entries[entries.length - 1];
+        let idx = last.dataset.idx + 1;
+        let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        let newSet = autorecSettings.aefx[currentIDX];
+        newSet.name = newSet.name + " (COPY)";
+        let updateData = {};
+        updateData[`aaAutorec.aefx.${idx}`] = newSet;
+
+        await this._onSubmit(event, { updateData: updateData, preventClose: true });
+        this.render();
+    }
+
     /** @override */
     async _updateObject(_, formData) {
 
         const data = expandObject(formData).aaAutorec;
 
-        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset'];
+        const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset', 'aefx'];
             for (let i = 0; i < menuType.length; i ++) {
                 let compacted = {}
                 try {Object.values(data[menuType[i]])}
@@ -408,7 +447,7 @@ export class aaAutoRecognition extends FormApplication {
             }
             const oldData = await game.settings.get('autoanimations', 'aaAutorec');
             const newData = mergeObject(oldData, data);
-            //console.log(newData);
+
             await game.settings.set('autoanimations', "aaAutorec", newData);
     }
 
@@ -424,6 +463,7 @@ export class aaAutoRecognition extends FormApplication {
         sortedMenu.templates = await this.sortMenu(autoRec.templates);
         sortedMenu.auras = await this.sortMenu(autoRec.auras);
         sortedMenu.preset = await this.sortMenu(autoRec.preset)
+        sortedMenu.aefx = await this.sortMenu(autoRec.aefx);
     
         await game.settings.set("autoanimations", "aaAutorec", sortedMenu);
     }
@@ -456,7 +496,7 @@ async function importFromJSONDialog() {
 	const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
 	let dialog = new Promise((resolve, reject) => {
 		new Dialog({
-			title: `Import Automatic Recognition Settings`,
+			title: game.i18n.format("AUTOANIM.menuImport"),
 			content: content,
 			buttons: {
 				import: {
@@ -487,6 +527,43 @@ async function importFromJSONDialog() {
 	return await dialog;
 }
 
+async function importJSONAndMerge() {
+    const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
+    let dialog = new Promise((resolve, reject) => {
+        new Dialog({
+            title: game.i18n.format("AUTOANIM.mergeMenu"),
+            content: content,
+            buttons: {
+                import: {
+                    icon: '<i class="fas fa-file-import"></i>',
+                    label: "Import",
+                    callback: html => {
+                        //@ts-ignore
+                        const form = html.find("form")[0];
+                        if (!form.data.files.length)
+                            return ui.notifications?.error("You did not upload a data file!");
+                        readTextFromFile(form.data.files[0]).then(json => {
+                            AutorecFunctions._mergeAutorecFile(json);
+                            resolve(true);
+                        });
+                    }
+                },
+                no: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Cancel",
+                    callback: html => resolve(false)
+                }
+            },
+            default: "import"
+        }, {
+            width: 400
+        }).render(true);
+    });
+    return await dialog;
+}
+
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
+
+

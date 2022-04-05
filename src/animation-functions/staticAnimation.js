@@ -5,7 +5,6 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function staticAnimation(handler, animationData) {
-    //console.log(animationData)
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
@@ -14,14 +13,16 @@ export async function staticAnimation(handler, animationData) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
-    //console.log(data)
+
     const onToken = await buildFile(true, data.menuType, data.animation, "static", data.variant, data.color, data.customPath);
-    //console.log(onToken)
+
     if (handler.debug) { aaDebugger("Static Animation Start", animationData, onToken) }
 
     //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
     const animWidth = onToken.metadata.width;
-
+    if (handler.isActiveEffect) {
+        await wait(data.aeDelay)
+    }
     let aaSeq = await new Sequence("Automated Animations")
     const bottomAnim = onToken.fileData.replace('Above', 'Below')
 
@@ -41,48 +42,57 @@ export async function staticAnimation(handler, animationData) {
     let sourceTokenGS = sourceToken.width / canvas.grid.size;
     let explosionSound = false;
     if (data.staticType === "source" || data.staticType === "sourcetarget" || (data.staticType === "targetDefault" && handler.allTargets.length < 1)) {
-        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         const playPersist = (!checkAnim && data.persistent) ? true : false;
         if (data.isShieldFX) {
             let bottomEffect = aaSeq.effect();
             bottomEffect.file(bottomAnim)
-            bottomEffect.name("spot" + ` ${sourceToken.id}`)
-            bottomEffect.repeats(data.repeat, data.delay)
+            if (handler.isActiveEffect) {
+                bottomEffect.name(handler.itemName + `${sourceToken.id}`)
+            } else {
+                bottomEffect.name("spot" + ` ${sourceToken.id}`)
+            }
             bottomEffect.opacity(data.opacity)
             bottomEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             bottomEffect.belowTokens(true)
             bottomEffect.rotate(180)
             bottomEffect.fadeIn(250)
             bottomEffect.fadeOut(500)
-            if (!data.persistent) { bottomEffect.atLocation(sourceToken) }
-            if (playPersist) { bottomEffect.attachTo(sourceToken); bottomEffect.persist(true); bottomEffect.origin(handler.item.uuid) }
+            if (!data.persistent) { bottomEffect.atLocation(sourceToken); bottomEffect.repeats(data.repeat, data.delay) }
+            if (playPersist) { bottomEffect.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility}); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
             if (checkAnim) { bottomEffect.playIf(false); }
 
             let topEffect = aaSeq.effect();
             topEffect.file(onToken.fileData)
-            topEffect.name("spot" + ` ${sourceToken.id}`)
-            topEffect.repeats(data.repeat, data.delay)
+            if (handler.isActiveEffect) {
+                topEffect.name(handler.itemName + `${sourceToken.id}`)
+            } else {
+                topEffect.name("spot" + ` ${sourceToken.id}`)
+            }
             topEffect.opacity(data.opacity)
             topEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             topEffect.belowTokens(false)
             topEffect.fadeIn(250)
             topEffect.fadeOut(500)
-            if (!data.persistent) { topEffect.atLocation(sourceToken) }
-            if (playPersist) { topEffect.attachTo(sourceToken); topEffect.persist(true); topEffect.origin(handler.item.uuid) }
+            if (!data.persistent) { topEffect.atLocation(sourceToken); topEffect.repeats(data.repeat, data.delay) }
+            if (playPersist) { topEffect.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility}); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
             if (checkAnim) { topEffect.playIf(false); }
 
         } else {
             let aaEffect = aaSeq.effect();
             aaEffect.file(onToken.file)
-            aaEffect.name("spot" + ` ${sourceToken.id}`)
-            aaEffect.repeats(data.repeat, data.delay)
+            if (handler.isActiveEffect) {
+                aaEffect.name(handler.itemName + `${sourceToken.id}`)
+            } else {
+                aaEffect.name("spot" + ` ${sourceToken.id}`)
+            }
             aaEffect.opacity(data.opacity)
             aaEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             aaEffect.belowTokens(data.below)
             aaEffect.fadeIn(250)
             aaEffect.fadeOut(500)
-            if (!data.persistent) { aaEffect.atLocation(sourceToken) }
-            if (playPersist) { aaEffect.attachTo(sourceToken); aaEffect.persist(true); aaEffect.origin(handler.item.uuid) }
+            if (!data.persistent) { aaEffect.atLocation(sourceToken); aaEffect.repeats(data.repeat, data.delay) }
+            if (playPersist) { aaEffect.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility}); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
             if (checkAnim) { aaEffect.playIf(false); }
 
         }
@@ -96,6 +106,7 @@ export async function staticAnimation(handler, animationData) {
                 .delay(data.explosion?.delay)
                 .repeats(data.repeat, data.delay)
                 .belowTokens(data.explosion?.below)
+                .fadeOut(500)
                 .playIf(data.explosion?.enabled)
         }
         explosionSound = true;
@@ -107,7 +118,7 @@ export async function staticAnimation(handler, animationData) {
         //let target = handler.allTargets[i]
         for (let target of handler.allTargets) {
             let targetTokenGS = target.width / canvas.grid.size
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
             let hit;
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(target.id) ? true : false;
@@ -120,27 +131,25 @@ export async function staticAnimation(handler, animationData) {
                     let bottomEffect = aaSeq.effect();
                     bottomEffect.file(bottomAnim)
                     bottomEffect.name("spot" + ` ${target.id}`)
-                    bottomEffect.repeats(data.repeat, data.delay)
                     bottomEffect.opacity(data.opacity)
                     bottomEffect.size(targetTokenGS * 1.5 * data.scale, {gridUnits: true})
                     bottomEffect.belowTokens(true)
                     bottomEffect.rotate(180)
                     bottomEffect.fadeIn(250)
                     bottomEffect.fadeOut(500)
-                    if (!data.persistent) { bottomEffect.atLocation(target); bottomEffect.missed(!hit) }
-                    else { bottomEffect.attachTo(target); bottomEffect.persist(true); bottomEffect.origin(handler.item.uuid) }
+                    if (!data.persistent) { bottomEffect.atLocation(target); bottomEffect.missed(!hit); bottomEffect.repeats(data.repeat, data.delay) }
+                    else { bottomEffect.attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: false}); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
 
                     let topEffect = aaSeq.effect();
                     topEffect.file(onToken.fileData)
                     topEffect.name("spot" + ` ${target.id}`)
-                    topEffect.repeats(data.repeat, data.delay)
                     topEffect.opacity(data.opacity)
                     topEffect.size(targetTokenGS * 1.5 * data.scale, {gridUnits: true})
                     topEffect.belowTokens(false)
                     topEffect.fadeIn(250)
                     topEffect.fadeOut(500)
-                    if (!data.persistent) { topEffect.atLocation(target); topEffect.missed(!hit) }
-                    else { topEffect.attachTo(target); topEffect.persist(true); topEffect.origin(handler.item.uuid) }
+                    if (!data.persistent) { topEffect.atLocation(target); topEffect.missed(!hit); topEffect.repeats(data.repeat, data.delay) }
+                    else { topEffect.attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: false}); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
 
                 } else {
                     let effectScale = data.animation === 'bite' || data.animation === 'claw' ? sourceTokenGS : targetTokenGS
@@ -148,15 +157,14 @@ export async function staticAnimation(handler, animationData) {
                     let aaEffect = aaSeq.effect();
                     aaEffect.file(onToken.file)
                     aaEffect.name("spot" + ` ${target.id}`)
-                    aaEffect.repeats(data.repeat, data.delay)
                     aaEffect.opacity(data.opacity)
                     //aaEffect.scale(scale * data.scale)
                     aaEffect.size(effectScale * 1.5 * data.scale, {gridUnits: true})
                     aaEffect.belowTokens(data.below)
                     aaEffect.fadeIn(250)
                     aaEffect.fadeOut(500)
-                    if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit) }
-                    else { aaEffect.attachTo(target); aaEffect.persist(true); aaEffect.origin(handler.item.uuid) }
+                    if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit); aaEffect.repeats(data.repeat, data.delay) }
+                    else { aaEffect.attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: false}); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
                 }
 
                 if (data.explosion.enabled) {

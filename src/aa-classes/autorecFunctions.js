@@ -11,7 +11,7 @@ export class AutorecFunctions {
      * @param {Menu field to get from} type 
      * @returns all NAMES in lower case from Autorec Menu defined by type
      */
-    static _getAllNames(obj, type) {
+    static _getAllNamesInSection(obj, type) {
         const nameArray = []
         try { Object.keys(obj[type]).length }
         catch (exception) { return nameArray }
@@ -71,6 +71,22 @@ export class AutorecFunctions {
         }
         return nameFound;
     }
+    static _autorecNameCheckAefx(nameArray, name) {
+        if (!name) { return; }
+        const arrayLength = nameArray.length;
+        const newName = name.toLowerCase()
+        let nameFound = false;
+        for (var i = 0; i < arrayLength; i++) {
+            //cutting out all spaces
+            var currentArrayName = nameArray[i].replace(/\s+/g, '').toLowerCase()
+            if (currentArrayName === "") { }
+            else if (newName.includes(currentArrayName)) {
+                nameFound = true;
+                break;
+            }
+        }
+        return nameFound;
+    }
 
     /**
      * 
@@ -93,6 +109,7 @@ export class AutorecFunctions {
         const keys = Object.keys(obj)
         const keyLength = keys.length
         for (var i = 0; i < keyLength; i++) {
+            if (keys[i] === 'version' || keys[i] === 'aefx') { continue; }
             var arrayLength = Object.keys(obj[keys[i]]).length
             var currentObject = obj[keys[i]]
             for (var k = 0; k < arrayLength; k++) {
@@ -104,10 +121,26 @@ export class AutorecFunctions {
         nameArray.sort((a, b) => b.length - a.length)
         return nameArray;
     }
+    static _getAllTheNamesAefx(obj) {
+        const nameArray = []
+        const keys = Object.keys(obj)
+        const keyLength = keys.length
+        for (var i = 0; i < keyLength; i++) {
+
+            var currentObject = obj[keys[i]]
+
+            if (!currentObject.name) { continue }
+
+            nameArray.push(currentObject.name.toLowerCase())
+
+        }
+        nameArray.sort((a, b) => b.length - a.length)
+        return nameArray;
+    }
+
     /*
     static _findObjectByNameFull(data, name) {
         const keys = Object.keys(data)
-        console.log(keys)
         const keyLength = keys.length
         //let newObject;
         for (var i = 1; i < keyLength; i++) {
@@ -143,7 +176,47 @@ export class AutorecFunctions {
             if (newObject) { return newObject }
         }
     }
+    static _findObjectFromAefx(settings, name) {
+        if (!name) { return; }
+        const mergedArray = [];
 
+        var arrayLength = Object.keys(settings.aefx).length
+        for (var k = 0; k < arrayLength; k++) {
+            if (!settings.aefx[k].name) { break; }
+            mergedArray.push(settings.aefx[k])
+        }
+
+        mergedArray.sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+
+
+        const length = mergedArray.length;
+        for (var i = 0; i < length; i++) {
+            var newObject = Object.values(mergedArray)
+                .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+                .find(section => {
+                    //added .replace()
+                    return name.toLowerCase().includes(section.name.replace(/\s+/g, '').toLowerCase()) && section.name !== "" ? section : "";
+                })
+            if (newObject) { return newObject }
+        }
+    }
+
+    static _findObjectIn5eAE(settings, name) {
+        if (!name) { return; }
+
+        const aeList = settings.aefx;
+        let newObject = Object.values(aeList)
+            .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+            .find(section => {
+                //added .replace()
+                return name.toLowerCase().includes(section.name.replace(/\s+/g, '').toLowerCase()) && section.name !== "" ? section : "";
+            })
+
+        if (newObject) {
+            newObject.menuSection = 'aefx';
+            return newObject
+        }
+    }
     /**
      * 
      * @param {game.settings.get('autoanimations', 'aaAutorec')} data 
@@ -154,6 +227,7 @@ export class AutorecFunctions {
         const keys = Object.keys(data);
         const keyLength = keys.length;
         for (var i = 1; i < keyLength; i++) {
+            if (keys[i] === 'version' || keys[i] === 'aefx') { continue; }
             var arrayLength = Object.keys(data[keys[i]]).length
             var currentObject = data[keys[i]];
             for (var k = 0; k < arrayLength; k++) {
@@ -181,6 +255,16 @@ export class AutorecFunctions {
         }
         return foundName;
     }
+    static _checkAutoRecAefx(itemName) {
+        const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        const autoName = this._rinseName(itemName)
+        const nameArray = this._getAllTheNamesAefx(autoRecSettings.aefx);
+        let foundName = false;
+        if (this._autorecNameCheckAefx(nameArray, autoName)) {
+            foundName = true;
+        }
+        return foundName;
+    }
 
     /**
      * Exports Automatic Recognition Menu settings
@@ -198,6 +282,114 @@ export class AutorecFunctions {
         const data = JSON.parse(json);
         console.warn("autoanimations | Import settings ", data);
         await game.settings.set("autoanimations", "aaAutorec", data);
+        await autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
+    }
+
+    static async _mergeAutorecFile(json) {
+        // Imported Autorec Menu
+        const newData = JSON.parse(json);
+        // Existing Autorec Menu
+        const oldData = game.settings.get('autoanimations', 'aaAutorec');
+        // New Autorec Menu
+        oldData.version = newData.version;
+        oldData.search = "";
+
+        let idx;
+
+        const menuSections = ['melee', 'range', 'static', 'templates', 'auras', 'preset', 'aefx']
+
+        await mergeMenus();
+
+        async function mergeMenus() {
+            for (var i = 0; i < menuSections.length; i++) {
+                if (!newData[menuSections[i]]) { return; }
+                // Resets IDX to 0
+                if (!oldData[menuSections[i]]) {
+                    oldData[menuSections[i]] = {};
+                }
+                let sectionLength = Object.keys(oldData[menuSections[i]]).length
+                idx = sectionLength === 0 ? 0 : sectionLength;
+
+                // Sets Menu Section in new Merged Data
+                //mergedData[menuSections[i]] = {};
+
+                // Sets Old and New Names arrays from the Section, spaces removed and toLowerCase()
+                const newSectionNames = await getAllNamesInSection(newData, menuSections[i]);
+                const oldSectionNames = await getAllNamesInSection(oldData, menuSections[i]);
+
+                // If Existing Menu has no Section, check if New Menu has Section. If NO, return. If YES set Merged Section = New Section
+                if (!oldData[menuSections[i]]) {
+                    if (!newData[menuSections[i]]) {
+                        oldData[menuSections[i]] = {};
+                        return;
+                    } else {
+                        oldData[menuSections[i]] = newData[menuSections[i]];
+                        return;
+                    }
+                }
+
+                // Compare Existing versus New and build new Merged Object for Section
+                //await checkOldData(oldData, oldSectionNames, newSectionNames, menuSections[i]);
+                await checkNewData(newData, oldSectionNames, newSectionNames, menuSections[i]);
+            }
+        }
+
+        async function getAllNamesInSection(obj, type) {
+            const nameArray = []
+            try { Object.keys(obj[type]).length }
+            catch (exception) { return nameArray }
+            const arrayLength = Object.keys(obj[type]).length
+            for (var i = 0; i < arrayLength; i++) {
+                if (!obj[type][i].name) { continue }
+
+                nameArray.push(obj[type][i].name.replace(/\s+/g, '').toLowerCase())
+            }
+            return nameArray;
+        }
+
+        async function findObjectByName(data, type, name) {
+            var newObject = Object.values(data[type])
+                .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
+                .find(section => {
+                    //cutting out all spaces
+                    return name.includes(section.name.replace(/\s+/g, '').toLowerCase()) ? section : "";
+                })
+
+            return newObject
+        }
+        /*
+        // Checks each Name field of Current Menu to see if it exists in the New Menu. If it exists, it pushes that one to the new Merged Menu and increase IDX, otherwise it continues
+        async function checkOldData(oldData, oldArray, newArray, section) {
+            let oldDataLength = Object.keys(oldData[section]).length;
+            for (var i = 0; i < oldDataLength; i++) {
+                for (var k = 0; k < oldArray.length; k++) {
+                    if (newArray.includes(oldArray[k])) {
+                        let newSection = await findObjectByName(oldData, section, oldArray[k]);
+                        mergedData[section][idx] = newSection;
+                        idx = idx + 1;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+        }
+        */
+        // Checks each Name field of the New Menu to see if it exists in the Current Menu. If it exists, continue, otherwise push to the new Merged Menu and increase IDX
+        async function checkNewData(newData, oldArray, newArray, section) {
+
+            let newDataLength = Object.keys(newData[section]).length;
+            for (var i = 0; i < newDataLength; i++) {
+                if (oldArray.includes(newArray[i])) {
+                    continue;
+                } else {
+                    let newSection = await findObjectByName(newData, section, newArray[i]);
+                    oldData[section][idx] = newSection;
+                    idx = idx + 1;
+                }
+            }
+        }
+
+        await game.settings.set("autoanimations", "aaAutorec", oldData);
         await autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
     }
 
@@ -248,6 +440,54 @@ export class AutorecFunctions {
         return file;
     }
 
+    static _autoPreviewAefx(name, patreon, flags) {
+
+        const data = {};
+        data.autoOverriden = flags.autoanimations?.options?.overrideAuto;
+        data.autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        data.autoName = this._rinseName(name);
+        data.autorecSection = this._findObjectFromAefx(data.autoRecSettings, data.autoName);
+        if (!data.autorecSection) { return; }
+
+        data.autorecObject = data.autorecSection;
+        data.autorecType = data.autorecSection.menuSection;
+        data.name = data.autorecObject?.animation;
+        data.color = data.autoOverriden ? flags.autoanimations?.options?.autoColor : data.autorecObject?.color;
+        data.variant = data.autoOverriden ? flags.autoanimations?.options?.autoVariant : data.autorecObject?.variant;
+        data.nameArray = this._getAllTheNamesAefx(data.autoRecSettings);
+
+        if (data.autorecObject?.custom) {
+            return data.autorecObject?.customPath;
+        }
+        if (data.autorecType === 'preset') { return; }
+        if (data.autorecType !== 'melee' && data.autorecType !== 'range') { data.autorecType = 'static' }
+
+        //const autoName = this._rinseName(name);
+        if (!data.autoName) { return; }
+        if (!this._autorecNameCheck(data.nameArray, data.autoName)) {
+            return;
+        }
+
+        const jb2a = patreon ? JB2APATREONDB : JB2AFREEDB;
+
+        let file;
+        switch (true) {
+            case data.autorecType === 'melee':
+                try { file = jb2a.melee[data.name][data.variant][data.color][0] }
+                catch (exception) { }
+                break;
+            case data.autorecType === 'range':
+                try { file = jb2a[data.autorecType][data.name][data.variant][data.color][Object.keys(jb2a[data.autorecType][data.name][data.variant][data.color])[1]][0] }
+                catch (exception) { }
+                break;
+            default:
+                try { file = jb2a.static[data.name][data.variant][data.color][0] }
+                catch (exception) { }
+        }
+        return file;
+    }
+
+    /*
     static _autorecChoices(itemName, flags) {
         const autoRecSettings = game.settings.get('autoanimations', 'aaAutorec');
         const autoName = AutorecFunctions._rinseName(itemName)
@@ -290,13 +530,12 @@ export class AutorecFunctions {
 
         return { colors, variantChoices };
     }
-
+    */
 }
 
 /*
 async function sortAutorec() {
     const autoRec = await game.settings.get('autoanimations', 'aaAutorec');
-    console.log(autoRec)
     const sortedMenu = {};
 
     sortedMenu.version = autoRec.version;
@@ -308,7 +547,6 @@ async function sortAutorec() {
     sortedMenu.auras = await sortMenu(autoRec.auras);
     sortedMenu.preset = await sortMenu(autoRec.preset)
 
-    console.log(sortedMenu)
 }
 
 async function sortMenu(data) {

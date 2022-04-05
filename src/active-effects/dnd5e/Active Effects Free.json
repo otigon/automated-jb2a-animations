@@ -1,0 +1,610 @@
+{
+  "search": "",
+  "melee": {},
+  "range": {},
+  "static": {},
+  "templates": {},
+  "auras": {},
+  "preset": {},
+  "version": 4,
+  "aefx": {
+    "0": {
+      "below": false,
+      "hidden": true,
+      "name": "Blind",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "spell",
+      "animation": "darkness",
+      "variant": "01",
+      "color": "black",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "2",
+      "unbindAlpha": true,
+      "unbindVisibility": true
+    },
+    "1": {
+      "below": false,
+      "hidden": true,
+      "name": "Charmed",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "conditions",
+      "animation": "heart",
+      "variant": "02",
+      "color": "pink",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "3",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "2": {
+      "below": true,
+      "hidden": true,
+      "name": "Concentrating",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "particles",
+      "animation": "swirl",
+      "variant": "02",
+      "color": "greenyellow",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "4",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "3": {
+      "below": false,
+      "hidden": true,
+      "name": "Dead",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "spell",
+      "animation": "tollthedead",
+      "variant": "skull",
+      "color": "green",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 1,
+      "opacity": 1,
+      "aeDelay": null,
+      "persistent": false,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "5",
+      "unbindAlpha": true,
+      "unbindVisibility": true
+    },
+    "4": {
+      "below": false,
+      "hidden": true,
+      "name": "Deaf",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "music",
+      "animation": "notes",
+      "variant": "01",
+      "color": "blue",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "6",
+      "unbindAlpha": true,
+      "unbindVisibility": true
+    },
+    "5": {
+      "below": false,
+      "hidden": true,
+      "name": "Frightened",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "conditions",
+      "animation": "horror",
+      "variant": "01",
+      "color": "purple",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "7",
+      "unbindAlpha": true,
+      "unbindVisibility": true
+    },
+    "6": {
+      "below": true,
+      "hidden": true,
+      "name": "Grappled",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "tokenborder",
+      "animation": "static",
+      "variant": "04",
+      "color": "blue",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 1,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "8",
+      "unbindAlpha": true,
+      "unbindVisibility": true
+    },
+    "7": {
+      "below": false,
+      "hidden": true,
+      "name": "Incapacitated",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "conditions",
+      "animation": "dizzystars",
+      "variant": "01",
+      "color": "blueorange",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "9",
+      "unbindAlpha": true,
+      "unbindVisibility": true
+    },
+    "8": {
+      "below": false,
+      "hidden": true,
+      "name": "Invisible",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false,
+        "playWhen": "0",
+        "name": "",
+        "args": ""
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "marker",
+      "animation": "circleofstars",
+      "variant": "01",
+      "color": "blue",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "10",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "9": {
+      "below": true,
+      "hidden": true,
+      "name": "Paralyzed",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "tokenborder",
+      "animation": "static",
+      "variant": "03",
+      "color": "blue",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 1,
+      "opacity": null,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "11",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "10": {
+      "below": true,
+      "hidden": true,
+      "name": "Petrified",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "lightning",
+      "animation": "staticelectricity",
+      "variant": "01",
+      "color": "blue",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": null,
+      "opacity": null,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "12",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "11": {
+      "below": false,
+      "hidden": true,
+      "name": "Poisoned",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "conditions",
+      "animation": "poison",
+      "variant": "02",
+      "color": "darkgreen",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "13",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "12": {
+      "below": false,
+      "hidden": true,
+      "name": "Prone",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "conditions",
+      "animation": "crackedshield",
+      "variant": "02",
+      "color": "purple",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "14",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "13": {
+      "below": false,
+      "hidden": true,
+      "name": "Restrained",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "shieldfx",
+      "animation": "eldritchweb",
+      "variant": "01",
+      "color": "darkpurple",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": null,
+      "opacity": null,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "15",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "14": {
+      "below": false,
+      "hidden": true,
+      "name": "Stunned",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "conditions",
+      "animation": "stun",
+      "variant": "02",
+      "color": "purple",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "17",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "15": {
+      "below": false,
+      "hidden": true,
+      "name": "Unconscious",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "conditions",
+      "animation": "dizzystars",
+      "variant": "01",
+      "color": "blueorange",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": null,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "menuSection": "18",
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    },
+    "16": {
+      "below": false,
+      "hidden": true,
+      "name": "Wounded",
+      "soundOnly": {
+        "enable": false
+      },
+      "macro": {
+        "enable": false
+      },
+      "aeType": "static",
+      "type": "source",
+      "menuType": "conditions",
+      "animation": "drop",
+      "variant": "02",
+      "color": "red",
+      "custom": false,
+      "audio": {
+        "a01": {
+          "enable": false
+        }
+      },
+      "customPath": "modules/jb2a_patreon/Library/Generic/Conditions/Dizzy_Stars/DizzyStars_01_Green_Thumb.webp",
+      "repeat": null,
+      "delay": null,
+      "scale": 0.75,
+      "opacity": 0.75,
+      "aeDelay": null,
+      "persistent": true,
+      "explosion": {
+        "enable": false
+      },
+      "unbindAlpha": false,
+      "unbindVisibility": false
+    }
+  }
+}

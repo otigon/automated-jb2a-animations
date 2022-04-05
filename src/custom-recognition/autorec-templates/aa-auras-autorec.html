@@ -181,6 +181,16 @@
                         <input type='checkbox' name='aaAutorec.auras.{{idx}}.below' {{checked (lookup (lookup
                             ../settings.aaAutorec.auras idx) 'below' ) }}>
                     </div>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 2 / 3;'>
+                        <label>{{localize "AUTOANIM.unbindAlpha"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.auras.{{idx}}.unbindAlpha' {{checked
+                            (lookup (lookup ../settings.aaAutorec.auras idx) 'unbindAlpha' ) }}>
+                    </div>
+                    <div class="flexcol" style='grid-row: 2 / 3; grid-column: 3 / 4;'>
+                        <label>{{localize "AUTOANIM.unbindVisibility"}}?</label>
+                        <input type='checkbox' class='hideme' name='aaAutorec.auras.{{idx}}.unbindVisibility' {{checked
+                            (lookup (lookup ../settings.aaAutorec.auras idx) 'unbindVisibility' ) }}>
+                    </div>
                 </div>
                 <div class='aa-checkbox-label' style="text-align: center;">
                     <div class='form-group' style='grid-row: 1 / 2; grid-column: 2 / 3;'>

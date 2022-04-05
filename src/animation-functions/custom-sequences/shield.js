@@ -48,7 +48,7 @@ export async function shieldSpell(handler, animationData) {
     const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
 
     if (handler.debug) { aaDebugger("Shield Animation Start", animationData, onToken) }
-    const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.item.uuid }).length > 0
+    const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
 
     const sourceTokenGS = sourceToken.width / canvas.grid.size;
 
@@ -83,8 +83,17 @@ export async function shieldSpell(handler, animationData) {
         persistSwitch.belowTokens(data.below)
         persistSwitch.fadeIn(300)
         persistSwitch.fadeOut(300)
-        persistSwitch.origin(handler.item.uuid)
-        if (data.persistent) { persistSwitch.attachTo(sourceToken); persistSwitch.persist() }
+        persistSwitch.origin(handler.itemUuid)
+        if (data.persistent) {
+            if (handler.isActiveEffect) {
+                persistSwitch.name(handler.itemName + `${sourceToken.id}`)
+            } else {
+                persistSwitch.name(`${sourceToken.id}`)
+            }
+            persistSwitch.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility});
+            persistSwitch.persist();
+            persistSwitch.origin(handler.itemUuid)
+        }
         else { persistSwitch.atLocation(sourceToken) }
         persistSwitch.waitUntilFinished(-1000)
         aaSeq.effect()

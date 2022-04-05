@@ -32,21 +32,29 @@ export default class systemData {
 
         this.reachCheck = data.reach || 0;
         this.item = data.item;
+        this.itemUuid = this.item?.uuid;
+
         this.hasAttack = this.item?.hasAttack ?? false;
         this.hasDamage = this.item?.hasDamage ?? false;
-        this.itemName = this.item.name?.toLowerCase() ?? "";
+        this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
+        this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") ? true : false;
+        if (this.systemId === 'dnd5e' && this.isActiveEffect) {
+            this.itemName = this.item.data?.label || "placeholder";
+            this.workflow = this.item.data?.flags?.autoanimations?.aaAeStatus;
+        }
+
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
         this.itemType = this.item.data?.type?.toLowerCase() ?? "";
 
-        this.sourceToken = data.token.isEmbedded ? data.token.object : data.token;
-        this.actor = data.token.actor;
+        this.sourceToken = data.token?.isEmbedded ? data.token?.object : data.token;
+        this.actor = data.token?.actor;
         this.allTargets = data.targets;
         this.hitTargets = data.hitTargets;
         this.hitTargetsId = data.hitTargets ? Array.from(this.hitTargets.filter(actor => actor.id).map(actor => actor.id)) : [];
         this.targetsId = Array.from(this.allTargets.filter(actor => actor.id).map(actor => actor.id));
 
         //midi-qol specific settings
-        this.playOnMiss = data.playOnMiss || (midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false);
+        this.playOnMiss = data.playOnMiss || (midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false) || false;
         //this.playOnMiss = true;
         const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
         this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
@@ -75,9 +83,9 @@ export default class systemData {
         this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
         this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
-        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNames(this.autorecSettings, 'templates'), this.rinsedName);
-        this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
-
+        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templates'), this.rinsedName);
+        this.autorecObject = this.isActiveEffect ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+    
         // If there is no match and there are alternative names, then attempt to use those names instead
         if (!this.autorecObject && data.extraNames?.length) {
             for (const name of data.extraNames) {

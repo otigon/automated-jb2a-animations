@@ -58,7 +58,7 @@ export async function huntersMark(handler, animationData) {
         .size(sourceTokenGS * data.scale, {gridUnits: true})
     for (let target of handler.allTargets) {
         let targetTokenGS = target.width / canvas.grid.size;
-        let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.item.uuid }).length > 0
+        let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
 
         aaSeq.effect()
             .file(hmPulse)
@@ -75,7 +75,7 @@ export async function huntersMark(handler, animationData) {
                 .belowTokens(false)
                 .name("huntersmark")
                 .persist()
-                .origin(handler.item.uuid)
+                .origin(handler.itemUuid)
                 .loopProperty("sprite", "width", { from: ((targetTokenGS * .5) * 0.7), to: (targetTokenGS * .5), duration: 4000, pingPong: true, gridUnits: true })
                 .loopProperty("sprite", "height", { from: ((targetTokenGS * .5) * 0.7), to: (targetTokenGS * .5), duration: 4000, pingPong: true, gridUnits: true })
                 .loopProperty("sprite", "alpha", { from: 0.25, to: 1, duration: 4000, pingPong: true })
