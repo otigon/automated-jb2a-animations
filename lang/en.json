@@ -634,8 +634,6 @@
     "AUTOANIM.dots": "Dots",
     "AUTOANIM.swirl": "Swirl",
     
-    "AUTOANIM.menuImport": "Import Automatic Recognition Menu",
-    "AUTOANIM.mergeMenu": "Merge Menus",
     "AUTOANIM.breathweaponspray01": "Breath Weapon Spray 01",
     "AUTOANIM.breathweaponspray02": "Breath Weapon Spray 02",
     "AUTOANIM.burst": "Burst",
@@ -654,6 +652,10 @@
     "AUTOANIM.trap": "Trap",
 
     "AUTOANIM.s3Name": "JB2A Asset Location",
-    "AUTOANIM.s3Hint": "REQUIRES A REFRESH: ONLY change if your JB2A module is hosted externally on an S3 bucket or similar. Otherwise, leave blank. Example: S3Bucket/jb2a_patreon or S3Bucket/JB2A_DnD5e (No Slash at end)"
-
+    "AUTOANIM.s3Hint": "REQUIRES A REFRESH: ONLY change if your JB2A module is hosted externally on an S3 bucket or similar. Otherwise, leave blank. Example: S3Bucket/jb2a_patreon or S3Bucket/JB2A_DnD5e (No Slash at end)",
+    "AUTOANIM.importMerge": "Overwrite / Merge Menu",
+    "AUTOANIM.overwrite": "Overwrite",
+    "AUTOANIM.merge": "Merge",
+    "AUTOANIM.menuImport": "Overwrite / Merge Automatic Recognition Menu",
+    "AUTOANIM.overwriteWarn": "Overwrite will delete your existing Menu"
 }

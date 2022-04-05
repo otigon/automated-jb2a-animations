@@ -2,8 +2,6 @@ import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-data
 import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
 import { trafficCop } from "./router/traffic-cop.js";
 
-import { socketlibSocket } from "./socketset.js";
-
 import { jb2aAAPatreonDatabase } from "./animation-functions/databases/jb2a-patreon-database.js";
 import { jb2aAAFreeDatabase } from "./animation-functions/databases/jb2a-free-database.js";
 
@@ -76,7 +74,8 @@ Hooks.on('init', () => {
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html',
         'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html',
         'modules/autoanimations/src/active-effects/aeMenus/ae-animations.html',
-        'modules/autoanimations/src/active-effects/aeMenus/ae-autorecMenu.html'
+        'modules/autoanimations/src/active-effects/aeMenus/ae-autorecMenu.html',
+        'modules/autoanimations/src/custom-recognition/import-data.html',
     ]);
 
 })

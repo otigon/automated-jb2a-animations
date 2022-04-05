@@ -493,7 +493,7 @@ export class aaAutoRecognition extends FormApplication {
 
 // Credit to Tim Poseny of Midi-QOL for the import/export functions for settings
 async function importFromJSONDialog() {
-	const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
+	const content = await renderTemplate("modules/autoanimations/src/custom-recognition/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
 	let dialog = new Promise((resolve, reject) => {
 		new Dialog({
 			title: game.i18n.format("AUTOANIM.menuImport"),
@@ -501,7 +501,7 @@ async function importFromJSONDialog() {
 			buttons: {
 				import: {
 					icon: '<i class="fas fa-file-import"></i>',
-					label: "Import",
+					label: game.i18n.format("AUTOANIM.overwrite"),
 					callback: html => {
 						//@ts-ignore
 						const form = html.find("form")[0];
@@ -513,6 +513,20 @@ async function importFromJSONDialog() {
 						});
 					}
 				},
+                merge: {
+                    icon: '<i class="fas fa-file-import"></i>',
+                    label: game.i18n.format("AUTOANIM.merge"),
+                    callback: html => {
+                        //@ts-ignore
+                        const form = html.find("form")[0];
+                        if (!form.data.files.length)
+                            return ui.notifications?.error("You did not upload a data file!");
+                        readTextFromFile(form.data.files[0]).then(json => {
+                            AutorecFunctions._mergeAutorecFile(json);
+                            resolve(true);
+                        });
+                    }
+                },
 				no: {
 					icon: '<i class="fas fa-times"></i>',
 					label: "Cancel",
@@ -521,12 +535,12 @@ async function importFromJSONDialog() {
 			},
 			default: "import"
 		}, {
-			width: 400
+			width: 600
 		}).render(true);
 	});
 	return await dialog;
 }
-
+/*
 async function importJSONAndMerge() {
     const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
     let dialog = new Promise((resolve, reject) => {
@@ -561,7 +575,7 @@ async function importJSONAndMerge() {
     });
     return await dialog;
 }
-
+*/
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
