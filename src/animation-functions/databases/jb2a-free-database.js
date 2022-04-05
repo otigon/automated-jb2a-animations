@@ -1906,7 +1906,7 @@ JB2AFREEDB.static = {
             shockwave: {
                 green: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Green_400x400.webm`],
             },
-            skullsmoke: {
+            skull: {
                 green: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`],
             },
         },
@@ -1927,7 +1927,7 @@ JB2AFREEDB.static = {
         },
     },
     tokenborder: {
-        staticborder: {
+        static: {
             '01': {
                 blue: [lg`Token_Border/TokenBorderCircle_01_Regular_Blue_400x400.webm`],
             },
@@ -1968,7 +1968,7 @@ JB2AFREEDB.static = {
                 blue: [lg`Token_Border/TokenBorderCircle_13_Regular_Blue_400x400.webm`],
             },
         },
-        spinningborder: {
+        spinning: {
             '01': {
                 blue: [lg`Token_Border/TokenBorderCircleSpin_01_Regular_Blue_400x400.webm`],
             },
