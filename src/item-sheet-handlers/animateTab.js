@@ -49,7 +49,7 @@ export class AAItemSettings extends FormApplication {
 
         const levels3d = game.modules.get("levels-3d-preview")?.active;
         const animType = flags.autoanimations?.animType;
-        const templateType = flags.autoanimations?.options?.tempType ?? "";
+        const templateType = flags.autoanimations?.options?.menuType ?? "";
 
         //const animationRepeat = flags.autoanimations?.options?.repeat > 50 ? 50 : flags.autoanimations?.options?.repeat;
         //const explosionLoops = flags.autoanimations?.explosions?.repeat > 50 ? 50 : flags.autoanimations?.explosions?.repeat;
@@ -103,7 +103,7 @@ export class AAItemSettings extends FormApplication {
             menu3d: override && animType === "menu3d",
 
             persistent: flags.autoanimations?.options?.persistent && (flags.autoanimations?.options?.persistType === 'overheadtile'),
-            circRectPersist: flags.autoanimations?.options?.persistent && (templateType === 'circle' || templateType === 'rect') ? true : false,
+            circRectPersist: flags.autoanimations?.options?.persistent && (templateType === 'circle' || templateType === 'square') ? true : false,
             animationType: levels3d ? aaMenuLists.menuOptions3D : aaMenuLists.menuOptions,
 
             content: content,
