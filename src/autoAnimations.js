@@ -44,7 +44,7 @@ Hooks.on('init', () => {
         }
         return options.inverse(this);
     });
-    Handlebars.registerHelper('aaIs5e', function(options) {
+    Handlebars.registerHelper('aaIs5e', function (options) {
         if (game.system.id === 'dnd5e') {
             return options.fn(this);
         }
@@ -291,30 +291,34 @@ Hooks.once('ready', function () {
     //Active Effect Hooks
     switch (game.system.id) {
         case "dnd5e":
-            //if(game.user === game.users.find((i) => i.isGM && i.active)) {
-                Hooks.on("createActiveEffect", (effect, data, userId) => {
-                    if (game.user.id !== userId) { return; }
-                    //if (!game.user.isGM) { return; }
-                    //socketlibSocket.executeAsGM("createActiveEffects5e", effect)
-                    createActiveEffects5e(effect)
-                });
-                Hooks.on("deleteActiveEffect", (effect, data, userId) => {
-                    if (game.user.id !== userId) { return; }
-                    //if (!game.user.isGM) { return; }
-                    //socketlibSocket.executeAsGM("deleteActiveEffects5e", effect)
-                    deleteActiveEffects5e(effect)
-                    if (game.modules.get('midi-qol')?.active) {
-                        //socketlibSocket.executeAsGM("checkConcentration", effect)
-                        checkConcentration(effect)
-                    }
-                });
-                Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
-                    if (game.user.id !== userId) { return; }
-                    //if (!game.user.isGM) { return; }
-                    toggleActiveEffects5e(data, toggle)
-                });        
+
+            Hooks.on("createActiveEffect", (effect, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) { 
+                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                createActiveEffects5e(effect)
+            });
+            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+                if (game.user.id !== userId) { return; }
+
+                deleteActiveEffects5e(effect)
+                if (game.modules.get('midi-qol')?.active) {
+
+                    checkConcentration(effect)
+                }
+            });
+            Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) { 
+                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                toggleActiveEffects5e(data, toggle)
+            });
             //}
-        break;
+            break;
     }
     Hooks.callAll("aa.ready", obj01)
 });

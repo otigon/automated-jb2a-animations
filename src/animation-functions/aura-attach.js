@@ -41,7 +41,7 @@ export async function auras(handler, animationData) {
         //let playPersist = !checkAnim ? true : false;
         let nameField;
         if (handler.isActiveEffect) {
-            nameField = "ae" + `${sourceToken.id}`;
+            nameField = handler.itemName + `${sourceToken.id}`;
         } else {
             nameField = sourceToken.name;
         }

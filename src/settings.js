@@ -148,6 +148,14 @@ export default function aaSettings() {
             break;
         case "dnd5e":
         case "sw5e":
+            game.settings.register("autoanimations", "disableAEAnimations", {
+                name: game.i18n.format("AUTOANIM.disableAEAnimations"),
+                hint: game.i18n.format("AUTOANIM.disableAEAnimationsHint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            })
             if (game.modules.get("midi-qol")?.active) {
                 game.settings.register("autoanimations", "playonhit", {
                     name: game.i18n.format("AUTOANIM.midionhit_name"),

@@ -31,7 +31,7 @@ export async function createActiveEffects5e(effect) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
         return;
     }
-    const aeNameField = 'ae' + `${aeToken.id}`
+    const aeNameField = effect.data?.label + `${aeToken.id}`
     const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) { 
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }

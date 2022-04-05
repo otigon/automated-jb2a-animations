@@ -39,7 +39,7 @@ export default class systemData {
         this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
         this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") ? true : false;
         if (this.systemId === 'dnd5e' && this.isActiveEffect) {
-            this.itemName = this.item.data?.label;
+            this.itemName = this.item.data?.label || "placeholder";
             this.workflow = this.item.data?.flags?.autoanimations?.aaAeStatus;
         }
 

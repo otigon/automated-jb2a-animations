@@ -73,7 +73,7 @@ export async function bless(handler, animationData) {
             endSection.loopProperty("sprite", "height", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
             if (playPersist) { 
                 if (handler.isActiveEffect) {
-                    endSection.name("ae" + `${sourceToken.id}`)
+                    endSection.name(handler.itemName + `${sourceToken.id}`)
                 } else {
                     endSection.name(sourceToken.id)
                 }        
@@ -132,7 +132,7 @@ export async function bless(handler, animationData) {
                 endSection.loopProperty("sprite", "height", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
                 if (playPersist) { 
                     if (handler.isActiveEffect) {
-                        endSection.name("ae" + `${target.id}`)
+                        endSection.name(handler.itemName + `${target.id}`)
                     } else {
                         endSection.name(target.id)
                     }        

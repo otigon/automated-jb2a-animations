@@ -48,7 +48,7 @@ export async function staticAnimation(handler, animationData) {
             let bottomEffect = aaSeq.effect();
             bottomEffect.file(bottomAnim)
             if (handler.isActiveEffect) {
-                bottomEffect.name("ae" + `${sourceToken.id}`)
+                bottomEffect.name(handler.itemName + `${sourceToken.id}`)
             } else {
                 bottomEffect.name("spot" + ` ${sourceToken.id}`)
             }
@@ -65,9 +65,9 @@ export async function staticAnimation(handler, animationData) {
             let topEffect = aaSeq.effect();
             topEffect.file(onToken.fileData)
             if (handler.isActiveEffect) {
-                bottomEffect.name("ae" + `${sourceToken.id}`)
+                topEffect.name(handler.itemName + `${sourceToken.id}`)
             } else {
-                bottomEffect.name("spot" + ` ${sourceToken.id}`)
+                topEffect.name("spot" + ` ${sourceToken.id}`)
             }
             topEffect.opacity(data.opacity)
             topEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
@@ -82,7 +82,7 @@ export async function staticAnimation(handler, animationData) {
             let aaEffect = aaSeq.effect();
             aaEffect.file(onToken.file)
             if (handler.isActiveEffect) {
-                aaEffect.name("ae" + `${sourceToken.id}`)
+                aaEffect.name(handler.itemName + `${sourceToken.id}`)
             } else {
                 aaEffect.name("spot" + ` ${sourceToken.id}`)
             }

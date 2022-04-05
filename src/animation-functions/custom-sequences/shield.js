@@ -86,7 +86,7 @@ export async function shieldSpell(handler, animationData) {
         persistSwitch.origin(handler.itemUuid)
         if (data.persistent) {
             if (handler.isActiveEffect) {
-                persistSwitch.name("ae" + `${sourceToken.id}`)
+                persistSwitch.name(handler.itemName + `${sourceToken.id}`)
             } else {
                 persistSwitch.name(`${sourceToken.id}`)
             }

@@ -648,5 +648,7 @@
     "AUTOANIM.chevron": "Chevron",
     "AUTOANIM.prototemp": "Projectile to Template",
     "AUTOANIM.unbindAlpha": "Unbind Alpha",
-    "AUTOANIM.unbindVisibility": "Unbind Visibility"
+    "AUTOANIM.unbindVisibility": "Unbind Visibility",
+    "AUTOANIM.disableAEAnimations": "Disable Active Effect Animations",
+    "AUTOANIM.disableAEAnimationsHint": "Disable all Animations for Active Effects"
 }
