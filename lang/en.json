@@ -657,5 +657,7 @@
     "AUTOANIM.overwrite": "Overwrite",
     "AUTOANIM.merge": "Merge",
     "AUTOANIM.menuImport": "Overwrite / Merge Automatic Recognition Menu",
-    "AUTOANIM.overwriteWarn": "Overwrite will delete your existing Menu"
+    "AUTOANIM.overwriteWarn": "Overwrite will delete your existing Menu",
+    "AUTOANIM.unbindAlphaTip": "Default: Animation matches Object Alpha",
+    "AUTOANIM.unbindVisibilityTip": "Default: Animation Hides with Object"
 }

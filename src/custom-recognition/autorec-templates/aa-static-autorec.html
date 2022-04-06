@@ -211,12 +211,16 @@
                             placeholder=1>
                     </div>
                     <div class="flexcol" style='grid-row: 2 / 3; grid-column: 1 / 2;'>
-                        <label>{{localize "AUTOANIM.unbindAlpha"}}?</label>
+                        <label class="aaToolTip">{{localize "AUTOANIM.unbindAlpha"}}?
+                            <span class='aaToggleCenter'>{{localize "AUTOANIM.unbindAlphaTip"}}</span>
+                        </label>
                         <input type='checkbox' class='hideme' name='aaAutorec.static.{{idx}}.unbindAlpha' {{checked
                             (lookup (lookup ../settings.aaAutorec.static idx) 'unbindAlpha' ) }}>
                     </div>
                     <div class="flexcol" style='grid-row: 2 / 3; grid-column: 2 / 3;'>
-                        <label>{{localize "AUTOANIM.unbindVisibility"}}?</label>
+                        <label class="aaToolTip">{{localize "AUTOANIM.unbindVisibility"}}?
+                            <span class='aaToggleCenter'>{{localize "AUTOANIM.unbindVisibilityTip"}}</span>
+                        </label>
                         <input type='checkbox' class='hideme' name='aaAutorec.static.{{idx}}.unbindVisibility' {{checked
                             (lookup (lookup ../settings.aaAutorec.static idx) 'unbindVisibility' ) }}>
                     </div>

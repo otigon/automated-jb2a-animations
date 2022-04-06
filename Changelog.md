@@ -1,3 +1,11 @@
+3.0.2  
+* Fixed Persistent options for Items in the Template menu where the Square option was not correctly adding the Tile options  
+* Added actual functionality to the "Delay Start" option for the Active Effect menus. When set, this will delay the start/application of the animation after the Active Effect is created in Milliseconds  
+* Added hover tool-tips to the new Unbind Alpha and Unbind Visibility menu options  
+  
+3.0.1  
+* Removed the Merge and Import buttons from the Autorec Menu. These are now in a Single Overwrite/Merge button. When used you can choose to Overwrite or Merge the incoming Menu.  
+  
 3.0.0 **Active Effect Series**  
 * Added a Merge Menus button to the Automatic Recognition menu. When used, it will prompt you to choose a menu to import. This gives 100% priority to your existing menu, and only adds new fields being Merged from the incoming menu. ALWAYS review the merged menus to ensure you don't have strange duplicates so you know what you are getting.  
 * Added **Unbind Alpha** and **Unbind Visibility** to relevant A-A menus. This is useful for Persistent effects so you can choose whether the Animation remains visible even if the Token it is attached to goes invisible, or if you change it's Opacity.  
