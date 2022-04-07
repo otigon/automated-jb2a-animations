@@ -7,6 +7,7 @@ import { jb2aAAFreeDatabase } from "./animation-functions/databases/jb2a-free-da
 
 import systemData from "./system-handlers/system-data.js";
 import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggleActiveEffects5e } from "./active-effects/ae5e.js";
+import { createActiveEffectsPF2e, deleteActiveEffectsPF2e } from "./active-effects/pf2e/aepf2e.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
@@ -46,8 +47,9 @@ Hooks.on('init', () => {
         }
         return options.inverse(this);
     });
-    Handlebars.registerHelper('aaIs5e', function (options) {
-        if (game.system.id === 'dnd5e') {
+    Handlebars.registerHelper('isAeSupported', function (options) {
+        let supportedSystems = ['dnd5e', 'pf2e']
+        if (supportedSystems.includes(game.system.id)) {
             return options.fn(this);
         }
         return options.inverse(this);
@@ -351,6 +353,14 @@ Hooks.once('ready', async function () {
                 toggleActiveEffects5e(data, toggle)
             });
             //}
+            break;
+        case 'pf2e':
+            Hooks.on("createItem", (item, data, userId) => {
+                createActiveEffectsPF2e(item);
+            })
+            Hooks.on("deleteItem", (item, data, userId) => {
+                deleteActiveEffectsPF2e(item)
+            })
             break;
     }
     Hooks.callAll("aa.ready", obj01)

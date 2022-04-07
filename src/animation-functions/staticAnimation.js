@@ -66,6 +66,8 @@ export async function staticAnimation(handler, animationData) {
             topEffect.file(onToken.fileData)
             if (handler.isActiveEffect) {
                 topEffect.name(handler.itemName + `${sourceToken.id}`)
+                console.log("THIS IS THE ITEM NAME APPLIED")
+                console.log(handler.itemName + `${sourceToken.id}`)
             } else {
                 topEffect.name("spot" + ` ${sourceToken.id}`)
             }

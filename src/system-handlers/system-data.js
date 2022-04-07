@@ -21,7 +21,7 @@ export default class systemData {
         this._log("Getting System Data")
 
         const data = systemData;
-
+        const pf2eRuleTypes = ['condition', 'effect', 'feat'];
         this.gameSystem = game.system.id;
 
         const midiActive = game.modules.get('midi-qol')?.active;
@@ -37,9 +37,16 @@ export default class systemData {
         this.hasAttack = this.item?.hasAttack ?? false;
         this.hasDamage = this.item?.hasDamage ?? false;
         this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
-        this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") ? true : false;
-        if (this.systemId === 'dnd5e' && this.isActiveEffect) {
-            this.itemName = this.item.data?.label || "placeholder";
+        this.pf2eRuleset = pf2eRuleTypes.includes(this.item.type);
+
+        this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.pf2eRuleset ? true : false;
+        if (this.isActiveEffect) {
+            if (this.systemId === 'dnd5e') {
+                this.itemName = this.item.data?.label || "placeholder";
+            }
+            if (this.systemId === 'pf2e') {
+                this.itemName = this.item.name.replace(/[^A-Za-z0-9 .*_-]/g, "");
+            }
             this.workflow = this.item.data?.flags?.autoanimations?.aaAeStatus;
         }
 
@@ -84,7 +91,7 @@ export default class systemData {
 
         this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
         this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templates'), this.rinsedName);
-        this.autorecObject = this.isActiveEffect ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+        this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
     
         // If there is no match and there are alternative names, then attempt to use those names instead
         if (!this.autorecObject && data.extraNames?.length) {

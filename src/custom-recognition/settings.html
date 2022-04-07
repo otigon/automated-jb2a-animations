@@ -7,9 +7,9 @@
 		<a class='item' data-tab='aura'><i class="fab fa-creative-commons-by fa-lg"></i></i>{{localize
 			"AUTOANIM.typeAuras"}}</a>
 		<a class='item' data-tab='presets'><i class="fas fa-gift fa-lg"></i></i>{{localize "AUTOANIM.presets"}}</a>
-		{{#aaIs5e}}
+		{{#isAeSupported}}
 		<a class='item' data-tab='aefx'><i class="fas fa-atom fa-lg"></i></i>Active Effects</a>
-		{{/aaIs5e}}
+		{{/isAeSupported}}
 	</nav>
 
 	<section class='content'>
@@ -41,11 +41,11 @@
 		<div class='tab' data-tab='presets' data-group='sections'>
 			{{> 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-presets-autorec.html' }}
 		</div>
-		{{#aaIs5e}}
+		{{#isAeSupported}}
 		<div class='tab' data-tab='aefx' data-group='sections'>
 			{{> 'modules/autoanimations/src/active-effects/aeMenus/ae-autorecMenu.html' }}
 		</div>
-		{{/aaIs5e}}
+		{{/isAeSupported}}
 	</section>
 
 	<footer class='sheet-footer flexrow'>
