@@ -454,16 +454,16 @@ export class aaAutoRecognition extends FormApplication {
     async sortAutorec() {
         const autoRec = await game.settings.get('autoanimations', 'aaAutorec');
         const sortedMenu = {};
-    
+
         sortedMenu.version = autoRec.version;
         sortedMenu.search = autoRec.search;
-        sortedMenu.melee = await this.sortMenu(autoRec.melee);
-        sortedMenu.range = await this.sortMenu(autoRec.range);
-        sortedMenu.static = await this.sortMenu(autoRec.static);
-        sortedMenu.templates = await this.sortMenu(autoRec.templates);
-        sortedMenu.auras = await this.sortMenu(autoRec.auras);
-        sortedMenu.preset = await this.sortMenu(autoRec.preset)
-        sortedMenu.aefx = await this.sortMenu(autoRec.aefx);
+        sortedMenu.melee = autoRec.melee ? await this.sortMenu(autoRec.melee) : {};
+        sortedMenu.range = autoRec.range ? await this.sortMenu(autoRec.range): {};
+        sortedMenu.static = autoRec.static ? await this.sortMenu(autoRec.static) : {};
+        sortedMenu.templates = autoRec.templates ? await this.sortMenu(autoRec.templates): {};
+        sortedMenu.auras = autoRec.auras ? await this.sortMenu(autoRec.auras) : {};
+        sortedMenu.preset = autoRec.preset ? await this.sortMenu(autoRec.preset) : {};
+        sortedMenu.aefx = autoRec.aefx ? await this.sortMenu(autoRec.aefx) : {};
     
         await game.settings.set("autoanimations", "aaAutorec", sortedMenu);
     }

@@ -577,6 +577,7 @@ async function onCreateChatMessage(msg) {
 */
 async function swffgReady(msg) {
     if (killAllAnimations) { return; }
+    if (game.user.id !== msg.user.id) { return }
     let handler = await systemData.make(msg);
     if (!handler.item || !handler.sourceToken) {
         return;
