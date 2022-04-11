@@ -262,6 +262,17 @@ export default function aaSettings() {
             });
         }
             break;
+        case "pf1": {
+            game.settings.register("autoanimations", "disableAEAnimations", {
+                name: game.i18n.format("AUTOANIM.disableAEAnimations"),
+                hint: game.i18n.format("AUTOANIM.disableAEAnimationsHint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            })
+        }
+            break;
     }
 
     game.settings.register("autoanimations", "debug", {

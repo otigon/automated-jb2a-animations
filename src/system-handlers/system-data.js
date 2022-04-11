@@ -44,7 +44,7 @@ export default class systemData {
 
         this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eRuleset ? true : false;
         if (this.isActiveEffect) {
-            if (this.systemId === 'dnd5e') {
+            if (this.systemId === 'dnd5e' || this.systemId === 'pf1') {
                 this.itemName = this.item.data?.label || "placeholder";
             }
             if (this.systemId === 'pf2e') {

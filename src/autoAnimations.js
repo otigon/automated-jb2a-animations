@@ -48,7 +48,7 @@ Hooks.on('init', () => {
         return options.inverse(this);
     });
     Handlebars.registerHelper('isAeSupported', function (options) {
-        let supportedSystems = ['dnd5e', 'pf2e']
+        let supportedSystems = ['dnd5e', 'pf2e', 'pf1']
         if (supportedSystems.includes(game.system.id)) {
             return options.fn(this);
         }
@@ -129,7 +129,7 @@ Hooks.once('ready', async function () {
     //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");
     let jb2aPath = game.settings.get('autoanimations', 'jb2aLocation');
     let s3Patreon;
-    if (!jb2aPath) { 
+    if (!jb2aPath) {
         if (jb2aPatreonFound) {
             jb2aPath = 'modules/jb2a_patreon'
         } else {
@@ -157,7 +157,7 @@ Hooks.once('ready', async function () {
     }
 
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
-        if (s3Check && (s3Check.includes('jb2a_patreon') || s3Check.includes('JB2A_DnD5e'))) {} else {
+        if (s3Check && (s3Check.includes('jb2a_patreon') || s3Check.includes('JB2A_DnD5e'))) { } else {
             ui.notifications.error(game.i18n.format("AUTOANIM.error"));
         }
     }
@@ -326,9 +326,8 @@ Hooks.once('ready', async function () {
     //Active Effect Hooks
     switch (game.system.id) {
         case "dnd5e":
-
             Hooks.on("createActiveEffect", (effect, data, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) { 
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
                     console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
                     return;
                 }
@@ -345,7 +344,7 @@ Hooks.once('ready', async function () {
                 }
             });
             Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) { 
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
                     console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
                     return;
                 }
@@ -361,6 +360,34 @@ Hooks.once('ready', async function () {
             Hooks.on("deleteItem", (item, data, userId) => {
                 deleteActiveEffectsPF2e(item)
             })
+            break;
+        case "pf1":
+            Hooks.on("createActiveEffect", (effect, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                createActiveEffects5e(effect)
+            });
+            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+                if (game.user.id !== userId) { return; }
+
+                deleteActiveEffects5e(effect)
+                if (game.modules.get('midi-qol')?.active) {
+
+                    checkConcentration(effect)
+                }
+            });
+            Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                toggleActiveEffects5e(data, toggle)
+            });
+            //}
             break;
     }
     Hooks.callAll("aa.ready", obj01)
