@@ -136,7 +136,8 @@ Hooks.once('ready', async function () {
     //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");
     let jb2aPath = game.settings.get('autoanimations', 'jb2aLocation');
     let s3Patreon;
-    if (!jb2aPath) {
+  
+    if (!jb2aPath || jb2aPath === "null") { 
         if (jb2aPatreonFound) {
             jb2aPath = 'modules/jb2a_patreon'
         } else {
@@ -623,6 +624,7 @@ async function onCreateChatMessage(msg) {
 */
 async function swffgReady(msg) {
     if (killAllAnimations) { return; }
+    if (game.user.id !== msg.user.id) { return }
     let handler = await systemData.make(msg);
     if (!handler.item || !handler.sourceToken) {
         return;

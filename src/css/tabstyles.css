@@ -139,11 +139,30 @@
     z-index: 1;
 }
 
+.aaToolTip .aaToggleCenter {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    font-weight: normal;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    bottom:100%;
+    left: 50%;
+    z-index: 1;
+}
+
 .aaToolTip:hover .aaToggle01 {
     visibility: visible;
 }
 
 .aaToolTip:hover .aaToggle02 {
+    visibility: visible;
+}
+
+.aaToolTip:hover .aaToggleCenter {
     visibility: visible;
 }
 

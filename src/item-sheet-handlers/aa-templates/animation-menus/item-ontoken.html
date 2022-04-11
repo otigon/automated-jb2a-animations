@@ -22,8 +22,7 @@
         {{/unless}}
         {{#if isActiveEffect}}
         <div class='flexcol' style='display:none'>
-            <input type="text" class="files" name="flags.autoanimations.options.staticType"
-            value="source">
+            <input type="text" class="files" name="flags.autoanimations.options.staticType" value="source">
         </div>
         {{/if}}
         <div class='flexcol' style='grid-row: 2 / 3;grid-column: 2 / 3;'>
@@ -57,7 +56,8 @@
                 disabled {{/if }}>
                 {{#select flags.autoanimations.options.variant}}
                 <option value=""> </option>
-                {{#each (lookup (lookup menuVariants.static flags.autoanimations.options.menuType) flags.autoanimations.animation) as |name key|}}
+                {{#each (lookup (lookup menuVariants.static flags.autoanimations.options.menuType)
+                flags.autoanimations.animation) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -70,7 +70,8 @@
                 }}>
                 {{#select flags.autoanimations.color}}
                 <option value=""> </option>
-                {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.options.menuType) flags.autoanimations.animation) flags.autoanimations.options.variant) as |name key|}}
+                {{#each (lookup (lookup (lookup menuColors.static flags.autoanimations.options.menuType)
+                flags.autoanimations.animation) flags.autoanimations.options.variant) as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
@@ -124,12 +125,16 @@
         </div>
         {{#if isActiveEffect}}
         <div class="flexcol" style='grid-row: 2 / 3; grid-column: 1 / 2;'>
-            <label>{{localize "AUTOANIM.unbindAlpha"}}?</label>
+            <label class="aaToolTip">{{localize "AUTOANIM.unbindAlpha"}}?
+                <span class='aaToggleCenter'>{{localize "AUTOANIM.unbindAlphaTip"}}</span>
+            </label>
             <input type="checkbox" name="flags.autoanimations.options.unbindAlpha" {{checked
                 flags.autoanimations.options.unbindAlpha}}>
         </div>
         <div class="flexcol" style='grid-row: 2 / 3; grid-column: 2 / 3;'>
-            <label>{{localize "AUTOANIM.unbindVisibility"}}?</label>
+            <label class="aaToolTip">{{localize "AUTOANIM.unbindVisibility"}}?
+                <span class='aaToggleCenter'>{{localize "AUTOANIM.unbindVisibilityTip"}}</span>
+            </label>
             <input type="checkbox" name="flags.autoanimations.options.unbindVisibility" {{checked
                 flags.autoanimations.options.unbindVisibility}}>
         </div>
@@ -146,12 +151,16 @@
         {{/if}}
         {{#unless isActiveEffect}}
         <div class="flexcol" style='grid-row: 2 / 3; grid-column: 1 / 2;'>
-            <label>{{localize "AUTOANIM.unbindAlpha"}}?</label>
+            <label class="aaToolTip">{{localize "AUTOANIM.unbindAlpha"}}?
+                <span class='aaToggleCenter'>{{localize "AUTOANIM.unbindAlphaTip"}}</span>
+            </label>
             <input type="checkbox" name="flags.autoanimations.options.unbindAlpha" {{checked
                 flags.autoanimations.options.unbindAlpha}}>
         </div>
         <div class="flexcol" style='grid-row: 2 / 3; grid-column: 2 / 3;'>
-            <label>{{localize "AUTOANIM.unbindVisibility"}}?</label>
+            <label class="aaToolTip">{{localize "AUTOANIM.unbindVisibility"}}?
+                <span class='aaToggleCenter'>{{localize "AUTOANIM.unbindVisibilityTip"}}</span>
+            </label>
             <input type="checkbox" name="flags.autoanimations.options.unbindVisibility" {{checked
                 flags.autoanimations.options.unbindVisibility}}>
         </div>

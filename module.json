@@ -2,7 +2,7 @@
     "name": "autoanimations",
     "title": "Automated Animations",
     "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
-    "version": "3.0.1",
+    "version": "3.0.3",
     "author": "Otigon",
     "url": "https://github.com/otigon/automated-jb2a-animations",
     "minimumCoreVersion": "0.8.1",
@@ -59,6 +59,7 @@
             "name": "socketlib"
         }
     ],
+    "system": ["dnd5e", "pf2e", "alienrpg", "pf1", "D35E", "sw5e", "tormenta20", "demonlord", "forbiden-lands", "sfrpg", "starwarsffg", "swade", "wfrp4e", "ose", "dcc"],
     "socket": true,
     "manifest": "https://github.com/otigon/automated-jb2a-animations/releases/latest/download/module.json",
     "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/0.6.71/module.zip"
