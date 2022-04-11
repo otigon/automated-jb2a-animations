@@ -658,6 +658,11 @@
     "AUTOANIM.merge": "Merge",
     "AUTOANIM.menuImport": "Overwrite / Merge Automatic Recognition Menu",
     "AUTOANIM.overwriteWarn": "Overwrite will delete your existing Menu",
+
+    "AUTOANIM.disableNested": "Disable Nested Animations",
+    "AUTOANIM.disableNestedHint": "Prevents Animations for Conditions (Rulesets) created by other Conditions",
+
     "AUTOANIM.unbindAlphaTip": "Default: Animation matches Object Alpha",
     "AUTOANIM.unbindVisibilityTip": "Default: Animation Hides with Object"
+
 }

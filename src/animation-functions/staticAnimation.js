@@ -19,7 +19,7 @@ export async function staticAnimation(handler, animationData) {
     if (handler.debug) { aaDebugger("Static Animation Start", animationData, onToken) }
 
     //const exScale = ((100 * handler.explosionRadius) / explosion?.metadata?.width) ?? 1;
-    const animWidth = onToken.metadata.width;
+    //const animWidth = onToken.metadata.width;
     if (handler.isActiveEffect) {
         await wait(data.aeDelay)
     }

@@ -7,6 +7,8 @@ import { jb2aAAFreeDatabase } from "./animation-functions/databases/jb2a-free-da
 
 import systemData from "./system-handlers/system-data.js";
 import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggleActiveEffects5e } from "./active-effects/ae5e.js";
+import { createActiveEffectsPF2e, deleteActiveEffectsPF2e } from "./active-effects/pf2e/aepf2e.js";
+import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects/pf1/aePF1.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
@@ -46,8 +48,9 @@ Hooks.on('init', () => {
         }
         return options.inverse(this);
     });
-    Handlebars.registerHelper('aaIs5e', function (options) {
-        if (game.system.id === 'dnd5e') {
+    Handlebars.registerHelper('isAeSupported', function (options) {
+        let supportedSystems = ['dnd5e', 'pf2e', 'pf1']
+        if (supportedSystems.includes(game.system.id)) {
             return options.fn(this);
         }
         return options.inverse(this);
@@ -85,10 +88,16 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
         return;
     }
+    const pf2eRuleTypes = ['condition', 'effect'];
     const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
     aaBtn.click(async ev => {
         await flagMigrations.handle(app.document);
-        new AAItemSettings(app.document, {}).render(true);
+        // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) spawn the Active Effect menu. Otherwise continue as normal
+        if ((game.system.id === 'pf1' && app.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(app.item?.type))) {
+            new AAActiveEffectMenu(app.document, {}).render(true);
+        } else {
+            new AAItemSettings(app.document, {}).render(true);
+        }
     });
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
@@ -127,6 +136,7 @@ Hooks.once('ready', async function () {
     //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");
     let jb2aPath = game.settings.get('autoanimations', 'jb2aLocation');
     let s3Patreon;
+  
     if (!jb2aPath || jb2aPath === "null") { 
         if (jb2aPatreonFound) {
             jb2aPath = 'modules/jb2a_patreon'
@@ -155,7 +165,7 @@ Hooks.once('ready', async function () {
     }
 
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
-        if (s3Check && (s3Check.includes('jb2a_patreon') || s3Check.includes('JB2A_DnD5e'))) {} else {
+        if (s3Check && (s3Check.includes('jb2a_patreon') || s3Check.includes('JB2A_DnD5e'))) { } else {
             ui.notifications.error(game.i18n.format("AUTOANIM.error"));
         }
     }
@@ -324,9 +334,8 @@ Hooks.once('ready', async function () {
     //Active Effect Hooks
     switch (game.system.id) {
         case "dnd5e":
-
             Hooks.on("createActiveEffect", (effect, data, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) { 
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
                     console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
                     return;
                 }
@@ -343,13 +352,51 @@ Hooks.once('ready', async function () {
                 }
             });
             Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) { 
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
                     console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
                     return;
                 }
                 if (game.user.id !== userId) { return; }
                 toggleActiveEffects5e(data, toggle)
             });
+            //}
+            break;
+        case 'pf2e':
+            Hooks.on("createItem", (item, data, userId) => {
+                createActiveEffectsPF2e(item);
+            })
+            Hooks.on("deleteItem", (item, data, userId) => {
+                deleteActiveEffectsPF2e(item)
+            })
+            break;
+        case "pf1":
+            Hooks.on("createActiveEffect", (effect, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                createActiveEffectsPF1(effect)
+            });
+            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+                if (game.user.id !== userId) { return; }
+
+                deleteActiveEffectsPF1(effect)
+                if (game.modules.get('midi-qol')?.active) {
+
+                    checkConcentration(effect)
+                }
+            });
+            /*
+            Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                toggleActiveEffectsPF1(data, toggle)
+            });
+            */
             //}
             break;
     }

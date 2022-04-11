@@ -252,6 +252,25 @@ export default function aaSettings() {
                 default: false,
                 config: true,
             });
+            game.settings.register("autoanimations", "disableNestedEffects", {
+                name: game.i18n.format("AUTOANIM.disableNested"),
+                hint: game.i18n.format("AUTOANIM.disableNestedHint"),
+                scope: `world`,
+                type: Boolean,
+                default: false,
+                config: true,
+            });
+        }
+            break;
+        case "pf1": {
+            game.settings.register("autoanimations", "disableAEAnimations", {
+                name: game.i18n.format("AUTOANIM.disableAEAnimations"),
+                hint: game.i18n.format("AUTOANIM.disableAEAnimationsHint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            })
         }
             break;
     }
