@@ -46,7 +46,7 @@ export async function createActiveEffectsPF2e(item) {
 
     // If A-A flags are preset on the AE, ensure they are up-to-date
     if (item.data?.flags?.autoanimations) {
-        await flagMigrations.handle(effect);
+        await flagMigrations.handle(item);
     }
     // If no A-A flags are present, grab current Flag version and apply it to the effect (bypasses flag merge issues)
     if (!item.data?.flags?.autoanimation?.version) {
