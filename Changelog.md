@@ -1,3 +1,16 @@
+3.1.0  
+* Adds support for PF1 Buffs (Active Effects)  
+* Adds support for PF2e Ruleset Items (Active Effect types)  
+  
+**PF1**  
+Existing System buffs can be defined from the Automatic Recognition Menu (Active Effects Tab) to play the effect when the Buff is toggled on. If set to persistent, the animation will end when the Buff is toggled off. Buffs can have customized animations when created and added to the Buff tab of the token/actor sheet.  
+The "Buffs" created this way are essentially Items that create Active Effects when toggled on/off.  
+  
+**PF2e**  
+Existing "Conditions" (i.e. those on the Token HUD) can be defined from the Automatic Recognition Menu (Active Effects Tab). The same goes for All Ruleset effect types that are applied to Token via drag-n-drop. These effects can also have animations defined on the Items, which will take precendence over the Autorec menu. Effects set to persistent will auto-delete when the Effect is ended, or toggled off.  
+  
+This is the initial support for the active effect integration for these 2 systems. I will look at expanding the functionality of each as necessary. For instance, providing a way in PF2e to define different animations for Condtions when they are set to a stacked level (1, 2, 3). Please log any Bugs or Feature requests on the Automated Animations GitHub page.  
+  
 3.0.2  
 * Fixed Persistent options for Items in the Template menu where the Square option was not correctly adding the Tile options  
 * Added actual functionality to the "Delay Start" option for the Active Effect menus. When set, this will delay the start/application of the animation after the Active Effect is created in Milliseconds  
