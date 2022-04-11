@@ -665,10 +665,14 @@ async function starFinder(data, msg) {
 */
 async function setupTormenta20(msg) {
     if (killAllAnimations) { return; }
+    if (game.user.id !== msg.user.id) {
+        return;
+    }
     let handler = await systemData.make(msg);
     if (!handler.item || !handler.sourceToken) {
         return;
     }
+    /*
     if (game.user.id === msg.user.id) {
         switch (true) {
             case ((handler.animType === "t12") && (handler.isCustomized)):
@@ -676,9 +680,7 @@ async function setupTormenta20(msg) {
                 break;
         }
     }
-    if (game.user.id !== msg.user.id) {
-        return;
-    }
+    */
     trafficCop(handler);
 }
 

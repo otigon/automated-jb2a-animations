@@ -184,6 +184,7 @@ export async function trafficCop(handler) {
                     case "dnd5e":
                     case "pf2e":
                     case "sw5e":
+                    case "tormenta20":
                         if (game.modules.get("mars-5e")?.active) {
                             templateAnimation(handler, animationData, config);
                         } else {
