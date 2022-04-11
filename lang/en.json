@@ -657,5 +657,8 @@
     "AUTOANIM.overwrite": "Overwrite",
     "AUTOANIM.merge": "Merge",
     "AUTOANIM.menuImport": "Overwrite / Merge Automatic Recognition Menu",
-    "AUTOANIM.overwriteWarn": "Overwrite will delete your existing Menu"
+    "AUTOANIM.overwriteWarn": "Overwrite will delete your existing Menu",
+
+    "AUTOANIM.disableNested": "Disable Nested Animations",
+    "AUTOANIM.disableNestedHint": "Prevents Animations for Conditions (Rulesets) created by other Conditions"
 }

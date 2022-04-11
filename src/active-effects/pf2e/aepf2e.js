@@ -10,8 +10,16 @@ export function disableAnimations() {
 }
 
 export async function createActiveEffectsPF2e(item) {
-
+    const aePF2eTypes = ['condition', 'effect', 'feat']
     const aaDebug = game.settings.get("autoanimations", "debug")
+    if (!aePF2eTypes.includes(item.type)) { 
+        if (aaDebug) { aaDebugger("This is not a PF2e Ruleset, exiting early") }
+        return;
+    }
+    if (item.data?.data?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) { 
+        if (aaDebug) { aaDebugger("This is a nested Ruleset, exiting early") }
+        return;
+    }
 
     if (killAllAnimations) { return; }
     // Sets data for the System Handler
@@ -19,8 +27,6 @@ export async function createActiveEffectsPF2e(item) {
         aaAeStatus: "on",
     }
 
-    console.log("ITEM CREATED")
-    console.log(item)
     // Get the Item ID and Token it is on
     const itemId = item.id;
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null)
@@ -32,7 +38,6 @@ export async function createActiveEffectsPF2e(item) {
     // Check if the Animation is already present on the Token
     //const flattenedName = item.name.toLowerCase()
     const aeNameField = item.name.replace(/[^A-Za-z0-9 .*_-]/g, "") + `${aeToken.id}`
-    console.log(aeNameField)
     const checkAnim = await Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
@@ -69,9 +74,8 @@ export async function createActiveEffectsPF2e(item) {
 }
 
 export async function deleteActiveEffectsPF2e(item) {
-    console.log("ITEM DELETED")
-    console.log(item)
-
+    const aePF2eTypes = ['condition', 'effect', 'feat']
+    if (!aePF2eTypes.includes(item.type)) { return; }
     
     const aaDebug = game.settings.get("autoanimations", "debug")
 

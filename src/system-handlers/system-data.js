@@ -21,7 +21,6 @@ export default class systemData {
         this._log("Getting System Data")
 
         const data = systemData;
-        const pf2eRuleTypes = ['condition', 'effect', 'feat'];
         this.gameSystem = game.system.id;
 
         const midiActive = game.modules.get('midi-qol')?.active;
@@ -37,9 +36,13 @@ export default class systemData {
         this.hasAttack = this.item?.hasAttack ?? false;
         this.hasDamage = this.item?.hasDamage ?? false;
         this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
-        this.pf2eRuleset = pf2eRuleTypes.includes(this.item.type);
 
-        this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.pf2eRuleset ? true : false;
+        if (this.systemId === 'pf2e') {
+            const pf2eRuleTypes = ['condition', 'effect', 'feat'];
+            this.isPF2eRuleset = pf2eRuleTypes?.includes(this.item.type);    
+        }
+
+        this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eRuleset ? true : false;
         if (this.isActiveEffect) {
             if (this.systemId === 'dnd5e') {
                 this.itemName = this.item.data?.label || "placeholder";
