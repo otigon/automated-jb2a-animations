@@ -20,10 +20,6 @@ export async function createActiveEffects5e(effect) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (killAllAnimations) { return; }
-    // Sets data for the System Handler
-    const flagData = {
-        aaAeStatus: "on",
-    }
 
     // Gets the Token that the Active Effect is applied to
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
@@ -33,11 +29,16 @@ export async function createActiveEffects5e(effect) {
     }
     const aeNameField = effect.data?.label + `${aeToken.id}`
     const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
-    if (checkAnim) { 
+    if (checkAnim) {
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
         return;
     }
 
+    // Sets data for the System Handler
+    const flagData = {
+        aaAeStatus: "on",
+        aaAeTokenId: aeToken.id
+    }
     // If A-A flags are preset on the AE, ensure they are up-to-date
     if (effect.data?.flags?.autoanimations) {
         await flagMigrations.handle(effect);
@@ -64,7 +65,7 @@ export async function createActiveEffects5e(effect) {
     if (handler.isCustomized || (!handler.isCustomized && handler.autorecObject)) {
         const aeDelay = handler.isCustomized ? handler.flags?.options?.aeDelay || "noDelay" : handler.autorecObject.aeDelay || "noDelay";
         const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-        if (aeDelay === "noDelay") { } else {await wait(aeDelay)}
+        if (aeDelay === "noDelay") { } else { await wait(aeDelay) }
     }
     // Sends the data to begin the animation Sequence
     trafficCop(handler);
@@ -83,9 +84,8 @@ export async function deleteActiveEffects5e(effect) {
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
     // If no animations, exit early, Else continue with gathering data
-    if (aaEffects.length < 1) { return; }
-    else {
-        const itemData = aaEffects[0].data?.flags?.autoanimations ?? {};
+    if (aaEffects.length > 0) {  
+        const itemData = effect.data?.flags?.autoanimations ?? {};
         const data = {
             token: undefined,
             targets: [],
@@ -131,6 +131,41 @@ export async function deleteActiveEffects5e(effect) {
 
         // End all Animations on the token with .origin(effect.uuid)
         Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
+    } else {
+        const itemData = effect.data?.flags?.autoanimations ?? {};
+        const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
+        const data = {
+            token: aeToken,
+            targets: [],
+            item: effect,
+        };
+        // Compile data for the system handler
+        const handler = await systemData.make(null, null, data);
+        const macroData = {};
+        if ((handler.isCustomized && handler.macroOnly) || (handler.isDisabled && handler.macroOnly)) {
+            //Sets macro data if it is defined on the Item and is active
+            macroData.shouldRun = true;
+            macroData.name = itemData.macro?.name ?? "";
+            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+        } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
+            //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
+            macroData.shouldRun = true;
+            macroData.name = handler.autorecObject?.macro?.name ?? "";
+            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+        }
+        // If no Item or Source Token was found, exit early with Debug
+        if (!handler.item || !handler.sourceToken) {
+            if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
+            return;
+        }
+
+        // If a Macro was defined, it will run here with "off" as args[0]
+        if (macroData.shouldRun) {
+            let userData = macroData.args;
+            new Sequence()
+                .macro(macroData.name, "off", handler, ...userData)
+                .play()
+        }
     }
 }
 

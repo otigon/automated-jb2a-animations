@@ -22,10 +22,6 @@ export async function createActiveEffectsPF2e(item) {
     }
 
     if (killAllAnimations) { return; }
-    // Sets data for the System Handler
-    const flagData = {
-        aaAeStatus: "on",
-    }
 
     // Get the Item ID and Token it is on
     const itemId = item.id;
@@ -34,7 +30,11 @@ export async function createActiveEffectsPF2e(item) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
         return;
     }
-
+    // Sets data for the System Handler
+    const flagData = {
+        aaAeStatus: "on",
+        aaAeTokenId: aeToken.id
+    }
     // Check if the Animation is already present on the Token
     //const flattenedName = item.name.toLowerCase()
     const aeNameField = item.name.replace(/[^A-Za-z0-9 .*_-]/g, "") + `${aeToken.id}`
@@ -83,9 +83,8 @@ export async function deleteActiveEffectsPF2e(item) {
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: item.uuid })
 
     // If no animations, exit early, Else continue with gathering data
-    if (aaEffects.length < 1) { return; }
-    else {
-        const itemData = aaEffects[0].data?.flags?.autoanimations ?? {};
+    if (aaEffects.length > 0) {
+        const itemData = item.data?.flags?.autoanimations ?? {};
         const data = {
             token: undefined,
             targets: [],
@@ -131,6 +130,41 @@ export async function deleteActiveEffectsPF2e(item) {
 
         // End all Animations on the token with .origin(effect.uuid)
         Sequencer.EffectManager.endEffects({ origin: item.uuid, object: handler.sourceToken })
+    } else {
+        const itemData = item.data?.flags?.autoanimations ?? {};
+        const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
+        const data = {
+            token: aeToken,
+            targets: [],
+            item: item,
+        };
+        // Compile data for the system handler
+        const handler = await systemData.make(null, null, data);
+        const macroData = {};
+        if ((handler.isCustomized && handler.macroOnly) || (handler.isDisabled && handler.macroOnly)) {
+            //Sets macro data if it is defined on the Item and is active
+            macroData.shouldRun = true;
+            macroData.name = itemData.macro?.name ?? "";
+            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+        } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
+            //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
+            macroData.shouldRun = true;
+            macroData.name = handler.autorecObject?.macro?.name ?? "";
+            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+        }
+        // If no Item or Source Token was found, exit early with Debug
+        if (!handler.item || !handler.sourceToken) {
+            if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
+            return;
+        }
+
+        // If a Macro was defined, it will run here with "off" as args[0]
+        if (macroData.shouldRun) {
+            let userData = macroData.args;
+            new Sequence()
+                .macro(macroData.name, "off", handler, ...userData)
+                .play()
+        }
     }
 
 }
