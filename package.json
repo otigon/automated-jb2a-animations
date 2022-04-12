@@ -1,0 +1,35 @@
+{
+  "name": "template-svelte-esm",
+  "description": "Provides a bare bones ES Modules template repo to get set up with using the the TyphonJS Runtime Library and Svelte.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
+  "contributors": [
+    "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
+  ],
+  "dependencies": {
+    "@typhonjs-fvtt/runtime": "^0.0.7",
+    "svelte": "^3.46.4",
+    "svelte-preprocess": "^4.10.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7",
+    "@babel/preset-env": "^7",
+    "@league-of-foundry-developers/foundry-vtt-types": "^9.238.1",
+    "@rollup/plugin-babel": "^5",
+    "@typhonjs-config/eslint-config": "^0.3.0",
+    "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
+    "eslint": "^8",
+    "rollup": "^2"
+  },
+  "browserslist": [
+    ">5%",
+    "not IE 11"
+  ],
+  "scripts": {
+    "build": "rollup --config",
+    "build-watch": "rollup --watch --config",
+    "eslint": "eslint ."
+  }
+}
