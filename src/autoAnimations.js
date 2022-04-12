@@ -363,9 +363,11 @@ Hooks.once('ready', async function () {
             break;
         case 'pf2e':
             Hooks.on("createItem", (item, data, userId) => {
+                if (game.user.id !== userId) { return; }
                 createActiveEffectsPF2e(item);
             })
             Hooks.on("deleteItem", (item, data, userId) => {
+                if (game.user.id !== userId) { return; }
                 deleteActiveEffectsPF2e(item)
             })
             break;
@@ -382,10 +384,6 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
 
                 deleteActiveEffectsPF1(effect)
-                if (game.modules.get('midi-qol')?.active) {
-
-                    checkConcentration(effect)
-                }
             });
             /*
             Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
