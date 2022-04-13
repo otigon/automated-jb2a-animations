@@ -347,18 +347,18 @@ JB2AFREEDB.range = {
             },
             '02': {
                 blue: {
-                    '15ft': [lg`Energy/EnergyBeam_02_Regular_Blue_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_02_Regular_Blue_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_02_Regular_Blue_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_02_Regular_Blue_90ft_4000x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_02_Regular_BluePink_90ft_4000x400.webm`],
                 },
             },
             '03': {
                 blue: {
-                    '15ft': [lg`Energy/EnergyBeam_03_Regular_Blue_15ft_1000x400.webm`],
-                    '30ft': [lg`Energy/EnergyBeam_03_Regular_Blue_30ft_1600x400.webm`],
-                    '60ft': [lg`Energy/EnergyBeam_03_Regular_Blue_60ft_2800x400.webm`],
-                    '90ft': [lg`Energy/EnergyBeam_03_Regular_Blue_90ft_4000x400.webm`],
+                    '15ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_15ft_1000x400.webm`],
+                    '30ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_30ft_1600x400.webm`],
+                    '60ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_60ft_2800x400.webm`],
+                    '90ft': [lg`Energy/EnergyBeam_03_Regular_BluePink_90ft_4000x400.webm`],
                 },
             }
         },
@@ -913,37 +913,38 @@ JB2AFREEDB.melee = {
         breathweapon: {
             'cold': {
                 blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
-                green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
-                orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
-                purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
             },
             'fire01': {
-                blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
-                green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
                 orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
-                purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
             },
             'poison': {
-                blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
                 green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
-                orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
-                purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
             },
+        },
+        breathweaponspray01: {
+            burst: {
+                orange: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire01_Regular_Orange_Cone_Burst_800x800.webm`],
+            },
+            loop: {
+                orange: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire01_Regular_Orange_Cone_Loop_800x800.webm`],
+            }
+        },
+        breathweaponspray02: {
+            burst: {
+                orange: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire02_Regular_Orange_Cone_Burst_800x800.webm`],
+            },
+            loop: {
+                orange: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire02_Regular_Orange_Cone_Loop_800x800.webm`],
+            }
         },
         coneofcold: {
             '01': {
                 blue: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Blue_600x600.webm`],
-                green: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Green_600x600.webm`],
-                orange: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Orange_600x600.webm`],
-                purple: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Purple_600x600.webm`],
             },
         },
         burninghands: {
             '01': {
                 orange: [l1`Burning_Hands/BurningHands_01_Regular_Orange_600x600.webm`],
-            },
-            '02': {
-                orange: [l1`Burning_Hands/BurningHands_02_Regular_Orange_600x600.webm`],
             },
         },
     },
@@ -1140,7 +1141,7 @@ JB2AFREEDB.static = {
                 purple: [lg`Marker/MarkerHorror_02_Regular_Purple_400x400.webm`],
             },
             '03': {
-                purple: [lg`Marker/MarkerHorror_03_Dark_Teal_400x400.webm`],
+                purple: [lg`Marker/MarkerHorror_03_Regular_Purple_400x400.webm`],
             },
         },
         light: {
@@ -1236,26 +1237,6 @@ JB2AFREEDB.static = {
             '01': {
                 blue: [lg`Energy/EnergyField_01_Regular_Blue_600x600.webm`],
             }
-        },
-        dodecahedron: {
-            simple: {
-                blue: [lg`Energy/Dodecahedron_01_Regular_Blue_600x600.webm`],
-            },
-            rolled: {
-                blue: [lg`Energy/DodecahedronRoll_01_Regular_Blue_600x600.webm`],
-            },
-            runeabove: {
-                yellowblue: [lg`Energy/DodecahedronRuneAbove_01_Regular_BlueYellow_600x600.webm`],
-            },
-            runebelow: {
-                yellowblue: [lg`Energy/DodecahedronRuneBelow_01_Regular_BlueYellow_600x600.webm`],
-            },
-            starabove: {
-                yellowblue: [lg`Energy/DodecahedronStarAbove_01_Regular_BlueYellow_600x600.webm`],
-            },
-            starbelow: {
-                yellowblue: [lg`Energy/DodecahedronStarBelow_01_Regular_BlueYellow_600x600.webm`],
-            },
         },
         shimmer: {
             '01': {
@@ -1923,7 +1904,7 @@ JB2AFREEDB.static = {
         },
         whirlwind: {
             '01': {
-                bluegrey: [l7`Whirlwind/Whirlwind_01_BlueGrey_400x400.webm`],
+                bluegrey: [l7`Whirlwind/Whirlwind_01_BlueGrey_01_400x400.webm`],
             }
         },
     },
@@ -1950,24 +1931,6 @@ JB2AFREEDB.static = {
             '07': {
                 blue: [lg`Token_Border/TokenBorderCircle_07_Regular_Blue_400x400.webm`],
             },
-            '08': {
-                blue: [lg`Token_Border/TokenBorderCircle_08_Regular_Blue_400x400.webm`],
-            },
-            '09': {
-                blue: [lg`Token_Border/TokenBorderCircle_09_Regular_Blue_400x400.webm`],
-            },
-            '10': {
-                blue: [lg`Token_Border/TokenBorderCircle_10_Regular_Blue_400x400.webm`],
-            },
-            '11': {
-                blue: [lg`Token_Border/TokenBorderCircle_11_Regular_Blue_400x400.webm`],
-            },
-            '12': {
-                blue: [lg`Token_Border/TokenBorderCircle_12_Regular_Blue_400x400.webm`],
-            },
-            '13': {
-                blue: [lg`Token_Border/TokenBorderCircle_13_Regular_Blue_400x400.webm`],
-            },
         },
         spinning: {
             '01': {
@@ -1991,25 +1954,6 @@ JB2AFREEDB.static = {
             '07': {
                 blue: [lg`Token_Border/TokenBorderCircleSpin_07_Regular_Blue_400x400.webm`],
             },
-            '08': {
-                blue: [lg`Token_Border/TokenBorderCircleSpin_08_Regular_Blue_400x400.webm`],
-            },
-            '09': {
-                blue: [lg`Token_Border/TokenBorderCircleSpin_09_Regular_Blue_400x400.webm`],
-            },
-            '10': {
-                blue: [lg`Token_Border/TokenBorderCircleSpin_10_Regular_Blue_400x400.webm`],
-            },
-            '11': {
-                blue: [lg`Token_Border/TokenBorderCircleSpin_11_Regular_Blue_400x400.webm`],
-            },
-            '12': {
-                blue: [lg`Token_Border/TokenBorderCircleSpin_12_Regular_Blue_400x400.webm`],
-            },
-            '13': {
-                blue: [lg`Token_Border/TokenBorderCircleSpin_13_Regular_Blue_400x400.webm`],
-            },
-
         },
     },
     trap: {
