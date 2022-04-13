@@ -35,7 +35,7 @@ export default () =>
 
    return [
       {  // The main module bundle
-         input: `src/autoanimations.js`,
+         input: `src/autoAnimations.js`,
          output: {
             file: `dist/module.js`,
             format: 'es',

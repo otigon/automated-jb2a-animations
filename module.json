@@ -11,7 +11,7 @@
         "src/css/tabstyles.css"
     ],
     "esmodules": [
-        "src/autoAnimations.js"
+        "./dist/module.js"
     ],
     "languages": [
         {

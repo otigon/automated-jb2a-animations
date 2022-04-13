@@ -39,6 +39,174 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+function _superPropBase(object, property) {
+  while (!Object.prototype.hasOwnProperty.call(object, property)) {
+    object = _getPrototypeOf(object);
+    if (object === null) break;
+  }
+
+  return object;
+}
+
+function _get() {
+  if (typeof Reflect !== "undefined" && Reflect.get) {
+    _get = Reflect.get;
+  } else {
+    _get = function _get(target, property, receiver) {
+      var base = _superPropBase(target, property);
+
+      if (!base) return;
+      var desc = Object.getOwnPropertyDescriptor(base, property);
+
+      if (desc.get) {
+        return desc.get.call(arguments.length < 3 ? target : receiver);
+      }
+
+      return desc.value;
+    };
+  }
+
+  return _get.apply(this, arguments);
+}
+
+function _classPrivateFieldGet(receiver, privateMap) {
+  var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get");
+
+  return _classApplyDescriptorGet(receiver, descriptor);
+}
+
+function _classPrivateFieldSet(receiver, privateMap, value) {
+  var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set");
+
+  _classApplyDescriptorSet(receiver, descriptor, value);
+
+  return value;
+}
+
+function _classPrivateFieldDestructureSet(receiver, privateMap) {
+  var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set");
+
+  return _classApplyDescriptorDestructureSet(receiver, descriptor);
+}
+
+function _classExtractFieldDescriptor(receiver, privateMap, action) {
+  if (!privateMap.has(receiver)) {
+    throw new TypeError("attempted to " + action + " private field on non-instance");
+  }
+
+  return privateMap.get(receiver);
+}
+
+function _classApplyDescriptorGet(receiver, descriptor) {
+  if (descriptor.get) {
+    return descriptor.get.call(receiver);
+  }
+
+  return descriptor.value;
+}
+
+function _classApplyDescriptorSet(receiver, descriptor, value) {
+  if (descriptor.set) {
+    descriptor.set.call(receiver, value);
+  } else {
+    if (!descriptor.writable) {
+      throw new TypeError("attempted to set read only private field");
+    }
+
+    descriptor.value = value;
+  }
+}
+
+function _classApplyDescriptorDestructureSet(receiver, descriptor) {
+  if (descriptor.set) {
+    if (!("__destrObj" in descriptor)) {
+      descriptor.__destrObj = {
+        set value(v) {
+          descriptor.set.call(receiver, v);
+        }
+
+      };
+    }
+
+    return descriptor.__destrObj;
+  } else {
+    if (!descriptor.writable) {
+      throw new TypeError("attempted to set read only private field");
+    }
+
+    return descriptor;
+  }
+}
+
+function _classPrivateMethodGet(receiver, privateSet, fn) {
+  if (!privateSet.has(receiver)) {
+    throw new TypeError("attempted to get private field on non-instance");
+  }
+
+  return fn;
+}
+
+function _checkPrivateRedeclaration(obj, privateCollection) {
+  if (privateCollection.has(obj)) {
+    throw new TypeError("Cannot initialize the same private elements twice on an object");
+  }
+}
+
+function _classPrivateFieldInitSpec(obj, privateMap, value) {
+  _checkPrivateRedeclaration(obj, privateMap);
+
+  privateMap.set(obj, value);
+}
+
+function _classPrivateMethodInitSpec(obj, privateSet) {
+  _checkPrivateRedeclaration(obj, privateSet);
+
+  privateSet.add(obj);
+}
+
 let _$1 = t => t,
     _t$1,
     _t2$1,
@@ -19733,7 +19901,7 @@ class AAItemSettings extends FormApplication {
 
     const currentFlagVersion = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     const flags = this.object.data.flags;
-    const patreon = moduleIncludes$3("jb2a_patreon");
+    const patreon = moduleIncludes$2("jb2a_patreon");
     (_this$object$name$toL = (_this$object$name = this.object.name) === null || _this$object$name === void 0 ? void 0 : _this$object$name.toLowerCase()) !== null && _this$object$name$toL !== void 0 ? _this$object$name$toL : "";
     const oldName = this.object.name || this.object.sourceName;
     (_flags$autoanimations = (_flags$autoanimations2 = flags.autoanimations) === null || _flags$autoanimations2 === void 0 ? void 0 : (_flags$autoanimations3 = _flags$autoanimations2.animation) === null || _flags$autoanimations3 === void 0 ? void 0 : _flags$autoanimations3.toLowerCase()) !== null && _flags$autoanimations !== void 0 ? _flags$autoanimations : "";
@@ -19940,7 +20108,7 @@ class AAItemSettings extends FormApplication {
 
 }
 
-function moduleIncludes$3(test) {
+function moduleIncludes$2(test) {
   return !!game.modules.get(test);
 }
 
@@ -19972,7 +20140,7 @@ class AAActiveEffectMenu extends FormApplication {
 
     const currentFlagVersion = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     const flags = this.object.data.flags;
-    const patreon = moduleIncludes$2("jb2a_patreon");
+    const patreon = moduleIncludes$1("jb2a_patreon");
     (_this$object$name$toL = (_this$object$name = this.object.name) === null || _this$object$name === void 0 ? void 0 : _this$object$name.toLowerCase()) !== null && _this$object$name$toL !== void 0 ? _this$object$name$toL : "";
     const oldName = (_this$object$data = this.object.data) === null || _this$object$data === void 0 ? void 0 : _this$object$data.label;
     (_flags$autoanimations = (_flags$autoanimations2 = flags.autoanimations) === null || _flags$autoanimations2 === void 0 ? void 0 : (_flags$autoanimations3 = _flags$autoanimations2.animation) === null || _flags$autoanimations3 === void 0 ? void 0 : _flags$autoanimations3.toLowerCase()) !== null && _flags$autoanimations !== void 0 ? _flags$autoanimations : "";
@@ -20124,8 +20292,4601 @@ class AAActiveEffectMenu extends FormApplication {
 
 }
 
-function moduleIncludes$2(test) {
+function moduleIncludes$1(test) {
   return !!game.modules.get(test);
+}
+
+function noop() {}
+
+const identity = x => x;
+
+function run(fn) {
+  return fn();
+}
+
+function run_all(fns) {
+  fns.forEach(run);
+}
+
+function is_function(thing) {
+  return typeof thing === 'function';
+}
+
+function safe_not_equal(a, b) {
+  return a != a ? b == b : a !== b || a && typeof a === 'object' || typeof a === 'function';
+}
+
+function subscribe(store, ...callbacks) {
+  if (store == null) {
+    return noop;
+  }
+
+  const unsub = store.subscribe(...callbacks);
+  return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+}
+
+function get_store_value(store) {
+  let value;
+  subscribe(store, _ => value = _)();
+  return value;
+}
+Promise.resolve();
+
+const outroing = new Set();
+let outros;
+
+function group_outros() {
+  outros = {
+    r: 0,
+    c: [],
+    p: outros // parent group
+
+  };
+}
+
+function check_outros() {
+  if (!outros.r) {
+    run_all(outros.c);
+  }
+
+  outros = outros.p;
+}
+
+function transition_out(block, local, detach, callback) {
+  if (block && block.o) {
+    if (outroing.has(block)) return;
+    outroing.add(block);
+    outros.c.push(() => {
+      outroing.delete(block);
+
+      if (callback) {
+        if (detach) block.d(1);
+        callback();
+      }
+    });
+    block.o(local);
+  }
+}
+
+/**
+ * Provides a method to determine if the passed in Svelte component has a getter accessor.
+ *
+ * @param {*}        component - Svelte component.
+ *
+ * @param {string}   accessor - Accessor to test.
+ *
+ * @returns {boolean} Whether the component has the getter for accessor.
+ */
+
+
+function hasGetter(component, accessor) {
+  if (component === null || component === void 0) {
+    return false;
+  } // Get the prototype which is the parent SvelteComponent that has any getter / setters.
+
+
+  const prototype = Object.getPrototypeOf(component);
+  const descriptor = Object.getOwnPropertyDescriptor(prototype, accessor);
+  return !(descriptor === void 0 || descriptor.get === void 0);
+}
+/**
+ * Performs linear interpolation between a start & end value by given amount between 0 - 1 inclusive.
+ *
+ * @param {number}   start - Start value.
+ *
+ * @param {number}   end - End value.
+ *
+ * @param {number}   amount - Current amount between 0 - 1 inclusive.
+ *
+ * @returns {number} Linear interpolated value between start & end.
+ */
+
+
+function lerp(start, end, amount) {
+  return (1 - amount) * start + amount * end;
+}
+/**
+ * Defines the application shell contract. If Svelte components export getter / setters for the following properties
+ * then that component is considered an application shell.
+ *
+ * @type {string[]}
+ */
+
+
+const applicationShellContract$1 = ['elementRoot'];
+Object.freeze(applicationShellContract$1);
+/**
+ * Provides a method to determine if the passed in object is ApplicationShell or TJSApplicationShell.
+ *
+ * @param {*}  component - Object / component to test.
+ *
+ * @returns {boolean} Whether the component is a ApplicationShell or TJSApplicationShell.
+ */
+
+function isApplicationShell(component) {
+  if (component === null || component === void 0) {
+    return false;
+  } // Get the prototype which is the parent SvelteComponent that has any getter / setters.
+
+
+  const prototype = Object.getPrototypeOf(component); // Verify the application shell contract. If the accessors (getters / setters) are defined for
+  // `applicationShellContract`.
+
+  for (const accessor of applicationShellContract$1) {
+    const descriptor = Object.getOwnPropertyDescriptor(prototype, accessor);
+
+    if (descriptor === void 0 || descriptor.get === void 0 || descriptor.set === void 0) {
+      return false;
+    }
+  }
+
+  return true;
+}
+/**
+ * Provides basic duck typing to determine if the provided function is a constructor function for a Svelte component.
+ *
+ * @param {*}  comp - Data to check as a Svelte component.
+ *
+ * @returns {boolean} Whether basic duck typing succeeds.
+ */
+
+
+function isSvelteComponent(comp) {
+  if (comp === null || comp === void 0 || typeof comp !== 'function') {
+    return false;
+  }
+
+  return typeof window !== void 0 ? typeof comp.prototype.$destroy === 'function' && typeof comp.prototype.$on === 'function' : // client-side
+  typeof comp.render === 'function'; // server-side
+}
+/**
+ * Runs outro transition then destroys Svelte component.
+ *
+ * Workaround for https://github.com/sveltejs/svelte/issues/4056
+ *
+ * @param {*}  instance - A Svelte component.
+ */
+
+
+async function outroAndDestroy(instance) {
+  return new Promise(resolve => {
+    if (instance.$$.fragment && instance.$$.fragment.o) {
+      group_outros();
+      transition_out(instance.$$.fragment, 0, 0, () => {
+        instance.$destroy();
+        resolve();
+      });
+      check_outros();
+    } else {
+      instance.$destroy();
+      resolve();
+    }
+  });
+}
+/**
+ * Parses a TyphonJS Svelte config object ensuring that classes specified are Svelte components and props are set
+ * correctly.
+ *
+ * @param {object}   config - Svelte config object.
+ *
+ * @param {*}        [thisArg] - `This` reference to set for invoking any props function.
+ *
+ * @returns {object} The processed Svelte config object.
+ */
+
+
+function parseSvelteConfig(config, thisArg = void 0) {
+  if (typeof config !== 'object') {
+    throw new TypeError(`parseSvelteConfig - 'config' is not an object:\n${JSON.stringify(config)}.`);
+  }
+
+  if (!isSvelteComponent(config.class)) {
+    throw new TypeError(`parseSvelteConfig - 'class' is not a Svelte component constructor for config:\n${JSON.stringify(config)}.`);
+  }
+
+  if (config.hydrate !== void 0 && typeof config.hydrate !== 'boolean') {
+    throw new TypeError(`parseSvelteConfig - 'hydrate' is not a boolean for config:\n${JSON.stringify(config)}.`);
+  }
+
+  if (config.intro !== void 0 && typeof config.intro !== 'boolean') {
+    throw new TypeError(`parseSvelteConfig - 'intro' is not a boolean for config:\n${JSON.stringify(config)}.`);
+  }
+
+  if (config.target !== void 0 && typeof config.target !== 'string' && !(config.target instanceof HTMLElement) && !(config.target instanceof ShadowRoot) && !(config.target instanceof DocumentFragment)) {
+    throw new TypeError(`parseSvelteConfig - 'target' is not a string, HTMLElement, ShadowRoot, or DocumentFragment for config:\n${JSON.stringify(config)}.`);
+  }
+
+  if (config.anchor !== void 0 && typeof config.anchor !== 'string' && !(config.anchor instanceof HTMLElement) && !(config.anchor instanceof ShadowRoot) && !(config.anchor instanceof DocumentFragment)) {
+    throw new TypeError(`parseSvelteConfig - 'anchor' is not a string, HTMLElement, ShadowRoot, or DocumentFragment for config:\n${JSON.stringify(config)}.`);
+  }
+
+  if (config.context !== void 0 && typeof config.context !== 'function' && !(config.context instanceof Map) && typeof config.context !== 'object') {
+    throw new TypeError(`parseSvelteConfig - 'context' is not a Map, function or object for config:\n${JSON.stringify(config)}.`);
+  } // Validate extra TyphonJS options --------------------------------------------------------------------------------
+  // `selectorTarget` optionally stores a target element found in main element.
+
+
+  if (config.selectorTarget !== void 0 && typeof config.selectorTarget !== 'string') {
+    throw new TypeError(`parseSvelteConfig - 'selectorTarget' is not a string for config:\n${JSON.stringify(config)}.`);
+  } // `options` stores `injectApp`, `injectEventbus`, and `selectorElement`.
+
+
+  if (config.options !== void 0 && typeof config.options !== 'object') {
+    throw new TypeError(`parseSvelteConfig - 'options' is not an object for config:\n${JSON.stringify(config)}.`);
+  } // Validate TyphonJS standard options.
+
+
+  if (config.options !== void 0) {
+    if (config.options.injectApp !== void 0 && typeof config.options.injectApp !== 'boolean') {
+      throw new TypeError(`parseSvelteConfig - 'options.injectApp' is not a boolean for config:\n${JSON.stringify(config)}.`);
+    }
+
+    if (config.options.injectEventbus !== void 0 && typeof config.options.injectEventbus !== 'boolean') {
+      throw new TypeError(`parseSvelteConfig - 'options.injectEventbus' is not a boolean for config:\n${JSON.stringify(config)}.`);
+    } // `selectorElement` optionally stores a main element selector to be found in a HTMLElement target.
+
+
+    if (config.options.selectorElement !== void 0 && typeof config.options.selectorElement !== 'string') {
+      throw new TypeError(`parseSvelteConfig - 'selectorElement' is not a string for config:\n${JSON.stringify(config)}.`);
+    }
+  }
+
+  const svelteConfig = _objectSpread2({}, config); // Delete extra Svelte options.
+
+
+  delete svelteConfig.options;
+  let externalContext = {}; // If a context callback function is provided then invoke it with `this` being the Foundry app.
+  // If an object is returned it adds the entries to external context.
+
+  if (typeof svelteConfig.context === 'function') {
+    const contextFunc = svelteConfig.context;
+    delete svelteConfig.context;
+    const result = contextFunc.call(thisArg);
+
+    if (typeof result === 'object') {
+      externalContext = _objectSpread2({}, result);
+    } else {
+      throw new Error(`parseSvelteConfig - 'context' is a function that did not return an object for config:\n${JSON.stringify(config)}`);
+    }
+  } else if (svelteConfig.context instanceof Map) {
+    externalContext = Object.fromEntries(svelteConfig.context);
+    delete svelteConfig.context;
+  } else if (typeof svelteConfig.context === 'object') {
+    externalContext = svelteConfig.context;
+    delete svelteConfig.context;
+  } // If a props is a function then invoke it with `this` being the Foundry app.
+  // If an object is returned set it as the props.
+
+
+  svelteConfig.props = s_PROCESS_PROPS(svelteConfig.props, thisArg, config); // Process children components attaching to external context.
+
+  if (Array.isArray(svelteConfig.children)) {
+    const children = [];
+
+    for (let cntr = 0; cntr < svelteConfig.children.length; cntr++) {
+      const child = svelteConfig.children[cntr];
+
+      if (!isSvelteComponent(child.class)) {
+        throw new Error(`parseSvelteConfig - 'class' is not a Svelte component for child[${cntr}] for config:\n${JSON.stringify(config)}`);
+      }
+
+      child.props = s_PROCESS_PROPS(child.props, thisArg, config);
+      children.push(child);
+    }
+
+    if (children.length > 0) {
+      externalContext.children = children;
+    }
+
+    delete svelteConfig.children;
+  } else if (typeof svelteConfig.children === 'object') {
+    if (!isSvelteComponent(svelteConfig.children.class)) {
+      throw new Error(`parseSvelteConfig - 'class' is not a Svelte component for children object for config:\n${JSON.stringify(config)}`);
+    }
+
+    svelteConfig.children.props = s_PROCESS_PROPS(svelteConfig.children.props, thisArg, config);
+    externalContext.children = [svelteConfig.children];
+    delete svelteConfig.children;
+  }
+
+  if (!(svelteConfig.context instanceof Map)) {
+    svelteConfig.context = new Map();
+  }
+
+  svelteConfig.context.set('external', externalContext);
+  return svelteConfig;
+}
+/**
+ * Processes Svelte props. Potentially props can be a function to invoke with `thisArg`.
+ *
+ * @param {object|Function}   props - Svelte props.
+ *
+ * @param {*}                 thisArg - `This` reference to set for invoking any props function.
+ *
+ * @param {object}            config - Svelte config
+ *
+ * @returns {object|void}     Svelte props.
+ */
+
+
+function s_PROCESS_PROPS(props, thisArg, config) {
+  // If a props is a function then invoke it with `this` being the Foundry app.
+  // If an object is returned set it as the props.
+  if (typeof props === 'function') {
+    const result = props.call(thisArg);
+
+    if (typeof result === 'object') {
+      return result;
+    } else {
+      throw new Error(`parseSvelteConfig - 'props' is a function that did not return an object for config:\n${JSON.stringify(config)}`);
+    }
+  } else if (typeof props === 'object') {
+    return props;
+  } else if (props !== void 0) {
+    throw new Error(`parseSvelteConfig - 'props' is not a function or an object for config:\n${JSON.stringify(config)}`);
+  }
+
+  return {};
+}
+/**
+ * Provides common object manipulation utilities including depth traversal, obtaining accessors, safely setting values /
+ * equality tests, and validation.
+ */
+
+
+const s_TAG_OBJECT = '[object Object]';
+/**
+ * Recursively deep merges all source objects into the target object in place. Like `Object.assign` if you provide `{}`
+ * as the target a copy is produced. If the target and source property are object literals they are merged.
+ * Deleting keys is supported by specifying a property starting with `-=`.
+ *
+ * @param {object}      target - Target object.
+ *
+ * @param {...object}   sourceObj - One or more source objects.
+ *
+ * @returns {object}    Target object.
+ */
+
+function deepMerge(target = {}, ...sourceObj) {
+  if (Object.prototype.toString.call(target) !== s_TAG_OBJECT) {
+    throw new TypeError(`deepMerge error: 'target' is not an 'object'.`);
+  }
+
+  for (let cntr = 0; cntr < sourceObj.length; cntr++) {
+    if (Object.prototype.toString.call(sourceObj[cntr]) !== s_TAG_OBJECT) {
+      throw new TypeError(`deepMerge error: 'sourceObj[${cntr}]' is not an 'object'.`);
+    }
+  }
+
+  return _deepMerge(target, ...sourceObj);
+}
+/**
+ * Tests for whether an object is iterable.
+ *
+ * @param {object} object - An object.
+ *
+ * @returns {boolean} Whether object is iterable.
+ */
+
+
+function isIterable(object) {
+  if (object === null || object === void 0 || typeof object !== 'object') {
+    return false;
+  }
+
+  return typeof object[Symbol.iterator] === 'function';
+}
+/**
+ * Provides a way to safely access an objects data / entries given an accessor string which describes the
+ * entries to walk. To access deeper entries into the object format the accessor string with `.` between entries
+ * to walk.
+ *
+ * @param {object}   data - An object to access entry data.
+ *
+ * @param {string}   accessor - A string describing the entries to access.
+ *
+ * @param {*}        defaultValue - (Optional) A default value to return if an entry for accessor is not found.
+ *
+ * @returns {object} The data object.
+ */
+
+
+function safeAccess(data, accessor, defaultValue = void 0) {
+  if (typeof data !== 'object') {
+    return defaultValue;
+  }
+
+  if (typeof accessor !== 'string') {
+    return defaultValue;
+  }
+
+  const access = accessor.split('.'); // Walk through the given object by the accessor indexes.
+
+  for (let cntr = 0; cntr < access.length; cntr++) {
+    // If the next level of object access is undefined or null then return the empty string.
+    if (typeof data[access[cntr]] === 'undefined' || data[access[cntr]] === null) {
+      return defaultValue;
+    }
+
+    data = data[access[cntr]];
+  }
+
+  return data;
+}
+/**
+ * Provides a way to safely set an objects data / entries given an accessor string which describes the
+ * entries to walk. To access deeper entries into the object format the accessor string with `.` between entries
+ * to walk.
+ *
+ * @param {object}   data - An object to access entry data.
+ *
+ * @param {string}   accessor - A string describing the entries to access.
+ *
+ * @param {*}        value - A new value to set if an entry for accessor is found.
+ *
+ * @param {string}   [operation='set'] - Operation to perform including: 'add', 'div', 'mult', 'set',
+ *                                       'set-undefined', 'sub'.
+ *
+ * @param {boolean}  [createMissing=true] - If true missing accessor entries will be created as objects
+ *                                          automatically.
+ *
+ * @returns {boolean} True if successful.
+ */
+
+
+function safeSet(data, accessor, value, operation = 'set', createMissing = true) {
+  if (typeof data !== 'object') {
+    throw new TypeError(`safeSet Error: 'data' is not an 'object'.`);
+  }
+
+  if (typeof accessor !== 'string') {
+    throw new TypeError(`safeSet Error: 'accessor' is not a 'string'.`);
+  }
+
+  const access = accessor.split('.'); // Walk through the given object by the accessor indexes.
+
+  for (let cntr = 0; cntr < access.length; cntr++) {
+    // If data is an array perform validation that the accessor is a positive integer otherwise quit.
+    if (Array.isArray(data)) {
+      const number = +access[cntr];
+
+      if (!Number.isInteger(number) || number < 0) {
+        return false;
+      }
+    }
+
+    if (cntr === access.length - 1) {
+      switch (operation) {
+        case 'add':
+          data[access[cntr]] += value;
+          break;
+
+        case 'div':
+          data[access[cntr]] /= value;
+          break;
+
+        case 'mult':
+          data[access[cntr]] *= value;
+          break;
+
+        case 'set':
+          data[access[cntr]] = value;
+          break;
+
+        case 'set-undefined':
+          if (typeof data[access[cntr]] === 'undefined') {
+            data[access[cntr]] = value;
+          }
+
+          break;
+
+        case 'sub':
+          data[access[cntr]] -= value;
+          break;
+      }
+    } else {
+      // If createMissing is true and the next level of object access is undefined then create a new object entry.
+      if (createMissing && typeof data[access[cntr]] === 'undefined') {
+        data[access[cntr]] = {};
+      } // Abort if the next level is null or not an object and containing a value.
+
+
+      if (data[access[cntr]] === null || typeof data[access[cntr]] !== 'object') {
+        return false;
+      }
+
+      data = data[access[cntr]];
+    }
+  }
+
+  return true;
+}
+/**
+ * Internal implementation for `deepMerge`.
+ *
+ * @param {object}      target - Target object.
+ *
+ * @param {...object}   sourceObj - One or more source objects.
+ *
+ * @returns {object}    Target object.
+ */
+
+
+function _deepMerge(target = {}, ...sourceObj) {
+  // Iterate and merge all source objects into target.
+  for (let cntr = 0; cntr < sourceObj.length; cntr++) {
+    const obj = sourceObj[cntr];
+
+    for (const prop in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+        var _target$prop, _obj$prop;
+
+        // Handle the special property starting with '-=' to delete keys.
+        if (prop.startsWith('-=')) {
+          delete target[prop.slice(2)];
+          continue;
+        } // If target already has prop and both target[prop] and obj[prop] are object literals then merge them
+        // otherwise assign obj[prop] to target[prop].
+
+
+        target[prop] = Object.prototype.hasOwnProperty.call(target, prop) && ((_target$prop = target[prop]) === null || _target$prop === void 0 ? void 0 : _target$prop.constructor) === Object && ((_obj$prop = obj[prop]) === null || _obj$prop === void 0 ? void 0 : _obj$prop.constructor) === Object ? _deepMerge({}, target[prop], obj[prop]) : obj[prop];
+      }
+    }
+  }
+
+  return target;
+}
+
+const _excluded$1 = ["name"];
+
+var _application$1 = /*#__PURE__*/new WeakMap();
+
+var _dataSaved$1 = /*#__PURE__*/new WeakMap();
+
+class ApplicationState {
+  /**
+   * @type {Map<string, ApplicationData>}
+   */
+
+  /**
+   * @param {{ reactive: SvelteReactive, options: object }}   application - The application.
+   */
+  constructor(application) {
+    _classPrivateFieldInitSpec(this, _application$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _dataSaved$1, {
+      writable: true,
+      value: new Map()
+    });
+
+    _classPrivateFieldSet(this, _application$1, application);
+  }
+  /**
+   * Returns current application state along with any extra data passed into method.
+   *
+   * @param {object} [extra] - Extra data to add to application state.
+   *
+   * @returns {ApplicationData} Passed in object with current application state.
+   */
+
+
+  get(extra = {}) {
+    var _classPrivateFieldGet2, _classPrivateFieldGet3, _classPrivateFieldGet4, _classPrivateFieldGet5, _classPrivateFieldGet6;
+
+    return Object.assign(extra, {
+      position: (_classPrivateFieldGet2 = _classPrivateFieldGet(this, _application$1)) === null || _classPrivateFieldGet2 === void 0 ? void 0 : (_classPrivateFieldGet3 = _classPrivateFieldGet2.position) === null || _classPrivateFieldGet3 === void 0 ? void 0 : _classPrivateFieldGet3.get(),
+      options: Object.assign({}, (_classPrivateFieldGet4 = _classPrivateFieldGet(this, _application$1)) === null || _classPrivateFieldGet4 === void 0 ? void 0 : _classPrivateFieldGet4.options),
+      ui: {
+        minimized: (_classPrivateFieldGet5 = _classPrivateFieldGet(this, _application$1)) === null || _classPrivateFieldGet5 === void 0 ? void 0 : (_classPrivateFieldGet6 = _classPrivateFieldGet5.reactive) === null || _classPrivateFieldGet6 === void 0 ? void 0 : _classPrivateFieldGet6.minimized
+      }
+    });
+  }
+  /**
+   * Returns any stored save state by name.
+   *
+   * @param {string}   name - Saved data set name.
+   *
+   * @returns {ApplicationData} The saved data set.
+   */
+
+
+  getSave({
+    name
+  }) {
+    if (typeof name !== 'string') {
+      throw new TypeError(`ApplicationState - getSave error: 'name' is not a string.`);
+    }
+
+    return _classPrivateFieldGet(this, _dataSaved$1).get(name);
+  }
+  /**
+   * Removes and returns any application state by name.
+   *
+   * @param {object}   options - Options.
+   *
+   * @param {string}   options.name - Name to remove and retrieve.
+   *
+   * @returns {ApplicationData} Saved position data.
+   */
+
+
+  remove({
+    name
+  }) {
+    if (typeof name !== 'string') {
+      throw new TypeError(`Position - remove: 'name' is not a string.`);
+    }
+
+    const data = _classPrivateFieldGet(this, _dataSaved$1).get(name);
+
+    _classPrivateFieldGet(this, _dataSaved$1).delete(name);
+
+    return data;
+  }
+  /**
+   * Restores a saved application state returning the data. Several optional parameters are available
+   * to control whether the restore action occurs silently (no store / inline styles updates), animates
+   * to the stored data, or simply sets the stored data. Restoring via {@link Position.animateTo} allows
+   * specification of the duration, easing, and interpolate functions along with configuring a Promise to be
+   * returned if awaiting the end of the animation.
+   *
+   * @param {object}            params - Parameters
+   *
+   * @param {string}            params.name - Saved data set name.
+   *
+   * @param {boolean}           [params.remove=false] - Remove data set.
+   *
+   * @param {boolean}           [params.async=false] - If animating return a Promise that resolves with any saved data.
+   *
+   * @param {boolean}           [params.animateTo=false] - Animate to restore data.
+   *
+   * @param {number}            [params.duration=100] - Duration in milliseconds.
+   *
+   * @param {Function}          [params.easing=linear] - Easing function.
+   *
+   * @param {Function}          [params.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {ApplicationData} Saved application data.
+   */
+
+
+  restore({
+    name,
+    remove = false,
+    async = false,
+    animateTo = false,
+    duration = 100,
+    easing = identity,
+    interpolate = lerp
+  }) {
+    if (typeof name !== 'string') {
+      throw new TypeError(`ApplicationState - restore error: 'name' is not a string.`);
+    }
+
+    const dataSaved = _classPrivateFieldGet(this, _dataSaved$1).get(name);
+
+    if (dataSaved) {
+      if (remove) {
+        _classPrivateFieldGet(this, _dataSaved$1).delete(name);
+      }
+
+      return this.set(dataSaved, {
+        async,
+        animateTo,
+        duration,
+        easing,
+        interpolate
+      });
+    }
+
+    return dataSaved;
+  }
+  /**
+   * Saves current application state with the opportunity to add extra data to the saved state.
+   *
+   * @param {object}   options - Options.
+   *
+   * @param {string}   options.name - name to index this saved data.
+   *
+   * @param {...*}     [options.extra] - Extra data to add to saved data.
+   *
+   * @returns {ApplicationData} Current position data
+   */
+
+
+  save(_ref) {
+    let {
+      name
+    } = _ref,
+        extra = _objectWithoutProperties(_ref, _excluded$1);
+
+    if (typeof name !== 'string') {
+      throw new TypeError(`ApplicationState - save error: 'name' is not a string.`);
+    }
+
+    const data = this.get(extra);
+
+    _classPrivateFieldGet(this, _dataSaved$1).set(name, data);
+
+    return data;
+  }
+  /**
+   * Restores a saved positional state returning the data. Several optional parameters are available
+   * to control whether the restore action occurs silently (no store / inline styles updates), animates
+   * to the stored data, or simply sets the stored data. Restoring via {@link Position.animateTo} allows
+   * specification of the duration, easing, and interpolate functions along with configuring a Promise to be
+   * returned if awaiting the end of the animation.
+   *
+   * @param {ApplicationData}   data - Saved data set name.
+   *
+   * @param {object}            opts - Optional parameters
+   *
+   * @param {boolean}           [opts.async=false] - If animating return a Promise that resolves with any saved data.
+   *
+   * @param {boolean}           [opts.animateTo=false] - Animate to restore data.
+   *
+   * @param {number}            [opts.duration=100] - Duration in milliseconds.
+   *
+   * @param {Function}          [opts.easing=linear] - Easing function.
+   *
+   * @param {Function}          [opts.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {Application} application.
+   */
+
+
+  set(data, {
+    async = false,
+    animateTo = false,
+    duration = 100,
+    easing = identity,
+    interpolate = lerp
+  }) {
+    if (typeof data !== 'object') {
+      throw new TypeError(`ApplicationState - restore error: 'data' is not an object.`);
+    }
+
+    const application = _classPrivateFieldGet(this, _application$1);
+
+    if (data) {
+      // Merge in saved options to application.
+      if (typeof (data === null || data === void 0 ? void 0 : data.options) === 'object') {
+        application === null || application === void 0 ? void 0 : application.reactive.mergeOptions(data.options);
+      }
+
+      if (typeof (data === null || data === void 0 ? void 0 : data.ui) === 'object') {
+        var _data$ui, _application$reactive, _application$reactive2;
+
+        const minimized = typeof ((_data$ui = data.ui) === null || _data$ui === void 0 ? void 0 : _data$ui.minimized) === 'boolean' ? data.ui.minimized : false; // Application is currently minimized and stored state is not, so reset minimized state without animationn.
+
+        if (application !== null && application !== void 0 && (_application$reactive = application.reactive) !== null && _application$reactive !== void 0 && _application$reactive.minimized && !minimized) {
+          application.maximize({
+            animate: false,
+            duration: 0
+          });
+        } else if (!(application !== null && application !== void 0 && (_application$reactive2 = application.reactive) !== null && _application$reactive2 !== void 0 && _application$reactive2.minimized) && minimized) {
+          application.minimize({
+            animate: false,
+            duration
+          });
+        }
+      }
+
+      if (typeof (data === null || data === void 0 ? void 0 : data.position) === 'object') {
+        // Update data directly with no store or inline style updates.
+        if (animateTo) // Animate to saved data.
+          {
+            // Provide special handling to potentially change transform origin as this parameter is not animated.
+            if (data.position.transformOrigin !== application.position.transformOrigin) {
+              application.position.transformOrigin = data.position.transformOrigin;
+            } // Return a Promise with saved data that resolves after animation ends.
+
+
+            if (async) {
+              return application.position.animateTo(data.position, {
+                duration,
+                easing,
+                interpolate
+              }).then(() => application);
+            } else // Animate synchronously.
+              {
+                application.position.animateTo(data.position, {
+                  duration,
+                  easing,
+                  interpolate
+                });
+              }
+          } else {
+          // Default options is to set data for an immediate update.
+          application.position.set(data.position);
+        }
+      }
+    }
+
+    return application;
+  }
+
+}
+/**
+ * @typedef {object} ApplicationData
+ *
+ * @property {PositionData}   position - Application position.
+ *
+ * @property {object}         options - Application options.
+ *
+ * @property {object}         ui - Application UI state.
+ */
+
+var _applicationShellHolder$1 = /*#__PURE__*/new WeakMap();
+
+var _svelteData$1 = /*#__PURE__*/new WeakMap();
+
+/**
+ * Provides a helper class for {@link SvelteApplication} by combining all methods that work on the {@link SvelteData[]}
+ * of mounted components. This class is instantiated and can be retrieved by the getter `svelte` via SvelteApplication.
+ */
+class GetSvelteData {
+  /**
+   * @type {MountedAppShell[]|null[]}
+   */
+
+  /**
+   * @type {SvelteData[]}
+   */
+
+  /**
+   * Keep a direct reference to the SvelteData array in an associated {@link SvelteApplication}.
+   *
+   * @param {MountedAppShell[]|null[]}  applicationShellHolder - A reference to the MountedAppShell array.
+   *
+   * @param {SvelteData[]}  svelteData - A reference to the SvelteData array of mounted components.
+   */
+  constructor(applicationShellHolder, svelteData) {
+    _classPrivateFieldInitSpec(this, _applicationShellHolder$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _svelteData$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _applicationShellHolder$1, applicationShellHolder);
+
+    _classPrivateFieldSet(this, _svelteData$1, svelteData);
+  }
+  /**
+   * Returns any mounted {@link MountedAppShell}.
+   *
+   * @returns {MountedAppShell|null} Any mounted application shell.
+   */
+
+
+  get applicationShell() {
+    return _classPrivateFieldGet(this, _applicationShellHolder$1)[0];
+  }
+  /**
+   * Returns the indexed Svelte component.
+   *
+   * @param {number}   index -
+   *
+   * @returns {object} The loaded Svelte component.
+   */
+
+
+  component(index) {
+    const data = _classPrivateFieldGet(this, _svelteData$1)[index];
+
+    return typeof data === 'object' ? data === null || data === void 0 ? void 0 : data.component : void 0;
+  }
+  /**
+   * Returns the Svelte component entries iterator.
+   *
+   * @returns {Generator<Array<number|SvelteComponent>>} Svelte component entries iterator.
+   * @yields
+   */
+
+
+  *componentEntries() {
+    for (let cntr = 0; cntr < _classPrivateFieldGet(this, _svelteData$1).length; cntr++) {
+      yield [cntr, _classPrivateFieldGet(this, _svelteData$1)[cntr].component];
+    }
+  }
+  /**
+   * Returns the Svelte component values iterator.
+   *
+   * @returns {Generator<SvelteComponent>} Svelte component values iterator.
+   * @yields
+   */
+
+
+  *componentValues() {
+    for (let cntr = 0; cntr < _classPrivateFieldGet(this, _svelteData$1).length; cntr++) {
+      yield _classPrivateFieldGet(this, _svelteData$1)[cntr].component;
+    }
+  }
+  /**
+   * Returns the indexed SvelteData entry.
+   *
+   * @param {number}   index -
+   *
+   * @returns {SvelteData} The loaded Svelte config + component.
+   */
+
+
+  data(index) {
+    return _classPrivateFieldGet(this, _svelteData$1)[index];
+  }
+  /**
+   * Returns the {@link SvelteData} instance for a given component.
+   *
+   * @param {object} component - Svelte component.
+   *
+   * @returns {SvelteData} -  The loaded Svelte config + component.
+   */
+
+
+  dataByComponent(component) {
+    for (const data of _classPrivateFieldGet(this, _svelteData$1)) {
+      if (data.component === component) {
+        return data;
+      }
+    }
+
+    return void 0;
+  }
+  /**
+   * Returns the SvelteData entries iterator.
+   *
+   * @returns {IterableIterator<[number, SvelteData]>} SvelteData entries iterator.
+   */
+
+
+  dataEntries() {
+    return _classPrivateFieldGet(this, _svelteData$1).entries();
+  }
+  /**
+   * Returns the SvelteData values iterator.
+   *
+   * @returns {IterableIterator<SvelteData>} SvelteData values iterator.
+   */
+
+
+  dataValues() {
+    return _classPrivateFieldGet(this, _svelteData$1).values();
+  }
+  /**
+   * Returns the length of the mounted Svelte component list.
+   *
+   * @returns {number} Length of mounted Svelte component list.
+   */
+
+
+  get length() {
+    return _classPrivateFieldGet(this, _svelteData$1).length;
+  }
+
+}
+
+/**
+ * Instantiates and attaches a Svelte component to the main inserted HTML.
+ *
+ * @param {SvelteFormApplication} app - The application
+ *
+ * @param {JQuery}            html - The inserted HTML.
+ *
+ * @param {object}            config - Svelte component options
+ *
+ * @param {Function}          elementRootUpdate - A callback to assign to the external context.
+ *
+ * @returns {SvelteData} The config + instantiated Svelte component.
+ */
+
+function loadSvelteConfig(app, html, config, elementRootUpdate) {
+  const svelteOptions = typeof config.options === 'object' ? config.options : {};
+  let target;
+
+  if (config.target instanceof HTMLElement) // A specific HTMLElement to append Svelte component.
+    {
+      target = config.target;
+    } else if (typeof config.target === 'string') // A string target defines a selector to find in existing HTML.
+    {
+      target = html.find(config.target).get(0);
+    } else // No target defined, create a document fragment.
+    {
+      target = document.createDocumentFragment();
+    }
+
+  if (target === void 0) {
+    throw new Error(`SvelteFormApplication - s_LOAD_CONFIG - could not find target selector: ${config.target} for config:\n${JSON.stringify(config)}`);
+  }
+
+  const NewSvelteComponent = config.class;
+  const svelteConfig = parseSvelteConfig(_objectSpread2(_objectSpread2({}, config), {}, {
+    target
+  }), app);
+  const externalContext = svelteConfig.context.get('external'); // Inject the Foundry application instance and `elementRootUpdate` to the external context.
+
+  externalContext.application = app;
+  externalContext.elementRootUpdate = elementRootUpdate;
+  let eventbus; // Potentially inject any TyphonJS eventbus and track the proxy in the SvelteData instance.
+
+  if (typeof app._eventbus === 'object' && typeof app._eventbus.createProxy === 'function') {
+    eventbus = app._eventbus.createProxy();
+    externalContext.eventbus = eventbus;
+  } // Create the Svelte component.
+
+  /**
+   * @type {import('svelte').SvelteComponent}
+   */
+
+
+  const component = new NewSvelteComponent(svelteConfig); // Set any eventbus to the config.
+
+  svelteConfig.eventbus = eventbus;
+  /**
+   * @type {HTMLElement}
+   */
+
+  let element; // We can directly get the root element from components which follow the application store contract.
+
+  if (isApplicationShell(component)) {
+    element = component.elementRoot;
+  } // Detect if target is a synthesized DocumentFragment with an child element. Child elements will be present
+  // if the Svelte component mounts and renders initial content into the document fragment.
+
+
+  if (config.target instanceof DocumentFragment && target.firstElementChild) {
+    if (element === void 0) {
+      element = target.firstElementChild;
+    }
+
+    html.append(target);
+  } else if (config.target instanceof HTMLElement && element === void 0) {
+    if (config.target instanceof HTMLElement && typeof svelteOptions.selectorElement !== 'string') {
+      throw new Error(`SvelteFormApplication - s_LOAD_CONFIG - HTMLElement target with no 'selectorElement' defined for config:\n${JSON.stringify(config)}`);
+    } // The target is an HTMLElement so find the Application element from `selectorElement` option.
+
+
+    element = target.querySelector(svelteOptions.selectorElement);
+
+    if (element === null || element === void 0) {
+      throw new Error(`SvelteFormApplication - s_LOAD_CONFIG - HTMLElement target - could not find 'selectorElement' for config:\n${JSON.stringify(config)}`);
+    }
+  } // If the configuration / original target is an HTML element then do not inject HTML.
+
+
+  const injectHTML = !(config.target instanceof HTMLElement);
+  return {
+    config: svelteConfig,
+    component,
+    element,
+    injectHTML
+  };
+}
+
+const s_REGEX = /(\d+)\s*px/;
+/**
+ * Parses a pixel string / computed styles. Ex. `100px` returns `100`.
+ *
+ * @param {string}   value - Value to parse.
+ *
+ * @returns {number|undefined} The integer component of a pixel string.
+ */
+
+function styleParsePixels(value) {
+  if (typeof value !== 'string') {
+    return void 0;
+  }
+
+  const isPixels = s_REGEX.test(value);
+  const number = parseInt(value);
+  return isPixels && Number.isFinite(number) ? number : void 0;
+}
+
+const subscriber_queue = [];
+/**
+ * Creates a `Readable` store that allows reading by subscription.
+ * @param value initial value
+ * @param {StartStopNotifier}start start and stop notifications for subscriptions
+ */
+
+function readable(value, start) {
+  return {
+    subscribe: writable(value, start).subscribe
+  };
+}
+/**
+ * Create a `Writable` store that allows both updating and reading by subscription.
+ * @param {*=}value initial value
+ * @param {StartStopNotifier=}start start and stop notifications for subscriptions
+ */
+
+
+function writable(value, start = noop) {
+  let stop;
+  const subscribers = new Set();
+
+  function set(new_value) {
+    if (safe_not_equal(value, new_value)) {
+      value = new_value;
+
+      if (stop) {
+        // store is ready
+        const run_queue = !subscriber_queue.length;
+
+        for (const subscriber of subscribers) {
+          subscriber[1]();
+          subscriber_queue.push(subscriber, value);
+        }
+
+        if (run_queue) {
+          for (let i = 0; i < subscriber_queue.length; i += 2) {
+            subscriber_queue[i][0](subscriber_queue[i + 1]);
+          }
+
+          subscriber_queue.length = 0;
+        }
+      }
+    }
+  }
+
+  function update(fn) {
+    set(fn(value));
+  }
+
+  function subscribe(run, invalidate = noop) {
+    const subscriber = [run, invalidate];
+    subscribers.add(subscriber);
+
+    if (subscribers.size === 1) {
+      stop = start(set) || noop;
+    }
+
+    run(value);
+    return () => {
+      subscribers.delete(subscriber);
+
+      if (subscribers.size === 0) {
+        stop();
+        stop = null;
+      }
+    };
+  }
+
+  return {
+    set,
+    update,
+    subscribe
+  };
+}
+
+function derived(stores, fn, initial_value) {
+  const single = !Array.isArray(stores);
+  const stores_array = single ? [stores] : stores;
+  const auto = fn.length < 2;
+  return readable(initial_value, set => {
+    let inited = false;
+    const values = [];
+    let pending = 0;
+    let cleanup = noop;
+
+    const sync = () => {
+      if (pending) {
+        return;
+      }
+
+      cleanup();
+      const result = fn(single ? values[0] : values, set);
+
+      if (auto) {
+        set(result);
+      } else {
+        cleanup = is_function(result) ? result : noop;
+      }
+    };
+
+    const unsubscribers = stores_array.map((store, i) => subscribe(store, value => {
+      values[i] = value;
+      pending &= ~(1 << i);
+
+      if (inited) {
+        sync();
+      }
+    }, () => {
+      pending |= 1 << i;
+    }));
+    inited = true;
+    sync();
+    return function stop() {
+      run_all(unsubscribers);
+      cleanup();
+    };
+  });
+}
+
+/**
+ * Subscribes to the given store with the update function provided and ignores the first automatic
+ * update. All future updates are dispatched to the update function.
+ *
+ * @param {import('svelte/store').Readable | import('svelte/store').Writable} store -
+ *  Store to subscribe to...
+ *
+ * @param {import('svelte/store').Updater} update - function to receive future updates.
+ *
+ * @returns {import('svelte/store').Unsubscriber} Store unsubscribe function.
+ */
+
+
+function subscribeIgnoreFirst(store, update) {
+  let firedFirst = false;
+  return store.subscribe(value => {
+    if (!firedFirst) {
+      firedFirst = true;
+    } else {
+      update(value);
+    }
+  });
+}
+/**
+ * @external Store
+ * @see [Svelte stores](https://svelte.dev/docs#Store_contract)
+ */
+
+/**
+ * Create a store similar to [Svelte's `derived`](https://svelte.dev/docs#derived), but which
+ * has its own `set` and `update` methods and can send values back to the origin stores.
+ * [Read more...](https://github.com/PixievoltNo1/svelte-writable-derived#default-export-writablederived)
+ * 
+ * @param {Store|Store[]} origins One or more stores to derive from. Same as
+ * [`derived`](https://svelte.dev/docs#derived)'s 1st parameter.
+ * @param {!Function} derive The callback to determine the derived value. Same as
+ * [`derived`](https://svelte.dev/docs#derived)'s 2nd parameter.
+ * @param {!Function|{withOld: !Function}} reflect Called when the
+ * derived store gets a new value via its `set` or `update` methods, and determines new values for
+ * the origin stores. [Read more...](https://github.com/PixievoltNo1/svelte-writable-derived#new-parameter-reflect)
+ * @param [initial] The new store's initial value. Same as
+ * [`derived`](https://svelte.dev/docs#derived)'s 3rd parameter.
+ * 
+ * @returns {Store} A writable store.
+ */
+
+
+function writableDerived(origins, derive, reflect, initial) {
+  var childDerivedSetter,
+      originValues,
+      allowDerive = true;
+  var reflectOldValues = ("withOld" in reflect);
+
+  var wrappedDerive = (got, set) => {
+    childDerivedSetter = set;
+
+    if (reflectOldValues) {
+      originValues = got;
+    }
+
+    if (allowDerive) {
+      let returned = derive(got, set);
+
+      if (derive.length < 2) {
+        set(returned);
+      } else {
+        return returned;
+      }
+    }
+  };
+
+  var childDerived = derived(origins, wrappedDerive, initial);
+  var singleOrigin = !Array.isArray(origins);
+
+  var sendUpstream = setWith => {
+    allowDerive = false;
+
+    if (singleOrigin) {
+      origins.set(setWith);
+    } else {
+      setWith.forEach((value, i) => {
+        origins[i].set(value);
+      });
+    }
+
+    allowDerive = true;
+  };
+
+  if (reflectOldValues) {
+    reflect = reflect.withOld;
+  }
+
+  var reflectIsAsync = reflect.length >= (reflectOldValues ? 3 : 2);
+  var cleanup = null;
+
+  function doReflect(reflecting) {
+    if (cleanup) {
+      cleanup();
+      cleanup = null;
+    }
+
+    if (reflectOldValues) {
+      var returned = reflect(reflecting, originValues, sendUpstream);
+    } else {
+      var returned = reflect(reflecting, sendUpstream);
+    }
+
+    if (reflectIsAsync) {
+      if (typeof returned == "function") {
+        cleanup = returned;
+      }
+    } else {
+      sendUpstream(returned);
+    }
+  }
+
+  var tryingSet = false;
+
+  function update(fn) {
+    var isUpdated, mutatedBySubscriptions, oldValue, newValue;
+
+    if (tryingSet) {
+      newValue = fn(get_store_value(childDerived));
+      childDerivedSetter(newValue);
+      return;
+    }
+
+    var unsubscribe = childDerived.subscribe(value => {
+      if (!tryingSet) {
+        oldValue = value;
+      } else if (!isUpdated) {
+        isUpdated = true;
+      } else {
+        mutatedBySubscriptions = true;
+      }
+    });
+    newValue = fn(oldValue);
+    tryingSet = true;
+    childDerivedSetter(newValue);
+    unsubscribe();
+    tryingSet = false;
+
+    if (mutatedBySubscriptions) {
+      newValue = get_store_value(childDerived);
+    }
+
+    if (isUpdated) {
+      doReflect(newValue);
+    }
+  }
+
+  return {
+    subscribe: childDerived.subscribe,
+
+    set(value) {
+      update(() => value);
+    },
+
+    update
+  };
+}
+/**
+ * Create a store for a property value in an object contained in another store.
+ * [Read more...](https://github.com/PixievoltNo1/svelte-writable-derived#named-export-propertystore)
+ * 
+ * @param {Store} origin The store containing the object to get/set from.
+ * @param {string|number|symbol|Array<string|number|symbol>} propName The property to get/set, or a path of
+ * properties in nested objects.
+ *
+ * @returns {Store} A writable store.
+ */
+
+
+function propertyStore(origin, propName) {
+  if (!Array.isArray(propName)) {
+    return writableDerived(origin, object => object[propName], {
+      withOld(reflecting, object) {
+        object[propName] = reflecting;
+        return object;
+      }
+
+    });
+  } else {
+    let props = propName.concat();
+    return writableDerived(origin, value => {
+      for (let i = 0; i < props.length; ++i) {
+        value = value[props[i]];
+      }
+
+      return value;
+    }, {
+      withOld(reflecting, object) {
+        let target = object;
+
+        for (let i = 0; i < props.length - 1; ++i) {
+          target = target[props[i]];
+        }
+
+        target[props[props.length - 1]] = reflecting;
+        return object;
+      }
+
+    });
+  }
+}
+
+const storeState = writable(void 0);
+/**
+ * @type {GameState} Provides a Svelte store wrapping the Foundry runtime / global game state.
+ */
+
+const gameState = {
+  subscribe: storeState.subscribe,
+  get: () => game
+};
+Object.freeze(gameState);
+Hooks.once('ready', () => storeState.set(game));
+
+/**
+ * Contains the reactive functionality / Svelte stores associated with SvelteApplication.
+ */
+
+var _application = /*#__PURE__*/new WeakMap();
+
+var _initialized = /*#__PURE__*/new WeakMap();
+
+var _storeAppOptions = /*#__PURE__*/new WeakMap();
+
+var _storeAppOptionsUpdate = /*#__PURE__*/new WeakMap();
+
+var _dataUIState = /*#__PURE__*/new WeakMap();
+
+var _storeUIState = /*#__PURE__*/new WeakMap();
+
+var _storeUIStateUpdate = /*#__PURE__*/new WeakMap();
+
+var _storeUnsubscribe = /*#__PURE__*/new WeakMap();
+
+var _storesInitialize = /*#__PURE__*/new WeakSet();
+
+var _storesSubscribe = /*#__PURE__*/new WeakSet();
+
+var _storesUnsubscribe = /*#__PURE__*/new WeakSet();
+
+class SvelteReactive {
+  /**
+   * @type {SvelteApplication}
+   */
+
+  /**
+   * @type {boolean}
+   */
+
+  /**
+   * The Application option store which is injected into mounted Svelte component context under the `external` key.
+   *
+   * @type {StoreAppOptions}
+   */
+
+  /**
+   * Stores the update function for `#storeAppOptions`.
+   *
+   * @type {import('svelte/store').Writable.update}
+   */
+
+  /**
+   * Stores the UI state data to make it accessible via getters.
+   *
+   * @type {object}
+   */
+
+  /**
+   * The UI option store which is injected into mounted Svelte component context under the `external` key.
+   *
+   * @type {StoreUIOptions}
+   */
+
+  /**
+   * Stores the update function for `#storeUIState`.
+   *
+   * @type {import('svelte/store').Writable.update}
+   */
+
+  /**
+   * Stores the unsubscribe functions from local store subscriptions.
+   *
+   * @type {import('svelte/store').Unsubscriber[]}
+   */
+
+  /**
+   * @param {SvelteApplication} application - The host Foundry application.
+   */
+  constructor(application) {
+    _classPrivateMethodInitSpec(this, _storesUnsubscribe);
+
+    _classPrivateMethodInitSpec(this, _storesSubscribe);
+
+    _classPrivateMethodInitSpec(this, _storesInitialize);
+
+    _classPrivateFieldInitSpec(this, _application, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _initialized, {
+      writable: true,
+      value: false
+    });
+
+    _classPrivateFieldInitSpec(this, _storeAppOptions, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _storeAppOptionsUpdate, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _dataUIState, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _storeUIState, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _storeUIStateUpdate, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _storeUnsubscribe, {
+      writable: true,
+      value: []
+    });
+
+    _classPrivateFieldSet(this, _application, application);
+  }
+  /**
+   * Initializes reactive support. Package private for internal use.
+   *
+   * @returns {SvelteStores} Internal methods to interact with Svelte stores.
+   * @package
+   */
+
+
+  initialize() {
+    if (_classPrivateFieldGet(this, _initialized)) {
+      return;
+    }
+
+    _classPrivateFieldSet(this, _initialized, true);
+
+    _classPrivateMethodGet(this, _storesInitialize, _storesInitialize2).call(this);
+
+    return {
+      appOptionsUpdate: _classPrivateFieldGet(this, _storeAppOptionsUpdate),
+      uiOptionsUpdate: _classPrivateFieldGet(this, _storeUIStateUpdate),
+      subscribe: _classPrivateMethodGet(this, _storesSubscribe, _storesSubscribe2).bind(this),
+      unsubscribe: _classPrivateMethodGet(this, _storesUnsubscribe, _storesUnsubscribe2).bind(this)
+    };
+  } // Only reactive getters ---------------------------------------------------------------------------------------------
+
+  /**
+   * Returns the current dragging UI state.
+   *
+   * @returns {boolean} Dragging UI state.
+   */
+
+
+  get dragging() {
+    return _classPrivateFieldGet(this, _dataUIState).dragging;
+  }
+  /**
+   * Returns the current minimized UI state.
+   *
+   * @returns {boolean} Minimized UI state.
+   */
+
+
+  get minimized() {
+    return _classPrivateFieldGet(this, _dataUIState).minimized;
+  }
+  /**
+   * Returns the current resizing UI state.
+   *
+   * @returns {boolean} Resizing UI state.
+   */
+
+
+  get resizing() {
+    return _classPrivateFieldGet(this, _dataUIState).resizing;
+  } // Reactive getter / setters -----------------------------------------------------------------------------------------
+
+  /**
+   * Returns the draggable app option.
+   *
+   * @returns {boolean} Draggable app option.
+   */
+
+
+  get draggable() {
+    var _classPrivateFieldGet2, _classPrivateFieldGet3;
+
+    return (_classPrivateFieldGet2 = _classPrivateFieldGet(this, _application)) === null || _classPrivateFieldGet2 === void 0 ? void 0 : (_classPrivateFieldGet3 = _classPrivateFieldGet2.options) === null || _classPrivateFieldGet3 === void 0 ? void 0 : _classPrivateFieldGet3.draggable;
+  }
+  /**
+   * Returns the headerButtonNoClose app option.
+   *
+   * @returns {boolean} Remove the close the button in header app option.
+   */
+
+
+  get headerButtonNoClose() {
+    var _classPrivateFieldGet4, _classPrivateFieldGet5;
+
+    return (_classPrivateFieldGet4 = _classPrivateFieldGet(this, _application)) === null || _classPrivateFieldGet4 === void 0 ? void 0 : (_classPrivateFieldGet5 = _classPrivateFieldGet4.options) === null || _classPrivateFieldGet5 === void 0 ? void 0 : _classPrivateFieldGet5.headerButtonNoClose;
+  }
+  /**
+   * Returns the headerButtonNoLabel app option.
+   *
+   * @returns {boolean} Remove the labels from buttons in header app option.
+   */
+
+
+  get headerButtonNoLabel() {
+    var _classPrivateFieldGet6, _classPrivateFieldGet7;
+
+    return (_classPrivateFieldGet6 = _classPrivateFieldGet(this, _application)) === null || _classPrivateFieldGet6 === void 0 ? void 0 : (_classPrivateFieldGet7 = _classPrivateFieldGet6.options) === null || _classPrivateFieldGet7 === void 0 ? void 0 : _classPrivateFieldGet7.headerButtonNoLabel;
+  }
+  /**
+   * Returns the minimizable app option.
+   *
+   * @returns {boolean} Minimizable app option.
+   */
+
+
+  get minimizable() {
+    var _classPrivateFieldGet8, _classPrivateFieldGet9;
+
+    return (_classPrivateFieldGet8 = _classPrivateFieldGet(this, _application)) === null || _classPrivateFieldGet8 === void 0 ? void 0 : (_classPrivateFieldGet9 = _classPrivateFieldGet8.options) === null || _classPrivateFieldGet9 === void 0 ? void 0 : _classPrivateFieldGet9.minimizable;
+  }
+  /**
+   * @inheritDoc
+   */
+
+
+  get popOut() {
+    return _classPrivateFieldGet(this, _application).popOut;
+  }
+  /**
+   * Returns the resizable option.
+   *
+   * @returns {boolean} Resizable app option.
+   */
+
+
+  get resizable() {
+    var _classPrivateFieldGet10, _classPrivateFieldGet11;
+
+    return (_classPrivateFieldGet10 = _classPrivateFieldGet(this, _application)) === null || _classPrivateFieldGet10 === void 0 ? void 0 : (_classPrivateFieldGet11 = _classPrivateFieldGet10.options) === null || _classPrivateFieldGet11 === void 0 ? void 0 : _classPrivateFieldGet11.resizable;
+  }
+  /**
+   * Returns the store for app options.
+   *
+   * @returns {StoreAppOptions} App options store.
+   */
+
+
+  get storeAppOptions() {
+    return _classPrivateFieldGet(this, _storeAppOptions);
+  }
+  /**
+   * Returns the store for UI options.
+   *
+   * @returns {StoreUIOptions} UI options store.
+   */
+
+
+  get storeUIState() {
+    return _classPrivateFieldGet(this, _storeUIState);
+  }
+  /**
+   * Returns the title accessor from the parent Application class.
+   * TODO: Application v2; note that super.title localizes `this.options.title`; IMHO it shouldn't.
+   *
+   * @returns {string} Title.
+   */
+
+
+  get title() {
+    return _classPrivateFieldGet(this, _application).title;
+  }
+  /**
+   * Sets `this.options.draggable` which is reactive for application shells.
+   *
+   * @param {boolean}  draggable - Sets the draggable option.
+   */
+
+
+  set draggable(draggable) {
+    if (typeof draggable === 'boolean') {
+      this.setOptions('draggable', draggable);
+    }
+  }
+  /**
+   * Sets `this.options.headerButtonNoClose` which is reactive for application shells.
+   *
+   * @param {boolean}  headerButtonNoClose - Sets the headerButtonNoClose option.
+   */
+
+
+  set headerButtonNoClose(headerButtonNoClose) {
+    if (typeof headerButtonNoClose === 'boolean') {
+      this.setOptions('headerButtonNoClose', headerButtonNoClose);
+    }
+  }
+  /**
+   * Sets `this.options.headerButtonNoLabel` which is reactive for application shells.
+   *
+   * @param {boolean}  headerButtonNoLabel - Sets the headerButtonNoLabel option.
+   */
+
+
+  set headerButtonNoLabel(headerButtonNoLabel) {
+    if (typeof headerButtonNoLabel === 'boolean') {
+      this.setOptions('headerButtonNoLabel', headerButtonNoLabel);
+    }
+  }
+  /**
+   * Sets `this.options.minimizable` which is reactive for application shells that are also pop out.
+   *
+   * @param {boolean}  minimizable - Sets the minimizable option.
+   */
+
+
+  set minimizable(minimizable) {
+    if (typeof minimizable === 'boolean') {
+      this.setOptions('minimizable', minimizable);
+    }
+  }
+  /**
+   * Sets `this.options.popOut` which is reactive for application shells. This will add / remove this application
+   * from `ui.windows`.
+   *
+   * @param {boolean}  popOut - Sets the popOut option.
+   */
+
+
+  set popOut(popOut) {
+    if (typeof popOut === 'boolean') {
+      this.setOptions('popOut', popOut);
+    }
+  }
+  /**
+   * Sets `this.options.resizable` which is reactive for application shells.
+   *
+   * @param {boolean}  resizable - Sets the resizable option.
+   */
+
+
+  set resizable(resizable) {
+    if (typeof resizable === 'boolean') {
+      this.setOptions('resizable', resizable);
+    }
+  }
+  /**
+   * Sets `this.options.title` which is reactive for application shells.
+   *
+   * @param {string}   title - Application title; will be localized, so a translation key is fine.
+   */
+
+
+  set title(title) {
+    if (typeof title === 'string') {
+      this.setOptions('title', title);
+    }
+  }
+  /**
+   * Provides a way to safely get this applications options given an accessor string which describes the
+   * entries to walk. To access deeper entries into the object format the accessor string with `.` between entries
+   * to walk.
+   *
+   * // TODO DOCUMENT the accessor in more detail.
+   *
+   * @param {string}   accessor - The path / key to set. You can set multiple levels.
+   *
+   * @param {*}        [defaultValue] - A default value returned if the accessor is not found.
+   *
+   * @returns {*} Value at the accessor.
+   */
+
+
+  getOptions(accessor, defaultValue) {
+    return safeAccess(_classPrivateFieldGet(this, _application).options, accessor, defaultValue);
+  }
+  /**
+   * Provides a way to merge `options` into this applications options and update the appOptions store.
+   *
+   * @param {object}   options - The options object to merge with `this.options`.
+   */
+
+
+  mergeOptions(options) {
+    _classPrivateFieldGet(this, _storeAppOptionsUpdate).call(this, instanceOptions => deepMerge(instanceOptions, options));
+  }
+  /**
+   * Provides a way to safely set this applications options given an accessor string which describes the
+   * entries to walk. To access deeper entries into the object format the accessor string with `.` between entries
+   * to walk.
+   *
+   * Additionally if an application shell Svelte component is mounted and exports the `appOptions` property then
+   * the application options is set to `appOptions` potentially updating the application shell / Svelte component.
+   *
+   * // TODO DOCUMENT the accessor in more detail.
+   *
+   * @param {string}   accessor - The path / key to set. You can set multiple levels.
+   *
+   * @param {*}        value - Value to set.
+   */
+
+
+  setOptions(accessor, value) {
+    const success = safeSet(_classPrivateFieldGet(this, _application).options, accessor, value); // If `this.options` modified then update the app options store.
+
+    if (success) {
+      _classPrivateFieldGet(this, _storeAppOptionsUpdate).call(this, () => _classPrivateFieldGet(this, _application).options);
+    }
+  }
+  /**
+   * Initializes the Svelte stores and derived stores for the application options and UI state.
+   *
+   * While writable stores are created the update method is stored in private variables locally and derived Readable
+   * stores are provided for essential options which are commonly used.
+   *
+   * These stores are injected into all Svelte components mounted under the `external` context: `storeAppOptions` and
+   * ` storeUIState`.
+   */
+
+
+  /**
+   * Updates the UI Options store with the current header buttons. You may dynamically add / remove header buttons
+   * if using an application shell Svelte component. In either overriding `_getHeaderButtons` or responding to the
+   * Hooks fired return a new button array and the uiOptions store is updated and the application shell will render
+   * the new buttons.
+   *
+   * Optionally you can set in the Foundry app options `headerButtonNoClose` to remove the close button and
+   * `headerButtonNoLabel` to true and labels will be removed from the header buttons.
+   *
+   * @param {object} opts - Optional parameters (for internal use)
+   *
+   * @param {boolean} opts.headerButtonNoClose - The value for `headerButtonNoClose`.
+   *
+   * @param {boolean} opts.headerButtonNoLabel - The value for `headerButtonNoLabel`.
+   */
+  updateHeaderButtons({
+    headerButtonNoClose = _classPrivateFieldGet(this, _application).options.headerButtonNoClose,
+    headerButtonNoLabel = _classPrivateFieldGet(this, _application).options.headerButtonNoLabel
+  } = {}) {
+    let buttons = _classPrivateFieldGet(this, _application)._getHeaderButtons(); // Remove close button if this.options.headerButtonNoClose is true;
+
+
+    if (typeof headerButtonNoClose === 'boolean' && headerButtonNoClose) {
+      buttons = buttons.filter(button => button.class !== 'close');
+    } // Remove labels if this.options.headerButtonNoLabel is true;
+
+
+    if (typeof headerButtonNoLabel === 'boolean' && headerButtonNoLabel) {
+      for (const button of buttons) {
+        button.label = void 0;
+      }
+    }
+
+    _classPrivateFieldGet(this, _storeUIStateUpdate).call(this, options => {
+      options.headerButtons = buttons;
+      return options;
+    });
+  }
+
+}
+
+function _storesInitialize2() {
+  const writableAppOptions = writable(_classPrivateFieldGet(this, _application).options); // Keep the update function locally, but make the store essentially readable.
+
+  _classPrivateFieldSet(this, _storeAppOptionsUpdate, writableAppOptions.update);
+  /**
+   * Create custom store. The main subscribe method for all app options changes is provided along with derived
+   * writable stores for all reactive options.
+   *
+   * @type {StoreAppOptions}
+   */
+
+
+  const storeAppOptions = {
+    subscribe: writableAppOptions.subscribe,
+    draggable: propertyStore(writableAppOptions, 'draggable'),
+    headerButtonNoClose: propertyStore(writableAppOptions, 'headerButtonNoClose'),
+    headerButtonNoLabel: propertyStore(writableAppOptions, 'headerButtonNoLabel'),
+    minimizable: propertyStore(writableAppOptions, 'minimizable'),
+    popOut: propertyStore(writableAppOptions, 'popOut'),
+    resizable: propertyStore(writableAppOptions, 'resizable'),
+    title: propertyStore(writableAppOptions, 'title')
+  };
+  Object.freeze(storeAppOptions);
+
+  _classPrivateFieldSet(this, _storeAppOptions, storeAppOptions);
+
+  _classPrivateFieldSet(this, _dataUIState, {
+    dragging: false,
+    headerButtons: [],
+    minimized: _classPrivateFieldGet(this, _application)._minimized,
+    resizing: false
+  }); // Create a store for UI state data.
+
+
+  const writableUIOptions = writable(_classPrivateFieldGet(this, _dataUIState)); // Keep the update function locally, but make the store essentially readable.
+
+  _classPrivateFieldSet(this, _storeUIStateUpdate, writableUIOptions.update);
+  /**
+   * @type {StoreUIOptions}
+   */
+
+
+  const storeUIState = {
+    subscribe: writableUIOptions.subscribe,
+    dragging: propertyStore(writableUIOptions, 'dragging'),
+    headerButtons: derived(writableUIOptions, ($options, set) => set($options.headerButtons)),
+    minimized: derived(writableUIOptions, ($options, set) => set($options.minimized)),
+    resizing: propertyStore(writableUIOptions, 'resizing')
+  };
+  Object.freeze(storeUIState); // Initialize the store with options set in the Application constructor.
+
+  _classPrivateFieldSet(this, _storeUIState, storeUIState);
+}
+
+function _storesSubscribe2() {
+  // Register local subscriptions.
+  // Handles updating header buttons to add / remove the close button.
+  _classPrivateFieldGet(this, _storeUnsubscribe).push(subscribeIgnoreFirst(_classPrivateFieldGet(this, _storeAppOptions).headerButtonNoClose, value => {
+    this.updateHeaderButtons({
+      headerButtonNoClose: value
+    });
+  })); // Handles updating header buttons to add / remove button labels.
+
+
+  _classPrivateFieldGet(this, _storeUnsubscribe).push(subscribeIgnoreFirst(_classPrivateFieldGet(this, _storeAppOptions).headerButtonNoLabel, value => {
+    this.updateHeaderButtons({
+      headerButtonNoLabel: value
+    });
+  })); // Handles adding / removing this application from `ui.windows` when popOut changes.
+
+
+  _classPrivateFieldGet(this, _storeUnsubscribe).push(subscribeIgnoreFirst(_classPrivateFieldGet(this, _storeAppOptions).popOut, value => {
+    if (value && _classPrivateFieldGet(this, _application).rendered) {
+      ui.windows[_classPrivateFieldGet(this, _application).appId] = _classPrivateFieldGet(this, _application);
+    } else {
+      delete ui.windows[_classPrivateFieldGet(this, _application).appId];
+    }
+  }));
+}
+
+function _storesUnsubscribe2() {
+  _classPrivateFieldGet(this, _storeUnsubscribe).forEach(unsubscribe => unsubscribe());
+
+  _classPrivateFieldSet(this, _storeUnsubscribe, []);
+}
+
+/**
+ * Awaits `requestAnimationFrame` calls by the counter specified. This allows asynchronous applications for direct /
+ * inline style modification amongst other direct animation techniques.
+ *
+ * @param {number}   [cntr=1] - A positive integer greater than 0 for amount of requestAnimationFrames to wait.
+ *
+ * @returns {Promise<number>} Returns current time equivalent to `performance.now()`.
+ */
+async function nextAnimationFrame(cntr = 1) {
+  if (!Number.isInteger(cntr) || cntr < 1) {
+    throw new TypeError(`nextAnimationFrame error: 'cntr' must be a positive integer greater than 0.`);
+  }
+
+  let currentTime = performance.now();
+
+  for (; --cntr >= 0;) {
+    currentTime = await new Promise(resolve => requestAnimationFrame(resolve));
+  }
+
+  return currentTime;
+}
+
+let _Symbol$iterator;
+
+var _validatorData = /*#__PURE__*/new WeakMap();
+
+var _mapUnsubscribe = /*#__PURE__*/new WeakMap();
+
+_Symbol$iterator = Symbol.iterator;
+
+/**
+ * Provides the storage and sequencing of managed position validators. Each validator added may be a bespoke function or
+ * a {@link ValidatorData} object containing an `id`, `validator`, and `weight` attributes; `validator` is the only
+ * required attribute.
+ *
+ * The `id` attribute can be anything that creates a unique ID for the validator; recommended strings or numbers. This
+ * allows validators to be removed by ID easily.
+ *
+ * The `weight` attribute is a number between 0 and 1 inclusive that allows validators to be added in a
+ * predictable order which is especially handy if they are manipulated at runtime. A lower weighted validator always
+ * runs before a higher weighted validator. If no weight is specified the default of '1' is assigned and it is appended
+ * to the end of the validators list.
+ *
+ * This class forms the public API which is accessible from the `.validators` getter in the main Position instance.
+ * ```
+ * const position = new Position(<PositionData>);
+ * position.validators.add(...);
+ * position.validators.clear();
+ * position.validators.length;
+ * position.validators.remove(...);
+ * position.validators.removeBy(...);
+ * position.validators.removeById(...);
+ * ```
+ */
+class AdapterValidators {
+  /**
+   * @returns {[AdapterValidators, ValidatorData[]]} Returns this and internal storage for validator adapter.
+   */
+  constructor() {
+    _classPrivateFieldInitSpec(this, _validatorData, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _mapUnsubscribe, {
+      writable: true,
+      value: new Map()
+    });
+
+    _classPrivateFieldSet(this, _validatorData, []);
+
+    Object.seal(this);
+    return [this, _classPrivateFieldGet(this, _validatorData)];
+  }
+  /**
+   * @returns {number} Returns the length of the validators array.
+   */
+
+
+  get length() {
+    return _classPrivateFieldGet(this, _validatorData).length;
+  }
+  /**
+   * Provides an iterator for validators.
+   *
+   * @returns {Generator<ValidatorData|undefined>} Generator / iterator of validators.
+   * @yields {ValidatorData<T>}
+   */
+
+
+  *[_Symbol$iterator]() {
+    if (_classPrivateFieldGet(this, _validatorData).length === 0) {
+      return;
+    }
+
+    for (const entry of _classPrivateFieldGet(this, _validatorData)) {
+      yield _objectSpread2({}, entry);
+    }
+  }
+  /**
+   * @param {...(ValidatorFn<T>|ValidatorData<T>)}   validators -
+   */
+
+
+  add(...validators) {
+    var _validator$validator$;
+
+    for (const validator of validators) {
+      const validatorType = typeof validator;
+
+      if (validatorType !== 'function' && validatorType !== 'object' || validator === null) {
+        throw new TypeError(`AdapterValidator error: 'validator' is not a function or object.`);
+      }
+
+      let data = void 0;
+      let subscribeFn = void 0;
+
+      switch (validatorType) {
+        case 'function':
+          data = {
+            id: void 0,
+            validator,
+            weight: 1
+          };
+          subscribeFn = validator.subscribe;
+          break;
+
+        case 'object':
+          if (typeof validator.validator !== 'function') {
+            throw new TypeError(`AdapterValidator error: 'validator' attribute is not a function.`);
+          }
+
+          if (validator.weight !== void 0 && typeof validator.weight !== 'number' || validator.weight < 0 || validator.weight > 1) {
+            throw new TypeError(`AdapterValidator error: 'weight' attribute is not a number between '0 - 1' inclusive.`);
+          }
+
+          data = {
+            id: validator.id !== void 0 ? validator.id : void 0,
+            validator: validator.validator,
+            weight: validator.weight || 1
+          };
+          subscribeFn = (_validator$validator$ = validator.validator.subscribe) !== null && _validator$validator$ !== void 0 ? _validator$validator$ : validator.subscribe;
+          break;
+      } // Find the index to insert where data.weight is less than existing values weight.
+
+
+      const index = _classPrivateFieldGet(this, _validatorData).findIndex(value => {
+        return data.weight < value.weight;
+      }); // If an index was found insert at that location.
+
+
+      if (index >= 0) {
+        _classPrivateFieldGet(this, _validatorData).splice(index, 0, data);
+      } else // push to end of validators.
+        {
+          _classPrivateFieldGet(this, _validatorData).push(data);
+        }
+
+      if (typeof subscribeFn === 'function') {
+        // TODO: consider how to handle validator updates.
+        const unsubscribe = subscribeFn(); // Ensure that unsubscribe is a function.
+
+        if (typeof unsubscribe !== 'function') {
+          throw new TypeError('AdapterValidator error: Filter has subscribe function, but no unsubscribe function is returned.');
+        } // Ensure that the same validator is not subscribed to multiple times.
+
+
+        if (_classPrivateFieldGet(this, _mapUnsubscribe).has(data.validator)) {
+          throw new Error('AdapterValidator error: Filter added already has an unsubscribe function registered.');
+        }
+
+        _classPrivateFieldGet(this, _mapUnsubscribe).set(data.validator, unsubscribe);
+      }
+    } // Filters with subscriber functionality are assumed to immediately invoke the `subscribe` callback. If the
+    // subscriber count is less than the amount of validators added then automatically trigger an index update
+    // manually.
+    // TODO: handle validator updates.
+    // if (subscribeCount < validators.length) { this.#indexUpdate(); }
+
+  }
+
+  clear() {
+    _classPrivateFieldGet(this, _validatorData).length = 0; // Unsubscribe from all validators with subscription support.
+
+    for (const unsubscribe of _classPrivateFieldGet(this, _mapUnsubscribe).values()) {
+      unsubscribe();
+    }
+
+    _classPrivateFieldGet(this, _mapUnsubscribe).clear(); // TODO: handle validator updates.
+    // this.#indexUpdate();
+
+  }
+  /**
+   * @param {...(ValidatorFn<T>|ValidatorData<T>)}   validators -
+   */
+
+
+  remove(...validators) {
+    const length = _classPrivateFieldGet(this, _validatorData).length;
+
+    if (length === 0) {
+      return;
+    }
+
+    for (const data of validators) {
+      // Handle the case that the validator may either be a function or a validator entry / object.
+      const actualValidator = typeof data === 'function' ? data : data !== null && typeof data === 'object' ? data.validator : void 0;
+
+      if (!actualValidator) {
+        continue;
+      }
+
+      for (let cntr = _classPrivateFieldGet(this, _validatorData).length; --cntr >= 0;) {
+        if (_classPrivateFieldGet(this, _validatorData)[cntr].validator === actualValidator) {
+          _classPrivateFieldGet(this, _validatorData).splice(cntr, 1); // Invoke any unsubscribe function for given validator then remove from tracking.
+
+
+          let unsubscribe = void 0;
+
+          if (typeof (unsubscribe = _classPrivateFieldGet(this, _mapUnsubscribe).get(actualValidator)) === 'function') {
+            unsubscribe();
+
+            _classPrivateFieldGet(this, _mapUnsubscribe).delete(actualValidator);
+          }
+        }
+      }
+    } // Update the index a validator was removed.
+    // TODO: handle validator updates.
+    // if (length !== this.#validatorData.length) { this.#indexUpdate(); }
+
+  }
+  /**
+   * Remove validators by the provided callback. The callback takes 3 parameters: `id`, `validator`, and `weight`.
+   * Any truthy value returned will remove that validator.
+   *
+   * @param {function(*, ValidatorFn<T>, number): boolean} callback - Callback function to evaluate each validator
+   *                                                                  entry.
+   */
+
+
+  removeBy(callback) {
+    const length = _classPrivateFieldGet(this, _validatorData).length;
+
+    if (length === 0) {
+      return;
+    }
+
+    if (typeof callback !== 'function') {
+      throw new TypeError(`AdapterValidator error: 'callback' is not a function.`);
+    }
+
+    _classPrivateFieldSet(this, _validatorData, _classPrivateFieldGet(this, _validatorData).filter(data => {
+      const remove = callback.call(callback, _objectSpread2({}, data));
+
+      if (remove) {
+        let unsubscribe;
+
+        if (typeof (unsubscribe = _classPrivateFieldGet(this, _mapUnsubscribe).get(data.validator)) === 'function') {
+          unsubscribe();
+
+          _classPrivateFieldGet(this, _mapUnsubscribe).delete(data.validator);
+        }
+      } // Reverse remove boolean to properly validator / remove this validator.
+
+
+      return !remove;
+    })); // TODO: handle validator updates.
+    // if (length !== this.#validatorData.length) { this.#indexUpdate(); }
+
+  }
+
+  removeById(...ids) {
+    const length = _classPrivateFieldGet(this, _validatorData).length;
+
+    if (length === 0) {
+      return;
+    }
+
+    _classPrivateFieldSet(this, _validatorData, _classPrivateFieldGet(this, _validatorData).filter(data => {
+      let remove = false;
+
+      for (const id of ids) {
+        remove |= data.id === id;
+      } // If not keeping invoke any unsubscribe function for given validator then remove from tracking.
+
+
+      if (remove) {
+        let unsubscribe;
+
+        if (typeof (unsubscribe = _classPrivateFieldGet(this, _mapUnsubscribe).get(data.validator)) === 'function') {
+          unsubscribe();
+
+          _classPrivateFieldGet(this, _mapUnsubscribe).delete(data.validator);
+        }
+      }
+
+      return !remove; // Swap here to actually remove the item via array validator method.
+    })); // TODO: handle validator updates.
+    // if (length !== this.#validatorData.length) { this.#indexUpdate(); }
+
+  }
+
+}
+/**
+ * @typedef {function(object, PositionData): PositionData|null} ValidatorFn - Position validator function that
+ *                         takes a {@link PositionData} instance potentially modifying it or returning null if invalid.
+ *
+ * @property {Function} [subscribe] - Optional subscribe function following the Svelte store / subscribe pattern.
+ */
+
+/**
+ * @typedef {object} ValidatorData
+ *
+ * @property {*}           [id=undefined] - An ID associated with this validator. Can be used to remove the validator.
+ *
+ * @property {ValidatorFn} validator - Position validator function that takes a {@link PositionData} instance
+ *                                     potentially modifying it or returning null if invalid.
+ *
+ * @property {number}      [weight=1] - A number between 0 and 1 inclusive to position this validator against others.
+ *
+ * @property {Function}    [subscribe] - Optional subscribe function following the Svelte store / subscribe pattern.
+ */
+
+const _excluded = ["name"],
+      _excluded2 = ["left", "top", "width", "height", "rotateX", "rotateY", "rotateZ", "scale", "transformOrigin", "zIndex"];
+/**
+ * Provides a store for position following the subscriber protocol in addition to providing individual writable derived
+ * stores for each independent variable.
+ */
+
+var _subscriptions = /*#__PURE__*/new WeakMap();
+
+var _data = /*#__PURE__*/new WeakMap();
+
+var _dataSaved = /*#__PURE__*/new WeakMap();
+
+var _currentAnimationKeys = /*#__PURE__*/new WeakMap();
+
+var _defaultData = /*#__PURE__*/new WeakMap();
+
+var _parent = /*#__PURE__*/new WeakMap();
+
+var _elementUpdatePromises = /*#__PURE__*/new WeakMap();
+
+var _stores$1 = /*#__PURE__*/new WeakMap();
+
+var _transforms = /*#__PURE__*/new WeakMap();
+
+var _transformUpdate = /*#__PURE__*/new WeakMap();
+
+var _updateElementInvoked = /*#__PURE__*/new WeakMap();
+
+var _validators = /*#__PURE__*/new WeakMap();
+
+var _validatorsAdapter = /*#__PURE__*/new WeakMap();
+
+var _updateElement = /*#__PURE__*/new WeakSet();
+
+var _updatePosition = /*#__PURE__*/new WeakSet();
+
+class Position {
+  /**
+   * @type {PositionData}
+   */
+
+  /**
+   * @type {Map<string, PositionData>}
+   */
+
+  /**
+   * Stores current animation keys.
+   *
+   * @type {Set<string>}
+   */
+
+  /**
+   * @type {PositionData}
+   */
+
+  /**
+   * The associated parent for positional data tracking. Used in validators.
+   *
+   * @type {object}
+   */
+
+  /**
+   * Stores all pending set position Promise resolve functions.
+   *
+   * @type {Function[]}
+   */
+
+  /**
+   * @type {StorePosition}
+   */
+
+  /**
+   * @type {Record<string, string>}
+   */
+
+  /**
+   * @type {boolean}
+   */
+
+  /**
+   * @type {boolean}
+   */
+
+  /**
+   * @type {AdapterValidators}
+   */
+
+  /**
+   * @type {ValidatorData[]}
+   */
+
+  /**
+   * @param {object}         parent - The associated parent for positional data tracking. Used in validators.
+   *
+   * @param {object}         options - Default values.
+   */
+  constructor(parent, options = {}) {
+    _classPrivateMethodInitSpec(this, _updatePosition);
+
+    _classPrivateMethodInitSpec(this, _updateElement);
+
+    _classPrivateFieldInitSpec(this, _subscriptions, {
+      writable: true,
+      value: []
+    });
+
+    _classPrivateFieldInitSpec(this, _data, {
+      writable: true,
+      value: {
+        height: null,
+        left: null,
+        rotateX: null,
+        rotateY: null,
+        rotateZ: null,
+        scale: null,
+        top: null,
+        transformOrigin: s_TRANSFORM_ORIGIN_DEFAULT,
+        width: null,
+        zIndex: null
+      }
+    });
+
+    _classPrivateFieldInitSpec(this, _dataSaved, {
+      writable: true,
+      value: new Map()
+    });
+
+    _classPrivateFieldInitSpec(this, _currentAnimationKeys, {
+      writable: true,
+      value: new Set()
+    });
+
+    _classPrivateFieldInitSpec(this, _defaultData, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _parent, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _elementUpdatePromises, {
+      writable: true,
+      value: []
+    });
+
+    _classPrivateFieldInitSpec(this, _stores$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _transforms, {
+      writable: true,
+      value: {}
+    });
+
+    _classPrivateFieldInitSpec(this, _transformUpdate, {
+      writable: true,
+      value: false
+    });
+
+    _classPrivateFieldInitSpec(this, _updateElementInvoked, {
+      writable: true,
+      value: false
+    });
+
+    _classPrivateFieldInitSpec(this, _validators, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _validatorsAdapter, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _parent, parent);
+
+    const _data2 = _classPrivateFieldGet(this, _data); // Set default value from options.
+
+
+    if (typeof options === 'object') {
+      if (Number.isFinite(options.height) || options.height === 'auto' || options.height === null) {
+        _data2.height = typeof options.height === 'number' ? Math.round(options.height) : options.height;
+      }
+
+      if (Number.isFinite(options.left) || options.left === null) {
+        _data2.left = typeof options.left === 'number' ? Math.round(options.left) : options.left;
+      }
+
+      if (Number.isFinite(options.rotateX) || options.rotateX === null) {
+        _data2.rotateX = options.rotateX;
+
+        if (Number.isFinite(_data2.rotateX)) {
+          _classPrivateFieldGet(this, _transforms).rotateX = `rotateX(${_data2.rotateX}deg)`;
+        }
+      }
+
+      if (Number.isFinite(options.rotateY) || options.rotateY === null) {
+        _data2.rotateY = options.rotateY;
+
+        if (Number.isFinite(_data2.rotateY)) {
+          _classPrivateFieldGet(this, _transforms).rotateY = `rotateY(${_data2.rotateY}deg)`;
+        }
+      }
+
+      if (Number.isFinite(options.rotateZ) || options.rotateZ === null) {
+        _data2.rotateZ = options.rotateZ;
+
+        if (Number.isFinite(_data2.rotateZ)) {
+          _classPrivateFieldGet(this, _transforms).rotateZ = `rotateZ(${_data2.rotateZ}deg)`;
+        }
+      }
+
+      if (Number.isFinite(options.scale) || options.scale === null) {
+        _data2.scale = options.scale;
+
+        if (Number.isFinite(_data2.scale)) {
+          _classPrivateFieldGet(this, _transforms).scale = `scale(${_data2.scale})`;
+        }
+      }
+
+      if (Number.isFinite(options.top) || options.top === null) {
+        _data2.top = typeof options.top === 'number' ? Math.round(options.top) : options.top;
+      }
+
+      if (typeof options.transformOrigin === 'string' && s_TRANSFORM_ORIGINS.includes(options.transformOrigin)) {
+        _data2.transformOrigin = options.transformOrigin;
+      }
+
+      if (Number.isFinite(options.width) || options.width === 'auto' || options.width === null) {
+        _data2.width = typeof options.width === 'number' ? Math.round(options.width) : options.width;
+      }
+
+      if (Number.isFinite(options.zIndex) || options.zIndex === null) {
+        _data2.zIndex = typeof options.zIndex === 'number' ? Math.round(options.zIndex) : options.zIndex;
+      }
+    }
+
+    _classPrivateFieldSet(this, _stores$1, {
+      height: propertyStore(this, 'height'),
+      left: propertyStore(this, 'left'),
+      rotateX: propertyStore(this, 'rotateX'),
+      rotateY: propertyStore(this, 'rotateY'),
+      rotateZ: propertyStore(this, 'rotateZ'),
+      scale: propertyStore(this, 'scale'),
+      top: propertyStore(this, 'top'),
+      transformOrigin: propertyStore(this, 'transformOrigin'),
+      width: propertyStore(this, 'width'),
+      zIndex: propertyStore(this, 'zIndex')
+    });
+
+    _classPrivateFieldGet(this, _stores$1).transformOrigin.values = s_TRANSFORM_ORIGINS;
+    Object.freeze(_classPrivateFieldGet(this, _stores$1));
+    [_classPrivateFieldDestructureSet(this, _validators).value, _classPrivateFieldDestructureSet(this, _validatorsAdapter).value] = new AdapterValidators();
+  }
+  /**
+   * Returns a promise that is resolved on the next element update with the time of the update.
+   *
+   * @returns {Promise<number>} Promise resolved on element update.
+   */
+
+
+  get elementUpdated() {
+    return new Promise(resolve => _classPrivateFieldGet(this, _elementUpdatePromises).push(resolve));
+  }
+  /**
+   * Returns the derived writable stores for individual data variables.
+   *
+   * @returns {StorePosition} Derived / writable stores.
+   */
+
+
+  get stores() {
+    return _classPrivateFieldGet(this, _stores$1);
+  }
+  /**
+   * Returns the validators.
+   *
+   * @returns {AdapterValidators} validators.
+   */
+
+
+  get validators() {
+    return _classPrivateFieldGet(this, _validators);
+  } // Data accessors ----------------------------------------------------------------------------------------------------
+
+  /**
+   * @returns {number|'auto'|null} height
+   */
+
+
+  get height() {
+    return _classPrivateFieldGet(this, _data).height;
+  }
+  /**
+   * @returns {number|null} left
+   */
+
+
+  get left() {
+    return _classPrivateFieldGet(this, _data).left;
+  }
+  /**
+   * @returns {number|null} rotateX
+   */
+
+
+  get rotateX() {
+    return _classPrivateFieldGet(this, _data).rotateX;
+  }
+  /**
+   * @returns {number|null} rotateY
+   */
+
+
+  get rotateY() {
+    return _classPrivateFieldGet(this, _data).rotateY;
+  }
+  /**
+   * @returns {number|null} rotateZ
+   */
+
+
+  get rotateZ() {
+    return _classPrivateFieldGet(this, _data).rotateZ;
+  }
+  /**
+   * @returns {number|null} scale
+   */
+
+
+  get scale() {
+    return _classPrivateFieldGet(this, _data).scale;
+  }
+  /**
+   * @returns {number|null} top
+   */
+
+
+  get top() {
+    return _classPrivateFieldGet(this, _data).top;
+  }
+  /**
+   * @returns {string} transformOrigin
+   */
+
+
+  get transformOrigin() {
+    return _classPrivateFieldGet(this, _data).transformOrigin;
+  }
+  /**
+   * @returns {number|'auto'|null} width
+   */
+
+
+  get width() {
+    return _classPrivateFieldGet(this, _data).width;
+  }
+  /**
+   * @returns {number|null} z-index
+   */
+
+
+  get zIndex() {
+    return _classPrivateFieldGet(this, _data).zIndex;
+  }
+  /**
+   * @param {number|'auto'|null} height -
+   */
+
+
+  set height(height) {
+    _classPrivateFieldGet(this, _stores$1).height.set(height);
+  }
+  /**
+   * @param {number|null} left -
+   */
+
+
+  set left(left) {
+    _classPrivateFieldGet(this, _stores$1).left.set(left);
+  }
+  /**
+   * @param {number|null} rotateX -
+   */
+
+
+  set rotateX(rotateX) {
+    _classPrivateFieldGet(this, _stores$1).rotateX.set(rotateX);
+  }
+  /**
+   * @param {number|null} rotateY -
+   */
+
+
+  set rotateY(rotateY) {
+    _classPrivateFieldGet(this, _stores$1).rotateY.set(rotateY);
+  }
+  /**
+   * @param {number|null} rotateZ -
+   */
+
+
+  set rotateZ(rotateZ) {
+    _classPrivateFieldGet(this, _stores$1).rotateZ.set(rotateZ);
+  }
+  /**
+   * @param {number|null} scale -
+   */
+
+
+  set scale(scale) {
+    _classPrivateFieldGet(this, _stores$1).scale.set(scale);
+  }
+  /**
+   * @param {number|null} top -
+   */
+
+
+  set top(top) {
+    _classPrivateFieldGet(this, _stores$1).top.set(top);
+  }
+  /**
+   * @param {string} transformOrigin -
+   */
+
+
+  set transformOrigin(transformOrigin) {
+    if (s_TRANSFORM_ORIGINS.includes(transformOrigin)) {
+      _classPrivateFieldGet(this, _stores$1).transformOrigin.set(transformOrigin);
+    }
+  }
+  /**
+   * @param {number|'auto'|null} width -
+   */
+
+
+  set width(width) {
+    _classPrivateFieldGet(this, _stores$1).width.set(width);
+  }
+  /**
+   * @param {number|null} zIndex -
+   */
+
+
+  set zIndex(zIndex) {
+    _classPrivateFieldGet(this, _stores$1).zIndex.set(zIndex);
+  }
+  /**
+   * Provides animation
+   *
+   * @param {PositionData}   position - The destination position.
+   *
+   * @param {object}         [opts] - Optional parameters.
+   *
+   * @param {number}         [opts.duration] - Duration in milliseconds.
+   *
+   * @param {Function}       [opts.easing=linear] - Easing function.
+   *
+   * @param {Function}       [opts.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {Promise<void>} Animation complete.
+   */
+
+
+  async animateTo(position = {}, {
+    duration = 1000,
+    easing = identity,
+    interpolate = lerp
+  } = {}) {
+    var _parent$options, _parent$options2;
+
+    if (typeof position !== 'object') {
+      throw new TypeError(`Position - animateTo error: 'position' is not an object.`);
+    } // Early out if the application is not positionable.
+
+
+    const parent = _classPrivateFieldGet(this, _parent);
+
+    if (parent !== void 0 && typeof (parent === null || parent === void 0 ? void 0 : (_parent$options = parent.options) === null || _parent$options === void 0 ? void 0 : _parent$options.positionable) === 'boolean' && !(parent !== null && parent !== void 0 && (_parent$options2 = parent.options) !== null && _parent$options2 !== void 0 && _parent$options2.positionable)) {
+      return;
+    }
+
+    if (!Number.isInteger(duration) || duration < 0) {
+      throw new TypeError(`Position - animateTo error: 'duration' is not a positive integer.`);
+    }
+
+    if (typeof easing !== 'function') {
+      throw new TypeError(`Position - animateTo error: 'easing' is not a function.`);
+    }
+
+    if (typeof interpolate !== 'function') {
+      throw new TypeError(`Position - animateTo error: 'interpolate' is not a function.`);
+    }
+
+    const data = _classPrivateFieldGet(this, _data);
+
+    const currentAnimationKeys = _classPrivateFieldGet(this, _currentAnimationKeys);
+
+    const initial = {};
+    const destination = {}; // Set initial data if the key / data is defined and the end position is not equal to current data.
+
+    for (const key in position) {
+      if (data[key] !== void 0 && position[key] !== data[key]) {
+        destination[key] = position[key];
+        initial[key] = data[key];
+      }
+    } // Set initial data for transform values that are often null by default.
+
+
+    if (initial.rotateX === null) {
+      initial.rotateX = 0;
+    }
+
+    if (initial.rotateY === null) {
+      initial.rotateY = 0;
+    }
+
+    if (initial.rotateZ === null) {
+      initial.rotateZ = 0;
+    }
+
+    if (initial.scale === null) {
+      initial.scale = 1;
+    }
+
+    if (destination.rotateX === null) {
+      destination.rotateX = 0;
+    }
+
+    if (destination.rotateY === null) {
+      destination.rotateY = 0;
+    }
+
+    if (destination.rotateZ === null) {
+      destination.rotateZ = 0;
+    }
+
+    if (destination.scale === null) {
+      destination.scale = 1;
+    } // Reject all initial data that is not a number or is current animating.
+    // Add all keys that pass to `currentAnimationKeys`.
+
+
+    for (const key in initial) {
+      if (!Number.isFinite(initial[key]) || currentAnimationKeys.has(key)) {
+        delete initial[key];
+      } else {
+        currentAnimationKeys.add(key);
+      }
+    }
+
+    const newData = Object.assign({}, initial);
+    const keys = Object.keys(newData); // Nothing to animate, so return now.
+
+    if (keys.length === 0) {
+      return;
+    }
+
+    const start = await nextAnimationFrame();
+    let current = 0;
+
+    while (current < duration) {
+      const easedTime = easing(current / duration);
+
+      for (const key of keys) {
+        newData[key] = interpolate(initial[key], destination[key], easedTime);
+      }
+
+      current = (await this.set(newData).elementUpdated) - start;
+    } // Prepare final update with end position data and remove keys from `currentAnimationKeys`.
+
+
+    for (const key of keys) {
+      newData[key] = position[key];
+      currentAnimationKeys.delete(key);
+    }
+
+    this.set(newData);
+  }
+  /**
+   * Assigns current position to object passed into method.
+   *
+   * @param {object|PositionData} [position] - Target to assign current position data.
+   *
+   * @returns {PositionData} Passed in object with current position data.
+   */
+
+
+  get(position = {}) {
+    return Object.assign(position, _classPrivateFieldGet(this, _data));
+  }
+  /**
+   * Returns any stored save state by name.
+   *
+   * @param {string}   name - Saved data set name.
+   *
+   * @returns {PositionData} The saved data set.
+   */
+
+
+  getSave({
+    name
+  }) {
+    if (typeof name !== 'string') {
+      throw new TypeError(`Position - getSave error: 'name' is not a string.`);
+    }
+
+    return _classPrivateFieldGet(this, _dataSaved).get(name);
+  }
+  /**
+   * @returns {PositionData} Current position data.
+   */
+
+
+  toJSON() {
+    return Object.assign({}, _classPrivateFieldGet(this, _data));
+  }
+  /**
+   * Resets data to default values and invokes set. Check options, but by default current z-index is maintained.
+   *
+   * @param {object}   [opts] - Optional parameters.
+   *
+   * @param {boolean}  [opts.keepZIndex=false] - When true keeps current z-index.
+   *
+   * @param {boolean}  [opts.invokeSet=true] - When true invokes set method.
+   *
+   * @returns {boolean} Operation successful.
+   */
+
+
+  reset({
+    keepZIndex = false,
+    invokeSet = true
+  } = {}) {
+    var _classPrivateFieldGet2, _classPrivateFieldGet3;
+
+    if (typeof _classPrivateFieldGet(this, _defaultData) !== 'object') {
+      return false;
+    }
+
+    if (_classPrivateFieldGet(this, _currentAnimationKeys).size) {
+      return false;
+    }
+
+    const zIndex = _classPrivateFieldGet(this, _data).zIndex;
+
+    const data = Object.assign({}, _classPrivateFieldGet(this, _defaultData));
+
+    if (keepZIndex) {
+      data.zIndex = zIndex;
+    } // Remove any keys that are currently animating.
+
+
+    for (const key of _classPrivateFieldGet(this, _currentAnimationKeys)) {
+      delete data[key];
+    } // If current minimized invoke `maximize`.
+
+
+    if ((_classPrivateFieldGet2 = _classPrivateFieldGet(this, _parent)) !== null && _classPrivateFieldGet2 !== void 0 && (_classPrivateFieldGet3 = _classPrivateFieldGet2.reactive) !== null && _classPrivateFieldGet3 !== void 0 && _classPrivateFieldGet3.minimized) {
+      var _classPrivateFieldGet4, _classPrivateFieldGet5;
+
+      (_classPrivateFieldGet4 = _classPrivateFieldGet(this, _parent)) === null || _classPrivateFieldGet4 === void 0 ? void 0 : (_classPrivateFieldGet5 = _classPrivateFieldGet4.maximize) === null || _classPrivateFieldGet5 === void 0 ? void 0 : _classPrivateFieldGet5.call(_classPrivateFieldGet4, {
+        animate: false,
+        duration: 0
+      });
+    }
+
+    if (invokeSet) {
+      this.set(data);
+    }
+
+    return true;
+  }
+  /**
+   * Removes and returns any position state by name.
+   *
+   * @param {object}   options - Options.
+   *
+   * @param {string}   options.name - Name to remove and retrieve.
+   *
+   * @returns {PositionData} Saved position data.
+   */
+
+
+  remove({
+    name
+  }) {
+    if (typeof name !== 'string') {
+      throw new TypeError(`Position - remove: 'name' is not a string.`);
+    }
+
+    const data = _classPrivateFieldGet(this, _dataSaved).get(name);
+
+    _classPrivateFieldGet(this, _dataSaved).delete(name);
+
+    return data;
+  }
+  /**
+   * Restores a saved positional state returning the data. Several optional parameters are available
+   * to control whether the restore action occurs silently (no store / inline styles updates), animates
+   * to the stored data, or simply sets the stored data. Restoring via {@link Position.animateTo} allows
+   * specification of the duration, easing, and interpolate functions along with configuring a Promise to be
+   * returned if awaiting the end of the animation.
+   *
+   * @param {object}            params - Parameters
+   *
+   * @param {string}            params.name - Saved data set name.
+   *
+   * @param {boolean}           [params.remove=false] - Remove data set.
+   *
+   * @param {Iterable<string>}  [params.properties] - Specific properties to set / animate.
+   *
+   * @param {boolean}           [params.silent] - Set position data directly; no store or style updates.
+   *
+   * @param {boolean}           [params.async=false] - If animating return a Promise that resolves with any saved data.
+   *
+   * @param {boolean}           [params.animateTo=false] - Animate to restore data.
+   *
+   * @param {number}            [params.duration=100] - Duration in milliseconds.
+   *
+   * @param {Function}          [params.easing=linear] - Easing function.
+   *
+   * @param {Function}          [params.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {PositionData} Saved position data.
+   */
+
+
+  restore({
+    name,
+    remove = false,
+    properties,
+    silent = false,
+    async = false,
+    animateTo = false,
+    duration = 100,
+    easing = identity,
+    interpolate = lerp
+  }) {
+    if (typeof name !== 'string') {
+      throw new TypeError(`Position - restore error: 'name' is not a string.`);
+    }
+
+    const dataSaved = _classPrivateFieldGet(this, _dataSaved).get(name);
+
+    if (dataSaved) {
+      if (remove) {
+        _classPrivateFieldGet(this, _dataSaved).delete(name);
+      }
+
+      let data = dataSaved;
+
+      if (isIterable(properties)) {
+        data = {};
+
+        for (const property of properties) {
+          data[property] = dataSaved[property];
+        }
+      } // Update data directly with no store or inline style updates.
+
+
+      if (silent) {
+        for (const property in data) {
+          _classPrivateFieldGet(this, _data)[property] = data[property];
+        }
+
+        return dataSaved;
+      } else if (animateTo) // Animate to saved data.
+        {
+          // Provide special handling to potentially change transform origin as this parameter is not animated.
+          if (data.transformOrigin !== this.transformOrigin) {
+            this.transformOrigin = data.transformOrigin;
+          } // Return a Promise with saved data that resolves after animation ends.
+
+
+          if (async) {
+            return this.animateTo(data, {
+              duration,
+              easing,
+              interpolate
+            }).then(() => dataSaved);
+          } else // Animate synchronously.
+            {
+              this.animateTo(data, {
+                duration,
+                easing,
+                interpolate
+              });
+            }
+        } else {
+        // Default options is to set data for an immediate update.
+        this.set(data);
+      }
+    }
+
+    return dataSaved;
+  }
+  /**
+   * Saves current position state with the opportunity to add extra data to the saved state.
+   *
+   * @param {object}   options - Options.
+   *
+   * @param {string}   options.name - name to index this saved data.
+   *
+   * @param {...*}     [options.extra] - Extra data to add to saved data.
+   *
+   * @returns {PositionData} Current position data
+   */
+
+
+  save(_ref) {
+    let {
+      name
+    } = _ref,
+        extra = _objectWithoutProperties(_ref, _excluded);
+
+    if (typeof name !== 'string') {
+      throw new TypeError(`Position - save error: 'name' is not a string.`);
+    }
+
+    const data = this.get(extra);
+
+    _classPrivateFieldGet(this, _dataSaved).set(name, data);
+
+    return data;
+  }
+  /**
+   * All calculation and updates of position are implemented in {@link Position}. This allows position to be fully
+   * reactive and in control of updating inline styles for the application.
+   *
+   * Note: the logic for updating position is improved and changes a few aspects from the default
+   * {@link Application.setPosition}. The gate on `popOut` is removed, so to ensure no positional application occurs
+   * popOut applications can set `this.options.positionable` to false ensuring no positional inline styles are
+   * applied.
+   *
+   * The initial set call on an application with a target element will always set width / height as this is
+   * necessary for correct calculations.
+   *
+   * When a target element is present updated styles are applied after validation. To modify the behavior of set
+   * implement one or more validator functions and add them from the application via
+   * `this.position.validators.add(<Function>)`.
+   *
+   * Updates to any target element are decoupled from the underlying Position data. This method returns this instance
+   * that you can then await on the target element inline style update by using {@link Position.elementUpdated}.
+   *
+   * @param {PositionData}   [position] - Position data to set.
+   *
+   * @returns {Position} This Position instance.
+   */
+
+
+  set(position = {}) {
+    var _parent$options3, _parent$options4;
+
+    if (typeof position !== 'object') {
+      throw new TypeError(`Position - set error: 'position' is not an object.`);
+    }
+
+    const parent = _classPrivateFieldGet(this, _parent); // An early out to prevent `set` from taking effect if options `positionable` is false.
+
+
+    if (parent !== void 0 && typeof (parent === null || parent === void 0 ? void 0 : (_parent$options3 = parent.options) === null || _parent$options3 === void 0 ? void 0 : _parent$options3.positionable) === 'boolean' && !(parent !== null && parent !== void 0 && (_parent$options4 = parent.options) !== null && _parent$options4 !== void 0 && _parent$options4.positionable)) {
+      return this;
+    }
+
+    const data = _classPrivateFieldGet(this, _data);
+
+    const transforms = _classPrivateFieldGet(this, _transforms);
+
+    const validators = _classPrivateFieldGet(this, _validators);
+
+    let currentTransform = '',
+        updateTransform = false;
+    const el = parent === null || parent === void 0 ? void 0 : parent.elementTarget;
+
+    if (el) {
+      var _el$style$transform;
+
+      currentTransform = (_el$style$transform = el.style.transform) !== null && _el$style$transform !== void 0 ? _el$style$transform : '';
+      position = _classPrivateMethodGet(this, _updatePosition, _updatePosition2).call(this, position, el);
+    } // If there are any validators allow them to potentially modify position data or reject the update.
+
+
+    if (validators.length) {
+      for (const validator of validators) {
+        position = validator.validator(position, parent);
+
+        if (position === null) {
+          return this;
+        }
+      }
+    }
+
+    let modified = false;
+
+    if (typeof position.left === 'number') {
+      position.left = Math.round(position.left);
+
+      if (data.left !== position.left) {
+        data.left = position.left;
+        modified = true;
+      }
+    }
+
+    if (typeof position.top === 'number') {
+      position.top = Math.round(position.top);
+
+      if (data.top !== position.top) {
+        data.top = position.top;
+        modified = true;
+      }
+    }
+
+    if (typeof position.rotateX === 'number' || position.rotateX === null) {
+      if (data.rotateX !== position.rotateX) {
+        data.rotateX = position.rotateX;
+        updateTransform = modified = true;
+
+        if (typeof position.rotateX === 'number') {
+          transforms.rotateX = `rotateX(${position.rotateX}deg)`;
+        } else {
+          delete transforms.rotateX;
+        }
+      } else if (transforms.rotateX && !currentTransform.includes('rotateX(')) {
+        updateTransform = true;
+      }
+    }
+
+    if (typeof position.rotateY === 'number' || position.rotateY === null) {
+      if (data.rotateY !== position.rotateY) {
+        data.rotateY = position.rotateY;
+        updateTransform = modified = true;
+
+        if (typeof position.rotateY === 'number') {
+          transforms.rotateY = `rotateY(${position.rotateY}deg)`;
+        } else {
+          delete transforms.rotateY;
+        }
+      } else if (transforms.rotateY && !currentTransform.includes('rotateY(')) {
+        updateTransform = true;
+      }
+    }
+
+    if (typeof position.rotateZ === 'number' || position.rotateZ === null) {
+      if (data.rotateZ !== position.rotateZ) {
+        data.rotateZ = position.rotateZ;
+        updateTransform = modified = true;
+
+        if (typeof position.rotateZ === 'number') {
+          transforms.rotateZ = `rotateZ(${position.rotateZ}deg)`;
+        } else {
+          delete transforms.rotateZ;
+        }
+      } else if (transforms.rotateZ && !currentTransform.includes('rotateZ(')) {
+        updateTransform = true;
+      }
+    }
+
+    if (typeof position.scale === 'number' || position.scale === null) {
+      position.scale = typeof position.scale === 'number' ? Math.max(0, Math.min(position.scale, 1000)) : null;
+
+      if (data.scale !== position.scale) {
+        data.scale = position.scale;
+        updateTransform = modified = true;
+
+        if (typeof position.scale === 'number') {
+          transforms.scale = `scale(${position.scale})`;
+        } else {
+          delete transforms.scale;
+        }
+      } else if (transforms.scale && !currentTransform.includes('scale(')) {
+        updateTransform = true;
+      }
+    }
+
+    if (typeof position.transformOrigin !== void 0) {
+      position.transformOrigin = s_TRANSFORM_ORIGINS.includes(position.transformOrigin) ? position.transformOrigin : s_TRANSFORM_ORIGIN_DEFAULT;
+
+      if (data.transformOrigin !== position.transformOrigin) {
+        data.transformOrigin = position.transformOrigin;
+        updateTransform = modified = true;
+      }
+    }
+
+    if (typeof position.zIndex === 'number') {
+      position.zIndex = Math.round(position.zIndex);
+
+      if (data.zIndex !== position.zIndex) {
+        data.zIndex = position.zIndex;
+        modified = true;
+      }
+    }
+
+    if (typeof position.width === 'number' || position.width === 'auto' || position.width === null) {
+      position.width = typeof position.width === 'number' ? Math.round(position.width) : position.width;
+
+      if (data.width !== position.width) {
+        data.width = position.width;
+        modified = true;
+      }
+    }
+
+    if (typeof position.height === 'number' || position.height === 'auto' || position.height === null) {
+      position.height = typeof position.height === 'number' ? Math.round(position.height) : position.height;
+
+      if (data.height !== position.height) {
+        data.height = position.height;
+        modified = true;
+      }
+    }
+
+    if (el) {
+      // Set default data after first set operation that has a target element.
+      if (typeof _classPrivateFieldGet(this, _defaultData) !== 'object') {
+        _classPrivateFieldSet(this, _defaultData, Object.assign({}, data));
+      } // Track any transform updates that are handled in `#updateElement`.
+
+
+      _classPrivateFieldSet(this, _transformUpdate, _classPrivateFieldGet(this, _transformUpdate) | updateTransform); // If there isn't already a pending update element action then initiate it.
+
+
+      if (!_classPrivateFieldGet(this, _updateElementInvoked)) {
+        _classPrivateMethodGet(this, _updateElement, _updateElement2).call(this);
+      }
+    } // Notify main store subscribers.
+
+
+    if (modified) {
+      // Subscriptions are stored locally as on the browser Babel is still used for private class fields / Babel
+      // support until 2023. IE not doing this will require several extra method calls otherwise.
+      const subscriptions = _classPrivateFieldGet(this, _subscriptions); // Early out if there are no subscribers.
+
+
+      if (subscriptions.length > 0) {
+        for (let cntr = 0; cntr < subscriptions.length; cntr++) {
+          subscriptions[cntr](position);
+        }
+      }
+    }
+
+    return this;
+  }
+  /**
+   *
+   * @param {function(PositionData): void} handler - Callback function that is invoked on update / changes. Receives
+   *                                                 a copy of the PositionData.
+   *
+   * @returns {(function(): void)} Unsubscribe function.
+   */
+
+
+  subscribe(handler) {
+    _classPrivateFieldGet(this, _subscriptions).push(handler); // add handler to the array of subscribers
+
+
+    handler(Object.assign({}, _classPrivateFieldGet(this, _data))); // call handler with current value
+    // Return unsubscribe function.
+
+    return () => {
+      const index = _classPrivateFieldGet(this, _subscriptions).findIndex(sub => sub === handler);
+
+      if (index >= 0) {
+        _classPrivateFieldGet(this, _subscriptions).splice(index, 1);
+      }
+    };
+  }
+  /**
+   * Decouples updates to any parent target HTMLElement inline styles. Invoke {@link Position.elementUpdated} to await
+   * on the returned promise that is resolved with the current render time via `nextAnimationFrame` /
+   * `requestAnimationFrame`. This allows the underlying data model to be updated immediately while updates to the
+   * element are in sync with the browser and potentially in the future be further throttled.
+   *
+   * @returns {Promise<number>} The current time before rendering.
+   */
+
+
+}
+
+async function _updateElement2() {
+  var _classPrivateFieldGet6;
+
+  _classPrivateFieldSet(this, _updateElementInvoked, true); // Await the next animation frame. In the future this can be extended to multiple frames to divide update rate.
+
+
+  const currentTime = await nextAnimationFrame();
+
+  _classPrivateFieldSet(this, _updateElementInvoked, false);
+
+  const el = (_classPrivateFieldGet6 = _classPrivateFieldGet(this, _parent)) === null || _classPrivateFieldGet6 === void 0 ? void 0 : _classPrivateFieldGet6.elementTarget;
+
+  if (!el) {
+    // Resolve any stored Promises when multiple updates have occurred.
+    if (_classPrivateFieldGet(this, _elementUpdatePromises).length) {
+      for (const resolve of _classPrivateFieldGet(this, _elementUpdatePromises)) {
+        resolve(currentTime);
+      }
+
+      _classPrivateFieldGet(this, _elementUpdatePromises).length = 0;
+    }
+
+    return currentTime;
+  }
+
+  const data = _classPrivateFieldGet(this, _data);
+
+  if (typeof data.left === 'number') {
+    el.style.left = `${data.left}px`;
+  }
+
+  if (typeof data.top === 'number') {
+    el.style.top = `${data.top}px`;
+  }
+
+  if (typeof data.zIndex === 'number' || data.zIndex === null) {
+    el.style.zIndex = typeof data.zIndex === 'number' ? `${data.zIndex}` : null;
+  }
+
+  if (typeof data.width === 'number' || data.width === 'auto' || data.width === null) {
+    el.style.width = typeof data.width === 'number' ? `${data.width}px` : data.width;
+  }
+
+  if (typeof data.height === 'number' || data.height === 'auto' || data.height === null) {
+    el.style.height = typeof data.height === 'number' ? `${data.height}px` : data.height;
+  } // Update all transforms in order added to transforms object.
+
+
+  if (_classPrivateFieldGet(this, _transformUpdate)) {
+    _classPrivateFieldSet(this, _transformUpdate, false);
+
+    let transformString = '';
+
+    const transforms = _classPrivateFieldGet(this, _transforms);
+
+    for (const key in transforms) {
+      transformString += transforms[key];
+    }
+
+    el.style.transformOrigin = data.transformOrigin;
+    el.style.transform = transformString;
+  } // Resolve any stored Promises when multiple updates have occurred.
+
+
+  if (_classPrivateFieldGet(this, _elementUpdatePromises).length) {
+    for (const resolve of _classPrivateFieldGet(this, _elementUpdatePromises)) {
+      resolve(currentTime);
+    }
+
+    _classPrivateFieldGet(this, _elementUpdatePromises).length = 0;
+  }
+
+  return currentTime;
+}
+
+function _updatePosition2(_ref2 = {}, el) {
+  let {
+    left,
+    top,
+    width,
+    height,
+    rotateX,
+    rotateY,
+    rotateZ,
+    scale,
+    transformOrigin,
+    zIndex
+  } = _ref2,
+      rest = _objectWithoutProperties(_ref2, _excluded2);
+
+  const currentPosition = this.get(rest);
+  const styles = globalThis.getComputedStyle(el); // Update width if an explicit value is passed, or if no width value is set on the element.
+
+  if (el.style.width === '' || width !== void 0) {
+    if (width === 'auto' || currentPosition.width === 'auto' && width !== null) {
+      currentPosition.width = 'auto';
+      width = el.offsetWidth;
+    } else {
+      const tarW = typeof width === 'number' ? Math.round(width) : el.offsetWidth;
+      const minW = styleParsePixels(styles.minWidth) || MIN_WINDOW_WIDTH;
+      const maxW = styleParsePixels(styles.maxWidth) || el.style.maxWidth || globalThis.innerWidth;
+      currentPosition.width = width = Math.clamped(tarW, minW, maxW);
+
+      if (width + left > globalThis.innerWidth) {
+        left = currentPosition.left;
+      }
+    }
+  } else {
+    width = el.offsetWidth;
+  } // Update height if an explicit value is passed, or if no height value is set on the element.
+
+
+  if (el.style.height === '' || height !== void 0) {
+    if (height === 'auto' || currentPosition.height === 'auto' && height !== null) {
+      currentPosition.height = 'auto';
+      height = el.offsetHeight;
+    } else {
+      const tarH = typeof height === 'number' ? Math.round(height) : el.offsetHeight + 1;
+      const minH = styleParsePixels(styles.minHeight) || MIN_WINDOW_HEIGHT;
+      const maxH = styleParsePixels(styles.maxHeight) || el.style.maxHeight || globalThis.innerHeight;
+      currentPosition.height = height = Math.clamped(tarH, minH, maxH);
+
+      if (height + currentPosition.top > globalThis.innerHeight + 1) {
+        top = currentPosition.top - 1;
+      }
+    }
+  } else {
+    height = el.offsetHeight;
+  } // Update left
+
+
+  if (el.style.left === '' || Number.isFinite(left)) {
+    const tarL = Number.isFinite(left) ? left : (globalThis.innerWidth - width) / 2;
+    const maxL = Math.max(globalThis.innerWidth - width, 0);
+    currentPosition.left = Math.round(Math.clamped(tarL, 0, maxL));
+  } // Update top
+
+
+  if (el.style.top === '' || Number.isFinite(top)) {
+    const tarT = Number.isFinite(top) ? top : (globalThis.innerHeight - height) / 2;
+    const maxT = Math.max(globalThis.innerHeight - height, 0);
+    currentPosition.top = Math.round(Math.clamped(tarT, 0, maxT));
+  } // Update rotate X/Y/Z, scale, z-index
+
+
+  if (typeof rotateX === 'number' || rotateX === null) {
+    currentPosition.rotateX = rotateX;
+  }
+
+  if (typeof rotateY === 'number' || rotateY === null) {
+    currentPosition.rotateY = rotateY;
+  }
+
+  if (typeof rotateZ === 'number' || rotateZ === null) {
+    currentPosition.rotateZ = rotateZ;
+  }
+
+  if (typeof scale === 'number' || scale === null) {
+    currentPosition.scale = typeof scale === 'number' ? Math.max(0, Math.min(scale, 1000)) : null;
+  }
+
+  if (typeof transformOrigin === 'string') {
+    currentPosition.transformOrigin = s_TRANSFORM_ORIGINS.includes(transformOrigin) ? transformOrigin : s_TRANSFORM_ORIGIN_DEFAULT;
+  }
+
+  if (typeof zIndex === 'number' || zIndex === null) {
+    currentPosition.zIndex = typeof zIndex === 'number' ? Math.round(zIndex) : zIndex;
+  } // Return the updated position object.
+
+
+  return currentPosition;
+}
+
+const s_TRANSFORM_ORIGIN_DEFAULT = 'top left';
+/**
+ * Defines the valid transform origins.
+ *
+ * @type {string[]}
+ */
+
+const s_TRANSFORM_ORIGINS = ['top left', 'top center', 'top right', 'center left', 'center', 'center right', 'bottom left', 'bottom center', 'bottom right'];
+Object.freeze(s_TRANSFORM_ORIGINS);
+
+/**
+ * Provides a Svelte aware extension to Application to control the app lifecycle appropriately. You can declaratively
+ * load one or more components from `defaultOptions`.
+ */
+
+var _applicationShellHolder = /*#__PURE__*/new WeakMap();
+
+var _applicationState = /*#__PURE__*/new WeakMap();
+
+var _elementTarget = /*#__PURE__*/new WeakMap();
+
+var _elementContent = /*#__PURE__*/new WeakMap();
+
+var _initialZIndex = /*#__PURE__*/new WeakMap();
+
+var _onMount = /*#__PURE__*/new WeakMap();
+
+var _position = /*#__PURE__*/new WeakMap();
+
+var _reactive = /*#__PURE__*/new WeakMap();
+
+var _svelteData = /*#__PURE__*/new WeakMap();
+
+var _getSvelteData = /*#__PURE__*/new WeakMap();
+
+var _stores = /*#__PURE__*/new WeakMap();
+
+var _updateApplicationShell = /*#__PURE__*/new WeakSet();
+
+class SvelteApplication extends Application {
+  /**
+   * Stores the first mounted component which follows the application shell contract.
+   *
+   * @type {MountedAppShell[]|null[]} Application shell.
+   */
+
+  /**
+   * Stores and manages application state for saving / restoring / serializing.
+   *
+   * @type {ApplicationState}
+   */
+
+  /**
+   * Stores the target element which may not necessarily be the main element.
+   *
+   * @type {HTMLElement}
+   */
+
+  /**
+   * Stores the content element which is set for application shells.
+   *
+   * @type {HTMLElement}
+   */
+
+  /**
+   * Stores initial z-index from `_renderOuter` to set to target element / Svelte component.
+   *
+   * @type {number}
+   */
+
+  /**
+   * Stores on mount state which is checked in _render to trigger onSvelteMount callback.
+   *
+   * @type {boolean}
+   */
+
+  /**
+   * The position store.
+   *
+   * @type {Position}
+   */
+
+  /**
+   * Contains the Svelte stores and reactive accessors.
+   *
+   * @type {SvelteReactive}
+   */
+
+  /**
+   * Stores SvelteData entries with instantiated Svelte components.
+   *
+   * @type {SvelteData[]}
+   */
+
+  /**
+   * Provides a helper class that combines multiple methods for interacting with the mounted components tracked in
+   * {@link SvelteData}.
+   *
+   * @type {GetSvelteData}
+   */
+
+  /**
+   * Contains methods to interact with the Svelte stores.
+   *
+   * @type {SvelteStores}
+   */
+
+  /**
+   * @inheritDoc
+   */
+  constructor(options = {}) {
+    super(options);
+
+    _classPrivateMethodInitSpec(this, _updateApplicationShell);
+
+    _classPrivateFieldInitSpec(this, _applicationShellHolder, {
+      writable: true,
+      value: [null]
+    });
+
+    _classPrivateFieldInitSpec(this, _applicationState, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _elementTarget, {
+      writable: true,
+      value: null
+    });
+
+    _classPrivateFieldInitSpec(this, _elementContent, {
+      writable: true,
+      value: null
+    });
+
+    _classPrivateFieldInitSpec(this, _initialZIndex, {
+      writable: true,
+      value: 95
+    });
+
+    _classPrivateFieldInitSpec(this, _onMount, {
+      writable: true,
+      value: false
+    });
+
+    _classPrivateFieldInitSpec(this, _position, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _reactive, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _svelteData, {
+      writable: true,
+      value: []
+    });
+
+    _classPrivateFieldInitSpec(this, _getSvelteData, {
+      writable: true,
+      value: new GetSvelteData(_classPrivateFieldGet(this, _applicationShellHolder), _classPrivateFieldGet(this, _svelteData))
+    });
+
+    _classPrivateFieldInitSpec(this, _stores, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _applicationState, new ApplicationState(this)); // Initialize Position with the position object set by Application.
+
+
+    _classPrivateFieldSet(this, _position, new Position(this, _objectSpread2(_objectSpread2({}, this.options), this.position))); // Remove old position field.
+
+
+    delete this.position;
+    /**
+     * Define accessors to retrieve Position by `this.position`.
+     *
+     * @member {PositionData} position - Adds accessors to SvelteApplication to get / set the position data.
+     *
+     * @memberof SvelteApplication#
+     */
+
+    Object.defineProperty(this, 'position', {
+      get: () => _classPrivateFieldGet(this, _position),
+      set: position => {
+        if (typeof position === 'object') {
+          _classPrivateFieldGet(this, _position).set(position);
+        }
+      }
+    });
+
+    _classPrivateFieldSet(this, _reactive, new SvelteReactive(this));
+
+    _classPrivateFieldSet(this, _stores, _classPrivateFieldGet(this, _reactive).initialize());
+  }
+  /**
+   * Specifies the default options that SvelteApplication supports.
+   *
+   * @returns {object} options - Application options.
+   * @see https://foundryvtt.com/api/Application.html#options
+   */
+
+
+  static get defaultOptions() {
+    return deepMerge(super.defaultOptions, {
+      draggable: true,
+      // If true then application shells are draggable.
+      headerButtonNoClose: false,
+      // If true then the close header button is removed.
+      headerButtonNoLabel: false,
+      // If true then header button labels are removed for application shells.
+      defaultCloseAnimation: true,
+      // If false the default slide close animation is not run.
+      positionable: true,
+      // If false then `position.set` does not take effect.
+      rotateX: null,
+      // Assigned to position.
+      rotateY: null,
+      // Assigned to position.
+      rotateZ: null,
+      // Assigned to position.
+      zIndex: null // Assigned to position.
+
+    });
+  }
+  /**
+   * Returns the content element if an application shell is mounted.
+   *
+   * @returns {HTMLElement} Content element.
+   */
+
+
+  get elementContent() {
+    return _classPrivateFieldGet(this, _elementContent);
+  }
+  /**
+   * Returns the target element or main element if no target defined.
+   *
+   * @returns {HTMLElement} Target element.
+   */
+
+
+  get elementTarget() {
+    return _classPrivateFieldGet(this, _elementTarget);
+  }
+  /**
+   * Returns the reactive accessors & Svelte stores for SvelteApplication.
+   *
+   * @returns {SvelteReactive} The reactive accessors & Svelte stores.
+   */
+
+
+  get reactive() {
+    return _classPrivateFieldGet(this, _reactive);
+  }
+  /**
+   * Returns the application state manager.
+   *
+   * @returns {ApplicationState} The application state manager.
+   */
+
+
+  get state() {
+    return _classPrivateFieldGet(this, _applicationState);
+  }
+  /**
+   * Returns the Svelte helper class w/ various methods to access mounted Svelte components.
+   *
+   * @returns {GetSvelteData} GetSvelteData
+   */
+
+
+  get svelte() {
+    return _classPrivateFieldGet(this, _getSvelteData);
+  }
+  /**
+   * In this case of when a template is defined in app options `html` references the inner HTML / template. However,
+   * to activate classic v1 tabs for a Svelte component the element target is passed as an array simulating JQuery as
+   * the element is retrieved immediately and the core listeners use standard DOM queries.
+   *
+   * @inheritDoc
+   * @protected
+   * @ignore
+   */
+
+
+  _activateCoreListeners(html) {
+    super._activateCoreListeners(typeof this.options.template === 'string' ? html : [_classPrivateFieldGet(this, _elementTarget)]);
+  }
+  /**
+   * Provide an override to set this application as the active window regardless of z-index. Changes behaviour from
+   * Foundry core. This is important / used for instance in dialog key handling for left / right button selection.
+   */
+
+
+  bringToTop() {
+    super.bringToTop();
+    ui.activeWindow = this;
+  }
+  /**
+   * Note: This method is fully overridden and duplicated as Svelte components need to be destroyed manually and the
+   * best visual result is to destroy them after the default slide up animation occurs, but before the element
+   * is removed from the DOM.
+   *
+   * If you destroy the Svelte components before the slide up animation the Svelte elements are removed immediately
+   * from the DOM. The purpose of overriding ensures the slide up animation is always completed before
+   * the Svelte components are destroyed and then the element is removed from the DOM.
+   *
+   * Close the application and un-register references to it within UI mappings.
+   * This function returns a Promise which resolves once the window closing animation concludes
+   *
+   * @param {object}   [options] - Optional parameters.
+   *
+   * @param {boolean}  [options.force] - Force close regardless of render state.
+   *
+   * @returns {Promise<void>}    A Promise which resolves once the application is closed.
+   * @ignore
+   */
+
+
+  async close(options = {}) {
+    const states = Application.RENDER_STATES;
+
+    if (!options.force && ![states.RENDERED, states.ERROR].includes(this._state)) {
+      return;
+    } // Unsubscribe from any local stores.
+
+
+    _classPrivateFieldGet(this, _stores).unsubscribe();
+    /**
+     * @ignore
+     */
+
+
+    this._state = states.CLOSING;
+    /**
+     * Get the element.
+     *
+     * @type {HTMLElement}
+     */
+
+    const el = _classPrivateFieldGet(this, _elementTarget);
+
+    if (!el) {
+      return this._state = states.CLOSED;
+    } // Make any window content overflow hidden to avoid any scrollbars appearing in default or Svelte outro
+    // transitions.
+
+
+    const content = el.querySelector('.window-content');
+
+    if (content) {
+      content.style.overflow = 'hidden';
+    } // Dispatch Hooks for closing the base and subclass applications
+
+
+    for (const cls of this.constructor._getInheritanceChain()) {
+      /**
+       * A hook event that fires whenever this Application is closed.
+       *
+       * @param {Application} app                     The Application instance being closed
+       *
+       * @param {jQuery[]} html                       The application HTML when it is closed
+       *
+       * @function closeApplication
+       *
+       * @memberof hookEvents
+       */
+      Hooks.call(`close${cls.name}`, this, el);
+    } // If options `defaultCloseAnimation` is false then do not execute the standard slide up animation.
+    // This allows Svelte components to provide any out transition. Application shells will automatically set
+    // `defaultCloseAnimation` based on any out transition set or unset.
+
+
+    const animate = typeof this.options.defaultCloseAnimation === 'boolean' ? this.options.defaultCloseAnimation : true;
+
+    if (animate) {
+      // Set min height for full slide.
+      el.style.minHeight = '0';
+      const {
+        paddingBottom,
+        paddingTop
+      } = globalThis.getComputedStyle(el); // Slide-up application.
+
+      await el.animate([{
+        maxHeight: `${el.clientHeight}px`,
+        paddingTop,
+        paddingBottom
+      }, {
+        maxHeight: 0,
+        paddingTop: 0,
+        paddingBottom: 0
+      }], {
+        duration: 250,
+        easing: 'ease-in',
+        fill: 'forwards'
+      }).finished;
+    } // Stores the Promises returned from running outro transitions and destroying each Svelte component.
+
+
+    const svelteDestroyPromises = []; // Manually invoke the destroy callbacks for all Svelte components.
+
+    for (const entry of _classPrivateFieldGet(this, _svelteData)) {
+      // Use `outroAndDestroy` to run outro transitions before destroying.
+      svelteDestroyPromises.push(outroAndDestroy(entry.component)); // If any proxy eventbus has been added then remove all event registrations from the component.
+
+      const eventbus = entry.config.eventbus;
+
+      if (typeof eventbus === 'object' && typeof eventbus.off === 'function') {
+        eventbus.off();
+        entry.config.eventbus = void 0;
+      }
+    } // Await all Svelte components to destroy.
+
+
+    await Promise.all(svelteDestroyPromises); // Reset SvelteData like this to maintain reference to GetSvelteData / `this.svelte`.
+
+    _classPrivateFieldGet(this, _svelteData).length = 0; // Remove element from the DOM. Most SvelteComponents have already removed it.
+
+    el.remove(); // Silently restore any width / height state before minimized as applicable.
+
+    this.position.restore({
+      name: '#beforeMinimized',
+      properties: ['width', 'height'],
+      silent: true,
+      remove: true
+    }); // Clean up data
+
+    _classPrivateFieldGet(this, _applicationShellHolder)[0] = null;
+    /**
+     * @ignore
+     */
+
+    this._element = null;
+
+    _classPrivateFieldSet(this, _elementContent, null);
+
+    _classPrivateFieldSet(this, _elementTarget, null);
+
+    delete ui.windows[this.appId];
+    /**
+     * @ignore
+     */
+
+    this._minimized = false;
+    /**
+     * @ignore
+     */
+
+    this._scrollPositions = null;
+    this._state = states.CLOSED;
+
+    _classPrivateFieldSet(this, _onMount, false); // Update the minimized UI store options.
+
+
+    _classPrivateFieldGet(this, _stores).uiOptionsUpdate(storeOptions => deepMerge(storeOptions, {
+      minimized: this._minimized
+    }));
+  }
+  /**
+   * Inject the Svelte components defined in `this.options.svelte`. The Svelte component can attach to the existing
+   * pop-out of Application or provide no template and render into a document fragment which is then attached to the
+   * DOM.
+   *
+   * @param {JQuery} html -
+   *
+   * @inheritDoc
+   * @ignore
+   */
+
+
+  _injectHTML(html) {
+    if (this.popOut && html.length === 0 && Array.isArray(this.options.svelte)) {
+      throw new Error('SvelteApplication - _injectHTML - A popout app with no template can only support one Svelte component.');
+    } // Make sure the store is updated with the latest header buttons. Also allows filtering buttons before display.
+
+
+    this.reactive.updateHeaderButtons(); // Create a function to generate a callback for Svelte components to invoke to update the tracked elements for
+    // application shells in the rare cases that the main element root changes. The update is only trigged on
+    // successive changes of `elementRoot`. Returns a boolean to indicate the element roots are updated.
+
+    const elementRootUpdate = () => {
+      let cntr = 0;
+      return elementRoot => {
+        if (elementRoot !== null && elementRoot !== void 0 && cntr++ > 0) {
+          _classPrivateMethodGet(this, _updateApplicationShell, _updateApplicationShell2).call(this);
+
+          return true;
+        }
+
+        return false;
+      };
+    };
+
+    if (Array.isArray(this.options.svelte)) {
+      for (const svelteConfig of this.options.svelte) {
+        const svelteData = loadSvelteConfig(this, html, svelteConfig, elementRootUpdate);
+
+        if (isApplicationShell(svelteData.component)) {
+          if (this.svelte.applicationShell !== null) {
+            throw new Error(`SvelteApplication - _injectHTML - An application shell is already mounted; offending config:
+                    ${JSON.stringify(svelteConfig)}`);
+          }
+
+          _classPrivateFieldGet(this, _applicationShellHolder)[0] = svelteData.component;
+        }
+
+        _classPrivateFieldGet(this, _svelteData).push(svelteData);
+      }
+    } else if (typeof this.options.svelte === 'object') {
+      const svelteData = loadSvelteConfig(this, html, this.options.svelte, elementRootUpdate);
+
+      if (isApplicationShell(svelteData.component)) {
+        // A sanity check as shouldn't hit this case as only one component is being mounted.
+        if (this.svelte.applicationShell !== null) {
+          throw new Error(`SvelteApplication - _injectHTML - An application shell is already mounted; offending config:
+                 ${JSON.stringify(this.options.svelte)}`);
+        }
+
+        _classPrivateFieldGet(this, _applicationShellHolder)[0] = svelteData.component;
+      }
+
+      _classPrivateFieldGet(this, _svelteData).push(svelteData);
+    } // Detect if this is a synthesized DocumentFragment.
+
+
+    const isDocumentFragment = html.length && html[0] instanceof DocumentFragment; // If any of the Svelte components mounted directly targets an HTMLElement then do not inject HTML.
+
+    let injectHTML = true;
+
+    for (const svelteData of _classPrivateFieldGet(this, _svelteData)) {
+      if (!svelteData.injectHTML) {
+        injectHTML = false;
+        break;
+      }
+    }
+
+    if (injectHTML) {
+      super._injectHTML(html);
+    }
+
+    if (this.svelte.applicationShell !== null) {
+      this._element = $(this.svelte.applicationShell.elementRoot); // Detect if the application shell exports an `elementContent` accessor.
+
+      _classPrivateFieldSet(this, _elementContent, hasGetter(this.svelte.applicationShell, 'elementContent') ? this.svelte.applicationShell.elementContent : null); // Detect if the application shell exports an `elementTarget` accessor.
+
+
+      _classPrivateFieldSet(this, _elementTarget, hasGetter(this.svelte.applicationShell, 'elementTarget') ? this.svelte.applicationShell.elementTarget : null);
+    } else if (isDocumentFragment) // Set the element of the app to the first child element in order of Svelte components mounted.
+      {
+        for (const svelteData of _classPrivateFieldGet(this, _svelteData)) {
+          if (svelteData.element instanceof HTMLElement) {
+            this._element = $(svelteData.element);
+            break;
+          }
+        }
+      } // Potentially retrieve a specific target element if `selectorTarget` is defined otherwise make the target the
+    // main element.
+
+
+    if (_classPrivateFieldGet(this, _elementTarget) === null) {
+      const element = typeof this.options.selectorTarget === 'string' ? this._element.find(this.options.selectorTarget) : this._element;
+
+      _classPrivateFieldSet(this, _elementTarget, element[0]);
+    } // TODO VERIFY THIS CHECK ESPECIALLY `this.#elementTarget.length === 0`.
+
+
+    if (_classPrivateFieldGet(this, _elementTarget) === null || _classPrivateFieldGet(this, _elementTarget) === void 0 || _classPrivateFieldGet(this, _elementTarget).length === 0) {
+      throw new Error(`SvelteApplication - _injectHTML: Target element '${this.options.selectorTarget}' not found.`);
+    } // The initial zIndex may be set in application options or for popOut applications is stored by `_renderOuter`
+    // in `this.#initialZIndex`.
+
+
+    if (typeof this.options.positionable === 'boolean' && this.options.positionable) {
+      var _classPrivateFieldGet2;
+
+      _classPrivateFieldGet(this, _elementTarget).style.zIndex = typeof this.options.zIndex === 'number' ? this.options.zIndex : (_classPrivateFieldGet2 = _classPrivateFieldGet(this, _initialZIndex)) !== null && _classPrivateFieldGet2 !== void 0 ? _classPrivateFieldGet2 : 95;
+    } // Subscribe to local store handling.
+
+
+    _classPrivateFieldGet(this, _stores).subscribe();
+  }
+  /**
+   * Provides a mechanism to update the UI options store for maximized.
+   *
+   * Note: the sanity check is duplicated from {@link Application.maximize} the store is updated _before_
+   * performing the rest of animations. This allows application shells to remove / show any resize handlers
+   * correctly. Extra constraint data is stored in a saved position state in {@link SvelteApplication.minimize}
+   * to animate the content area.
+   *
+   * @param {object} [opts] - Optional parameters.
+   *
+   * @param {boolean}  [opts.animate=true] - When true perform default maximizing animation.
+   *
+   * @param {boolean}  [opts.duration=100] - Controls content area animation duration.
+   */
+
+
+  async maximize({
+    animate = true,
+    duration = 100
+  } = {}) {
+    if (!this.popOut || [false, null].includes(this._minimized)) {
+      return;
+    }
+
+    _classPrivateFieldGet(this, _stores).uiOptionsUpdate(options => deepMerge(options, {
+      minimized: false
+    }));
+
+    this._minimized = null; // Get content
+
+    const element = this.elementTarget;
+    const header = element.querySelector('.window-header');
+    const content = element.querySelector('.window-content'); // First animate / restore width / async.
+
+    if (animate) {
+      await this.position.restore({
+        name: '#beforeMinimized',
+        async: true,
+        animateTo: true,
+        properties: ['width']
+      });
+    } // Reset display none on all children of header.
+
+
+    for (let cntr = header.children.length; --cntr >= 0;) {
+      header.children[cntr].style.display = null;
+    }
+
+    content.style.display = null;
+    let constraints;
+
+    if (animate) {
+      // Next animate / restore height synchronously and remove key. Retrieve constraints data for slide up animation
+      // below.
+      ({
+        constraints
+      } = this.position.restore({
+        name: '#beforeMinimized',
+        animateTo: true,
+        properties: ['height'],
+        remove: true,
+        duration: 100
+      }));
+    } else {
+      ({
+        constraints
+      } = this.position.remove({
+        name: '#beforeMinimized'
+      }));
+    } // Slide down content with stored constraints.
+
+
+    await content.animate([{
+      maxHeight: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+      offset: 0
+    }, _objectSpread2(_objectSpread2({}, constraints), {}, {
+      offset: 1
+    }), {
+      maxHeight: '100%',
+      offset: 1
+    }], {
+      duration,
+      fill: 'forwards'
+    }).finished;
+    element.classList.remove('minimized');
+    this._minimized = false;
+    element.style.minWidth = null;
+    element.style.minHeight = null; // Using a 30ms timeout prevents any instantaneous display of scrollbars with the above maximize animation.
+
+    setTimeout(() => content.style.overflow = null, 30);
+  }
+  /**
+   * Provides a mechanism to update the UI options store for minimized.
+   *
+   * Note: the sanity check is duplicated from {@link Application.minimize} the store is updated _before_
+   * performing the rest of animations. This allows application shells to remove / show any resize handlers
+   * correctly. Extra constraint data is stored in a saved position state in {@link SvelteApplication.minimize}
+   * to animate the content area.
+   *
+   * @param {object} [opts] - Optional parameters
+   *
+   * @param {boolean}  [opts.animate=true] - When true perform default minimizing animation.
+   *
+   * @param {boolean}  [opts.duration=100] - Controls content area animation duration.
+   */
+
+
+  async minimize({
+    animate = true,
+    duration = 100
+  } = {}) {
+    if (!this.rendered || !this.popOut || [true, null].includes(this._minimized)) {
+      return;
+    }
+
+    _classPrivateFieldGet(this, _stores).uiOptionsUpdate(options => deepMerge(options, {
+      minimized: true
+    }));
+
+    this._minimized = null;
+    const element = this.elementTarget; // Get content
+
+    const header = element.querySelector('.window-header');
+    const content = element.querySelector('.window-content'); // Remove minimum width and height styling rules
+
+    element.style.minWidth = '100px';
+    element.style.minHeight = '30px';
+    content.style.overflow = 'hidden';
+    const {
+      paddingBottom,
+      paddingTop
+    } = globalThis.getComputedStyle(content); // Extra data that is saved with the current position. Used during `maximize`.
+
+    const constraints = {
+      maxHeight: `${content.clientHeight}px`,
+      paddingTop,
+      paddingBottom
+    }; // Slide-up content
+
+    if (animate) {
+      const animation = content.animate([constraints, {
+        maxHeight: 0,
+        paddingTop: 0,
+        paddingBottom: 0
+      }], {
+        duration,
+        fill: 'forwards'
+      }); // Set display style to none when animation finishes.
+
+      animation.finished.then(() => content.style.display = 'none');
+    } else {
+      setTimeout(() => content.style.display = 'none', duration);
+    } // Save current position state and add the constraint data to use in `maximize`.
+
+
+    this.position.save({
+      name: '#beforeMinimized',
+      constraints
+    });
+
+    if (animate) {
+      // First await animation of height upward.
+      await this.position.animateTo({
+        height: header.offsetHeight
+      }, {
+        duration: 100
+      });
+    } // Set all header buttons besides close and the window title to display none.
+
+
+    for (let cntr = header.children.length; --cntr >= 0;) {
+      const className = header.children[cntr].className;
+
+      if (className.includes('window-title') || className.includes('close')) {
+        continue;
+      }
+
+      header.children[cntr].style.display = 'none';
+    }
+
+    if (animate) {
+      // Await animation of width to the left / minimum width.
+      await this.position.animateTo({
+        width: MIN_WINDOW_WIDTH
+      }, {
+        duration: 100
+      });
+    }
+
+    element.classList.add('minimized');
+    this._minimized = true;
+  }
+  /**
+   * Provides a callback after all Svelte components are initialized.
+   *
+   * @param {object}      [opts] - Optional parameters.
+   *
+   * @param {HTMLElement} [opts.element] - HTMLElement container for main application element.
+   *
+   * @param {HTMLElement} [opts.elementContent] - HTMLElement container for content area of application shells.
+   *
+   * @param {HTMLElement} [opts.elementTarget] - HTMLElement container for main application target element.
+   */
+
+
+  onSvelteMount({
+    element,
+    elementContent,
+    elementTarget
+  }) {} // eslint-disable-line no-unused-vars
+
+  /**
+   * Override replacing HTML as Svelte components control the rendering process. Only potentially change the outer
+   * application frame / title for pop-out applications.
+   *
+   * @inheritDoc
+   * @ignore
+   */
+
+
+  _replaceHTML(element, html) // eslint-disable-line no-unused-vars
+  {
+    if (!element.length) {
+      return;
+    }
+
+    this.reactive.updateHeaderButtons();
+  }
+  /**
+   * Provides an override verifying that a new Application being rendered for the first time doesn't have a
+   * corresponding DOM element already loaded. This is a check that only occurs when `this._state` is
+   * `Application.RENDER_STATES.NONE`. It is useful in particular when SvelteApplication has a static ID
+   * explicitly set in `this.options.id` and long intro / outro transitions are assigned. If a new application
+   * sharing this static ID attempts to open / render for the first time while an existing DOM element sharing
+   * this static ID exists then the initial render is cancelled below rather than crashing later in the render
+   * cycle {@link Position.set}.
+   *
+   * @inheritDoc
+   * @protected
+   * @ignore
+   */
+
+
+  async _render(force = false, options = {}) {
+    if (this._state === Application.RENDER_STATES.NONE && document.querySelector(`#${this.id}`) instanceof HTMLElement) {
+      console.warn(`SvelteApplication - _render: A DOM element already exists for CSS ID '${this.id}'. Cancelling initial render for new application with appId '${this.appId}'.`);
+      return;
+    }
+
+    await super._render(force, options);
+
+    if (!_classPrivateFieldGet(this, _onMount)) {
+      this.onSvelteMount({
+        element: this._element[0],
+        elementContent: _classPrivateFieldGet(this, _elementContent),
+        elementTarget: _classPrivateFieldGet(this, _elementTarget)
+      });
+
+      _classPrivateFieldSet(this, _onMount, true);
+    }
+  }
+  /**
+   * Render the inner application content. Only render a template if one is defined otherwise provide an empty
+   * JQuery element per the core Foundry API.
+   *
+   * @param {Object} data         The data used to render the inner template
+   *
+   * @returns {Promise.<JQuery>}   A promise resolving to the constructed jQuery object
+   *
+   * @protected
+   * @ignore
+   */
+
+
+  async _renderInner(data) {
+    const html = typeof this.template === 'string' ? await renderTemplate(this.template, data) : document.createDocumentFragment();
+    return $(html);
+  }
+  /**
+   * Stores the initial z-index set in `_renderOuter` which is used in `_injectHTML` to set the target element
+   * z-index after the Svelte component is mounted.
+   *
+   * @returns {Promise<JQuery>} Outer frame / unused.
+   * @protected
+   * @ignore
+   */
+
+
+  async _renderOuter() {
+    const html = await super._renderOuter();
+
+    _classPrivateFieldSet(this, _initialZIndex, html[0].style.zIndex);
+
+    return html;
+  }
+  /**
+   * All calculation and updates of position are implemented in {@link Position.set}. This allows position to be fully
+   * reactive and in control of updating inline styles for the application.
+   *
+   * This method remains for backward compatibility with Foundry. If you have a custom override quite likely you need
+   * to update to using the {@link Position.validators} functionality.
+   *
+   * @param {PositionData}   [position] - Position data.
+   *
+   * @returns {PositionData} The updated position object for the application containing the new values
+   */
+
+
+  setPosition(position) {
+    return this.position.set(position);
+  }
+  /**
+   * This method is only invoked by the `elementRootUpdate` callback that is added to the external context passed to
+   * Svelte components. When invoked it updates the local element roots tracked by SvelteApplication.
+   */
+
+
+}
+/**
+ * @typedef {object} SvelteData
+ *
+ * @property {object}                           config -
+ *
+ * @property {import('svelte').SvelteComponent} component -
+ *
+ * @property {HTMLElement}                      element -
+ *
+ * @property {boolean}                          injectHTML -
+ */
+
+/**
+ * @typedef {object} SvelteStores
+ *
+ * @property {import('svelte/store').Writable.update} appOptionsUpdate - Update function for app options store.
+ *
+ * @property {Function} subscribe - Subscribes to local stores.
+ *
+ * @property {import('svelte/store').Writable.update} uiOptionsUpdate - Update function for UI options store.
+ *
+ * @property {Function} unsubscribe - Unsubscribes from local stores.
+ */
+
+function _updateApplicationShell2() {
+  const applicationShell = this.svelte.applicationShell;
+
+  if (applicationShell !== null) {
+    this._element = $(applicationShell.elementRoot); // Detect if the application shell exports an `elementContent` accessor.
+
+    _classPrivateFieldSet(this, _elementContent, hasGetter(applicationShell, 'elementContent') ? applicationShell.elementContent : null); // Detect if the application shell exports an `elementTarget` accessor.
+
+
+    _classPrivateFieldSet(this, _elementTarget, hasGetter(applicationShell, 'elementTarget') ? applicationShell.elementTarget : null);
+
+    if (_classPrivateFieldGet(this, _elementTarget) === null) {
+      const element = typeof this.options.selectorTarget === 'string' ? this._element.find(this.options.selectorTarget) : this._element;
+
+      _classPrivateFieldSet(this, _elementTarget, element[0]);
+    } // The initial zIndex may be set in application options or for popOut applications is stored by `_renderOuter`
+    // in `this.#initialZIndex`.
+
+
+    if (typeof this.options.positionable === 'boolean' && this.options.positionable) {
+      var _classPrivateFieldGet3;
+
+      _classPrivateFieldGet(this, _elementTarget).style.zIndex = typeof this.options.zIndex === 'number' ? this.options.zIndex : (_classPrivateFieldGet3 = _classPrivateFieldGet(this, _initialZIndex)) !== null && _classPrivateFieldGet3 !== void 0 ? _classPrivateFieldGet3 : 95;
+
+      _get(_getPrototypeOf(SvelteApplication.prototype), "bringToTop", this).call(this); // Ensure that new root element has inline position styles set.
+
+
+      this.position.set(this.position.get());
+    }
+
+    _get(_getPrototypeOf(SvelteApplication.prototype), "_activateCoreListeners", this).call(this, [_classPrivateFieldGet(this, _elementTarget)]);
+
+    this.onSvelteMount({
+      element: this._element[0],
+      elementContent: _classPrivateFieldGet(this, _elementContent),
+      elementTarget: _classPrivateFieldGet(this, _elementTarget)
+    });
+  }
+}
+
+/**
+ * Defines the application shell contract. If Svelte components export getter / setters for the following properties
+ * then that component is considered an application shell.
+ *
+ * @type {string[]}
+ */
+
+
+const applicationShellContract = ['elementRoot'];
+Object.freeze(applicationShellContract);
+
+class AAItemMenu extends SvelteApplication {
+  constructor(item, options = {}, dialogData = {}) {
+    super(_objectSpread2({
+      title: "New Item Menu",
+      zIndex: 102,
+      svelte: {
+        class: itemMenuAppShell,
+        target: document.body,
+        props: {
+          item
+        }
+      },
+      close: () => this.options.reject()
+    }, options), dialogData);
+  }
+
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      closeOnSubmit: false,
+      width: 350,
+      height: "auto",
+      classes: ["dnd5e dialog"]
+    });
+  }
+
+  async close(options) {
+    super.close(options);
+    Hooks.off('updateItem', this.hookId);
+  }
+
 }
 
 class aaAutoRecognition extends FormApplication {
@@ -21235,1223 +25996,6 @@ class aaAutorec {
 }
 new aaAutorec();
 
-Hooks.once('socketlib.ready', function () {
-  setupSocket();
-});
-var killAllAnimations$1;
-function disableAnimations$1() {
-  socket.off('module.sequencer');
-  killAllAnimations$1 = true;
-}
-Hooks.on('init', () => {
-  Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
-    return arg1 == arg2 ? options.fn(this) : options.inverse(this);
-  });
-  Handlebars.registerHelper('ifnoteq', function (a, b, options) {
-    if (a != b) {
-      return options.fn(this);
-    }
-
-    return options.inverse(this);
-  });
-  Handlebars.registerHelper('matchOverhead', function (autoObj, options) {
-    if (autoObj.persist && (autoObj.menuType === 'circle' || autoObj.menuType === 'square')) {
-      return options.fn(this);
-    }
-
-    return options.inverse(this);
-  });
-  Handlebars.registerHelper('sequencerOnly', function (autoObj, options) {
-    if (autoObj.persist && (autoObj.menuType === 'ray' || autoObj.menuType === 'cone')) {
-      return options.fn(this);
-    }
-
-    return options.inverse(this);
-  });
-  Handlebars.registerHelper('isAeSupported', function (options) {
-    let supportedSystems = ['dnd5e', 'pf2e', 'pf1'];
-
-    if (supportedSystems.includes(game.system.id)) {
-      return options.fn(this);
-    }
-
-    return options.inverse(this);
-  });
-  loadTemplates(['modules/autoanimations/src/custom-recognition/settings.html', 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-melee-autorec.html', 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-ranged-autorec.html', 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-static-autorec.html', 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-templates-autorec.html', 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-auras-autorec.html', 'modules/autoanimations/src/custom-recognition/autorec-templates/aa-presets-autorec.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animations.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/pre-postfx.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-melee.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ranged.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ontoken.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-templates.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-auras.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-presets.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-autoOverride.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/levels3d.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html', 'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html', 'modules/autoanimations/src/active-effects/aeMenus/ae-animations.html', 'modules/autoanimations/src/active-effects/aeMenus/ae-autorecMenu.html', 'modules/autoanimations/src/custom-recognition/import-data.html']);
-}); // sets the A-A button on the Item Sheet title bar
-
-Hooks.on(`renderItemSheet`, async (app, html, data) => {
-  if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
-    return;
-  }
-
-  const pf2eRuleTypes = ['condition', 'effect'];
-  const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-  aaBtn.click(async ev => {
-    var _app$item, _app$item2;
-
-    await flagMigrations.handle(app.document); // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) spawn the Active Effect menu. Otherwise continue as normal
-
-    if (game.system.id === 'pf1' && ((_app$item = app.item) === null || _app$item === void 0 ? void 0 : _app$item.type) === 'buff' || game.system.id === 'pf2e' && pf2eRuleTypes.includes((_app$item2 = app.item) === null || _app$item2 === void 0 ? void 0 : _app$item2.type)) {
-      new AAActiveEffectMenu(app.document, {}).render(true);
-    } else {
-      new AAItemSettings(app.document, {}).render(true);
-    }
-  });
-  html.closest('.app').find('.aa-item-settings').remove();
-  let titleElement = html.closest('.app').find('.window-title');
-  aaBtn.insertAfter(titleElement);
-});
-Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
-  if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
-    return;
-  }
-
-  const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-  aaBtn.click(async ev => {
-    await flagMigrations.handle(app.document);
-    new AAActiveEffectMenu(app.document, {}).render(true);
-  });
-  html.closest('.app').find('.aa-item-settings').remove();
-  let titleElement = html.closest('.app').find('.window-title');
-  aaBtn.insertAfter(titleElement);
-}); // Registers Database with Sequencer
-
-Hooks.on("aa.ready", () => {
-  let obj01 = moduleIncludes$1("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-  Sequencer.Database.registerEntries("autoanimations", obj01, true);
-
-  if (game.settings.get("autoanimations", "killAllAnim") === "off") {
-    console.log("ANIMATIONS ARE OFF");
-    socket.off('module.sequencer'); //
-
-    killAllAnimations$1 = true;
-  }
-});
-Hooks.once('ready', async function () {
-  var _game$modules$get;
-
-  aaSettings();
-  const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
-  const jb2aPatreonFound = moduleIncludes$1("jb2a_patreon"); //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");
-
-  let jb2aPath = game.settings.get('autoanimations', 'jb2aLocation');
-  let s3Patreon;
-
-  if (!jb2aPath || jb2aPath === "null") {
-    if (jb2aPatreonFound) {
-      jb2aPath = 'modules/jb2a_patreon';
-    } else {
-      jb2aPath = 'modules/JB2A_DnD5e';
-    }
-  } else {
-    if (jb2aPath.includes('patreon')) {
-      s3Patreon = true;
-    }
-  }
-  /*
-  if (moduleIncludes("jb2a_patreon")) {
-      await jb2aAAPatreonDatabase(jb2aPath)
-  } else {
-      await jb2aAAFreeDatabase(jb2aPath)
-  }
-  */
-
-
-  let obj01;
-
-  if (jb2aPatreonFound || s3Patreon) {
-    await jb2aAAPatreonDatabase(jb2aPath);
-    obj01 = JB2APATREONDB;
-  } else {
-    await jb2aAAFreeDatabase(jb2aPath);
-    obj01 = JB2AFREEDB;
-  }
-
-  if (game.user.isGM && !game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon")) {
-    if (s3Check && (s3Check.includes('jb2a_patreon') || s3Check.includes('JB2A_DnD5e'))) ; else {
-      ui.notifications.error(game.i18n.format("AUTOANIM.error"));
-    }
-  }
-
-  autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'));
-
-  if ((_game$modules$get = game.modules.get("midi-qol")) !== null && _game$modules$get !== void 0 && _game$modules$get.active) {
-
-    switch (game.settings.get("autoanimations", "playonDamage")) {
-      case true:
-        Hooks.on("midi-qol.DamageRollComplete", workflow => {
-          setUpMidi$1(workflow);
-        }); //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
-
-        Hooks.on("createChatMessage", msg => {
-          midiTemplateAnimations$1(msg);
-        });
-        Hooks.on("midi-qol.RollComplete", workflow => {
-          setUpMidiNoAttackDamage$1(workflow);
-        });
-        break;
-
-      case false:
-        Hooks.on("midi-qol.AttackRollComplete", workflow => {
-          setUpMidi$1(workflow);
-        });
-        Hooks.on("midi-qol.RollComplete", workflow => {
-          setUpMidiNoAttack$1(workflow);
-        }); //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
-
-        Hooks.on("createChatMessage", msg => {
-          midiTemplateAnimations$1(msg);
-        });
-        break;
-    }
-
-    if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
-      Hooks.on("midi-qol.AttackRollComplete", workflow => {
-        criticalCheck$1(workflow);
-      });
-    }
-  } else {
-    switch (game.system.id) {
-      case "alienrpg":
-        Hooks.on("createChatMessage", async msg => {
-          setupAlienRPG$1(msg);
-        });
-        break;
-
-      case "pf1":
-      case "D35E":
-        Hooks.on("createChatMessage", async msg => {
-          onCreateChatMessage$1(msg);
-        });
-        break;
-
-      case "dnd5e":
-      case "sw5e":
-        Hooks.on("createChatMessage", async msg => {
-          setUp5eCore$1(msg);
-        });
-        break;
-
-      case "tormenta20":
-        Hooks.on("createChatMessage", async msg => {
-          setupTormenta20$1(msg);
-        });
-        break;
-
-      case "demonlord":
-        Hooks.on("DL.Action", async data => {
-          setupDemonLord$1(data);
-        });
-        break;
-
-      case "pf2e":
-        Hooks.on("createChatMessage", async msg => {
-          pf2eReady$1(msg);
-        });
-        break;
-
-      case "forbidden-lands":
-        Hooks.on("createChatMessage", async msg => {
-          fblReady$1(msg);
-        });
-        break;
-
-      case "sfrpg":
-        Hooks.on("createChatMessage", async msg => {
-          var _sourceToken$actor, _sourceToken$actor$it;
-
-          function extractItemId(content) {
-            try {
-              return $(content).attr("data-item-id");
-            } catch (exception) {
-              return null;
-            }
-          }
-
-          const itemId = extractItemId(msg.data.content);
-
-          if (!itemId) {
-            return;
-          }
-
-          const tokenId = msg.data.speaker.token;
-          const sourceToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => {
-            var _token$actor, _token$actor$items;
-
-            return (_token$actor = token.actor) === null || _token$actor === void 0 ? void 0 : (_token$actor$items = _token$actor.items) === null || _token$actor$items === void 0 ? void 0 : _token$actor$items.get(itemId);
-          });
-
-          if (!sourceToken) {
-            return;
-          }
-
-          const item = (_sourceToken$actor = sourceToken.actor) === null || _sourceToken$actor === void 0 ? void 0 : (_sourceToken$actor$it = _sourceToken$actor.items) === null || _sourceToken$actor$it === void 0 ? void 0 : _sourceToken$actor$it.get(itemId);
-
-          if (!item.hasAttack && !item.hasDamage) {
-            let data = {};
-            starFinder$1(data, msg);
-          }
-        });
-
-        if (game.settings.get("autoanimations", "playonDamage")) {
-          Hooks.on("damageRolled", async data => {
-            Hooks.once("createChatMessage", async msg => {
-              if (msg.user.id !== game.user.id) {
-                return;
-              }
-              starFinder$1(data, msg);
-            });
-          });
-        } else {
-          Hooks.on("attackRolled", async data => {
-            Hooks.once("createChatMessage", async msg => {
-              if (msg.user.id !== game.user.id) {
-                return;
-              }
-              starFinder$1(data, msg);
-            });
-          });
-          Hooks.on("damageRolled", async data => {
-            Hooks.once("createChatMessage", async msg => {
-              if (msg.user.id !== game.user.id) {
-                return;
-              }
-
-              if (data.item.hasAttack) {
-                return;
-              } else {
-                starFinder$1(data, msg);
-              }
-            });
-          });
-        }
-
-        break;
-
-      case "starwarsffg":
-        Hooks.on("createChatMessage", async msg => {
-          swffgReady$1(msg);
-        });
-        break;
-
-      case "swade":
-        Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => {
-          const controlledTokens = canvas.tokens.controlled;
-          let token;
-
-          if (controlledTokens.length > 0) {
-            token = controlledTokens.find(token => token.data.actorId === SwadeTokenOrActor.id);
-          }
-
-          if (token) {
-            SwadeTokenOrActor = token;
-          }
-
-          swadeData$1(SwadeTokenOrActor, SwadeItem);
-        });
-        Hooks.on("BRSW-RollItem", async (data, html) => {
-          var tokenId = data.getFlag("betterrolls-swade2", "token");
-
-          if (tokenId) {
-            var token = canvas.tokens.get(tokenId);
-            var itemId = data.getFlag("betterrolls-swade2", "item_id");
-            var item = token.actor.items.get(itemId);
-            swadeData$1(token, item);
-          } else {
-            var actorId = data.getFlag("betterrolls-swade2", "actor");
-            var actor = game.actors.get(actorId);
-            var itemId = data.getFlag("betterrolls-swade2", "item_id");
-            var item = actor.items.get(itemId);
-            swadeData$1(actor, item);
-          }
-        });
-        break;
-
-      case "wfrp4e":
-        Hooks.on("wfrp4e:rollWeaponTest", async (data, info) => {
-          //let targets = game.user.targets;
-          wfrpWeapon$1(data, info);
-        });
-        Hooks.on("wfrp4e:rollPrayerTest", async (data, info) => {
-          //let targets = game.user.targets;
-          wfrpPrayer$1(data, info);
-        });
-        Hooks.on("wfrp4e:rollCastTest", async (data, info) => {
-          //let targets = game.user.targets;
-          wfrpCast$1(data, info);
-        });
-        Hooks.on("wfrp4e:rollTraitTest", async (data, info) => {
-          //let targets = game.user.targets;
-          wfrpTrait$1(data, info);
-        });
-        /*
-        Hooks.on("wfrp4e:rollTest", async (data, info) => {
-            let targets = game.user.targets;
-            wfrpSkill(data, targets, info)
-        });
-        */
-
-        break;
-
-      case 'ose':
-        Hooks.on("createChatMessage", async msg => {
-          oseReady$1(msg);
-        });
-        break;
-
-      case 'dcc':
-        Hooks.on("createChatMessage", async msg => {
-          dccReady$1(msg);
-        });
-        break;
-    }
-  } //Active Effect Hooks
-
-
-  switch (game.system.id) {
-    case "dnd5e":
-      Hooks.on("createActiveEffect", (effect, data, userId) => {
-        if (game.settings.get("autoanimations", "disableAEAnimations")) {
-          console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
-          return;
-        }
-
-        if (game.user.id !== userId) {
-          return;
-        }
-
-        createActiveEffects5e(effect);
-      });
-      Hooks.on("deleteActiveEffect", (effect, data, userId) => {
-        var _game$modules$get2;
-
-        if (game.user.id !== userId) {
-          return;
-        }
-
-        deleteActiveEffects5e(effect);
-
-        if ((_game$modules$get2 = game.modules.get('midi-qol')) !== null && _game$modules$get2 !== void 0 && _game$modules$get2.active) {
-          checkConcentration(effect);
-        }
-      });
-      Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
-        if (game.settings.get("autoanimations", "disableAEAnimations")) {
-          console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
-          return;
-        }
-
-        if (game.user.id !== userId) {
-          return;
-        }
-
-        toggleActiveEffects5e(data, toggle);
-      }); //}
-
-      break;
-
-    case 'pf2e':
-      Hooks.on("createItem", (item, data, userId) => {
-        if (game.user.id !== userId) {
-          return;
-        }
-
-        createActiveEffectsPF2e(item);
-      });
-      Hooks.on("deleteItem", (item, data, userId) => {
-        if (game.user.id !== userId) {
-          return;
-        }
-
-        deleteActiveEffectsPF2e(item);
-      });
-      break;
-
-    case "pf1":
-      Hooks.on("createActiveEffect", (effect, data, userId) => {
-        if (game.settings.get("autoanimations", "disableAEAnimations")) {
-          console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
-          return;
-        }
-
-        if (game.user.id !== userId) {
-          return;
-        }
-
-        createActiveEffectsPF1(effect);
-      });
-      Hooks.on("deleteActiveEffect", (effect, data, userId) => {
-        if (game.user.id !== userId) {
-          return;
-        }
-
-        deleteActiveEffectsPF1(effect);
-      });
-      /*
-      Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
-          if (game.settings.get("autoanimations", "disableAEAnimations")) {
-              console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
-              return;
-          }
-          if (game.user.id !== userId) { return; }
-          toggleActiveEffectsPF1(data, toggle)
-      });
-      */
-      //}
-
-      break;
-  }
-
-  Hooks.callAll("aa.ready", obj01);
-});
-/* External call for animations
-* sourceToken as the originating token
-* targets as an array from the user
-* item as the item instance being used
-* options to override settings e.g. playOnMiss: true, hitTargets: Array of TokenIDs
-*/
-
-
-class AutoAnimations$1 {
-  static async playAnimation(sourceToken, targets, item, options = {}) {
-    if (killAllAnimations$1) {
-      return;
-    }
-
-    const data = _objectSpread2({
-      token: sourceToken,
-      targets: targets,
-      item: item
-    }, options);
-
-    let handler = await systemData.make(null, null, data);
-    trafficCop(handler);
-  }
-
-}
-
-window.AutoAnimations = AutoAnimations$1;
-
-function moduleIncludes$1(test) {
-  return !!game.modules.get(test);
-}
-/*
-/ Midi-QOL Functions for DnD 5e and Star Wars 5e
-*/
-// setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
-
-
-async function setUpMidi$1(workflow) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  let handler = await systemData.make(workflow);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  if (handler.shouldPlayImmediately) {
-    return;
-  }
-
-  trafficCop(handler);
-} // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
-
-
-async function setUpMidiNoAttackDamage$1(workflow) {
-  var _workflow$item, _workflow$item2;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if ((_workflow$item = workflow.item) !== null && _workflow$item !== void 0 && _workflow$item.hasAttack || (_workflow$item2 = workflow.item) !== null && _workflow$item2 !== void 0 && _workflow$item2.hasDamage) {
-    return;
-  }
-
-  let handler = await systemData.make(workflow);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  if (handler.shouldPlayImmediately) {
-    return;
-  }
-
-  trafficCop(handler);
-} // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
-
-
-async function setUpMidiNoAttack$1(workflow) {
-  var _workflow$item3;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if ((_workflow$item3 = workflow.item) !== null && _workflow$item3 !== void 0 && _workflow$item3.hasAttack) {
-    return;
-  }
-
-  let handler = await systemData.make(workflow);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  if (handler.shouldPlayImmediately) {
-    return;
-  }
-
-  trafficCop(handler);
-}
-/*
-// For AOE items when using Midi QOL
-async function midiAOE(workflow) {
-    if (killAllAnimations) { return; }
-    const handler = await systemData.make(workflow);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    if (handler.shouldPlayImmediately) {
-        trafficCop(handler);
-    } else { return; }
-}
-*/
-// Special cases required when using Midi-QOL. Houses only the Template Animations right now
-
-
-async function midiTemplateAnimations$1(msg) {
-  var _msg$user;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (game.user.id !== ((_msg$user = msg.user) === null || _msg$user === void 0 ? void 0 : _msg$user.id)) {
-    return;
-  }
-
-  const handler = await systemData.make(msg, true);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  } //let breakOut = checkMessege(msg);
-
-
-  if (handler.shouldPlayImmediately
-  /*&& (breakOut === 0 || game.modules.get("betterrolls5e")?.active)*/
-  ) {
-    trafficCop(handler);
-  } else {
-    return;
-  }
-}
-/*
-* Midi-QOL Critical Hit and Fumble animations
-*
-*/
-
-
-async function criticalCheck$1(workflow) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (!workflow.isCritical && !workflow.isFumble) {
-    return;
-  }
-
-  let critical = workflow.isCritical;
-  let fumble = workflow.isFumble;
-  let token;
-  let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
-  let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
-
-  switch (true) {
-    case game.settings.get("autoanimations", "EnableCritical") && critical:
-      token = canvas.tokens.get(workflow.tokenId);
-      new Sequence().effect().file(critAnim).atLocation(token).play();
-      break;
-
-    case game.settings.get("autoanimations", "EnableCriticalMiss") && fumble:
-      token = canvas.tokens.get(workflow.tokenId);
-      new Sequence().effect().file(critMissAnim).atLocation(token).play();
-      break;
-  }
-}
-/*
-/ Set up DnD5e and SW5e CORE (NON MIDI)
-*/
-
-
-async function setUp5eCore$1(msg) {
-  var _ref, _msg$data$flags$dnd5e, _msg$data2, _msg$data2$flags, _msg$data2$flags$dnd, _msg$data2$flags$dnd$, _msg$data2$flags$dnd$2, _msg$data3, _msg$data3$flavor, _msg$data$flags$sw5e$, _msg$data4, _msg$data4$flags, _msg$data4$flags$sw5e, _msg$data4$flags$sw5e2, _msg$data4$flags$sw5e3, _game$modules$get3, _game$modules$get4, _game$modules$get5;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (msg.user.id !== game.user.id) {
-    return;
-  }
-  const animationNow = game.settings.get("autoanimations", "playonDamageCore");
-  let handler;
-  let rollType;
-
-  switch (game.system.id) {
-    case "dnd5e":
-      handler = await systemData.make(msg);
-      rollType = (_ref = (_msg$data$flags$dnd5e = (_msg$data2 = msg.data) === null || _msg$data2 === void 0 ? void 0 : (_msg$data2$flags = _msg$data2.flags) === null || _msg$data2$flags === void 0 ? void 0 : (_msg$data2$flags$dnd = _msg$data2$flags.dnd5e) === null || _msg$data2$flags$dnd === void 0 ? void 0 : (_msg$data2$flags$dnd$ = _msg$data2$flags$dnd.roll) === null || _msg$data2$flags$dnd$ === void 0 ? void 0 : (_msg$data2$flags$dnd$2 = _msg$data2$flags$dnd$.type) === null || _msg$data2$flags$dnd$2 === void 0 ? void 0 : _msg$data2$flags$dnd$2.toLowerCase()) !== null && _msg$data$flags$dnd5e !== void 0 ? _msg$data$flags$dnd5e : (_msg$data3 = msg.data) === null || _msg$data3 === void 0 ? void 0 : (_msg$data3$flavor = _msg$data3.flavor) === null || _msg$data3$flavor === void 0 ? void 0 : _msg$data3$flavor.toLowerCase()) !== null && _ref !== void 0 ? _ref : "pass";
-      break;
-
-    case "sw5e":
-      handler = await systemData.make(msg);
-      rollType = (_msg$data$flags$sw5e$ = (_msg$data4 = msg.data) === null || _msg$data4 === void 0 ? void 0 : (_msg$data4$flags = _msg$data4.flags) === null || _msg$data4$flags === void 0 ? void 0 : (_msg$data4$flags$sw5e = _msg$data4$flags.sw5e) === null || _msg$data4$flags$sw5e === void 0 ? void 0 : (_msg$data4$flags$sw5e2 = _msg$data4$flags$sw5e.roll) === null || _msg$data4$flags$sw5e2 === void 0 ? void 0 : (_msg$data4$flags$sw5e3 = _msg$data4$flags$sw5e2.type) === null || _msg$data4$flags$sw5e3 === void 0 ? void 0 : _msg$data4$flags$sw5e3.toLowerCase()) !== null && _msg$data$flags$sw5e$ !== void 0 ? _msg$data$flags$sw5e$ : "pass";
-      break;
-  }
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  switch (true) {
-    case !handler.hasAttack && !handler.hasDamage:
-      trafficCop(handler);
-      break;
-
-    case handler.shouldPlayImmediately && !rollType.includes("damage") && !rollType.includes("attack"):
-      trafficCop(handler);
-      break;
-
-    case animationNow:
-      if (rollType.includes("damage")) {
-        if (handler.shouldPlayImmediately) {
-          return;
-        }
-
-        trafficCop(handler);
-      }
-
-      break;
-
-    case !animationNow:
-      switch (true) {
-        case ((_game$modules$get3 = game.modules.get("mre-dnd5e")) === null || _game$modules$get3 === void 0 ? void 0 : _game$modules$get3.active) && game.settings.get("mre-dnd5e", "autoCheck") && !handler.hasAttack && handler.hasDamage && !rollType.includes("damage"):
-          trafficCop(handler);
-          break;
-
-        case ((_game$modules$get4 = game.modules.get("mre-dnd5e")) === null || _game$modules$get4 === void 0 ? void 0 : _game$modules$get4.active) && game.settings.get("mre-dnd5e", "autoCheck") && rollType.includes("damage"):
-          break;
-
-        case rollType.includes("damage") && !handler.hasAttack:
-        case rollType.includes('attack'):
-          if (handler.shouldPlayImmediately) {
-            return;
-          }
-
-          trafficCop(handler);
-          break;
-
-        case ((_game$modules$get5 = game.modules.get("betterrolls5e")) === null || _game$modules$get5 === void 0 ? void 0 : _game$modules$get5.active) && !handler.hasAttack && handler.hasDamage:
-          if (handler.shouldPlayImmediately) {
-            return;
-          }
-
-          trafficCop(handler);
-          break;
-      }
-
-      break;
-  }
-}
-/*
-/ sets Handler for PF1 and DnD3.5
-*/
-
-
-async function onCreateChatMessage$1(msg) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (msg.user.id !== game.user.id) {
-    return;
-  }
-  let handler;
-
-  switch (game.system.id) {
-    case "pf1":
-      handler = await systemData.make(msg);
-      break;
-
-    case "D35E":
-      handler = await systemData.make(msg);
-      break;
-  }
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  trafficCop(handler);
-}
-/*
-/ Sets Handler for Star Wars FFG
-*/
-
-
-async function swffgReady$1(msg) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (game.user.id !== msg.user.id) {
-    return;
-  }
-
-  let handler = await systemData.make(msg);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  trafficCop(handler);
-}
-/*
-/ Sets Handler for SWADE
-*/
-
-
-async function swadeData$1(SwadeTokenOrActor, SwadeItem) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  let data = {
-    SwadeTokenOrActor,
-    SwadeItem
-  };
-  let handler = await systemData.make(data);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  trafficCop(handler);
-}
-/*
-/ Sets Handler for Starfinder
-*/
-
-
-async function starFinder$1(data, msg) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  const sfrpgData = {
-    data,
-    msg
-  };
-  const handler = await systemData.make(sfrpgData); //let tokenId = msg.data.speaker.token;
-  //let sourceToken = canvas.tokens.get(tokenId);
-  //let targets = Array.from(msg.user.targets);
-  //let item = data.item;
-  //AutoAnimations.playAnimation(sourceToken, targets, item)
-
-  trafficCop(handler);
-}
-/*
-/ Sets Handler for Tormenta 20
-*/
-
-
-async function setupTormenta20$1(msg) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (game.user.id !== msg.user.id) {
-    return;
-  }
-
-  let handler = await systemData.make(msg);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-  /*
-  if (game.user.id === msg.user.id) {
-      switch (true) {
-          case ((handler.animType === "t12") && (handler.isCustomized)):
-              teleportation(handler);
-              break;
-      }
-  }
-  */
-
-
-  trafficCop(handler);
-}
-/*
-/ Sets Handler for Forbidden Lands
-*/
-
-
-async function fblReady$1(msg) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (game.user.id !== msg.user.id) {
-    return;
-  }
-
-  const handler = await systemData.make(msg);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  trafficCop(handler);
-}
-/*
-/ Sets Handler for Demon Lord
-*/
-
-
-async function setupDemonLord$1(data) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  let handler = await systemData.make(data);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  trafficCop(handler);
-}
-/*
-/ Sets Handler for Pathfinder 2e and routes to animations
-*/
-
-
-async function pf2eReady$1(msg) {
-  var _handler$item$data$da, _handler$item, _handler$item$data, _handler$item$data$da2, _handler$item$data$da3, _msg$data$flavor, _handler$item2, _handler$item2$data, _handler$item2$data$d, _handler$item2$data$d2, _handler$item2$data$d3, _msg$data$flavor2, _msg$data$flavor3, _msg$data$flavor4, _handler$item$data2, _handler$item$data2$d, _handler$item$data2$d2, _msg$data$flavor5, _msg$data$flags$pf2e, _msg$data$flags$pf2e$, _msg$data$flags$pf2e2, _msg$data$flags$pf2e3, _msg$data$flags$pf2e4;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (game.user.id !== msg.user.id) {
-    return;
-  }
-
-  const handler = await systemData.make(msg);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  const itemType = handler.itemType;
-  let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
-
-  const spellType = (_handler$item$data$da = (_handler$item = handler.item) === null || _handler$item === void 0 ? void 0 : (_handler$item$data = _handler$item.data) === null || _handler$item$data === void 0 ? void 0 : (_handler$item$data$da2 = _handler$item$data.data) === null || _handler$item$data$da2 === void 0 ? void 0 : (_handler$item$data$da3 = _handler$item$data$da2.spellType) === null || _handler$item$data$da3 === void 0 ? void 0 : _handler$item$data$da3.value) !== null && _handler$item$data$da !== void 0 ? _handler$item$data$da : "utility";
-  const playOnDmg = game.settings.get("autoanimations", "playonDamageCore");
-
-  if (handler.shouldPlayImmediately && !((_msg$data$flavor = msg.data.flavor) !== null && _msg$data$flavor !== void 0 && _msg$data$flavor.toLowerCase().includes("damage"))) {
-    trafficCop(handler);
-    return;
-  }
-
-  if (handler.shouldPlayImmediately) {
-    return;
-  }
-
-  switch (itemType) {
-    case "spell":
-      damage = (_handler$item2 = handler.item) === null || _handler$item2 === void 0 ? void 0 : (_handler$item2$data = _handler$item2.data) === null || _handler$item2$data === void 0 ? void 0 : (_handler$item2$data$d = _handler$item2$data.data) === null || _handler$item2$data$d === void 0 ? void 0 : (_handler$item2$data$d2 = _handler$item2$data$d.damage) === null || _handler$item2$data$d2 === void 0 ? void 0 : (_handler$item2$data$d3 = _handler$item2$data$d2.value["0"]) === null || _handler$item2$data$d3 === void 0 ? void 0 : _handler$item2$data$d3.value;
-
-      switch (spellType) {
-        case "utility":
-          if (!damage) {
-            trafficCop(handler);
-          } else if ((_msg$data$flavor2 = msg.data.flavor) !== null && _msg$data$flavor2 !== void 0 && _msg$data$flavor2.toLowerCase().includes("damage")) {
-            trafficCop(handler);
-          }
-
-          break;
-
-        case "save":
-          if (!damage) {
-            trafficCop(handler);
-          } else if ((_msg$data$flavor3 = msg.data.flavor) !== null && _msg$data$flavor3 !== void 0 && _msg$data$flavor3.toLowerCase().includes("damage")) {
-            trafficCop(handler);
-          }
-
-          break;
-
-        case "heal":
-          if ((_msg$data$flavor4 = msg.data.flavor) !== null && _msg$data$flavor4 !== void 0 && _msg$data$flavor4.toLowerCase().includes('healing')) {
-            trafficCop(handler);
-          }
-
-          if (((_handler$item$data2 = handler.item.data) === null || _handler$item$data2 === void 0 ? void 0 : (_handler$item$data2$d = _handler$item$data2.data) === null || _handler$item$data2$d === void 0 ? void 0 : (_handler$item$data2$d2 = _handler$item$data2$d.category) === null || _handler$item$data2$d2 === void 0 ? void 0 : _handler$item$data2$d2.value) === "focus") {
-            trafficCop(handler);
-          }
-
-          break;
-
-        case "attack":
-          switch (playOnDmg) {
-            case true:
-              if ((_msg$data$flavor5 = msg.data.flavor) !== null && _msg$data$flavor5 !== void 0 && _msg$data$flavor5.toLowerCase().includes("damage")) {
-                trafficCop(handler);
-              }
-
-              break;
-
-            default:
-              if ((_msg$data$flags$pf2e = msg.data.flags.pf2e) !== null && _msg$data$flags$pf2e !== void 0 && (_msg$data$flags$pf2e$ = _msg$data$flags$pf2e.context) !== null && _msg$data$flags$pf2e$ !== void 0 && _msg$data$flags$pf2e$.type.includes("attack")) {
-                trafficCop(handler);
-              }
-
-          }
-
-          break;
-      }
-
-      break;
-
-    case "melee":
-    case "weapon":
-      switch (true) {
-        case playOnDmg:
-          if ((_msg$data$flags$pf2e2 = msg.data.flags.pf2e) !== null && _msg$data$flags$pf2e2 !== void 0 && _msg$data$flags$pf2e2.damageRoll
-          /*msg.data.flavor?.toLowerCase().includes("damage")*/
-          ) {
-            trafficCop(handler);
-          }
-
-          break;
-
-        default:
-          if ((_msg$data$flags$pf2e3 = msg.data.flags.pf2e) !== null && _msg$data$flags$pf2e3 !== void 0 && (_msg$data$flags$pf2e4 = _msg$data$flags$pf2e3.context) !== null && _msg$data$flags$pf2e4 !== void 0 && _msg$data$flags$pf2e4.type.includes("attack")) {
-            trafficCop(handler);
-          }
-
-      }
-
-      break;
-
-    case "consumable":
-    case "armor":
-    case "feat":
-    case "action":
-    case "effect":
-      trafficCop(handler);
-      break;
-  }
-}
-/*
-/ WFRP Functions
-*/
-
-
-async function wfrpWeapon$1(data, info) {
-  var _data$context;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (game.user.id !== info.user) {
-    return;
-  }
-
-  let handler = await systemData.make({
-    item: data.weapon,
-    targets: (_data$context = data.context) === null || _data$context === void 0 ? void 0 : _data$context.targets,
-    info: info
-  });
-
-  switch (true) {
-    case handler.animType === "t12" && handler.isCustomized:
-      teleportation(handler);
-      break;
-
-    default:
-      trafficCop(handler);
-  }
-}
-
-async function wfrpPrayer$1(data, info) {
-  var _data$context2;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (game.user.id !== info.user) {
-    return;
-  }
-
-  let handler = await systemData.make({
-    item: data.prayer,
-    targets: (_data$context2 = data.context) === null || _data$context2 === void 0 ? void 0 : _data$context2.targets,
-    info: info
-  });
-
-  switch (true) {
-    case handler.animType === "t12" && handler.isCustomized:
-      teleportation(handler);
-      break;
-
-    default:
-      trafficCop(handler);
-  }
-}
-
-async function wfrpCast$1(data, info) {
-  var _data$context3;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (game.user.id !== info.user) {
-    return;
-  }
-
-  let handler = await systemData.make({
-    item: data.spell,
-    targets: (_data$context3 = data.context) === null || _data$context3 === void 0 ? void 0 : _data$context3.targets,
-    info: info
-  });
-
-  switch (true) {
-    case handler.animType === "t12" && handler.isCustomized:
-      teleportation(handler);
-      break;
-
-    default:
-      trafficCop(handler);
-  }
-}
-
-async function wfrpTrait$1(data, info) {
-  var _data$context4;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (game.user.id !== info.user) {
-    return;
-  }
-
-  let handler = await systemData.make({
-    item: data.trait,
-    targets: (_data$context4 = data.context) === null || _data$context4 === void 0 ? void 0 : _data$context4.targets,
-    info: info
-  });
-
-  switch (true) {
-    case handler.animType === "t12" && handler.isCustomized:
-      teleportation(handler);
-      break;
-
-    default:
-      trafficCop(handler);
-  }
-}
-/*
-async function wfrpSkill(data, info) {
-    if (killAllAnimations) { return; }
-    if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.skill, targets: data.targets, info: info });
-    switch (true) {
-        case ((handler.animType === "t12") && (handler.isCustomized)):
-            teleportation(handler);
-            break;
-        default:
-            trafficCop(handler);
-    }
-}
-*/
-
-
-async function oseReady$1(input) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (input.user.id !== game.user.id) {
-    return;
-  }
-  let handler = await systemData.make(input);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  trafficCop(handler);
-}
-
-async function setupAlienRPG$1(input) {
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (input.user.id !== game.user.id) {
-    return;
-  }
-  let handler = await systemData.make(input);
-
-  if (!handler.item || !handler.sourceToken) {
-    return;
-  }
-
-  trafficCop(handler);
-}
-
-async function dccReady$1(input) {
-  var _input$data, _input$data$flags, _input$data$flags$dcc, _input$data2, _input$data2$flags, _input$data2$flags$dc;
-
-  if (killAllAnimations$1) {
-    return;
-  }
-
-  if (input.user.id !== game.user.id) {
-    return;
-  }
-
-  if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
-    let handler = await systemData.make(input);
-
-    if (!handler.item || !handler.sourceToken) {
-      return;
-    }
-
-    trafficCop(handler);
-  } else if (((_input$data = input.data) === null || _input$data === void 0 ? void 0 : (_input$data$flags = _input$data.flags) === null || _input$data$flags === void 0 ? void 0 : (_input$data$flags$dcc = _input$data$flags.dcc) === null || _input$data$flags$dcc === void 0 ? void 0 : _input$data$flags$dcc.RollType) === "Damage" || ((_input$data2 = input.data) === null || _input$data2 === void 0 ? void 0 : (_input$data2$flags = _input$data2.flags) === null || _input$data2$flags === void 0 ? void 0 : (_input$data2$flags$dc = _input$data2$flags.dcc) === null || _input$data2$flags$dc === void 0 ? void 0 : _input$data2$flags$dc.RollType) === "SpellCheck") {
-    let handler = await systemData.make(input);
-
-    if (!handler.item || !handler.sourceToken) {
-      return;
-    }
-
-    trafficCop(handler);
-  }
-}
-
 function aaSettings() {
   var _game$modules$get;
 
@@ -22492,7 +26036,7 @@ function aaSettings() {
     default: "on",
     onChange: value => {
       if (value === "off") {
-        disableAnimations$1();
+        disableAnimations();
       }
 
       if (value === "on") {
@@ -22811,7 +26355,8 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
     if (game.system.id === 'pf1' && ((_app$item = app.item) === null || _app$item === void 0 ? void 0 : _app$item.type) === 'buff' || game.system.id === 'pf2e' && pf2eRuleTypes.includes((_app$item2 = app.item) === null || _app$item2 === void 0 ? void 0 : _app$item2.type)) {
       new AAActiveEffectMenu(app.document, {}).render(true);
     } else {
-      new AAItemSettings(app.document, {}).render(true);
+      //new AAItemSettings(app.document, {}).render(true);
+      new AAItemMenu(app.document, {}).render(true);
     }
   });
   html.closest('.app').find('.aa-item-settings').remove();

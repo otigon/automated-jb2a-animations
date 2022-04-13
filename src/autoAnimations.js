@@ -12,6 +12,7 @@ import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
+import AAItemMenu from "./fomApps/itemMenu.js";
 import aaSettings from "./settings.js";
 
 import { teleportation } from "./animation-functions/teleportation.js";
@@ -96,7 +97,8 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
         if ((game.system.id === 'pf1' && app.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(app.item?.type))) {
             new AAActiveEffectMenu(app.document, {}).render(true);
         } else {
-            new AAItemSettings(app.document, {}).render(true);
+            //new AAItemSettings(app.document, {}).render(true);
+            new AAItemMenu(app.document, {}).render(true);
         }
     });
     html.closest('.app').find('.aa-item-settings').remove();
