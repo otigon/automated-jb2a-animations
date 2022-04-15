@@ -9,6 +9,7 @@ export default class AAItemMenu extends SvelteApplication {
         super({
             title: "New and Improved Item Menu",
             zIndex: 102,
+            resizeable: true,
             svelte: {
                 class: ItemMenuAppShell,
                 target: document.body,
@@ -35,9 +36,7 @@ export default class AAItemMenu extends SvelteApplication {
      */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            
             id: 'AA-item-settings',
-            resizeable: true,
             minimizable: true,
             width: 600,
             height: "auto",

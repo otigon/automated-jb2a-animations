@@ -8,7 +8,7 @@
     "minimumCoreVersion": "0.8.1",
     "compatibleCoreVersion": "9",
     "styles": [
-        "src/css/tabstyles.css"
+        "./dist/module.css"
     ],
     "esmodules": [
         "./dist/module.js"

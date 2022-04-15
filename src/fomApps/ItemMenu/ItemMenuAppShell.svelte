@@ -6,7 +6,6 @@
     import SelectAnimation from "./components/SelectAnimation.svelte";
     import Options from "./components/options.svelte"
 
-
     export let elementRoot;
 
     let form;
@@ -29,20 +28,12 @@
 <ApplicationShell
     bind:elementRoot
     transition={scale}
-    transitionOptions={{ duration: 1000 }}
+    transitionOptions={{ duration: 500 }}
 >
     <form bind:this={form} on:submit|preventDefault autocomplete="off" id="item-menu-aa">
-        <div class="damnit">
-            LAST CHANCE BUCKO
-        </div>    
         <SelectAnimation />
-        <Options />
     </form>
 </ApplicationShell>
 <style lang="scss">
-    .damnit {
-        color: blue;
-        font-size: large; 
-    }
 </style>
 
