@@ -1,14 +1,11 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { getContext } from "svelte";
-    import { fade } from "svelte/transition";
-    import * as easingFuncs from 'svelte/easing';
+    import { fade, fly } from "svelte/transition";
 
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
 
-    let easing = easingFuncs.bounceInOut;
-    
     let repeat;
     let delay;
     let scale;
@@ -42,7 +39,7 @@
 </div>
 
 
-<style>
+<style lang="scss">
     .aa-options {
         display: grid;
         grid-template-columns: 25% 25% 25% 25%;
@@ -78,14 +75,6 @@
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
-    }
-    .selected {
-        background-color:rgba(25, 175, 2, 0.4);
-        transition: background-color 0.5s
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.4);
-        transition: background-color 0.5s
     }
     .aa-options input {
         border-radius: 5px;

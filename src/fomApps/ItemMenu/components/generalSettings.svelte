@@ -77,7 +77,7 @@
 </div>
 
 
-<style>
+<style lang="scss">
     .selected {
         background-color:rgba(25, 175, 2, 0.4);
         transition: background-color 0.5s
@@ -92,11 +92,12 @@
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        margin-right: 5%;
+        margin-right: 6%;
         margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
+        border-radius: 10px;
     }
     .aa-general-settings button{
         border-radius: 10px;

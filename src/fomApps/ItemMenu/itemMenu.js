@@ -8,7 +8,7 @@ export default class AAItemMenu extends SvelteApplication {
         //console.log(Object.entries(aaNameMenu.melee.weapon))
         super({
             title: `A-A Item Setting for ${item.name}`,
-            id: `AA-item-settings-${item.name}`,
+            id: `AA-item-settings`,
             zIndex: 102,
             svelte: {
                 class: ItemMenuAppShell,

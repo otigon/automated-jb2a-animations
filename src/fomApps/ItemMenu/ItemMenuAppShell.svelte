@@ -3,9 +3,12 @@
     import { fade, scale } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
+
     import SelectAnimation from "./components/SelectAnimation.svelte";
     import Options from "./components/options.svelte";
     import GeneralSettings from "./components/generalSettings.svelte";
+    import SoundSettings from "./components/soundSettings.svelte";
+
     import { flagMigrations } from "./../../system-handlers/flagMerge.js"
 
     export let elementRoot;
@@ -27,6 +30,7 @@
         version: flags.version ? flags.version : Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0],
 
         options: flags.options || {},
+        audio: flags.audio || {},
         autoOverride: flags.autoOverride || {},
         macro: flags.macro || {},
         levels3d: flags.levels3d || {},
@@ -79,14 +83,12 @@
     transitionOptions={{ duration: 500 }}
 >
     <form bind:this={form} on:submit|preventDefault={applyFlags} autocomplete="off" id="item-menu-aa">
+        
         <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
-        {#if !animationDisabled}
-        {#if isCustomized}
+        {#if !animationDisabled && isCustomized && flagData.animType}
         <SelectAnimation {flagData} bind:animType/>
-        {#if flagData.animType}
         <Options {flagData}/>
-        {/if}
-        {/if}
+        <SoundSettings {flagData}/>
         {/if}
         <div class="form-group">
             <button class="footer-button" type="submit">Submit</button>

@@ -76,6 +76,21 @@
         isCustom = isCustom ? false : true;
         options.enableCustom = isCustom;
     }
+
+    async function selectCustom () {
+        const current = customPath;
+        const picker = new FilePicker({
+            type: "imagevideo",
+            current,
+            callback: (path) => {
+                customPath = path;
+            },
+        });
+        setTimeout(() => {
+            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+        }, 100);
+        await picker.browse(current);
+    };
 </script>
 
 <div class="aa-select-animation"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
@@ -203,18 +218,17 @@
             </select>
         </div>
     </div>
-    <div class="aa-customAnim-container"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
+    <div class="aa-customAnim-container {!isCustom ? "opacityBorder" : ""}"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <button class="{isCustom ? "selected" : "notSelected"}" on:click={() => customClick()}>Set {localize("AUTOANIM.custom")}</button>
-        {#if isCustom}
-            <div
-                class="form-group"
-                style="grid-row: 1/2; grid-column: 2/5"
-                in:fade={{ duration: 500 }}
-                out:fade={{ duration: 500 }}
-            >
-                <input type="text" bind:value={customPath}  class={customPath != "" ? "isPopulated" : "isNotPopulated"}>
-            </div>
-        {/if}
+        <div
+            class="form-group"
+            style="grid-row: 1/2; grid-column: 2/5"
+            in:fade={{ duration: 500 }}
+            out:fade={{ duration: 500 }}
+        >
+            <input disabled={!isCustom} type="text" bind:value={customPath}  class={isCustom && customPath != "" ? "isPopulated" : "isNotPopulated opacityText"}>
+            <button disabled={!isCustom} class='file-picker {isCustom && customPath != "" ? "isPopulated" : "isNotPopulated opacityButton"}' on:click|preventDefault={() => selectCustom()}><i class="fas fa-file-import fa-fw" /></button>
+        </div>
     </div>
     {#if !isCustom}
     <p in:fade={{duration: 500}}>
@@ -267,6 +281,15 @@
         font-size: large;
         font-weight: bold;
     }
+    .opacityText{
+        color: rgba(133, 133, 133, 0.418);
+    }
+    .opacityButton{
+        color: rgba(133, 133, 133, 0.418);
+    }
+    .opacityBorder button{
+        border: 2px solid rgba(133, 133, 133, 0.418);
+    }
     .isPopulated {
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
         transition: box-shadow 0.5s
@@ -295,5 +318,8 @@
         margin-left: 10%;
         margin-right: 10%;
         opacity: 60%
+    }
+    .file-picker {
+        max-width: fit-content;
     }
 </style>
