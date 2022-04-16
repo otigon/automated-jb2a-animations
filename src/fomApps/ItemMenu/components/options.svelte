@@ -1,10 +1,14 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { getContext } from "svelte";
-    import { fade, fly } from "svelte/transition";
+    import { fade } from "svelte/transition";
+    import * as easingFuncs from 'svelte/easing';
+
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
 
+    let easing = easingFuncs.bounceInOut;
+    
     let repeat;
     let delay;
     let scale;
@@ -14,17 +18,11 @@
     function below() {
         belowToken = belowToken ? false : true;
     }
-    export let animType;
-    //$: menuAnim = getContext('animationType')
 
+    $: aboveBelow = belowToken ? "Below Token" : "Above Token";
 </script>
-<h2>Options</h2>
-{#if animType === "aura"}
-<div>
-    Successful Switch
-</div>
-{:else}
-<div class="aa-options">
+<h2  in:fade={{duration: 500 }} out:fade={{duration: 500}}>Options</h2>
+<div class="aa-options"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
         <label for="">{localize("AUTOANIM.repeat")}</label>
         <input type="Number" bind:value={repeat} name="flags.autoanimations.options.repeat" placeholder=1>
@@ -38,10 +36,11 @@
         <input type="Number" bind:value={scale} name="flags.autoanimations.options.scale" placeholder=1>
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <button class="oldCheck {belowToken ? "selected" : "notSelected"}" on:click={() => below()}>{localize("AUTOANIM.below")}</button>
+        <label for="">Z-Index</label>
+        <button class="oldCheck {belowToken ? "notSelected" : "selected"}" on:click={() => below()}>{aboveBelow}</button>
     </div>
 </div>
-{/if}
+
 
 <style>
     .aa-options {
@@ -76,6 +75,9 @@
     .aa-options button {
         border-radius: 10px;
         border: 2px solid black;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
     }
     .selected {
         background-color:rgba(25, 175, 2, 0.4);
@@ -84,6 +86,9 @@
     .notSelected {
         background-color: rgba(219, 132, 2, 0.4);
         transition: background-color 0.5s
+    }
+    .aa-options input {
+        border-radius: 5px;
     }
 
 </style>

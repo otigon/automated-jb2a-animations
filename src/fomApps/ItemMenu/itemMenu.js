@@ -7,16 +7,14 @@ export default class AAItemMenu extends SvelteApplication {
     constructor(item) {
         //console.log(Object.entries(aaNameMenu.melee.weapon))
         super({
-            title: "New and Improved Item Menu",
+            title: `A-A Item Setting for ${item.name}`,
+            id: `AA-item-settings-${item.name}`,
             zIndex: 102,
-            resizeable: true,
             svelte: {
                 class: ItemMenuAppShell,
                 target: document.body,
-                intro: true,
                 props: {
-                    message: 'Foundry',
-                    flags: item.data.flags,
+                    item,
                 }
             },
             //close: () => this.options.reject(),
@@ -36,9 +34,9 @@ export default class AAItemMenu extends SvelteApplication {
      */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            id: 'AA-item-settings',
+            resizable: true,
             minimizable: true,
-            width: 600,
+            width: 700,
             height: "auto",
             closeOnSubmit: true,
         })

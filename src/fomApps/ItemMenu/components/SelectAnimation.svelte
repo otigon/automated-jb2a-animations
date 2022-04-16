@@ -16,30 +16,47 @@
         aaColorMenu,
     } from "../../../animation-functions/databases/jb2a-menu-options.js";
 
-    const data = {};
-    const options = data.options || {};
+    export let flagData;
 
-    export let animType = data.animType || "";
-    export let menuType = options.menuType || "";
-    export let animation = data.animation || "";
-    export let variant = options.variant || "";
-    export let color = options.color || "";
-    export let customPath = ""
-    $: customPath = customPath;
-    let isCustom;
+    const options = flagData.options || {};
+
+    let animType = flagData.animType || "";
     $: animType = animType;
-    $: isCustom = isCustom;
-    let staticType = options.staticType || "source";
-    //$: nameList = type != "" ? Object.entries(aaNameMenu.melee[type]) : "";
+    $: flagData.animType = animType;
 
+    let menuType = options.menuType || "";
     $: menuType = animType === "" ? "" : menuType;
+    $: options.menuType = menuType;
+
+    let animation = flagData.animation || "";
     $: animation = animType === "" || menuType === "" ? "" : animation;
+    $: flagData.animation = animation;
+
+    let variant = options.variant || "";
     $: variant =
         animType === "" || menuType === "" || animation === "" ? "" : variant;
+    $: options.variant = variant;
+
+    let color = flagData.color || "";
     $: color =
         animType === "" || menuType === "" || animation === "" || variant === ""
             ? ""
             : color;
+    $: colorChoice = color === "random" ? "" : !color ? "" : `.${color}`;
+    $: flagData.color = color;
+    
+    let customPath = options.customPath || "";
+    $: customPath = customPath;
+    $: options.customPath = customPath;
+
+    let isCustom = options.enableCustom || false;
+    $: isCustom = isCustom;
+
+    let staticType = options.staticType || "source";
+    $: staticType = staticType;
+    $: options.staticType = staticType;
+    //$: nameList = type != "" ? Object.entries(aaNameMenu.melee[type]) : "";
+
 
     $: menuSelection = animType === "aura" ? "static" : animType;
 
@@ -57,10 +74,11 @@
 
     function customClick(x) {
         isCustom = isCustom ? false : true;
+        options.enableCustom = isCustom;
     }
 </script>
 
-<div class="aa-select-animation">
+<div class="aa-select-animation"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="1">Animation Type</label>
         <select
@@ -81,7 +99,7 @@
 </div>
 {#if animType != ""}
     <h1>Primary Animation</h1>
-    <div class="aa-select-animation" in:fade={{ y: 200, duration: 500 }} out:fade={{duration: 500}}>
+    <div class="aa-select-animation" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         {#if animType === "static"}
             <div
                 class="flexcol"
@@ -185,7 +203,7 @@
             </select>
         </div>
     </div>
-    <div class="aa-customAnim-container" in:fade={{ y: 200, duration: 500 }}>
+    <div class="aa-customAnim-container"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <button class="{isCustom ? "selected" : "notSelected"}" on:click={() => customClick()}>Set {localize("AUTOANIM.custom")}</button>
         {#if isCustom}
             <div
@@ -199,17 +217,16 @@
         {/if}
     </div>
     {#if !isCustom}
-    <p transition:fade>
+    <p in:fade={{duration: 500}}>
         Database path is <strong
-            >autoanimations.{menuSelection}.{menuType}.{animation}.{variant}.{color}</strong
+            >autoanimations.{menuSelection}.{menuType}.{animation}.{variant}{colorChoice}</strong
         >
     </p>
     {:else}
-    <p transition:fade>
+    <p in:fade={{duration: 500}}>
         Custom Path is <strong>{customPath}</strong>
     </p>
     {/if}
-    <Options {animType}/>
 {/if}
 
 <style lang="scss">
@@ -229,6 +246,7 @@
         text-align: center;
         font-weight: bold;
         min-height: 2em;
+        border-radius: 5px;
     }
 
     .aa-select-animation label {
@@ -245,6 +263,9 @@
     .aa-customAnim-container button {
         border-radius: 10px;
         border: 2px solid black;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
     }
     .isPopulated {
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
