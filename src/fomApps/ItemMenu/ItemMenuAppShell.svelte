@@ -3,6 +3,7 @@
     import { fade, scale } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
+    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     import SelectAnimation from "./components/SelectAnimation.svelte";
     import Options from "./components/options.svelte";
@@ -15,6 +16,7 @@
     let animationDisabled = false;
     let isCustomized;
     let animType;
+    $: animType = animType;
 
     export let item;
     export const flags = item.data?.flags?.autoanimations || {};
@@ -73,6 +75,32 @@
         await item.update(updatedFlags.data)
         application.close();
     }
+
+    let primaryTab = true;
+    $: focusPrimary = primaryTab;
+
+    let extraTab = false;
+    $: focusExtra = extraTab;
+
+    let tab3d = false;
+    $: focus3d = tab3d;
+
+    function switchPrimary() {
+        primaryTab = !primaryTab;
+        extraTab = false;
+        tab3d = false;
+    }
+    function switchExtra() {
+        extraTab = !extraTab;
+        primaryTab = false;
+        tab3d = false;
+    }
+    function switch3d() {
+        tab3d = !tab3d;
+        primaryTab = false;
+        extraTab = false;
+    }
+
 </script>
 
 <svelte:options accessors={true}/>
@@ -82,15 +110,21 @@
     transition={scale}
     transitionOptions={{ duration: 500 }}
 >
-    <form bind:this={form} on:submit|preventDefault={applyFlags} autocomplete="off" id="item-menu-aa">
-        
-        <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
-        {#if !animationDisabled && isCustomized && flagData.animType}
-        <SelectAnimation {flagData} bind:animType/>
-        <Options {flagData}/>
-        <SoundSettings {flagData}/>
+    <form bind:this={form} on:submit|preventDefault={applyFlags} autocomplete="off" id="item-menu-aa" class="overview">
+        <div class='form-group tabView'>
+            <button class="{focusPrimary ? "selected" : "notSelected"}" on:click={() => switchPrimary()}><i class="fas fa-bomb"></i> {localize("AUTOANIM.primary")} {localize("AUTOANIM.animation")}</button>
+            <button class="{focusExtra ? "selected" : "notSelected"}" on:click={() => switchExtra()}><i class="fas fa-user-plus"></i> {localize("AUTOANIM.extra")} {localize("AUTOANIM.effects")}</button>
+            <button class="{focus3d ? "selected" : "notSelected"}" on:click={() => switch3d()}><i class="fas fa-vr-cardboard"></i> 3D Canvas</button>
+        </div>
+        {#if focusPrimary}
+        <div>
+            <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
+            {#if !animationDisabled && isCustomized && flagData.animType}
+            <SelectAnimation {flagData} bind:animType/>
+            {/if}
+        </div>
         {/if}
-        <div class="form-group">
+        <div class="form-group tabView">
             <button class="footer-button" type="submit">Submit</button>
             <button class="footer-button" on:click|preventDefault={closeApp}>Close and Submit</button>
         </div>
@@ -102,6 +136,25 @@
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
+    }
+    .tabView button {
+        border-radius: 10px;
+        border: 2px solid black;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
+    .tabView {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    .selected {
+        background-color:rgba(25, 175, 2, 0.25);
+        transition: background-color 0.5s
+    }
+    .notSelected {
+        background-color: rgba(219, 132, 2, 0.25);
+        transition: background-color 0.5s
     }
 </style>
 

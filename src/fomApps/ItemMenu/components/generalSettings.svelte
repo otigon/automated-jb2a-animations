@@ -7,13 +7,13 @@
     
     export let flagData;
 
-    let animationDisabled = flagData.killAnim || false;
-    let disabledLabel = game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled");
+    export let animationDisabled = flagData.killAnim;
+    let disabledLabel = !flagData.killAnim ? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled") : game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled");
     $: animationDisabled = animationDisabled;
     $: disabledLabel = disabledLabel;
     function switchDisabled() {
         animationDisabled = !animationDisabled;
-        disabledLabel = animationDisabled ? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled") : game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled")
+        disabledLabel = animationDisabled ? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled") : game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled");
         flagData.killAnim = animationDisabled;
     }
 
@@ -79,11 +79,11 @@
 
 <style lang="scss">
     .selected {
-        background-color:rgba(25, 175, 2, 0.4);
+        background-color:rgba(25, 175, 2, 0.18);
         transition: background-color 0.5s
     }
     .notSelected {
-        background-color: rgba(219, 132, 2, 0.4);
+        background-color: rgba(219, 132, 2, 0.18);
         transition: background-color 0.5s
     }
     .aa-general-settings {

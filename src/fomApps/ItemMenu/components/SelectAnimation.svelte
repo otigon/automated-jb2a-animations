@@ -8,7 +8,7 @@
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { setContext } from "svelte";
     import Options from "./options.svelte"
-
+    import SoundSettings from "./soundSettings.svelte";
     import {
         aaTypeMenu,
         aaNameMenu,
@@ -20,28 +20,54 @@
 
     const options = flagData.options || {};
 
-    let animType = flagData.animType || "";
+    let animType = flagData.animType;
     $: animType = animType;
     $: flagData.animType = animType;
 
+    async function animTypeChange() {
+        
+            if (animType = "") { 
+                menuType = ""; 
+                animation = "";
+                variant = "";
+                color = "";
+            } else {
+                console.log(menuSelection)
+                menuType = Object.keys(aaTypeMenu[menuSelection])[0];
+                console.log(Object.keys(aaTypeMenu[menuSelection])[0])
+                animation = Object.keys(aaTypeMenu[menuSelection][menuType])[0];
+                console.log(Object.keys(aaTypeMenu[menuSelection][menuType])[0])
+                variant = Object.keys(aaTypeMenu[menuSelection][menuType][animation])[0];
+                console.log(Object.keys(aaTypeMenu[menuSelection][menuType][animation])[0])
+                color = Object.keys(aaTypeMenu[menuSelection][menuType][animation][color])[0];
+                console.log(Object.keys(aaTypeMenu[menuSelection][menuType][animation][color])[0])
+            }
+    }
+
+    function checkObject() {
+        try {
+            let fda;;
+        } catch (exception) {
+            return "";
+        }
+    }
     let menuType = options.menuType || "";
     $: menuType = animType === "" ? "" : menuType;
     $: options.menuType = menuType;
 
     let animation = flagData.animation || "";
+    //$: animation = animType === "" || menuType === "" ? "" : animation;
     $: animation = animType === "" || menuType === "" ? "" : animation;
     $: flagData.animation = animation;
 
     let variant = options.variant || "";
-    $: variant =
-        animType === "" || menuType === "" || animation === "" ? "" : variant;
+    //$: variant = animType === "" || menuType === "" || animation === "" ? "" : variant;
+    $: variant = variant;
     $: options.variant = variant;
 
     let color = flagData.color || "";
-    $: color =
-        animType === "" || menuType === "" || animation === "" || variant === ""
-            ? ""
-            : color;
+    //$: color = animType === "" || menuType === "" || animation === "" || variant === "" ? "" : color;
+    $: color = color;
     $: colorChoice = color === "random" ? "" : !color ? "" : `.${color}`;
     $: flagData.color = color;
     
@@ -98,7 +124,7 @@
         <label for="1">Animation Type</label>
         <select
             name="flags.autoanimations.animType"
-            on:change={() => (menuType = "")}
+            on:change={async () => await animTypeChange()}
             bind:value={animType}
             id="1"
             style="text-align: center;justify-self: center"
@@ -241,6 +267,8 @@
         Custom Path is <strong>{customPath}</strong>
     </p>
     {/if}
+    <Options {flagData}/>
+    <SoundSettings {flagData}/>
 {/if}
 
 <style lang="scss">
@@ -307,11 +335,11 @@
         margin-left: 5%;
     }
     .selected {
-        background-color:rgba(25, 175, 2, 0.4);
+        background-color:rgba(25, 175, 2, 0.18);
         transition: background-color 0.5s
     }
     .notSelected {
-        background-color: rgba(219, 132, 2, 0.4);
+        background-color: rgba(219, 132, 2, 0.18);
         transition: background-color 0.5s
     }
     p {
