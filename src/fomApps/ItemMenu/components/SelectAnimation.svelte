@@ -19,7 +19,6 @@
     export let flagData;
 
     const options = flagData.options || {};
-
     let animType = flagData.animType || "";
     $: animType = animType;
     $: flagData.animType = animType;
@@ -272,7 +271,7 @@
         Custom Path is <strong>{customPath}</strong>
     </p>
     {/if}
-    <Options {flagData}/>
+    <Options {menuSelection} {flagData}/>
     <SoundSettings {flagData}/>
 {/if}
 

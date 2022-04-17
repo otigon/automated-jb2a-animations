@@ -8,9 +8,10 @@
     export let flagData;
 
     export let animationDisabled = flagData.killAnim;
-    let disabledLabel = !flagData.killAnim ? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled") : game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled");
     $: animationDisabled = animationDisabled;
+    $: flagData.killAnim = animationDisabled;
     $: disabledLabel = disabledLabel;
+    let disabledLabel = !animationDisabled ? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled") : game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled");
     function switchDisabled() {
         animationDisabled = !animationDisabled;
         disabledLabel = animationDisabled ? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled") : game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled");

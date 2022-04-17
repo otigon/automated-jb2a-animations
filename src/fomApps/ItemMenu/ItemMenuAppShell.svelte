@@ -13,15 +13,16 @@
     import { flagMigrations } from "./../../system-handlers/flagMerge.js"
 
     export let elementRoot;
-    let animationDisabled = false;
+    export let item;
+    export const flags = item.data?.flags?.autoanimations || {};
+    console.log(flags)
+
+    let animationDisabled = flags.killAnim;
     let isCustomized;
     $: isCustomized = isCustomized
     let animType;
     $: animType = animType;
 
-    export let item;
-    export const flags = item.data?.flags?.autoanimations || {};
-    console.log(flags)
 
     export const flagData = {
         killAnim: flags.killAnim,
@@ -101,9 +102,6 @@
         primaryTab = false;
         extraTab = false;
     }
-    console.log(animationDisabled)
-    console.log(isCustomized)
-    console.log(flagData.animType)
 </script>
 
 <svelte:options accessors={true}/>

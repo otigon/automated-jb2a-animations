@@ -28565,16 +28565,16 @@ function create_fragment$4(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler*/ ctx[20]),
-					listen(button1, "click", /*click_handler_1*/ ctx[21]),
-					listen(button2, "click", /*click_handler_2*/ ctx[22]),
-					listen(button3, "click", /*click_handler_3*/ ctx[23]),
-					listen(input0, "input", /*input0_input_handler*/ ctx[24]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[25]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[26]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[27]),
-					listen(input4, "change", /*input4_change_input_handler*/ ctx[28]),
-					listen(input4, "input", /*input4_change_input_handler*/ ctx[28])
+					listen(button0, "click", /*click_handler*/ ctx[21]),
+					listen(button1, "click", /*click_handler_1*/ ctx[22]),
+					listen(button2, "click", /*click_handler_2*/ ctx[23]),
+					listen(button3, "click", /*click_handler_3*/ ctx[24]),
+					listen(input0, "input", /*input0_input_handler*/ ctx[25]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[26]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[27]),
+					listen(input3, "input", /*input3_input_handler*/ ctx[28]),
+					listen(input4, "change", /*input4_change_input_handler*/ ctx[29]),
+					listen(input4, "input", /*input4_change_input_handler*/ ctx[29])
 				];
 
 				mounted = true;
@@ -28724,6 +28724,7 @@ function instance$4($$self, $$props, $$invalidate) {
 	let disabled01;
 	let isDisabled;
 	let { flagData } = $$props;
+	let { menuSelection } = $$props;
 	const options = flagData.options || {};
 	let repeat = options.repeat || 1;
 	let delay = options.delay || 250;
@@ -28735,19 +28736,24 @@ function instance$4($$self, $$props, $$invalidate) {
 	let persistent = options.persistent || false;
 
 	function below() {
-		$$invalidate(15, belowToken = !belowToken);
+		$$invalidate(16, belowToken = !belowToken);
 	}
 
 	function switchAlpha() {
-		$$invalidate(16, unbindAlpha = !unbindAlpha);
+		$$invalidate(17, unbindAlpha = !unbindAlpha);
 	}
 
 	function switchVisibility() {
-		$$invalidate(17, unbindVisbility = !unbindVisbility);
+		$$invalidate(18, unbindVisbility = !unbindVisbility);
 	}
 
 	function switchPersistence() {
-		$$invalidate(18, persistent = !persistent);
+		$$invalidate(19, persistent = !persistent);
+		let newPersistance = persistent;
+
+		if (newPersistance) {
+			$$invalidate(0, repeat = 1);
+		}
 	}
 
 	const click_handler = () => switchPersistence();
@@ -28782,11 +28788,12 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	$$self.$$set = $$props => {
 		if ('flagData' in $$props) $$invalidate(14, flagData = $$props.flagData);
+		if ('menuSelection' in $$props) $$invalidate(15, menuSelection = $$props.menuSelection);
 	};
 
 	$$self.$$.update = () => {
 		if ($$self.$$.dirty & /*flagData*/ 16384) {
-			$$invalidate(19, animType = flagData.animType);
+			$$invalidate(20, animType = flagData.animType);
 		}
 
 		if ($$self.$$.dirty & /*repeat*/ 1) {
@@ -28813,11 +28820,11 @@ function instance$4($$self, $$props, $$invalidate) {
 			options.scale = scale;
 		}
 
-		if ($$self.$$.dirty & /*belowToken*/ 32768) {
-			$$invalidate(15, belowToken);
+		if ($$self.$$.dirty & /*belowToken*/ 65536) {
+			$$invalidate(16, belowToken);
 		}
 
-		if ($$self.$$.dirty & /*belowToken*/ 32768) {
+		if ($$self.$$.dirty & /*belowToken*/ 65536) {
 			options.below = belowToken;
 		}
 
@@ -28829,52 +28836,54 @@ function instance$4($$self, $$props, $$invalidate) {
 			options.opacity = opacity;
 		}
 
-		if ($$self.$$.dirty & /*unbindAlpha*/ 65536) {
-			$$invalidate(16, unbindAlpha);
+		if ($$self.$$.dirty & /*unbindAlpha*/ 131072) {
+			$$invalidate(17, unbindAlpha);
 		}
 
-		if ($$self.$$.dirty & /*unbindAlpha*/ 65536) {
+		if ($$self.$$.dirty & /*unbindAlpha*/ 131072) {
 			options.unbindAlpha = unbindAlpha;
 		}
 
-		if ($$self.$$.dirty & /*unbindVisbility*/ 131072) {
-			$$invalidate(17, unbindVisbility);
+		if ($$self.$$.dirty & /*unbindVisbility*/ 262144) {
+			$$invalidate(18, unbindVisbility);
 		}
 
-		if ($$self.$$.dirty & /*unbindVisbility*/ 131072) {
+		if ($$self.$$.dirty & /*unbindVisbility*/ 262144) {
 			options.unbindVisbility = unbindVisbility;
 		}
 
-		if ($$self.$$.dirty & /*persistent*/ 262144) {
-			$$invalidate(18, persistent);
+		if ($$self.$$.dirty & /*persistent*/ 524288) {
+			$$invalidate(19, persistent);
 		}
 
-		if ($$self.$$.dirty & /*persistent*/ 262144) {
+		if ($$self.$$.dirty & /*persistent*/ 524288) {
 			options.persistent = persistent;
 		}
 
-		if ($$self.$$.dirty & /*belowToken*/ 32768) {
+		if ($$self.$$.dirty & /*belowToken*/ 65536) {
 			$$invalidate(9, aboveBelow = belowToken ? "Below Token" : "Above Token");
 		}
 
-		if ($$self.$$.dirty & /*unbindAlpha*/ 65536) {
+		if ($$self.$$.dirty & /*unbindAlpha*/ 131072) {
 			$$invalidate(8, bindAlpha = unbindAlpha ? "Unbound" : "Bound");
 		}
 
-		if ($$self.$$.dirty & /*unbindVisbility*/ 131072) {
+		if ($$self.$$.dirty & /*unbindVisbility*/ 262144) {
 			$$invalidate(7, bindVisibility = unbindVisbility ? "Unbound" : "Bound");
 		}
 
-		if ($$self.$$.dirty & /*persistent*/ 262144) {
+		if ($$self.$$.dirty & /*persistent*/ 524288) {
 			$$invalidate(6, isPersistent = persistent ? "Persistent" : "Not Persistent");
 		}
 
-		if ($$self.$$.dirty & /*animType*/ 524288) {
+		if ($$self.$$.dirty & /*animType*/ 1048576) {
 			$$invalidate(5, disabled01 = animType === 'melee' || animType === 'range');
 		}
 
-		if ($$self.$$.dirty & /*persistent*/ 262144) {
-			$$invalidate(4, isDisabled = persistent);
+		if ($$self.$$.dirty & /*menuSelection, persistent*/ 557056) {
+			$$invalidate(4, isDisabled = menuSelection === "melee" || menuSelection === "range"
+			? false
+			: persistent);
 		}
 	};
 
@@ -28894,6 +28903,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		switchVisibility,
 		switchPersistence,
 		flagData,
+		menuSelection,
 		belowToken,
 		unbindAlpha,
 		unbindVisbility,
@@ -28914,7 +28924,7 @@ function instance$4($$self, $$props, $$invalidate) {
 class Options extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$4, create_fragment$4, safe_not_equal, { flagData: 14 });
+		init(this, options, instance$4, create_fragment$4, safe_not_equal, { flagData: 14, menuSelection: 15 });
 	}
 }
 
@@ -29424,7 +29434,7 @@ function get_each_context_3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (146:0) {#if animType != ""}
+// (145:0) {#if animType != ""}
 function create_if_block$2(ctx) {
 	let h1;
 	let t1;
@@ -29498,7 +29508,14 @@ function create_if_block$2(ctx) {
 
 	let current_block_type = select_block_type(ctx);
 	let if_block5 = current_block_type(ctx);
-	options_1 = new Options({ props: { flagData: /*flagData*/ ctx[0] } });
+
+	options_1 = new Options({
+			props: {
+				menuSelection: /*menuSelection*/ ctx[9],
+				flagData: /*flagData*/ ctx[0]
+			}
+		});
+
 	soundsettings = new SoundSettings({ props: { flagData: /*flagData*/ ctx[0] } });
 
 	return {
@@ -29879,6 +29896,7 @@ function create_if_block$2(ctx) {
 			}
 
 			const options_1_changes = {};
+			if (dirty[0] & /*menuSelection*/ 512) options_1_changes.menuSelection = /*menuSelection*/ ctx[9];
 			if (dirty[0] & /*flagData*/ 1) options_1_changes.flagData = /*flagData*/ ctx[0];
 			options_1.$set(options_1_changes);
 			const soundsettings_changes = {};
@@ -29950,7 +29968,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (149:8) {#if animType === "static"}
+// (148:8) {#if animType === "static"}
 function create_if_block_6(ctx) {
 	let div;
 	let label;
@@ -30048,7 +30066,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (188:16) {#if animType != ""}
+// (187:16) {#if animType != ""}
 function create_if_block_5(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[9]]);
@@ -30104,7 +30122,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (189:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (188:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[33] + "";
@@ -30136,7 +30154,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (207:16) {#if menuType != ""}
+// (206:16) {#if menuType != ""}
 function create_if_block_4(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[2]]);
@@ -30192,7 +30210,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (208:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (207:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[33] + "";
@@ -30224,7 +30242,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (226:16) {#if (menuType != "") & (animation != "")}
+// (225:16) {#if (menuType != "") & (animation != "")}
 function create_if_block_3$1(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[2]][/*animation*/ ctx[3]]);
@@ -30280,7 +30298,7 @@ function create_if_block_3$1(ctx) {
 	};
 }
 
-// (227:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (226:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[33] + "";
@@ -30312,7 +30330,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (244:16) {#if menuType != "" && animation != "" && variant != ""}
+// (243:16) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_2$1(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[2]][/*animation*/ ctx[3]][/*variant*/ ctx[4]]);
@@ -30368,7 +30386,7 @@ function create_if_block_2$1(ctx) {
 	};
 }
 
-// (245:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (244:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[33] + "";
@@ -30400,7 +30418,7 @@ function create_each_block(ctx) {
 	};
 }
 
-// (270:4) {:else}
+// (269:4) {:else}
 function create_else_block(ctx) {
 	let p;
 	let t0;
@@ -30440,7 +30458,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (264:4) {#if !isCustom}
+// (263:4) {#if !isCustom}
 function create_if_block_1$2(ctx) {
 	let p;
 	let t0;
@@ -31040,7 +31058,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (61:4) {#if !overrideAuto}
+// (62:4) {#if !overrideAuto}
 function create_if_block_3(ctx) {
 	let div;
 	let button;
@@ -31107,7 +31125,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (66:4) {#if !isCustomized}
+// (67:4) {#if !isCustomized}
 function create_if_block_2(ctx) {
 	let div;
 	let button;
@@ -31173,7 +31191,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (71:4) {#if !overrideAuto}
+// (72:4) {#if !overrideAuto}
 function create_if_block_1$1(ctx) {
 	let div;
 	let button;
@@ -31333,9 +31351,9 @@ function instance$1($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
 	let { animationDisabled = flagData.killAnim } = $$props;
 
-	let disabledLabel = !flagData.killAnim
+	let disabledLabel = !animationDisabled
 	? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled")
-	: game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled");
+	: game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled");
 
 	function switchDisabled() {
 		$$invalidate(0, animationDisabled = !animationDisabled);
@@ -31383,6 +31401,10 @@ function instance$1($$self, $$props, $$invalidate) {
 	$$self.$$.update = () => {
 		if ($$self.$$.dirty & /*animationDisabled*/ 1) {
 			$$invalidate(0, animationDisabled);
+		}
+
+		if ($$self.$$.dirty & /*animationDisabled*/ 1) {
+			$$invalidate(9, flagData.killAnim = animationDisabled, flagData);
 		}
 
 		if ($$self.$$.dirty & /*disabledLabel*/ 4) {
@@ -31538,7 +31560,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (125:12) {#if !animationDisabled && isCustomized}
+// (123:12) {#if !animationDisabled && isCustomized}
 function create_if_block_1(ctx) {
 	let selectanimation;
 	let updating_animType;
@@ -31591,7 +31613,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (111:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}  >
+// (109:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}  >
 function create_default_slot(ctx) {
 	let form_1;
 	let div0;
@@ -31838,12 +31860,12 @@ function instance($$self, $$props, $$invalidate) {
 	let focusExtra;
 	let focus3d;
 	let { elementRoot } = $$props;
-	let animationDisabled = false;
-	let isCustomized;
-	let animType;
 	let { item } = $$props;
 	const flags = item.data?.flags?.autoanimations || {};
 	console.log(flags);
+	let animationDisabled = flags.killAnim;
+	let isCustomized;
+	let animType;
 
 	const flagData = {
 		killAnim: flags.killAnim,
@@ -31906,9 +31928,6 @@ function instance($$self, $$props, $$invalidate) {
 		$$invalidate(17, extraTab = false);
 	}
 
-	console.log(animationDisabled);
-	console.log(isCustomized);
-	console.log(flagData.animType);
 	const click_handler = () => switchPrimary();
 	const click_handler_1 = () => switchExtra();
 	const click_handler_2 = () => switch3d();

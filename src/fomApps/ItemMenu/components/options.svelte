@@ -7,6 +7,8 @@
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
 
     export let flagData;
+    export let menuSelection;
+
     const options = flagData.options || {};
     $: animType = flagData.animType;
 
@@ -59,9 +61,13 @@
     }
     function switchPersistence() {
         persistent = !persistent;
+        let newPersistance = persistent;
+        if (newPersistance) {
+            repeat = 1;
+        }
     }
 
-    $: isDisabled = persistent;
+    $: isDisabled = menuSelection === "melee" || menuSelection === "range" ? false : persistent;
 </script>
 <h2  in:fade={{duration: 500 }} out:fade={{duration: 500}}>Options</h2>
 <div class="aa-options"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
