@@ -15,6 +15,7 @@
     export let elementRoot;
     let animationDisabled = false;
     let isCustomized;
+    $: isCustomized = isCustomized
     let animType;
     $: animType = animType;
 
@@ -100,7 +101,9 @@
         primaryTab = false;
         extraTab = false;
     }
-
+    console.log(animationDisabled)
+    console.log(isCustomized)
+    console.log(flagData.animType)
 </script>
 
 <svelte:options accessors={true}/>
@@ -119,7 +122,7 @@
         {#if focusPrimary}
         <div>
             <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
-            {#if !animationDisabled && isCustomized && flagData.animType}
+            {#if !animationDisabled && isCustomized}
             <SelectAnimation {flagData} bind:animType/>
             {/if}
         </div>

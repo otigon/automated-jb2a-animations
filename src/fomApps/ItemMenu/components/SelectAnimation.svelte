@@ -20,54 +20,28 @@
 
     const options = flagData.options || {};
 
-    let animType = flagData.animType;
+    let animType = flagData.animType || "";
     $: animType = animType;
     $: flagData.animType = animType;
 
-    async function animTypeChange() {
-        
-            if (animType = "") { 
-                menuType = ""; 
-                animation = "";
-                variant = "";
-                color = "";
-            } else {
-                console.log(menuSelection)
-                menuType = Object.keys(aaTypeMenu[menuSelection])[0];
-                console.log(Object.keys(aaTypeMenu[menuSelection])[0])
-                animation = Object.keys(aaTypeMenu[menuSelection][menuType])[0];
-                console.log(Object.keys(aaTypeMenu[menuSelection][menuType])[0])
-                variant = Object.keys(aaTypeMenu[menuSelection][menuType][animation])[0];
-                console.log(Object.keys(aaTypeMenu[menuSelection][menuType][animation])[0])
-                color = Object.keys(aaTypeMenu[menuSelection][menuType][animation][color])[0];
-                console.log(Object.keys(aaTypeMenu[menuSelection][menuType][animation][color])[0])
-            }
-    }
-
-    function checkObject() {
-        try {
-            let fda;;
-        } catch (exception) {
-            return "";
-        }
-    }
     let menuType = options.menuType || "";
     $: menuType = animType === "" ? "" : menuType;
     $: options.menuType = menuType;
 
     let animation = flagData.animation || "";
-    //$: animation = animType === "" || menuType === "" ? "" : animation;
     $: animation = animType === "" || menuType === "" ? "" : animation;
     $: flagData.animation = animation;
 
     let variant = options.variant || "";
-    //$: variant = animType === "" || menuType === "" || animation === "" ? "" : variant;
-    $: variant = variant;
+    $: variant =
+        animType === "" || menuType === "" || animation === "" ? "" : variant;
     $: options.variant = variant;
 
     let color = flagData.color || "";
-    //$: color = animType === "" || menuType === "" || animation === "" || variant === "" ? "" : color;
-    $: color = color;
+    $: color =
+        animType === "" || menuType === "" || animation === "" || variant === ""
+            ? ""
+            : color;
     $: colorChoice = color === "random" ? "" : !color ? "" : `.${color}`;
     $: flagData.color = color;
     
@@ -117,6 +91,15 @@
         }, 100);
         await picker.browse(current);
     };
+
+    function typeChange() {
+        if (animType === "") {
+            menuType = "",
+            animation = "",
+            variant = "",
+            color = ""
+        }
+    }
 </script>
 
 <div class="aa-select-animation"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
@@ -124,7 +107,7 @@
         <label for="1">Animation Type</label>
         <select
             name="flags.autoanimations.animType"
-            on:change={async () => await animTypeChange()}
+            on:change={() => (menuType = "")}
             bind:value={animType}
             id="1"
             style="text-align: center;justify-self: center"

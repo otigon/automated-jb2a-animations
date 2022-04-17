@@ -18,7 +18,7 @@
     }
 
 
-    export let isCustomized = flagData.override;
+    export let isCustomized = flagData.override || false;
     $: isCustomized = isCustomized;
     function customize() {
         isCustomized = !isCustomized;

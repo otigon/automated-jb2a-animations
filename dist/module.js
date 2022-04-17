@@ -29391,7 +29391,7 @@ function get_each_context_3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (141:0) {#if animType != ""}
+// (124:0) {#if animType != ""}
 function create_if_block$2(ctx) {
 	let h1;
 	let t1;
@@ -29531,7 +29531,7 @@ function create_if_block$2(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-mw8pdo"));
 
-			if (/*menuType*/ ctx[2] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[17].call(select0));
+			if (/*menuType*/ ctx[2] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[16].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
@@ -29545,7 +29545,7 @@ function create_if_block$2(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-mw8pdo"));
 
-			if (/*animation*/ ctx[3] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[19].call(select1));
+			if (/*animation*/ ctx[3] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[18].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
@@ -29559,7 +29559,7 @@ function create_if_block$2(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-mw8pdo"));
 
-			if (/*variant*/ ctx[4] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[21].call(select2));
+			if (/*variant*/ ctx[4] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[20].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
@@ -29573,7 +29573,7 @@ function create_if_block$2(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-mw8pdo"));
 
-			if (/*color*/ ctx[5] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[23].call(select3));
+			if (/*color*/ ctx[5] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[22].call(select3));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
@@ -29653,16 +29653,16 @@ function create_if_block$2(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select0, "change", /*select0_change_handler*/ ctx[17]),
-					listen(select0, "change", /*change_handler_1*/ ctx[18]),
-					listen(select1, "change", /*select1_change_handler*/ ctx[19]),
-					listen(select1, "change", /*change_handler_2*/ ctx[20]),
-					listen(select2, "change", /*select2_change_handler*/ ctx[21]),
-					listen(select2, "change", /*change_handler_3*/ ctx[22]),
-					listen(select3, "change", /*select3_change_handler*/ ctx[23]),
-					listen(button0, "click", /*click_handler*/ ctx[24]),
-					listen(input, "input", /*input_input_handler*/ ctx[25]),
-					listen(button1, "click", prevent_default(/*click_handler_1*/ ctx[26]))
+					listen(select0, "change", /*select0_change_handler*/ ctx[16]),
+					listen(select0, "change", /*change_handler_1*/ ctx[17]),
+					listen(select1, "change", /*select1_change_handler*/ ctx[18]),
+					listen(select1, "change", /*change_handler_2*/ ctx[19]),
+					listen(select2, "change", /*select2_change_handler*/ ctx[20]),
+					listen(select2, "change", /*change_handler_3*/ ctx[21]),
+					listen(select3, "change", /*select3_change_handler*/ ctx[22]),
+					listen(button0, "click", /*click_handler*/ ctx[23]),
+					listen(input, "input", /*input_input_handler*/ ctx[24]),
+					listen(button1, "click", prevent_default(/*click_handler_1*/ ctx[25]))
 				];
 
 				mounted = true;
@@ -29917,7 +29917,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (144:8) {#if animType === "static"}
+// (127:8) {#if animType === "static"}
 function create_if_block_6(ctx) {
 	let div;
 	let label;
@@ -29963,7 +29963,7 @@ function create_if_block_6(ctx) {
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
 			attr(select, "class", "svelte-mw8pdo");
-			if (/*staticType*/ ctx[8] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[16].call(select));
+			if (/*staticType*/ ctx[8] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[15].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "2 / 3");
@@ -29981,7 +29981,7 @@ function create_if_block_6(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(select, "change", /*select_change_handler_1*/ ctx[16]);
+				dispose = listen(select, "change", /*select_change_handler_1*/ ctx[15]);
 				mounted = true;
 			}
 		},
@@ -30015,7 +30015,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (183:16) {#if animType != ""}
+// (166:16) {#if animType != ""}
 function create_if_block_5(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[9]]);
@@ -30071,7 +30071,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (184:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (167:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[30] + "";
@@ -30103,7 +30103,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (202:16) {#if menuType != ""}
+// (185:16) {#if menuType != ""}
 function create_if_block_4(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[2]]);
@@ -30159,7 +30159,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (203:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (186:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[30] + "";
@@ -30191,7 +30191,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (221:16) {#if (menuType != "") & (animation != "")}
+// (204:16) {#if (menuType != "") & (animation != "")}
 function create_if_block_3$1(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[2]][/*animation*/ ctx[3]]);
@@ -30247,7 +30247,7 @@ function create_if_block_3$1(ctx) {
 	};
 }
 
-// (222:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (205:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[30] + "";
@@ -30279,7 +30279,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (239:16) {#if menuType != "" && animation != "" && variant != ""}
+// (222:16) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_2$1(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[2]][/*animation*/ ctx[3]][/*variant*/ ctx[4]]);
@@ -30335,7 +30335,7 @@ function create_if_block_2$1(ctx) {
 	};
 }
 
-// (240:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (223:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[30] + "";
@@ -30367,7 +30367,7 @@ function create_each_block(ctx) {
 	};
 }
 
-// (265:4) {:else}
+// (248:4) {:else}
 function create_else_block(ctx) {
 	let p;
 	let t0;
@@ -30407,7 +30407,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (259:4) {#if !isCustom}
+// (242:4) {#if !isCustom}
 function create_if_block_1$2(ctx) {
 	let p;
 	let t0;
@@ -30537,7 +30537,7 @@ function create_fragment$2(ctx) {
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
 			attr(select, "class", "svelte-mw8pdo");
-			if (/*animType*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[15].call(select));
+			if (/*animType*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[14].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
@@ -30563,8 +30563,8 @@ function create_fragment$2(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select, "change", /*change_handler*/ ctx[14]),
-					listen(select, "change", /*select_change_handler*/ ctx[15])
+					listen(select, "change", /*change_handler*/ ctx[13]),
+					listen(select, "change", /*select_change_handler*/ ctx[14])
 				];
 
 				mounted = true;
@@ -30633,27 +30633,7 @@ function instance$2($$self, $$props, $$invalidate) {
 	let menuSelection;
 	let { flagData } = $$props;
 	const options = flagData.options || {};
-	let animType = flagData.animType;
-
-	async function animTypeChange() {
-		if ($$invalidate(1, animType = "")) {
-			$$invalidate(2, menuType = "");
-			$$invalidate(3, animation = "");
-			$$invalidate(4, variant = "");
-			$$invalidate(5, color = "");
-		} else {
-			console.log(menuSelection);
-			$$invalidate(2, menuType = Object.keys(aaTypeMenu[menuSelection])[0]);
-			console.log(Object.keys(aaTypeMenu[menuSelection])[0]);
-			$$invalidate(3, animation = Object.keys(aaTypeMenu[menuSelection][menuType])[0]);
-			console.log(Object.keys(aaTypeMenu[menuSelection][menuType])[0]);
-			$$invalidate(4, variant = Object.keys(aaTypeMenu[menuSelection][menuType][animation])[0]);
-			console.log(Object.keys(aaTypeMenu[menuSelection][menuType][animation])[0]);
-			$$invalidate(5, color = Object.keys(aaTypeMenu[menuSelection][menuType][animation][color])[0]);
-			console.log(Object.keys(aaTypeMenu[menuSelection][menuType][animation][color])[0]);
-		}
-	}
-
+	let animType = flagData.animType || "";
 	let menuType = options.menuType || "";
 	let animation = flagData.animation || "";
 	let variant = options.variant || "";
@@ -30687,7 +30667,8 @@ function instance$2($$self, $$props, $$invalidate) {
 
 		await picker.browse(current);
 	}
-	const change_handler = async () => await animTypeChange();
+
+	const change_handler = () => $$invalidate(2, menuType = "");
 
 	function select_change_handler() {
 		animType = select_value(this);
@@ -30718,7 +30699,7 @@ function instance$2($$self, $$props, $$invalidate) {
 
 	function select2_change_handler() {
 		variant = select_value(this);
-		$$invalidate(4, variant);
+		((($$invalidate(4, variant), $$invalidate(1, animType)), $$invalidate(2, menuType)), $$invalidate(3, animation));
 		($$invalidate(9, menuSelection), $$invalidate(1, animType));
 		($$invalidate(2, menuType), $$invalidate(1, animType));
 		(($$invalidate(3, animation), $$invalidate(1, animType)), $$invalidate(2, menuType));
@@ -30728,11 +30709,11 @@ function instance$2($$self, $$props, $$invalidate) {
 
 	function select3_change_handler() {
 		color = select_value(this);
-		$$invalidate(5, color);
+		(((($$invalidate(5, color), $$invalidate(1, animType)), $$invalidate(2, menuType)), $$invalidate(3, animation)), $$invalidate(4, variant));
 		($$invalidate(9, menuSelection), $$invalidate(1, animType));
 		($$invalidate(2, menuType), $$invalidate(1, animType));
 		(($$invalidate(3, animation), $$invalidate(1, animType)), $$invalidate(2, menuType));
-		$$invalidate(4, variant);
+		((($$invalidate(4, variant), $$invalidate(1, animType)), $$invalidate(2, menuType)), $$invalidate(3, animation));
 	}
 
 	const click_handler = () => customClick();
@@ -30766,7 +30747,6 @@ function instance$2($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty[0] & /*animType, menuType, animation*/ 14) {
-			//$: animation = animType === "" || menuType === "" ? "" : animation;
 			$$invalidate(3, animation = animType === "" || menuType === "" ? "" : animation);
 		}
 
@@ -30774,18 +30754,20 @@ function instance$2($$self, $$props, $$invalidate) {
 			$$invalidate(0, flagData.animation = animation, flagData);
 		}
 
-		if ($$self.$$.dirty[0] & /*variant*/ 16) {
-			//$: variant = animType === "" || menuType === "" || animation === "" ? "" : variant;
-			$$invalidate(4, variant);
+		if ($$self.$$.dirty[0] & /*animType, menuType, animation, variant*/ 30) {
+			$$invalidate(4, variant = animType === "" || menuType === "" || animation === ""
+			? ""
+			: variant);
 		}
 
 		if ($$self.$$.dirty[0] & /*variant*/ 16) {
 			options.variant = variant;
 		}
 
-		if ($$self.$$.dirty[0] & /*color*/ 32) {
-			//$: color = animType === "" || menuType === "" || animation === "" || variant === "" ? "" : color;
-			$$invalidate(5, color);
+		if ($$self.$$.dirty[0] & /*animType, menuType, animation, variant, color*/ 62) {
+			$$invalidate(5, color = animType === "" || menuType === "" || animation === "" || variant === ""
+			? ""
+			: color);
 		}
 
 		if ($$self.$$.dirty[0] & /*color*/ 32) {
@@ -30834,7 +30816,6 @@ function instance$2($$self, $$props, $$invalidate) {
 		staticType,
 		menuSelection,
 		colorChoice,
-		animTypeChange,
 		customClick,
 		selectCustom,
 		change_handler,
@@ -31299,7 +31280,7 @@ function instance$1($$self, $$props, $$invalidate) {
 		$$invalidate(9, flagData.killAnim = animationDisabled, flagData);
 	}
 
-	let { isCustomized = flagData.override } = $$props;
+	let { isCustomized = flagData.override || false } = $$props;
 
 	function customize() {
 		$$invalidate(1, isCustomized = !isCustomized);
@@ -31404,18 +31385,18 @@ function create_if_block(ctx) {
 
 	let generalsettings_props = { flagData: /*flagData*/ ctx[1] };
 
-	if (/*animationDisabled*/ ctx[3] !== void 0) {
-		generalsettings_props.animationDisabled = /*animationDisabled*/ ctx[3];
+	if (/*animationDisabled*/ ctx[4] !== void 0) {
+		generalsettings_props.animationDisabled = /*animationDisabled*/ ctx[4];
 	}
 
-	if (/*isCustomized*/ ctx[4] !== void 0) {
-		generalsettings_props.isCustomized = /*isCustomized*/ ctx[4];
+	if (/*isCustomized*/ ctx[2] !== void 0) {
+		generalsettings_props.isCustomized = /*isCustomized*/ ctx[2];
 	}
 
 	generalsettings = new GeneralSettings({ props: generalsettings_props });
 	binding_callbacks.push(() => bind(generalsettings, 'animationDisabled', generalsettings_animationDisabled_binding));
 	binding_callbacks.push(() => bind(generalsettings, 'isCustomized', generalsettings_isCustomized_binding));
-	let if_block = !/*animationDisabled*/ ctx[3] && /*isCustomized*/ ctx[4] && /*flagData*/ ctx[1].animType && create_if_block_1(ctx);
+	let if_block = !/*animationDisabled*/ ctx[4] && /*isCustomized*/ ctx[2] && create_if_block_1(ctx);
 
 	return {
 		c() {
@@ -31434,25 +31415,25 @@ function create_if_block(ctx) {
 		p(ctx, dirty) {
 			const generalsettings_changes = {};
 
-			if (!updating_animationDisabled && dirty & /*animationDisabled*/ 8) {
+			if (!updating_animationDisabled && dirty & /*animationDisabled*/ 16) {
 				updating_animationDisabled = true;
-				generalsettings_changes.animationDisabled = /*animationDisabled*/ ctx[3];
+				generalsettings_changes.animationDisabled = /*animationDisabled*/ ctx[4];
 				add_flush_callback(() => updating_animationDisabled = false);
 			}
 
-			if (!updating_isCustomized && dirty & /*isCustomized*/ 16) {
+			if (!updating_isCustomized && dirty & /*isCustomized*/ 4) {
 				updating_isCustomized = true;
-				generalsettings_changes.isCustomized = /*isCustomized*/ ctx[4];
+				generalsettings_changes.isCustomized = /*isCustomized*/ ctx[2];
 				add_flush_callback(() => updating_isCustomized = false);
 			}
 
 			generalsettings.$set(generalsettings_changes);
 
-			if (!/*animationDisabled*/ ctx[3] && /*isCustomized*/ ctx[4] && /*flagData*/ ctx[1].animType) {
+			if (!/*animationDisabled*/ ctx[4] && /*isCustomized*/ ctx[2]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty & /*animationDisabled, isCustomized*/ 24) {
+					if (dirty & /*animationDisabled, isCustomized*/ 20) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -31490,7 +31471,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (122:12) {#if !animationDisabled && isCustomized && flagData.animType}
+// (125:12) {#if !animationDisabled && isCustomized}
 function create_if_block_1(ctx) {
 	let selectanimation;
 	let updating_animType;
@@ -31502,8 +31483,8 @@ function create_if_block_1(ctx) {
 
 	let selectanimation_props = { flagData: /*flagData*/ ctx[1] };
 
-	if (/*animType*/ ctx[2] !== void 0) {
-		selectanimation_props.animType = /*animType*/ ctx[2];
+	if (/*animType*/ ctx[3] !== void 0) {
+		selectanimation_props.animType = /*animType*/ ctx[3];
 	}
 
 	selectanimation = new SelectAnimation({ props: selectanimation_props });
@@ -31520,9 +31501,9 @@ function create_if_block_1(ctx) {
 		p(ctx, dirty) {
 			const selectanimation_changes = {};
 
-			if (!updating_animType && dirty & /*animType*/ 4) {
+			if (!updating_animType && dirty & /*animType*/ 8) {
 				updating_animType = true;
-				selectanimation_changes.animType = /*animType*/ ctx[2];
+				selectanimation_changes.animType = /*animType*/ ctx[3];
 				add_flush_callback(() => updating_animType = false);
 			}
 
@@ -31543,7 +31524,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (108:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}  >
+// (111:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}  >
 function create_default_slot(ctx) {
 	let form_1;
 	let div0;
@@ -31858,23 +31839,26 @@ function instance($$self, $$props, $$invalidate) {
 		$$invalidate(17, extraTab = false);
 	}
 
+	console.log(animationDisabled);
+	console.log(isCustomized);
+	console.log(flagData.animType);
 	const click_handler = () => switchPrimary();
 	const click_handler_1 = () => switchExtra();
 	const click_handler_2 = () => switch3d();
 
 	function generalsettings_animationDisabled_binding(value) {
 		animationDisabled = value;
-		$$invalidate(3, animationDisabled);
+		$$invalidate(4, animationDisabled);
 	}
 
 	function generalsettings_isCustomized_binding(value) {
 		isCustomized = value;
-		$$invalidate(4, isCustomized);
+		$$invalidate(2, isCustomized);
 	}
 
 	function selectanimation_animType_binding(value) {
 		animType = value;
-		$$invalidate(2, animType);
+		$$invalidate(3, animType);
 	}
 
 	function form_1_binding($$value) {
@@ -31895,8 +31879,12 @@ function instance($$self, $$props, $$invalidate) {
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*animType*/ 4) {
-			$$invalidate(2, animType);
+		if ($$self.$$.dirty & /*isCustomized*/ 4) {
+			$$invalidate(2, isCustomized);
+		}
+
+		if ($$self.$$.dirty & /*animType*/ 8) {
+			$$invalidate(3, animType);
 		}
 
 		if ($$self.$$.dirty & /*primaryTab*/ 65536) {
@@ -31915,9 +31903,9 @@ function instance($$self, $$props, $$invalidate) {
 	return [
 		elementRoot,
 		flagData,
+		isCustomized,
 		animType,
 		animationDisabled,
-		isCustomized,
 		form,
 		focus3d,
 		focusExtra,
