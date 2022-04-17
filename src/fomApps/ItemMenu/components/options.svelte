@@ -61,31 +61,17 @@
         persistent = !persistent;
     }
 
+    $: isDisabled = persistent;
 </script>
 <h2  in:fade={{duration: 500 }} out:fade={{duration: 500}}>Options</h2>
 <div class="aa-options"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;">
-        <label for="">{localize("AUTOANIM.repeat")}</label>
-        <input type="Number" bind:value={repeat} name="flags.autoanimations.options.repeat" placeholder=1>
-    </div>
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
-        <input type="Number" bind:value={delay} name="flags.autoanimations.options.delay" placeholder=250>
-    </div>
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={scale} name="flags.autoanimations.options.scale" placeholder=1 step=0.01>
+    <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+        <label for="">Persistence</label>
+        <button on:click={() => switchPersistence()} disabled="{disabled01}" >{isPersistent}</button>
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
         <label for="">Z-Index</label>
         <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
-    </div>
-    <div class="flexcol {disabled01 ? "opacityInput" : ""}" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
-        <label for="">{localize("AUTOANIM.opacity")}</label>
-        <div class='form-group'>
-            <input disabled="{disabled01}" type="Number" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
-            <input disabled="{disabled01}" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
-        </div>
     </div>
     <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">Visibility</label>
@@ -95,9 +81,24 @@
         <label for="">Alpha</label>
         <button on:click={() => switchAlpha()} disabled="{disabled01}" >{bindAlpha}</button>
     </div>
-    <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-        <label for="">Persistence</label>
-        <button on:click={() => switchPersistence()} disabled="{disabled01}" >{isPersistent}</button>
+    <div class="flexcol {isDisabled ? "opacityBorder opacityLabel" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+        <label for="">{localize("AUTOANIM.repeat")}</label>
+        <input disabled={isDisabled} type="Number" bind:value={repeat} placeholder=1>
+    </div>
+    <div class="flexcol {isDisabled ? "opacityBorder opacityLabel" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+        <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
+        <input disabled={isDisabled} type="Number" bind:value={delay} placeholder=250>
+    </div>
+    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+        <label for="">{localize("AUTOANIM.scale")}</label>
+        <input type="Number" bind:value={scale} placeholder=1 step=0.01>
+    </div>
+    <div class="flexcol {disabled01 ? "opacityInput" : ""}" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
+        <label for="">{localize("AUTOANIM.opacity")}</label>
+        <div class='form-group'>
+            <input disabled="{disabled01}" type="Number" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
+            <input disabled="{disabled01}" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
+        </div>
     </div>
 </div>
 
@@ -147,6 +148,9 @@
         border: 2px solid rgba(133, 133, 133, 0.3);
         color: rgba(133, 133, 133, 0.3);
         transition: color 0.5s, border 0.5s;
+    }
+    .opacityBorder input {
+        color: rgba(133, 133, 133, 0.3);
     }
     .opacityBorder label{
         color: rgba(133, 133, 133, 0.3);

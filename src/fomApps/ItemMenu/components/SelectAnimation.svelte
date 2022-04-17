@@ -92,14 +92,36 @@
         await picker.browse(current);
     };
 
-    function typeChange() {
+    async function typeChange() {
         if (animType === "") {
             menuType = "",
             animation = "",
             variant = "",
-            color = ""
+            color = "";;
+        } else {
+            let menuSelection = animType === "aura" ? "static" : animType;
+            menuType = Object.keys(aaTypeMenu[menuSelection])[0];
+            animation = Object.keys(aaNameMenu[menuSelection][menuType])[0];
+            variant = Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0];
+            color = Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0];
         }
     }
+    async function menuTypeChange() {
+        let newMenuType = menuType;
+        animation = Object.keys(aaNameMenu[menuSelection][newMenuType])[0];
+        variant = Object.keys(aaVariantMenu[menuSelection][newMenuType][animation])[0];
+        color = Object.keys(aaColorMenu[menuSelection][newMenuType][animation][variant])[0];
+    }
+    async function animationChange() {
+        let newAnimation = animation;
+        variant = Object.keys(aaVariantMenu[menuSelection][menuType][newAnimation])[0];
+        color = Object.keys(aaColorMenu[menuSelection][menuType][newAnimation][variant])[0];
+    }
+    async function variantChange() {
+        let newVariant = variant;
+        color = Object.keys(aaColorMenu[menuSelection][menuType][animation][newVariant])[0];
+    }
+
 </script>
 
 <div class="aa-select-animation"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
@@ -107,8 +129,8 @@
         <label for="1">Animation Type</label>
         <select
             name="flags.autoanimations.animType"
-            on:change={() => (menuType = "")}
             bind:value={animType}
+            on:change={async () => await typeChange()}
             id="1"
             style="text-align: center;justify-self: center"
         >
@@ -156,7 +178,7 @@
             <select
                 name="flags.autoanimations.options.menuType"
                 bind:value={menuType}
-                on:change={() => (animation = "")}
+                on:change={async () => await menuTypeChange()}
                 id="2"
                 disabled={isCustom}
                 class={menuType != "" && !isCustom
@@ -175,7 +197,7 @@
             <select
                 name="flags.autoanimations.animation"
                 bind:value={animation}
-                on:change={() => (variant = "")}
+                on:change={async () => await animationChange()}
                 id="3"
                 disabled={isCustom}
                 class={animation != "" && !isCustom
@@ -194,7 +216,7 @@
             <select
                 name="flags.autoanimations.options.variant"
                 bind:value={variant}
-                on:change={() => (color = "")}
+                on:change={async () => await variantChange()}
                 id="4"
                 disabled={isCustom}
                 class={variant != "" && !isCustom
