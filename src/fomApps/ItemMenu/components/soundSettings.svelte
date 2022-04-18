@@ -3,29 +3,31 @@
     import { fade, scale } from "svelte/transition";
 
     export let flagData;
+    let audioSection = flagData.audio;
+    let section01 = audioSection.a01 || {};
 
-    let section01 = flagData.audio.a01 || {};
-
-    let soundEnabled = section01.enable;
+    let soundEnabled = section01.enable
     let soundLabel = soundEnabled ? "Enabled" : "Disabled";
     $: soundLabel = soundLabel;
     function switchLabel () {
         soundEnabled = !soundEnabled;
         soundLabel = soundEnabled ? "Enabled" : "Disabled";
         section01.enable = soundEnabled;
+        //console.log(flagData)
     }
+    $: section01.enable = soundEnabled
 
-    let startTime;
+    let startTime = section01.startTime;
     $: startTime = startTime;
     $: section01.startTime = startTime;
 
-    let volume;
+    let volume = section01.volume;
     $: volume = volume;
     $: section01.volume = volume;
 
-    let delay;
+    let delay = section01.delay;
     $: delay = delay;
-    $: section01.startTime = delay;
+    $: section01.delay = delay;
 
     let soundPath = section01.file || "";
     $: soundPath = soundPath;
@@ -69,15 +71,15 @@
 <div class=aa-3wide>
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
         <label for="">{localize("AUTOANIM.start")} {localize("AUTOANIM.time")}</label>
-        <input type="Number" bind:value={startTime} placeholder=0>
+        <input type="Number" bind:value={startTime} placeholder=0 step=0.01>
     </div>
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
         <label for="">{localize("AUTOANIM.volume")}</label>
-        <input type="Number" bind:value={volume} placeholder=0.5>
+        <input type="Number" bind:value={volume} placeholder=0.5 step=0.01>
     </div>
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.delay")}</label>
-        <input type="Number" bind:value={delay} placeholder=0>
+        <input type="Number" bind:value={delay} placeholder=0 step=0.01>
     </div>
 </div>
 {/if}

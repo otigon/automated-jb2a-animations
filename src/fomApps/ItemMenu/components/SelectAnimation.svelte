@@ -12,6 +12,7 @@
     import VideoPreview from "./videoPreview.svelte";
     import CustomPicker from "./customPicker.svelte";
 
+    import { menuAnimType } from '../menuStore.js';
     import {
         aaTypeMenu,
         aaNameMenu,
@@ -98,6 +99,8 @@
                 aaColorMenu[menuSelection][menuType][animation][variant]
             )[0];
         }
+        let menuSelection = animType === "aura" ? "static" : animType;
+        menuAnimType.set(menuSelection);
     }
     async function menuTypeChange() {
         let newMenuType = menuType;
@@ -272,8 +275,6 @@
                 Custom Path: <strong>{flagData.options.customPath}</strong>
             </p>
         {/if}
-        <Options {menuSelection} {flagData} />
-        <SoundSettings {flagData} />
     {/if}
 </div>
 

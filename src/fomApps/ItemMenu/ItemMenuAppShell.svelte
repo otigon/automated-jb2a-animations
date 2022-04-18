@@ -124,6 +124,8 @@
             <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
             {#if !animationDisabled && isCustomized}
             <SelectAnimation {flagData} bind:animType/>
+            <Options {flagData} />
+            <SoundSettings {flagData} />    
             {/if}
         </div>
         {/if}

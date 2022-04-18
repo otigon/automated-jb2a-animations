@@ -5,9 +5,9 @@
 
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
+    import { menuAnimType } from '../menuStore.js';
 
     export let flagData;
-    export let menuSelection;
 
     const options = flagData.options || {};
     $: animType = flagData.animType;
@@ -46,13 +46,14 @@
 
     function below() {
         belowToken = !belowToken;
+        console.log(menuSelection)
+        console.log(isDisabled)
     }
 
     $: aboveBelow = belowToken ? "Below Token" : "Above Token";
     $: bindAlpha = unbindAlpha ? "Unbound" : "Bound";
     $: bindVisibility = unbindVisbility ? "Unbound" : "Bound";
     $: isPersistent = persistent ? "Persistent" : "Not Persistent"
-    $: disabled01 = animType === 'melee' || animType === 'range';
     function switchAlpha() {
         unbindAlpha = !unbindAlpha;
     }
@@ -67,6 +68,12 @@
         }
     }
 
+    let menuSelection = flagData.animType;
+    menuAnimType.subscribe(value => {
+        menuSelection = value;
+    })
+    $: menuSelection = menuSelection;
+    $: disabled01 = menuSelection === "melee" || menuSelection === 'range';
     $: isDisabled = menuSelection === "melee" || menuSelection === "range" ? false : persistent;
 </script>
 
