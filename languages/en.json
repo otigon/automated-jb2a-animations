@@ -1,4 +1,38 @@
 {
+    "autoanimations": {
+        "settings": {
+            "AUTOANIM.initpopup_name":"Disable the Startup Window Popup",
+            "AUTOANIM.initpopup_hint":"Checking this box will prevent the Popup Window from showing",
+            "AUTOANIM.animtab_name": "Hide the Animation Tab from Players",
+            "AUTOANIM.animtab_hint": "Checking this box will prevent the Animation Tab from being seen by Players",
+            "AUTOANIM.tarassist_name": "Targeting Assistant",
+            "AUTOANIM.tarassist_hint": "Enable this setting to activate the Targeting Assistant",
+            "AUTOANIM.tfmxenable_name":"Enable Token Magic FX",
+            "AUTOANIM.tfmxenable_hint":"Enables all Token Magic effects with the animations",
+            "AUTOANIM.midionhit_name":"Only play animations on Hits",
+            "AUTOANIM.midionhit_hint":"Requires Midi-QOL Workflow settings to Check if Attacks hit",
+            "AUTOANIM.midionmiss_name": "Play Animations on Hits and Misses",
+            "AUTOANIM.midionmiss_hint": "On a Miss, the Animation will veer off target. Requires MIDI Workflow to check for hits",
+            "AUTOANIM.midiondmg_name":"Only play animations on Damage Rolls",
+            "AUTOANIM.midiondmg_hint":"REQUIRES A REFRESH. When Enabled, this will ONLY play the animations on the Damage Roll",
+            "AUTOANIM.demonlordtrigger_name":"Trigger to play animations",
+            "AUTOANIM.demonlordtrigger_hint":"Choose the condition for play animations",
+            "AUTOANIM.demonlordtrigger_rollattack":"Play animations on roll attack",
+            "AUTOANIM.demonlordtrigger_hits":"Play animations on hits",
+            "AUTOANIM.demonlordtrigger_misses": "Play animations on hits and misses",
+            "AUTOANIM.demonlordtrigger_rolldamage":"Play animations on roll damage",
+            "AUTOANIM.demonlordtrigger_applydamage":"Play animations on apply damage",
+            "AUTOANIM.coreondmg_name":"Play Attack Animations on Damage Rolls Only",
+            "AUTOANIM.coreondmg_hint":"By Default, Animations play on Attack Rolls",
+            "AUTOANIM.enableshield_name":"Enable Shield Spell Animation",
+            "AUTOANIM.enableshield_hint":"Shield is set to a test animation, but it still looks cool. Enable to activate",
+            "AUTOANIM.error":"A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work",
+            "AUTOANIM.animPreview": "Animation Preview",
+            "AUTOANIM.animPreviewHint": "Video Preview in the A-A Tab"        
+        }
+
+
+    },
     "AUTOANIM.initpopup_name":"Disable the Startup Window Popup",
     "AUTOANIM.initpopup_hint":"Checking this box will prevent the Popup Window from showing",
     "AUTOANIM.animtab_name": "Hide the Animation Tab from Players",

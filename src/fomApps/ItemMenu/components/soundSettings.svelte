@@ -52,7 +52,7 @@
 
 </script>
 <div transition:fade={{duration: 500}}>
-<h2>{localize("AUTOANIM.primary")} {localize("AUTOANIM.sound")}</h2>
+<h2>{localize("AUTOANIM.sound")}</h2>
 <div class=aa-3wide>
     <div style='grid-row:1/2; grid-column:2/3'>
         <button class="oldCheck {soundEnabled ? "selected" : "notSelected"}" on:click={() => switchLabel()}>{soundLabel}</button>

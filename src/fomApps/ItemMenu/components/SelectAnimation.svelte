@@ -35,7 +35,7 @@
     
 
     const options = flagPath === "explosions" ? flagData.explosions : rootPath.options || {};
-    let animType = flagData.animType || "";
+    export let animType = flagData.animType || "";
     $: animType = animType;
     $: flagData.animType = animType;
 

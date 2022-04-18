@@ -6,11 +6,11 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     import SelectAnimation from "./components/SelectAnimation.svelte";
-    import ExplosionSettings from "./components/SelectAnimation.svelte";
+    import ExplosionSettings from "./components/explosions.svelte";
     import Options from "./components/options.svelte";
     import GeneralSettings from "./components/generalSettings.svelte";
     import SoundSettings from "./components/soundSettings.svelte";
-    import { menuAnimType } from "./menuStore.js"
+    //import { menuAnimType } from "./menuStore.js"
 
     import { flagMigrations } from "./../../system-handlers/flagMerge.js"
 
@@ -41,12 +41,14 @@
         sourceToken: flags.sourceToken || {},
         targetToken: flags.targetToken || {},
     }
-
+    let animType;
+    $: animType = animType;
+    /*
     let menuSelection = flagData.animType || "";
     menuAnimType.subscribe(value => {
         menuSelection = value;
     })
-
+    */
     let form;
     const { application } = getContext('external');
 
@@ -126,11 +128,11 @@
         <div class="aaMidSection">
             <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
             {#if !animationDisabled && isCustomized}
-            <SelectAnimation flagPath="PrimaryAnimation" {flagData}/>
-            {#if menuSelection}
+            <SelectAnimation flagPath="PrimaryAnimation" {flagData} bind:animType/>
+            {#if animType}
             <Options {flagData} />
             <SoundSettings audioPath="a01" {flagData} />
-            <ExplosionSettings flagPath="explosions" {flagData}/>
+            <ExplosionSettings {flagData}/>
             {/if}
             {/if}
         </div>
@@ -161,7 +163,7 @@
         height: 45px;
         left: 0;
         right: 0;
-        border-bottom: 5px solid rgba(92, 92, 92, 0.6);
+        border-bottom: 2px solid rgba(21, 21, 21, 0.6);
         margin-right: 3%
     }
     .aaMidSection {
@@ -178,7 +180,7 @@
         height: 45px;
         left: 0;
         right: 0;
-        border-top: 5px solid rgba(92, 92, 92, 0.6);
+        border-top: 2px solid rgba(21, 21, 21, 0.6);
         margin-right: 3%
     }
     .tabView {
