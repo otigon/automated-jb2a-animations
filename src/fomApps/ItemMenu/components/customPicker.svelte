@@ -3,12 +3,32 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     export let flagData;
-    const options = flagData.options || {};
-    let customPath = options.customPath || "";
+    export let flagPath;
+    let root;
+    let options;
+    let customPath;
+    let enabled;
+    switch (flagPath) {
+        case "explosions":
+            root = flagData.explosions;
+            options = flagData.explosions;
+            customPath = flagData.explosions.customPath || "";
+            enabled = flagData.explosions.enableCustom;
+            break;
+        default:
+            root = flagData.options;
+            options = flagData.options;
+            customPath = flagData.options.customPath || "";
+            enabled = flagData.options.enableCustom;
+    }
+
+
+    //const options = flagData.options || {};
+    //let customPath = options.customPath || "";
     $: customPath = customPath;
     $: options.customPath = customPath;
 
-    export let isCustom = flagData.options?.enableCustom || false;
+    export let isCustom = root.enableCustom || false;
     $: isCustom = isCustom;
     function customClick() {
         isCustom = isCustom ? false : true;

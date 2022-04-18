@@ -2,13 +2,8 @@
 
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { getContext } from "svelte";
-    import { fade, fly } from "svelte/transition";
+    import { fade } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
-    import { setContext } from "svelte";
-    import Options from "./options.svelte";
-    import SoundSettings from "./soundSettings.svelte";
     import VideoPreview from "./videoPreview.svelte";
     import CustomPicker from "./customPicker.svelte";
 
@@ -21,8 +16,25 @@
     } from "../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
+    export let flagPath;
 
-    const options = flagData.options || {};
+    let rootPath;
+    let customRoot;
+    let title;
+    switch (flagPath) {
+        case "explosions":
+            rootPath = flagData.explosions;
+            customRoot = flagData.explosions;
+            title = "Explosion"
+            break;
+        default:
+            rootPath = flagData;
+            customRoot = flagData.options
+            title = "Primary Animation";
+    }
+    
+
+    const options = flagPath === "explosions" ? flagData.explosions : rootPath.options || {};
     let animType = flagData.animType || "";
     $: animType = animType;
     $: flagData.animType = animType;
@@ -31,22 +43,22 @@
     $: menuType = animType === "" ? "" : menuType;
     $: options.menuType = menuType;
 
-    let animation = flagData.animation || "";
+    let animation = rootPath.animation || "";
     $: animation = animType === "" || menuType === "" ? "" : animation;
-    $: flagData.animation = animation;
+    $: rootPath.animation = animation;
 
     let variant = options.variant || "";
     $: variant =
         animType === "" || menuType === "" || animation === "" ? "" : variant;
     $: options.variant = variant;
 
-    let color = flagData.color || "";
+    let color = rootPath.color || "";
     $: color =
         animType === "" || menuType === "" || animation === "" || variant === ""
             ? ""
             : color;
     $: colorChoice = color === "random" ? "" : !color ? "" : `.${color}`;
-    $: flagData.color = color;
+    $: rootPath.color = color;
 
     //let isCustom = options.enableCustom || false;
     let isCustom;
@@ -57,7 +69,7 @@
     $: options.staticType = staticType;
     //$: nameList = type != "" ? Object.entries(aaNameMenu.melee[type]) : "";
 
-    $: menuSelection = animType === "aura" ? "static" : animType;
+    $: menuSelection = flagPath !== "PrimaryAnimation" ? "static" : animType === "aura" ? "static" : animType;
 
     //$: setContext("animationType", animType);
 
@@ -77,7 +89,7 @@
                     animation,
                     variant,
                     color,
-                    customPath: flagData.options.customPath,
+                    customPath: customRoot.customPath,
                     isCustom,
                 },
             }, // You can set content with a Svelte component!
@@ -86,6 +98,8 @@
     }
 
     async function typeChange() {
+        if (flagPath !== "PrimaryAnimation") { return; }
+
         if (animType === "") {
             (menuType = ""), (animation = ""), (variant = ""), (color = "");
         } else {
@@ -130,6 +144,7 @@
 </script>
 
 <div transition:fade={{ duration: 500 }}>
+    {#if flagPath !== "explosions"}
     <div class="aa-select-animation">
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
             <label for="1">Animation Type</label>
@@ -150,10 +165,11 @@
             </select>
         </div>
     </div>
-    {#if animType != ""}
-        <h1>Primary Animation</h1>
+    {/if}
+    {#if animType != "" || flagPath === "explosions"}
+        <h1>{title}</h1>
         <div class="aa-select-animation">
-            {#if animType === "static"}
+            {#if animType === "static" && flagPath !== "explosions"}
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2;grid-column: 2 / 3;"
@@ -258,23 +274,12 @@
                 </select>
             </div>
         </div>
-        <CustomPicker {flagData} bind:isCustom />
+        <CustomPicker {flagPath} {flagData} bind:isCustom />
         <div class="aa-select-animation">
             <div class="flexcol" style="grid-row: 1/2; grid-column:2/3">
                 <button on:click={() => onClick()}>Video Preview</button>
             </div>
         </div>
-        {#if !isCustom}
-            <p in:fade={{ duration: 500 }}>
-                Database path: <strong
-                    >autoanimations.{menuSelection}.{menuType}.{animation}.{variant}{colorChoice}</strong
-                >
-            </p>
-        {:else}
-            <p in:fade={{ duration: 500 }}>
-                Custom Path: <strong>{flagData.options.customPath}</strong>
-            </p>
-        {/if}
     {/if}
 </div>
 
@@ -323,11 +328,5 @@
         text-align: center;
         margin-right: 5%;
         margin-left: 5%;
-    }
-    p {
-        margin-left: 10%;
-        margin-right: 10%;
-        opacity: 60%;
-        word-wrap: break-word;
     }
 </style>

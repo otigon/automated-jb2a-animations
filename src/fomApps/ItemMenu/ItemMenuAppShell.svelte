@@ -6,9 +6,11 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     import SelectAnimation from "./components/SelectAnimation.svelte";
+    import ExplosionSettings from "./components/SelectAnimation.svelte";
     import Options from "./components/options.svelte";
     import GeneralSettings from "./components/generalSettings.svelte";
     import SoundSettings from "./components/soundSettings.svelte";
+    import { menuAnimType } from "./menuStore.js"
 
     import { flagMigrations } from "./../../system-handlers/flagMerge.js"
 
@@ -20,11 +22,6 @@
     let animationDisabled = flags.killAnim;
     let isCustomized;
     $: isCustomized = isCustomized
-    let animType;
-    $: animType = animType;
-
-    
-
 
     export const flagData = {
         killAnim: flags.killAnim,
@@ -36,6 +33,7 @@
         version: flags.version ? flags.version : Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0],
 
         options: flags.options || {},
+        explosions: flags.explosions || {},
         audio: flags.audio || {},
         autoOverride: flags.autoOverride || {},
         macro: flags.macro || {},
@@ -43,6 +41,11 @@
         sourceToken: flags.sourceToken || {},
         targetToken: flags.targetToken || {},
     }
+
+    let menuSelection = flagData.animType || "";
+    menuAnimType.subscribe(value => {
+        menuSelection = value;
+    })
 
     let form;
     const { application } = getContext('external');
@@ -123,9 +126,12 @@
         <div class="aaMidSection">
             <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
             {#if !animationDisabled && isCustomized}
-            <SelectAnimation {flagData} bind:animType/>
+            <SelectAnimation flagPath="PrimaryAnimation" {flagData}/>
+            {#if menuSelection}
             <Options {flagData} />
-            <SoundSettings audioPath="a01" {flagData} />    
+            <SoundSettings audioPath="a01" {flagData} />
+            <ExplosionSettings flagPath="explosions" {flagData}/>
+            {/if}
             {/if}
         </div>
         {/if}
