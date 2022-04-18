@@ -114,20 +114,20 @@
     transitionOptions={{ duration: 500 }}
 >
     <form bind:this={form} on:submit|preventDefault={applyFlags} autocomplete="off" id="item-menu-aa" class="overview">
-        <div class='form-group tabView'>
+        <div class='form-group tabView aaTopSection'>
             <button class="{focusPrimary ? "selected" : "notSelected"}" on:click={() => switchPrimary()}><i class="fas fa-bomb"></i> {localize("AUTOANIM.primary")} {localize("AUTOANIM.animation")}</button>
             <button class="{focusExtra ? "selected" : "notSelected"}" on:click={() => switchExtra()}><i class="fas fa-user-plus"></i> {localize("AUTOANIM.extra")} {localize("AUTOANIM.effects")}</button>
             <button class="{focus3d ? "selected" : "notSelected"}" on:click={() => switch3d()}><i class="fas fa-vr-cardboard"></i> 3D Canvas</button>
         </div>
         {#if focusPrimary}
-        <div>
+        <div class="aaMidSection">
             <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
             {#if !animationDisabled && isCustomized}
             <SelectAnimation {flagData} bind:animType/>
             {/if}
         </div>
         {/if}
-        <div class="form-group tabView">
+        <div class="form-group tabView aaBottomSection">
             <button class="footer-button" type="submit">Submit</button>
             <button class="footer-button" on:click|preventDefault={closeApp}>Close and Submit</button>
         </div>
@@ -146,6 +146,32 @@
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
+    }
+    .aaTopSection {
+        position: absolute;
+        top:30px;
+        height: 45px;
+        left: 0;
+        right: 0;
+        border-bottom: 5px solid rgba(92, 92, 92, 0.6);
+        margin-right: 3%
+    }
+    .aaMidSection {
+        position: absolute;
+        left:0;
+        right:0;
+        top: 78px;
+        bottom: 40px;
+        overflow: scroll;
+    }
+    .aaBottomSection {
+        position: absolute;
+        bottom: 0;
+        height: 45px;
+        left: 0;
+        right: 0;
+        border-top: 5px solid rgba(92, 92, 92, 0.6);
+        margin-right: 3%
     }
     .tabView {
         margin-left: 1%;

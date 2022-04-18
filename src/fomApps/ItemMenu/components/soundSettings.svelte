@@ -47,8 +47,8 @@
     };
 
 </script>
-<div transition:fade={{duration: 500}}></div>
-<h2  in:fade={{duration: 500 }} out:fade={{duration: 500}}>{localize("AUTOANIM.primary")} {localize("AUTOANIM.sound")}</h2>
+<div transition:fade={{duration: 500}}>
+<h2>{localize("AUTOANIM.primary")} {localize("AUTOANIM.sound")}</h2>
 <div class=aa-3wide>
     <div style='grid-row:1/2; grid-column:2/3'>
         <button class="oldCheck {soundEnabled ? "selected" : "notSelected"}" on:click={() => switchLabel()}>{soundLabel}</button>
@@ -81,6 +81,7 @@
     </div>
 </div>
 {/if}
+</div>
 
 <style lang="scss">
     .aa-3wide {
@@ -89,7 +90,7 @@
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        margin-right: 5%;
+        margin-right: 8%;
         margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;

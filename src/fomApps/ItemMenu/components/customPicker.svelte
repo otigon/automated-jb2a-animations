@@ -69,7 +69,7 @@
         grid-template-columns: 25% 25% 25% 25%;
         grid-gap: 5px;
         padding: 5px;
-        margin-right: 5%;
+        margin-right: 8%;
         margin-left: 5%;
     }
     .aa-customAnim-container button {

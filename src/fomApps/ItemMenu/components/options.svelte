@@ -118,7 +118,7 @@
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        margin-right: 5%;
+        margin-right: 8%;
         margin-left: 5%;
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;

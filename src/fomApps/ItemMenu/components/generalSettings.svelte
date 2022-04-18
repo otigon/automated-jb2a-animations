@@ -71,7 +71,7 @@
     {/if}
     {#if !overrideAuto}
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;" transition:fade>
-        <button class="oldCheck {fromAmmo ? "selected" : "notSelected"}" on:click={() => ammo()}>{localize("AUTOANIM.ammoAnimate")}</button>
+        <button class="oldCheck {fromAmmo ? "selected" : "notSelected"}" on:click={() => ammo()}>Animate from Ammo</button>
     </div>
     {/if}
     {/if}
@@ -93,7 +93,7 @@
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        margin-right: 1%;
+        margin-right: 4%;
         margin-left: 1%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;

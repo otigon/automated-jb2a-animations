@@ -263,13 +263,13 @@
         </div>
         {#if !isCustom}
             <p in:fade={{ duration: 500 }}>
-                Database path is <strong
+                Database path: <strong
                     >autoanimations.{menuSelection}.{menuType}.{animation}.{variant}{colorChoice}</strong
                 >
             </p>
         {:else}
             <p in:fade={{ duration: 500 }}>
-                Custom Path is <strong>{flagData.options.customPath}</strong>
+                Custom Path: <strong>{flagData.options.customPath}</strong>
             </p>
         {/if}
         <Options {menuSelection} {flagData} />
@@ -284,7 +284,7 @@
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        margin-right: 5%;
+        margin-right: 8%;
         margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;

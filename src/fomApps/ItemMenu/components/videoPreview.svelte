@@ -3,19 +3,19 @@ import { JB2APATREONDB } from "../../../animation-functions/databases/jb2a-patre
 import { aaColorMenu } from "../../../animation-functions/databases/jb2a-menu-options.js";
 
 export let menuSelection;
-$: menuSelection = menuSelection;
+//$: menuSelection = menuSelection;
 export let menuType;
-$: menuType = menuType;
+//$: menuType = menuType;
 export let animation;
-$: animation = animation;
+//$: animation = animation;
 export let variant;
-$: variant = variant;
+//$: variant = variant;
 export let color;
-$: color = color;
+//$: color = color;
 export let customPath;
-$: customPath;
+//$: customPath;
 export let isCustom;
-$: isCustom;
+//$: isCustom;
 let jb2a = JB2APATREONDB
 let filteredColor;
 let filePath;

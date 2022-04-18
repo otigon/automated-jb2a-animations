@@ -37,7 +37,7 @@ export default class AAItemMenu extends SvelteApplication {
             resizable: true,
             minimizable: true,
             width: 600,
-            height: "auto",
+            height: 600,
             closeOnSubmit: true,
         })
     }
