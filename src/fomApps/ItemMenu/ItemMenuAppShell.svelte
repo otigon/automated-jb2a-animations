@@ -125,7 +125,7 @@
             {#if !animationDisabled && isCustomized}
             <SelectAnimation {flagData} bind:animType/>
             <Options {flagData} />
-            <SoundSettings {flagData} />    
+            <SoundSettings audioPath="a01" {flagData} />    
             {/if}
         </div>
         {/if}

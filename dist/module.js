@@ -31777,11 +31777,11 @@ function create_if_block$3(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(input0, "input", /*input0_input_handler*/ ctx[10]),
-					listen(button, "click", prevent_default(/*click_handler_1*/ ctx[11])),
-					listen(input1, "input", /*input1_input_handler*/ ctx[12]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[13]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[14])
+					listen(input0, "input", /*input0_input_handler*/ ctx[11]),
+					listen(button, "click", prevent_default(/*click_handler_1*/ ctx[12])),
+					listen(input1, "input", /*input1_input_handler*/ ctx[13]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[14]),
+					listen(input3, "input", /*input3_input_handler*/ ctx[15])
 				];
 
 				mounted = true;
@@ -31894,7 +31894,7 @@ function create_fragment$5(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(button, "click", /*click_handler*/ ctx[9]);
+				dispose = listen(button, "click", /*click_handler*/ ctx[10]);
 				mounted = true;
 			}
 		},
@@ -31957,8 +31957,13 @@ function create_fragment$5(ctx) {
 
 function instance$5($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
-	let audioSection = flagData.audio;
-	let section01 = audioSection.a01 || {};
+	let { audioPath } = $$props;
+
+	flagData.audio[audioPath]
+	? flagData.audio[audioPath]
+	: flagData.audio[audioPath] = {};
+
+	let section01 = flagData.audio[audioPath];
 	let soundEnabled = section01.enable;
 	let soundLabel = soundEnabled ? "Enabled" : "Disabled";
 
@@ -32019,6 +32024,7 @@ function instance$5($$self, $$props, $$invalidate) {
 
 	$$self.$$set = $$props => {
 		if ('flagData' in $$props) $$invalidate(8, flagData = $$props.flagData);
+		if ('audioPath' in $$props) $$invalidate(9, audioPath = $$props.audioPath);
 	};
 
 	$$self.$$.update = () => {
@@ -32073,6 +32079,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		switchLabel,
 		selectCustom,
 		flagData,
+		audioPath,
 		click_handler,
 		input0_input_handler,
 		click_handler_1,
@@ -32085,7 +32092,7 @@ function instance$5($$self, $$props, $$invalidate) {
 class SoundSettings extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$5, create_fragment$5, safe_not_equal, { flagData: 8 });
+		init(this, options, instance$5, create_fragment$5, safe_not_equal, { flagData: 8, audioPath: 9 });
 	}
 }
 
@@ -34488,7 +34495,13 @@ function create_if_block_1(ctx) {
 	selectanimation = new SelectAnimation({ props: selectanimation_props });
 	binding_callbacks.push(() => bind(selectanimation, 'animType', selectanimation_animType_binding));
 	options = new Options({ props: { flagData: /*flagData*/ ctx[1] } });
-	soundsettings = new SoundSettings({ props: { flagData: /*flagData*/ ctx[1] } });
+
+	soundsettings = new SoundSettings({
+			props: {
+				audioPath: "a01",
+				flagData: /*flagData*/ ctx[1]
+			}
+		});
 
 	return {
 		c() {

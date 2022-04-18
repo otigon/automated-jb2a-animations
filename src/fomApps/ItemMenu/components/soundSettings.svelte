@@ -3,8 +3,10 @@
     import { fade, scale } from "svelte/transition";
 
     export let flagData;
-    let audioSection = flagData.audio;
-    let section01 = audioSection.a01 || {};
+    export let audioPath;
+    flagData.audio[audioPath] ? flagData.audio[audioPath] : flagData.audio[audioPath] = {};
+
+    let section01 = flagData.audio[audioPath];
 
     let soundEnabled = section01.enable
     let soundLabel = soundEnabled ? "Enabled" : "Disabled";
