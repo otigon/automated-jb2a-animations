@@ -23,6 +23,8 @@
     let animType;
     $: animType = animType;
 
+    
+
 
     export const flagData = {
         killAnim: flags.killAnim,

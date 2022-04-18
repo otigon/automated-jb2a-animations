@@ -9,6 +9,7 @@
     import { setContext } from "svelte";
     import Options from "./options.svelte"
     import SoundSettings from "./soundSettings.svelte";
+    import VideoPreview from "./videoPreview.svelte";
     import {
         aaTypeMenu,
         aaNameMenu,
@@ -62,11 +63,26 @@
     //$: setContext("animationType", animType);
 
     function onClick() {
+        console.log(TJSDialog)
         TJSDialog.prompt({
-            title: "A modal dialog!",
-            draggable: false,
-            modal: true,
-            content: "A cool modal dialog!", // You can set content with a Svelte component!
+            title: "Primary Video Preview",
+            draggable: true,
+            modal: false,
+            height: "auto",
+            width: "auto",
+            classes: ["PrimaryPreview"],
+            content: {
+                class: VideoPreview,
+                props: {
+                    menuSelection,
+                    menuType,
+                    animation,
+                    variant,
+                    color,
+                    customPath,
+                    isCustom
+                }
+            }, // You can set content with a Svelte component!
             label: "Ok",
         });
     }
@@ -260,6 +276,11 @@
             <button disabled={!isCustom} class='file-picker {isCustom && customPath != "" ? "isPopulated" : "isNotPopulated opacityButton"}' on:click|preventDefault={() => selectCustom()}><i class="fas fa-file-import fa-fw" /></button>
         </div>
     </div>
+    <div class="aa-select-animation" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
+        <div class="flexcol" style="grid-row: 1/2; grid-column:2/3">
+            <button on:click={() => onClick()}>Video Preview</button>
+        </div>
+    </div>
     {#if !isCustom}
     <p in:fade={{duration: 500}}>
         Database path is <strong
@@ -307,6 +328,13 @@
         margin-left: 5%;
     }
     .aa-customAnim-container button {
+        border-radius: 10px;
+        border: 2px solid black;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
+    .aa-select-animation button {
         border-radius: 10px;
         border: 2px solid black;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
