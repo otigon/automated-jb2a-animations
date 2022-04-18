@@ -47,15 +47,15 @@
     };
 
 </script>
-
+<div transition:fade={{duration: 500}}></div>
 <h2  in:fade={{duration: 500 }} out:fade={{duration: 500}}>{localize("AUTOANIM.primary")} {localize("AUTOANIM.sound")}</h2>
-<div class=aa-3wide transition:fade={{duration: 500}}>
+<div class=aa-3wide>
     <div style='grid-row:1/2; grid-column:2/3'>
         <button class="oldCheck {soundEnabled ? "selected" : "notSelected"}" on:click={() => switchLabel()}>{soundLabel}</button>
     </div>
 </div>
 {#if soundEnabled}
-<div class="aa-customAnim-container {!soundEnabled ? "opacityBorder" : ""}"  transition:scale={{duration: 500}}>
+<div class="aa-customAnim-container {!soundEnabled ? "opacityBorder" : ""}">
     <div
         class="form-group"
         style="grid-row: 1/2; grid-column: 2/5; margin-right:10%; margin-left:10%"
@@ -66,7 +66,7 @@
         <button class='file-picker {soundEnabled && soundPath != "" ? "isPopulated" : "isNotPopulated"}' on:click|preventDefault={() => selectCustom()}><i class="fas fa-file-import fa-fw" /></button>
     </div>
 </div>
-<div class=aa-3wide transition:scale={{duration: 500}}>
+<div class=aa-3wide>
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
         <label for="">{localize("AUTOANIM.start")} {localize("AUTOANIM.time")}</label>
         <input type="Number" bind:value={startTime} placeholder=0>
@@ -89,8 +89,8 @@
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        margin-right: 10%;
-        margin-left: 10%;
+        margin-right: 5%;
+        margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;

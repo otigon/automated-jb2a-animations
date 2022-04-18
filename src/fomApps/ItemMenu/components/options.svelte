@@ -69,7 +69,9 @@
 
     $: isDisabled = menuSelection === "melee" || menuSelection === "range" ? false : persistent;
 </script>
-<h2  in:fade={{duration: 500 }} out:fade={{duration: 500}}>Options</h2>
+
+<div transition:fade={{duration: 500}}>
+<h2>Options</h2>
 <div class="aa-options"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
     <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 1 / 2;">
         <label for="">Persistence</label>
@@ -107,7 +109,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 <style lang="scss">
     .aa-options {
@@ -116,8 +118,8 @@
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        margin-right: 10%;
-        margin-left: 10%;
+        margin-right: 5%;
+        margin-left: 5%;
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;

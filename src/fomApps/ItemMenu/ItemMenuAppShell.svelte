@@ -148,8 +148,8 @@
         font-weight: bold;
     }
     .tabView {
-        margin-left: 5%;
-        margin-right: 5%;
+        margin-left: 1%;
+        margin-right: 1%;
     }
     .selected {
         background-color:rgba(25, 175, 2, 0.25);

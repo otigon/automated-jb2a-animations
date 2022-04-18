@@ -55,7 +55,7 @@
 </script>
 
 <div class="aa-general-settings">
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;" transition:fade>
         <button class="oldCheck {animationDisabled ? "notSelected" : "selected"}" on:click={() => switchDisabled()}>{disabledLabel}</button>
     </div>
     {#if !animationDisabled}
@@ -93,8 +93,8 @@
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        margin-right: 6%;
-        margin-left: 5%;
+        margin-right: 1%;
+        margin-left: 1%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;

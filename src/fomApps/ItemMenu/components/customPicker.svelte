@@ -1,6 +1,6 @@
 <script>
     import { fade, fly } from "svelte/transition";
-
+    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     export let flagData;
     const options = flagData.options || {};
@@ -8,14 +8,31 @@
     $: customPath = customPath;
     $: options.customPath = customPath;
 
-    let isCustom = flagData.options?.enableCustom || false;
+    export let isCustom = flagData.options?.enableCustom || false;
     $: isCustom = isCustom;
-    $: options.enableCustom = isCustom
+    function customClick() {
+        isCustom = isCustom ? false : true;
+        options.enableCustom = isCustom;
+    }
+    async function selectCustom () {
+        const current = customPath;
+        const picker = new FilePicker({
+            type: "imagevideo",
+            current,
+            callback: (path) => {
+                customPath = path;
+            },
+        });
+        setTimeout(() => {
+            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+        }, 100);
+        await picker.browse(current);
+    };
 
 </script>
 
 <div
-    class="aa-customAnim-container {!isCustom ? 'opacityBorder' : ''}"
+    class="aa-customAnim-container {!isCustom ? 'opacityButton' : ''}"
     in:fade={{ duration: 500 }}
     out:fade={{ duration: 500 }}
 >
@@ -24,7 +41,7 @@
         on:click={() => customClick()}>Set {localize("AUTOANIM.custom")}</button
     >
     <div
-        class="form-group"
+        class="form-group {isCustom ? "" : "opacityBorder"}"
         style="grid-row: 1/2; grid-column: 2/5"
         in:fade={{ duration: 500 }}
         out:fade={{ duration: 500 }}
@@ -39,9 +56,7 @@
         />
         <button
             disabled={!isCustom}
-            class="file-picker {isCustom && customPath != ''
-                ? 'isPopulated'
-                : 'isNotPopulated opacityButton'}"
+            class="file-picker"
             on:click|preventDefault={() => selectCustom()}
             ><i class="fas fa-file-import fa-fw" /></button
         >
@@ -54,7 +69,7 @@
         grid-template-columns: 25% 25% 25% 25%;
         grid-gap: 5px;
         padding: 5px;
-        margin-right: 6%;
+        margin-right: 5%;
         margin-left: 5%;
     }
     .aa-customAnim-container button {
@@ -75,7 +90,19 @@
     .opacityText {
         color: rgba(133, 133, 133, 0.418);
     }
-    .opacityButton {
+    .opacityButton button{
+        border: 2px solid rgba(133, 133, 133, 0.418);
         color: rgba(133, 133, 133, 0.418);
+    }
+    .file-picker {
+        max-width: fit-content;
+    }
+    .selected {
+        background-color:rgba(25, 175, 2, 0.18);
+        transition: background-color 0.5s
+    }
+    .notSelected {
+        background-color: rgba(219, 132, 2, 0.18);
+        transition: background-color 0.5s
     }
 </style>

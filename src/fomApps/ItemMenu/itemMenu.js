@@ -36,7 +36,7 @@ export default class AAItemMenu extends SvelteApplication {
         return foundry.utils.mergeObject(super.defaultOptions, {
             resizable: true,
             minimizable: true,
-            width: 700,
+            width: 600,
             height: "auto",
             closeOnSubmit: true,
         })
