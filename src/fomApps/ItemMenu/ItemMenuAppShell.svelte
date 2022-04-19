@@ -16,7 +16,8 @@
 
     export let elementRoot;
     export let item;
-    export const flags = item.data?.flags?.autoanimations || {};
+    export let itemFlags;
+    export const flags = itemFlags.autoanimations || {};
     console.log(flags)
 
     let animationDisabled = flags.killAnim;
@@ -43,6 +44,8 @@
     }
     let animType;
     $: animType = animType;
+    let menuType;
+    $: menuType = menuType;
     /*
     let menuSelection = flagData.animType || "";
     menuAnimType.subscribe(value => {
@@ -144,9 +147,9 @@
             <div style="padding-top: 10px">
             <h1>Primary Animation</h1>
             </div>
-            <SelectAnimation flagPath="PrimaryAnimation" {flagData} bind:animType/>
+            <SelectAnimation flagPath="PrimaryAnimation" {flagData} bind:animType bind:menuType/>
             {#if animType}
-            <Options {flagData} />
+            <Options {animType} {menuType} {flagData} />
             <SoundSettings audioPath="a01" {flagData} />
             <div style="padding-top: 10px">
             <h1>Explosion</h1>

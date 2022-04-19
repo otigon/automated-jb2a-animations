@@ -15,6 +15,7 @@ export default class AAItemMenu extends SvelteApplication {
                 target: document.body,
                 props: {
                     item,
+                    itemFlags: item.data.flags,
                 }
             },
             //close: () => this.options.reject(),

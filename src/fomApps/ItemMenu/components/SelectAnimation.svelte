@@ -39,7 +39,7 @@
     $: animType = animType;
     $: flagData.animType = animType;
 
-    let menuType = options.menuType || "";
+    export let menuType = options.menuType || "";
     $: menuType = animType === "" ? "" : menuType;
     $: options.menuType = menuType;
 

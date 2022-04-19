@@ -27909,7 +27909,7 @@ function create_else_block_1$1(ctx) {
   let mounted;
   let dispose;
   tjsapplicationheader = new TJSApplicationHeader({});
-  const if_block_creators = [create_if_block_2$2, create_else_block_2$1];
+  const if_block_creators = [create_if_block_2$2$1, create_else_block_2$1];
   const if_blocks = [];
 
   function select_block_type_2(ctx, dirty) {
@@ -28083,7 +28083,7 @@ function create_if_block$4(ctx) {
   let mounted;
   let dispose;
   tjsapplicationheader = new TJSApplicationHeader({});
-  const if_block_creators = [create_if_block_1$2, create_else_block$3];
+  const if_block_creators = [create_if_block_1$2$1, create_else_block$3];
   const if_blocks = [];
 
   function select_block_type_1(ctx, dirty) {
@@ -28305,7 +28305,7 @@ function create_else_block_2$1(ctx) {
 } // (177:9) {#if Array.isArray(allChildren)}
 
 
-function create_if_block_2$2(ctx) {
+function create_if_block_2$2$1(ctx) {
   let tjscontainer;
   let current;
   tjscontainer = new TJSContainer({
@@ -28402,7 +28402,7 @@ function create_else_block$3(ctx) {
 } // (158:9) {#if Array.isArray(allChildren)}
 
 
-function create_if_block_1$2(ctx) {
+function create_if_block_1$2$1(ctx) {
   let tjscontainer;
   let current;
   tjscontainer = new TJSContainer({
@@ -28883,7 +28883,7 @@ function get_each_context$3(ctx, list, i) {
 } // (202:29) 
 
 
-function create_if_block_3$2(ctx) {
+function create_if_block_3$3(ctx) {
   let switch_instance;
   let switch_instance_anchor;
   let current;
@@ -29259,7 +29259,7 @@ function create_fragment$1$1(ctx) {
   let current;
   let mounted;
   let dispose;
-  const if_block_creators = [create_if_block_2$3, create_if_block_3$2];
+  const if_block_creators = [create_if_block_2$3, create_if_block_3$3];
   const if_blocks = [];
 
   function select_block_type(ctx, dirty) {
@@ -29751,7 +29751,7 @@ function create_else_block(ctx) {
 } // (180:0) {#if modal}
 
 
-function create_if_block$3(ctx) {
+function create_if_block$6(ctx) {
   let tjsglasspane;
   let current;
   const tjsglasspane_spread_levels = [{
@@ -30179,7 +30179,7 @@ function create_fragment$9(ctx) {
   let if_block;
   let if_block_anchor;
   let current;
-  const if_block_creators = [create_if_block$3, create_else_block];
+  const if_block_creators = [create_if_block$6, create_else_block];
   const if_blocks = [];
 
   function select_block_type(ctx, dirty) {
@@ -31482,7 +31482,7 @@ function create_if_block_6(ctx) {
 }
 
 // (169:4) {#if animType != "" || flagPath === "explosions"}
-function create_if_block$2(ctx) {
+function create_if_block$3(ctx) {
 	let div4;
 	let t0;
 	let div0;
@@ -31518,19 +31518,19 @@ function create_if_block$2(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block0 = /*animType*/ ctx[0] === "static" && /*flagPath*/ ctx[2] !== "explosions" && create_if_block_5(ctx);
-	let if_block1 = /*animType*/ ctx[0] != "" && create_if_block_4(ctx);
-	let if_block2 = /*menuType*/ ctx[3] != "" && create_if_block_3$1(ctx);
-	let if_block3 = /*menuType*/ ctx[3] != "" & /*animation*/ ctx[4] != "" && create_if_block_2$1(ctx);
-	let if_block4 = /*menuType*/ ctx[3] != "" && /*animation*/ ctx[4] != "" && /*variant*/ ctx[5] != "" && create_if_block_1$1(ctx);
+	let if_block0 = /*animType*/ ctx[0] === "static" && /*flagPath*/ ctx[3] !== "explosions" && create_if_block_5(ctx);
+	let if_block1 = /*animType*/ ctx[0] != "" && create_if_block_4$1(ctx);
+	let if_block2 = /*menuType*/ ctx[1] != "" && create_if_block_3$2(ctx);
+	let if_block3 = /*menuType*/ ctx[1] != "" & /*animation*/ ctx[4] != "" && create_if_block_2$2(ctx);
+	let if_block4 = /*menuType*/ ctx[1] != "" && /*animation*/ ctx[4] != "" && /*variant*/ ctx[5] != "" && create_if_block_1$2(ctx);
 
 	function custompicker_isCustom_binding(value) {
 		/*custompicker_isCustom_binding*/ ctx[25](value);
 	}
 
 	let custompicker_props = {
-		flagPath: /*flagPath*/ ctx[2],
-		flagData: /*flagData*/ ctx[1]
+		flagPath: /*flagPath*/ ctx[3],
+		flagData: /*flagData*/ ctx[2]
 	};
 
 	if (/*isCustom*/ ctx[7] !== void 0) {
@@ -31585,11 +31585,11 @@ function create_if_block$2(ctx) {
 			attr(select0, "id", "2");
 			select0.disabled = /*isCustom*/ ctx[7];
 
-			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[3] != "" && !/*isCustom*/ ctx[7]
+			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[7]
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-4lqo4r"));
 
-			if (/*menuType*/ ctx[3] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[18].call(select0));
+			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[18].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
@@ -31651,7 +31651,7 @@ function create_if_block$2(ctx) {
 			append(div0, t2);
 			append(div0, select0);
 			if (if_block1) if_block1.m(select0, null);
-			select_option(select0, /*menuType*/ ctx[3]);
+			select_option(select0, /*menuType*/ ctx[1]);
 			append(div4, t3);
 			append(div4, div1);
 			append(div1, label1);
@@ -31697,11 +31697,11 @@ function create_if_block$2(ctx) {
 			}
 		},
 		p(ctx, dirty) {
-			if (/*animType*/ ctx[0] === "static" && /*flagPath*/ ctx[2] !== "explosions") {
+			if (/*animType*/ ctx[0] === "static" && /*flagPath*/ ctx[3] !== "explosions") {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 
-					if (dirty[0] & /*animType, flagPath*/ 5) {
+					if (dirty[0] & /*animType, flagPath*/ 9) {
 						transition_in(if_block0, 1);
 					}
 				} else {
@@ -31724,7 +31724,7 @@ function create_if_block$2(ctx) {
 				if (if_block1) {
 					if_block1.p(ctx, dirty);
 				} else {
-					if_block1 = create_if_block_4(ctx);
+					if_block1 = create_if_block_4$1(ctx);
 					if_block1.c();
 					if_block1.m(select0, null);
 				}
@@ -31737,21 +31737,21 @@ function create_if_block$2(ctx) {
 				select0.disabled = /*isCustom*/ ctx[7];
 			}
 
-			if (!current || dirty[0] & /*menuType, isCustom, menuSelection*/ 648 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[3] != "" && !/*isCustom*/ ctx[7]
+			if (!current || dirty[0] & /*menuType, isCustom, menuSelection*/ 642 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[7]
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-4lqo4r"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
-			if (dirty[0] & /*menuType, menuSelection*/ 520) {
-				select_option(select0, /*menuType*/ ctx[3]);
+			if (dirty[0] & /*menuType, menuSelection*/ 514) {
+				select_option(select0, /*menuType*/ ctx[1]);
 			}
 
-			if (/*menuType*/ ctx[3] != "") {
+			if (/*menuType*/ ctx[1] != "") {
 				if (if_block2) {
 					if_block2.p(ctx, dirty);
 				} else {
-					if_block2 = create_if_block_3$1(ctx);
+					if_block2 = create_if_block_3$2(ctx);
 					if_block2.c();
 					if_block2.m(select1, null);
 				}
@@ -31764,21 +31764,21 @@ function create_if_block$2(ctx) {
 				select1.disabled = /*isCustom*/ ctx[7];
 			}
 
-			if (!current || dirty[0] & /*animation, isCustom, menuSelection, menuType*/ 664 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[4] != "" && !/*isCustom*/ ctx[7]
+			if (!current || dirty[0] & /*animation, isCustom, menuSelection, menuType*/ 658 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[4] != "" && !/*isCustom*/ ctx[7]
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-4lqo4r"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
-			if (dirty[0] & /*animation, menuSelection, menuType*/ 536) {
+			if (dirty[0] & /*animation, menuSelection, menuType*/ 530) {
 				select_option(select1, /*animation*/ ctx[4]);
 			}
 
-			if (/*menuType*/ ctx[3] != "" & /*animation*/ ctx[4] != "") {
+			if (/*menuType*/ ctx[1] != "" & /*animation*/ ctx[4] != "") {
 				if (if_block3) {
 					if_block3.p(ctx, dirty);
 				} else {
-					if_block3 = create_if_block_2$1(ctx);
+					if_block3 = create_if_block_2$2(ctx);
 					if_block3.c();
 					if_block3.m(select2, null);
 				}
@@ -31791,21 +31791,21 @@ function create_if_block$2(ctx) {
 				select2.disabled = /*isCustom*/ ctx[7];
 			}
 
-			if (!current || dirty[0] & /*variant, isCustom, menuSelection, menuType, animation*/ 696 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[5] != "" && !/*isCustom*/ ctx[7]
+			if (!current || dirty[0] & /*variant, isCustom, menuSelection, menuType, animation*/ 690 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[5] != "" && !/*isCustom*/ ctx[7]
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-4lqo4r"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
-			if (dirty[0] & /*variant, menuSelection, menuType, animation*/ 568) {
+			if (dirty[0] & /*variant, menuSelection, menuType, animation*/ 562) {
 				select_option(select2, /*variant*/ ctx[5]);
 			}
 
-			if (/*menuType*/ ctx[3] != "" && /*animation*/ ctx[4] != "" && /*variant*/ ctx[5] != "") {
+			if (/*menuType*/ ctx[1] != "" && /*animation*/ ctx[4] != "" && /*variant*/ ctx[5] != "") {
 				if (if_block4) {
 					if_block4.p(ctx, dirty);
 				} else {
-					if_block4 = create_if_block_1$1(ctx);
+					if_block4 = create_if_block_1$2(ctx);
 					if_block4.c();
 					if_block4.m(select3, null);
 				}
@@ -31818,19 +31818,19 @@ function create_if_block$2(ctx) {
 				select3.disabled = /*isCustom*/ ctx[7];
 			}
 
-			if (!current || dirty[0] & /*color, isCustom, menuSelection, menuType, animation, variant*/ 760 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[6] != "" && !/*isCustom*/ ctx[7]
+			if (!current || dirty[0] & /*color, isCustom, menuSelection, menuType, animation, variant*/ 754 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[6] != "" && !/*isCustom*/ ctx[7]
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-4lqo4r"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
-			if (dirty[0] & /*color, menuSelection, menuType, animation, variant*/ 632) {
+			if (dirty[0] & /*color, menuSelection, menuType, animation, variant*/ 626) {
 				select_option(select3, /*color*/ ctx[6]);
 			}
 
 			const custompicker_changes = {};
-			if (dirty[0] & /*flagPath*/ 4) custompicker_changes.flagPath = /*flagPath*/ ctx[2];
-			if (dirty[0] & /*flagData*/ 2) custompicker_changes.flagData = /*flagData*/ ctx[1];
+			if (dirty[0] & /*flagPath*/ 8) custompicker_changes.flagPath = /*flagPath*/ ctx[3];
+			if (dirty[0] & /*flagData*/ 4) custompicker_changes.flagData = /*flagData*/ ctx[2];
 
 			if (!updating_isCustom && dirty[0] & /*isCustom*/ 128) {
 				updating_isCustom = true;
@@ -31967,7 +31967,7 @@ function create_if_block_5(ctx) {
 }
 
 // (212:20) {#if animType != ""}
-function create_if_block_4(ctx) {
+function create_if_block_4$1(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[9]]);
 	let each_blocks = [];
@@ -32055,9 +32055,9 @@ function create_each_block_3(ctx) {
 }
 
 // (231:20) {#if menuType != ""}
-function create_if_block_3$1(ctx) {
+function create_if_block_3$2(ctx) {
 	let each_1_anchor;
-	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[3]]);
+	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[1]]);
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value_2.length; i += 1) {
@@ -32080,8 +32080,8 @@ function create_if_block_3$1(ctx) {
 			insert(target, each_1_anchor, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType*/ 520) {
-				each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[3]]);
+			if (dirty[0] & /*menuSelection, menuType*/ 514) {
+				each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[1]]);
 				let i;
 
 				for (i = 0; i < each_value_2.length; i += 1) {
@@ -32129,9 +32129,9 @@ function create_each_block_2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType*/ 520 && t_value !== (t_value = /*name*/ ctx[33] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType*/ 514 && t_value !== (t_value = /*name*/ ctx[33] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType*/ 520 && option_value_value !== (option_value_value = /*key*/ ctx[32])) {
+			if (dirty[0] & /*menuSelection, menuType*/ 514 && option_value_value !== (option_value_value = /*key*/ ctx[32])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32143,9 +32143,9 @@ function create_each_block_2(ctx) {
 }
 
 // (250:20) {#if (menuType != "") & (animation != "")}
-function create_if_block_2$1(ctx) {
+function create_if_block_2$2(ctx) {
 	let each_1_anchor;
-	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[3]][/*animation*/ ctx[4]]);
+	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[1]][/*animation*/ ctx[4]]);
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -32168,8 +32168,8 @@ function create_if_block_2$1(ctx) {
 			insert(target, each_1_anchor, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 536) {
-				each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[3]][/*animation*/ ctx[4]]);
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 530) {
+				each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[1]][/*animation*/ ctx[4]]);
 				let i;
 
 				for (i = 0; i < each_value_1.length; i += 1) {
@@ -32217,9 +32217,9 @@ function create_each_block_1(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 536 && t_value !== (t_value = /*name*/ ctx[33] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 530 && t_value !== (t_value = /*name*/ ctx[33] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 536 && option_value_value !== (option_value_value = /*key*/ ctx[32])) {
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 530 && option_value_value !== (option_value_value = /*key*/ ctx[32])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32231,9 +32231,9 @@ function create_each_block_1(ctx) {
 }
 
 // (268:20) {#if menuType != "" && animation != "" && variant != ""}
-function create_if_block_1$1(ctx) {
+function create_if_block_1$2(ctx) {
 	let each_1_anchor;
-	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[3]][/*animation*/ ctx[4]][/*variant*/ ctx[5]]);
+	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[1]][/*animation*/ ctx[4]][/*variant*/ ctx[5]]);
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
@@ -32256,8 +32256,8 @@ function create_if_block_1$1(ctx) {
 			insert(target, each_1_anchor, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 568) {
-				each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[3]][/*animation*/ ctx[4]][/*variant*/ ctx[5]]);
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 562) {
+				each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[9]][/*menuType*/ ctx[1]][/*animation*/ ctx[4]][/*variant*/ ctx[5]]);
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
@@ -32305,9 +32305,9 @@ function create_each_block(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 568 && t_value !== (t_value = /*name*/ ctx[33] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 562 && t_value !== (t_value = /*name*/ ctx[33] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 568 && option_value_value !== (option_value_value = /*key*/ ctx[32])) {
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 562 && option_value_value !== (option_value_value = /*key*/ ctx[32])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32323,8 +32323,8 @@ function create_fragment$5(ctx) {
 	let t;
 	let div_transition;
 	let current;
-	let if_block0 = /*flagPath*/ ctx[2] !== "explosions" && create_if_block_6(ctx);
-	let if_block1 = (/*animType*/ ctx[0] != "" || /*flagPath*/ ctx[2] === "explosions") && create_if_block$2(ctx);
+	let if_block0 = /*flagPath*/ ctx[3] !== "explosions" && create_if_block_6(ctx);
+	let if_block1 = (/*animType*/ ctx[0] != "" || /*flagPath*/ ctx[3] === "explosions") && create_if_block$3(ctx);
 
 	return {
 		c() {
@@ -32341,7 +32341,7 @@ function create_fragment$5(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if (/*flagPath*/ ctx[2] !== "explosions") {
+			if (/*flagPath*/ ctx[3] !== "explosions") {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 				} else {
@@ -32354,15 +32354,15 @@ function create_fragment$5(ctx) {
 				if_block0 = null;
 			}
 
-			if (/*animType*/ ctx[0] != "" || /*flagPath*/ ctx[2] === "explosions") {
+			if (/*animType*/ ctx[0] != "" || /*flagPath*/ ctx[3] === "explosions") {
 				if (if_block1) {
 					if_block1.p(ctx, dirty);
 
-					if (dirty[0] & /*animType, flagPath*/ 5) {
+					if (dirty[0] & /*animType, flagPath*/ 9) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block$2(ctx);
+					if_block1 = create_if_block$3(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
 					if_block1.m(div, null);
@@ -32425,7 +32425,7 @@ function instance$5($$self, $$props, $$invalidate) {
 	: rootPath.options || {};
 
 	let { animType = flagData.animType || "" } = $$props;
-	let menuType = options.menuType || "";
+	let { menuType = options.menuType || "" } = $$props;
 	let animation = rootPath.animation || "";
 	let variant = options.variant || "";
 	let color = rootPath.color || "";
@@ -32466,10 +32466,10 @@ function instance$5($$self, $$props, $$invalidate) {
 		}
 
 		if (animType === "") {
-			($$invalidate(3, menuType = ""), $$invalidate(4, animation = ""), $$invalidate(5, variant = ""), $$invalidate(6, color = ""));
+			($$invalidate(1, menuType = ""), $$invalidate(4, animation = ""), $$invalidate(5, variant = ""), $$invalidate(6, color = ""));
 		} else {
 			let menuSelection = animType === "aura" ? "static" : animType;
-			$$invalidate(3, menuType = Object.keys(aaTypeMenu[menuSelection])[0]);
+			$$invalidate(1, menuType = Object.keys(aaTypeMenu[menuSelection])[0]);
 			$$invalidate(4, animation = Object.keys(aaNameMenu[menuSelection][menuType])[0]);
 			$$invalidate(5, variant = Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0]);
 			$$invalidate(6, color = Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0]);
@@ -32511,38 +32511,38 @@ function instance$5($$self, $$props, $$invalidate) {
 
 	function select0_change_handler() {
 		menuType = select_value(this);
-		($$invalidate(3, menuType), $$invalidate(0, animType));
-		(($$invalidate(9, menuSelection), $$invalidate(2, flagPath)), $$invalidate(0, animType));
+		($$invalidate(1, menuType), $$invalidate(0, animType));
+		(($$invalidate(9, menuSelection), $$invalidate(3, flagPath)), $$invalidate(0, animType));
 	}
 
 	const change_handler_1 = async () => await menuTypeChange();
 
 	function select1_change_handler() {
 		animation = select_value(this);
-		(($$invalidate(4, animation), $$invalidate(0, animType)), $$invalidate(3, menuType));
-		(($$invalidate(9, menuSelection), $$invalidate(2, flagPath)), $$invalidate(0, animType));
-		($$invalidate(3, menuType), $$invalidate(0, animType));
+		(($$invalidate(4, animation), $$invalidate(0, animType)), $$invalidate(1, menuType));
+		(($$invalidate(9, menuSelection), $$invalidate(3, flagPath)), $$invalidate(0, animType));
+		($$invalidate(1, menuType), $$invalidate(0, animType));
 	}
 
 	const change_handler_2 = async () => await animationChange();
 
 	function select2_change_handler() {
 		variant = select_value(this);
-		((($$invalidate(5, variant), $$invalidate(0, animType)), $$invalidate(3, menuType)), $$invalidate(4, animation));
-		(($$invalidate(9, menuSelection), $$invalidate(2, flagPath)), $$invalidate(0, animType));
-		($$invalidate(3, menuType), $$invalidate(0, animType));
-		(($$invalidate(4, animation), $$invalidate(0, animType)), $$invalidate(3, menuType));
+		((($$invalidate(5, variant), $$invalidate(0, animType)), $$invalidate(1, menuType)), $$invalidate(4, animation));
+		(($$invalidate(9, menuSelection), $$invalidate(3, flagPath)), $$invalidate(0, animType));
+		($$invalidate(1, menuType), $$invalidate(0, animType));
+		(($$invalidate(4, animation), $$invalidate(0, animType)), $$invalidate(1, menuType));
 	}
 
 	const change_handler_3 = async () => await variantChange();
 
 	function select3_change_handler() {
 		color = select_value(this);
-		(((($$invalidate(6, color), $$invalidate(0, animType)), $$invalidate(3, menuType)), $$invalidate(4, animation)), $$invalidate(5, variant));
-		(($$invalidate(9, menuSelection), $$invalidate(2, flagPath)), $$invalidate(0, animType));
-		($$invalidate(3, menuType), $$invalidate(0, animType));
-		(($$invalidate(4, animation), $$invalidate(0, animType)), $$invalidate(3, menuType));
-		((($$invalidate(5, variant), $$invalidate(0, animType)), $$invalidate(3, menuType)), $$invalidate(4, animation));
+		(((($$invalidate(6, color), $$invalidate(0, animType)), $$invalidate(1, menuType)), $$invalidate(4, animation)), $$invalidate(5, variant));
+		(($$invalidate(9, menuSelection), $$invalidate(3, flagPath)), $$invalidate(0, animType));
+		($$invalidate(1, menuType), $$invalidate(0, animType));
+		(($$invalidate(4, animation), $$invalidate(0, animType)), $$invalidate(1, menuType));
+		((($$invalidate(5, variant), $$invalidate(0, animType)), $$invalidate(1, menuType)), $$invalidate(4, animation));
 	}
 
 	function custompicker_isCustom_binding(value) {
@@ -32553,9 +32553,10 @@ function instance$5($$self, $$props, $$invalidate) {
 	const click_handler = () => onClick();
 
 	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(1, flagData = $$props.flagData);
-		if ('flagPath' in $$props) $$invalidate(2, flagPath = $$props.flagPath);
+		if ('flagData' in $$props) $$invalidate(2, flagData = $$props.flagData);
+		if ('flagPath' in $$props) $$invalidate(3, flagPath = $$props.flagPath);
 		if ('animType' in $$props) $$invalidate(0, animType = $$props.animType);
+		if ('menuType' in $$props) $$invalidate(1, menuType = $$props.menuType);
 	};
 
 	$$self.$$.update = () => {
@@ -32564,18 +32565,18 @@ function instance$5($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty[0] & /*animType*/ 1) {
-			$$invalidate(1, flagData.animType = animType, flagData);
+			$$invalidate(2, flagData.animType = animType, flagData);
 		}
 
-		if ($$self.$$.dirty[0] & /*animType, menuType*/ 9) {
-			$$invalidate(3, menuType = animType === "" ? "" : menuType);
+		if ($$self.$$.dirty[0] & /*animType, menuType*/ 3) {
+			$$invalidate(1, menuType = animType === "" ? "" : menuType);
 		}
 
-		if ($$self.$$.dirty[0] & /*menuType*/ 8) {
+		if ($$self.$$.dirty[0] & /*menuType*/ 2) {
 			options.menuType = menuType;
 		}
 
-		if ($$self.$$.dirty[0] & /*animType, menuType, animation*/ 25) {
+		if ($$self.$$.dirty[0] & /*animType, menuType, animation*/ 19) {
 			$$invalidate(4, animation = animType === "" || menuType === "" ? "" : animation);
 		}
 
@@ -32583,7 +32584,7 @@ function instance$5($$self, $$props, $$invalidate) {
 			rootPath.animation = animation;
 		}
 
-		if ($$self.$$.dirty[0] & /*animType, menuType, animation, variant*/ 57) {
+		if ($$self.$$.dirty[0] & /*animType, menuType, animation, variant*/ 51) {
 			$$invalidate(5, variant = animType === "" || menuType === "" || animation === ""
 			? ""
 			: variant);
@@ -32593,7 +32594,7 @@ function instance$5($$self, $$props, $$invalidate) {
 			options.variant = variant;
 		}
 
-		if ($$self.$$.dirty[0] & /*animType, menuType, animation, variant, color*/ 121) {
+		if ($$self.$$.dirty[0] & /*animType, menuType, animation, variant, color*/ 115) {
 			$$invalidate(6, color = animType === "" || menuType === "" || animation === "" || variant === ""
 			? ""
 			: color);
@@ -32617,7 +32618,7 @@ function instance$5($$self, $$props, $$invalidate) {
 			options.staticType = staticType;
 		}
 
-		if ($$self.$$.dirty[0] & /*flagPath, animType*/ 5) {
+		if ($$self.$$.dirty[0] & /*flagPath, animType*/ 9) {
 			//$: nameList = type != "" ? Object.entries(aaNameMenu.melee[type]) : "";
 			$$invalidate(9, menuSelection = flagPath !== "PrimaryAnimation"
 			? "static"
@@ -32627,9 +32628,9 @@ function instance$5($$self, $$props, $$invalidate) {
 
 	return [
 		animType,
+		menuType,
 		flagData,
 		flagPath,
-		menuType,
 		animation,
 		variant,
 		color,
@@ -32659,11 +32660,26 @@ function instance$5($$self, $$props, $$invalidate) {
 class SelectAnimation extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$5, create_fragment$5, safe_not_equal, { flagData: 1, flagPath: 2, animType: 0 }, null, [-1, -1]);
+
+		init(
+			this,
+			options,
+			instance$5,
+			create_fragment$5,
+			safe_not_equal,
+			{
+				flagData: 2,
+				flagPath: 3,
+				animType: 0,
+				menuType: 1
+			},
+			null,
+			[-1, -1]
+		);
 	}
 
 	get flagData() {
-		return this.$$.ctx[1];
+		return this.$$.ctx[2];
 	}
 
 	set flagData(flagData) {
@@ -32672,7 +32688,7 @@ class SelectAnimation extends SvelteComponent {
 	}
 
 	get flagPath() {
-		return this.$$.ctx[2];
+		return this.$$.ctx[3];
 	}
 
 	set flagPath(flagPath) {
@@ -32688,11 +32704,20 @@ class SelectAnimation extends SvelteComponent {
 		this.$$set({ animType });
 		flush();
 	}
+
+	get menuType() {
+		return this.$$.ctx[1];
+	}
+
+	set menuType(menuType) {
+		this.$$set({ menuType });
+		flush();
+	}
 }
 
 /* src\fomApps\ItemMenu\components\soundSettings.svelte generated by Svelte v3.46.4 */
 
-function create_if_block$1(ctx) {
+function create_if_block$2(ctx) {
 	let div1;
 	let div0;
 	let input0;
@@ -32913,7 +32938,7 @@ function create_fragment$4(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block = /*soundEnabled*/ ctx[0] && create_if_block$1(ctx);
+	let if_block = /*soundEnabled*/ ctx[0] && create_if_block$2(ctx);
 
 	return {
 		c() {
@@ -32965,7 +32990,7 @@ function create_fragment$4(ctx) {
 						transition_in(if_block, 1);
 					}
 				} else {
-					if_block = create_if_block$1(ctx);
+					if_block = create_if_block$2(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(div2, null);
@@ -33231,11 +33256,564 @@ class Explosions extends SvelteComponent {
 
 /* src\fomApps\ItemMenu\components\options.svelte generated by Svelte v3.46.4 */
 
+function create_if_block_4(ctx) {
+	let div;
+	let label;
+	let t1;
+	let input;
+	let mounted;
+	let dispose;
+
+	return {
+		c() {
+			div = element("div");
+			label = element("label");
+			label.textContent = `${localize("AUTOANIM.scale")}`;
+			t1 = space();
+			input = element("input");
+			attr(label, "for", "");
+			attr(label, "class", "svelte-9v4dam");
+			attr(input, "type", "Number");
+			attr(input, "placeholder", "1");
+			attr(input, "step", "0.01");
+			attr(input, "class", "svelte-9v4dam");
+			attr(div, "class", "flexcol");
+			set_style(div, "grid-row", "2 / 3");
+			set_style(div, "grid-column", "3 / 4");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			append(div, label);
+			append(div, t1);
+			append(div, input);
+			set_input_value(input, /*scale*/ ctx[4]);
+
+			if (!mounted) {
+				dispose = listen(input, "input", /*input_input_handler*/ ctx[36]);
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*scale*/ 16) {
+				set_input_value(input, /*scale*/ ctx[4]);
+			}
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			mounted = false;
+			dispose();
+		}
+	};
+}
+
+// (152:4) {#if animType === "templatefx"}
+function create_if_block$1(ctx) {
+	let div0;
+	let label0;
+	let t2;
+	let input0;
+	let t3;
+	let div1;
+	let label1;
+	let t6;
+	let input1;
+	let t7;
+	let div2;
+	let label2;
+	let t9;
+	let button;
+	let t10;
+	let button_class_value;
+	let t11;
+	let if_block_anchor;
+	let current;
+	let mounted;
+	let dispose;
+	let if_block = /*persistent*/ ctx[6] && create_if_block_1$1(ctx);
+
+	return {
+		c() {
+			div0 = element("div");
+			label0 = element("label");
+			label0.textContent = `${localize("AUTOANIM.scale")} X`;
+			t2 = space();
+			input0 = element("input");
+			t3 = space();
+			div1 = element("div");
+			label1 = element("label");
+			label1.textContent = `${localize("AUTOANIM.scale")} Y`;
+			t6 = space();
+			input1 = element("input");
+			t7 = space();
+			div2 = element("div");
+			label2 = element("label");
+			label2.textContent = `${localize("AUTOANIM.remove")}`;
+			t9 = space();
+			button = element("button");
+			t10 = text(/*isRemove*/ ctx[19]);
+			t11 = space();
+			if (if_block) if_block.c();
+			if_block_anchor = empty();
+			attr(label0, "for", "");
+			attr(label0, "class", "svelte-9v4dam");
+			attr(input0, "type", "Number");
+			attr(input0, "placeholder", "1");
+			attr(input0, "class", "svelte-9v4dam");
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "2 / 3");
+			set_style(div0, "grid-column", "3 / 4");
+			attr(label1, "for", "");
+			attr(label1, "class", "svelte-9v4dam");
+			attr(input1, "type", "Number");
+			attr(input1, "placeholder", "1");
+			attr(input1, "class", "svelte-9v4dam");
+			attr(div1, "class", "flexcol");
+			set_style(div1, "grid-row", "3 / 4");
+			set_style(div1, "grid-column", "3 / 4");
+			attr(label2, "for", "");
+			attr(label2, "class", "svelte-9v4dam");
+			attr(button, "class", button_class_value = "" + (null_to_empty(/*removeTemplate*/ ctx[7] ? "selected" : "notSelected") + " svelte-9v4dam"));
+			attr(div2, "class", "flexcol");
+			set_style(div2, "grid-row", "3 / 4");
+			set_style(div2, "grid-column", "4 / 5");
+		},
+		m(target, anchor) {
+			insert(target, div0, anchor);
+			append(div0, label0);
+			append(div0, t2);
+			append(div0, input0);
+			set_input_value(input0, /*scaleX*/ ctx[8]);
+			insert(target, t3, anchor);
+			insert(target, div1, anchor);
+			append(div1, label1);
+			append(div1, t6);
+			append(div1, input1);
+			set_input_value(input1, /*scaleY*/ ctx[9]);
+			insert(target, t7, anchor);
+			insert(target, div2, anchor);
+			append(div2, label2);
+			append(div2, t9);
+			append(div2, button);
+			append(button, t10);
+			insert(target, t11, anchor);
+			if (if_block) if_block.m(target, anchor);
+			insert(target, if_block_anchor, anchor);
+			current = true;
+
+			if (!mounted) {
+				dispose = [
+					listen(input0, "input", /*input0_input_handler_1*/ ctx[39]),
+					listen(input1, "input", /*input1_input_handler_1*/ ctx[40]),
+					listen(button, "click", /*click_handler_4*/ ctx[41])
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*scaleX*/ 256) {
+				set_input_value(input0, /*scaleX*/ ctx[8]);
+			}
+
+			if (dirty[0] & /*scaleY*/ 512) {
+				set_input_value(input1, /*scaleY*/ ctx[9]);
+			}
+
+			if (!current || dirty[0] & /*isRemove*/ 524288) set_data(t10, /*isRemove*/ ctx[19]);
+
+			if (!current || dirty[0] & /*removeTemplate*/ 128 && button_class_value !== (button_class_value = "" + (null_to_empty(/*removeTemplate*/ ctx[7] ? "selected" : "notSelected") + " svelte-9v4dam"))) {
+				attr(button, "class", button_class_value);
+			}
+
+			if (/*persistent*/ ctx[6]) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+
+					if (dirty[0] & /*persistent*/ 64) {
+						transition_in(if_block, 1);
+					}
+				} else {
+					if_block = create_if_block_1$1(ctx);
+					if_block.c();
+					transition_in(if_block, 1);
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				group_outros();
+
+				transition_out(if_block, 1, 1, () => {
+					if_block = null;
+				});
+
+				check_outros();
+			}
+		},
+		i(local) {
+			if (current) return;
+			transition_in(if_block);
+			current = true;
+		},
+		o(local) {
+			transition_out(if_block);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div0);
+			if (detaching) detach(t3);
+			if (detaching) detach(div1);
+			if (detaching) detach(t7);
+			if (detaching) detach(div2);
+			if (detaching) detach(t11);
+			if (if_block) if_block.d(detaching);
+			if (detaching) detach(if_block_anchor);
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
+// (165:4) {#if persistent}
+function create_if_block_1$1(ctx) {
+	let div;
+	let label;
+	let t2;
+	let select;
+	let option0;
+	let option1;
+	let div_intro;
+	let div_outro;
+	let t5;
+	let if_block1_anchor;
+	let current;
+	let mounted;
+	let dispose;
+	let if_block0 = (/*menuType*/ ctx[1] === "circle" || /*menuType*/ ctx[1] === "square") && create_if_block_3$1();
+	let if_block1 = /*persistType*/ ctx[10] === "overheadtile" && create_if_block_2$1(ctx);
+
+	return {
+		c() {
+			div = element("div");
+			label = element("label");
+			label.textContent = `Persistent ${localize("AUTOANIM.type")}`;
+			t2 = space();
+			select = element("select");
+			if (if_block0) if_block0.c();
+			option0 = element("option");
+			option0.textContent = `${localize("AUTOANIM.sequencereffect")}`;
+			option1 = element("option");
+			option1.textContent = `${localize("AUTOANIM.attachtotemplate")}`;
+			t5 = space();
+			if (if_block1) if_block1.c();
+			if_block1_anchor = empty();
+			attr(label, "for", "1");
+			attr(label, "class", "svelte-9v4dam");
+			option0.__value = "sequencerground";
+			option0.value = option0.__value;
+			option1.__value = "attachtemplate";
+			option1.value = option1.__value;
+			attr(select, "id", "1");
+			set_style(select, "text-align", "center");
+			set_style(select, "justify-self", "center");
+			set_style(select, "margin-right", "15%");
+			set_style(select, "margin-left", "15%");
+			attr(select, "class", "svelte-9v4dam");
+			if (/*persistType*/ ctx[10] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[42].call(select));
+			attr(div, "class", "flexcol");
+			set_style(div, "grid-row", "3 / 4");
+			set_style(div, "grid-column", "1 / 3");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			append(div, label);
+			append(div, t2);
+			append(div, select);
+			if (if_block0) if_block0.m(select, null);
+			append(select, option0);
+			append(select, option1);
+			select_option(select, /*persistType*/ ctx[10]);
+			insert(target, t5, anchor);
+			if (if_block1) if_block1.m(target, anchor);
+			insert(target, if_block1_anchor, anchor);
+			current = true;
+
+			if (!mounted) {
+				dispose = listen(select, "change", /*select_change_handler*/ ctx[42]);
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (/*menuType*/ ctx[1] === "circle" || /*menuType*/ ctx[1] === "square") {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+				} else {
+					if_block0 = create_if_block_3$1();
+					if_block0.c();
+					if_block0.m(select, option0);
+				}
+			} else if (if_block0) {
+				if_block0.d(1);
+				if_block0 = null;
+			}
+
+			if (dirty[0] & /*persistType*/ 1024) {
+				select_option(select, /*persistType*/ ctx[10]);
+			}
+
+			if (/*persistType*/ ctx[10] === "overheadtile") {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+
+					if (dirty[0] & /*persistType*/ 1024) {
+						transition_in(if_block1, 1);
+					}
+				} else {
+					if_block1 = create_if_block_2$1(ctx);
+					if_block1.c();
+					transition_in(if_block1, 1);
+					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+				}
+			} else if (if_block1) {
+				group_outros();
+
+				transition_out(if_block1, 1, 1, () => {
+					if_block1 = null;
+				});
+
+				check_outros();
+			}
+		},
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (div_outro) div_outro.end(1);
+				div_intro = create_in_transition(div, fade, { duration: 500 });
+				div_intro.start();
+			});
+
+			transition_in(if_block1);
+			current = true;
+		},
+		o(local) {
+			if (div_intro) div_intro.invalidate();
+			div_outro = create_out_transition(div, fade, { duration: 500 });
+			transition_out(if_block1);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			if (if_block0) if_block0.d();
+			if (detaching && div_outro) div_outro.end();
+			if (detaching) detach(t5);
+			if (if_block1) if_block1.d(detaching);
+			if (detaching) detach(if_block1_anchor);
+			mounted = false;
+			dispose();
+		}
+	};
+}
+
+// (173:12) {#if menuType === "circle" || menuType === "square"}
+function create_if_block_3$1(ctx) {
+	let option0;
+	let option1;
+
+	return {
+		c() {
+			option0 = element("option");
+			option0.textContent = `${localize("AUTOANIM.overheadtile")}`;
+			option1 = element("option");
+			option1.textContent = `${localize("AUTOANIM.groundtile")}`;
+			option0.__value = "overheadtile";
+			option0.value = option0.__value;
+			option1.__value = "groundtile";
+			option1.value = option1.__value;
+		},
+		m(target, anchor) {
+			insert(target, option0, anchor);
+			insert(target, option1, anchor);
+		},
+		p: noop,
+		d(detaching) {
+			if (detaching) detach(option0);
+			if (detaching) detach(option1);
+		}
+	};
+}
+
+// (181:4) {#if persistType === "overheadtile"}
+function create_if_block_2$1(ctx) {
+	let div0;
+	let label0;
+	let t1;
+	let select;
+	let option0;
+	let option1;
+	let option2;
+	let option3;
+	let div0_intro;
+	let div0_outro;
+	let t6;
+	let div2;
+	let label1;
+	let t8;
+	let div1;
+	let input0;
+	let t9;
+	let input1;
+	let div2_intro;
+	let div2_outro;
+	let current;
+	let mounted;
+	let dispose;
+
+	return {
+		c() {
+			div0 = element("div");
+			label0 = element("label");
+			label0.textContent = `${localize("AUTOANIM.occlusionMode")}`;
+			t1 = space();
+			select = element("select");
+			option0 = element("option");
+			option0.textContent = `${localize("AUTOANIM.occlusion03")}`;
+			option1 = element("option");
+			option1.textContent = `${localize("AUTOANIM.occlusion01")}`;
+			option2 = element("option");
+			option2.textContent = `${localize("AUTOANIM.occlusion02")}`;
+			option3 = element("option");
+			option3.textContent = `${localize("AUTOANIM.occlusion00")}`;
+			t6 = space();
+			div2 = element("div");
+			label1 = element("label");
+			label1.textContent = `${localize("AUTOANIM.occlusionAlpha")}`;
+			t8 = space();
+			div1 = element("div");
+			input0 = element("input");
+			t9 = space();
+			input1 = element("input");
+			attr(label0, "for", "1");
+			attr(label0, "class", "svelte-9v4dam");
+			option0.__value = "3";
+			option0.value = option0.__value;
+			option1.__value = "1";
+			option1.value = option1.__value;
+			option2.__value = "2";
+			option2.value = option2.__value;
+			option3.__value = "0";
+			option3.value = option3.__value;
+			attr(select, "id", "1");
+			set_style(select, "text-align", "center");
+			set_style(select, "justify-self", "center");
+			attr(select, "class", "svelte-9v4dam");
+			if (/*occlusionMode*/ ctx[11] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[43].call(select));
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "4 / 5");
+			set_style(div0, "grid-column", "1 / 3");
+			attr(label1, "for", "");
+			attr(label1, "class", "svelte-9v4dam");
+			attr(input0, "type", "Number");
+			attr(input0, "placeholder", "1");
+			attr(input0, "min", "0");
+			attr(input0, "max", "1");
+			attr(input0, "step", "0.01");
+			attr(input0, "class", "svelte-9v4dam");
+			attr(input1, "type", "range");
+			attr(input1, "min", "0");
+			attr(input1, "max", "1");
+			attr(input1, "step", "0.01");
+			attr(input1, "class", "svelte-9v4dam");
+			attr(div1, "class", "form-group");
+			attr(div2, "class", "flexcol");
+			set_style(div2, "grid-row", "4 / 5");
+			set_style(div2, "grid-column", "3 / 4");
+		},
+		m(target, anchor) {
+			insert(target, div0, anchor);
+			append(div0, label0);
+			append(div0, t1);
+			append(div0, select);
+			append(select, option0);
+			append(select, option1);
+			append(select, option2);
+			append(select, option3);
+			select_option(select, /*occlusionMode*/ ctx[11]);
+			insert(target, t6, anchor);
+			insert(target, div2, anchor);
+			append(div2, label1);
+			append(div2, t8);
+			append(div2, div1);
+			append(div1, input0);
+			set_input_value(input0, /*occlusionAlpha*/ ctx[12]);
+			append(div1, t9);
+			append(div1, input1);
+			set_input_value(input1, /*occlusionAlpha*/ ctx[12]);
+			current = true;
+
+			if (!mounted) {
+				dispose = [
+					listen(select, "change", /*select_change_handler_1*/ ctx[43]),
+					listen(input0, "input", /*input0_input_handler_2*/ ctx[44]),
+					listen(input1, "change", /*input1_change_input_handler*/ ctx[45]),
+					listen(input1, "input", /*input1_change_input_handler*/ ctx[45])
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*occlusionMode*/ 2048) {
+				select_option(select, /*occlusionMode*/ ctx[11]);
+			}
+
+			if (dirty[0] & /*occlusionAlpha*/ 4096) {
+				set_input_value(input0, /*occlusionAlpha*/ ctx[12]);
+			}
+
+			if (dirty[0] & /*occlusionAlpha*/ 4096) {
+				set_input_value(input1, /*occlusionAlpha*/ ctx[12]);
+			}
+		},
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (div0_outro) div0_outro.end(1);
+				div0_intro = create_in_transition(div0, fade, { duration: 500 });
+				div0_intro.start();
+			});
+
+			add_render_callback(() => {
+				if (div2_outro) div2_outro.end(1);
+				div2_intro = create_in_transition(div2, fade, { duration: 500 });
+				div2_intro.start();
+			});
+
+			current = true;
+		},
+		o(local) {
+			if (div0_intro) div0_intro.invalidate();
+			div0_outro = create_out_transition(div0, fade, { duration: 500 });
+			if (div2_intro) div2_intro.invalidate();
+			div2_outro = create_out_transition(div2, fade, { duration: 500 });
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div0);
+			if (detaching && div0_outro) div0_outro.end();
+			if (detaching) detach(t6);
+			if (detaching) detach(div2);
+			if (detaching && div2_outro) div2_outro.end();
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
 function create_fragment$2(ctx) {
-	let div10;
+	let div9;
 	let h2;
 	let t1;
-	let div9;
+	let div8;
 	let div0;
 	let label0;
 	let t3;
@@ -33275,62 +33853,61 @@ function create_fragment$2(ctx) {
 	let input1;
 	let div5_class_value;
 	let t25;
-	let div6;
-	let label6;
-	let t27;
-	let input2;
-	let t28;
-	let div8;
-	let label7;
-	let t30;
+	let t26;
 	let div7;
+	let label6;
+	let t28;
+	let div6;
+	let input2;
+	let t29;
 	let input3;
-	let t31;
-	let input4;
-	let div8_class_value;
+	let div7_class_value;
+	let div7_intro;
+	let div7_outro;
+	let t30;
 	let div8_intro;
 	let div8_outro;
-	let div9_intro;
-	let div9_outro;
-	let div10_transition;
+	let div9_transition;
 	let current;
 	let mounted;
 	let dispose;
+	let if_block0 = /*animType*/ ctx[0] !== "templatefx" && create_if_block_4(ctx);
+	let if_block1 = /*animType*/ ctx[0] === "templatefx" && create_if_block$1(ctx);
 
 	return {
 		c() {
-			div10 = element("div");
+			div9 = element("div");
 			h2 = element("h2");
 			h2.textContent = "Options";
 			t1 = space();
-			div9 = element("div");
+			div8 = element("div");
 			div0 = element("div");
 			label0 = element("label");
 			label0.textContent = "Persistence";
 			t3 = space();
 			button0 = element("button");
-			t4 = text(/*isPersistent*/ ctx[6]);
+			t4 = text(/*isPersistent*/ ctx[15]);
 			t5 = space();
 			div1 = element("div");
 			label1 = element("label");
 			label1.textContent = "Z-Index";
 			t7 = space();
 			button1 = element("button");
-			t8 = text(/*aboveBelow*/ ctx[9]);
+			t8 = text(/*aboveBelow*/ ctx[18]);
 			t9 = space();
 			div2 = element("div");
 			label2 = element("label");
 			label2.textContent = "Visibility";
 			t11 = space();
 			button2 = element("button");
-			t12 = text(/*bindVisibility*/ ctx[7]);
+			t12 = text(/*bindVisibility*/ ctx[16]);
 			t13 = space();
 			div3 = element("div");
 			label3 = element("label");
 			label3.textContent = "Alpha";
 			t15 = space();
 			button3 = element("button");
-			t16 = text(/*bindAlpha*/ ctx[8]);
+			t16 = text(/*bindAlpha*/ ctx[17]);
 			t17 = space();
 			div4 = element("div");
 			label4 = element("label");
@@ -33344,283 +33921,309 @@ function create_fragment$2(ctx) {
 			t24 = space();
 			input1 = element("input");
 			t25 = space();
-			div6 = element("div");
-			label6 = element("label");
-			label6.textContent = `${localize("AUTOANIM.scale")}`;
-			t27 = space();
-			input2 = element("input");
-			t28 = space();
-			div8 = element("div");
-			label7 = element("label");
-			label7.textContent = `${localize("AUTOANIM.opacity")}`;
-			t30 = space();
+			if (if_block0) if_block0.c();
+			t26 = space();
 			div7 = element("div");
+			label6 = element("label");
+			label6.textContent = `${localize("AUTOANIM.opacity")}`;
+			t28 = space();
+			div6 = element("div");
+			input2 = element("input");
+			t29 = space();
 			input3 = element("input");
-			t31 = space();
-			input4 = element("input");
-			attr(h2, "class", "svelte-1ey1bhz");
+			t30 = space();
+			if (if_block1) if_block1.c();
+			attr(h2, "class", "svelte-9v4dam");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-1ey1bhz");
-			button0.disabled = /*disabled01*/ ctx[5];
-			attr(button0, "class", "svelte-1ey1bhz");
+			attr(label0, "class", "svelte-9v4dam");
+			button0.disabled = /*disabled01*/ ctx[14];
+			attr(button0, "class", "svelte-9v4dam");
 
-			attr(div0, "class", div0_class_value = "flexcol " + (/*disabled01*/ ctx[5]
+			attr(div0, "class", div0_class_value = "flexcol " + (/*disabled01*/ ctx[14]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz");
+			: "") + " svelte-9v4dam");
 
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-1ey1bhz");
-			attr(button1, "class", "oldCheck svelte-1ey1bhz");
+			attr(label1, "class", "svelte-9v4dam");
+			attr(button1, "class", "oldCheck svelte-9v4dam");
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-1ey1bhz");
-			button2.disabled = /*disabled01*/ ctx[5];
-			attr(button2, "class", "svelte-1ey1bhz");
+			attr(label2, "class", "svelte-9v4dam");
+			button2.disabled = /*disabled01*/ ctx[14];
+			attr(button2, "class", "svelte-9v4dam");
 
-			attr(div2, "class", div2_class_value = "flexcol " + (/*disabled01*/ ctx[5]
+			attr(div2, "class", div2_class_value = "flexcol " + (/*disabled01*/ ctx[14]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz");
+			: "") + " svelte-9v4dam");
 
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "3 / 4");
 			attr(label3, "for", "");
-			attr(label3, "class", "svelte-1ey1bhz");
-			button3.disabled = /*disabled01*/ ctx[5];
-			attr(button3, "class", "svelte-1ey1bhz");
+			attr(label3, "class", "svelte-9v4dam");
+			button3.disabled = /*disabled01*/ ctx[14];
+			attr(button3, "class", "svelte-9v4dam");
 
-			attr(div3, "class", div3_class_value = "flexcol " + (/*disabled01*/ ctx[5]
+			attr(div3, "class", div3_class_value = "flexcol " + (/*disabled01*/ ctx[14]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz");
+			: "") + " svelte-9v4dam");
 
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "4 / 5");
 			attr(label4, "for", "");
-			attr(label4, "class", "svelte-1ey1bhz");
-			input0.disabled = /*isDisabled*/ ctx[4];
+			attr(label4, "class", "svelte-9v4dam");
+			input0.disabled = /*isDisabled*/ ctx[13];
 			attr(input0, "type", "Number");
 			attr(input0, "placeholder", "1");
-			attr(input0, "class", "svelte-1ey1bhz");
+			attr(input0, "class", "svelte-9v4dam");
 
-			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[4]
+			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[13]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz");
+			: "") + " svelte-9v4dam");
 
 			set_style(div4, "grid-row", "2 / 3");
 			set_style(div4, "grid-column", "1 / 2");
 			attr(label5, "for", "");
-			attr(label5, "class", "svelte-1ey1bhz");
-			input1.disabled = /*isDisabled*/ ctx[4];
+			attr(label5, "class", "svelte-9v4dam");
+			input1.disabled = /*isDisabled*/ ctx[13];
 			attr(input1, "type", "Number");
 			attr(input1, "placeholder", "250");
-			attr(input1, "class", "svelte-1ey1bhz");
+			attr(input1, "class", "svelte-9v4dam");
 
-			attr(div5, "class", div5_class_value = "flexcol " + (/*isDisabled*/ ctx[4]
+			attr(div5, "class", div5_class_value = "flexcol " + (/*isDisabled*/ ctx[13]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz");
+			: "") + " svelte-9v4dam");
 
 			set_style(div5, "grid-row", "2 / 3");
 			set_style(div5, "grid-column", "2 / 3");
 			attr(label6, "for", "");
-			attr(label6, "class", "svelte-1ey1bhz");
+			attr(label6, "class", "svelte-9v4dam");
+			input2.disabled = /*disabled01*/ ctx[14];
 			attr(input2, "type", "Number");
 			attr(input2, "placeholder", "1");
+			attr(input2, "min", "0");
+			attr(input2, "max", "1");
 			attr(input2, "step", "0.01");
-			attr(input2, "class", "svelte-1ey1bhz");
-			attr(div6, "class", "flexcol");
-			set_style(div6, "grid-row", "2 / 3");
-			set_style(div6, "grid-column", "3 / 4");
-			attr(label7, "for", "");
-			attr(label7, "class", "svelte-1ey1bhz");
-			input3.disabled = /*disabled01*/ ctx[5];
-			attr(input3, "type", "Number");
-			attr(input3, "placeholder", "1");
+			attr(input2, "class", "svelte-9v4dam");
+			input3.disabled = /*disabled01*/ ctx[14];
+			attr(input3, "type", "range");
 			attr(input3, "min", "0");
 			attr(input3, "max", "1");
 			attr(input3, "step", "0.01");
-			attr(input3, "class", "svelte-1ey1bhz");
-			input4.disabled = /*disabled01*/ ctx[5];
-			attr(input4, "type", "range");
-			attr(input4, "min", "0");
-			attr(input4, "max", "1");
-			attr(input4, "step", "0.01");
-			attr(input4, "class", "svelte-1ey1bhz");
-			attr(div7, "class", "form-group");
-			attr(div8, "class", div8_class_value = "flexcol " + (/*disabled01*/ ctx[5] ? "opacityInput" : "") + " svelte-1ey1bhz");
-			set_style(div8, "grid-row", "2 / 3");
-			set_style(div8, "grid-column", "4 / 5");
-			attr(div9, "class", "aa-options svelte-1ey1bhz");
+			attr(input3, "class", "svelte-9v4dam");
+			attr(div6, "class", "form-group");
+			attr(div7, "class", div7_class_value = "flexcol " + (/*disabled01*/ ctx[14] ? "opacityInput" : "") + " svelte-9v4dam");
+			set_style(div7, "grid-row", "2 / 3");
+			set_style(div7, "grid-column", "4 / 5");
+			attr(div8, "class", "aa-options svelte-9v4dam");
 		},
 		m(target, anchor) {
-			insert(target, div10, anchor);
-			append(div10, h2);
-			append(div10, t1);
-			append(div10, div9);
-			append(div9, div0);
+			insert(target, div9, anchor);
+			append(div9, h2);
+			append(div9, t1);
+			append(div9, div8);
+			append(div8, div0);
 			append(div0, label0);
 			append(div0, t3);
 			append(div0, button0);
 			append(button0, t4);
-			append(div9, t5);
-			append(div9, div1);
+			append(div8, t5);
+			append(div8, div1);
 			append(div1, label1);
 			append(div1, t7);
 			append(div1, button1);
 			append(button1, t8);
-			append(div9, t9);
-			append(div9, div2);
+			append(div8, t9);
+			append(div8, div2);
 			append(div2, label2);
 			append(div2, t11);
 			append(div2, button2);
 			append(button2, t12);
-			append(div9, t13);
-			append(div9, div3);
+			append(div8, t13);
+			append(div8, div3);
 			append(div3, label3);
 			append(div3, t15);
 			append(div3, button3);
 			append(button3, t16);
-			append(div9, t17);
-			append(div9, div4);
+			append(div8, t17);
+			append(div8, div4);
 			append(div4, label4);
 			append(div4, t19);
 			append(div4, input0);
-			set_input_value(input0, /*repeat*/ ctx[0]);
-			append(div9, t20);
-			append(div9, div5);
+			set_input_value(input0, /*repeat*/ ctx[2]);
+			append(div8, t20);
+			append(div8, div5);
 			append(div5, label5);
 			append(div5, t24);
 			append(div5, input1);
-			set_input_value(input1, /*delay*/ ctx[1]);
-			append(div9, t25);
-			append(div9, div6);
-			append(div6, label6);
-			append(div6, t27);
-			append(div6, input2);
-			set_input_value(input2, /*scale*/ ctx[2]);
-			append(div9, t28);
-			append(div9, div8);
-			append(div8, label7);
-			append(div8, t30);
+			set_input_value(input1, /*delay*/ ctx[3]);
+			append(div8, t25);
+			if (if_block0) if_block0.m(div8, null);
+			append(div8, t26);
 			append(div8, div7);
-			append(div7, input3);
-			set_input_value(input3, /*opacity*/ ctx[3]);
-			append(div7, t31);
-			append(div7, input4);
-			set_input_value(input4, /*opacity*/ ctx[3]);
+			append(div7, label6);
+			append(div7, t28);
+			append(div7, div6);
+			append(div6, input2);
+			set_input_value(input2, /*opacity*/ ctx[5]);
+			append(div6, t29);
+			append(div6, input3);
+			set_input_value(input3, /*opacity*/ ctx[5]);
+			append(div8, t30);
+			if (if_block1) if_block1.m(div8, null);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler*/ ctx[20]),
-					listen(button1, "click", /*click_handler_1*/ ctx[21]),
-					listen(button2, "click", /*click_handler_2*/ ctx[22]),
-					listen(button3, "click", /*click_handler_3*/ ctx[23]),
-					listen(input0, "input", /*input0_input_handler*/ ctx[24]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[25]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[26]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[27]),
-					listen(input4, "change", /*input4_change_input_handler*/ ctx[28]),
-					listen(input4, "input", /*input4_change_input_handler*/ ctx[28])
+					listen(button0, "click", /*click_handler*/ ctx[30]),
+					listen(button1, "click", /*click_handler_1*/ ctx[31]),
+					listen(button2, "click", /*click_handler_2*/ ctx[32]),
+					listen(button3, "click", /*click_handler_3*/ ctx[33]),
+					listen(input0, "input", /*input0_input_handler*/ ctx[34]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[35]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[37]),
+					listen(input3, "change", /*input3_change_input_handler*/ ctx[38]),
+					listen(input3, "input", /*input3_change_input_handler*/ ctx[38])
 				];
 
 				mounted = true;
 			}
 		},
-		p(ctx, [dirty]) {
-			if (!current || dirty & /*isPersistent*/ 64) set_data(t4, /*isPersistent*/ ctx[6]);
+		p(ctx, dirty) {
+			if (!current || dirty[0] & /*isPersistent*/ 32768) set_data(t4, /*isPersistent*/ ctx[15]);
 
-			if (!current || dirty & /*disabled01*/ 32) {
-				button0.disabled = /*disabled01*/ ctx[5];
+			if (!current || dirty[0] & /*disabled01*/ 16384) {
+				button0.disabled = /*disabled01*/ ctx[14];
 			}
 
-			if (!current || dirty & /*disabled01*/ 32 && div0_class_value !== (div0_class_value = "flexcol " + (/*disabled01*/ ctx[5]
+			if (!current || dirty[0] & /*disabled01*/ 16384 && div0_class_value !== (div0_class_value = "flexcol " + (/*disabled01*/ ctx[14]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz")) {
+			: "") + " svelte-9v4dam")) {
 				attr(div0, "class", div0_class_value);
 			}
 
-			if (!current || dirty & /*aboveBelow*/ 512) set_data(t8, /*aboveBelow*/ ctx[9]);
-			if (!current || dirty & /*bindVisibility*/ 128) set_data(t12, /*bindVisibility*/ ctx[7]);
+			if (!current || dirty[0] & /*aboveBelow*/ 262144) set_data(t8, /*aboveBelow*/ ctx[18]);
+			if (!current || dirty[0] & /*bindVisibility*/ 65536) set_data(t12, /*bindVisibility*/ ctx[16]);
 
-			if (!current || dirty & /*disabled01*/ 32) {
-				button2.disabled = /*disabled01*/ ctx[5];
+			if (!current || dirty[0] & /*disabled01*/ 16384) {
+				button2.disabled = /*disabled01*/ ctx[14];
 			}
 
-			if (!current || dirty & /*disabled01*/ 32 && div2_class_value !== (div2_class_value = "flexcol " + (/*disabled01*/ ctx[5]
+			if (!current || dirty[0] & /*disabled01*/ 16384 && div2_class_value !== (div2_class_value = "flexcol " + (/*disabled01*/ ctx[14]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz")) {
+			: "") + " svelte-9v4dam")) {
 				attr(div2, "class", div2_class_value);
 			}
 
-			if (!current || dirty & /*bindAlpha*/ 256) set_data(t16, /*bindAlpha*/ ctx[8]);
+			if (!current || dirty[0] & /*bindAlpha*/ 131072) set_data(t16, /*bindAlpha*/ ctx[17]);
 
-			if (!current || dirty & /*disabled01*/ 32) {
-				button3.disabled = /*disabled01*/ ctx[5];
+			if (!current || dirty[0] & /*disabled01*/ 16384) {
+				button3.disabled = /*disabled01*/ ctx[14];
 			}
 
-			if (!current || dirty & /*disabled01*/ 32 && div3_class_value !== (div3_class_value = "flexcol " + (/*disabled01*/ ctx[5]
+			if (!current || dirty[0] & /*disabled01*/ 16384 && div3_class_value !== (div3_class_value = "flexcol " + (/*disabled01*/ ctx[14]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz")) {
+			: "") + " svelte-9v4dam")) {
 				attr(div3, "class", div3_class_value);
 			}
 
-			if (!current || dirty & /*isDisabled*/ 16) {
-				input0.disabled = /*isDisabled*/ ctx[4];
+			if (!current || dirty[0] & /*isDisabled*/ 8192) {
+				input0.disabled = /*isDisabled*/ ctx[13];
 			}
 
-			if (dirty & /*repeat*/ 1) {
-				set_input_value(input0, /*repeat*/ ctx[0]);
+			if (dirty[0] & /*repeat*/ 4) {
+				set_input_value(input0, /*repeat*/ ctx[2]);
 			}
 
-			if (!current || dirty & /*isDisabled*/ 16 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[4]
+			if (!current || dirty[0] & /*isDisabled*/ 8192 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[13]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz")) {
+			: "") + " svelte-9v4dam")) {
 				attr(div4, "class", div4_class_value);
 			}
 
-			if (!current || dirty & /*isDisabled*/ 16) {
-				input1.disabled = /*isDisabled*/ ctx[4];
+			if (!current || dirty[0] & /*isDisabled*/ 8192) {
+				input1.disabled = /*isDisabled*/ ctx[13];
 			}
 
-			if (dirty & /*delay*/ 2) {
-				set_input_value(input1, /*delay*/ ctx[1]);
+			if (dirty[0] & /*delay*/ 8) {
+				set_input_value(input1, /*delay*/ ctx[3]);
 			}
 
-			if (!current || dirty & /*isDisabled*/ 16 && div5_class_value !== (div5_class_value = "flexcol " + (/*isDisabled*/ ctx[4]
+			if (!current || dirty[0] & /*isDisabled*/ 8192 && div5_class_value !== (div5_class_value = "flexcol " + (/*isDisabled*/ ctx[13]
 			? "opacityBorder opacityLabel"
-			: "") + " svelte-1ey1bhz")) {
+			: "") + " svelte-9v4dam")) {
 				attr(div5, "class", div5_class_value);
 			}
 
-			if (dirty & /*scale*/ 4) {
-				set_input_value(input2, /*scale*/ ctx[2]);
+			if (/*animType*/ ctx[0] !== "templatefx") {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+				} else {
+					if_block0 = create_if_block_4(ctx);
+					if_block0.c();
+					if_block0.m(div8, t26);
+				}
+			} else if (if_block0) {
+				if_block0.d(1);
+				if_block0 = null;
 			}
 
-			if (!current || dirty & /*disabled01*/ 32) {
-				input3.disabled = /*disabled01*/ ctx[5];
+			if (!current || dirty[0] & /*disabled01*/ 16384) {
+				input2.disabled = /*disabled01*/ ctx[14];
 			}
 
-			if (dirty & /*opacity*/ 8) {
-				set_input_value(input3, /*opacity*/ ctx[3]);
+			if (dirty[0] & /*opacity*/ 32) {
+				set_input_value(input2, /*opacity*/ ctx[5]);
 			}
 
-			if (!current || dirty & /*disabled01*/ 32) {
-				input4.disabled = /*disabled01*/ ctx[5];
+			if (!current || dirty[0] & /*disabled01*/ 16384) {
+				input3.disabled = /*disabled01*/ ctx[14];
 			}
 
-			if (dirty & /*opacity*/ 8) {
-				set_input_value(input4, /*opacity*/ ctx[3]);
+			if (dirty[0] & /*opacity*/ 32) {
+				set_input_value(input3, /*opacity*/ ctx[5]);
 			}
 
-			if (!current || dirty & /*disabled01*/ 32 && div8_class_value !== (div8_class_value = "flexcol " + (/*disabled01*/ ctx[5] ? "opacityInput" : "") + " svelte-1ey1bhz")) {
-				attr(div8, "class", div8_class_value);
+			if (!current || dirty[0] & /*disabled01*/ 16384 && div7_class_value !== (div7_class_value = "flexcol " + (/*disabled01*/ ctx[14] ? "opacityInput" : "") + " svelte-9v4dam")) {
+				attr(div7, "class", div7_class_value);
+			}
+
+			if (/*animType*/ ctx[0] === "templatefx") {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+
+					if (dirty[0] & /*animType*/ 1) {
+						transition_in(if_block1, 1);
+					}
+				} else {
+					if_block1 = create_if_block$1(ctx);
+					if_block1.c();
+					transition_in(if_block1, 1);
+					if_block1.m(div8, null);
+				}
+			} else if (if_block1) {
+				group_outros();
+
+				transition_out(if_block1, 1, 1, () => {
+					if_block1 = null;
+				});
+
+				check_outros();
 			}
 		},
 		i(local) {
 			if (current) return;
+
+			add_render_callback(() => {
+				if (div7_outro) div7_outro.end(1);
+				div7_intro = create_in_transition(div7, fade, { duration: 500 });
+				div7_intro.start();
+			});
+
+			transition_in(if_block1);
 
 			add_render_callback(() => {
 				if (div8_outro) div8_outro.end(1);
@@ -33629,32 +34232,29 @@ function create_fragment$2(ctx) {
 			});
 
 			add_render_callback(() => {
-				if (div9_outro) div9_outro.end(1);
-				div9_intro = create_in_transition(div9, fade, { duration: 500 });
-				div9_intro.start();
-			});
-
-			add_render_callback(() => {
-				if (!div10_transition) div10_transition = create_bidirectional_transition(div10, fade, { duration: 500 }, true);
-				div10_transition.run(1);
+				if (!div9_transition) div9_transition = create_bidirectional_transition(div9, fade, { duration: 500 }, true);
+				div9_transition.run(1);
 			});
 
 			current = true;
 		},
 		o(local) {
+			if (div7_intro) div7_intro.invalidate();
+			div7_outro = create_out_transition(div7, fade, { duration: 500 });
+			transition_out(if_block1);
 			if (div8_intro) div8_intro.invalidate();
 			div8_outro = create_out_transition(div8, fade, { duration: 500 });
-			if (div9_intro) div9_intro.invalidate();
-			div9_outro = create_out_transition(div9, fade, { duration: 500 });
-			if (!div10_transition) div10_transition = create_bidirectional_transition(div10, fade, { duration: 500 }, false);
-			div10_transition.run(0);
+			if (!div9_transition) div9_transition = create_bidirectional_transition(div9, fade, { duration: 500 }, false);
+			div9_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(div10);
+			if (detaching) detach(div9);
+			if (if_block0) if_block0.d();
+			if (detaching && div7_outro) div7_outro.end();
+			if (if_block1) if_block1.d();
 			if (detaching && div8_outro) div8_outro.end();
-			if (detaching && div9_outro) div9_outro.end();
-			if (detaching && div10_transition) div10_transition.end();
+			if (detaching && div9_transition) div9_transition.end();
 			mounted = false;
 			run_all(dispose);
 		}
@@ -33662,6 +34262,7 @@ function create_fragment$2(ctx) {
 }
 
 function instance$2($$self, $$props, $$invalidate) {
+	let isRemove;
 	let aboveBelow;
 	let bindAlpha;
 	let bindVisibility;
@@ -33669,6 +34270,8 @@ function instance$2($$self, $$props, $$invalidate) {
 	let disabled01;
 	let isDisabled;
 	let { flagData } = $$props;
+	let { animType } = $$props;
+	let { menuType } = $$props;
 	const options = flagData.options || {};
 	let repeat = options.repeat || 1;
 	let delay = options.delay || 250;
@@ -33678,34 +34281,44 @@ function instance$2($$self, $$props, $$invalidate) {
 	let unbindAlpha = options.unbindAlpha || 1;
 	let unbindVisbility = options.unbindVisbility || 1;
 	let persistent = options.persistent || false;
+	let removeTemplate = options.removeTemplate || false;
+	let scaleX = options.scaleX;
+	let scaleY = options.scaleY;
+	let persistType = options.persistType || false;
+	let occlusionMode = options.occlusionMode || "3";
+	let occlusionAlpha = options.occlusionAlpha || 0.5;
 
 	function below() {
-		$$invalidate(15, belowToken = !belowToken);
+		$$invalidate(26, belowToken = !belowToken);
 		console.log(menuSelection);
 		console.log(isDisabled);
 	}
 
 	function switchAlpha() {
-		$$invalidate(16, unbindAlpha = !unbindAlpha);
+		$$invalidate(27, unbindAlpha = !unbindAlpha);
 	}
 
 	function switchVisibility() {
-		$$invalidate(17, unbindVisbility = !unbindVisbility);
+		$$invalidate(28, unbindVisbility = !unbindVisbility);
 	}
 
 	function switchPersistence() {
-		$$invalidate(18, persistent = !persistent);
+		$$invalidate(6, persistent = !persistent);
 		let newPersistance = persistent;
 
 		if (newPersistance) {
-			$$invalidate(0, repeat = 1);
+			$$invalidate(2, repeat = 1);
 		}
+	}
+
+	function switchRemove() {
+		$$invalidate(7, removeTemplate = !removeTemplate);
 	}
 
 	let menuSelection = flagData.animType;
 
 	menuAnimType.subscribe(value => {
-		$$invalidate(19, menuSelection = value);
+		$$invalidate(29, menuSelection = value);
 	});
 
 	const click_handler = () => switchPersistence();
@@ -33715,151 +34328,253 @@ function instance$2($$self, $$props, $$invalidate) {
 
 	function input0_input_handler() {
 		repeat = this.value;
-		$$invalidate(0, repeat);
+		$$invalidate(2, repeat);
 	}
 
 	function input1_input_handler() {
 		delay = this.value;
-		$$invalidate(1, delay);
+		$$invalidate(3, delay);
+	}
+
+	function input_input_handler() {
+		scale = this.value;
+		$$invalidate(4, scale);
 	}
 
 	function input2_input_handler() {
-		scale = this.value;
-		$$invalidate(2, scale);
-	}
-
-	function input3_input_handler() {
 		opacity = this.value;
-		$$invalidate(3, opacity);
+		$$invalidate(5, opacity);
 	}
 
-	function input4_change_input_handler() {
+	function input3_change_input_handler() {
 		opacity = to_number(this.value);
-		$$invalidate(3, opacity);
+		$$invalidate(5, opacity);
+	}
+
+	function input0_input_handler_1() {
+		scaleX = this.value;
+		$$invalidate(8, scaleX);
+	}
+
+	function input1_input_handler_1() {
+		scaleY = this.value;
+		$$invalidate(9, scaleY);
+	}
+
+	const click_handler_4 = () => switchRemove();
+
+	function select_change_handler() {
+		persistType = select_value(this);
+		$$invalidate(10, persistType);
+	}
+
+	function select_change_handler_1() {
+		occlusionMode = select_value(this);
+		$$invalidate(11, occlusionMode);
+	}
+
+	function input0_input_handler_2() {
+		occlusionAlpha = this.value;
+		$$invalidate(12, occlusionAlpha);
+	}
+
+	function input1_change_input_handler() {
+		occlusionAlpha = to_number(this.value);
+		$$invalidate(12, occlusionAlpha);
 	}
 
 	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(14, flagData = $$props.flagData);
+		if ('flagData' in $$props) $$invalidate(25, flagData = $$props.flagData);
+		if ('animType' in $$props) $$invalidate(0, animType = $$props.animType);
+		if ('menuType' in $$props) $$invalidate(1, menuType = $$props.menuType);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*flagData*/ 16384) ;
-
-		if ($$self.$$.dirty & /*repeat*/ 1) {
-			$$invalidate(0, repeat);
+		if ($$self.$$.dirty[0] & /*animType*/ 1) {
+			$$invalidate(0, animType);
 		}
 
-		if ($$self.$$.dirty & /*repeat*/ 1) {
+		if ($$self.$$.dirty[0] & /*menuType*/ 2) {
+			$$invalidate(1, menuType);
+		}
+
+		if ($$self.$$.dirty[0] & /*repeat*/ 4) {
+			$$invalidate(2, repeat);
+		}
+
+		if ($$self.$$.dirty[0] & /*repeat*/ 4) {
 			options.repeat = repeat;
 		}
 
-		if ($$self.$$.dirty & /*delay*/ 2) {
-			$$invalidate(1, delay);
+		if ($$self.$$.dirty[0] & /*delay*/ 8) {
+			$$invalidate(3, delay);
 		}
 
-		if ($$self.$$.dirty & /*delay*/ 2) {
+		if ($$self.$$.dirty[0] & /*delay*/ 8) {
 			options.delay = delay;
 		}
 
-		if ($$self.$$.dirty & /*scale*/ 4) {
-			$$invalidate(2, scale);
+		if ($$self.$$.dirty[0] & /*scale*/ 16) {
+			$$invalidate(4, scale);
 		}
 
-		if ($$self.$$.dirty & /*scale*/ 4) {
+		if ($$self.$$.dirty[0] & /*scale*/ 16) {
 			options.scale = scale;
 		}
 
-		if ($$self.$$.dirty & /*belowToken*/ 32768) {
-			$$invalidate(15, belowToken);
+		if ($$self.$$.dirty[0] & /*belowToken*/ 67108864) {
+			$$invalidate(26, belowToken);
 		}
 
-		if ($$self.$$.dirty & /*belowToken*/ 32768) {
+		if ($$self.$$.dirty[0] & /*belowToken*/ 67108864) {
 			options.below = belowToken;
 		}
 
-		if ($$self.$$.dirty & /*opacity*/ 8) {
-			$$invalidate(3, opacity);
+		if ($$self.$$.dirty[0] & /*opacity*/ 32) {
+			$$invalidate(5, opacity = opacity > 1 ? 1 : opacity);
 		}
 
-		if ($$self.$$.dirty & /*opacity*/ 8) {
-			options.opacity = opacity;
+		if ($$self.$$.dirty[0] & /*opacity*/ 32) {
+			options.opacity = opacity > 1 ? 1 : opacity;
 		}
 
-		if ($$self.$$.dirty & /*unbindAlpha*/ 65536) {
-			$$invalidate(16, unbindAlpha);
+		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 134217728) {
+			$$invalidate(27, unbindAlpha);
 		}
 
-		if ($$self.$$.dirty & /*unbindAlpha*/ 65536) {
+		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 134217728) {
 			options.unbindAlpha = unbindAlpha;
 		}
 
-		if ($$self.$$.dirty & /*unbindVisbility*/ 131072) {
-			$$invalidate(17, unbindVisbility);
+		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 268435456) {
+			$$invalidate(28, unbindVisbility);
 		}
 
-		if ($$self.$$.dirty & /*unbindVisbility*/ 131072) {
+		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 268435456) {
 			options.unbindVisbility = unbindVisbility;
 		}
 
-		if ($$self.$$.dirty & /*persistent*/ 262144) {
-			$$invalidate(18, persistent);
+		if ($$self.$$.dirty[0] & /*persistent*/ 64) {
+			$$invalidate(6, persistent);
 		}
 
-		if ($$self.$$.dirty & /*persistent*/ 262144) {
+		if ($$self.$$.dirty[0] & /*persistent*/ 64) {
 			options.persistent = persistent;
 		}
 
-		if ($$self.$$.dirty & /*belowToken*/ 32768) {
-			$$invalidate(9, aboveBelow = belowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[0] & /*removeTemplate*/ 128) {
+			$$invalidate(7, removeTemplate);
 		}
 
-		if ($$self.$$.dirty & /*unbindAlpha*/ 65536) {
-			$$invalidate(8, bindAlpha = unbindAlpha ? "Unbound" : "Bound");
+		if ($$self.$$.dirty[0] & /*removeTemplate*/ 128) {
+			options.removeTemplate = removeTemplate;
 		}
 
-		if ($$self.$$.dirty & /*unbindVisbility*/ 131072) {
-			$$invalidate(7, bindVisibility = unbindVisbility ? "Unbound" : "Bound");
+		if ($$self.$$.dirty[0] & /*removeTemplate*/ 128) {
+			$$invalidate(19, isRemove = removeTemplate ? "Yes" : "No");
 		}
 
-		if ($$self.$$.dirty & /*persistent*/ 262144) {
-			$$invalidate(6, isPersistent = persistent ? "Persistent" : "Not Persistent");
+		if ($$self.$$.dirty[0] & /*scaleX*/ 256) {
+			$$invalidate(8, scaleX);
 		}
 
-		if ($$self.$$.dirty & /*menuSelection*/ 524288) {
-			$$invalidate(19, menuSelection);
+		if ($$self.$$.dirty[0] & /*scaleX*/ 256) {
+			options.scaleX = scaleX;
 		}
 
-		if ($$self.$$.dirty & /*flagData, menuSelection*/ 540672) {
-			$$invalidate(5, disabled01 = flagData.animType === "melee" || flagData.animType === "range" || menuSelection === "melee" || menuSelection === 'range');
+		if ($$self.$$.dirty[0] & /*scaleY*/ 512) {
+			$$invalidate(9, scaleY);
 		}
 
-		if ($$self.$$.dirty & /*menuSelection, persistent*/ 786432) {
-			$$invalidate(4, isDisabled = menuSelection === "melee" || menuSelection === "range"
+		if ($$self.$$.dirty[0] & /*scaleY*/ 512) {
+			options.scaleY = scaleY;
+		}
+
+		if ($$self.$$.dirty[0] & /*persistType*/ 1024) {
+			$$invalidate(10, persistType);
+		}
+
+		if ($$self.$$.dirty[0] & /*persistType*/ 1024) {
+			options.persistType = persistType;
+		}
+
+		if ($$self.$$.dirty[0] & /*occlusionMode*/ 2048) {
+			$$invalidate(11, occlusionMode);
+		}
+
+		if ($$self.$$.dirty[0] & /*occlusionMode*/ 2048) {
+			options.occlusionMode = occlusionMode;
+		}
+
+		if ($$self.$$.dirty[0] & /*occlusionAlpha*/ 4096) {
+			$$invalidate(12, occlusionAlpha = occlusionAlpha > 1 ? 1 : occlusionAlpha);
+		}
+
+		if ($$self.$$.dirty[0] & /*occlusionAlpha*/ 4096) {
+			options.occlusionAlpha = occlusionAlpha > 1 ? 1 : occlusionAlpha;
+		}
+
+		if ($$self.$$.dirty[0] & /*belowToken*/ 67108864) {
+			$$invalidate(18, aboveBelow = belowToken ? "Below Token" : "Above Token");
+		}
+
+		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 134217728) {
+			$$invalidate(17, bindAlpha = unbindAlpha ? "Unbound" : "Bound");
+		}
+
+		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 268435456) {
+			$$invalidate(16, bindVisibility = unbindVisbility ? "Unbound" : "Bound");
+		}
+
+		if ($$self.$$.dirty[0] & /*persistent*/ 64) {
+			$$invalidate(15, isPersistent = persistent ? "Persistent" : "Not Persistent");
+		}
+
+		if ($$self.$$.dirty[0] & /*menuSelection*/ 536870912) {
+			$$invalidate(29, menuSelection);
+		}
+
+		if ($$self.$$.dirty[0] & /*flagData, menuSelection*/ 570425344) {
+			$$invalidate(14, disabled01 = flagData.animType === "melee" || flagData.animType === "range" || menuSelection === "melee" || menuSelection === 'range');
+		}
+
+		if ($$self.$$.dirty[0] & /*menuSelection, persistent*/ 536870976) {
+			$$invalidate(13, isDisabled = menuSelection === "melee" || menuSelection === "range"
 			? false
 			: persistent);
 		}
 	};
 
 	return [
+		animType,
+		menuType,
 		repeat,
 		delay,
 		scale,
 		opacity,
+		persistent,
+		removeTemplate,
+		scaleX,
+		scaleY,
+		persistType,
+		occlusionMode,
+		occlusionAlpha,
 		isDisabled,
 		disabled01,
 		isPersistent,
 		bindVisibility,
 		bindAlpha,
 		aboveBelow,
+		isRemove,
 		below,
 		switchAlpha,
 		switchVisibility,
 		switchPersistence,
+		switchRemove,
 		flagData,
 		belowToken,
 		unbindAlpha,
 		unbindVisbility,
-		persistent,
 		menuSelection,
 		click_handler,
 		click_handler_1,
@@ -33867,16 +34582,23 @@ function instance$2($$self, $$props, $$invalidate) {
 		click_handler_3,
 		input0_input_handler,
 		input1_input_handler,
+		input_input_handler,
 		input2_input_handler,
-		input3_input_handler,
-		input4_change_input_handler
+		input3_change_input_handler,
+		input0_input_handler_1,
+		input1_input_handler_1,
+		click_handler_4,
+		select_change_handler,
+		select_change_handler_1,
+		input0_input_handler_2,
+		input1_change_input_handler
 	];
 }
 
 class Options extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$2, create_fragment$2, safe_not_equal, { flagData: 14 });
+		init(this, options, instance$2, create_fragment$2, safe_not_equal, { flagData: 25, animType: 0, menuType: 1 }, null, [-1, -1]);
 	}
 }
 
@@ -34212,17 +34934,17 @@ function create_if_block(ctx) {
 	let current;
 
 	function generalsettings_animationDisabled_binding(value) {
-		/*generalsettings_animationDisabled_binding*/ ctx[25](value);
+		/*generalsettings_animationDisabled_binding*/ ctx[27](value);
 	}
 
 	function generalsettings_isCustomized_binding(value) {
-		/*generalsettings_isCustomized_binding*/ ctx[26](value);
+		/*generalsettings_isCustomized_binding*/ ctx[28](value);
 	}
 
 	let generalsettings_props = { flagData: /*flagData*/ ctx[1] };
 
-	if (/*animationDisabled*/ ctx[6] !== void 0) {
-		generalsettings_props.animationDisabled = /*animationDisabled*/ ctx[6];
+	if (/*animationDisabled*/ ctx[7] !== void 0) {
+		generalsettings_props.animationDisabled = /*animationDisabled*/ ctx[7];
 	}
 
 	if (/*isCustomized*/ ctx[2] !== void 0) {
@@ -34232,7 +34954,7 @@ function create_if_block(ctx) {
 	generalsettings = new GeneralSettings({ props: generalsettings_props });
 	binding_callbacks.push(() => bind(generalsettings, 'animationDisabled', generalsettings_animationDisabled_binding));
 	binding_callbacks.push(() => bind(generalsettings, 'isCustomized', generalsettings_isCustomized_binding));
-	let if_block = !/*animationDisabled*/ ctx[6] && /*isCustomized*/ ctx[2] && create_if_block_1(ctx);
+	let if_block = !/*animationDisabled*/ ctx[7] && /*isCustomized*/ ctx[2] && create_if_block_1(ctx);
 
 	return {
 		c() {
@@ -34256,9 +34978,9 @@ function create_if_block(ctx) {
 			const generalsettings_changes = {};
 			if (dirty[0] & /*flagData*/ 2) generalsettings_changes.flagData = /*flagData*/ ctx[1];
 
-			if (!updating_animationDisabled && dirty[0] & /*animationDisabled*/ 64) {
+			if (!updating_animationDisabled && dirty[0] & /*animationDisabled*/ 128) {
 				updating_animationDisabled = true;
-				generalsettings_changes.animationDisabled = /*animationDisabled*/ ctx[6];
+				generalsettings_changes.animationDisabled = /*animationDisabled*/ ctx[7];
 				add_flush_callback(() => updating_animationDisabled = false);
 			}
 
@@ -34270,11 +34992,11 @@ function create_if_block(ctx) {
 
 			generalsettings.$set(generalsettings_changes);
 
-			if (!/*animationDisabled*/ ctx[6] && /*isCustomized*/ ctx[2]) {
+			if (!/*animationDisabled*/ ctx[7] && /*isCustomized*/ ctx[2]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*animationDisabled, isCustomized*/ 68) {
+					if (dirty[0] & /*animationDisabled, isCustomized*/ 132) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -34312,18 +35034,23 @@ function create_if_block(ctx) {
 	};
 }
 
-// (143:12) {#if !animationDisabled && isCustomized}
+// (146:12) {#if !animationDisabled && isCustomized}
 function create_if_block_1(ctx) {
 	let div;
 	let t1;
 	let selectanimation;
 	let updating_animType;
+	let updating_menuType;
 	let t2;
 	let if_block_anchor;
 	let current;
 
 	function selectanimation_animType_binding(value) {
-		/*selectanimation_animType_binding*/ ctx[27](value);
+		/*selectanimation_animType_binding*/ ctx[29](value);
+	}
+
+	function selectanimation_menuType_binding(value) {
+		/*selectanimation_menuType_binding*/ ctx[30](value);
 	}
 
 	let selectanimation_props = {
@@ -34335,8 +35062,13 @@ function create_if_block_1(ctx) {
 		selectanimation_props.animType = /*animType*/ ctx[3];
 	}
 
+	if (/*menuType*/ ctx[4] !== void 0) {
+		selectanimation_props.menuType = /*menuType*/ ctx[4];
+	}
+
 	selectanimation = new SelectAnimation({ props: selectanimation_props });
 	binding_callbacks.push(() => bind(selectanimation, 'animType', selectanimation_animType_binding));
+	binding_callbacks.push(() => bind(selectanimation, 'menuType', selectanimation_menuType_binding));
 	let if_block = /*animType*/ ctx[3] && create_if_block_2(ctx);
 
 	return {
@@ -34367,6 +35099,12 @@ function create_if_block_1(ctx) {
 				updating_animType = true;
 				selectanimation_changes.animType = /*animType*/ ctx[3];
 				add_flush_callback(() => updating_animType = false);
+			}
+
+			if (!updating_menuType && dirty[0] & /*menuType*/ 16) {
+				updating_menuType = true;
+				selectanimation_changes.menuType = /*menuType*/ ctx[4];
+				add_flush_callback(() => updating_menuType = false);
 			}
 
 			selectanimation.$set(selectanimation_changes);
@@ -34416,7 +35154,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (148:12) {#if animType}
+// (151:12) {#if animType}
 function create_if_block_2(ctx) {
 	let options;
 	let t0;
@@ -34434,7 +35172,14 @@ function create_if_block_2(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	options = new Options({ props: { flagData: /*flagData*/ ctx[1] } });
+
+	options = new Options({
+			props: {
+				animType: /*animType*/ ctx[3],
+				menuType: /*menuType*/ ctx[4],
+				flagData: /*flagData*/ ctx[1]
+			}
+		});
 
 	soundsettings = new SoundSettings({
 			props: {
@@ -34443,7 +35188,7 @@ function create_if_block_2(ctx) {
 			}
 		});
 
-	let if_block = /*explosionEnabled*/ ctx[4] && create_if_block_3(ctx);
+	let if_block = /*explosionEnabled*/ ctx[5] && create_if_block_3(ctx);
 
 	return {
 		c() {
@@ -34457,12 +35202,12 @@ function create_if_block_2(ctx) {
 			div2 = element("div");
 			div1 = element("div");
 			button = element("button");
-			t4 = text(/*explosionLabel*/ ctx[5]);
+			t4 = text(/*explosionLabel*/ ctx[6]);
 			t5 = space();
 			if (if_block) if_block.c();
 			if_block_anchor = empty();
 			set_style(div0, "padding-top", "10px");
-			attr(button, "class", button_class_value = "oldCheck " + (/*explosionEnabled*/ ctx[4] ? "selected" : "notSelected") + " svelte-1tmo6ws");
+			attr(button, "class", button_class_value = "oldCheck " + (/*explosionEnabled*/ ctx[5] ? "selected" : "notSelected") + " svelte-1tmo6ws");
 			set_style(div1, "grid-row", "1/2");
 			set_style(div1, "grid-column", "2/3");
 			attr(div2, "class", "aa-3wide svelte-1tmo6ws");
@@ -34484,28 +35229,30 @@ function create_if_block_2(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(button, "click", /*click_handler_3*/ ctx[28]);
+				dispose = listen(button, "click", /*click_handler_3*/ ctx[31]);
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
 			const options_changes = {};
+			if (dirty[0] & /*animType*/ 8) options_changes.animType = /*animType*/ ctx[3];
+			if (dirty[0] & /*menuType*/ 16) options_changes.menuType = /*menuType*/ ctx[4];
 			if (dirty[0] & /*flagData*/ 2) options_changes.flagData = /*flagData*/ ctx[1];
 			options.$set(options_changes);
 			const soundsettings_changes = {};
 			if (dirty[0] & /*flagData*/ 2) soundsettings_changes.flagData = /*flagData*/ ctx[1];
 			soundsettings.$set(soundsettings_changes);
-			if (!current || dirty[0] & /*explosionLabel*/ 32) set_data(t4, /*explosionLabel*/ ctx[5]);
+			if (!current || dirty[0] & /*explosionLabel*/ 64) set_data(t4, /*explosionLabel*/ ctx[6]);
 
-			if (!current || dirty[0] & /*explosionEnabled*/ 16 && button_class_value !== (button_class_value = "oldCheck " + (/*explosionEnabled*/ ctx[4] ? "selected" : "notSelected") + " svelte-1tmo6ws")) {
+			if (!current || dirty[0] & /*explosionEnabled*/ 32 && button_class_value !== (button_class_value = "oldCheck " + (/*explosionEnabled*/ ctx[5] ? "selected" : "notSelected") + " svelte-1tmo6ws")) {
 				attr(button, "class", button_class_value);
 			}
 
-			if (/*explosionEnabled*/ ctx[4]) {
+			if (/*explosionEnabled*/ ctx[5]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*explosionEnabled*/ 16) {
+					if (dirty[0] & /*explosionEnabled*/ 32) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -34554,7 +35301,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (159:12) {#if explosionEnabled}
+// (162:12) {#if explosionEnabled}
 function create_if_block_3(ctx) {
 	let explosionsettings;
 	let current;
@@ -34588,7 +35335,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (127:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}  >
+// (130:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}  >
 function create_default_slot(ctx) {
 	let form_1;
 	let div0;
@@ -34625,7 +35372,7 @@ function create_default_slot(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block = /*focusPrimary*/ ctx[10] && create_if_block(ctx);
+	let if_block = /*focusPrimary*/ ctx[11] && create_if_block(ctx);
 
 	return {
 		c() {
@@ -34658,11 +35405,11 @@ function create_default_slot(ctx) {
 			button4 = element("button");
 			button4.textContent = "Close and Submit";
 			attr(i0, "class", "fas fa-bomb");
-			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[10] ? "selected" : "notSelected") + " svelte-1tmo6ws"));
+			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[11] ? "selected" : "notSelected") + " svelte-1tmo6ws"));
 			attr(i1, "class", "fas fa-user-plus");
-			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[9] ? "selected" : "notSelected") + " svelte-1tmo6ws"));
+			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[10] ? "selected" : "notSelected") + " svelte-1tmo6ws"));
 			attr(i2, "class", "fas fa-vr-cardboard");
-			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[8] ? "selected" : "notSelected") + " svelte-1tmo6ws"));
+			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[9] ? "selected" : "notSelected") + " svelte-1tmo6ws"));
 			attr(div0, "class", "form-group tabView aaTopSection svelte-1tmo6ws");
 			attr(button3, "class", "footer-button svelte-1tmo6ws");
 			attr(button3, "type", "submit");
@@ -34699,39 +35446,39 @@ function create_default_slot(ctx) {
 			append(div1, button3);
 			append(div1, t14);
 			append(div1, button4);
-			/*form_1_binding*/ ctx[29](form_1);
+			/*form_1_binding*/ ctx[32](form_1);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler*/ ctx[22]),
-					listen(button1, "click", /*click_handler_1*/ ctx[23]),
-					listen(button2, "click", /*click_handler_2*/ ctx[24]),
-					listen(button4, "click", prevent_default(/*closeApp*/ ctx[12])),
-					listen(form_1, "submit", prevent_default(/*applyFlags*/ ctx[11]))
+					listen(button0, "click", /*click_handler*/ ctx[24]),
+					listen(button1, "click", /*click_handler_1*/ ctx[25]),
+					listen(button2, "click", /*click_handler_2*/ ctx[26]),
+					listen(button4, "click", prevent_default(/*closeApp*/ ctx[13])),
+					listen(form_1, "submit", prevent_default(/*applyFlags*/ ctx[12]))
 				];
 
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (!current || dirty[0] & /*focusPrimary*/ 1024 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[10] ? "selected" : "notSelected") + " svelte-1tmo6ws"))) {
+			if (!current || dirty[0] & /*focusPrimary*/ 2048 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[11] ? "selected" : "notSelected") + " svelte-1tmo6ws"))) {
 				attr(button0, "class", button0_class_value);
 			}
 
-			if (!current || dirty[0] & /*focusExtra*/ 512 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[9] ? "selected" : "notSelected") + " svelte-1tmo6ws"))) {
+			if (!current || dirty[0] & /*focusExtra*/ 1024 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[10] ? "selected" : "notSelected") + " svelte-1tmo6ws"))) {
 				attr(button1, "class", button1_class_value);
 			}
 
-			if (!current || dirty[0] & /*focus3d*/ 256 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[8] ? "selected" : "notSelected") + " svelte-1tmo6ws"))) {
+			if (!current || dirty[0] & /*focus3d*/ 512 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[9] ? "selected" : "notSelected") + " svelte-1tmo6ws"))) {
 				attr(button2, "class", button2_class_value);
 			}
 
-			if (/*focusPrimary*/ ctx[10]) {
+			if (/*focusPrimary*/ ctx[11]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*focusPrimary*/ 1024) {
+					if (dirty[0] & /*focusPrimary*/ 2048) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -34762,7 +35509,7 @@ function create_default_slot(ctx) {
 		d(detaching) {
 			if (detaching) detach(form_1);
 			if (if_block) if_block.d();
-			/*form_1_binding*/ ctx[29](null);
+			/*form_1_binding*/ ctx[32](null);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -34775,7 +35522,7 @@ function create_fragment(ctx) {
 	let current;
 
 	function applicationshell_elementRoot_binding(value) {
-		/*applicationshell_elementRoot_binding*/ ctx[30](value);
+		/*applicationshell_elementRoot_binding*/ ctx[33](value);
 	}
 
 	let applicationshell_props = {
@@ -34803,7 +35550,7 @@ function create_fragment(ctx) {
 		p(ctx, dirty) {
 			const applicationshell_changes = {};
 
-			if (dirty[0] & /*form, flagData, explosionEnabled, explosionLabel, animType, animationDisabled, isCustomized, focusPrimary, focus3d, focusExtra*/ 2046 | dirty[1] & /*$$scope*/ 4) {
+			if (dirty[0] & /*form, flagData, explosionEnabled, explosionLabel, animType, menuType, animationDisabled, isCustomized, focusPrimary, focus3d, focusExtra*/ 4094 | dirty[1] & /*$$scope*/ 32) {
 				applicationshell_changes.$$scope = { dirty, ctx };
 			}
 
@@ -34836,7 +35583,8 @@ function instance($$self, $$props, $$invalidate) {
 	let focus3d;
 	let { elementRoot } = $$props;
 	let { item } = $$props;
-	const flags = item.data?.flags?.autoanimations || {};
+	let { itemFlags } = $$props;
+	const flags = itemFlags.autoanimations || {};
 	console.log(flags);
 	let animationDisabled = flags.killAnim;
 	let isCustomized;
@@ -34862,6 +35610,7 @@ function instance($$self, $$props, $$invalidate) {
 	};
 
 	let animType;
+	let menuType;
 
 	/*
 let menuSelection = flagData.animType || "";
@@ -34895,29 +35644,29 @@ menuAnimType.subscribe(value => {
 	let tab3d = false;
 
 	function switchPrimary() {
-		$$invalidate(19, primaryTab = !primaryTab);
-		$$invalidate(20, extraTab = false);
-		$$invalidate(21, tab3d = false);
+		$$invalidate(21, primaryTab = !primaryTab);
+		$$invalidate(22, extraTab = false);
+		$$invalidate(23, tab3d = false);
 	}
 
 	function switchExtra() {
-		$$invalidate(20, extraTab = !extraTab);
-		$$invalidate(19, primaryTab = false);
-		$$invalidate(21, tab3d = false);
+		$$invalidate(22, extraTab = !extraTab);
+		$$invalidate(21, primaryTab = false);
+		$$invalidate(23, tab3d = false);
 	}
 
 	function switch3d() {
-		$$invalidate(21, tab3d = !tab3d);
-		$$invalidate(19, primaryTab = false);
-		$$invalidate(20, extraTab = false);
+		$$invalidate(23, tab3d = !tab3d);
+		$$invalidate(21, primaryTab = false);
+		$$invalidate(22, extraTab = false);
 	}
 
 	let explosionEnabled = flagData.explosions.enable;
 	let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
 
 	function switchExplosionLabel() {
-		$$invalidate(4, explosionEnabled = !explosionEnabled);
-		$$invalidate(5, explosionLabel = explosionEnabled ? "Enabled" : "Disabled");
+		$$invalidate(5, explosionEnabled = !explosionEnabled);
+		$$invalidate(6, explosionLabel = explosionEnabled ? "Enabled" : "Disabled");
 		$$invalidate(1, flagData.explosions.enable = explosionEnabled, flagData);
 	}
 
@@ -34927,7 +35676,7 @@ menuAnimType.subscribe(value => {
 
 	function generalsettings_animationDisabled_binding(value) {
 		animationDisabled = value;
-		$$invalidate(6, animationDisabled);
+		$$invalidate(7, animationDisabled);
 	}
 
 	function generalsettings_isCustomized_binding(value) {
@@ -34940,12 +35689,17 @@ menuAnimType.subscribe(value => {
 		$$invalidate(3, animType);
 	}
 
+	function selectanimation_menuType_binding(value) {
+		menuType = value;
+		$$invalidate(4, menuType);
+	}
+
 	const click_handler_3 = () => switchExplosionLabel();
 
 	function form_1_binding($$value) {
 		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
 			form = $$value;
-			$$invalidate(7, form);
+			$$invalidate(8, form);
 		});
 	}
 
@@ -34956,7 +35710,8 @@ menuAnimType.subscribe(value => {
 
 	$$self.$$set = $$props => {
 		if ('elementRoot' in $$props) $$invalidate(0, elementRoot = $$props.elementRoot);
-		if ('item' in $$props) $$invalidate(17, item = $$props.item);
+		if ('item' in $$props) $$invalidate(18, item = $$props.item);
+		if ('itemFlags' in $$props) $$invalidate(19, itemFlags = $$props.itemFlags);
 	};
 
 	$$self.$$.update = () => {
@@ -34968,23 +35723,27 @@ menuAnimType.subscribe(value => {
 			$$invalidate(3, animType);
 		}
 
-		if ($$self.$$.dirty[0] & /*primaryTab*/ 524288) {
-			$$invalidate(10, focusPrimary = primaryTab);
+		if ($$self.$$.dirty[0] & /*menuType*/ 16) {
+			$$invalidate(4, menuType);
 		}
 
-		if ($$self.$$.dirty[0] & /*extraTab*/ 1048576) {
-			$$invalidate(9, focusExtra = extraTab);
+		if ($$self.$$.dirty[0] & /*primaryTab*/ 2097152) {
+			$$invalidate(11, focusPrimary = primaryTab);
 		}
 
-		if ($$self.$$.dirty[0] & /*tab3d*/ 2097152) {
-			$$invalidate(8, focus3d = tab3d);
+		if ($$self.$$.dirty[0] & /*extraTab*/ 4194304) {
+			$$invalidate(10, focusExtra = extraTab);
 		}
 
-		if ($$self.$$.dirty[0] & /*explosionLabel*/ 32) {
-			$$invalidate(5, explosionLabel);
+		if ($$self.$$.dirty[0] & /*tab3d*/ 8388608) {
+			$$invalidate(9, focus3d = tab3d);
 		}
 
-		if ($$self.$$.dirty[0] & /*explosionEnabled*/ 16) {
+		if ($$self.$$.dirty[0] & /*explosionLabel*/ 64) {
+			$$invalidate(6, explosionLabel);
+		}
+
+		if ($$self.$$.dirty[0] & /*explosionEnabled*/ 32) {
 			$$invalidate(1, flagData.explosions.enable = explosionEnabled, flagData);
 		}
 	};
@@ -34994,6 +35753,7 @@ menuAnimType.subscribe(value => {
 		flagData,
 		isCustomized,
 		animType,
+		menuType,
 		explosionEnabled,
 		explosionLabel,
 		animationDisabled,
@@ -35008,6 +35768,7 @@ menuAnimType.subscribe(value => {
 		switch3d,
 		switchExplosionLabel,
 		item,
+		itemFlags,
 		flags,
 		primaryTab,
 		extraTab,
@@ -35018,6 +35779,7 @@ menuAnimType.subscribe(value => {
 		generalsettings_animationDisabled_binding,
 		generalsettings_isCustomized_binding,
 		selectanimation_animType_binding,
+		selectanimation_menuType_binding,
 		click_handler_3,
 		form_1_binding,
 		applicationshell_elementRoot_binding
@@ -35036,8 +35798,9 @@ class ItemMenuAppShell extends SvelteComponent {
 			safe_not_equal,
 			{
 				elementRoot: 0,
-				item: 17,
-				flags: 18,
+				item: 18,
+				itemFlags: 19,
+				flags: 20,
 				flagData: 1
 			},
 			null,
@@ -35055,7 +35818,7 @@ class ItemMenuAppShell extends SvelteComponent {
 	}
 
 	get item() {
-		return this.$$.ctx[17];
+		return this.$$.ctx[18];
 	}
 
 	set item(item) {
@@ -35063,8 +35826,17 @@ class ItemMenuAppShell extends SvelteComponent {
 		flush();
 	}
 
+	get itemFlags() {
+		return this.$$.ctx[19];
+	}
+
+	set itemFlags(itemFlags) {
+		this.$$set({ itemFlags });
+		flush();
+	}
+
 	get flags() {
-		return this.$$.ctx[18];
+		return this.$$.ctx[20];
 	}
 
 	get flagData() {
@@ -35084,7 +35856,8 @@ class AAItemMenu extends SvelteApplication {
         class: ItemMenuAppShell,
         target: document.body,
         props: {
-          item
+          item,
+          itemFlags: item.data.flags
         }
       } //close: () => this.options.reject(),
       //...options
