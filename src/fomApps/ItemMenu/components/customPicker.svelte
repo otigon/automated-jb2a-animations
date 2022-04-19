@@ -6,7 +6,7 @@
     export let flagPath;
     let root;
     let options;
-    let customPath;
+    export let customPath;
     let enabled;
     switch (flagPath) {
         case "explosions":

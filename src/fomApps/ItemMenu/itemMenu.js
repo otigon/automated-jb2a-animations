@@ -14,7 +14,7 @@ export default class AAItemMenu extends SvelteApplication {
                 class: ItemMenuAppShell,
                 target: document.body,
                 props: {
-                    item,
+                    item: item,
                     itemFlags: item.data.flags,
                 }
             },

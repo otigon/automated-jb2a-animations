@@ -6,8 +6,10 @@
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import VideoPreview from "./videoPreview.svelte";
     import CustomPicker from "./customPicker.svelte";
+    import AAVideoPreview from "../videoPreview.js";
+    
+    import { menuAnimType, menuDBPath, customFilePath, customChecked } from '../menuStore.js';
 
-    import { menuAnimType } from '../menuStore.js';
     import {
         aaTypeMenu,
         aaNameMenu,
@@ -63,6 +65,8 @@
     //let isCustom = options.enableCustom || false;
     let isCustom;
     $: isCustom = isCustom;
+    let customPath;
+    $: customPath = customPath
 
     let staticType = options.staticType || "source";
     $: staticType = staticType;
@@ -74,6 +78,9 @@
     //$: setContext("animationType", animType);
 
     function onClick() {
+        console.log(TJSDialog)
+        new AAVideoPreview({menuSelection, menuType, animation, variant, color, customPath: customRoot.customPath, isCustom}).render(true);
+        /*
         TJSDialog.prompt({
             title: "Primary Video Preview",
             draggable: true,
@@ -95,6 +102,7 @@
             }, // You can set content with a Svelte component!
             label: "Ok",
         });
+        */
     }
 
     async function typeChange() {
@@ -141,6 +149,10 @@
             aaColorMenu[menuSelection][menuType][animation][newVariant]
         )[0];
     }
+    $: menuFilePath = color === "random" ? `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}` : `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}.${color}`;
+    $: menuDBPath.set(menuFilePath);
+    $: customFilePath.set(customPath);
+    $: customChecked.set(isCustom)
 </script>
 
 <div transition:fade={{ duration: 500 }}>
@@ -273,7 +285,7 @@
                 </select>
             </div>
         </div>
-        <CustomPicker {flagPath} {flagData} bind:isCustom />
+        <CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath/>
         <div class="aa-select-animation">
             <div class="flexcol" style="grid-row: 1/2; grid-column:2/3">
                 <button on:click={() => onClick()}>Video Preview</button>
