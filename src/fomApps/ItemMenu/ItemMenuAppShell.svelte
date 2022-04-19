@@ -210,8 +210,8 @@
         margin-right: 3%
     }
     .tabView {
-        margin-left: 1%;
-        margin-right: 1%;
+        margin-left: 2%;
+        margin-right: 4%;
     }
     .selected {
         background-color:rgba(25, 175, 2, 0.25);

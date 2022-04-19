@@ -52,7 +52,7 @@
 </script>
 
 <div
-    class="aa-customAnim-container {!isCustom ? 'opacityButton' : ''}"
+    class="aa-customAnim-container"
     in:fade={{ duration: 500 }}
     out:fade={{ duration: 500 }}
 >
@@ -61,7 +61,7 @@
         on:click={() => customClick()}>Set {localize("AUTOANIM.custom")}</button
     >
     <div
-        class="form-group {isCustom ? "" : "opacityBorder"}"
+        class="form-group {isCustom ? "" : "opacityBorder opacityButton"}"
         style="grid-row: 1/2; grid-column: 2/5"
         in:fade={{ duration: 500 }}
         out:fade={{ duration: 500 }}

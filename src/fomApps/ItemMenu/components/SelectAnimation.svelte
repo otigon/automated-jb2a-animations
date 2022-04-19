@@ -2,7 +2,7 @@
 
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { fade } from "svelte/transition";
+    import { fade, fly } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import VideoPreview from "./videoPreview.svelte";
     import CustomPicker from "./customPicker.svelte";
@@ -171,9 +171,9 @@
             {#if animType === "static" && flagPath !== "explosions"}
                 <div
                     class="flexcol"
-                    style="grid-row: 2 / 3;grid-column: 2 / 3;"
-                    in:fade={{ duration: 500 }}
-                    out:fade={{ duration: 500 }}
+                    style="grid-row: 1 / 2;grid-column: 2 / 3;"
+                    in:fly={{ x: 200, duration: 500 }}
+                    out:fly={{ x: -200, duration: 500 }}
                 >
                     <label for="6">{localize("AUTOANIM.playOn")}</label>
                     <select

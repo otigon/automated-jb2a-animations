@@ -92,7 +92,6 @@
         display: grid;
         grid-template-columns: 33.3% 33.3% 33.3%;
         grid-gap: 5px;
-        padding: 5px;
         align-items: center;
         margin-right: 8%;
         margin-left: 5%;

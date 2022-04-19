@@ -58,17 +58,15 @@
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;" transition:fade>
         <button class="oldCheck {animationDisabled ? "notSelected" : "selected"}" on:click={() => switchDisabled()}>{disabledLabel}</button>
     </div>
-    {#if !animationDisabled}
-    <div class="flexcol {overrideAuto ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;" transition:fade>
-        <button disabled={overrideAuto} class="oldCheck {isCustomized ? "selected" : "notSelected"}" on:click={() => customize()}>{localize("AUTOANIM.customize")}</button>
+    <div class="flexcol {overrideAuto || animationDisabled ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;" transition:fade>
+        <button disabled={overrideAuto || animationDisabled} class="oldCheck {isCustomized ? "selected" : "notSelected"}" on:click={() => customize()}>{localize("AUTOANIM.customize")}</button>
     </div>
     <div class="flexcol {isCustomized ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;" transition:fade>
-        <button disabled={isCustomized} class="oldCheck {overrideAuto ? "selected" : "notSelected"}" on:click={() => override()}>Override Autorec</button>
+        <button disabled={isCustomized || animationDisabled} class="oldCheck {overrideAuto ? "selected" : "notSelected"}" on:click={() => override()}>Override Autorec</button>
     </div>
-    <div class="flexcol {gameSystem === "dnd5e" ? "" : "opacityButton"}" style="grid-row: 2 / 3; grid-column: 3 / 4;" transition:fade>
-        <button class="oldCheck {fromAmmo ? "selected" : "notSelected"}" disabled={gameSystem !== 'dnd5e'} on:click={() => ammo()}>Animate from Ammo</button>
+    <div class="flexcol {gameSystem === "dnd5e" ? "" : "opacityButton"} {animationDisabled ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 3 / 4;" transition:fade>
+        <button class="oldCheck {fromAmmo ? "selected" : "notSelected"}" disabled={gameSystem !== 'dnd5e' || animationDisabled} on:click={() => ammo()}>Animate from Ammo</button>
     </div>
-    {/if}
 </div>
 
 
