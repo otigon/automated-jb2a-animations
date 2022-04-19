@@ -109,6 +109,17 @@
         primaryTab = false;
         extraTab = false;
     }
+
+    let explosionEnabled = flagData.explosions.enable;
+    let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
+    $: explosionLabel = explosionLabel;
+    $: flagData.explosions.enable = explosionEnabled;
+    function switchExplosionLabel () {
+        explosionEnabled = !explosionEnabled;
+        explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
+        flagData.explosions.enable = explosionEnabled;
+    }
+
 </script>
 
 <svelte:options accessors={true}/>
@@ -126,13 +137,28 @@
         </div>
         {#if focusPrimary}
         <div class="aaMidSection">
+            <div class="generalSettings">
             <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
+            </div>
             {#if !animationDisabled && isCustomized}
+            <div style="padding-top: 10px">
+            <h1>Primary Animation</h1>
+            </div>
             <SelectAnimation flagPath="PrimaryAnimation" {flagData} bind:animType/>
             {#if animType}
             <Options {flagData} />
             <SoundSettings audioPath="a01" {flagData} />
+            <div style="padding-top: 10px">
+            <h1>Explosion</h1>
+            </div>
+            <div class=aa-3wide>
+                <div style='grid-row:1/2; grid-column:2/3'>
+                    <button class="oldCheck {explosionEnabled ? "selected" : "notSelected"}" on:click={() => switchExplosionLabel()}>{explosionLabel}</button>
+                </div>
+            </div>
+            {#if explosionEnabled}
             <ExplosionSettings {flagData}/>
+            {/if}
             {/if}
             {/if}
         </div>
@@ -194,6 +220,36 @@
     .notSelected {
         background-color: rgba(219, 132, 2, 0.25);
         transition: background-color 0.5s
+    }
+    .generalSettings {
+        border-bottom: 2px solid rgba(21, 21, 21, 0.6);
+    }
+    h1 {
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+    .aa-3wide {
+        display: grid;
+        grid-template-columns: 33.3% 33.3% 33.3%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 8%;
+        margin-left: 5%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
+    .aa-3wide button {
+        border-radius: 10px;
+        border: 2px solid black;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
     }
 </style>
 

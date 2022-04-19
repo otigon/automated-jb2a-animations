@@ -17,8 +17,8 @@
         disabledLabel = animationDisabled ? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled") : game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled");
         flagData.killAnim = animationDisabled;
     }
-
-
+    let gameSystem = game.system.id;
+    console.log(gameSystem)
     export let isCustomized = flagData.override || false;
     $: isCustomized = isCustomized;
     function customize() {
@@ -59,21 +59,15 @@
         <button class="oldCheck {animationDisabled ? "notSelected" : "selected"}" on:click={() => switchDisabled()}>{disabledLabel}</button>
     </div>
     {#if !animationDisabled}
-    {#if !overrideAuto}
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;" transition:fade>
+    <div class="flexcol {overrideAuto ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;" transition:fade>
         <button disabled={overrideAuto} class="oldCheck {isCustomized ? "selected" : "notSelected"}" on:click={() => customize()}>{localize("AUTOANIM.customize")}</button>
     </div>
-    {/if}
-    {#if !isCustomized}
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 2 / 3;" transition:fade>
+    <div class="flexcol {isCustomized ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;" transition:fade>
         <button disabled={isCustomized} class="oldCheck {overrideAuto ? "selected" : "notSelected"}" on:click={() => override()}>Override Autorec</button>
     </div>
-    {/if}
-    {#if !overrideAuto}
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;" transition:fade>
-        <button class="oldCheck {fromAmmo ? "selected" : "notSelected"}" on:click={() => ammo()}>Animate from Ammo</button>
+    <div class="flexcol {gameSystem === "dnd5e" ? "" : "opacityButton"}" style="grid-row: 2 / 3; grid-column: 3 / 4;" transition:fade>
+        <button class="oldCheck {fromAmmo ? "selected" : "notSelected"}" disabled={gameSystem !== 'dnd5e'} on:click={() => ammo()}>Animate from Ammo</button>
     </div>
-    {/if}
     {/if}
 </div>
 
@@ -107,5 +101,8 @@
         font-weight: bold;
         font-size: large;
     }
-
+    .opacityButton button{
+        border: 2px solid rgba(133, 133, 133, 0.418);
+        color: rgba(133, 133, 133, 0.418);
+    }
 </style>

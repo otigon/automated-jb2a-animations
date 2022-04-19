@@ -73,7 +73,7 @@
         menuSelection = value;
     })
     $: menuSelection = menuSelection;
-    $: disabled01 = menuSelection === "melee" || menuSelection === 'range';
+    $: disabled01 = flagData.animType === "melee" || flagData.animType === "range" || menuSelection === "melee" || menuSelection === 'range';
     $: isDisabled = menuSelection === "melee" || menuSelection === "range" ? false : persistent;
 </script>
 

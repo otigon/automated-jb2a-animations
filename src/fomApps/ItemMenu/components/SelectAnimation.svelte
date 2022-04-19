@@ -167,12 +167,11 @@
     </div>
     {/if}
     {#if animType != "" || flagPath === "explosions"}
-        <h1>{title}</h1>
         <div class="aa-select-animation">
             {#if animType === "static" && flagPath !== "explosions"}
                 <div
                     class="flexcol"
-                    style="grid-row: 1 / 2;grid-column: 2 / 3;"
+                    style="grid-row: 2 / 3;grid-column: 2 / 3;"
                     in:fade={{ duration: 500 }}
                     out:fade={{ duration: 500 }}
                 >
@@ -320,13 +319,5 @@
     .isNotPopulated {
         box-shadow: 0 0 6px rgba(219, 132, 2, 0.7);
         transition: box-shadow 0.5s;
-    }
-    h1 {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 5%;
-        margin-left: 5%;
     }
 </style>
