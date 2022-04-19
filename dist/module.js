@@ -31409,38 +31409,38 @@ class AAVideoPreview extends TJSDialog {
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
+	child_ctx[33] = list[i][0];
+	child_ctx[34] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
+	child_ctx[33] = list[i][0];
+	child_ctx[34] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
+	child_ctx[33] = list[i][0];
+	child_ctx[34] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
+	child_ctx[33] = list[i][0];
+	child_ctx[34] = list[i][1];
 	return child_ctx;
 }
 
-// (159:4) {#if flagPath !== "explosions"}
+// (164:4) {#if flagPath !== "explosions"}
 function create_if_block_6(ctx) {
 	let div1;
 	let div0;
 	let label;
-	let t1;
+	let t3;
 	let select;
 	let option0;
 	let option1;
@@ -31455,8 +31455,8 @@ function create_if_block_6(ctx) {
 			div1 = element("div");
 			div0 = element("div");
 			label = element("label");
-			label.textContent = "Animation Type";
-			t1 = space();
+			label.textContent = `${localize("AUTOANIM.animation")}  ${localize("AUTOANIM.type")}`;
+			t3 = space();
 			select = element("select");
 			option0 = element("option");
 			option0.textContent = `${localize("AUTOANIM.melee")}`;
@@ -31495,7 +31495,7 @@ function create_if_block_6(ctx) {
 			insert(target, div1, anchor);
 			append(div1, div0);
 			append(div0, label);
-			append(div0, t1);
+			append(div0, t3);
 			append(div0, select);
 			append(select, option0);
 			append(select, option1);
@@ -31526,7 +31526,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (181:4) {#if animType != "" || flagPath === "explosions"}
+// (186:4) {#if animType != "" || flagPath === "explosions"}
 function create_if_block$3(ctx) {
 	let div4;
 	let t0;
@@ -31929,7 +31929,7 @@ function create_if_block$3(ctx) {
 	};
 }
 
-// (183:12) {#if animType === "static" && flagPath !== "explosions"}
+// (188:12) {#if animType === "static" && flagPath !== "explosions"}
 function create_if_block_5(ctx) {
 	let div;
 	let label;
@@ -32027,7 +32027,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (224:20) {#if animType != ""}
+// (231:20) {#if animType != ""}
 function create_if_block_4$1(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[10]]);
@@ -32083,10 +32083,10 @@ function create_if_block_4$1(ctx) {
 	};
 }
 
-// (225:24) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (232:24) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[36] + "";
+	let t_value = /*name*/ ctx[34] + "";
 	let t;
 	let option_value_value;
 
@@ -32094,7 +32094,7 @@ function create_each_block_3(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
+			option.__value = option_value_value = /*key*/ ctx[33];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -32102,9 +32102,9 @@ function create_each_block_3(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection*/ 1024 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection*/ 1024 && t_value !== (t_value = /*name*/ ctx[34] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection*/ 1024 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+			if (dirty[0] & /*menuSelection*/ 1024 && option_value_value !== (option_value_value = /*key*/ ctx[33])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32115,7 +32115,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (243:20) {#if menuType != ""}
+// (251:20) {#if menuType != ""}
 function create_if_block_3$2(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[10]][/*menuType*/ ctx[1]]);
@@ -32171,10 +32171,10 @@ function create_if_block_3$2(ctx) {
 	};
 }
 
-// (244:24) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (252:24) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[36] + "";
+	let t_value = /*name*/ ctx[34] + "";
 	let t;
 	let option_value_value;
 
@@ -32182,7 +32182,7 @@ function create_each_block_2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
+			option.__value = option_value_value = /*key*/ ctx[33];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -32190,9 +32190,9 @@ function create_each_block_2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType*/ 1026 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType*/ 1026 && t_value !== (t_value = /*name*/ ctx[34] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType*/ 1026 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+			if (dirty[0] & /*menuSelection, menuType*/ 1026 && option_value_value !== (option_value_value = /*key*/ ctx[33])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32203,7 +32203,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (262:20) {#if (menuType != "") & (animation != "")}
+// (271:20) {#if (menuType != "") & (animation != "")}
 function create_if_block_2$2(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[10]][/*menuType*/ ctx[1]][/*animation*/ ctx[4]]);
@@ -32259,10 +32259,10 @@ function create_if_block_2$2(ctx) {
 	};
 }
 
-// (263:24) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (272:24) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[36] + "";
+	let t_value = /*name*/ ctx[34] + "";
 	let t;
 	let option_value_value;
 
@@ -32270,7 +32270,7 @@ function create_each_block_1(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
+			option.__value = option_value_value = /*key*/ ctx[33];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -32278,9 +32278,9 @@ function create_each_block_1(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 1042 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 1042 && t_value !== (t_value = /*name*/ ctx[34] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 1042 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 1042 && option_value_value !== (option_value_value = /*key*/ ctx[33])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32291,7 +32291,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (280:20) {#if menuType != "" && animation != "" && variant != ""}
+// (290:20) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_1$2(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[10]][/*menuType*/ ctx[1]][/*animation*/ ctx[4]][/*variant*/ ctx[5]]);
@@ -32347,10 +32347,10 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (281:24) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (291:24) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[36] + "";
+	let t_value = /*name*/ ctx[34] + "";
 	let t;
 	let option_value_value;
 
@@ -32358,7 +32358,7 @@ function create_each_block(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
+			option.__value = option_value_value = /*key*/ ctx[33];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -32366,9 +32366,9 @@ function create_each_block(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 1074 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 1074 && t_value !== (t_value = /*name*/ ctx[34] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 1074 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 1074 && option_value_value !== (option_value_value = /*key*/ ctx[33])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32469,48 +32469,48 @@ function instance$5($$self, $$props, $$invalidate) {
 	let menuFilePath;
 	let { flagData } = $$props;
 	let { flagPath } = $$props;
+
+	// Defines the initial Flag path depending on the Section calling this Component
 	let rootPath;
-	let customRoot;
 
 	switch (flagPath) {
 		case "explosions":
 			rootPath = flagData.explosions;
-			customRoot = flagData.explosions;
 			break;
 		default:
 			rootPath = flagData;
-			customRoot = flagData.options;
 	}
 
+	// Sets the Flag Path depending on the section
 	const options = flagPath === "explosions"
 	? flagData.explosions
 	: rootPath.options || {};
 
 	let { animType = flagData.animType || "" } = $$props;
 	let { menuType = options.menuType || "" } = $$props;
+
+	// Sets Initial animation for Menu - Assigns to Flag when updated
 	let animation = rootPath.animation || "";
+
+	// Sets Initial variant for Menu - Assigns to Flag when updated
 	let variant = options.variant || "";
+
+	// Sets Initial color for Menu - Assigns to Flag when updated
 	let color = rootPath.color || "";
 
-	//let isCustom = options.enableCustom || false;
+	// Determines if the Custom Path checkbox is checked, and updates CSS/Menu accordingly
 	let isCustom;
 
 	let customPath;
+
+	// Handles the "Static Type" option for when On Token is selected
 	let staticType = options.staticType || "source";
 
 	//$: setContext("animationType", animType);
+	//Launches the Video Preview
 	function onClick() {
 		console.log(TJSDialog);
-
-		new AAVideoPreview({
-				menuSelection,
-				menuType,
-				animation,
-				variant,
-				color,
-				customPath: customRoot.customPath,
-				isCustom
-			}).render(true);
+		new AAVideoPreview().render(true);
 	} /*
 TJSDialog.prompt({
     title: "Primary Video Preview",
@@ -32535,6 +32535,7 @@ TJSDialog.prompt({
 });
 */
 
+	// Autopopulates Select Menus when they change
 	async function typeChange() {
 		if (flagPath !== "PrimaryAnimation") {
 			return;
@@ -32680,8 +32681,6 @@ TJSDialog.prompt({
 			: color);
 		}
 
-		if ($$self.$$.dirty[0] & /*color*/ 64) ;
-
 		if ($$self.$$.dirty[0] & /*color*/ 64) {
 			rootPath.color = color;
 		}
@@ -32703,19 +32702,21 @@ TJSDialog.prompt({
 		}
 
 		if ($$self.$$.dirty[0] & /*flagPath, animType*/ 9) {
-			//$: nameList = type != "" ? Object.entries(aaNameMenu.melee[type]) : "";
+			// For Database path
 			$$invalidate(10, menuSelection = flagPath !== "PrimaryAnimation"
 			? "static"
 			: animType === "aura" ? "static" : animType);
 		}
 
 		if ($$self.$$.dirty[0] & /*color, menuSelection, menuType, animation, variant*/ 1138) {
+			// Sets the A-A Database Path for sending to the Video Previewer
 			$$invalidate(16, menuFilePath = color === "random"
 			? `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}`
 			: `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}.${color}`);
 		}
 
 		if ($$self.$$.dirty[0] & /*menuFilePath*/ 65536) {
+			// Sets Store variables for sending to the Video Previewer
 			menuDBPath.set(menuFilePath);
 		}
 
@@ -33581,13 +33582,13 @@ function create_if_block$1(ctx) {
 function create_if_block_1$1(ctx) {
 	let div;
 	let label;
-	let t2;
+	let t3;
 	let select;
 	let option0;
 	let option1;
 	let div_intro;
 	let div_outro;
-	let t5;
+	let t6;
 	let if_block1_anchor;
 	let current;
 	let mounted;
@@ -33599,15 +33600,15 @@ function create_if_block_1$1(ctx) {
 		c() {
 			div = element("div");
 			label = element("label");
-			label.textContent = `Persistent ${localize("AUTOANIM.type")}`;
-			t2 = space();
+			label.textContent = `${localize("AUTOANIM.persistant")}  ${localize("AUTOANIM.type")}`;
+			t3 = space();
 			select = element("select");
 			if (if_block0) if_block0.c();
 			option0 = element("option");
 			option0.textContent = `${localize("AUTOANIM.sequencereffect")}`;
 			option1 = element("option");
 			option1.textContent = `${localize("AUTOANIM.attachtotemplate")}`;
-			t5 = space();
+			t6 = space();
 			if (if_block1) if_block1.c();
 			if_block1_anchor = empty();
 			attr(label, "for", "1");
@@ -33630,13 +33631,13 @@ function create_if_block_1$1(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			append(div, label);
-			append(div, t2);
+			append(div, t3);
 			append(div, select);
 			if (if_block0) if_block0.m(select, null);
 			append(select, option0);
 			append(select, option1);
 			select_option(select, /*persistType*/ ctx[10]);
-			insert(target, t5, anchor);
+			insert(target, t6, anchor);
 			if (if_block1) if_block1.m(target, anchor);
 			insert(target, if_block1_anchor, anchor);
 			current = true;
@@ -33709,7 +33710,7 @@ function create_if_block_1$1(ctx) {
 			if (detaching) detach(div);
 			if (if_block0) if_block0.d();
 			if (detaching && div_outro) div_outro.end();
-			if (detaching) detach(t5);
+			if (detaching) detach(t6);
 			if (if_block1) if_block1.d(detaching);
 			if (detaching) detach(if_block1_anchor);
 			mounted = false;

@@ -17,69 +17,70 @@
         aaColorMenu,
     } from "../../../animation-functions/databases/jb2a-menu-options.js";
 
+    // Receiving data from Parent
     export let flagData;
     export let flagPath;
 
+    // Defines the initial Flag path depending on the Section calling this Component
     let rootPath;
     let customRoot;
-    let title;
     switch (flagPath) {
         case "explosions":
             rootPath = flagData.explosions;
             customRoot = flagData.explosions;
-            title = "Explosion"
             break;
         default:
             rootPath = flagData;
             customRoot = flagData.options
-            title = "Primary Animation";
     }
     
-
+    // Sets the Flag Path depending on the section
     const options = flagPath === "explosions" ? flagData.explosions : rootPath.options || {};
+    // Sets Initial animType for Menu - Assigns to Flag when updated
     export let animType = flagData.animType || "";
     $: animType = animType;
     $: flagData.animType = animType;
-
+    // Sets Initial menuType for Menu - Assigns to Flag when updated
     export let menuType = options.menuType || "";
     $: menuType = animType === "" ? "" : menuType;
     $: options.menuType = menuType;
-
+    // Sets Initial animation for Menu - Assigns to Flag when updated
     let animation = rootPath.animation || "";
     $: animation = animType === "" || menuType === "" ? "" : animation;
     $: rootPath.animation = animation;
-
+    // Sets Initial variant for Menu - Assigns to Flag when updated
     let variant = options.variant || "";
     $: variant =
         animType === "" || menuType === "" || animation === "" ? "" : variant;
     $: options.variant = variant;
-
+    // Sets Initial color for Menu - Assigns to Flag when updated
     let color = rootPath.color || "";
     $: color =
         animType === "" || menuType === "" || animation === "" || variant === ""
             ? ""
             : color;
-    $: colorChoice = color === "random" ? "" : !color ? "" : `.${color}`;
     $: rootPath.color = color;
-
-    //let isCustom = options.enableCustom || false;
+    
+    // Determines if the Custom Path checkbox is checked, and updates CSS/Menu accordingly
     let isCustom;
     $: isCustom = isCustom;
     let customPath;
     $: customPath = customPath
 
+    // Handles the "Static Type" option for when On Token is selected
     let staticType = options.staticType || "source";
     $: staticType = staticType;
     $: options.staticType = staticType;
-    //$: nameList = type != "" ? Object.entries(aaNameMenu.melee[type]) : "";
 
+    // For Database path
     $: menuSelection = flagPath !== "PrimaryAnimation" ? "static" : animType === "aura" ? "static" : animType;
 
     //$: setContext("animationType", animType);
 
+    //Launches the Video Preview
     function onClick() {
         console.log(TJSDialog)
-        new AAVideoPreview({menuSelection, menuType, animation, variant, color, customPath: customRoot.customPath, isCustom}).render(true);
+        new AAVideoPreview().render(true);
         /*
         TJSDialog.prompt({
             title: "Primary Video Preview",
@@ -105,6 +106,7 @@
         */
     }
 
+    // Autopopulates Select Menus when they change
     async function typeChange() {
         if (flagPath !== "PrimaryAnimation") { return; }
 
@@ -149,17 +151,20 @@
             aaColorMenu[menuSelection][menuType][animation][newVariant]
         )[0];
     }
+    // Sets the A-A Database Path for sending to the Video Previewer
     $: menuFilePath = color === "random" ? `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}` : `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}.${color}`;
+    // Sets Store variables for sending to the Video Previewer
     $: menuDBPath.set(menuFilePath);
     $: customFilePath.set(customPath);
     $: customChecked.set(isCustom)
 </script>
 
 <div transition:fade={{ duration: 500 }}>
+    <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
     {#if flagPath !== "explosions"}
     <div class="aa-select-animation">
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-            <label for="1">Animation Type</label>
+            <label for="1">{localize("AUTOANIM.animation")} {localize("AUTOANIM.type")}</label>
             <select
                 name="flags.autoanimations.animType"
                 bind:value={animType}
@@ -181,6 +186,7 @@
     {#if animType != "" || flagPath === "explosions"}
         <div class="aa-select-animation">
             {#if animType === "static" && flagPath !== "explosions"}
+                <!--"Play On" select for the Static option-->
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2;grid-column: 2 / 3;"
@@ -209,6 +215,7 @@
                     </select>
                 </div>
             {/if}
+            <!--Type Menu-->
             <div class="flexcol" style="grid-row: 2 / 3;grid-column: 2 / 3;">
                 <label for="2">{localize("AUTOANIM.type")}</label>
                 <select
@@ -228,6 +235,7 @@
                     {/if}
                 </select>
             </div>
+            <!--Animation Menu-->
             <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
                 <label for="3">{localize("AUTOANIM.animation")}</label>
                 <select
@@ -247,6 +255,7 @@
                     {/if}
                 </select>
             </div>
+            <!--Variant Menu-->
             <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
                 <label for="4">{localize("AUTOANIM.variant")}</label>
                 <select
@@ -266,6 +275,7 @@
                     {/if}
                 </select>
             </div>
+            <!--Color Menu-->
             <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
                 <label for="5">{localize("AUTOANIM.color")}</label>
                 <select

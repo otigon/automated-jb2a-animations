@@ -178,7 +178,7 @@
     {#if persistent}
     <!--Set Persistent Type-->
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 3;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
-        <label for="1">Persistent {localize("AUTOANIM.type")}</label>
+        <label for="1">{localize("AUTOANIM.persistant")} {localize("AUTOANIM.type")}</label>
         <select
             bind:value={persistType}
             id="1"
