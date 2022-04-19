@@ -33122,11 +33122,11 @@ function instance$4($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty & /*volume*/ 8) {
-			$$invalidate(3, volume);
+			$$invalidate(3, volume = volume > 1 ? 1 : volume);
 		}
 
 		if ($$self.$$.dirty & /*volume*/ 8) {
-			section01.volume = volume;
+			section01.volume = volume > 1 ? 1 : volume;
 		}
 
 		if ($$self.$$.dirty & /*delay*/ 16) {
@@ -33306,7 +33306,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (152:4) {#if animType === "templatefx"}
+// (161:4) {#if animType === "templatefx"}
 function create_if_block$1(ctx) {
 	let div0;
 	let label0;
@@ -33472,7 +33472,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-// (165:4) {#if persistent}
+// (178:4) {#if persistent}
 function create_if_block_1$1(ctx) {
 	let div;
 	let label;
@@ -33613,7 +33613,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (173:12) {#if menuType === "circle" || menuType === "square"}
+// (187:12) {#if menuType === "circle" || menuType === "square"}
 function create_if_block_3$1(ctx) {
 	let option0;
 	let option1;
@@ -33641,7 +33641,7 @@ function create_if_block_3$1(ctx) {
 	};
 }
 
-// (181:4) {#if persistType === "overheadtile"}
+// (196:4) {#if persistType === "overheadtile"}
 function create_if_block_2$1(ctx) {
 	let div0;
 	let label0;
@@ -34538,8 +34538,8 @@ function instance$2($$self, $$props, $$invalidate) {
 			$$invalidate(14, disabled01 = flagData.animType === "melee" || flagData.animType === "range" || menuSelection === "melee" || menuSelection === 'range');
 		}
 
-		if ($$self.$$.dirty[0] & /*menuSelection, persistent*/ 536870976) {
-			$$invalidate(13, isDisabled = menuSelection === "melee" || menuSelection === "range"
+		if ($$self.$$.dirty[0] & /*flagData, menuSelection, persistent*/ 570425408) {
+			$$invalidate(13, isDisabled = flagData.animType === "melee" || flagData.animType === "range" || menuSelection === "melee" || menuSelection === "range"
 			? false
 			: persistent);
 		}

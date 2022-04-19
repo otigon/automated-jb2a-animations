@@ -106,42 +106,50 @@
     })
     $: menuSelection = menuSelection;
     $: disabled01 = flagData.animType === "melee" || flagData.animType === "range" || menuSelection === "melee" || menuSelection === 'range';
-    $: isDisabled = menuSelection === "melee" || menuSelection === "range" ? false : persistent;
+    $: isDisabled = flagData.animType === "melee" || flagData.animType === "range" || menuSelection === "melee" || menuSelection === "range" ? false : persistent;
 </script>
 
 <div transition:fade={{duration: 500}}>
 <h2>Options</h2>
 <div class="aa-options"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
+    <!--Persistent Setting-->
     <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 1 / 2;">
         <label for="">Persistence</label>
         <button on:click={() => switchPersistence()} disabled="{disabled01}" >{isPersistent}</button>
     </div>
+    <!--Set Z-Index-->
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
         <label for="">Z-Index</label>
         <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
     </div>
+    <!--Bind/Unbind Visibility (for Persistent Effects)-->
     <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">Visibility</label>
         <button on:click={() => switchVisibility()} disabled="{disabled01}" >{bindVisibility}</button>
     </div>
+    <!--Bind/Unbind Opacity (for Persistent Effects)-->
     <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
         <label for="">Alpha</label>
         <button on:click={() => switchAlpha()} disabled="{disabled01}" >{bindAlpha}</button>
     </div>
+    <!--Set Number of times the animation plays-->
     <div class="flexcol {isDisabled ? "opacityBorder opacityLabel" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;">
         <label for="">{localize("AUTOANIM.repeat")}</label>
         <input disabled={isDisabled} type="Number" bind:value={repeat} placeholder=1>
     </div>
+    <!--Set delay between repeats-->
     <div class="flexcol {isDisabled ? "opacityBorder opacityLabel" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;">
         <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
         <input disabled={isDisabled} type="Number" bind:value={delay} placeholder=250>
     </div>
+    <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
     {#if animType !== "templatefx"}
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.scale")}</label>
         <input type="Number" bind:value={scale} placeholder=1 step=0.01>
     </div>
     {/if}
+    <!--Set Animation Opacity-->
     <div class="flexcol {disabled01 ? "opacityInput" : ""}" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="">{localize("AUTOANIM.opacity")}</label>
         <div class='form-group'>
@@ -149,20 +157,26 @@
             <input disabled="{disabled01}" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
         </div>
     </div>
+    <!--Template Specific Settings-->
     {#if animType === "templatefx"}
+    <!--Set Scale in X-->
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.scale")} X</label>
         <input type="Number" bind:value={scaleX} placeholder=1>
     </div>
+    <!--Set Scale in Y-->
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.scale")} Y</label>
         <input type="Number" bind:value={scaleY} placeholder=1>
     </div>
+    <!--Remove Template option-->
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
         <label for="">{localize("AUTOANIM.remove")}</label>
         <button class="{removeTemplate ? "selected" : "notSelected"}" on:click={() => switchRemove()}>{isRemove}</button>
     </div>
+    <!--Template Specific Persistent options-->
     {#if persistent}
+    <!--Set Persistent Type-->
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 3;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="1">Persistent {localize("AUTOANIM.type")}</label>
         <select
@@ -178,7 +192,9 @@
             <option value="attachtemplate">{localize("AUTOANIM.attachtotemplate")}</option>
         </select>
     </div>
+    <!--Template Specific Persistent options for Overhead Tiles-->
     {#if persistType === "overheadtile"}
+    <!--Set Occlusion Mode-->
     <div class="flexcol" style="grid-row: 4 / 5;grid-column: 1 / 3;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="1">{localize("AUTOANIM.occlusionMode")}</label>
         <select
@@ -192,6 +208,7 @@
             <option value="0">{localize("AUTOANIM.occlusion00")}</option>
         </select>
     </div>
+    <!--Set Occlusion Alpha-->
     <div class="flexcol" style="grid-row: 4 / 5; grid-column: 3 / 4;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="">{localize("AUTOANIM.occlusionAlpha")}</label>
         <div class='form-group'>

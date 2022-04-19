@@ -24,8 +24,8 @@
     $: section01.startTime = startTime;
 
     let volume = section01.volume;
-    $: volume = volume;
-    $: section01.volume = volume;
+    $: volume = volume > 1 ? 1 : volume;
+    $: section01.volume = volume > 1 ? 1 : volume;
 
     let delay = section01.delay;
     $: delay = delay;
