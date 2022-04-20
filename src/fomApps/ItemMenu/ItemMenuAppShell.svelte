@@ -149,7 +149,7 @@
             <div style="padding-top: 10px">
             <h1>Primary Animation</h1>
             </div>
-            <SelectAnimation flagPath="PrimaryAnimation" {flagData} bind:animType bind:menuType/>
+            <SelectAnimation previewType="primary" flagPath="PrimaryAnimation" {flagData} bind:animType bind:menuType/>
             {#if animType}
             <Options {animType} {menuType} {flagData} />
             <SoundSettings audioPath="a01" {flagData} />

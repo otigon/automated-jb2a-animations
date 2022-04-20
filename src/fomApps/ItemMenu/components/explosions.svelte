@@ -6,7 +6,7 @@
 </script>
 
 <div>
-    <SelectAnimation flagPath="explosions" {flagData} />
+    <SelectAnimation previewType="explosion" flagPath="explosions" {flagData} />
     <SoundSettings audioPath="e01" {flagData} />
 </div>
 

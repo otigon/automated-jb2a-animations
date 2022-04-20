@@ -4,11 +4,19 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade, fly } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import VideoPreview from "./videoPreview.svelte";
     import CustomPicker from "./customPicker.svelte";
-    import AAVideoPreview from "../videoPreview.js";
-    
-    import { menuAnimType, menuDBPath, customFilePath, customChecked } from '../menuStore.js';
+    import PrimaryPreview from "../videoPreviews/primary.js";
+    import ExplosionPreview from "../videoPreviews/explosion.js";
+
+    import {
+        menuAnimType,
+        menuDBPath01,
+        customFilePath01,
+        customChecked01,
+        menuDBPath02,
+        customFilePath02,
+        customChecked02,
+    } from "../menuStore.js";
 
     import {
         aaTypeMenu,
@@ -20,7 +28,8 @@
     // Receiving data from Parent
     export let flagData;
     export let flagPath;
-
+    export let previewType;
+    console.log(previewType);
     // Defines the initial Flag path depending on the Section calling this Component
     let rootPath;
     let customRoot;
@@ -31,11 +40,14 @@
             break;
         default:
             rootPath = flagData;
-            customRoot = flagData.options
+            customRoot = flagData.options;
     }
-    
+
     // Sets the Flag Path depending on the section
-    const options = flagPath === "explosions" ? flagData.explosions : rootPath.options || {};
+    const options =
+        flagPath === "explosions"
+            ? flagData.explosions
+            : rootPath.options || {};
     // Sets Initial animType for Menu - Assigns to Flag when updated
     export let animType = flagData.animType || "";
     $: animType = animType;
@@ -60,12 +72,12 @@
             ? ""
             : color;
     $: rootPath.color = color;
-    
+
     // Determines if the Custom Path checkbox is checked, and updates CSS/Menu accordingly
     let isCustom;
     $: isCustom = isCustom;
     let customPath;
-    $: customPath = customPath
+    $: customPath = customPath;
 
     // Handles the "Static Type" option for when On Token is selected
     let staticType = options.staticType || "source";
@@ -73,42 +85,32 @@
     $: options.staticType = staticType;
 
     // For Database path
-    $: menuSelection = flagPath !== "PrimaryAnimation" ? "static" : animType === "aura" ? "static" : animType;
+    $: menuSelection =
+        flagPath !== "PrimaryAnimation"
+            ? "static"
+            : animType === "aura"
+            ? "static"
+            : animType;
 
     //$: setContext("animationType", animType);
 
     //Launches the Video Preview
-    function onClick() {
-        console.log(TJSDialog)
-        new AAVideoPreview().render(true);
-        /*
-        TJSDialog.prompt({
-            title: "Primary Video Preview",
-            draggable: true,
-            modal: false,
-            height: "auto",
-            width: "auto",
-            classes: ["PrimaryPreview"],
-            content: {
-                class: VideoPreview,
-                props: {
-                    menuSelection,
-                    menuType,
-                    animation,
-                    variant,
-                    color,
-                    customPath: customRoot.customPath,
-                    isCustom,
-                },
-            }, // You can set content with a Svelte component!
-            label: "Ok",
-        });
-        */
+    function onClick(type) {
+        switch (type) {
+            case "primary":
+                new PrimaryPreview().render(true);
+                break;
+            case "explosion":
+                new ExplosionPreview().render(true);
+                break;
+        }
     }
 
     // Autopopulates Select Menus when they change
     async function typeChange() {
-        if (flagPath !== "PrimaryAnimation") { return; }
+        if (flagPath !== "PrimaryAnimation") {
+            return;
+        }
 
         if (animType === "") {
             (menuType = ""), (animation = ""), (variant = ""), (color = "");
@@ -152,36 +154,66 @@
         )[0];
     }
     // Sets the A-A Database Path for sending to the Video Previewer
-    $: menuFilePath = color === "random" ? `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}` : `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}.${color}`;
+    let primaryFilePath;
+    $: if (previewType === "primary") {
+        primaryFilePath =
+            color === "random"
+                ? `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}`
+                : `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}.${color}`;
+    }
+    let explosionFilePath;
+    $: if (previewType === "explosion") {
+        explosionFilePath =
+            color === "random"
+                ? `autoanimations.static.${menuType}.${animation}.${variant}`
+                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+    }
+
     // Sets Store variables for sending to the Video Previewer
-    $: menuDBPath.set(menuFilePath);
-    $: customFilePath.set(customPath);
-    $: customChecked.set(isCustom)
+    $: if (previewType === "primary") {
+        console.log("Sending Primary DB Path", primaryFilePath);
+        menuDBPath01.set(primaryFilePath);
+        customFilePath01.set(customPath);
+        customChecked01.set(isCustom);
+    }
+    $: if (previewType === "explosion") {
+        console.log("Sending Explosion DB Path", explosionFilePath);
+        menuDBPath02.set(explosionFilePath);
+        customFilePath02.set(customPath);
+        customChecked02.set(isCustom);
+    }
 </script>
 
 <div transition:fade={{ duration: 500 }}>
     <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
     {#if flagPath !== "explosions"}
-    <div class="aa-select-animation">
-        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-            <label for="1">{localize("AUTOANIM.animation")} {localize("AUTOANIM.type")}</label>
-            <select
-                name="flags.autoanimations.animType"
-                bind:value={animType}
-                on:change={async () => await typeChange()}
-                id="1"
-                style="text-align: center;justify-self: center"
-            >
-                <option value="melee">{localize("AUTOANIM.melee")}</option>
-                <option value="range">{localize("AUTOANIM.ranged")}</option>
-                <option value="static">{localize("AUTOANIM.onToken")}</option>
-                <option value="templatefx"
-                    >{localize("AUTOANIM.templates")}</option
+        <div class="aa-select-animation">
+            <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
+                <label for="1"
+                    >{localize("AUTOANIM.animation")}
+                    {localize("AUTOANIM.type")}</label
                 >
-                <option value="aura">{localize("AUTOANIM.typeAuras")}</option>
-            </select>
+                <select
+                    name="flags.autoanimations.animType"
+                    bind:value={animType}
+                    on:change={async () => await typeChange()}
+                    id="1"
+                    style="text-align: center;justify-self: center"
+                >
+                    <option value="melee">{localize("AUTOANIM.melee")}</option>
+                    <option value="range">{localize("AUTOANIM.ranged")}</option>
+                    <option value="static"
+                        >{localize("AUTOANIM.onToken")}</option
+                    >
+                    <option value="templatefx"
+                        >{localize("AUTOANIM.templates")}</option
+                    >
+                    <option value="aura"
+                        >{localize("AUTOANIM.typeAuras")}</option
+                    >
+                </select>
+            </div>
         </div>
-    </div>
     {/if}
     {#if animType != "" || flagPath === "explosions"}
         <div class="aa-select-animation">
@@ -295,10 +327,12 @@
                 </select>
             </div>
         </div>
-        <CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath/>
+        <CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath />
         <div class="aa-select-animation">
             <div class="flexcol" style="grid-row: 1/2; grid-column:2/3">
-                <button on:click={() => onClick()}>Video Preview</button>
+                <button on:click={() => onClick(previewType)}
+                    >Video Preview</button
+                >
             </div>
         </div>
     {/if}
