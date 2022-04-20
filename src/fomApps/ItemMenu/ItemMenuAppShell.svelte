@@ -10,6 +10,7 @@
     import Options from "./components/options.svelte";
     import GeneralSettings from "./components/generalSettings.svelte";
     import SoundSettings from "./components/soundSettings.svelte";
+    import RangeSwitch from "./components/meleeRange.svelte";
     //import { menuAnimType } from "./menuStore.js"
 
     import { flagMigrations } from "./../../system-handlers/flagMerge.js"
@@ -41,6 +42,7 @@
         levels3d: flags.levels3d || {},
         sourceToken: flags.sourceToken || {},
         targetToken: flags.targetToken || {},
+        meleeSwitch: flags.meleeSwitch || {},
     }
     let animType;
     $: animType = animType;
@@ -151,6 +153,10 @@
             {#if animType}
             <Options {animType} {menuType} {flagData} />
             <SoundSettings audioPath="a01" {flagData} />
+            {#if animType === 'melee'}
+            <h1>Melee Range Switch</h1>
+            <RangeSwitch {flagData}/>
+            {/if}
             <div style="padding-top: 10px">
             <h1>Explosion</h1>
             </div>

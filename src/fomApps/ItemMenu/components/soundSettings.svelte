@@ -95,6 +95,7 @@
         align-items: center;
         margin-right: 8%;
         margin-left: 5%;
+        padding-bottom: 10px;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
