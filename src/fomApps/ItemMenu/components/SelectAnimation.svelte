@@ -50,28 +50,43 @@
             : rootPath.options || {};
     // Sets Initial animType for Menu - Assigns to Flag when updated
     export let animType = flagData.animType || "";
-    $: animType = animType;
-    $: flagData.animType = animType;
+    $: {
+        animType = animType;
+        flagData.animType = animType;
+    }
     // Sets Initial menuType for Menu - Assigns to Flag when updated
     export let menuType = options.menuType || "";
-    $: menuType = animType === "" ? "" : menuType;
-    $: options.menuType = menuType;
+    $: {
+        menuType = animType === "" ? "" : menuType;
+        options.menuType = menuType;
+    }
     // Sets Initial animation for Menu - Assigns to Flag when updated
     let animation = rootPath.animation || "";
-    $: animation = animType === "" || menuType === "" ? "" : animation;
-    $: rootPath.animation = animation;
+    $: {
+        animation = animType === "" || menuType === "" ? "" : animation;
+        rootPath.animation = animation;
+    }
     // Sets Initial variant for Menu - Assigns to Flag when updated
     let variant = options.variant || "";
-    $: variant =
-        animType === "" || menuType === "" || animation === "" ? "" : variant;
-    $: options.variant = variant;
+    $: {
+        variant =
+            animType === "" || menuType === "" || animation === ""
+                ? ""
+                : variant;
+        options.variant = variant;
+    }
     // Sets Initial color for Menu - Assigns to Flag when updated
     let color = rootPath.color || "";
-    $: color =
-        animType === "" || menuType === "" || animation === "" || variant === ""
-            ? ""
-            : color;
-    $: rootPath.color = color;
+    $: {
+        color =
+            animType === "" ||
+            menuType === "" ||
+            animation === "" ||
+            variant === ""
+                ? ""
+                : color;
+        rootPath.color = color;
+    }
 
     // Determines if the Custom Path checkbox is checked, and updates CSS/Menu accordingly
     let isCustom;
@@ -81,8 +96,10 @@
 
     // Handles the "Static Type" option for when On Token is selected
     let staticType = options.staticType || "source";
-    $: staticType = staticType;
-    $: options.staticType = staticType;
+    $: {
+        staticType = staticType;
+        options.staticType = staticType;
+    }
 
     // For Database path
     $: menuSelection =
@@ -187,7 +204,7 @@
 <div transition:fade={{ duration: 500 }}>
     <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
     {#if flagPath !== "explosions"}
-        <div class="aa-select-animation">
+        <div class="aa-3wide">
             <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
                 <label for="1"
                     >{localize("AUTOANIM.animation")}
@@ -216,7 +233,7 @@
         </div>
     {/if}
     {#if animType != "" || flagPath === "explosions"}
-        <div class="aa-select-animation {isCustom ? "dimLabel" : ""}">
+        <div class="aa-3wide {isCustom ? 'dimLabel' : ''}">
             {#if animType === "static" && flagPath !== "explosions"}
                 <!--"Play On" select for the Static option-->
                 <div
@@ -328,7 +345,7 @@
             </div>
         </div>
         <CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath />
-        <div class="aa-select-animation">
+        <div class="aa-3wide">
             <div class="flexcol" style="grid-row: 1/2; grid-column:2/3">
                 <button on:click={() => onClick(previewType)}
                     >Video Preview</button
@@ -339,7 +356,7 @@
 </div>
 
 <style lang="scss">
-    .aa-select-animation {
+    .aa-3wide {
         display: grid;
         grid-template-columns: 33.3% 33.3% 33.3%;
         grid-gap: 5px;
@@ -351,19 +368,19 @@
         font-size: large;
         font-weight: bold;
     }
-    .aa-select-animation select {
+    .aa-3wide select {
         text-align: center;
         font-weight: bold;
         min-height: 2em;
         border-radius: 5px;
     }
     .dimLabel {
-        color: rgba(133, 133, 133, 0.3)
+        color: rgba(133, 133, 133, 0.3);
     }
-    .aa-select-animation label {
+    .aa-3wide label {
         align-self: center;
     }
-    .aa-select-animation button {
+    .aa-3wide button {
         border-radius: 10px;
         border: 2px solid black;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;

@@ -31585,7 +31585,7 @@ function get_each_context_3$1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (189:4) {#if flagPath !== "explosions"}
+// (206:4) {#if flagPath !== "explosions"}
 function create_if_block_6(ctx) {
 	let div1;
 	let div0;
@@ -31622,7 +31622,7 @@ function create_if_block_6(ctx) {
 			option4 = element("option");
 			option4.textContent = `${localize("AUTOANIM.typeAuras")}`;
 			attr(label, "for", "1");
-			attr(label, "class", "svelte-f0m29i");
+			attr(label, "class", "svelte-pc0sck");
 			option0.__value = "melee";
 			option0.value = option0.__value;
 			option1.__value = "range";
@@ -31637,12 +31637,12 @@ function create_if_block_6(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-f0m29i");
+			attr(select, "class", "svelte-pc0sck");
 			if (/*animType*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[19].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-select-animation svelte-f0m29i");
+			attr(div1, "class", "aa-3wide svelte-pc0sck");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -31679,7 +31679,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (218:4) {#if animType != "" || flagPath === "explosions"}
+// (235:4) {#if animType != "" || flagPath === "explosions"}
 function create_if_block$4(ctx) {
 	let div4;
 	let t0;
@@ -31789,67 +31789,67 @@ function create_if_block$4(ctx) {
 			button = element("button");
 			button.textContent = "Video Preview";
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-f0m29i");
+			attr(label0, "class", "svelte-pc0sck");
 			attr(select0, "name", "flags.autoanimations.options.menuType");
 			attr(select0, "id", "2");
 			select0.disabled = /*isCustom*/ ctx[8];
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[8]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-f0m29i"));
+			: "isNotPopulated") + " svelte-pc0sck"));
 
 			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[22].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-f0m29i");
+			attr(label1, "class", "svelte-pc0sck");
 			attr(select1, "name", "flags.autoanimations.animation");
 			attr(select1, "id", "3");
 			select1.disabled = /*isCustom*/ ctx[8];
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[5] != "" && !/*isCustom*/ ctx[8]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-f0m29i"));
+			: "isNotPopulated") + " svelte-pc0sck"));
 
 			if (/*animation*/ ctx[5] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[24].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-f0m29i");
+			attr(label2, "class", "svelte-pc0sck");
 			attr(select2, "name", "flags.autoanimations.options.variant");
 			attr(select2, "id", "4");
 			select2.disabled = /*isCustom*/ ctx[8];
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[6] != "" && !/*isCustom*/ ctx[8]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-f0m29i"));
+			: "isNotPopulated") + " svelte-pc0sck"));
 
 			if (/*variant*/ ctx[6] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[26].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-f0m29i");
+			attr(label3, "class", "svelte-pc0sck");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 			select3.disabled = /*isCustom*/ ctx[8];
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[7] != "" && !/*isCustom*/ ctx[8]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-f0m29i"));
+			: "isNotPopulated") + " svelte-pc0sck"));
 
 			if (/*color*/ ctx[7] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[28].call(select3));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", div4_class_value = "aa-select-animation " + (/*isCustom*/ ctx[8] ? "dimLabel" : "") + " svelte-f0m29i");
-			attr(button, "class", "svelte-f0m29i");
+			attr(div4, "class", div4_class_value = "aa-3wide " + (/*isCustom*/ ctx[8] ? 'dimLabel' : '') + " svelte-pc0sck");
+			attr(button, "class", "svelte-pc0sck");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1/2");
 			set_style(div5, "grid-column", "2/3");
-			attr(div6, "class", "aa-select-animation svelte-f0m29i");
+			attr(div6, "class", "aa-3wide svelte-pc0sck");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -31948,7 +31948,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*menuType, isCustom, menuSelection*/ 2306 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[8]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-f0m29i"))) {
+			: "isNotPopulated") + " svelte-pc0sck"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
@@ -31975,7 +31975,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*animation, isCustom, menuSelection, menuType*/ 2338 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[5] != "" && !/*isCustom*/ ctx[8]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-f0m29i"))) {
+			: "isNotPopulated") + " svelte-pc0sck"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
@@ -32002,7 +32002,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*variant, isCustom, menuSelection, menuType, animation*/ 2402 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[6] != "" && !/*isCustom*/ ctx[8]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-f0m29i"))) {
+			: "isNotPopulated") + " svelte-pc0sck"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
@@ -32029,7 +32029,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*color, isCustom, menuSelection, menuType, animation, variant*/ 2530 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[7] != "" && !/*isCustom*/ ctx[8]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-f0m29i"))) {
+			: "isNotPopulated") + " svelte-pc0sck"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -32037,7 +32037,7 @@ function create_if_block$4(ctx) {
 				select_option(select3, /*color*/ ctx[7]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 256 && div4_class_value !== (div4_class_value = "aa-select-animation " + (/*isCustom*/ ctx[8] ? "dimLabel" : "") + " svelte-f0m29i")) {
+			if (!current || dirty[0] & /*isCustom*/ 256 && div4_class_value !== (div4_class_value = "aa-3wide " + (/*isCustom*/ ctx[8] ? 'dimLabel' : '') + " svelte-pc0sck")) {
 				attr(div4, "class", div4_class_value);
 			}
 
@@ -32087,7 +32087,7 @@ function create_if_block$4(ctx) {
 	};
 }
 
-// (220:12) {#if animType === "static" && flagPath !== "explosions"}
+// (237:12) {#if animType === "static" && flagPath !== "explosions"}
 function create_if_block_5$1(ctx) {
 	let div;
 	let label;
@@ -32119,7 +32119,7 @@ function create_if_block_5$1(ctx) {
 			option3 = element("option");
 			option3.textContent = `${localize("AUTOANIM.both")}`;
 			attr(label, "for", "6");
-			attr(label, "class", "svelte-f0m29i");
+			attr(label, "class", "svelte-pc0sck");
 			option0.__value = "source";
 			option0.value = option0.__value;
 			option1.__value = "target";
@@ -32132,7 +32132,7 @@ function create_if_block_5$1(ctx) {
 			attr(select, "id", "6");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-f0m29i");
+			attr(select, "class", "svelte-pc0sck");
 			if (/*staticType*/ ctx[10] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[21].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "1 / 2");
@@ -32185,7 +32185,7 @@ function create_if_block_5$1(ctx) {
 	};
 }
 
-// (263:20) {#if animType != ""}
+// (280:20) {#if animType != ""}
 function create_if_block_4$3(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[11]]);
@@ -32241,7 +32241,7 @@ function create_if_block_4$3(ctx) {
 	};
 }
 
-// (264:24) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (281:24) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -32273,7 +32273,7 @@ function create_each_block_3$1(ctx) {
 	};
 }
 
-// (283:20) {#if menuType != ""}
+// (300:20) {#if menuType != ""}
 function create_if_block_3$3(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[11]][/*menuType*/ ctx[1]]);
@@ -32329,7 +32329,7 @@ function create_if_block_3$3(ctx) {
 	};
 }
 
-// (284:24) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (301:24) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -32361,7 +32361,7 @@ function create_each_block_2$1(ctx) {
 	};
 }
 
-// (303:20) {#if (menuType != "") & (animation != "")}
+// (320:20) {#if (menuType != "") & (animation != "")}
 function create_if_block_2$3(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[11]][/*menuType*/ ctx[1]][/*animation*/ ctx[5]]);
@@ -32417,7 +32417,7 @@ function create_if_block_2$3(ctx) {
 	};
 }
 
-// (304:24) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (321:24) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -32449,7 +32449,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (322:20) {#if menuType != "" && animation != "" && variant != ""}
+// (339:20) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_1$3(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[11]][/*menuType*/ ctx[1]][/*animation*/ ctx[5]][/*variant*/ ctx[6]]);
@@ -32505,7 +32505,7 @@ function create_if_block_1$3(ctx) {
 	};
 }
 
-// (323:24) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (340:24) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -32791,47 +32791,44 @@ function instance$6($$self, $$props, $$invalidate) {
 
 	$$self.$$.update = () => {
 		if ($$self.$$.dirty[0] & /*animType*/ 1) {
-			$$invalidate(0, animType);
-		}
-
-		if ($$self.$$.dirty[0] & /*animType*/ 1) {
-			$$invalidate(2, flagData.animType = animType, flagData);
+			{
+				$$invalidate(0, animType);
+				$$invalidate(2, flagData.animType = animType, flagData);
+			}
 		}
 
 		if ($$self.$$.dirty[0] & /*animType, menuType*/ 3) {
-			$$invalidate(1, menuType = animType === "" ? "" : menuType);
-		}
-
-		if ($$self.$$.dirty[0] & /*menuType*/ 2) {
-			options.menuType = menuType;
+			{
+				$$invalidate(1, menuType = animType === "" ? "" : menuType);
+				options.menuType = menuType;
+			}
 		}
 
 		if ($$self.$$.dirty[0] & /*animType, menuType, animation*/ 35) {
-			$$invalidate(5, animation = animType === "" || menuType === "" ? "" : animation);
-		}
-
-		if ($$self.$$.dirty[0] & /*animation*/ 32) {
-			rootPath.animation = animation;
+			{
+				$$invalidate(5, animation = animType === "" || menuType === "" ? "" : animation);
+				rootPath.animation = animation;
+			}
 		}
 
 		if ($$self.$$.dirty[0] & /*animType, menuType, animation, variant*/ 99) {
-			$$invalidate(6, variant = animType === "" || menuType === "" || animation === ""
-			? ""
-			: variant);
-		}
+			{
+				$$invalidate(6, variant = animType === "" || menuType === "" || animation === ""
+				? ""
+				: variant);
 
-		if ($$self.$$.dirty[0] & /*variant*/ 64) {
-			options.variant = variant;
+				options.variant = variant;
+			}
 		}
 
 		if ($$self.$$.dirty[0] & /*animType, menuType, animation, variant, color*/ 227) {
-			$$invalidate(7, color = animType === "" || menuType === "" || animation === "" || variant === ""
-			? ""
-			: color);
-		}
+			{
+				$$invalidate(7, color = animType === "" || menuType === "" || animation === "" || variant === ""
+				? ""
+				: color);
 
-		if ($$self.$$.dirty[0] & /*color*/ 128) {
-			rootPath.color = color;
+				rootPath.color = color;
+			}
 		}
 
 		if ($$self.$$.dirty[0] & /*isCustom*/ 256) {
@@ -32843,11 +32840,10 @@ function instance$6($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty[0] & /*staticType*/ 1024) {
-			$$invalidate(10, staticType);
-		}
-
-		if ($$self.$$.dirty[0] & /*staticType*/ 1024) {
-			options.staticType = staticType;
+			{
+				$$invalidate(10, staticType);
+				options.staticType = staticType;
+			}
 		}
 
 		if ($$self.$$.dirty[0] & /*flagPath, animType*/ 9) {
