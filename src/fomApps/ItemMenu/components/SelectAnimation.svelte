@@ -5,8 +5,10 @@
     import { fade, fly } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import CustomPicker from "./customPicker.svelte";
-    import PrimaryPreview from "../videoPreviews/primary.js";
-    import ExplosionPreview from "../videoPreviews/explosion.js";
+    //import PrimaryPreview from "../videoPreviews/primary.js";
+    //import ExplosionPreview from "../videoPreviews/explosion.js";
+    import PrimaryApp from "../videoPreviews/primaryApp.svelte";
+    import ExplosionApp from "../videoPreviews/explosionApp.svelte";
 
     import {
         menuAnimType,
@@ -113,14 +115,14 @@
 
     //Launches the Video Preview
     function onClick(type) {
-        switch (type) {
-            case "primary":
-                new PrimaryPreview().render(true);
-                break;
-            case "explosion":
-                new ExplosionPreview().render(true);
-                break;
-        }
+        new TJSDialog({
+            modal: false,
+            draggable: true,
+            resizable: true,
+            content: {
+                class: type === "primary" ? PrimaryApp : ExplosionApp,
+            },
+        }).render(true);
     }
 
     // Autopopulates Select Menus when they change
@@ -188,13 +190,11 @@
 
     // Sets Store variables for sending to the Video Previewer
     $: if (previewType === "primary") {
-        console.log("Sending Primary DB Path", primaryFilePath);
         menuDBPath01.set(primaryFilePath);
         customFilePath01.set(customPath);
         customChecked01.set(isCustom);
     }
     $: if (previewType === "explosion") {
-        console.log("Sending Explosion DB Path", explosionFilePath);
         menuDBPath02.set(explosionFilePath);
         customFilePath02.set(customPath);
         customChecked02.set(isCustom);
