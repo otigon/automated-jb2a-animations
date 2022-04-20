@@ -216,7 +216,7 @@
         </div>
     {/if}
     {#if animType != "" || flagPath === "explosions"}
-        <div class="aa-select-animation">
+        <div class="aa-select-animation {isCustom ? "dimLabel" : ""}">
             {#if animType === "static" && flagPath !== "explosions"}
                 <!--"Play On" select for the Static option-->
                 <div
@@ -357,7 +357,9 @@
         min-height: 2em;
         border-radius: 5px;
     }
-
+    .dimLabel {
+        color: rgba(133, 133, 133, 0.3)
+    }
     .aa-select-animation label {
         align-self: center;
     }

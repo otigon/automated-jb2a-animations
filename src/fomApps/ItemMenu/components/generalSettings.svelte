@@ -72,11 +72,11 @@
 
 <style lang="scss">
     .selected {
-        background-color:rgba(25, 175, 2, 0.18);
+        background-color:rgba(25, 175, 2, 0.4);
         transition: background-color 0.5s
     }
     .notSelected {
-        background-color: rgba(219, 132, 2, 0.18);
+        background-color: rgba(219, 132, 2, 0.4);
         transition: background-color 0.5s
     }
     .aa-general-settings {
@@ -100,7 +100,7 @@
         font-size: large;
     }
     .opacityButton button{
-        border: 2px solid rgba(133, 133, 133, 0.418);
-        color: rgba(133, 133, 133, 0.418);
+        border: 2px solid rgba(106, 106, 106, 0.45);
+        color: rgba(54, 54, 54, 0.5);
     }
 </style>

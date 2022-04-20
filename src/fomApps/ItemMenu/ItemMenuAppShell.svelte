@@ -1,3 +1,5 @@
+<svelte:options accessors={true} />
+
 <script>
     import { getContext } from "svelte";
     import { fade, scale } from "svelte/transition";
@@ -13,17 +15,17 @@
     import RangeSwitch from "./components/meleeRange.svelte";
     //import { menuAnimType } from "./menuStore.js"
 
-    import { flagMigrations } from "./../../system-handlers/flagMerge.js"
+    import { flagMigrations } from "./../../system-handlers/flagMerge.js";
 
     export let elementRoot;
     export let item;
     export let itemFlags;
     export const flags = itemFlags.autoanimations || {};
-    console.log(flags)
+    console.log(flags);
 
     let animationDisabled = flags.killAnim;
     let isCustomized;
-    $: isCustomized = isCustomized
+    $: isCustomized = isCustomized;
 
     export const flagData = {
         killAnim: flags.killAnim,
@@ -32,7 +34,11 @@
         animType: flags.animType,
         animation: flags.animation,
         color: flags.color,
-        version: flags.version ? flags.version : Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0],
+        version: flags.version
+            ? flags.version
+            : Object.keys(flagMigrations.migrations)
+                  .map((n) => Number(n))
+                  .reverse()[0],
 
         options: flags.options || {},
         explosions: flags.explosions || {},
@@ -43,7 +49,7 @@
         sourceToken: flags.sourceToken || {},
         targetToken: flags.targetToken || {},
         meleeSwitch: flags.meleeSwitch || {},
-    }
+    };
     let animType;
     $: animType = animType;
     let menuType;
@@ -55,7 +61,7 @@
     })
     */
     let form;
-    const { application } = getContext('external');
+    const { application } = getContext("external");
 
     function onClick() {
         TJSDialog.prompt({
@@ -72,21 +78,21 @@
             data: {
                 flags: {
                     autoanimations: flagData,
-                }
-            }
-        }
-        await item.update(updatedFlags.data)
-    }
+                },
+            },
+        };
+        await item.update(updatedFlags.data);
+    };
 
-    async function closeApp () {
+    async function closeApp() {
         const updatedFlags = {
             data: {
                 flags: {
                     autoanimations: flagData,
-                }
-            }
-        }
-        await item.update(updatedFlags.data)
+                },
+            },
+        };
+        await item.update(updatedFlags.data);
         application.close();
     }
 
@@ -100,17 +106,17 @@
     $: focus3d = tab3d;
 
     function switchPrimary() {
-        primaryTab = !primaryTab;
+        primaryTab = !extraTab && !tab3d ? primaryTab : !primaryTab;
         extraTab = false;
         tab3d = false;
     }
     function switchExtra() {
-        extraTab = !extraTab;
+        extraTab = !primaryTab && !tab3d ? extraTab : !extraTab;
         primaryTab = false;
         tab3d = false;
     }
     function switch3d() {
-        tab3d = !tab3d;
+        tab3d = !primaryTab && !extraTab ? tab3d : !tab3d;
         primaryTab = false;
         extraTab = false;
     }
@@ -119,66 +125,117 @@
     let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
     $: explosionLabel = explosionLabel;
     $: flagData.explosions.enable = explosionEnabled;
-    function switchExplosionLabel () {
+    function switchExplosionLabel() {
         explosionEnabled = !explosionEnabled;
         explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
         flagData.explosions.enable = explosionEnabled;
     }
-
 </script>
-
-<svelte:options accessors={true}/>
 
 <ApplicationShell
     bind:elementRoot
     transition={scale}
     transitionOptions={{ duration: 500 }}
+    stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}
 >
-    <form bind:this={form} on:submit|preventDefault={applyFlags} autocomplete="off" id="item-menu-aa" class="overview">
-        <div class='form-group tabView aaTopSection'>
-            <button class="{focusPrimary ? "selected" : "notSelected"}" on:click={() => switchPrimary()}><i class="fas fa-bomb"></i> {localize("AUTOANIM.primary")} {localize("AUTOANIM.animation")}</button>
-            <button class="{focusExtra ? "selected" : "notSelected"}" on:click={() => switchExtra()}><i class="fas fa-user-plus"></i> {localize("AUTOANIM.extra")} {localize("AUTOANIM.effects")}</button>
-            <button class="{focus3d ? "selected" : "notSelected"}" on:click={() => switch3d()}><i class="fas fa-vr-cardboard"></i> 3D Canvas</button>
+    <form
+        bind:this={form}
+        on:submit|preventDefault={applyFlags}
+        autocomplete="off"
+        id="item-menu-aa"
+        class="overview"
+    >
+        <div class="form-group tabView aaTopSection">
+            <button
+                class={focusPrimary ? "selected" : "notSelected"}
+                on:click={() => switchPrimary()}
+                ><i class="fas fa-bomb" />
+                {localize("AUTOANIM.primary")}
+                {localize("AUTOANIM.animation")}</button
+            >
+            <button
+                class={focusExtra ? "selected" : "notSelected"}
+                on:click={() => switchExtra()}
+                ><i class="fas fa-user-plus" />
+                {localize("AUTOANIM.extra")}
+                {localize("AUTOANIM.effects")}</button
+            >
+            <button
+                class={focus3d ? "selected" : "notSelected"}
+                on:click={() => switch3d()}
+                ><i class="fas fa-vr-cardboard" /> 3D Canvas</button
+            >
         </div>
         {#if focusPrimary}
-        <div class="aaMidSection">
-            <div class="generalSettings">
-            <GeneralSettings bind:animationDisabled bind:isCustomized {flagData}/>
-            </div>
-            {#if !animationDisabled && isCustomized}
-            <div style="padding-top: 10px">
-            <h1>Primary Animation</h1>
-            </div>
-            <SelectAnimation previewType="primary" flagPath="PrimaryAnimation" {flagData} bind:animType bind:menuType/>
-            {#if animType}
-            <Options {animType} {menuType} {flagData} />
-            <SoundSettings audioPath="a01" {flagData} />
-            {#if animType === 'melee'}
-            <h1>Melee Range Switch</h1>
-            <RangeSwitch {flagData}/>
-            {/if}
-            <div style="padding-top: 10px">
-            <h1>Explosion</h1>
-            </div>
-            <div class=aa-3wide>
-                <div style='grid-row:1/2; grid-column:2/3'>
-                    <button class="oldCheck {explosionEnabled ? "selected" : "notSelected"}" on:click={() => switchExplosionLabel()}>{explosionLabel}</button>
+            <div class="aaMidSection" transition:fade={{duration: 500}}>
+                <div class="aaMenu-section">
+                    <GeneralSettings
+                        bind:animationDisabled
+                        bind:isCustomized
+                        {flagData}
+                    />
                 </div>
+                {#if !animationDisabled && isCustomized}
+                    <div class="aaMenu-section">
+                        <div style="padding-top: 10px">
+                            <h1>Primary Animation</h1>
+                        </div>
+                        <SelectAnimation
+                            previewType="primary"
+                            flagPath="PrimaryAnimation"
+                            {flagData}
+                            bind:animType
+                            bind:menuType
+                        />
+                        {#if animType}
+                            <Options {animType} {menuType} {flagData} />
+                            <SoundSettings audioPath="a01" {flagData} />
+                            {#if animType === "melee"}
+                                <h1>Melee Range Switch</h1>
+                                <RangeSwitch {flagData} />
+                            {/if}
+                        {/if}
+                    </div>
+                    {#if animType === "melee" || animType === "range" || animType === "static"}
+                    <div class="aaMenu-section">
+                        <div style="padding-top: 10px">
+                            <h1>Explosion</h1>
+                        </div>
+                        <div class="aa-3wide">
+                            <div style="grid-row:1/2; grid-column:2/3">
+                                <button
+                                    class="oldCheck {explosionEnabled
+                                        ? 'selected'
+                                        : 'notSelected'}"
+                                    on:click={() => switchExplosionLabel()}
+                                    >{explosionLabel}</button
+                                >
+                            </div>
+                        </div>
+                        {#if explosionEnabled}
+                            <ExplosionSettings {flagData} />
+                        {/if}
+                    </div>
+                    {/if}
+                {/if}
             </div>
-            {#if explosionEnabled}
-            <ExplosionSettings {flagData}/>
-            {/if}
-            {/if}
-            {/if}
-        </div>
         {/if}
         <div class="form-group tabView aaBottomSection">
-            <button class="footer-button" type="submit">Submit</button>
-            <button class="footer-button" on:click|preventDefault={closeApp}>Close and Submit</button>
+            <button class="footer-button" style="color: gray" type="submit">Submit</button>
+            <button class="footer-button" on:click|preventDefault={closeApp}
+                >Close and Submit</button
+            >
         </div>
     </form>
 </ApplicationShell>
+
 <style lang="scss">
+    .aaMenu-section {
+        background: rgb(204, 204, 204);
+        border: 2px solid black;
+        border-radius: 10px;
+        margin: 3% 3% 3% 3%;
+    }
     .footer-button {
         border-radius: 5px;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
@@ -194,44 +251,45 @@
     }
     .aaTopSection {
         position: absolute;
-        top:30px;
+        top: 30px;
         height: 45px;
-        left: 0;
+        left: 1%;
         right: 0;
-        border-bottom: 2px solid rgba(21, 21, 21, 0.6);
-        margin-right: 3%
+        margin-right: 3%;
+        background: rgb(204, 204, 204);
+        border: 2px solid black;
+        border-radius: 10px;
     }
     .aaMidSection {
         position: absolute;
-        left:0;
-        right:0;
-        top: 78px;
-        bottom: 40px;
+        left: 0;
+        right: 0;
+        top: 85px;
+        bottom: 48px;
         overflow: scroll;
     }
     .aaBottomSection {
         position: absolute;
         bottom: 0;
         height: 45px;
-        left: 0;
+        left: 1%;
         right: 0;
-        border-top: 2px solid rgba(21, 21, 21, 0.6);
-        margin-right: 3%
+        margin-right: 3%;
+        background: rgb(204, 204, 204);
+        border: 2px solid black;
+        border-radius: 10px;
     }
     .tabView {
         margin-left: 2%;
         margin-right: 4%;
     }
     .selected {
-        background-color:rgba(25, 175, 2, 0.25);
-        transition: background-color 0.5s
+        background-color: rgba(25, 175, 2, 0.4);
+        transition: background-color 0.5s;
     }
     .notSelected {
-        background-color: rgba(219, 132, 2, 0.25);
-        transition: background-color 0.5s
-    }
-    .generalSettings {
-        border-bottom: 2px solid rgba(21, 21, 21, 0.6);
+        background-color: rgba(219, 132, 2, 0.4);
+        transition: background-color 0.5s;
     }
     h1 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
@@ -261,4 +319,3 @@
         font-weight: bold;
     }
 </style>
-
