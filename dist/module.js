@@ -35207,43 +35207,58 @@ class Options extends SvelteComponent {
 
 function create_if_block$2(ctx) {
 	let div;
-	let button;
-	let t0_value = localize("AUTOANIM.add") + "";
+	let input;
 	let t0;
+	let label;
+	let t1_value = localize("AUTOANIM.add") + "";
 	let t1;
-	let t2_value = localize("AUTOANIM.macro") + "";
 	let t2;
-	let button_class_value;
+	let t3_value = localize("AUTOANIM.macro") + "";
+	let t3;
+	let label_class_value;
 	let mounted;
 	let dispose;
 
 	return {
 		c() {
 			div = element("div");
-			button = element("button");
-			t0 = text(t0_value);
-			t1 = space();
-			t2 = text(t2_value);
-			attr(button, "class", button_class_value = "oldCheck " + (/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-zd8cr");
-			attr(div, "class", "flexcol");
+			input = element("input");
+			t0 = space();
+			label = element("label");
+			t1 = text(t1_value);
+			t2 = space();
+			t3 = text(t3_value);
+			attr(input, "type", "checkbox");
+			attr(input, "id", "addMacro");
+			input.hidden = true;
+			attr(label, "for", "addMacro");
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-1r5w7sr"));
+			attr(div, "class", "flexcol button-labels svelte-1r5w7sr");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "1 / 2");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
-			append(div, button);
-			append(button, t0);
-			append(button, t1);
-			append(button, t2);
+			append(div, input);
+			input.checked = /*enableMacro*/ ctx[2];
+			append(div, t0);
+			append(div, label);
+			append(label, t1);
+			append(label, t2);
+			append(label, t3);
 
 			if (!mounted) {
-				dispose = listen(button, "click", /*click_handler*/ ctx[13]);
+				dispose = listen(input, "change", /*input_change_handler*/ ctx[12]);
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty & /*enableMacro*/ 4 && button_class_value !== (button_class_value = "oldCheck " + (/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-zd8cr")) {
-				attr(button, "class", button_class_value);
+			if (dirty & /*enableMacro*/ 4) {
+				input.checked = /*enableMacro*/ ctx[2];
+			}
+
+			if (dirty & /*enableMacro*/ 4 && label_class_value !== (label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-1r5w7sr"))) {
+				attr(label, "class", label_class_value);
 			}
 		},
 		d(detaching) {
@@ -35314,36 +35329,36 @@ function create_fragment$3(ctx) {
 			t7 = text("Animate from Ammo");
 
 			attr(button0, "class", button0_class_value = "oldCheck " + (/*animationDisabled*/ ctx[0]
-			? "notSelected"
-			: "selected") + " svelte-zd8cr");
+			? 'notSelected'
+			: 'selected') + " svelte-1r5w7sr");
 
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
 			button1.disabled = button1_disabled_value = /*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0];
-			attr(button1, "class", button1_class_value = "oldCheck " + (/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-zd8cr");
+			attr(button1, "class", button1_class_value = "oldCheck " + (/*isCustomized*/ ctx[1] ? 'selected' : 'notSelected') + " svelte-1r5w7sr");
 
 			attr(div1, "class", div1_class_value = "flexcol " + (/*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0]
-			? "opacityButton"
-			: "") + " svelte-zd8cr");
+			? 'opacityButton'
+			: '') + " svelte-1r5w7sr");
 
 			set_style(div1, "grid-row", "2 / 3");
 			set_style(div1, "grid-column", "1 / 2");
 			button2.disabled = button2_disabled_value = /*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0];
-			attr(button2, "class", button2_class_value = "oldCheck " + (/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-zd8cr");
+			attr(button2, "class", button2_class_value = "oldCheck " + (/*overrideAuto*/ ctx[4] ? 'selected' : 'notSelected') + " svelte-1r5w7sr");
 
 			attr(div2, "class", div2_class_value = "flexcol " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]
-			? "opacityButton"
-			: "") + " svelte-zd8cr");
+			? 'opacityButton'
+			: '') + " svelte-1r5w7sr");
 
 			set_style(div2, "grid-row", "2 / 3");
 			set_style(div2, "grid-column", "2 / 3");
-			attr(button3, "class", button3_class_value = "oldCheck " + (/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-zd8cr");
-			button3.disabled = button3_disabled_value = /*gameSystem*/ ctx[7] !== 'dnd5e' || /*animationDisabled*/ ctx[0];
-			attr(div3, "class", div3_class_value = "flexcol " + (/*gameSystem*/ ctx[7] === "dnd5e" ? "" : "opacityButton") + " " + (/*animationDisabled*/ ctx[0] ? "opacityButton" : "") + " svelte-zd8cr");
+			attr(button3, "class", button3_class_value = "oldCheck " + (/*fromAmmo*/ ctx[5] ? 'selected' : 'notSelected') + " svelte-1r5w7sr");
+			button3.disabled = button3_disabled_value = /*gameSystem*/ ctx[7] !== "dnd5e" || /*animationDisabled*/ ctx[0];
+			attr(div3, "class", div3_class_value = "flexcol " + (/*gameSystem*/ ctx[7] === 'dnd5e' ? '' : 'opacityButton') + " " + (/*animationDisabled*/ ctx[0] ? 'opacityButton' : '') + " svelte-1r5w7sr");
 			set_style(div3, "grid-row", "2 / 3");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", "aa-general-settings svelte-zd8cr");
+			attr(div4, "class", "aa-general-settings svelte-1r5w7sr");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -35368,10 +35383,10 @@ function create_fragment$3(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler_1*/ ctx[14]),
-					listen(button1, "click", /*click_handler_2*/ ctx[15]),
-					listen(button2, "click", /*click_handler_3*/ ctx[16]),
-					listen(button3, "click", /*click_handler_4*/ ctx[17])
+					listen(button0, "click", /*click_handler*/ ctx[13]),
+					listen(button1, "click", /*click_handler_1*/ ctx[14]),
+					listen(button2, "click", /*click_handler_2*/ ctx[15]),
+					listen(button3, "click", /*click_handler_3*/ ctx[16])
 				];
 
 				mounted = true;
@@ -35394,8 +35409,8 @@ function create_fragment$3(ctx) {
 			if (!current || dirty & /*disabledLabel*/ 8) set_data(t1, /*disabledLabel*/ ctx[3]);
 
 			if (!current || dirty & /*animationDisabled*/ 1 && button0_class_value !== (button0_class_value = "oldCheck " + (/*animationDisabled*/ ctx[0]
-			? "notSelected"
-			: "selected") + " svelte-zd8cr")) {
+			? 'notSelected'
+			: 'selected') + " svelte-1r5w7sr")) {
 				attr(button0, "class", button0_class_value);
 			}
 
@@ -35403,13 +35418,13 @@ function create_fragment$3(ctx) {
 				button1.disabled = button1_disabled_value;
 			}
 
-			if (!current || dirty & /*isCustomized*/ 2 && button1_class_value !== (button1_class_value = "oldCheck " + (/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-zd8cr")) {
+			if (!current || dirty & /*isCustomized*/ 2 && button1_class_value !== (button1_class_value = "oldCheck " + (/*isCustomized*/ ctx[1] ? 'selected' : 'notSelected') + " svelte-1r5w7sr")) {
 				attr(button1, "class", button1_class_value);
 			}
 
 			if (!current || dirty & /*overrideAuto, animationDisabled*/ 17 && div1_class_value !== (div1_class_value = "flexcol " + (/*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0]
-			? "opacityButton"
-			: "") + " svelte-zd8cr")) {
+			? 'opacityButton'
+			: '') + " svelte-1r5w7sr")) {
 				attr(div1, "class", div1_class_value);
 			}
 
@@ -35417,25 +35432,25 @@ function create_fragment$3(ctx) {
 				button2.disabled = button2_disabled_value;
 			}
 
-			if (!current || dirty & /*overrideAuto*/ 16 && button2_class_value !== (button2_class_value = "oldCheck " + (/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-zd8cr")) {
+			if (!current || dirty & /*overrideAuto*/ 16 && button2_class_value !== (button2_class_value = "oldCheck " + (/*overrideAuto*/ ctx[4] ? 'selected' : 'notSelected') + " svelte-1r5w7sr")) {
 				attr(button2, "class", button2_class_value);
 			}
 
 			if (!current || dirty & /*isCustomized, animationDisabled*/ 3 && div2_class_value !== (div2_class_value = "flexcol " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]
-			? "opacityButton"
-			: "") + " svelte-zd8cr")) {
+			? 'opacityButton'
+			: '') + " svelte-1r5w7sr")) {
 				attr(div2, "class", div2_class_value);
 			}
 
-			if (!current || dirty & /*fromAmmo*/ 32 && button3_class_value !== (button3_class_value = "oldCheck " + (/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-zd8cr")) {
+			if (!current || dirty & /*fromAmmo*/ 32 && button3_class_value !== (button3_class_value = "oldCheck " + (/*fromAmmo*/ ctx[5] ? 'selected' : 'notSelected') + " svelte-1r5w7sr")) {
 				attr(button3, "class", button3_class_value);
 			}
 
-			if (!current || dirty & /*animationDisabled*/ 1 && button3_disabled_value !== (button3_disabled_value = /*gameSystem*/ ctx[7] !== 'dnd5e' || /*animationDisabled*/ ctx[0])) {
+			if (!current || dirty & /*animationDisabled*/ 1 && button3_disabled_value !== (button3_disabled_value = /*gameSystem*/ ctx[7] !== "dnd5e" || /*animationDisabled*/ ctx[0])) {
 				button3.disabled = button3_disabled_value;
 			}
 
-			if (!current || dirty & /*animationDisabled*/ 1 && div3_class_value !== (div3_class_value = "flexcol " + (/*gameSystem*/ ctx[7] === "dnd5e" ? "" : "opacityButton") + " " + (/*animationDisabled*/ ctx[0] ? "opacityButton" : "") + " svelte-zd8cr")) {
+			if (!current || dirty & /*animationDisabled*/ 1 && div3_class_value !== (div3_class_value = "flexcol " + (/*gameSystem*/ ctx[7] === 'dnd5e' ? '' : 'opacityButton') + " " + (/*animationDisabled*/ ctx[0] ? 'opacityButton' : '') + " svelte-1r5w7sr")) {
 				attr(div3, "class", div3_class_value);
 			}
 		},
@@ -35504,7 +35519,7 @@ function instance$3($$self, $$props, $$invalidate) {
 		? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled")
 		: game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled"));
 
-		$$invalidate(12, flagData.killAnim = animationDisabled, flagData);
+		$$invalidate(11, flagData.killAnim = animationDisabled, flagData);
 	}
 
 	let gameSystem = game.system.id;
@@ -35513,7 +35528,7 @@ function instance$3($$self, $$props, $$invalidate) {
 
 	function customize() {
 		$$invalidate(1, isCustomized = !isCustomized);
-		$$invalidate(12, flagData.override = isCustomized, flagData);
+		$$invalidate(11, flagData.override = isCustomized, flagData);
 		console.log(flagData);
 	}
 
@@ -35521,30 +35536,30 @@ function instance$3($$self, $$props, $$invalidate) {
 
 	function override() {
 		$$invalidate(4, overrideAuto = !overrideAuto);
-		$$invalidate(12, flagData.autoOverride.enable = overrideAuto, flagData);
+		$$invalidate(11, flagData.autoOverride.enable = overrideAuto, flagData);
 	}
 
 	let fromAmmo;
 
 	function ammo() {
 		$$invalidate(5, fromAmmo = !fromAmmo);
-		$$invalidate(12, flagData.options.ammo = fromAmmo, flagData);
+		$$invalidate(11, flagData.options.ammo = fromAmmo, flagData);
 	}
 
-	let { enableMacro = macros.enable } = $$props;
+	let { enableMacro = macros.enable || false } = $$props;
 
-	function addMacro() {
-		$$invalidate(2, enableMacro = !enableMacro);
+	function input_change_handler() {
+		enableMacro = this.checked;
+		$$invalidate(2, enableMacro);
 	}
 
-	const click_handler = () => addMacro();
-	const click_handler_1 = () => switchDisabled();
-	const click_handler_2 = () => customize();
-	const click_handler_3 = () => override();
-	const click_handler_4 = () => ammo();
+	const click_handler = () => switchDisabled();
+	const click_handler_1 = () => customize();
+	const click_handler_2 = () => override();
+	const click_handler_3 = () => ammo();
 
 	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(12, flagData = $$props.flagData);
+		if ('flagData' in $$props) $$invalidate(11, flagData = $$props.flagData);
 		if ('animationDisabled' in $$props) $$invalidate(0, animationDisabled = $$props.animationDisabled);
 		if ('isCustomized' in $$props) $$invalidate(1, isCustomized = $$props.isCustomized);
 		if ('enableMacro' in $$props) $$invalidate(2, enableMacro = $$props.enableMacro);
@@ -35556,7 +35571,7 @@ function instance$3($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty & /*animationDisabled*/ 1) {
-			$$invalidate(12, flagData.killAnim = animationDisabled, flagData);
+			$$invalidate(11, flagData.killAnim = animationDisabled, flagData);
 		}
 
 		if ($$self.$$.dirty & /*disabledLabel*/ 8) {
@@ -35576,10 +35591,7 @@ function instance$3($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty & /*enableMacro*/ 4) {
-			{
-				$$invalidate(2, enableMacro);
-				macros.enable = enableMacro;
-			}
+			macros.enable = $$invalidate(2, enableMacro);
 		}
 	};
 
@@ -35595,13 +35607,12 @@ function instance$3($$self, $$props, $$invalidate) {
 		customize,
 		override,
 		ammo,
-		addMacro,
 		flagData,
+		input_change_handler,
 		click_handler,
 		click_handler_1,
 		click_handler_2,
-		click_handler_3,
-		click_handler_4
+		click_handler_3
 	];
 }
 
@@ -35610,7 +35621,7 @@ class GeneralSettings extends SvelteComponent {
 		super();
 
 		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
-			flagData: 12,
+			flagData: 11,
 			animationDisabled: 0,
 			isCustomized: 1,
 			enableMacro: 2

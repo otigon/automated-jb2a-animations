@@ -4,41 +4,53 @@
     import { fade, fly } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
-    
+
     export let flagData;
     const macros = flagData.macro;
     export let animationDisabled = flagData.killAnim;
     $: animationDisabled = animationDisabled;
     $: flagData.killAnim = animationDisabled;
     $: disabledLabel = disabledLabel;
-    let disabledLabel = !animationDisabled ? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled") : game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled");
+    let disabledLabel = !animationDisabled
+        ? game.i18n.localize("AUTOANIM.animation") +
+          " " +
+          game.i18n.localize("AUTOANIM.enabled")
+        : game.i18n.localize("AUTOANIM.animation") +
+          " " +
+          game.i18n.localize("AUTOANIM.disabled");
     function switchDisabled() {
         animationDisabled = !animationDisabled;
-        disabledLabel = animationDisabled ? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled") : game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled");
+        disabledLabel = animationDisabled
+            ? game.i18n.localize("AUTOANIM.animation") +
+              " " +
+              game.i18n.localize("AUTOANIM.disabled")
+            : game.i18n.localize("AUTOANIM.animation") +
+              " " +
+              game.i18n.localize("AUTOANIM.enabled");
         flagData.killAnim = animationDisabled;
     }
     let gameSystem = game.system.id;
-    console.log(gameSystem)
+    console.log(gameSystem);
     export let isCustomized = flagData.override || false;
     $: isCustomized = isCustomized;
     function customize() {
         isCustomized = !isCustomized;
         flagData.override = isCustomized;
-        console.log(flagData)
+        console.log(flagData);
     }
 
     let overrideAuto;
     $: overrideAuto = overrideAuto;
     function override() {
-        overrideAuto = !overrideAuto
+        overrideAuto = !overrideAuto;
         flagData.autoOverride.enable = overrideAuto;
     }
 
     let fromAmmo;
     $: fromAmmo = fromAmmo;
-    function ammo () {
+    function ammo() {
         fromAmmo = !fromAmmo;
-        flagData.options.ammo = fromAmmo
+        flagData.options.ammo = fromAmmo;
     }
     /*
     export const generalFlagData = {
@@ -52,45 +64,88 @@
         }
     }
     */
-   export let enableMacro = macros.enable;
-   $: {
-       enableMacro = enableMacro;
-       macros.enable = enableMacro;
-   }
-   function addMacro() {
-        enableMacro = !enableMacro;
-   }
+    export let enableMacro = macros.enable || false;
+    $: macros.enable = enableMacro = enableMacro;
+
 </script>
 
 <div class="aa-general-settings">
     {#if isCustomized || animationDisabled}
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2">
-        <button class="oldCheck {enableMacro ? "selected" : "notSelected"}" on:click={() => addMacro()}>{localize("AUTOANIM.add")} {localize("AUTOANIM.macro")}</button>
-    </div>
+        <div
+            class="flexcol button-labels"
+            style="grid-row: 1 / 2; grid-column: 1 / 2"
+        >
+            <input
+                type="checkbox"
+                id="addMacro"
+                hidden
+                bind:checked={enableMacro}
+            />
+            <label for="addMacro" class={enableMacro ? "selected" : "notSelected"}
+                >{localize("AUTOANIM.add")} {localize("AUTOANIM.macro")}</label
+            >
+        </div>
     {/if}
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;" transition:fade>
-        <button class="oldCheck {animationDisabled ? "notSelected" : "selected"}" on:click={() => switchDisabled()}>{disabledLabel}</button>
+    <div
+        class="flexcol"
+        style="grid-row: 1 / 2; grid-column: 2 / 3;"
+        transition:fade
+    >
+        <button
+            class="oldCheck {animationDisabled ? 'notSelected' : 'selected'}"
+            on:click={() => switchDisabled()}>{disabledLabel}</button
+        >
     </div>
-    <div class="flexcol {overrideAuto || animationDisabled ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;" transition:fade>
-        <button disabled={overrideAuto || animationDisabled} class="oldCheck {isCustomized ? "selected" : "notSelected"}" on:click={() => customize()}>{localize("AUTOANIM.customize")}</button>
+    <div
+        class="flexcol {overrideAuto || animationDisabled
+            ? 'opacityButton'
+            : ''}"
+        style="grid-row: 2 / 3; grid-column: 1 / 2;"
+        transition:fade
+    >
+        <button
+            disabled={overrideAuto || animationDisabled}
+            class="oldCheck {isCustomized ? 'selected' : 'notSelected'}"
+            on:click={() => customize()}
+            >{localize("AUTOANIM.customize")}</button
+        >
     </div>
-    <div class="flexcol {isCustomized || animationDisabled ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;" transition:fade>
-        <button disabled={isCustomized || animationDisabled} class="oldCheck {overrideAuto ? "selected" : "notSelected"}" on:click={() => override()}>Override Autorec</button>
+    <div
+        class="flexcol {isCustomized || animationDisabled
+            ? 'opacityButton'
+            : ''}"
+        style="grid-row: 2 / 3; grid-column: 2 / 3;"
+        transition:fade
+    >
+        <button
+            disabled={isCustomized || animationDisabled}
+            class="oldCheck {overrideAuto ? 'selected' : 'notSelected'}"
+            on:click={() => override()}>Override Autorec</button
+        >
     </div>
-    <div class="flexcol {gameSystem === "dnd5e" ? "" : "opacityButton"} {animationDisabled ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 3 / 4;" transition:fade>
-        <button class="oldCheck {fromAmmo ? "selected" : "notSelected"}" disabled={gameSystem !== 'dnd5e' || animationDisabled} on:click={() => ammo()}>Animate from Ammo</button>
+    <div
+        class="flexcol {gameSystem === 'dnd5e'
+            ? ''
+            : 'opacityButton'} {animationDisabled ? 'opacityButton' : ''}"
+        style="grid-row: 2 / 3; grid-column: 3 / 4;"
+        transition:fade
+    >
+        <button
+            class="oldCheck {fromAmmo ? 'selected' : 'notSelected'}"
+            disabled={gameSystem !== "dnd5e" || animationDisabled}
+            on:click={() => ammo()}>Animate from Ammo</button
+        >
     </div>
 </div>
 
-
 <style lang="scss">
     .selected {
-        background-color:rgba(25, 175, 2, 0.4);
-        transition: background-color 0.5s
+        background-color: rgba(25, 175, 2, 0.4);
+        transition: background-color 0.5s;
     }
     .notSelected {
         background-color: rgba(219, 132, 2, 0.4);
-        transition: background-color 0.5s
+        transition: background-color 0.5s;
     }
     .aa-general-settings {
         display: grid;
@@ -105,15 +160,25 @@
         font-weight: bold;
         border-radius: 10px;
     }
-    .aa-general-settings button{
+    .aa-general-settings button {
         border-radius: 10px;
         border: 2px solid black;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
     }
-    .opacityButton button{
+    .opacityButton button {
         border: 2px solid rgba(106, 106, 106, 0.45);
         color: rgba(54, 54, 54, 0.5);
+    }
+    .button-labels label {
+        border: 2px solid black;
+        border-radius: 10px;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+        padding: 5px;
+        text-align: center;
+        width: 100%;
     }
 </style>
