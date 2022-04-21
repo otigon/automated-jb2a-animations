@@ -13,6 +13,7 @@
     import GeneralSettings from "./components/generalSettings.svelte";
     import SoundSettings from "./components/soundSettings.svelte";
     import RangeSwitch from "./components/meleeRange.svelte";
+    import MacroField from "./components/macro.svelte";
     //import { menuAnimType } from "./menuStore.js"
 
     import { flagMigrations } from "./../../system-handlers/flagMerge.js";
@@ -50,6 +51,8 @@
         targetToken: flags.targetToken || {},
         meleeSwitch: flags.meleeSwitch || {},
     };
+    let enableMacro;
+    $: enableMacro = enableMacro;
     let animType;
     $: animType = animType;
     let menuType;
@@ -192,9 +195,15 @@
                     <GeneralSettings
                         bind:animationDisabled
                         bind:isCustomized
+                        bind:enableMacro
                         {flagData}
                     />
                 </div>
+                {#if enableMacro}
+                <div class="aaMenu-section" transition:fade={{ duration: 500}}>
+                    <MacroField {flagData} />
+                </div>
+                {/if}
                 {#if !animationDisabled && isCustomized}
                     <div class="aaMenu-section">
                         <div style="padding-top: 10px">

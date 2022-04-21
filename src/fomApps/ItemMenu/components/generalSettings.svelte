@@ -6,7 +6,7 @@
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     
     export let flagData;
-
+    const macros = flagData.macro;
     export let animationDisabled = flagData.killAnim;
     $: animationDisabled = animationDisabled;
     $: flagData.killAnim = animationDisabled;
@@ -52,16 +52,29 @@
         }
     }
     */
+   export let enableMacro = macros.enable;
+   $: {
+       enableMacro = enableMacro;
+       macros.enable = enableMacro;
+   }
+   function addMacro() {
+        enableMacro = !enableMacro;
+   }
 </script>
 
 <div class="aa-general-settings">
+    {#if isCustomized || animationDisabled}
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2">
+        <button class="oldCheck {enableMacro ? "selected" : "notSelected"}" on:click={() => addMacro()}>{localize("AUTOANIM.add")} {localize("AUTOANIM.macro")}</button>
+    </div>
+    {/if}
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;" transition:fade>
         <button class="oldCheck {animationDisabled ? "notSelected" : "selected"}" on:click={() => switchDisabled()}>{disabledLabel}</button>
     </div>
     <div class="flexcol {overrideAuto || animationDisabled ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;" transition:fade>
         <button disabled={overrideAuto || animationDisabled} class="oldCheck {isCustomized ? "selected" : "notSelected"}" on:click={() => customize()}>{localize("AUTOANIM.customize")}</button>
     </div>
-    <div class="flexcol {isCustomized ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;" transition:fade>
+    <div class="flexcol {isCustomized || animationDisabled ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;" transition:fade>
         <button disabled={isCustomized || animationDisabled} class="oldCheck {overrideAuto ? "selected" : "notSelected"}" on:click={() => override()}>Override Autorec</button>
     </div>
     <div class="flexcol {gameSystem === "dnd5e" ? "" : "opacityButton"} {animationDisabled ? "opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 3 / 4;" transition:fade>

@@ -220,7 +220,6 @@
                     {localize("AUTOANIM.type")}</label
                 >
                 <select
-                    name="flags.autoanimations.animType"
                     bind:value={animType}
                     on:change={async () => await typeChange()}
                     id="1"
