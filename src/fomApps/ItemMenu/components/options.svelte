@@ -28,6 +28,10 @@
     $: scale = scale;
     $: options.scale = scale
 
+    let auraRadius = options.auraRadius;
+    $: auraRadius = auraRadius;
+    $: options.auraRadius = auraRadius;
+
     let belowToken = options.below || false;
     $: belowToken = belowToken;
     $: options.below = belowToken
@@ -113,7 +117,7 @@
 <h2>Options</h2>
 <div class="aa-options"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
     <!--Persistent Setting-->
-    <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+    <div class="flexcol {disabled01 ? "opacityBorder" : ""}" style="grid-row: 1 / 2; grid-column: 1 / 2;">
         <label for="">Persistence</label>
         <button on:click={() => switchPersistence()} disabled="{disabled01}" >{isPersistent}</button>
     </div>
@@ -123,31 +127,38 @@
         <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
     </div>
     <!--Bind/Unbind Visibility (for Persistent Effects)-->
-    <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+    <div class="flexcol {disabled01 || animType === 'templatefx' ? "opacityBorder" : ""}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">Visibility</label>
-        <button on:click={() => switchVisibility()} disabled="{disabled01}" >{bindVisibility}</button>
+        <button on:click={() => switchVisibility()} disabled="{disabled01 || animType === 'templatefx' }" >{bindVisibility}</button>
     </div>
     <!--Bind/Unbind Opacity (for Persistent Effects)-->
-    <div class="flexcol {disabled01 ? "opacityBorder opacityLabel" : ""}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+    <div class="flexcol {disabled01 || animType === 'templatefx' ? "opacityBorder" : ""}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
         <label for="">Alpha</label>
-        <button on:click={() => switchAlpha()} disabled="{disabled01}" >{bindAlpha}</button>
+        <button on:click={() => switchAlpha()} disabled="{disabled01 || animType === 'templatefx' }" >{bindAlpha}</button>
     </div>
     <!--Set Number of times the animation plays-->
-    <div class="flexcol {isDisabled ? "opacityBorder opacityLabel" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+    <div class="flexcol {isDisabled ? "opacityBorder" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;">
         <label for="">{localize("AUTOANIM.repeat")}</label>
         <input disabled={isDisabled} type="Number" bind:value={repeat} placeholder=1>
     </div>
     <!--Set delay between repeats-->
-    <div class="flexcol {isDisabled ? "opacityBorder opacityLabel" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+    <div class="flexcol {isDisabled ? "opacityBorder" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;">
         <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
         <input disabled={isDisabled} type="Number" bind:value={delay} placeholder=250>
     </div>
     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
     {#if animType !== "templatefx"}
+    {#if animType === "aura"}
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={scale} placeholder=1 step=0.01>
+        <label for="">Radius</label>
+        <input type="Number" bind:value={auraRadius} placeholder=3.5 step=0.01>
     </div>
+    {:else}
+    <div class="flexcol {animType === "range" ? "opacityBorder" : ""}" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+        <label for="">{localize("AUTOANIM.scale")}</label>
+        <input type="Number" disabled={animType === "range"} bind:value={scale} placeholder=1 step=0.01>
+    </div>
+    {/if}
     {/if}
     <!--Set Animation Opacity-->
     <div class="flexcol {disabled01 ? "opacityInput" : ""}" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>

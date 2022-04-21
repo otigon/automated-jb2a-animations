@@ -240,13 +240,22 @@
                 {/if}
             </div>
         {/if}
-        <div class="form-group tabView aaBottomSection">
-            <button class="footer-button" style="color: gray" type="submit"
-                >Submit</button
-            >
-            <button class="footer-button" on:click|preventDefault={closeApp}
-                >Close and Submit</button
-            >
+        <div class="aaBottomSection">
+            <div class="aa-submit">
+                <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+                    <button
+                        class="footer-button"
+                        type="submit">Submit</button
+                    >
+                </div>
+                <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                    <button
+                        class="footer-button"
+                        on:click|preventDefault={closeApp}
+                        >Close and Submit</button
+                    >
+                </div>
+            </div>
         </div>
     </form>
 </ApplicationShell>
@@ -270,6 +279,24 @@
         font-weight: bold;
         font-size: large;
     }
+    .aa-submit {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 2%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
+    .aa-submit button {
+        border-radius: 10px;
+        border: 2px solid black;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+    }
     .aaMenu-section {
         background: rgb(204, 204, 204);
         border: 2px solid black;
@@ -278,13 +305,6 @@
     }
     .footer-button {
         border-radius: 5px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
-    .tabView button {
-        border-radius: 10px;
-        border: 2px solid black;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
@@ -311,17 +331,13 @@
     .aaBottomSection {
         position: absolute;
         bottom: 0;
-        height: 45px;
         left: 1%;
         right: 0;
-        margin-right: 3%;
+        margin-right: 4%;
+        margin-left: 2%;
         background: rgb(204, 204, 204);
         border: 2px solid black;
         border-radius: 10px;
-    }
-    .tabView {
-        margin-left: 2%;
-        margin-right: 4%;
     }
     .selected {
         background-color: rgba(25, 175, 2, 0.4);
