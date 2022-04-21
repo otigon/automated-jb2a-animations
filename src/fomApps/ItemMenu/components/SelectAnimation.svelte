@@ -119,6 +119,7 @@
             modal: false,
             draggable: true,
             resizable: true,
+            stylesContent:{ background: "rgba(125, 125, 125, 0.75)" },
             content: {
                 class: type === "primary" ? PrimaryApp : ExplosionApp,
             },
@@ -198,6 +199,14 @@
         menuDBPath02.set(explosionFilePath);
         customFilePath02.set(customPath);
         customChecked02.set(isCustom);
+    }
+    let onlyX = options.onlyX
+    $: {
+        onlyX = onlyX;
+        options.onlyX = onlyX;
+    }
+    function scaleY() {
+        onlyX = !onlyX;
     }
 </script>
 
@@ -351,6 +360,11 @@
                     >Video Preview</button
                 >
             </div>
+            {#if animType === "range" && isCustom}
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;" transition:fade={{duration: 500}}>
+                <button class="{onlyX ? "selected" : "notSelected"}" on:click={() => scaleY()}>{localize("AUTOANIM.constantScaleY")}</button>
+            </div> 
+            {/if}       
         </div>
     {/if}
 </div>
@@ -394,5 +408,13 @@
     .isNotPopulated {
         box-shadow: 0 0 6px rgba(219, 132, 2, 0.7);
         transition: box-shadow 0.5s;
+    }
+    .selected {
+        background-color:rgba(25, 175, 2, 0.18);
+        transition: background-color 0.5s
+    }
+    .notSelected {
+        background-color: rgba(219, 132, 2, 0.18);
+        transition: background-color 0.5s
     }
 </style>

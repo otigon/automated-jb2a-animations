@@ -145,29 +145,49 @@
         id="item-menu-aa"
         class="overview"
     >
-        <div class="form-group tabView aaTopSection">
-            <button
-                class={focusPrimary ? "selected" : "notSelected"}
-                on:click={() => switchPrimary()}
-                ><i class="fas fa-bomb" />
-                {localize("AUTOANIM.primary")}
-                {localize("AUTOANIM.animation")}</button
-            >
-            <button
-                class={focusExtra ? "selected" : "notSelected"}
-                on:click={() => switchExtra()}
-                ><i class="fas fa-user-plus" />
-                {localize("AUTOANIM.extra")}
-                {localize("AUTOANIM.effects")}</button
-            >
-            <button
-                class={focus3d ? "selected" : "notSelected"}
-                on:click={() => switch3d()}
-                ><i class="fas fa-vr-cardboard" /> 3D Canvas</button
-            >
+        <div class="aaTopSection">
+            <div class="aa-tabs">
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 1 / 2;"
+                    transition:fade
+                >
+                    <button
+                        class={focusPrimary ? "selected" : "notSelected"}
+                        on:click={() => switchPrimary()}
+                        ><i class="fas fa-bomb" />
+                        {localize("AUTOANIM.primary")}
+                        {localize("AUTOANIM.animation")}</button
+                    >
+                </div>
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 2 / 3;"
+                    transition:fade
+                >
+                    <button
+                        class={focusExtra ? "selected" : "notSelected"}
+                        on:click={() => switchExtra()}
+                        ><i class="fas fa-user-plus" />
+                        {localize("AUTOANIM.extra")}
+                        {localize("AUTOANIM.effects")}</button
+                    >
+                </div>
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 3 / 4;"
+                    transition:fade
+                >
+                    <button
+                        class={focus3d ? "selected" : "notSelected"}
+                        on:click={() => switch3d()}
+                        ><i class="fas fa-vr-cardboard" /> 3D Canvas</button
+                    >
+                </div>
+            </div>
         </div>
         {#if focusPrimary}
-            <div class="aaMidSection" transition:fade={{duration: 500}}>
+            <div class="aaMidSection" transition:fade={{ duration: 500 }}>
                 <div class="aaMenu-section">
                     <GeneralSettings
                         bind:animationDisabled
@@ -197,31 +217,33 @@
                         {/if}
                     </div>
                     {#if animType === "melee" || animType === "range" || animType === "static"}
-                    <div class="aaMenu-section">
-                        <div style="padding-top: 10px">
-                            <h1>Explosion</h1>
-                        </div>
-                        <div class="aa-3wide">
-                            <div style="grid-row:1/2; grid-column:2/3">
-                                <button
-                                    class="oldCheck {explosionEnabled
-                                        ? 'selected'
-                                        : 'notSelected'}"
-                                    on:click={() => switchExplosionLabel()}
-                                    >{explosionLabel}</button
-                                >
+                        <div class="aaMenu-section">
+                            <div style="padding-top: 10px">
+                                <h1>Explosion</h1>
                             </div>
+                            <div class="aa-3wide">
+                                <div style="grid-row:1/2; grid-column:2/3">
+                                    <button
+                                        class="oldCheck {explosionEnabled
+                                            ? 'exSelected'
+                                            : 'exNotSelected'}"
+                                        on:click={() => switchExplosionLabel()}
+                                        >{explosionLabel}</button
+                                    >
+                                </div>
+                            </div>
+                            {#if explosionEnabled}
+                                <ExplosionSettings {flagData} />
+                            {/if}
                         </div>
-                        {#if explosionEnabled}
-                            <ExplosionSettings {flagData} />
-                        {/if}
-                    </div>
                     {/if}
                 {/if}
             </div>
         {/if}
         <div class="form-group tabView aaBottomSection">
-            <button class="footer-button" style="color: gray" type="submit">Submit</button>
+            <button class="footer-button" style="color: gray" type="submit"
+                >Submit</button
+            >
             <button class="footer-button" on:click|preventDefault={closeApp}
                 >Close and Submit</button
             >
@@ -230,6 +252,24 @@
 </ApplicationShell>
 
 <style lang="scss">
+    .aa-tabs {
+        display: grid;
+        grid-template-columns: 40% 30% 30%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 2%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
+    .aa-tabs button {
+        border-radius: 10px;
+        border: 2px solid black;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+    }
     .aaMenu-section {
         background: rgb(204, 204, 204);
         border: 2px solid black;
@@ -252,13 +292,13 @@
     .aaTopSection {
         position: absolute;
         top: 30px;
-        height: 45px;
         left: 1%;
         right: 0;
-        margin-right: 3%;
         background: rgb(204, 204, 204);
         border: 2px solid black;
         border-radius: 10px;
+        margin-left: 2%;
+        margin-right: 4%;
     }
     .aaMidSection {
         position: absolute;
@@ -289,6 +329,14 @@
     }
     .notSelected {
         background-color: rgba(219, 132, 2, 0.4);
+        transition: background-color 0.5s;
+    }
+    .exSelected {
+        background-color: rgba(25, 175, 2, 0.2);
+        transition: background-color 0.5s;
+    }
+    .exNotSelected {
+        background-color: rgba(219, 132, 2, 0.2);
         transition: background-color 0.5s;
     }
     h1 {
