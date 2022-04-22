@@ -61,8 +61,7 @@
         align-items: center;
         margin-right: 8%;
         margin-left: 5%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
+        font-size: medium;
         font-weight: bold;
     }
     .aa-3wide input {
@@ -73,6 +72,9 @@
     }
     .aa-3wide label {
         align-self: center;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
     }
     .aa-3wide button {
         border-radius: 10px;

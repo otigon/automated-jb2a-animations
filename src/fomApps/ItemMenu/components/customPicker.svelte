@@ -8,20 +8,24 @@
     let options;
     export let customPath;
     let enabled;
+    let customId;
     switch (flagPath) {
         case "explosions":
+            console.log("routing to explosions")
             root = flagData.explosions;
             options = flagData.explosions;
             customPath = flagData.explosions.customPath || "";
-            enabled = flagData.explosions.enableCustom;
+            enabled = flagData.explosions.enableCustom || false;
+            customId = "customExplosion";
             break;
         default:
+            console.log("routing to Primary")
             root = flagData.options;
             options = flagData.options;
             customPath = flagData.options.customPath || "";
-            enabled = flagData.options.enableCustom;
+            enabled = flagData.options.enableCustom || false;
+            customId = "customPrimary";
     }
-
 
     //const options = flagData.options || {};
     //let customPath = options.customPath || "";
@@ -30,11 +34,9 @@
 
     export let isCustom = root.enableCustom || false;
     $: isCustom = isCustom;
-    function customClick() {
-        isCustom = isCustom ? false : true;
-        options.enableCustom = isCustom;
-    }
-    async function selectCustom () {
+    $: root.enableCustom = isCustom;
+
+    async function selectCustom() {
         const current = customPath;
         const picker = new FilePicker({
             type: "imagevideo",
@@ -47,8 +49,7 @@
             picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
         }, 100);
         await picker.browse(current);
-    };
-
+    }
 </script>
 
 <div
@@ -56,15 +57,22 @@
     in:fade={{ duration: 500 }}
     out:fade={{ duration: 500 }}
 >
-    <button
-        class={isCustom ? "selected" : "notSelected"}
-        on:click={() => customClick()}>Set {localize("AUTOANIM.custom")}</button
-    >
+    <div class="flexcol button-labels" style="grid-row:1/2; grid-column:1/2">
+        <input
+            type="checkbox"
+            id="{customId}"
+            hidden
+            bind:checked={isCustom}
+        />
+        <label
+            for="{customId}"
+            class={isCustom ? "selected" : "notSelected"}
+            >Set {localize("AUTOANIM.custom")}</label
+        >
+    </div>
     <div
-        class="form-group {isCustom ? "" : "opacityBorder opacityButton"}"
+        class="form-group {isCustom ? '' : 'opacityBorder opacityButton'}"
         style="grid-row: 1/2; grid-column: 2/5"
-        in:fade={{ duration: 500 }}
-        out:fade={{ duration: 500 }}
     >
         <input
             disabled={!isCustom}
@@ -91,6 +99,8 @@
         padding: 5px;
         margin-right: 8%;
         margin-left: 5%;
+        font-size: small;
+        font-weight: bold;
     }
     .aa-customAnim-container button {
         border-radius: 10px;
@@ -110,7 +120,7 @@
     .opacityText {
         color: rgba(133, 133, 133, 0.418);
     }
-    .opacityButton button{
+    .opacityButton button {
         border: 2px solid rgba(133, 133, 133, 0.418);
         color: rgba(133, 133, 133, 0.418);
     }
@@ -118,11 +128,21 @@
         max-width: fit-content;
     }
     .selected {
-        background-color:rgba(25, 175, 2, 0.18);
-        transition: background-color 0.5s
+        background-color: rgba(25, 175, 2, 0.18);
+        transition: background-color 0.5s;
     }
     .notSelected {
         background-color: rgba(219, 132, 2, 0.18);
-        transition: background-color 0.5s
+        transition: background-color 0.5s;
+    }
+    .button-labels label {
+        border-radius: 10px;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+        padding: 5px;
+        text-align: center;
+        width: 100%;
+        border: 2px solid black;
     }
 </style>

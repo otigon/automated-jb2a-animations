@@ -31,7 +31,7 @@
     export let flagData;
     export let flagPath;
     export let previewType;
-    console.log(previewType);
+
     // Defines the initial Flag path depending on the Section calling this Component
     let rootPath;
     let customRoot;
@@ -119,7 +119,7 @@
             modal: false,
             draggable: true,
             resizable: true,
-            stylesContent:{ background: "rgba(125, 125, 125, 0.75)" },
+            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
             content: {
                 class: type === "primary" ? PrimaryApp : ExplosionApp,
             },
@@ -200,13 +200,10 @@
         customFilePath02.set(customPath);
         customChecked02.set(isCustom);
     }
-    let onlyX = options.onlyX
+    let onlyX = options.onlyX || false;
     $: {
         onlyX = onlyX;
         options.onlyX = onlyX;
-    }
-    function scaleY() {
-        onlyX = !onlyX;
     }
 </script>
 
@@ -359,11 +356,25 @@
                     >Video Preview</button
                 >
             </div>
-            {#if animType === "range" && isCustom}
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;" transition:fade={{duration: 500}}>
-                <button class="{onlyX ? "selected" : "notSelected"}" on:click={() => scaleY()}>{localize("AUTOANIM.constantScaleY")}</button>
-            </div> 
-            {/if}       
+            {#if animType === "range" && isCustom && flagPath === "PrimaryAnimation"}
+                <div
+                    class="flexcol button-labels"
+                    style="grid-row: 1 / 2; grid-column: 3 / 4;"
+                    transition:fade={{ duration: 500 }}
+                >
+                    <input
+                        type="checkbox"
+                        id="constantY"
+                        hidden
+                        bind:checked={onlyX}
+                    />
+                    <label
+                        for="constantY"
+                        class={onlyX ? "selected" : "notSelected"}
+                        >{localize("AUTOANIM.constantScaleY")}</label
+                    >
+                </div>
+            {/if}
         </div>
     {/if}
 </div>
@@ -409,11 +420,21 @@
         transition: box-shadow 0.5s;
     }
     .selected {
-        background-color:rgba(25, 175, 2, 0.18);
-        transition: background-color 0.5s
+        background-color: rgba(25, 175, 2, 0.18);
+        transition: background-color 0.5s;
     }
     .notSelected {
         background-color: rgba(219, 132, 2, 0.18);
-        transition: background-color 0.5s
+        transition: background-color 0.5s;
+    }
+    .button-labels label {
+        border-radius: 10px;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+        padding: 5px;
+        text-align: center;
+        width: 100%;
+        border: 2px solid black;
     }
 </style>

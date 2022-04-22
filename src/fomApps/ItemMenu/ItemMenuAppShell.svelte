@@ -22,7 +22,6 @@
     export let item;
     export let itemFlags;
     export const flags = itemFlags.autoanimations || {};
-    console.log(flags);
 
     let animationDisabled = flags.killAnim;
     let isCustomized;
@@ -53,6 +52,8 @@
     };
     let enableMacro;
     $: enableMacro = enableMacro;
+    let showSound;
+    $: showSound = animationDisabled ? true : false;
     let animType;
     $: animType = animType;
     let menuType;
@@ -124,15 +125,15 @@
         extraTab = false;
     }
 
-    let explosionEnabled = flagData.explosions.enable;
-    let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
-    $: explosionLabel = explosionLabel;
-    $: flagData.explosions.enable = explosionEnabled;
-    function switchExplosionLabel() {
-        explosionEnabled = !explosionEnabled;
-        explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
+    let explosionEnabled = flagData.explosions.enable || false;
+    $: {
+        explosionEnabled = explosionEnabled;
         flagData.explosions.enable = explosionEnabled;
     }
+    let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
+    $: explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
+
+
 </script>
 
 <ApplicationShell
@@ -148,7 +149,7 @@
         id="item-menu-aa"
         class="overview"
     >
-        <div class="aaTopSection">
+        <div class="aaTopSection" style="margin-top:5px">
             <div class="aa-tabs">
                 <div
                     class="flexcol"
@@ -200,9 +201,20 @@
                     />
                 </div>
                 {#if enableMacro}
-                <div class="aaMenu-section" transition:fade={{ duration: 500}}>
-                    <MacroField {flagData} />
-                </div>
+                    <div
+                        class="aaMenu-section"
+                        transition:fade={{ duration: 500 }}
+                    >
+                        <MacroField {flagData} />
+                    </div>
+                {/if}
+                {#if showSound}
+                    <div
+                        class="aaMenu-section"
+                        transition:fade={{ duration: 500 }}
+                    >
+                        <SoundSettings audioPath="a01" {flagData} />
+                    </div>
                 {/if}
                 {#if !animationDisabled && isCustomized}
                     <div class="aaMenu-section">
@@ -230,15 +242,26 @@
                             <div style="padding-top: 10px">
                                 <h1>Explosion</h1>
                             </div>
-                            <div class="aa-3wide">
+                            <div class="aa-3wide button-labels">
                                 <div style="grid-row:1/2; grid-column:2/3">
-                                    <button
-                                        class="oldCheck {explosionEnabled
-                                            ? 'exSelected'
-                                            : 'exNotSelected'}"
-                                        on:click={() => switchExplosionLabel()}
-                                        >{explosionLabel}</button
+                                    <div
+                                        class="flexcol"
+                                        style="grid-row:1/2; grid-column:2/3"
                                     >
+                                        <input
+                                            type="checkbox"
+                                            id="enableExplosion"
+                                            hidden
+                                            bind:checked={explosionEnabled}
+                                        />
+                                        <label
+                                            for="enableExplosion"
+                                            class={explosionEnabled
+                                                ? "exSelected"
+                                                : "exNotSelected"}
+                                            >{explosionLabel}</label
+                                        >
+                                    </div>
                                 </div>
                             </div>
                             {#if explosionEnabled}
@@ -249,13 +272,10 @@
                 {/if}
             </div>
         {/if}
-        <div class="aaBottomSection">
+        <div class="aaBottomSection" style="margin-bottom: 5px">
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                    <button
-                        class="footer-button"
-                        type="submit">Submit</button
-                    >
+                    <button class="footer-button" type="submit">Submit</button>
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button
@@ -333,8 +353,8 @@
         position: absolute;
         left: 0;
         right: 0;
-        top: 85px;
-        bottom: 48px;
+        top: 88px;
+        bottom: 51px;
         overflow: scroll;
     }
     .aaBottomSection {
@@ -384,11 +404,14 @@
         font-size: large;
         font-weight: bold;
     }
-    .aa-3wide button {
+    .button-labels label {
         border-radius: 10px;
-        border: 2px solid black;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
         font-weight: bold;
+        font-size: large;
+        padding: 5px;
+        text-align: center;
+        width: 100%;
+        border: 2px solid black;
     }
 </style>

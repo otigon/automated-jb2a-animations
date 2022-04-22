@@ -7,8 +7,11 @@
 
     export let flagData;
     const macros = flagData.macro;
-    export let animationDisabled = flagData.killAnim;
-    $: animationDisabled = animationDisabled;
+    const autoOverride = flagData.autoOverride;
+    const options = flagData.options;
+    const sounds = flagData.audio.a01 || {};
+
+    export let animationDisabled = flagData.killAnim || false;
     $: flagData.killAnim = animationDisabled;
     $: disabledLabel = disabledLabel;
     let disabledLabel = !animationDisabled
@@ -18,8 +21,9 @@
         : game.i18n.localize("AUTOANIM.animation") +
           " " +
           game.i18n.localize("AUTOANIM.disabled");
-    function switchDisabled() {
-        animationDisabled = !animationDisabled;
+
+    $: {
+        animationDisabled = animationDisabled;
         disabledLabel = animationDisabled
             ? game.i18n.localize("AUTOANIM.animation") +
               " " +
@@ -27,31 +31,21 @@
             : game.i18n.localize("AUTOANIM.animation") +
               " " +
               game.i18n.localize("AUTOANIM.enabled");
-        flagData.killAnim = animationDisabled;
     }
+
     let gameSystem = game.system.id;
-    console.log(gameSystem);
+
     export let isCustomized = flagData.override || false;
     $: isCustomized = isCustomized;
-    function customize() {
-        isCustomized = !isCustomized;
-        flagData.override = isCustomized;
-        console.log(flagData);
-    }
+    $: flagData.override = isCustomized;
 
-    let overrideAuto;
+    let overrideAuto = autoOverride.enable || false;
     $: overrideAuto = overrideAuto;
-    function override() {
-        overrideAuto = !overrideAuto;
-        flagData.autoOverride.enable = overrideAuto;
-    }
+    $: autoOverride.enable = overrideAuto;
 
-    let fromAmmo;
+    let fromAmmo = options.ammo || false;
     $: fromAmmo = fromAmmo;
-    function ammo() {
-        fromAmmo = !fromAmmo;
-        flagData.options.ammo = fromAmmo;
-    }
+    $: options.ammo = fromAmmo;
     /*
     export const generalFlagData = {
         killAnim: animationDisabled,
@@ -66,7 +60,9 @@
     */
     export let enableMacro = macros.enable || false;
     $: macros.enable = enableMacro = enableMacro;
-
+    let addSound = sounds.enable || false;
+    $: addSound = addSound;
+    $: sounds.enable = addSound;
 </script>
 
 <div class="aa-general-settings">
@@ -81,59 +77,105 @@
                 hidden
                 bind:checked={enableMacro}
             />
-            <label for="addMacro" class={enableMacro ? "selected" : "notSelected"}
+            <label
+                for="addMacro"
+                class={enableMacro ? "selected" : "notSelected"}
+                style="border: 2px solid black"
                 >{localize("AUTOANIM.add")} {localize("AUTOANIM.macro")}</label
             >
         </div>
     {/if}
+    {#if animationDisabled}
+        <div
+            class="flexcol button-labels"
+            style="grid-row: 1 / 2; grid-column: 3 / 4"
+        >
+            <input
+                type="checkbox"
+                id="addSound"
+                hidden
+                bind:checked={addSound}
+            />
+            <label
+                for="addSound"
+                class={addSound ? "selected" : "notSelected"}
+                style="border: 2px solid black"
+                >{localize("AUTOANIM.add")} {localize("AUTOANIM.sound")}</label
+            >
+        </div>
+    {/if}
     <div
-        class="flexcol"
+        class="flexcol button-labels"
         style="grid-row: 1 / 2; grid-column: 2 / 3;"
         transition:fade
     >
-        <button
-            class="oldCheck {animationDisabled ? 'notSelected' : 'selected'}"
-            on:click={() => switchDisabled()}>{disabledLabel}</button
+        <input
+            type="checkbox"
+            id="killAnim"
+            hidden
+            bind:checked={animationDisabled}
+        />
+        <label
+            for="killAnim"
+            class={!animationDisabled ? "selected" : "notSelected"}
+            style="border: 2px solid black">{disabledLabel}</label
         >
     </div>
     <div
-        class="flexcol {overrideAuto || animationDisabled
-            ? 'opacityButton'
-            : ''}"
+        class="flexcol button-labels {overrideAuto || animationDisabled
+            ? 'disabledCheckbox'
+            : 'enabledCheckbox'}"
         style="grid-row: 2 / 3; grid-column: 1 / 2;"
         transition:fade
     >
-        <button
+        <input
+            type="checkbox"
+            id="override"
+            hidden
+            bind:checked={isCustomized}
             disabled={overrideAuto || animationDisabled}
-            class="oldCheck {isCustomized ? 'selected' : 'notSelected'}"
-            on:click={() => customize()}
-            >{localize("AUTOANIM.customize")}</button
+        />
+        <label for="override" class={isCustomized ? "selected" : "notSelected"}
+            >{localize("AUTOANIM.customize")}</label
         >
     </div>
     <div
-        class="flexcol {isCustomized || animationDisabled
-            ? 'opacityButton'
-            : ''}"
+        class="flexcol button-labels {isCustomized || animationDisabled
+            ? 'disabledCheckbox'
+            : 'enabledCheckbox'}"
         style="grid-row: 2 / 3; grid-column: 2 / 3;"
         transition:fade
     >
-        <button
+        <input
+            type="checkbox"
+            id="overrideAuto"
+            hidden
+            bind:checked={overrideAuto}
             disabled={isCustomized || animationDisabled}
-            class="oldCheck {overrideAuto ? 'selected' : 'notSelected'}"
-            on:click={() => override()}>Override Autorec</button
+        />
+        <label
+            for="overrideAuto"
+            class={overrideAuto ? "selected" : "notSelected"}
+            >Override Autorec</label
         >
     </div>
     <div
-        class="flexcol {gameSystem === 'dnd5e'
-            ? ''
-            : 'opacityButton'} {animationDisabled ? 'opacityButton' : ''}"
+        class="flexcol button-labels {gameSystem === 'dnd5e' &&
+        !animationDisabled
+            ? 'enabledCheckbox'
+            : 'disabledCheckbox'}"
         style="grid-row: 2 / 3; grid-column: 3 / 4;"
         transition:fade
     >
-        <button
-            class="oldCheck {fromAmmo ? 'selected' : 'notSelected'}"
+        <input
+            type="checkbox"
+            id="fromAmmo"
+            hidden
+            bind:checked={fromAmmo}
             disabled={gameSystem !== "dnd5e" || animationDisabled}
-            on:click={() => ammo()}>Animate from Ammo</button
+        />
+        <label for="fromAmmo" class={fromAmmo ? "selected" : "notSelected"}
+            >Animate from Ammo</label
         >
     </div>
 </div>
@@ -160,19 +202,14 @@
         font-weight: bold;
         border-radius: 10px;
     }
-    .aa-general-settings button {
-        border-radius: 10px;
-        border: 2px solid black;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-    }
-    .opacityButton button {
+    .disabledCheckbox label {
         border: 2px solid rgba(106, 106, 106, 0.45);
         color: rgba(54, 54, 54, 0.5);
     }
-    .button-labels label {
+    .enabledCheckbox label {
         border: 2px solid black;
+    }
+    .button-labels label {
         border-radius: 10px;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;

@@ -4,20 +4,21 @@
 
     export let flagData;
     export let audioPath;
-    flagData.audio[audioPath] ? flagData.audio[audioPath] : flagData.audio[audioPath] = {};
+    flagData.audio[audioPath]
+        ? flagData.audio[audioPath]
+        : (flagData.audio[audioPath] = {});
 
     let section01 = flagData.audio[audioPath];
 
-    let soundEnabled = section01.enable
-    let soundLabel = soundEnabled ? "Enabled" : "Disabled";
-    $: soundLabel = soundLabel;
-    function switchLabel () {
-        soundEnabled = !soundEnabled;
-        soundLabel = soundEnabled ? "Enabled" : "Disabled";
+    let soundEnabled = section01.enable || false;
+    $: {
+        soundEnabled = soundEnabled;
         section01.enable = soundEnabled;
-        //console.log(flagData)
     }
-    $: section01.enable = soundEnabled
+    let soundLabel = soundEnabled ? "Enabled" : "Disabled";
+    $: soundLabel = soundEnabled ? "Enabled" : "Disabled";
+
+    $: section01.enable = soundEnabled;
 
     let startTime = section01.startTime;
     $: startTime = startTime;
@@ -35,7 +36,7 @@
     $: soundPath = soundPath;
     $: section01.file = soundPath;
 
-    async function selectCustom () {
+    async function selectCustom() {
         const current = soundPath;
         const picker = new FilePicker({
             type: "audio",
@@ -48,43 +49,89 @@
             picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
         }, 100);
         await picker.browse(current);
-    };
-
+    }
 </script>
-<div transition:fade={{duration: 500}}>
-<h2>{localize("AUTOANIM.sound")}</h2>
-<div class=aa-3wide>
-    <div style='grid-row:1/2; grid-column:2/3'>
-        <button class="oldCheck {soundEnabled ? "selected" : "notSelected"}" on:click={() => switchLabel()}>{soundLabel}</button>
-    </div>
-</div>
-{#if soundEnabled}
-<div class="aa-customAnim-container {!soundEnabled ? "opacityBorder" : ""}">
+
+<div transition:fade={{ duration: 500 }}>
+    <h2>{localize("AUTOANIM.sound")}</h2>
     <div
-        class="form-group"
-        style="grid-row: 1/2; grid-column: 2/5; margin-right:10%; margin-left:10%"
-        in:fade={{ duration: 500 }}
-        out:fade={{ duration: 500 }}
+        class="aa-3wide button-labels"
     >
-        <input type="text" bind:value={soundPath}  class={soundEnabled && soundPath != "" ? "isPopulated" : "isNotPopulated"}>
-        <button class='file-picker {soundEnabled && soundPath != "" ? "isPopulated" : "isNotPopulated"}' on:click|preventDefault={() => selectCustom()}><i class="fas fa-file-import fa-fw" /></button>
+        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+            <input
+                type="checkbox"
+                id="soundEnable"
+                hidden
+                bind:checked={soundEnabled}
+            />
+            <label
+                for="soundEnable"
+                class={soundEnabled ? "selected" : "notSelected"}
+                >{soundLabel}</label
+            >
+        </div>
     </div>
-</div>
-<div class=aa-3wide>
-    <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
-        <label for="">{localize("AUTOANIM.start")} {localize("AUTOANIM.time")}</label>
-        <input type="Number" bind:value={startTime} placeholder=0 step=0.01>
-    </div>
-    <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.volume")}</label>
-        <input type="Number" bind:value={volume} placeholder=0.5 step=0.01>
-    </div>
-    <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.delay")}</label>
-        <input type="Number" bind:value={delay} placeholder=0 step=0.01>
-    </div>
-</div>
-{/if}
+    {#if soundEnabled}
+        <div
+            class="aa-customAnim-container {!soundEnabled
+                ? 'opacityBorder'
+                : ''}"
+        >
+            <div
+                class="form-group"
+                style="grid-row: 1/2; grid-column: 2/5; margin-right:10%; margin-left:10%"
+                in:fade={{ duration: 500 }}
+                out:fade={{ duration: 500 }}
+            >
+                <input
+                    type="text"
+                    bind:value={soundPath}
+                    class={soundEnabled && soundPath != ""
+                        ? "isPopulated"
+                        : "isNotPopulated"}
+                />
+                <button
+                    class="file-picker {soundEnabled && soundPath != ''
+                        ? 'isPopulated'
+                        : 'isNotPopulated'}"
+                    on:click|preventDefault={() => selectCustom()}
+                    ><i class="fas fa-file-import fa-fw" /></button
+                >
+            </div>
+        </div>
+        <div class="aa-3wide">
+            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
+                <label for=""
+                    >{localize("AUTOANIM.start")}
+                    {localize("AUTOANIM.time")}</label
+                >
+                <input
+                    type="Number"
+                    bind:value={startTime}
+                    placeholder="0"
+                    step="0.01"
+                />
+            </div>
+            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
+                <label for="">{localize("AUTOANIM.volume")}</label>
+                <input
+                    type="Number"
+                    bind:value={volume}
+                    placeholder="0.5"
+                    step="0.01"
+                />
+            </div>
+            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
+                <label for="">{localize("AUTOANIM.delay")}</label>
+                <input
+                    type="Number"
+                    bind:value={delay}
+                    placeholder="0"
+                    step="0.01"
+                />
+            </div>
+        </div>
+    {/if}
 </div>
 
 <style lang="scss">
@@ -111,7 +158,7 @@
     }
     h2 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size:x-large;
+        font-size: x-large;
         font-weight: bold;
         text-align: center;
         margin-right: 15%;
@@ -119,26 +166,34 @@
     }
     .isPopulated {
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
-        transition: box-shadow 0.5s
+        transition: box-shadow 0.5s;
     }
     .isNotPopulated {
         box-shadow: 0 0 6px rgba(219, 132, 2, 0.7);
-        transition: box-shadow 0.5s
+        transition: box-shadow 0.5s;
     }
     .selected {
-        background-color:rgba(25, 175, 2, 0.18);
-        transition: background-color 0.5s
+        background-color: rgba(25, 175, 2, 0.2);
+        transition: background-color 0.5s;
     }
     .notSelected {
-        background-color: rgba(219, 132, 2, 0.18);
-        transition: background-color 0.5s
+        background-color: rgba(219, 132, 2, 0.2);
+        transition: background-color 0.5s;
     }
-    .aa-3wide button {
+    .button-labels label {
         border-radius: 10px;
-        border: 2px solid black;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
+        padding: 5px;
+        text-align: center;
+        width: 100%;
+        border: 2px solid black;
+    }
+    .aa-customAnim-container {
+        font-weight: bold;
+        font-size: small;
+
     }
     .aa-customAnim-container button {
         border-radius: 10px;

@@ -4871,16 +4871,19 @@ JB2APATREONDB.static = {
         },
         whirl: {
             loop: {
+                black: [lg`Template/Circle/Whirl_01_Dark_Black_600x600.webm`],
                 blue: [lg`Template/Circle/Whirl_01_Regular_Blue_600x600.webm`],
                 green: [lg`Template/Circle/Whirl_01_Regular_Green_600x600.webm`],
                 purple: [lg`Template/Circle/Whirl_01_Regular_Purple_600x600.webm`]
             },
             intro: {
+                black: [lg`Template/Circle/WhirlIntro_01_Dark_Black_600x600.webm`],
                 blue: [lg`Template/Circle/WhirlIntro_01_Regular_Blue_600x600.webm`],
                 green: [lg`Template/Circle/WhirlIntro_01_Regular_Green_600x600.webm`],
                 purple: [lg`Template/Circle/WhirlIntro_01_Regular_Purple_600x600.webm`]
             },
             outro: {
+                black: [lg`Template/Circle/WhirlOutro_01_Dark_Black_600x600.webm`],
                 blue: [lg`Template/Circle/WhirlOutro_01_Regular_Blue_600x600.webm`],
                 green: [lg`Template/Circle/WhirlOutro_01_Regular_Green_600x600.webm`],
                 purple: [lg`Template/Circle/WhirlOutro_01_Regular_Purple_600x600.webm`]
