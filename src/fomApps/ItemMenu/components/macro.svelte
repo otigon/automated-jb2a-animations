@@ -49,8 +49,7 @@
         padding: 5px;
         align-items: center;
         margin-right: 2%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
+        font-size: medium;
         font-weight: bold;
     }
     .aa-2wide select {
@@ -66,6 +65,9 @@
     }
     .aa-2wide label {
         align-self: center;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
     }
     h1 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;

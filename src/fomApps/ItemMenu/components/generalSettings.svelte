@@ -80,7 +80,7 @@
             <label
                 for="addMacro"
                 class={enableMacro ? "selected" : "notSelected"}
-                style="border: 2px solid black"
+                style="border: 2px outset #dddddd;"
                 >{localize("AUTOANIM.add")} {localize("AUTOANIM.macro")}</label
             >
         </div>
@@ -99,7 +99,7 @@
             <label
                 for="addSound"
                 class={addSound ? "selected" : "notSelected"}
-                style="border: 2px solid black"
+                style="border: 2px outset #dddddd;"
                 >{localize("AUTOANIM.add")} {localize("AUTOANIM.sound")}</label
             >
         </div>
@@ -118,7 +118,7 @@
         <label
             for="killAnim"
             class={!animationDisabled ? "selected" : "notSelected"}
-            style="border: 2px solid black">{disabledLabel}</label
+            style="border: 2px outset #dddddd;">{disabledLabel}</label
         >
     </div>
     <div
@@ -201,13 +201,14 @@
         font-size: large;
         font-weight: bold;
         border-radius: 10px;
+        color: black;
     }
     .disabledCheckbox label {
-        border: 2px solid rgba(106, 106, 106, 0.45);
+        border: 2px outset #dddddd;
         color: rgba(54, 54, 54, 0.5);
     }
     .enabledCheckbox label {
-        border: 2px solid black;
+        border: 2px outset #dddddd;
     }
     .button-labels label {
         border-radius: 10px;

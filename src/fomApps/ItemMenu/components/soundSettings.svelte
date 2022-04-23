@@ -16,7 +16,12 @@
         section01.enable = soundEnabled;
     }
     let soundLabel = soundEnabled ? "Enabled" : "Disabled";
-    $: soundLabel = soundEnabled ? "Enabled" : "Disabled";
+    $: soundLabel = soundLabel;
+
+    function enableSound() {
+        soundEnabled = !soundEnabled;
+        soundLabel = soundEnabled ? "Enabled" : "Disabled";
+    }
 
     $: section01.enable = soundEnabled;
 
@@ -54,20 +59,13 @@
 
 <div transition:fade={{ duration: 500 }}>
     <h2>{localize("AUTOANIM.sound")}</h2>
-    <div
-        class="aa-3wide button-labels"
-    >
+    <div class="aa-3wide button-labels">
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <input
-                type="checkbox"
-                id="soundEnable"
-                hidden
-                bind:checked={soundEnabled}
-            />
-            <label
-                for="soundEnable"
+            <button
                 class={soundEnabled ? "selected" : "notSelected"}
-                >{soundLabel}</label
+                on:click={() => enableSound()}
+            >
+                {soundLabel}</button
             >
         </div>
     </div>
@@ -156,6 +154,14 @@
     .aa-3wide label {
         align-self: center;
     }
+    .aa-3wide button {
+        border-radius: 10px;
+        border: 2px outset #dddddd;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+        height: auto;
+    }
     h2 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
@@ -180,24 +186,13 @@
         background-color: rgba(219, 132, 2, 0.2);
         transition: background-color 0.5s;
     }
-    .button-labels label {
-        border-radius: 10px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        padding: 5px;
-        text-align: center;
-        width: 100%;
-        border: 2px solid black;
-    }
     .aa-customAnim-container {
         font-weight: bold;
         font-size: small;
-
     }
     .aa-customAnim-container button {
         border-radius: 10px;
-        border: 2px solid black;
+        border: 2px outset #dddddd;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;

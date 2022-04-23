@@ -120,7 +120,7 @@
     }
     .aa-customAnim-container button {
         border-radius: 10px;
-        border: 2px solid black;
+        border: 2px outset #dddddd;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
@@ -137,7 +137,7 @@
         color: rgba(133, 133, 133, 0.418);
     }
     .opacityButton button {
-        border: 2px solid rgba(133, 133, 133, 0.418);
+        border: 2px outset rgba(133, 133, 133, 0.418);
         color: rgba(133, 133, 133, 0.418);
     }
     .file-picker {
@@ -159,6 +159,6 @@
         padding: 5px;
         text-align: center;
         width: 100%;
-        border: 2px solid black;
+        border: 2px outset #dddddd;
     }
 </style>

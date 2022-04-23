@@ -15,6 +15,7 @@
     import RangeSwitch from "./components/meleeRange.svelte";
     import MacroField from "./components/macro.svelte";
     import StaticMenu from "./components/staticMenu.svelte";
+    import ExtraFX from "./components/extraFX.svelte";
     //import { menuAnimType } from "./menuStore.js"
 
     import { flagMigrations } from "./../../system-handlers/flagMerge.js";
@@ -299,12 +300,12 @@
                             <label
                                 for="addSourceFX"
                                 class={enableSource ? "exSelected" : "exNotSelected"}
-                                style="border: 2px solid black">{sourceLabel}</label
+                                style="border: 2px outset #dddddd">{sourceLabel}</label
                             >
                         </div>
                     </div>
                     {#if enableSource}                
-                    <StaticMenu flagPath="sourceExtraFX" {flagData} />
+                    <ExtraFX flagPath="sourceExtraFX" {flagData} />
                     {/if}
                 </div>
                 <div class="aaMenu-section">
@@ -324,12 +325,12 @@
                             <label
                                 for="addTargetFX"
                                 class={enableTarget ? "exSelected" : "exNotSelected"}
-                                style="border: 2px solid black">{targetLabel}</label
+                                style="border: 2px outset #dddddd">{targetLabel}</label
                             >
                         </div>
                     </div>
                     {#if enableTarget}                
-                    <StaticMenu flagPath="targetExtraFX" {flagData} />
+                    <ExtraFX flagPath="targetExtraFX" {flagData} />
                     {/if}
                 </div>
             </div>
@@ -365,7 +366,7 @@
     }
     .aa-tabs button {
         border-radius: 10px;
-        border: 2px solid black;
+        border: 2px groove rgb(204, 204, 204);
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
@@ -383,13 +384,13 @@
     }
     .aa-submit button {
         border-radius: 10px;
-        border: 2px solid black;
+        border: 2px outset #dddddd;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
     }
     .aaMenu-section {
-        background: rgb(204, 204, 204);
+        background: rgba(204, 204, 204, 0.75);
         border: 2px solid black;
         border-radius: 10px;
         margin: 3% 3% 3% 3%;
@@ -453,6 +454,7 @@
         text-align: center;
         margin-right: 5%;
         margin-left: 5%;
+        color: black;
     }
     .aa-3wide {
         display: grid;
@@ -474,6 +476,6 @@
         padding: 5px;
         text-align: center;
         width: 100%;
-        border: 2px solid black;
+        border: 2px outset #dddddd;
     }
 </style>

@@ -245,12 +245,14 @@
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
+        color: black;
     }
     .aa-options input {
         text-align: center;
         align-self: center;
         border-radius: 5px;
         width: 3em;
+        color: black;
     }
     .aa-options label {
         align-self: center;
@@ -268,13 +270,14 @@
         text-align: center;
         margin-right: 15%;
         margin-left: 15%;
+        color: black;
     }
     .oldCheck {
         align-self: bottom;
     }
     .aa-options button {
         border-radius: 10px;
-        border: 2px solid black;
+        border: 2px outset #8e8e8e;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;

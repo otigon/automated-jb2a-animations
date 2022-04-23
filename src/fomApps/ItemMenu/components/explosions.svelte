@@ -78,7 +78,7 @@
     }
     .aa-3wide button {
         border-radius: 10px;
-        border: 2px solid black;
+        border: 2px outset #dddddd;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;

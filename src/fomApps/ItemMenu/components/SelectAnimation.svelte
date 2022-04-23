@@ -391,6 +391,7 @@
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
+        color: black;
     }
     .aa-3wide select {
         text-align: center;
@@ -406,7 +407,7 @@
     }
     .aa-3wide button {
         border-radius: 10px;
-        border: 2px solid black;
+        border: 2px outset #dddddd;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
@@ -435,6 +436,6 @@
         padding: 5px;
         text-align: center;
         width: 100%;
-        border: 2px solid black;
+        border: 2px outset #dddddd;
     }
 </style>
