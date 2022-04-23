@@ -16,6 +16,7 @@
     import MacroField from "./components/macro.svelte";
     import StaticMenu from "./components/staticMenu.svelte";
     import ExtraFX from "./components/extraFX.svelte";
+    import Menu3d from "./components/3dMenuShell.svelte";
     //import { menuAnimType } from "./menuStore.js"
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
@@ -287,13 +288,16 @@
                                 class={enableSource
                                     ? "selected"
                                     : "notSelected"}
-                                style="border: 2px outset #dddddd"
-                                >Source</label
+                                style="border: 2px outset #dddddd">Source</label
                             >
                         </div>
-                        <div class='flexcol' style='grid-row:1/2; grid-column:2/3'>
-                            <label for="" style='align-self:center'><i class="fas fa-arrow-right fa-2xl"></i></label>
-                            
+                        <div
+                            class="flexcol"
+                            style="grid-row:1/2; grid-column:2/3"
+                        >
+                            <label for="" style="align-self:center"
+                                ><i class="fas fa-arrow-right fa-2xl" /></label
+                            >
                         </div>
                         <div
                             class="flexcol aa-button-labels"
@@ -315,13 +319,18 @@
                                 class={enableTarget
                                     ? "selected"
                                     : "notSelected"}
-                                style="border: 2px outset #dddddd"
-                                >Target</label
+                                style="border: 2px outset #dddddd">Target</label
                             >
                         </div>
                     </div>
-                    <div class='flexcol aa-extraFX-hint' style='grid-row:2/3; grid-column:1/6'>
-                        <label for="" style='align-self:center'>Requires use of a Primary Animation, either Customized or Autorec</label>
+                    <div
+                        class="flexcol aa-extraFX-hint"
+                        style="grid-row:2/3; grid-column:1/6"
+                    >
+                        <label for="" style="align-self:center"
+                            >Requires use of a Primary Animation, either
+                            Customized or Autorec</label
+                        >
                     </div>
                 </div>
                 <div class="aaMenu-section">
@@ -379,6 +388,13 @@
                     {#if enableTarget}
                         <ExtraFX flagPath="targetExtraFX" {flagData} />
                     {/if}
+                </div>
+            </div>
+        {/if}
+        {#if focus3d}
+            <div class="aaMidSection" transition:fade>
+                <div class="aaMenu-section">
+                    <Menu3d {flagData} />
                 </div>
             </div>
         {/if}

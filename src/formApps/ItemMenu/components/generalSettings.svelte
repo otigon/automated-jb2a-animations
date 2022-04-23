@@ -60,9 +60,6 @@
     */
     export let enableMacro = macros.enable || false;
     $: macros.enable = enableMacro = enableMacro;
-    let addSound = sounds.enable || false;
-    $: addSound = addSound;
-    $: sounds.enable = addSound;
 </script>
 
 <div class="aa-general-settings">
@@ -82,25 +79,6 @@
                 class={enableMacro ? "selected" : "notSelected"}
                 style="border: 2px ridge rgb(172, 172, 172, .47);"
                 >{localize("AUTOANIM.add")} {localize("AUTOANIM.macro")}</label
-            >
-        </div>
-    {/if}
-    {#if animationDisabled}
-        <div
-            class="flexcol button-labels"
-            style="grid-row: 1 / 2; grid-column: 3 / 4"
-        >
-            <input
-                type="checkbox"
-                id="addSound"
-                hidden
-                bind:checked={addSound}
-            />
-            <label
-                for="addSound"
-                class={addSound ? "selected" : "notSelected"}
-                style="border: 2px ridge rgb(172, 172, 172, .47);"
-                >{localize("AUTOANIM.add")} {localize("AUTOANIM.sound")}</label
             >
         </div>
     {/if}
