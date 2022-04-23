@@ -18,7 +18,7 @@
     import ExtraFX from "./components/extraFX.svelte";
     //import { menuAnimType } from "./menuStore.js"
 
-    import { flagMigrations } from "./../../system-handlers/flagMerge.js";
+    import { flagMigrations } from "../../system-handlers/flagMerge.js";
 
     export let elementRoot;
     export let item;

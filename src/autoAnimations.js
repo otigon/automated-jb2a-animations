@@ -12,7 +12,7 @@ import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
-import AAItemMenu from "./fomApps/ItemMenu/itemMenu.js";
+import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
 import aaSettings from "./settings.js";
 
 import { teleportation } from "./animation-functions/teleportation.js";
