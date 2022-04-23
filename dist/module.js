@@ -35304,9 +35304,9 @@ function create_if_block_1$3(ctx) {
 			attr(input, "id", "addMacro");
 			input.hidden = true;
 			attr(label, "for", "addMacro");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-145yzf0"));
-			set_style(label, "border", "2px outset #dddddd");
-			attr(div, "class", "flexcol button-labels svelte-145yzf0");
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-2tabhv"));
+			set_style(label, "border", "2px ridge rgb(172, 172, 172, .47)");
+			attr(div, "class", "flexcol button-labels svelte-2tabhv");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "1 / 2");
 		},
@@ -35330,7 +35330,7 @@ function create_if_block_1$3(ctx) {
 				input.checked = /*enableMacro*/ ctx[2];
 			}
 
-			if (dirty & /*enableMacro*/ 4 && label_class_value !== (label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-145yzf0"))) {
+			if (dirty & /*enableMacro*/ 4 && label_class_value !== (label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-2tabhv"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -35370,9 +35370,9 @@ function create_if_block$3(ctx) {
 			attr(input, "id", "addSound");
 			input.hidden = true;
 			attr(label, "for", "addSound");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*addSound*/ ctx[6] ? "selected" : "notSelected") + " svelte-145yzf0"));
-			set_style(label, "border", "2px outset #dddddd");
-			attr(div, "class", "flexcol button-labels svelte-145yzf0");
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*addSound*/ ctx[6] ? "selected" : "notSelected") + " svelte-2tabhv"));
+			set_style(label, "border", "2px ridge rgb(172, 172, 172, .47)");
+			attr(div, "class", "flexcol button-labels svelte-2tabhv");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "3 / 4");
 		},
@@ -35396,7 +35396,7 @@ function create_if_block$3(ctx) {
 				input.checked = /*addSound*/ ctx[6];
 			}
 
-			if (dirty & /*addSound*/ 64 && label_class_value !== (label_class_value = "" + (null_to_empty(/*addSound*/ ctx[6] ? "selected" : "notSelected") + " svelte-145yzf0"))) {
+			if (dirty & /*addSound*/ 64 && label_class_value !== (label_class_value = "" + (null_to_empty(/*addSound*/ ctx[6] ? "selected" : "notSelected") + " svelte-2tabhv"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -35493,10 +35493,10 @@ function create_fragment$5(ctx) {
 
 			attr(label0, "class", label0_class_value = "" + (null_to_empty(!/*animationDisabled*/ ctx[0]
 			? "selected"
-			: "notSelected") + " svelte-145yzf0"));
+			: "notSelected") + " svelte-2tabhv"));
 
-			set_style(label0, "border", "2px outset #dddddd");
-			attr(div0, "class", "flexcol button-labels svelte-145yzf0");
+			set_style(label0, "border", "2px ridge rgb(172, 172, 172, .47)");
+			attr(div0, "class", "flexcol button-labels svelte-2tabhv");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(input1, "type", "checkbox");
@@ -35504,11 +35504,11 @@ function create_fragment$5(ctx) {
 			input1.hidden = true;
 			input1.disabled = input1_disabled_value = /*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0];
 			attr(label1, "for", "override");
-			attr(label1, "class", label1_class_value = "" + (null_to_empty(/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-145yzf0"));
+			attr(label1, "class", label1_class_value = "" + (null_to_empty(/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-2tabhv"));
 
 			attr(div1, "class", div1_class_value = "flexcol button-labels " + (/*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0]
 			? 'disabledCheckbox'
-			: 'enabledCheckbox') + " svelte-145yzf0");
+			: 'enabledCheckbox') + " svelte-2tabhv");
 
 			set_style(div1, "grid-row", "2 / 3");
 			set_style(div1, "grid-column", "1 / 2");
@@ -35517,11 +35517,11 @@ function create_fragment$5(ctx) {
 			input2.hidden = true;
 			input2.disabled = input2_disabled_value = /*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0];
 			attr(label2, "for", "overrideAuto");
-			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-145yzf0"));
+			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-2tabhv"));
 
 			attr(div2, "class", div2_class_value = "flexcol button-labels " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]
 			? 'disabledCheckbox'
-			: 'enabledCheckbox') + " svelte-145yzf0");
+			: 'enabledCheckbox') + " svelte-2tabhv");
 
 			set_style(div2, "grid-row", "2 / 3");
 			set_style(div2, "grid-column", "2 / 3");
@@ -35530,15 +35530,15 @@ function create_fragment$5(ctx) {
 			input3.hidden = true;
 			input3.disabled = input3_disabled_value = /*gameSystem*/ ctx[7] !== "dnd5e" || /*animationDisabled*/ ctx[0];
 			attr(label3, "for", "fromAmmo");
-			attr(label3, "class", label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-145yzf0"));
+			attr(label3, "class", label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-2tabhv"));
 
 			attr(div3, "class", div3_class_value = "flexcol button-labels " + (/*gameSystem*/ ctx[7] === 'dnd5e' && !/*animationDisabled*/ ctx[0]
 			? 'enabledCheckbox'
-			: 'disabledCheckbox') + " svelte-145yzf0");
+			: 'disabledCheckbox') + " svelte-2tabhv");
 
 			set_style(div3, "grid-row", "2 / 3");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", "aa-general-settings svelte-145yzf0");
+			attr(div4, "class", "aa-general-settings svelte-2tabhv");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -35621,7 +35621,7 @@ function create_fragment$5(ctx) {
 
 			if (!current || dirty & /*animationDisabled*/ 1 && label0_class_value !== (label0_class_value = "" + (null_to_empty(!/*animationDisabled*/ ctx[0]
 			? "selected"
-			: "notSelected") + " svelte-145yzf0"))) {
+			: "notSelected") + " svelte-2tabhv"))) {
 				attr(label0, "class", label0_class_value);
 			}
 
@@ -35633,13 +35633,13 @@ function create_fragment$5(ctx) {
 				input1.checked = /*isCustomized*/ ctx[1];
 			}
 
-			if (!current || dirty & /*isCustomized*/ 2 && label1_class_value !== (label1_class_value = "" + (null_to_empty(/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-145yzf0"))) {
+			if (!current || dirty & /*isCustomized*/ 2 && label1_class_value !== (label1_class_value = "" + (null_to_empty(/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-2tabhv"))) {
 				attr(label1, "class", label1_class_value);
 			}
 
 			if (!current || dirty & /*overrideAuto, animationDisabled*/ 17 && div1_class_value !== (div1_class_value = "flexcol button-labels " + (/*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0]
 			? 'disabledCheckbox'
-			: 'enabledCheckbox') + " svelte-145yzf0")) {
+			: 'enabledCheckbox') + " svelte-2tabhv")) {
 				attr(div1, "class", div1_class_value);
 			}
 
@@ -35651,13 +35651,13 @@ function create_fragment$5(ctx) {
 				input2.checked = /*overrideAuto*/ ctx[4];
 			}
 
-			if (!current || dirty & /*overrideAuto*/ 16 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-145yzf0"))) {
+			if (!current || dirty & /*overrideAuto*/ 16 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-2tabhv"))) {
 				attr(label2, "class", label2_class_value);
 			}
 
 			if (!current || dirty & /*isCustomized, animationDisabled*/ 3 && div2_class_value !== (div2_class_value = "flexcol button-labels " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]
 			? 'disabledCheckbox'
-			: 'enabledCheckbox') + " svelte-145yzf0")) {
+			: 'enabledCheckbox') + " svelte-2tabhv")) {
 				attr(div2, "class", div2_class_value);
 			}
 
@@ -35669,13 +35669,13 @@ function create_fragment$5(ctx) {
 				input3.checked = /*fromAmmo*/ ctx[5];
 			}
 
-			if (!current || dirty & /*fromAmmo*/ 32 && label3_class_value !== (label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-145yzf0"))) {
+			if (!current || dirty & /*fromAmmo*/ 32 && label3_class_value !== (label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-2tabhv"))) {
 				attr(label3, "class", label3_class_value);
 			}
 
 			if (!current || dirty & /*animationDisabled*/ 1 && div3_class_value !== (div3_class_value = "flexcol button-labels " + (/*gameSystem*/ ctx[7] === 'dnd5e' && !/*animationDisabled*/ ctx[0]
 			? 'enabledCheckbox'
-			: 'disabledCheckbox') + " svelte-145yzf0")) {
+			: 'disabledCheckbox') + " svelte-2tabhv")) {
 				attr(div3, "class", div3_class_value);
 			}
 		},
@@ -37236,36 +37236,36 @@ class Macro extends SvelteComponent {
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[21] = list[i][0];
-	child_ctx[22] = list[i][1];
+	child_ctx[22] = list[i][0];
+	child_ctx[23] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[21] = list[i][0];
-	child_ctx[22] = list[i][1];
+	child_ctx[22] = list[i][0];
+	child_ctx[23] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[21] = list[i][0];
-	child_ctx[22] = list[i][1];
+	child_ctx[22] = list[i][0];
+	child_ctx[23] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[21] = list[i][0];
-	child_ctx[22] = list[i][1];
+	child_ctx[22] = list[i][0];
+	child_ctx[23] = list[i][1];
 	return child_ctx;
 }
 
 // (74:12) {#each Object.entries(aaTypeMenu.static) as [key, name]}
 function create_each_block_3(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[22] + "";
+	let t_value = /*name*/ ctx[23] + "";
 	let t;
 	let option_value_value;
 
@@ -37273,7 +37273,7 @@ function create_each_block_3(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[21];
+			option.__value = option_value_value = /*key*/ ctx[22];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -37313,7 +37313,7 @@ function create_if_block_2$1(ctx) {
 			insert(target, each_1_anchor, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*Object, aaNameMenu, menuType*/ 4) {
+			if (dirty[0] & /*menuType*/ 4) {
 				each_value_2 = Object.entries(aaNameMenu.static[/*menuType*/ ctx[2]]);
 				let i;
 
@@ -37346,7 +37346,7 @@ function create_if_block_2$1(ctx) {
 // (92:16) {#each Object.entries(aaNameMenu.static[menuType]) as [key, name]}
 function create_each_block_2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[22] + "";
+	let t_value = /*name*/ ctx[23] + "";
 	let t;
 	let option_value_value;
 
@@ -37354,7 +37354,7 @@ function create_each_block_2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[21];
+			option.__value = option_value_value = /*key*/ ctx[22];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -37362,9 +37362,9 @@ function create_each_block_2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*menuType*/ 4 && t_value !== (t_value = /*name*/ ctx[22] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuType*/ 4 && t_value !== (t_value = /*name*/ ctx[23] + "")) set_data(t, t_value);
 
-			if (dirty & /*menuType, Object, aaTypeMenu*/ 4 && option_value_value !== (option_value_value = /*key*/ ctx[21])) {
+			if (dirty[0] & /*menuType*/ 4 && option_value_value !== (option_value_value = /*key*/ ctx[22])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -37401,7 +37401,7 @@ function create_if_block_1$1(ctx) {
 			insert(target, each_1_anchor, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*Object, aaVariantMenu, menuType, animation*/ 12) {
+			if (dirty[0] & /*menuType, animation*/ 12) {
 				each_value_1 = Object.entries(aaVariantMenu.static[/*menuType*/ ctx[2]][/*animation*/ ctx[3]]);
 				let i;
 
@@ -37434,7 +37434,7 @@ function create_if_block_1$1(ctx) {
 // (111:16) {#each Object.entries(aaVariantMenu.static[menuType][animation]) as [key, name]}
 function create_each_block_1(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[22] + "";
+	let t_value = /*name*/ ctx[23] + "";
 	let t;
 	let option_value_value;
 
@@ -37442,7 +37442,7 @@ function create_each_block_1(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[21];
+			option.__value = option_value_value = /*key*/ ctx[22];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -37450,9 +37450,9 @@ function create_each_block_1(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*menuType, animation*/ 12 && t_value !== (t_value = /*name*/ ctx[22] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuType, animation*/ 12 && t_value !== (t_value = /*name*/ ctx[23] + "")) set_data(t, t_value);
 
-			if (dirty & /*menuType, animation, Object, aaTypeMenu, aaNameMenu*/ 12 && option_value_value !== (option_value_value = /*key*/ ctx[21])) {
+			if (dirty[0] & /*menuType, animation*/ 12 && option_value_value !== (option_value_value = /*key*/ ctx[22])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -37489,7 +37489,7 @@ function create_if_block$1(ctx) {
 			insert(target, each_1_anchor, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*Object, aaColorMenu, menuType, animation, variant*/ 28) {
+			if (dirty[0] & /*menuType, animation, variant*/ 28) {
 				each_value = Object.entries(aaColorMenu.static[/*menuType*/ ctx[2]][/*animation*/ ctx[3]][/*variant*/ ctx[4]]);
 				let i;
 
@@ -37522,7 +37522,7 @@ function create_if_block$1(ctx) {
 // (128:16) {#each Object.entries(aaColorMenu.static[menuType][animation][variant]) as [key, name]}
 function create_each_block(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[22] + "";
+	let t_value = /*name*/ ctx[23] + "";
 	let t;
 	let option_value_value;
 
@@ -37530,7 +37530,7 @@ function create_each_block(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[21];
+			option.__value = option_value_value = /*key*/ ctx[22];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -37538,9 +37538,9 @@ function create_each_block(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*menuType, animation, variant*/ 28 && t_value !== (t_value = /*name*/ ctx[22] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuType, animation, variant*/ 28 && t_value !== (t_value = /*name*/ ctx[23] + "")) set_data(t, t_value);
 
-			if (dirty & /*menuType, animation, variant, Object, aaTypeMenu, aaNameMenu, aaVariantMenu*/ 28 && option_value_value !== (option_value_value = /*key*/ ctx[21])) {
+			if (dirty[0] & /*menuType, animation, variant*/ 28 && option_value_value !== (option_value_value = /*key*/ ctx[22])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -37762,7 +37762,7 @@ function create_fragment$2(ctx) {
 				mounted = true;
 			}
 		},
-		p(ctx, [dirty]) {
+		p(ctx, dirty) {
 			if (dirty & /*Object, aaTypeMenu*/ 0) {
 				each_value_3 = Object.entries(aaTypeMenu.static);
 				let i;
@@ -37786,17 +37786,17 @@ function create_fragment$2(ctx) {
 				each_blocks.length = each_value_3.length;
 			}
 
-			if (!current || dirty & /*isCustom*/ 64) {
+			if (!current || dirty[0] & /*isCustom*/ 64) {
 				select0.disabled = /*isCustom*/ ctx[6];
 			}
 
-			if (!current || dirty & /*menuType, isCustom, Object, aaTypeMenu*/ 68 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[2] != "" && !/*isCustom*/ ctx[6]
+			if (!current || dirty[0] & /*menuType, isCustom*/ 68 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[2] != "" && !/*isCustom*/ ctx[6]
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-1vfyiez"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
-			if (dirty & /*menuType, Object, aaTypeMenu*/ 4) {
+			if (dirty[0] & /*menuType*/ 4) {
 				select_option(select0, /*menuType*/ ctx[2]);
 			}
 
@@ -37813,17 +37813,17 @@ function create_fragment$2(ctx) {
 				if_block0 = null;
 			}
 
-			if (!current || dirty & /*isCustom*/ 64) {
+			if (!current || dirty[0] & /*isCustom*/ 64) {
 				select1.disabled = /*isCustom*/ ctx[6];
 			}
 
-			if (!current || dirty & /*animation, isCustom, Object, aaNameMenu, menuType*/ 76 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[3] != "" && !/*isCustom*/ ctx[6]
+			if (!current || dirty[0] & /*animation, isCustom, menuType*/ 76 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[3] != "" && !/*isCustom*/ ctx[6]
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-1vfyiez"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
-			if (dirty & /*animation, Object, aaNameMenu, menuType*/ 12) {
+			if (dirty[0] & /*animation, menuType*/ 12) {
 				select_option(select1, /*animation*/ ctx[3]);
 			}
 
@@ -37840,17 +37840,17 @@ function create_fragment$2(ctx) {
 				if_block1 = null;
 			}
 
-			if (!current || dirty & /*isCustom*/ 64) {
+			if (!current || dirty[0] & /*isCustom*/ 64) {
 				select2.disabled = /*isCustom*/ ctx[6];
 			}
 
-			if (!current || dirty & /*variant, isCustom, Object, aaVariantMenu, menuType, animation*/ 92 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[4] != "" && !/*isCustom*/ ctx[6]
+			if (!current || dirty[0] & /*variant, isCustom, menuType, animation*/ 92 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[4] != "" && !/*isCustom*/ ctx[6]
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-1vfyiez"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
-			if (dirty & /*variant, Object, aaVariantMenu, menuType, animation*/ 28) {
+			if (dirty[0] & /*variant, menuType, animation*/ 28) {
 				select_option(select2, /*variant*/ ctx[4]);
 			}
 
@@ -37867,31 +37867,31 @@ function create_fragment$2(ctx) {
 				if_block2 = null;
 			}
 
-			if (!current || dirty & /*isCustom*/ 64) {
+			if (!current || dirty[0] & /*isCustom*/ 64) {
 				select3.disabled = /*isCustom*/ ctx[6];
 			}
 
-			if (!current || dirty & /*color, isCustom, Object, aaColorMenu, menuType, animation, variant*/ 124 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[5] != "" && !/*isCustom*/ ctx[6]
+			if (!current || dirty[0] & /*color, isCustom, menuType, animation, variant*/ 124 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[5] != "" && !/*isCustom*/ ctx[6]
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-1vfyiez"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
-			if (dirty & /*color, Object, aaColorMenu, menuType, animation, variant*/ 60) {
+			if (dirty[0] & /*color, menuType, animation, variant*/ 60) {
 				select_option(select3, /*color*/ ctx[5]);
 			}
 
 			const custompicker_changes = {};
-			if (dirty & /*flagPath*/ 2) custompicker_changes.flagPath = /*flagPath*/ ctx[1];
-			if (dirty & /*flagData*/ 1) custompicker_changes.flagData = /*flagData*/ ctx[0];
+			if (dirty[0] & /*flagPath*/ 2) custompicker_changes.flagPath = /*flagPath*/ ctx[1];
+			if (dirty[0] & /*flagData*/ 1) custompicker_changes.flagData = /*flagData*/ ctx[0];
 
-			if (!updating_isCustom && dirty & /*isCustom*/ 64) {
+			if (!updating_isCustom && dirty[0] & /*isCustom*/ 64) {
 				updating_isCustom = true;
 				custompicker_changes.isCustom = /*isCustom*/ ctx[6];
 				add_flush_callback(() => updating_isCustom = false);
 			}
 
-			if (!updating_customPath && dirty & /*customPath*/ 128) {
+			if (!updating_customPath && dirty[0] & /*customPath*/ 128) {
 				updating_customPath = true;
 				custompicker_changes.customPath = /*customPath*/ ctx[7];
 				add_flush_callback(() => updating_customPath = false);
@@ -37945,10 +37945,24 @@ function instance$2($$self, $$props, $$invalidate) {
 			break;
 	}
 
-	let menuType = root.menuType || "";
-	let animation = root.name || "";
-	let variant = root.variant || "";
-	let color = root.color || "";
+	let preBuild = root.menuType;
+
+	let menuType = root.menuType
+	? root.menuType
+	: Object.keys(aaTypeMenu.static)[0];
+
+	let animation = preBuild && root.name
+	? root.name
+	: Object.keys(aaNameMenu.static[menuType])[0];
+
+	let variant = preBuild && root.variant
+	? root.variant
+	: Object.keys(aaVariantMenu.static[menuType][animation])[0];
+
+	let color = preBuild && root.color
+	? root.color
+	: Object.keys(aaColorMenu.static[menuType][animation][variant])[0];
+
 	let isCustom;
 	let customPath;
 
@@ -38018,27 +38032,27 @@ function instance$2($$self, $$props, $$invalidate) {
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*menuType*/ 4) {
+		if ($$self.$$.dirty[0] & /*menuType*/ 4) {
 			$$invalidate(2, menuType = root.menuType = menuType);
 		}
 
-		if ($$self.$$.dirty & /*animation*/ 8) {
+		if ($$self.$$.dirty[0] & /*animation*/ 8) {
 			$$invalidate(3, animation = root.name = animation);
 		}
 
-		if ($$self.$$.dirty & /*variant*/ 16) {
+		if ($$self.$$.dirty[0] & /*variant*/ 16) {
 			$$invalidate(4, variant = root.variant = variant);
 		}
 
-		if ($$self.$$.dirty & /*color*/ 32) {
+		if ($$self.$$.dirty[0] & /*color*/ 32) {
 			$$invalidate(5, color = root.color = color);
 		}
 
-		if ($$self.$$.dirty & /*isCustom*/ 64) {
+		if ($$self.$$.dirty[0] & /*isCustom*/ 64) {
 			$$invalidate(6, isCustom);
 		}
 
-		if ($$self.$$.dirty & /*customPath*/ 128) {
+		if ($$self.$$.dirty[0] & /*customPath*/ 128) {
 			$$invalidate(7, customPath);
 		}
 	};
@@ -38070,7 +38084,7 @@ function instance$2($$self, $$props, $$invalidate) {
 class StaticMenu extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$2, create_fragment$2, safe_not_equal, { flagData: 0, flagPath: 1 });
+		init(this, options, instance$2, create_fragment$2, safe_not_equal, { flagData: 0, flagPath: 1 }, null, [-1, -1]);
 	}
 }
 
@@ -38718,6 +38732,7 @@ function create_if_block_3(ctx) {
 	let updating_animationDisabled;
 	let updating_isCustomized;
 	let updating_enableMacro;
+	let div0_transition;
 	let t0;
 	let t1;
 	let t2;
@@ -38880,6 +38895,12 @@ function create_if_block_3(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(generalsettings.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, {}, true);
+				div0_transition.run(1);
+			});
+
 			transition_in(if_block0);
 			transition_in(if_block1);
 			transition_in(if_block2);
@@ -38893,6 +38914,8 @@ function create_if_block_3(ctx) {
 		},
 		o(local) {
 			transition_out(generalsettings.$$.fragment, local);
+			if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, {}, false);
+			div0_transition.run(0);
 			transition_out(if_block0);
 			transition_out(if_block1);
 			transition_out(if_block2);
@@ -38903,6 +38926,7 @@ function create_if_block_3(ctx) {
 		d(detaching) {
 			if (detaching) detach(div1);
 			destroy_component(generalsettings);
+			if (detaching && div0_transition) div0_transition.end();
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
 			if (if_block2) if_block2.d();
@@ -38911,7 +38935,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (211:16) {#if enableMacro}
+// (212:16) {#if enableMacro}
 function create_if_block_10(ctx) {
 	let div;
 	let macrofield;
@@ -38960,7 +38984,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (219:16) {#if showSound}
+// (220:16) {#if showSound}
 function create_if_block_9(ctx) {
 	let div;
 	let soundsettings;
@@ -39015,7 +39039,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (227:16) {#if !animationDisabled && isCustomized}
+// (228:16) {#if !animationDisabled && isCustomized}
 function create_if_block_4(ctx) {
 	let div1;
 	let div0;
@@ -39171,7 +39195,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (239:24) {#if animType}
+// (240:24) {#if animType}
 function create_if_block_7(ctx) {
 	let options;
 	let t0;
@@ -39272,7 +39296,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (242:28) {#if animType === "melee"}
+// (243:28) {#if animType === "melee"}
 function create_if_block_8(ctx) {
 	let h1;
 	let t1;
@@ -39316,7 +39340,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (248:20) {#if animType === "melee" || animType === "range" || animType === "static"}
+// (249:20) {#if animType === "melee" || animType === "range" || animType === "static"}
 function create_if_block_5(ctx) {
 	let div4;
 	let div0;
@@ -39443,7 +39467,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (275:28) {#if explosionEnabled}
+// (276:28) {#if explosionEnabled}
 function create_if_block_6(ctx) {
 	let explosionsettings;
 	let current;
@@ -39477,7 +39501,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (284:8) {#if focusExtra}
+// (285:8) {#if focusExtra}
 function create_if_block(ctx) {
 	let div6;
 	let div2;
@@ -39699,7 +39723,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (307:20) {#if enableSource}
+// (308:20) {#if enableSource}
 function create_if_block_2(ctx) {
 	let extrafx;
 	let current;
@@ -39739,7 +39763,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (332:20) {#if enableTarget}
+// (333:20) {#if enableTarget}
 function create_if_block_1(ctx) {
 	let extrafx;
 	let current;
@@ -39779,7 +39803,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (150:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
+// (150:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}      stylesApp={{header: "red"}}  >
 function create_default_slot(ctx) {
 	let form_1;
 	let div4;
@@ -40050,6 +40074,7 @@ function create_fragment(ctx) {
 		transition: scale,
 		transitionOptions: { duration: 500 },
 		stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+		stylesApp: { header: "red" },
 		$$slots: { default: [create_default_slot] },
 		$$scope: { ctx }
 	};

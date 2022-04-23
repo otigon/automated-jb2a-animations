@@ -152,6 +152,7 @@
     transition={scale}
     transitionOptions={{ duration: 500 }}
     stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}
+    stylesApp={{header: "red"}}
 >
     <form
         bind:this={form}
@@ -200,7 +201,7 @@
         </div>
         {#if focusPrimary}
             <div class="aaMidSection" transition:fade>
-                <div class="aaMenu-section">
+                <div class="aaMenu-section" transition:fade>
                     <GeneralSettings
                         bind:animationDisabled
                         bind:isCustomized
