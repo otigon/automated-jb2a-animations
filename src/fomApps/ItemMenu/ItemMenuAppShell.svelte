@@ -14,6 +14,7 @@
     import SoundSettings from "./components/soundSettings.svelte";
     import RangeSwitch from "./components/meleeRange.svelte";
     import MacroField from "./components/macro.svelte";
+    import StaticMenu from "./components/staticMenu.svelte";
     //import { menuAnimType } from "./menuStore.js"
 
     import { flagMigrations } from "./../../system-handlers/flagMerge.js";
@@ -133,6 +134,15 @@
     let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
     $: explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
 
+    let enableSource = flagData.sourceToken.enable || false;
+    $: enableSource = flagData.sourceToken.enable = enableSource;
+    let sourceLabel = enableSource ? "Enabled" : "Disabled";
+    $: sourceLabel = enableSource ? "Enabled" : "Disabled";
+
+    let enableTarget = flagData.targetToken.enable || false;
+    $: enableTarget = flagData.targetToken.enable = enableTarget;
+    let targetLabel = enableTarget ? "Enabled" : "Disabled";
+    $: targetLabel = enableTarget ? "Enabled" : "Disabled";
 
 </script>
 
@@ -149,12 +159,11 @@
         id="item-menu-aa"
         class="overview"
     >
-        <div class="aaTopSection" style="margin-top:5px">
+        <div class="aaTopSection" style="margin-top:5px" transition:fade>
             <div class="aa-tabs">
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 1 / 2;"
-                    transition:fade
                 >
                     <button
                         class={focusPrimary ? "selected" : "notSelected"}
@@ -167,7 +176,6 @@
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 2 / 3;"
-                    transition:fade
                 >
                     <button
                         class={focusExtra ? "selected" : "notSelected"}
@@ -180,7 +188,6 @@
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 3 / 4;"
-                    transition:fade
                 >
                     <button
                         class={focus3d ? "selected" : "notSelected"}
@@ -191,7 +198,7 @@
             </div>
         </div>
         {#if focusPrimary}
-            <div class="aaMidSection" transition:fade={{ duration: 500 }}>
+            <div class="aaMidSection" transition:fade>
                 <div class="aaMenu-section">
                     <GeneralSettings
                         bind:animationDisabled
@@ -203,7 +210,7 @@
                 {#if enableMacro}
                     <div
                         class="aaMenu-section"
-                        transition:fade={{ duration: 500 }}
+                        transition:fade
                     >
                         <MacroField {flagData} />
                     </div>
@@ -211,7 +218,7 @@
                 {#if showSound}
                     <div
                         class="aaMenu-section"
-                        transition:fade={{ duration: 500 }}
+                        transition:fade
                     >
                         <SoundSettings audioPath="a01" {flagData} />
                     </div>
@@ -242,7 +249,7 @@
                             <div style="padding-top: 10px">
                                 <h1>Explosion</h1>
                             </div>
-                            <div class="aa-3wide button-labels">
+                            <div class="aa-3wide aa-button-labels">
                                 <div style="grid-row:1/2; grid-column:2/3">
                                     <div
                                         class="flexcol"
@@ -268,8 +275,63 @@
                                 <ExplosionSettings {flagData} />
                             {/if}
                         </div>
+                        
                     {/if}
                 {/if}
+            </div>
+        {/if}
+        {#if focusExtra}
+            <div class="aaMidSection" transition:fade>
+                <div class="aaMenu-section">
+                    <h1>Extra Source Effect</h1>
+                    <div class="aa-3wide">
+                        <!--Enable Source Animation-->
+                        <div
+                            class="flexcol aa-button-labels"
+                            style="grid-row: 1 / 2; grid-column: 2 / 3"
+                        >
+                            <input
+                                type="checkbox"
+                                id="addSourceFX"
+                                hidden
+                                bind:checked={enableSource}
+                            />
+                            <label
+                                for="addSourceFX"
+                                class={enableSource ? "exSelected" : "exNotSelected"}
+                                style="border: 2px solid black">{sourceLabel}</label
+                            >
+                        </div>
+                    </div>
+                    {#if enableSource}                
+                    <StaticMenu flagPath="sourceExtraFX" {flagData} />
+                    {/if}
+                </div>
+                <div class="aaMenu-section">
+                    <h1>Extra Target Effect</h1>
+                    <div class="aa-3wide">
+                        <!--Enable Source Animation-->
+                        <div
+                            class="flexcol aa-button-labels"
+                            style="grid-row: 1 / 2; grid-column: 2 / 3"
+                        >
+                            <input
+                                type="checkbox"
+                                id="addTargetFX"
+                                hidden
+                                bind:checked={enableTarget}
+                            />
+                            <label
+                                for="addTargetFX"
+                                class={enableTarget ? "exSelected" : "exNotSelected"}
+                                style="border: 2px solid black">{targetLabel}</label
+                            >
+                        </div>
+                    </div>
+                    {#if enableTarget}                
+                    <StaticMenu flagPath="targetExtraFX" {flagData} />
+                    {/if}
+                </div>
             </div>
         {/if}
         <div class="aaBottomSection" style="margin-bottom: 5px">
@@ -404,7 +466,7 @@
         font-size: large;
         font-weight: bold;
     }
-    .button-labels label {
+    .aa-button-labels label {
         border-radius: 10px;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;

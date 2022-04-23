@@ -18,6 +18,22 @@
             enabled = flagData.explosions.enableCustom || false;
             customId = "customExplosion";
             break;
+        case "sourceExtraFX":
+            console.log("routing to Source Token")
+            root = flagData.sourceToken;
+            options = flagData.sourceToken;
+            customPath = flagData.sourceToken.customPath || "";
+            enabled = flagData.sourceToken.enableCustom;
+            customId = "customSource";
+            break;
+        case "targetExtraFX":
+            console.log("routing to Target Token")
+            root = flagData.targetToken;
+            options = flagData.targetToken;
+            customPath = flagData.targetToken.customPath || "";
+            enabled = flagData.targetToken.enableCustom;
+            customId = "customTarget";
+            break;
         default:
             console.log("routing to Primary")
             root = flagData.options;
