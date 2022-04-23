@@ -66,7 +66,7 @@
         menuSelection = value;
     })
     */
-    let form;
+    let form = void 0;
     const { application } = getContext("external");
 
     function onClick() {
@@ -144,7 +144,6 @@
     $: enableTarget = flagData.targetToken.enable = enableTarget;
     let targetLabel = enableTarget ? "Enabled" : "Disabled";
     $: targetLabel = enableTarget ? "Enabled" : "Disabled";
-
 </script>
 
 <ApplicationShell
@@ -152,7 +151,7 @@
     transition={scale}
     transitionOptions={{ duration: 500 }}
     stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}
-    stylesApp={{header: "red"}}
+    stylesApp={{ header: "red" }}
 >
     <form
         bind:this={form}
@@ -210,18 +209,12 @@
                     />
                 </div>
                 {#if enableMacro}
-                    <div
-                        class="aaMenu-section"
-                        transition:fade
-                    >
+                    <div class="aaMenu-section" transition:fade>
                         <MacroField {flagData} />
                     </div>
                 {/if}
                 {#if showSound}
-                    <div
-                        class="aaMenu-section"
-                        transition:fade
-                    >
+                    <div class="aaMenu-section" transition:fade>
                         <SoundSettings audioPath="a01" {flagData} />
                     </div>
                 {/if}
@@ -277,13 +270,60 @@
                                 <ExplosionSettings {flagData} />
                             {/if}
                         </div>
-                        
                     {/if}
                 {/if}
             </div>
         {/if}
         {#if focusExtra}
             <div class="aaMidSection" transition:fade>
+                <div class="aaMenu-section">
+                    <div class="aa-5wide">
+                        <div
+                            class="flexcol aa-button-labels"
+                            style="grid-row: 1 / 2; grid-column: 1 / 2"
+                        >
+                            <label
+                                for=""
+                                class={enableSource
+                                    ? "selected"
+                                    : "notSelected"}
+                                style="border: 2px outset #dddddd"
+                                >Source</label
+                            >
+                        </div>
+                        <div class='flexcol' style='grid-row:1/2; grid-column:2/3'>
+                            <label for="" style='align-self:center'><i class="fas fa-arrow-right fa-2xl"></i></label>
+                            
+                        </div>
+                        <div
+                            class="flexcol aa-button-labels"
+                            style="grid-row: 1 / 2; grid-column: 3 / 4"
+                        >
+                            <label
+                                for=""
+                                class="selected"
+                                style="border: 2px outset #dddddd"
+                                >Primary</label
+                            >
+                        </div>
+                        <div
+                            class="flexcol aa-button-labels"
+                            style="grid-row: 1 / 2; grid-column: 5 / 6"
+                        >
+                            <label
+                                for=""
+                                class={enableTarget
+                                    ? "selected"
+                                    : "notSelected"}
+                                style="border: 2px outset #dddddd"
+                                >Target</label
+                            >
+                        </div>
+                    </div>
+                    <div class='flexcol aa-extraFX-hint' style='grid-row:2/3; grid-column:1/6'>
+                        <label for="" style='align-self:center'>Requires use of a Primary Animation, either Customized or Autorec</label>
+                    </div>
+                </div>
                 <div class="aaMenu-section">
                     <h1>Extra Source Effect</h1>
                     <div class="aa-3wide">
@@ -300,13 +340,16 @@
                             />
                             <label
                                 for="addSourceFX"
-                                class={enableSource ? "exSelected" : "exNotSelected"}
-                                style="border: 2px outset #dddddd">{sourceLabel}</label
+                                class={enableSource
+                                    ? "exSelected"
+                                    : "exNotSelected"}
+                                style="border: 2px outset #dddddd"
+                                >{sourceLabel}</label
                             >
                         </div>
                     </div>
-                    {#if enableSource}                
-                    <ExtraFX flagPath="sourceExtraFX" {flagData} />
+                    {#if enableSource}
+                        <ExtraFX flagPath="sourceExtraFX" {flagData} />
                     {/if}
                 </div>
                 <div class="aaMenu-section">
@@ -325,13 +368,16 @@
                             />
                             <label
                                 for="addTargetFX"
-                                class={enableTarget ? "exSelected" : "exNotSelected"}
-                                style="border: 2px outset #dddddd">{targetLabel}</label
+                                class={enableTarget
+                                    ? "exSelected"
+                                    : "exNotSelected"}
+                                style="border: 2px outset #dddddd"
+                                >{targetLabel}</label
                             >
                         </div>
                     </div>
-                    {#if enableTarget}                
-                    <ExtraFX flagPath="targetExtraFX" {flagData} />
+                    {#if enableTarget}
+                        <ExtraFX flagPath="targetExtraFX" {flagData} />
                     {/if}
                 </div>
             </div>
@@ -391,7 +437,7 @@
         font-size: large;
     }
     .aaMenu-section {
-        background: rgba(204, 204, 204, 0.75);
+        background: rgba(225, 225, 225, 0.85);
         border: 2px solid black;
         border-radius: 10px;
         margin: 3% 3% 3% 3%;
@@ -465,6 +511,23 @@
         align-items: center;
         margin-right: 8%;
         margin-left: 5%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
+    .aa-5wide {
+        display: grid;
+        grid-template-columns: 30% 5% 30% 5% 30%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 8%;
+        margin-left: 5%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
+    .aa-extraFX-hint label {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
