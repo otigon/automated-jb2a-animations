@@ -69,10 +69,15 @@
             repeat = 1;
         }
     }
+
+    export let menuType;
+    export let animation;
+    export let variant;
+    export let color;
 </script>
 
 <div transition:fade={{ duration: 500 }}>
-    <StaticMenu {flagPath} {flagData} />
+    <StaticMenu bind:menuType bind:animation bind:variant bind:color {flagPath} {flagData} />
     <h2>Options</h2>
     <div
         class="aa-options"

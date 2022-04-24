@@ -97,16 +97,20 @@
     }
 </script>
 
-<div class="aa-3d-settings" transition:fade>
-    <div class="form-group" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+<div class="aa-3d-settings">
+    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;">
         <label for="">{localize("AUTOANIM.color")} 01 </label>
         <input type="Text" bind:value={color01} />
-        <input type="color" data-edit="color" id="tint" bind:value={color01} />
     </div>
     <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;">
+        <input type="color" data-edit="color" id="tint" bind:value={color01} />
+    </div>
+    <div class="form-group" style="grid-row: 4 / 5; grid-column: 1 / 2;">
+        <input type="color" data-edit="color" id="tint" bind:value={color02} />
+    </div>
+    <div class="flexcol" style="grid-row: 5 / 6; grid-column: 1 / 2;">
         <label for="">{localize("AUTOANIM.color")} 02 </label>
         <input type="Text" bind:value={color02} />
-        <input type="color" data-edit="color" id="tint" bind:value={color02} />
     </div>
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 2 / 3;">
         <label for="">{localize("AUTOANIM.speed")} </label>
@@ -126,7 +130,6 @@
         <div
             class="flexcol"
             style="grid-row: 3 / 4; grid-column: 3 / 4;"
-            transition:fade
         >
             <label for="">{localize("AUTOANIM.arc")} </label>
             <input type="Number" step=".01" bind:value={arc} placeholder="2" />
@@ -148,7 +151,6 @@
         <div
             class="flexcol"
             style="grid-row: 4 / 5; grid-column: 2 / 3;"
-            transition:fade
         >
             <label for="">{localize("AUTOANIM.gravity")} </label>
             <input
@@ -161,7 +163,6 @@
         <div
             class="flexcol"
             style="grid-row: 4 / 5; grid-column: 3 / 4;"
-            transition:fade
         >
             <label for="">{localize("AUTOANIM.mass")} </label>
             <input
@@ -174,7 +175,6 @@
         <div
             class="flexcol"
             style="grid-row: 4 / 5; grid-column: 4 / 5;"
-            transition:fade
         >
             <label for="">{localize("AUTOANIM.life")} </label>
             <input
@@ -187,7 +187,6 @@
         <div
             class="flexcol"
             style="grid-row: 5 / 6; grid-column: 2 / 3;"
-            transition:fade
         >
             <label for="">{localize("AUTOANIM.emiterSize")} </label>
             <input
@@ -200,7 +199,6 @@
         <div
             class="flexcol"
             style="grid-row: 5 / 6; grid-column: 3 / 4;"
-            transition:fade
         >
             <label for="rate">{localize("AUTOANIM.rate")} </label>
             <input
@@ -215,7 +213,9 @@
 </div>
 <div class="aa-customAnim-container">
     <div class="form-group" style="grid-row: 1/2; grid-column: 1/3">
-        <label for="" style="align-self:end;">{localize("AUTOANIM.sprite")}</label>
+        <label for="" style="align-self:end;"
+            >{localize("AUTOANIM.sprite")}</label
+        >
         <input type="text" bind:value={spritePath} />
         <button
             class="file-picker"
@@ -228,14 +228,12 @@
 <style lang="scss">
     .aa-3d-settings {
         display: grid;
-        grid-template-columns: 40% 20% 20% 20%;
+        grid-template-columns: 32.5% 22.5% 22.5% 22.5%;
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        justify-items: end;
         color: black;
         text-align: center;
-        align-items: center;
         margin-right: 8%;
         margin-left: 5%;
     }
@@ -245,6 +243,12 @@
         border-radius: 5px;
         width: 5em;
         color: black;
+    }    
+    .aa-3d-settings input::-webkit-color-swatch {
+        border: none;
+    }
+    .aa-3d-settings input::-webkit-color-swatch-wrapper {
+        padding: 0;
     }
     .aa-customAnim-container {
         display: grid;
@@ -259,6 +263,11 @@
     .aa-customAnim-container button {
         border-radius: 10px;
         border: 2px outset #dddddd;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
+    .aa-3d-settings label {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;

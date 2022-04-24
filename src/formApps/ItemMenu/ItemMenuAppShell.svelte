@@ -291,14 +291,19 @@
                                 style="border: 2px outset #dddddd">Source</label
                             >
                         </div>
+                        {#if enableSource}
                         <div
                             class="flexcol"
                             style="grid-row:1/2; grid-column:2/3"
                         >
-                            <label for="" style="align-self:center"
+                            <label
+                                for=""
+                                style="align-self:center"
+                                transition:fade
                                 ><i class="fas fa-arrow-right fa-2xl" /></label
                             >
                         </div>
+                        {/if}
                         <div
                             class="flexcol aa-button-labels"
                             style="grid-row: 1 / 2; grid-column: 3 / 4"
@@ -310,6 +315,19 @@
                                 >Primary</label
                             >
                         </div>
+                        {#if enableTarget}
+                        <div
+                            class="flexcol"
+                            style="grid-row:1/2; grid-column:4/5"
+                        >
+                            <label
+                                for=""
+                                style="align-self:center"
+                                transition:fade
+                                ><i class="fas fa-arrow-right fa-2xl" /></label
+                            >
+                        </div>
+                        {/if}
                         <div
                             class="flexcol aa-button-labels"
                             style="grid-row: 1 / 2; grid-column: 5 / 6"
