@@ -18,3 +18,17 @@ let isCustom02;
 export const customChecked02 = writable(isCustom02);
 let fileData02;
 export const menuDBPath02 = writable(fileData02);
+
+let customPathSourceFX;
+export const customFilePathSourceFX = writable(customPathSourceFX);
+let isCustomSourceFX;
+export const customCheckedSourceFX = writable(isCustomSourceFX);
+let fileDataSourceFX;
+export const menuDBPathSourceFX = writable(fileDataSourceFX);
+
+let customPathTargetFX;
+export const customFilePathTargetFX = writable(customPathTargetFX);
+let isCustomTargetFX;
+export const customCheckedTargetFX = writable(isCustomTargetFX);
+let fileDataTargetFX;
+export const menuDBPathTargetFX = writable(fileDataTargetFX);

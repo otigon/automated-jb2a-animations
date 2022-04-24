@@ -21,18 +21,18 @@
             break;
     }
     let preBuild = root.menuType;
-    let menuType = root.menuType ? root.menuType : Object.keys(aaTypeMenu.static)[0];;
+    export let menuType = root.menuType ? root.menuType : Object.keys(aaTypeMenu.static)[0];;
     $: menuType = root.menuType = menuType;
-    let animation = preBuild && root.name ? root.name : Object.keys(aaNameMenu.static[menuType])[0];
+    export let animation = preBuild && root.name ? root.name : Object.keys(aaNameMenu.static[menuType])[0];
     $: animation = root.name = animation;
-    let variant = preBuild && root.variant ? root.variant : Object.keys(aaVariantMenu.static[menuType][animation])[0];
+    export let variant = preBuild && root.variant ? root.variant : Object.keys(aaVariantMenu.static[menuType][animation])[0];
     $: variant = root.variant = variant;
-    let color = preBuild && root.color ? root.color : Object.keys(aaColorMenu.static[menuType][animation][variant])[0];
+    export let color = preBuild && root.color ? root.color : Object.keys(aaColorMenu.static[menuType][animation][variant])[0];
     $: color = root.color = color;
 
-    let isCustom;
+    export let isCustom;
     $: isCustom = isCustom;
-    let customPath;
+    export let customPath;
     $: customPath = customPath;
 
     async function menuTypeChange() {

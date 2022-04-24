@@ -1,12 +1,24 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
+    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+    import SourceFxApp from "../videoPreviews/sourceFXApp.svelte";
+    import TargetFxApp from "../videoPreviews/targetFXApp.svelte";
     import StaticMenu from "./staticMenu.svelte";
     import SoundSettings from "./soundSettings.svelte";
 
-    export let flagData;
+    import {
+        menuDBPathSourceFX,
+        customFilePathSourceFX,
+        customCheckedSourceFX,
+        menuDBPathTargetFX,
+        customFilePathTargetFX,
+        customCheckedTargetFX,
+    } from "../menuStore.js";
 
+    export let flagData;
     export let flagPath;
+
     let root;
     let audioPath;
     switch (flagPath) {
@@ -21,7 +33,6 @@
             audioPath = "t01";
             break;
     }
-
 
     let repeat = root.loops || 1;
     $: repeat = root.loops = repeat;
@@ -71,13 +82,78 @@
     }
 
     export let menuType;
+    $: menuType = menuType;
     export let animation;
+    $: animation = animation;
     export let variant;
+    $: variant = variant;
     export let color;
+    $: color = color;
+    function onClick() {
+        new TJSDialog({
+            modal: false,
+            draggable: true,
+            resizable: true,
+            title:
+                flagPath === "sourceExtraFX"
+                    ? "Extra Source Effect"
+                    : "Extra Target Effect",
+            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+            content: {
+                class: flagPath === "sourceExtraFX" ? SourceFxApp : TargetFxApp,
+            },
+        }).render(true);
+    }
+    let sourceFilePath;
+    $: if (flagPath === "sourceExtraFX") {
+        sourceFilePath =
+            color === "random"
+                ? `autoanimations.static.${menuType}.${animation}.${variant}`
+                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+    }
+    let targetFilePath;
+    $: if (flagPath === "targetExtraFX") {
+        targetFilePath =
+            color === "random"
+                ? `autoanimations.static.${menuType}.${animation}.${variant}`
+                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+    }
+    $: console.log(sourceFilePath)
+
+    $: console.log(targetFilePath)
+    let isCustom;
+    $: isCustom = isCustom;
+    let customPath;
+    $: customPath = customPath;
+
+    $: if (flagPath === "sourceExtraFX") {
+        menuDBPathSourceFX.set(sourceFilePath);
+        customFilePathSourceFX.set(customPath);
+        customCheckedSourceFX.set(isCustom);
+    }
+    $: if (flagPath === "targetExtraFX") {
+        menuDBPathTargetFX.set(targetFilePath);
+        customFilePathTargetFX.set(customPath);
+        customCheckedTargetFX.set(isCustom);
+    }
 </script>
 
 <div transition:fade={{ duration: 500 }}>
-    <StaticMenu bind:menuType bind:animation bind:variant bind:color {flagPath} {flagData} />
+    <StaticMenu
+        bind:menuType
+        bind:animation
+        bind:variant
+        bind:color
+        bind:isCustom
+        bind:customPath
+        {flagPath}
+        {flagData}
+    />
+    <div class="aa-3wide">
+        <div class="flexcol" style="grid-row: 1/2; grid-column:2/3">
+            <button on:click={() => onClick()}>Video Preview</button>
+        </div>
+    </div>
     <h2>Options</h2>
     <div
         class="aa-options"
@@ -85,7 +161,12 @@
         out:fade={{ duration: 500 }}
     >
         <!--Persistent Setting-->
-        <div class="flexcol {flagPath === "sourceExtraFX" ? "aa-opacityButton" : ""}" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+        <div
+            class="flexcol {flagPath === 'sourceExtraFX'
+                ? 'aa-opacityButton'
+                : ''}"
+            style="grid-row: 1 / 2; grid-column: 1 / 2;"
+        >
             <label for="">Persistence</label>
             <button
                 disabled={flagPath === "sourceExtraFX"}
@@ -100,7 +181,12 @@
             >
         </div>
         <!--Bind/Unbind Visibility (for Persistent Effects)-->
-        <div class="flexcol {flagPath === "sourceExtraFX" ? "aa-opacityButton" : ""}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+        <div
+            class="flexcol {flagPath === 'sourceExtraFX'
+                ? 'aa-opacityButton'
+                : ''}"
+            style="grid-row: 1 / 2; grid-column: 3 / 4;"
+        >
             <label for="">Visibility</label>
             <button
                 disabled={flagPath === "sourceExtraFX"}
@@ -108,7 +194,12 @@
             >
         </div>
         <!--Bind/Unbind Opacity (for Persistent Effects)-->
-        <div class="flexcol {flagPath === "sourceExtraFX" ? "aa-opacityButton" : ""}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+        <div
+            class="flexcol {flagPath === 'sourceExtraFX'
+                ? 'aa-opacityButton'
+                : ''}"
+            style="grid-row: 1 / 2; grid-column: 4 / 5;"
+        >
             <label for="">Alpha</label>
             <button
                 disabled={flagPath === "sourceExtraFX"}
@@ -116,7 +207,10 @@
             >
         </div>
         <!--Set Number of times the animation plays-->
-        <div class="flexcol {persistent ? "aa-opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+        <div
+            class="flexcol {persistent ? 'aa-opacityButton' : ''}"
+            style="grid-row: 2 / 3; grid-column: 1 / 2;"
+        >
             <label for="aaRepeat">{localize("AUTOANIM.repeat")}</label>
             <input
                 disabled={persistent}
@@ -127,7 +221,10 @@
             />
         </div>
         <!--Set delay between repeats-->
-        <div class="flexcol {persistent ? "aa-opacityButton" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+        <div
+            class="flexcol {persistent ? 'aa-opacityButton' : ''}"
+            style="grid-row: 2 / 3; grid-column: 2 / 3;"
+        >
             <label for="aaDelay"
                 >{localize("AUTOANIM.repeat")}
                 {localize("AUTOANIM.delay")}</label
@@ -181,6 +278,26 @@
 </div>
 
 <style lang="scss">
+    .aa-3wide {
+        display: grid;
+        grid-template-columns: 33.3% 33.3% 33.3%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 8%;
+        margin-left: 5%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+        color: black;
+    }
+    .aa-3wide button {
+        border-radius: 10px;
+        border: 2px outset #dddddd;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
     .aa-options {
         display: grid;
         grid-template-columns: 25% 25% 25% 25%;
@@ -224,11 +341,11 @@
     .aa-opacityButton input {
         color: rgba(133, 133, 133, 0.3);
     }
-    .aa-opacityButton label{
+    .aa-opacityButton label {
         color: rgba(133, 133, 133, 0.3);
         transition: color 0.5s;
     }
-    .aa-opacityButton button{
+    .aa-opacityButton button {
         border: 2px outset #dddddd86;
         color: rgba(133, 133, 133, 0.3);
         transition: color 0.5s, border 0.5s;

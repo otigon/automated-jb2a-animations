@@ -119,6 +119,7 @@
             modal: false,
             draggable: true,
             resizable: true,
+            title: type === "primary" ? "Primary Animation" : "Explosion Preview",
             stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
             content: {
                 class: type === "primary" ? PrimaryApp : ExplosionApp,
