@@ -1,5 +1,7 @@
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
 import ItemMenuAppShell from './itemMenuAppShell.svelte';
+import { aaAutoRecognition } from '../../custom-recognition/auto-recognition';
+
 
 export default class AAItemMenu extends SvelteApplication {
     
@@ -42,4 +44,24 @@ export default class AAItemMenu extends SvelteApplication {
             closeOnSubmit: true,
         })
     }
+
+    _getHeaderButtons()
+    {
+        const buttons = super._getHeaderButtons();
+        console.log(super._getHeaderButtons())
+        buttons.unshift({
+            class: 'autorec-shortcut',
+            icon: 'fas fa-globe',
+            title: 'Launch Autorec',
+            styles: { color: 'lightblue' },
+   
+            onclick: function()
+            {
+               //this.styles = { color: 'white' };
+               new aaAutoRecognition().render(true)
+            }
+         });
+      
+         return buttons;
+       }
 }

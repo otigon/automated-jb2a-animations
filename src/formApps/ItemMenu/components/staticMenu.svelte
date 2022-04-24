@@ -1,6 +1,7 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
+    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import CustomPicker from "./customPicker.svelte";
     import {
         aaTypeMenu,
@@ -8,6 +9,16 @@
         aaVariantMenu,
         aaColorMenu,
     } from "../../../animation-functions/databases/jb2a-menu-options.js";
+    import {
+        menuDBPathSourceFX,
+        customFilePathSourceFX,
+        customCheckedSourceFX,
+        menuDBPathTargetFX,
+        customFilePathTargetFX,
+        customCheckedTargetFX,
+    } from "../menuStore.js";
+    import SourceFxApp from "../videoPreviews/sourceFXApp.svelte";
+    import TargetFxApp from "../videoPreviews/targetFXApp.svelte";
 
     export let flagData;
     export let flagPath;
@@ -56,6 +67,49 @@
             aaColorMenu.static[menuType][animation][newVariant]
         )[0];
     }
+
+    function onClick() {
+        new TJSDialog({
+            modal: false,
+            draggable: true,
+            resizable: true,
+            id: "Field01",
+            title:
+                flagPath === "sourceExtraFX"
+                    ? "Extra Source Effect"
+                    : "Extra Target Effect",
+            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+            content: {
+                class: flagPath === "sourceExtraFX" ? SourceFxApp : TargetFxApp,
+            },
+        }).render(true);
+        
+    }
+    let sourceFilePath;
+    $: if (flagPath === "sourceExtraFX") {
+        sourceFilePath =
+            color === "random"
+                ? `autoanimations.static.${menuType}.${animation}.${variant}`
+                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+    }
+    let targetFilePath;
+    $: if (flagPath === "targetExtraFX") {
+        targetFilePath =
+            color === "random"
+                ? `autoanimations.static.${menuType}.${animation}.${variant}`
+                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+    }
+    $: if (flagPath === "sourceExtraFX") {
+        menuDBPathSourceFX.set(sourceFilePath);
+        customFilePathSourceFX.set(customPath);
+        customCheckedSourceFX.set(isCustom);
+    }
+    $: if (flagPath === "targetExtraFX") {
+        menuDBPathTargetFX.set(targetFilePath);
+        customFilePathTargetFX.set(customPath);
+        customCheckedTargetFX.set(isCustom);
+    }
+
 </script>
 
 <div class="aa-3wide" transition:fade={{ duration: 500 }}>
@@ -133,6 +187,11 @@
     </div>
 </div>
 <CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath />
+<div class="aa-3wide">
+    <div class="flexcol" style="grid-row: 1/2; grid-column:2/3">
+        <button on:click={() => onClick()}>Video Preview</button>
+    </div>
+</div>
 
 
 <style lang="scss">
@@ -156,5 +215,12 @@
     }
     .aa-3wide label {
         align-self: center;
+    }
+    .aa-3wide button {
+        border-radius: 10px;
+        border: 2px outset #dddddd;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
     }
 </style>

@@ -14,6 +14,7 @@ import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
 import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
 import aaSettings from "./settings.js";
+import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js"
 
 import { teleportation } from "./animation-functions/teleportation.js";
 import { setupSocket } from "./socketset.js";
@@ -425,7 +426,7 @@ class AutoAnimations {
     }
 }
 window.AutoAnimations = AutoAnimations;
-
+window.AAAutorec = aaAutoRecognition;
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
