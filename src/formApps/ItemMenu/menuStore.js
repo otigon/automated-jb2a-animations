@@ -32,3 +32,6 @@ let isCustomTargetFX;
 export const customCheckedTargetFX = writable(isCustomTargetFX);
 let fileDataTargetFX;
 export const menuDBPathTargetFX = writable(fileDataTargetFX);
+
+let fileDataSwitch;
+export const menuDBPathSwitch = writable(fileDataSwitch);

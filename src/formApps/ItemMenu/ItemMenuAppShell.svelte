@@ -233,7 +233,6 @@
                             <Options {animType} {menuType} {flagData} />
                             <SoundSettings audioPath="a01" {flagData} />
                             {#if animType === "melee"}
-                                <h1>Melee Range Switch</h1>
                                 <RangeSwitch {flagData} />
                             {/if}
                         {/if}
@@ -440,15 +439,6 @@
     .notSelected {
         background-color: rgba(219, 132, 2, 0.4);
         transition: background-color 0.5s;
-    }
-    h1 {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        color: black;
     }
     .aa-5wide {
         display: grid;

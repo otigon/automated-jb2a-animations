@@ -99,7 +99,7 @@
         {flagData}
     />
     {#if enableSection}
-    <h2 transition:fade>Options</h2>
+    <h2 style="margin-top:5px" transition:fade>Options</h2>
     <div
         class="aa-options"
         transition:fade
