@@ -31,6 +31,7 @@
     export let flagData;
     export let flagPath;
     export let previewType;
+    export let sectionTitle;
 
     // Defines the initial Flag path depending on the Section calling this Component
     let rootPath;
@@ -206,9 +207,54 @@
         onlyX = onlyX;
         options.onlyX = onlyX;
     }
+
+    export let explosionEnabled = rootPath.enable || false;
+    $: {
+        explosionEnabled = explosionEnabled;
+        rootPath.enable = explosionEnabled;
+    }
+    let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
+    $: explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
 </script>
 
 <div transition:fade={{ duration: 500 }}>
+    <div class="aa-header-section">
+        <div class="aa-header">
+            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                <label for="">{sectionTitle}</label>
+            </div>
+            {#if (previewType === "primary" && menuType) || (previewType === "explosion" && animation)}
+            <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+                <i class="fas fa-video aa-video-preview" on:click={() => onClick(previewType)}></i>
+            </div>
+            {/if}
+        </div>
+    </div>
+    {#if flagPath === "explosions"}
+    <div class="aa-3wide aa-button-labels">
+        <div style="grid-row:1/2; grid-column:2/3">
+            <div
+                class="flexcol"
+                style="grid-row:1/2; grid-column:2/3"
+            >
+                <input
+                    type="checkbox"
+                    id="enableExplosion"
+                    hidden
+                    bind:checked={explosionEnabled}
+                />
+                <label
+                    for="enableExplosion"
+                    class={explosionEnabled
+                        ? "exSelected"
+                        : "exNotSelected"}
+                    >{explosionLabel}</label
+                >
+            </div>
+        </div>
+    </div>
+    {/if}
+    {#if (flagPath === "explosions" && explosionEnabled) || flagPath === "PrimaryAnimation"}
     <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
     {#if flagPath !== "explosions"}
         <div class="aa-3wide">
@@ -352,11 +398,6 @@
         </div>
         <CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath />
         <div class="aa-3wide">
-            <div class="flexcol" style="grid-row: 1/2; grid-column:2/3">
-                <button on:click={() => onClick(previewType)}
-                    >Video Preview</button
-                >
-            </div>
             {#if animType === "range" && isCustom && flagPath === "PrimaryAnimation"}
                 <div
                     class="flexcol button-labels"
@@ -377,6 +418,7 @@
                 </div>
             {/if}
         </div>
+    {/if}
     {/if}
 </div>
 
@@ -406,12 +448,28 @@
     .aa-3wide label {
         align-self: center;
     }
-    .aa-3wide button {
-        border-radius: 10px;
-        border: 2px outset #dddddd;
+    .aa-header {
+        display: grid;
+        grid-template-columns: 10% 80% 10%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 8%;
+        margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
+        color: black;
+    }
+    .aa-header label {
+        align-self: center;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 5%;
+        margin-left: 5%;
+        color: black;
     }
     .isPopulated {
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
@@ -438,5 +496,34 @@
         text-align: center;
         width: 100%;
         border: 2px outset #dddddd;
+    }
+    .aa-video-preview {
+        color: rgba(26, 60, 250, 0.6);
+    }
+    .aa-video-preview:hover {
+        color: rgba(7, 132, 25, 0.6)
+    }
+    .aa-header-section {
+        border-bottom: 2px solid rgba(120, 46, 34, 1); 
+        margin-right:5%;
+        margin-left:5%;
+    }
+    .aa-button-labels label {
+        border-radius: 10px;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+        padding: 5px;
+        text-align: center;
+        width: 100%;
+        border: 2px outset #dddddd;
+    }
+    .exSelected {
+        background-color: rgba(25, 175, 2, 0.2);
+        transition: background-color 0.5s;
+    }
+    .exNotSelected {
+        background-color: rgba(219, 132, 2, 0.2);
+        transition: background-color 0.5s;
     }
 </style>

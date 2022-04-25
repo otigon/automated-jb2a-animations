@@ -30,10 +30,13 @@
         belowToken = !belowToken;
     }
 
+    let explosionEnabled;
+    $: explosionEnabled = explosionEnabled;
 </script>
 
 <div>
-    <SelectAnimation previewType="explosion" flagPath="explosions" {flagData} />
+    <SelectAnimation bind:explosionEnabled previewType="explosion" flagPath="explosions" sectionTitle="Explosion" {flagData} />
+    {#if explosionEnabled}
     <h2>Options</h2>
     <div class='aa-3wide'>
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 3;">
@@ -50,6 +53,7 @@
         </div>
     </div>
     <SoundSettings audioPath="e01" {flagData} />
+    {/if}
 </div>
 
 <style lang="scss">

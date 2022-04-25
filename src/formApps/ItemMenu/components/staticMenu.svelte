@@ -22,6 +22,7 @@
 
     export let flagData;
     export let flagPath;
+    export let sectionTitle;
     let root;
     switch (flagPath) {
         case "sourceExtraFX":
@@ -32,13 +33,24 @@
             break;
     }
     let preBuild = root.menuType;
-    export let menuType = root.menuType ? root.menuType : Object.keys(aaTypeMenu.static)[0];;
+    export let menuType = root.menuType
+        ? root.menuType
+        : Object.keys(aaTypeMenu.static)[0];
     $: menuType = root.menuType = menuType;
-    export let animation = preBuild && root.name ? root.name : Object.keys(aaNameMenu.static[menuType])[0];
+    export let animation =
+        preBuild && root.name
+            ? root.name
+            : Object.keys(aaNameMenu.static[menuType])[0];
     $: animation = root.name = animation;
-    export let variant = preBuild && root.variant ? root.variant : Object.keys(aaVariantMenu.static[menuType][animation])[0];
+    export let variant =
+        preBuild && root.variant
+            ? root.variant
+            : Object.keys(aaVariantMenu.static[menuType][animation])[0];
     $: variant = root.variant = variant;
-    export let color = preBuild && root.color ? root.color : Object.keys(aaColorMenu.static[menuType][animation][variant])[0];
+    export let color =
+        preBuild && root.color
+            ? root.color
+            : Object.keys(aaColorMenu.static[menuType][animation][variant])[0];
     $: color = root.color = color;
 
     export let isCustom;
@@ -68,7 +80,7 @@
         )[0];
     }
 
-    function onClick() {
+    function onClick(flagPath) {
         new TJSDialog({
             modal: false,
             draggable: true,
@@ -83,7 +95,6 @@
                 class: flagPath === "sourceExtraFX" ? SourceFxApp : TargetFxApp,
             },
         }).render(true);
-        
     }
     let sourceFilePath;
     $: if (flagPath === "sourceExtraFX") {
@@ -110,8 +121,54 @@
         customCheckedTargetFX.set(isCustom);
     }
 
+    export let enableSection =
+        flagPath === "sourceExtraFX"
+            ? flagData.sourceToken.enable || false
+            : flagPath === "targetExtraFX"
+            ? flagData.targetToken.enable || false
+            : true;
+
+    let enableSource = flagData.sourceToken.enable || false;
+    $: enableSource = flagData.sourceToken.enable = enableSource;
+    let sourceLabel = enableSource ? "Enabled" : "Disabled";
+    $: sourceLabel = enableSource ? "Enabled" : "Disabled";
+
+    let enableTarget = flagData.targetToken.enable || false;
+    $: enableTarget = flagData.targetToken.enable = enableTarget;
+    let targetLabel = enableTarget ? "Enabled" : "Disabled";
+    $: targetLabel = enableTarget ? "Enabled" : "Disabled";
+
+    $: root.enable = enableSection
+    function switchEnable() {
+        enableSection = !enableSection;
+    }
+
 </script>
 
+<div class="aa-header-section">
+    <div class="aa-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+            <label for="">{sectionTitle}</label>
+        </div>
+        <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+            <i
+                class="fas fa-video aa-video-preview"
+                on:click={() => onClick(flagPath)}
+            />
+        </div>
+    </div>
+</div>
+<div class="aa-3wide">
+    <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+        <button
+            class={enableSection ? "selected" : "notSelected"}
+            on:click={() => switchEnable()}
+        >
+            {targetLabel}</button
+        >
+    </div>
+</div>
+{#if enableSection}
 <div class="aa-3wide" transition:fade={{ duration: 500 }}>
     <!--Type Menu-->
     <div class="flexcol" style="grid-row: 2 / 3;grid-column: 2 / 3;">
@@ -187,14 +244,42 @@
     </div>
 </div>
 <CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath />
-<div class="aa-3wide">
-    <div class="flexcol" style="grid-row: 1/2; grid-column:2/3">
-        <button on:click={() => onClick()}>Video Preview</button>
-    </div>
-</div>
-
-
+{/if}
 <style lang="scss">
+    .aa-header-section {
+        border-bottom: 2px solid rgba(120, 46, 34, 1);
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+    .aa-header {
+        display: grid;
+        grid-template-columns: 10% 80% 10%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 8%;
+        margin-left: 5%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+        color: black;
+    }
+    .aa-header label {
+        align-self: center;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 5%;
+        margin-left: 5%;
+        color: black;
+    }
+    .aa-video-preview {
+        color: rgba(26, 60, 250, 0.6);
+    }
+    .aa-video-preview:hover {
+        color: rgba(7, 132, 25, 0.6);
+    }
     .aa-3wide {
         display: grid;
         grid-template-columns: 33.3% 33.3% 33.3%;
@@ -216,11 +301,20 @@
     .aa-3wide label {
         align-self: center;
     }
+    .selected {
+        background-color: rgba(25, 175, 2, 0.18);
+        transition: background-color 0.5s;
+    }
+    .notSelected {
+        background-color: rgba(219, 132, 2, 0.18);
+        transition: background-color 0.5s;
+    }
     .aa-3wide button {
         border-radius: 10px;
         border: 2px outset #dddddd;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
         font-weight: bold;
+        font-size: large;
+        height: auto;
     }
 </style>

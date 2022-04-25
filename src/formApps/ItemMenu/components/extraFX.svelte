@@ -10,16 +10,19 @@
 
     let root;
     let audioPath;
+    let sectionTitle;
     switch (flagPath) {
         case "sourceExtraFX":
             console.log("Source FX Options");
             root = flagData.sourceToken;
             audioPath = "s01";
+            sectionTitle = "Extra Source Effect";
             break;
         case "targetExtraFX":
             console.log("Target FX Options");
             root = flagData.targetToken;
             audioPath = "t01";
+            sectionTitle = "Extra Target Effect";
             break;
     }
 
@@ -83,20 +86,23 @@
     let customPath;
     $: customPath = customPath;
 
+    let enableSection = root.enable || false;
 </script>
 
 <div transition:fade={{ duration: 500 }}>
     <StaticMenu
+        {sectionTitle}
+        bind:enableSection
         bind:isCustom
         bind:customPath
         {flagPath}
         {flagData}
     />
-    <h2>Options</h2>
+    {#if enableSection}
+    <h2 transition:fade>Options</h2>
     <div
         class="aa-options"
-        in:fade={{ duration: 500 }}
-        out:fade={{ duration: 500 }}
+        transition:fade
     >
         <!--Persistent Setting-->
         <div
@@ -213,6 +219,7 @@
         </div>
     </div>
     <SoundSettings {audioPath} {flagData} />
+    {/if}
 </div>
 
 <style lang="scss">

@@ -221,12 +221,10 @@
                 {/if}
                 {#if !animationDisabled && isCustomized}
                     <div class="aaMenu-section">
-                        <div style="padding-top: 10px">
-                            <h1>Primary Animation</h1>
-                        </div>
                         <SelectAnimation
                             previewType="primary"
                             flagPath="PrimaryAnimation"
+                            sectionTitle="Primary Animation"
                             {flagData}
                             bind:animType
                             bind:menuType
@@ -242,34 +240,7 @@
                     </div>
                     {#if animType === "melee" || animType === "range" || animType === "static"}
                         <div class="aaMenu-section">
-                            <div style="padding-top: 10px">
-                                <h1>Explosion</h1>
-                            </div>
-                            <div class="aa-3wide aa-button-labels">
-                                <div style="grid-row:1/2; grid-column:2/3">
-                                    <div
-                                        class="flexcol"
-                                        style="grid-row:1/2; grid-column:2/3"
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            id="enableExplosion"
-                                            hidden
-                                            bind:checked={explosionEnabled}
-                                        />
-                                        <label
-                                            for="enableExplosion"
-                                            class={explosionEnabled
-                                                ? "exSelected"
-                                                : "exNotSelected"}
-                                            >{explosionLabel}</label
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            {#if explosionEnabled}
-                                <ExplosionSettings {flagData} />
-                            {/if}
+                            <ExplosionSettings {flagData} />
                         </div>
                     {/if}
                 {/if}
@@ -352,60 +323,10 @@
                     </div>
                 </div>
                 <div class="aaMenu-section">
-                    <h1>Extra Source Effect</h1>
-                    <div class="aa-3wide">
-                        <!--Enable Source Animation-->
-                        <div
-                            class="flexcol aa-button-labels"
-                            style="grid-row: 1 / 2; grid-column: 2 / 3"
-                        >
-                            <input
-                                type="checkbox"
-                                id="addSourceFX"
-                                hidden
-                                bind:checked={enableSource}
-                            />
-                            <label
-                                for="addSourceFX"
-                                class={enableSource
-                                    ? "exSelected"
-                                    : "exNotSelected"}
-                                style="border: 2px outset #dddddd"
-                                >{sourceLabel}</label
-                            >
-                        </div>
-                    </div>
-                    {#if enableSource}
-                        <ExtraFX flagPath="sourceExtraFX" {flagData} />
-                    {/if}
+                    <ExtraFX flagPath="sourceExtraFX" {flagData} />
                 </div>
                 <div class="aaMenu-section">
-                    <h1>Extra Target Effect</h1>
-                    <div class="aa-3wide">
-                        <!--Enable Source Animation-->
-                        <div
-                            class="flexcol aa-button-labels"
-                            style="grid-row: 1 / 2; grid-column: 2 / 3"
-                        >
-                            <input
-                                type="checkbox"
-                                id="addTargetFX"
-                                hidden
-                                bind:checked={enableTarget}
-                            />
-                            <label
-                                for="addTargetFX"
-                                class={enableTarget
-                                    ? "exSelected"
-                                    : "exNotSelected"}
-                                style="border: 2px outset #dddddd"
-                                >{targetLabel}</label
-                            >
-                        </div>
-                    </div>
-                    {#if enableTarget}
-                        <ExtraFX flagPath="targetExtraFX" {flagData} />
-                    {/if}
+                    <ExtraFX flagPath="targetExtraFX" {flagData} />
                 </div>
             </div>
         {/if}
@@ -520,14 +441,6 @@
         background-color: rgba(219, 132, 2, 0.4);
         transition: background-color 0.5s;
     }
-    .exSelected {
-        background-color: rgba(25, 175, 2, 0.2);
-        transition: background-color 0.5s;
-    }
-    .exNotSelected {
-        background-color: rgba(219, 132, 2, 0.2);
-        transition: background-color 0.5s;
-    }
     h1 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
@@ -536,18 +449,6 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
-    }
-    .aa-3wide {
-        display: grid;
-        grid-template-columns: 33.3% 33.3% 33.3%;
-        grid-gap: 5px;
-        padding: 5px;
-        align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
     }
     .aa-5wide {
         display: grid;
