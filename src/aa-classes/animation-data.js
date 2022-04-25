@@ -213,10 +213,10 @@ export class AAanimationData {
 
                 switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation || "" : flags.animation || "",
                 switchType: meleeSwitch.switchType || "on",
-                switchColor: meleeSwitch.color || "white",
+                switchColor: meleeSwitch.switchType === 'custom' ? meleeSwitch.color || "white" : flags.color || "",
                 detect: meleeSwitch.detect ?? "auto",
                 return: meleeSwitch.returning || false,
-                switchVariant: meleeSwitch.variant ?? "01",
+                switchVariant: meleeSwitch.switchType === 'custom' ? meleeSwitch.variant || "01" : options.variant || '01',
                 switchMenuType: meleeSwitch.menuType || "weapon",
                 range: meleeSwitch.range ?? 2,
                 switchAudio: {
