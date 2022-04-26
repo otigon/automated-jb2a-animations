@@ -16,13 +16,13 @@
             console.log("Source FX Options");
             root = flagData.sourceToken;
             audioPath = "s01";
-            sectionTitle = "Extra Source Effect";
+            sectionTitle = "Source Effect";
             break;
         case "targetExtraFX":
             console.log("Target FX Options");
             root = flagData.targetToken;
             audioPath = "t01";
-            sectionTitle = "Extra Target Effect";
+            sectionTitle = "Target Effect";
             break;
     }
 

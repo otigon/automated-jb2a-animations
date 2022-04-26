@@ -17,7 +17,7 @@
     import StaticMenu from "./components/staticMenu.svelte";
     import ExtraFX from "./components/extraFX.svelte";
     import Menu3d from "./components/3dMenuShell.svelte";
-    //import { menuAnimType } from "./menuStore.js"
+    import { extraSource, extraTarget } from "./menuStore.js"
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
 
@@ -128,23 +128,18 @@
         extraTab = false;
     }
 
-    let explosionEnabled = flagData.explosions.enable || false;
-    $: {
-        explosionEnabled = explosionEnabled;
-        flagData.explosions.enable = explosionEnabled;
-    }
-    let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
-    $: explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
-
     let enableSource = flagData.sourceToken.enable || false;
-    $: enableSource = flagData.sourceToken.enable = enableSource;
-    let sourceLabel = enableSource ? "Enabled" : "Disabled";
-    $: sourceLabel = enableSource ? "Enabled" : "Disabled";
+    $: enableSource = enableSource;
+    extraSource.subscribe((value) => {
+        enableSource = value;
+    });
 
     let enableTarget = flagData.targetToken.enable || false;
-    $: enableTarget = flagData.targetToken.enable = enableTarget;
-    let targetLabel = enableTarget ? "Enabled" : "Disabled";
-    $: targetLabel = enableTarget ? "Enabled" : "Disabled";
+    $: enableTarget = enableTarget;
+    extraTarget.subscribe((value) => {
+        enableTarget = value;
+    });
+
 </script>
 
 <ApplicationShell

@@ -35,3 +35,9 @@ export const menuDBPathTargetFX = writable(fileDataTargetFX);
 
 let fileDataSwitch;
 export const menuDBPathSwitch = writable(fileDataSwitch);
+
+let sourceEnabled;
+export const extraSource = writable(sourceEnabled);
+
+let targetEnabled;
+export const extraTarget = writable(targetEnabled);

@@ -16,6 +16,8 @@
         menuDBPathTargetFX,
         customFilePathTargetFX,
         customCheckedTargetFX,
+        extraSource,
+        extraTarget,
     } from "../menuStore.js";
     import SourceFxApp from "../videoPreviews/sourceFXApp.svelte";
     import TargetFxApp from "../videoPreviews/targetFXApp.svelte";
@@ -127,27 +129,44 @@
             : flagPath === "targetExtraFX"
             ? flagData.targetToken.enable || false
             : true;
+    $: enableSection = enableSection;
 
     let enableSource = flagData.sourceToken.enable || false;
     $: enableSource = flagData.sourceToken.enable = enableSource;
-    let sourceLabel = enableSource ? "Enabled" : "Disabled";
-    $: sourceLabel = enableSource ? "Enabled" : "Disabled";
 
     let enableTarget = flagData.targetToken.enable || false;
     $: enableTarget = flagData.targetToken.enable = enableTarget;
-    let targetLabel = enableTarget ? "Enabled" : "Disabled";
-    $: targetLabel = enableTarget ? "Enabled" : "Disabled";
 
-    $: root.enable = enableSection
+    let enabledLabel = root.enable ? "Enabled" : "Disabled";
+    $: enabledLabel =
+        flagPath == "sourceExtraFX"
+            ? enableSection
+                ? "Enabled"
+                : "Disabled"
+            : enableSection
+            ? "Enabled"
+            : "Disabled";
+
+    $: {
+        if (flagPath === "sourceExtraFX") {
+            extraSource.set(enableSection);
+        }
+    }
+
+    $: {
+        if (flagPath === "targetExtraFX") {
+            extraTarget.set(enableSection);
+        }
+    }
+    $: root.enable = enableSection;
     function switchEnable() {
         enableSection = !enableSection;
     }
-
 </script>
 
 <div class="aa-header-section">
     <div class="aa-header">
-        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
             <label for="">{sectionTitle}</label>
         </div>
         <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
@@ -156,104 +175,106 @@
                 on:click={() => onClick(flagPath)}
             />
         </div>
-    </div>
-</div>
-<div class="aa-3wide">
-    <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-        <button
-            class={enableSection ? "selected" : "notSelected"}
-            on:click={() => switchEnable()}
-        >
-            {targetLabel}</button
-        >
+        <div class="flexcol" style="grid-row:1/2; grid-column:4/5">
+            <button
+                class={enableSection ? "selected" : "notSelected"}
+                on:click={() => switchEnable()}
+            >
+                {enabledLabel}</button
+            >
+        </div>    
     </div>
 </div>
 {#if enableSection}
-<div class="aa-3wide" transition:fade={{ duration: 500 }}>
-    <!--Type Menu-->
-    <div class="flexcol" style="grid-row: 2 / 3;grid-column: 2 / 3;">
-        <label for="2">{localize("AUTOANIM.type")}</label>
-        <select
-            bind:value={menuType}
-            on:change={async () => await menuTypeChange()}
-            id="2"
-            disabled={isCustom}
-            class={menuType != "" && !isCustom
-                ? "isPopulated"
-                : "isNotPopulated"}
-        >
-            {#each Object.entries(aaTypeMenu.static) as [key, name]}
-                <option value={key}>{name}</option>
-            {/each}
-        </select>
-    </div>
-    <!--Animation Menu-->
-    <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
-        <label for="3">{localize("AUTOANIM.animation")}</label>
-        <select
-            bind:value={animation}
-            on:change={async () => await animationChange()}
-            id="3"
-            disabled={isCustom}
-            class={animation != "" && !isCustom
-                ? "isPopulated"
-                : "isNotPopulated"}
-        >
-            {#if menuType != ""}
-                {#each Object.entries(aaNameMenu.static[menuType]) as [key, name]}
+    <div class="aa-3wide" transition:fade={{ duration: 500 }}>
+        <!--Type Menu-->
+        <div class="flexcol" style="grid-row: 2 / 3;grid-column: 2 / 3;">
+            <label for="2">{localize("AUTOANIM.type")}</label>
+            <select
+                bind:value={menuType}
+                on:change={async () => await menuTypeChange()}
+                id="2"
+                disabled={isCustom}
+                class={menuType != "" && !isCustom
+                    ? "isPopulated"
+                    : "isNotPopulated"}
+            >
+                {#each Object.entries(aaTypeMenu.static) as [key, name]}
                     <option value={key}>{name}</option>
                 {/each}
-            {/if}
-        </select>
+            </select>
+        </div>
+        <!--Animation Menu-->
+        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
+            <label for="3">{localize("AUTOANIM.animation")}</label>
+            <select
+                bind:value={animation}
+                on:change={async () => await animationChange()}
+                id="3"
+                disabled={isCustom}
+                class={animation != "" && !isCustom
+                    ? "isPopulated"
+                    : "isNotPopulated"}
+            >
+                {#if menuType != ""}
+                    {#each Object.entries(aaNameMenu.static[menuType]) as [key, name]}
+                        <option value={key}>{name}</option>
+                    {/each}
+                {/if}
+            </select>
+        </div>
+        <!--Variant Menu-->
+        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
+            <label for="4">{localize("AUTOANIM.variant")}</label>
+            <select
+                bind:value={variant}
+                on:change={async () => await variantChange()}
+                id="4"
+                disabled={isCustom}
+                class={variant != "" && !isCustom
+                    ? "isPopulated"
+                    : "isNotPopulated"}
+            >
+                {#if (menuType != "") & (animation != "")}
+                    {#each Object.entries(aaVariantMenu.static[menuType][animation]) as [key, name]}
+                        <option value={key}>{name}</option>
+                    {/each}
+                {/if}
+            </select>
+        </div>
+        <!--Color Menu-->
+        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
+            <label for="5">{localize("AUTOANIM.color")}</label>
+            <select
+                name="flags.autoanimations.color"
+                bind:value={color}
+                id="5"
+                disabled={isCustom}
+                class={color != "" && !isCustom
+                    ? "isPopulated"
+                    : "isNotPopulated"}
+            >
+                {#if menuType != "" && animation != "" && variant != ""}
+                    {#each Object.entries(aaColorMenu.static[menuType][animation][variant]) as [key, name]}
+                        <option value={key}>{name}</option>
+                    {/each}
+                {/if}
+            </select>
+        </div>
     </div>
-    <!--Variant Menu-->
-    <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
-        <label for="4">{localize("AUTOANIM.variant")}</label>
-        <select
-            bind:value={variant}
-            on:change={async () => await variantChange()}
-            id="4"
-            disabled={isCustom}
-            class={variant != "" && !isCustom
-                ? "isPopulated"
-                : "isNotPopulated"}
-        >
-            {#if (menuType != "") & (animation != "")}
-                {#each Object.entries(aaVariantMenu.static[menuType][animation]) as [key, name]}
-                    <option value={key}>{name}</option>
-                {/each}
-            {/if}
-        </select>
-    </div>
-    <!--Color Menu-->
-    <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
-        <label for="5">{localize("AUTOANIM.color")}</label>
-        <select
-            name="flags.autoanimations.color"
-            bind:value={color}
-            id="5"
-            disabled={isCustom}
-            class={color != "" && !isCustom ? "isPopulated" : "isNotPopulated"}
-        >
-            {#if menuType != "" && animation != "" && variant != ""}
-                {#each Object.entries(aaColorMenu.static[menuType][animation][variant]) as [key, name]}
-                    <option value={key}>{name}</option>
-                {/each}
-            {/if}
-        </select>
-    </div>
-</div>
-<CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath />
+    <CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath />
 {/if}
+
 <style lang="scss">
     .aa-header-section {
         border-bottom: 2px solid rgba(120, 46, 34, 1);
         margin-right: 5%;
         margin-left: 5%;
+        margin-bottom: 5px;
     }
     .aa-header {
         display: grid;
-        grid-template-columns: 10% 80% 10%;
+        grid-template-columns: 10% 20% 40% 30%;
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
@@ -309,7 +330,7 @@
         background-color: rgba(219, 132, 2, 0.18);
         transition: background-color 0.5s;
     }
-    .aa-3wide button {
+    .aa-header button {
         border-radius: 10px;
         border: 2px outset #dddddd;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
