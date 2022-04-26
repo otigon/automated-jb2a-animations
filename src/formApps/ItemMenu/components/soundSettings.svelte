@@ -30,8 +30,8 @@
     $: section01.startTime = startTime;
 
     let volume = section01.volume;
-    $: volume = volume > 1 ? 1 : volume;
-    $: section01.volume = volume > 1 ? 1 : volume;
+    $: volume = volume;
+    $: section01.volume = volume;
 
     let delay = section01.delay;
     $: delay = delay;
@@ -55,10 +55,28 @@
         }, 100);
         await picker.browse(current);
     }
+
+    function playSound() {
+        AudioHelper.play({ src: soundPath, volume: volume, autoplay: true, loop: false }, true);
+    }
 </script>
 
 <div transition:fade={{ duration: 500 }}>
-    <h2>{localize("AUTOANIM.sound")}</h2>
+    <div class="aa-header-section">
+        <div class="aa-header">
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+                <label for="">{localize("AUTOANIM.sound")}</label>
+            </div>
+            {#if soundEnabled && soundPath}
+            <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+                <i
+                    class="fas fa-music aa-video-preview"
+                    on:click={() => playSound()}
+                />
+            </div>
+            {/if}
+        </div>
+    </div>
     <div class="aa-3wide button-labels">
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
             <button
@@ -162,14 +180,6 @@
         font-size: large;
         height: auto;
     }
-    h2 {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 15%;
-        margin-left: 15%;
-    }
     .isPopulated {
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
         transition: box-shadow 0.5s;
@@ -196,5 +206,40 @@
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
+    }
+    .aa-header-section {
+        border-bottom: 1px solid rgba(120, 46, 34, 1);
+        margin-right: 15%;
+        margin-left: 15%;
+        margin-bottom: 5px;
+    }
+    .aa-header {
+        display: grid;
+        grid-template-columns: 10% 20% 40% 30%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 8%;
+        margin-left: 5%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+        color: black;
+    }
+    .aa-header label {
+        align-self: center;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 5%;
+        margin-left: 5%;
+        color: black;
+    }
+    .aa-video-preview {
+        color: rgba(26, 60, 250, 0.6);
+    }
+    .aa-video-preview:hover {
+        color: rgba(7, 132, 25, 0.6);
     }
 </style>

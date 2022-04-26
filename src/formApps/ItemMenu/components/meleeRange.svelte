@@ -133,7 +133,7 @@
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
             <label for="">Melee Range Switch</label>
         </div>
-        {#if menuType}
+        {#if menuType && switchType === "custom"}
             <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
                 <i
                     class="fas fa-video aa-video-preview"

@@ -17,7 +17,7 @@
     import StaticMenu from "./components/staticMenu.svelte";
     import ExtraFX from "./components/extraFX.svelte";
     import Menu3d from "./components/3dMenuShell.svelte";
-    import { extraSource, extraTarget } from "./menuStore.js"
+    import { extraSource, extraTarget } from "./menuStore.js";
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
 
@@ -139,7 +139,6 @@
     extraTarget.subscribe((value) => {
         enableTarget = value;
     });
-
 </script>
 
 <ApplicationShell
@@ -227,9 +226,11 @@
                         {#if animType}
                             <Options {animType} {menuType} {flagData} />
                             <SoundSettings audioPath="a01" {flagData} />
-                            {#if animType === "melee"}
-                                <RangeSwitch {flagData} />
-                            {/if}
+                        {/if}
+                    </div>
+                    <div class="aaMenu-section">
+                        {#if animType === "melee"}
+                            <RangeSwitch {flagData} />
                         {/if}
                     </div>
                     {#if animType === "melee" || animType === "range" || animType === "static"}
@@ -257,17 +258,19 @@
                             >
                         </div>
                         {#if enableSource}
-                        <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:2/3"
-                        >
-                            <label
-                                for=""
-                                style="align-self:center"
-                                transition:fade
-                                ><i class="fas fa-arrow-right fa-2xl" /></label
+                            <div
+                                class="flexcol"
+                                style="grid-row:1/2; grid-column:2/3"
                             >
-                        </div>
+                                <label
+                                    for=""
+                                    style="align-self:center"
+                                    transition:fade
+                                    ><i
+                                        class="fas fa-arrow-right fa-2xl"
+                                    /></label
+                                >
+                            </div>
                         {/if}
                         <div
                             class="flexcol aa-button-labels"
@@ -281,17 +284,19 @@
                             >
                         </div>
                         {#if enableTarget}
-                        <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:4/5"
-                        >
-                            <label
-                                for=""
-                                style="align-self:center"
-                                transition:fade
-                                ><i class="fas fa-arrow-right fa-2xl" /></label
+                            <div
+                                class="flexcol"
+                                style="grid-row:1/2; grid-column:4/5"
                             >
-                        </div>
+                                <label
+                                    for=""
+                                    style="align-self:center"
+                                    transition:fade
+                                    ><i
+                                        class="fas fa-arrow-right fa-2xl"
+                                    /></label
+                                >
+                            </div>
                         {/if}
                         <div
                             class="flexcol aa-button-labels"
