@@ -31567,33 +31567,33 @@ class ExplosionApp extends SvelteComponent {
 
 function get_each_context$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[41] = list[i][0];
-	child_ctx[42] = list[i][1];
+	child_ctx[42] = list[i][0];
+	child_ctx[43] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_1$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[41] = list[i][0];
-	child_ctx[42] = list[i][1];
+	child_ctx[42] = list[i][0];
+	child_ctx[43] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_2$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[41] = list[i][0];
-	child_ctx[42] = list[i][1];
+	child_ctx[42] = list[i][0];
+	child_ctx[43] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_3$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[41] = list[i][0];
-	child_ctx[42] = list[i][1];
+	child_ctx[42] = list[i][0];
+	child_ctx[43] = list[i][1];
 	return child_ctx;
 }
 
-// (226:12) {#if (previewType === "primary" && menuType) || (previewType === "explosion" && animation && explosionEnabled)}
+// (230:12) {#if (previewType === "primary" && menuType) || (previewType === "explosion" && animation && explosionEnabled)}
 function create_if_block_10$1(ctx) {
 	let div;
 	let i;
@@ -31627,81 +31627,52 @@ function create_if_block_10$1(ctx) {
 	};
 }
 
-// (233:4) {#if flagPath === "explosions"}
+// (235:12) {#if flagPath === "explosions"}
 function create_if_block_9$1(ctx) {
-	let div2;
-	let div1;
-	let div0;
-	let input;
-	let t0;
-	let label;
-	let t1;
-	let label_class_value;
+	let div;
+	let i;
+	let i_class_value;
 	let mounted;
 	let dispose;
 
 	return {
 		c() {
-			div2 = element("div");
-			div1 = element("div");
-			div0 = element("div");
-			input = element("input");
-			t0 = space();
-			label = element("label");
-			t1 = text(/*explosionLabel*/ ctx[15]);
-			attr(input, "type", "checkbox");
-			attr(input, "id", "enableExplosion");
-			input.hidden = true;
-			attr(label, "for", "enableExplosion");
+			div = element("div");
+			i = element("i");
 
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*explosionEnabled*/ ctx[2]
-			? "exSelected"
-			: "exNotSelected") + " svelte-13nmue0"));
+			attr(i, "class", i_class_value = "" + (null_to_empty(/*explosionEnabled*/ ctx[2]
+			? "fas fa-minus aa-red"
+			: "fas fa-plus aa-green") + " svelte-el6p35"));
 
-			attr(div0, "class", "flexcol");
-			set_style(div0, "grid-row", "1/2");
-			set_style(div0, "grid-column", "2/3");
-			set_style(div1, "grid-row", "1/2");
-			set_style(div1, "grid-column", "2/3");
-			attr(div2, "class", "aa-3wide aa-button-labels svelte-13nmue0");
+			attr(div, "class", "flexcol");
+			set_style(div, "grid-row", "1/2");
+			set_style(div, "grid-column", "5/6");
 		},
 		m(target, anchor) {
-			insert(target, div2, anchor);
-			append(div2, div1);
-			append(div1, div0);
-			append(div0, input);
-			input.checked = /*explosionEnabled*/ ctx[2];
-			append(div0, t0);
-			append(div0, label);
-			append(label, t1);
+			insert(target, div, anchor);
+			append(div, i);
 
 			if (!mounted) {
-				dispose = listen(input, "change", /*input_change_handler*/ ctx[24]);
+				dispose = listen(i, "click", /*click_handler_1*/ ctx[24]);
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*explosionEnabled*/ 4) {
-				input.checked = /*explosionEnabled*/ ctx[2];
-			}
-
-			if (dirty[0] & /*explosionLabel*/ 32768) set_data(t1, /*explosionLabel*/ ctx[15]);
-
-			if (dirty[0] & /*explosionEnabled*/ 4 && label_class_value !== (label_class_value = "" + (null_to_empty(/*explosionEnabled*/ ctx[2]
-			? "exSelected"
-			: "exNotSelected") + " svelte-13nmue0"))) {
-				attr(label, "class", label_class_value);
+			if (dirty[0] & /*explosionEnabled*/ 4 && i_class_value !== (i_class_value = "" + (null_to_empty(/*explosionEnabled*/ ctx[2]
+			? "fas fa-minus aa-red"
+			: "fas fa-plus aa-green") + " svelte-el6p35"))) {
+				attr(i, "class", i_class_value);
 			}
 		},
 		d(detaching) {
-			if (detaching) detach(div2);
+			if (detaching) detach(div);
 			mounted = false;
 			dispose();
 		}
 	};
 }
 
-// (257:4) {#if (flagPath === "explosions" && explosionEnabled) || flagPath === "PrimaryAnimation"}
+// (242:4) {#if (flagPath === "explosions" && explosionEnabled) || flagPath === "PrimaryAnimation"}
 function create_if_block$a(ctx) {
 	let t;
 	let if_block1_anchor;
@@ -31778,7 +31749,7 @@ function create_if_block$a(ctx) {
 	};
 }
 
-// (259:4) {#if flagPath !== "explosions"}
+// (244:4) {#if flagPath !== "explosions"}
 function create_if_block_8$1(ctx) {
 	let div1;
 	let div0;
@@ -31815,7 +31786,7 @@ function create_if_block_8$1(ctx) {
 			option4 = element("option");
 			option4.textContent = `${localize("AUTOANIM.typeAuras")}`;
 			attr(label, "for", "1");
-			attr(label, "class", "svelte-13nmue0");
+			attr(label, "class", "svelte-el6p35");
 			option0.__value = "melee";
 			option0.value = option0.__value;
 			option1.__value = "range";
@@ -31829,12 +31800,12 @@ function create_if_block_8$1(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-13nmue0");
+			attr(select, "class", "svelte-el6p35");
 			if (/*animType*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[25].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-3wide svelte-13nmue0");
+			attr(div1, "class", "aa-3wide svelte-el6p35");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -31871,7 +31842,7 @@ function create_if_block_8$1(ctx) {
 	};
 }
 
-// (287:4) {#if animType != "" || flagPath === "explosions"}
+// (272:4) {#if animType != "" || flagPath === "explosions"}
 function create_if_block_1$7(ctx) {
 	let div4;
 	let t0;
@@ -31978,63 +31949,63 @@ function create_if_block_1$7(ctx) {
 			div5 = element("div");
 			if (if_block5) if_block5.c();
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-13nmue0");
+			attr(label0, "class", "svelte-el6p35");
 			attr(select0, "name", "flags.autoanimations.options.menuType");
 			attr(select0, "id", "2");
 			select0.disabled = /*isCustom*/ ctx[10];
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-13nmue0"));
+			: "isNotPopulated") + " svelte-el6p35"));
 
 			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[28].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-13nmue0");
+			attr(label1, "class", "svelte-el6p35");
 			attr(select1, "name", "flags.autoanimations.animation");
 			attr(select1, "id", "3");
 			select1.disabled = /*isCustom*/ ctx[10];
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[7] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-13nmue0"));
+			: "isNotPopulated") + " svelte-el6p35"));
 
 			if (/*animation*/ ctx[7] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[30].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-13nmue0");
+			attr(label2, "class", "svelte-el6p35");
 			attr(select2, "name", "flags.autoanimations.options.variant");
 			attr(select2, "id", "4");
 			select2.disabled = /*isCustom*/ ctx[10];
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[8] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-13nmue0"));
+			: "isNotPopulated") + " svelte-el6p35"));
 
 			if (/*variant*/ ctx[8] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[32].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-13nmue0");
+			attr(label3, "class", "svelte-el6p35");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 			select3.disabled = /*isCustom*/ ctx[10];
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[9] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-13nmue0"));
+			: "isNotPopulated") + " svelte-el6p35"));
 
 			if (/*color*/ ctx[9] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[34].call(select3));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", div4_class_value = "aa-3wide " + (/*isCustom*/ ctx[10] ? 'dimLabel' : '') + " svelte-13nmue0");
-			attr(div5, "class", "aa-3wide svelte-13nmue0");
+			attr(div4, "class", div4_class_value = "aa-3wide " + (/*isCustom*/ ctx[10] ? 'dimLabel' : '') + " svelte-el6p35");
+			attr(div5, "class", "aa-3wide svelte-el6p35");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -32131,7 +32102,7 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*menuType, isCustom, menuSelection*/ 17410 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-13nmue0"))) {
+			: "isNotPopulated") + " svelte-el6p35"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
@@ -32158,7 +32129,7 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*animation, isCustom, menuSelection, menuType*/ 17538 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[7] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-13nmue0"))) {
+			: "isNotPopulated") + " svelte-el6p35"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
@@ -32185,7 +32156,7 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*variant, isCustom, menuSelection, menuType, animation*/ 17794 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[8] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-13nmue0"))) {
+			: "isNotPopulated") + " svelte-el6p35"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
@@ -32212,7 +32183,7 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*color, isCustom, menuSelection, menuType, animation, variant*/ 18306 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[9] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-13nmue0"))) {
+			: "isNotPopulated") + " svelte-el6p35"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -32220,7 +32191,7 @@ function create_if_block_1$7(ctx) {
 				select_option(select3, /*color*/ ctx[9]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 1024 && div4_class_value !== (div4_class_value = "aa-3wide " + (/*isCustom*/ ctx[10] ? 'dimLabel' : '') + " svelte-13nmue0")) {
+			if (!current || dirty[0] & /*isCustom*/ 1024 && div4_class_value !== (div4_class_value = "aa-3wide " + (/*isCustom*/ ctx[10] ? 'dimLabel' : '') + " svelte-el6p35")) {
 				attr(div4, "class", div4_class_value);
 			}
 
@@ -32296,7 +32267,7 @@ function create_if_block_1$7(ctx) {
 	};
 }
 
-// (289:12) {#if animType === "static" && flagPath !== "explosions"}
+// (274:12) {#if animType === "static" && flagPath !== "explosions"}
 function create_if_block_7$1(ctx) {
 	let div;
 	let label;
@@ -32328,7 +32299,7 @@ function create_if_block_7$1(ctx) {
 			option3 = element("option");
 			option3.textContent = `${localize("AUTOANIM.both")}`;
 			attr(label, "for", "6");
-			attr(label, "class", "svelte-13nmue0");
+			attr(label, "class", "svelte-el6p35");
 			option0.__value = "source";
 			option0.value = option0.__value;
 			option1.__value = "target";
@@ -32341,7 +32312,7 @@ function create_if_block_7$1(ctx) {
 			attr(select, "id", "6");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-13nmue0");
+			attr(select, "class", "svelte-el6p35");
 			if (/*staticType*/ ctx[12] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[27].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "1 / 2");
@@ -32394,7 +32365,7 @@ function create_if_block_7$1(ctx) {
 	};
 }
 
-// (332:20) {#if animType != ""}
+// (317:20) {#if animType != ""}
 function create_if_block_6$1(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[14]]);
@@ -32450,10 +32421,10 @@ function create_if_block_6$1(ctx) {
 	};
 }
 
-// (333:24) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (318:24) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[42] + "";
+	let t_value = /*name*/ ctx[43] + "";
 	let t;
 	let option_value_value;
 
@@ -32461,7 +32432,7 @@ function create_each_block_3$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[41];
+			option.__value = option_value_value = /*key*/ ctx[42];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -32469,9 +32440,9 @@ function create_each_block_3$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection*/ 16384 && t_value !== (t_value = /*name*/ ctx[42] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection*/ 16384 && t_value !== (t_value = /*name*/ ctx[43] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection*/ 16384 && option_value_value !== (option_value_value = /*key*/ ctx[41])) {
+			if (dirty[0] & /*menuSelection*/ 16384 && option_value_value !== (option_value_value = /*key*/ ctx[42])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32482,7 +32453,7 @@ function create_each_block_3$2(ctx) {
 	};
 }
 
-// (352:20) {#if menuType != ""}
+// (337:20) {#if menuType != ""}
 function create_if_block_5$3(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[14]][/*menuType*/ ctx[1]]);
@@ -32538,10 +32509,10 @@ function create_if_block_5$3(ctx) {
 	};
 }
 
-// (353:24) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (338:24) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[42] + "";
+	let t_value = /*name*/ ctx[43] + "";
 	let t;
 	let option_value_value;
 
@@ -32549,7 +32520,7 @@ function create_each_block_2$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[41];
+			option.__value = option_value_value = /*key*/ ctx[42];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -32557,9 +32528,9 @@ function create_each_block_2$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType*/ 16386 && t_value !== (t_value = /*name*/ ctx[42] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType*/ 16386 && t_value !== (t_value = /*name*/ ctx[43] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType*/ 16386 && option_value_value !== (option_value_value = /*key*/ ctx[41])) {
+			if (dirty[0] & /*menuSelection, menuType*/ 16386 && option_value_value !== (option_value_value = /*key*/ ctx[42])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32570,7 +32541,7 @@ function create_each_block_2$2(ctx) {
 	};
 }
 
-// (372:20) {#if (menuType != "") & (animation != "")}
+// (357:20) {#if (menuType != "") & (animation != "")}
 function create_if_block_4$4(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[14]][/*menuType*/ ctx[1]][/*animation*/ ctx[7]]);
@@ -32626,10 +32597,10 @@ function create_if_block_4$4(ctx) {
 	};
 }
 
-// (373:24) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (358:24) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[42] + "";
+	let t_value = /*name*/ ctx[43] + "";
 	let t;
 	let option_value_value;
 
@@ -32637,7 +32608,7 @@ function create_each_block_1$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[41];
+			option.__value = option_value_value = /*key*/ ctx[42];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -32645,9 +32616,9 @@ function create_each_block_1$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 16514 && t_value !== (t_value = /*name*/ ctx[42] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 16514 && t_value !== (t_value = /*name*/ ctx[43] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 16514 && option_value_value !== (option_value_value = /*key*/ ctx[41])) {
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 16514 && option_value_value !== (option_value_value = /*key*/ ctx[42])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32658,7 +32629,7 @@ function create_each_block_1$2(ctx) {
 	};
 }
 
-// (391:20) {#if menuType != "" && animation != "" && variant != ""}
+// (376:20) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_3$5(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[14]][/*menuType*/ ctx[1]][/*animation*/ ctx[7]][/*variant*/ ctx[8]]);
@@ -32714,10 +32685,10 @@ function create_if_block_3$5(ctx) {
 	};
 }
 
-// (392:24) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (377:24) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[42] + "";
+	let t_value = /*name*/ ctx[43] + "";
 	let t;
 	let option_value_value;
 
@@ -32725,7 +32696,7 @@ function create_each_block$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[41];
+			option.__value = option_value_value = /*key*/ ctx[42];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -32733,9 +32704,9 @@ function create_each_block$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 16770 && t_value !== (t_value = /*name*/ ctx[42] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 16770 && t_value !== (t_value = /*name*/ ctx[43] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 16770 && option_value_value !== (option_value_value = /*key*/ ctx[41])) {
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 16770 && option_value_value !== (option_value_value = /*key*/ ctx[42])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -32746,7 +32717,7 @@ function create_each_block$2(ctx) {
 	};
 }
 
-// (401:12) {#if animType === "range" && isCustom && flagPath === "PrimaryAnimation"}
+// (386:12) {#if animType === "range" && isCustom && flagPath === "PrimaryAnimation"}
 function create_if_block_2$5(ctx) {
 	let div;
 	let input;
@@ -32771,7 +32742,7 @@ function create_if_block_2$5(ctx) {
 			attr(input, "id", "constantY");
 			input.hidden = true;
 			attr(label, "for", "constantY");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-13nmue0"));
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-el6p35"));
 			attr(div, "class", "flexcol aa-button-labels");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "3 / 4");
@@ -32786,7 +32757,7 @@ function create_if_block_2$5(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(input, "change", /*input_change_handler_1*/ ctx[37]);
+				dispose = listen(input, "change", /*input_change_handler*/ ctx[37]);
 				mounted = true;
 			}
 		},
@@ -32795,7 +32766,7 @@ function create_if_block_2$5(ctx) {
 				input.checked = /*onlyX*/ ctx[13];
 			}
 
-			if (!current || dirty[0] & /*onlyX*/ 8192 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-13nmue0"))) {
+			if (!current || dirty[0] & /*onlyX*/ 8192 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-el6p35"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -32854,12 +32825,12 @@ function create_fragment$e(ctx) {
 			t3 = space();
 			if (if_block2) if_block2.c();
 			attr(label, "for", "");
-			attr(label, "class", "svelte-13nmue0");
+			attr(label, "class", "svelte-el6p35");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
-			set_style(div0, "grid-column", "2/3");
-			attr(div1, "class", "aa-header svelte-13nmue0");
-			attr(div2, "class", "aa-header-section svelte-13nmue0");
+			set_style(div0, "grid-column", "3/4");
+			attr(div1, "class", "aa-header svelte-el6p35");
+			attr(div2, "class", "aa-header-section svelte-el6p35");
 		},
 		m(target, anchor) {
 			insert(target, div3, anchor);
@@ -32870,8 +32841,8 @@ function create_fragment$e(ctx) {
 			append(label, t0);
 			append(div1, t1);
 			if (if_block0) if_block0.m(div1, null);
-			append(div3, t2);
-			if (if_block1) if_block1.m(div3, null);
+			append(div1, t2);
+			if (if_block1) if_block1.m(div1, null);
 			append(div3, t3);
 			if (if_block2) if_block2.m(div3, null);
 			current = true;
@@ -32885,7 +32856,7 @@ function create_fragment$e(ctx) {
 				} else {
 					if_block0 = create_if_block_10$1(ctx);
 					if_block0.c();
-					if_block0.m(div1, null);
+					if_block0.m(div1, t2);
 				}
 			} else if (if_block0) {
 				if_block0.d(1);
@@ -32898,7 +32869,7 @@ function create_fragment$e(ctx) {
 				} else {
 					if_block1 = create_if_block_9$1(ctx);
 					if_block1.c();
-					if_block1.m(div3, t3);
+					if_block1.m(div1, null);
 				}
 			} else if (if_block1) {
 				if_block1.d(1);
@@ -33059,13 +33030,13 @@ function instance$e($$self, $$props, $$invalidate) {
 	let explosionFilePath;
 	let onlyX = options.onlyX || false;
 	let { explosionEnabled = rootPath.enable || false } = $$props;
-	let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
-	const click_handler = () => onClick(previewType);
 
-	function input_change_handler() {
-		explosionEnabled = this.checked;
-		$$invalidate(2, explosionEnabled);
+	function enableExplosion() {
+		$$invalidate(2, explosionEnabled = !explosionEnabled);
 	}
+
+	const click_handler = () => onClick(previewType);
+	const click_handler_1 = () => enableExplosion();
 
 	function select_change_handler() {
 		animType = select_value(this);
@@ -33125,7 +33096,7 @@ function instance$e($$self, $$props, $$invalidate) {
 		$$invalidate(11, customPath);
 	}
 
-	function input_change_handler_1() {
+	function input_change_handler() {
 		onlyX = this.checked;
 		$$invalidate(13, onlyX);
 	}
@@ -33251,9 +33222,7 @@ function instance$e($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*explosionEnabled*/ 4) {
-			$$invalidate(15, explosionLabel = explosionEnabled ? "Enabled" : "Disabled");
-		}
+		if ($$self.$$.dirty[0] & /*explosionEnabled*/ 4) ;
 	};
 
 	return [
@@ -33272,16 +33241,16 @@ function instance$e($$self, $$props, $$invalidate) {
 		staticType,
 		onlyX,
 		menuSelection,
-		explosionLabel,
 		onClick,
 		typeChange,
 		menuTypeChange,
 		animationChange,
 		variantChange,
+		enableExplosion,
 		primaryFilePath,
 		explosionFilePath,
 		click_handler,
-		input_change_handler,
+		click_handler_1,
 		select_change_handler,
 		change_handler,
 		select_change_handler_1,
@@ -33294,7 +33263,7 @@ function instance$e($$self, $$props, $$invalidate) {
 		select3_change_handler,
 		custompicker_isCustom_binding,
 		custompicker_customPath_binding,
-		input_change_handler_1
+		input_change_handler
 	];
 }
 
@@ -33408,7 +33377,7 @@ function create_if_block_1$6(ctx) {
 			append(div, i);
 
 			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler*/ ctx[11]);
+				dispose = listen(i, "click", /*click_handler*/ ctx[10]);
 				mounted = true;
 			}
 		},
@@ -33421,7 +33390,7 @@ function create_if_block_1$6(ctx) {
 	};
 }
 
-// (90:4) {#if soundEnabled}
+// (80:4) {#if soundEnabled}
 function create_if_block$9(ctx) {
 	let div1;
 	let div0;
@@ -33486,56 +33455,56 @@ function create_if_block$9(ctx) {
 			input3 = element("input");
 			attr(input0, "type", "text");
 
-			attr(input0, "class", input0_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[5] != ""
+			attr(input0, "class", input0_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-23fpj5"));
+			: "isNotPopulated") + " svelte-17g0fun"));
 
 			attr(i, "class", "fas fa-file-import fa-fw");
 
-			attr(button, "class", button_class_value = "file-picker " + (/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[5] != ''
+			attr(button, "class", button_class_value = "file-picker " + (/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] != ''
 			? 'isPopulated'
-			: 'isNotPopulated') + " svelte-23fpj5");
+			: 'isNotPopulated') + " svelte-17g0fun");
 
 			attr(div0, "class", "form-group");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "2/5");
 			set_style(div0, "margin-right", "10%");
 			set_style(div0, "margin-left", "10%");
-			attr(div1, "class", div1_class_value = "aa-customAnim-container " + (!/*soundEnabled*/ ctx[0] ? 'opacityBorder' : '') + " svelte-23fpj5");
+			attr(div1, "class", div1_class_value = "aa-customAnim-container " + (!/*soundEnabled*/ ctx[0] ? 'opacityBorder' : '') + " svelte-17g0fun");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-23fpj5");
+			attr(label0, "class", "svelte-17g0fun");
 			attr(input1, "type", "Number");
 			attr(input1, "placeholder", "0");
 			attr(input1, "step", "0.01");
-			attr(input1, "class", "svelte-23fpj5");
+			attr(input1, "class", "svelte-17g0fun");
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-23fpj5");
+			attr(label1, "class", "svelte-17g0fun");
 			attr(input2, "type", "Number");
 			attr(input2, "placeholder", "0.5");
 			attr(input2, "step", "0.01");
-			attr(input2, "class", "svelte-23fpj5");
+			attr(input2, "class", "svelte-17g0fun");
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-23fpj5");
+			attr(label2, "class", "svelte-17g0fun");
 			attr(input3, "type", "Number");
 			attr(input3, "placeholder", "0");
 			attr(input3, "step", "0.01");
-			attr(input3, "class", "svelte-23fpj5");
+			attr(input3, "class", "svelte-17g0fun");
 			attr(div4, "class", "flexcol");
 			set_style(div4, "grid-row", "3 / 4");
 			set_style(div4, "grid-column", "3 / 4");
-			attr(div5, "class", "aa-3wide svelte-23fpj5");
+			attr(div5, "class", "aa-3wide svelte-17g0fun");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
 			append(div1, div0);
 			append(div0, input0);
-			set_input_value(input0, /*soundPath*/ ctx[5]);
+			set_input_value(input0, /*soundPath*/ ctx[4]);
 			append(div0, t0);
 			append(div0, button);
 			append(button, i);
@@ -33545,64 +33514,64 @@ function create_if_block$9(ctx) {
 			append(div2, label0);
 			append(div2, t5);
 			append(div2, input1);
-			set_input_value(input1, /*startTime*/ ctx[2]);
+			set_input_value(input1, /*startTime*/ ctx[1]);
 			append(div5, t6);
 			append(div5, div3);
 			append(div3, label1);
 			append(div3, t8);
 			append(div3, input2);
-			set_input_value(input2, /*volume*/ ctx[3]);
+			set_input_value(input2, /*volume*/ ctx[2]);
 			append(div5, t9);
 			append(div5, div4);
 			append(div4, label2);
 			append(div4, t11);
 			append(div4, input3);
-			set_input_value(input3, /*delay*/ ctx[4]);
+			set_input_value(input3, /*delay*/ ctx[3]);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
-					listen(input0, "input", /*input0_input_handler*/ ctx[13]),
-					listen(button, "click", prevent_default(/*click_handler_2*/ ctx[14])),
-					listen(input1, "input", /*input1_input_handler*/ ctx[15]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[16]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[17])
+					listen(input0, "input", /*input0_input_handler*/ ctx[12]),
+					listen(button, "click", prevent_default(/*click_handler_2*/ ctx[13])),
+					listen(input1, "input", /*input1_input_handler*/ ctx[14]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[15]),
+					listen(input3, "input", /*input3_input_handler*/ ctx[16])
 				];
 
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (!current || dirty & /*soundEnabled, soundPath*/ 33 && input0_class_value !== (input0_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[5] != ""
+			if (!current || dirty & /*soundEnabled, soundPath*/ 17 && input0_class_value !== (input0_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-23fpj5"))) {
+			: "isNotPopulated") + " svelte-17g0fun"))) {
 				attr(input0, "class", input0_class_value);
 			}
 
-			if (dirty & /*soundPath*/ 32 && input0.value !== /*soundPath*/ ctx[5]) {
-				set_input_value(input0, /*soundPath*/ ctx[5]);
+			if (dirty & /*soundPath*/ 16 && input0.value !== /*soundPath*/ ctx[4]) {
+				set_input_value(input0, /*soundPath*/ ctx[4]);
 			}
 
-			if (!current || dirty & /*soundEnabled, soundPath*/ 33 && button_class_value !== (button_class_value = "file-picker " + (/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[5] != ''
+			if (!current || dirty & /*soundEnabled, soundPath*/ 17 && button_class_value !== (button_class_value = "file-picker " + (/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] != ''
 			? 'isPopulated'
-			: 'isNotPopulated') + " svelte-23fpj5")) {
+			: 'isNotPopulated') + " svelte-17g0fun")) {
 				attr(button, "class", button_class_value);
 			}
 
-			if (!current || dirty & /*soundEnabled*/ 1 && div1_class_value !== (div1_class_value = "aa-customAnim-container " + (!/*soundEnabled*/ ctx[0] ? 'opacityBorder' : '') + " svelte-23fpj5")) {
+			if (!current || dirty & /*soundEnabled*/ 1 && div1_class_value !== (div1_class_value = "aa-customAnim-container " + (!/*soundEnabled*/ ctx[0] ? 'opacityBorder' : '') + " svelte-17g0fun")) {
 				attr(div1, "class", div1_class_value);
 			}
 
-			if (dirty & /*startTime*/ 4) {
-				set_input_value(input1, /*startTime*/ ctx[2]);
+			if (dirty & /*startTime*/ 2) {
+				set_input_value(input1, /*startTime*/ ctx[1]);
 			}
 
-			if (dirty & /*volume*/ 8) {
-				set_input_value(input2, /*volume*/ ctx[3]);
+			if (dirty & /*volume*/ 4) {
+				set_input_value(input2, /*volume*/ ctx[2]);
 			}
 
-			if (dirty & /*delay*/ 16) {
-				set_input_value(input3, /*delay*/ ctx[4]);
+			if (dirty & /*delay*/ 8) {
+				set_input_value(input3, /*delay*/ ctx[3]);
 			}
 		},
 		i(local) {
@@ -33633,96 +33602,93 @@ function create_if_block$9(ctx) {
 }
 
 function create_fragment$d(ctx) {
-	let div5;
+	let div4;
+	let div3;
 	let div2;
-	let div1;
 	let div0;
 	let label;
 	let t1;
 	let t2;
-	let div4;
-	let div3;
-	let button;
+	let div1;
+	let i;
+	let i_class_value;
 	let t3;
-	let button_class_value;
-	let t4;
-	let div5_transition;
+	let div4_transition;
 	let current;
 	let mounted;
 	let dispose;
-	let if_block0 = /*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[5] && create_if_block_1$6(ctx);
+	let if_block0 = /*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] && create_if_block_1$6(ctx);
 	let if_block1 = /*soundEnabled*/ ctx[0] && create_if_block$9(ctx);
 
 	return {
 		c() {
-			div5 = element("div");
+			div4 = element("div");
+			div3 = element("div");
 			div2 = element("div");
-			div1 = element("div");
 			div0 = element("div");
 			label = element("label");
 			label.textContent = `${localize("AUTOANIM.sound")}`;
 			t1 = space();
 			if (if_block0) if_block0.c();
 			t2 = space();
-			div4 = element("div");
-			div3 = element("div");
-			button = element("button");
-			t3 = text(/*soundLabel*/ ctx[1]);
-			t4 = space();
+			div1 = element("div");
+			i = element("i");
+			t3 = space();
 			if (if_block1) if_block1.c();
 			attr(label, "for", "");
-			attr(label, "class", "svelte-23fpj5");
+			attr(label, "class", "svelte-17g0fun");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "3/4");
-			attr(div1, "class", "aa-header svelte-23fpj5");
-			attr(div2, "class", "aa-header-section svelte-23fpj5");
-			attr(button, "class", button_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0] ? "selected" : "notSelected") + " svelte-23fpj5"));
-			attr(div3, "class", "flexcol");
-			set_style(div3, "grid-row", "1/2");
-			set_style(div3, "grid-column", "2/3");
-			attr(div4, "class", "aa-3wide svelte-23fpj5");
+
+			attr(i, "class", i_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0]
+			? "fas fa-minus aa-red"
+			: "fas fa-plus aa-green") + " svelte-17g0fun"));
+
+			attr(div1, "class", "flexcol");
+			set_style(div1, "grid-row", "1/2");
+			set_style(div1, "grid-column", "5/6");
+			attr(div2, "class", "aa-header svelte-17g0fun");
+			attr(div3, "class", "aa-header-section svelte-17g0fun");
 		},
 		m(target, anchor) {
-			insert(target, div5, anchor);
-			append(div5, div2);
-			append(div2, div1);
-			append(div1, div0);
-			append(div0, label);
-			append(div1, t1);
-			if (if_block0) if_block0.m(div1, null);
-			append(div5, t2);
-			append(div5, div4);
+			insert(target, div4, anchor);
 			append(div4, div3);
-			append(div3, button);
-			append(button, t3);
-			append(div5, t4);
-			if (if_block1) if_block1.m(div5, null);
+			append(div3, div2);
+			append(div2, div0);
+			append(div0, label);
+			append(div2, t1);
+			if (if_block0) if_block0.m(div2, null);
+			append(div2, t2);
+			append(div2, div1);
+			append(div1, i);
+			append(div4, t3);
+			if (if_block1) if_block1.m(div4, null);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(button, "click", /*click_handler_1*/ ctx[12]);
+				dispose = listen(i, "click", /*click_handler_1*/ ctx[11]);
 				mounted = true;
 			}
 		},
 		p(ctx, [dirty]) {
-			if (/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[5]) {
+			if (/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4]) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 				} else {
 					if_block0 = create_if_block_1$6(ctx);
 					if_block0.c();
-					if_block0.m(div1, null);
+					if_block0.m(div2, t2);
 				}
 			} else if (if_block0) {
 				if_block0.d(1);
 				if_block0 = null;
 			}
 
-			if (!current || dirty & /*soundLabel*/ 2) set_data(t3, /*soundLabel*/ ctx[1]);
-
-			if (!current || dirty & /*soundEnabled*/ 1 && button_class_value !== (button_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0] ? "selected" : "notSelected") + " svelte-23fpj5"))) {
-				attr(button, "class", button_class_value);
+			if (!current || dirty & /*soundEnabled*/ 1 && i_class_value !== (i_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0]
+			? "fas fa-minus aa-red"
+			: "fas fa-plus aa-green") + " svelte-17g0fun"))) {
+				attr(i, "class", i_class_value);
 			}
 
 			if (/*soundEnabled*/ ctx[0]) {
@@ -33736,7 +33702,7 @@ function create_fragment$d(ctx) {
 					if_block1 = create_if_block$9(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
-					if_block1.m(div5, null);
+					if_block1.m(div4, null);
 				}
 			} else if (if_block1) {
 				group_outros();
@@ -33753,23 +33719,23 @@ function create_fragment$d(ctx) {
 			transition_in(if_block1);
 
 			add_render_callback(() => {
-				if (!div5_transition) div5_transition = create_bidirectional_transition(div5, fade, { duration: 500 }, true);
-				div5_transition.run(1);
+				if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, { duration: 500 }, true);
+				div4_transition.run(1);
 			});
 
 			current = true;
 		},
 		o(local) {
 			transition_out(if_block1);
-			if (!div5_transition) div5_transition = create_bidirectional_transition(div5, fade, { duration: 500 }, false);
-			div5_transition.run(0);
+			if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, { duration: 500 }, false);
+			div4_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(div5);
+			if (detaching) detach(div4);
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
-			if (detaching && div5_transition) div5_transition.end();
+			if (detaching && div4_transition) div4_transition.end();
 			mounted = false;
 			dispose();
 		}
@@ -33786,11 +33752,9 @@ function instance$d($$self, $$props, $$invalidate) {
 
 	let section01 = flagData.audio[audioPath];
 	let soundEnabled = section01.enable || false;
-	let soundLabel = soundEnabled ? "Enabled" : "Disabled";
 
 	function enableSound() {
 		$$invalidate(0, soundEnabled = !soundEnabled);
-		$$invalidate(1, soundLabel = soundEnabled ? "Enabled" : "Disabled");
 	}
 
 	let startTime = section01.startTime;
@@ -33805,7 +33769,7 @@ function instance$d($$self, $$props, $$invalidate) {
 				type: "audio",
 				current,
 				callback: path => {
-					$$invalidate(5, soundPath = path);
+					$$invalidate(4, soundPath = path);
 				}
 			});
 
@@ -33836,29 +33800,29 @@ function instance$d($$self, $$props, $$invalidate) {
 
 	function input0_input_handler() {
 		soundPath = this.value;
-		$$invalidate(5, soundPath);
+		$$invalidate(4, soundPath);
 	}
 
 	const click_handler_2 = () => selectCustom();
 
 	function input1_input_handler() {
 		startTime = this.value;
-		$$invalidate(2, startTime);
+		$$invalidate(1, startTime);
 	}
 
 	function input2_input_handler() {
 		volume = this.value;
-		$$invalidate(3, volume);
+		$$invalidate(2, volume);
 	}
 
 	function input3_input_handler() {
 		delay = this.value;
-		$$invalidate(4, delay);
+		$$invalidate(3, delay);
 	}
 
 	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(9, flagData = $$props.flagData);
-		if ('audioPath' in $$props) $$invalidate(10, audioPath = $$props.audioPath);
+		if ('flagData' in $$props) $$invalidate(8, flagData = $$props.flagData);
+		if ('audioPath' in $$props) $$invalidate(9, audioPath = $$props.audioPath);
 	};
 
 	$$self.$$.update = () => {
@@ -33869,50 +33833,45 @@ function instance$d($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty & /*soundLabel*/ 2) {
-			$$invalidate(1, soundLabel);
-		}
-
 		if ($$self.$$.dirty & /*soundEnabled*/ 1) {
 			section01.enable = soundEnabled;
 		}
 
-		if ($$self.$$.dirty & /*startTime*/ 4) {
-			$$invalidate(2, startTime);
+		if ($$self.$$.dirty & /*startTime*/ 2) {
+			$$invalidate(1, startTime);
 		}
 
-		if ($$self.$$.dirty & /*startTime*/ 4) {
+		if ($$self.$$.dirty & /*startTime*/ 2) {
 			section01.startTime = startTime;
 		}
 
-		if ($$self.$$.dirty & /*volume*/ 8) {
-			$$invalidate(3, volume);
+		if ($$self.$$.dirty & /*volume*/ 4) {
+			$$invalidate(2, volume);
 		}
 
-		if ($$self.$$.dirty & /*volume*/ 8) {
+		if ($$self.$$.dirty & /*volume*/ 4) {
 			section01.volume = volume;
 		}
 
-		if ($$self.$$.dirty & /*delay*/ 16) {
-			$$invalidate(4, delay);
+		if ($$self.$$.dirty & /*delay*/ 8) {
+			$$invalidate(3, delay);
 		}
 
-		if ($$self.$$.dirty & /*delay*/ 16) {
+		if ($$self.$$.dirty & /*delay*/ 8) {
 			section01.delay = delay;
 		}
 
-		if ($$self.$$.dirty & /*soundPath*/ 32) {
-			$$invalidate(5, soundPath);
+		if ($$self.$$.dirty & /*soundPath*/ 16) {
+			$$invalidate(4, soundPath);
 		}
 
-		if ($$self.$$.dirty & /*soundPath*/ 32) {
+		if ($$self.$$.dirty & /*soundPath*/ 16) {
 			section01.file = soundPath;
 		}
 	};
 
 	return [
 		soundEnabled,
-		soundLabel,
 		startTime,
 		volume,
 		delay,
@@ -33935,7 +33894,7 @@ function instance$d($$self, $$props, $$invalidate) {
 class SoundSettings extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$d, create_fragment$d, safe_not_equal, { flagData: 9, audioPath: 10 });
+		init(this, options, instance$d, create_fragment$d, safe_not_equal, { flagData: 8, audioPath: 9 });
 	}
 }
 
@@ -37997,7 +37956,7 @@ function create_if_block_4$1(ctx) {
 			append(div, i);
 
 			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler*/ ctx[20]);
+				dispose = listen(i, "click", /*click_handler*/ ctx[19]);
 				mounted = true;
 			}
 		},
@@ -38010,7 +37969,7 @@ function create_if_block_4$1(ctx) {
 	};
 }
 
-// (190:0) {#if enableSection}
+// (185:0) {#if enableSection}
 function create_if_block$4(ctx) {
 	let div4;
 	let div0;
@@ -38056,11 +38015,11 @@ function create_if_block$4(ctx) {
 	let if_block2 = /*menuType*/ ctx[0] != "" && /*animation*/ ctx[1] != "" && /*variant*/ ctx[2] != "" && create_if_block_1$3(ctx);
 
 	function custompicker_isCustom_binding(value) {
-		/*custompicker_isCustom_binding*/ ctx[29](value);
+		/*custompicker_isCustom_binding*/ ctx[28](value);
 	}
 
 	function custompicker_customPath_binding(value) {
-		/*custompicker_customPath_binding*/ ctx[30](value);
+		/*custompicker_customPath_binding*/ ctx[29](value);
 	}
 
 	let custompicker_props = {
@@ -38117,59 +38076,59 @@ function create_if_block$4(ctx) {
 			t11 = space();
 			create_component(custompicker.$$.fragment);
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-1io8jbt");
+			attr(label0, "class", "svelte-eg7mgg");
 			attr(select0, "id", "2");
 			select0.disabled = /*isCustom*/ ctx[4];
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[0] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1io8jbt"));
+			: "isNotPopulated") + " svelte-eg7mgg"));
 
-			if (/*menuType*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[22].call(select0));
+			if (/*menuType*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[21].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-1io8jbt");
+			attr(label1, "class", "svelte-eg7mgg");
 			attr(select1, "id", "3");
 			select1.disabled = /*isCustom*/ ctx[4];
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[1] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1io8jbt"));
+			: "isNotPopulated") + " svelte-eg7mgg"));
 
-			if (/*animation*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[24].call(select1));
+			if (/*animation*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[23].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-1io8jbt");
+			attr(label2, "class", "svelte-eg7mgg");
 			attr(select2, "id", "4");
 			select2.disabled = /*isCustom*/ ctx[4];
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[2] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1io8jbt"));
+			: "isNotPopulated") + " svelte-eg7mgg"));
 
-			if (/*variant*/ ctx[2] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[26].call(select2));
+			if (/*variant*/ ctx[2] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[25].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-1io8jbt");
+			attr(label3, "class", "svelte-eg7mgg");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 			select3.disabled = /*isCustom*/ ctx[4];
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[3] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1io8jbt"));
+			: "isNotPopulated") + " svelte-eg7mgg"));
 
-			if (/*color*/ ctx[3] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[28].call(select3));
+			if (/*color*/ ctx[3] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[27].call(select3));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", "aa-3wide svelte-1io8jbt");
+			attr(div4, "class", "aa-3wide svelte-eg7mgg");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -38210,13 +38169,13 @@ function create_if_block$4(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select0, "change", /*select0_change_handler*/ ctx[22]),
-					listen(select0, "change", /*change_handler*/ ctx[23]),
-					listen(select1, "change", /*select1_change_handler*/ ctx[24]),
-					listen(select1, "change", /*change_handler_1*/ ctx[25]),
-					listen(select2, "change", /*select2_change_handler*/ ctx[26]),
-					listen(select2, "change", /*change_handler_2*/ ctx[27]),
-					listen(select3, "change", /*select3_change_handler*/ ctx[28])
+					listen(select0, "change", /*select0_change_handler*/ ctx[21]),
+					listen(select0, "change", /*change_handler*/ ctx[22]),
+					listen(select1, "change", /*select1_change_handler*/ ctx[23]),
+					listen(select1, "change", /*change_handler_1*/ ctx[24]),
+					listen(select2, "change", /*select2_change_handler*/ ctx[25]),
+					listen(select2, "change", /*change_handler_2*/ ctx[26]),
+					listen(select3, "change", /*select3_change_handler*/ ctx[27])
 				];
 
 				mounted = true;
@@ -38252,7 +38211,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*menuType, isCustom*/ 17 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[0] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1io8jbt"))) {
+			: "isNotPopulated") + " svelte-eg7mgg"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
@@ -38279,7 +38238,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*animation, isCustom, menuType*/ 19 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[1] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1io8jbt"))) {
+			: "isNotPopulated") + " svelte-eg7mgg"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
@@ -38306,7 +38265,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*variant, isCustom, menuType, animation*/ 23 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[2] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1io8jbt"))) {
+			: "isNotPopulated") + " svelte-eg7mgg"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
@@ -38333,7 +38292,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*color, isCustom, menuType, animation, variant*/ 31 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[3] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1io8jbt"))) {
+			: "isNotPopulated") + " svelte-eg7mgg"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -38391,7 +38350,7 @@ function create_if_block$4(ctx) {
 	};
 }
 
-// (204:16) {#each Object.entries(aaTypeMenu.static) as [key, name]}
+// (199:16) {#each Object.entries(aaTypeMenu.static) as [key, name]}
 function create_each_block_3(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[34] + "";
@@ -38416,7 +38375,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (221:16) {#if menuType != ""}
+// (216:16) {#if menuType != ""}
 function create_if_block_3$2(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu.static[/*menuType*/ ctx[0]]);
@@ -38472,7 +38431,7 @@ function create_if_block_3$2(ctx) {
 	};
 }
 
-// (222:20) {#each Object.entries(aaNameMenu.static[menuType]) as [key, name]}
+// (217:20) {#each Object.entries(aaNameMenu.static[menuType]) as [key, name]}
 function create_each_block_2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[34] + "";
@@ -38504,7 +38463,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (240:16) {#if (menuType != "") & (animation != "")}
+// (235:16) {#if (menuType != "") & (animation != "")}
 function create_if_block_2$2(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu.static[/*menuType*/ ctx[0]][/*animation*/ ctx[1]]);
@@ -38560,7 +38519,7 @@ function create_if_block_2$2(ctx) {
 	};
 }
 
-// (241:20) {#each Object.entries(aaVariantMenu.static[menuType][animation]) as [key, name]}
+// (236:20) {#each Object.entries(aaVariantMenu.static[menuType][animation]) as [key, name]}
 function create_each_block_1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[34] + "";
@@ -38592,7 +38551,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (259:16) {#if menuType != "" && animation != "" && variant != ""}
+// (254:16) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_1$3(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu.static[/*menuType*/ ctx[0]][/*animation*/ ctx[1]][/*variant*/ ctx[2]]);
@@ -38648,7 +38607,7 @@ function create_if_block_1$3(ctx) {
 	};
 }
 
-// (260:20) {#each Object.entries(aaColorMenu.static[menuType][animation][variant]) as [key, name]}
+// (255:20) {#each Object.entries(aaColorMenu.static[menuType][animation][variant]) as [key, name]}
 function create_each_block(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[34] + "";
@@ -38689,10 +38648,9 @@ function create_fragment$4(ctx) {
 	let t1;
 	let t2;
 	let div1;
-	let button;
+	let i;
+	let i_class_value;
 	let t3;
-	let button_class_value;
-	let t4;
 	let if_block1_anchor;
 	let current;
 	let mounted;
@@ -38711,22 +38669,25 @@ function create_fragment$4(ctx) {
 			if (if_block0) if_block0.c();
 			t2 = space();
 			div1 = element("div");
-			button = element("button");
-			t3 = text(/*enabledLabel*/ ctx[10]);
-			t4 = space();
+			i = element("i");
+			t3 = space();
 			if (if_block1) if_block1.c();
 			if_block1_anchor = empty();
 			attr(label, "for", "");
-			attr(label, "class", "svelte-1io8jbt");
+			attr(label, "class", "svelte-eg7mgg");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "3/4");
-			attr(button, "class", button_class_value = "" + (null_to_empty(/*enableSection*/ ctx[6] ? "selected" : "notSelected") + " svelte-1io8jbt"));
+
+			attr(i, "class", i_class_value = "" + (null_to_empty(/*enableSection*/ ctx[6]
+			? "fas fa-minus aa-red"
+			: "fas fa-plus aa-green") + " svelte-eg7mgg"));
+
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1/2");
-			set_style(div1, "grid-column", "4/5");
-			attr(div2, "class", "aa-header svelte-1io8jbt");
-			attr(div3, "class", "aa-header-section svelte-1io8jbt");
+			set_style(div1, "grid-column", "5/6");
+			attr(div2, "class", "aa-header svelte-eg7mgg");
+			attr(div3, "class", "aa-header-section svelte-eg7mgg");
 		},
 		m(target, anchor) {
 			insert(target, div3, anchor);
@@ -38738,15 +38699,14 @@ function create_fragment$4(ctx) {
 			if (if_block0) if_block0.m(div2, null);
 			append(div2, t2);
 			append(div2, div1);
-			append(div1, button);
-			append(button, t3);
-			insert(target, t4, anchor);
+			append(div1, i);
+			insert(target, t3, anchor);
 			if (if_block1) if_block1.m(target, anchor);
 			insert(target, if_block1_anchor, anchor);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(button, "click", /*click_handler_1*/ ctx[21]);
+				dispose = listen(i, "click", /*click_handler_1*/ ctx[20]);
 				mounted = true;
 			}
 		},
@@ -38766,10 +38726,10 @@ function create_fragment$4(ctx) {
 				if_block0 = null;
 			}
 
-			if (!current || dirty[0] & /*enabledLabel*/ 1024) set_data(t3, /*enabledLabel*/ ctx[10]);
-
-			if (!current || dirty[0] & /*enableSection*/ 64 && button_class_value !== (button_class_value = "" + (null_to_empty(/*enableSection*/ ctx[6] ? "selected" : "notSelected") + " svelte-1io8jbt"))) {
-				attr(button, "class", button_class_value);
+			if (!current || dirty[0] & /*enableSection*/ 64 && i_class_value !== (i_class_value = "" + (null_to_empty(/*enableSection*/ ctx[6]
+			? "fas fa-minus aa-red"
+			: "fas fa-plus aa-green") + " svelte-eg7mgg"))) {
+				attr(i, "class", i_class_value);
 			}
 
 			if (/*enableSection*/ ctx[6]) {
@@ -38807,7 +38767,7 @@ function create_fragment$4(ctx) {
 		d(detaching) {
 			if (detaching) detach(div3);
 			if (if_block0) if_block0.d();
-			if (detaching) detach(t4);
+			if (detaching) detach(t3);
 			if (if_block1) if_block1.d(detaching);
 			if (detaching) detach(if_block1_anchor);
 			mounted = false;
@@ -38897,7 +38857,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	let enableSource = flagData.sourceToken.enable || false;
 	let enableTarget = flagData.targetToken.enable || false;
-	let enabledLabel = root.enable ? "Enabled" : "Disabled";
+	root.enable ? "Enabled" : "Disabled";
 
 	function switchEnable() {
 		$$invalidate(6, enableSection = !enableSection);
@@ -38988,7 +38948,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
 		if ($$self.$$.dirty[0] & /*flagPath, color, menuType, animation, variant*/ 271) {
 			if (flagPath === "sourceExtraFX") {
-				$$invalidate(16, sourceFilePath = color === "random"
+				$$invalidate(15, sourceFilePath = color === "random"
 				? `autoanimations.static.${menuType}.${animation}.${variant}`
 				: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`);
 			}
@@ -38996,13 +38956,13 @@ function instance$4($$self, $$props, $$invalidate) {
 
 		if ($$self.$$.dirty[0] & /*flagPath, color, menuType, animation, variant*/ 271) {
 			if (flagPath === "targetExtraFX") {
-				$$invalidate(17, targetFilePath = color === "random"
+				$$invalidate(16, targetFilePath = color === "random"
 				? `autoanimations.static.${menuType}.${animation}.${variant}`
 				: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`);
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*flagPath, sourceFilePath, customPath, isCustom*/ 65840) {
+		if ($$self.$$.dirty[0] & /*flagPath, sourceFilePath, customPath, isCustom*/ 33072) {
 			if (flagPath === "sourceExtraFX") {
 				menuDBPathSourceFX.set(sourceFilePath);
 				customFilePathSourceFX.set(customPath);
@@ -39010,7 +38970,7 @@ function instance$4($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*flagPath, targetFilePath, customPath, isCustom*/ 131376) {
+		if ($$self.$$.dirty[0] & /*flagPath, targetFilePath, customPath, isCustom*/ 65840) {
 			if (flagPath === "targetExtraFX") {
 				menuDBPathTargetFX.set(targetFilePath);
 				customFilePathTargetFX.set(customPath);
@@ -39022,19 +38982,15 @@ function instance$4($$self, $$props, $$invalidate) {
 			$$invalidate(6, enableSection);
 		}
 
-		if ($$self.$$.dirty[0] & /*enableSource*/ 262144) {
-			$$invalidate(18, enableSource = $$invalidate(7, flagData.sourceToken.enable = enableSource, flagData));
+		if ($$self.$$.dirty[0] & /*enableSource*/ 131072) {
+			$$invalidate(17, enableSource = $$invalidate(7, flagData.sourceToken.enable = enableSource, flagData));
 		}
 
-		if ($$self.$$.dirty[0] & /*enableTarget*/ 524288) {
-			$$invalidate(19, enableTarget = $$invalidate(7, flagData.targetToken.enable = enableTarget, flagData));
+		if ($$self.$$.dirty[0] & /*enableTarget*/ 262144) {
+			$$invalidate(18, enableTarget = $$invalidate(7, flagData.targetToken.enable = enableTarget, flagData));
 		}
 
-		if ($$self.$$.dirty[0] & /*flagPath, enableSection*/ 320) {
-			$$invalidate(10, enabledLabel = flagPath == "sourceExtraFX"
-			? enableSection ? "Enabled" : "Disabled"
-			: enableSection ? "Enabled" : "Disabled");
-		}
+		if ($$self.$$.dirty[0] & /*flagPath, enableSection*/ 320) ;
 
 		if ($$self.$$.dirty[0] & /*flagPath, enableSection*/ 320) {
 			{
@@ -39068,7 +39024,6 @@ function instance$4($$self, $$props, $$invalidate) {
 		flagData,
 		flagPath,
 		sectionTitle,
-		enabledLabel,
 		menuTypeChange,
 		animationChange,
 		variantChange,

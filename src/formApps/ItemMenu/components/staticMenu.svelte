@@ -177,13 +177,8 @@
             />
         </div>
         {/if}
-        <div class="flexcol" style="grid-row:1/2; grid-column:4/5">
-            <button
-                class={enableSection ? "selected" : "notSelected"}
-                on:click={() => switchEnable()}
-            >
-                {enabledLabel}</button
-            >
+        <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+            <i class="{enableSection ? "fas fa-minus aa-red" : "fas fa-plus aa-green"}" on:click={() => switchEnable()}></i>
         </div>
     </div>
 </div>
@@ -276,7 +271,7 @@
     }
     .aa-header {
         display: grid;
-        grid-template-columns: 10% 20% 40% 30%;
+        grid-template-columns: 10% 20% 40% 20% 10%;
         grid-gap: 5px;
         padding: 1px;
         align-items: center;
@@ -318,20 +313,12 @@
     .aa-3wide label {
         align-self: center;
     }
-    .selected {
-        background-color: rgba(25, 175, 2, 0.18);
-        transition: background-color 0.5s;
+    .aa-red {
+        color: red;
+        transition: "color" 0.5s;
     }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.18);
-        transition: background-color 0.5s;
-    }
-    .aa-header button {
-        border-radius: 10px;
-        border: 2px outset #dddddd;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        height: auto;
+    .aa-green {
+        color: green;
+        transition: "color" 0.5s;
     }
 </style>

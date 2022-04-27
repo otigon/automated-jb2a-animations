@@ -15,12 +15,9 @@
         soundEnabled = soundEnabled;
         section01.enable = soundEnabled;
     }
-    let soundLabel = soundEnabled ? "Enabled" : "Disabled";
-    $: soundLabel = soundLabel;
 
     function enableSound() {
         soundEnabled = !soundEnabled;
-        soundLabel = soundEnabled ? "Enabled" : "Disabled";
     }
 
     $: section01.enable = soundEnabled;
@@ -75,16 +72,9 @@
                 />
             </div>
             {/if}
-        </div>
-    </div>
-    <div class="aa-3wide">
-        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <button
-                class={soundEnabled ? "selected" : "notSelected"}
-                on:click={() => enableSound()}
-            >
-                {soundLabel}</button
-            >
+            <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+                <i class="{soundEnabled ? "fas fa-minus aa-red" : "fas fa-plus aa-green"}" on:click={() => enableSound()}></i>
+            </div>    
         </div>
     </div>
     {#if soundEnabled}
@@ -172,14 +162,6 @@
     .aa-3wide label {
         align-self: center;
     }
-    .aa-3wide button {
-        border-radius: 10px;
-        border: 2px outset #dddddd;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        height: auto;
-    }
     .isPopulated {
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
         transition: box-shadow 0.5s;
@@ -187,14 +169,6 @@
     .isNotPopulated {
         box-shadow: 0 0 6px rgba(219, 132, 2, 0.7);
         transition: box-shadow 0.5s;
-    }
-    .selected {
-        background-color: rgba(25, 175, 2, 0.2);
-        transition: background-color 0.5s;
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.2);
-        transition: background-color 0.5s;
     }
     .aa-customAnim-container {
         font-weight: bold;
@@ -215,7 +189,7 @@
     }
     .aa-header {
         display: grid;
-        grid-template-columns: 10% 20% 40% 30%;
+        grid-template-columns: 10% 20% 40% 20% 10%;
         grid-gap: 5px;
         padding: 1px;
         align-items: center;
@@ -235,5 +209,13 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
+    }
+    .aa-red {
+        color: red;
+        transition: "color" 0.5s;
+    }
+    .aa-green {
+        color: green;
+        transition: "color" 0.5s;
     }
 </style>

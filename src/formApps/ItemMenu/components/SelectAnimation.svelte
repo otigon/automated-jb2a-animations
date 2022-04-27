@@ -215,12 +215,16 @@
     }
     let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
     $: explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
+
+    function enableExplosion() {
+        explosionEnabled = !explosionEnabled;
+    }
 </script>
 
 <div transition:fade>
     <div class="aa-header-section">
         <div class="aa-header">
-            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
                 <label for="">{sectionTitle}</label>
             </div>
             {#if (previewType === "primary" && menuType) || (previewType === "explosion" && animation && explosionEnabled)}
@@ -228,32 +232,13 @@
                 <i class="fas fa-video aa-video-preview" on:click={() => onClick(previewType)}></i>
             </div>
             {/if}
+            {#if flagPath === "explosions"}
+            <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+                <i class="{explosionEnabled ? "fas fa-minus aa-red" : "fas fa-plus aa-green"}" on:click={() => enableExplosion()}></i>
+            </div>    
+            {/if}        
         </div>
     </div>
-    {#if flagPath === "explosions"}
-    <div class="aa-3wide aa-button-labels">
-        <div style="grid-row:1/2; grid-column:2/3">
-            <div
-                class="flexcol"
-                style="grid-row:1/2; grid-column:2/3"
-            >
-                <input
-                    type="checkbox"
-                    id="enableExplosion"
-                    hidden
-                    bind:checked={explosionEnabled}
-                />
-                <label
-                    for="enableExplosion"
-                    class={explosionEnabled
-                        ? "exSelected"
-                        : "exNotSelected"}
-                    >{explosionLabel}</label
-                >
-            </div>
-        </div>
-    </div>
-    {/if}
     {#if (flagPath === "explosions" && explosionEnabled) || flagPath === "PrimaryAnimation"}
     <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
     {#if flagPath !== "explosions"}
@@ -450,7 +435,7 @@
     }
     .aa-header {
         display: grid;
-        grid-template-columns: 10% 80% 10%;
+        grid-template-columns: 10% 20% 40% 20% 10%;
         grid-gap: 5px;
         padding: 1px;
         align-items: center;
@@ -491,13 +476,14 @@
         border-bottom: 2px solid rgba(120, 46, 34, 1); 
         margin-right:5%;
         margin-left:5%;
+        margin-bottom: 5px;
     }
-    .exSelected {
-        background-color: rgba(25, 175, 2, 0.2);
-        transition: background-color 0.5s;
+    .aa-red {
+        color: red;
+        transition: "color" 0.5s;
     }
-    .exNotSelected {
-        background-color: rgba(219, 132, 2, 0.2);
-        transition: background-color 0.5s;
+    .aa-green {
+        color: green;
+        transition: "color" 0.5s;
     }
 </style>
