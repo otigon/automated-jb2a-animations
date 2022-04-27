@@ -95,7 +95,8 @@
             : true;
 
     let detect = meleeSwitch.detect || "auto";
-    let detectLabel = "Automatic";
+    $: meleeSwitch.detect = detect;
+    let detectLabel = detect === "auto" ? "Automatic" : "Manual";
     $: detectLabel = detectLabel;
     function switchDetect() {
         detect = detect === "auto" ? "manual" : "auto";
@@ -161,10 +162,10 @@
         </select>
     </div>
     <div
-        class="flexcol {isDisabled ? 'opacityButton opacityLabel' : ''}"
+        class="flexcol {isDisabled ? 'aa-disabled' : ''}"
         style="grid-row:1/2; grid-column:3/4"
     >
-        <label for="">Set Return</label>
+        <label for="">Return Animation</label>
         <button
             disabled={isDisabled}
             class="oldCheck {returnEnabled && !isDisabled
@@ -250,7 +251,7 @@
             >
         </div>
         <div
-            class="flexcol {detect === 'auto' ? 'opacityButton' : ''}"
+            class="flexcol {detect === 'auto' ? 'aa-disabled' : ''}"
             style="grid-row: 1 / 2; grid-column: 3 / 5;"
         >
             <label for="">{localize("AUTOANIM.gridSquares")}</label>
@@ -300,19 +301,6 @@
     .notSelected {
         background-color: rgba(219, 132, 2, 0.18);
         transition: background-color 0.5s;
-    }
-    .opacityButton button {
-        border: 2px solid rgba(133, 133, 133, 0.418);
-        color: rgba(133, 133, 133, 0.418);
-        transition: color 0.5s;
-    }
-    .opacityButton label {
-        color: rgba(133, 133, 133, 0.3);
-        transition: color 0.5s;
-    }
-    .opacityButton input {
-        color: rgba(133, 133, 133, 0.3);
-        transition: color 0.5s;
     }
     .aa-4wide {
         display: grid;
@@ -369,5 +357,17 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
+    }
+    .aa-4wide input:disabled {
+        opacity: 0.3;
+        transition: opacity 0.5s;
+    }
+    .aa-select-animation button:disabled {
+        opacity: 0.3;
+        transition: opacity 0.5s;
+    }
+    .aa-disabled label {
+        opacity:0.3;
+        transition: opacity 0.5s;
     }
 </style>

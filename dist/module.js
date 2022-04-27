@@ -36323,7 +36323,7 @@ function get_each_context_3$1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (136:8) {#if menuType && switchType === "custom"}
+// (137:8) {#if menuType && switchType === "custom"}
 function create_if_block_5$1(ctx) {
 	let div;
 	let i;
@@ -36357,7 +36357,7 @@ function create_if_block_5$1(ctx) {
 	};
 }
 
-// (176:4) {#if switchType === "custom"}
+// (177:4) {#if switchType === "custom"}
 function create_if_block_1$4(ctx) {
 	let div0;
 	let label0;
@@ -36429,52 +36429,52 @@ function create_if_block_1$4(ctx) {
 			select3 = element("select");
 			if (if_block2) if_block2.c();
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-15jyeza");
+			attr(label0, "class", "svelte-15c1qq1");
 			attr(select0, "name", "flags.autoanimations.options.menuType");
 			attr(select0, "id", "2");
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15jyeza"));
+			: "isNotPopulated") + " svelte-15c1qq1"));
 
 			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[24].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-15jyeza");
+			attr(label1, "class", "svelte-15c1qq1");
 			attr(select1, "name", "flags.autoanimations.animation");
 			attr(select1, "id", "3");
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15jyeza"));
+			: "isNotPopulated") + " svelte-15c1qq1"));
 
 			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[26].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-15jyeza");
+			attr(label2, "class", "svelte-15c1qq1");
 			attr(select2, "name", "flags.autoanimations.options.variant");
 			attr(select2, "id", "4");
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15jyeza"));
+			: "isNotPopulated") + " svelte-15c1qq1"));
 
 			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[28].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-15jyeza");
+			attr(label3, "class", "svelte-15c1qq1");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15jyeza"));
+			: "isNotPopulated") + " svelte-15c1qq1"));
 
 			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[30].call(select3));
 			attr(div3, "class", "flexcol");
@@ -36554,7 +36554,7 @@ function create_if_block_1$4(ctx) {
 
 			if (dirty[0] & /*menuType*/ 2 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15jyeza"))) {
+			: "isNotPopulated") + " svelte-15c1qq1"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
@@ -36577,7 +36577,7 @@ function create_if_block_1$4(ctx) {
 
 			if (dirty[0] & /*animation, menuType*/ 6 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15jyeza"))) {
+			: "isNotPopulated") + " svelte-15c1qq1"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
@@ -36600,7 +36600,7 @@ function create_if_block_1$4(ctx) {
 
 			if (dirty[0] & /*variant, menuType, animation*/ 14 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15jyeza"))) {
+			: "isNotPopulated") + " svelte-15c1qq1"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
@@ -36623,7 +36623,7 @@ function create_if_block_1$4(ctx) {
 
 			if (dirty[0] & /*color, menuType, animation, variant*/ 30 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15jyeza"))) {
+			: "isNotPopulated") + " svelte-15c1qq1"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -36649,7 +36649,7 @@ function create_if_block_1$4(ctx) {
 	};
 }
 
-// (187:16) {#each Object.entries(aaTypeMenu.range) as [key, name]}
+// (188:16) {#each Object.entries(aaTypeMenu.range) as [key, name]}
 function create_each_block_3$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -36674,7 +36674,7 @@ function create_each_block_3$1(ctx) {
 	};
 }
 
-// (202:16) {#if menuType != ""}
+// (203:16) {#if menuType != ""}
 function create_if_block_4$2(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu.range[/*menuType*/ ctx[1]]);
@@ -36730,7 +36730,7 @@ function create_if_block_4$2(ctx) {
 	};
 }
 
-// (203:20) {#each Object.entries(aaNameMenu.range[menuType]) as [key, name]}
+// (204:20) {#each Object.entries(aaNameMenu.range[menuType]) as [key, name]}
 function create_each_block_2$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -36762,7 +36762,7 @@ function create_each_block_2$1(ctx) {
 	};
 }
 
-// (219:16) {#if (menuType != "") & (animation != "")}
+// (220:16) {#if (menuType != "") & (animation != "")}
 function create_if_block_3$3(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
@@ -36818,7 +36818,7 @@ function create_if_block_3$3(ctx) {
 	};
 }
 
-// (220:20) {#each Object.entries(aaVariantMenu.range[menuType][animation]) as [key, name]}
+// (221:20) {#each Object.entries(aaVariantMenu.range[menuType][animation]) as [key, name]}
 function create_each_block_1$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -36850,7 +36850,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (235:16) {#if menuType != "" && animation != "" && variant != ""}
+// (236:16) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_2$3(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
@@ -36906,7 +36906,7 @@ function create_if_block_2$3(ctx) {
 	};
 }
 
-// (236:20) {#each Object.entries(aaColorMenu.range[menuType][animation][variant]) as [key, name]}
+// (237:20) {#each Object.entries(aaColorMenu.range[menuType][animation][variant]) as [key, name]}
 function create_each_block$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -36938,7 +36938,7 @@ function create_each_block$1(ctx) {
 	};
 }
 
-// (244:0) {#if switchType === "custom"}
+// (245:0) {#if switchType === "custom"}
 function create_if_block$5(ctx) {
 	let div2;
 	let div0;
@@ -36966,7 +36966,7 @@ function create_if_block$5(ctx) {
 			label0.textContent = `${localize("AUTOANIM.rangeDetect")}`;
 			t1 = space();
 			button = element("button");
-			t2 = text(/*detectLabel*/ ctx[6]);
+			t2 = text(/*detectLabel*/ ctx[7]);
 			t3 = space();
 			div1 = element("div");
 			label1 = element("label");
@@ -36974,21 +36974,21 @@ function create_if_block$5(ctx) {
 			t5 = space();
 			input = element("input");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-15jyeza");
-			attr(button, "class", "oldCheck svelte-15jyeza");
+			attr(label0, "class", "svelte-15c1qq1");
+			attr(button, "class", "oldCheck svelte-15c1qq1");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "2/3");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-15jyeza");
-			input.disabled = input_disabled_value = /*detect*/ ctx[10] === "auto";
+			attr(label1, "class", "svelte-15c1qq1");
+			input.disabled = input_disabled_value = /*detect*/ ctx[6] === "auto";
 			attr(input, "type", "Number");
 			attr(input, "placeholder", "2");
-			attr(input, "class", "svelte-15jyeza");
-			attr(div1, "class", div1_class_value = "flexcol " + (/*detect*/ ctx[10] === 'auto' ? 'opacityButton' : '') + " svelte-15jyeza");
+			attr(input, "class", "svelte-15c1qq1");
+			attr(div1, "class", div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-15c1qq1");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 5");
-			attr(div2, "class", "aa-4wide svelte-15jyeza");
+			attr(div2, "class", "aa-4wide svelte-15c1qq1");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -37002,7 +37002,7 @@ function create_if_block$5(ctx) {
 			append(div1, label1);
 			append(div1, t5);
 			append(div1, input);
-			set_input_value(input, /*range*/ ctx[7]);
+			set_input_value(input, /*range*/ ctx[8]);
 			current = true;
 
 			if (!mounted) {
@@ -37015,17 +37015,17 @@ function create_if_block$5(ctx) {
 			}
 		},
 		p(ctx, dirty) {
-			if (!current || dirty[0] & /*detectLabel*/ 64) set_data(t2, /*detectLabel*/ ctx[6]);
+			if (!current || dirty[0] & /*detectLabel*/ 128) set_data(t2, /*detectLabel*/ ctx[7]);
 
-			if (!current || dirty[0] & /*detect*/ 1024 && input_disabled_value !== (input_disabled_value = /*detect*/ ctx[10] === "auto")) {
+			if (!current || dirty[0] & /*detect*/ 64 && input_disabled_value !== (input_disabled_value = /*detect*/ ctx[6] === "auto")) {
 				input.disabled = input_disabled_value;
 			}
 
-			if (dirty[0] & /*range*/ 128) {
-				set_input_value(input, /*range*/ ctx[7]);
+			if (dirty[0] & /*range*/ 256) {
+				set_input_value(input, /*range*/ ctx[8]);
 			}
 
-			if (!current || dirty[0] & /*detect*/ 1024 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[10] === 'auto' ? 'opacityButton' : '') + " svelte-15jyeza")) {
+			if (!current || dirty[0] & /*detect*/ 64 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-15c1qq1")) {
 				attr(div1, "class", div1_class_value);
 			}
 		},
@@ -37091,7 +37091,7 @@ function create_fragment$8(ctx) {
 			div2 = element("div");
 			div1 = element("div");
 			div0 = element("div");
-			div0.innerHTML = `<label for="" class="svelte-15jyeza">Melee Range Switch</label>`;
+			div0.innerHTML = `<label for="" class="svelte-15c1qq1">Melee Range Switch</label>`;
 			t1 = space();
 			if (if_block0) if_block0.c();
 			t2 = space();
@@ -37110,10 +37110,10 @@ function create_fragment$8(ctx) {
 			t10 = space();
 			div4 = element("div");
 			label2 = element("label");
-			label2.textContent = "Set Return";
+			label2.textContent = "Return Animation";
 			t12 = space();
 			button = element("button");
-			t13 = text(/*returnLabel*/ ctx[8]);
+			t13 = text(/*returnLabel*/ ctx[9]);
 			t14 = space();
 			if (if_block1) if_block1.c();
 			t15 = space();
@@ -37122,10 +37122,10 @@ function create_fragment$8(ctx) {
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "2/3");
-			attr(div1, "class", "aa-header svelte-15jyeza");
-			attr(div2, "class", "aa-header-section svelte-15jyeza");
+			attr(div1, "class", "aa-header svelte-15c1qq1");
+			attr(div2, "class", "aa-header-section svelte-15c1qq1");
 			attr(label1, "for", "1");
-			attr(label1, "class", "svelte-15jyeza");
+			attr(label1, "class", "svelte-15c1qq1");
 			option0.__value = "on";
 			option0.value = option0.__value;
 			option1.__value = "off";
@@ -37136,26 +37136,23 @@ function create_fragment$8(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-15jyeza");
+			attr(select, "class", "svelte-15c1qq1");
 			if (/*switchType*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[21].call(select));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-15jyeza");
-			button.disabled = /*isDisabled*/ ctx[9];
+			attr(label2, "class", "svelte-15c1qq1");
+			button.disabled = /*isDisabled*/ ctx[10];
 
-			attr(button, "class", button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[9]
+			attr(button, "class", button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
 			? 'selected'
-			: 'notSelected') + " svelte-15jyeza");
+			: 'notSelected') + " svelte-15c1qq1");
 
-			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[9]
-			? 'opacityButton opacityLabel'
-			: '') + " svelte-15jyeza");
-
+			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-15c1qq1");
 			set_style(div4, "grid-row", "1/2");
 			set_style(div4, "grid-column", "3/4");
-			attr(div5, "class", "aa-select-animation svelte-15jyeza");
+			attr(div5, "class", "aa-select-animation svelte-15c1qq1");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -37214,21 +37211,19 @@ function create_fragment$8(ctx) {
 				select_option(select, /*switchType*/ ctx[0]);
 			}
 
-			if (!current || dirty[0] & /*returnLabel*/ 256) set_data(t13, /*returnLabel*/ ctx[8]);
+			if (!current || dirty[0] & /*returnLabel*/ 512) set_data(t13, /*returnLabel*/ ctx[9]);
 
-			if (!current || dirty[0] & /*isDisabled*/ 512) {
-				button.disabled = /*isDisabled*/ ctx[9];
+			if (!current || dirty[0] & /*isDisabled*/ 1024) {
+				button.disabled = /*isDisabled*/ ctx[10];
 			}
 
-			if (!current || dirty[0] & /*returnEnabled, isDisabled*/ 544 && button_class_value !== (button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[9]
+			if (!current || dirty[0] & /*returnEnabled, isDisabled*/ 1056 && button_class_value !== (button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
 			? 'selected'
-			: 'notSelected') + " svelte-15jyeza")) {
+			: 'notSelected') + " svelte-15c1qq1")) {
 				attr(button, "class", button_class_value);
 			}
 
-			if (!current || dirty[0] & /*isDisabled*/ 512 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[9]
-			? 'opacityButton opacityLabel'
-			: '') + " svelte-15jyeza")) {
+			if (!current || dirty[0] & /*isDisabled*/ 1024 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-15c1qq1")) {
 				attr(div4, "class", div4_class_value);
 			}
 
@@ -37351,16 +37346,16 @@ function instance$8($$self, $$props, $$invalidate) {
 
 	function switchLabel() {
 		$$invalidate(5, returnEnabled = !returnEnabled);
-		$$invalidate(8, returnLabel = returnEnabled ? "Enabled" : "Disabled");
+		$$invalidate(9, returnLabel = returnEnabled ? "Enabled" : "Disabled");
 	}
 
 	let isDisabled = false;
 	let detect = meleeSwitch.detect || "auto";
-	let detectLabel = "Automatic";
+	let detectLabel = detect === "auto" ? "Automatic" : "Manual";
 
 	function switchDetect() {
-		$$invalidate(10, detect = detect === "auto" ? "manual" : "auto");
-		$$invalidate(6, detectLabel = detect === "auto" ? "Automatic" : "Manual");
+		$$invalidate(6, detect = detect === "auto" ? "manual" : "auto");
+		$$invalidate(7, detectLabel = detect === "auto" ? "Automatic" : "Manual");
 	}
 
 	let range = meleeSwitch.range || 2;
@@ -37423,7 +37418,7 @@ function instance$8($$self, $$props, $$invalidate) {
 
 	function input_input_handler() {
 		range = this.value;
-		$$invalidate(7, range);
+		$$invalidate(8, range);
 	}
 
 	$$self.$$set = $$props => {
@@ -37478,20 +37473,24 @@ function instance$8($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty[0] & /*switchType, animation, menuType*/ 7) {
-			$$invalidate(9, isDisabled = switchType === "custom" && returningWeapons.includes(animation) && menuType === "weapon" || switchType === "on"
+			$$invalidate(10, isDisabled = switchType === "custom" && returningWeapons.includes(animation) && menuType === "weapon" || switchType === "on"
 			? false
 			: true);
 		}
 
-		if ($$self.$$.dirty[0] & /*detectLabel*/ 64) {
-			$$invalidate(6, detectLabel);
+		if ($$self.$$.dirty[0] & /*detect*/ 64) {
+			meleeSwitch.detect = detect;
 		}
 
-		if ($$self.$$.dirty[0] & /*range*/ 128) {
-			$$invalidate(7, range);
+		if ($$self.$$.dirty[0] & /*detectLabel*/ 128) {
+			$$invalidate(7, detectLabel);
 		}
 
-		if ($$self.$$.dirty[0] & /*range*/ 128) {
+		if ($$self.$$.dirty[0] & /*range*/ 256) {
+			$$invalidate(8, range);
+		}
+
+		if ($$self.$$.dirty[0] & /*range*/ 256) {
 			meleeSwitch.range = range;
 		}
 
@@ -37513,11 +37512,11 @@ function instance$8($$self, $$props, $$invalidate) {
 		variant,
 		color,
 		returnEnabled,
+		detect,
 		detectLabel,
 		range,
 		returnLabel,
 		isDisabled,
-		detect,
 		switchChange,
 		menuTypeChange,
 		animationChange,
