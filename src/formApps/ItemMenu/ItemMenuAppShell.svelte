@@ -457,14 +457,4 @@
         font-size: large;
         font-weight: bold;
     }
-    .aa-button-labels label {
-        border-radius: 10px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        padding: 5px;
-        text-align: center;
-        width: 100%;
-        border: 2px outset #dddddd;
-    }
 </style>

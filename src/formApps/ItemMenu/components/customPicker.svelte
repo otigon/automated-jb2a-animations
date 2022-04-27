@@ -73,7 +73,7 @@
     in:fade={{ duration: 500 }}
     out:fade={{ duration: 500 }}
 >
-    <div class="flexcol button-labels" style="grid-row:1/2; grid-column:1/2">
+    <div class="flexcol aa-button-labels" style="grid-row:1/2; grid-column:1/2">
         <input
             type="checkbox"
             id="{customId}"
@@ -150,15 +150,5 @@
     .notSelected {
         background-color: rgba(219, 132, 2, 0.18);
         transition: background-color 0.5s;
-    }
-    .button-labels label {
-        border-radius: 10px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        padding: 5px;
-        text-align: center;
-        width: 100%;
-        border: 2px outset #dddddd;
     }
 </style>

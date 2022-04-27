@@ -169,12 +169,14 @@
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
             <label for="">{sectionTitle}</label>
         </div>
+        {#if enableSection}
         <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
             <i
                 class="fas fa-video aa-video-preview"
                 on:click={() => onClick(flagPath)}
             />
         </div>
+        {/if}
         <div class="flexcol" style="grid-row:1/2; grid-column:4/5">
             <button
                 class={enableSection ? "selected" : "notSelected"}
@@ -182,7 +184,7 @@
             >
                 {enabledLabel}</button
             >
-        </div>    
+        </div>
     </div>
 </div>
 {#if enableSection}
@@ -276,7 +278,7 @@
         display: grid;
         grid-template-columns: 10% 20% 40% 30%;
         grid-gap: 5px;
-        padding: 5px;
+        padding: 1px;
         align-items: center;
         margin-right: 8%;
         margin-left: 5%;
@@ -294,12 +296,6 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
-    }
-    .aa-video-preview {
-        color: rgba(26, 60, 250, 0.6);
-    }
-    .aa-video-preview:hover {
-        color: rgba(7, 132, 25, 0.6);
     }
     .aa-3wide {
         display: grid;

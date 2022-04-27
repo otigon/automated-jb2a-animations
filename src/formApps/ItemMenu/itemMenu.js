@@ -57,8 +57,9 @@ export default class AAItemMenu extends SvelteApplication {
    
             onclick: function()
             {
-               //this.styles = { color: 'white' };
-               new aaAutoRecognition().render(true)
+                if (game.user.isGM) {
+                    new aaAutoRecognition().render(true)
+                }
             }
          });
       

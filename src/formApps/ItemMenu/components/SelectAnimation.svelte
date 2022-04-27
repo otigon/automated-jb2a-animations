@@ -217,13 +217,13 @@
     $: explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
 </script>
 
-<div transition:fade={{ duration: 500 }}>
+<div transition:fade>
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                 <label for="">{sectionTitle}</label>
             </div>
-            {#if (previewType === "primary" && menuType) || (previewType === "explosion" && animation)}
+            {#if (previewType === "primary" && menuType) || (previewType === "explosion" && animation && explosionEnabled)}
             <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
                 <i class="fas fa-video aa-video-preview" on:click={() => onClick(previewType)}></i>
             </div>
@@ -400,7 +400,7 @@
         <div class="aa-3wide">
             {#if animType === "range" && isCustom && flagPath === "PrimaryAnimation"}
                 <div
-                    class="flexcol button-labels"
+                    class="flexcol aa-button-labels"
                     style="grid-row: 1 / 2; grid-column: 3 / 4;"
                     transition:fade={{ duration: 500 }}
                 >
@@ -452,7 +452,7 @@
         display: grid;
         grid-template-columns: 10% 80% 10%;
         grid-gap: 5px;
-        padding: 5px;
+        padding: 1px;
         align-items: center;
         margin-right: 8%;
         margin-left: 5%;
@@ -487,36 +487,10 @@
         background-color: rgba(219, 132, 2, 0.18);
         transition: background-color 0.5s;
     }
-    .button-labels label {
-        border-radius: 10px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        padding: 5px;
-        text-align: center;
-        width: 100%;
-        border: 2px outset #dddddd;
-    }
-    .aa-video-preview {
-        color: rgba(26, 60, 250, 0.6);
-    }
-    .aa-video-preview:hover {
-        color: rgba(7, 132, 25, 0.6)
-    }
     .aa-header-section {
         border-bottom: 2px solid rgba(120, 46, 34, 1); 
         margin-right:5%;
         margin-left:5%;
-    }
-    .aa-button-labels label {
-        border-radius: 10px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        padding: 5px;
-        text-align: center;
-        width: 100%;
-        border: 2px outset #dddddd;
     }
     .exSelected {
         background-color: rgba(25, 175, 2, 0.2);

@@ -426,7 +426,6 @@ class AutoAnimations {
     }
 }
 window.AutoAnimations = AutoAnimations;
-window.AAAutorec = aaAutoRecognition;
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }

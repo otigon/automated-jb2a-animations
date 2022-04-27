@@ -1,0 +1,17 @@
+
+.aa-video-preview {
+    color: rgba(26, 60, 250, 0.6);
+}
+.aa-video-preview:hover {
+    color: rgba(7, 132, 25, 0.6)
+}
+.aa-button-labels label {
+    border-radius: 10px;
+    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-weight: bold;
+    font-size: large;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+    border: 2px outset #dddddd;
+}

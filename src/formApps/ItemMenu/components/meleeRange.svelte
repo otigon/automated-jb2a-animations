@@ -143,7 +143,7 @@
         {/if}
     </div>
 </div>
-<div class="aa-select-animation" transition:fade={{ duration: 500 }}>
+<div class="aa-select-animation" transition:fade>
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="1"
             >{localize("AUTOANIM.ranged")} {localize("AUTOANIM.switch")}</label
@@ -351,7 +351,7 @@
         display: grid;
         grid-template-columns: 10% 80% 10%;
         grid-gap: 5px;
-        padding: 5px;
+        padding: 1px;
         align-items: center;
         margin-right: 8%;
         margin-left: 5%;
@@ -369,11 +369,5 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
-    }
-    .aa-video-preview {
-        color: rgba(26, 60, 250, 0.6);
-    }
-    .aa-video-preview:hover {
-        color: rgba(7, 132, 25, 0.6);
     }
 </style>

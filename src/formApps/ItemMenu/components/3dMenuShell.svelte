@@ -75,6 +75,7 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
+        margin-top: 5px;
     }
     h3 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;

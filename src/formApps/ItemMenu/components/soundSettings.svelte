@@ -77,7 +77,7 @@
             {/if}
         </div>
     </div>
-    <div class="aa-3wide button-labels">
+    <div class="aa-3wide">
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
             <button
                 class={soundEnabled ? "selected" : "notSelected"}
@@ -217,7 +217,7 @@
         display: grid;
         grid-template-columns: 10% 20% 40% 30%;
         grid-gap: 5px;
-        padding: 5px;
+        padding: 1px;
         align-items: center;
         margin-right: 8%;
         margin-left: 5%;
@@ -235,11 +235,5 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
-    }
-    .aa-video-preview {
-        color: rgba(26, 60, 250, 0.6);
-    }
-    .aa-video-preview:hover {
-        color: rgba(7, 132, 25, 0.6);
     }
 </style>
