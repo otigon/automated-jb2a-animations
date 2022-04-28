@@ -20817,6 +20817,18 @@ function setContext(key, context) {
 function getContext(key) {
   return get_current_component().$$.context.get(key);
 }
+// shorthand events, or if we want to implement
+// a real bubbling mechanism
+
+
+function bubble(component, event) {
+  const callbacks = component.$$.callbacks[event.type];
+
+  if (callbacks) {
+    // @ts-ignore
+    callbacks.slice().forEach(fn => fn.call(this, event));
+  }
+}
 
 const dirty_components = [];
 const binding_callbacks = [];
@@ -41206,15 +41218,15 @@ function create_if_block_4(ctx) {
 	let current;
 
 	function generalsettings_animationDisabled_binding(value) {
-		/*generalsettings_animationDisabled_binding*/ ctx[28](value);
+		/*generalsettings_animationDisabled_binding*/ ctx[29](value);
 	}
 
 	function generalsettings_isCustomized_binding(value) {
-		/*generalsettings_isCustomized_binding*/ ctx[29](value);
+		/*generalsettings_isCustomized_binding*/ ctx[30](value);
 	}
 
 	function generalsettings_enableMacro_binding(value) {
-		/*generalsettings_enableMacro_binding*/ ctx[30](value);
+		/*generalsettings_enableMacro_binding*/ ctx[31](value);
 	}
 
 	let generalsettings_props = { flagData: /*flagData*/ ctx[1] };
@@ -41509,11 +41521,11 @@ function create_if_block_5(ctx) {
 	let current;
 
 	function selectanimation_animType_binding(value) {
-		/*selectanimation_animType_binding*/ ctx[31](value);
+		/*selectanimation_animType_binding*/ ctx[32](value);
 	}
 
 	function selectanimation_menuType_binding(value) {
-		/*selectanimation_menuType_binding*/ ctx[32](value);
+		/*selectanimation_menuType_binding*/ ctx[33](value);
 	}
 
 	let selectanimation_props = {
@@ -42197,6 +42209,7 @@ function create_default_slot(ctx) {
 	let div8;
 	let div7;
 	let div5;
+	let button3;
 	let t16;
 	let div6;
 	let button4;
@@ -42242,7 +42255,8 @@ function create_default_slot(ctx) {
 			div8 = element("div");
 			div7 = element("div");
 			div5 = element("div");
-			div5.innerHTML = `<button class="footer-button svelte-1p9h3ia" type="submit">Submit</button>`;
+			button3 = element("button");
+			button3.textContent = "Submit";
 			t16 = space();
 			div6 = element("div");
 			button4 = element("button");
@@ -42265,6 +42279,8 @@ function create_default_slot(ctx) {
 			attr(div3, "class", "aa-tabs svelte-1p9h3ia");
 			attr(div4, "class", "aaTopSection svelte-1p9h3ia");
 			set_style(div4, "margin-top", "5px");
+			attr(button3, "class", "footer-button svelte-1p9h3ia");
+			attr(button3, "type", "submit");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1/2");
 			set_style(div5, "grid-column", "1/2");
@@ -42313,19 +42329,21 @@ function create_default_slot(ctx) {
 			append(form_1, div8);
 			append(div8, div7);
 			append(div7, div5);
+			append(div5, button3);
 			append(div7, t16);
 			append(div7, div6);
 			append(div6, button4);
-			/*form_1_binding*/ ctx[33](form_1);
+			/*form_1_binding*/ ctx[34](form_1);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler*/ ctx[25]),
-					listen(button1, "click", /*click_handler_1*/ ctx[26]),
-					listen(button2, "click", /*click_handler_2*/ ctx[27]),
+					listen(button0, "click", /*click_handler*/ ctx[26]),
+					listen(button1, "click", /*click_handler_1*/ ctx[27]),
+					listen(button2, "click", /*click_handler_2*/ ctx[28]),
+					listen(button3, "click", prevent_default(/*applyFlags*/ ctx[14])),
 					listen(button4, "click", prevent_default(/*closeApp*/ ctx[15])),
-					listen(form_1, "submit", prevent_default(/*applyFlags*/ ctx[14]))
+					listen(form_1, "submit", prevent_default(/*submit_handler*/ ctx[25]))
 				];
 
 				mounted = true;
@@ -42440,7 +42458,7 @@ function create_default_slot(ctx) {
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
 			if (if_block2) if_block2.d();
-			/*form_1_binding*/ ctx[33](null);
+			/*form_1_binding*/ ctx[34](null);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -42453,7 +42471,7 @@ function create_fragment(ctx) {
 	let current;
 
 	function applicationshell_elementRoot_binding(value) {
-		/*applicationshell_elementRoot_binding*/ ctx[34](value);
+		/*applicationshell_elementRoot_binding*/ ctx[35](value);
 	}
 
 	let applicationshell_props = {
@@ -42483,7 +42501,7 @@ function create_fragment(ctx) {
 		p(ctx, dirty) {
 			const applicationshell_changes = {};
 
-			if (dirty[0] & /*form, focus3d, enableTarget, enableSource, focusExtra, animType, menuType, animationDisabled, isCustomized, showSound, enableMacro, focusPrimary*/ 16380 | dirty[1] & /*$$scope*/ 64) {
+			if (dirty[0] & /*form, focus3d, enableTarget, enableSource, focusExtra, animType, menuType, animationDisabled, isCustomized, showSound, enableMacro, focusPrimary*/ 16380 | dirty[1] & /*$$scope*/ 128) {
 				applicationshell_changes.$$scope = { dirty, ctx };
 			}
 
@@ -42557,13 +42575,13 @@ menuAnimType.subscribe(value => {
 
 	const { application } = getContext("external");
 
-	const applyFlags = async () => {
+	async function applyFlags() {
 		const updatedFlags = {
 			data: { flags: { autoanimations: flagData } }
 		};
 
 		await item.update(updatedFlags.data);
-	};
+	}
 
 	async function closeApp() {
 		const updatedFlags = {
@@ -42607,6 +42625,10 @@ menuAnimType.subscribe(value => {
 	extraTarget.subscribe(value => {
 		$$invalidate(8, enableTarget = value);
 	});
+
+	function submit_handler(event) {
+		bubble.call(this, $$self, event);
+	}
 
 	const click_handler = () => switchPrimary();
 	const click_handler_1 = () => switchExtra();
@@ -42723,6 +42745,7 @@ menuAnimType.subscribe(value => {
 		primaryTab,
 		extraTab,
 		tab3d,
+		submit_handler,
 		click_handler,
 		click_handler_1,
 		click_handler_2,

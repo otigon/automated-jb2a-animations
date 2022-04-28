@@ -80,7 +80,7 @@
         });
     }
 
-    const applyFlags = async () => {
+    async function applyFlags() {
         const updatedFlags = {
             data: {
                 flags: {
@@ -150,7 +150,7 @@
 >
     <form
         bind:this={form}
-        on:submit|preventDefault={applyFlags}
+        on:submit|preventDefault
         autocomplete="off"
         id="item-menu-aa"
         class="overview"
@@ -339,7 +339,7 @@
         <div class="aaBottomSection" style="margin-bottom: 5px">
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                    <button class="footer-button" type="submit">Submit</button>
+                    <button class="footer-button" type="submit" on:click|preventDefault={applyFlags}>Submit</button>
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button
