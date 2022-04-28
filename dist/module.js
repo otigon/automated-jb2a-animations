@@ -37299,7 +37299,7 @@ function create_fragment$8(ctx) {
 function instance$8($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
 	const returningWeapons = ["chakram", "dagger", "greatsword", "hammer", "javelin", "spear"];
-	const meleeSwitch = flagData.meleeSwitch;
+	let meleeSwitch = flagData.meleeSwitch;
 	let switchType = meleeSwitch.switchType || "on";
 	let menuType = meleeSwitch.menuType || "";
 
@@ -41498,13 +41498,12 @@ function create_if_block_9(ctx) {
 
 // (216:16) {#if !animationDisabled && isCustomized}
 function create_if_block_5(ctx) {
-	let div0;
+	let div;
 	let selectanimation;
 	let updating_animType;
 	let updating_menuType;
 	let t0;
 	let t1;
-	let div1;
 	let t2;
 	let if_block2_anchor;
 	let current;
@@ -41541,27 +41540,24 @@ function create_if_block_5(ctx) {
 
 	return {
 		c() {
-			div0 = element("div");
+			div = element("div");
 			create_component(selectanimation.$$.fragment);
 			t0 = space();
 			if (if_block0) if_block0.c();
 			t1 = space();
-			div1 = element("div");
 			if (if_block1) if_block1.c();
 			t2 = space();
 			if (if_block2) if_block2.c();
 			if_block2_anchor = empty();
-			attr(div0, "class", "aaMenu-section svelte-1p9h3ia");
-			attr(div1, "class", "aaMenu-section svelte-1p9h3ia");
+			attr(div, "class", "aaMenu-section svelte-1p9h3ia");
 		},
 		m(target, anchor) {
-			insert(target, div0, anchor);
-			mount_component(selectanimation, div0, null);
-			append(div0, t0);
-			if (if_block0) if_block0.m(div0, null);
+			insert(target, div, anchor);
+			mount_component(selectanimation, div, null);
+			append(div, t0);
+			if (if_block0) if_block0.m(div, null);
 			insert(target, t1, anchor);
-			insert(target, div1, anchor);
-			if (if_block1) if_block1.m(div1, null);
+			if (if_block1) if_block1.m(target, anchor);
 			insert(target, t2, anchor);
 			if (if_block2) if_block2.m(target, anchor);
 			insert(target, if_block2_anchor, anchor);
@@ -41595,7 +41591,7 @@ function create_if_block_5(ctx) {
 					if_block0 = create_if_block_8(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
-					if_block0.m(div0, null);
+					if_block0.m(div, null);
 				}
 			} else if (if_block0) {
 				group_outros();
@@ -41618,7 +41614,7 @@ function create_if_block_5(ctx) {
 					if_block1 = create_if_block_7(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
-					if_block1.m(div1, null);
+					if_block1.m(t2.parentNode, t2);
 				}
 			} else if (if_block1) {
 				group_outros();
@@ -41669,12 +41665,11 @@ function create_if_block_5(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(div0);
+			if (detaching) detach(div);
 			destroy_component(selectanimation);
 			if (if_block0) if_block0.d();
 			if (detaching) detach(t1);
-			if (detaching) detach(div1);
-			if (if_block1) if_block1.d();
+			if (if_block1) if_block1.d(detaching);
 			if (detaching) detach(t2);
 			if (if_block2) if_block2.d(detaching);
 			if (detaching) detach(if_block2_anchor);
@@ -41741,18 +41736,22 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (232:24) {#if animType === "melee"}
+// (231:20) {#if animType === "melee"}
 function create_if_block_7(ctx) {
+	let div;
 	let rangeswitch;
 	let current;
 	rangeswitch = new MeleeRange({ props: { flagData: /*flagData*/ ctx[1] } });
 
 	return {
 		c() {
+			div = element("div");
 			create_component(rangeswitch.$$.fragment);
+			attr(div, "class", "aaMenu-section svelte-1p9h3ia");
 		},
 		m(target, anchor) {
-			mount_component(rangeswitch, target, anchor);
+			insert(target, div, anchor);
+			mount_component(rangeswitch, div, null);
 			current = true;
 		},
 		p: noop,
@@ -41766,7 +41765,8 @@ function create_if_block_7(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(rangeswitch, detaching);
+			if (detaching) detach(div);
+			destroy_component(rangeswitch);
 		}
 	};
 }
@@ -43459,11 +43459,11 @@ class AAItemMenu extends SvelteApplication {
   _getHeaderButtons() {
     const buttons = super._getHeaderButtons();
 
-    console.log(super._getHeaderButtons());
     buttons.unshift({
       class: 'autorec-shortcut',
       icon: 'fas fa-globe',
       title: 'Launch Autorec',
+      label: "Autorec Menu",
       styles: {
         color: 'lightblue'
       },

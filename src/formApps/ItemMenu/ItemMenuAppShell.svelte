@@ -228,11 +228,11 @@
                             <SoundSettings audioPath="a01" {flagData} />
                         {/if}
                     </div>
+                    {#if animType === "melee"}
                     <div class="aaMenu-section">
-                        {#if animType === "melee"}
                             <RangeSwitch {flagData} />
-                        {/if}
                     </div>
+                    {/if}
                     {#if animType === "melee" || animType === "range" || animType === "static"}
                         <div class="aaMenu-section">
                             <ExplosionSettings {flagData} />

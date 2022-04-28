@@ -21,7 +21,7 @@
         "javelin",
         "spear",
     ];
-    const meleeSwitch = flagData.meleeSwitch;
+    let meleeSwitch = flagData.meleeSwitch;
 
     let switchType = meleeSwitch.switchType || "on";
     $: switchType = switchType;

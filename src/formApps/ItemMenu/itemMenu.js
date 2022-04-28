@@ -48,11 +48,11 @@ export default class AAItemMenu extends SvelteApplication {
     _getHeaderButtons()
     {
         const buttons = super._getHeaderButtons();
-        console.log(super._getHeaderButtons())
         buttons.unshift({
             class: 'autorec-shortcut',
             icon: 'fas fa-globe',
             title: 'Launch Autorec',
+            label: "Autorec Menu",
             styles: { color: 'lightblue' },
    
             onclick: function()
