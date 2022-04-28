@@ -12900,11 +12900,11 @@ async function menuOptions(database) {
 
   for (let section of menuSets) {
     aaTypeMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => _objectSpread2(_objectSpread2({}, o), {}, {
-      [type]: game.i18n.localize(`AUTOANIM.${type}`)
+      [type]: game.i18n.localize(`autoanimations.menuTypes.${type}`)
     }), {});
     aaNameMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => _objectSpread2(_objectSpread2({}, o), {}, {
       [type]: Object.keys(jb2a[section][type]).reduce((o, name) => _objectSpread2(_objectSpread2({}, o), {}, {
-        [name]: game.i18n.localize(`AUTOANIM.${name}`)
+        [name]: game.i18n.localize(`autoanimations.animations.${name}`)
       }), {})
     }), {});
     aaVariantMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => _objectSpread2(_objectSpread2({}, o), {}, {
@@ -12918,7 +12918,7 @@ async function menuOptions(database) {
       [type]: Object.keys(jb2a[section][type]).reduce((o, name) => _objectSpread2(_objectSpread2({}, o), {}, {
         [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => _objectSpread2(_objectSpread2({}, o), {}, {
           [variant]: Object.keys(jb2a[section][type][name][variant]).reduce((o, color) => _objectSpread2(_objectSpread2({}, o), {}, {
-            [color]: game.i18n.localize(`AUTOANIM.${color}`)
+            [color]: game.i18n.localize(`autoanimations.colors.${color}`)
           }), {})
         }), {})
       }), {})

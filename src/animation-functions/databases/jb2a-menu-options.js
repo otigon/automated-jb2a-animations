@@ -11,10 +11,10 @@ const jb2a = database;
 const menuSets = ['range', 'return', 'melee', 'static', 'templatefx']
 
 for (let section of menuSets) {
-    aaTypeMenu[section] =       Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: game.i18n.localize(`AUTOANIM.${type}`) }), {});
-    aaNameMenu[section] =       Object.keys(jb2a[section]).reduce((o, type) => ({...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({...o, [name]: game.i18n.localize(`AUTOANIM.${name}`)}), {})}), {});
+    aaTypeMenu[section] =       Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: game.i18n.localize(`autoanimations.menuTypes.${type}`) }), {});
+    aaNameMenu[section] =       Object.keys(jb2a[section]).reduce((o, type) => ({...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({...o, [name]: game.i18n.localize(`autoanimations.animations.${name}`)}), {})}), {});
     aaVariantMenu[section] =    Object.keys(jb2a[section]).reduce((o, type) => ({...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({...o, [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => ({...o, [variant]: game.i18n.localize(`AUTOANIM.${variant}`)}), {})}), {})}), {});
-    aaColorMenu[section] =      Object.keys(jb2a[section]).reduce((o, type) => ({...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({...o, [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => ({...o, [variant]: Object.keys(jb2a[section][type][name][variant]).reduce((o, color) => ({...o, [color]: game.i18n.localize(`AUTOANIM.${color}`)}), {})}), {})}), {})}), {});
+    aaColorMenu[section] =      Object.keys(jb2a[section]).reduce((o, type) => ({...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({...o, [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => ({...o, [variant]: Object.keys(jb2a[section][type][name][variant]).reduce((o, color) => ({...o, [color]: game.i18n.localize(`autoanimations.colors.${color}`)}), {})}), {})}), {})}), {});
 }
 await addRandom(aaColorMenu)
 await remove_Template(aaTypeMenu)
