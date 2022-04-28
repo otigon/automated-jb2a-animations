@@ -9,7 +9,6 @@
     const macros = flagData.macro;
     const autoOverride = flagData.autoOverride;
     const options = flagData.options;
-    const sounds = flagData.audio.a01 || {};
 
     export let animationDisabled = flagData.killAnim || false;
     $: flagData.killAnim = animationDisabled;
@@ -101,8 +100,8 @@
     </div>
     <div
         class="flexcol button-labels {overrideAuto || animationDisabled
-            ? 'disabledCheckbox'
-            : 'enabledCheckbox'}"
+            ? 'aa-disabled'
+            : ''}"
         style="grid-row: 2 / 3; grid-column: 1 / 2;"
         transition:fade
     >
@@ -119,8 +118,8 @@
     </div>
     <div
         class="flexcol button-labels {isCustomized || animationDisabled
-            ? 'disabledCheckbox'
-            : 'enabledCheckbox'}"
+            ? 'aa-disabled'
+            : ''}"
         style="grid-row: 2 / 3; grid-column: 2 / 3;"
         transition:fade
     >
@@ -140,8 +139,8 @@
     <div
         class="flexcol button-labels {gameSystem === 'dnd5e' &&
         !animationDisabled
-            ? 'enabledCheckbox'
-            : 'disabledCheckbox'}"
+            ? ''
+            : 'aa-disabled'}"
         style="grid-row: 2 / 3; grid-column: 3 / 4;"
         transition:fade
     >
@@ -161,10 +160,12 @@
 <style lang="scss">
     .selected {
         background-color: rgba(25, 175, 2, 0.4);
+        border: 2px ridge rgb(172, 172, 172, .60);
         transition: background-color 0.5s;
     }
     .notSelected {
         background-color: rgba(219, 132, 2, 0.4);
+        border: 2px ridge rgb(172, 172, 172, .60);
         transition: background-color 0.5s;
     }
     .aa-general-settings {
@@ -181,13 +182,6 @@
         border-radius: 10px;
         color: black;
     }
-    .disabledCheckbox label {
-        border: 2px ridge rgba(172, 172, 172, 0.03);
-        color: rgba(54, 54, 54, 0.3);
-    }
-    .enabledCheckbox label {
-        border: 2px ridge rgb(172, 172, 172, .60);
-    }
     .button-labels label {
         border-radius: 10px;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
@@ -196,5 +190,13 @@
         padding: 5px;
         text-align: center;
         width: 100%;
+    }
+    .aa-general-settings input:disabled {
+        opacity: 0.3;
+        transition: opacity 0.5s;
+    }
+    .aa-disabled label {
+        opacity:0.3;
+        transition: opacity 0.5s;
     }
 </style>

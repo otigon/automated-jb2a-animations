@@ -234,7 +234,7 @@
             {/if}
             {#if flagPath === "explosions"}
             <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
-                <i class="{explosionEnabled ? "fas fa-minus aa-red" : "fas fa-plus aa-green"}" on:click={() => enableExplosion()}></i>
+                <i class="{explosionEnabled ? "fas fa-minus aa-red" : "fas fa-plus aa-green"} aaCenterToggle" on:click={() => enableExplosion()}></i>
             </div>    
             {/if}        
         </div>
@@ -270,7 +270,7 @@
         </div>
     {/if}
     {#if animType != "" || flagPath === "explosions"}
-        <div class="aa-3wide {isCustom ? 'dimLabel' : ''}">
+        <div class="aa-3wide">
             {#if animType === "static" && flagPath !== "explosions"}
                 <!--"Play On" select for the Static option-->
                 <div
@@ -302,7 +302,7 @@
                 </div>
             {/if}
             <!--Type Menu-->
-            <div class="flexcol" style="grid-row: 2 / 3;grid-column: 2 / 3;">
+            <div class="flexcol {isCustom ? 'aa-disabled' : ''}" style="grid-row: 2 / 3;grid-column: 2 / 3;">
                 <label for="2">{localize("AUTOANIM.type")}</label>
                 <select
                     name="flags.autoanimations.options.menuType"
@@ -322,7 +322,7 @@
                 </select>
             </div>
             <!--Animation Menu-->
-            <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
+            <div class="flexcol {isCustom ? 'aa-disabled' : ''}" style="grid-row: 3 / 4;grid-column: 1 / 2;">
                 <label for="3">{localize("AUTOANIM.animation")}</label>
                 <select
                     name="flags.autoanimations.animation"
@@ -342,7 +342,7 @@
                 </select>
             </div>
             <!--Variant Menu-->
-            <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
+            <div class="flexcol {isCustom ? 'aa-disabled' : ''}" style="grid-row: 3 / 4;grid-column: 2 / 3;">
                 <label for="4">{localize("AUTOANIM.variant")}</label>
                 <select
                     name="flags.autoanimations.options.variant"
@@ -362,7 +362,7 @@
                 </select>
             </div>
             <!--Color Menu-->
-            <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
+            <div class="flexcol {isCustom ? 'aa-disabled' : ''}" style="grid-row: 3 / 4;grid-column: 3 / 4;">
                 <label for="5">{localize("AUTOANIM.color")}</label>
                 <select
                     name="flags.autoanimations.color"
@@ -427,9 +427,6 @@
         min-height: 2em;
         border-radius: 5px;
     }
-    .dimLabel {
-        color: rgba(133, 133, 133, 0.3);
-    }
     .aa-3wide label {
         align-self: center;
     }
@@ -485,5 +482,13 @@
     .aa-green {
         color: green;
         transition: "color" 0.5s;
+    }
+    .aa-disabled label {
+        opacity:0.3;
+        transition: opacity 0.5s;
+    }
+    .aa-3wide select:disabled {
+        opacity: 0.3;
+        transition: opacity 0.5s;
     }
 </style>

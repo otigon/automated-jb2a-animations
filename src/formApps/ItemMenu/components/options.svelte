@@ -40,11 +40,11 @@
     $: opacity = opacity > 1 ? 1 : opacity;
     $: options.opacity = opacity > 1 ? 1 : opacity;
 
-    let unbindAlpha = options.unbindAlpha || 1;
+    let unbindAlpha = options.unbindAlpha || false;
     $: unbindAlpha = unbindAlpha;
     $: options.unbindAlpha = unbindAlpha;
 
-    let unbindVisbility = options.unbindVisbility || 1;
+    let unbindVisbility = options.unbindVisbility || false;
     $: unbindVisbility = unbindVisbility;
     $: options.unbindVisbility = unbindVisbility;
 

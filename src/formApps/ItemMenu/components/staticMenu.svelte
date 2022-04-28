@@ -178,7 +178,7 @@
         </div>
         {/if}
         <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
-            <i class="{enableSection ? "fas fa-minus aa-red" : "fas fa-plus aa-green"}" on:click={() => switchEnable()}></i>
+            <i class="{enableSection ? "fas fa-minus aa-red" : "fas fa-plus aa-green"} aaCenterToggle" on:click={() => switchEnable()}></i>
         </div>
     </div>
 </div>

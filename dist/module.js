@@ -31652,9 +31652,9 @@ function create_if_block_9$1(ctx) {
 			div = element("div");
 			i = element("i");
 
-			attr(i, "class", i_class_value = "" + (null_to_empty(/*explosionEnabled*/ ctx[2]
+			attr(i, "class", i_class_value = "" + ((/*explosionEnabled*/ ctx[2]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " svelte-el6p35"));
+			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-1knm2q4"));
 
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "1/2");
@@ -31670,9 +31670,9 @@ function create_if_block_9$1(ctx) {
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*explosionEnabled*/ 4 && i_class_value !== (i_class_value = "" + (null_to_empty(/*explosionEnabled*/ ctx[2]
+			if (dirty[0] & /*explosionEnabled*/ 4 && i_class_value !== (i_class_value = "" + ((/*explosionEnabled*/ ctx[2]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " svelte-el6p35"))) {
+			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-1knm2q4"))) {
 				attr(i, "class", i_class_value);
 			}
 		},
@@ -31798,7 +31798,7 @@ function create_if_block_8$1(ctx) {
 			option4 = element("option");
 			option4.textContent = `${localize("AUTOANIM.typeAuras")}`;
 			attr(label, "for", "1");
-			attr(label, "class", "svelte-el6p35");
+			attr(label, "class", "svelte-1knm2q4");
 			option0.__value = "melee";
 			option0.value = option0.__value;
 			option1.__value = "range";
@@ -31812,12 +31812,12 @@ function create_if_block_8$1(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-el6p35");
+			attr(select, "class", "svelte-1knm2q4");
 			if (/*animType*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[25].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-3wide svelte-el6p35");
+			attr(div1, "class", "aa-3wide svelte-1knm2q4");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -31863,25 +31863,28 @@ function create_if_block_1$7(ctx) {
 	let t2;
 	let select0;
 	let select0_class_value;
+	let div0_class_value;
 	let t3;
 	let div1;
 	let label1;
 	let t5;
 	let select1;
 	let select1_class_value;
+	let div1_class_value;
 	let t6;
 	let div2;
 	let label2;
 	let t8;
 	let select2;
 	let select2_class_value;
+	let div2_class_value;
 	let t9;
 	let div3;
 	let label3;
 	let t11;
 	let select3;
 	let select3_class_value;
-	let div4_class_value;
+	let div3_class_value;
 	let t12;
 	let custompicker;
 	let updating_isCustom;
@@ -31961,63 +31964,63 @@ function create_if_block_1$7(ctx) {
 			div5 = element("div");
 			if (if_block5) if_block5.c();
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-el6p35");
+			attr(label0, "class", "svelte-1knm2q4");
 			attr(select0, "name", "flags.autoanimations.options.menuType");
 			attr(select0, "id", "2");
 			select0.disabled = /*isCustom*/ ctx[10];
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-el6p35"));
+			: "isNotPopulated") + " svelte-1knm2q4"));
 
 			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[28].call(select0));
-			attr(div0, "class", "flexcol");
+			attr(div0, "class", div0_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-el6p35");
+			attr(label1, "class", "svelte-1knm2q4");
 			attr(select1, "name", "flags.autoanimations.animation");
 			attr(select1, "id", "3");
 			select1.disabled = /*isCustom*/ ctx[10];
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[7] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-el6p35"));
+			: "isNotPopulated") + " svelte-1knm2q4"));
 
 			if (/*animation*/ ctx[7] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[30].call(select1));
-			attr(div1, "class", "flexcol");
+			attr(div1, "class", div1_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-el6p35");
+			attr(label2, "class", "svelte-1knm2q4");
 			attr(select2, "name", "flags.autoanimations.options.variant");
 			attr(select2, "id", "4");
 			select2.disabled = /*isCustom*/ ctx[10];
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[8] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-el6p35"));
+			: "isNotPopulated") + " svelte-1knm2q4"));
 
 			if (/*variant*/ ctx[8] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[32].call(select2));
-			attr(div2, "class", "flexcol");
+			attr(div2, "class", div2_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-el6p35");
+			attr(label3, "class", "svelte-1knm2q4");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 			select3.disabled = /*isCustom*/ ctx[10];
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[9] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-el6p35"));
+			: "isNotPopulated") + " svelte-1knm2q4"));
 
 			if (/*color*/ ctx[9] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[34].call(select3));
-			attr(div3, "class", "flexcol");
+			attr(div3, "class", div3_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", div4_class_value = "aa-3wide " + (/*isCustom*/ ctx[10] ? 'dimLabel' : '') + " svelte-el6p35");
-			attr(div5, "class", "aa-3wide svelte-el6p35");
+			attr(div4, "class", "aa-3wide svelte-1knm2q4");
+			attr(div5, "class", "aa-3wide svelte-1knm2q4");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -32114,12 +32117,16 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*menuType, isCustom, menuSelection*/ 17410 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-el6p35"))) {
+			: "isNotPopulated") + " svelte-1knm2q4"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
 			if (dirty[0] & /*menuType, menuSelection*/ 16386) {
 				select_option(select0, /*menuType*/ ctx[1]);
+			}
+
+			if (!current || dirty[0] & /*isCustom*/ 1024 && div0_class_value !== (div0_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4")) {
+				attr(div0, "class", div0_class_value);
 			}
 
 			if (/*menuType*/ ctx[1] != "") {
@@ -32141,12 +32148,16 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*animation, isCustom, menuSelection, menuType*/ 17538 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[7] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-el6p35"))) {
+			: "isNotPopulated") + " svelte-1knm2q4"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
 			if (dirty[0] & /*animation, menuSelection, menuType*/ 16514) {
 				select_option(select1, /*animation*/ ctx[7]);
+			}
+
+			if (!current || dirty[0] & /*isCustom*/ 1024 && div1_class_value !== (div1_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4")) {
+				attr(div1, "class", div1_class_value);
 			}
 
 			if (/*menuType*/ ctx[1] != "" & /*animation*/ ctx[7] != "") {
@@ -32168,12 +32179,16 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*variant, isCustom, menuSelection, menuType, animation*/ 17794 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[8] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-el6p35"))) {
+			: "isNotPopulated") + " svelte-1knm2q4"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
 			if (dirty[0] & /*variant, menuSelection, menuType, animation*/ 16770) {
 				select_option(select2, /*variant*/ ctx[8]);
+			}
+
+			if (!current || dirty[0] & /*isCustom*/ 1024 && div2_class_value !== (div2_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4")) {
+				attr(div2, "class", div2_class_value);
 			}
 
 			if (/*menuType*/ ctx[1] != "" && /*animation*/ ctx[7] != "" && /*variant*/ ctx[8] != "") {
@@ -32195,7 +32210,7 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*color, isCustom, menuSelection, menuType, animation, variant*/ 18306 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[9] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-el6p35"))) {
+			: "isNotPopulated") + " svelte-1knm2q4"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -32203,8 +32218,8 @@ function create_if_block_1$7(ctx) {
 				select_option(select3, /*color*/ ctx[9]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 1024 && div4_class_value !== (div4_class_value = "aa-3wide " + (/*isCustom*/ ctx[10] ? 'dimLabel' : '') + " svelte-el6p35")) {
-				attr(div4, "class", div4_class_value);
+			if (!current || dirty[0] & /*isCustom*/ 1024 && div3_class_value !== (div3_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4")) {
+				attr(div3, "class", div3_class_value);
 			}
 
 			const custompicker_changes = {};
@@ -32311,7 +32326,7 @@ function create_if_block_7$1(ctx) {
 			option3 = element("option");
 			option3.textContent = `${localize("AUTOANIM.both")}`;
 			attr(label, "for", "6");
-			attr(label, "class", "svelte-el6p35");
+			attr(label, "class", "svelte-1knm2q4");
 			option0.__value = "source";
 			option0.value = option0.__value;
 			option1.__value = "target";
@@ -32324,7 +32339,7 @@ function create_if_block_7$1(ctx) {
 			attr(select, "id", "6");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-el6p35");
+			attr(select, "class", "svelte-1knm2q4");
 			if (/*staticType*/ ctx[12] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[27].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "1 / 2");
@@ -32754,7 +32769,7 @@ function create_if_block_2$5(ctx) {
 			attr(input, "id", "constantY");
 			input.hidden = true;
 			attr(label, "for", "constantY");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-el6p35"));
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-1knm2q4"));
 			attr(div, "class", "flexcol aa-button-labels");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "3 / 4");
@@ -32778,7 +32793,7 @@ function create_if_block_2$5(ctx) {
 				input.checked = /*onlyX*/ ctx[13];
 			}
 
-			if (!current || dirty[0] & /*onlyX*/ 8192 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-el6p35"))) {
+			if (!current || dirty[0] & /*onlyX*/ 8192 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-1knm2q4"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -32837,12 +32852,12 @@ function create_fragment$e(ctx) {
 			t3 = space();
 			if (if_block2) if_block2.c();
 			attr(label, "for", "");
-			attr(label, "class", "svelte-el6p35");
+			attr(label, "class", "svelte-1knm2q4");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "3/4");
-			attr(div1, "class", "aa-header svelte-el6p35");
-			attr(div2, "class", "aa-header-section svelte-el6p35");
+			attr(div1, "class", "aa-header svelte-1knm2q4");
+			attr(div2, "class", "aa-header-section svelte-1knm2q4");
 		},
 		m(target, anchor) {
 			insert(target, div3, anchor);
@@ -35360,8 +35375,8 @@ function instance$b($$self, $$props, $$invalidate) {
 	let auraRadius = options.auraRadius;
 	let belowToken = options.below || false;
 	let opacity = options.opacity || 1;
-	let unbindAlpha = options.unbindAlpha || 1;
-	let unbindVisbility = options.unbindVisbility || 1;
+	let unbindAlpha = options.unbindAlpha || false;
+	let unbindVisbility = options.unbindVisbility || false;
 	let persistent = options.persistent || false;
 	let removeTemplate = options.removeTemplate || false;
 	let scaleX = options.scaleX;
@@ -35727,10 +35742,11 @@ function create_if_block$6(ctx) {
 			attr(input, "type", "checkbox");
 			attr(input, "id", "addMacro");
 			input.hidden = true;
+			attr(input, "class", "svelte-1s8zwsq");
 			attr(label, "for", "addMacro");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-2tabhv"));
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-1s8zwsq"));
 			set_style(label, "border", "2px ridge rgb(172, 172, 172, .47)");
-			attr(div, "class", "flexcol button-labels svelte-2tabhv");
+			attr(div, "class", "flexcol button-labels svelte-1s8zwsq");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "1 / 2");
 		},
@@ -35754,7 +35770,7 @@ function create_if_block$6(ctx) {
 				input.checked = /*enableMacro*/ ctx[2];
 			}
 
-			if (dirty & /*enableMacro*/ 4 && label_class_value !== (label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-2tabhv"))) {
+			if (dirty & /*enableMacro*/ 4 && label_class_value !== (label_class_value = "" + (null_to_empty(/*enableMacro*/ ctx[2] ? "selected" : "notSelected") + " svelte-1s8zwsq"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -35843,26 +35859,28 @@ function create_fragment$a(ctx) {
 			attr(input0, "type", "checkbox");
 			attr(input0, "id", "killAnim");
 			input0.hidden = true;
+			attr(input0, "class", "svelte-1s8zwsq");
 			attr(label0, "for", "killAnim");
 
 			attr(label0, "class", label0_class_value = "" + (null_to_empty(!/*animationDisabled*/ ctx[0]
 			? "selected"
-			: "notSelected") + " svelte-2tabhv"));
+			: "notSelected") + " svelte-1s8zwsq"));
 
 			set_style(label0, "border", "2px ridge rgb(172, 172, 172, .47)");
-			attr(div0, "class", "flexcol button-labels svelte-2tabhv");
+			attr(div0, "class", "flexcol button-labels svelte-1s8zwsq");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(input1, "type", "checkbox");
 			attr(input1, "id", "override");
 			input1.hidden = true;
 			input1.disabled = input1_disabled_value = /*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0];
+			attr(input1, "class", "svelte-1s8zwsq");
 			attr(label1, "for", "override");
-			attr(label1, "class", label1_class_value = "" + (null_to_empty(/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-2tabhv"));
+			attr(label1, "class", label1_class_value = "" + (null_to_empty(/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-1s8zwsq"));
 
 			attr(div1, "class", div1_class_value = "flexcol button-labels " + (/*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0]
-			? 'disabledCheckbox'
-			: 'enabledCheckbox') + " svelte-2tabhv");
+			? 'aa-disabled'
+			: '') + " svelte-1s8zwsq");
 
 			set_style(div1, "grid-row", "2 / 3");
 			set_style(div1, "grid-column", "1 / 2");
@@ -35870,12 +35888,13 @@ function create_fragment$a(ctx) {
 			attr(input2, "id", "overrideAuto");
 			input2.hidden = true;
 			input2.disabled = input2_disabled_value = /*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0];
+			attr(input2, "class", "svelte-1s8zwsq");
 			attr(label2, "for", "overrideAuto");
-			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-2tabhv"));
+			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-1s8zwsq"));
 
 			attr(div2, "class", div2_class_value = "flexcol button-labels " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]
-			? 'disabledCheckbox'
-			: 'enabledCheckbox') + " svelte-2tabhv");
+			? 'aa-disabled'
+			: '') + " svelte-1s8zwsq");
 
 			set_style(div2, "grid-row", "2 / 3");
 			set_style(div2, "grid-column", "2 / 3");
@@ -35883,16 +35902,17 @@ function create_fragment$a(ctx) {
 			attr(input3, "id", "fromAmmo");
 			input3.hidden = true;
 			input3.disabled = input3_disabled_value = /*gameSystem*/ ctx[6] !== "dnd5e" || /*animationDisabled*/ ctx[0];
+			attr(input3, "class", "svelte-1s8zwsq");
 			attr(label3, "for", "fromAmmo");
-			attr(label3, "class", label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-2tabhv"));
+			attr(label3, "class", label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-1s8zwsq"));
 
 			attr(div3, "class", div3_class_value = "flexcol button-labels " + (/*gameSystem*/ ctx[6] === 'dnd5e' && !/*animationDisabled*/ ctx[0]
-			? 'enabledCheckbox'
-			: 'disabledCheckbox') + " svelte-2tabhv");
+			? ''
+			: 'aa-disabled') + " svelte-1s8zwsq");
 
 			set_style(div3, "grid-row", "2 / 3");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", "aa-general-settings svelte-2tabhv");
+			attr(div4, "class", "aa-general-settings svelte-1s8zwsq");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -35960,7 +35980,7 @@ function create_fragment$a(ctx) {
 
 			if (!current || dirty & /*animationDisabled*/ 1 && label0_class_value !== (label0_class_value = "" + (null_to_empty(!/*animationDisabled*/ ctx[0]
 			? "selected"
-			: "notSelected") + " svelte-2tabhv"))) {
+			: "notSelected") + " svelte-1s8zwsq"))) {
 				attr(label0, "class", label0_class_value);
 			}
 
@@ -35972,13 +35992,13 @@ function create_fragment$a(ctx) {
 				input1.checked = /*isCustomized*/ ctx[1];
 			}
 
-			if (!current || dirty & /*isCustomized*/ 2 && label1_class_value !== (label1_class_value = "" + (null_to_empty(/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-2tabhv"))) {
+			if (!current || dirty & /*isCustomized*/ 2 && label1_class_value !== (label1_class_value = "" + (null_to_empty(/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-1s8zwsq"))) {
 				attr(label1, "class", label1_class_value);
 			}
 
 			if (!current || dirty & /*overrideAuto, animationDisabled*/ 17 && div1_class_value !== (div1_class_value = "flexcol button-labels " + (/*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0]
-			? 'disabledCheckbox'
-			: 'enabledCheckbox') + " svelte-2tabhv")) {
+			? 'aa-disabled'
+			: '') + " svelte-1s8zwsq")) {
 				attr(div1, "class", div1_class_value);
 			}
 
@@ -35990,13 +36010,13 @@ function create_fragment$a(ctx) {
 				input2.checked = /*overrideAuto*/ ctx[4];
 			}
 
-			if (!current || dirty & /*overrideAuto*/ 16 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-2tabhv"))) {
+			if (!current || dirty & /*overrideAuto*/ 16 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-1s8zwsq"))) {
 				attr(label2, "class", label2_class_value);
 			}
 
 			if (!current || dirty & /*isCustomized, animationDisabled*/ 3 && div2_class_value !== (div2_class_value = "flexcol button-labels " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]
-			? 'disabledCheckbox'
-			: 'enabledCheckbox') + " svelte-2tabhv")) {
+			? 'aa-disabled'
+			: '') + " svelte-1s8zwsq")) {
 				attr(div2, "class", div2_class_value);
 			}
 
@@ -36008,13 +36028,13 @@ function create_fragment$a(ctx) {
 				input3.checked = /*fromAmmo*/ ctx[5];
 			}
 
-			if (!current || dirty & /*fromAmmo*/ 32 && label3_class_value !== (label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-2tabhv"))) {
+			if (!current || dirty & /*fromAmmo*/ 32 && label3_class_value !== (label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-1s8zwsq"))) {
 				attr(label3, "class", label3_class_value);
 			}
 
 			if (!current || dirty & /*animationDisabled*/ 1 && div3_class_value !== (div3_class_value = "flexcol button-labels " + (/*gameSystem*/ ctx[6] === 'dnd5e' && !/*animationDisabled*/ ctx[0]
-			? 'enabledCheckbox'
-			: 'disabledCheckbox') + " svelte-2tabhv")) {
+			? ''
+			: 'aa-disabled') + " svelte-1s8zwsq")) {
 				attr(div3, "class", div3_class_value);
 			}
 		},
@@ -36072,7 +36092,6 @@ function instance$a($$self, $$props, $$invalidate) {
 	const macros = flagData.macro;
 	const autoOverride = flagData.autoOverride;
 	const options = flagData.options;
-	flagData.audio.a01 || {};
 	let { animationDisabled = flagData.killAnim || false } = $$props;
 
 	let disabledLabel = !animationDisabled
@@ -38690,9 +38709,9 @@ function create_fragment$4(ctx) {
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "3/4");
 
-			attr(i, "class", i_class_value = "" + (null_to_empty(/*enableSection*/ ctx[6]
+			attr(i, "class", i_class_value = "" + ((/*enableSection*/ ctx[6]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " svelte-eg7mgg"));
+			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-eg7mgg"));
 
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1/2");
@@ -38737,9 +38756,9 @@ function create_fragment$4(ctx) {
 				if_block0 = null;
 			}
 
-			if (!current || dirty[0] & /*enableSection*/ 64 && i_class_value !== (i_class_value = "" + (null_to_empty(/*enableSection*/ ctx[6]
+			if (!current || dirty[0] & /*enableSection*/ 64 && i_class_value !== (i_class_value = "" + ((/*enableSection*/ ctx[6]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " svelte-eg7mgg"))) {
+			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-eg7mgg"))) {
 				attr(i, "class", i_class_value);
 			}
 
