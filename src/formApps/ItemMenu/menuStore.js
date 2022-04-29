@@ -1,9 +1,10 @@
-import { writable }   from 'svelte/store';
+import { writable }         from 'svelte/store';
+import { Position }         from '@typhonjs-fvtt/runtime/svelte/application';
 
 let data = "";
 export const menuAnimType = writable(data);
 
-export const menuSelection = writable(data); 
+export const menuSelection = writable(data);
 
 let customPath01;
 export const customFilePath01 = writable(customPath01);
@@ -41,3 +42,12 @@ export const extraSource = writable(sourceEnabled);
 
 let targetEnabled;
 export const extraTarget = writable(targetEnabled);
+
+let rotation;
+const buttons = writable(rotation);
+
+buttons.rotate = () => {
+    const duration = 1000;
+    
+
+}

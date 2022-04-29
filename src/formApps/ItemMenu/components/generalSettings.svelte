@@ -66,6 +66,7 @@
         <div
             class="flexcol button-labels"
             style="grid-row: 1 / 2; grid-column: 1 / 2"
+            transition:fade
         >
             <input
                 type="checkbox"
