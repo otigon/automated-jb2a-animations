@@ -3,6 +3,7 @@
     import { fade } from "svelte/transition";
     import StaticMenu from "./staticMenu.svelte";
     import SoundSettings from "./soundSettings.svelte";
+    import ChooseAnimation from "./chooseAnimation.svelte";
 
 
     export let flagData;

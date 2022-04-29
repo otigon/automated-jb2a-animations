@@ -34,7 +34,7 @@
     export let animType;
     $: {
         animType = animType;
-        animTypeChange()
+        animTypeChange();
     }
 
     // Defines the initial Flag path depending on the Section calling this Component
@@ -58,38 +58,47 @@
     // Sets Initial menuType for Menu - Assigns to Flag when updated
 
     // For Database path
-    let menuSelection = flagPath !== "PrimaryAnimation"
-        ? "static"
-        : animType === "aura"
-        ? "static"
-        : animType;
+    let menuSelection =
+        flagPath !== "PrimaryAnimation"
+            ? "static"
+            : animType === "aura"
+            ? "static"
+            : animType;
     $: menuSelection =
-    flagPath !== "PrimaryAnimation"
-        ? "static"
-        : animType === "aura"
-        ? "static"
-        : animType;
+        flagPath !== "PrimaryAnimation"
+            ? "static"
+            : animType === "aura"
+            ? "static"
+            : animType;
 
-
-    export let menuType = options.menuType || Object.keys(aaTypeMenu[menuSelection])[0];
+    export let menuType =
+        options.menuType || Object.keys(aaTypeMenu[menuSelection])[0];
     $: {
         menuType = menuType;
         options.menuType = menuType;
     }
     // Sets Initial animation for Menu - Assigns to Flag when updated
-    let animation = rootPath.animation || Object.keys(aaNameMenu[menuSelection][menuType])[0];;
+    let animation =
+        rootPath.animation ||
+        Object.keys(aaNameMenu[menuSelection][menuType])[0];
     $: {
         animation = animation;
         rootPath.animation = animation;
     }
     // Sets Initial variant for Menu - Assigns to Flag when updated
-    let variant = options.variant || Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0];;
+    let variant =
+        options.variant ||
+        Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0];
     $: {
         variant = variant;
         options.variant = variant;
     }
     // Sets Initial color for Menu - Assigns to Flag when updated
-    let color = rootPath.color || Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0];;
+    let color =
+        rootPath.color ||
+        Object.keys(
+            aaColorMenu[menuSelection][menuType][animation][variant]
+        )[0];
     $: {
         color = color;
         rootPath.color = color;
@@ -98,11 +107,20 @@
         if (flagPath !== "PrimaryAnimation") {
             return;
         }
-        let menuSelection = flagPath !== "PrimaryAnimation" ? "static" : animType === "aura" ? "static" : animType;
+        let menuSelection =
+            flagPath !== "PrimaryAnimation"
+                ? "static"
+                : animType === "aura"
+                ? "static"
+                : animType;
         menuType = Object.keys(aaTypeMenu[menuSelection])[0];
         animation = Object.keys(aaNameMenu[menuSelection][menuType])[0];
-        variant = Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0];
-        color = Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0];
+        variant = Object.keys(
+            aaVariantMenu[menuSelection][menuType][animation]
+        )[0];
+        color = Object.keys(
+            aaColorMenu[menuSelection][menuType][animation][variant]
+        )[0];
     }
 
     // Determines if the Custom Path checkbox is checked, and updates CSS/Menu accordingly
@@ -119,7 +137,8 @@
             modal: false,
             draggable: true,
             resizable: true,
-            title: type === "primary" ? "Primary Animation" : "Explosion Preview",
+            title:
+                type === "primary" ? "Primary Animation" : "Explosion Preview",
             stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
             content: {
                 class: type === "primary" ? PrimaryApp : ExplosionApp,
@@ -197,6 +216,13 @@
     function enableExplosion() {
         explosionEnabled = !explosionEnabled;
     }
+    // Handles the "Static Type" option for when On Token is selected
+    let staticType = options.staticType || "source";
+    $: {
+        staticType = staticType;
+        options.staticType = staticType;
+    }
+
 </script>
 
 <div transition:fade>
@@ -206,23 +232,33 @@
                 <label for="">{sectionTitle}</label>
             </div>
             {#if (previewType === "primary" && menuType) || (previewType === "explosion" && animation && explosionEnabled)}
-            <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                <i class="fas fa-video aa-video-preview" on:click={() => onClick(previewType)}></i>
-            </div>
+                <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+                    <i
+                        class="fas fa-video aa-video-preview"
+                        on:click={() => onClick(previewType)}
+                    />
+                </div>
             {/if}
             {#if flagPath === "explosions"}
-            <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
-                <i class="{explosionEnabled ? "fas fa-minus aa-red" : "fas fa-plus aa-green"} aaCenterToggle" on:click={() => enableExplosion()}></i>
-            </div>    
-            {/if}        
+                <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+                    <i
+                        class="{explosionEnabled
+                            ? 'fas fa-minus aa-red'
+                            : 'fas fa-plus aa-green'} aaCenterToggle"
+                        on:click={() => enableExplosion()}
+                    />
+                </div>
+            {/if}
         </div>
     </div>
     {#if (flagPath === "explosions" && explosionEnabled) || flagPath === "PrimaryAnimation"}
-    <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
-    {#if animType != "" || flagPath === "explosions"}
+        <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
         <div class="aa-3wide">
             <!--Type Menu-->
-            <div class="flexcol {isCustom ? 'aa-disabled' : ''}" style="grid-row: 2 / 3;grid-column: 2 / 3;">
+            <div
+                class="flexcol {isCustom ? 'aa-disabled' : ''}"
+                style="grid-row: 2 / 3;grid-column: 2 / 3;"
+            >
                 <label for="2">{localize("AUTOANIM.type")}</label>
                 <select
                     name="flags.autoanimations.options.menuType"
@@ -241,8 +277,41 @@
                     {/if}
                 </select>
             </div>
+            {#if animType === "static" && flagPath === "PrimaryAnimation"}
+                <!--"Play On" select for the Static option-->
+                <div
+                    class="flexcol"
+                    style="grid-row: 2 / 3;grid-column: 3 / 4;"
+                    in:fly={{ x: 200, duration: 500 }}
+                    out:fly={{ x: 200, duration: 500 }}
+                >
+                    <label for="6">{localize("AUTOANIM.playOn")}</label>
+                    <select
+                        name="flags.autoanimations.options.staticType"
+                        bind:value={staticType}
+                        id="6"
+                        style="text-align: center;justify-self: center"
+                    >
+                        <option value="source"
+                            >{localize("AUTOANIM.source")}</option
+                        >
+                        <option value="target"
+                            >{localize("AUTOANIM.target")}</option
+                        >
+                        <option value="targetDefault"
+                            >{localize("AUTOANIM.targetDefault")}</option
+                        >
+                        <option value="sourcetarget"
+                            >{localize("AUTOANIM.both")}</option
+                        >
+                    </select>
+                </div>
+            {/if}
             <!--Animation Menu-->
-            <div class="flexcol {isCustom ? 'aa-disabled' : ''}" style="grid-row: 3 / 4;grid-column: 1 / 2;">
+            <div
+                class="flexcol {isCustom ? 'aa-disabled' : ''}"
+                style="grid-row: 3 / 4;grid-column: 1 / 2;"
+            >
                 <label for="3">{localize("AUTOANIM.animation")}</label>
                 <select
                     name="flags.autoanimations.animation"
@@ -262,7 +331,10 @@
                 </select>
             </div>
             <!--Variant Menu-->
-            <div class="flexcol {isCustom ? 'aa-disabled' : ''}" style="grid-row: 3 / 4;grid-column: 2 / 3;">
+            <div
+                class="flexcol {isCustom ? 'aa-disabled' : ''}"
+                style="grid-row: 3 / 4;grid-column: 2 / 3;"
+            >
                 <label for="4">{localize("AUTOANIM.variant")}</label>
                 <select
                     name="flags.autoanimations.options.variant"
@@ -282,7 +354,10 @@
                 </select>
             </div>
             <!--Color Menu-->
-            <div class="flexcol {isCustom ? 'aa-disabled' : ''}" style="grid-row: 3 / 4;grid-column: 3 / 4;">
+            <div
+                class="flexcol {isCustom ? 'aa-disabled' : ''}"
+                style="grid-row: 3 / 4;grid-column: 3 / 4;"
+            >
                 <label for="5">{localize("AUTOANIM.color")}</label>
                 <select
                     name="flags.autoanimations.color"
@@ -323,7 +398,6 @@
                 </div>
             {/if}
         </div>
-    {/if}
     {/if}
 </div>
 
@@ -390,9 +464,9 @@
         transition: background-color 0.5s;
     }
     .aa-header-section {
-        border-bottom: 2px solid rgba(120, 46, 34, 1); 
-        margin-right:5%;
-        margin-left:5%;
+        border-bottom: 2px solid rgba(120, 46, 34, 1);
+        margin-right: 5%;
+        margin-left: 5%;
         margin-bottom: 5px;
         margin-top: 5px;
     }
@@ -405,7 +479,7 @@
         transition: "color" 0.5s;
     }
     .aa-disabled label {
-        opacity:0.3;
+        opacity: 0.3;
         transition: opacity 0.5s;
     }
     .aa-3wide select:disabled {

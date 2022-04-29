@@ -450,12 +450,6 @@
         border-radius: 10px;
         margin: 1.5% 3% 1.5% 3%;
     }
-    .aaChoose-section {
-        background: rgba(225, 225, 225, 0.85);
-        border: 2px solid black;
-        border-radius: 10px;
-        margin: 0% 35% 0% 35%;
-    }
     .footer-button {
         border-radius: 5px;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
