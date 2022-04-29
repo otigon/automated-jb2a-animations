@@ -143,6 +143,13 @@ export class SvelteReactive
    get headerButtonNoLabel() { return this.#application?.options?.headerButtonNoLabel; }
 
    /**
+    * Returns the headerNoTitleMinimized app option.
+    *
+    * @returns {boolean} When true removes the header title when minimized.
+    */
+   get headerNoTitleMinimized() { return this.#application?.options?.headerNoTitleMinimized; }
+
+   /**
     * Returns the minimizable app option.
     *
     * @returns {boolean} Minimizable app option.
@@ -211,6 +218,19 @@ export class SvelteReactive
    set headerButtonNoLabel(headerButtonNoLabel)
    {
       if (typeof headerButtonNoLabel === 'boolean') { this.setOptions('headerButtonNoLabel', headerButtonNoLabel); }
+   }
+
+   /**
+    * Sets `this.options.headerNoTitleMinimized` which is reactive for application shells.
+    *
+    * @param {boolean}  headerNoTitleMinimized - Sets the headerNoTitleMinimized option.
+    */
+   set headerNoTitleMinimized(headerNoTitleMinimized)
+   {
+      if (typeof headerNoTitleMinimized === 'boolean')
+      {
+         this.setOptions('headerNoTitleMinimized', headerNoTitleMinimized);
+      }
    }
 
    /**
@@ -335,6 +355,7 @@ export class SvelteReactive
          draggable: propertyStore(writableAppOptions, 'draggable'),
          headerButtonNoClose: propertyStore(writableAppOptions, 'headerButtonNoClose'),
          headerButtonNoLabel: propertyStore(writableAppOptions, 'headerButtonNoLabel'),
+         headerNoTitleMinimized: propertyStore(writableAppOptions, 'headerNoTitleMinimized'),
          minimizable: propertyStore(writableAppOptions, 'minimizable'),
          popOut: propertyStore(writableAppOptions, 'popOut'),
          resizable: propertyStore(writableAppOptions, 'resizable'),

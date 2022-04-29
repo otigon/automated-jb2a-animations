@@ -83,7 +83,7 @@ export function createNamePathParslet ({ allowJsdocNamePaths, pathGrammar }: {
         if (parsed.specialType === 'event') {
           right = parsed as SpecialNamePath<'event'>
         } else {
-          throw new UnexpectedTypeError(parsed, 'Type \'JsdocTypeSpecialNamePath\' is only allowed witch specialType \'event\'')
+          throw new UnexpectedTypeError(parsed, 'Type \'JsdocTypeSpecialNamePath\' is only allowed with specialType \'event\'')
         }
         break
       default:

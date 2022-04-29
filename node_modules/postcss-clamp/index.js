@@ -23,19 +23,21 @@ function updateValue (declaration, value, preserve) {
   let newValue = value
   let newValueAst = valueParser(value)
   let valueAST = valueParser(declaration.value)
+  // Walk can't be interrupted, so we only care about first
+  let foundClamp = false
 
-  // Means clamp is not alone within the declaration
-  if (valueAST.nodes.length > 1) {
-    let clampIndex = valueAST.nodes.findIndex(
-      node => node.type === 'function' && node.value === 'clamp'
-    )
+  valueAST.walk((node, index, nodes) => {
+    let isClamp = node.type === 'function' && node.value === 'clamp'
 
-    valueAST.nodes = [
-      ...valueAST.nodes.slice(0, clampIndex),
-      ...newValueAst.nodes,
-      ...valueAST.nodes.slice(clampIndex + 1)
-    ]
+    if (!isClamp || foundClamp) {
+      return
+    }
 
+    foundClamp = true
+    nodes[index] = newValueAst
+  })
+
+  if (foundClamp) {
     newValue = valueAST.toString()
   }
 

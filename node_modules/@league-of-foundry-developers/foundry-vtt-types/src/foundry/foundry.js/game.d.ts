@@ -524,7 +524,7 @@ declare global {
         private: boolean;
         system?: string;
         type: foundry.CONST.COMPENDIUM_DOCUMENT_TYPES;
-      };
+      }[];
       scripts: string[];
       styles: string[];
       type: 'world' | 'system' | 'module';
@@ -587,8 +587,8 @@ declare global {
       activeUsers: string[];
       addresses: {
         local: string;
-        remote: string;
-        remoteIsAccessible: boolean;
+        remote?: string | undefined;
+        remoteIsAccessible: boolean | null;
       };
       coreUpdate: {
         channel: unknown | null;

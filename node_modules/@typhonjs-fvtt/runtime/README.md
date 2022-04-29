@@ -23,13 +23,19 @@ possible to also bundle TRL directly into your module or game system. The TRL is
 NPM package providing the development dependency utilized while authoring a Foundry package. 
 
 ## ES Module Demo Module:
-Please see [template-svelte-esm](https://github.com/typhonjs-fvtt-demo/template-svelte-esm) for a starter "hello world"
-demo module utilizing the TRL.
+- [trl-demo-essential-svelte-esm](https://github.com/typhonjs-fvtt-demo/trl-demo-essential-svelte-esm) for a demo repo 
+w/ several basic TRL / Foundry examples utilizing the TRL.
+
+- [template-svelte-esm](https://github.com/typhonjs-fvtt-demo/template-svelte-esm) for a starter bare bones template 
+repo to duplicate for your own module.
+
+- [typhonjs-fvtt-demo organization](https://github.com/typhonjs-fvtt-demo/) for  
+all demo repos.
 
 ## Typescript Demo Module:
 The TRL uses the latest NPM / `package.json` submodule exports capability and alas while support for this was slated 
-for Typescript `4.5` it was pushed back to `4.6` [at the last minute](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5/#esm-nodejs). 
-Typescript developers will have to wait until Typescript `4.6` is released.
+for Typescript `4.5` it was pushed back to `4.7` [at the last minute](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5/#esm-nodejs). 
+Typescript developers will have to wait until Typescript `4.7` is released.
 
 ## Direct Foundry Install Link
 The TRL library module is available from the Foundry VTT package manager, but you may install it directly with the 

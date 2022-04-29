@@ -198,3 +198,24 @@ it('handle multiple complex values', async () => {
     'a{ margin: max(1rem, min(2%, 3rem)) 4px max(5rem, min(6%, 7rem)) 8rem; }'
   )
 })
+
+it('handle calc', async () => {
+  await run(
+    'a{ margin: 0 40px 0 calc(-1 * clamp(32px, 16vw, 64px)); }',
+    'a{ margin: 0 40px 0 calc(-1 * max(32px, min(16vw, 64px))); }'
+  )
+})
+
+it('handle multiple calc', async () => {
+  await run(
+    'a{ margin: calc(-1 * clamp(1px, 2vw, 3px)) calc(-1 * clamp(4px, 5vw, 6px)); }',
+    'a{ margin: calc(-1 * max(1px, min(2vw, 3px))) calc(-1 * max(4px, min(5vw, 6px))); }'
+  )
+})
+
+it('handle nested clamp', async () => {
+  await run(
+    'a{ font-size: clamp(clamp(1rem, 2vw, 3rem), 4vw, 5rem); }',
+    'a{ font-size: max(max(1rem, min(2vw, 3rem)), min(4vw, 5rem)); }'
+  )
+})

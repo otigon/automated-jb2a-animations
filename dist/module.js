@@ -20605,65 +20605,6 @@ function select_value(select) {
   const selected_option = select.querySelector(':checked') || select.options[0];
   return selected_option && selected_option.__value;
 }
-// so we cache the result instead
-
-
-let crossorigin;
-
-function is_crossorigin() {
-  if (crossorigin === undefined) {
-    crossorigin = false;
-
-    try {
-      if (typeof window !== 'undefined' && window.parent) {
-        void window.parent.document;
-      }
-    } catch (error) {
-      crossorigin = true;
-    }
-  }
-
-  return crossorigin;
-}
-
-function add_resize_listener(node, fn) {
-  const computed_style = getComputedStyle(node);
-
-  if (computed_style.position === 'static') {
-    node.style.position = 'relative';
-  }
-
-  const iframe = element('iframe');
-  iframe.setAttribute('style', 'display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; ' + 'overflow: hidden; border: 0; opacity: 0; pointer-events: none; z-index: -1;');
-  iframe.setAttribute('aria-hidden', 'true');
-  iframe.tabIndex = -1;
-  const crossorigin = is_crossorigin();
-  let unsubscribe;
-
-  if (crossorigin) {
-    iframe.src = "data:text/html,<script>onresize=function(){parent.postMessage(0,'*')}</script>";
-    unsubscribe = listen(window, 'message', event => {
-      if (event.source === iframe.contentWindow) fn();
-    });
-  } else {
-    iframe.src = 'about:blank';
-
-    iframe.onload = () => {
-      unsubscribe = listen(iframe.contentWindow, 'resize', fn);
-    };
-  }
-
-  append(node, iframe);
-  return () => {
-    if (crossorigin) {
-      unsubscribe();
-    } else if (unsubscribe && iframe.contentWindow) {
-      unsubscribe();
-    }
-
-    detach(iframe);
-  };
-}
 
 function toggle_class(element, name, toggle) {
   element.classList[toggle ? 'add' : 'remove'](name);
@@ -21535,6 +21476,3501 @@ class SvelteComponent {
 
 }
 
+function cubicOut(t) {
+  const f = t - 1.0;
+  return f * f * f + 1.0;
+}
+
+/**
+ * Performs linear interpolation between a start & end value by given amount between 0 - 1 inclusive.
+ *
+ * @param {number}   start - Start value.
+ *
+ * @param {number}   end - End value.
+ *
+ * @param {number}   amount - Current amount between 0 - 1 inclusive.
+ *
+ * @returns {number} Linear interpolated value between start & end.
+ */
+function lerp$5(start, end, amount) {
+  return (1 - amount) * start + amount * end;
+}
+/**
+ * Converts the given number from degrees to radians.
+ *
+ * @param {number}   deg - Degree number to convert
+ *
+ * @returns {number} Degree as radians.
+ */
+
+
+function degToRad(deg) {
+  return deg * (Math.PI / 180.0);
+}
+/**
+ * Common utilities
+ * @module glMatrix
+ */
+// Configuration Constants
+
+
+var EPSILON$1 = 0.000001;
+var ARRAY_TYPE$1 = typeof Float32Array !== 'undefined' ? Float32Array : Array;
+var RANDOM = Math.random;
+
+if (!Math.hypot) Math.hypot = function () {
+  var y = 0,
+      i = arguments.length;
+
+  while (i--) {
+    y += arguments[i] * arguments[i];
+  }
+
+  return Math.sqrt(y);
+};
+/**
+ * 3x3 Matrix
+ * @module mat3
+ */
+
+/**
+ * Creates a new identity mat3
+ *
+ * @returns {mat3} a new 3x3 matrix
+ */
+
+function create$6$1() {
+  var out = new ARRAY_TYPE$1(9);
+
+  if (ARRAY_TYPE$1 != Float32Array) {
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+    out[5] = 0;
+    out[6] = 0;
+    out[7] = 0;
+  }
+
+  out[0] = 1;
+  out[4] = 1;
+  out[8] = 1;
+  return out;
+}
+/**
+ * 4x4 Matrix<br>Format: column-major, when typed out it looks like row-major<br>The matrices are being post multiplied.
+ * @module mat4
+ */
+
+/**
+ * Creates a new identity mat4
+ *
+ * @returns {mat4} a new 4x4 matrix
+ */
+
+function create$5() {
+  var out = new ARRAY_TYPE$1(16);
+
+  if (ARRAY_TYPE$1 != Float32Array) {
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+    out[4] = 0;
+    out[6] = 0;
+    out[7] = 0;
+    out[8] = 0;
+    out[9] = 0;
+    out[11] = 0;
+    out[12] = 0;
+    out[13] = 0;
+    out[14] = 0;
+  }
+
+  out[0] = 1;
+  out[5] = 1;
+  out[10] = 1;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Creates a new mat4 initialized with values from an existing matrix
+ *
+ * @param {ReadonlyMat4} a matrix to clone
+ * @returns {mat4} a new 4x4 matrix
+ */
+
+
+function clone$5(a) {
+  var out = new ARRAY_TYPE$1(16);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  out[9] = a[9];
+  out[10] = a[10];
+  out[11] = a[11];
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+/**
+ * Copy the values from one mat4 to another
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the source matrix
+ * @returns {mat4} out
+ */
+
+
+function copy$5(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  out[9] = a[9];
+  out[10] = a[10];
+  out[11] = a[11];
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+/**
+ * Create a new mat4 with the given values
+ *
+ * @param {Number} m00 Component in column 0, row 0 position (index 0)
+ * @param {Number} m01 Component in column 0, row 1 position (index 1)
+ * @param {Number} m02 Component in column 0, row 2 position (index 2)
+ * @param {Number} m03 Component in column 0, row 3 position (index 3)
+ * @param {Number} m10 Component in column 1, row 0 position (index 4)
+ * @param {Number} m11 Component in column 1, row 1 position (index 5)
+ * @param {Number} m12 Component in column 1, row 2 position (index 6)
+ * @param {Number} m13 Component in column 1, row 3 position (index 7)
+ * @param {Number} m20 Component in column 2, row 0 position (index 8)
+ * @param {Number} m21 Component in column 2, row 1 position (index 9)
+ * @param {Number} m22 Component in column 2, row 2 position (index 10)
+ * @param {Number} m23 Component in column 2, row 3 position (index 11)
+ * @param {Number} m30 Component in column 3, row 0 position (index 12)
+ * @param {Number} m31 Component in column 3, row 1 position (index 13)
+ * @param {Number} m32 Component in column 3, row 2 position (index 14)
+ * @param {Number} m33 Component in column 3, row 3 position (index 15)
+ * @returns {mat4} A new mat4
+ */
+
+
+function fromValues$5(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+  var out = new ARRAY_TYPE$1(16);
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m03;
+  out[4] = m10;
+  out[5] = m11;
+  out[6] = m12;
+  out[7] = m13;
+  out[8] = m20;
+  out[9] = m21;
+  out[10] = m22;
+  out[11] = m23;
+  out[12] = m30;
+  out[13] = m31;
+  out[14] = m32;
+  out[15] = m33;
+  return out;
+}
+/**
+ * Set the components of a mat4 to the given values
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {Number} m00 Component in column 0, row 0 position (index 0)
+ * @param {Number} m01 Component in column 0, row 1 position (index 1)
+ * @param {Number} m02 Component in column 0, row 2 position (index 2)
+ * @param {Number} m03 Component in column 0, row 3 position (index 3)
+ * @param {Number} m10 Component in column 1, row 0 position (index 4)
+ * @param {Number} m11 Component in column 1, row 1 position (index 5)
+ * @param {Number} m12 Component in column 1, row 2 position (index 6)
+ * @param {Number} m13 Component in column 1, row 3 position (index 7)
+ * @param {Number} m20 Component in column 2, row 0 position (index 8)
+ * @param {Number} m21 Component in column 2, row 1 position (index 9)
+ * @param {Number} m22 Component in column 2, row 2 position (index 10)
+ * @param {Number} m23 Component in column 2, row 3 position (index 11)
+ * @param {Number} m30 Component in column 3, row 0 position (index 12)
+ * @param {Number} m31 Component in column 3, row 1 position (index 13)
+ * @param {Number} m32 Component in column 3, row 2 position (index 14)
+ * @param {Number} m33 Component in column 3, row 3 position (index 15)
+ * @returns {mat4} out
+ */
+
+
+function set$5(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m03;
+  out[4] = m10;
+  out[5] = m11;
+  out[6] = m12;
+  out[7] = m13;
+  out[8] = m20;
+  out[9] = m21;
+  out[10] = m22;
+  out[11] = m23;
+  out[12] = m30;
+  out[13] = m31;
+  out[14] = m32;
+  out[15] = m33;
+  return out;
+}
+/**
+ * Set a mat4 to the identity matrix
+ *
+ * @param {mat4} out the receiving matrix
+ * @returns {mat4} out
+ */
+
+
+function identity$2(out) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Transpose the values of a mat4
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the source matrix
+ * @returns {mat4} out
+ */
+
+
+function transpose(out, a) {
+  // If we are transposing ourselves we can skip a few steps but have to cache some values
+  if (out === a) {
+    var a01 = a[1],
+        a02 = a[2],
+        a03 = a[3];
+    var a12 = a[6],
+        a13 = a[7];
+    var a23 = a[11];
+    out[1] = a[4];
+    out[2] = a[8];
+    out[3] = a[12];
+    out[4] = a01;
+    out[6] = a[9];
+    out[7] = a[13];
+    out[8] = a02;
+    out[9] = a12;
+    out[11] = a[14];
+    out[12] = a03;
+    out[13] = a13;
+    out[14] = a23;
+  } else {
+    out[0] = a[0];
+    out[1] = a[4];
+    out[2] = a[8];
+    out[3] = a[12];
+    out[4] = a[1];
+    out[5] = a[5];
+    out[6] = a[9];
+    out[7] = a[13];
+    out[8] = a[2];
+    out[9] = a[6];
+    out[10] = a[10];
+    out[11] = a[14];
+    out[12] = a[3];
+    out[13] = a[7];
+    out[14] = a[11];
+    out[15] = a[15];
+  }
+
+  return out;
+}
+/**
+ * Inverts a mat4
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the source matrix
+ * @returns {mat4} out
+ */
+
+
+function invert$2(out, a) {
+  var a00 = a[0],
+      a01 = a[1],
+      a02 = a[2],
+      a03 = a[3];
+  var a10 = a[4],
+      a11 = a[5],
+      a12 = a[6],
+      a13 = a[7];
+  var a20 = a[8],
+      a21 = a[9],
+      a22 = a[10],
+      a23 = a[11];
+  var a30 = a[12],
+      a31 = a[13],
+      a32 = a[14],
+      a33 = a[15];
+  var b00 = a00 * a11 - a01 * a10;
+  var b01 = a00 * a12 - a02 * a10;
+  var b02 = a00 * a13 - a03 * a10;
+  var b03 = a01 * a12 - a02 * a11;
+  var b04 = a01 * a13 - a03 * a11;
+  var b05 = a02 * a13 - a03 * a12;
+  var b06 = a20 * a31 - a21 * a30;
+  var b07 = a20 * a32 - a22 * a30;
+  var b08 = a20 * a33 - a23 * a30;
+  var b09 = a21 * a32 - a22 * a31;
+  var b10 = a21 * a33 - a23 * a31;
+  var b11 = a22 * a33 - a23 * a32; // Calculate the determinant
+
+  var det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+
+  if (!det) {
+    return null;
+  }
+
+  det = 1.0 / det;
+  out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+  out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+  out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+  out[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
+  out[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+  out[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+  out[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+  out[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
+  out[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+  out[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+  out[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+  out[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
+  out[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det;
+  out[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
+  out[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det;
+  out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
+  return out;
+}
+/**
+ * Calculates the adjugate of a mat4
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the source matrix
+ * @returns {mat4} out
+ */
+
+
+function adjoint(out, a) {
+  var a00 = a[0],
+      a01 = a[1],
+      a02 = a[2],
+      a03 = a[3];
+  var a10 = a[4],
+      a11 = a[5],
+      a12 = a[6],
+      a13 = a[7];
+  var a20 = a[8],
+      a21 = a[9],
+      a22 = a[10],
+      a23 = a[11];
+  var a30 = a[12],
+      a31 = a[13],
+      a32 = a[14],
+      a33 = a[15];
+  out[0] = a11 * (a22 * a33 - a23 * a32) - a21 * (a12 * a33 - a13 * a32) + a31 * (a12 * a23 - a13 * a22);
+  out[1] = -(a01 * (a22 * a33 - a23 * a32) - a21 * (a02 * a33 - a03 * a32) + a31 * (a02 * a23 - a03 * a22));
+  out[2] = a01 * (a12 * a33 - a13 * a32) - a11 * (a02 * a33 - a03 * a32) + a31 * (a02 * a13 - a03 * a12);
+  out[3] = -(a01 * (a12 * a23 - a13 * a22) - a11 * (a02 * a23 - a03 * a22) + a21 * (a02 * a13 - a03 * a12));
+  out[4] = -(a10 * (a22 * a33 - a23 * a32) - a20 * (a12 * a33 - a13 * a32) + a30 * (a12 * a23 - a13 * a22));
+  out[5] = a00 * (a22 * a33 - a23 * a32) - a20 * (a02 * a33 - a03 * a32) + a30 * (a02 * a23 - a03 * a22);
+  out[6] = -(a00 * (a12 * a33 - a13 * a32) - a10 * (a02 * a33 - a03 * a32) + a30 * (a02 * a13 - a03 * a12));
+  out[7] = a00 * (a12 * a23 - a13 * a22) - a10 * (a02 * a23 - a03 * a22) + a20 * (a02 * a13 - a03 * a12);
+  out[8] = a10 * (a21 * a33 - a23 * a31) - a20 * (a11 * a33 - a13 * a31) + a30 * (a11 * a23 - a13 * a21);
+  out[9] = -(a00 * (a21 * a33 - a23 * a31) - a20 * (a01 * a33 - a03 * a31) + a30 * (a01 * a23 - a03 * a21));
+  out[10] = a00 * (a11 * a33 - a13 * a31) - a10 * (a01 * a33 - a03 * a31) + a30 * (a01 * a13 - a03 * a11);
+  out[11] = -(a00 * (a11 * a23 - a13 * a21) - a10 * (a01 * a23 - a03 * a21) + a20 * (a01 * a13 - a03 * a11));
+  out[12] = -(a10 * (a21 * a32 - a22 * a31) - a20 * (a11 * a32 - a12 * a31) + a30 * (a11 * a22 - a12 * a21));
+  out[13] = a00 * (a21 * a32 - a22 * a31) - a20 * (a01 * a32 - a02 * a31) + a30 * (a01 * a22 - a02 * a21);
+  out[14] = -(a00 * (a11 * a32 - a12 * a31) - a10 * (a01 * a32 - a02 * a31) + a30 * (a01 * a12 - a02 * a11));
+  out[15] = a00 * (a11 * a22 - a12 * a21) - a10 * (a01 * a22 - a02 * a21) + a20 * (a01 * a12 - a02 * a11);
+  return out;
+}
+/**
+ * Calculates the determinant of a mat4
+ *
+ * @param {ReadonlyMat4} a the source matrix
+ * @returns {Number} determinant of a
+ */
+
+
+function determinant(a) {
+  var a00 = a[0],
+      a01 = a[1],
+      a02 = a[2],
+      a03 = a[3];
+  var a10 = a[4],
+      a11 = a[5],
+      a12 = a[6],
+      a13 = a[7];
+  var a20 = a[8],
+      a21 = a[9],
+      a22 = a[10],
+      a23 = a[11];
+  var a30 = a[12],
+      a31 = a[13],
+      a32 = a[14],
+      a33 = a[15];
+  var b00 = a00 * a11 - a01 * a10;
+  var b01 = a00 * a12 - a02 * a10;
+  var b02 = a00 * a13 - a03 * a10;
+  var b03 = a01 * a12 - a02 * a11;
+  var b04 = a01 * a13 - a03 * a11;
+  var b05 = a02 * a13 - a03 * a12;
+  var b06 = a20 * a31 - a21 * a30;
+  var b07 = a20 * a32 - a22 * a30;
+  var b08 = a20 * a33 - a23 * a30;
+  var b09 = a21 * a32 - a22 * a31;
+  var b10 = a21 * a33 - a23 * a31;
+  var b11 = a22 * a33 - a23 * a32; // Calculate the determinant
+
+  return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+}
+/**
+ * Multiplies two mat4s
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the first operand
+ * @param {ReadonlyMat4} b the second operand
+ * @returns {mat4} out
+ */
+
+
+function multiply$5(out, a, b) {
+  var a00 = a[0],
+      a01 = a[1],
+      a02 = a[2],
+      a03 = a[3];
+  var a10 = a[4],
+      a11 = a[5],
+      a12 = a[6],
+      a13 = a[7];
+  var a20 = a[8],
+      a21 = a[9],
+      a22 = a[10],
+      a23 = a[11];
+  var a30 = a[12],
+      a31 = a[13],
+      a32 = a[14],
+      a33 = a[15]; // Cache only the current line of the second matrix
+
+  var b0 = b[0],
+      b1 = b[1],
+      b2 = b[2],
+      b3 = b[3];
+  out[0] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[2] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[3] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[4];
+  b1 = b[5];
+  b2 = b[6];
+  b3 = b[7];
+  out[4] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[5] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[6] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[7] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[8];
+  b1 = b[9];
+  b2 = b[10];
+  b3 = b[11];
+  out[8] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[9] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[10] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[11] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[12];
+  b1 = b[13];
+  b2 = b[14];
+  b3 = b[15];
+  out[12] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[13] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[14] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  return out;
+}
+/**
+ * Translate a mat4 by the given vector
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the matrix to translate
+ * @param {ReadonlyVec3} v vector to translate by
+ * @returns {mat4} out
+ */
+
+
+function translate$1(out, a, v) {
+  var x = v[0],
+      y = v[1],
+      z = v[2];
+  var a00, a01, a02, a03;
+  var a10, a11, a12, a13;
+  var a20, a21, a22, a23;
+
+  if (a === out) {
+    out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
+    out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
+    out[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
+    out[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
+  } else {
+    a00 = a[0];
+    a01 = a[1];
+    a02 = a[2];
+    a03 = a[3];
+    a10 = a[4];
+    a11 = a[5];
+    a12 = a[6];
+    a13 = a[7];
+    a20 = a[8];
+    a21 = a[9];
+    a22 = a[10];
+    a23 = a[11];
+    out[0] = a00;
+    out[1] = a01;
+    out[2] = a02;
+    out[3] = a03;
+    out[4] = a10;
+    out[5] = a11;
+    out[6] = a12;
+    out[7] = a13;
+    out[8] = a20;
+    out[9] = a21;
+    out[10] = a22;
+    out[11] = a23;
+    out[12] = a00 * x + a10 * y + a20 * z + a[12];
+    out[13] = a01 * x + a11 * y + a21 * z + a[13];
+    out[14] = a02 * x + a12 * y + a22 * z + a[14];
+    out[15] = a03 * x + a13 * y + a23 * z + a[15];
+  }
+
+  return out;
+}
+/**
+ * Scales the mat4 by the dimensions in the given vec3 not using vectorization
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the matrix to scale
+ * @param {ReadonlyVec3} v the vec3 to scale the matrix by
+ * @returns {mat4} out
+ **/
+
+
+function scale$5(out, a, v) {
+  var x = v[0],
+      y = v[1],
+      z = v[2];
+  out[0] = a[0] * x;
+  out[1] = a[1] * x;
+  out[2] = a[2] * x;
+  out[3] = a[3] * x;
+  out[4] = a[4] * y;
+  out[5] = a[5] * y;
+  out[6] = a[6] * y;
+  out[7] = a[7] * y;
+  out[8] = a[8] * z;
+  out[9] = a[9] * z;
+  out[10] = a[10] * z;
+  out[11] = a[11] * z;
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+/**
+ * Rotates a mat4 by the given angle around the given axis
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @param {ReadonlyVec3} axis the axis to rotate around
+ * @returns {mat4} out
+ */
+
+
+function rotate$1(out, a, rad, axis) {
+  var x = axis[0],
+      y = axis[1],
+      z = axis[2];
+  var len = Math.hypot(x, y, z);
+  var s, c, t;
+  var a00, a01, a02, a03;
+  var a10, a11, a12, a13;
+  var a20, a21, a22, a23;
+  var b00, b01, b02;
+  var b10, b11, b12;
+  var b20, b21, b22;
+
+  if (len < EPSILON$1) {
+    return null;
+  }
+
+  len = 1 / len;
+  x *= len;
+  y *= len;
+  z *= len;
+  s = Math.sin(rad);
+  c = Math.cos(rad);
+  t = 1 - c;
+  a00 = a[0];
+  a01 = a[1];
+  a02 = a[2];
+  a03 = a[3];
+  a10 = a[4];
+  a11 = a[5];
+  a12 = a[6];
+  a13 = a[7];
+  a20 = a[8];
+  a21 = a[9];
+  a22 = a[10];
+  a23 = a[11]; // Construct the elements of the rotation matrix
+
+  b00 = x * x * t + c;
+  b01 = y * x * t + z * s;
+  b02 = z * x * t - y * s;
+  b10 = x * y * t - z * s;
+  b11 = y * y * t + c;
+  b12 = z * y * t + x * s;
+  b20 = x * z * t + y * s;
+  b21 = y * z * t - x * s;
+  b22 = z * z * t + c; // Perform rotation-specific matrix multiplication
+
+  out[0] = a00 * b00 + a10 * b01 + a20 * b02;
+  out[1] = a01 * b00 + a11 * b01 + a21 * b02;
+  out[2] = a02 * b00 + a12 * b01 + a22 * b02;
+  out[3] = a03 * b00 + a13 * b01 + a23 * b02;
+  out[4] = a00 * b10 + a10 * b11 + a20 * b12;
+  out[5] = a01 * b10 + a11 * b11 + a21 * b12;
+  out[6] = a02 * b10 + a12 * b11 + a22 * b12;
+  out[7] = a03 * b10 + a13 * b11 + a23 * b12;
+  out[8] = a00 * b20 + a10 * b21 + a20 * b22;
+  out[9] = a01 * b20 + a11 * b21 + a21 * b22;
+  out[10] = a02 * b20 + a12 * b21 + a22 * b22;
+  out[11] = a03 * b20 + a13 * b21 + a23 * b22;
+
+  if (a !== out) {
+    // If the source and destination differ, copy the unchanged last row
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+
+  return out;
+}
+/**
+ * Rotates a matrix by the given angle around the X axis
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+
+
+function rotateX$3(out, a, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  var a10 = a[4];
+  var a11 = a[5];
+  var a12 = a[6];
+  var a13 = a[7];
+  var a20 = a[8];
+  var a21 = a[9];
+  var a22 = a[10];
+  var a23 = a[11];
+
+  if (a !== out) {
+    // If the source and destination differ, copy the unchanged rows
+    out[0] = a[0];
+    out[1] = a[1];
+    out[2] = a[2];
+    out[3] = a[3];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  } // Perform axis-specific matrix multiplication
+
+
+  out[4] = a10 * c + a20 * s;
+  out[5] = a11 * c + a21 * s;
+  out[6] = a12 * c + a22 * s;
+  out[7] = a13 * c + a23 * s;
+  out[8] = a20 * c - a10 * s;
+  out[9] = a21 * c - a11 * s;
+  out[10] = a22 * c - a12 * s;
+  out[11] = a23 * c - a13 * s;
+  return out;
+}
+/**
+ * Rotates a matrix by the given angle around the Y axis
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+
+
+function rotateY$3(out, a, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  var a00 = a[0];
+  var a01 = a[1];
+  var a02 = a[2];
+  var a03 = a[3];
+  var a20 = a[8];
+  var a21 = a[9];
+  var a22 = a[10];
+  var a23 = a[11];
+
+  if (a !== out) {
+    // If the source and destination differ, copy the unchanged rows
+    out[4] = a[4];
+    out[5] = a[5];
+    out[6] = a[6];
+    out[7] = a[7];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  } // Perform axis-specific matrix multiplication
+
+
+  out[0] = a00 * c - a20 * s;
+  out[1] = a01 * c - a21 * s;
+  out[2] = a02 * c - a22 * s;
+  out[3] = a03 * c - a23 * s;
+  out[8] = a00 * s + a20 * c;
+  out[9] = a01 * s + a21 * c;
+  out[10] = a02 * s + a22 * c;
+  out[11] = a03 * s + a23 * c;
+  return out;
+}
+/**
+ * Rotates a matrix by the given angle around the Z axis
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+
+
+function rotateZ$3(out, a, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  var a00 = a[0];
+  var a01 = a[1];
+  var a02 = a[2];
+  var a03 = a[3];
+  var a10 = a[4];
+  var a11 = a[5];
+  var a12 = a[6];
+  var a13 = a[7];
+
+  if (a !== out) {
+    // If the source and destination differ, copy the unchanged last row
+    out[8] = a[8];
+    out[9] = a[9];
+    out[10] = a[10];
+    out[11] = a[11];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  } // Perform axis-specific matrix multiplication
+
+
+  out[0] = a00 * c + a10 * s;
+  out[1] = a01 * c + a11 * s;
+  out[2] = a02 * c + a12 * s;
+  out[3] = a03 * c + a13 * s;
+  out[4] = a10 * c - a00 * s;
+  out[5] = a11 * c - a01 * s;
+  out[6] = a12 * c - a02 * s;
+  out[7] = a13 * c - a03 * s;
+  return out;
+}
+/**
+ * Creates a matrix from a vector translation
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.translate(dest, dest, vec);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {ReadonlyVec3} v Translation vector
+ * @returns {mat4} out
+ */
+
+
+function fromTranslation$1(out, v) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+/**
+ * Creates a matrix from a vector scaling
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.scale(dest, dest, vec);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {ReadonlyVec3} v Scaling vector
+ * @returns {mat4} out
+ */
+
+
+function fromScaling(out, v) {
+  out[0] = v[0];
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = v[1];
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = v[2];
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Creates a matrix from a given angle around a given axis
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.rotate(dest, dest, rad, axis);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @param {ReadonlyVec3} axis the axis to rotate around
+ * @returns {mat4} out
+ */
+
+
+function fromRotation$1(out, rad, axis) {
+  var x = axis[0],
+      y = axis[1],
+      z = axis[2];
+  var len = Math.hypot(x, y, z);
+  var s, c, t;
+
+  if (len < EPSILON$1) {
+    return null;
+  }
+
+  len = 1 / len;
+  x *= len;
+  y *= len;
+  z *= len;
+  s = Math.sin(rad);
+  c = Math.cos(rad);
+  t = 1 - c; // Perform rotation-specific matrix multiplication
+
+  out[0] = x * x * t + c;
+  out[1] = y * x * t + z * s;
+  out[2] = z * x * t - y * s;
+  out[3] = 0;
+  out[4] = x * y * t - z * s;
+  out[5] = y * y * t + c;
+  out[6] = z * y * t + x * s;
+  out[7] = 0;
+  out[8] = x * z * t + y * s;
+  out[9] = y * z * t - x * s;
+  out[10] = z * z * t + c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Creates a matrix from the given angle around the X axis
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.rotateX(dest, dest, rad);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+
+
+function fromXRotation(out, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad); // Perform axis-specific matrix multiplication
+
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = c;
+  out[6] = s;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = -s;
+  out[10] = c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Creates a matrix from the given angle around the Y axis
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.rotateY(dest, dest, rad);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+
+
+function fromYRotation(out, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad); // Perform axis-specific matrix multiplication
+
+  out[0] = c;
+  out[1] = 0;
+  out[2] = -s;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = s;
+  out[9] = 0;
+  out[10] = c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Creates a matrix from the given angle around the Z axis
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.rotateZ(dest, dest, rad);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+
+
+function fromZRotation(out, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad); // Perform axis-specific matrix multiplication
+
+  out[0] = c;
+  out[1] = s;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = -s;
+  out[5] = c;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Creates a matrix from a quaternion rotation and vector translation
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.translate(dest, vec);
+ *     let quatMat = mat4.create();
+ *     quat4.toMat4(quat, quatMat);
+ *     mat4.multiply(dest, quatMat);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {quat4} q Rotation quaternion
+ * @param {ReadonlyVec3} v Translation vector
+ * @returns {mat4} out
+ */
+
+
+function fromRotationTranslation$1(out, q, v) {
+  // Quaternion math
+  var x = q[0],
+      y = q[1],
+      z = q[2],
+      w = q[3];
+  var x2 = x + x;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x * x2;
+  var xy = x * y2;
+  var xz = x * z2;
+  var yy = y * y2;
+  var yz = y * z2;
+  var zz = z * z2;
+  var wx = w * x2;
+  var wy = w * y2;
+  var wz = w * z2;
+  out[0] = 1 - (yy + zz);
+  out[1] = xy + wz;
+  out[2] = xz - wy;
+  out[3] = 0;
+  out[4] = xy - wz;
+  out[5] = 1 - (xx + zz);
+  out[6] = yz + wx;
+  out[7] = 0;
+  out[8] = xz + wy;
+  out[9] = yz - wx;
+  out[10] = 1 - (xx + yy);
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+/**
+ * Creates a new mat4 from a dual quat.
+ *
+ * @param {mat4} out Matrix
+ * @param {ReadonlyQuat2} a Dual Quaternion
+ * @returns {mat4} mat4 receiving operation result
+ */
+
+
+function fromQuat2(out, a) {
+  var translation = new ARRAY_TYPE$1(3);
+  var bx = -a[0],
+      by = -a[1],
+      bz = -a[2],
+      bw = a[3],
+      ax = a[4],
+      ay = a[5],
+      az = a[6],
+      aw = a[7];
+  var magnitude = bx * bx + by * by + bz * bz + bw * bw; //Only scale if it makes sense
+
+  if (magnitude > 0) {
+    translation[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2 / magnitude;
+    translation[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2 / magnitude;
+    translation[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2 / magnitude;
+  } else {
+    translation[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2;
+    translation[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2;
+    translation[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2;
+  }
+
+  fromRotationTranslation$1(out, a, translation);
+  return out;
+}
+/**
+ * Returns the translation vector component of a transformation
+ *  matrix. If a matrix is built with fromRotationTranslation,
+ *  the returned vector will be the same as the translation vector
+ *  originally supplied.
+ * @param  {vec3} out Vector to receive translation component
+ * @param  {ReadonlyMat4} mat Matrix to be decomposed (input)
+ * @return {vec3} out
+ */
+
+
+function getTranslation$1(out, mat) {
+  out[0] = mat[12];
+  out[1] = mat[13];
+  out[2] = mat[14];
+  return out;
+}
+/**
+ * Returns the scaling factor component of a transformation
+ *  matrix. If a matrix is built with fromRotationTranslationScale
+ *  with a normalized Quaternion paramter, the returned vector will be
+ *  the same as the scaling vector
+ *  originally supplied.
+ * @param  {vec3} out Vector to receive scaling factor component
+ * @param  {ReadonlyMat4} mat Matrix to be decomposed (input)
+ * @return {vec3} out
+ */
+
+
+function getScaling(out, mat) {
+  var m11 = mat[0];
+  var m12 = mat[1];
+  var m13 = mat[2];
+  var m21 = mat[4];
+  var m22 = mat[5];
+  var m23 = mat[6];
+  var m31 = mat[8];
+  var m32 = mat[9];
+  var m33 = mat[10];
+  out[0] = Math.hypot(m11, m12, m13);
+  out[1] = Math.hypot(m21, m22, m23);
+  out[2] = Math.hypot(m31, m32, m33);
+  return out;
+}
+/**
+ * Returns a quaternion representing the rotational component
+ *  of a transformation matrix. If a matrix is built with
+ *  fromRotationTranslation, the returned quaternion will be the
+ *  same as the quaternion originally supplied.
+ * @param {quat} out Quaternion to receive the rotation component
+ * @param {ReadonlyMat4} mat Matrix to be decomposed (input)
+ * @return {quat} out
+ */
+
+
+function getRotation(out, mat) {
+  var scaling = new ARRAY_TYPE$1(3);
+  getScaling(scaling, mat);
+  var is1 = 1 / scaling[0];
+  var is2 = 1 / scaling[1];
+  var is3 = 1 / scaling[2];
+  var sm11 = mat[0] * is1;
+  var sm12 = mat[1] * is2;
+  var sm13 = mat[2] * is3;
+  var sm21 = mat[4] * is1;
+  var sm22 = mat[5] * is2;
+  var sm23 = mat[6] * is3;
+  var sm31 = mat[8] * is1;
+  var sm32 = mat[9] * is2;
+  var sm33 = mat[10] * is3;
+  var trace = sm11 + sm22 + sm33;
+  var S = 0;
+
+  if (trace > 0) {
+    S = Math.sqrt(trace + 1.0) * 2;
+    out[3] = 0.25 * S;
+    out[0] = (sm23 - sm32) / S;
+    out[1] = (sm31 - sm13) / S;
+    out[2] = (sm12 - sm21) / S;
+  } else if (sm11 > sm22 && sm11 > sm33) {
+    S = Math.sqrt(1.0 + sm11 - sm22 - sm33) * 2;
+    out[3] = (sm23 - sm32) / S;
+    out[0] = 0.25 * S;
+    out[1] = (sm12 + sm21) / S;
+    out[2] = (sm31 + sm13) / S;
+  } else if (sm22 > sm33) {
+    S = Math.sqrt(1.0 + sm22 - sm11 - sm33) * 2;
+    out[3] = (sm31 - sm13) / S;
+    out[0] = (sm12 + sm21) / S;
+    out[1] = 0.25 * S;
+    out[2] = (sm23 + sm32) / S;
+  } else {
+    S = Math.sqrt(1.0 + sm33 - sm11 - sm22) * 2;
+    out[3] = (sm12 - sm21) / S;
+    out[0] = (sm31 + sm13) / S;
+    out[1] = (sm23 + sm32) / S;
+    out[2] = 0.25 * S;
+  }
+
+  return out;
+}
+/**
+ * Creates a matrix from a quaternion rotation, vector translation and vector scale
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.translate(dest, vec);
+ *     let quatMat = mat4.create();
+ *     quat4.toMat4(quat, quatMat);
+ *     mat4.multiply(dest, quatMat);
+ *     mat4.scale(dest, scale)
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {quat4} q Rotation quaternion
+ * @param {ReadonlyVec3} v Translation vector
+ * @param {ReadonlyVec3} s Scaling vector
+ * @returns {mat4} out
+ */
+
+
+function fromRotationTranslationScale(out, q, v, s) {
+  // Quaternion math
+  var x = q[0],
+      y = q[1],
+      z = q[2],
+      w = q[3];
+  var x2 = x + x;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x * x2;
+  var xy = x * y2;
+  var xz = x * z2;
+  var yy = y * y2;
+  var yz = y * z2;
+  var zz = z * z2;
+  var wx = w * x2;
+  var wy = w * y2;
+  var wz = w * z2;
+  var sx = s[0];
+  var sy = s[1];
+  var sz = s[2];
+  out[0] = (1 - (yy + zz)) * sx;
+  out[1] = (xy + wz) * sx;
+  out[2] = (xz - wy) * sx;
+  out[3] = 0;
+  out[4] = (xy - wz) * sy;
+  out[5] = (1 - (xx + zz)) * sy;
+  out[6] = (yz + wx) * sy;
+  out[7] = 0;
+  out[8] = (xz + wy) * sz;
+  out[9] = (yz - wx) * sz;
+  out[10] = (1 - (xx + yy)) * sz;
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+/**
+ * Creates a matrix from a quaternion rotation, vector translation and vector scale, rotating and scaling around the given origin
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.translate(dest, vec);
+ *     mat4.translate(dest, origin);
+ *     let quatMat = mat4.create();
+ *     quat4.toMat4(quat, quatMat);
+ *     mat4.multiply(dest, quatMat);
+ *     mat4.scale(dest, scale)
+ *     mat4.translate(dest, negativeOrigin);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {quat4} q Rotation quaternion
+ * @param {ReadonlyVec3} v Translation vector
+ * @param {ReadonlyVec3} s Scaling vector
+ * @param {ReadonlyVec3} o The origin vector around which to scale and rotate
+ * @returns {mat4} out
+ */
+
+
+function fromRotationTranslationScaleOrigin(out, q, v, s, o) {
+  // Quaternion math
+  var x = q[0],
+      y = q[1],
+      z = q[2],
+      w = q[3];
+  var x2 = x + x;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x * x2;
+  var xy = x * y2;
+  var xz = x * z2;
+  var yy = y * y2;
+  var yz = y * z2;
+  var zz = z * z2;
+  var wx = w * x2;
+  var wy = w * y2;
+  var wz = w * z2;
+  var sx = s[0];
+  var sy = s[1];
+  var sz = s[2];
+  var ox = o[0];
+  var oy = o[1];
+  var oz = o[2];
+  var out0 = (1 - (yy + zz)) * sx;
+  var out1 = (xy + wz) * sx;
+  var out2 = (xz - wy) * sx;
+  var out4 = (xy - wz) * sy;
+  var out5 = (1 - (xx + zz)) * sy;
+  var out6 = (yz + wx) * sy;
+  var out8 = (xz + wy) * sz;
+  var out9 = (yz - wx) * sz;
+  var out10 = (1 - (xx + yy)) * sz;
+  out[0] = out0;
+  out[1] = out1;
+  out[2] = out2;
+  out[3] = 0;
+  out[4] = out4;
+  out[5] = out5;
+  out[6] = out6;
+  out[7] = 0;
+  out[8] = out8;
+  out[9] = out9;
+  out[10] = out10;
+  out[11] = 0;
+  out[12] = v[0] + ox - (out0 * ox + out4 * oy + out8 * oz);
+  out[13] = v[1] + oy - (out1 * ox + out5 * oy + out9 * oz);
+  out[14] = v[2] + oz - (out2 * ox + out6 * oy + out10 * oz);
+  out[15] = 1;
+  return out;
+}
+/**
+ * Calculates a 4x4 matrix from the given quaternion
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {ReadonlyQuat} q Quaternion to create matrix from
+ *
+ * @returns {mat4} out
+ */
+
+
+function fromQuat(out, q) {
+  var x = q[0],
+      y = q[1],
+      z = q[2],
+      w = q[3];
+  var x2 = x + x;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x * x2;
+  var yx = y * x2;
+  var yy = y * y2;
+  var zx = z * x2;
+  var zy = z * y2;
+  var zz = z * z2;
+  var wx = w * x2;
+  var wy = w * y2;
+  var wz = w * z2;
+  out[0] = 1 - yy - zz;
+  out[1] = yx + wz;
+  out[2] = zx - wy;
+  out[3] = 0;
+  out[4] = yx - wz;
+  out[5] = 1 - xx - zz;
+  out[6] = zy + wx;
+  out[7] = 0;
+  out[8] = zx + wy;
+  out[9] = zy - wx;
+  out[10] = 1 - xx - yy;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Generates a frustum matrix with the given bounds
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {Number} left Left bound of the frustum
+ * @param {Number} right Right bound of the frustum
+ * @param {Number} bottom Bottom bound of the frustum
+ * @param {Number} top Top bound of the frustum
+ * @param {Number} near Near bound of the frustum
+ * @param {Number} far Far bound of the frustum
+ * @returns {mat4} out
+ */
+
+
+function frustum(out, left, right, bottom, top, near, far) {
+  var rl = 1 / (right - left);
+  var tb = 1 / (top - bottom);
+  var nf = 1 / (near - far);
+  out[0] = near * 2 * rl;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = near * 2 * tb;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = (right + left) * rl;
+  out[9] = (top + bottom) * tb;
+  out[10] = (far + near) * nf;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = far * near * 2 * nf;
+  out[15] = 0;
+  return out;
+}
+/**
+ * Generates a perspective projection matrix with the given bounds.
+ * The near/far clip planes correspond to a normalized device coordinate Z range of [-1, 1],
+ * which matches WebGL/OpenGL's clip volume.
+ * Passing null/undefined/no value for far will generate infinite projection matrix.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {number} fovy Vertical field of view in radians
+ * @param {number} aspect Aspect ratio. typically viewport width/height
+ * @param {number} near Near bound of the frustum
+ * @param {number} far Far bound of the frustum, can be null or Infinity
+ * @returns {mat4} out
+ */
+
+
+function perspectiveNO(out, fovy, aspect, near, far) {
+  var f = 1.0 / Math.tan(fovy / 2),
+      nf;
+  out[0] = f / aspect;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = f;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[15] = 0;
+
+  if (far != null && far !== Infinity) {
+    nf = 1 / (near - far);
+    out[10] = (far + near) * nf;
+    out[14] = 2 * far * near * nf;
+  } else {
+    out[10] = -1;
+    out[14] = -2 * near;
+  }
+
+  return out;
+}
+/**
+ * Alias for {@link mat4.perspectiveNO}
+ * @function
+ */
+
+
+var perspective = perspectiveNO;
+/**
+ * Generates a perspective projection matrix suitable for WebGPU with the given bounds.
+ * The near/far clip planes correspond to a normalized device coordinate Z range of [0, 1],
+ * which matches WebGPU/Vulkan/DirectX/Metal's clip volume.
+ * Passing null/undefined/no value for far will generate infinite projection matrix.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {number} fovy Vertical field of view in radians
+ * @param {number} aspect Aspect ratio. typically viewport width/height
+ * @param {number} near Near bound of the frustum
+ * @param {number} far Far bound of the frustum, can be null or Infinity
+ * @returns {mat4} out
+ */
+
+function perspectiveZO(out, fovy, aspect, near, far) {
+  var f = 1.0 / Math.tan(fovy / 2),
+      nf;
+  out[0] = f / aspect;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = f;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[15] = 0;
+
+  if (far != null && far !== Infinity) {
+    nf = 1 / (near - far);
+    out[10] = far * nf;
+    out[14] = far * near * nf;
+  } else {
+    out[10] = -1;
+    out[14] = -near;
+  }
+
+  return out;
+}
+/**
+ * Generates a perspective projection matrix with the given field of view.
+ * This is primarily useful for generating projection matrices to be used
+ * with the still experiemental WebVR API.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {Object} fov Object containing the following values: upDegrees, downDegrees, leftDegrees, rightDegrees
+ * @param {number} near Near bound of the frustum
+ * @param {number} far Far bound of the frustum
+ * @returns {mat4} out
+ */
+
+
+function perspectiveFromFieldOfView(out, fov, near, far) {
+  var upTan = Math.tan(fov.upDegrees * Math.PI / 180.0);
+  var downTan = Math.tan(fov.downDegrees * Math.PI / 180.0);
+  var leftTan = Math.tan(fov.leftDegrees * Math.PI / 180.0);
+  var rightTan = Math.tan(fov.rightDegrees * Math.PI / 180.0);
+  var xScale = 2.0 / (leftTan + rightTan);
+  var yScale = 2.0 / (upTan + downTan);
+  out[0] = xScale;
+  out[1] = 0.0;
+  out[2] = 0.0;
+  out[3] = 0.0;
+  out[4] = 0.0;
+  out[5] = yScale;
+  out[6] = 0.0;
+  out[7] = 0.0;
+  out[8] = -((leftTan - rightTan) * xScale * 0.5);
+  out[9] = (upTan - downTan) * yScale * 0.5;
+  out[10] = far / (near - far);
+  out[11] = -1.0;
+  out[12] = 0.0;
+  out[13] = 0.0;
+  out[14] = far * near / (near - far);
+  out[15] = 0.0;
+  return out;
+}
+/**
+ * Generates a orthogonal projection matrix with the given bounds.
+ * The near/far clip planes correspond to a normalized device coordinate Z range of [-1, 1],
+ * which matches WebGL/OpenGL's clip volume.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {number} left Left bound of the frustum
+ * @param {number} right Right bound of the frustum
+ * @param {number} bottom Bottom bound of the frustum
+ * @param {number} top Top bound of the frustum
+ * @param {number} near Near bound of the frustum
+ * @param {number} far Far bound of the frustum
+ * @returns {mat4} out
+ */
+
+
+function orthoNO(out, left, right, bottom, top, near, far) {
+  var lr = 1 / (left - right);
+  var bt = 1 / (bottom - top);
+  var nf = 1 / (near - far);
+  out[0] = -2 * lr;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = -2 * bt;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 2 * nf;
+  out[11] = 0;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt;
+  out[14] = (far + near) * nf;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Alias for {@link mat4.orthoNO}
+ * @function
+ */
+
+
+var ortho = orthoNO;
+/**
+ * Generates a orthogonal projection matrix with the given bounds.
+ * The near/far clip planes correspond to a normalized device coordinate Z range of [0, 1],
+ * which matches WebGPU/Vulkan/DirectX/Metal's clip volume.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {number} left Left bound of the frustum
+ * @param {number} right Right bound of the frustum
+ * @param {number} bottom Bottom bound of the frustum
+ * @param {number} top Top bound of the frustum
+ * @param {number} near Near bound of the frustum
+ * @param {number} far Far bound of the frustum
+ * @returns {mat4} out
+ */
+
+function orthoZO(out, left, right, bottom, top, near, far) {
+  var lr = 1 / (left - right);
+  var bt = 1 / (bottom - top);
+  var nf = 1 / (near - far);
+  out[0] = -2 * lr;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = -2 * bt;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = nf;
+  out[11] = 0;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt;
+  out[14] = near * nf;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Generates a look-at matrix with the given eye position, focal point, and up axis.
+ * If you want a matrix that actually makes an object look at another object, you should use targetTo instead.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {ReadonlyVec3} eye Position of the viewer
+ * @param {ReadonlyVec3} center Point the viewer is looking at
+ * @param {ReadonlyVec3} up vec3 pointing up
+ * @returns {mat4} out
+ */
+
+
+function lookAt(out, eye, center, up) {
+  var x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
+  var eyex = eye[0];
+  var eyey = eye[1];
+  var eyez = eye[2];
+  var upx = up[0];
+  var upy = up[1];
+  var upz = up[2];
+  var centerx = center[0];
+  var centery = center[1];
+  var centerz = center[2];
+
+  if (Math.abs(eyex - centerx) < EPSILON$1 && Math.abs(eyey - centery) < EPSILON$1 && Math.abs(eyez - centerz) < EPSILON$1) {
+    return identity$2(out);
+  }
+
+  z0 = eyex - centerx;
+  z1 = eyey - centery;
+  z2 = eyez - centerz;
+  len = 1 / Math.hypot(z0, z1, z2);
+  z0 *= len;
+  z1 *= len;
+  z2 *= len;
+  x0 = upy * z2 - upz * z1;
+  x1 = upz * z0 - upx * z2;
+  x2 = upx * z1 - upy * z0;
+  len = Math.hypot(x0, x1, x2);
+
+  if (!len) {
+    x0 = 0;
+    x1 = 0;
+    x2 = 0;
+  } else {
+    len = 1 / len;
+    x0 *= len;
+    x1 *= len;
+    x2 *= len;
+  }
+
+  y0 = z1 * x2 - z2 * x1;
+  y1 = z2 * x0 - z0 * x2;
+  y2 = z0 * x1 - z1 * x0;
+  len = Math.hypot(y0, y1, y2);
+
+  if (!len) {
+    y0 = 0;
+    y1 = 0;
+    y2 = 0;
+  } else {
+    len = 1 / len;
+    y0 *= len;
+    y1 *= len;
+    y2 *= len;
+  }
+
+  out[0] = x0;
+  out[1] = y0;
+  out[2] = z0;
+  out[3] = 0;
+  out[4] = x1;
+  out[5] = y1;
+  out[6] = z1;
+  out[7] = 0;
+  out[8] = x2;
+  out[9] = y2;
+  out[10] = z2;
+  out[11] = 0;
+  out[12] = -(x0 * eyex + x1 * eyey + x2 * eyez);
+  out[13] = -(y0 * eyex + y1 * eyey + y2 * eyez);
+  out[14] = -(z0 * eyex + z1 * eyey + z2 * eyez);
+  out[15] = 1;
+  return out;
+}
+/**
+ * Generates a matrix that makes something look at something else.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {ReadonlyVec3} eye Position of the viewer
+ * @param {ReadonlyVec3} center Point the viewer is looking at
+ * @param {ReadonlyVec3} up vec3 pointing up
+ * @returns {mat4} out
+ */
+
+
+function targetTo(out, eye, target, up) {
+  var eyex = eye[0],
+      eyey = eye[1],
+      eyez = eye[2],
+      upx = up[0],
+      upy = up[1],
+      upz = up[2];
+  var z0 = eyex - target[0],
+      z1 = eyey - target[1],
+      z2 = eyez - target[2];
+  var len = z0 * z0 + z1 * z1 + z2 * z2;
+
+  if (len > 0) {
+    len = 1 / Math.sqrt(len);
+    z0 *= len;
+    z1 *= len;
+    z2 *= len;
+  }
+
+  var x0 = upy * z2 - upz * z1,
+      x1 = upz * z0 - upx * z2,
+      x2 = upx * z1 - upy * z0;
+  len = x0 * x0 + x1 * x1 + x2 * x2;
+
+  if (len > 0) {
+    len = 1 / Math.sqrt(len);
+    x0 *= len;
+    x1 *= len;
+    x2 *= len;
+  }
+
+  out[0] = x0;
+  out[1] = x1;
+  out[2] = x2;
+  out[3] = 0;
+  out[4] = z1 * x2 - z2 * x1;
+  out[5] = z2 * x0 - z0 * x2;
+  out[6] = z0 * x1 - z1 * x0;
+  out[7] = 0;
+  out[8] = z0;
+  out[9] = z1;
+  out[10] = z2;
+  out[11] = 0;
+  out[12] = eyex;
+  out[13] = eyey;
+  out[14] = eyez;
+  out[15] = 1;
+  return out;
+}
+/**
+ * Returns a string representation of a mat4
+ *
+ * @param {ReadonlyMat4} a matrix to represent as a string
+ * @returns {String} string representation of the matrix
+ */
+
+
+function str$5(a) {
+  return "mat4(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ", " + a[4] + ", " + a[5] + ", " + a[6] + ", " + a[7] + ", " + a[8] + ", " + a[9] + ", " + a[10] + ", " + a[11] + ", " + a[12] + ", " + a[13] + ", " + a[14] + ", " + a[15] + ")";
+}
+/**
+ * Returns Frobenius norm of a mat4
+ *
+ * @param {ReadonlyMat4} a the matrix to calculate Frobenius norm of
+ * @returns {Number} Frobenius norm
+ */
+
+
+function frob(a) {
+  return Math.hypot(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]);
+}
+/**
+ * Adds two mat4's
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the first operand
+ * @param {ReadonlyMat4} b the second operand
+ * @returns {mat4} out
+ */
+
+
+function add$5(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  out[6] = a[6] + b[6];
+  out[7] = a[7] + b[7];
+  out[8] = a[8] + b[8];
+  out[9] = a[9] + b[9];
+  out[10] = a[10] + b[10];
+  out[11] = a[11] + b[11];
+  out[12] = a[12] + b[12];
+  out[13] = a[13] + b[13];
+  out[14] = a[14] + b[14];
+  out[15] = a[15] + b[15];
+  return out;
+}
+/**
+ * Subtracts matrix b from matrix a
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the first operand
+ * @param {ReadonlyMat4} b the second operand
+ * @returns {mat4} out
+ */
+
+
+function subtract$3(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  out[4] = a[4] - b[4];
+  out[5] = a[5] - b[5];
+  out[6] = a[6] - b[6];
+  out[7] = a[7] - b[7];
+  out[8] = a[8] - b[8];
+  out[9] = a[9] - b[9];
+  out[10] = a[10] - b[10];
+  out[11] = a[11] - b[11];
+  out[12] = a[12] - b[12];
+  out[13] = a[13] - b[13];
+  out[14] = a[14] - b[14];
+  out[15] = a[15] - b[15];
+  return out;
+}
+/**
+ * Multiply each element of the matrix by a scalar.
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {ReadonlyMat4} a the matrix to scale
+ * @param {Number} b amount to scale the matrix's elements by
+ * @returns {mat4} out
+ */
+
+
+function multiplyScalar(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  out[6] = a[6] * b;
+  out[7] = a[7] * b;
+  out[8] = a[8] * b;
+  out[9] = a[9] * b;
+  out[10] = a[10] * b;
+  out[11] = a[11] * b;
+  out[12] = a[12] * b;
+  out[13] = a[13] * b;
+  out[14] = a[14] * b;
+  out[15] = a[15] * b;
+  return out;
+}
+/**
+ * Adds two mat4's after multiplying each element of the second operand by a scalar value.
+ *
+ * @param {mat4} out the receiving vector
+ * @param {ReadonlyMat4} a the first operand
+ * @param {ReadonlyMat4} b the second operand
+ * @param {Number} scale the amount to scale b's elements by before adding
+ * @returns {mat4} out
+ */
+
+
+function multiplyScalarAndAdd(out, a, b, scale) {
+  out[0] = a[0] + b[0] * scale;
+  out[1] = a[1] + b[1] * scale;
+  out[2] = a[2] + b[2] * scale;
+  out[3] = a[3] + b[3] * scale;
+  out[4] = a[4] + b[4] * scale;
+  out[5] = a[5] + b[5] * scale;
+  out[6] = a[6] + b[6] * scale;
+  out[7] = a[7] + b[7] * scale;
+  out[8] = a[8] + b[8] * scale;
+  out[9] = a[9] + b[9] * scale;
+  out[10] = a[10] + b[10] * scale;
+  out[11] = a[11] + b[11] * scale;
+  out[12] = a[12] + b[12] * scale;
+  out[13] = a[13] + b[13] * scale;
+  out[14] = a[14] + b[14] * scale;
+  out[15] = a[15] + b[15] * scale;
+  return out;
+}
+/**
+ * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {ReadonlyMat4} a The first matrix.
+ * @param {ReadonlyMat4} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+
+
+function exactEquals$5(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7] && a[8] === b[8] && a[9] === b[9] && a[10] === b[10] && a[11] === b[11] && a[12] === b[12] && a[13] === b[13] && a[14] === b[14] && a[15] === b[15];
+}
+/**
+ * Returns whether or not the matrices have approximately the same elements in the same position.
+ *
+ * @param {ReadonlyMat4} a The first matrix.
+ * @param {ReadonlyMat4} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+
+
+function equals$5(a, b) {
+  var a0 = a[0],
+      a1 = a[1],
+      a2 = a[2],
+      a3 = a[3];
+  var a4 = a[4],
+      a5 = a[5],
+      a6 = a[6],
+      a7 = a[7];
+  var a8 = a[8],
+      a9 = a[9],
+      a10 = a[10],
+      a11 = a[11];
+  var a12 = a[12],
+      a13 = a[13],
+      a14 = a[14],
+      a15 = a[15];
+  var b0 = b[0],
+      b1 = b[1],
+      b2 = b[2],
+      b3 = b[3];
+  var b4 = b[4],
+      b5 = b[5],
+      b6 = b[6],
+      b7 = b[7];
+  var b8 = b[8],
+      b9 = b[9],
+      b10 = b[10],
+      b11 = b[11];
+  var b12 = b[12],
+      b13 = b[13],
+      b14 = b[14],
+      b15 = b[15];
+  return Math.abs(a0 - b0) <= EPSILON$1 * Math.max(1.0, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON$1 * Math.max(1.0, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON$1 * Math.max(1.0, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON$1 * Math.max(1.0, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON$1 * Math.max(1.0, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON$1 * Math.max(1.0, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON$1 * Math.max(1.0, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON$1 * Math.max(1.0, Math.abs(a7), Math.abs(b7)) && Math.abs(a8 - b8) <= EPSILON$1 * Math.max(1.0, Math.abs(a8), Math.abs(b8)) && Math.abs(a9 - b9) <= EPSILON$1 * Math.max(1.0, Math.abs(a9), Math.abs(b9)) && Math.abs(a10 - b10) <= EPSILON$1 * Math.max(1.0, Math.abs(a10), Math.abs(b10)) && Math.abs(a11 - b11) <= EPSILON$1 * Math.max(1.0, Math.abs(a11), Math.abs(b11)) && Math.abs(a12 - b12) <= EPSILON$1 * Math.max(1.0, Math.abs(a12), Math.abs(b12)) && Math.abs(a13 - b13) <= EPSILON$1 * Math.max(1.0, Math.abs(a13), Math.abs(b13)) && Math.abs(a14 - b14) <= EPSILON$1 * Math.max(1.0, Math.abs(a14), Math.abs(b14)) && Math.abs(a15 - b15) <= EPSILON$1 * Math.max(1.0, Math.abs(a15), Math.abs(b15));
+}
+/**
+ * Alias for {@link mat4.multiply}
+ * @function
+ */
+
+
+var mul$5 = multiply$5;
+/**
+ * Alias for {@link mat4.subtract}
+ * @function
+ */
+
+var sub$3 = subtract$3;
+var mat4 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  create: create$5,
+  clone: clone$5,
+  copy: copy$5,
+  fromValues: fromValues$5,
+  set: set$5,
+  identity: identity$2,
+  transpose: transpose,
+  invert: invert$2,
+  adjoint: adjoint,
+  determinant: determinant,
+  multiply: multiply$5,
+  translate: translate$1,
+  scale: scale$5,
+  rotate: rotate$1,
+  rotateX: rotateX$3,
+  rotateY: rotateY$3,
+  rotateZ: rotateZ$3,
+  fromTranslation: fromTranslation$1,
+  fromScaling: fromScaling,
+  fromRotation: fromRotation$1,
+  fromXRotation: fromXRotation,
+  fromYRotation: fromYRotation,
+  fromZRotation: fromZRotation,
+  fromRotationTranslation: fromRotationTranslation$1,
+  fromQuat2: fromQuat2,
+  getTranslation: getTranslation$1,
+  getScaling: getScaling,
+  getRotation: getRotation,
+  fromRotationTranslationScale: fromRotationTranslationScale,
+  fromRotationTranslationScaleOrigin: fromRotationTranslationScaleOrigin,
+  fromQuat: fromQuat,
+  frustum: frustum,
+  perspectiveNO: perspectiveNO,
+  perspective: perspective,
+  perspectiveZO: perspectiveZO,
+  perspectiveFromFieldOfView: perspectiveFromFieldOfView,
+  orthoNO: orthoNO,
+  ortho: ortho,
+  orthoZO: orthoZO,
+  lookAt: lookAt,
+  targetTo: targetTo,
+  str: str$5,
+  frob: frob,
+  add: add$5,
+  subtract: subtract$3,
+  multiplyScalar: multiplyScalar,
+  multiplyScalarAndAdd: multiplyScalarAndAdd,
+  exactEquals: exactEquals$5,
+  equals: equals$5,
+  mul: mul$5,
+  sub: sub$3
+});
+/**
+ * 3 Dimensional Vector
+ * @module vec3
+ */
+
+/**
+ * Creates a new, empty vec3
+ *
+ * @returns {vec3} a new 3D vector
+ */
+
+function create$4$1() {
+  var out = new ARRAY_TYPE$1(3);
+
+  if (ARRAY_TYPE$1 != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+  }
+
+  return out;
+}
+/**
+ * Creates a new vec3 initialized with values from an existing vector
+ *
+ * @param {ReadonlyVec3} a vector to clone
+ * @returns {vec3} a new 3D vector
+ */
+
+
+function clone$4(a) {
+  var out = new ARRAY_TYPE$1(3);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  return out;
+}
+/**
+ * Calculates the length of a vec3
+ *
+ * @param {ReadonlyVec3} a vector to calculate length of
+ * @returns {Number} length of a
+ */
+
+
+function length$4$1(a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  return Math.hypot(x, y, z);
+}
+/**
+ * Creates a new vec3 initialized with the given values
+ *
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @param {Number} z Z component
+ * @returns {vec3} a new 3D vector
+ */
+
+
+function fromValues$4$1(x, y, z) {
+  var out = new ARRAY_TYPE$1(3);
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  return out;
+}
+/**
+ * Copy the values from one vec3 to another
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the source vector
+ * @returns {vec3} out
+ */
+
+
+function copy$4(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  return out;
+}
+/**
+ * Set the components of a vec3 to the given values
+ *
+ * @param {vec3} out the receiving vector
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @param {Number} z Z component
+ * @returns {vec3} out
+ */
+
+
+function set$4(out, x, y, z) {
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  return out;
+}
+/**
+ * Adds two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {vec3} out
+ */
+
+
+function add$4(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  return out;
+}
+/**
+ * Subtracts vector b from vector a
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {vec3} out
+ */
+
+
+function subtract$2(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  return out;
+}
+/**
+ * Multiplies two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {vec3} out
+ */
+
+
+function multiply$4(out, a, b) {
+  out[0] = a[0] * b[0];
+  out[1] = a[1] * b[1];
+  out[2] = a[2] * b[2];
+  return out;
+}
+/**
+ * Divides two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {vec3} out
+ */
+
+
+function divide$2(out, a, b) {
+  out[0] = a[0] / b[0];
+  out[1] = a[1] / b[1];
+  out[2] = a[2] / b[2];
+  return out;
+}
+/**
+ * Math.ceil the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a vector to ceil
+ * @returns {vec3} out
+ */
+
+
+function ceil$2(out, a) {
+  out[0] = Math.ceil(a[0]);
+  out[1] = Math.ceil(a[1]);
+  out[2] = Math.ceil(a[2]);
+  return out;
+}
+/**
+ * Math.floor the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a vector to floor
+ * @returns {vec3} out
+ */
+
+
+function floor$2(out, a) {
+  out[0] = Math.floor(a[0]);
+  out[1] = Math.floor(a[1]);
+  out[2] = Math.floor(a[2]);
+  return out;
+}
+/**
+ * Returns the minimum of two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {vec3} out
+ */
+
+
+function min$2(out, a, b) {
+  out[0] = Math.min(a[0], b[0]);
+  out[1] = Math.min(a[1], b[1]);
+  out[2] = Math.min(a[2], b[2]);
+  return out;
+}
+/**
+ * Returns the maximum of two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {vec3} out
+ */
+
+
+function max$2(out, a, b) {
+  out[0] = Math.max(a[0], b[0]);
+  out[1] = Math.max(a[1], b[1]);
+  out[2] = Math.max(a[2], b[2]);
+  return out;
+}
+/**
+ * Math.round the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a vector to round
+ * @returns {vec3} out
+ */
+
+
+function round$2(out, a) {
+  out[0] = Math.round(a[0]);
+  out[1] = Math.round(a[1]);
+  out[2] = Math.round(a[2]);
+  return out;
+}
+/**
+ * Scales a vec3 by a scalar number
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the vector to scale
+ * @param {Number} b amount to scale the vector by
+ * @returns {vec3} out
+ */
+
+
+function scale$4(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  return out;
+}
+/**
+ * Adds two vec3's after scaling the second operand by a scalar value
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @param {Number} scale the amount to scale b by before adding
+ * @returns {vec3} out
+ */
+
+
+function scaleAndAdd$2(out, a, b, scale) {
+  out[0] = a[0] + b[0] * scale;
+  out[1] = a[1] + b[1] * scale;
+  out[2] = a[2] + b[2] * scale;
+  return out;
+}
+/**
+ * Calculates the euclidian distance between two vec3's
+ *
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {Number} distance between a and b
+ */
+
+
+function distance$2(a, b) {
+  var x = b[0] - a[0];
+  var y = b[1] - a[1];
+  var z = b[2] - a[2];
+  return Math.hypot(x, y, z);
+}
+/**
+ * Calculates the squared euclidian distance between two vec3's
+ *
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {Number} squared distance between a and b
+ */
+
+
+function squaredDistance$2(a, b) {
+  var x = b[0] - a[0];
+  var y = b[1] - a[1];
+  var z = b[2] - a[2];
+  return x * x + y * y + z * z;
+}
+/**
+ * Calculates the squared length of a vec3
+ *
+ * @param {ReadonlyVec3} a vector to calculate squared length of
+ * @returns {Number} squared length of a
+ */
+
+
+function squaredLength$4(a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  return x * x + y * y + z * z;
+}
+/**
+ * Negates the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a vector to negate
+ * @returns {vec3} out
+ */
+
+
+function negate$2(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  return out;
+}
+/**
+ * Returns the inverse of the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a vector to invert
+ * @returns {vec3} out
+ */
+
+
+function inverse$2(out, a) {
+  out[0] = 1.0 / a[0];
+  out[1] = 1.0 / a[1];
+  out[2] = 1.0 / a[2];
+  return out;
+}
+/**
+ * Normalize a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a vector to normalize
+ * @returns {vec3} out
+ */
+
+
+function normalize$4$1(out, a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  var len = x * x + y * y + z * z;
+
+  if (len > 0) {
+    //TODO: evaluate use of glm_invsqrt here?
+    len = 1 / Math.sqrt(len);
+  }
+
+  out[0] = a[0] * len;
+  out[1] = a[1] * len;
+  out[2] = a[2] * len;
+  return out;
+}
+/**
+ * Calculates the dot product of two vec3's
+ *
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {Number} dot product of a and b
+ */
+
+
+function dot$4$1(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+/**
+ * Computes the cross product of two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {vec3} out
+ */
+
+
+function cross$2$1(out, a, b) {
+  var ax = a[0],
+      ay = a[1],
+      az = a[2];
+  var bx = b[0],
+      by = b[1],
+      bz = b[2];
+  out[0] = ay * bz - az * by;
+  out[1] = az * bx - ax * bz;
+  out[2] = ax * by - ay * bx;
+  return out;
+}
+/**
+ * Performs a linear interpolation between two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {vec3} out
+ */
+
+
+function lerp$4(out, a, b, t) {
+  var ax = a[0];
+  var ay = a[1];
+  var az = a[2];
+  out[0] = ax + t * (b[0] - ax);
+  out[1] = ay + t * (b[1] - ay);
+  out[2] = az + t * (b[2] - az);
+  return out;
+}
+/**
+ * Performs a hermite interpolation with two control points
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @param {ReadonlyVec3} c the third operand
+ * @param {ReadonlyVec3} d the fourth operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {vec3} out
+ */
+
+
+function hermite(out, a, b, c, d, t) {
+  var factorTimes2 = t * t;
+  var factor1 = factorTimes2 * (2 * t - 3) + 1;
+  var factor2 = factorTimes2 * (t - 2) + t;
+  var factor3 = factorTimes2 * (t - 1);
+  var factor4 = factorTimes2 * (3 - 2 * t);
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
+  return out;
+}
+/**
+ * Performs a bezier interpolation with two control points
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @param {ReadonlyVec3} c the third operand
+ * @param {ReadonlyVec3} d the fourth operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {vec3} out
+ */
+
+
+function bezier(out, a, b, c, d, t) {
+  var inverseFactor = 1 - t;
+  var inverseFactorTimesTwo = inverseFactor * inverseFactor;
+  var factorTimes2 = t * t;
+  var factor1 = inverseFactorTimesTwo * inverseFactor;
+  var factor2 = 3 * t * inverseFactorTimesTwo;
+  var factor3 = 3 * factorTimes2 * inverseFactor;
+  var factor4 = factorTimes2 * t;
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
+  return out;
+}
+/**
+ * Generates a random vector with the given scale
+ *
+ * @param {vec3} out the receiving vector
+ * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
+ * @returns {vec3} out
+ */
+
+
+function random$3(out, scale) {
+  scale = scale || 1.0;
+  var r = RANDOM() * 2.0 * Math.PI;
+  var z = RANDOM() * 2.0 - 1.0;
+  var zScale = Math.sqrt(1.0 - z * z) * scale;
+  out[0] = Math.cos(r) * zScale;
+  out[1] = Math.sin(r) * zScale;
+  out[2] = z * scale;
+  return out;
+}
+/**
+ * Transforms the vec3 with a mat4.
+ * 4th vector component is implicitly '1'
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the vector to transform
+ * @param {ReadonlyMat4} m matrix to transform with
+ * @returns {vec3} out
+ */
+
+
+function transformMat4$2(out, a, m) {
+  var x = a[0],
+      y = a[1],
+      z = a[2];
+  var w = m[3] * x + m[7] * y + m[11] * z + m[15];
+  w = w || 1.0;
+  out[0] = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
+  out[1] = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
+  out[2] = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
+  return out;
+}
+/**
+ * Transforms the vec3 with a mat3.
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the vector to transform
+ * @param {ReadonlyMat3} m the 3x3 matrix to transform with
+ * @returns {vec3} out
+ */
+
+
+function transformMat3$1(out, a, m) {
+  var x = a[0],
+      y = a[1],
+      z = a[2];
+  out[0] = x * m[0] + y * m[3] + z * m[6];
+  out[1] = x * m[1] + y * m[4] + z * m[7];
+  out[2] = x * m[2] + y * m[5] + z * m[8];
+  return out;
+}
+/**
+ * Transforms the vec3 with a quat
+ * Can also be used for dual quaternions. (Multiply it with the real part)
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the vector to transform
+ * @param {ReadonlyQuat} q quaternion to transform with
+ * @returns {vec3} out
+ */
+
+
+function transformQuat$1(out, a, q) {
+  // benchmarks: https://jsperf.com/quaternion-transform-vec3-implementations-fixed
+  var qx = q[0],
+      qy = q[1],
+      qz = q[2],
+      qw = q[3];
+  var x = a[0],
+      y = a[1],
+      z = a[2]; // var qvec = [qx, qy, qz];
+  // var uv = vec3.cross([], qvec, a);
+
+  var uvx = qy * z - qz * y,
+      uvy = qz * x - qx * z,
+      uvz = qx * y - qy * x; // var uuv = vec3.cross([], qvec, uv);
+
+  var uuvx = qy * uvz - qz * uvy,
+      uuvy = qz * uvx - qx * uvz,
+      uuvz = qx * uvy - qy * uvx; // vec3.scale(uv, uv, 2 * w);
+
+  var w2 = qw * 2;
+  uvx *= w2;
+  uvy *= w2;
+  uvz *= w2; // vec3.scale(uuv, uuv, 2);
+
+  uuvx *= 2;
+  uuvy *= 2;
+  uuvz *= 2; // return vec3.add(out, a, vec3.add(out, uv, uuv));
+
+  out[0] = x + uvx + uuvx;
+  out[1] = y + uvy + uuvy;
+  out[2] = z + uvz + uuvz;
+  return out;
+}
+/**
+ * Rotate a 3D vector around the x-axis
+ * @param {vec3} out The receiving vec3
+ * @param {ReadonlyVec3} a The vec3 point to rotate
+ * @param {ReadonlyVec3} b The origin of the rotation
+ * @param {Number} rad The angle of rotation in radians
+ * @returns {vec3} out
+ */
+
+
+function rotateX$2(out, a, b, rad) {
+  var p = [],
+      r = []; //Translate point to the origin
+
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2]; //perform rotation
+
+  r[0] = p[0];
+  r[1] = p[1] * Math.cos(rad) - p[2] * Math.sin(rad);
+  r[2] = p[1] * Math.sin(rad) + p[2] * Math.cos(rad); //translate to correct position
+
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+  return out;
+}
+/**
+ * Rotate a 3D vector around the y-axis
+ * @param {vec3} out The receiving vec3
+ * @param {ReadonlyVec3} a The vec3 point to rotate
+ * @param {ReadonlyVec3} b The origin of the rotation
+ * @param {Number} rad The angle of rotation in radians
+ * @returns {vec3} out
+ */
+
+
+function rotateY$2(out, a, b, rad) {
+  var p = [],
+      r = []; //Translate point to the origin
+
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2]; //perform rotation
+
+  r[0] = p[2] * Math.sin(rad) + p[0] * Math.cos(rad);
+  r[1] = p[1];
+  r[2] = p[2] * Math.cos(rad) - p[0] * Math.sin(rad); //translate to correct position
+
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+  return out;
+}
+/**
+ * Rotate a 3D vector around the z-axis
+ * @param {vec3} out The receiving vec3
+ * @param {ReadonlyVec3} a The vec3 point to rotate
+ * @param {ReadonlyVec3} b The origin of the rotation
+ * @param {Number} rad The angle of rotation in radians
+ * @returns {vec3} out
+ */
+
+
+function rotateZ$2(out, a, b, rad) {
+  var p = [],
+      r = []; //Translate point to the origin
+
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2]; //perform rotation
+
+  r[0] = p[0] * Math.cos(rad) - p[1] * Math.sin(rad);
+  r[1] = p[0] * Math.sin(rad) + p[1] * Math.cos(rad);
+  r[2] = p[2]; //translate to correct position
+
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+  return out;
+}
+/**
+ * Get the angle between two 3D vectors
+ * @param {ReadonlyVec3} a The first operand
+ * @param {ReadonlyVec3} b The second operand
+ * @returns {Number} The angle in radians
+ */
+
+
+function angle$1(a, b) {
+  var ax = a[0],
+      ay = a[1],
+      az = a[2],
+      bx = b[0],
+      by = b[1],
+      bz = b[2],
+      mag1 = Math.sqrt(ax * ax + ay * ay + az * az),
+      mag2 = Math.sqrt(bx * bx + by * by + bz * bz),
+      mag = mag1 * mag2,
+      cosine = mag && dot$4$1(a, b) / mag;
+  return Math.acos(Math.min(Math.max(cosine, -1), 1));
+}
+/**
+ * Set the components of a vec3 to zero
+ *
+ * @param {vec3} out the receiving vector
+ * @returns {vec3} out
+ */
+
+
+function zero$2(out) {
+  out[0] = 0.0;
+  out[1] = 0.0;
+  out[2] = 0.0;
+  return out;
+}
+/**
+ * Returns a string representation of a vector
+ *
+ * @param {ReadonlyVec3} a vector to represent as a string
+ * @returns {String} string representation of the vector
+ */
+
+
+function str$4(a) {
+  return "vec3(" + a[0] + ", " + a[1] + ", " + a[2] + ")";
+}
+/**
+ * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {ReadonlyVec3} a The first vector.
+ * @param {ReadonlyVec3} b The second vector.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+
+
+function exactEquals$4(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
+}
+/**
+ * Returns whether or not the vectors have approximately the same elements in the same position.
+ *
+ * @param {ReadonlyVec3} a The first vector.
+ * @param {ReadonlyVec3} b The second vector.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+
+
+function equals$4(a, b) {
+  var a0 = a[0],
+      a1 = a[1],
+      a2 = a[2];
+  var b0 = b[0],
+      b1 = b[1],
+      b2 = b[2];
+  return Math.abs(a0 - b0) <= EPSILON$1 * Math.max(1.0, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON$1 * Math.max(1.0, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON$1 * Math.max(1.0, Math.abs(a2), Math.abs(b2));
+}
+/**
+ * Alias for {@link vec3.subtract}
+ * @function
+ */
+
+
+var sub$2 = subtract$2;
+/**
+ * Alias for {@link vec3.multiply}
+ * @function
+ */
+
+var mul$4 = multiply$4;
+/**
+ * Alias for {@link vec3.divide}
+ * @function
+ */
+
+var div$2 = divide$2;
+/**
+ * Alias for {@link vec3.distance}
+ * @function
+ */
+
+var dist$2 = distance$2;
+/**
+ * Alias for {@link vec3.squaredDistance}
+ * @function
+ */
+
+var sqrDist$2 = squaredDistance$2;
+/**
+ * Alias for {@link vec3.length}
+ * @function
+ */
+
+var len$4$1 = length$4$1;
+/**
+ * Alias for {@link vec3.squaredLength}
+ * @function
+ */
+
+var sqrLen$4 = squaredLength$4;
+/**
+ * Perform some operation over an array of vec3s.
+ *
+ * @param {Array} a the array of vectors to iterate over
+ * @param {Number} stride Number of elements between the start of each vec3. If 0 assumes tightly packed
+ * @param {Number} offset Number of elements to skip at the beginning of the array
+ * @param {Number} count Number of vec3s to iterate over. If 0 iterates over entire array
+ * @param {Function} fn Function to call for each vector in the array
+ * @param {Object} [arg] additional argument to pass to fn
+ * @returns {Array} a
+ * @function
+ */
+
+var forEach$2 = function () {
+  var vec = create$4$1();
+  return function (a, stride, offset, count, fn, arg) {
+    var i, l;
+
+    if (!stride) {
+      stride = 3;
+    }
+
+    if (!offset) {
+      offset = 0;
+    }
+
+    if (count) {
+      l = Math.min(count * stride + offset, a.length);
+    } else {
+      l = a.length;
+    }
+
+    for (i = offset; i < l; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      vec[2] = a[i + 2];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+      a[i + 2] = vec[2];
+    }
+
+    return a;
+  };
+}();
+
+var vec3 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  create: create$4$1,
+  clone: clone$4,
+  length: length$4$1,
+  fromValues: fromValues$4$1,
+  copy: copy$4,
+  set: set$4,
+  add: add$4,
+  subtract: subtract$2,
+  multiply: multiply$4,
+  divide: divide$2,
+  ceil: ceil$2,
+  floor: floor$2,
+  min: min$2,
+  max: max$2,
+  round: round$2,
+  scale: scale$4,
+  scaleAndAdd: scaleAndAdd$2,
+  distance: distance$2,
+  squaredDistance: squaredDistance$2,
+  squaredLength: squaredLength$4,
+  negate: negate$2,
+  inverse: inverse$2,
+  normalize: normalize$4$1,
+  dot: dot$4$1,
+  cross: cross$2$1,
+  lerp: lerp$4,
+  hermite: hermite,
+  bezier: bezier,
+  random: random$3,
+  transformMat4: transformMat4$2,
+  transformMat3: transformMat3$1,
+  transformQuat: transformQuat$1,
+  rotateX: rotateX$2,
+  rotateY: rotateY$2,
+  rotateZ: rotateZ$2,
+  angle: angle$1,
+  zero: zero$2,
+  str: str$4,
+  exactEquals: exactEquals$4,
+  equals: equals$4,
+  sub: sub$2,
+  mul: mul$4,
+  div: div$2,
+  dist: dist$2,
+  sqrDist: sqrDist$2,
+  len: len$4$1,
+  sqrLen: sqrLen$4,
+  forEach: forEach$2
+});
+/**
+ * 4 Dimensional Vector
+ * @module vec4
+ */
+
+/**
+ * Creates a new, empty vec4
+ *
+ * @returns {vec4} a new 4D vector
+ */
+
+function create$3$1() {
+  var out = new ARRAY_TYPE$1(4);
+
+  if (ARRAY_TYPE$1 != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+  }
+
+  return out;
+}
+/**
+ * Normalize a vec4
+ *
+ * @param {vec4} out the receiving vector
+ * @param {ReadonlyVec4} a vector to normalize
+ * @returns {vec4} out
+ */
+
+
+function normalize$3$1(out, a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  var w = a[3];
+  var len = x * x + y * y + z * z + w * w;
+
+  if (len > 0) {
+    len = 1 / Math.sqrt(len);
+  }
+
+  out[0] = x * len;
+  out[1] = y * len;
+  out[2] = z * len;
+  out[3] = w * len;
+  return out;
+}
+/**
+ * Perform some operation over an array of vec4s.
+ *
+ * @param {Array} a the array of vectors to iterate over
+ * @param {Number} stride Number of elements between the start of each vec4. If 0 assumes tightly packed
+ * @param {Number} offset Number of elements to skip at the beginning of the array
+ * @param {Number} count Number of vec4s to iterate over. If 0 iterates over entire array
+ * @param {Function} fn Function to call for each vector in the array
+ * @param {Object} [arg] additional argument to pass to fn
+ * @returns {Array} a
+ * @function
+ */
+
+(function () {
+  var vec = create$3$1();
+  return function (a, stride, offset, count, fn, arg) {
+    var i, l;
+
+    if (!stride) {
+      stride = 4;
+    }
+
+    if (!offset) {
+      offset = 0;
+    }
+
+    if (count) {
+      l = Math.min(count * stride + offset, a.length);
+    } else {
+      l = a.length;
+    }
+
+    for (i = offset; i < l; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      vec[2] = a[i + 2];
+      vec[3] = a[i + 3];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+      a[i + 2] = vec[2];
+      a[i + 3] = vec[3];
+    }
+
+    return a;
+  };
+})();
+/**
+ * Quaternion
+ * @module quat
+ */
+
+/**
+ * Creates a new identity quat
+ *
+ * @returns {quat} a new quaternion
+ */
+
+function create$2$1() {
+  var out = new ARRAY_TYPE$1(4);
+
+  if (ARRAY_TYPE$1 != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+  }
+
+  out[3] = 1;
+  return out;
+}
+/**
+ * Sets a quat from the given angle and rotation axis,
+ * then returns it.
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyVec3} axis the axis around which to rotate
+ * @param {Number} rad the angle in radians
+ * @returns {quat} out
+ **/
+
+
+function setAxisAngle$1(out, axis, rad) {
+  rad = rad * 0.5;
+  var s = Math.sin(rad);
+  out[0] = s * axis[0];
+  out[1] = s * axis[1];
+  out[2] = s * axis[2];
+  out[3] = Math.cos(rad);
+  return out;
+}
+/**
+ * Performs a spherical linear interpolation between two quat
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyQuat} a the first operand
+ * @param {ReadonlyQuat} b the second operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {quat} out
+ */
+
+
+function slerp$1(out, a, b, t) {
+  // benchmarks:
+  //    http://jsperf.com/quaternion-slerp-implementations
+  var ax = a[0],
+      ay = a[1],
+      az = a[2],
+      aw = a[3];
+  var bx = b[0],
+      by = b[1],
+      bz = b[2],
+      bw = b[3];
+  var omega, cosom, sinom, scale0, scale1; // calc cosine
+
+  cosom = ax * bx + ay * by + az * bz + aw * bw; // adjust signs (if necessary)
+
+  if (cosom < 0.0) {
+    cosom = -cosom;
+    bx = -bx;
+    by = -by;
+    bz = -bz;
+    bw = -bw;
+  } // calculate coefficients
+
+
+  if (1.0 - cosom > EPSILON$1) {
+    // standard case (slerp)
+    omega = Math.acos(cosom);
+    sinom = Math.sin(omega);
+    scale0 = Math.sin((1.0 - t) * omega) / sinom;
+    scale1 = Math.sin(t * omega) / sinom;
+  } else {
+    // "from" and "to" quaternions are very close
+    //  ... so we can do a linear interpolation
+    scale0 = 1.0 - t;
+    scale1 = t;
+  } // calculate final values
+
+
+  out[0] = scale0 * ax + scale1 * bx;
+  out[1] = scale0 * ay + scale1 * by;
+  out[2] = scale0 * az + scale1 * bz;
+  out[3] = scale0 * aw + scale1 * bw;
+  return out;
+}
+/**
+ * Creates a quaternion from the given 3x3 rotation matrix.
+ *
+ * NOTE: The resultant quaternion is not normalized, so you should be sure
+ * to renormalize the quaternion yourself where necessary.
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyMat3} m rotation matrix
+ * @returns {quat} out
+ * @function
+ */
+
+
+function fromMat3$1(out, m) {
+  // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
+  // article "Quaternion Calculus and Fast Animation".
+  var fTrace = m[0] + m[4] + m[8];
+  var fRoot;
+
+  if (fTrace > 0.0) {
+    // |w| > 1/2, may as well choose w > 1/2
+    fRoot = Math.sqrt(fTrace + 1.0); // 2w
+
+    out[3] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot; // 1/(4w)
+
+    out[0] = (m[5] - m[7]) * fRoot;
+    out[1] = (m[6] - m[2]) * fRoot;
+    out[2] = (m[1] - m[3]) * fRoot;
+  } else {
+    // |w| <= 1/2
+    var i = 0;
+    if (m[4] > m[0]) i = 1;
+    if (m[8] > m[i * 3 + i]) i = 2;
+    var j = (i + 1) % 3;
+    var k = (i + 2) % 3;
+    fRoot = Math.sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + 1.0);
+    out[i] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot;
+    out[3] = (m[j * 3 + k] - m[k * 3 + j]) * fRoot;
+    out[j] = (m[j * 3 + i] + m[i * 3 + j]) * fRoot;
+    out[k] = (m[k * 3 + i] + m[i * 3 + k]) * fRoot;
+  }
+
+  return out;
+}
+/**
+ * Normalize a quat
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyQuat} a quaternion to normalize
+ * @returns {quat} out
+ * @function
+ */
+
+var normalize$2$1 = normalize$3$1;
+/**
+ * Sets a quaternion to represent the shortest rotation from one
+ * vector to another.
+ *
+ * Both vectors are assumed to be unit length.
+ *
+ * @param {quat} out the receiving quaternion.
+ * @param {ReadonlyVec3} a the initial vector
+ * @param {ReadonlyVec3} b the destination vector
+ * @returns {quat} out
+ */
+
+(function () {
+  var tmpvec3 = create$4$1();
+  var xUnitVec3 = fromValues$4$1(1, 0, 0);
+  var yUnitVec3 = fromValues$4$1(0, 1, 0);
+  return function (out, a, b) {
+    var dot = dot$4$1(a, b);
+
+    if (dot < -0.999999) {
+      cross$2$1(tmpvec3, xUnitVec3, a);
+      if (len$4$1(tmpvec3) < 0.000001) cross$2$1(tmpvec3, yUnitVec3, a);
+      normalize$4$1(tmpvec3, tmpvec3);
+      setAxisAngle$1(out, tmpvec3, Math.PI);
+      return out;
+    } else if (dot > 0.999999) {
+      out[0] = 0;
+      out[1] = 0;
+      out[2] = 0;
+      out[3] = 1;
+      return out;
+    } else {
+      cross$2$1(tmpvec3, a, b);
+      out[0] = tmpvec3[0];
+      out[1] = tmpvec3[1];
+      out[2] = tmpvec3[2];
+      out[3] = 1 + dot;
+      return normalize$2$1(out, out);
+    }
+  };
+})();
+/**
+ * Performs a spherical linear interpolation with two control points
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyQuat} a the first operand
+ * @param {ReadonlyQuat} b the second operand
+ * @param {ReadonlyQuat} c the third operand
+ * @param {ReadonlyQuat} d the fourth operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {quat} out
+ */
+
+
+(function () {
+  var temp1 = create$2$1();
+  var temp2 = create$2$1();
+  return function (out, a, b, c, d, t) {
+    slerp$1(temp1, a, d, t);
+    slerp$1(temp2, b, c, t);
+    slerp$1(out, temp1, temp2, 2 * t * (1 - t));
+    return out;
+  };
+})();
+/**
+ * Sets the specified quaternion with values corresponding to the given
+ * axes. Each axis is a vec3 and is expected to be unit length and
+ * perpendicular to all other specified axes.
+ *
+ * @param {ReadonlyVec3} view  the vector representing the viewing direction
+ * @param {ReadonlyVec3} right the vector representing the local "right" direction
+ * @param {ReadonlyVec3} up    the vector representing the local "up" direction
+ * @returns {quat} out
+ */
+
+
+(function () {
+  var matr = create$6$1();
+  return function (out, view, right, up) {
+    matr[0] = right[0];
+    matr[3] = right[1];
+    matr[6] = right[2];
+    matr[1] = up[0];
+    matr[4] = up[1];
+    matr[7] = up[2];
+    matr[2] = -view[0];
+    matr[5] = -view[1];
+    matr[8] = -view[2];
+    return normalize$2$1(out, fromMat3$1(out, matr));
+  };
+})();
+/**
+ * 2 Dimensional Vector
+ * @module vec2
+ */
+
+/**
+ * Creates a new, empty vec2
+ *
+ * @returns {vec2} a new 2D vector
+ */
+
+function create$1() {
+  var out = new ARRAY_TYPE$1(2);
+
+  if (ARRAY_TYPE$1 != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+  }
+
+  return out;
+}
+/**
+ * Perform some operation over an array of vec2s.
+ *
+ * @param {Array} a the array of vectors to iterate over
+ * @param {Number} stride Number of elements between the start of each vec2. If 0 assumes tightly packed
+ * @param {Number} offset Number of elements to skip at the beginning of the array
+ * @param {Number} count Number of vec2s to iterate over. If 0 iterates over entire array
+ * @param {Function} fn Function to call for each vector in the array
+ * @param {Object} [arg] additional argument to pass to fn
+ * @returns {Array} a
+ * @function
+ */
+
+(function () {
+  var vec = create$1();
+  return function (a, stride, offset, count, fn, arg) {
+    var i, l;
+
+    if (!stride) {
+      stride = 2;
+    }
+
+    if (!offset) {
+      offset = 0;
+    }
+
+    if (count) {
+      l = Math.min(count * stride + offset, a.length);
+    } else {
+      l = a.length;
+    }
+
+    for (i = offset; i < l; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+    }
+
+    return a;
+  };
+})();
+
+const subscriber_queue = [];
+/**
+ * Creates a `Readable` store that allows reading by subscription.
+ * @param value initial value
+ * @param {StartStopNotifier}start start and stop notifications for subscriptions
+ */
+
+function readable(value, start) {
+  return {
+    subscribe: writable(value, start).subscribe
+  };
+}
+/**
+ * Create a `Writable` store that allows both updating and reading by subscription.
+ * @param {*=}value initial value
+ * @param {StartStopNotifier=}start start and stop notifications for subscriptions
+ */
+
+
+function writable(value, start = noop) {
+  let stop;
+  const subscribers = new Set();
+
+  function set(new_value) {
+    if (safe_not_equal(value, new_value)) {
+      value = new_value;
+
+      if (stop) {
+        // store is ready
+        const run_queue = !subscriber_queue.length;
+
+        for (const subscriber of subscribers) {
+          subscriber[1]();
+          subscriber_queue.push(subscriber, value);
+        }
+
+        if (run_queue) {
+          for (let i = 0; i < subscriber_queue.length; i += 2) {
+            subscriber_queue[i][0](subscriber_queue[i + 1]);
+          }
+
+          subscriber_queue.length = 0;
+        }
+      }
+    }
+  }
+
+  function update(fn) {
+    set(fn(value));
+  }
+
+  function subscribe(run, invalidate = noop) {
+    const subscriber = [run, invalidate];
+    subscribers.add(subscriber);
+
+    if (subscribers.size === 1) {
+      stop = start(set) || noop;
+    }
+
+    run(value);
+    return () => {
+      subscribers.delete(subscriber);
+
+      if (subscribers.size === 0) {
+        stop();
+        stop = null;
+      }
+    };
+  }
+
+  return {
+    set,
+    update,
+    subscribe
+  };
+}
+
+function derived(stores, fn, initial_value) {
+  const single = !Array.isArray(stores);
+  const stores_array = single ? [stores] : stores;
+  const auto = fn.length < 2;
+  return readable(initial_value, set => {
+    let inited = false;
+    const values = [];
+    let pending = 0;
+    let cleanup = noop;
+
+    const sync = () => {
+      if (pending) {
+        return;
+      }
+
+      cleanup();
+      const result = fn(single ? values[0] : values, set);
+
+      if (auto) {
+        set(result);
+      } else {
+        cleanup = is_function(result) ? result : noop;
+      }
+    };
+
+    const unsubscribers = stores_array.map((store, i) => subscribe(store, value => {
+      values[i] = value;
+      pending &= ~(1 << i);
+
+      if (inited) {
+        sync();
+      }
+    }, () => {
+      pending |= 1 << i;
+    }));
+    inited = true;
+    sync();
+    return function stop() {
+      run_all(unsubscribers);
+      cleanup();
+    };
+  });
+}
+
 /**
  * Provides a method to determine if the passed in Svelte component has a getter accessor.
  *
@@ -21556,21 +24992,24 @@ function hasGetter(component, accessor) {
   const descriptor = Object.getOwnPropertyDescriptor(prototype, accessor);
   return !(descriptor === void 0 || descriptor.get === void 0);
 }
+
+const s_REGEX$1 = /(\d+)\s*px/;
 /**
- * Performs linear interpolation between a start & end value by given amount between 0 - 1 inclusive.
+ * Parses a pixel string / computed styles. Ex. `100px` returns `100`.
  *
- * @param {number}   start - Start value.
+ * @param {string}   value - Value to parse.
  *
- * @param {number}   end - End value.
- *
- * @param {number}   amount - Current amount between 0 - 1 inclusive.
- *
- * @returns {number} Linear interpolated value between start & end.
+ * @returns {number|undefined} The integer component of a pixel string.
  */
 
+function styleParsePixels$1(value) {
+  if (typeof value !== 'string') {
+    return void 0;
+  }
 
-function lerp(start, end, amount) {
-  return (1 - amount) * start + amount * end;
+  const isPixels = s_REGEX$1.test(value);
+  const number = parseInt(value);
+  return isPixels && Number.isFinite(number) ? number : void 0;
 }
 /**
  * Defines the application shell contract. If Svelte components export getter / setters for the following properties
@@ -22036,16 +25475,4721 @@ function _deepMerge(target = {}, ...sourceObj) {
   return target;
 }
 
-function cubicOut(t) {
-  const f = t - 1.0;
-  return f * f * f + 1.0;
+/**
+ * Subscribes to the given store with the update function provided and ignores the first automatic
+ * update. All future updates are dispatched to the update function.
+ *
+ * @param {import('svelte/store').Readable | import('svelte/store').Writable} store -
+ *  Store to subscribe to...
+ *
+ * @param {import('svelte/store').Updater} update - function to receive future updates.
+ *
+ * @returns {import('svelte/store').Unsubscriber} Store unsubscribe function.
+ */
+
+
+function subscribeIgnoreFirst(store, update) {
+  let firedFirst = false;
+  return store.subscribe(value => {
+    if (!firedFirst) {
+      firedFirst = true;
+    } else {
+      update(value);
+    }
+  });
+}
+/**
+ * @external Store
+ * @see [Svelte stores](https://svelte.dev/docs#Store_contract)
+ */
+
+/**
+ * Create a store similar to [Svelte's `derived`](https://svelte.dev/docs#derived), but which
+ * has its own `set` and `update` methods and can send values back to the origin stores.
+ * [Read more...](https://github.com/PixievoltNo1/svelte-writable-derived#default-export-writablederived)
+ * 
+ * @param {Store|Store[]} origins One or more stores to derive from. Same as
+ * [`derived`](https://svelte.dev/docs#derived)'s 1st parameter.
+ * @param {!Function} derive The callback to determine the derived value. Same as
+ * [`derived`](https://svelte.dev/docs#derived)'s 2nd parameter.
+ * @param {!Function|{withOld: !Function}} reflect Called when the
+ * derived store gets a new value via its `set` or `update` methods, and determines new values for
+ * the origin stores. [Read more...](https://github.com/PixievoltNo1/svelte-writable-derived#new-parameter-reflect)
+ * @param [initial] The new store's initial value. Same as
+ * [`derived`](https://svelte.dev/docs#derived)'s 3rd parameter.
+ * 
+ * @returns {Store} A writable store.
+ */
+
+
+function writableDerived(origins, derive, reflect, initial) {
+  var childDerivedSetter,
+      originValues,
+      allowDerive = true;
+  var reflectOldValues = ("withOld" in reflect);
+
+  var wrappedDerive = (got, set) => {
+    childDerivedSetter = set;
+
+    if (reflectOldValues) {
+      originValues = got;
+    }
+
+    if (allowDerive) {
+      let returned = derive(got, set);
+
+      if (derive.length < 2) {
+        set(returned);
+      } else {
+        return returned;
+      }
+    }
+  };
+
+  var childDerived = derived(origins, wrappedDerive, initial);
+  var singleOrigin = !Array.isArray(origins);
+
+  var sendUpstream = setWith => {
+    allowDerive = false;
+
+    if (singleOrigin) {
+      origins.set(setWith);
+    } else {
+      setWith.forEach((value, i) => {
+        origins[i].set(value);
+      });
+    }
+
+    allowDerive = true;
+  };
+
+  if (reflectOldValues) {
+    reflect = reflect.withOld;
+  }
+
+  var reflectIsAsync = reflect.length >= (reflectOldValues ? 3 : 2);
+  var cleanup = null;
+
+  function doReflect(reflecting) {
+    if (cleanup) {
+      cleanup();
+      cleanup = null;
+    }
+
+    if (reflectOldValues) {
+      var returned = reflect(reflecting, originValues, sendUpstream);
+    } else {
+      var returned = reflect(reflecting, sendUpstream);
+    }
+
+    if (reflectIsAsync) {
+      if (typeof returned == "function") {
+        cleanup = returned;
+      }
+    } else {
+      sendUpstream(returned);
+    }
+  }
+
+  var tryingSet = false;
+
+  function update(fn) {
+    var isUpdated, mutatedBySubscriptions, oldValue, newValue;
+
+    if (tryingSet) {
+      newValue = fn(get_store_value(childDerived));
+      childDerivedSetter(newValue);
+      return;
+    }
+
+    var unsubscribe = childDerived.subscribe(value => {
+      if (!tryingSet) {
+        oldValue = value;
+      } else if (!isUpdated) {
+        isUpdated = true;
+      } else {
+        mutatedBySubscriptions = true;
+      }
+    });
+    newValue = fn(oldValue);
+    tryingSet = true;
+    childDerivedSetter(newValue);
+    unsubscribe();
+    tryingSet = false;
+
+    if (mutatedBySubscriptions) {
+      newValue = get_store_value(childDerived);
+    }
+
+    if (isUpdated) {
+      doReflect(newValue);
+    }
+  }
+
+  return {
+    subscribe: childDerived.subscribe,
+
+    set(value) {
+      update(() => value);
+    },
+
+    update
+  };
+}
+/**
+ * Create a store for a property value in an object contained in another store.
+ * [Read more...](https://github.com/PixievoltNo1/svelte-writable-derived#named-export-propertystore)
+ * 
+ * @param {Store} origin The store containing the object to get/set from.
+ * @param {string|number|symbol|Array<string|number|symbol>} propName The property to get/set, or a path of
+ * properties in nested objects.
+ *
+ * @returns {Store} A writable store.
+ */
+
+
+function propertyStore(origin, propName) {
+  if (!Array.isArray(propName)) {
+    return writableDerived(origin, object => object[propName], {
+      withOld(reflecting, object) {
+        object[propName] = reflecting;
+        return object;
+      }
+
+    });
+  } else {
+    let props = propName.concat();
+    return writableDerived(origin, value => {
+      for (let i = 0; i < props.length; ++i) {
+        value = value[props[i]];
+      }
+
+      return value;
+    }, {
+      withOld(reflecting, object) {
+        let target = object;
+
+        for (let i = 0; i < props.length - 1; ++i) {
+          target = target[props[i]];
+        }
+
+        target[props[props.length - 1]] = reflecting;
+        return object;
+      }
+
+    });
+  }
 }
 
-const _excluded$1 = ["name"];
+const storeState = writable(void 0);
+/**
+ * @type {GameState} Provides a Svelte store wrapping the Foundry runtime / global game state.
+ */
+
+const gameState = {
+  subscribe: storeState.subscribe,
+  get: () => game
+};
+Object.freeze(gameState);
+Hooks.once('ready', () => storeState.set(game));
+
+/**
+ * Awaits `requestAnimationFrame` calls by the counter specified. This allows asynchronous applications for direct /
+ * inline style modification amongst other direct animation techniques.
+ *
+ * @param {number}   [cntr=1] - A positive integer greater than 0 for amount of requestAnimationFrames to wait.
+ *
+ * @returns {Promise<number>} Returns current time equivalent to `performance.now()`.
+ */
+async function nextAnimationFrame$1(cntr = 1) {
+  if (!Number.isInteger(cntr) || cntr < 1) {
+    throw new TypeError(`nextAnimationFrame error: 'cntr' must be a positive integer greater than 0.`);
+  }
+
+  let currentTime = performance.now();
+
+  for (; --cntr >= 0;) {
+    currentTime = await new Promise(resolve => requestAnimationFrame(resolve));
+  }
+
+  return currentTime;
+}
+
+let s_PROMISE$1;
+const s_LIST = [];
+let s_LIST_CNTR = 0;
+/**
+ * Decouples updates to any parent target HTMLElement inline styles. Invoke {@link Position.elementUpdated} to await
+ * on the returned promise that is resolved with the current render time via `nextAnimationFrame` /
+ * `requestAnimationFrame`. This allows the underlying data model to be updated immediately while updates to the
+ * element are in sync with the browser and potentially in the future be further throttled.
+ *
+ * @param {HTMLElement} el - The target HTMLElement.
+ */
+
+class UpdateElementManager {
+  static get promise() {
+    return s_PROMISE$1;
+  }
+  /**
+   * Potentially adds the given element and callback to the map.
+   *
+   * @param {HTMLElement}       el - An HTMLElement instance.
+   *
+   * @param {UpdateElementData} updateData - An UpdateElementData instance.
+   *
+   * @returns {Promise<number>} The unified next frame update promise. Returns `currentTime`.
+   */
+
+
+  static add(el, updateData) {
+    if (s_LIST_CNTR < s_LIST.length) {
+      const entry = s_LIST[s_LIST_CNTR];
+      entry[0] = el;
+      entry[1] = updateData;
+    } else {
+      s_LIST.push([el, updateData]);
+    }
+
+    s_LIST_CNTR++;
+    updateData.queued = true;
+
+    if (!s_PROMISE$1) {
+      s_PROMISE$1 = this.wait();
+    }
+
+    return s_PROMISE$1;
+  }
+  /**
+   * Await on `nextAnimationFrame` and iterate over map invoking callback function.s
+   *
+   * @returns {Promise<number>} The next frame Promise / currentTime from nextAnimationFrame.
+   */
+
+
+  static async wait() {
+    // Await the next animation frame. In the future this can be extended to multiple frames to divide update rate.
+    const currentTime = await nextAnimationFrame$1();
+    s_PROMISE$1 = void 0;
+
+    for (let cntr = s_LIST_CNTR; --cntr >= 0;) {
+      // Obtain data for entry.
+      const entry = s_LIST[cntr];
+      const el = entry[0];
+      const updateData = entry[1]; // Clear entry data.
+
+      entry[0] = void 0;
+      entry[1] = void 0; // Reset queued state.
+
+      updateData.queued = false; // Early out if the element is no longer connected to the DOM / shadow root.
+      // if (!el.isConnected || !updateData.changeSet.hasChange()) { continue; }
+
+      if (!el.isConnected) {
+        continue;
+      }
+
+      if (updateData.options.ortho) {
+        s_UPDATE_ELEMENT_ORTHO(el, updateData);
+      } else {
+        s_UPDATE_ELEMENT(el, updateData);
+      } // If calculate transform options is enabled then update the transform data and set the readable store.
+
+
+      if (updateData.options.calculateTransform || updateData.options.transformSubscribed) {
+        s_UPDATE_TRANSFORM(el, updateData);
+      } // Update all subscribers with changed data.
+
+
+      this.updateSubscribers(updateData);
+    }
+
+    s_LIST_CNTR = 0;
+    return currentTime;
+  }
+  /**
+   * @param {UpdateElementData} updateData - Data change set.
+   */
+
+
+  static updateSubscribers(updateData) {
+    const data = updateData.data;
+    const changeSet = updateData.changeSet;
+
+    if (!changeSet.hasChange()) {
+      return;
+    } // Make a copy of the data.
+
+
+    const output = updateData.dataSubscribers.copy(data);
+    const subscriptions = updateData.subscriptions; // Early out if there are no subscribers.
+
+    if (subscriptions.length > 0) {
+      for (let cntr = 0; cntr < subscriptions.length; cntr++) {
+        subscriptions[cntr](output);
+      }
+    } // Update dimension data if width / height has changed.
+
+
+    if (changeSet.width || changeSet.height) {
+      updateData.dimensionData.width = data.width;
+      updateData.dimensionData.height = data.height;
+      updateData.storeDimension.set(updateData.dimensionData);
+    }
+
+    changeSet.set(false);
+  }
+
+}
+/**
+ * Decouples updates to any parent target HTMLElement inline styles. Invoke {@link Position.elementUpdated} to await
+ * on the returned promise that is resolved with the current render time via `nextAnimationFrame` /
+ * `requestAnimationFrame`. This allows the underlying data model to be updated immediately while updates to the
+ * element are in sync with the browser and potentially in the future be further throttled.
+ *
+ * @param {HTMLElement} el - The target HTMLElement.
+ *
+ * @param {UpdateElementData} updateData - Update data.
+ */
+
+function s_UPDATE_ELEMENT(el, updateData) {
+  const changeSet = updateData.changeSet;
+  const data = updateData.data;
+
+  if (changeSet.left) {
+    el.style.left = `${data.left}px`;
+  }
+
+  if (changeSet.top) {
+    el.style.top = `${data.top}px`;
+  }
+
+  if (changeSet.zIndex) {
+    el.style.zIndex = typeof data.zIndex === 'number' ? `${data.zIndex}` : null;
+  }
+
+  if (changeSet.width) {
+    el.style.width = typeof data.width === 'number' ? `${data.width}px` : data.width;
+  }
+
+  if (changeSet.height) {
+    el.style.height = typeof data.height === 'number' ? `${data.height}px` : data.height;
+  }
+
+  if (changeSet.transformOrigin) {
+    // When set to 'center' we can simply set the transform to null which is center by default.
+    el.style.transformOrigin = data.transformOrigin === 'center' ? null : data.transformOrigin;
+  } // Update all transforms in order added to transforms object.
+
+
+  if (changeSet.transform) {
+    el.style.transform = updateData.transforms.isActive ? updateData.transforms.getCSS() : null;
+  }
+}
+/**
+ * Decouples updates to any parent target HTMLElement inline styles. Invoke {@link Position.elementUpdated} to await
+ * on the returned promise that is resolved with the current render time via `nextAnimationFrame` /
+ * `requestAnimationFrame`. This allows the underlying data model to be updated immediately while updates to the
+ * element are in sync with the browser and potentially in the future be further throttled.
+ *
+ * @param {HTMLElement} el - The target HTMLElement.
+ *
+ * @param {UpdateElementData} updateData - Update data.
+ */
+
+
+function s_UPDATE_ELEMENT_ORTHO(el, updateData) {
+  const changeSet = updateData.changeSet;
+  const data = updateData.data;
+
+  if (changeSet.zIndex) {
+    el.style.zIndex = typeof data.zIndex === 'number' ? `${data.zIndex}` : null;
+  }
+
+  if (changeSet.width) {
+    el.style.width = typeof data.width === 'number' ? `${data.width}px` : data.width;
+  }
+
+  if (changeSet.height) {
+    el.style.height = typeof data.height === 'number' ? `${data.height}px` : data.height;
+  }
+
+  if (changeSet.transformOrigin) {
+    // When set to 'center' we can simply set the transform to null which is center by default.
+    el.style.transformOrigin = data.transformOrigin === 'center' ? null : data.transformOrigin;
+  } // Update all transforms in order added to transforms object.
+
+
+  if (changeSet.left || changeSet.top || changeSet.transform) {
+    el.style.transform = updateData.transforms.getCSSOrtho(data);
+  }
+}
+/**
+ * Updates the applied transform data and sets the readble `transform` store.
+ *
+ * @param {HTMLElement} el - The target HTMLElement.
+ *
+ * @param {UpdateElementData} updateData - Update element data.
+ */
+
+
+function s_UPDATE_TRANSFORM(el, updateData) {
+  s_VALIDATION_DATA$1.height = updateData.data.height !== 'auto' ? updateData.data.height : updateData.styleCache.offsetHeight;
+  s_VALIDATION_DATA$1.width = updateData.data.width !== 'auto' ? updateData.data.width : updateData.styleCache.offsetWidth;
+  s_VALIDATION_DATA$1.marginLeft = updateData.styleCache.marginLeft;
+  s_VALIDATION_DATA$1.marginTop = updateData.styleCache.marginTop; // Get transform data. First set constraints including any margin top / left as offsets and width / height. Used
+  // when position width / height is 'auto'.
+
+  updateData.transforms.getData(updateData.data, updateData.transformData, s_VALIDATION_DATA$1);
+  updateData.storeTransform.set(updateData.transformData);
+}
+
+const s_VALIDATION_DATA$1 = {
+  height: void 0,
+  width: void 0,
+  marginLeft: void 0,
+  marginTop: void 0
+};
+
+const s_ACTIVE_LIST = [];
+const s_NEW_LIST = [];
+let s_PROMISE;
+/**
+ * Provides animation management and scheduling allowing all Position instances to utilize one micro-task.
+ */
+
+class AnimationManager {
+  /**
+   * Add animation data.
+   *
+   * @param {object}   data -
+   */
+  static add(data) {
+    s_NEW_LIST.push(data);
+
+    if (!s_PROMISE) {
+      s_PROMISE = this.animate();
+    }
+  }
+  /**
+   * Manage all animation
+   *
+   * @returns {Promise<void>}
+   */
+
+
+  static async animate() {
+    let current = await nextAnimationFrame$1();
+
+    while (s_ACTIVE_LIST.length || s_NEW_LIST.length) {
+      if (s_NEW_LIST.length) {
+        // Process new data
+        for (let cntr = s_NEW_LIST.length; --cntr >= 0;) {
+          const data = s_NEW_LIST[cntr];
+          data.start = current;
+          data.current = 0;
+          s_ACTIVE_LIST.push(data);
+        }
+
+        s_NEW_LIST.length = 0;
+      } // Process existing data.
+
+
+      for (let cntr = s_ACTIVE_LIST.length; --cntr >= 0;) {
+        const data = s_ACTIVE_LIST[cntr]; // Ensure that the element is still connected otherwise remove it from active list and continue.
+
+        if (!data.el.isConnected) {
+          s_ACTIVE_LIST.splice(cntr, 1);
+          data.currentAnimationKeys.clear();
+          data.resolve();
+          continue;
+        }
+
+        data.current = current - data.start; // Remove this animation instance.
+
+        if (data.current >= data.duration) {
+          // Prepare final update with end position data and remove keys from `currentAnimationKeys`.
+          for (let dataCntr = data.keys.length; --dataCntr >= 0;) {
+            const key = data.keys[dataCntr];
+            data.newData[key] = data.destination[key];
+            data.currentAnimationKeys.delete(key);
+          }
+
+          data.position.set(data.newData);
+          s_ACTIVE_LIST.splice(cntr, 1);
+          data.resolve();
+          continue;
+        }
+
+        const easedTime = data.easing(data.current / data.duration);
+
+        for (let dataCntr = data.keys.length; --dataCntr >= 0;) {
+          const key = data.keys[dataCntr];
+          data.newData[key] = data.interpolate(data.initial[key], data.destination[key], easedTime);
+        }
+
+        data.position.set(data.newData);
+      }
+
+      const newCurrent = await UpdateElementManager.promise; // Must check that time has passed otherwise likely the element has been removed.
+
+      if (newCurrent === void 0 || newCurrent <= current) {
+        // TODO: Temporary warning message
+        // console.warn(`TRL - AnimationManager Warning - quitting animation: newCurrent <= current.`);
+        for (let cntr = s_ACTIVE_LIST.length; --cntr >= 0;) {
+          const data = s_ACTIVE_LIST[cntr];
+
+          if (!data.el.isConnected) {
+            data.currentAnimationKeys.clear();
+            data.resolve();
+            continue;
+          }
+
+          for (let dataCntr = data.keys.length; --dataCntr >= 0;) {
+            const key = data.keys[dataCntr];
+            data.newData[key] = data.destination[key];
+            data.currentAnimationKeys.delete(key);
+          }
+
+          data.position.set(data.newData);
+          data.resolve();
+        }
+
+        s_ACTIVE_LIST.length = 0;
+        break;
+      }
+
+      current = newCurrent;
+    }
+
+    s_PROMISE = void 0;
+  }
+
+}
+
+/**
+ * Defines the keys of PositionData that are transform keys.
+ *
+ * @type {string[]}
+ */
+const transformKeys = ['rotateX', 'rotateY', 'rotateZ', 'scale', 'translateX', 'translateY', 'translateZ'];
+Object.freeze(transformKeys);
+/**
+ * Defines bitwise keys for transforms used in {@link Transforms.getMat4}.
+ *
+ * @type {object}
+ */
+
+const transformKeysBitwise = {
+  rotateX: 1,
+  rotateY: 2,
+  rotateZ: 4,
+  scale: 8,
+  translateX: 16,
+  translateY: 32,
+  translateZ: 64
+};
+Object.freeze(transformKeysBitwise);
+/**
+ * Defines the default transform origin.
+ *
+ * @type {string}
+ */
+
+const transformOriginDefault = 'top left';
+/**
+ * Defines the valid transform origins.
+ *
+ * @type {string[]}
+ */
+
+const transformOrigins = ['top left', 'top center', 'top right', 'center left', 'center', 'center right', 'bottom left', 'bottom center', 'bottom right'];
+Object.freeze(transformOrigins);
+
+var _element$2 = /*#__PURE__*/new WeakMap();
+
+var _height$2 = /*#__PURE__*/new WeakMap();
+
+var _lock$2 = /*#__PURE__*/new WeakMap();
+
+var _width$2 = /*#__PURE__*/new WeakMap();
+
+class Centered {
+  /**
+   * @type {HTMLElement}
+   */
+
+  /**
+   * Provides a manual setting of the element height. As things go `offsetHeight` causes a browser layout and is not
+   * performance oriented. If manually set this height is used instead of `offsetHeight`.
+   *
+   * @type {number}
+   */
+
+  /**
+   * Set from an optional value in the constructor to lock accessors preventing modification.
+   */
+
+  /**
+   * Provides a manual setting of the element width. As things go `offsetWidth` causes a browser layout and is not
+   * performance oriented. If manually set this width is used instead of `offsetWidth`.
+   *
+   * @type {number}
+   */
+  constructor({
+    element,
+    lock = false,
+    width,
+    height
+  } = {}) {
+    _classPrivateFieldInitSpec(this, _element$2, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _height$2, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _lock$2, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _width$2, {
+      writable: true,
+      value: void 0
+    });
+
+    this.element = element;
+    this.width = width;
+    this.height = height;
+
+    _classPrivateFieldSet(this, _lock$2, typeof lock === 'boolean' ? lock : false);
+  }
+
+  get element() {
+    return _classPrivateFieldGet(this, _element$2);
+  }
+
+  get height() {
+    return _classPrivateFieldGet(this, _height$2);
+  }
+
+  get width() {
+    return _classPrivateFieldGet(this, _width$2);
+  }
+
+  set element(element) {
+    if (_classPrivateFieldGet(this, _lock$2)) {
+      return;
+    }
+
+    if (element === void 0 || element === null || element instanceof HTMLElement) {
+      _classPrivateFieldSet(this, _element$2, element);
+    } else {
+      throw new TypeError(`'element' is not a HTMLElement, undefined, or null.`);
+    }
+  }
+
+  set height(height) {
+    if (_classPrivateFieldGet(this, _lock$2)) {
+      return;
+    }
+
+    if (height === void 0 || Number.isFinite(height)) {
+      _classPrivateFieldSet(this, _height$2, height);
+    } else {
+      throw new TypeError(`'height' is not a finite number or undefined.`);
+    }
+  }
+
+  set width(width) {
+    if (_classPrivateFieldGet(this, _lock$2)) {
+      return;
+    }
+
+    if (width === void 0 || Number.isFinite(width)) {
+      _classPrivateFieldSet(this, _width$2, width);
+    } else {
+      throw new TypeError(`'width' is not a finite number or undefined.`);
+    }
+  }
+
+  setDimension(width, height) {
+    if (_classPrivateFieldGet(this, _lock$2)) {
+      return;
+    }
+
+    if (width === void 0 || Number.isFinite(width)) {
+      _classPrivateFieldSet(this, _width$2, width);
+    } else {
+      throw new TypeError(`'width' is not a finite number or undefined.`);
+    }
+
+    if (height === void 0 || Number.isFinite(height)) {
+      _classPrivateFieldSet(this, _height$2, height);
+    } else {
+      throw new TypeError(`'height' is not a finite number or undefined.`);
+    }
+  }
+
+  getLeft(width) {
+    var _ref, _classPrivateFieldGet2, _classPrivateFieldGet3;
+
+    // Determine containing bounds from manual values; or any element; lastly the browser width / height.
+    const boundsWidth = (_ref = (_classPrivateFieldGet2 = _classPrivateFieldGet(this, _width$2)) !== null && _classPrivateFieldGet2 !== void 0 ? _classPrivateFieldGet2 : (_classPrivateFieldGet3 = _classPrivateFieldGet(this, _element$2)) === null || _classPrivateFieldGet3 === void 0 ? void 0 : _classPrivateFieldGet3.offsetWidth) !== null && _ref !== void 0 ? _ref : globalThis.innerWidth;
+    return (boundsWidth - width) / 2;
+  }
+
+  getTop(height) {
+    var _ref2, _classPrivateFieldGet4, _classPrivateFieldGet5;
+
+    const boundsHeight = (_ref2 = (_classPrivateFieldGet4 = _classPrivateFieldGet(this, _height$2)) !== null && _classPrivateFieldGet4 !== void 0 ? _classPrivateFieldGet4 : (_classPrivateFieldGet5 = _classPrivateFieldGet(this, _element$2)) === null || _classPrivateFieldGet5 === void 0 ? void 0 : _classPrivateFieldGet5.offsetHeight) !== null && _ref2 !== void 0 ? _ref2 : globalThis.innerHeight;
+    return (boundsHeight - height) / 2;
+  }
+
+}
+
+const browserCentered = new Centered();
+
+var positionInitial = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  browserCentered: browserCentered,
+  Centered: Centered
+});
+
+class PositionChangeSet {
+  constructor() {
+    this.left = false;
+    this.top = false;
+    this.width = false;
+    this.height = false;
+    this.maxHeight = false;
+    this.maxWidth = false;
+    this.minHeight = false;
+    this.minWidth = false;
+    this.zIndex = false;
+    this.transform = false;
+    this.transformOrigin = false;
+  }
+
+  hasChange() {
+    return this.left || this.top || this.width || this.height || this.maxHeight || this.maxWidth || this.minHeight || this.minWidth || this.zIndex || this.transform || this.transformOrigin;
+  }
+
+  set(value) {
+    this.left = value;
+    this.top = value;
+    this.width = value;
+    this.height = value;
+    this.maxHeight = value;
+    this.maxWidth = value;
+    this.minHeight = value;
+    this.minWidth = value;
+    this.zIndex = value;
+    this.transform = value;
+    this.transformOrigin = value;
+  }
+
+}
+
+/**
+ * Defines stored positional data.
+ */
+class PositionData {
+  constructor({
+    height = null,
+    left = null,
+    maxHeight = null,
+    maxWidth = null,
+    minHeight = null,
+    minWidth = null,
+    rotateX = null,
+    rotateY = null,
+    rotateZ = null,
+    scale = null,
+    translateX = null,
+    translateY = null,
+    translateZ = null,
+    top = null,
+    transformOrigin = null,
+    width = null,
+    zIndex = null
+  } = {}) {
+    /**
+     * @type {number|'auto'|null}
+     */
+    this.height = height;
+    /**
+     * @type {number|null}
+     */
+
+    this.left = left;
+    /**
+     * @type {number|null}
+     */
+
+    this.maxHeight = maxHeight;
+    /**
+     * @type {number|null}
+     */
+
+    this.maxWidth = maxWidth;
+    /**
+     * @type {number|null}
+     */
+
+    this.minHeight = minHeight;
+    /**
+     * @type {number|null}
+     */
+
+    this.minWidth = minWidth;
+    /**
+     * @type {number|null}
+     */
+
+    this.rotateX = rotateX;
+    /**
+     * @type {number|null}
+     */
+
+    this.rotateY = rotateY;
+    /**
+     * @type {number|null}
+     */
+
+    this.rotateZ = rotateZ;
+    /**
+     * @type {number|null}
+     */
+
+    this.scale = scale;
+    /**
+     * @type {number|null}
+     */
+
+    this.top = top;
+    /**
+     * @type {string|null}
+     */
+
+    this.transformOrigin = transformOrigin;
+    /**
+     * @type {number|null}
+     */
+
+    this.translateX = translateX;
+    /**
+     * @type {number|null}
+     */
+
+    this.translateY = translateY;
+    /**
+     * @type {number|null}
+     */
+
+    this.translateZ = translateZ;
+    /**
+     * @type {number|'auto'|null}
+     */
+
+    this.width = width;
+    /**
+     * @type {number|null}
+     */
+
+    this.zIndex = zIndex;
+    Object.seal(this);
+  }
+  /**
+   * Copies given data to this instance.
+   *
+   * @param {PositionData}   data - Copy from this instance.
+   *
+   * @returns {PositionData} This instance.
+   */
+
+
+  copy(data) {
+    this.height = data.height;
+    this.left = data.left;
+    this.maxHeight = data.maxHeight;
+    this.maxWidth = data.maxWidth;
+    this.minHeight = data.minHeight;
+    this.minWidth = data.minWidth;
+    this.rotateX = data.rotateX;
+    this.rotateY = data.rotateY;
+    this.rotateZ = data.rotateZ;
+    this.scale = data.scale;
+    this.top = data.top;
+    this.transformOrigin = data.transformOrigin;
+    this.translateX = data.translateX;
+    this.translateY = data.translateY;
+    this.translateZ = data.translateZ;
+    this.width = data.width;
+    this.zIndex = data.zIndex;
+    return this;
+  }
+
+}
+
+class StyleCache {
+  constructor() {
+    /** @type {HTMLElement|undefined} */
+    this.el = void 0;
+    /** @type {CSSStyleDeclaration} */
+
+    this.computed = void 0;
+    /** @type {number|undefined} */
+
+    this.marginLeft = void 0;
+    /** @type {number|undefined} */
+
+    this.marginTop = void 0;
+    /** @type {number|undefined} */
+
+    this.maxHeight = void 0;
+    /** @type {number|undefined} */
+
+    this.maxWidth = void 0;
+    /** @type {number|undefined} */
+
+    this.minHeight = void 0;
+    /** @type {number|undefined} */
+
+    this.minWidth = void 0;
+    /** @type {boolean} */
+
+    this.hasWillChange = false;
+    /**
+     * @type {ResizeObserverData}
+     */
+
+    this.resizeObserved = {
+      contentHeight: void 0,
+      contentWidth: void 0,
+      offsetHeight: void 0,
+      offsetWidth: void 0
+    };
+    /**
+     * Provides a writable store to track offset & content width / height from an associated `resizeObserver` action.
+     *
+     * @type {Writable<ResizeObserverData>}
+     */
+
+    const storeResizeObserved = writable(this.resizeObserved);
+    this.stores = {
+      element: writable(this.el),
+      resizeContentHeight: propertyStore(storeResizeObserved, 'contentHeight'),
+      resizeContentWidth: propertyStore(storeResizeObserved, 'contentWidth'),
+      resizeObserved: storeResizeObserved,
+      resizeOffsetHeight: propertyStore(storeResizeObserved, 'offsetHeight'),
+      resizeOffsetWidth: propertyStore(storeResizeObserved, 'offsetWidth')
+    };
+  }
+  /**
+   * Returns the cached offsetHeight from any attached `resizeObserver` action otherwise gets the offsetHeight from
+   * the element directly. The more optimized path is using `resizeObserver` as getting it from the element
+   * directly is more expensive and alters the execution order of an animation frame.
+   *
+   * @returns {number} The element offsetHeight.
+   */
+
+
+  get offsetHeight() {
+    if (this.el instanceof HTMLElement) {
+      return this.resizeObserved.offsetHeight !== void 0 ? this.resizeObserved.offsetHeight : this.el.offsetHeight;
+    }
+
+    throw new Error(`StyleCache - get offsetHeight error: no element assigned.`);
+  }
+  /**
+   * Returns the cached offsetWidth from any attached `resizeObserver` action otherwise gets the offsetWidth from
+   * the element directly. The more optimized path is using `resizeObserver` as getting it from the element
+   * directly is more expensive and alters the execution order of an animation frame.
+   *
+   * @returns {number} The element offsetHeight.
+   */
+
+
+  get offsetWidth() {
+    if (this.el instanceof HTMLElement) {
+      return this.resizeObserved.offsetWidth !== void 0 ? this.resizeObserved.offsetWidth : this.el.offsetWidth;
+    }
+
+    throw new Error(`StyleCache - get offsetWidth error: no element assigned.`);
+  }
+  /**
+   * @param {HTMLElement} el -
+   *
+   * @returns {boolean} Does element match cached element.
+   */
+
+
+  hasData(el) {
+    return this.el === el;
+  }
+  /**
+   * Resets the style cache.
+   */
+
+
+  reset() {
+    // Remove will-change inline style from previous element if it is still connected.
+    if (this.el instanceof HTMLElement && this.el.isConnected && !this.hasWillChange) {
+      this.el.style.willChange = null;
+    }
+
+    this.el = void 0;
+    this.computed = void 0;
+    this.marginLeft = void 0;
+    this.marginTop = void 0;
+    this.maxHeight = void 0;
+    this.maxWidth = void 0;
+    this.minHeight = void 0;
+    this.minWidth = void 0;
+    this.hasWillChange = false; // Silently reset `resizedObserved`; With proper usage the `resizeObserver` action issues an update on removal.
+
+    this.resizeObserved.contentHeight = void 0;
+    this.resizeObserved.contentWidth = void 0;
+    this.resizeObserved.offsetHeight = void 0;
+    this.resizeObserved.offsetWidth = void 0; // Reset the tracked element this Position instance is modifying.
+
+    this.stores.element.set(void 0);
+  }
+  /**
+   * Updates the style cache with new data from the given element.
+   *
+   * @param {HTMLElement} el - An HTML element.
+   */
+
+
+  update(el) {
+    var _styleParsePixels, _styleParsePixels2, _styleParsePixels3, _styleParsePixels4, _styleParsePixels5, _styleParsePixels6, _;
+
+    this.el = el;
+    this.computed = globalThis.getComputedStyle(el);
+    this.marginLeft = (_styleParsePixels = styleParsePixels$1(el.style.marginLeft)) !== null && _styleParsePixels !== void 0 ? _styleParsePixels : styleParsePixels$1(this.computed.marginLeft);
+    this.marginTop = (_styleParsePixels2 = styleParsePixels$1(el.style.marginTop)) !== null && _styleParsePixels2 !== void 0 ? _styleParsePixels2 : styleParsePixels$1(this.computed.marginTop);
+    this.maxHeight = (_styleParsePixels3 = styleParsePixels$1(el.style.maxHeight)) !== null && _styleParsePixels3 !== void 0 ? _styleParsePixels3 : styleParsePixels$1(this.computed.maxHeight);
+    this.maxWidth = (_styleParsePixels4 = styleParsePixels$1(el.style.maxWidth)) !== null && _styleParsePixels4 !== void 0 ? _styleParsePixels4 : styleParsePixels$1(this.computed.maxWidth); // Note that the computed styles for below will always be 0px / 0 when no style is active.
+
+    this.minHeight = (_styleParsePixels5 = styleParsePixels$1(el.style.minHeight)) !== null && _styleParsePixels5 !== void 0 ? _styleParsePixels5 : styleParsePixels$1(this.computed.minHeight);
+    this.minWidth = (_styleParsePixels6 = styleParsePixels$1(el.style.minWidth)) !== null && _styleParsePixels6 !== void 0 ? _styleParsePixels6 : styleParsePixels$1(this.computed.minWidth); // Tracks if there already is a will-change property on the inline or computed styles.
+
+    const willChange = el.style.willChange !== '' ? el.style.willChange : (_ = void 0) !== null && _ !== void 0 ? _ : this.computed.willChange;
+    this.hasWillChange = willChange !== '' && willChange !== 'auto'; // Update the tracked element this Position instance is modifying.
+
+    this.stores.element.set(el);
+  }
+
+}
+
+/**
+ * Provides the output data for {@link Transforms.getData}.
+ */
+
+var _boundingRect = /*#__PURE__*/new WeakMap();
+
+var _corners = /*#__PURE__*/new WeakMap();
+
+var _mat = /*#__PURE__*/new WeakMap();
+
+var _originTranslations = /*#__PURE__*/new WeakMap();
+
+class TransformData {
+  constructor() {
+    _classPrivateFieldInitSpec(this, _boundingRect, {
+      writable: true,
+      value: new DOMRect()
+    });
+
+    _classPrivateFieldInitSpec(this, _corners, {
+      writable: true,
+      value: [vec3.create(), vec3.create(), vec3.create(), vec3.create()]
+    });
+
+    _classPrivateFieldInitSpec(this, _mat, {
+      writable: true,
+      value: mat4.create()
+    });
+
+    _classPrivateFieldInitSpec(this, _originTranslations, {
+      writable: true,
+      value: [mat4.create(), mat4.create()]
+    });
+
+    Object.seal(this);
+  }
+  /**
+   * Stores the calculated bounding rectangle.
+   *
+   * @type {DOMRect}
+   */
+
+
+  /**
+   * @returns {DOMRect} The bounding rectangle.
+   */
+  get boundingRect() {
+    return _classPrivateFieldGet(this, _boundingRect);
+  }
+  /**
+   * @returns {Vector3[]} The transformed corner points as vec3 in screen space.
+   */
+
+
+  get corners() {
+    return _classPrivateFieldGet(this, _corners);
+  }
+  /**
+   * @returns {string} Returns the CSS style string for the transform matrix.
+   */
+
+
+  get css() {
+    return `matrix3d(${this.mat4.join(',')})`;
+  }
+  /**
+   * @returns {Matrix4} The transform matrix.
+   */
+
+
+  get mat4() {
+    return _classPrivateFieldGet(this, _mat);
+  }
+  /**
+   * @returns {Matrix4[]} The pre / post translation matrices for origin translation.
+   */
+
+
+  get originTranslations() {
+    return _classPrivateFieldGet(this, _originTranslations);
+  }
+
+}
+/**
+ * @typedef {Float32Array} Vector3 - 3 Dimensional Vector.
+ *
+ * @see https://glmatrix.net/docs/module-vec3.html
+ */
+
+/**
+ * @typedef {Float32Array} Matrix4 - 4x4 Matrix; Format: column-major, when typed out it looks like row-major.
+ *
+ * @see https://glmatrix.net/docs/module-mat4.html
+ */
+
+let _Symbol$iterator;
+
+var _validatorData$1 = /*#__PURE__*/new WeakMap();
+
+var _mapUnsubscribe = /*#__PURE__*/new WeakMap();
+
+_Symbol$iterator = Symbol.iterator;
+
+/**
+ * Provides the storage and sequencing of managed position validators. Each validator added may be a bespoke function or
+ * a {@link ValidatorData} object containing an `id`, `validator`, and `weight` attributes; `validator` is the only
+ * required attribute.
+ *
+ * The `id` attribute can be anything that creates a unique ID for the validator; recommended strings or numbers. This
+ * allows validators to be removed by ID easily.
+ *
+ * The `weight` attribute is a number between 0 and 1 inclusive that allows validators to be added in a
+ * predictable order which is especially handy if they are manipulated at runtime. A lower weighted validator always
+ * runs before a higher weighted validator. If no weight is specified the default of '1' is assigned and it is appended
+ * to the end of the validators list.
+ *
+ * This class forms the public API which is accessible from the `.validators` getter in the main Position instance.
+ * ```
+ * const position = new Position(<PositionData>);
+ * position.validators.add(...);
+ * position.validators.clear();
+ * position.validators.length;
+ * position.validators.remove(...);
+ * position.validators.removeBy(...);
+ * position.validators.removeById(...);
+ * ```
+ */
+class AdapterValidators {
+  /**
+   * @type {ValidatorData[]}
+   */
+
+  /**
+   * @returns {[AdapterValidators, ValidatorData[]]} Returns this and internal storage for validator adapter.
+   */
+  constructor() {
+    _classPrivateFieldInitSpec(this, _validatorData$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _mapUnsubscribe, {
+      writable: true,
+      value: new Map()
+    });
+
+    _classPrivateFieldSet(this, _validatorData$1, []);
+
+    Object.seal(this);
+    return [this, _classPrivateFieldGet(this, _validatorData$1)];
+  }
+  /**
+   * @returns {number} Returns the length of the validators array.
+   */
+
+
+  get length() {
+    return _classPrivateFieldGet(this, _validatorData$1).length;
+  }
+  /**
+   * Provides an iterator for validators.
+   *
+   * @returns {Generator<ValidatorData|undefined>} Generator / iterator of validators.
+   * @yields {ValidatorData<T>}
+   */
+
+
+  *[_Symbol$iterator]() {
+    if (_classPrivateFieldGet(this, _validatorData$1).length === 0) {
+      return;
+    }
+
+    for (const entry of _classPrivateFieldGet(this, _validatorData$1)) {
+      yield _objectSpread2({}, entry);
+    }
+  }
+  /**
+   * @param {...(ValidatorFn<T>|ValidatorData<T>)}   validators -
+   */
+
+
+  add(...validators) {
+    var _validator$validator$;
+
+    for (const validator of validators) {
+      const validatorType = typeof validator;
+
+      if (validatorType !== 'function' && validatorType !== 'object' || validator === null) {
+        throw new TypeError(`AdapterValidator error: 'validator' is not a function or object.`);
+      }
+
+      let data = void 0;
+      let subscribeFn = void 0;
+
+      switch (validatorType) {
+        case 'function':
+          data = {
+            id: void 0,
+            validator,
+            weight: 1
+          };
+          subscribeFn = validator.subscribe;
+          break;
+
+        case 'object':
+          if (typeof validator.validator !== 'function') {
+            throw new TypeError(`AdapterValidator error: 'validator' attribute is not a function.`);
+          }
+
+          if (validator.weight !== void 0 && typeof validator.weight !== 'number' || validator.weight < 0 || validator.weight > 1) {
+            throw new TypeError(`AdapterValidator error: 'weight' attribute is not a number between '0 - 1' inclusive.`);
+          }
+
+          data = {
+            id: validator.id !== void 0 ? validator.id : void 0,
+            validator: validator.validator.bind(validator),
+            weight: validator.weight || 1,
+            instance: validator
+          };
+          subscribeFn = (_validator$validator$ = validator.validator.subscribe) !== null && _validator$validator$ !== void 0 ? _validator$validator$ : validator.subscribe;
+          break;
+      } // Find the index to insert where data.weight is less than existing values weight.
+
+
+      const index = _classPrivateFieldGet(this, _validatorData$1).findIndex(value => {
+        return data.weight < value.weight;
+      }); // If an index was found insert at that location.
+
+
+      if (index >= 0) {
+        _classPrivateFieldGet(this, _validatorData$1).splice(index, 0, data);
+      } else // push to end of validators.
+        {
+          _classPrivateFieldGet(this, _validatorData$1).push(data);
+        }
+
+      if (typeof subscribeFn === 'function') {
+        // TODO: consider how to handle validator updates.
+        const unsubscribe = subscribeFn(); // Ensure that unsubscribe is a function.
+
+        if (typeof unsubscribe !== 'function') {
+          throw new TypeError('AdapterValidator error: Filter has subscribe function, but no unsubscribe function is returned.');
+        } // Ensure that the same validator is not subscribed to multiple times.
+
+
+        if (_classPrivateFieldGet(this, _mapUnsubscribe).has(data.validator)) {
+          throw new Error('AdapterValidator error: Filter added already has an unsubscribe function registered.');
+        }
+
+        _classPrivateFieldGet(this, _mapUnsubscribe).set(data.validator, unsubscribe);
+      }
+    } // Filters with subscriber functionality are assumed to immediately invoke the `subscribe` callback. If the
+    // subscriber count is less than the amount of validators added then automatically trigger an index update
+    // manually.
+    // TODO: handle validator updates.
+    // if (subscribeCount < validators.length) { this.#indexUpdate(); }
+
+  }
+
+  clear() {
+    _classPrivateFieldGet(this, _validatorData$1).length = 0; // Unsubscribe from all validators with subscription support.
+
+    for (const unsubscribe of _classPrivateFieldGet(this, _mapUnsubscribe).values()) {
+      unsubscribe();
+    }
+
+    _classPrivateFieldGet(this, _mapUnsubscribe).clear(); // TODO: handle validator updates.
+    // this.#indexUpdate();
+
+  }
+  /**
+   * @param {...(ValidatorFn<T>|ValidatorData<T>)}   validators -
+   */
+
+
+  remove(...validators) {
+    const length = _classPrivateFieldGet(this, _validatorData$1).length;
+
+    if (length === 0) {
+      return;
+    }
+
+    for (const data of validators) {
+      // Handle the case that the validator may either be a function or a validator entry / object.
+      const actualValidator = typeof data === 'function' ? data : data !== null && typeof data === 'object' ? data.validator : void 0;
+
+      if (!actualValidator) {
+        continue;
+      }
+
+      for (let cntr = _classPrivateFieldGet(this, _validatorData$1).length; --cntr >= 0;) {
+        if (_classPrivateFieldGet(this, _validatorData$1)[cntr].validator === actualValidator) {
+          _classPrivateFieldGet(this, _validatorData$1).splice(cntr, 1); // Invoke any unsubscribe function for given validator then remove from tracking.
+
+
+          let unsubscribe = void 0;
+
+          if (typeof (unsubscribe = _classPrivateFieldGet(this, _mapUnsubscribe).get(actualValidator)) === 'function') {
+            unsubscribe();
+
+            _classPrivateFieldGet(this, _mapUnsubscribe).delete(actualValidator);
+          }
+        }
+      }
+    } // Update the index a validator was removed.
+    // TODO: handle validator updates.
+    // if (length !== this.#validatorData.length) { this.#indexUpdate(); }
+
+  }
+  /**
+   * Remove validators by the provided callback. The callback takes 3 parameters: `id`, `validator`, and `weight`.
+   * Any truthy value returned will remove that validator.
+   *
+   * @param {function(*, ValidatorFn<T>, number): boolean} callback - Callback function to evaluate each validator
+   *                                                                  entry.
+   */
+
+
+  removeBy(callback) {
+    const length = _classPrivateFieldGet(this, _validatorData$1).length;
+
+    if (length === 0) {
+      return;
+    }
+
+    if (typeof callback !== 'function') {
+      throw new TypeError(`AdapterValidator error: 'callback' is not a function.`);
+    }
+
+    _classPrivateFieldSet(this, _validatorData$1, _classPrivateFieldGet(this, _validatorData$1).filter(data => {
+      const remove = callback.call(callback, _objectSpread2({}, data));
+
+      if (remove) {
+        let unsubscribe;
+
+        if (typeof (unsubscribe = _classPrivateFieldGet(this, _mapUnsubscribe).get(data.validator)) === 'function') {
+          unsubscribe();
+
+          _classPrivateFieldGet(this, _mapUnsubscribe).delete(data.validator);
+        }
+      } // Reverse remove boolean to properly validator / remove this validator.
+
+
+      return !remove;
+    })); // TODO: handle validator updates.
+    // if (length !== this.#validatorData.length) { this.#indexUpdate(); }
+
+  }
+
+  removeById(...ids) {
+    const length = _classPrivateFieldGet(this, _validatorData$1).length;
+
+    if (length === 0) {
+      return;
+    }
+
+    _classPrivateFieldSet(this, _validatorData$1, _classPrivateFieldGet(this, _validatorData$1).filter(data => {
+      let remove = false;
+
+      for (const id of ids) {
+        remove |= data.id === id;
+      } // If not keeping invoke any unsubscribe function for given validator then remove from tracking.
+
+
+      if (remove) {
+        let unsubscribe;
+
+        if (typeof (unsubscribe = _classPrivateFieldGet(this, _mapUnsubscribe).get(data.validator)) === 'function') {
+          unsubscribe();
+
+          _classPrivateFieldGet(this, _mapUnsubscribe).delete(data.validator);
+        }
+      }
+
+      return !remove; // Swap here to actually remove the item via array validator method.
+    })); // TODO: handle validator updates.
+    // if (length !== this.#validatorData.length) { this.#indexUpdate(); }
+
+  }
+
+}
+/**
+ * @callback ValidatorFn - Position validator function that takes a {@link PositionData} instance potentially
+ *                             modifying it or returning null if invalid.
+ *
+ * @param {ValidationData} valData - Validation data.
+ *
+ * @returns {PositionData|null} The validated position data or null to cancel position update.
+ *
+ */
+
+/**
+ * @typedef {object} ValidatorData
+ *
+ * @property {*}           [id=undefined] - An ID associated with this validator. Can be used to remove the validator.
+ *
+ * @property {ValidatorFn} validator - Position validator function that takes a {@link PositionData} instance
+ *                                     potentially modifying it or returning null if invalid.
+ *
+ * @property {number}      [weight=1] - A number between 0 and 1 inclusive to position this validator against others.
+ *
+ * @property {Function}    [subscribe] - Optional subscribe function following the Svelte store / subscribe pattern.
+ */
+
+var _constrain$1 = /*#__PURE__*/new WeakMap();
+
+var _element$1 = /*#__PURE__*/new WeakMap();
+
+var _enabled$1 = /*#__PURE__*/new WeakMap();
+
+var _height$1 = /*#__PURE__*/new WeakMap();
+
+var _lock$1 = /*#__PURE__*/new WeakMap();
+
+var _width$1 = /*#__PURE__*/new WeakMap();
+
+class BasicBounds {
+  /**
+   * When true constrains the min / max width or height to element.
+   *
+   * @type {boolean}
+   */
+
+  /**
+   * @type {HTMLElement}
+   */
+
+  /**
+   * When true the validator is active.
+   *
+   * @type {boolean}
+   */
+
+  /**
+   * Provides a manual setting of the element height. As things go `offsetHeight` causes a browser layout and is not
+   * performance oriented. If manually set this height is used instead of `offsetHeight`.
+   *
+   * @type {number}
+   */
+
+  /**
+   * Set from an optional value in the constructor to lock accessors preventing modification.
+   */
+
+  /**
+   * Provides a manual setting of the element width. As things go `offsetWidth` causes a browser layout and is not
+   * performance oriented. If manually set this width is used instead of `offsetWidth`.
+   *
+   * @type {number}
+   */
+  constructor({
+    constrain = true,
+    element,
+    enabled = true,
+    lock = false,
+    width,
+    height
+  } = {}) {
+    _classPrivateFieldInitSpec(this, _constrain$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _element$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _enabled$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _height$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _lock$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _width$1, {
+      writable: true,
+      value: void 0
+    });
+
+    this.element = element;
+    this.constrain = constrain;
+    this.enabled = enabled;
+    this.width = width;
+    this.height = height;
+
+    _classPrivateFieldSet(this, _lock$1, typeof lock === 'boolean' ? lock : false);
+  }
+
+  get constrain() {
+    return _classPrivateFieldGet(this, _constrain$1);
+  }
+
+  get element() {
+    return _classPrivateFieldGet(this, _element$1);
+  }
+
+  get enabled() {
+    return _classPrivateFieldGet(this, _enabled$1);
+  }
+
+  get height() {
+    return _classPrivateFieldGet(this, _height$1);
+  }
+
+  get width() {
+    return _classPrivateFieldGet(this, _width$1);
+  }
+
+  set constrain(constrain) {
+    if (_classPrivateFieldGet(this, _lock$1)) {
+      return;
+    }
+
+    if (typeof constrain !== 'boolean') {
+      throw new TypeError(`'constrain' is not a boolean.`);
+    }
+
+    _classPrivateFieldSet(this, _constrain$1, constrain);
+  }
+
+  set element(element) {
+    if (_classPrivateFieldGet(this, _lock$1)) {
+      return;
+    }
+
+    if (element === void 0 || element === null || element instanceof HTMLElement) {
+      _classPrivateFieldSet(this, _element$1, element);
+    } else {
+      throw new TypeError(`'element' is not a HTMLElement, undefined, or null.`);
+    }
+  }
+
+  set enabled(enabled) {
+    if (_classPrivateFieldGet(this, _lock$1)) {
+      return;
+    }
+
+    if (typeof enabled !== 'boolean') {
+      throw new TypeError(`'enabled' is not a boolean.`);
+    }
+
+    _classPrivateFieldSet(this, _enabled$1, enabled);
+  }
+
+  set height(height) {
+    if (_classPrivateFieldGet(this, _lock$1)) {
+      return;
+    }
+
+    if (height === void 0 || Number.isFinite(height)) {
+      _classPrivateFieldSet(this, _height$1, height);
+    } else {
+      throw new TypeError(`'height' is not a finite number or undefined.`);
+    }
+  }
+
+  set width(width) {
+    if (_classPrivateFieldGet(this, _lock$1)) {
+      return;
+    }
+
+    if (width === void 0 || Number.isFinite(width)) {
+      _classPrivateFieldSet(this, _width$1, width);
+    } else {
+      throw new TypeError(`'width' is not a finite number or undefined.`);
+    }
+  }
+
+  setDimension(width, height) {
+    if (_classPrivateFieldGet(this, _lock$1)) {
+      return;
+    }
+
+    if (width === void 0 || Number.isFinite(width)) {
+      _classPrivateFieldSet(this, _width$1, width);
+    } else {
+      throw new TypeError(`'width' is not a finite number or undefined.`);
+    }
+
+    if (height === void 0 || Number.isFinite(height)) {
+      _classPrivateFieldSet(this, _height$1, height);
+    } else {
+      throw new TypeError(`'height' is not a finite number or undefined.`);
+    }
+  }
+  /**
+   * Provides a validator that respects transforms in positional data constraining the position to within the target
+   * elements bounds.
+   *
+   * @param {ValidationData}   valData - The associated validation data for position updates.
+   *
+   * @returns {PositionData} Potentially adjusted position data.
+   */
+
+
+  validator(valData) {
+    var _ref, _classPrivateFieldGet2, _classPrivateFieldGet3, _ref2, _classPrivateFieldGet4, _classPrivateFieldGet5;
+
+    // Early out if element is undefined or local enabled state is false.
+    if (!_classPrivateFieldGet(this, _enabled$1)) {
+      return valData.position;
+    } // Determine containing bounds from manual values; or any element; lastly the browser width / height.
+
+
+    const boundsWidth = (_ref = (_classPrivateFieldGet2 = _classPrivateFieldGet(this, _width$1)) !== null && _classPrivateFieldGet2 !== void 0 ? _classPrivateFieldGet2 : (_classPrivateFieldGet3 = _classPrivateFieldGet(this, _element$1)) === null || _classPrivateFieldGet3 === void 0 ? void 0 : _classPrivateFieldGet3.offsetWidth) !== null && _ref !== void 0 ? _ref : globalThis.innerWidth;
+    const boundsHeight = (_ref2 = (_classPrivateFieldGet4 = _classPrivateFieldGet(this, _height$1)) !== null && _classPrivateFieldGet4 !== void 0 ? _classPrivateFieldGet4 : (_classPrivateFieldGet5 = _classPrivateFieldGet(this, _element$1)) === null || _classPrivateFieldGet5 === void 0 ? void 0 : _classPrivateFieldGet5.offsetHeight) !== null && _ref2 !== void 0 ? _ref2 : globalThis.innerHeight;
+
+    if (valData.position.width !== 'auto') {
+      var _valData$maxWidth;
+
+      const maxW = (_valData$maxWidth = valData.maxWidth) !== null && _valData$maxWidth !== void 0 ? _valData$maxWidth : _classPrivateFieldGet(this, _constrain$1) ? boundsWidth : Number.MAX_SAFE_INTEGER;
+      valData.position.width = valData.width = Math.clamped(valData.position.width, valData.minWidth, maxW);
+
+      if (valData.width + valData.position.left + valData.marginLeft > boundsWidth) {
+        valData.position.left = boundsWidth - valData.width - valData.marginLeft;
+      }
+    }
+
+    if (valData.position.height !== 'auto') {
+      var _valData$maxHeight;
+
+      const maxH = (_valData$maxHeight = valData.maxHeight) !== null && _valData$maxHeight !== void 0 ? _valData$maxHeight : _classPrivateFieldGet(this, _constrain$1) ? boundsHeight : Number.MAX_SAFE_INTEGER;
+      valData.position.height = valData.height = Math.clamped(valData.position.height, valData.minHeight, maxH);
+
+      if (valData.height + valData.position.top + valData.marginTop > boundsHeight) {
+        valData.position.top = boundsHeight - valData.height - valData.marginTop;
+      }
+    }
+
+    const maxL = Math.max(boundsWidth - valData.width - valData.marginLeft, 0);
+    valData.position.left = Math.round(Math.clamped(valData.position.left, 0, maxL));
+    const maxT = Math.max(boundsHeight - valData.height - valData.marginTop, 0);
+    valData.position.top = Math.round(Math.clamped(valData.position.top, 0, maxT));
+    return valData.position;
+  }
+
+}
+
+const s_TRANSFORM_DATA = new TransformData();
+
+var _constrain = /*#__PURE__*/new WeakMap();
+
+var _element = /*#__PURE__*/new WeakMap();
+
+var _enabled = /*#__PURE__*/new WeakMap();
+
+var _height = /*#__PURE__*/new WeakMap();
+
+var _lock = /*#__PURE__*/new WeakMap();
+
+var _width = /*#__PURE__*/new WeakMap();
+
+class TransformBounds {
+  /**
+   * When true constrains the min / max width or height to element.
+   *
+   * @type {boolean}
+   */
+
+  /**
+   * @type {HTMLElement}
+   */
+
+  /**
+   * When true the validator is active.
+   *
+   * @type {boolean}
+   */
+
+  /**
+   * Provides a manual setting of the element height. As things go `offsetHeight` causes a browser layout and is not
+   * performance oriented. If manually set this height is used instead of `offsetHeight`.
+   *
+   * @type {number}
+   */
+
+  /**
+   * Set from an optional value in the constructor to lock accessors preventing modification.
+   */
+
+  /**
+   * Provides a manual setting of the element width. As things go `offsetWidth` causes a browser layout and is not
+   * performance oriented. If manually set this width is used instead of `offsetWidth`.
+   *
+   * @type {number}
+   */
+  constructor({
+    constrain = true,
+    element,
+    enabled = true,
+    lock = false,
+    width,
+    height
+  } = {}) {
+    _classPrivateFieldInitSpec(this, _constrain, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _element, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _enabled, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _height, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _lock, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _width, {
+      writable: true,
+      value: void 0
+    });
+
+    this.element = element;
+    this.constrain = constrain;
+    this.enabled = enabled;
+    this.width = width;
+    this.height = height;
+
+    _classPrivateFieldSet(this, _lock, typeof lock === 'boolean' ? lock : false);
+  }
+
+  get constrain() {
+    return _classPrivateFieldGet(this, _constrain);
+  }
+
+  get element() {
+    return _classPrivateFieldGet(this, _element);
+  }
+
+  get enabled() {
+    return _classPrivateFieldGet(this, _enabled);
+  }
+
+  get height() {
+    return _classPrivateFieldGet(this, _height);
+  }
+
+  get width() {
+    return _classPrivateFieldGet(this, _width);
+  }
+
+  set constrain(constrain) {
+    if (_classPrivateFieldGet(this, _lock)) {
+      return;
+    }
+
+    if (typeof constrain !== 'boolean') {
+      throw new TypeError(`'constrain' is not a boolean.`);
+    }
+
+    _classPrivateFieldSet(this, _constrain, constrain);
+  }
+
+  set element(element) {
+    if (_classPrivateFieldGet(this, _lock)) {
+      return;
+    }
+
+    if (element === void 0 || element === null || element instanceof HTMLElement) {
+      _classPrivateFieldSet(this, _element, element);
+    } else {
+      throw new TypeError(`'element' is not a HTMLElement, undefined, or null.`);
+    }
+  }
+
+  set enabled(enabled) {
+    if (_classPrivateFieldGet(this, _lock)) {
+      return;
+    }
+
+    if (typeof enabled !== 'boolean') {
+      throw new TypeError(`'enabled' is not a boolean.`);
+    }
+
+    _classPrivateFieldSet(this, _enabled, enabled);
+  }
+
+  set height(height) {
+    if (_classPrivateFieldGet(this, _lock)) {
+      return;
+    }
+
+    if (height === void 0 || Number.isFinite(height)) {
+      _classPrivateFieldSet(this, _height, height);
+    } else {
+      throw new TypeError(`'height' is not a finite number or undefined.`);
+    }
+  }
+
+  set width(width) {
+    if (_classPrivateFieldGet(this, _lock)) {
+      return;
+    }
+
+    if (width === void 0 || Number.isFinite(width)) {
+      _classPrivateFieldSet(this, _width, width);
+    } else {
+      throw new TypeError(`'width' is not a finite number or undefined.`);
+    }
+  }
+
+  setDimension(width, height) {
+    if (_classPrivateFieldGet(this, _lock)) {
+      return;
+    }
+
+    if (width === void 0 || Number.isFinite(width)) {
+      _classPrivateFieldSet(this, _width, width);
+    } else {
+      throw new TypeError(`'width' is not a finite number or undefined.`);
+    }
+
+    if (height === void 0 || Number.isFinite(height)) {
+      _classPrivateFieldSet(this, _height, height);
+    } else {
+      throw new TypeError(`'height' is not a finite number or undefined.`);
+    }
+  }
+  /**
+   * Provides a validator that respects transforms in positional data constraining the position to within the target
+   * elements bounds.
+   *
+   * @param {ValidationData}   valData - The associated validation data for position updates.
+   *
+   * @returns {PositionData} Potentially adjusted position data.
+   */
+
+
+  validator(valData) {
+    var _ref, _classPrivateFieldGet2, _classPrivateFieldGet3, _ref2, _classPrivateFieldGet4, _classPrivateFieldGet5;
+
+    // Early out if element is undefined or local enabled state is false.
+    if (!_classPrivateFieldGet(this, _enabled)) {
+      return valData.position;
+    } // Determine containing bounds from manual values; or any element; lastly the browser width / height.
+
+
+    const boundsWidth = (_ref = (_classPrivateFieldGet2 = _classPrivateFieldGet(this, _width)) !== null && _classPrivateFieldGet2 !== void 0 ? _classPrivateFieldGet2 : (_classPrivateFieldGet3 = _classPrivateFieldGet(this, _element)) === null || _classPrivateFieldGet3 === void 0 ? void 0 : _classPrivateFieldGet3.offsetWidth) !== null && _ref !== void 0 ? _ref : globalThis.innerWidth;
+    const boundsHeight = (_ref2 = (_classPrivateFieldGet4 = _classPrivateFieldGet(this, _height)) !== null && _classPrivateFieldGet4 !== void 0 ? _classPrivateFieldGet4 : (_classPrivateFieldGet5 = _classPrivateFieldGet(this, _element)) === null || _classPrivateFieldGet5 === void 0 ? void 0 : _classPrivateFieldGet5.offsetHeight) !== null && _ref2 !== void 0 ? _ref2 : globalThis.innerHeight; // Ensure min / max width constraints when position width is not 'auto'. If constrain is true cap width bounds.
+
+    if (valData.position.width !== 'auto') {
+      var _valData$maxWidth;
+
+      const maxW = (_valData$maxWidth = valData.maxWidth) !== null && _valData$maxWidth !== void 0 ? _valData$maxWidth : _classPrivateFieldGet(this, _constrain) ? boundsWidth : Number.MAX_SAFE_INTEGER;
+      valData.position.width = Math.clamped(valData.width, valData.minWidth, maxW);
+    } // Ensure min / max height constraints when position height is not 'auto'. If constrain is true cap height bounds.
+
+
+    if (valData.position.height !== 'auto') {
+      var _valData$maxHeight;
+
+      const maxH = (_valData$maxHeight = valData.maxHeight) !== null && _valData$maxHeight !== void 0 ? _valData$maxHeight : _classPrivateFieldGet(this, _constrain) ? boundsHeight : Number.MAX_SAFE_INTEGER;
+      valData.position.height = Math.clamped(valData.height, valData.minHeight, maxH);
+    } // Get transform data. First set constraints including any margin top / left as offsets and width / height. Used
+    // when position width / height is 'auto'.
+
+
+    const data = valData.transforms.getData(valData.position, s_TRANSFORM_DATA, valData); // Check the bounding rectangle against browser height / width. Adjust position based on how far the overlap of
+    // the bounding rect is outside the bounds height / width. The order below matters as the constraints are top /
+    // left oriented, so perform those checks last.
+
+    const initialX = data.boundingRect.x;
+    const initialY = data.boundingRect.y;
+
+    if (data.boundingRect.bottom + valData.marginTop > boundsHeight) {
+      data.boundingRect.y += boundsHeight - data.boundingRect.bottom - valData.marginTop;
+    }
+
+    if (data.boundingRect.right + valData.marginLeft > boundsWidth) {
+      data.boundingRect.x += boundsWidth - data.boundingRect.right - valData.marginLeft;
+    }
+
+    if (data.boundingRect.top - valData.marginTop < 0) {
+      data.boundingRect.y += Math.abs(data.boundingRect.top - valData.marginTop);
+    }
+
+    if (data.boundingRect.left - valData.marginLeft < 0) {
+      data.boundingRect.x += Math.abs(data.boundingRect.left - valData.marginLeft);
+    }
+
+    valData.position.left -= initialX - data.boundingRect.x;
+    valData.position.top -= initialY - data.boundingRect.y;
+    return valData.position;
+  }
+
+}
+
+const basicWindow = new BasicBounds({
+  lock: true
+});
+const transformWindow = new TransformBounds({
+  lock: true
+});
+
+var positionValidators = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  basicWindow: basicWindow,
+  BasicBounds: BasicBounds,
+  transformWindow: transformWindow,
+  TransformBounds: TransformBounds
+});
+
+/** @type {number[]} */
+
+const s_SCALE_VECTOR = [1, 1, 1];
+/** @type {number[]} */
+
+const s_TRANSLATE_VECTOR = [0, 0, 0];
+/** @type {Matrix4} */
+
+const s_MAT4_RESULT = mat4.create();
+/** @type {Matrix4} */
+
+const s_MAT4_TEMP = mat4.create();
+/** @type {Vector3} */
+
+const s_VEC3_TEMP = vec3.create();
+
+var _orderList = /*#__PURE__*/new WeakMap();
+
+class Transforms {
+  /**
+   * Stores the transform keys in the order added.
+   *
+   * @type {string[]}
+   */
+  constructor() {
+    _classPrivateFieldInitSpec(this, _orderList, {
+      writable: true,
+      value: []
+    });
+
+    this._data = {};
+  }
+  /**
+   * @returns {boolean} Whether there are active transforms in local data.
+   */
+
+
+  get isActive() {
+    return _classPrivateFieldGet(this, _orderList).length > 0;
+  }
+  /**
+   * @returns {number|undefined} Any local rotateX data.
+   */
+
+
+  get rotateX() {
+    return this._data.rotateX;
+  }
+  /**
+   * @returns {number|undefined} Any local rotateY data.
+   */
+
+
+  get rotateY() {
+    return this._data.rotateY;
+  }
+  /**
+   * @returns {number|undefined} Any local rotateZ data.
+   */
+
+
+  get rotateZ() {
+    return this._data.rotateZ;
+  }
+  /**
+   * @returns {number|undefined} Any local rotateZ scale.
+   */
+
+
+  get scale() {
+    return this._data.scale;
+  }
+  /**
+   * @returns {number|undefined} Any local translateZ data.
+   */
+
+
+  get translateX() {
+    return this._data.translateX;
+  }
+  /**
+   * @returns {number|undefined} Any local translateZ data.
+   */
+
+
+  get translateY() {
+    return this._data.translateY;
+  }
+  /**
+   * @returns {number|undefined} Any local translateZ data.
+   */
+
+
+  get translateZ() {
+    return this._data.translateZ;
+  }
+  /**
+   * Sets the local rotateX data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
+
+
+  set rotateX(value) {
+    if (Number.isFinite(value)) {
+      if (this._data.rotateX === void 0) {
+        _classPrivateFieldGet(this, _orderList).push('rotateX');
+      }
+
+      this._data.rotateX = value;
+    } else {
+      if (this._data.rotateX !== void 0) {
+        const index = _classPrivateFieldGet(this, _orderList).findIndex(entry => entry === 'rotateX');
+
+        if (index >= 0) {
+          _classPrivateFieldGet(this, _orderList).splice(index, 1);
+        }
+      }
+
+      delete this._data.rotateX;
+    }
+  }
+  /**
+   * Sets the local rotateY data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
+
+
+  set rotateY(value) {
+    if (Number.isFinite(value)) {
+      if (this._data.rotateY === void 0) {
+        _classPrivateFieldGet(this, _orderList).push('rotateY');
+      }
+
+      this._data.rotateY = value;
+    } else {
+      if (this._data.rotateY !== void 0) {
+        const index = _classPrivateFieldGet(this, _orderList).findIndex(entry => entry === 'rotateY');
+
+        if (index >= 0) {
+          _classPrivateFieldGet(this, _orderList).splice(index, 1);
+        }
+      }
+
+      delete this._data.rotateY;
+    }
+  }
+  /**
+   * Sets the local rotateZ data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
+
+
+  set rotateZ(value) {
+    if (Number.isFinite(value)) {
+      if (this._data.rotateZ === void 0) {
+        _classPrivateFieldGet(this, _orderList).push('rotateZ');
+      }
+
+      this._data.rotateZ = value;
+    } else {
+      if (this._data.rotateZ !== void 0) {
+        const index = _classPrivateFieldGet(this, _orderList).findIndex(entry => entry === 'rotateZ');
+
+        if (index >= 0) {
+          _classPrivateFieldGet(this, _orderList).splice(index, 1);
+        }
+      }
+
+      delete this._data.rotateZ;
+    }
+  }
+  /**
+   * Sets the local scale data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
+
+
+  set scale(value) {
+    if (Number.isFinite(value)) {
+      if (this._data.scale === void 0) {
+        _classPrivateFieldGet(this, _orderList).push('scale');
+      }
+
+      this._data.scale = value;
+    } else {
+      if (this._data.scale !== void 0) {
+        const index = _classPrivateFieldGet(this, _orderList).findIndex(entry => entry === 'scale');
+
+        if (index >= 0) {
+          _classPrivateFieldGet(this, _orderList).splice(index, 1);
+        }
+      }
+
+      delete this._data.scale;
+    }
+  }
+  /**
+   * Sets the local translateX data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
+
+
+  set translateX(value) {
+    if (Number.isFinite(value)) {
+      if (this._data.translateX === void 0) {
+        _classPrivateFieldGet(this, _orderList).push('translateX');
+      }
+
+      this._data.translateX = value;
+    } else {
+      if (this._data.translateX !== void 0) {
+        const index = _classPrivateFieldGet(this, _orderList).findIndex(entry => entry === 'translateX');
+
+        if (index >= 0) {
+          _classPrivateFieldGet(this, _orderList).splice(index, 1);
+        }
+      }
+
+      delete this._data.translateX;
+    }
+  }
+  /**
+   * Sets the local translateY data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
+
+
+  set translateY(value) {
+    if (Number.isFinite(value)) {
+      if (this._data.translateY === void 0) {
+        _classPrivateFieldGet(this, _orderList).push('translateY');
+      }
+
+      this._data.translateY = value;
+    } else {
+      if (this._data.translateY !== void 0) {
+        const index = _classPrivateFieldGet(this, _orderList).findIndex(entry => entry === 'translateY');
+
+        if (index >= 0) {
+          _classPrivateFieldGet(this, _orderList).splice(index, 1);
+        }
+      }
+
+      delete this._data.translateY;
+    }
+  }
+  /**
+   * Sets the local translateZ data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
+
+
+  set translateZ(value) {
+    if (Number.isFinite(value)) {
+      if (this._data.translateZ === void 0) {
+        _classPrivateFieldGet(this, _orderList).push('translateZ');
+      }
+
+      this._data.translateZ = value;
+    } else {
+      if (this._data.translateZ !== void 0) {
+        const index = _classPrivateFieldGet(this, _orderList).findIndex(entry => entry === 'translateZ');
+
+        if (index >= 0) {
+          _classPrivateFieldGet(this, _orderList).splice(index, 1);
+        }
+      }
+
+      delete this._data.translateZ;
+    }
+  }
+  /**
+   * Returns the matrix3d CSS transform for the given position / transform data.
+   *
+   * @param {object} [data] - Optional position data otherwise use local stored transform data.
+   *
+   * @returns {string} The CSS matrix3d string.
+   */
+
+
+  getCSS(data = this._data) {
+    return `matrix3d(${this.getMat4(data, s_MAT4_RESULT).join(',')})`;
+  }
+  /**
+   * Returns the matrix3d CSS transform for the given position / transform data.
+   *
+   * @param {object} [data] - Optional position data otherwise use local stored transform data.
+   *
+   * @returns {string} The CSS matrix3d string.
+   */
+
+
+  getCSSOrtho(data = this._data) {
+    return `matrix3d(${this.getMat4Ortho(data, s_MAT4_RESULT).join(',')})`;
+  }
+  /**
+   * Collects all data including a bounding rect, transform matrix, and points array of the given {@link PositionData}
+   * instance with the applied local transform data.
+   *
+   * @param {PositionData} position - The position data to process.
+   *
+   * @param {TransformData} [output] - Optional TransformData output instance.
+   *
+   * @param {object} [validationData] - Optional validation data for adjustment parameters.
+   *
+   * @returns {TransformData} The output TransformData instance.
+   */
+
+
+  getData(position, output = new TransformData(), validationData = {}) {
+    var _validationData$width, _validationData$heigh, _ref, _validationData$offse, _ref2, _validationData$offse2;
+
+    const valWidth = (_validationData$width = validationData.width) !== null && _validationData$width !== void 0 ? _validationData$width : 0;
+    const valHeight = (_validationData$heigh = validationData.height) !== null && _validationData$heigh !== void 0 ? _validationData$heigh : 0;
+    const valOffsetTop = (_ref = (_validationData$offse = validationData.offsetTop) !== null && _validationData$offse !== void 0 ? _validationData$offse : validationData.marginTop) !== null && _ref !== void 0 ? _ref : 0;
+    const valOffsetLeft = (_ref2 = (_validationData$offse2 = validationData.offsetLeft) !== null && _validationData$offse2 !== void 0 ? _validationData$offse2 : validationData.offsetLeft) !== null && _ref2 !== void 0 ? _ref2 : 0;
+    position.top += valOffsetTop;
+    position.left += valOffsetLeft;
+    const width = Number.isFinite(position.width) ? position.width : valWidth;
+    const height = Number.isFinite(position.height) ? position.height : valHeight;
+    const rect = output.corners;
+
+    if (this.hasTransform(position)) {
+      rect[0][0] = rect[0][1] = rect[0][2] = 0;
+      rect[1][0] = width;
+      rect[1][1] = rect[1][2] = 0;
+      rect[2][0] = width;
+      rect[2][1] = height;
+      rect[2][2] = 0;
+      rect[3][0] = 0;
+      rect[3][1] = height;
+      rect[3][2] = 0;
+      const matrix = this.getMat4(position, output.mat4);
+      const translate = s_GET_ORIGIN_TRANSLATION(position.transformOrigin, width, height, output.originTranslations);
+
+      if (transformOriginDefault === position.transformOrigin) {
+        vec3.transformMat4(rect[0], rect[0], matrix);
+        vec3.transformMat4(rect[1], rect[1], matrix);
+        vec3.transformMat4(rect[2], rect[2], matrix);
+        vec3.transformMat4(rect[3], rect[3], matrix);
+      } else {
+        vec3.transformMat4(rect[0], rect[0], translate[0]);
+        vec3.transformMat4(rect[0], rect[0], matrix);
+        vec3.transformMat4(rect[0], rect[0], translate[1]);
+        vec3.transformMat4(rect[1], rect[1], translate[0]);
+        vec3.transformMat4(rect[1], rect[1], matrix);
+        vec3.transformMat4(rect[1], rect[1], translate[1]);
+        vec3.transformMat4(rect[2], rect[2], translate[0]);
+        vec3.transformMat4(rect[2], rect[2], matrix);
+        vec3.transformMat4(rect[2], rect[2], translate[1]);
+        vec3.transformMat4(rect[3], rect[3], translate[0]);
+        vec3.transformMat4(rect[3], rect[3], matrix);
+        vec3.transformMat4(rect[3], rect[3], translate[1]);
+      }
+
+      rect[0][0] = position.left + rect[0][0];
+      rect[0][1] = position.top + rect[0][1];
+      rect[1][0] = position.left + rect[1][0];
+      rect[1][1] = position.top + rect[1][1];
+      rect[2][0] = position.left + rect[2][0];
+      rect[2][1] = position.top + rect[2][1];
+      rect[3][0] = position.left + rect[3][0];
+      rect[3][1] = position.top + rect[3][1];
+    } else {
+      rect[0][0] = position.left;
+      rect[0][1] = position.top;
+      rect[1][0] = position.left + width;
+      rect[1][1] = position.top;
+      rect[2][0] = position.left + width;
+      rect[2][1] = position.top + height;
+      rect[3][0] = position.left;
+      rect[3][1] = position.top + height;
+      mat4.identity(output.mat4);
+    }
+
+    let maxX = Number.MIN_SAFE_INTEGER;
+    let maxY = Number.MIN_SAFE_INTEGER;
+    let minX = Number.MAX_SAFE_INTEGER;
+    let minY = Number.MAX_SAFE_INTEGER;
+
+    for (let cntr = 4; --cntr >= 0;) {
+      if (rect[cntr][0] > maxX) {
+        maxX = rect[cntr][0];
+      }
+
+      if (rect[cntr][0] < minX) {
+        minX = rect[cntr][0];
+      }
+
+      if (rect[cntr][1] > maxY) {
+        maxY = rect[cntr][1];
+      }
+
+      if (rect[cntr][1] < minY) {
+        minY = rect[cntr][1];
+      }
+    }
+
+    const boundingRect = output.boundingRect;
+    boundingRect.x = minX;
+    boundingRect.y = minY;
+    boundingRect.width = maxX - minX;
+    boundingRect.height = maxY - minY;
+    position.top -= valOffsetTop;
+    position.left -= valOffsetLeft;
+    return output;
+  }
+  /**
+   * Creates a transform matrix based on local data applied in order it was added.
+   *
+   * If no data object is provided then the source is the local transform data. If another data object is supplied
+   * then the stored local transform order is applied then all remaining transform keys are applied. This allows the
+   * construction of a transform matrix in advance of setting local data and is useful in collision detection.
+   *
+   * @param {object}   [data] - PositionData instance or local transform data.
+   *
+   * @param {Matrix4}  [output] - The output mat4 instance.
+   *
+   * @returns {Matrix4} Transform matrix.
+   */
+
+
+  getMat4(data = this._data, output = mat4.create()) {
+    const matrix = mat4.identity(output); // Bitwise tracks applied transform keys from local transform data.
+
+    let seenKeys = 0;
+
+    const orderList = _classPrivateFieldGet(this, _orderList); // First apply ordered transforms from local transform data.
+
+
+    for (let cntr = 0; cntr < orderList.length; cntr++) {
+      const key = orderList[cntr];
+
+      switch (key) {
+        case 'rotateX':
+          seenKeys |= transformKeysBitwise.rotateX;
+          mat4.multiply(matrix, matrix, mat4.fromXRotation(s_MAT4_TEMP, degToRad(data[key])));
+          break;
+
+        case 'rotateY':
+          seenKeys |= transformKeysBitwise.rotateY;
+          mat4.multiply(matrix, matrix, mat4.fromYRotation(s_MAT4_TEMP, degToRad(data[key])));
+          break;
+
+        case 'rotateZ':
+          seenKeys |= transformKeysBitwise.rotateZ;
+          mat4.multiply(matrix, matrix, mat4.fromZRotation(s_MAT4_TEMP, degToRad(data[key])));
+          break;
+
+        case 'scale':
+          seenKeys |= transformKeysBitwise.scale;
+          s_SCALE_VECTOR[0] = s_SCALE_VECTOR[1] = data[key];
+          mat4.multiply(matrix, matrix, mat4.fromScaling(s_MAT4_TEMP, s_SCALE_VECTOR));
+          break;
+
+        case 'translateX':
+          seenKeys |= transformKeysBitwise.translateX;
+          s_TRANSLATE_VECTOR[0] = data.translateX;
+          s_TRANSLATE_VECTOR[1] = 0;
+          s_TRANSLATE_VECTOR[2] = 0;
+          mat4.multiply(matrix, matrix, mat4.fromTranslation(s_MAT4_TEMP, s_TRANSLATE_VECTOR));
+          break;
+
+        case 'translateY':
+          seenKeys |= transformKeysBitwise.translateY;
+          s_TRANSLATE_VECTOR[0] = 0;
+          s_TRANSLATE_VECTOR[1] = data.translateY;
+          s_TRANSLATE_VECTOR[2] = 0;
+          mat4.multiply(matrix, matrix, mat4.fromTranslation(s_MAT4_TEMP, s_TRANSLATE_VECTOR));
+          break;
+
+        case 'translateZ':
+          seenKeys |= transformKeysBitwise.translateZ;
+          s_TRANSLATE_VECTOR[0] = 0;
+          s_TRANSLATE_VECTOR[1] = 0;
+          s_TRANSLATE_VECTOR[2] = data.translateZ;
+          mat4.multiply(matrix, matrix, mat4.fromTranslation(s_MAT4_TEMP, s_TRANSLATE_VECTOR));
+          break;
+      }
+    } // Now apply any new keys not set in local transform data that have not been applied yet.
+
+
+    if (data !== this._data) {
+      for (let cntr = 0; cntr < transformKeys.length; cntr++) {
+        const key = transformKeys[cntr]; // Reject bad / no data or if the key has already been applied.
+
+        if (data[key] === null || (seenKeys & transformKeysBitwise[key]) > 0) {
+          continue;
+        }
+
+        switch (key) {
+          case 'rotateX':
+            mat4.multiply(matrix, matrix, mat4.fromXRotation(s_MAT4_TEMP, degToRad(data[key])));
+            break;
+
+          case 'rotateY':
+            mat4.multiply(matrix, matrix, mat4.fromYRotation(s_MAT4_TEMP, degToRad(data[key])));
+            break;
+
+          case 'rotateZ':
+            mat4.multiply(matrix, matrix, mat4.fromZRotation(s_MAT4_TEMP, degToRad(data[key])));
+            break;
+
+          case 'scale':
+            s_SCALE_VECTOR[0] = s_SCALE_VECTOR[1] = data[key];
+            mat4.multiply(matrix, matrix, mat4.fromScaling(s_MAT4_TEMP, s_SCALE_VECTOR));
+            break;
+
+          case 'translateX':
+            s_TRANSLATE_VECTOR[0] = data[key];
+            s_TRANSLATE_VECTOR[1] = 0;
+            s_TRANSLATE_VECTOR[2] = 0;
+            mat4.multiply(matrix, matrix, mat4.fromTranslation(s_MAT4_TEMP, s_TRANSLATE_VECTOR));
+            break;
+
+          case 'translateY':
+            s_TRANSLATE_VECTOR[0] = 0;
+            s_TRANSLATE_VECTOR[1] = data[key];
+            s_TRANSLATE_VECTOR[2] = 0;
+            mat4.multiply(matrix, matrix, mat4.fromTranslation(s_MAT4_TEMP, s_TRANSLATE_VECTOR));
+            break;
+
+          case 'translateZ':
+            s_TRANSLATE_VECTOR[0] = 0;
+            s_TRANSLATE_VECTOR[1] = 0;
+            s_TRANSLATE_VECTOR[2] = data[key];
+            mat4.multiply(matrix, matrix, mat4.fromTranslation(s_MAT4_TEMP, s_TRANSLATE_VECTOR));
+            break;
+        }
+      }
+    }
+
+    return matrix;
+  }
+  /**
+   * Provides an orthographic enhancement to convert left / top positional data to a translate operation.
+   *
+   * This transform matrix takes into account that the remaining operations are , but adds any left / top attributes from passed in data to
+   * translate X / Y.
+   *
+   * If no data object is provided then the source is the local transform data. If another data object is supplied
+   * then the stored local transform order is applied then all remaining transform keys are applied. This allows the
+   * construction of a transform matrix in advance of setting local data and is useful in collision detection.
+   *
+   * @param {object}   [data] - PositionData instance or local transform data.
+   *
+   * @param {Matrix4}  [output] - The output mat4 instance.
+   *
+   * @returns {Matrix4} Transform matrix.
+   */
+
+
+  getMat4Ortho(data = this._data, output = mat4.create()) {
+    var _data$left, _data$translateX, _data$top, _data$translateY, _data$translateZ;
+
+    const matrix = mat4.identity(output); // Attempt to retrieve values from passed in data otherwise default to 0.
+    // Always perform the translation last regardless of order added to local transform data.
+    // Add data.left to translateX and data.top to translateY.
+
+    s_TRANSLATE_VECTOR[0] = ((_data$left = data.left) !== null && _data$left !== void 0 ? _data$left : 0) + ((_data$translateX = data.translateX) !== null && _data$translateX !== void 0 ? _data$translateX : 0);
+    s_TRANSLATE_VECTOR[1] = ((_data$top = data.top) !== null && _data$top !== void 0 ? _data$top : 0) + ((_data$translateY = data.translateY) !== null && _data$translateY !== void 0 ? _data$translateY : 0);
+    s_TRANSLATE_VECTOR[2] = (_data$translateZ = data.translateZ) !== null && _data$translateZ !== void 0 ? _data$translateZ : 0;
+    mat4.multiply(matrix, matrix, mat4.fromTranslation(s_MAT4_TEMP, s_TRANSLATE_VECTOR)); // Scale can also be applied out of order.
+
+    if (data.scale !== null) {
+      s_SCALE_VECTOR[0] = s_SCALE_VECTOR[1] = data.scale;
+      mat4.multiply(matrix, matrix, mat4.fromScaling(s_MAT4_TEMP, s_SCALE_VECTOR));
+    } // Early out if there is not rotation data.
+
+
+    if (data.rotateX === null && data.rotateY === null && data.rotateZ === null) {
+      return matrix;
+    } // Rotation transforms must be applied in the order they are added.
+    // Bitwise tracks applied transform keys from local transform data.
+
+
+    let seenKeys = 0;
+
+    const orderList = _classPrivateFieldGet(this, _orderList); // First apply ordered transforms from local transform data.
+
+
+    for (let cntr = 0; cntr < orderList.length; cntr++) {
+      const key = orderList[cntr];
+
+      switch (key) {
+        case 'rotateX':
+          seenKeys |= transformKeysBitwise.rotateX;
+          mat4.multiply(matrix, matrix, mat4.fromXRotation(s_MAT4_TEMP, degToRad(data[key])));
+          break;
+
+        case 'rotateY':
+          seenKeys |= transformKeysBitwise.rotateY;
+          mat4.multiply(matrix, matrix, mat4.fromYRotation(s_MAT4_TEMP, degToRad(data[key])));
+          break;
+
+        case 'rotateZ':
+          seenKeys |= transformKeysBitwise.rotateZ;
+          mat4.multiply(matrix, matrix, mat4.fromZRotation(s_MAT4_TEMP, degToRad(data[key])));
+          break;
+      }
+    } // Now apply any new keys not set in local transform data that have not been applied yet.
+
+
+    if (data !== this._data) {
+      for (let cntr = 0; cntr < transformKeys.length; cntr++) {
+        const key = transformKeys[cntr]; // Reject bad / no data or if the key has already been applied.
+
+        if (data[key] === null || (seenKeys & transformKeysBitwise[key]) > 0) {
+          continue;
+        }
+
+        switch (key) {
+          case 'rotateX':
+            mat4.multiply(matrix, matrix, mat4.fromXRotation(s_MAT4_TEMP, degToRad(data[key])));
+            break;
+
+          case 'rotateY':
+            mat4.multiply(matrix, matrix, mat4.fromYRotation(s_MAT4_TEMP, degToRad(data[key])));
+            break;
+
+          case 'rotateZ':
+            mat4.multiply(matrix, matrix, mat4.fromZRotation(s_MAT4_TEMP, degToRad(data[key])));
+            break;
+        }
+      }
+    }
+
+    return matrix;
+  }
+  /**
+   * Tests an object if it contains transform keys and the values are finite numbers.
+   *
+   * @param {object} data - An object to test for transform data.
+   *
+   * @returns {boolean} Whether the given PositionData has transforms.
+   */
+
+
+  hasTransform(data) {
+    for (const key of transformKeys) {
+      if (Number.isFinite(data[key])) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+  /**
+   * Resets internal data from the given object containing valid transform keys.
+   *
+   * @param {object}   data - An object with transform data.
+   */
+
+
+  reset(data) {
+    for (const key in data) {
+      if (transformKeys.includes(key)) {
+        if (Number.isFinite(data[key])) {
+          this._data[key] = data[key];
+        } else {
+          const index = _classPrivateFieldGet(this, _orderList).findIndex(entry => entry === key);
+
+          if (index >= 0) {
+            _classPrivateFieldGet(this, _orderList).splice(index, 1);
+          }
+
+          delete this._data[key];
+        }
+      }
+    }
+  }
+
+}
+/**
+ * Returns the translations necessary to translate a matrix operation based on the `transformOrigin` parameter of the
+ * given position instance. The first entry / index 0 is the pre-translation and last entry / index 1 is the post-
+ * translation.
+ *
+ * This method is used internally, but may be useful if you need the origin translation matrices to transform
+ * bespoke points based on any `transformOrigin` set in {@link PositionData}.
+ *
+ * @param {string}   transformOrigin - The transform origin attribute from PositionData.
+ *
+ * @param {number}   width - The PositionData width or validation data width when 'auto'.
+ *
+ * @param {number}   height - The PositionData height or validation data height when 'auto'.
+ *
+ * @param {Matrix4[]}   output - Output Mat4 array.
+ *
+ * @returns {Matrix4[]} Output Mat4 array.
+ */
+
+function s_GET_ORIGIN_TRANSLATION(transformOrigin, width, height, output) {
+  const vector = s_VEC3_TEMP;
+
+  switch (transformOrigin) {
+    case 'top left':
+      vector[0] = vector[1] = 0;
+      mat4.fromTranslation(output[0], vector);
+      mat4.fromTranslation(output[1], vector);
+      break;
+
+    case 'top center':
+      vector[0] = -width * 0.5;
+      vector[1] = 0;
+      mat4.fromTranslation(output[0], vector);
+      vector[0] = width * 0.5;
+      mat4.fromTranslation(output[1], vector);
+      break;
+
+    case 'top right':
+      vector[0] = -width;
+      vector[1] = 0;
+      mat4.fromTranslation(output[0], vector);
+      vector[0] = width;
+      mat4.fromTranslation(output[1], vector);
+      break;
+
+    case 'center left':
+      vector[0] = 0;
+      vector[1] = -height * 0.5;
+      mat4.fromTranslation(output[0], vector);
+      vector[1] = height * 0.5;
+      mat4.fromTranslation(output[1], vector);
+      break;
+
+    case null: // By default null / no transform is center.
+
+    case 'center':
+      vector[0] = -width * 0.5;
+      vector[1] = -height * 0.5;
+      mat4.fromTranslation(output[0], vector);
+      vector[0] = width * 0.5;
+      vector[1] = height * 0.5;
+      mat4.fromTranslation(output[1], vector);
+      break;
+
+    case 'center right':
+      vector[0] = -width;
+      vector[1] = -height * 0.5;
+      mat4.fromTranslation(output[0], vector);
+      vector[0] = width;
+      vector[1] = height * 0.5;
+      mat4.fromTranslation(output[1], vector);
+      break;
+
+    case 'bottom left':
+      vector[0] = 0;
+      vector[1] = -height;
+      mat4.fromTranslation(output[0], vector);
+      vector[1] = height;
+      mat4.fromTranslation(output[1], vector);
+      break;
+
+    case 'bottom center':
+      vector[0] = -width * 0.5;
+      vector[1] = -height;
+      mat4.fromTranslation(output[0], vector);
+      vector[0] = width * 0.5;
+      vector[1] = height;
+      mat4.fromTranslation(output[1], vector);
+      break;
+
+    case 'bottom right':
+      vector[0] = -width;
+      vector[1] = -height;
+      mat4.fromTranslation(output[0], vector);
+      vector[0] = width;
+      vector[1] = height;
+      mat4.fromTranslation(output[1], vector);
+      break;
+    // No valid transform origin parameter; set identity.
+
+    default:
+      mat4.identity(output[0]);
+      mat4.identity(output[1]);
+      break;
+  }
+
+  return output;
+}
+
+class UpdateElementData {
+  constructor() {
+    /**
+     * Stores the private data from Position.
+     *
+     * @type {PositionData}
+     */
+    this.data = void 0;
+    /**
+     * Provides a copy of local data sent to subscribers.
+     *
+     * @type {PositionData}
+     */
+
+    this.dataSubscribers = new PositionData();
+    /**
+     * Stores the current dimension data used for the readable `dimension` store.
+     *
+     * @type {{width: number | 'auto', height: number | 'auto'}}
+     */
+
+    this.dimensionData = {
+      width: 0,
+      height: 0
+    };
+    /**
+     * @type {PositionChangeSet}
+     */
+
+    this.changeSet = void 0;
+    /**
+     * @type {PositionOptions}
+     */
+
+    this.options = void 0;
+    /**
+     * Stores if this Position / update data is queued for update.
+     *
+     * @type {boolean}
+     */
+
+    this.queued = false;
+    /**
+     * @type {StyleCache}
+     */
+
+    this.styleCache = void 0;
+    /**
+     * @type {Transforms}
+     */
+
+    this.transforms = void 0;
+    /**
+     * Stores the current transform data used for the readable `transform` store. It is only active when there are
+     * subscribers to the store or calculateTransform options is true.
+     *
+     * @type {TransformData}
+     */
+
+    this.transformData = new TransformData();
+    /**
+     * @type {(function(PositionData): void)[]}
+     */
+
+    this.subscriptions = void 0;
+    /**
+     * @type {Writable<{width: (number|"auto"), height: (number|"auto")}>}
+     */
+
+    this.storeDimension = writable(this.dimensionData); // When there are subscribers set option to calculate transform updates; set to false when no subscribers.
+
+    /**
+     * @type {Writable<TransformData>}
+     */
+
+    this.storeTransform = writable(this.transformData, () => {
+      this.options.transformSubscribed = true;
+      return () => this.options.transformSubscribed = false;
+    });
+    /**
+     * Stores the queued state for update element processing.
+     *
+     * @type {boolean}
+     */
+
+    this.queued = false; // Seal data backing readable stores.
+
+    Object.seal(this.dimensionData);
+  }
+
+}
+
+const _excluded$1 = ["name"],
+      _excluded2 = ["left", "top", "maxWidth", "maxHeight", "minWidth", "minHeight", "width", "height", "rotateX", "rotateY", "rotateZ", "scale", "transformOrigin", "translateX", "translateY", "translateZ", "zIndex"];
+/**
+ * Provides a store for position following the subscriber protocol in addition to providing individual writable derived
+ * stores for each independent variable.
+ */
+
+var _data$1 = /*#__PURE__*/new WeakMap();
+
+var _currentAnimationKeys = /*#__PURE__*/new WeakMap();
+
+var _dataSaved$1 = /*#__PURE__*/new WeakMap();
+
+var _defaultData = /*#__PURE__*/new WeakMap();
+
+var _positionChangeSet = /*#__PURE__*/new WeakMap();
+
+var _options = /*#__PURE__*/new WeakMap();
+
+var _parent = /*#__PURE__*/new WeakMap();
+
+var _stores$1 = /*#__PURE__*/new WeakMap();
+
+var _styleCache = /*#__PURE__*/new WeakMap();
+
+var _subscriptions = /*#__PURE__*/new WeakMap();
+
+var _transforms = /*#__PURE__*/new WeakMap();
+
+var _updateElementData = /*#__PURE__*/new WeakMap();
+
+var _updateElementPromise = /*#__PURE__*/new WeakMap();
+
+var _validators = /*#__PURE__*/new WeakMap();
+
+var _validatorData = /*#__PURE__*/new WeakMap();
+
+var _updatePosition = /*#__PURE__*/new WeakSet();
+
+class Position {
+  /**
+   * @type {PositionData}
+   */
+
+  /**
+   * Stores current animation keys.
+   *
+   * @type {Set<string>}
+   */
+
+  /**
+   * @type {Map<string, PositionData>}
+   */
+
+  /**
+   * @type {PositionData}
+   */
+
+  /**
+   * Stores the style attributes that changed on update.
+   *
+   * @type {PositionChangeSet}
+   */
+
+  /**
+   * Stores ongoing options that are set in the constructor or by transform store subscription.
+   *
+   * @type {PositionOptions}
+   */
+
+  /**
+   * The associated parent for positional data tracking. Used in validators.
+   *
+   * @type {PositionParent}
+   */
+
+  /**
+   * @type {StorePosition}
+   */
+
+  /**
+   * Stores an instance of the computer styles for the target element.
+   *
+   * @type {StyleCache}
+   */
+
+  /**
+   * Stores the subscribers.
+   *
+   * @type {(function(PositionData): void)[]}
+   */
+
+  /**
+   * @type {Transforms}
+   */
+
+  /**
+   * @type {UpdateElementData}
+   */
+
+  /**
+   * Stores the UpdateElementManager wait promise.
+   *
+   * @type {Promise}
+   */
+
+  /**
+   * @type {AdapterValidators}
+   */
+
+  /**
+   * @type {ValidatorData[]}
+   */
+
+  /**
+   * @returns {{browserCentered?: Centered, Centered?: *}} Initial position helpers.
+   */
+  static get Initial() {
+    return positionInitial;
+  }
+  /**
+   * Returns TransformData class / constructor.
+   *
+   * @returns {TransformData} TransformData class / constructor.
+   */
+
+
+  static get TransformData() {
+    return TransformData;
+  }
+  /**
+   * Returns default validators.
+   *
+   * Note: `basicWindow` and `BasicBounds` will eventually be removed.
+   *
+   * @returns {{basicWindow?: BasicBounds, transformWindow?: TransformBounds, TransformBounds?: *, BasicBounds?: *}}
+   *  Available validators.
+   */
+
+
+  static get Validators() {
+    return positionValidators;
+  }
+  /**
+   * @param {PositionParent} parent - The associated parent for positional data tracking. Used in validators.
+   *
+   * @param {object}         options - Default values.
+   */
+
+
+  constructor(_parent2, options = {}) {
+    _classPrivateMethodInitSpec(this, _updatePosition);
+
+    _classPrivateFieldInitSpec(this, _data$1, {
+      writable: true,
+      value: new PositionData()
+    });
+
+    _classPrivateFieldInitSpec(this, _currentAnimationKeys, {
+      writable: true,
+      value: new Set()
+    });
+
+    _classPrivateFieldInitSpec(this, _dataSaved$1, {
+      writable: true,
+      value: new Map()
+    });
+
+    _classPrivateFieldInitSpec(this, _defaultData, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _positionChangeSet, {
+      writable: true,
+      value: new PositionChangeSet()
+    });
+
+    _classPrivateFieldInitSpec(this, _options, {
+      writable: true,
+      value: {
+        calculateTransform: false,
+        initialHelper: void 0,
+        ortho: false,
+        transformSubscribed: false
+      }
+    });
+
+    _classPrivateFieldInitSpec(this, _parent, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _stores$1, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _styleCache, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _subscriptions, {
+      writable: true,
+      value: []
+    });
+
+    _classPrivateFieldInitSpec(this, _transforms, {
+      writable: true,
+      value: new Transforms()
+    });
+
+    _classPrivateFieldInitSpec(this, _updateElementData, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _updateElementPromise, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _validators, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _validatorData, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _parent, _parent2);
+
+    const data = _classPrivateFieldGet(this, _data$1);
+
+    const transforms = _classPrivateFieldGet(this, _transforms);
+
+    _classPrivateFieldSet(this, _styleCache, new StyleCache());
+
+    const updateData = new UpdateElementData();
+    updateData.changeSet = _classPrivateFieldGet(this, _positionChangeSet);
+    updateData.data = _classPrivateFieldGet(this, _data$1);
+    updateData.options = _classPrivateFieldGet(this, _options);
+    updateData.styleCache = _classPrivateFieldGet(this, _styleCache);
+    updateData.subscriptions = _classPrivateFieldGet(this, _subscriptions);
+    updateData.transforms = _classPrivateFieldGet(this, _transforms);
+
+    _classPrivateFieldSet(this, _updateElementData, updateData);
+
+    if (typeof options === 'object') {
+      // Set Position options
+      if (typeof options.calculateTransform === 'boolean') {
+        _classPrivateFieldGet(this, _options).calculateTransform = options.calculateTransform;
+      }
+
+      if (typeof options.ortho === 'boolean') {
+        _classPrivateFieldGet(this, _options).ortho = options.ortho;
+      } // Set default values from options.
+
+
+      if (Number.isFinite(options.height) || options.height === 'auto' || options.height === null) {
+        data.height = updateData.dimensionData.height = typeof options.height === 'number' ? Math.round(options.height) : options.height;
+      }
+
+      if (Number.isFinite(options.left) || options.left === null) {
+        data.left = typeof options.left === 'number' ? Math.round(options.left) : options.left;
+      }
+
+      if (Number.isFinite(options.maxHeight) || options.maxHeight === null) {
+        data.maxHeight = typeof options.maxHeight === 'number' ? Math.round(options.maxHeight) : options.maxHeight;
+      }
+
+      if (Number.isFinite(options.maxWidth) || options.maxWidth === null) {
+        data.maxWidth = typeof options.maxWidth === 'number' ? Math.round(options.maxWidth) : options.maxWidth;
+      }
+
+      if (Number.isFinite(options.minHeight) || options.minHeight === null) {
+        data.minHeight = typeof options.minHeight === 'number' ? Math.round(options.minHeight) : options.minHeight;
+      }
+
+      if (Number.isFinite(options.minWidth) || options.minWidth === null) {
+        data.minWidth = typeof options.minWidth === 'number' ? Math.round(options.minWidth) : options.minWidth;
+      }
+
+      if (Number.isFinite(options.rotateX) || options.rotateX === null) {
+        transforms.rotateX = data.rotateX = options.rotateX;
+      }
+
+      if (Number.isFinite(options.rotateY) || options.rotateY === null) {
+        transforms.rotateY = data.rotateY = options.rotateY;
+      }
+
+      if (Number.isFinite(options.rotateZ) || options.rotateZ === null) {
+        transforms.rotateZ = data.rotateZ = options.rotateZ;
+      }
+
+      if (Number.isFinite(options.scale) || options.scale === null) {
+        transforms.scale = data.scale = options.scale;
+      }
+
+      if (Number.isFinite(options.top) || options.top === null) {
+        data.top = typeof options.top === 'number' ? Math.round(options.top) : options.top;
+      }
+
+      if (typeof options.transformOrigin === 'string' || options.transformOrigin === null) {
+        data.transformOrigin = transformOrigins.includes(options.transformOrigin) ? options.transformOrigin : null;
+      }
+
+      if (Number.isFinite(options.translateX) || options.translateX === null) {
+        transforms.translateX = data.translateX = options.translateX;
+      }
+
+      if (Number.isFinite(options.translateY) || options.translateY === null) {
+        transforms.translateY = data.translateY = options.translateY;
+      }
+
+      if (Number.isFinite(options.translateZ) || options.translateZ === null) {
+        transforms.translateZ = data.translateZ = options.translateZ;
+      }
+
+      if (Number.isFinite(options.width) || options.width === 'auto' || options.width === null) {
+        data.width = updateData.dimensionData.width = typeof options.width === 'number' ? Math.round(options.width) : options.width;
+      }
+
+      if (Number.isFinite(options.zIndex) || options.zIndex === null) {
+        data.zIndex = typeof options.zIndex === 'number' ? Math.round(options.zIndex) : options.zIndex;
+      }
+    }
+
+    _classPrivateFieldSet(this, _stores$1, {
+      // The main properties for manipulating Position.
+      height: propertyStore(this, 'height'),
+      left: propertyStore(this, 'left'),
+      rotateX: propertyStore(this, 'rotateX'),
+      rotateY: propertyStore(this, 'rotateY'),
+      rotateZ: propertyStore(this, 'rotateZ'),
+      scale: propertyStore(this, 'scale'),
+      top: propertyStore(this, 'top'),
+      transformOrigin: propertyStore(this, 'transformOrigin'),
+      translateX: propertyStore(this, 'translateX'),
+      translateY: propertyStore(this, 'translateY'),
+      translateZ: propertyStore(this, 'translateZ'),
+      width: propertyStore(this, 'width'),
+      zIndex: propertyStore(this, 'zIndex'),
+      // Stores that control validation when width / height is not `auto`.
+      maxHeight: propertyStore(this, 'maxHeight'),
+      maxWidth: propertyStore(this, 'maxWidth'),
+      minHeight: propertyStore(this, 'minHeight'),
+      minWidth: propertyStore(this, 'minWidth'),
+      // Readable stores based on updates or from resize observer changes.
+      dimension: {
+        subscribe: updateData.storeDimension.subscribe
+      },
+      element: {
+        subscribe: _classPrivateFieldGet(this, _styleCache).stores.element.subscribe
+      },
+      resizeContentHeight: {
+        subscribe: _classPrivateFieldGet(this, _styleCache).stores.resizeContentHeight.subscribe
+      },
+      resizeContentWidth: {
+        subscribe: _classPrivateFieldGet(this, _styleCache).stores.resizeContentWidth.subscribe
+      },
+      resizeOffsetHeight: {
+        subscribe: _classPrivateFieldGet(this, _styleCache).stores.resizeOffsetHeight.subscribe
+      },
+      resizeOffsetWidth: {
+        subscribe: _classPrivateFieldGet(this, _styleCache).stores.resizeOffsetWidth.subscribe
+      },
+      transform: {
+        subscribe: updateData.storeTransform.subscribe
+      },
+      // Protected store that should only be set by resizeObserver action.
+      resizeObserved: _classPrivateFieldGet(this, _styleCache).stores.resizeObserved
+    }); // When resize change from any applied resizeObserver action automatically set data for new validation run.
+    // A resizeObserver prop should be set to true for ApplicationShell components or usage of resizeObserver action
+    // to monitor for changes. This should only be used on elements that have 'auto' for width or height.
+
+
+    subscribeIgnoreFirst(_classPrivateFieldGet(this, _stores$1).resizeObserved, resizeData => {
+      const parent = _classPrivateFieldGet(this, _parent);
+
+      const el = parent instanceof HTMLElement ? parent : parent === null || parent === void 0 ? void 0 : parent.elementTarget; // Only invoke set if there is a target element and the resize data has a valid offset width & height.
+
+      if (el instanceof HTMLElement && Number.isFinite(resizeData === null || resizeData === void 0 ? void 0 : resizeData.offsetWidth) && Number.isFinite(resizeData === null || resizeData === void 0 ? void 0 : resizeData.offsetHeight)) {
+        this.set(data);
+      }
+    });
+    _classPrivateFieldGet(this, _stores$1).transformOrigin.values = transformOrigins;
+    Object.freeze(_classPrivateFieldGet(this, _stores$1));
+    [_classPrivateFieldDestructureSet(this, _validators).value, _classPrivateFieldDestructureSet(this, _validatorData).value] = new AdapterValidators();
+
+    if (options !== null && options !== void 0 && options.initial || options !== null && options !== void 0 && options.positionInitial) {
+      var _options$initial;
+
+      const initialHelper = (_options$initial = options.initial) !== null && _options$initial !== void 0 ? _options$initial : options.positionInitial;
+
+      if (typeof (initialHelper === null || initialHelper === void 0 ? void 0 : initialHelper.getLeft) !== 'function' || typeof (initialHelper === null || initialHelper === void 0 ? void 0 : initialHelper.getTop) !== 'function') {
+        throw new Error(`'options.initial' position helper does not contain 'getLeft' and / or 'getTop' functions.`);
+      }
+
+      _classPrivateFieldGet(this, _options).initialHelper = options.initial;
+    }
+
+    if (options !== null && options !== void 0 && options.validator) {
+      if (isIterable(options === null || options === void 0 ? void 0 : options.validator)) {
+        this.validators.add(...options.validator);
+      } else {
+        this.validators.add(options.validator);
+      }
+    }
+  }
+  /**
+   * Returns the dimension data for the readable store.
+   *
+   * @returns {{width: number | 'auto', height: number | 'auto'}} Dimension data.
+   */
+
+
+  get dimension() {
+    return _classPrivateFieldGet(this, _updateElementData).dimensionData;
+  }
+  /**
+   * Returns the current HTMLElement being positioned.
+   *
+   * @returns {HTMLElement|undefined} Current HTMLElement being positioned.
+   */
+
+
+  get element() {
+    return _classPrivateFieldGet(this, _styleCache).el;
+  }
+  /**
+   * Returns a promise that is resolved on the next element update with the time of the update.
+   *
+   * @returns {Promise<number>} Promise resolved on element update.
+   */
+
+
+  get elementUpdated() {
+    return _classPrivateFieldGet(this, _updateElementPromise);
+  }
+  /**
+   * Returns the associated {@link PositionParent} instance.
+   *
+   * @returns {PositionParent} The PositionParent instance.
+   */
+
+
+  get parent() {
+    return _classPrivateFieldGet(this, _parent);
+  }
+  /**
+   * Returns the derived writable stores for individual data variables.
+   *
+   * @returns {StorePosition} Derived / writable stores.
+   */
+
+
+  get stores() {
+    return _classPrivateFieldGet(this, _stores$1);
+  }
+  /**
+   * Returns the transform data for the readable store.
+   *
+   * @returns {TransformData} Transform Data.
+   */
+
+
+  get transform() {
+    return _classPrivateFieldGet(this, _updateElementData).transformData;
+  }
+  /**
+   * Returns the validators.
+   *
+   * @returns {AdapterValidators} validators.
+   */
+
+
+  get validators() {
+    return _classPrivateFieldGet(this, _validators);
+  }
+  /**
+   * Sets the associated {@link PositionParent} instance. Resets the style cache and default data.
+   *
+   * @param {PositionParent} parent - A PositionParent instance.
+   */
+
+
+  set parent(parent) {
+    _classPrivateFieldSet(this, _parent, parent); // Reset any stored default data & the style cache.
+
+
+    _classPrivateFieldSet(this, _defaultData, void 0);
+
+    _classPrivateFieldGet(this, _styleCache).reset();
+
+    this.set(_classPrivateFieldGet(this, _data$1));
+  } // Data accessors ----------------------------------------------------------------------------------------------------
+
+  /**
+   * @returns {number|'auto'|null} height
+   */
+
+
+  get height() {
+    return _classPrivateFieldGet(this, _data$1).height;
+  }
+  /**
+   * @returns {number|null} left
+   */
+
+
+  get left() {
+    return _classPrivateFieldGet(this, _data$1).left;
+  }
+  /**
+   * @returns {number|null} maxHeight
+   */
+
+
+  get maxHeight() {
+    return _classPrivateFieldGet(this, _data$1).maxHeight;
+  }
+  /**
+   * @returns {number|null} maxWidth
+   */
+
+
+  get maxWidth() {
+    return _classPrivateFieldGet(this, _data$1).maxWidth;
+  }
+  /**
+   * @returns {number|null} minHeight
+   */
+
+
+  get minHeight() {
+    return _classPrivateFieldGet(this, _data$1).minHeight;
+  }
+  /**
+   * @returns {number|null} minWidth
+   */
+
+
+  get minWidth() {
+    return _classPrivateFieldGet(this, _data$1).minWidth;
+  }
+  /**
+   * @returns {number|null} rotateX
+   */
+
+
+  get rotateX() {
+    return _classPrivateFieldGet(this, _data$1).rotateX;
+  }
+  /**
+   * @returns {number|null} rotateY
+   */
+
+
+  get rotateY() {
+    return _classPrivateFieldGet(this, _data$1).rotateY;
+  }
+  /**
+   * @returns {number|null} rotateZ
+   */
+
+
+  get rotateZ() {
+    return _classPrivateFieldGet(this, _data$1).rotateZ;
+  }
+  /**
+   * @returns {number|null} scale
+   */
+
+
+  get scale() {
+    return _classPrivateFieldGet(this, _data$1).scale;
+  }
+  /**
+   * @returns {number|null} top
+   */
+
+
+  get top() {
+    return _classPrivateFieldGet(this, _data$1).top;
+  }
+  /**
+   * @returns {string} transformOrigin
+   */
+
+
+  get transformOrigin() {
+    return _classPrivateFieldGet(this, _data$1).transformOrigin;
+  }
+  /**
+   * @returns {number|null} translateX
+   */
+
+
+  get translateX() {
+    return _classPrivateFieldGet(this, _data$1).translateX;
+  }
+  /**
+   * @returns {number|null} translateY
+   */
+
+
+  get translateY() {
+    return _classPrivateFieldGet(this, _data$1).translateY;
+  }
+  /**
+   * @returns {number|null} translateZ
+   */
+
+
+  get translateZ() {
+    return _classPrivateFieldGet(this, _data$1).translateZ;
+  }
+  /**
+   * @returns {number|'auto'|null} width
+   */
+
+
+  get width() {
+    return _classPrivateFieldGet(this, _data$1).width;
+  }
+  /**
+   * @returns {number|null} z-index
+   */
+
+
+  get zIndex() {
+    return _classPrivateFieldGet(this, _data$1).zIndex;
+  }
+  /**
+   * @param {number|'auto'|null} height -
+   */
+
+
+  set height(height) {
+    _classPrivateFieldGet(this, _stores$1).height.set(height);
+  }
+  /**
+   * @param {number|null} left -
+   */
+
+
+  set left(left) {
+    _classPrivateFieldGet(this, _stores$1).left.set(left);
+  }
+  /**
+   * @param {number|null} maxHeight -
+   */
+
+
+  set maxHeight(maxHeight) {
+    _classPrivateFieldGet(this, _stores$1).maxHeight.set(maxHeight);
+  }
+  /**
+   * @param {number|null} maxWidth -
+   */
+
+
+  set maxWidth(maxWidth) {
+    _classPrivateFieldGet(this, _stores$1).maxWidth.set(maxWidth);
+  }
+  /**
+   * @param {number|null} minHeight -
+   */
+
+
+  set minHeight(minHeight) {
+    _classPrivateFieldGet(this, _stores$1).minHeight.set(minHeight);
+  }
+  /**
+   * @param {number|null} minWidth -
+   */
+
+
+  set minWidth(minWidth) {
+    _classPrivateFieldGet(this, _stores$1).minWidth.set(minWidth);
+  }
+  /**
+   * @param {number|null} rotateX -
+   */
+
+
+  set rotateX(rotateX) {
+    _classPrivateFieldGet(this, _stores$1).rotateX.set(rotateX);
+  }
+  /**
+   * @param {number|null} rotateY -
+   */
+
+
+  set rotateY(rotateY) {
+    _classPrivateFieldGet(this, _stores$1).rotateY.set(rotateY);
+  }
+  /**
+   * @param {number|null} rotateZ -
+   */
+
+
+  set rotateZ(rotateZ) {
+    _classPrivateFieldGet(this, _stores$1).rotateZ.set(rotateZ);
+  }
+  /**
+   * @param {number|null} scale -
+   */
+
+
+  set scale(scale) {
+    _classPrivateFieldGet(this, _stores$1).scale.set(scale);
+  }
+  /**
+   * @param {number|null} top -
+   */
+
+
+  set top(top) {
+    _classPrivateFieldGet(this, _stores$1).top.set(top);
+  }
+  /**
+   * @param {string} transformOrigin -
+   */
+
+
+  set transformOrigin(transformOrigin) {
+    if (transformOrigins.includes(transformOrigin)) {
+      _classPrivateFieldGet(this, _stores$1).transformOrigin.set(transformOrigin);
+    }
+  }
+  /**
+   * @param {number|null} translateX -
+   */
+
+
+  set translateX(translateX) {
+    _classPrivateFieldGet(this, _stores$1).translateX.set(translateX);
+  }
+  /**
+   * @param {number|null} translateY -
+   */
+
+
+  set translateY(translateY) {
+    _classPrivateFieldGet(this, _stores$1).translateY.set(translateY);
+  }
+  /**
+   * @param {number|null} translateZ -
+   */
+
+
+  set translateZ(translateZ) {
+    _classPrivateFieldGet(this, _stores$1).translateZ.set(translateZ);
+  }
+  /**
+   * @param {number|'auto'|null} width -
+   */
+
+
+  set width(width) {
+    _classPrivateFieldGet(this, _stores$1).width.set(width);
+  }
+  /**
+   * @param {number|null} zIndex -
+   */
+
+
+  set zIndex(zIndex) {
+    _classPrivateFieldGet(this, _stores$1).zIndex.set(zIndex);
+  }
+  /**
+   * Provides animation
+   *
+   * @param {PositionData}   position - The destination position.
+   *
+   * @param {object}         [opts] - Optional parameters.
+   *
+   * @param {number}         [opts.duration] - Duration in milliseconds.
+   *
+   * @param {Function}       [opts.easing=linear] - Easing function.
+   *
+   * @param {Function}       [opts.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {Promise<void>} Promise that is resolved when animation completes.
+   */
+
+
+  async animateTo(position, {
+    duration = 1000,
+    easing = identity,
+    interpolate = lerp$5
+  } = {}) {
+    var _parent$options, _parent$options2;
+
+    if (typeof position !== 'object') {
+      throw new TypeError(`Position - animateTo error: 'position' is not an object.`);
+    } // Early out if the application is not positionable.
+
+
+    const parent = _classPrivateFieldGet(this, _parent);
+
+    if (parent !== void 0 && typeof (parent === null || parent === void 0 ? void 0 : (_parent$options = parent.options) === null || _parent$options === void 0 ? void 0 : _parent$options.positionable) === 'boolean' && !(parent !== null && parent !== void 0 && (_parent$options2 = parent.options) !== null && _parent$options2 !== void 0 && _parent$options2.positionable)) {
+      return;
+    }
+
+    const targetEl = parent instanceof HTMLElement ? parent : parent === null || parent === void 0 ? void 0 : parent.elementTarget;
+    const el = targetEl instanceof HTMLElement && targetEl.isConnected ? targetEl : void 0;
+
+    if (!el) {
+      return;
+    }
+
+    if (!Number.isInteger(duration) || duration < 0) {
+      throw new TypeError(`Position - animateTo error: 'duration' is not a positive integer.`);
+    }
+
+    if (typeof easing !== 'function') {
+      throw new TypeError(`Position - animateTo error: 'easing' is not a function.`);
+    }
+
+    if (typeof interpolate !== 'function') {
+      throw new TypeError(`Position - animateTo error: 'interpolate' is not a function.`);
+    }
+
+    const data = _classPrivateFieldGet(this, _data$1);
+
+    const currentAnimationKeys = _classPrivateFieldGet(this, _currentAnimationKeys);
+
+    const initial = {};
+    const destination = {}; // Set initial data if the key / data is defined and the end position is not equal to current data.
+
+    for (const key in position) {
+      if (data[key] !== void 0 && position[key] !== data[key]) {
+        destination[key] = position[key];
+        initial[key] = data[key];
+      }
+    } // Set initial data for transform values that are often null by default.
+
+
+    if (initial.rotateX === null) {
+      initial.rotateX = 0;
+    }
+
+    if (initial.rotateY === null) {
+      initial.rotateY = 0;
+    }
+
+    if (initial.rotateZ === null) {
+      initial.rotateZ = 0;
+    }
+
+    if (initial.translateX === null) {
+      initial.translateX = 0;
+    }
+
+    if (initial.translateY === null) {
+      initial.translateY = 0;
+    }
+
+    if (initial.translateZ === null) {
+      initial.translateZ = 0;
+    }
+
+    if (initial.scale === null) {
+      initial.scale = 1;
+    }
+
+    if (destination.rotateX === null) {
+      destination.rotateX = 0;
+    }
+
+    if (destination.rotateY === null) {
+      destination.rotateY = 0;
+    }
+
+    if (destination.rotateZ === null) {
+      destination.rotateZ = 0;
+    }
+
+    if (destination.translateX === null) {
+      destination.translateX = 0;
+    }
+
+    if (destination.translateY === null) {
+      destination.translateY = 0;
+    }
+
+    if (destination.translateZ === null) {
+      destination.translateZ = 0;
+    }
+
+    if (destination.scale === null) {
+      destination.scale = 1;
+    } // Reject all initial data that is not a number or is current animating.
+    // Add all keys that pass to `currentAnimationKeys`.
+
+
+    for (const key in initial) {
+      if (!Number.isFinite(initial[key]) || currentAnimationKeys.has(key)) {
+        delete initial[key];
+      } else {
+        currentAnimationKeys.add(key);
+      }
+    }
+
+    const newData = Object.assign({}, initial);
+    const keys = Object.keys(newData); // Nothing to animate, so return now.
+
+    if (keys.length === 0) {
+      return;
+    }
+
+    const animationData = {
+      current: 0,
+      currentAnimationKeys,
+      destination,
+      duration,
+      easing,
+      el,
+      initial,
+      interpolate,
+      keys,
+      newData,
+      position: this
+    };
+    const promise = new Promise(resolve => animationData.resolve = resolve);
+    AnimationManager.add(animationData); // Schedule w/ animation manager.
+
+    return promise;
+  }
+  /**
+   * Assigns current position to object passed into method.
+   *
+   * @param {object|PositionData} [position] - Target to assign current position data.
+   *
+   * @returns {PositionData} Passed in object with current position data.
+   */
+
+
+  get(position = {}) {
+    return Object.assign(position, _classPrivateFieldGet(this, _data$1));
+  }
+  /**
+   * Returns any stored save state by name.
+   *
+   * @param {string}   name - Saved data set name.
+   *
+   * @returns {PositionData} The saved data set.
+   */
+
+
+  getSave({
+    name
+  }) {
+    if (typeof name !== 'string') {
+      throw new TypeError(`Position - getSave error: 'name' is not a string.`);
+    }
+
+    return _classPrivateFieldGet(this, _dataSaved$1).get(name);
+  }
+  /**
+   * @returns {PositionData} Current position data.
+   */
+
+
+  toJSON() {
+    return Object.assign({}, _classPrivateFieldGet(this, _data$1));
+  }
+  /**
+   * Resets data to default values and invokes set. Check options, but by default current z-index is maintained.
+   *
+   * @param {object}   [opts] - Optional parameters.
+   *
+   * @param {boolean}  [opts.keepZIndex=false] - When true keeps current z-index.
+   *
+   * @param {boolean}  [opts.invokeSet=true] - When true invokes set method.
+   *
+   * @returns {boolean} Operation successful.
+   */
+
+
+  reset({
+    keepZIndex = false,
+    invokeSet = true
+  } = {}) {
+    var _classPrivateFieldGet2, _classPrivateFieldGet3;
+
+    if (typeof _classPrivateFieldGet(this, _defaultData) !== 'object') {
+      return false;
+    }
+
+    if (_classPrivateFieldGet(this, _currentAnimationKeys).size) {
+      return false;
+    }
+
+    const zIndex = _classPrivateFieldGet(this, _data$1).zIndex;
+
+    const data = Object.assign({}, _classPrivateFieldGet(this, _defaultData));
+
+    if (keepZIndex) {
+      data.zIndex = zIndex;
+    } // Remove any keys that are currently animating.
+
+
+    for (const key of _classPrivateFieldGet(this, _currentAnimationKeys)) {
+      delete data[key];
+    } // Reset the transform data.
+
+
+    _classPrivateFieldGet(this, _transforms).reset(data); // If current minimized invoke `maximize`.
+
+
+    if ((_classPrivateFieldGet2 = _classPrivateFieldGet(this, _parent)) !== null && _classPrivateFieldGet2 !== void 0 && (_classPrivateFieldGet3 = _classPrivateFieldGet2.reactive) !== null && _classPrivateFieldGet3 !== void 0 && _classPrivateFieldGet3.minimized) {
+      var _classPrivateFieldGet4, _classPrivateFieldGet5;
+
+      (_classPrivateFieldGet4 = _classPrivateFieldGet(this, _parent)) === null || _classPrivateFieldGet4 === void 0 ? void 0 : (_classPrivateFieldGet5 = _classPrivateFieldGet4.maximize) === null || _classPrivateFieldGet5 === void 0 ? void 0 : _classPrivateFieldGet5.call(_classPrivateFieldGet4, {
+        animate: false,
+        duration: 0
+      });
+    }
+
+    if (invokeSet) {
+      this.set(data);
+    }
+
+    return true;
+  }
+  /**
+   * Removes and returns any position state by name.
+   *
+   * @param {object}   options - Options.
+   *
+   * @param {string}   options.name - Name to remove and retrieve.
+   *
+   * @returns {PositionData} Saved position data.
+   */
+
+
+  remove({
+    name
+  }) {
+    if (typeof name !== 'string') {
+      throw new TypeError(`Position - remove: 'name' is not a string.`);
+    }
+
+    const data = _classPrivateFieldGet(this, _dataSaved$1).get(name);
+
+    _classPrivateFieldGet(this, _dataSaved$1).delete(name);
+
+    return data;
+  }
+  /**
+   * Restores a saved positional state returning the data. Several optional parameters are available
+   * to control whether the restore action occurs silently (no store / inline styles updates), animates
+   * to the stored data, or simply sets the stored data. Restoring via {@link Position.animateTo} allows
+   * specification of the duration, easing, and interpolate functions along with configuring a Promise to be
+   * returned if awaiting the end of the animation.
+   *
+   * @param {object}            params - Parameters
+   *
+   * @param {string}            params.name - Saved data set name.
+   *
+   * @param {boolean}           [params.remove=false] - Remove data set.
+   *
+   * @param {Iterable<string>}  [params.properties] - Specific properties to set / animate.
+   *
+   * @param {boolean}           [params.silent] - Set position data directly; no store or style updates.
+   *
+   * @param {boolean}           [params.async=false] - If animating return a Promise that resolves with any saved data.
+   *
+   * @param {boolean}           [params.animateTo=false] - Animate to restore data.
+   *
+   * @param {number}            [params.duration=100] - Duration in milliseconds.
+   *
+   * @param {Function}          [params.easing=linear] - Easing function.
+   *
+   * @param {Function}          [params.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {PositionData} Saved position data.
+   */
+
+
+  restore({
+    name,
+    remove = false,
+    properties,
+    silent = false,
+    async = false,
+    animateTo = false,
+    duration = 100,
+    easing = identity,
+    interpolate = lerp$5
+  }) {
+    if (typeof name !== 'string') {
+      throw new TypeError(`Position - restore error: 'name' is not a string.`);
+    }
+
+    const dataSaved = _classPrivateFieldGet(this, _dataSaved$1).get(name);
+
+    if (dataSaved) {
+      if (remove) {
+        _classPrivateFieldGet(this, _dataSaved$1).delete(name);
+      }
+
+      let data = dataSaved;
+
+      if (isIterable(properties)) {
+        data = {};
+
+        for (const property of properties) {
+          data[property] = dataSaved[property];
+        }
+      } // Update data directly with no store or inline style updates.
+
+
+      if (silent) {
+        for (const property in data) {
+          _classPrivateFieldGet(this, _data$1)[property] = data[property];
+        }
+
+        return dataSaved;
+      } else if (animateTo) // Animate to saved data.
+        {
+          // Provide special handling to potentially change transform origin as this parameter is not animated.
+          if (data.transformOrigin !== this.transformOrigin) {
+            this.transformOrigin = data.transformOrigin;
+          } // Return a Promise with saved data that resolves after animation ends.
+
+
+          if (async) {
+            return this.animateTo(data, {
+              duration,
+              easing,
+              interpolate
+            }).then(() => dataSaved);
+          } else // Animate synchronously.
+            {
+              this.animateTo(data, {
+                duration,
+                easing,
+                interpolate
+              });
+            }
+        } else {
+        // Default options is to set data for an immediate update.
+        this.set(data);
+      }
+    }
+
+    return dataSaved;
+  }
+  /**
+   * Saves current position state with the opportunity to add extra data to the saved state.
+   *
+   * @param {object}   options - Options.
+   *
+   * @param {string}   options.name - name to index this saved data.
+   *
+   * @param {...*}     [options.extra] - Extra data to add to saved data.
+   *
+   * @returns {PositionData} Current position data
+   */
+
+
+  save(_ref) {
+    let {
+      name
+    } = _ref,
+        extra = _objectWithoutProperties(_ref, _excluded$1);
+
+    if (typeof name !== 'string') {
+      throw new TypeError(`Position - save error: 'name' is not a string.`);
+    }
+
+    const data = this.get(extra);
+
+    _classPrivateFieldGet(this, _dataSaved$1).set(name, data);
+
+    return data;
+  }
+  /**
+   * All calculation and updates of position are implemented in {@link Position}. This allows position to be fully
+   * reactive and in control of updating inline styles for the application.
+   *
+   * Note: the logic for updating position is improved and changes a few aspects from the default
+   * {@link Application.setPosition}. The gate on `popOut` is removed, so to ensure no positional application occurs
+   * popOut applications can set `this.options.positionable` to false ensuring no positional inline styles are
+   * applied.
+   *
+   * The initial set call on an application with a target element will always set width / height as this is
+   * necessary for correct calculations.
+   *
+   * When a target element is present updated styles are applied after validation. To modify the behavior of set
+   * implement one or more validator functions and add them from the application via
+   * `this.position.validators.add(<Function>)`.
+   *
+   * Updates to any target element are decoupled from the underlying Position data. This method returns this instance
+   * that you can then await on the target element inline style update by using {@link Position.elementUpdated}.
+   *
+   * @param {PositionData}   [position] - Position data to set.
+   *
+   * @returns {Position} This Position instance.
+   */
+
+
+  set(position = {}) {
+    var _parent$options3, _parent$options4;
+
+    if (typeof position !== 'object') {
+      throw new TypeError(`Position - set error: 'position' is not an object.`);
+    }
+
+    const parent = _classPrivateFieldGet(this, _parent); // An early out to prevent `set` from taking effect if options `positionable` is false.
+
+
+    if (parent !== void 0 && typeof (parent === null || parent === void 0 ? void 0 : (_parent$options3 = parent.options) === null || _parent$options3 === void 0 ? void 0 : _parent$options3.positionable) === 'boolean' && !(parent !== null && parent !== void 0 && (_parent$options4 = parent.options) !== null && _parent$options4 !== void 0 && _parent$options4.positionable)) {
+      return this;
+    }
+
+    const data = _classPrivateFieldGet(this, _data$1);
+
+    const transforms = _classPrivateFieldGet(this, _transforms); // Find the target HTML element and verify that it is connected storing it in `el`.
+
+
+    const targetEl = parent instanceof HTMLElement ? parent : parent === null || parent === void 0 ? void 0 : parent.elementTarget;
+    const el = targetEl instanceof HTMLElement && targetEl.isConnected ? targetEl : void 0;
+
+    const changeSet = _classPrivateFieldGet(this, _positionChangeSet);
+
+    const styleCache = _classPrivateFieldGet(this, _styleCache);
+
+    if (el) {
+      // Cache the computed styles of the element.
+      if (!styleCache.hasData(el)) {
+        styleCache.update(el); // Add will-change property if not already set in inline or computed styles.
+
+        if (!styleCache.hasWillChange) {
+          el.style.willChange = _classPrivateFieldGet(this, _options).ortho ? 'transform' : 'top, left, transform';
+        } // Update all properties / clear queued state.
+
+
+        changeSet.set(true);
+        _classPrivateFieldGet(this, _updateElementData).queued = false;
+      }
+
+      position = _classPrivateMethodGet(this, _updatePosition, _updatePosition2).call(this, position, parent, el, styleCache); // Check if a validator cancelled the update.
+
+      if (position === null) {
+        return this;
+      }
+    }
+
+    if (Number.isFinite(position.left)) {
+      position.left = Math.round(position.left);
+
+      if (data.left !== position.left) {
+        data.left = position.left;
+        changeSet.left = true;
+      }
+    }
+
+    if (Number.isFinite(position.top)) {
+      position.top = Math.round(position.top);
+
+      if (data.top !== position.top) {
+        data.top = position.top;
+        changeSet.top = true;
+      }
+    }
+
+    if (Number.isFinite(position.maxHeight) || position.maxHeight === null) {
+      position.maxHeight = typeof position.maxHeight === 'number' ? Math.round(position.maxHeight) : null;
+
+      if (data.maxHeight !== position.maxHeight) {
+        data.maxHeight = position.maxHeight;
+        changeSet.maxHeight = true;
+      }
+    }
+
+    if (Number.isFinite(position.maxWidth) || position.maxWidth === null) {
+      position.maxWidth = typeof position.maxWidth === 'number' ? Math.round(position.maxWidth) : null;
+
+      if (data.maxWidth !== position.maxWidth) {
+        data.maxWidth = position.maxWidth;
+        changeSet.maxWidth = true;
+      }
+    }
+
+    if (Number.isFinite(position.minHeight) || position.minHeight === null) {
+      position.minHeight = typeof position.minHeight === 'number' ? Math.round(position.minHeight) : null;
+
+      if (data.minHeight !== position.minHeight) {
+        data.minHeight = position.minHeight;
+        changeSet.minHeight = true;
+      }
+    }
+
+    if (Number.isFinite(position.minWidth) || position.minWidth === null) {
+      position.minWidth = typeof position.minWidth === 'number' ? Math.round(position.minWidth) : null;
+
+      if (data.minWidth !== position.minWidth) {
+        data.minWidth = position.minWidth;
+        changeSet.minWidth = true;
+      }
+    }
+
+    if (Number.isFinite(position.rotateX) || position.rotateX === null) {
+      if (data.rotateX !== position.rotateX) {
+        data.rotateX = transforms.rotateX = position.rotateX;
+        changeSet.transform = true;
+      }
+    }
+
+    if (Number.isFinite(position.rotateY) || position.rotateY === null) {
+      if (data.rotateY !== position.rotateY) {
+        data.rotateY = transforms.rotateY = position.rotateY;
+        changeSet.transform = true;
+      }
+    }
+
+    if (Number.isFinite(position.rotateZ) || position.rotateZ === null) {
+      if (data.rotateZ !== position.rotateZ) {
+        data.rotateZ = transforms.rotateZ = position.rotateZ;
+        changeSet.transform = true;
+      }
+    }
+
+    if (Number.isFinite(position.scale) || position.scale === null) {
+      position.scale = typeof position.scale === 'number' ? Math.max(0, Math.min(position.scale, 1000)) : null;
+
+      if (data.scale !== position.scale) {
+        data.scale = transforms.scale = position.scale;
+        changeSet.transform = true;
+      }
+    }
+
+    if (typeof position.transformOrigin === 'string' && transformOrigins.includes(position.transformOrigin) || position.transformOrigin === null) {
+      if (data.transformOrigin !== position.transformOrigin) {
+        data.transformOrigin = position.transformOrigin;
+        changeSet.transformOrigin = true;
+      }
+    }
+
+    if (Number.isFinite(position.translateX) || position.translateX === null) {
+      if (data.translateX !== position.translateX) {
+        data.translateX = transforms.translateX = position.translateX;
+        changeSet.transform = true;
+      }
+    }
+
+    if (Number.isFinite(position.translateY) || position.translateY === null) {
+      if (data.translateY !== position.translateY) {
+        data.translateY = transforms.translateY = position.translateY;
+        changeSet.transform = true;
+      }
+    }
+
+    if (Number.isFinite(position.translateZ) || position.translateZ === null) {
+      if (data.translateZ !== position.translateZ) {
+        data.translateZ = transforms.translateZ = position.translateZ;
+        changeSet.transform = true;
+      }
+    }
+
+    if (Number.isFinite(position.zIndex)) {
+      position.zIndex = Math.round(position.zIndex);
+
+      if (data.zIndex !== position.zIndex) {
+        data.zIndex = position.zIndex;
+        changeSet.zIndex = true;
+      }
+    }
+
+    if (Number.isFinite(position.width) || position.width === 'auto' || position.width === null) {
+      position.width = typeof position.width === 'number' ? Math.round(position.width) : position.width;
+
+      if (data.width !== position.width) {
+        data.width = position.width;
+        changeSet.width = true;
+      }
+    }
+
+    if (Number.isFinite(position.height) || position.height === 'auto' || position.height === null) {
+      position.height = typeof position.height === 'number' ? Math.round(position.height) : position.height;
+
+      if (data.height !== position.height) {
+        data.height = position.height;
+        changeSet.height = true;
+      }
+    }
+
+    if (el) {
+      // Set default data after first set operation that has a target element.
+      if (typeof _classPrivateFieldGet(this, _defaultData) !== 'object') {
+        _classPrivateFieldSet(this, _defaultData, Object.assign({}, data));
+      } // Add update element data to UpdateElementManager if not already queued.
+
+
+      if (!_classPrivateFieldGet(this, _updateElementData).queued) {
+        _classPrivateFieldSet(this, _updateElementPromise, UpdateElementManager.add(el, _classPrivateFieldGet(this, _updateElementData)));
+      }
+    } else {
+      // Notify main store subscribers.
+      UpdateElementManager.updateSubscribers(_classPrivateFieldGet(this, _updateElementData));
+    }
+
+    return this;
+  }
+  /**
+   *
+   * @param {function(PositionData): void} handler - Callback function that is invoked on update / changes. Receives
+   *                                                 a copy of the PositionData.
+   *
+   * @returns {(function(): void)} Unsubscribe function.
+   */
+
+
+  subscribe(handler) {
+    _classPrivateFieldGet(this, _subscriptions).push(handler); // add handler to the array of subscribers
+
+
+    handler(Object.assign({}, _classPrivateFieldGet(this, _data$1))); // call handler with current value
+    // Return unsubscribe function.
+
+    return () => {
+      const index = _classPrivateFieldGet(this, _subscriptions).findIndex(sub => sub === handler);
+
+      if (index >= 0) {
+        _classPrivateFieldGet(this, _subscriptions).splice(index, 1);
+      }
+    };
+  }
+  /**
+   * @param {object} opts -
+   *
+   * @param {number|null} opts.left -
+   *
+   * @param {number|null} opts.top -
+   *
+   * @param {number|null} opts.maxHeight -
+   *
+   * @param {number|null} opts.maxWidth -
+   *
+   * @param {number|null} opts.minHeight -
+   *
+   * @param {number|null} opts.minWidth -
+   *
+   * @param {number|'auto'|null} opts.width -
+   *
+   * @param {number|'auto'|null} opts.height -
+   *
+   * @param {number|null} opts.rotateX -
+   *
+   * @param {number|null} opts.rotateY -
+   *
+   * @param {number|null} opts.rotateZ -
+   *
+   * @param {number|null} opts.scale -
+   *
+   * @param {string} opts.transformOrigin -
+   *
+   * @param {number|null} opts.translateX -
+   *
+   * @param {number|null} opts.translateY -
+   *
+   * @param {number|null} opts.translateZ -
+   *
+   * @param {number|null} opts.zIndex -
+   *
+   * @param {*} opts.rest -
+   *
+   * @param {object} parent -
+   *
+   * @param {HTMLElement} el -
+   *
+   * @param {StyleCache} styleCache -
+   *
+   * @returns {null|PositionData} Updated position data or null if validation fails.
+   */
+
+
+}
+
+function _updatePosition2(_ref2 = {}, parent, el, styleCache) {
+  let {
+    left,
+    top,
+    maxWidth,
+    maxHeight,
+    minWidth,
+    minHeight,
+    width,
+    height,
+    rotateX,
+    rotateY,
+    rotateZ,
+    scale,
+    transformOrigin,
+    translateX,
+    translateY,
+    translateZ,
+    zIndex
+  } = _ref2,
+      rest = _objectWithoutProperties(_ref2, _excluded2);
+
+  let currentPosition = s_DATA_UPDATE.copy(_classPrivateFieldGet(this, _data$1)); // Update width if an explicit value is passed, or if no width value is set on the element.
+
+  if (el.style.width === '' || width !== void 0) {
+    if (width === 'auto' || currentPosition.width === 'auto' && width !== null) {
+      currentPosition.width = 'auto';
+      width = styleCache.offsetWidth;
+    } else {
+      const newWidth = Number.isFinite(width) ? width : currentPosition.width;
+      currentPosition.width = width = Number.isFinite(newWidth) ? Math.round(newWidth) : styleCache.offsetWidth;
+    }
+  } else {
+    width = Number.isFinite(currentPosition.width) ? currentPosition.width : styleCache.offsetWidth;
+  } // Update height if an explicit value is passed, or if no height value is set on the element.
+
+
+  if (el.style.height === '' || height !== void 0) {
+    if (height === 'auto' || currentPosition.height === 'auto' && height !== null) {
+      currentPosition.height = 'auto';
+      height = styleCache.offsetHeight;
+    } else {
+      const newHeight = Number.isFinite(height) ? height : currentPosition.height;
+      currentPosition.height = height = Number.isFinite(newHeight) ? Math.round(newHeight) : styleCache.offsetHeight;
+    }
+  } else {
+    height = Number.isFinite(currentPosition.height) ? currentPosition.height : styleCache.offsetHeight;
+  } // Update left
+
+
+  if (Number.isFinite(left)) {
+    currentPosition.left = left;
+  } else if (!Number.isFinite(currentPosition.left)) {
+    var _classPrivateFieldGet6;
+
+    // Potentially use any initial position helper if available or set to 0.
+    currentPosition.left = typeof ((_classPrivateFieldGet6 = _classPrivateFieldGet(this, _options).initialHelper) === null || _classPrivateFieldGet6 === void 0 ? void 0 : _classPrivateFieldGet6.getLeft) === 'function' ? _classPrivateFieldGet(this, _options).initialHelper.getLeft(width) : 0;
+  } // Update top
+
+
+  if (Number.isFinite(top)) {
+    currentPosition.top = top;
+  } else if (!Number.isFinite(currentPosition.top)) {
+    var _classPrivateFieldGet7;
+
+    // Potentially use any initial position helper if available or set to 0.
+    currentPosition.top = typeof ((_classPrivateFieldGet7 = _classPrivateFieldGet(this, _options).initialHelper) === null || _classPrivateFieldGet7 === void 0 ? void 0 : _classPrivateFieldGet7.getTop) === 'function' ? _classPrivateFieldGet(this, _options).initialHelper.getTop(height) : 0;
+  }
+
+  if (Number.isFinite(maxHeight) || maxHeight === null) {
+    currentPosition.maxHeight = Number.isFinite(maxHeight) ? Math.round(maxHeight) : null;
+  }
+
+  if (Number.isFinite(maxWidth) || maxWidth === null) {
+    currentPosition.maxWidth = Number.isFinite(maxWidth) ? Math.round(maxWidth) : null;
+  }
+
+  if (Number.isFinite(minHeight) || minHeight === null) {
+    currentPosition.minHeight = Number.isFinite(minHeight) ? Math.round(minHeight) : null;
+  }
+
+  if (Number.isFinite(minWidth) || minWidth === null) {
+    currentPosition.minWidth = Number.isFinite(minWidth) ? Math.round(minWidth) : null;
+  } // Update rotate X/Y/Z, scale, z-index
+
+
+  if (Number.isFinite(rotateX) || rotateX === null) {
+    currentPosition.rotateX = rotateX;
+  }
+
+  if (Number.isFinite(rotateY) || rotateY === null) {
+    currentPosition.rotateY = rotateY;
+  }
+
+  if (Number.isFinite(rotateZ) || rotateZ === null) {
+    currentPosition.rotateZ = rotateZ;
+  }
+
+  if (Number.isFinite(translateX) || translateX === null) {
+    currentPosition.translateX = translateX;
+  }
+
+  if (Number.isFinite(translateY) || translateY === null) {
+    currentPosition.translateY = translateY;
+  }
+
+  if (Number.isFinite(translateZ) || translateZ === null) {
+    currentPosition.translateZ = translateZ;
+  }
+
+  if (Number.isFinite(scale) || scale === null) {
+    currentPosition.scale = typeof scale === 'number' ? Math.max(0, Math.min(scale, 1000)) : null;
+  }
+
+  if (typeof transformOrigin === 'string' || transformOrigin === null) {
+    currentPosition.transformOrigin = transformOrigins.includes(transformOrigin) ? transformOrigin : null;
+  }
+
+  if (Number.isFinite(zIndex) || zIndex === null) {
+    currentPosition.zIndex = typeof zIndex === 'number' ? Math.round(zIndex) : zIndex;
+  }
+
+  const validatorData = _classPrivateFieldGet(this, _validatorData); // If there are any validators allow them to potentially modify position data or reject the update.
+
+
+  if (validatorData.length) {
+    var _styleCache$maxHeight, _styleCache$maxWidth, _currentPosition$minH, _currentPosition$minW;
+
+    s_VALIDATION_DATA.parent = parent;
+    s_VALIDATION_DATA.el = el;
+    s_VALIDATION_DATA.computed = styleCache.computed;
+    s_VALIDATION_DATA.transforms = _classPrivateFieldGet(this, _transforms);
+    s_VALIDATION_DATA.height = height;
+    s_VALIDATION_DATA.width = width;
+    s_VALIDATION_DATA.marginLeft = styleCache.marginLeft;
+    s_VALIDATION_DATA.marginTop = styleCache.marginTop;
+    s_VALIDATION_DATA.maxHeight = (_styleCache$maxHeight = styleCache.maxHeight) !== null && _styleCache$maxHeight !== void 0 ? _styleCache$maxHeight : currentPosition.maxHeight;
+    s_VALIDATION_DATA.maxWidth = (_styleCache$maxWidth = styleCache.maxWidth) !== null && _styleCache$maxWidth !== void 0 ? _styleCache$maxWidth : currentPosition.maxWidth; // Note the use of || for accessing the style cache as the left hand is ignored w/ falsy values such as '0'.
+
+    s_VALIDATION_DATA.minHeight = styleCache.minHeight || ((_currentPosition$minH = currentPosition.minHeight) !== null && _currentPosition$minH !== void 0 ? _currentPosition$minH : 0);
+    s_VALIDATION_DATA.minWidth = styleCache.minWidth || ((_currentPosition$minW = currentPosition.minWidth) !== null && _currentPosition$minW !== void 0 ? _currentPosition$minW : 0);
+
+    for (let cntr = 0; cntr < validatorData.length; cntr++) {
+      s_VALIDATION_DATA.position = currentPosition;
+      s_VALIDATION_DATA.rest = rest;
+      currentPosition = validatorData[cntr].validator(s_VALIDATION_DATA);
+
+      if (currentPosition === null) {
+        return null;
+      }
+    }
+  } // Return the updated position object.
+
+
+  return currentPosition;
+}
+
+const s_DATA_UPDATE = new PositionData();
+/**
+ * @type {ValidationData}
+ */
+
+const s_VALIDATION_DATA = {
+  position: void 0,
+  parent: void 0,
+  el: void 0,
+  computed: void 0,
+  transforms: void 0,
+  height: void 0,
+  width: void 0,
+  marginLeft: void 0,
+  marginTop: void 0,
+  maxHeight: void 0,
+  maxWidth: void 0,
+  minHeight: void 0,
+  minWidth: void 0,
+  rest: void 0
+};
+Object.seal(s_VALIDATION_DATA);
+/**
+ * @typedef {object} InitialHelper
+ *
+ * @property {Function} getLeft - A function that takes the width parameter and returns the left position.
+ *
+ * @property {Function} getTop - A function that takes the height parameter and returns the top position.
+ */
+
+/**
+ * @typedef {object} PositionOptions - Options set in constructor.
+ *
+ * @property {boolean} calculateTransform - When true always calculate transform data.
+ *
+ * @property {InitialHelper} initialHelper - Provides a helper for setting initial position data.
+ *
+ * @property {boolean} ortho - Sets Position to orthographic mode using just transform / matrix3d for positioning.
+ *
+ * @property {boolean} transformSubscribed - Set to true when there are subscribers to the readable transform store.
+ */
+
+/**
+ * @typedef {HTMLElement | object} PositionParent
+ *
+ * @property {Function} [elementTarget] - Potentially returns any parent object.
+ */
+
+/**
+ * @typedef {object} ResizeObserverData
+ *
+ * @property {number|undefined} contentHeight -
+ *
+ * @property {number|undefined} contentWidth -
+ *
+ * @property {number|undefined} offsetHeight -
+ *
+ * @property {number|undefined} offsetWidth -
+ */
+
+/**
+ * @typedef {object} StorePosition - Provides individual writable stores for {@link Position}.
+ *
+ * @property {import('svelte/store').Readable<{width: number, height: number}>} dimension - Readable store for dimension
+ *                                                                                          data.
+ *
+ * @property {import('svelte/store').Readable<HTMLElement>} element - Readable store for current element.
+ *
+ * @property {import('svelte/store').Writable<number|null>} left - Derived store for `left` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} top - Derived store for `top` updates.
+ *
+ * @property {import('svelte/store').Writable<number|'auto'|null>} width - Derived store for `width` updates.
+ *
+ * @property {import('svelte/store').Writable<number|'auto'|null>} height - Derived store for `height` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} maxHeight - Derived store for `maxHeight` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} maxWidth - Derived store for `maxWidth` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} minHeight - Derived store for `minHeight` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} minWidth - Derived store for `minWidth` updates.
+ *
+ * @property {import('svelte/store').Readable<number|undefined>} resizeContentHeight - Readable store for `contentHeight`.
+ *
+ * @property {import('svelte/store').Readable<number|undefined>} resizeContentWidth - Readable store for `contentWidth`.
+ *
+ * @property {import('svelte/store').Writable<ResizeObserverData>} resizeObserved - Protected store for resize observer updates.
+ *
+ * @property {import('svelte/store').Readable<number|undefined>} resizeOffsetHeight - Readable store for `offsetHeight`.
+ *
+ * @property {import('svelte/store').Readable<number|undefined>} resizeOffsetWidth - Readable store for `offsetWidth`.
+ *
+ * @property {import('svelte/store').Writable<number|null>} rotate - Derived store for `rotate` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} rotateX - Derived store for `rotateX` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} rotateY - Derived store for `rotateY` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} rotateZ - Derived store for `rotateZ` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} scale - Derived store for `scale` updates.
+ *
+ * @property {import('svelte/store').Readable<TransformData>} transform - Readable store for transform data.
+ *
+ * @property {import('svelte/store').Writable<string>} transformOrigin - Derived store for `transformOrigin`.
+ *
+ * @property {import('svelte/store').Writable<number|null>} translateX - Derived store for `translateX` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} translateY - Derived store for `translateY` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} translateZ - Derived store for `translateZ` updates.
+ *
+ * @property {import('svelte/store').Writable<number|null>} zIndex - Derived store for `zIndex` updates.
+ */
+
+/**
+ * @typedef {object} ValidationData
+ *
+ * @property {PositionData} position -
+ *
+ * @property {PositionParent} parent -
+ *
+ * @property {HTMLElement} el -
+ *
+ * @property {CSSStyleDeclaration} computed -
+ *
+ * @property {Transforms} transforms -
+ *
+ * @property {number} height -
+ *
+ * @property {number} width -
+ *
+ * @property {number|undefined} marginLeft -
+ *
+ * @property {number|undefined} marginTop -
+ *
+ * @property {number|undefined} maxHeight -
+ *
+ * @property {number|undefined} maxWidth -
+ *
+ * @property {number|undefined} minHeight -
+ *
+ * @property {number|undefined} minWidth -
+ *
+ * @property {object} rest - The rest of any data submitted to {@link Position.set}
+ */
+
+const _excluded = ["name"];
 
 var _application$2 = /*#__PURE__*/new WeakMap();
 
-var _dataSaved$1 = /*#__PURE__*/new WeakMap();
+var _dataSaved = /*#__PURE__*/new WeakMap();
 
 class ApplicationState {
   /**
@@ -22061,7 +30205,7 @@ class ApplicationState {
       value: void 0
     });
 
-    _classPrivateFieldInitSpec(this, _dataSaved$1, {
+    _classPrivateFieldInitSpec(this, _dataSaved, {
       writable: true,
       value: new Map()
     });
@@ -22104,7 +30248,7 @@ class ApplicationState {
       throw new TypeError(`ApplicationState - getSave error: 'name' is not a string.`);
     }
 
-    return _classPrivateFieldGet(this, _dataSaved$1).get(name);
+    return _classPrivateFieldGet(this, _dataSaved).get(name);
   }
   /**
    * Removes and returns any application state by name.
@@ -22124,9 +30268,9 @@ class ApplicationState {
       throw new TypeError(`Position - remove: 'name' is not a string.`);
     }
 
-    const data = _classPrivateFieldGet(this, _dataSaved$1).get(name);
+    const data = _classPrivateFieldGet(this, _dataSaved).get(name);
 
-    _classPrivateFieldGet(this, _dataSaved$1).delete(name);
+    _classPrivateFieldGet(this, _dataSaved).delete(name);
 
     return data;
   }
@@ -22164,17 +30308,17 @@ class ApplicationState {
     animateTo = false,
     duration = 100,
     easing = identity,
-    interpolate = lerp
+    interpolate = lerp$5
   }) {
     if (typeof name !== 'string') {
       throw new TypeError(`ApplicationState - restore error: 'name' is not a string.`);
     }
 
-    const dataSaved = _classPrivateFieldGet(this, _dataSaved$1).get(name);
+    const dataSaved = _classPrivateFieldGet(this, _dataSaved).get(name);
 
     if (dataSaved) {
       if (remove) {
-        _classPrivateFieldGet(this, _dataSaved$1).delete(name);
+        _classPrivateFieldGet(this, _dataSaved).delete(name);
       }
 
       return this.set(dataSaved, {
@@ -22205,7 +30349,7 @@ class ApplicationState {
     let {
       name
     } = _ref,
-        extra = _objectWithoutProperties(_ref, _excluded$1);
+        extra = _objectWithoutProperties(_ref, _excluded);
 
     if (typeof name !== 'string') {
       throw new TypeError(`ApplicationState - save error: 'name' is not a string.`);
@@ -22213,7 +30357,7 @@ class ApplicationState {
 
     const data = this.get(extra);
 
-    _classPrivateFieldGet(this, _dataSaved$1).set(name, data);
+    _classPrivateFieldGet(this, _dataSaved).set(name, data);
 
     return data;
   }
@@ -22247,7 +30391,7 @@ class ApplicationState {
     animateTo = false,
     duration = 100,
     easing = identity,
-    interpolate = lerp
+    interpolate = lerp$5
   }) {
     if (typeof data !== 'object') {
       throw new TypeError(`ApplicationState - restore error: 'data' is not an object.`);
@@ -22573,364 +30717,6 @@ function loadSvelteConfig(app, html, config, elementRootUpdate) {
   };
 }
 
-const s_REGEX = /(\d+)\s*px/;
-/**
- * Parses a pixel string / computed styles. Ex. `100px` returns `100`.
- *
- * @param {string}   value - Value to parse.
- *
- * @returns {number|undefined} The integer component of a pixel string.
- */
-
-function styleParsePixels(value) {
-  if (typeof value !== 'string') {
-    return void 0;
-  }
-
-  const isPixels = s_REGEX.test(value);
-  const number = parseInt(value);
-  return isPixels && Number.isFinite(number) ? number : void 0;
-}
-
-const subscriber_queue = [];
-/**
- * Creates a `Readable` store that allows reading by subscription.
- * @param value initial value
- * @param {StartStopNotifier}start start and stop notifications for subscriptions
- */
-
-function readable(value, start) {
-  return {
-    subscribe: writable(value, start).subscribe
-  };
-}
-/**
- * Create a `Writable` store that allows both updating and reading by subscription.
- * @param {*=}value initial value
- * @param {StartStopNotifier=}start start and stop notifications for subscriptions
- */
-
-
-function writable(value, start = noop) {
-  let stop;
-  const subscribers = new Set();
-
-  function set(new_value) {
-    if (safe_not_equal(value, new_value)) {
-      value = new_value;
-
-      if (stop) {
-        // store is ready
-        const run_queue = !subscriber_queue.length;
-
-        for (const subscriber of subscribers) {
-          subscriber[1]();
-          subscriber_queue.push(subscriber, value);
-        }
-
-        if (run_queue) {
-          for (let i = 0; i < subscriber_queue.length; i += 2) {
-            subscriber_queue[i][0](subscriber_queue[i + 1]);
-          }
-
-          subscriber_queue.length = 0;
-        }
-      }
-    }
-  }
-
-  function update(fn) {
-    set(fn(value));
-  }
-
-  function subscribe(run, invalidate = noop) {
-    const subscriber = [run, invalidate];
-    subscribers.add(subscriber);
-
-    if (subscribers.size === 1) {
-      stop = start(set) || noop;
-    }
-
-    run(value);
-    return () => {
-      subscribers.delete(subscriber);
-
-      if (subscribers.size === 0) {
-        stop();
-        stop = null;
-      }
-    };
-  }
-
-  return {
-    set,
-    update,
-    subscribe
-  };
-}
-
-function derived(stores, fn, initial_value) {
-  const single = !Array.isArray(stores);
-  const stores_array = single ? [stores] : stores;
-  const auto = fn.length < 2;
-  return readable(initial_value, set => {
-    let inited = false;
-    const values = [];
-    let pending = 0;
-    let cleanup = noop;
-
-    const sync = () => {
-      if (pending) {
-        return;
-      }
-
-      cleanup();
-      const result = fn(single ? values[0] : values, set);
-
-      if (auto) {
-        set(result);
-      } else {
-        cleanup = is_function(result) ? result : noop;
-      }
-    };
-
-    const unsubscribers = stores_array.map((store, i) => subscribe(store, value => {
-      values[i] = value;
-      pending &= ~(1 << i);
-
-      if (inited) {
-        sync();
-      }
-    }, () => {
-      pending |= 1 << i;
-    }));
-    inited = true;
-    sync();
-    return function stop() {
-      run_all(unsubscribers);
-      cleanup();
-    };
-  });
-}
-
-/**
- * Subscribes to the given store with the update function provided and ignores the first automatic
- * update. All future updates are dispatched to the update function.
- *
- * @param {import('svelte/store').Readable | import('svelte/store').Writable} store -
- *  Store to subscribe to...
- *
- * @param {import('svelte/store').Updater} update - function to receive future updates.
- *
- * @returns {import('svelte/store').Unsubscriber} Store unsubscribe function.
- */
-
-
-function subscribeIgnoreFirst(store, update) {
-  let firedFirst = false;
-  return store.subscribe(value => {
-    if (!firedFirst) {
-      firedFirst = true;
-    } else {
-      update(value);
-    }
-  });
-}
-/**
- * @external Store
- * @see [Svelte stores](https://svelte.dev/docs#Store_contract)
- */
-
-/**
- * Create a store similar to [Svelte's `derived`](https://svelte.dev/docs#derived), but which
- * has its own `set` and `update` methods and can send values back to the origin stores.
- * [Read more...](https://github.com/PixievoltNo1/svelte-writable-derived#default-export-writablederived)
- * 
- * @param {Store|Store[]} origins One or more stores to derive from. Same as
- * [`derived`](https://svelte.dev/docs#derived)'s 1st parameter.
- * @param {!Function} derive The callback to determine the derived value. Same as
- * [`derived`](https://svelte.dev/docs#derived)'s 2nd parameter.
- * @param {!Function|{withOld: !Function}} reflect Called when the
- * derived store gets a new value via its `set` or `update` methods, and determines new values for
- * the origin stores. [Read more...](https://github.com/PixievoltNo1/svelte-writable-derived#new-parameter-reflect)
- * @param [initial] The new store's initial value. Same as
- * [`derived`](https://svelte.dev/docs#derived)'s 3rd parameter.
- * 
- * @returns {Store} A writable store.
- */
-
-
-function writableDerived(origins, derive, reflect, initial) {
-  var childDerivedSetter,
-      originValues,
-      allowDerive = true;
-  var reflectOldValues = ("withOld" in reflect);
-
-  var wrappedDerive = (got, set) => {
-    childDerivedSetter = set;
-
-    if (reflectOldValues) {
-      originValues = got;
-    }
-
-    if (allowDerive) {
-      let returned = derive(got, set);
-
-      if (derive.length < 2) {
-        set(returned);
-      } else {
-        return returned;
-      }
-    }
-  };
-
-  var childDerived = derived(origins, wrappedDerive, initial);
-  var singleOrigin = !Array.isArray(origins);
-
-  var sendUpstream = setWith => {
-    allowDerive = false;
-
-    if (singleOrigin) {
-      origins.set(setWith);
-    } else {
-      setWith.forEach((value, i) => {
-        origins[i].set(value);
-      });
-    }
-
-    allowDerive = true;
-  };
-
-  if (reflectOldValues) {
-    reflect = reflect.withOld;
-  }
-
-  var reflectIsAsync = reflect.length >= (reflectOldValues ? 3 : 2);
-  var cleanup = null;
-
-  function doReflect(reflecting) {
-    if (cleanup) {
-      cleanup();
-      cleanup = null;
-    }
-
-    if (reflectOldValues) {
-      var returned = reflect(reflecting, originValues, sendUpstream);
-    } else {
-      var returned = reflect(reflecting, sendUpstream);
-    }
-
-    if (reflectIsAsync) {
-      if (typeof returned == "function") {
-        cleanup = returned;
-      }
-    } else {
-      sendUpstream(returned);
-    }
-  }
-
-  var tryingSet = false;
-
-  function update(fn) {
-    var isUpdated, mutatedBySubscriptions, oldValue, newValue;
-
-    if (tryingSet) {
-      newValue = fn(get_store_value(childDerived));
-      childDerivedSetter(newValue);
-      return;
-    }
-
-    var unsubscribe = childDerived.subscribe(value => {
-      if (!tryingSet) {
-        oldValue = value;
-      } else if (!isUpdated) {
-        isUpdated = true;
-      } else {
-        mutatedBySubscriptions = true;
-      }
-    });
-    newValue = fn(oldValue);
-    tryingSet = true;
-    childDerivedSetter(newValue);
-    unsubscribe();
-    tryingSet = false;
-
-    if (mutatedBySubscriptions) {
-      newValue = get_store_value(childDerived);
-    }
-
-    if (isUpdated) {
-      doReflect(newValue);
-    }
-  }
-
-  return {
-    subscribe: childDerived.subscribe,
-
-    set(value) {
-      update(() => value);
-    },
-
-    update
-  };
-}
-/**
- * Create a store for a property value in an object contained in another store.
- * [Read more...](https://github.com/PixievoltNo1/svelte-writable-derived#named-export-propertystore)
- * 
- * @param {Store} origin The store containing the object to get/set from.
- * @param {string|number|symbol|Array<string|number|symbol>} propName The property to get/set, or a path of
- * properties in nested objects.
- *
- * @returns {Store} A writable store.
- */
-
-
-function propertyStore(origin, propName) {
-  if (!Array.isArray(propName)) {
-    return writableDerived(origin, object => object[propName], {
-      withOld(reflecting, object) {
-        object[propName] = reflecting;
-        return object;
-      }
-
-    });
-  } else {
-    let props = propName.concat();
-    return writableDerived(origin, value => {
-      for (let i = 0; i < props.length; ++i) {
-        value = value[props[i]];
-      }
-
-      return value;
-    }, {
-      withOld(reflecting, object) {
-        let target = object;
-
-        for (let i = 0; i < props.length - 1; ++i) {
-          target = target[props[i]];
-        }
-
-        target[props[props.length - 1]] = reflecting;
-        return object;
-      }
-
-    });
-  }
-}
-
-const storeState = writable(void 0);
-/**
- * @type {GameState} Provides a Svelte store wrapping the Foundry runtime / global game state.
- */
-
-const gameState = {
-  subscribe: storeState.subscribe,
-  get: () => game
-};
-Object.freeze(gameState);
-Hooks.once('ready', () => storeState.set(game));
-
 /**
  * Contains the reactive functionality / Svelte stores associated with SvelteApplication.
  */
@@ -23147,6 +30933,18 @@ class SvelteReactive {
     return (_classPrivateFieldGet6 = _classPrivateFieldGet(this, _application$1)) === null || _classPrivateFieldGet6 === void 0 ? void 0 : (_classPrivateFieldGet7 = _classPrivateFieldGet6.options) === null || _classPrivateFieldGet7 === void 0 ? void 0 : _classPrivateFieldGet7.headerButtonNoLabel;
   }
   /**
+   * Returns the headerNoTitleMinimized app option.
+   *
+   * @returns {boolean} When true removes the header title when minimized.
+   */
+
+
+  get headerNoTitleMinimized() {
+    var _classPrivateFieldGet8, _classPrivateFieldGet9;
+
+    return (_classPrivateFieldGet8 = _classPrivateFieldGet(this, _application$1)) === null || _classPrivateFieldGet8 === void 0 ? void 0 : (_classPrivateFieldGet9 = _classPrivateFieldGet8.options) === null || _classPrivateFieldGet9 === void 0 ? void 0 : _classPrivateFieldGet9.headerNoTitleMinimized;
+  }
+  /**
    * Returns the minimizable app option.
    *
    * @returns {boolean} Minimizable app option.
@@ -23154,9 +30952,9 @@ class SvelteReactive {
 
 
   get minimizable() {
-    var _classPrivateFieldGet8, _classPrivateFieldGet9;
+    var _classPrivateFieldGet10, _classPrivateFieldGet11;
 
-    return (_classPrivateFieldGet8 = _classPrivateFieldGet(this, _application$1)) === null || _classPrivateFieldGet8 === void 0 ? void 0 : (_classPrivateFieldGet9 = _classPrivateFieldGet8.options) === null || _classPrivateFieldGet9 === void 0 ? void 0 : _classPrivateFieldGet9.minimizable;
+    return (_classPrivateFieldGet10 = _classPrivateFieldGet(this, _application$1)) === null || _classPrivateFieldGet10 === void 0 ? void 0 : (_classPrivateFieldGet11 = _classPrivateFieldGet10.options) === null || _classPrivateFieldGet11 === void 0 ? void 0 : _classPrivateFieldGet11.minimizable;
   }
   /**
    * @inheritDoc
@@ -23174,9 +30972,9 @@ class SvelteReactive {
 
 
   get resizable() {
-    var _classPrivateFieldGet10, _classPrivateFieldGet11;
+    var _classPrivateFieldGet12, _classPrivateFieldGet13;
 
-    return (_classPrivateFieldGet10 = _classPrivateFieldGet(this, _application$1)) === null || _classPrivateFieldGet10 === void 0 ? void 0 : (_classPrivateFieldGet11 = _classPrivateFieldGet10.options) === null || _classPrivateFieldGet11 === void 0 ? void 0 : _classPrivateFieldGet11.resizable;
+    return (_classPrivateFieldGet12 = _classPrivateFieldGet(this, _application$1)) === null || _classPrivateFieldGet12 === void 0 ? void 0 : (_classPrivateFieldGet13 = _classPrivateFieldGet12.options) === null || _classPrivateFieldGet13 === void 0 ? void 0 : _classPrivateFieldGet13.resizable;
   }
   /**
    * Returns the store for app options.
@@ -23243,6 +31041,18 @@ class SvelteReactive {
   set headerButtonNoLabel(headerButtonNoLabel) {
     if (typeof headerButtonNoLabel === 'boolean') {
       this.setOptions('headerButtonNoLabel', headerButtonNoLabel);
+    }
+  }
+  /**
+   * Sets `this.options.headerNoTitleMinimized` which is reactive for application shells.
+   *
+   * @param {boolean}  headerNoTitleMinimized - Sets the headerNoTitleMinimized option.
+   */
+
+
+  set headerNoTitleMinimized(headerNoTitleMinimized) {
+    if (typeof headerNoTitleMinimized === 'boolean') {
+      this.setOptions('headerNoTitleMinimized', headerNoTitleMinimized);
     }
   }
   /**
@@ -23414,6 +31224,7 @@ function _storesInitialize2() {
     draggable: propertyStore(writableAppOptions, 'draggable'),
     headerButtonNoClose: propertyStore(writableAppOptions, 'headerButtonNoClose'),
     headerButtonNoLabel: propertyStore(writableAppOptions, 'headerButtonNoLabel'),
+    headerNoTitleMinimized: propertyStore(writableAppOptions, 'headerNoTitleMinimized'),
     minimizable: propertyStore(writableAppOptions, 'minimizable'),
     popOut: propertyStore(writableAppOptions, 'popOut'),
     resizable: propertyStore(writableAppOptions, 'resizable'),
@@ -23482,1594 +31293,6 @@ function _storesUnsubscribe2() {
 
   _classPrivateFieldSet(this, _storeUnsubscribe, []);
 }
-
-/**
- * Awaits `requestAnimationFrame` calls by the counter specified. This allows asynchronous applications for direct /
- * inline style modification amongst other direct animation techniques.
- *
- * @param {number}   [cntr=1] - A positive integer greater than 0 for amount of requestAnimationFrames to wait.
- *
- * @returns {Promise<number>} Returns current time equivalent to `performance.now()`.
- */
-async function nextAnimationFrame$1(cntr = 1) {
-  if (!Number.isInteger(cntr) || cntr < 1) {
-    throw new TypeError(`nextAnimationFrame error: 'cntr' must be a positive integer greater than 0.`);
-  }
-
-  let currentTime = performance.now();
-
-  for (; --cntr >= 0;) {
-    currentTime = await new Promise(resolve => requestAnimationFrame(resolve));
-  }
-
-  return currentTime;
-}
-
-let _Symbol$iterator;
-
-var _validatorData = /*#__PURE__*/new WeakMap();
-
-var _mapUnsubscribe = /*#__PURE__*/new WeakMap();
-
-_Symbol$iterator = Symbol.iterator;
-
-/**
- * Provides the storage and sequencing of managed position validators. Each validator added may be a bespoke function or
- * a {@link ValidatorData} object containing an `id`, `validator`, and `weight` attributes; `validator` is the only
- * required attribute.
- *
- * The `id` attribute can be anything that creates a unique ID for the validator; recommended strings or numbers. This
- * allows validators to be removed by ID easily.
- *
- * The `weight` attribute is a number between 0 and 1 inclusive that allows validators to be added in a
- * predictable order which is especially handy if they are manipulated at runtime. A lower weighted validator always
- * runs before a higher weighted validator. If no weight is specified the default of '1' is assigned and it is appended
- * to the end of the validators list.
- *
- * This class forms the public API which is accessible from the `.validators` getter in the main Position instance.
- * ```
- * const position = new Position(<PositionData>);
- * position.validators.add(...);
- * position.validators.clear();
- * position.validators.length;
- * position.validators.remove(...);
- * position.validators.removeBy(...);
- * position.validators.removeById(...);
- * ```
- */
-class AdapterValidators {
-  /**
-   * @returns {[AdapterValidators, ValidatorData[]]} Returns this and internal storage for validator adapter.
-   */
-  constructor() {
-    _classPrivateFieldInitSpec(this, _validatorData, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _mapUnsubscribe, {
-      writable: true,
-      value: new Map()
-    });
-
-    _classPrivateFieldSet(this, _validatorData, []);
-
-    Object.seal(this);
-    return [this, _classPrivateFieldGet(this, _validatorData)];
-  }
-  /**
-   * @returns {number} Returns the length of the validators array.
-   */
-
-
-  get length() {
-    return _classPrivateFieldGet(this, _validatorData).length;
-  }
-  /**
-   * Provides an iterator for validators.
-   *
-   * @returns {Generator<ValidatorData|undefined>} Generator / iterator of validators.
-   * @yields {ValidatorData<T>}
-   */
-
-
-  *[_Symbol$iterator]() {
-    if (_classPrivateFieldGet(this, _validatorData).length === 0) {
-      return;
-    }
-
-    for (const entry of _classPrivateFieldGet(this, _validatorData)) {
-      yield _objectSpread2({}, entry);
-    }
-  }
-  /**
-   * @param {...(ValidatorFn<T>|ValidatorData<T>)}   validators -
-   */
-
-
-  add(...validators) {
-    var _validator$validator$;
-
-    for (const validator of validators) {
-      const validatorType = typeof validator;
-
-      if (validatorType !== 'function' && validatorType !== 'object' || validator === null) {
-        throw new TypeError(`AdapterValidator error: 'validator' is not a function or object.`);
-      }
-
-      let data = void 0;
-      let subscribeFn = void 0;
-
-      switch (validatorType) {
-        case 'function':
-          data = {
-            id: void 0,
-            validator,
-            weight: 1
-          };
-          subscribeFn = validator.subscribe;
-          break;
-
-        case 'object':
-          if (typeof validator.validator !== 'function') {
-            throw new TypeError(`AdapterValidator error: 'validator' attribute is not a function.`);
-          }
-
-          if (validator.weight !== void 0 && typeof validator.weight !== 'number' || validator.weight < 0 || validator.weight > 1) {
-            throw new TypeError(`AdapterValidator error: 'weight' attribute is not a number between '0 - 1' inclusive.`);
-          }
-
-          data = {
-            id: validator.id !== void 0 ? validator.id : void 0,
-            validator: validator.validator,
-            weight: validator.weight || 1
-          };
-          subscribeFn = (_validator$validator$ = validator.validator.subscribe) !== null && _validator$validator$ !== void 0 ? _validator$validator$ : validator.subscribe;
-          break;
-      } // Find the index to insert where data.weight is less than existing values weight.
-
-
-      const index = _classPrivateFieldGet(this, _validatorData).findIndex(value => {
-        return data.weight < value.weight;
-      }); // If an index was found insert at that location.
-
-
-      if (index >= 0) {
-        _classPrivateFieldGet(this, _validatorData).splice(index, 0, data);
-      } else // push to end of validators.
-        {
-          _classPrivateFieldGet(this, _validatorData).push(data);
-        }
-
-      if (typeof subscribeFn === 'function') {
-        // TODO: consider how to handle validator updates.
-        const unsubscribe = subscribeFn(); // Ensure that unsubscribe is a function.
-
-        if (typeof unsubscribe !== 'function') {
-          throw new TypeError('AdapterValidator error: Filter has subscribe function, but no unsubscribe function is returned.');
-        } // Ensure that the same validator is not subscribed to multiple times.
-
-
-        if (_classPrivateFieldGet(this, _mapUnsubscribe).has(data.validator)) {
-          throw new Error('AdapterValidator error: Filter added already has an unsubscribe function registered.');
-        }
-
-        _classPrivateFieldGet(this, _mapUnsubscribe).set(data.validator, unsubscribe);
-      }
-    } // Filters with subscriber functionality are assumed to immediately invoke the `subscribe` callback. If the
-    // subscriber count is less than the amount of validators added then automatically trigger an index update
-    // manually.
-    // TODO: handle validator updates.
-    // if (subscribeCount < validators.length) { this.#indexUpdate(); }
-
-  }
-
-  clear() {
-    _classPrivateFieldGet(this, _validatorData).length = 0; // Unsubscribe from all validators with subscription support.
-
-    for (const unsubscribe of _classPrivateFieldGet(this, _mapUnsubscribe).values()) {
-      unsubscribe();
-    }
-
-    _classPrivateFieldGet(this, _mapUnsubscribe).clear(); // TODO: handle validator updates.
-    // this.#indexUpdate();
-
-  }
-  /**
-   * @param {...(ValidatorFn<T>|ValidatorData<T>)}   validators -
-   */
-
-
-  remove(...validators) {
-    const length = _classPrivateFieldGet(this, _validatorData).length;
-
-    if (length === 0) {
-      return;
-    }
-
-    for (const data of validators) {
-      // Handle the case that the validator may either be a function or a validator entry / object.
-      const actualValidator = typeof data === 'function' ? data : data !== null && typeof data === 'object' ? data.validator : void 0;
-
-      if (!actualValidator) {
-        continue;
-      }
-
-      for (let cntr = _classPrivateFieldGet(this, _validatorData).length; --cntr >= 0;) {
-        if (_classPrivateFieldGet(this, _validatorData)[cntr].validator === actualValidator) {
-          _classPrivateFieldGet(this, _validatorData).splice(cntr, 1); // Invoke any unsubscribe function for given validator then remove from tracking.
-
-
-          let unsubscribe = void 0;
-
-          if (typeof (unsubscribe = _classPrivateFieldGet(this, _mapUnsubscribe).get(actualValidator)) === 'function') {
-            unsubscribe();
-
-            _classPrivateFieldGet(this, _mapUnsubscribe).delete(actualValidator);
-          }
-        }
-      }
-    } // Update the index a validator was removed.
-    // TODO: handle validator updates.
-    // if (length !== this.#validatorData.length) { this.#indexUpdate(); }
-
-  }
-  /**
-   * Remove validators by the provided callback. The callback takes 3 parameters: `id`, `validator`, and `weight`.
-   * Any truthy value returned will remove that validator.
-   *
-   * @param {function(*, ValidatorFn<T>, number): boolean} callback - Callback function to evaluate each validator
-   *                                                                  entry.
-   */
-
-
-  removeBy(callback) {
-    const length = _classPrivateFieldGet(this, _validatorData).length;
-
-    if (length === 0) {
-      return;
-    }
-
-    if (typeof callback !== 'function') {
-      throw new TypeError(`AdapterValidator error: 'callback' is not a function.`);
-    }
-
-    _classPrivateFieldSet(this, _validatorData, _classPrivateFieldGet(this, _validatorData).filter(data => {
-      const remove = callback.call(callback, _objectSpread2({}, data));
-
-      if (remove) {
-        let unsubscribe;
-
-        if (typeof (unsubscribe = _classPrivateFieldGet(this, _mapUnsubscribe).get(data.validator)) === 'function') {
-          unsubscribe();
-
-          _classPrivateFieldGet(this, _mapUnsubscribe).delete(data.validator);
-        }
-      } // Reverse remove boolean to properly validator / remove this validator.
-
-
-      return !remove;
-    })); // TODO: handle validator updates.
-    // if (length !== this.#validatorData.length) { this.#indexUpdate(); }
-
-  }
-
-  removeById(...ids) {
-    const length = _classPrivateFieldGet(this, _validatorData).length;
-
-    if (length === 0) {
-      return;
-    }
-
-    _classPrivateFieldSet(this, _validatorData, _classPrivateFieldGet(this, _validatorData).filter(data => {
-      let remove = false;
-
-      for (const id of ids) {
-        remove |= data.id === id;
-      } // If not keeping invoke any unsubscribe function for given validator then remove from tracking.
-
-
-      if (remove) {
-        let unsubscribe;
-
-        if (typeof (unsubscribe = _classPrivateFieldGet(this, _mapUnsubscribe).get(data.validator)) === 'function') {
-          unsubscribe();
-
-          _classPrivateFieldGet(this, _mapUnsubscribe).delete(data.validator);
-        }
-      }
-
-      return !remove; // Swap here to actually remove the item via array validator method.
-    })); // TODO: handle validator updates.
-    // if (length !== this.#validatorData.length) { this.#indexUpdate(); }
-
-  }
-
-}
-/**
- * @typedef {function(object, PositionData): PositionData|null} ValidatorFn - Position validator function that
- *                         takes a {@link PositionData} instance potentially modifying it or returning null if invalid.
- *
- * @property {Function} [subscribe] - Optional subscribe function following the Svelte store / subscribe pattern.
- */
-
-/**
- * @typedef {object} ValidatorData
- *
- * @property {*}           [id=undefined] - An ID associated with this validator. Can be used to remove the validator.
- *
- * @property {ValidatorFn} validator - Position validator function that takes a {@link PositionData} instance
- *                                     potentially modifying it or returning null if invalid.
- *
- * @property {number}      [weight=1] - A number between 0 and 1 inclusive to position this validator against others.
- *
- * @property {Function}    [subscribe] - Optional subscribe function following the Svelte store / subscribe pattern.
- */
-
-const _excluded = ["name"],
-      _excluded2 = ["left", "top", "width", "height", "rotateX", "rotateY", "rotateZ", "scale", "transformOrigin", "zIndex"];
-/**
- * Provides a store for position following the subscriber protocol in addition to providing individual writable derived
- * stores for each independent variable.
- */
-
-var _subscriptions = /*#__PURE__*/new WeakMap();
-
-var _data$1 = /*#__PURE__*/new WeakMap();
-
-var _dataSaved = /*#__PURE__*/new WeakMap();
-
-var _currentAnimationKeys = /*#__PURE__*/new WeakMap();
-
-var _defaultData = /*#__PURE__*/new WeakMap();
-
-var _parent = /*#__PURE__*/new WeakMap();
-
-var _elementUpdatePromises = /*#__PURE__*/new WeakMap();
-
-var _stores$1 = /*#__PURE__*/new WeakMap();
-
-var _transforms = /*#__PURE__*/new WeakMap();
-
-var _transformUpdate = /*#__PURE__*/new WeakMap();
-
-var _updateElementInvoked = /*#__PURE__*/new WeakMap();
-
-var _validators = /*#__PURE__*/new WeakMap();
-
-var _validatorsAdapter = /*#__PURE__*/new WeakMap();
-
-var _updateElement = /*#__PURE__*/new WeakSet();
-
-var _updatePosition = /*#__PURE__*/new WeakSet();
-
-class Position {
-  /**
-   * @type {PositionData}
-   */
-
-  /**
-   * @type {Map<string, PositionData>}
-   */
-
-  /**
-   * Stores current animation keys.
-   *
-   * @type {Set<string>}
-   */
-
-  /**
-   * @type {PositionData}
-   */
-
-  /**
-   * The associated parent for positional data tracking. Used in validators.
-   *
-   * @type {object}
-   */
-
-  /**
-   * Stores all pending set position Promise resolve functions.
-   *
-   * @type {Function[]}
-   */
-
-  /**
-   * @type {StorePosition}
-   */
-
-  /**
-   * @type {Record<string, string>}
-   */
-
-  /**
-   * @type {boolean}
-   */
-
-  /**
-   * @type {boolean}
-   */
-
-  /**
-   * @type {AdapterValidators}
-   */
-
-  /**
-   * @type {ValidatorData[]}
-   */
-
-  /**
-   * @param {object}         parent - The associated parent for positional data tracking. Used in validators.
-   *
-   * @param {object}         options - Default values.
-   */
-  constructor(parent, options = {}) {
-    _classPrivateMethodInitSpec(this, _updatePosition);
-
-    _classPrivateMethodInitSpec(this, _updateElement);
-
-    _classPrivateFieldInitSpec(this, _subscriptions, {
-      writable: true,
-      value: []
-    });
-
-    _classPrivateFieldInitSpec(this, _data$1, {
-      writable: true,
-      value: {
-        height: null,
-        left: null,
-        rotateX: null,
-        rotateY: null,
-        rotateZ: null,
-        scale: null,
-        top: null,
-        transformOrigin: s_TRANSFORM_ORIGIN_DEFAULT,
-        width: null,
-        zIndex: null
-      }
-    });
-
-    _classPrivateFieldInitSpec(this, _dataSaved, {
-      writable: true,
-      value: new Map()
-    });
-
-    _classPrivateFieldInitSpec(this, _currentAnimationKeys, {
-      writable: true,
-      value: new Set()
-    });
-
-    _classPrivateFieldInitSpec(this, _defaultData, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _parent, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _elementUpdatePromises, {
-      writable: true,
-      value: []
-    });
-
-    _classPrivateFieldInitSpec(this, _stores$1, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _transforms, {
-      writable: true,
-      value: {}
-    });
-
-    _classPrivateFieldInitSpec(this, _transformUpdate, {
-      writable: true,
-      value: false
-    });
-
-    _classPrivateFieldInitSpec(this, _updateElementInvoked, {
-      writable: true,
-      value: false
-    });
-
-    _classPrivateFieldInitSpec(this, _validators, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _validatorsAdapter, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldSet(this, _parent, parent);
-
-    const _data2 = _classPrivateFieldGet(this, _data$1); // Set default value from options.
-
-
-    if (typeof options === 'object') {
-      if (Number.isFinite(options.height) || options.height === 'auto' || options.height === null) {
-        _data2.height = typeof options.height === 'number' ? Math.round(options.height) : options.height;
-      }
-
-      if (Number.isFinite(options.left) || options.left === null) {
-        _data2.left = typeof options.left === 'number' ? Math.round(options.left) : options.left;
-      }
-
-      if (Number.isFinite(options.rotateX) || options.rotateX === null) {
-        _data2.rotateX = options.rotateX;
-
-        if (Number.isFinite(_data2.rotateX)) {
-          _classPrivateFieldGet(this, _transforms).rotateX = `rotateX(${_data2.rotateX}deg)`;
-        }
-      }
-
-      if (Number.isFinite(options.rotateY) || options.rotateY === null) {
-        _data2.rotateY = options.rotateY;
-
-        if (Number.isFinite(_data2.rotateY)) {
-          _classPrivateFieldGet(this, _transforms).rotateY = `rotateY(${_data2.rotateY}deg)`;
-        }
-      }
-
-      if (Number.isFinite(options.rotateZ) || options.rotateZ === null) {
-        _data2.rotateZ = options.rotateZ;
-
-        if (Number.isFinite(_data2.rotateZ)) {
-          _classPrivateFieldGet(this, _transforms).rotateZ = `rotateZ(${_data2.rotateZ}deg)`;
-        }
-      }
-
-      if (Number.isFinite(options.scale) || options.scale === null) {
-        _data2.scale = options.scale;
-
-        if (Number.isFinite(_data2.scale)) {
-          _classPrivateFieldGet(this, _transforms).scale = `scale(${_data2.scale})`;
-        }
-      }
-
-      if (Number.isFinite(options.top) || options.top === null) {
-        _data2.top = typeof options.top === 'number' ? Math.round(options.top) : options.top;
-      }
-
-      if (typeof options.transformOrigin === 'string' && s_TRANSFORM_ORIGINS.includes(options.transformOrigin)) {
-        _data2.transformOrigin = options.transformOrigin;
-      }
-
-      if (Number.isFinite(options.width) || options.width === 'auto' || options.width === null) {
-        _data2.width = typeof options.width === 'number' ? Math.round(options.width) : options.width;
-      }
-
-      if (Number.isFinite(options.zIndex) || options.zIndex === null) {
-        _data2.zIndex = typeof options.zIndex === 'number' ? Math.round(options.zIndex) : options.zIndex;
-      }
-    }
-
-    _classPrivateFieldSet(this, _stores$1, {
-      height: propertyStore(this, 'height'),
-      left: propertyStore(this, 'left'),
-      rotateX: propertyStore(this, 'rotateX'),
-      rotateY: propertyStore(this, 'rotateY'),
-      rotateZ: propertyStore(this, 'rotateZ'),
-      scale: propertyStore(this, 'scale'),
-      top: propertyStore(this, 'top'),
-      transformOrigin: propertyStore(this, 'transformOrigin'),
-      width: propertyStore(this, 'width'),
-      zIndex: propertyStore(this, 'zIndex')
-    });
-
-    _classPrivateFieldGet(this, _stores$1).transformOrigin.values = s_TRANSFORM_ORIGINS;
-    Object.freeze(_classPrivateFieldGet(this, _stores$1));
-    [_classPrivateFieldDestructureSet(this, _validators).value, _classPrivateFieldDestructureSet(this, _validatorsAdapter).value] = new AdapterValidators();
-  }
-  /**
-   * Returns a promise that is resolved on the next element update with the time of the update.
-   *
-   * @returns {Promise<number>} Promise resolved on element update.
-   */
-
-
-  get elementUpdated() {
-    return new Promise(resolve => _classPrivateFieldGet(this, _elementUpdatePromises).push(resolve));
-  }
-  /**
-   * Returns the derived writable stores for individual data variables.
-   *
-   * @returns {StorePosition} Derived / writable stores.
-   */
-
-
-  get stores() {
-    return _classPrivateFieldGet(this, _stores$1);
-  }
-  /**
-   * Returns the validators.
-   *
-   * @returns {AdapterValidators} validators.
-   */
-
-
-  get validators() {
-    return _classPrivateFieldGet(this, _validators);
-  } // Data accessors ----------------------------------------------------------------------------------------------------
-
-  /**
-   * @returns {number|'auto'|null} height
-   */
-
-
-  get height() {
-    return _classPrivateFieldGet(this, _data$1).height;
-  }
-  /**
-   * @returns {number|null} left
-   */
-
-
-  get left() {
-    return _classPrivateFieldGet(this, _data$1).left;
-  }
-  /**
-   * @returns {number|null} rotateX
-   */
-
-
-  get rotateX() {
-    return _classPrivateFieldGet(this, _data$1).rotateX;
-  }
-  /**
-   * @returns {number|null} rotateY
-   */
-
-
-  get rotateY() {
-    return _classPrivateFieldGet(this, _data$1).rotateY;
-  }
-  /**
-   * @returns {number|null} rotateZ
-   */
-
-
-  get rotateZ() {
-    return _classPrivateFieldGet(this, _data$1).rotateZ;
-  }
-  /**
-   * @returns {number|null} scale
-   */
-
-
-  get scale() {
-    return _classPrivateFieldGet(this, _data$1).scale;
-  }
-  /**
-   * @returns {number|null} top
-   */
-
-
-  get top() {
-    return _classPrivateFieldGet(this, _data$1).top;
-  }
-  /**
-   * @returns {string} transformOrigin
-   */
-
-
-  get transformOrigin() {
-    return _classPrivateFieldGet(this, _data$1).transformOrigin;
-  }
-  /**
-   * @returns {number|'auto'|null} width
-   */
-
-
-  get width() {
-    return _classPrivateFieldGet(this, _data$1).width;
-  }
-  /**
-   * @returns {number|null} z-index
-   */
-
-
-  get zIndex() {
-    return _classPrivateFieldGet(this, _data$1).zIndex;
-  }
-  /**
-   * @param {number|'auto'|null} height -
-   */
-
-
-  set height(height) {
-    _classPrivateFieldGet(this, _stores$1).height.set(height);
-  }
-  /**
-   * @param {number|null} left -
-   */
-
-
-  set left(left) {
-    _classPrivateFieldGet(this, _stores$1).left.set(left);
-  }
-  /**
-   * @param {number|null} rotateX -
-   */
-
-
-  set rotateX(rotateX) {
-    _classPrivateFieldGet(this, _stores$1).rotateX.set(rotateX);
-  }
-  /**
-   * @param {number|null} rotateY -
-   */
-
-
-  set rotateY(rotateY) {
-    _classPrivateFieldGet(this, _stores$1).rotateY.set(rotateY);
-  }
-  /**
-   * @param {number|null} rotateZ -
-   */
-
-
-  set rotateZ(rotateZ) {
-    _classPrivateFieldGet(this, _stores$1).rotateZ.set(rotateZ);
-  }
-  /**
-   * @param {number|null} scale -
-   */
-
-
-  set scale(scale) {
-    _classPrivateFieldGet(this, _stores$1).scale.set(scale);
-  }
-  /**
-   * @param {number|null} top -
-   */
-
-
-  set top(top) {
-    _classPrivateFieldGet(this, _stores$1).top.set(top);
-  }
-  /**
-   * @param {string} transformOrigin -
-   */
-
-
-  set transformOrigin(transformOrigin) {
-    if (s_TRANSFORM_ORIGINS.includes(transformOrigin)) {
-      _classPrivateFieldGet(this, _stores$1).transformOrigin.set(transformOrigin);
-    }
-  }
-  /**
-   * @param {number|'auto'|null} width -
-   */
-
-
-  set width(width) {
-    _classPrivateFieldGet(this, _stores$1).width.set(width);
-  }
-  /**
-   * @param {number|null} zIndex -
-   */
-
-
-  set zIndex(zIndex) {
-    _classPrivateFieldGet(this, _stores$1).zIndex.set(zIndex);
-  }
-  /**
-   * Provides animation
-   *
-   * @param {PositionData}   position - The destination position.
-   *
-   * @param {object}         [opts] - Optional parameters.
-   *
-   * @param {number}         [opts.duration] - Duration in milliseconds.
-   *
-   * @param {Function}       [opts.easing=linear] - Easing function.
-   *
-   * @param {Function}       [opts.interpolate=lerp] - Interpolation function.
-   *
-   * @returns {Promise<void>} Animation complete.
-   */
-
-
-  async animateTo(position = {}, {
-    duration = 1000,
-    easing = identity,
-    interpolate = lerp
-  } = {}) {
-    var _parent$options, _parent$options2;
-
-    if (typeof position !== 'object') {
-      throw new TypeError(`Position - animateTo error: 'position' is not an object.`);
-    } // Early out if the application is not positionable.
-
-
-    const parent = _classPrivateFieldGet(this, _parent);
-
-    if (parent !== void 0 && typeof (parent === null || parent === void 0 ? void 0 : (_parent$options = parent.options) === null || _parent$options === void 0 ? void 0 : _parent$options.positionable) === 'boolean' && !(parent !== null && parent !== void 0 && (_parent$options2 = parent.options) !== null && _parent$options2 !== void 0 && _parent$options2.positionable)) {
-      return;
-    }
-
-    if (!Number.isInteger(duration) || duration < 0) {
-      throw new TypeError(`Position - animateTo error: 'duration' is not a positive integer.`);
-    }
-
-    if (typeof easing !== 'function') {
-      throw new TypeError(`Position - animateTo error: 'easing' is not a function.`);
-    }
-
-    if (typeof interpolate !== 'function') {
-      throw new TypeError(`Position - animateTo error: 'interpolate' is not a function.`);
-    }
-
-    const data = _classPrivateFieldGet(this, _data$1);
-
-    const currentAnimationKeys = _classPrivateFieldGet(this, _currentAnimationKeys);
-
-    const initial = {};
-    const destination = {}; // Set initial data if the key / data is defined and the end position is not equal to current data.
-
-    for (const key in position) {
-      if (data[key] !== void 0 && position[key] !== data[key]) {
-        destination[key] = position[key];
-        initial[key] = data[key];
-      }
-    } // Set initial data for transform values that are often null by default.
-
-
-    if (initial.rotateX === null) {
-      initial.rotateX = 0;
-    }
-
-    if (initial.rotateY === null) {
-      initial.rotateY = 0;
-    }
-
-    if (initial.rotateZ === null) {
-      initial.rotateZ = 0;
-    }
-
-    if (initial.scale === null) {
-      initial.scale = 1;
-    }
-
-    if (destination.rotateX === null) {
-      destination.rotateX = 0;
-    }
-
-    if (destination.rotateY === null) {
-      destination.rotateY = 0;
-    }
-
-    if (destination.rotateZ === null) {
-      destination.rotateZ = 0;
-    }
-
-    if (destination.scale === null) {
-      destination.scale = 1;
-    } // Reject all initial data that is not a number or is current animating.
-    // Add all keys that pass to `currentAnimationKeys`.
-
-
-    for (const key in initial) {
-      if (!Number.isFinite(initial[key]) || currentAnimationKeys.has(key)) {
-        delete initial[key];
-      } else {
-        currentAnimationKeys.add(key);
-      }
-    }
-
-    const newData = Object.assign({}, initial);
-    const keys = Object.keys(newData); // Nothing to animate, so return now.
-
-    if (keys.length === 0) {
-      return;
-    }
-
-    const start = await nextAnimationFrame$1();
-    let current = 0;
-
-    while (current < duration) {
-      const easedTime = easing(current / duration);
-
-      for (const key of keys) {
-        newData[key] = interpolate(initial[key], destination[key], easedTime);
-      }
-
-      current = (await this.set(newData).elementUpdated) - start;
-    } // Prepare final update with end position data and remove keys from `currentAnimationKeys`.
-
-
-    for (const key of keys) {
-      newData[key] = position[key];
-      currentAnimationKeys.delete(key);
-    }
-
-    this.set(newData);
-  }
-  /**
-   * Assigns current position to object passed into method.
-   *
-   * @param {object|PositionData} [position] - Target to assign current position data.
-   *
-   * @returns {PositionData} Passed in object with current position data.
-   */
-
-
-  get(position = {}) {
-    return Object.assign(position, _classPrivateFieldGet(this, _data$1));
-  }
-  /**
-   * Returns any stored save state by name.
-   *
-   * @param {string}   name - Saved data set name.
-   *
-   * @returns {PositionData} The saved data set.
-   */
-
-
-  getSave({
-    name
-  }) {
-    if (typeof name !== 'string') {
-      throw new TypeError(`Position - getSave error: 'name' is not a string.`);
-    }
-
-    return _classPrivateFieldGet(this, _dataSaved).get(name);
-  }
-  /**
-   * @returns {PositionData} Current position data.
-   */
-
-
-  toJSON() {
-    return Object.assign({}, _classPrivateFieldGet(this, _data$1));
-  }
-  /**
-   * Resets data to default values and invokes set. Check options, but by default current z-index is maintained.
-   *
-   * @param {object}   [opts] - Optional parameters.
-   *
-   * @param {boolean}  [opts.keepZIndex=false] - When true keeps current z-index.
-   *
-   * @param {boolean}  [opts.invokeSet=true] - When true invokes set method.
-   *
-   * @returns {boolean} Operation successful.
-   */
-
-
-  reset({
-    keepZIndex = false,
-    invokeSet = true
-  } = {}) {
-    var _classPrivateFieldGet2, _classPrivateFieldGet3;
-
-    if (typeof _classPrivateFieldGet(this, _defaultData) !== 'object') {
-      return false;
-    }
-
-    if (_classPrivateFieldGet(this, _currentAnimationKeys).size) {
-      return false;
-    }
-
-    const zIndex = _classPrivateFieldGet(this, _data$1).zIndex;
-
-    const data = Object.assign({}, _classPrivateFieldGet(this, _defaultData));
-
-    if (keepZIndex) {
-      data.zIndex = zIndex;
-    } // Remove any keys that are currently animating.
-
-
-    for (const key of _classPrivateFieldGet(this, _currentAnimationKeys)) {
-      delete data[key];
-    } // If current minimized invoke `maximize`.
-
-
-    if ((_classPrivateFieldGet2 = _classPrivateFieldGet(this, _parent)) !== null && _classPrivateFieldGet2 !== void 0 && (_classPrivateFieldGet3 = _classPrivateFieldGet2.reactive) !== null && _classPrivateFieldGet3 !== void 0 && _classPrivateFieldGet3.minimized) {
-      var _classPrivateFieldGet4, _classPrivateFieldGet5;
-
-      (_classPrivateFieldGet4 = _classPrivateFieldGet(this, _parent)) === null || _classPrivateFieldGet4 === void 0 ? void 0 : (_classPrivateFieldGet5 = _classPrivateFieldGet4.maximize) === null || _classPrivateFieldGet5 === void 0 ? void 0 : _classPrivateFieldGet5.call(_classPrivateFieldGet4, {
-        animate: false,
-        duration: 0
-      });
-    }
-
-    if (invokeSet) {
-      this.set(data);
-    }
-
-    return true;
-  }
-  /**
-   * Removes and returns any position state by name.
-   *
-   * @param {object}   options - Options.
-   *
-   * @param {string}   options.name - Name to remove and retrieve.
-   *
-   * @returns {PositionData} Saved position data.
-   */
-
-
-  remove({
-    name
-  }) {
-    if (typeof name !== 'string') {
-      throw new TypeError(`Position - remove: 'name' is not a string.`);
-    }
-
-    const data = _classPrivateFieldGet(this, _dataSaved).get(name);
-
-    _classPrivateFieldGet(this, _dataSaved).delete(name);
-
-    return data;
-  }
-  /**
-   * Restores a saved positional state returning the data. Several optional parameters are available
-   * to control whether the restore action occurs silently (no store / inline styles updates), animates
-   * to the stored data, or simply sets the stored data. Restoring via {@link Position.animateTo} allows
-   * specification of the duration, easing, and interpolate functions along with configuring a Promise to be
-   * returned if awaiting the end of the animation.
-   *
-   * @param {object}            params - Parameters
-   *
-   * @param {string}            params.name - Saved data set name.
-   *
-   * @param {boolean}           [params.remove=false] - Remove data set.
-   *
-   * @param {Iterable<string>}  [params.properties] - Specific properties to set / animate.
-   *
-   * @param {boolean}           [params.silent] - Set position data directly; no store or style updates.
-   *
-   * @param {boolean}           [params.async=false] - If animating return a Promise that resolves with any saved data.
-   *
-   * @param {boolean}           [params.animateTo=false] - Animate to restore data.
-   *
-   * @param {number}            [params.duration=100] - Duration in milliseconds.
-   *
-   * @param {Function}          [params.easing=linear] - Easing function.
-   *
-   * @param {Function}          [params.interpolate=lerp] - Interpolation function.
-   *
-   * @returns {PositionData} Saved position data.
-   */
-
-
-  restore({
-    name,
-    remove = false,
-    properties,
-    silent = false,
-    async = false,
-    animateTo = false,
-    duration = 100,
-    easing = identity,
-    interpolate = lerp
-  }) {
-    if (typeof name !== 'string') {
-      throw new TypeError(`Position - restore error: 'name' is not a string.`);
-    }
-
-    const dataSaved = _classPrivateFieldGet(this, _dataSaved).get(name);
-
-    if (dataSaved) {
-      if (remove) {
-        _classPrivateFieldGet(this, _dataSaved).delete(name);
-      }
-
-      let data = dataSaved;
-
-      if (isIterable(properties)) {
-        data = {};
-
-        for (const property of properties) {
-          data[property] = dataSaved[property];
-        }
-      } // Update data directly with no store or inline style updates.
-
-
-      if (silent) {
-        for (const property in data) {
-          _classPrivateFieldGet(this, _data$1)[property] = data[property];
-        }
-
-        return dataSaved;
-      } else if (animateTo) // Animate to saved data.
-        {
-          // Provide special handling to potentially change transform origin as this parameter is not animated.
-          if (data.transformOrigin !== this.transformOrigin) {
-            this.transformOrigin = data.transformOrigin;
-          } // Return a Promise with saved data that resolves after animation ends.
-
-
-          if (async) {
-            return this.animateTo(data, {
-              duration,
-              easing,
-              interpolate
-            }).then(() => dataSaved);
-          } else // Animate synchronously.
-            {
-              this.animateTo(data, {
-                duration,
-                easing,
-                interpolate
-              });
-            }
-        } else {
-        // Default options is to set data for an immediate update.
-        this.set(data);
-      }
-    }
-
-    return dataSaved;
-  }
-  /**
-   * Saves current position state with the opportunity to add extra data to the saved state.
-   *
-   * @param {object}   options - Options.
-   *
-   * @param {string}   options.name - name to index this saved data.
-   *
-   * @param {...*}     [options.extra] - Extra data to add to saved data.
-   *
-   * @returns {PositionData} Current position data
-   */
-
-
-  save(_ref) {
-    let {
-      name
-    } = _ref,
-        extra = _objectWithoutProperties(_ref, _excluded);
-
-    if (typeof name !== 'string') {
-      throw new TypeError(`Position - save error: 'name' is not a string.`);
-    }
-
-    const data = this.get(extra);
-
-    _classPrivateFieldGet(this, _dataSaved).set(name, data);
-
-    return data;
-  }
-  /**
-   * All calculation and updates of position are implemented in {@link Position}. This allows position to be fully
-   * reactive and in control of updating inline styles for the application.
-   *
-   * Note: the logic for updating position is improved and changes a few aspects from the default
-   * {@link Application.setPosition}. The gate on `popOut` is removed, so to ensure no positional application occurs
-   * popOut applications can set `this.options.positionable` to false ensuring no positional inline styles are
-   * applied.
-   *
-   * The initial set call on an application with a target element will always set width / height as this is
-   * necessary for correct calculations.
-   *
-   * When a target element is present updated styles are applied after validation. To modify the behavior of set
-   * implement one or more validator functions and add them from the application via
-   * `this.position.validators.add(<Function>)`.
-   *
-   * Updates to any target element are decoupled from the underlying Position data. This method returns this instance
-   * that you can then await on the target element inline style update by using {@link Position.elementUpdated}.
-   *
-   * @param {PositionData}   [position] - Position data to set.
-   *
-   * @returns {Position} This Position instance.
-   */
-
-
-  set(position = {}) {
-    var _parent$options3, _parent$options4;
-
-    if (typeof position !== 'object') {
-      throw new TypeError(`Position - set error: 'position' is not an object.`);
-    }
-
-    const parent = _classPrivateFieldGet(this, _parent); // An early out to prevent `set` from taking effect if options `positionable` is false.
-
-
-    if (parent !== void 0 && typeof (parent === null || parent === void 0 ? void 0 : (_parent$options3 = parent.options) === null || _parent$options3 === void 0 ? void 0 : _parent$options3.positionable) === 'boolean' && !(parent !== null && parent !== void 0 && (_parent$options4 = parent.options) !== null && _parent$options4 !== void 0 && _parent$options4.positionable)) {
-      return this;
-    }
-
-    const data = _classPrivateFieldGet(this, _data$1);
-
-    const transforms = _classPrivateFieldGet(this, _transforms);
-
-    const validators = _classPrivateFieldGet(this, _validators);
-
-    let currentTransform = '',
-        updateTransform = false;
-    const el = parent === null || parent === void 0 ? void 0 : parent.elementTarget;
-
-    if (el) {
-      var _el$style$transform;
-
-      currentTransform = (_el$style$transform = el.style.transform) !== null && _el$style$transform !== void 0 ? _el$style$transform : '';
-      position = _classPrivateMethodGet(this, _updatePosition, _updatePosition2).call(this, position, el);
-    } // If there are any validators allow them to potentially modify position data or reject the update.
-
-
-    if (validators.length) {
-      for (const validator of validators) {
-        position = validator.validator(position, parent);
-
-        if (position === null) {
-          return this;
-        }
-      }
-    }
-
-    let modified = false;
-
-    if (typeof position.left === 'number') {
-      position.left = Math.round(position.left);
-
-      if (data.left !== position.left) {
-        data.left = position.left;
-        modified = true;
-      }
-    }
-
-    if (typeof position.top === 'number') {
-      position.top = Math.round(position.top);
-
-      if (data.top !== position.top) {
-        data.top = position.top;
-        modified = true;
-      }
-    }
-
-    if (typeof position.rotateX === 'number' || position.rotateX === null) {
-      if (data.rotateX !== position.rotateX) {
-        data.rotateX = position.rotateX;
-        updateTransform = modified = true;
-
-        if (typeof position.rotateX === 'number') {
-          transforms.rotateX = `rotateX(${position.rotateX}deg)`;
-        } else {
-          delete transforms.rotateX;
-        }
-      } else if (transforms.rotateX && !currentTransform.includes('rotateX(')) {
-        updateTransform = true;
-      }
-    }
-
-    if (typeof position.rotateY === 'number' || position.rotateY === null) {
-      if (data.rotateY !== position.rotateY) {
-        data.rotateY = position.rotateY;
-        updateTransform = modified = true;
-
-        if (typeof position.rotateY === 'number') {
-          transforms.rotateY = `rotateY(${position.rotateY}deg)`;
-        } else {
-          delete transforms.rotateY;
-        }
-      } else if (transforms.rotateY && !currentTransform.includes('rotateY(')) {
-        updateTransform = true;
-      }
-    }
-
-    if (typeof position.rotateZ === 'number' || position.rotateZ === null) {
-      if (data.rotateZ !== position.rotateZ) {
-        data.rotateZ = position.rotateZ;
-        updateTransform = modified = true;
-
-        if (typeof position.rotateZ === 'number') {
-          transforms.rotateZ = `rotateZ(${position.rotateZ}deg)`;
-        } else {
-          delete transforms.rotateZ;
-        }
-      } else if (transforms.rotateZ && !currentTransform.includes('rotateZ(')) {
-        updateTransform = true;
-      }
-    }
-
-    if (typeof position.scale === 'number' || position.scale === null) {
-      position.scale = typeof position.scale === 'number' ? Math.max(0, Math.min(position.scale, 1000)) : null;
-
-      if (data.scale !== position.scale) {
-        data.scale = position.scale;
-        updateTransform = modified = true;
-
-        if (typeof position.scale === 'number') {
-          transforms.scale = `scale(${position.scale})`;
-        } else {
-          delete transforms.scale;
-        }
-      } else if (transforms.scale && !currentTransform.includes('scale(')) {
-        updateTransform = true;
-      }
-    }
-
-    if (typeof position.transformOrigin !== void 0) {
-      position.transformOrigin = s_TRANSFORM_ORIGINS.includes(position.transformOrigin) ? position.transformOrigin : s_TRANSFORM_ORIGIN_DEFAULT;
-
-      if (data.transformOrigin !== position.transformOrigin) {
-        data.transformOrigin = position.transformOrigin;
-        updateTransform = modified = true;
-      }
-    }
-
-    if (typeof position.zIndex === 'number') {
-      position.zIndex = Math.round(position.zIndex);
-
-      if (data.zIndex !== position.zIndex) {
-        data.zIndex = position.zIndex;
-        modified = true;
-      }
-    }
-
-    if (typeof position.width === 'number' || position.width === 'auto' || position.width === null) {
-      position.width = typeof position.width === 'number' ? Math.round(position.width) : position.width;
-
-      if (data.width !== position.width) {
-        data.width = position.width;
-        modified = true;
-      }
-    }
-
-    if (typeof position.height === 'number' || position.height === 'auto' || position.height === null) {
-      position.height = typeof position.height === 'number' ? Math.round(position.height) : position.height;
-
-      if (data.height !== position.height) {
-        data.height = position.height;
-        modified = true;
-      }
-    }
-
-    if (el) {
-      // Set default data after first set operation that has a target element.
-      if (typeof _classPrivateFieldGet(this, _defaultData) !== 'object') {
-        _classPrivateFieldSet(this, _defaultData, Object.assign({}, data));
-      } // Track any transform updates that are handled in `#updateElement`.
-
-
-      _classPrivateFieldSet(this, _transformUpdate, _classPrivateFieldGet(this, _transformUpdate) | updateTransform); // If there isn't already a pending update element action then initiate it.
-
-
-      if (!_classPrivateFieldGet(this, _updateElementInvoked)) {
-        _classPrivateMethodGet(this, _updateElement, _updateElement2).call(this);
-      }
-    } // Notify main store subscribers.
-
-
-    if (modified) {
-      // Subscriptions are stored locally as on the browser Babel is still used for private class fields / Babel
-      // support until 2023. IE not doing this will require several extra method calls otherwise.
-      const subscriptions = _classPrivateFieldGet(this, _subscriptions); // Early out if there are no subscribers.
-
-
-      if (subscriptions.length > 0) {
-        for (let cntr = 0; cntr < subscriptions.length; cntr++) {
-          subscriptions[cntr](position);
-        }
-      }
-    }
-
-    return this;
-  }
-  /**
-   *
-   * @param {function(PositionData): void} handler - Callback function that is invoked on update / changes. Receives
-   *                                                 a copy of the PositionData.
-   *
-   * @returns {(function(): void)} Unsubscribe function.
-   */
-
-
-  subscribe(handler) {
-    _classPrivateFieldGet(this, _subscriptions).push(handler); // add handler to the array of subscribers
-
-
-    handler(Object.assign({}, _classPrivateFieldGet(this, _data$1))); // call handler with current value
-    // Return unsubscribe function.
-
-    return () => {
-      const index = _classPrivateFieldGet(this, _subscriptions).findIndex(sub => sub === handler);
-
-      if (index >= 0) {
-        _classPrivateFieldGet(this, _subscriptions).splice(index, 1);
-      }
-    };
-  }
-  /**
-   * Decouples updates to any parent target HTMLElement inline styles. Invoke {@link Position.elementUpdated} to await
-   * on the returned promise that is resolved with the current render time via `nextAnimationFrame` /
-   * `requestAnimationFrame`. This allows the underlying data model to be updated immediately while updates to the
-   * element are in sync with the browser and potentially in the future be further throttled.
-   *
-   * @returns {Promise<number>} The current time before rendering.
-   */
-
-
-}
-
-async function _updateElement2() {
-  var _classPrivateFieldGet6;
-
-  _classPrivateFieldSet(this, _updateElementInvoked, true); // Await the next animation frame. In the future this can be extended to multiple frames to divide update rate.
-
-
-  const currentTime = await nextAnimationFrame$1();
-
-  _classPrivateFieldSet(this, _updateElementInvoked, false);
-
-  const el = (_classPrivateFieldGet6 = _classPrivateFieldGet(this, _parent)) === null || _classPrivateFieldGet6 === void 0 ? void 0 : _classPrivateFieldGet6.elementTarget;
-
-  if (!el) {
-    // Resolve any stored Promises when multiple updates have occurred.
-    if (_classPrivateFieldGet(this, _elementUpdatePromises).length) {
-      for (const resolve of _classPrivateFieldGet(this, _elementUpdatePromises)) {
-        resolve(currentTime);
-      }
-
-      _classPrivateFieldGet(this, _elementUpdatePromises).length = 0;
-    }
-
-    return currentTime;
-  }
-
-  const data = _classPrivateFieldGet(this, _data$1);
-
-  if (typeof data.left === 'number') {
-    el.style.left = `${data.left}px`;
-  }
-
-  if (typeof data.top === 'number') {
-    el.style.top = `${data.top}px`;
-  }
-
-  if (typeof data.zIndex === 'number' || data.zIndex === null) {
-    el.style.zIndex = typeof data.zIndex === 'number' ? `${data.zIndex}` : null;
-  }
-
-  if (typeof data.width === 'number' || data.width === 'auto' || data.width === null) {
-    el.style.width = typeof data.width === 'number' ? `${data.width}px` : data.width;
-  }
-
-  if (typeof data.height === 'number' || data.height === 'auto' || data.height === null) {
-    el.style.height = typeof data.height === 'number' ? `${data.height}px` : data.height;
-  } // Update all transforms in order added to transforms object.
-
-
-  if (_classPrivateFieldGet(this, _transformUpdate)) {
-    _classPrivateFieldSet(this, _transformUpdate, false);
-
-    let transformString = '';
-
-    const transforms = _classPrivateFieldGet(this, _transforms);
-
-    for (const key in transforms) {
-      transformString += transforms[key];
-    }
-
-    el.style.transformOrigin = data.transformOrigin;
-    el.style.transform = transformString;
-  } // Resolve any stored Promises when multiple updates have occurred.
-
-
-  if (_classPrivateFieldGet(this, _elementUpdatePromises).length) {
-    for (const resolve of _classPrivateFieldGet(this, _elementUpdatePromises)) {
-      resolve(currentTime);
-    }
-
-    _classPrivateFieldGet(this, _elementUpdatePromises).length = 0;
-  }
-
-  return currentTime;
-}
-
-function _updatePosition2(_ref2 = {}, el) {
-  let {
-    left,
-    top,
-    width,
-    height,
-    rotateX,
-    rotateY,
-    rotateZ,
-    scale,
-    transformOrigin,
-    zIndex
-  } = _ref2,
-      rest = _objectWithoutProperties(_ref2, _excluded2);
-
-  const currentPosition = this.get(rest);
-  const styles = globalThis.getComputedStyle(el); // Update width if an explicit value is passed, or if no width value is set on the element.
-
-  if (el.style.width === '' || width !== void 0) {
-    if (width === 'auto' || currentPosition.width === 'auto' && width !== null) {
-      currentPosition.width = 'auto';
-      width = el.offsetWidth;
-    } else {
-      const tarW = typeof width === 'number' ? Math.round(width) : el.offsetWidth;
-      const minW = styleParsePixels(styles.minWidth) || MIN_WINDOW_WIDTH;
-      const maxW = styleParsePixels(styles.maxWidth) || el.style.maxWidth || globalThis.innerWidth;
-      currentPosition.width = width = Math.clamped(tarW, minW, maxW);
-
-      if (width + left > globalThis.innerWidth) {
-        left = currentPosition.left;
-      }
-    }
-  } else {
-    width = el.offsetWidth;
-  } // Update height if an explicit value is passed, or if no height value is set on the element.
-
-
-  if (el.style.height === '' || height !== void 0) {
-    if (height === 'auto' || currentPosition.height === 'auto' && height !== null) {
-      currentPosition.height = 'auto';
-      height = el.offsetHeight;
-    } else {
-      const tarH = typeof height === 'number' ? Math.round(height) : el.offsetHeight + 1;
-      const minH = styleParsePixels(styles.minHeight) || MIN_WINDOW_HEIGHT;
-      const maxH = styleParsePixels(styles.maxHeight) || el.style.maxHeight || globalThis.innerHeight;
-      currentPosition.height = height = Math.clamped(tarH, minH, maxH);
-
-      if (height + currentPosition.top > globalThis.innerHeight + 1) {
-        top = currentPosition.top - 1;
-      }
-    }
-  } else {
-    height = el.offsetHeight;
-  } // Update left
-
-
-  if (el.style.left === '' || Number.isFinite(left)) {
-    const tarL = Number.isFinite(left) ? left : (globalThis.innerWidth - width) / 2;
-    const maxL = Math.max(globalThis.innerWidth - width, 0);
-    currentPosition.left = Math.round(Math.clamped(tarL, 0, maxL));
-  } // Update top
-
-
-  if (el.style.top === '' || Number.isFinite(top)) {
-    const tarT = Number.isFinite(top) ? top : (globalThis.innerHeight - height) / 2;
-    const maxT = Math.max(globalThis.innerHeight - height, 0);
-    currentPosition.top = Math.round(Math.clamped(tarT, 0, maxT));
-  } // Update rotate X/Y/Z, scale, z-index
-
-
-  if (typeof rotateX === 'number' || rotateX === null) {
-    currentPosition.rotateX = rotateX;
-  }
-
-  if (typeof rotateY === 'number' || rotateY === null) {
-    currentPosition.rotateY = rotateY;
-  }
-
-  if (typeof rotateZ === 'number' || rotateZ === null) {
-    currentPosition.rotateZ = rotateZ;
-  }
-
-  if (typeof scale === 'number' || scale === null) {
-    currentPosition.scale = typeof scale === 'number' ? Math.max(0, Math.min(scale, 1000)) : null;
-  }
-
-  if (typeof transformOrigin === 'string') {
-    currentPosition.transformOrigin = s_TRANSFORM_ORIGINS.includes(transformOrigin) ? transformOrigin : s_TRANSFORM_ORIGIN_DEFAULT;
-  }
-
-  if (typeof zIndex === 'number' || zIndex === null) {
-    currentPosition.zIndex = typeof zIndex === 'number' ? Math.round(zIndex) : zIndex;
-  } // Return the updated position object.
-
-
-  return currentPosition;
-}
-
-const s_TRANSFORM_ORIGIN_DEFAULT = 'top left';
-/**
- * Defines the valid transform origins.
- *
- * @type {string[]}
- */
-
-const s_TRANSFORM_ORIGINS = ['top left', 'top center', 'top right', 'center left', 'center', 'center right', 'bottom left', 'bottom center', 'bottom right'];
-Object.freeze(s_TRANSFORM_ORIGINS);
 
 /**
  * Provides a Svelte aware extension to Application to control the app lifecycle appropriately. You can declaratively
@@ -25234,7 +31457,11 @@ class SvelteApplication extends Application {
     _classPrivateFieldSet(this, _applicationState, new ApplicationState(this)); // Initialize Position with the position object set by Application.
 
 
-    _classPrivateFieldSet(this, _position, new Position(this, _objectSpread2(_objectSpread2({}, this.options), this.position))); // Remove old position field.
+    _classPrivateFieldSet(this, _position, new Position(this, _objectSpread2(_objectSpread2(_objectSpread2({}, this.position), this.options), {}, {
+      initial: this.options.positionInitial,
+      ortho: this.options.positionOrtho,
+      validator: this.options.positionValidator
+    }))); // Remove old position field.
 
 
     delete this.position;
@@ -25269,23 +31496,29 @@ class SvelteApplication extends Application {
 
   static get defaultOptions() {
     return deepMerge(super.defaultOptions, {
+      defaultCloseAnimation: true,
+      // If false the default slide close animation is not run.
       draggable: true,
       // If true then application shells are draggable.
       headerButtonNoClose: false,
       // If true then the close header button is removed.
       headerButtonNoLabel: false,
       // If true then header button labels are removed for application shells.
-      defaultCloseAnimation: true,
-      // If false the default slide close animation is not run.
+      headerNoTitleMinimized: false,
+      // If true then header title is hidden when application is minimized.
+      minHeight: MIN_WINDOW_HEIGHT,
+      // Assigned to position. Number specifying minimum window height.
+      minWidth: MIN_WINDOW_WIDTH,
+      // Assigned to position. Number specifying minimum window width.
       positionable: true,
       // If false then `position.set` does not take effect.
-      rotateX: null,
-      // Assigned to position.
-      rotateY: null,
-      // Assigned to position.
-      rotateZ: null,
-      // Assigned to position.
-      zIndex: null // Assigned to position.
+      positionInitial: Position.Initial.browserCentered,
+      // A helper for initial position placement.
+      positionOrtho: true,
+      // When true Position is optimized for orthographic use.
+      positionValidator: Position.Validators.transformWindow,
+      // A function providing the default validator.
+      transformOrigin: 'top left' // By default, 'top / left' respects rotation when minimizing.
 
     });
   }
@@ -25356,11 +31589,21 @@ class SvelteApplication extends Application {
   /**
    * Provide an override to set this application as the active window regardless of z-index. Changes behaviour from
    * Foundry core. This is important / used for instance in dialog key handling for left / right button selection.
+   *
+   * @param {object} [opts] - Optional parameters.
+   *
+   * @param {boolean} [opts.force=false] - Force bring to top; will increment z-index by popOut order.
+   *
    */
 
 
-  bringToTop() {
-    super.bringToTop();
+  bringToTop({
+    force = false
+  } = {}) {
+    if (force || this.popOut) {
+      super.bringToTop();
+    }
+
     ui.activeWindow = this;
   }
   /**
@@ -25666,6 +31909,8 @@ class SvelteApplication extends Application {
     animate = true,
     duration = 100
   } = {}) {
+    var _this$options$minHeig, _this$options;
+
     if (!this.popOut || [false, null].includes(this._minimized)) {
       return;
     }
@@ -25731,7 +31976,9 @@ class SvelteApplication extends Application {
     }], {
       duration,
       fill: 'forwards'
-    }).finished;
+    }).finished; // minHeight needs to be adjusted to options or Foundry default window height.
+
+    this.position.minHeight = (_this$options$minHeig = (_this$options = this.options) === null || _this$options === void 0 ? void 0 : _this$options.minHeight) !== null && _this$options$minHeig !== void 0 ? _this$options$minHeig : MIN_WINDOW_HEIGHT;
     element.classList.remove('minimized');
     this._minimized = false;
     element.style.minWidth = null;
@@ -25807,11 +32054,14 @@ class SvelteApplication extends Application {
       name: '#beforeMinimized',
       constraints
     });
+    const headerOffsetHeight = header.offsetHeight; // minHeight needs to be adjusted to header height.
+
+    this.position.minHeight = headerOffsetHeight;
 
     if (animate) {
       // First await animation of height upward.
       await this.position.animateTo({
-        height: header.offsetHeight
+        height: headerOffsetHeight
       }, {
         duration: 100
       });
@@ -25821,7 +32071,7 @@ class SvelteApplication extends Application {
     for (let cntr = header.children.length; --cntr >= 0;) {
       const className = header.children[cntr].className;
 
-      if (className.includes('window-title') || className.includes('close')) {
+      if (className.includes('window-title') || className.includes('close') || className.includes('keep-minimized')) {
         continue;
       }
 
@@ -25857,7 +32107,7 @@ class SvelteApplication extends Application {
     element,
     elementContent,
     elementTarget
-  }) {} // eslint-disable-line no-unused-vars
+  } = {}) {} // eslint-disable-line no-unused-vars
 
   /**
    * Override replacing HTML as Svelte components control the rendering process. Only potentially change the outer
@@ -26090,6 +32340,677 @@ function scale(node, {
 }
 
 /**
+ * Common utilities
+ * @module glMatrix
+ */
+// Configuration Constants
+
+
+var EPSILON = 0.000001;
+var ARRAY_TYPE = typeof Float32Array !== 'undefined' ? Float32Array : Array;
+if (!Math.hypot) Math.hypot = function () {
+  var y = 0,
+      i = arguments.length;
+
+  while (i--) {
+    y += arguments[i] * arguments[i];
+  }
+
+  return Math.sqrt(y);
+};
+/**
+ * 3x3 Matrix
+ * @module mat3
+ */
+
+/**
+ * Creates a new identity mat3
+ *
+ * @returns {mat3} a new 3x3 matrix
+ */
+
+function create$6() {
+  var out = new ARRAY_TYPE(9);
+
+  if (ARRAY_TYPE != Float32Array) {
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+    out[5] = 0;
+    out[6] = 0;
+    out[7] = 0;
+  }
+
+  out[0] = 1;
+  out[4] = 1;
+  out[8] = 1;
+  return out;
+}
+/**
+ * 3 Dimensional Vector
+ * @module vec3
+ */
+
+/**
+ * Creates a new, empty vec3
+ *
+ * @returns {vec3} a new 3D vector
+ */
+
+
+function create$4() {
+  var out = new ARRAY_TYPE(3);
+
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+  }
+
+  return out;
+}
+/**
+ * Calculates the length of a vec3
+ *
+ * @param {ReadonlyVec3} a vector to calculate length of
+ * @returns {Number} length of a
+ */
+
+
+function length$4(a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  return Math.hypot(x, y, z);
+}
+/**
+ * Creates a new vec3 initialized with the given values
+ *
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @param {Number} z Z component
+ * @returns {vec3} a new 3D vector
+ */
+
+
+function fromValues$4(x, y, z) {
+  var out = new ARRAY_TYPE(3);
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  return out;
+}
+/**
+ * Normalize a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a vector to normalize
+ * @returns {vec3} out
+ */
+
+
+function normalize$4(out, a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  var len = x * x + y * y + z * z;
+
+  if (len > 0) {
+    //TODO: evaluate use of glm_invsqrt here?
+    len = 1 / Math.sqrt(len);
+  }
+
+  out[0] = a[0] * len;
+  out[1] = a[1] * len;
+  out[2] = a[2] * len;
+  return out;
+}
+/**
+ * Calculates the dot product of two vec3's
+ *
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {Number} dot product of a and b
+ */
+
+
+function dot$4(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+/**
+ * Computes the cross product of two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {ReadonlyVec3} a the first operand
+ * @param {ReadonlyVec3} b the second operand
+ * @returns {vec3} out
+ */
+
+
+function cross$2(out, a, b) {
+  var ax = a[0],
+      ay = a[1],
+      az = a[2];
+  var bx = b[0],
+      by = b[1],
+      bz = b[2];
+  out[0] = ay * bz - az * by;
+  out[1] = az * bx - ax * bz;
+  out[2] = ax * by - ay * bx;
+  return out;
+}
+/**
+ * Alias for {@link vec3.length}
+ * @function
+ */
+
+
+var len$4 = length$4;
+/**
+ * Perform some operation over an array of vec3s.
+ *
+ * @param {Array} a the array of vectors to iterate over
+ * @param {Number} stride Number of elements between the start of each vec3. If 0 assumes tightly packed
+ * @param {Number} offset Number of elements to skip at the beginning of the array
+ * @param {Number} count Number of vec3s to iterate over. If 0 iterates over entire array
+ * @param {Function} fn Function to call for each vector in the array
+ * @param {Object} [arg] additional argument to pass to fn
+ * @returns {Array} a
+ * @function
+ */
+
+(function () {
+  var vec = create$4();
+  return function (a, stride, offset, count, fn, arg) {
+    var i, l;
+
+    if (!stride) {
+      stride = 3;
+    }
+
+    if (!offset) {
+      offset = 0;
+    }
+
+    if (count) {
+      l = Math.min(count * stride + offset, a.length);
+    } else {
+      l = a.length;
+    }
+
+    for (i = offset; i < l; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      vec[2] = a[i + 2];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+      a[i + 2] = vec[2];
+    }
+
+    return a;
+  };
+})();
+/**
+ * 4 Dimensional Vector
+ * @module vec4
+ */
+
+/**
+ * Creates a new, empty vec4
+ *
+ * @returns {vec4} a new 4D vector
+ */
+
+
+function create$3() {
+  var out = new ARRAY_TYPE(4);
+
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+  }
+
+  return out;
+}
+/**
+ * Normalize a vec4
+ *
+ * @param {vec4} out the receiving vector
+ * @param {ReadonlyVec4} a vector to normalize
+ * @returns {vec4} out
+ */
+
+
+function normalize$3(out, a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  var w = a[3];
+  var len = x * x + y * y + z * z + w * w;
+
+  if (len > 0) {
+    len = 1 / Math.sqrt(len);
+  }
+
+  out[0] = x * len;
+  out[1] = y * len;
+  out[2] = z * len;
+  out[3] = w * len;
+  return out;
+}
+/**
+ * Perform some operation over an array of vec4s.
+ *
+ * @param {Array} a the array of vectors to iterate over
+ * @param {Number} stride Number of elements between the start of each vec4. If 0 assumes tightly packed
+ * @param {Number} offset Number of elements to skip at the beginning of the array
+ * @param {Number} count Number of vec4s to iterate over. If 0 iterates over entire array
+ * @param {Function} fn Function to call for each vector in the array
+ * @param {Object} [arg] additional argument to pass to fn
+ * @returns {Array} a
+ * @function
+ */
+
+
+(function () {
+  var vec = create$3();
+  return function (a, stride, offset, count, fn, arg) {
+    var i, l;
+
+    if (!stride) {
+      stride = 4;
+    }
+
+    if (!offset) {
+      offset = 0;
+    }
+
+    if (count) {
+      l = Math.min(count * stride + offset, a.length);
+    } else {
+      l = a.length;
+    }
+
+    for (i = offset; i < l; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      vec[2] = a[i + 2];
+      vec[3] = a[i + 3];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+      a[i + 2] = vec[2];
+      a[i + 3] = vec[3];
+    }
+
+    return a;
+  };
+})();
+/**
+ * Quaternion
+ * @module quat
+ */
+
+/**
+ * Creates a new identity quat
+ *
+ * @returns {quat} a new quaternion
+ */
+
+
+function create$2() {
+  var out = new ARRAY_TYPE(4);
+
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+  }
+
+  out[3] = 1;
+  return out;
+}
+/**
+ * Sets a quat from the given angle and rotation axis,
+ * then returns it.
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyVec3} axis the axis around which to rotate
+ * @param {Number} rad the angle in radians
+ * @returns {quat} out
+ **/
+
+
+function setAxisAngle(out, axis, rad) {
+  rad = rad * 0.5;
+  var s = Math.sin(rad);
+  out[0] = s * axis[0];
+  out[1] = s * axis[1];
+  out[2] = s * axis[2];
+  out[3] = Math.cos(rad);
+  return out;
+}
+/**
+ * Performs a spherical linear interpolation between two quat
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyQuat} a the first operand
+ * @param {ReadonlyQuat} b the second operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {quat} out
+ */
+
+
+function slerp(out, a, b, t) {
+  // benchmarks:
+  //    http://jsperf.com/quaternion-slerp-implementations
+  var ax = a[0],
+      ay = a[1],
+      az = a[2],
+      aw = a[3];
+  var bx = b[0],
+      by = b[1],
+      bz = b[2],
+      bw = b[3];
+  var omega, cosom, sinom, scale0, scale1; // calc cosine
+
+  cosom = ax * bx + ay * by + az * bz + aw * bw; // adjust signs (if necessary)
+
+  if (cosom < 0.0) {
+    cosom = -cosom;
+    bx = -bx;
+    by = -by;
+    bz = -bz;
+    bw = -bw;
+  } // calculate coefficients
+
+
+  if (1.0 - cosom > EPSILON) {
+    // standard case (slerp)
+    omega = Math.acos(cosom);
+    sinom = Math.sin(omega);
+    scale0 = Math.sin((1.0 - t) * omega) / sinom;
+    scale1 = Math.sin(t * omega) / sinom;
+  } else {
+    // "from" and "to" quaternions are very close
+    //  ... so we can do a linear interpolation
+    scale0 = 1.0 - t;
+    scale1 = t;
+  } // calculate final values
+
+
+  out[0] = scale0 * ax + scale1 * bx;
+  out[1] = scale0 * ay + scale1 * by;
+  out[2] = scale0 * az + scale1 * bz;
+  out[3] = scale0 * aw + scale1 * bw;
+  return out;
+}
+/**
+ * Creates a quaternion from the given 3x3 rotation matrix.
+ *
+ * NOTE: The resultant quaternion is not normalized, so you should be sure
+ * to renormalize the quaternion yourself where necessary.
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyMat3} m rotation matrix
+ * @returns {quat} out
+ * @function
+ */
+
+
+function fromMat3(out, m) {
+  // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
+  // article "Quaternion Calculus and Fast Animation".
+  var fTrace = m[0] + m[4] + m[8];
+  var fRoot;
+
+  if (fTrace > 0.0) {
+    // |w| > 1/2, may as well choose w > 1/2
+    fRoot = Math.sqrt(fTrace + 1.0); // 2w
+
+    out[3] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot; // 1/(4w)
+
+    out[0] = (m[5] - m[7]) * fRoot;
+    out[1] = (m[6] - m[2]) * fRoot;
+    out[2] = (m[1] - m[3]) * fRoot;
+  } else {
+    // |w| <= 1/2
+    var i = 0;
+    if (m[4] > m[0]) i = 1;
+    if (m[8] > m[i * 3 + i]) i = 2;
+    var j = (i + 1) % 3;
+    var k = (i + 2) % 3;
+    fRoot = Math.sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + 1.0);
+    out[i] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot;
+    out[3] = (m[j * 3 + k] - m[k * 3 + j]) * fRoot;
+    out[j] = (m[j * 3 + i] + m[i * 3 + j]) * fRoot;
+    out[k] = (m[k * 3 + i] + m[i * 3 + k]) * fRoot;
+  }
+
+  return out;
+}
+/**
+ * Normalize a quat
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyQuat} a quaternion to normalize
+ * @returns {quat} out
+ * @function
+ */
+
+
+var normalize$2 = normalize$3;
+/**
+ * Sets a quaternion to represent the shortest rotation from one
+ * vector to another.
+ *
+ * Both vectors are assumed to be unit length.
+ *
+ * @param {quat} out the receiving quaternion.
+ * @param {ReadonlyVec3} a the initial vector
+ * @param {ReadonlyVec3} b the destination vector
+ * @returns {quat} out
+ */
+
+(function () {
+  var tmpvec3 = create$4();
+  var xUnitVec3 = fromValues$4(1, 0, 0);
+  var yUnitVec3 = fromValues$4(0, 1, 0);
+  return function (out, a, b) {
+    var dot = dot$4(a, b);
+
+    if (dot < -0.999999) {
+      cross$2(tmpvec3, xUnitVec3, a);
+      if (len$4(tmpvec3) < 0.000001) cross$2(tmpvec3, yUnitVec3, a);
+      normalize$4(tmpvec3, tmpvec3);
+      setAxisAngle(out, tmpvec3, Math.PI);
+      return out;
+    } else if (dot > 0.999999) {
+      out[0] = 0;
+      out[1] = 0;
+      out[2] = 0;
+      out[3] = 1;
+      return out;
+    } else {
+      cross$2(tmpvec3, a, b);
+      out[0] = tmpvec3[0];
+      out[1] = tmpvec3[1];
+      out[2] = tmpvec3[2];
+      out[3] = 1 + dot;
+      return normalize$2(out, out);
+    }
+  };
+})();
+/**
+ * Performs a spherical linear interpolation with two control points
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {ReadonlyQuat} a the first operand
+ * @param {ReadonlyQuat} b the second operand
+ * @param {ReadonlyQuat} c the third operand
+ * @param {ReadonlyQuat} d the fourth operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {quat} out
+ */
+
+
+(function () {
+  var temp1 = create$2();
+  var temp2 = create$2();
+  return function (out, a, b, c, d, t) {
+    slerp(temp1, a, d, t);
+    slerp(temp2, b, c, t);
+    slerp(out, temp1, temp2, 2 * t * (1 - t));
+    return out;
+  };
+})();
+/**
+ * Sets the specified quaternion with values corresponding to the given
+ * axes. Each axis is a vec3 and is expected to be unit length and
+ * perpendicular to all other specified axes.
+ *
+ * @param {ReadonlyVec3} view  the vector representing the viewing direction
+ * @param {ReadonlyVec3} right the vector representing the local "right" direction
+ * @param {ReadonlyVec3} up    the vector representing the local "up" direction
+ * @returns {quat} out
+ */
+
+
+(function () {
+  var matr = create$6();
+  return function (out, view, right, up) {
+    matr[0] = right[0];
+    matr[3] = right[1];
+    matr[6] = right[2];
+    matr[1] = up[0];
+    matr[4] = up[1];
+    matr[7] = up[2];
+    matr[2] = -view[0];
+    matr[5] = -view[1];
+    matr[8] = -view[2];
+    return normalize$2(out, fromMat3(out, matr));
+  };
+})();
+/**
+ * 2 Dimensional Vector
+ * @module vec2
+ */
+
+/**
+ * Creates a new, empty vec2
+ *
+ * @returns {vec2} a new 2D vector
+ */
+
+
+function create() {
+  var out = new ARRAY_TYPE(2);
+
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+  }
+
+  return out;
+}
+/**
+ * Perform some operation over an array of vec2s.
+ *
+ * @param {Array} a the array of vectors to iterate over
+ * @param {Number} stride Number of elements between the start of each vec2. If 0 assumes tightly packed
+ * @param {Number} offset Number of elements to skip at the beginning of the array
+ * @param {Number} count Number of vec2s to iterate over. If 0 iterates over entire array
+ * @param {Function} fn Function to call for each vector in the array
+ * @param {Object} [arg] additional argument to pass to fn
+ * @returns {Array} a
+ * @function
+ */
+
+
+(function () {
+  var vec = create();
+  return function (a, stride, offset, count, fn, arg) {
+    var i, l;
+
+    if (!stride) {
+      stride = 2;
+    }
+
+    if (!offset) {
+      offset = 0;
+    }
+
+    if (count) {
+      l = Math.min(count * stride + offset, a.length);
+    } else {
+      l = a.length;
+    }
+
+    for (i = offset; i < l; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+    }
+
+    return a;
+  };
+})();
+
+const s_DEFAULT_TRANSITION = () => void 0;
+
+const s_DEFAULT_TRANSITION_OPTIONS = {};
+
+/**
+ * Provides a basic test for a given variable to test if it has the shape of a writable store by having a `subscribe`
+ * function and an `update` function.
+ *
+ * Note: functions are also objects, so test that the variable might be a function w/ a `subscribe` function.
+ *
+ * @param {*}  store - variable to test that might be a store.
+ *
+ * @returns {boolean} Whether the variable tested has the shape of a store.
+ */
+
+function isUpdatableStore(store) {
+  if (store === null || store === void 0) {
+    return false;
+  }
+
+  switch (typeof store) {
+    case 'function':
+    case 'object':
+      return typeof store.subscribe === 'function' && typeof store.update === 'function';
+  }
+
+  return false;
+}
+
+const s_REGEX = /(\d+)\s*px/;
+/**
+ * Parses a pixel string / computed styles. Ex. `100px` returns `100`.
+ *
+ * @param {string}   value - Value to parse.
+ *
+ * @returns {number|undefined} The integer component of a pixel string.
+ */
+
+function styleParsePixels(value) {
+  if (typeof value !== 'string') {
+    return void 0;
+  }
+
+  const isPixels = s_REGEX.test(value);
+  const number = parseInt(value);
+  return isPixels && Number.isFinite(number) ? number : void 0;
+}
+/**
  * Defines the application shell contract. If Svelte components export getter / setters for the following properties
  * then that component is considered an application shell.
  *
@@ -26099,11 +33020,6 @@ function scale(node, {
 
 const applicationShellContract = ['elementRoot'];
 Object.freeze(applicationShellContract);
-
-const s_DEFAULT_TRANSITION = () => void 0;
-
-const s_DEFAULT_TRANSITION_OPTIONS = {};
-
 /**
  * Provides an action to apply style properties provided as an object.
  *
@@ -26113,6 +33029,7 @@ const s_DEFAULT_TRANSITION_OPTIONS = {};
  *
  * @returns {Function} Update function.
  */
+
 function applyStyles(node, properties) {
   /** Sets properties on node. */
   function setProperties() {
@@ -26133,6 +33050,327 @@ function applyStyles(node, properties) {
     }
 
   };
+}
+/**
+ * Provides an action to monitor the given HTMLElement node with `ResizeObserver` posting width / height changes
+ * to the target in various ways depending on the shape of the target. The target can be one of the following and the
+ * precedence order is listed from top to bottom:
+ *
+ * - has a `resizeObserved` function as attribute; offset then content width / height are passed as parameters.
+ * - has a `setContentBounds` function as attribute; content width / height are passed as parameters.
+ * - has a `setDimension` function as attribute; offset width / height are passed as parameters.
+ * - target is an object; offset and content width / height attributes are directly set on target.
+ * - target is a function; the function is invoked with offset then content width / height parameters.
+ * - has a writable store `resizeObserved` as an attribute; updated with offset & content width / height.
+ * - has an object 'stores' that has a writable store `resizeObserved` as an attribute; updated with offset &
+ *   content width / height.
+ *
+ * Note: Svelte currently uses an archaic IFrame based workaround to monitor offset / client width & height changes.
+ * A more up to date way to do this is with ResizeObserver. To track when Svelte receives ResizeObserver support
+ * monitor this issue: {@link https://github.com/sveltejs/svelte/issues/4233}
+ *
+ * Can-I-Use: {@link https://caniuse.com/resizeobserver}
+ *
+ * @param {HTMLElement}          node - The node associated with the action.
+ *
+ * @param {ResizeObserverTarget} target - An object or function to update with observed width & height changes.
+ *
+ * @returns {{update: Function, destroy: Function}} The action lifecycle methods.
+ * @see {@link https://github.com/sveltejs/svelte/issues/4233}
+ */
+
+
+function resizeObserver(node, target) {
+  ResizeObserverManager.add(node, target);
+  return {
+    update: newTarget => {
+      ResizeObserverManager.remove(node, target);
+      target = newTarget;
+      ResizeObserverManager.add(node, target);
+    },
+    destroy: () => {
+      ResizeObserverManager.remove(node, target);
+    }
+  };
+}
+/**
+ * Provides a function that when invoked with an element updates the cached styles for each subscriber of the element.
+ *
+ * The style attributes cached to calculate offset height / width include border & padding dimensions. You only need
+ * to update the cache if you change border or padding attributes of the element.
+ *
+ * @param {HTMLElement} el - An HTML element.
+ */
+
+
+resizeObserver.updateCache = function (el) {
+  if (!(el instanceof HTMLElement)) {
+    throw new TypeError(`resizeObserverUpdate error: 'el' is not an HTMLElement.`);
+  }
+
+  const subscribers = s_MAP.get(el);
+
+  if (Array.isArray(subscribers)) {
+    var _ref, _styleParsePixels, _ref2, _styleParsePixels2, _ref3, _styleParsePixels3, _ref4, _styleParsePixels4, _ref5, _styleParsePixels5, _ref6, _styleParsePixels6, _ref7, _styleParsePixels7, _ref8, _styleParsePixels8;
+
+    const computed = globalThis.getComputedStyle(el); // Cache styles first from any inline styles then computed styles defaulting to 0 otherwise.
+    // Used to create the offset width & height values from the context box ResizeObserver provides.
+
+    const borderBottom = (_ref = (_styleParsePixels = styleParsePixels(el.style.borderBottom)) !== null && _styleParsePixels !== void 0 ? _styleParsePixels : styleParsePixels(computed.borderBottom)) !== null && _ref !== void 0 ? _ref : 0;
+    const borderLeft = (_ref2 = (_styleParsePixels2 = styleParsePixels(el.style.borderLeft)) !== null && _styleParsePixels2 !== void 0 ? _styleParsePixels2 : styleParsePixels(computed.borderLeft)) !== null && _ref2 !== void 0 ? _ref2 : 0;
+    const borderRight = (_ref3 = (_styleParsePixels3 = styleParsePixels(el.style.borderRight)) !== null && _styleParsePixels3 !== void 0 ? _styleParsePixels3 : styleParsePixels(computed.borderRight)) !== null && _ref3 !== void 0 ? _ref3 : 0;
+    const borderTop = (_ref4 = (_styleParsePixels4 = styleParsePixels(el.style.borderTop)) !== null && _styleParsePixels4 !== void 0 ? _styleParsePixels4 : styleParsePixels(computed.borderTop)) !== null && _ref4 !== void 0 ? _ref4 : 0;
+    const paddingBottom = (_ref5 = (_styleParsePixels5 = styleParsePixels(el.style.paddingBottom)) !== null && _styleParsePixels5 !== void 0 ? _styleParsePixels5 : styleParsePixels(computed.paddingBottom)) !== null && _ref5 !== void 0 ? _ref5 : 0;
+    const paddingLeft = (_ref6 = (_styleParsePixels6 = styleParsePixels(el.style.paddingLeft)) !== null && _styleParsePixels6 !== void 0 ? _styleParsePixels6 : styleParsePixels(computed.paddingLeft)) !== null && _ref6 !== void 0 ? _ref6 : 0;
+    const paddingRight = (_ref7 = (_styleParsePixels7 = styleParsePixels(el.style.paddingRight)) !== null && _styleParsePixels7 !== void 0 ? _styleParsePixels7 : styleParsePixels(computed.paddingRight)) !== null && _ref7 !== void 0 ? _ref7 : 0;
+    const paddingTop = (_ref8 = (_styleParsePixels8 = styleParsePixels(el.style.paddingTop)) !== null && _styleParsePixels8 !== void 0 ? _styleParsePixels8 : styleParsePixels(computed.paddingTop)) !== null && _ref8 !== void 0 ? _ref8 : 0;
+    const additionalWidth = borderLeft + borderRight + paddingLeft + paddingRight;
+    const additionalHeight = borderTop + borderBottom + paddingTop + paddingBottom;
+
+    for (const subscriber of subscribers) {
+      subscriber.styles.additionalWidth = additionalWidth;
+      subscriber.styles.additionalHeight = additionalHeight;
+      s_UPDATE_SUBSCRIBER(subscriber, subscriber.contentWidth, subscriber.contentHeight);
+    }
+  }
+}; // Below is the static ResizeObserverManager ------------------------------------------------------------------------
+
+
+const s_MAP = new Map();
+/**
+ * Provides a static / single instance of ResizeObserver that can notify listeners in different ways.
+ *
+ * The action, {@link resizeObserver}, utilizes ResizeObserverManager for automatic registration and removal
+ * via Svelte.
+ */
+
+class ResizeObserverManager {
+  /**
+   * Add an HTMLElement and ResizeObserverTarget instance for monitoring. Create cached style attributes for the
+   * given element include border & padding dimensions for offset width / height calculations.
+   *
+   * @param {HTMLElement}    el - The element to observe.
+   *
+   * @param {ResizeObserverTarget} target - A target that contains one of several mechanisms for updating resize data.
+   */
+  static add(el, target) {
+    var _ref9, _styleParsePixels9, _ref10, _styleParsePixels10, _ref11, _styleParsePixels11, _ref12, _styleParsePixels12, _ref13, _styleParsePixels13, _ref14, _styleParsePixels14, _ref15, _styleParsePixels15, _ref16, _styleParsePixels16;
+
+    const updateType = s_GET_UPDATE_TYPE(target);
+
+    if (updateType === 0) {
+      throw new Error(`'target' does not match supported ResizeObserverManager update mechanisms.`);
+    }
+
+    const computed = globalThis.getComputedStyle(el); // Cache styles first from any inline styles then computed styles defaulting to 0 otherwise.
+    // Used to create the offset width & height values from the context box ResizeObserver provides.
+
+    const borderBottom = (_ref9 = (_styleParsePixels9 = styleParsePixels(el.style.borderBottom)) !== null && _styleParsePixels9 !== void 0 ? _styleParsePixels9 : styleParsePixels(computed.borderBottom)) !== null && _ref9 !== void 0 ? _ref9 : 0;
+    const borderLeft = (_ref10 = (_styleParsePixels10 = styleParsePixels(el.style.borderLeft)) !== null && _styleParsePixels10 !== void 0 ? _styleParsePixels10 : styleParsePixels(computed.borderLeft)) !== null && _ref10 !== void 0 ? _ref10 : 0;
+    const borderRight = (_ref11 = (_styleParsePixels11 = styleParsePixels(el.style.borderRight)) !== null && _styleParsePixels11 !== void 0 ? _styleParsePixels11 : styleParsePixels(computed.borderRight)) !== null && _ref11 !== void 0 ? _ref11 : 0;
+    const borderTop = (_ref12 = (_styleParsePixels12 = styleParsePixels(el.style.borderTop)) !== null && _styleParsePixels12 !== void 0 ? _styleParsePixels12 : styleParsePixels(computed.borderTop)) !== null && _ref12 !== void 0 ? _ref12 : 0;
+    const paddingBottom = (_ref13 = (_styleParsePixels13 = styleParsePixels(el.style.paddingBottom)) !== null && _styleParsePixels13 !== void 0 ? _styleParsePixels13 : styleParsePixels(computed.paddingBottom)) !== null && _ref13 !== void 0 ? _ref13 : 0;
+    const paddingLeft = (_ref14 = (_styleParsePixels14 = styleParsePixels(el.style.paddingLeft)) !== null && _styleParsePixels14 !== void 0 ? _styleParsePixels14 : styleParsePixels(computed.paddingLeft)) !== null && _ref14 !== void 0 ? _ref14 : 0;
+    const paddingRight = (_ref15 = (_styleParsePixels15 = styleParsePixels(el.style.paddingRight)) !== null && _styleParsePixels15 !== void 0 ? _styleParsePixels15 : styleParsePixels(computed.paddingRight)) !== null && _ref15 !== void 0 ? _ref15 : 0;
+    const paddingTop = (_ref16 = (_styleParsePixels16 = styleParsePixels(el.style.paddingTop)) !== null && _styleParsePixels16 !== void 0 ? _styleParsePixels16 : styleParsePixels(computed.paddingTop)) !== null && _ref16 !== void 0 ? _ref16 : 0;
+    const data = {
+      updateType,
+      target,
+      // Stores most recent contentRect.width and contentRect.height values from ResizeObserver.
+      contentWidth: 0,
+      contentHeight: 0,
+      // Convenience data for total border & padding for offset width & height calculations.
+      styles: {
+        additionalWidth: borderLeft + borderRight + paddingLeft + paddingRight,
+        additionalHeight: borderTop + borderBottom + paddingTop + paddingBottom
+      }
+    };
+
+    if (s_MAP.has(el)) {
+      const subscribers = s_MAP.get(el);
+      subscribers.push(data);
+    } else {
+      s_MAP.set(el, [data]);
+    }
+
+    s_RESIZE_OBSERVER.observe(el);
+  }
+  /**
+   * Removes all targets from monitoring when just an element is provided otherwise removes a specific target
+   * from the monitoring map. If no more targets remain then the element is removed from monitoring.
+   *
+   * @param {HTMLElement}          el - Element to remove from monitoring.
+   *
+   * @param {ResizeObserverTarget} [target] - A specific target to remove from monitoring.
+   */
+
+
+  static remove(el, target = void 0) {
+    const subscribers = s_MAP.get(el);
+
+    if (Array.isArray(subscribers)) {
+      const index = subscribers.findIndex(entry => entry.target === target);
+
+      if (index >= 0) {
+        // Update target subscriber with undefined values.
+        s_UPDATE_SUBSCRIBER(subscribers[index], void 0, void 0);
+        subscribers.splice(index, 1);
+      } // Remove element monitoring if last target removed.
+
+
+      if (subscribers.length === 0) {
+        s_MAP.delete(el);
+        s_RESIZE_OBSERVER.unobserve(el);
+      }
+    }
+  }
+
+}
+/**
+ * Defines the various shape / update type of the given target.
+ *
+ * @type {Record<string, number>}
+ */
+
+
+const s_UPDATE_TYPES = {
+  none: 0,
+  attribute: 1,
+  function: 2,
+  resizeObserved: 3,
+  setContentBounds: 4,
+  setDimension: 5,
+  storeObject: 6,
+  storesObject: 7
+};
+const s_RESIZE_OBSERVER = new ResizeObserver(entries => {
+  for (const entry of entries) {
+    const subscribers = s_MAP.get(entry === null || entry === void 0 ? void 0 : entry.target);
+
+    if (Array.isArray(subscribers)) {
+      const contentWidth = entry.contentRect.width;
+      const contentHeight = entry.contentRect.height;
+
+      for (const subscriber of subscribers) {
+        s_UPDATE_SUBSCRIBER(subscriber, contentWidth, contentHeight);
+      }
+    }
+  }
+});
+/**
+ * Determines the shape of the target instance regarding valid update mechanisms to set width & height changes.
+ *
+ * @param {*}  target - The target instance.
+ *
+ * @returns {number} Update type value.
+ */
+
+function s_GET_UPDATE_TYPE(target) {
+  if ((target === null || target === void 0 ? void 0 : target.resizeObserved) instanceof Function) {
+    return s_UPDATE_TYPES.resizeObserved;
+  }
+
+  if ((target === null || target === void 0 ? void 0 : target.setDimension) instanceof Function) {
+    return s_UPDATE_TYPES.setDimension;
+  }
+
+  if ((target === null || target === void 0 ? void 0 : target.setContentBounds) instanceof Function) {
+    return s_UPDATE_TYPES.setContentBounds;
+  }
+
+  const targetType = typeof target; // Does the target have resizeObserved writable store?
+
+  if (targetType === 'object' || targetType === 'function') {
+    if (isUpdatableStore(target.resizeObserved)) {
+      return s_UPDATE_TYPES.storeObject;
+    } // Now check for a child stores object which is a common TRL pattern for exposing stores.
+
+
+    const stores = target === null || target === void 0 ? void 0 : target.stores;
+
+    if (typeof stores === 'object' || typeof stores === 'function') {
+      if (isUpdatableStore(stores.resizeObserved)) {
+        return s_UPDATE_TYPES.storesObject;
+      }
+    }
+  }
+
+  if (targetType === 'object') {
+    return s_UPDATE_TYPES.attribute;
+  }
+
+  if (targetType === 'function') {
+    return s_UPDATE_TYPES.function;
+  }
+
+  return s_UPDATE_TYPES.none;
+}
+/**
+ * Updates a subscriber target with given content width & height values. Offset width & height is calculated from
+ * the content values + cached styles.
+ *
+ * @param {object}            subscriber - Internal data about subscriber.
+ *
+ * @param {number|undefined}  contentWidth - ResizeObserver contentRect.width value or undefined.
+ *
+ * @param {number|undefined}  contentHeight - ResizeObserver contentRect.height value or undefined.
+ */
+
+
+function s_UPDATE_SUBSCRIBER(subscriber, contentWidth, contentHeight) {
+  var _target$resizeObserve, _target$setContentBou, _target$setDimension;
+
+  const styles = subscriber.styles;
+  subscriber.contentWidth = contentWidth;
+  subscriber.contentHeight = contentHeight;
+  const offsetWidth = Number.isFinite(contentWidth) ? contentWidth + styles.additionalWidth : void 0;
+  const offsetHeight = Number.isFinite(contentHeight) ? contentHeight + styles.additionalHeight : void 0;
+  const target = subscriber.target;
+
+  switch (subscriber.updateType) {
+    case s_UPDATE_TYPES.attribute:
+      target.contentWidth = contentWidth;
+      target.contentHeight = contentHeight;
+      target.offsetWidth = offsetWidth;
+      target.offsetHeight = offsetHeight;
+      break;
+
+    case s_UPDATE_TYPES.function:
+      target === null || target === void 0 ? void 0 : target(offsetWidth, offsetHeight, contentWidth, contentHeight);
+      break;
+
+    case s_UPDATE_TYPES.resizeObserved:
+      (_target$resizeObserve = target.resizeObserved) === null || _target$resizeObserve === void 0 ? void 0 : _target$resizeObserve.call(target, offsetWidth, offsetHeight, contentWidth, contentHeight);
+      break;
+
+    case s_UPDATE_TYPES.setContentBounds:
+      (_target$setContentBou = target.setContentBounds) === null || _target$setContentBou === void 0 ? void 0 : _target$setContentBou.call(target, contentWidth, contentHeight);
+      break;
+
+    case s_UPDATE_TYPES.setDimension:
+      (_target$setDimension = target.setDimension) === null || _target$setDimension === void 0 ? void 0 : _target$setDimension.call(target, offsetWidth, offsetHeight);
+      break;
+
+    case s_UPDATE_TYPES.storeObject:
+      target.resizeObserved.update(object => {
+        object.contentHeight = contentHeight;
+        object.contentWidth = contentWidth;
+        object.offsetHeight = offsetHeight;
+        object.offsetWidth = offsetWidth;
+        return object;
+      });
+      break;
+
+    case s_UPDATE_TYPES.storesObject:
+      target.stores.resizeObserved.update(object => {
+        object.contentHeight = contentHeight;
+        object.contentWidth = contentWidth;
+        object.offsetHeight = offsetHeight;
+        object.offsetWidth = offsetWidth;
+        return object;
+      });
+      break;
+  }
 }
 /**
  * Provides an action to enable pointer dragging of an HTMLElement and invoke `position.set` on a given {@link Position}
@@ -26280,11 +33518,12 @@ function draggable(node, {
   }
 
   return {
+    // The default of active being true won't automatically add listeners twice.
     update: ({
-      active
+      active: _active = true
     }) => // eslint-disable-line no-shadow
     {
-      if (active) {
+      if (_active) {
         activateListeners();
       } else {
         removeListeners();
@@ -26354,7 +33593,7 @@ function get_each_context$2$1(ctx, list, i) {
 } // (12:15) 
 
 
-function create_if_block_1$3$1(ctx) {
+function create_if_block_1$1$1(ctx) {
   let p;
   return {
     c() {
@@ -26574,7 +33813,7 @@ function create_fragment$a$1(ctx) {
   let if_block;
   let if_block_anchor;
   let current;
-  const if_block_creators = [create_if_block$5$1, create_if_block_1$3$1];
+  const if_block_creators = [create_if_block$5$1, create_if_block_1$1$1];
   const if_blocks = [];
 
   function select_block_type(ctx, dirty) {
@@ -27321,54 +34560,99 @@ class TJSHeaderButton extends SvelteComponent {
 
 function get_each_context$1$1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[11] = list[i];
+  child_ctx[17] = list[i];
   return child_ctx;
-} // (42:4) {#each $storeHeaderButtons as button}
+} // (63:4) {#each buttons as button}
 
 
 function create_each_block$1$1(ctx) {
-  let tjsheaderbutton;
+  let switch_instance;
+  let switch_instance_anchor;
   let current;
-  tjsheaderbutton = new TJSHeaderButton({
-    props: {
-      button:
-      /*button*/
-      ctx[11]
+  const switch_instance_spread_levels = [
+  /*button*/
+  ctx[17].props];
+  var switch_value =
+  /*button*/
+  ctx[17].class;
+
+  function switch_props(ctx) {
+    let switch_instance_props = {};
+
+    for (let i = 0; i < switch_instance_spread_levels.length; i += 1) {
+      switch_instance_props = assign(switch_instance_props, switch_instance_spread_levels[i]);
     }
-  });
+
+    return {
+      props: switch_instance_props
+    };
+  }
+
+  if (switch_value) {
+    switch_instance = new switch_value(switch_props());
+  }
+
   return {
     c() {
-      create_component(tjsheaderbutton.$$.fragment);
+      if (switch_instance) create_component(switch_instance.$$.fragment);
+      switch_instance_anchor = empty();
     },
 
     m(target, anchor) {
-      mount_component(tjsheaderbutton, target, anchor);
+      if (switch_instance) {
+        mount_component(switch_instance, target, anchor);
+      }
+
+      insert(target, switch_instance_anchor, anchor);
       current = true;
     },
 
     p(ctx, dirty) {
-      const tjsheaderbutton_changes = {};
-      if (dirty &
-      /*$storeHeaderButtons*/
-      8) tjsheaderbutton_changes.button =
+      const switch_instance_changes = dirty &
+      /*buttons*/
+      2 ? get_spread_update(switch_instance_spread_levels, [get_spread_object(
       /*button*/
-      ctx[11];
-      tjsheaderbutton.$set(tjsheaderbutton_changes);
+      ctx[17].props)]) : {};
+
+      if (switch_value !== (switch_value =
+      /*button*/
+      ctx[17].class)) {
+        if (switch_instance) {
+          group_outros();
+          const old_component = switch_instance;
+          transition_out(old_component.$$.fragment, 1, 0, () => {
+            destroy_component(old_component, 1);
+          });
+          check_outros();
+        }
+
+        if (switch_value) {
+          switch_instance = new switch_value(switch_props());
+          create_component(switch_instance.$$.fragment);
+          transition_in(switch_instance.$$.fragment, 1);
+          mount_component(switch_instance, switch_instance_anchor.parentNode, switch_instance_anchor);
+        } else {
+          switch_instance = null;
+        }
+      } else if (switch_value) {
+        switch_instance.$set(switch_instance_changes);
+      }
     },
 
     i(local) {
       if (current) return;
-      transition_in(tjsheaderbutton.$$.fragment, local);
+      if (switch_instance) transition_in(switch_instance.$$.fragment, local);
       current = true;
     },
 
     o(local) {
-      transition_out(tjsheaderbutton.$$.fragment, local);
+      if (switch_instance) transition_out(switch_instance.$$.fragment, local);
       current = false;
     },
 
     d(detaching) {
-      destroy_component(tjsheaderbutton, detaching);
+      if (detaching) detach(switch_instance_anchor);
+      if (switch_instance) destroy_component(switch_instance, detaching);
     }
 
   };
@@ -27379,7 +34663,7 @@ function create_fragment$6$1(ctx) {
   let h4;
   let t0_value = localize(
   /*$storeTitle*/
-  ctx[2]) + "";
+  ctx[4]) + "";
   let t0;
   let t1;
   let draggable_action;
@@ -27388,8 +34672,8 @@ function create_fragment$6$1(ctx) {
   let mounted;
   let dispose;
   let each_value =
-  /*$storeHeaderButtons*/
-  ctx[3];
+  /*buttons*/
+  ctx[1];
   let each_blocks = [];
 
   for (let i = 0; i < each_value.length; i += 1) {
@@ -27412,6 +34696,9 @@ function create_fragment$6$1(ctx) {
       }
 
       attr(h4, "class", "window-title");
+      set_style(h4, "display",
+      /*displayHeaderTitle*/
+      ctx[0], false);
       attr(header, "class", "window-header flexrow");
     },
 
@@ -27431,18 +34718,18 @@ function create_fragment$6$1(ctx) {
         dispose = [action_destroyer(draggable_action = draggable.call(null, header, {
           position:
           /*application*/
-          ctx[4].position,
+          ctx[5].position,
           active:
           /*$storeDraggable*/
-          ctx[0],
+          ctx[2],
           storeDragging:
           /*storeDragging*/
-          ctx[7]
+          ctx[8]
         })), action_destroyer(minimizable_action =
         /*minimizable*/
-        ctx[10].call(null, header,
+        ctx[13].call(null, header,
         /*$storeMinimizable*/
-        ctx[1]))];
+        ctx[3]))];
         mounted = true;
       }
     },
@@ -27450,16 +34737,24 @@ function create_fragment$6$1(ctx) {
     p(ctx, [dirty]) {
       if ((!current || dirty &
       /*$storeTitle*/
-      4) && t0_value !== (t0_value = localize(
+      16) && t0_value !== (t0_value = localize(
       /*$storeTitle*/
-      ctx[2]) + "")) set_data(t0, t0_value);
+      ctx[4]) + "")) set_data(t0, t0_value);
 
       if (dirty &
-      /*$storeHeaderButtons*/
-      8) {
+      /*displayHeaderTitle*/
+      1) {
+        set_style(h4, "display",
+        /*displayHeaderTitle*/
+        ctx[0], false);
+      }
+
+      if (dirty &
+      /*buttons*/
+      2) {
         each_value =
-        /*$storeHeaderButtons*/
-        ctx[3];
+        /*buttons*/
+        ctx[1];
         let i;
 
         for (i = 0; i < each_value.length; i += 1) {
@@ -27487,22 +34782,22 @@ function create_fragment$6$1(ctx) {
 
       if (draggable_action && is_function(draggable_action.update) && dirty &
       /*$storeDraggable*/
-      1) draggable_action.update.call(null, {
+      4) draggable_action.update.call(null, {
         position:
         /*application*/
-        ctx[4].position,
+        ctx[5].position,
         active:
         /*$storeDraggable*/
-        ctx[0],
+        ctx[2],
         storeDragging:
         /*storeDragging*/
-        ctx[7]
+        ctx[8]
       });
       if (minimizable_action && is_function(minimizable_action.update) && dirty &
       /*$storeMinimizable*/
-      2) minimizable_action.update.call(null,
+      8) minimizable_action.update.call(null,
       /*$storeMinimizable*/
-      ctx[1]);
+      ctx[3]);
     },
 
     i(local) {
@@ -27536,20 +34831,28 @@ function create_fragment$6$1(ctx) {
 }
 
 function instance$6$1($$self, $$props, $$invalidate) {
+  let $storeHeaderButtons;
+  let $storeMinimized;
+  let $storeHeaderNoTitleMinimized;
   let $storeDraggable;
   let $storeMinimizable;
   let $storeTitle;
-  let $storeHeaderButtons;
   const application = getContext('external').application;
   const storeTitle = application.reactive.storeAppOptions.title;
-  component_subscribe($$self, storeTitle, value => $$invalidate(2, $storeTitle = value));
+  component_subscribe($$self, storeTitle, value => $$invalidate(4, $storeTitle = value));
   const storeDraggable = application.reactive.storeAppOptions.draggable;
-  component_subscribe($$self, storeDraggable, value => $$invalidate(0, $storeDraggable = value));
+  component_subscribe($$self, storeDraggable, value => $$invalidate(2, $storeDraggable = value));
   const storeDragging = application.reactive.storeUIState.dragging;
   const storeHeaderButtons = application.reactive.storeUIState.headerButtons;
-  component_subscribe($$self, storeHeaderButtons, value => $$invalidate(3, $storeHeaderButtons = value));
+  component_subscribe($$self, storeHeaderButtons, value => $$invalidate(14, $storeHeaderButtons = value));
+  const storeHeaderNoTitleMinimized = application.reactive.storeAppOptions.headerNoTitleMinimized;
+  component_subscribe($$self, storeHeaderNoTitleMinimized, value => $$invalidate(16, $storeHeaderNoTitleMinimized = value));
   const storeMinimizable = application.reactive.storeAppOptions.minimizable;
-  component_subscribe($$self, storeMinimizable, value => $$invalidate(1, $storeMinimizable = value));
+  component_subscribe($$self, storeMinimizable, value => $$invalidate(3, $storeMinimizable = value));
+  const storeMinimized = application.reactive.storeUIState.minimized;
+  component_subscribe($$self, storeMinimized, value => $$invalidate(15, $storeMinimized = value));
+  let displayHeaderTitle;
+  let buttons;
 
   function minimizable(node, booleanStore) {
     const callback = application._onToggleMinimize.bind(application);
@@ -27579,7 +34882,35 @@ function instance$6$1($$self, $$props, $$invalidate) {
     };
   }
 
-  return [$storeDraggable, $storeMinimizable, $storeTitle, $storeHeaderButtons, application, storeTitle, storeDraggable, storeDragging, storeHeaderButtons, storeMinimizable, minimizable];
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty &
+    /*$storeHeaderNoTitleMinimized, $storeMinimized*/
+    98304) {
+      $$invalidate(0, displayHeaderTitle = $storeHeaderNoTitleMinimized && $storeMinimized ? 'none' : null);
+    }
+
+    if ($$self.$$.dirty &
+    /*$storeHeaderButtons*/
+    16384) {
+      {
+        $$invalidate(1, buttons = $storeHeaderButtons.reduce((array, button) => {
+          // If the button is a SvelteComponent set it as the class otherwise use `TJSHeaderButton` w/ button as props.
+          array.push(isSvelteComponent(button) ? {
+            class: button,
+            props: {}
+          } : {
+            class: TJSHeaderButton,
+            props: {
+              button
+            }
+          });
+          return array;
+        }, []));
+      }
+    }
+  };
+
+  return [displayHeaderTitle, buttons, $storeDraggable, $storeMinimizable, $storeTitle, application, storeTitle, storeDraggable, storeDragging, storeHeaderButtons, storeHeaderNoTitleMinimized, storeMinimizable, storeMinimized, minimizable, $storeHeaderButtons, $storeMinimized, $storeHeaderNoTitleMinimized];
 }
 
 class TJSApplicationHeader extends SvelteComponent {
@@ -27904,474 +35235,17 @@ class ResizableHandle extends SvelteComponent {
 
 function add_css$2(target) {
   append_styles(target, "svelte-3vt5in", ".window-app.svelte-3vt5in{overflow:inherit}");
-} // (166:0) {:else}
-
-
-function create_else_block_1$1(ctx) {
-  let div;
-  let tjsapplicationheader;
-  let t0;
-  let section;
-  let current_block_type_index;
-  let if_block;
-  let applyStyles_action;
-  let t1;
-  let resizablehandle;
-  let div_id_value;
-  let div_class_value;
-  let div_data_appid_value;
-  let applyStyles_action_1;
-  let div_intro;
-  let div_outro;
-  let current;
-  let mounted;
-  let dispose;
-  tjsapplicationheader = new TJSApplicationHeader({});
-  const if_block_creators = [create_if_block_2$2$1, create_else_block_2$1];
-  const if_blocks = [];
-
-  function select_block_type_2(ctx, dirty) {
-    if (Array.isArray(
-    /*allChildren*/
-    ctx[12])) return 0;
-    return 1;
-  }
-
-  current_block_type_index = select_block_type_2(ctx);
-  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-  resizablehandle = new ResizableHandle({});
-  return {
-    c() {
-      div = element("div");
-      create_component(tjsapplicationheader.$$.fragment);
-      t0 = space();
-      section = element("section");
-      if_block.c();
-      t1 = space();
-      create_component(resizablehandle.$$.fragment);
-      attr(section, "class", "window-content");
-      attr(div, "id", div_id_value =
-      /*application*/
-      ctx[9].id);
-      attr(div, "class", div_class_value = "app window-app " +
-      /*application*/
-      ctx[9].options.classes.join(' ') + " svelte-3vt5in");
-      attr(div, "data-appid", div_data_appid_value =
-      /*application*/
-      ctx[9].appId);
-    },
-
-    m(target, anchor) {
-      insert(target, div, anchor);
-      mount_component(tjsapplicationheader, div, null);
-      append(div, t0);
-      append(div, section);
-      if_blocks[current_block_type_index].m(section, null);
-      /*section_binding_1*/
-
-      ctx[24](section);
-      append(div, t1);
-      mount_component(resizablehandle, div, null);
-      /*div_binding_1*/
-
-      ctx[25](div);
-      current = true;
-
-      if (!mounted) {
-        dispose = [action_destroyer(applyStyles_action = applyStyles.call(null, section,
-        /*stylesContent*/
-        ctx[8])), listen(div, "pointerdown",
-        /*bringToTop*/
-        ctx[11], true), action_destroyer(applyStyles_action_1 = applyStyles.call(null, div,
-        /*stylesApp*/
-        ctx[7]))];
-        mounted = true;
-      }
-    },
-
-    p(new_ctx, dirty) {
-      ctx = new_ctx;
-      if_block.p(ctx, dirty);
-      if (applyStyles_action && is_function(applyStyles_action.update) && dirty &
-      /*stylesContent*/
-      256) applyStyles_action.update.call(null,
-      /*stylesContent*/
-      ctx[8]);
-
-      if (!current || dirty &
-      /*application*/
-      512 && div_id_value !== (div_id_value =
-      /*application*/
-      ctx[9].id)) {
-        attr(div, "id", div_id_value);
-      }
-
-      if (!current || dirty &
-      /*application*/
-      512 && div_class_value !== (div_class_value = "app window-app " +
-      /*application*/
-      ctx[9].options.classes.join(' ') + " svelte-3vt5in")) {
-        attr(div, "class", div_class_value);
-      }
-
-      if (!current || dirty &
-      /*application*/
-      512 && div_data_appid_value !== (div_data_appid_value =
-      /*application*/
-      ctx[9].appId)) {
-        attr(div, "data-appid", div_data_appid_value);
-      }
-
-      if (applyStyles_action_1 && is_function(applyStyles_action_1.update) && dirty &
-      /*stylesApp*/
-      128) applyStyles_action_1.update.call(null,
-      /*stylesApp*/
-      ctx[7]);
-    },
-
-    i(local) {
-      if (current) return;
-      transition_in(tjsapplicationheader.$$.fragment, local);
-      transition_in(if_block);
-      transition_in(resizablehandle.$$.fragment, local);
-      add_render_callback(() => {
-        if (div_outro) div_outro.end(1);
-        div_intro = create_in_transition(div,
-        /*inTransition*/
-        ctx[2],
-        /*inTransitionOptions*/
-        ctx[4]);
-        div_intro.start();
-      });
-      current = true;
-    },
-
-    o(local) {
-      transition_out(tjsapplicationheader.$$.fragment, local);
-      transition_out(if_block);
-      transition_out(resizablehandle.$$.fragment, local);
-      if (div_intro) div_intro.invalidate();
-      div_outro = create_out_transition(div,
-      /*outTransition*/
-      ctx[3],
-      /*outTransitionOptions*/
-      ctx[5]);
-      current = false;
-    },
-
-    d(detaching) {
-      if (detaching) detach(div);
-      destroy_component(tjsapplicationheader);
-      if_blocks[current_block_type_index].d();
-      /*section_binding_1*/
-
-      ctx[24](null);
-      destroy_component(resizablehandle);
-      /*div_binding_1*/
-
-      ctx[25](null);
-      if (detaching && div_outro) div_outro.end();
-      mounted = false;
-      run_all(dispose);
-    }
-
-  };
-} // (143:0) {#if bindHeightChanged}
-
-
-function create_if_block$4$1(ctx) {
-  let div;
-  let tjsapplicationheader;
-  let t0;
-  let section;
-  let current_block_type_index;
-  let if_block;
-  let section_resize_listener;
-  let applyStyles_action;
-  let t1;
-  let resizablehandle;
-  let div_id_value;
-  let div_class_value;
-  let div_data_appid_value;
-  let div_resize_listener;
-  let applyStyles_action_1;
-  let div_intro;
-  let div_outro;
-  let current;
-  let mounted;
-  let dispose;
-  tjsapplicationheader = new TJSApplicationHeader({});
-  const if_block_creators = [create_if_block_1$2$1, create_else_block$3];
-  const if_blocks = [];
-
-  function select_block_type_1(ctx, dirty) {
-    if (Array.isArray(
-    /*allChildren*/
-    ctx[12])) return 0;
-    return 1;
-  }
-
-  current_block_type_index = select_block_type_1(ctx);
-  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-  resizablehandle = new ResizableHandle({});
-  return {
-    c() {
-      div = element("div");
-      create_component(tjsapplicationheader.$$.fragment);
-      t0 = space();
-      section = element("section");
-      if_block.c();
-      t1 = space();
-      create_component(resizablehandle.$$.fragment);
-      attr(section, "class", "window-content");
-      add_render_callback(() =>
-      /*section_elementresize_handler*/
-      ctx[21].call(section));
-      attr(div, "id", div_id_value =
-      /*application*/
-      ctx[9].id);
-      attr(div, "class", div_class_value = "app window-app " +
-      /*application*/
-      ctx[9].options.classes.join(' ') + " svelte-3vt5in");
-      attr(div, "data-appid", div_data_appid_value =
-      /*application*/
-      ctx[9].appId);
-      add_render_callback(() =>
-      /*div_elementresize_handler*/
-      ctx[22].call(div));
-    },
-
-    m(target, anchor) {
-      insert(target, div, anchor);
-      mount_component(tjsapplicationheader, div, null);
-      append(div, t0);
-      append(div, section);
-      if_blocks[current_block_type_index].m(section, null);
-      /*section_binding*/
-
-      ctx[20](section);
-      section_resize_listener = add_resize_listener(section,
-      /*section_elementresize_handler*/
-      ctx[21].bind(section));
-      append(div, t1);
-      mount_component(resizablehandle, div, null);
-      div_resize_listener = add_resize_listener(div,
-      /*div_elementresize_handler*/
-      ctx[22].bind(div));
-      /*div_binding*/
-
-      ctx[23](div);
-      current = true;
-
-      if (!mounted) {
-        dispose = [action_destroyer(applyStyles_action = applyStyles.call(null, section,
-        /*stylesContent*/
-        ctx[8])), listen(div, "pointerdown",
-        /*bringToTop*/
-        ctx[11], true), action_destroyer(applyStyles_action_1 = applyStyles.call(null, div,
-        /*stylesApp*/
-        ctx[7]))];
-        mounted = true;
-      }
-    },
-
-    p(new_ctx, dirty) {
-      ctx = new_ctx;
-      if_block.p(ctx, dirty);
-      if (applyStyles_action && is_function(applyStyles_action.update) && dirty &
-      /*stylesContent*/
-      256) applyStyles_action.update.call(null,
-      /*stylesContent*/
-      ctx[8]);
-
-      if (!current || dirty &
-      /*application*/
-      512 && div_id_value !== (div_id_value =
-      /*application*/
-      ctx[9].id)) {
-        attr(div, "id", div_id_value);
-      }
-
-      if (!current || dirty &
-      /*application*/
-      512 && div_class_value !== (div_class_value = "app window-app " +
-      /*application*/
-      ctx[9].options.classes.join(' ') + " svelte-3vt5in")) {
-        attr(div, "class", div_class_value);
-      }
-
-      if (!current || dirty &
-      /*application*/
-      512 && div_data_appid_value !== (div_data_appid_value =
-      /*application*/
-      ctx[9].appId)) {
-        attr(div, "data-appid", div_data_appid_value);
-      }
-
-      if (applyStyles_action_1 && is_function(applyStyles_action_1.update) && dirty &
-      /*stylesApp*/
-      128) applyStyles_action_1.update.call(null,
-      /*stylesApp*/
-      ctx[7]);
-    },
-
-    i(local) {
-      if (current) return;
-      transition_in(tjsapplicationheader.$$.fragment, local);
-      transition_in(if_block);
-      transition_in(resizablehandle.$$.fragment, local);
-      add_render_callback(() => {
-        if (div_outro) div_outro.end(1);
-        div_intro = create_in_transition(div,
-        /*inTransition*/
-        ctx[2],
-        /*inTransitionOptions*/
-        ctx[4]);
-        div_intro.start();
-      });
-      current = true;
-    },
-
-    o(local) {
-      transition_out(tjsapplicationheader.$$.fragment, local);
-      transition_out(if_block);
-      transition_out(resizablehandle.$$.fragment, local);
-      if (div_intro) div_intro.invalidate();
-      div_outro = create_out_transition(div,
-      /*outTransition*/
-      ctx[3],
-      /*outTransitionOptions*/
-      ctx[5]);
-      current = false;
-    },
-
-    d(detaching) {
-      if (detaching) detach(div);
-      destroy_component(tjsapplicationheader);
-      if_blocks[current_block_type_index].d();
-      /*section_binding*/
-
-      ctx[20](null);
-      section_resize_listener();
-      destroy_component(resizablehandle);
-      div_resize_listener();
-      /*div_binding*/
-
-      ctx[23](null);
-      if (detaching && div_outro) div_outro.end();
-      mounted = false;
-      run_all(dispose);
-    }
-
-  };
-} // (179:9) {:else}
-
-
-function create_else_block_2$1(ctx) {
-  let current;
-  const default_slot_template =
-  /*#slots*/
-  ctx[19].default;
-  const default_slot = create_slot(default_slot_template, ctx,
-  /*$$scope*/
-  ctx[18], null);
-  return {
-    c() {
-      if (default_slot) default_slot.c();
-    },
-
-    m(target, anchor) {
-      if (default_slot) {
-        default_slot.m(target, anchor);
-      }
-
-      current = true;
-    },
-
-    p(ctx, dirty) {
-      if (default_slot) {
-        if (default_slot.p && (!current || dirty &
-        /*$$scope*/
-        262144)) {
-          update_slot_base(default_slot, default_slot_template, ctx,
-          /*$$scope*/
-          ctx[18], !current ? get_all_dirty_from_scope(
-          /*$$scope*/
-          ctx[18]) : get_slot_changes(default_slot_template,
-          /*$$scope*/
-          ctx[18], dirty, null), null);
-        }
-      }
-    },
-
-    i(local) {
-      if (current) return;
-      transition_in(default_slot, local);
-      current = true;
-    },
-
-    o(local) {
-      transition_out(default_slot, local);
-      current = false;
-    },
-
-    d(detaching) {
-      if (default_slot) default_slot.d(detaching);
-    }
-
-  };
-} // (177:9) {#if Array.isArray(allChildren)}
-
-
-function create_if_block_2$2$1(ctx) {
-  let tjscontainer;
-  let current;
-  tjscontainer = new TJSContainer({
-    props: {
-      children:
-      /*allChildren*/
-      ctx[12]
-    }
-  });
-  return {
-    c() {
-      create_component(tjscontainer.$$.fragment);
-    },
-
-    m(target, anchor) {
-      mount_component(tjscontainer, target, anchor);
-      current = true;
-    },
-
-    p: noop,
-
-    i(local) {
-      if (current) return;
-      transition_in(tjscontainer.$$.fragment, local);
-      current = true;
-    },
-
-    o(local) {
-      transition_out(tjscontainer.$$.fragment, local);
-      current = false;
-    },
-
-    d(detaching) {
-      destroy_component(tjscontainer, detaching);
-    }
-
-  };
-} // (160:9) {:else}
+} // (211:6) {:else}
 
 
 function create_else_block$3(ctx) {
   let current;
   const default_slot_template =
   /*#slots*/
-  ctx[19].default;
+  ctx[25].default;
   const default_slot = create_slot(default_slot_template, ctx,
   /*$$scope*/
-  ctx[18], null);
+  ctx[24], null);
   return {
     c() {
       if (default_slot) default_slot.c();
@@ -28389,14 +35263,14 @@ function create_else_block$3(ctx) {
       if (default_slot) {
         if (default_slot.p && (!current || dirty &
         /*$$scope*/
-        262144)) {
+        16777216)) {
           update_slot_base(default_slot, default_slot_template, ctx,
           /*$$scope*/
-          ctx[18], !current ? get_all_dirty_from_scope(
+          ctx[24], !current ? get_all_dirty_from_scope(
           /*$$scope*/
-          ctx[18]) : get_slot_changes(default_slot_template,
+          ctx[24]) : get_slot_changes(default_slot_template,
           /*$$scope*/
-          ctx[18], dirty, null), null);
+          ctx[24], dirty, null), null);
         }
       }
     },
@@ -28417,10 +35291,10 @@ function create_else_block$3(ctx) {
     }
 
   };
-} // (158:9) {#if Array.isArray(allChildren)}
+} // (209:6) {#if Array.isArray(allChildren)}
 
 
-function create_if_block_1$2$1(ctx) {
+function create_if_block$4$1(ctx) {
   let tjscontainer;
   let current;
   tjscontainer = new TJSContainer({
@@ -28461,52 +35335,179 @@ function create_if_block_1$2$1(ctx) {
 }
 
 function create_fragment$4$1(ctx) {
+  let div;
+  let tjsapplicationheader;
+  let t0;
+  let section;
   let current_block_type_index;
   let if_block;
-  let if_block_anchor;
+  let applyStyles_action;
+  let t1;
+  let resizablehandle;
+  let div_id_value;
+  let div_class_value;
+  let div_data_appid_value;
+  let applyStyles_action_1;
+  let div_intro;
+  let div_outro;
   let current;
-  const if_block_creators = [create_if_block$4$1, create_else_block_1$1];
+  let mounted;
+  let dispose;
+  tjsapplicationheader = new TJSApplicationHeader({});
+  const if_block_creators = [create_if_block$4$1, create_else_block$3];
   const if_blocks = [];
 
   function select_block_type(ctx, dirty) {
-    if (
-    /*bindHeightChanged*/
-    ctx[10]) return 0;
+    if (Array.isArray(
+    /*allChildren*/
+    ctx[12])) return 0;
     return 1;
   }
 
   current_block_type_index = select_block_type(ctx);
   if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  resizablehandle = new ResizableHandle({});
   return {
     c() {
+      div = element("div");
+      create_component(tjsapplicationheader.$$.fragment);
+      t0 = space();
+      section = element("section");
       if_block.c();
-      if_block_anchor = empty();
+      t1 = space();
+      create_component(resizablehandle.$$.fragment);
+      attr(section, "class", "window-content");
+      attr(div, "id", div_id_value =
+      /*application*/
+      ctx[8].id);
+      attr(div, "class", div_class_value = "app window-app " +
+      /*application*/
+      ctx[8].options.classes.join(' ') + " svelte-3vt5in");
+      attr(div, "data-appid", div_data_appid_value =
+      /*application*/
+      ctx[8].appId);
     },
 
     m(target, anchor) {
-      if_blocks[current_block_type_index].m(target, anchor);
-      insert(target, if_block_anchor, anchor);
+      insert(target, div, anchor);
+      mount_component(tjsapplicationheader, div, null);
+      append(div, t0);
+      append(div, section);
+      if_blocks[current_block_type_index].m(section, null);
+      /*section_binding*/
+
+      ctx[26](section);
+      append(div, t1);
+      mount_component(resizablehandle, div, null);
+      /*div_binding*/
+
+      ctx[27](div);
       current = true;
+
+      if (!mounted) {
+        dispose = [action_destroyer(applyStyles_action = applyStyles.call(null, section,
+        /*stylesContent*/
+        ctx[7])), action_destroyer(
+        /*contentResizeObserver*/
+        ctx[10].call(null, section,
+        /*resizeObservedContent*/
+        ctx[13])), listen(div, "pointerdown",
+        /*bringToTop*/
+        ctx[11], true), action_destroyer(applyStyles_action_1 = applyStyles.call(null, div,
+        /*stylesApp*/
+        ctx[6])), action_destroyer(
+        /*appResizeObserver*/
+        ctx[9].call(null, div,
+        /*resizeObservedApp*/
+        ctx[14]))];
+        mounted = true;
+      }
     },
 
-    p(ctx, [dirty]) {
+    p(new_ctx, [dirty]) {
+      ctx = new_ctx;
       if_block.p(ctx, dirty);
+      if (applyStyles_action && is_function(applyStyles_action.update) && dirty &
+      /*stylesContent*/
+      128) applyStyles_action.update.call(null,
+      /*stylesContent*/
+      ctx[7]);
+
+      if (!current || dirty &
+      /*application*/
+      256 && div_id_value !== (div_id_value =
+      /*application*/
+      ctx[8].id)) {
+        attr(div, "id", div_id_value);
+      }
+
+      if (!current || dirty &
+      /*application*/
+      256 && div_class_value !== (div_class_value = "app window-app " +
+      /*application*/
+      ctx[8].options.classes.join(' ') + " svelte-3vt5in")) {
+        attr(div, "class", div_class_value);
+      }
+
+      if (!current || dirty &
+      /*application*/
+      256 && div_data_appid_value !== (div_data_appid_value =
+      /*application*/
+      ctx[8].appId)) {
+        attr(div, "data-appid", div_data_appid_value);
+      }
+
+      if (applyStyles_action_1 && is_function(applyStyles_action_1.update) && dirty &
+      /*stylesApp*/
+      64) applyStyles_action_1.update.call(null,
+      /*stylesApp*/
+      ctx[6]);
     },
 
     i(local) {
       if (current) return;
+      transition_in(tjsapplicationheader.$$.fragment, local);
       transition_in(if_block);
+      transition_in(resizablehandle.$$.fragment, local);
+      add_render_callback(() => {
+        if (div_outro) div_outro.end(1);
+        div_intro = create_in_transition(div,
+        /*inTransition*/
+        ctx[2],
+        /*inTransitionOptions*/
+        ctx[4]);
+        div_intro.start();
+      });
       current = true;
     },
 
     o(local) {
+      transition_out(tjsapplicationheader.$$.fragment, local);
       transition_out(if_block);
+      transition_out(resizablehandle.$$.fragment, local);
+      if (div_intro) div_intro.invalidate();
+      div_outro = create_out_transition(div,
+      /*outTransition*/
+      ctx[3],
+      /*outTransitionOptions*/
+      ctx[5]);
       current = false;
     },
 
     d(detaching) {
-      if_blocks[current_block_type_index].d(detaching);
-      if (detaching) detach(if_block_anchor);
+      if (detaching) detach(div);
+      destroy_component(tjsapplicationheader);
+      if_blocks[current_block_type_index].d();
+      /*section_binding*/
+
+      ctx[26](null);
+      destroy_component(resizablehandle);
+      /*div_binding*/
+
+      ctx[27](null);
+      if (detaching && div_outro) div_outro.end();
+      mounted = false;
+      run_all(dispose);
     }
 
   };
@@ -28527,17 +35528,27 @@ function instance$4$1($$self, $$props, $$invalidate) {
     children = void 0
   } = $$props;
   let {
-    heightChanged = false
-  } = $$props;
-  let {
     stylesApp
   } = $$props;
   let {
     stylesContent
-  } = $$props; // Store the initial `heightChanged` state. If it is truthy then `clientHeight` for the content & root elements
-  // are bound to `heightChanged` to signal to any parent component of any change to the client & root.
+  } = $$props;
+  let {
+    appOffsetHeight = false
+  } = $$props;
+  let {
+    appOffsetWidth = false
+  } = $$props; // Set to `resizeObserver` if either of the above props are truthy otherwise a null operation.
 
-  const bindHeightChanged = !!heightChanged; // If the application is a popOut application then when clicked bring to top. Bound to on pointerdown.
+  const appResizeObserver = !!appOffsetHeight || !!appOffsetWidth ? resizeObserver : () => null;
+  let {
+    contentOffsetHeight = false
+  } = $$props;
+  let {
+    contentOffsetWidth = false
+  } = $$props; // Set to `resizeObserver` if either of the above props are truthy otherwise a null operation.
+
+  const contentResizeObserver = !!contentOffsetHeight || !!contentOffsetWidth ? resizeObserver : () => null; // If the application is a popOut application then when clicked bring to top. Bound to on pointerdown.
 
   const bringToTop = () => {
     var _ui;
@@ -28585,23 +35596,49 @@ function instance$4$1($$self, $$props, $$invalidate) {
   } = $$props; // Tracks last transition state.
 
   let oldTransition = void 0;
-  let oldTransitionOptions = void 0;
+  let oldTransitionOptions = void 0; // ---------------------------------------------------------------------------------------------------------------
+
+  /**
+  * Callback for content resizeObserver action. This is enabled when contentOffsetHeight or contentOffsetWidth is
+  * bound.
+  *
+  * @param {number}   offsetWidth - Observed offsetWidth.
+  *
+  * @param {number}   offsetHeight - Observed offsetHeight
+  */
+
+  function resizeObservedContent(offsetWidth, offsetHeight) {
+    $$invalidate(18, contentOffsetWidth = offsetWidth);
+    $$invalidate(17, contentOffsetHeight = offsetHeight);
+  }
+  /**
+  * Callback for app resizeObserver action. This is enabled when appOffsetHeight or appOffsetWidth is
+  * bound. Additionally, the Application position resizeObserved store is updated.
+  *
+  * @param {number}   contentWidth - Observed contentWidth.
+  * @param {number}   contentHeight - Observed contentHeight
+  * @param {number}   offsetWidth - Observed offsetWidth.
+  * @param {number}   offsetHeight - Observed offsetHeight
+  */
+
+
+  function resizeObservedApp(offsetWidth, offsetHeight, contentWidth, contentHeight) {
+    application.position.stores.resizeObserved.update(object => {
+      object.contentWidth = contentWidth;
+      object.contentHeight = contentHeight;
+      object.offsetWidth = offsetWidth;
+      object.offsetHeight = offsetHeight;
+      return object;
+    });
+    $$invalidate(15, appOffsetHeight = offsetHeight);
+    $$invalidate(16, appOffsetWidth = offsetWidth);
+  }
 
   function section_binding($$value) {
     binding_callbacks[$$value ? 'unshift' : 'push'](() => {
       elementContent = $$value;
       $$invalidate(0, elementContent);
     });
-  }
-
-  function section_elementresize_handler() {
-    heightChanged = this.clientHeight;
-    $$invalidate(6, heightChanged);
-  }
-
-  function div_elementresize_handler() {
-    heightChanged = this.clientHeight;
-    $$invalidate(6, heightChanged);
   }
 
   function div_binding($$value) {
@@ -28611,34 +35648,23 @@ function instance$4$1($$self, $$props, $$invalidate) {
     });
   }
 
-  function section_binding_1($$value) {
-    binding_callbacks[$$value ? 'unshift' : 'push'](() => {
-      elementContent = $$value;
-      $$invalidate(0, elementContent);
-    });
-  }
-
-  function div_binding_1($$value) {
-    binding_callbacks[$$value ? 'unshift' : 'push'](() => {
-      elementRoot = $$value;
-      $$invalidate(1, elementRoot);
-    });
-  }
-
   $$self.$$set = $$props => {
     if ('elementContent' in $$props) $$invalidate(0, elementContent = $$props.elementContent);
     if ('elementRoot' in $$props) $$invalidate(1, elementRoot = $$props.elementRoot);
-    if ('children' in $$props) $$invalidate(13, children = $$props.children);
-    if ('heightChanged' in $$props) $$invalidate(6, heightChanged = $$props.heightChanged);
-    if ('stylesApp' in $$props) $$invalidate(7, stylesApp = $$props.stylesApp);
-    if ('stylesContent' in $$props) $$invalidate(8, stylesContent = $$props.stylesContent);
-    if ('transition' in $$props) $$invalidate(14, transition = $$props.transition);
+    if ('children' in $$props) $$invalidate(19, children = $$props.children);
+    if ('stylesApp' in $$props) $$invalidate(6, stylesApp = $$props.stylesApp);
+    if ('stylesContent' in $$props) $$invalidate(7, stylesContent = $$props.stylesContent);
+    if ('appOffsetHeight' in $$props) $$invalidate(15, appOffsetHeight = $$props.appOffsetHeight);
+    if ('appOffsetWidth' in $$props) $$invalidate(16, appOffsetWidth = $$props.appOffsetWidth);
+    if ('contentOffsetHeight' in $$props) $$invalidate(17, contentOffsetHeight = $$props.contentOffsetHeight);
+    if ('contentOffsetWidth' in $$props) $$invalidate(18, contentOffsetWidth = $$props.contentOffsetWidth);
+    if ('transition' in $$props) $$invalidate(20, transition = $$props.transition);
     if ('inTransition' in $$props) $$invalidate(2, inTransition = $$props.inTransition);
     if ('outTransition' in $$props) $$invalidate(3, outTransition = $$props.outTransition);
-    if ('transitionOptions' in $$props) $$invalidate(15, transitionOptions = $$props.transitionOptions);
+    if ('transitionOptions' in $$props) $$invalidate(21, transitionOptions = $$props.transitionOptions);
     if ('inTransitionOptions' in $$props) $$invalidate(4, inTransitionOptions = $$props.inTransitionOptions);
     if ('outTransitionOptions' in $$props) $$invalidate(5, outTransitionOptions = $$props.outTransitionOptions);
-    if ('$$scope' in $$props) $$invalidate(18, $$scope = $$props.$$scope);
+    if ('$$scope' in $$props) $$invalidate(24, $$scope = $$props.$$scope);
   };
 
   $$self.$$.update = () => {
@@ -28662,7 +35688,7 @@ function instance$4$1($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty &
     /*oldTransition, transition*/
-    81920) {
+    5242880) {
       // Run this reactive block when the last transition state is not equal to the current state.
       if (oldTransition !== transition) {
         // If transition is defined and not the default transition then set it to both in and out transition otherwise
@@ -28670,19 +35696,19 @@ function instance$4$1($$self, $$props, $$invalidate) {
         const newTransition = s_DEFAULT_TRANSITION !== transition && typeof transition === 'function' ? transition : s_DEFAULT_TRANSITION;
         $$invalidate(2, inTransition = newTransition);
         $$invalidate(3, outTransition = newTransition);
-        $$invalidate(16, oldTransition = newTransition);
+        $$invalidate(22, oldTransition = newTransition);
       }
     }
 
     if ($$self.$$.dirty &
     /*oldTransitionOptions, transitionOptions*/
-    163840) {
+    10485760) {
       // Run this reactive block when the last transition options state is not equal to the current options state.
       if (oldTransitionOptions !== transitionOptions) {
         const newOptions = transitionOptions !== s_DEFAULT_TRANSITION_OPTIONS && typeof transitionOptions === 'object' ? transitionOptions : s_DEFAULT_TRANSITION_OPTIONS;
         $$invalidate(4, inTransitionOptions = newOptions);
         $$invalidate(5, outTransitionOptions = newOptions);
-        $$invalidate(17, oldTransitionOptions = newOptions);
+        $$invalidate(23, oldTransitionOptions = newOptions);
       }
     }
 
@@ -28697,7 +35723,7 @@ function instance$4$1($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty &
     /*outTransition, application*/
-    520) {
+    264) {
       {
         var _application$options;
 
@@ -28708,7 +35734,7 @@ function instance$4$1($$self, $$props, $$invalidate) {
 
 
         if (application && typeof (application === null || application === void 0 ? void 0 : (_application$options = application.options) === null || _application$options === void 0 ? void 0 : _application$options.defaultCloseAnimation) === 'boolean') {
-          $$invalidate(9, application.options.defaultCloseAnimation = outTransition === s_DEFAULT_TRANSITION, application);
+          $$invalidate(8, application.options.defaultCloseAnimation = outTransition === s_DEFAULT_TRANSITION, application);
         }
       }
     }
@@ -28732,7 +35758,7 @@ function instance$4$1($$self, $$props, $$invalidate) {
     }
   };
 
-  return [elementContent, elementRoot, inTransition, outTransition, inTransitionOptions, outTransitionOptions, heightChanged, stylesApp, stylesContent, application, bindHeightChanged, bringToTop, allChildren, children, transition, transitionOptions, oldTransition, oldTransitionOptions, $$scope, slots, section_binding, section_elementresize_handler, div_elementresize_handler, div_binding, section_binding_1, div_binding_1];
+  return [elementContent, elementRoot, inTransition, outTransition, inTransitionOptions, outTransitionOptions, stylesApp, stylesContent, application, appResizeObserver, contentResizeObserver, bringToTop, allChildren, resizeObservedContent, resizeObservedApp, appOffsetHeight, appOffsetWidth, contentOffsetHeight, contentOffsetWidth, children, transition, transitionOptions, oldTransition, oldTransitionOptions, $$scope, slots, section_binding, div_binding];
 }
 
 class ApplicationShell extends SvelteComponent {
@@ -28741,14 +35767,17 @@ class ApplicationShell extends SvelteComponent {
     init(this, options, instance$4$1, create_fragment$4$1, safe_not_equal, {
       elementContent: 0,
       elementRoot: 1,
-      children: 13,
-      heightChanged: 6,
-      stylesApp: 7,
-      stylesContent: 8,
-      transition: 14,
+      children: 19,
+      stylesApp: 6,
+      stylesContent: 7,
+      appOffsetHeight: 15,
+      appOffsetWidth: 16,
+      contentOffsetHeight: 17,
+      contentOffsetWidth: 18,
+      transition: 20,
       inTransition: 2,
       outTransition: 3,
-      transitionOptions: 15,
+      transitionOptions: 21,
       inTransitionOptions: 4,
       outTransitionOptions: 5
     }, add_css$2);
@@ -28777,7 +35806,7 @@ class ApplicationShell extends SvelteComponent {
   }
 
   get children() {
-    return this.$$.ctx[13];
+    return this.$$.ctx[19];
   }
 
   set children(children) {
@@ -28787,19 +35816,8 @@ class ApplicationShell extends SvelteComponent {
     flush();
   }
 
-  get heightChanged() {
-    return this.$$.ctx[6];
-  }
-
-  set heightChanged(heightChanged) {
-    this.$$set({
-      heightChanged
-    });
-    flush();
-  }
-
   get stylesApp() {
-    return this.$$.ctx[7];
+    return this.$$.ctx[6];
   }
 
   set stylesApp(stylesApp) {
@@ -28810,7 +35828,7 @@ class ApplicationShell extends SvelteComponent {
   }
 
   get stylesContent() {
-    return this.$$.ctx[8];
+    return this.$$.ctx[7];
   }
 
   set stylesContent(stylesContent) {
@@ -28820,8 +35838,52 @@ class ApplicationShell extends SvelteComponent {
     flush();
   }
 
+  get appOffsetHeight() {
+    return this.$$.ctx[15];
+  }
+
+  set appOffsetHeight(appOffsetHeight) {
+    this.$$set({
+      appOffsetHeight
+    });
+    flush();
+  }
+
+  get appOffsetWidth() {
+    return this.$$.ctx[16];
+  }
+
+  set appOffsetWidth(appOffsetWidth) {
+    this.$$set({
+      appOffsetWidth
+    });
+    flush();
+  }
+
+  get contentOffsetHeight() {
+    return this.$$.ctx[17];
+  }
+
+  set contentOffsetHeight(contentOffsetHeight) {
+    this.$$set({
+      contentOffsetHeight
+    });
+    flush();
+  }
+
+  get contentOffsetWidth() {
+    return this.$$.ctx[18];
+  }
+
+  set contentOffsetWidth(contentOffsetWidth) {
+    this.$$set({
+      contentOffsetWidth
+    });
+    flush();
+  }
+
   get transition() {
-    return this.$$.ctx[14];
+    return this.$$.ctx[20];
   }
 
   set transition(transition) {
@@ -28854,7 +35916,7 @@ class ApplicationShell extends SvelteComponent {
   }
 
   get transitionOptions() {
-    return this.$$.ctx[15];
+    return this.$$.ctx[21];
   }
 
   set transitionOptions(transitionOptions) {
@@ -29655,7 +36717,9 @@ function create_else_block$1(ctx) {
   let current;
   const applicationshell_spread_levels = [
   /*appProps*/
-  ctx[6]];
+  ctx[6], {
+    appOffsetHeight: true
+  }];
 
   function applicationshell_elementRoot_binding_1(value) {
     /*applicationshell_elementRoot_binding_1*/
@@ -29716,7 +36780,7 @@ function create_else_block$1(ctx) {
       /*appProps*/
       64 ? get_spread_update(applicationshell_spread_levels, [get_spread_object(
       /*appProps*/
-      ctx[6])]) : {};
+      ctx[6]), applicationshell_spread_levels[1]]) : {};
 
       if (dirty &
       /*$$scope, data, autoClose, dialogComponent*/
@@ -29862,7 +36926,7 @@ function create_if_block$b(ctx) {
     }
 
   };
-} // (187:3) <ApplicationShell bind:elementRoot bind:elementContent {...appProps}>
+} // (187:3) <ApplicationShell bind:elementRoot bind:elementContent {...appProps} appOffsetHeight={true}>
 
 
 function create_default_slot_2(ctx) {
@@ -29965,7 +37029,7 @@ function create_default_slot_2(ctx) {
     }
 
   };
-} // (182:6) <ApplicationShell bind:elementRoot bind:elementContent {...appProps}>
+} // (182:6) <ApplicationShell bind:elementRoot bind:elementContent {...appProps} appOffsetHeight={true}>
 
 
 function create_default_slot_1(ctx) {
@@ -30079,7 +37143,9 @@ function create_default_slot$1(ctx) {
   let current;
   const applicationshell_spread_levels = [
   /*appProps*/
-  ctx[6]];
+  ctx[6], {
+    appOffsetHeight: true
+  }];
 
   function applicationshell_elementRoot_binding(value) {
     /*applicationshell_elementRoot_binding*/
@@ -30140,7 +37206,7 @@ function create_default_slot$1(ctx) {
       /*appProps*/
       64 ? get_spread_update(applicationshell_spread_levels, [get_spread_object(
       /*appProps*/
-      ctx[6])]) : {};
+      ctx[6]), applicationshell_spread_levels[1]]) : {};
 
       if (dirty &
       /*$$scope, data, autoClose, dialogComponent*/
@@ -30725,6 +37791,7 @@ class TJSDialog extends SvelteApplication {
     return deepMerge(super.defaultOptions, {
       classes: ['dialog'],
       width: 400,
+      height: 'auto',
       jQuery: true,
       svelte: {
         class: DialogShell,
@@ -31024,7 +38091,7 @@ class TJSDialog extends SvelteApplication {
  * @property {number|null} [zIndex] - A specific z-index for the dialog.
  */
 
-/* src\formApps\ItemMenu\components\customPicker.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\customPicker.svelte generated by Svelte v3.47.0 */
 
 function create_fragment$h(ctx) {
 	let div2;
@@ -31348,9 +38415,15 @@ let rotation;
 const buttons = writable(rotation);
 
 buttons.rotate = () => {
+  const duration = 1000;
+  Position.animateTo({
+    rotateZ: 180
+  }, {
+    duration
+  });
 };
 
-/* src\formApps\ItemMenu\videoPreviews\primaryApp.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\videoPreviews\primaryApp.svelte generated by Svelte v3.47.0 */
 
 function create_fragment$g(ctx) {
 	let video;
@@ -31465,7 +38538,7 @@ class PrimaryApp extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\videoPreviews\explosionApp.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\videoPreviews\explosionApp.svelte generated by Svelte v3.47.0 */
 
 function create_fragment$f(ctx) {
 	let video;
@@ -31580,7 +38653,7 @@ class ExplosionApp extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\SelectAnimation.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\SelectAnimation.svelte generated by Svelte v3.47.0 */
 
 function get_each_context$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
@@ -31659,7 +38732,7 @@ function create_if_block_9$1(ctx) {
 
 			attr(i, "class", i_class_value = "" + ((/*explosionEnabled*/ ctx[2]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-1knm2q4"));
+			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-1o6ciir"));
 
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "1/2");
@@ -31677,7 +38750,7 @@ function create_if_block_9$1(ctx) {
 		p(ctx, dirty) {
 			if (dirty[0] & /*explosionEnabled*/ 4 && i_class_value !== (i_class_value = "" + ((/*explosionEnabled*/ ctx[2]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-1knm2q4"))) {
+			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-1o6ciir"))) {
 				attr(i, "class", i_class_value);
 			}
 		},
@@ -31803,7 +38876,7 @@ function create_if_block_8$1(ctx) {
 			option4 = element("option");
 			option4.textContent = `${localize("AUTOANIM.typeAuras")}`;
 			attr(label, "for", "1");
-			attr(label, "class", "svelte-1knm2q4");
+			attr(label, "class", "svelte-1o6ciir");
 			option0.__value = "melee";
 			option0.value = option0.__value;
 			option1.__value = "range";
@@ -31817,12 +38890,12 @@ function create_if_block_8$1(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-1knm2q4");
+			attr(select, "class", "svelte-1o6ciir");
 			if (/*animType*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[25].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-3wide svelte-1knm2q4");
+			attr(div1, "class", "aa-3wide svelte-1o6ciir");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -31969,63 +39042,63 @@ function create_if_block_1$7(ctx) {
 			div5 = element("div");
 			if (if_block5) if_block5.c();
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-1knm2q4");
+			attr(label0, "class", "svelte-1o6ciir");
 			attr(select0, "name", "flags.autoanimations.options.menuType");
 			attr(select0, "id", "2");
 			select0.disabled = /*isCustom*/ ctx[10];
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1knm2q4"));
+			: "isNotPopulated") + " svelte-1o6ciir"));
 
 			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[28].call(select0));
-			attr(div0, "class", div0_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4");
+			attr(div0, "class", div0_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1o6ciir");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-1knm2q4");
+			attr(label1, "class", "svelte-1o6ciir");
 			attr(select1, "name", "flags.autoanimations.animation");
 			attr(select1, "id", "3");
 			select1.disabled = /*isCustom*/ ctx[10];
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[7] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1knm2q4"));
+			: "isNotPopulated") + " svelte-1o6ciir"));
 
 			if (/*animation*/ ctx[7] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[30].call(select1));
-			attr(div1, "class", div1_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4");
+			attr(div1, "class", div1_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1o6ciir");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-1knm2q4");
+			attr(label2, "class", "svelte-1o6ciir");
 			attr(select2, "name", "flags.autoanimations.options.variant");
 			attr(select2, "id", "4");
 			select2.disabled = /*isCustom*/ ctx[10];
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[8] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1knm2q4"));
+			: "isNotPopulated") + " svelte-1o6ciir"));
 
 			if (/*variant*/ ctx[8] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[32].call(select2));
-			attr(div2, "class", div2_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4");
+			attr(div2, "class", div2_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1o6ciir");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-1knm2q4");
+			attr(label3, "class", "svelte-1o6ciir");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 			select3.disabled = /*isCustom*/ ctx[10];
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[9] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1knm2q4"));
+			: "isNotPopulated") + " svelte-1o6ciir"));
 
 			if (/*color*/ ctx[9] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[34].call(select3));
-			attr(div3, "class", div3_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4");
+			attr(div3, "class", div3_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1o6ciir");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", "aa-3wide svelte-1knm2q4");
-			attr(div5, "class", "aa-3wide svelte-1knm2q4");
+			attr(div4, "class", "aa-3wide svelte-1o6ciir");
+			attr(div5, "class", "aa-3wide svelte-1o6ciir");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -32122,7 +39195,7 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*menuType, isCustom, menuSelection*/ 17410 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1knm2q4"))) {
+			: "isNotPopulated") + " svelte-1o6ciir"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
@@ -32130,7 +39203,7 @@ function create_if_block_1$7(ctx) {
 				select_option(select0, /*menuType*/ ctx[1]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 1024 && div0_class_value !== (div0_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4")) {
+			if (!current || dirty[0] & /*isCustom*/ 1024 && div0_class_value !== (div0_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1o6ciir")) {
 				attr(div0, "class", div0_class_value);
 			}
 
@@ -32153,7 +39226,7 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*animation, isCustom, menuSelection, menuType*/ 17538 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[7] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1knm2q4"))) {
+			: "isNotPopulated") + " svelte-1o6ciir"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
@@ -32161,7 +39234,7 @@ function create_if_block_1$7(ctx) {
 				select_option(select1, /*animation*/ ctx[7]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 1024 && div1_class_value !== (div1_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4")) {
+			if (!current || dirty[0] & /*isCustom*/ 1024 && div1_class_value !== (div1_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1o6ciir")) {
 				attr(div1, "class", div1_class_value);
 			}
 
@@ -32184,7 +39257,7 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*variant, isCustom, menuSelection, menuType, animation*/ 17794 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[8] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1knm2q4"))) {
+			: "isNotPopulated") + " svelte-1o6ciir"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
@@ -32192,7 +39265,7 @@ function create_if_block_1$7(ctx) {
 				select_option(select2, /*variant*/ ctx[8]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 1024 && div2_class_value !== (div2_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4")) {
+			if (!current || dirty[0] & /*isCustom*/ 1024 && div2_class_value !== (div2_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1o6ciir")) {
 				attr(div2, "class", div2_class_value);
 			}
 
@@ -32215,7 +39288,7 @@ function create_if_block_1$7(ctx) {
 
 			if (!current || dirty[0] & /*color, isCustom, menuSelection, menuType, animation, variant*/ 18306 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[9] != "" && !/*isCustom*/ ctx[10]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1knm2q4"))) {
+			: "isNotPopulated") + " svelte-1o6ciir"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -32223,7 +39296,7 @@ function create_if_block_1$7(ctx) {
 				select_option(select3, /*color*/ ctx[9]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 1024 && div3_class_value !== (div3_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1knm2q4")) {
+			if (!current || dirty[0] & /*isCustom*/ 1024 && div3_class_value !== (div3_class_value = "flexcol " + (/*isCustom*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1o6ciir")) {
 				attr(div3, "class", div3_class_value);
 			}
 
@@ -32331,7 +39404,7 @@ function create_if_block_7$1(ctx) {
 			option3 = element("option");
 			option3.textContent = `${localize("AUTOANIM.both")}`;
 			attr(label, "for", "6");
-			attr(label, "class", "svelte-1knm2q4");
+			attr(label, "class", "svelte-1o6ciir");
 			option0.__value = "source";
 			option0.value = option0.__value;
 			option1.__value = "target";
@@ -32344,7 +39417,7 @@ function create_if_block_7$1(ctx) {
 			attr(select, "id", "6");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-1knm2q4");
+			attr(select, "class", "svelte-1o6ciir");
 			if (/*staticType*/ ctx[12] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[27].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "1 / 2");
@@ -32774,7 +39847,7 @@ function create_if_block_2$5(ctx) {
 			attr(input, "id", "constantY");
 			input.hidden = true;
 			attr(label, "for", "constantY");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-1knm2q4"));
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-1o6ciir"));
 			attr(div, "class", "flexcol aa-button-labels");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "3 / 4");
@@ -32798,7 +39871,7 @@ function create_if_block_2$5(ctx) {
 				input.checked = /*onlyX*/ ctx[13];
 			}
 
-			if (!current || dirty[0] & /*onlyX*/ 8192 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-1knm2q4"))) {
+			if (!current || dirty[0] & /*onlyX*/ 8192 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-1o6ciir"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -32857,12 +39930,12 @@ function create_fragment$e(ctx) {
 			t3 = space();
 			if (if_block2) if_block2.c();
 			attr(label, "for", "");
-			attr(label, "class", "svelte-1knm2q4");
+			attr(label, "class", "svelte-1o6ciir");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "3/4");
-			attr(div1, "class", "aa-header svelte-1knm2q4");
-			attr(div2, "class", "aa-header-section svelte-1knm2q4");
+			attr(div1, "class", "aa-header svelte-1o6ciir");
+			attr(div2, "class", "aa-header-section svelte-1o6ciir");
 		},
 		m(target, anchor) {
 			insert(target, div3, anchor);
@@ -33387,7 +40460,7 @@ class SelectAnimation extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\soundSettings.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\soundSettings.svelte generated by Svelte v3.47.0 */
 
 function create_if_block_1$6(ctx) {
 	let div;
@@ -33489,48 +40562,48 @@ function create_if_block$9(ctx) {
 
 			attr(input0, "class", input0_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-17g0fun"));
+			: "isNotPopulated") + " svelte-10uyrn6"));
 
 			attr(i, "class", "fas fa-file-import fa-fw");
 
 			attr(button, "class", button_class_value = "file-picker " + (/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] != ''
 			? 'isPopulated'
-			: 'isNotPopulated') + " svelte-17g0fun");
+			: 'isNotPopulated') + " svelte-10uyrn6");
 
 			attr(div0, "class", "form-group");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "2/5");
 			set_style(div0, "margin-right", "10%");
 			set_style(div0, "margin-left", "10%");
-			attr(div1, "class", div1_class_value = "aa-customAnim-container " + (!/*soundEnabled*/ ctx[0] ? 'opacityBorder' : '') + " svelte-17g0fun");
+			attr(div1, "class", div1_class_value = "aa-customAnim-container " + (!/*soundEnabled*/ ctx[0] ? 'opacityBorder' : '') + " svelte-10uyrn6");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-17g0fun");
+			attr(label0, "class", "svelte-10uyrn6");
 			attr(input1, "type", "Number");
 			attr(input1, "placeholder", "0");
 			attr(input1, "step", "0.01");
-			attr(input1, "class", "svelte-17g0fun");
+			attr(input1, "class", "svelte-10uyrn6");
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-17g0fun");
+			attr(label1, "class", "svelte-10uyrn6");
 			attr(input2, "type", "Number");
 			attr(input2, "placeholder", "0.5");
 			attr(input2, "step", "0.01");
-			attr(input2, "class", "svelte-17g0fun");
+			attr(input2, "class", "svelte-10uyrn6");
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-17g0fun");
+			attr(label2, "class", "svelte-10uyrn6");
 			attr(input3, "type", "Number");
 			attr(input3, "placeholder", "0");
 			attr(input3, "step", "0.01");
-			attr(input3, "class", "svelte-17g0fun");
+			attr(input3, "class", "svelte-10uyrn6");
 			attr(div4, "class", "flexcol");
 			set_style(div4, "grid-row", "3 / 4");
 			set_style(div4, "grid-column", "3 / 4");
-			attr(div5, "class", "aa-3wide svelte-17g0fun");
+			attr(div5, "class", "aa-3wide svelte-10uyrn6");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -33576,7 +40649,7 @@ function create_if_block$9(ctx) {
 		p(ctx, dirty) {
 			if (!current || dirty & /*soundEnabled, soundPath*/ 17 && input0_class_value !== (input0_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-17g0fun"))) {
+			: "isNotPopulated") + " svelte-10uyrn6"))) {
 				attr(input0, "class", input0_class_value);
 			}
 
@@ -33586,11 +40659,11 @@ function create_if_block$9(ctx) {
 
 			if (!current || dirty & /*soundEnabled, soundPath*/ 17 && button_class_value !== (button_class_value = "file-picker " + (/*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] != ''
 			? 'isPopulated'
-			: 'isNotPopulated') + " svelte-17g0fun")) {
+			: 'isNotPopulated') + " svelte-10uyrn6")) {
 				attr(button, "class", button_class_value);
 			}
 
-			if (!current || dirty & /*soundEnabled*/ 1 && div1_class_value !== (div1_class_value = "aa-customAnim-container " + (!/*soundEnabled*/ ctx[0] ? 'opacityBorder' : '') + " svelte-17g0fun")) {
+			if (!current || dirty & /*soundEnabled*/ 1 && div1_class_value !== (div1_class_value = "aa-customAnim-container " + (!/*soundEnabled*/ ctx[0] ? 'opacityBorder' : '') + " svelte-10uyrn6")) {
 				attr(div1, "class", div1_class_value);
 			}
 
@@ -33668,20 +40741,20 @@ function create_fragment$d(ctx) {
 			t3 = space();
 			if (if_block1) if_block1.c();
 			attr(label, "for", "");
-			attr(label, "class", "svelte-17g0fun");
+			attr(label, "class", "svelte-10uyrn6");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "3/4");
 
 			attr(i, "class", i_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " svelte-17g0fun"));
+			: "fas fa-plus aa-green") + " svelte-10uyrn6"));
 
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1/2");
 			set_style(div1, "grid-column", "5/6");
-			attr(div2, "class", "aa-header svelte-17g0fun");
-			attr(div3, "class", "aa-header-section svelte-17g0fun");
+			attr(div2, "class", "aa-header svelte-10uyrn6");
+			attr(div3, "class", "aa-header-section svelte-10uyrn6");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -33719,7 +40792,7 @@ function create_fragment$d(ctx) {
 
 			if (!current || dirty & /*soundEnabled*/ 1 && i_class_value !== (i_class_value = "" + (null_to_empty(/*soundEnabled*/ ctx[0]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " svelte-17g0fun"))) {
+			: "fas fa-plus aa-green") + " svelte-10uyrn6"))) {
 				attr(i, "class", i_class_value);
 			}
 
@@ -33930,7 +41003,7 @@ class SoundSettings extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\explosions.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\explosions.svelte generated by Svelte v3.47.0 */
 
 function create_if_block$8(ctx) {
 	let h2;
@@ -34267,7 +41340,7 @@ class Explosions extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\options.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\options.svelte generated by Svelte v3.47.0 */
 
 function create_if_block_4$3(ctx) {
 	let if_block_anchor;
@@ -35719,7 +42792,7 @@ class Options extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\generalSettings.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\generalSettings.svelte generated by Svelte v3.47.0 */
 
 function create_if_block$6(ctx) {
 	let div;
@@ -36289,7 +43362,7 @@ function getPreviewFile(data) {
   }
 }
 
-/* src\formApps\ItemMenu\videoPreviews\switchApp.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\videoPreviews\switchApp.svelte generated by Svelte v3.47.0 */
 
 function create_fragment$9(ctx) {
 	let video;
@@ -36360,7 +43433,7 @@ class SwitchApp extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\meleeRange.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\meleeRange.svelte generated by Svelte v3.47.0 */
 
 function get_each_context$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
@@ -36496,52 +43569,52 @@ function create_if_block_1$4(ctx) {
 			select3 = element("select");
 			if (if_block2) if_block2.c();
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-15c1qq1");
+			attr(label0, "class", "svelte-1cnhwgg");
 			attr(select0, "name", "flags.autoanimations.options.menuType");
 			attr(select0, "id", "2");
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15c1qq1"));
+			: "isNotPopulated") + " svelte-1cnhwgg"));
 
 			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[24].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-15c1qq1");
+			attr(label1, "class", "svelte-1cnhwgg");
 			attr(select1, "name", "flags.autoanimations.animation");
 			attr(select1, "id", "3");
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15c1qq1"));
+			: "isNotPopulated") + " svelte-1cnhwgg"));
 
 			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[26].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-15c1qq1");
+			attr(label2, "class", "svelte-1cnhwgg");
 			attr(select2, "name", "flags.autoanimations.options.variant");
 			attr(select2, "id", "4");
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15c1qq1"));
+			: "isNotPopulated") + " svelte-1cnhwgg"));
 
 			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[28].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-15c1qq1");
+			attr(label3, "class", "svelte-1cnhwgg");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15c1qq1"));
+			: "isNotPopulated") + " svelte-1cnhwgg"));
 
 			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[30].call(select3));
 			attr(div3, "class", "flexcol");
@@ -36621,7 +43694,7 @@ function create_if_block_1$4(ctx) {
 
 			if (dirty[0] & /*menuType*/ 2 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15c1qq1"))) {
+			: "isNotPopulated") + " svelte-1cnhwgg"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
@@ -36644,7 +43717,7 @@ function create_if_block_1$4(ctx) {
 
 			if (dirty[0] & /*animation, menuType*/ 6 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15c1qq1"))) {
+			: "isNotPopulated") + " svelte-1cnhwgg"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
@@ -36667,7 +43740,7 @@ function create_if_block_1$4(ctx) {
 
 			if (dirty[0] & /*variant, menuType, animation*/ 14 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15c1qq1"))) {
+			: "isNotPopulated") + " svelte-1cnhwgg"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
@@ -36690,7 +43763,7 @@ function create_if_block_1$4(ctx) {
 
 			if (dirty[0] & /*color, menuType, animation, variant*/ 30 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-15c1qq1"))) {
+			: "isNotPopulated") + " svelte-1cnhwgg"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -37041,21 +44114,21 @@ function create_if_block$5(ctx) {
 			t5 = space();
 			input = element("input");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-15c1qq1");
-			attr(button, "class", "oldCheck svelte-15c1qq1");
+			attr(label0, "class", "svelte-1cnhwgg");
+			attr(button, "class", "oldCheck svelte-1cnhwgg");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "2/3");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-15c1qq1");
+			attr(label1, "class", "svelte-1cnhwgg");
 			input.disabled = input_disabled_value = /*detect*/ ctx[6] === "auto";
 			attr(input, "type", "Number");
 			attr(input, "placeholder", "2");
-			attr(input, "class", "svelte-15c1qq1");
-			attr(div1, "class", div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-15c1qq1");
+			attr(input, "class", "svelte-1cnhwgg");
+			attr(div1, "class", div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1cnhwgg");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 5");
-			attr(div2, "class", "aa-4wide svelte-15c1qq1");
+			attr(div2, "class", "aa-4wide svelte-1cnhwgg");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -37092,7 +44165,7 @@ function create_if_block$5(ctx) {
 				set_input_value(input, /*range*/ ctx[8]);
 			}
 
-			if (!current || dirty[0] & /*detect*/ 64 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-15c1qq1")) {
+			if (!current || dirty[0] & /*detect*/ 64 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1cnhwgg")) {
 				attr(div1, "class", div1_class_value);
 			}
 		},
@@ -37158,7 +44231,7 @@ function create_fragment$8(ctx) {
 			div2 = element("div");
 			div1 = element("div");
 			div0 = element("div");
-			div0.innerHTML = `<label for="" class="svelte-15c1qq1">Melee Range Switch</label>`;
+			div0.innerHTML = `<label for="" class="svelte-1cnhwgg">Melee Range Switch</label>`;
 			t1 = space();
 			if (if_block0) if_block0.c();
 			t2 = space();
@@ -37189,10 +44262,10 @@ function create_fragment$8(ctx) {
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "2/3");
-			attr(div1, "class", "aa-header svelte-15c1qq1");
-			attr(div2, "class", "aa-header-section svelte-15c1qq1");
+			attr(div1, "class", "aa-header svelte-1cnhwgg");
+			attr(div2, "class", "aa-header-section svelte-1cnhwgg");
 			attr(label1, "for", "1");
-			attr(label1, "class", "svelte-15c1qq1");
+			attr(label1, "class", "svelte-1cnhwgg");
 			option0.__value = "on";
 			option0.value = option0.__value;
 			option1.__value = "off";
@@ -37203,23 +44276,23 @@ function create_fragment$8(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-15c1qq1");
+			attr(select, "class", "svelte-1cnhwgg");
 			if (/*switchType*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[21].call(select));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-15c1qq1");
+			attr(label2, "class", "svelte-1cnhwgg");
 			button.disabled = /*isDisabled*/ ctx[10];
 
 			attr(button, "class", button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
 			? 'selected'
-			: 'notSelected') + " svelte-15c1qq1");
+			: 'notSelected') + " svelte-1cnhwgg");
 
-			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-15c1qq1");
+			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1cnhwgg");
 			set_style(div4, "grid-row", "1/2");
 			set_style(div4, "grid-column", "3/4");
-			attr(div5, "class", "aa-select-animation svelte-15c1qq1");
+			attr(div5, "class", "aa-select-animation svelte-1cnhwgg");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -37286,11 +44359,11 @@ function create_fragment$8(ctx) {
 
 			if (!current || dirty[0] & /*returnEnabled, isDisabled*/ 1056 && button_class_value !== (button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
 			? 'selected'
-			: 'notSelected') + " svelte-15c1qq1")) {
+			: 'notSelected') + " svelte-1cnhwgg")) {
 				attr(button, "class", button_class_value);
 			}
 
-			if (!current || dirty[0] & /*isDisabled*/ 1024 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-15c1qq1")) {
+			if (!current || dirty[0] & /*isDisabled*/ 1024 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1cnhwgg")) {
 				attr(div4, "class", div4_class_value);
 			}
 
@@ -37616,7 +44689,7 @@ class MeleeRange extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\macro.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\macro.svelte generated by Svelte v3.47.0 */
 
 function create_fragment$7(ctx) {
 	let div0;
@@ -37819,7 +44892,7 @@ class Macro extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\videoPreviews\sourceFXApp.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\videoPreviews\sourceFXApp.svelte generated by Svelte v3.47.0 */
 
 function create_fragment$6(ctx) {
 	let video;
@@ -37895,7 +44968,7 @@ class SourceFXApp extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\videoPreviews\targetFXApp.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\videoPreviews\targetFXApp.svelte generated by Svelte v3.47.0 */
 
 function create_fragment$5(ctx) {
 	let video;
@@ -37971,7 +45044,7 @@ class TargetFXApp extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\staticMenu.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\staticMenu.svelte generated by Svelte v3.47.0 */
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
@@ -38142,59 +45215,59 @@ function create_if_block$4(ctx) {
 			t11 = space();
 			create_component(custompicker.$$.fragment);
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-eg7mgg");
+			attr(label0, "class", "svelte-1tpedjd");
 			attr(select0, "id", "2");
 			select0.disabled = /*isCustom*/ ctx[4];
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[0] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-eg7mgg"));
+			: "isNotPopulated") + " svelte-1tpedjd"));
 
 			if (/*menuType*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[21].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-eg7mgg");
+			attr(label1, "class", "svelte-1tpedjd");
 			attr(select1, "id", "3");
 			select1.disabled = /*isCustom*/ ctx[4];
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[1] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-eg7mgg"));
+			: "isNotPopulated") + " svelte-1tpedjd"));
 
 			if (/*animation*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[23].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-eg7mgg");
+			attr(label2, "class", "svelte-1tpedjd");
 			attr(select2, "id", "4");
 			select2.disabled = /*isCustom*/ ctx[4];
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[2] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-eg7mgg"));
+			: "isNotPopulated") + " svelte-1tpedjd"));
 
 			if (/*variant*/ ctx[2] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[25].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-eg7mgg");
+			attr(label3, "class", "svelte-1tpedjd");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 			select3.disabled = /*isCustom*/ ctx[4];
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[3] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-eg7mgg"));
+			: "isNotPopulated") + " svelte-1tpedjd"));
 
 			if (/*color*/ ctx[3] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[27].call(select3));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", "aa-3wide svelte-eg7mgg");
+			attr(div4, "class", "aa-3wide svelte-1tpedjd");
 		},
 		m(target, anchor) {
 			insert(target, div4, anchor);
@@ -38277,7 +45350,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*menuType, isCustom*/ 17 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[0] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-eg7mgg"))) {
+			: "isNotPopulated") + " svelte-1tpedjd"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
@@ -38304,7 +45377,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*animation, isCustom, menuType*/ 19 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[1] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-eg7mgg"))) {
+			: "isNotPopulated") + " svelte-1tpedjd"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
@@ -38331,7 +45404,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*variant, isCustom, menuType, animation*/ 23 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[2] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-eg7mgg"))) {
+			: "isNotPopulated") + " svelte-1tpedjd"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
@@ -38358,7 +45431,7 @@ function create_if_block$4(ctx) {
 
 			if (!current || dirty[0] & /*color, isCustom, menuType, animation, variant*/ 31 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[3] != "" && !/*isCustom*/ ctx[4]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-eg7mgg"))) {
+			: "isNotPopulated") + " svelte-1tpedjd"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -38740,20 +45813,20 @@ function create_fragment$4(ctx) {
 			if (if_block1) if_block1.c();
 			if_block1_anchor = empty();
 			attr(label, "for", "");
-			attr(label, "class", "svelte-eg7mgg");
+			attr(label, "class", "svelte-1tpedjd");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "3/4");
 
 			attr(i, "class", i_class_value = "" + ((/*enableSection*/ ctx[6]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-eg7mgg"));
+			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-1tpedjd"));
 
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1/2");
 			set_style(div1, "grid-column", "5/6");
-			attr(div2, "class", "aa-header svelte-eg7mgg");
-			attr(div3, "class", "aa-header-section svelte-eg7mgg");
+			attr(div2, "class", "aa-header svelte-1tpedjd");
+			attr(div3, "class", "aa-header-section svelte-1tpedjd");
 		},
 		m(target, anchor) {
 			insert(target, div3, anchor);
@@ -38794,7 +45867,7 @@ function create_fragment$4(ctx) {
 
 			if (!current || dirty[0] & /*enableSection*/ 64 && i_class_value !== (i_class_value = "" + ((/*enableSection*/ ctx[6]
 			? "fas fa-minus aa-red"
-			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-eg7mgg"))) {
+			: "fas fa-plus aa-green") + " aaCenterToggle" + " svelte-1tpedjd"))) {
 				attr(i, "class", i_class_value);
 			}
 
@@ -39141,7 +46214,7 @@ class StaticMenu extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\extraFX.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\extraFX.svelte generated by Svelte v3.47.0 */
 
 function create_if_block$3(ctx) {
 	let h2;
@@ -39284,93 +46357,93 @@ function create_if_block$3(ctx) {
 			t32 = space();
 			create_component(soundsettings.$$.fragment);
 			set_style(h2, "margin-top", "5px");
-			attr(h2, "class", "svelte-1b8vfri");
+			attr(h2, "class", "svelte-1w3oi2h");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-1b8vfri");
+			attr(label0, "class", "svelte-1w3oi2h");
 			button0.disabled = button0_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX";
-			attr(button0, "class", "svelte-1b8vfri");
+			attr(button0, "class", "svelte-1w3oi2h");
 
 			attr(div0, "class", div0_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
 			? 'aa-opacityButton'
-			: '') + " svelte-1b8vfri");
+			: '') + " svelte-1w3oi2h");
 
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-1b8vfri");
-			attr(button1, "class", "oldCheck svelte-1b8vfri");
+			attr(label1, "class", "svelte-1w3oi2h");
+			attr(button1, "class", "oldCheck svelte-1w3oi2h");
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-1b8vfri");
+			attr(label2, "class", "svelte-1w3oi2h");
 			button2.disabled = button2_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX";
-			attr(button2, "class", "svelte-1b8vfri");
+			attr(button2, "class", "svelte-1w3oi2h");
 
 			attr(div2, "class", div2_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
 			? 'aa-opacityButton'
-			: '') + " svelte-1b8vfri");
+			: '') + " svelte-1w3oi2h");
 
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "3 / 4");
 			attr(label3, "for", "");
-			attr(label3, "class", "svelte-1b8vfri");
+			attr(label3, "class", "svelte-1w3oi2h");
 			button3.disabled = button3_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX";
-			attr(button3, "class", "svelte-1b8vfri");
+			attr(button3, "class", "svelte-1w3oi2h");
 
 			attr(div3, "class", div3_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
 			? 'aa-opacityButton'
-			: '') + " svelte-1b8vfri");
+			: '') + " svelte-1w3oi2h");
 
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "4 / 5");
 			attr(label4, "for", "aaRepeat");
-			attr(label4, "class", "svelte-1b8vfri");
+			attr(label4, "class", "svelte-1w3oi2h");
 			input0.disabled = /*persistent*/ ctx[6];
 			attr(input0, "id", "aaRepeat");
 			attr(input0, "type", "Number");
 			attr(input0, "placeholder", "1");
-			attr(input0, "class", "svelte-1b8vfri");
-			attr(div4, "class", div4_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1b8vfri");
+			attr(input0, "class", "svelte-1w3oi2h");
+			attr(div4, "class", div4_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h");
 			set_style(div4, "grid-row", "2 / 3");
 			set_style(div4, "grid-column", "1 / 2");
 			attr(label5, "for", "aaDelay");
-			attr(label5, "class", "svelte-1b8vfri");
+			attr(label5, "class", "svelte-1w3oi2h");
 			input1.disabled = /*persistent*/ ctx[6];
 			attr(input1, "it", "aaDelay");
 			attr(input1, "type", "Number");
 			attr(input1, "placeholder", "250");
-			attr(input1, "class", "svelte-1b8vfri");
-			attr(div5, "class", div5_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1b8vfri");
+			attr(input1, "class", "svelte-1w3oi2h");
+			attr(div5, "class", div5_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h");
 			set_style(div5, "grid-row", "2 / 3");
 			set_style(div5, "grid-column", "2 / 3");
 			attr(label6, "for", "");
-			attr(label6, "class", "svelte-1b8vfri");
+			attr(label6, "class", "svelte-1w3oi2h");
 			attr(input2, "type", "Number");
 			attr(input2, "placeholder", "1");
 			attr(input2, "step", "0.01");
-			attr(input2, "class", "svelte-1b8vfri");
+			attr(input2, "class", "svelte-1w3oi2h");
 			attr(div6, "class", "flexcol");
 			set_style(div6, "grid-row", "2 / 3");
 			set_style(div6, "grid-column", "3 / 4");
 			attr(label7, "for", "");
-			attr(label7, "class", "svelte-1b8vfri");
+			attr(label7, "class", "svelte-1w3oi2h");
 			attr(input3, "type", "Number");
 			attr(input3, "placeholder", "1");
 			attr(input3, "min", "0");
 			attr(input3, "max", "1");
 			attr(input3, "step", "0.01");
-			attr(input3, "class", "svelte-1b8vfri");
+			attr(input3, "class", "svelte-1w3oi2h");
 			attr(input4, "type", "range");
 			attr(input4, "min", "0");
 			attr(input4, "max", "1");
 			attr(input4, "step", "0.01");
-			attr(input4, "class", "svelte-1b8vfri");
+			attr(input4, "class", "svelte-1w3oi2h");
 			attr(div7, "class", "form-group");
 			attr(div8, "class", "flexcol");
 			set_style(div8, "grid-row", "2 / 3");
 			set_style(div8, "grid-column", "4 / 5");
-			attr(div9, "class", "aa-options svelte-1b8vfri");
+			attr(div9, "class", "aa-options svelte-1w3oi2h");
 		},
 		m(target, anchor) {
 			insert(target, h2, anchor);
@@ -39457,7 +46530,7 @@ function create_if_block$3(ctx) {
 
 			if (!current || dirty[0] & /*flagPath*/ 2 && div0_class_value !== (div0_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
 			? 'aa-opacityButton'
-			: '') + " svelte-1b8vfri")) {
+			: '') + " svelte-1w3oi2h")) {
 				attr(div0, "class", div0_class_value);
 			}
 
@@ -39470,7 +46543,7 @@ function create_if_block$3(ctx) {
 
 			if (!current || dirty[0] & /*flagPath*/ 2 && div2_class_value !== (div2_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
 			? 'aa-opacityButton'
-			: '') + " svelte-1b8vfri")) {
+			: '') + " svelte-1w3oi2h")) {
 				attr(div2, "class", div2_class_value);
 			}
 
@@ -39482,7 +46555,7 @@ function create_if_block$3(ctx) {
 
 			if (!current || dirty[0] & /*flagPath*/ 2 && div3_class_value !== (div3_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
 			? 'aa-opacityButton'
-			: '') + " svelte-1b8vfri")) {
+			: '') + " svelte-1w3oi2h")) {
 				attr(div3, "class", div3_class_value);
 			}
 
@@ -39494,7 +46567,7 @@ function create_if_block$3(ctx) {
 				set_input_value(input0, /*repeat*/ ctx[2]);
 			}
 
-			if (!current || dirty[0] & /*persistent*/ 64 && div4_class_value !== (div4_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1b8vfri")) {
+			if (!current || dirty[0] & /*persistent*/ 64 && div4_class_value !== (div4_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h")) {
 				attr(div4, "class", div4_class_value);
 			}
 
@@ -39506,7 +46579,7 @@ function create_if_block$3(ctx) {
 				set_input_value(input1, /*delay*/ ctx[3]);
 			}
 
-			if (!current || dirty[0] & /*persistent*/ 64 && div5_class_value !== (div5_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1b8vfri")) {
+			if (!current || dirty[0] & /*persistent*/ 64 && div5_class_value !== (div5_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h")) {
 				attr(div5, "class", div5_class_value);
 			}
 
@@ -39952,7 +47025,7 @@ class ExtraFX extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\3dCanvasOptions.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\3dCanvasOptions.svelte generated by Svelte v3.47.0 */
 
 function create_if_block_1$2(ctx) {
 	let div;
@@ -40819,7 +47892,7 @@ class _3dCanvasOptions extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\components\3dMenuShell.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\components\3dMenuShell.svelte generated by Svelte v3.47.0 */
 
 function create_if_block_3$1(ctx) {
 	let options3d;
@@ -41256,7 +48329,7 @@ class _3dMenuShell extends SvelteComponent {
 	}
 }
 
-/* src\formApps\ItemMenu\itemMenuAppShell.svelte generated by Svelte v3.46.4 */
+/* src\formApps\ItemMenu\itemMenuAppShell.svelte generated by Svelte v3.47.0 */
 
 function create_if_block_4(ctx) {
 	let div1;
@@ -41317,8 +48390,8 @@ function create_if_block_4(ctx) {
 			if (if_block1) if_block1.c();
 			t2 = space();
 			if (if_block2) if_block2.c();
-			attr(div0, "class", "aaMenu-section svelte-1p9h3ia");
-			attr(div1, "class", "aaMidSection svelte-1p9h3ia");
+			attr(div0, "class", "aaMenu-section svelte-3h0zcb");
+			attr(div1, "class", "aaMidSection svelte-3h0zcb");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -41479,7 +48552,7 @@ function create_if_block_10(ctx) {
 		c() {
 			div = element("div");
 			create_component(macrofield.$$.fragment);
-			attr(div, "class", "aaMenu-section svelte-1p9h3ia");
+			attr(div, "class", "aaMenu-section svelte-3h0zcb");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -41530,7 +48603,7 @@ function create_if_block_9(ctx) {
 		c() {
 			div = element("div");
 			create_component(soundsettings.$$.fragment);
-			attr(div, "class", "aaMenu-section svelte-1p9h3ia");
+			attr(div, "class", "aaMenu-section svelte-3h0zcb");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -41616,7 +48689,7 @@ function create_if_block_5(ctx) {
 			t2 = space();
 			if (if_block2) if_block2.c();
 			if_block2_anchor = empty();
-			attr(div, "class", "aaMenu-section svelte-1p9h3ia");
+			attr(div, "class", "aaMenu-section svelte-3h0zcb");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -41814,7 +48887,7 @@ function create_if_block_7(ctx) {
 		c() {
 			div = element("div");
 			create_component(rangeswitch.$$.fragment);
-			attr(div, "class", "aaMenu-section svelte-1p9h3ia");
+			attr(div, "class", "aaMenu-section svelte-3h0zcb");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -41849,7 +48922,7 @@ function create_if_block_6(ctx) {
 		c() {
 			div = element("div");
 			create_component(explosionsettings.$$.fragment);
-			attr(div, "class", "aaMenu-section svelte-1p9h3ia");
+			attr(div, "class", "aaMenu-section svelte-3h0zcb");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -41930,7 +49003,7 @@ function create_if_block_1(ctx) {
 			if (if_block0) if_block0.c();
 			t2 = space();
 			div1 = element("div");
-			div1.innerHTML = `<label for="" class="selected svelte-1p9h3ia" style="border: 2px outset #dddddd">Primary</label>`;
+			div1.innerHTML = `<label for="" class="selected svelte-3h0zcb" style="border: 2px outset #dddddd">Primary</label>`;
 			t4 = space();
 			if (if_block1) if_block1.c();
 			t5 = space();
@@ -41940,7 +49013,7 @@ function create_if_block_1(ctx) {
 			t7 = space();
 			div4 = element("div");
 
-			div4.innerHTML = `<label for="" style="align-self:center" class="svelte-1p9h3ia">Requires use of a Primary Animation, either
+			div4.innerHTML = `<label for="" style="align-self:center" class="svelte-3h0zcb">Requires use of a Primary Animation, either
                             Customized or Autorec</label>`;
 
 			t9 = space();
@@ -41950,7 +49023,7 @@ function create_if_block_1(ctx) {
 			div7 = element("div");
 			create_component(extrafx1.$$.fragment);
 			attr(label0, "for", "");
-			attr(label0, "class", label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[7] ? "selected" : "notSelected") + " svelte-1p9h3ia"));
+			attr(label0, "class", label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[7] ? "selected" : "notSelected") + " svelte-3h0zcb"));
 			set_style(label0, "border", "2px outset #dddddd");
 			attr(div0, "class", "flexcol aa-button-labels");
 			set_style(div0, "grid-row", "1 / 2");
@@ -41959,19 +49032,19 @@ function create_if_block_1(ctx) {
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 4");
 			attr(label2, "for", "");
-			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[8] ? "selected" : "notSelected") + " svelte-1p9h3ia"));
+			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[8] ? "selected" : "notSelected") + " svelte-3h0zcb"));
 			set_style(label2, "border", "2px outset #dddddd");
 			attr(div2, "class", "flexcol aa-button-labels");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "5 / 6");
-			attr(div3, "class", "aa-5wide svelte-1p9h3ia");
-			attr(div4, "class", "flexcol aa-extraFX-hint svelte-1p9h3ia");
+			attr(div3, "class", "aa-5wide svelte-3h0zcb");
+			attr(div4, "class", "flexcol aa-extraFX-hint svelte-3h0zcb");
 			set_style(div4, "grid-row", "2/3");
 			set_style(div4, "grid-column", "1/6");
-			attr(div5, "class", "aaMenu-section svelte-1p9h3ia");
-			attr(div6, "class", "aaMenu-section svelte-1p9h3ia");
-			attr(div7, "class", "aaMenu-section svelte-1p9h3ia");
-			attr(div8, "class", "aaMidSection svelte-1p9h3ia");
+			attr(div5, "class", "aaMenu-section svelte-3h0zcb");
+			attr(div6, "class", "aaMenu-section svelte-3h0zcb");
+			attr(div7, "class", "aaMenu-section svelte-3h0zcb");
+			attr(div8, "class", "aaMidSection svelte-3h0zcb");
 		},
 		m(target, anchor) {
 			insert(target, div8, anchor);
@@ -42001,7 +49074,7 @@ function create_if_block_1(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if (!current || dirty[0] & /*enableSource*/ 128 && label0_class_value !== (label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[7] ? "selected" : "notSelected") + " svelte-1p9h3ia"))) {
+			if (!current || dirty[0] & /*enableSource*/ 128 && label0_class_value !== (label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[7] ? "selected" : "notSelected") + " svelte-3h0zcb"))) {
 				attr(label0, "class", label0_class_value);
 			}
 
@@ -42047,7 +49120,7 @@ function create_if_block_1(ctx) {
 				check_outros();
 			}
 
-			if (!current || dirty[0] & /*enableTarget*/ 256 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[8] ? "selected" : "notSelected") + " svelte-1p9h3ia"))) {
+			if (!current || dirty[0] & /*enableTarget*/ 256 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[8] ? "selected" : "notSelected") + " svelte-3h0zcb"))) {
 				attr(label2, "class", label2_class_value);
 			}
 		},
@@ -42189,8 +49262,8 @@ function create_if_block(ctx) {
 			div1 = element("div");
 			div0 = element("div");
 			create_component(menu3d.$$.fragment);
-			attr(div0, "class", "aaMenu-section svelte-1p9h3ia");
-			attr(div1, "class", "aaMidSection svelte-1p9h3ia");
+			attr(div0, "class", "aaMenu-section svelte-3h0zcb");
+			attr(div1, "class", "aaMidSection svelte-3h0zcb");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -42317,34 +49390,34 @@ function create_default_slot(ctx) {
 			button4 = element("button");
 			button4.textContent = "Close and Submit";
 			attr(i0, "class", "fas fa-bomb");
-			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[13] ? "selected" : "notSelected") + " svelte-1p9h3ia"));
+			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[13] ? "selected" : "notSelected") + " svelte-3h0zcb"));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(i1, "class", "fas fa-user-plus");
-			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[12] ? "selected" : "notSelected") + " svelte-1p9h3ia"));
+			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[12] ? "selected" : "notSelected") + " svelte-3h0zcb"));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(i2, "class", "fas fa-vr-cardboard");
-			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[11] ? "selected" : "notSelected") + " svelte-1p9h3ia"));
+			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[11] ? "selected" : "notSelected") + " svelte-3h0zcb"));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "3 / 4");
-			attr(div3, "class", "aa-tabs svelte-1p9h3ia");
-			attr(div4, "class", "aaTopSection svelte-1p9h3ia");
+			attr(div3, "class", "aa-tabs svelte-3h0zcb");
+			attr(div4, "class", "aaTopSection svelte-3h0zcb");
 			set_style(div4, "margin-top", "5px");
-			attr(button3, "class", "footer-button svelte-1p9h3ia");
+			attr(button3, "class", "footer-button svelte-3h0zcb");
 			attr(button3, "type", "submit");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1/2");
 			set_style(div5, "grid-column", "1/2");
-			attr(button4, "class", "footer-button svelte-1p9h3ia");
+			attr(button4, "class", "footer-button svelte-3h0zcb");
 			attr(div6, "class", "flexcol");
 			set_style(div6, "grid-row", "1/2");
 			set_style(div6, "grid-column", "2/3");
-			attr(div7, "class", "aa-submit svelte-1p9h3ia");
-			attr(div8, "class", "aaBottomSection svelte-1p9h3ia");
+			attr(div7, "class", "aa-submit svelte-3h0zcb");
+			attr(div8, "class", "aaBottomSection svelte-3h0zcb");
 			set_style(div8, "margin-bottom", "5px");
 			attr(form_1, "autocomplete", "off");
 			attr(form_1, "id", "item-menu-aa");
@@ -42405,15 +49478,15 @@ function create_default_slot(ctx) {
 			}
 		},
 		p(ctx, dirty) {
-			if (!current || dirty[0] & /*focusPrimary*/ 8192 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[13] ? "selected" : "notSelected") + " svelte-1p9h3ia"))) {
+			if (!current || dirty[0] & /*focusPrimary*/ 8192 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[13] ? "selected" : "notSelected") + " svelte-3h0zcb"))) {
 				attr(button0, "class", button0_class_value);
 			}
 
-			if (!current || dirty[0] & /*focusExtra*/ 4096 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[12] ? "selected" : "notSelected") + " svelte-1p9h3ia"))) {
+			if (!current || dirty[0] & /*focusExtra*/ 4096 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[12] ? "selected" : "notSelected") + " svelte-3h0zcb"))) {
 				attr(button1, "class", button1_class_value);
 			}
 
-			if (!current || dirty[0] & /*focus3d*/ 2048 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[11] ? "selected" : "notSelected") + " svelte-1p9h3ia"))) {
+			if (!current || dirty[0] & /*focus3d*/ 2048 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[11] ? "selected" : "notSelected") + " svelte-3h0zcb"))) {
 				attr(button2, "class", button2_class_value);
 			}
 

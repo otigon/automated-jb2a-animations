@@ -48,6 +48,5 @@ const buttons = writable(rotation);
 
 buttons.rotate = () => {
     const duration = 1000;
-    
-
+    Position.animateTo({rotateZ: 180}, {duration})
 }

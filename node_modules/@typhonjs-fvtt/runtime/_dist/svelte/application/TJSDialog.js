@@ -52,6 +52,7 @@ export class TJSDialog extends SvelteApplication
       return deepMerge(super.defaultOptions, {
          classes: ['dialog'],
          width: 400,
+         height: 'auto',
          jQuery: true,
          svelte: {
             class: DialogShell,

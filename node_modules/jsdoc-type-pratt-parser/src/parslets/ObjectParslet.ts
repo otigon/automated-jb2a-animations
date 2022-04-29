@@ -75,6 +75,10 @@ export function createObjectParslet ({ objectFieldGrammar, allowKeyTypes }: {
           } else {
             break
           }
+          const type = parser.getLexer().token().type
+          if (type === '}') {
+            break
+          }
         }
 
         result.meta.separator = separator ?? 'comma' // TODO: use undefined here

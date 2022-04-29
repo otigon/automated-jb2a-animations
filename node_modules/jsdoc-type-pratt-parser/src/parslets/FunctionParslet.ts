@@ -66,7 +66,7 @@ export function createFunctionParslet ({ allowNamedParameters, allowNoReturnType
         result.parameters = getParameters(value)
         for (const p of result.parameters) {
           if (p.type === 'JsdocTypeKeyValue' && (!allowNamedParameters.includes(p.key) || p.meta.quote !== undefined)) {
-            throw new Error(`only allowed named parameters are ${allowNamedParameters.join(',')} but got ${p.type}`)
+            throw new Error(`only allowed named parameters are ${allowNamedParameters.join(', ')} but got ${p.type}`)
           }
         }
       }
