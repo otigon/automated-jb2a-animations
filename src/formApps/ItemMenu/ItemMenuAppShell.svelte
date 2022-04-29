@@ -17,6 +17,7 @@
     import StaticMenu from "./components/staticMenu.svelte";
     import ExtraFX from "./components/extraFX.svelte";
     import Menu3d from "./components/3dMenuShell.svelte";
+    import ChooseAnimation from "./components/chooseAnimation.svelte";
     import { extraSource, extraTarget } from "./menuStore.js";
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
@@ -57,8 +58,6 @@
     $: enableMacro = enableMacro;
     let showSound;
     $: showSound = animationDisabled ? true : false;
-    let animType;
-    $: animType = animType;
     let menuType;
     $: menuType = menuType;
     /*
@@ -89,7 +88,7 @@
             },
         };
         await item.update(updatedFlags.data);
-    };
+    }
 
     async function closeApp() {
         const updatedFlags = {
@@ -139,6 +138,13 @@
     extraTarget.subscribe((value) => {
         enableTarget = value;
     });
+
+    // Sets Initial animType for Menu - Assigns to Flag when updated
+    let animType = flagData.animType || "melee";
+    $: {
+        animType = animType;
+        flagData.animType = animType;
+    }
 </script>
 
 <ApplicationShell
@@ -202,6 +208,50 @@
                         bind:enableMacro
                         {flagData}
                     />
+                    {#if isCustomized}
+                    <div class="aa-pickAnim" transition:fade>
+                        <div
+                            class="flexcol"
+                            style="grid-row: 1 / 2;grid-column: 2 / 3;"
+                        >
+                            <label for="1"
+                                >{localize("AUTOANIM.animation")}
+                                {localize("AUTOANIM.type")}</label
+                            >
+                            <select
+                                bind:value={animType}
+                                id="1"
+                                style="text-align: center;justify-self: center"
+                            >
+                                <option value="melee"
+                                    >{localize(
+                                        "autoanimations.animTypes.melee"
+                                    )}</option
+                                >
+                                <option value="range"
+                                    >{localize(
+                                        "autoanimations.animTypes.ranged"
+                                    )}</option
+                                >
+                                <option value="static"
+                                    >{localize(
+                                        "autoanimations.animTypes.onToken"
+                                    )}</option
+                                >
+                                <option value="templatefx"
+                                    >{localize(
+                                        "autoanimations.animTypes.templates"
+                                    )}</option
+                                >
+                                <option value="aura"
+                                    >{localize(
+                                        "autoanimations.animTypes.typeAuras"
+                                    )}</option
+                                >
+                            </select>
+                        </div>
+                    </div>
+                    {/if}
                 </div>
                 {#if enableMacro}
                     <div class="aaMenu-section" transition:fade>
@@ -215,12 +265,12 @@
                 {/if}
                 {#if !animationDisabled && isCustomized}
                     <div class="aaMenu-section">
-                        <SelectAnimation
+                        <ChooseAnimation
                             previewType="primary"
                             flagPath="PrimaryAnimation"
                             sectionTitle="Primary Animation"
+                            {animType}
                             {flagData}
-                            bind:animType
                             bind:menuType
                         />
                         {#if animType}
@@ -229,9 +279,9 @@
                         {/if}
                     </div>
                     {#if animType === "melee"}
-                    <div class="aaMenu-section">
+                        <div class="aaMenu-section">
                             <RangeSwitch {flagData} />
-                    </div>
+                        </div>
                     {/if}
                     {#if animType === "melee" || animType === "range" || animType === "static"}
                         <div class="aaMenu-section">
@@ -339,7 +389,11 @@
         <div class="aaBottomSection" style="margin-bottom: 5px">
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                    <button class="footer-button" type="submit" on:click|preventDefault={applyFlags}>Submit</button>
+                    <button
+                        class="footer-button"
+                        type="submit"
+                        on:click|preventDefault={applyFlags}>Submit</button
+                    >
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button
@@ -394,7 +448,13 @@
         background: rgba(225, 225, 225, 0.85);
         border: 2px solid black;
         border-radius: 10px;
-        margin: 3% 3% 3% 3%;
+        margin: 1.5% 3% 1.5% 3%;
+    }
+    .aaChoose-section {
+        background: rgba(225, 225, 225, 0.85);
+        border: 2px solid black;
+        border-radius: 10px;
+        margin: 0% 35% 0% 35%;
     }
     .footer-button {
         border-radius: 5px;
@@ -456,5 +516,27 @@
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
+    }
+    .aa-pickAnim {
+        display: grid;
+        grid-template-columns: 33.3% 33.3% 33.3%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 4%;
+        margin-left: 1%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+        color: black;
+    }
+    .aa-pickAnim select {
+        text-align: center;
+        font-weight: bold;
+        min-height: 2em;
+        border-radius: 5px;
+    }
+    .aa-pickAnim label {
+        align-self: center;
     }
 </style>

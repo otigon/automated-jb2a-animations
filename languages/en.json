@@ -273,7 +273,12 @@
             "ray": "Ray"        
         },
         "animTypes": {
-            
+            "melee": "Melee",
+            "ranged": "Range",
+            "onToken": "On Token",
+            "presets": "Presets",
+            "templates": "Templates",
+            "typeAuras": "Aura"
         }
     },
     "AUTOANIM.initpopup_name":"Disable the Startup Window Popup",
