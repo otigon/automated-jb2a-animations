@@ -38867,6 +38867,8 @@ function get_each_context_3$1(ctx, list, i) {
 function create_if_block_8$1(ctx) {
 	let div;
 	let i;
+	let div_transition;
+	let current;
 	let mounted;
 	let dispose;
 
@@ -38882,6 +38884,7 @@ function create_if_block_8$1(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			append(div, i);
+			current = true;
 
 			if (!mounted) {
 				dispose = listen(i, "click", /*click_handler*/ ctx[24]);
@@ -38889,8 +38892,24 @@ function create_if_block_8$1(ctx) {
 			}
 		},
 		p: noop,
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
+			current = false;
+		},
 		d(detaching) {
 			if (detaching) detach(div);
+			if (detaching && div_transition) div_transition.end();
 			mounted = false;
 			dispose();
 		}
@@ -38973,6 +38992,7 @@ function create_if_block$9(ctx) {
 	let select3;
 	let select3_class_value;
 	let div3_class_value;
+	let div4_transition;
 	let t12;
 	let custompicker;
 	let updating_isCustom;
@@ -39354,12 +39374,20 @@ function create_if_block$9(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(if_block1);
+
+			add_render_callback(() => {
+				if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, {}, true);
+				div4_transition.run(1);
+			});
+
 			transition_in(custompicker.$$.fragment, local);
 			transition_in(if_block5);
 			current = true;
 		},
 		o(local) {
 			transition_out(if_block1);
+			if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, {}, false);
+			div4_transition.run(0);
 			transition_out(custompicker.$$.fragment, local);
 			transition_out(if_block5);
 			current = false;
@@ -39371,6 +39399,7 @@ function create_if_block$9(ctx) {
 			if (if_block2) if_block2.d();
 			if (if_block3) if_block3.d();
 			if (if_block4) if_block4.d();
+			if (detaching && div4_transition) div4_transition.end();
 			if (detaching) detach(t12);
 			destroy_component(custompicker, detaching);
 			if (detaching) detach(t13);
@@ -39968,14 +39997,24 @@ function create_fragment$b(ctx) {
 			if (/*previewType*/ ctx[5] === "primary" || /*previewType*/ ctx[5] !== "primary" && /*enableSection*/ ctx[2]) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
+
+					if (dirty[0] & /*previewType, enableSection*/ 36) {
+						transition_in(if_block0, 1);
+					}
 				} else {
 					if_block0 = create_if_block_8$1(ctx);
 					if_block0.c();
+					transition_in(if_block0, 1);
 					if_block0.m(div1, t2);
 				}
 			} else if (if_block0) {
-				if_block0.d(1);
-				if_block0 = null;
+				group_outros();
+
+				transition_out(if_block0, 1, 1, () => {
+					if_block0 = null;
+				});
+
+				check_outros();
 			}
 
 			if (/*flagPath*/ ctx[4] !== "PrimaryAnimation") {
@@ -40016,6 +40055,7 @@ function create_fragment$b(ctx) {
 		},
 		i(local) {
 			if (current) return;
+			transition_in(if_block0);
 			transition_in(if_block2);
 
 			add_render_callback(() => {
@@ -40026,6 +40066,7 @@ function create_fragment$b(ctx) {
 			current = true;
 		},
 		o(local) {
+			transition_out(if_block0);
 			transition_out(if_block2);
 			if (!div3_transition) div3_transition = create_bidirectional_transition(div3, fade, {}, false);
 			div3_transition.run(0);
@@ -40567,9 +40608,8 @@ function create_if_block$8(ctx) {
 	let button;
 	let i;
 	let button_class_value;
-	let div0_intro;
-	let div0_outro;
 	let div1_class_value;
+	let div1_transition;
 	let t1;
 	let div5;
 	let div2;
@@ -40586,6 +40626,7 @@ function create_if_block$8(ctx) {
 	let label2;
 	let t11;
 	let input3;
+	let div5_transition;
 	let current;
 	let mounted;
 	let dispose;
@@ -40745,23 +40786,30 @@ function create_if_block$8(ctx) {
 			if (current) return;
 
 			add_render_callback(() => {
-				if (div0_outro) div0_outro.end(1);
-				div0_intro = create_in_transition(div0, fade, { duration: 500 });
-				div0_intro.start();
+				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
+				div1_transition.run(1);
+			});
+
+			add_render_callback(() => {
+				if (!div5_transition) div5_transition = create_bidirectional_transition(div5, fade, {}, true);
+				div5_transition.run(1);
 			});
 
 			current = true;
 		},
 		o(local) {
-			if (div0_intro) div0_intro.invalidate();
-			div0_outro = create_out_transition(div0, fade, { duration: 500 });
+			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
+			div1_transition.run(0);
+			if (!div5_transition) div5_transition = create_bidirectional_transition(div5, fade, {}, false);
+			div5_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
 			if (detaching) detach(div1);
-			if (detaching && div0_outro) div0_outro.end();
+			if (detaching && div1_transition) div1_transition.end();
 			if (detaching) detach(t1);
 			if (detaching) detach(div5);
+			if (detaching && div5_transition) div5_transition.end();
 			mounted = false;
 			run_all(dispose);
 		}
@@ -40886,7 +40934,7 @@ function create_fragment$a(ctx) {
 			transition_in(if_block1);
 
 			add_render_callback(() => {
-				if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, { duration: 500 }, true);
+				if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, {}, true);
 				div4_transition.run(1);
 			});
 
@@ -40894,7 +40942,7 @@ function create_fragment$a(ctx) {
 		},
 		o(local) {
 			transition_out(if_block1);
-			if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, { duration: 500 }, false);
+			if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, {}, false);
 			div4_transition.run(0);
 			current = false;
 		},
@@ -41069,6 +41117,7 @@ class SoundSettings extends SvelteComponent {
 
 function create_if_block$7(ctx) {
 	let h2;
+	let h2_transition;
 	let t1;
 	let div3;
 	let div0;
@@ -41086,6 +41135,7 @@ function create_if_block$7(ctx) {
 	let t9;
 	let button;
 	let t10;
+	let div3_transition;
 	let t11;
 	let soundsettings;
 	let current;
@@ -41201,17 +41251,34 @@ function create_if_block$7(ctx) {
 		},
 		i(local) {
 			if (current) return;
+
+			add_render_callback(() => {
+				if (!h2_transition) h2_transition = create_bidirectional_transition(h2, fade, {}, true);
+				h2_transition.run(1);
+			});
+
+			add_render_callback(() => {
+				if (!div3_transition) div3_transition = create_bidirectional_transition(div3, fade, {}, true);
+				div3_transition.run(1);
+			});
+
 			transition_in(soundsettings.$$.fragment, local);
 			current = true;
 		},
 		o(local) {
+			if (!h2_transition) h2_transition = create_bidirectional_transition(h2, fade, {}, false);
+			h2_transition.run(0);
+			if (!div3_transition) div3_transition = create_bidirectional_transition(div3, fade, {}, false);
+			div3_transition.run(0);
 			transition_out(soundsettings.$$.fragment, local);
 			current = false;
 		},
 		d(detaching) {
 			if (detaching) detach(h2);
+			if (detaching && h2_transition) h2_transition.end();
 			if (detaching) detach(t1);
 			if (detaching) detach(div3);
+			if (detaching && div3_transition) div3_transition.end();
 			if (detaching) detach(t11);
 			destroy_component(soundsettings, detaching);
 			mounted = false;

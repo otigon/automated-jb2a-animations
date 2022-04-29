@@ -288,7 +288,7 @@
                 <label for="">{sectionTitle}</label>
             </div>
             {#if previewType === "primary" || (previewType !== "primary" && enableSection)}
-                <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+                <div class="flexcol" style="grid-row:1/2; grid-column:1/2" transition:fade>
                     <i
                         class="fas fa-video aa-video-preview"
                         on:click={() => onClick(previewType)}
@@ -309,7 +309,7 @@
     </div>
     {#if (flagPath !== "PrimaryAnimation" && enableSection) || flagPath === "PrimaryAnimation"}
         <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
-        <div class="aa-3wide">
+        <div class="aa-3wide" transition:fade>
             <!--Type Menu-->
             <div
                 class="flexcol {isCustom ? 'aa-disabled' : ''}"

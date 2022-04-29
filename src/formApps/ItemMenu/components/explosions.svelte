@@ -2,6 +2,7 @@
     import SelectAnimation from "./SelectAnimation.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
     import SoundSettings from "./soundSettings.svelte";
+    import { fade } from "svelte/transition";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     export let flagData;
@@ -38,8 +39,8 @@
 <div>
     <ChooseAnimation bind:enableSection previewType="explosion" flagPath="explosions" sectionTitle="Explosion" {flagData} />
     {#if enableSection}
-    <h2>Options</h2>
-    <div class='aa-3wide'>
+    <h2 transition:fade>Options</h2>
+    <div class='aa-3wide' transition:fade>
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 3;">
             <label for="">{localize("AUTOANIM.radius")}</label>
             <input type="Number" bind:value={radius} placeholder="1.5" />

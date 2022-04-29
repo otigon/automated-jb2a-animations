@@ -58,7 +58,7 @@
     }
 </script>
 
-<div transition:fade={{ duration: 500 }}>
+<div transition:fade>
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
@@ -82,12 +82,11 @@
             class="aa-customAnim-container {!soundEnabled
                 ? 'opacityBorder'
                 : ''}"
+            transition:fade
         >
             <div
                 class="form-group"
                 style="grid-row: 1/2; grid-column: 2/5; margin-right:10%; margin-left:10%"
-                in:fade={{ duration: 500 }}
-                out:fade={{ duration: 500 }}
             >
                 <input
                     type="text"
@@ -105,7 +104,7 @@
                 >
             </div>
         </div>
-        <div class="aa-3wide">
+        <div class="aa-3wide" transition:fade>
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
                 <label for=""
                     >{localize("AUTOANIM.start")}
