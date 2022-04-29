@@ -26,7 +26,7 @@
             sectionTitle = "Target Effect";
             break;
     }
-
+    let previewType = flagPath === "sourceExtraFX" ? "source" : "target";
     let repeat = root.loops || 1;
     $: repeat = root.loops = repeat;
 
@@ -91,11 +91,10 @@
 </script>
 
 <div transition:fade={{ duration: 500 }}>
-    <StaticMenu
+    <ChooseAnimation
         {sectionTitle}
         bind:enableSection
-        bind:isCustom
-        bind:customPath
+        {previewType}
         {flagPath}
         {flagData}
     />

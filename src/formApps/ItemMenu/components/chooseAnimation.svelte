@@ -9,6 +9,8 @@
     //import ExplosionPreview from "../videoPreviews/explosion.js";
     import PrimaryApp from "../videoPreviews/primaryApp.svelte";
     import ExplosionApp from "../videoPreviews/explosionApp.svelte";
+    import SourceFxApp from "../videoPreviews/sourceFXApp.svelte";
+    import TargetFxApp from "../videoPreviews/targetFXApp.svelte";
 
     import {
         menuDBPath01,
@@ -17,6 +19,14 @@
         menuDBPath02,
         customFilePath02,
         customChecked02,
+        menuDBPathSourceFX,
+        customFilePathSourceFX,
+        customCheckedSourceFX,
+        menuDBPathTargetFX,
+        customFilePathTargetFX,
+        customCheckedTargetFX,
+        extraSource,
+        extraTarget,
     } from "../menuStore.js";
 
     import {
@@ -40,21 +50,32 @@
     // Defines the initial Flag path depending on the Section calling this Component
     let rootPath;
     let customRoot;
+    let flagOptions;
     switch (flagPath) {
         case "explosions":
             rootPath = flagData.explosions;
             customRoot = flagData.explosions;
+            flagOptions = flagData.explosions;
             break;
         case "PrimaryAnimation":
             rootPath = flagData;
             customRoot = flagData.options;
+            flagOptions = flagData.options;
+            break;
+        case "sourceExtraFX":
+            rootPath = flagData.sourceToken;
+            customRoot = flagData.sourceToken;
+            flagOptions = flagData.sourceToken;
+            break;
+        case "targetExtraFX":
+            rootPath = flagData.targetToken;
+            customRoot = flagData.targetToken;
+            flagOptions = flagData.targetToken;
+            break;
     }
 
     // Sets the Flag Path depending on the section
-    const options =
-        flagPath === "explosions"
-            ? flagData.explosions
-            : rootPath.options || {};
+    const options = flagOptions;
     // Sets Initial menuType for Menu - Assigns to Flag when updated
 
     // For Database path
@@ -138,10 +159,10 @@
             draggable: true,
             resizable: true,
             title:
-                type === "primary" ? "Primary Animation" : "Explosion Preview",
+                type === "primary" ? "Primary Animation" : type === "explosion" ? "Explosion Preview" : type === "source" ? "Extra Source Effect" : "Extra Target Effect",
             stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
             content: {
-                class: type === "primary" ? PrimaryApp : ExplosionApp,
+                class: type === "primary" ? PrimaryApp : type === "explosion" ? ExplosionApp : type === "source" ? SourceFxApp : TargetFxApp,
             },
         }).render(true);
     }
@@ -187,6 +208,20 @@
                 ? `autoanimations.static.${menuType}.${animation}.${variant}`
                 : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
     }
+    let sourceFilePath;
+    $: if (previewType === "source") {
+        sourceFilePath =
+            color === "random"
+                ? `autoanimations.static.${menuType}.${animation}.${variant}`
+                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+    }
+    let targetFilePath;
+    $: if (previewType === "target") {
+        targetFilePath =
+            color === "random"
+                ? `autoanimations.static.${menuType}.${animation}.${variant}`
+                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+    }
 
     // Sets Store variables for sending to the Video Previewer
     $: if (previewType === "primary") {
@@ -199,22 +234,43 @@
         customFilePath02.set(customPath);
         customChecked02.set(isCustom);
     }
+    $: if (previewType === "source") {
+        menuDBPathSourceFX.set(sourceFilePath);
+        customFilePathSourceFX.set(customPath);
+        customCheckedSourceFX.set(isCustom);
+    }
+    $: if (previewType === "target") {
+        menuDBPathTargetFX.set(targetFilePath);
+        customFilePathTargetFX.set(customPath);
+        customCheckedTargetFX.set(isCustom);
+    }
+
     let onlyX = options.onlyX || false;
     $: {
         onlyX = onlyX;
         options.onlyX = onlyX;
     }
 
-    export let explosionEnabled = rootPath.enable || false;
+    export let enableSection = rootPath.enable || false;
     $: {
-        explosionEnabled = explosionEnabled;
-        rootPath.enable = explosionEnabled;
+        enableSection = enableSection;
     }
-    let explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
-    $: explosionLabel = explosionEnabled ? "Enabled" : "Disabled";
 
-    function enableExplosion() {
-        explosionEnabled = !explosionEnabled;
+    $: {
+        if (flagPath === "sourceExtraFX") {
+            extraSource.set(enableSection);
+        }
+    }
+
+    $: {
+        if (flagPath === "targetExtraFX") {
+            extraTarget.set(enableSection);
+        }
+    }
+
+    function switchEnable() {
+        enableSection = !enableSection;
+        rootPath.enable = enableSection;
     }
     // Handles the "Static Type" option for when On Token is selected
     let staticType = options.staticType || "source";
@@ -231,7 +287,7 @@
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
                 <label for="">{sectionTitle}</label>
             </div>
-            {#if (previewType === "primary" && menuType) || (previewType === "explosion" && animation && explosionEnabled)}
+            {#if previewType === "primary" || (previewType !== "primary" && enableSection)}
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
                     <i
                         class="fas fa-video aa-video-preview"
@@ -239,19 +295,19 @@
                     />
                 </div>
             {/if}
-            {#if flagPath === "explosions"}
+            {#if flagPath !== "PrimaryAnimation"}
                 <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
                     <i
-                        class="{explosionEnabled
+                        class="{enableSection
                             ? 'fas fa-minus aa-red'
                             : 'fas fa-plus aa-green'} aaCenterToggle"
-                        on:click={() => enableExplosion()}
+                        on:click={() => switchEnable()}
                     />
                 </div>
             {/if}
         </div>
     </div>
-    {#if (flagPath === "explosions" && explosionEnabled) || flagPath === "PrimaryAnimation"}
+    {#if (flagPath !== "PrimaryAnimation" && enableSection) || flagPath === "PrimaryAnimation"}
         <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
         <div class="aa-3wide">
             <!--Type Menu-->

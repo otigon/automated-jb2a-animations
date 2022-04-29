@@ -31,13 +31,13 @@
         belowToken = !belowToken;
     }
 
-    let explosionEnabled;
-    $: explosionEnabled = explosionEnabled;
+    let enableSection = explosions.enable;
+    $: enableSection = enableSection;
 </script>
 
 <div>
-    <ChooseAnimation bind:explosionEnabled previewType="explosion" flagPath="explosions" sectionTitle="Explosion" {flagData} />
-    {#if explosionEnabled}
+    <ChooseAnimation bind:enableSection previewType="explosion" flagPath="explosions" sectionTitle="Explosion" {flagData} />
+    {#if enableSection}
     <h2>Options</h2>
     <div class='aa-3wide'>
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 3;">
