@@ -36,7 +36,7 @@
     let customPath = options.customPath;
     $: customPath = customPath;
 
-    let menuSelection;
+    let menuSelection = flagData.animType === "aura" ? "static" : flagData.animType;
     $: menuSelection = menuSelection;
     let primaryFilePath;
     $: primaryFilePath =

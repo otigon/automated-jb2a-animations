@@ -3,22 +3,18 @@
 <script>
     import { getContext } from "svelte";
     import { fade, scale } from "svelte/transition";
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import SelectAnimation from "./components/SelectAnimation.svelte";
     import ExplosionSettings from "./components/explosions.svelte";
-    import Options from "./components/options.svelte";
     import GeneralSettings from "./components/generalSettings.svelte";
     import SoundSettings from "./components/soundSettings.svelte";
     import RangeSwitch from "./components/meleeRange.svelte";
     import MacroField from "./components/macro.svelte";
     import PrimarySection from "./components/primarySection.svelte";
-    import StaticMenu from "./components/staticMenu.svelte";
     import ExtraFX from "./components/extraFX.svelte";
     import Menu3d from "./components/3dMenuShell.svelte";
-    import ChooseAnimation from "./components/chooseAnimation.svelte";
+    import PresetMenu from "./components/presetShell.svelte";
     import { extraSource, extraTarget } from "./menuStore.js";
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
@@ -62,24 +58,9 @@
     $: showSound = animationDisabled ? true : false;
     let menuType;
     $: menuType = menuType;
-    /*
-    let menuSelection = flagData.animType || "";
-    menuAnimType.subscribe(value => {
-        menuSelection = value;
-    })
-    */
+
     let form = void 0;
     const { application } = getContext("external");
-
-    function onClick() {
-        TJSDialog.prompt({
-            title: "A modal dialog!",
-            draggable: false,
-            modal: true,
-            content: "A cool modal dialog!", // You can set content with a Svelte component!
-            label: "Ok",
-        });
-    }
 
     async function applyFlags() {
         const updatedFlags = {
@@ -257,6 +238,7 @@
                                         "autoanimations.animTypes.typeAuras"
                                     )}</option
                                 >
+                                <option value="preset">{localize("autoanimations.animTypes.presets")}</option>
                             </select>
                         </div>
                     </div>
@@ -274,7 +256,11 @@
                 {/if}
                 {#if !animationDisabled && isCustomized}
                     <div class="aaMenu-section">
+                        {#if animType === "preset"}
+                        <PresetMenu />
+                        {:else}
                         <PrimarySection {animTypeSwitched} {animType} {flagData}/>
+                        {/if}
                     </div>
                     {#if animType === "melee"}
                         <div class="aaMenu-section">
@@ -526,7 +512,8 @@
         text-align: center;
         font-weight: bold;
         min-height: 2em;
-        border-radius: 5px;
+        border-radius: 10px;
+        background-color: rgba(21, 154, 169, 0.4);
     }
     .aa-pickAnim label {
         align-self: center;
