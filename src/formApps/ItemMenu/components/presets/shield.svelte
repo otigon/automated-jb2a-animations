@@ -9,13 +9,15 @@
     } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
-    const options = flagData.options;
+    const root = flagData.preset;
+    root.shield ? root.shield : root.shield = {};
+    const preset = root.shield;
+    preset.menuType = "spell";
+    preset.animation = "shieldspell";
 
-    const shieldVariants = Object.keys(aaColorMenu.static.spell.shieldspell);
-    let variant = shieldVariants.includes(options.variant)
-        ? options.variant
-        : shieldVariants[0];
-    $: variant = options.variant = variant;
+
+    let variant =  preset.variant || Object.keys(aaColorMenu.static.spell.shieldspell)[0];
+    $: variant = preset.variant = variant;
 
     const shieldColors = Object.keys(
         aaColorMenu.static.spell.shieldspell[variant]
@@ -25,27 +27,27 @@
         : shieldColors[0];
     $: color = flagData.color = color;
 
-    let shieldVar = options.shieldVar || "outro_explode";
-    $: shieldVar = options.shieldVar = shieldVar
+    let shieldVar = preset.shieldVar || "outro_explode";
+    $: shieldVar = preset.shieldVar = shieldVar
 
-    let unbindAlpha = options.unbindAlpha || false;
-    $: unbindAlpha = options.unbindAlpha = unbindAlpha;
+    let unbindAlpha = preset.unbindAlpha || false;
+    $: unbindAlpha = preset.unbindAlpha = unbindAlpha;
     $: bindAlpha = unbindAlpha ? "Unbound" : "Bound";
 
-    let unbindVisbility = options.unbindVisbility || false;
-    $: unbindVisbility = options.unbindVisbility = unbindVisbility;
+    let unbindVisbility = preset.unbindVisbility || false;
+    $: unbindVisbility = preset.unbindVisbility = unbindVisbility;
     $: bindVisibility = unbindVisbility ? "Unbound" : "Bound";
 
-    let persistent = options.persistent || false;
-    $: persistent = options.persistent = persistent;
+    let persistent = preset.persistent || false;
+    $: persistent = preset.persistent = persistent;
     $: isPersistent = persistent ? "Persistent" : "Not Persistent";
 
-    let belowToken = options.below || false;
-    $: belowToken = options.below = belowToken;
+    let belowToken = preset.below || false;
+    $: belowToken = preset.below = belowToken;
     $: aboveBelow = belowToken ? "Below Token" : "Above Token";
 
-    let scale = options.scale || 1;
-    $: scale = options.scale = scale;
+    let scale = preset.scale || 1;
+    $: scale = preset.scale = scale;
 
     function switchAlpha() {
         unbindAlpha = !unbindAlpha;
@@ -67,7 +69,7 @@
     }
 </script>
 
-<h1>Shield Animation</h1>
+<h1>Shield Animation Preset</h1>
 <div class="aa-3wide">
     <div
         class="flexcol"

@@ -14,38 +14,38 @@
     import Thunderwave from "./presets/thunderwave.svelte";
 
     export let flagData;
-    const options = flagData.options;
+    const preset = flagData.preset;
 
-    export let presetType = options.presetType;
+    export let presetType = preset.presetType;
 
 </script>
 
 {#if presetType === "bardicinspiration"}
-    <Bards {flagData}/>
+    <Bards {presetType} {flagData}/>
 {/if}
 {#if presetType === "bless"}
     <Bless {flagData}/>
 {/if}
 {#if presetType === "dualattach"}
-    <DualAttach {flagData}/>
+    <DualAttach {presetType} {flagData}/>
 {/if}
 {#if presetType === "fireball"}
-    <Fireball {flagData}/>
+    <Fireball {presetType} {flagData}/>
 {/if}
 {#if presetType === "huntersmark"}
-    <HuntersMark {flagData}/>
+    <HuntersMark {presetType} {flagData}/>
 {/if}
 {#if presetType === "shieldspell"}
-    <Shield {flagData}/>
+    <Shield {presetType} {flagData}/>
 {/if}
 {#if presetType === "sneakattack"}
-    <SneakAttack {flagData}/>
+    <SneakAttack {presetType} {flagData}/>
 {/if}
 {#if presetType === "teleportation"}
-    <Teleportation {flagData}/>
+    <Teleportation {presetType} {flagData}/>
 {/if}
 {#if presetType === "thunderwave"}
-    <Thunderwave {flagData}/>
+    <Thunderwave {presetType} {flagData}/>
 {/if}
 
 <style lang='scss'>

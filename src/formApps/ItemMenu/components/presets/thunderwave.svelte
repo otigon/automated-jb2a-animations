@@ -8,39 +8,36 @@
     } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
+    const root = flagData.preset;
+    root.thunderwave ? root.thunderwave : root.thunderwave = {};
+    const preset = root.thunderwave;
+    preset.menuType = "spell";
+    preset.animation = "thunderwave";
+
     const options = flagData.options;
 
-    const thunderwaveColors = Object.keys(
-        aaColorMenu.static.spell.thunderwave["mid"]
-    );
-    let color = thunderwaveColors.includes(flagData.color)
-        ? flagData.color
-        : thunderwaveColors[0];
-    $: color = flagData.color = color;
+    let color = preset.color || Object.keys(aaColorMenu.static.spell.thunderwave["mid"])[0];
+    $: color = preset.color = color;
 
-    let belowToken = options.below || false;
-    $: belowToken = options.below = belowToken;
+    let belowToken = preset.below || false;
+    $: belowToken = preset.below = belowToken;
     $: aboveBelow = belowToken ? "Below Token" : "Above Token";
 
-    let scaleX = options.scaleX;
-    $: scaleX = scaleX;
-    $: options.scaleX = scaleX;
+    let scaleX = preset.scaleX;
+    $: scaleX = preset.scaleX = scaleX;
 
-    let scaleY = options.scaleY;
-    $: scaleY = scaleY;
-    $: options.scaleY = scaleY;
+    let scaleY = preset.scaleY;
+    $: scaleY = preset.scaleY = scaleY;
 
-    let opacity = options.opacity || 1;
+    let opacity = preset.opacity || 1;
     $: opacity = opacity > 1 ? 1 : opacity;
-    $: options.opacity = opacity > 1 ? 1 : opacity;
+    $: preset.opacity = opacity > 1 ? 1 : opacity;
 
-    let repeat = options.repeat || 1;
-    $: repeat = repeat;
-    $: options.repeat = repeat
+    let repeat = preset.repeat || 1;
+    $: repeat = preset.repeat = repeat;
 
-    let delay = options.delay || 250;
-    $: delay = delay;
-    $: options.delay = delay
+    let delay = preset.delay || 250;
+    $: delay = preset.delay = delay;
 
     function below() {
         belowToken = !belowToken;
@@ -55,7 +52,7 @@
     }
 </script>
 
-<h1>Thunderwave 5e</h1>
+<h1>Thunderwave 5e Preset</h1>
 <div class="aa-3wide">
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="">{localize("AUTOANIM.color")}</label>

@@ -52,8 +52,9 @@
         sourceToken: flags.sourceToken || {},
         targetToken: flags.targetToken || {},
         meleeSwitch: flags.meleeSwitch || {},
+        preset: flags.preset || {}
     };
-    const options = flagData.options;
+    const preset = flagData.preset;
     let enableMacro;
     $: enableMacro = enableMacro;
     let showSound;
@@ -130,8 +131,8 @@
         animType = animType;
         flagData.animType = animType;
     }
-    let presetType = options.presetType;
-    $: presetType = options.presetType = presetType;
+    let presetType = preset.presetType;
+    $: presetType = preset.presetType = presetType;
     let animTypeSwitched = false;
     async function typeSwitch() {
         animTypeSwitched = true;
@@ -328,7 +329,7 @@
                 {#if !animationDisabled && isCustomized}
                     <div class="aaMenu-section">
                         {#if animType === "preset"}
-                            <PresetMenu {flagData} {presetType} />
+                            <PresetMenu {animTypeSwitched} {flagData} {presetType} />
                         {:else}
                             <PrimarySection
                                 {animTypeSwitched}

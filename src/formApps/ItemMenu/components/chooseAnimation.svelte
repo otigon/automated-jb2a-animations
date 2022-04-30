@@ -16,11 +16,12 @@
     export let flagData;
     export let flagPath;
     export let animType;
+    export let presetType;
     export let animTypeSwitched = false;
     $: {
         animType = animType;
     }
-
+    console.log(animType)
     $: if (animTypeSwitched) {
         animTypeChange()
     }
@@ -49,6 +50,9 @@
             customRoot = flagData.targetToken;
             flagOptions = flagData.targetToken;
             break;
+        case "preset":
+            rootPath = customRoot = flagOptions = flagData.preset[presetType];
+            break;
     }
 
     // Sets the Flag Path depending on the section
@@ -68,7 +72,7 @@
             : animType === "aura"
             ? "static"
             : animType;
-
+    console.log(menuSelection)
     export let menuType =
         options.menuType || Object.keys(aaTypeMenu[menuSelection])[0];
     $: {

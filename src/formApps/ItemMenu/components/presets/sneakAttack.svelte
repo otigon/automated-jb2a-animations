@@ -5,38 +5,37 @@
 
     import {
         aaColorMenu,
-        aaVariantMenu,
     } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
-    const options = flagData.options;
+    const root = flagData.preset;
+    root.sneakattack ? root.sneakattack : root.sneakattack = {};
+    const preset = root.sneakattack;
+    preset.menuType = "spell";
+    preset.animation = "sneakattack";
+    preset.variant = "01";
 
-    const sneakColors = Object.keys(
-        aaColorMenu.static.spell.sneakattack["01"]
-    );
-    let color = sneakColors.includes(flagData.color)
-        ? flagData.color
-        : sneakColors[0];
-    $: color = flagData.color = color;
+    let color = preset.color || Object.keys(aaColorMenu.static.spell.sneakattack["01"])[0];
+    $: color = preset.color = color;
 
-    let belowToken = options.below || false;
-    $: belowToken = options.below = belowToken;
+    let belowToken = preset.below || false;
+    $: belowToken = preset.below = belowToken;
     $: aboveBelow = belowToken ? "Below Token" : "Above Token";
 
-    let anchorX = options.anchorX || 0.5;
-    $: anchorX = options.anchorX = anchorX > 1 ? 1 : anchorX;
+    let anchorX = preset.anchorX || 0.5;
+    $: anchorX = preset.anchorX = anchorX > 1 ? 1 : anchorX;
 
-    let anchorY = options.anchorY || 0.5;
-    $: anchorY = options.anchorY = anchorY > 1 ? 1 : anchorY;
-    let scale = options.scale || 1;
-    $: scale = options.scale = scale;
+    let anchorY = preset.anchorY || 0.5;
+    $: anchorY = preset.anchorY = anchorY > 1 ? 1 : anchorY;
+    let scale = preset.scale || 1;
+    $: scale = preset.scale = scale;
 
     function below() {
         belowToken = !belowToken;
     }
 </script>
 
-<h1>Sneak Attack</h1>
+<h1>Sneak Attack Animation Preset</h1>
 <div class="aa-3wide">
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="">{localize("AUTOANIM.color")}</label>

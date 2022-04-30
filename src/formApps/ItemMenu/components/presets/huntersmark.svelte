@@ -8,33 +8,33 @@
     } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
-    const options = flagData.options;
+    const root = flagData.preset;
+    root.huntersmark ? root.huntersmark : root.huntersmark = {};
+    const preset = root.huntersmark;
+    preset.menuType = "spell";
+    preset.animation = "huntersmark";
 
-    const hmVariants = ['eye', 'paw']
-    let variant = hmVariants.includes(options.variant) ? options.variant : 'eye';
-    $: variant = options.variant = variant
+    let variant = preset.variant || 'eye';
+    $: variant = preset.variant = variant;
 
-    const hmColors = Object.keys(aaColorMenu.static.spell.huntersmark.eye);
-    let color = hmColors.includes(flagData.color)
-        ? flagData.color
-        : hmColors[0];
-    $: color = flagData.color = color;
+    let color = preset.color || Object.keys(aaColorMenu.static.spell.huntersmark.eye)[0];
+    $: color = preset.color = color;
 
-    let belowToken = options.below || false;
-    $: belowToken = options.below = belowToken;
+    let belowToken = preset.below || false;
+    $: belowToken = preset.below = belowToken;
     $: aboveBelow = belowToken ? "Below Token" : "Above Token";
 
-    let anchorX = options.anchorX || 0.5;
-    $: anchorX = options.anchorX = anchorX > 1 ? 1 : anchorX;
+    let anchorX = preset.anchorX || 0.5;
+    $: anchorX = preset.anchorX = anchorX > 1 ? 1 : anchorX;
 
-    let anchorY = options.anchorY || 0.5;
-    $: anchorY = options.anchorY = anchorY > 1 ? 1 : anchorY;
+    let anchorY = preset.anchorY || 0.5;
+    $: anchorY = preset.anchorY = anchorY > 1 ? 1 : anchorY;
 
-    let scale = options.scale || 1;
-    $: scale = options.scale = scale;
+    let scale = preset.scale || 1;
+    $: scale = preset.scale = scale;
 
-    let persistent = options.persistent || false;
-    $: persistent = options.persistent = persistent;
+    let persistent = preset.persistent || false;
+    $: persistent = preset.persistent = persistent;
     $: isPersistent = persistent ? "Persistent" : "Not Persistent"
 
     function below() {
@@ -46,7 +46,7 @@
 
 </script>
 
-<h1>Hunter's Mark</h1>
+<h1>Hunter's Mark Preset</h1>
 <div class="aa-4wide">
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="">{localize("AUTOANIM.variant")}</label>

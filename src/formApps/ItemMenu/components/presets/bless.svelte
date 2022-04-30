@@ -6,30 +6,34 @@
     import {aaColorMenu} from "../../../../animation-functions/databases/jb2a-menu-options.js"
 
     export let flagData;
-    const options = flagData.options;
+    const root = flagData.preset;
+    root.bless ? root.bless : root.bless = {};
+    const preset = root.bless;
+    preset.menuType = "spell";
+    preset.animation = "bless";
+    preset.variant = "01";
 
-    const blessColors = Object.keys(aaColorMenu.static.spell.bless["01"]);
-    let color = blessColors.includes(flagData.color) ? flagData.color : blessColors[0];
-    $: color = flagData.color = color;
+    let color = preset.color || Object.keys(aaColorMenu.static.spell.bless["01"])[0];
+    $: color = preset.color = color;
 
-    let unbindAlpha = options.unbindAlpha || false;
-    $: unbindAlpha = options.unbindAlpha = unbindAlpha;
+    let unbindAlpha = preset.unbindAlpha || false;
+    $: unbindAlpha = preset.unbindAlpha = unbindAlpha;
     $: bindAlpha = unbindAlpha ? "Unbound" : "Bound";
 
-    let unbindVisbility = options.unbindVisbility || false;
-    $: unbindVisbility = options.unbindVisbility = unbindVisbility;
+    let unbindVisbility = preset.unbindVisbility || false;
+    $: unbindVisbility = preset.unbindVisbility = unbindVisbility;
     $: bindVisibility = unbindVisbility ? "Unbound" : "Bound";
 
-    let persistent = options.persistent || false;
-    $: persistent = options.persistent = persistent;
+    let persistent = preset.persistent || false;
+    $: persistent = preset.persistent = persistent;
     $: isPersistent = persistent ? "Persistent" : "Not Persistent"
 
-    let belowToken = options.below || false;
-    $: belowToken = options.below = belowToken
+    let belowToken = preset.below || false;
+    $: belowToken = preset.below = belowToken
     $: aboveBelow = belowToken ? "Below Token" : "Above Token";
 
-    let scale = options.scale || 1;
-    $: scale = options.scale = scale
+    let scale = preset.scale || 1;
+    $: scale = preset.scale = scale
 
     function switchAlpha() {
         unbindAlpha = !unbindAlpha;
@@ -46,7 +50,7 @@
 
 </script>
 
-<h1>Bless Animation</h1>
+<h1>Bless Animation Preset</h1>
 <div class="aa-3wide">
     <div
         class="flexcol"
