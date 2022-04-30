@@ -14,6 +14,7 @@
     import SoundSettings from "./components/soundSettings.svelte";
     import RangeSwitch from "./components/meleeRange.svelte";
     import MacroField from "./components/macro.svelte";
+    import PrimarySection from "./components/primarySection.svelte";
     import StaticMenu from "./components/staticMenu.svelte";
     import ExtraFX from "./components/extraFX.svelte";
     import Menu3d from "./components/3dMenuShell.svelte";
@@ -26,6 +27,7 @@
     export let item;
     export let itemFlags;
     export const flags = itemFlags.autoanimations || {};
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
     let animationDisabled = flags.killAnim;
     let isCustomized;
@@ -145,6 +147,12 @@
         animType = animType;
         flagData.animType = animType;
     }
+    let animTypeSwitched = false;
+    async function typeSwitch() {
+        animTypeSwitched = true;
+        await wait(150);
+        animTypeSwitched = false;
+    }
 </script>
 
 <ApplicationShell
@@ -220,6 +228,7 @@
                             >
                             <select
                                 bind:value={animType}
+                                on:change={() => typeSwitch()}
                                 id="1"
                                 style="text-align: center;justify-self: center"
                             >
@@ -265,18 +274,7 @@
                 {/if}
                 {#if !animationDisabled && isCustomized}
                     <div class="aaMenu-section">
-                        <ChooseAnimation
-                            previewType="primary"
-                            flagPath="PrimaryAnimation"
-                            sectionTitle="Primary Animation"
-                            {animType}
-                            {flagData}
-                            bind:menuType
-                        />
-                        {#if animType}
-                            <Options {animType} {menuType} {flagData} />
-                            <SoundSettings audioPath="a01" {flagData} />
-                        {/if}
+                        <PrimarySection {animTypeSwitched} {animType} {flagData}/>
                     </div>
                     {#if animType === "melee"}
                         <div class="aaMenu-section">

@@ -19,3 +19,41 @@
 .aaCenterToggle {
     margin: 0 auto;
 }
+.aa-header {
+    display: grid;
+    grid-template-columns: 10% 20% 40% 20% 10%;
+    grid-gap: 5px;
+    padding: 1px;
+    align-items: center;
+    margin-right: 8%;
+    margin-left: 5%;
+    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-size: large;
+    font-weight: bold;
+    color: black;
+}
+.aa-header label {
+    align-self: center;
+    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 5%;
+    margin-left: 5%;
+    color: black;
+}
+.aa-header-section {
+    border-bottom: 2px solid rgba(120, 46, 34, 1);
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.aa-red {
+    color: red;
+    transition: "color" 0.5s;
+}
+.aa-green {
+    color: green;
+    transition: "color" 0.5s;
+}

@@ -4,6 +4,19 @@
     import StaticMenu from "./staticMenu.svelte";
     import SoundSettings from "./soundSettings.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
+    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+    import SourceFxApp from "../videoPreviews/sourceFXApp.svelte";
+    import TargetFxApp from "../videoPreviews/targetFXApp.svelte";
+    import {
+        menuDBPathSourceFX,
+        customFilePathSourceFX,
+        customCheckedSourceFX,
+        menuDBPathTargetFX,
+        customFilePathTargetFX,
+        customCheckedTargetFX,
+        extraSource,
+        extraTarget,
+    } from "../menuStore.js";
 
 
     export let flagData;
@@ -74,31 +87,121 @@
         }
     }
 
-    let menuType;
-    $: menuType = menuType;
-    let animation;
-    $: animation = animation;
-    let variant;
-    $: variant = variant;
-    let color;
-    $: color = color;
-    let isCustom;
+    let enableSection = root.enable || false;
+    $: enableSection = enableSection;
+
+    function switchEnable() {
+        enableSection = !enableSection;
+        root.enable = enableSection;
+    }
+
+    let menuType = root.menuType;
+    $: menuType = root.menuType = menuType;
+
+    let animation = root.animation;
+    $: animation = root.animation = animation;
+
+    let variant = root.variant;
+    $: variant = root.variant = variant;
+
+    let color = root.color;
+    $: color = root.color = color;
+
+    let isCustom = root.enableCustom || false;
     $: isCustom = isCustom;
-    let customPath;
+
+    let customPath = root.customPath;
     $: customPath = customPath;
 
-    let enableSection = root.enable || false;
+    function onClick() {
+        new TJSDialog({
+            modal: false,
+            draggable: true,
+            resizable: true,
+            title:
+                flagPath === "sourceExtraFX" ? "Extra Source Effect" : "Extra Target Effect",
+            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+            content: {
+                class: flagPath === "sourceExtraFX" ? SourceFxApp : TargetFxApp,
+            },
+        }).render(true);
+    }
+    let sourceFilePath;
+    $: if (flagPath === "sourceExtraFX") {
+        sourceFilePath =
+            color === "random"
+                ? `autoanimations.static.${menuType}.${animation}.${variant}`
+                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+    }
+    let targetFilePath;
+    $: if (flagPath === "targetExtraFX") {
+        targetFilePath =
+            color === "random"
+                ? `autoanimations.static.${menuType}.${animation}.${variant}`
+                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+    }
+    $: if (flagPath === "sourceExtraFX") {
+        menuDBPathSourceFX.set(sourceFilePath);
+        customFilePathSourceFX.set(customPath);
+        customCheckedSourceFX.set(isCustom);
+    }
+    $: if (flagPath === "targetExtraFX") {
+        menuDBPathTargetFX.set(targetFilePath);
+        customFilePathTargetFX.set(customPath);
+        customCheckedTargetFX.set(isCustom);
+    }
+    $: {
+        if (flagPath === "sourceExtraFX") {
+            extraSource.set(enableSection);
+        }
+    }
+
+    $: {
+        if (flagPath === "targetExtraFX") {
+            extraTarget.set(enableSection);
+        }
+    }
 </script>
 
 <div transition:fade={{ duration: 500 }}>
+    <div class="aa-header-section">
+        <div class="aa-header">
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+                <label for="">{sectionTitle}</label>
+            </div>
+            {#if enableSection}
+                <div
+                    class="flexcol"
+                    style="grid-row:1/2; grid-column:1/2"
+                    transition:fade
+                >
+                    <i
+                        class="fas fa-video aa-video-preview"
+                        on:click={() => onClick()}
+                    />
+                </div>
+            {/if}
+            <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+                <i
+                    class="{enableSection
+                        ? 'fas fa-minus aa-red'
+                        : 'fas fa-plus aa-green'} aaCenterToggle"
+                    on:click={() => switchEnable()}
+                />
+            </div>
+        </div>
+    </div>
+    {#if enableSection}
     <ChooseAnimation
-        {sectionTitle}
-        bind:enableSection
-        {previewType}
+        bind:menuType
+        bind:animation
+        bind:variant
+        bind:color
+        bind:isCustom
+        bind:customPath
         {flagPath}
         {flagData}
     />
-    {#if enableSection}
     <h2 style="margin-top:5px" transition:fade>Options</h2>
     <div
         class="aa-options"

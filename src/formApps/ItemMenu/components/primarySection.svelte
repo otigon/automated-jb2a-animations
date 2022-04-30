@@ -1,0 +1,100 @@
+<script>
+    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { fade } from "svelte/transition";
+    import SoundSettings from "./soundSettings.svelte";
+    import ChooseAnimation from "./chooseAnimation.svelte";
+    import Options from "./options.svelte";
+    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+    import PrimaryApp from "../videoPreviews/primaryApp.svelte";
+    import {
+        menuDBPath01,
+        customFilePath01,
+        customChecked01,
+    } from "../menuStore.js";
+
+    export let flagData;
+    export let animType;
+    export let animTypeSwitched;
+
+    const options = flagData.options;
+
+    let menuType = options.menuType;
+    $: menuType = options.menuType = menuType;
+
+    let animation = flagData.animation;
+    $: animation = flagData.animation = animation;
+
+    let variant = options.variant;
+    $: variant = options.variant = variant;
+
+    let color = flagData.color;
+    $: color = flagData.color = color;
+
+    let isCustom = options.enableCustom || false;
+    $: isCustom = isCustom;
+
+    let customPath = options.customPath;
+    $: customPath = customPath;
+
+    let menuSelection;
+    $: menuSelection = menuSelection;
+    let primaryFilePath;
+    $: primaryFilePath =
+            color === "random"
+                ? `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}`
+                : `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}.${color}`;
+    // Sets Store variables for sending to the Video Previewer
+    $: {
+        menuDBPath01.set(primaryFilePath);
+        customFilePath01.set(customPath);
+        customChecked01.set(isCustom);
+    }
+    function onClick() {
+        new TJSDialog({
+            modal: false,
+            draggable: true,
+            resizable: true,
+            title: "Primary Animation",
+            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+            content: {
+                class: PrimaryApp,
+            },
+        }).render(true);
+    }
+</script>
+
+<div class="aa-header-section">
+    <div class="aa-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+            <label for="">Primary Animation</label>
+        </div>
+        <div
+            class="flexcol"
+            style="grid-row:1/2; grid-column:1/2"
+            transition:fade
+        >
+            <i
+                class="fas fa-video aa-video-preview"
+                on:click={() => onClick()}
+            />
+        </div>
+    </div>
+</div>
+<ChooseAnimation
+    bind:menuType
+    bind:animation
+    bind:variant
+    bind:color
+    bind:isCustom
+    bind:customPath
+    bind:menuSelection
+    flagPath="PrimaryAnimation"
+    {animTypeSwitched}
+    {animType}
+    {flagData}
+/>
+<Options {animType} {menuType} {flagData} />
+<SoundSettings audioPath="a01" {flagData} />
+
+<style lang="scss">
+</style>
