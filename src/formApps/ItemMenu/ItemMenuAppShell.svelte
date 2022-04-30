@@ -23,7 +23,8 @@
     export let item;
     export let itemFlags;
     export const flags = itemFlags.autoanimations || {};
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    const wait = (delay) =>
+        new Promise((resolve) => setTimeout(resolve, delay));
 
     let animationDisabled = flags.killAnim;
     let isCustomized;
@@ -201,76 +202,117 @@
                         {flagData}
                     />
                     {#if isCustomized}
-                    <div class="aa-pickAnim" transition:fade>
-                        <div
-                            class="flexcol"
-                            style="grid-row: 1 / 2;grid-column: 2 / 3;"
-                        >
-                            <label for="1"
-                                >{localize("AUTOANIM.animation")}
-                                {localize("AUTOANIM.type")}</label
+                        <div class="aa-pickAnim" transition:fade>
+                            <div
+                                class="flexcol"
+                                style="grid-row: 1 / 2;grid-column: 2 / 3;"
                             >
-                            <select
-                                bind:value={animType}
-                                on:change={() => typeSwitch()}
-                                id="1"
-                                style="text-align: center;justify-self: center"
-                            >
-                                <option value="melee"
-                                    >{localize(
-                                        "autoanimations.animTypes.melee"
-                                    )}</option
+                                <label for="1"
+                                    >{localize("AUTOANIM.animation")}
+                                    {localize("AUTOANIM.type")}</label
                                 >
-                                <option value="range"
-                                    >{localize(
-                                        "autoanimations.animTypes.ranged"
-                                    )}</option
+                                <select
+                                    bind:value={animType}
+                                    on:change={() => typeSwitch()}
+                                    id="1"
+                                    style="text-align: center;justify-self: center"
                                 >
-                                <option value="static"
-                                    >{localize(
-                                        "autoanimations.animTypes.onToken"
-                                    )}</option
+                                    <option value="melee"
+                                        >{localize(
+                                            "autoanimations.animTypes.melee"
+                                        )}</option
+                                    >
+                                    <option value="range"
+                                        >{localize(
+                                            "autoanimations.animTypes.ranged"
+                                        )}</option
+                                    >
+                                    <option value="static"
+                                        >{localize(
+                                            "autoanimations.animTypes.onToken"
+                                        )}</option
+                                    >
+                                    <option value="templatefx"
+                                        >{localize(
+                                            "autoanimations.animTypes.templates"
+                                        )}</option
+                                    >
+                                    <option value="aura"
+                                        >{localize(
+                                            "autoanimations.animTypes.typeAuras"
+                                        )}</option
+                                    >
+                                    <option value="preset"
+                                        >{localize(
+                                            "autoanimations.animTypes.presets"
+                                        )}</option
+                                    >
+                                </select>
+                            </div>
+                            {#if animType === "preset"}
+                                <div
+                                    class="flexcol"
+                                    style="grid-row: 2 / 3;grid-column: 2 / 3;"
+                                    transition:fade
                                 >
-                                <option value="templatefx"
-                                    >{localize(
-                                        "autoanimations.animTypes.templates"
-                                    )}</option
-                                >
-                                <option value="aura"
-                                    >{localize(
-                                        "autoanimations.animTypes.typeAuras"
-                                    )}</option
-                                >
-                                <option value="preset">{localize("autoanimations.animTypes.presets")}</option>
-                            </select>
+                                    <label for="1"
+                                        >{localize("AUTOANIM.preset")}
+                                        {localize("AUTOANIM.type")}</label
+                                    >
+                                    <select
+                                        bind:value={presetType}
+                                        id="1"
+                                        style="text-align: center;justify-self: center"
+                                    >
+                                        <option value="bardicinspiration"
+                                            >{localize(
+                                                "autoanimations.presetTypes.bardicinspiration"
+                                            )}</option
+                                        >
+                                        <option value="bless"
+                                            >{localize(
+                                                "autoanimations.presetTypes.bless"
+                                            )}</option
+                                        >
+                                        <option value="dualattach"
+                                            >{localize(
+                                                "autoanimations.presetTypes.dualattach"
+                                            )}</option
+                                        >
+                                        <option value="fireball"
+                                            >{localize(
+                                                "autoanimations.presetTypes.fireball"
+                                            )}</option
+                                        >
+                                        <option value="huntersmark"
+                                            >{localize(
+                                                "autoanimations.presetTypes.huntersmark"
+                                            )}</option
+                                        >
+                                        <option value="shieldspell"
+                                            >{localize(
+                                                "autoanimations.presetTypes.shieldspell"
+                                            )}</option
+                                        >
+                                        <option value="sneakattack"
+                                            >{localize(
+                                                "autoanimations.presetTypes.sneakattack"
+                                            )}</option
+                                        >
+                                        <option value="teleportation"
+                                            >{localize(
+                                                "autoanimations.presetTypes.animTeleportation"
+                                            )}</option
+                                        >
+                                        <option value="thunderwave"
+                                            >{localize(
+                                                "autoanimations.presetTypes.thunderwave"
+                                            )} D&D 5e</option
+                                        >
+                                    </select>
+                                </div>
+                            {/if}
                         </div>
-                        {#if animType === "preset"}
-                        <div
-                        class="flexcol"
-                        style="grid-row: 2 / 3;grid-column: 2 / 3;"
-                    >
-                        <label for="1"
-                            >{localize("AUTOANIM.preset")}
-                            {localize("AUTOANIM.type")}</label
-                        >
-                        <select
-                            bind:value={presetType}
-                            id="1"
-                            style="text-align: center;justify-self: center"
-                        >
-                            <option value="bardicinspiration">{localize("autoanimations.presetTypes.bardicinspiration")}</option>
-                            <option value="bless">{localize("autoanimations.presetTypes.bless")}</option>
-                            <option value="dualattach">{localize("autoanimations.presetTypes.dualattach")}</option>
-                            <option value="fireball">{localize("autoanimations.presetTypes.fireball")}</option>
-                            <option value='huntersmark'>{localize("autoanimations.presetTypes.huntersmark")}</option>
-                            <option value="shieldspell">{localize("autoanimations.presetTypes.shieldspell")}</option>
-                            <option value="sneakattack">{localize("autoanimations.presetTypes.sneakattack")}</option>
-                            <option value="teleportation">{localize("autoanimations.presetTypes.animTeleportation")}</option>
-                            <option value="thunderwave">{localize("autoanimations.presetTypes.thunderwave")} D&D 5e</option>
-                        </select>
-                    </div>
-                    {/if}                
-                    </div>
                     {/if}
                 </div>
                 {#if enableMacro}
@@ -286,9 +328,13 @@
                 {#if !animationDisabled && isCustomized}
                     <div class="aaMenu-section">
                         {#if animType === "preset"}
-                        <PresetMenu {flagData} {presetType}/>
+                            <PresetMenu {flagData} {presetType} />
                         {:else}
-                        <PrimarySection {animTypeSwitched} {animType} {flagData}/>
+                            <PrimarySection
+                                {animTypeSwitched}
+                                {animType}
+                                {flagData}
+                            />
                         {/if}
                     </div>
                     {#if animType === "melee"}
