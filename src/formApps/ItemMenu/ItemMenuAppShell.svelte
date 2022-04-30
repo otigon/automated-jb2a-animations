@@ -52,6 +52,7 @@
         targetToken: flags.targetToken || {},
         meleeSwitch: flags.meleeSwitch || {},
     };
+    const options = flagData.options;
     let enableMacro;
     $: enableMacro = enableMacro;
     let showSound;
@@ -128,6 +129,8 @@
         animType = animType;
         flagData.animType = animType;
     }
+    let presetType = options.presetType;
+    $: presetType = options.presetType = presetType;
     let animTypeSwitched = false;
     async function typeSwitch() {
         animTypeSwitched = true;
@@ -241,6 +244,32 @@
                                 <option value="preset">{localize("autoanimations.animTypes.presets")}</option>
                             </select>
                         </div>
+                        {#if animType === "preset"}
+                        <div
+                        class="flexcol"
+                        style="grid-row: 2 / 3;grid-column: 2 / 3;"
+                    >
+                        <label for="1"
+                            >{localize("AUTOANIM.preset")}
+                            {localize("AUTOANIM.type")}</label
+                        >
+                        <select
+                            bind:value={presetType}
+                            id="1"
+                            style="text-align: center;justify-self: center"
+                        >
+                            <option value="bardicinspiration">{localize("autoanimations.presetTypes.bardicinspiration")}</option>
+                            <option value="bless">{localize("autoanimations.presetTypes.bless")}</option>
+                            <option value="dualattach">{localize("autoanimations.presetTypes.dualattach")}</option>
+                            <option value="fireball">{localize("autoanimations.presetTypes.fireball")}</option>
+                            <option value='huntersmark'>{localize("autoanimations.presetTypes.huntersmark")}</option>
+                            <option value="shieldspell">{localize("autoanimations.presetTypes.shieldspell")}</option>
+                            <option value="sneakattack">{localize("autoanimations.presetTypes.sneakattack")}</option>
+                            <option value="teleportation">{localize("autoanimations.presetTypes.animTeleportation")}</option>
+                            <option value="thunderwave">{localize("autoanimations.presetTypes.thunderwave")} D&D 5e</option>
+                        </select>
+                    </div>
+                    {/if}                
                     </div>
                     {/if}
                 </div>
@@ -257,7 +286,7 @@
                 {#if !animationDisabled && isCustomized}
                     <div class="aaMenu-section">
                         {#if animType === "preset"}
-                        <PresetMenu />
+                        <PresetMenu {flagData} {presetType}/>
                         {:else}
                         <PrimarySection {animTypeSwitched} {animType} {flagData}/>
                         {/if}
