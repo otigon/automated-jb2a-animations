@@ -108,10 +108,10 @@
     $: color = root.color = color;
 
     let isCustom = root.enableCustom || false;
-    $: isCustom = isCustom;
+    $: isCustom = root.enableCustom = isCustom;
 
     let customPath = root.customPath;
-    $: customPath = customPath;
+    $: customPath = root.customPath = customPath;
 
     function onClick() {
         new TJSDialog({

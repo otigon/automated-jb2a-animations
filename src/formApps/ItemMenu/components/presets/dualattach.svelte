@@ -41,10 +41,10 @@
     $: color = preset.color = color;
 
     let isCustom = preset.enableCustom || false;
-    $: isCustom = isCustom;
+    $: isCustom = preset.enableCustom = isCustom;
 
     let customPath = preset.customPath;
-    $: customPath = customPath;
+    $: customPath = preset.customPath = customPath;
 
     let filePath;
     $: filePath =

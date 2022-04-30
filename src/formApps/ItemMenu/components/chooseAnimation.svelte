@@ -17,6 +17,7 @@
     export let flagPath;
     export let animType;
     export let presetType;
+    export let presetSubType;
     export let animTypeSwitched = false;
     $: {
         animType = animType;
@@ -31,26 +32,31 @@
     let flagOptions;
     switch (flagPath) {
         case "explosions":
+            console.log("Routing for Explosions");
             rootPath = flagData.explosions;
             customRoot = flagData.explosions;
             flagOptions = flagData.explosions;
             break;
         case "PrimaryAnimation":
+            console.log("Routing for Primary");
             rootPath = flagData;
             customRoot = flagData.options;
             flagOptions = flagData.options;
             break;
         case "sourceExtraFX":
+            console.log("Routing for Source FX");
             rootPath = flagData.sourceToken;
             customRoot = flagData.sourceToken;
             flagOptions = flagData.sourceToken;
             break;
         case "targetExtraFX":
+            console.log("Routing for Target FX");
             rootPath = flagData.targetToken;
             customRoot = flagData.targetToken;
             flagOptions = flagData.targetToken;
             break;
         case "preset":
+            console.log("Routing for Preset");
             rootPath = customRoot = flagOptions = flagData.preset[presetType];
             break;
     }
@@ -60,18 +66,8 @@
     // Sets Initial menuType for Menu - Assigns to Flag when updated
 
     // For Database path
-    export let menuSelection =
-        flagPath !== "PrimaryAnimation"
-            ? "static"
-            : animType === "aura"
-            ? "static"
-            : animType;
-    $: menuSelection =
-        flagPath !== "PrimaryAnimation"
-            ? "static"
-            : animType === "aura"
-            ? "static"
-            : animType;
+    export let menuSelection = animType === "aura" ? "static" : animType;
+    $: menuSelection = animType === "aura" ? "static" : animType;
     console.log(menuSelection)
     export let menuType =
         options.menuType || Object.keys(aaTypeMenu[menuSelection])[0];
@@ -291,7 +287,7 @@
             </select>
         </div>
     </div>
-    <CustomPicker {flagPath} {flagData} bind:isCustom bind:customPath />
+    <CustomPicker {flagPath} {presetSubType} {presetType} {flagData} bind:isCustom bind:customPath />
     <div class="aa-3wide">
         {#if animType === "range" && isCustom && flagPath === "PrimaryAnimation"}
             <div

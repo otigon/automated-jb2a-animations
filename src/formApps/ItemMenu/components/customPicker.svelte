@@ -4,6 +4,8 @@
 
     export let flagData;
     export let flagPath;
+    export let presetType;
+    export let presetSubType;
     let root;
     let options;
     export let customPath;
@@ -11,7 +13,7 @@
     let customId;
     switch (flagPath) {
         case "explosions":
-            console.log("routing to explosions")
+            console.log("routing to explosions");
             root = flagData.explosions;
             options = flagData.explosions;
             customPath = flagData.explosions.customPath || "";
@@ -19,7 +21,7 @@
             customId = "customExplosion";
             break;
         case "sourceExtraFX":
-            console.log("routing to Source Token")
+            console.log("routing to Source Token");
             root = flagData.sourceToken;
             options = flagData.sourceToken;
             customPath = flagData.sourceToken.customPath || "";
@@ -27,15 +29,39 @@
             customId = "customSource";
             break;
         case "targetExtraFX":
-            console.log("routing to Target Token")
+            console.log("routing to Target Token");
             root = flagData.targetToken;
             options = flagData.targetToken;
             customPath = flagData.targetToken.customPath || "";
             enabled = flagData.targetToken.enableCustom;
             customId = "customTarget";
             break;
+        case "preset":
+            switch (presetSubType) {
+                case "Secondary":
+                    root = flagData.preset[presetType];
+                    options = flagData.preset[presetType];
+                    customPath = flagData.preset[presetType].customPath02 || "";
+                    enabled = flagData.preset[presetType].enableCustom02;
+                    customId = "customPreset02";
+                    break;
+                case "Tertiary":
+                    root = flagData.preset[presetType];
+                    options = flagData.preset[presetType];
+                    customPath = flagData.preset[presetType].customPath03 || "";
+                    enabled = flagData.preset[presetType].enableCustom03;
+                    customId = "customPreset03";
+                    break;
+                default:
+                    root = flagData.preset[presetType];
+                    options = flagData.preset[presetType];
+                    customPath = flagData.preset[presetType].customPath || "";
+                    enabled = flagData.preset[presetType].enableCustom;
+                    customId = "customPreset";
+            }
+            break;
         default:
-            console.log("routing to Primary")
+            console.log("routing to Primary");
             root = flagData.options;
             options = flagData.options;
             customPath = flagData.options.customPath || "";
@@ -46,11 +72,9 @@
     //const options = flagData.options || {};
     //let customPath = options.customPath || "";
     $: customPath = customPath;
-    $: options.customPath = customPath;
 
-    export let isCustom = root.enableCustom || false;
+    export let isCustom = enabled || false;
     $: isCustom = isCustom;
-    $: root.enableCustom = isCustom;
 
     async function selectCustom() {
         const current = customPath;
@@ -74,15 +98,8 @@
     out:fade={{ duration: 500 }}
 >
     <div class="flexcol aa-button-labels" style="grid-row:1/2; grid-column:1/2">
-        <input
-            type="checkbox"
-            id="{customId}"
-            hidden
-            bind:checked={isCustom}
-        />
-        <label
-            for="{customId}"
-            class={isCustom ? "selected" : "notSelected"}
+        <input type="checkbox" id={customId} hidden bind:checked={isCustom} />
+        <label for={customId} class={isCustom ? "selected" : "notSelected"}
             >Set {localize("AUTOANIM.custom")}</label
         >
     </div>

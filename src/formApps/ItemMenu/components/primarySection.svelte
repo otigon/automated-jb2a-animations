@@ -31,10 +31,10 @@
     $: color = flagData.color = color;
 
     let isCustom = options.enableCustom || false;
-    $: isCustom = isCustom;
+    $: isCustom = options.enableCustom = isCustom;
 
     let customPath = options.customPath;
-    $: customPath = customPath;
+    $: customPath = options.customPath = customPath;
 
     let menuSelection = flagData.animType === "aura" ? "static" : flagData.animType;
     $: menuSelection = menuSelection;

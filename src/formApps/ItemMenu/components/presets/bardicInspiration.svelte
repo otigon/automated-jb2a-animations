@@ -14,63 +14,63 @@
         : (root.bardicinspiration = {});
     const preset = root.bardicinspiration;
 
-    let bardSelf = root.bardSelf || false;
-    $: bardSelf = root.bardSelf = bardSelf;
+    let bardSelf = preset.bardSelf || false;
+    $: bardSelf = preset.bardSelf = bardSelf;
 
-    let sourceAnimation = root.bardAnim || "bardicinspiration";
-    $: sourceAnimation = root.bardAnim = sourceAnimation;
+    let sourceAnimation = preset.bardAnim || "bardicinspiration";
+    $: sourceAnimation = preset.bardAnim = sourceAnimation;
     let sourceType =
         sourceAnimation === "bardicinspiration" ? "spell" : "music";
     $: sourceType = sourceAnimation === "bardicinspiration" ? "spell" : "music";
 
     let sourceVariant =
-        root.bardVariant ||
+        preset.bardVariant ||
         Object.keys(aaVariantMenu.static[sourceType][sourceAnimation])[0];
-    $: sourceVariant = root.bardVariant = sourceVariant;
+    $: sourceVariant = preset.bardVariant = sourceVariant;
 
     let sourceColor =
-        root.bardSelfColor ||
+        preset.bardSelfColor ||
         Object.keys(
             aaColorMenu.static[sourceType][sourceAnimation][sourceVariant]
         )[0];
-    $: sourceColor = root.bardSelfColor = sourceColor;
+    $: sourceColor = preset.bardSelfColor = sourceColor;
 
-    let bardTarget = root.bardTarget || false;
-    $: bardTarget = root.bardTarget = bardTarget;
+    let bardTarget = preset.bardTarget || false;
+    $: bardTarget = preset.bardTarget = bardTarget;
 
-    let targetAnimation = root.bardTargetAnim || "bardicinspiration";
-    $: targetAnimation = root.bardTargetAnim = targetAnimation;
+    let targetAnimation = preset.bardTargetAnim || "bardicinspiration";
+    $: targetAnimation = preset.bardTargetAnim = targetAnimation;
     let targetType =
         targetAnimation === "bardicinspiration" ? "spell" : "music";
     $: targetType = targetAnimation === "bardicinspiration" ? "spell" : "music";
 
     let targetVariant =
-        root.bardTargetVariant ||
+        preset.bardTargetVariant ||
         Object.keys(aaVariantMenu.static[targetType][targetAnimation])[0];
-    $: targetVariant = root.bardTargetVariant = targetVariant;
+    $: targetVariant = preset.bardTargetVariant = targetVariant;
 
     let targetColor =
-        root.bardTargetColor ||
+        preset.bardTargetColor ||
         Object.keys(
             aaColorMenu.static[targetType][targetAnimation][targetVariant]
         )[0];
-    $: targetColor = root.bardTargetColor = targetColor;
+    $: targetColor = preset.bardTargetColor = targetColor;
 
-    let markerEnable = root.markerEnable || false;
-    $: markerEnable = root.markerEnable = markerEnable;
+    let markerEnable = preset.markerEnable || false;
+    $: markerEnable = preset.markerEnable = markerEnable;
 
     let markerColorSelf =
-        root.markerColor ||
+        preset.markerColor ||
         Object.keys(aaColorMenu.static.spell.bardicinspiration.marker)[0];
-    $: markerColorSelf = root.markerColor = markerColorSelf;
+    $: markerColorSelf = preset.markerColor = markerColorSelf;
 
     let markerColorTarget =
-        root.markerColorTarget ||
+        preset.markerColorTarget ||
         Object.keys(aaColorMenu.static.spell.bardicinspiration.marker)[0];
-    $: markerColorTarget = root.markerColorTarget = markerColorTarget;
+    $: markerColorTarget = preset.markerColorTarget = markerColorTarget;
 
-    let scale = root.scale || 1;
-    $: scale = root.scale = scale;
+    let scale = preset.scale || 1;
+    $: scale = preset.scale = scale;
 
     let belowToken = preset.below || false;
     $: belowToken = preset.below = belowToken;
@@ -82,7 +82,7 @@
 
     function switchSourceEnable() {
         bardSelf = !bardSelf;
-        root.bardSelf = bardSelf;
+        preset.bardSelf = bardSelf;
     }
     async function sourceAnimationChange() {
         let newAnimation = sourceAnimation;
@@ -103,7 +103,7 @@
     }
     function switchTargetEnable() {
         bardTarget = !bardTarget;
-        root.bardTarget = bardTarget;
+        preset.bardTarget = bardTarget;
     }
     async function targetAnimationChange() {
         let newAnimation = targetAnimation;
@@ -124,7 +124,7 @@
     }
     function switchMarkerEnable() {
         markerEnable = !markerEnable;
-        root.markerEnable = markerEnable;
+        preset.markerEnable = markerEnable;
     }
 </script>
 
@@ -279,6 +279,7 @@
         </div>
     </div>
 {/if}
+<h2 style="margin-top:5px;">Options</h2>
 <div class="aa-options">
     <!--Set Z-Index-->
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
@@ -390,5 +391,14 @@
         font-weight: bold;
         font-size: large;
         height: auto;
+    }
+    h2 {
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 15%;
+        margin-left: 15%;
+        color: black;
     }
 </style>

@@ -60,10 +60,10 @@
     $: color = root.color = color;
 
     let isCustom = root.enableCustom || false;
-    $: isCustom = isCustom;
+    $: isCustom = root.enableCustom = isCustom;
 
     let customPath = root.customPath;
-    $: customPath = customPath;
+    $: customPath = root.customPath = customPath;
 
     function onClick() {
         new TJSDialog({
@@ -130,6 +130,7 @@
         bind:color
         bind:isCustom
         bind:customPath
+        animType="static"
         previewType="explosion"
         flagPath="explosions"
         {flagData}
