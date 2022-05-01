@@ -17,37 +17,53 @@
     const preset = flagData.preset;
 
     export let presetType = preset.presetType;
-
 </script>
 
 {#if presetType === "bardicinspiration"}
-    <Bards {presetType} {flagData}/>
+    <div transition:fade>
+        <Bards {presetType} {flagData} />
+    </div>
 {/if}
 {#if presetType === "bless"}
-    <Bless {flagData}/>
+    <div transition:fade>
+        <Bless {flagData} />
+    </div>
 {/if}
 {#if presetType === "dualattach"}
-    <DualAttach {presetType} {flagData}/>
+    <div transition:fade>
+        <DualAttach {presetType} {flagData} />
+    </div>
 {/if}
 {#if presetType === "fireball"}
-    <Fireball {presetType} {flagData}/>
+    <div transition:fade>
+        <Fireball {presetType} {flagData} />
+    </div>
 {/if}
 {#if presetType === "huntersmark"}
-    <HuntersMark {presetType} {flagData}/>
+    <div transition:fade>
+        <HuntersMark {presetType} {flagData} />
+    </div>
 {/if}
 {#if presetType === "shieldspell"}
-    <Shield {presetType} {flagData}/>
+    <div transition:fade>
+        <Shield {presetType} {flagData} />
+    </div>
 {/if}
 {#if presetType === "sneakattack"}
-    <SneakAttack {presetType} {flagData}/>
+    <div transition:fade>
+        <SneakAttack {presetType} {flagData} />
+    </div>
 {/if}
 {#if presetType === "teleportation"}
-    <Teleportation {presetType} {flagData}/>
+    <div transition:fade>
+        <Teleportation {presetType} {flagData} />
+    </div>
 {/if}
 {#if presetType === "thunderwave"}
-    <Thunderwave {presetType} {flagData}/>
+    <div transition:fade>
+        <Thunderwave {presetType} {flagData} />
+    </div>
 {/if}
 
-<style lang='scss'>
-
+<style lang="scss">
 </style>

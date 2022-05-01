@@ -69,6 +69,7 @@
     }
 </script>
 
+<div class="aaMenu-section">
 <h1>Shield Animation Preset</h1>
 <div class="aa-3wide">
     <div
@@ -130,6 +131,7 @@
     </div>
 </div>
 <SoundSettings audioPath="a01" {flagData} />
+</div>
 
 <style lang="scss">
     .aa-3wide {

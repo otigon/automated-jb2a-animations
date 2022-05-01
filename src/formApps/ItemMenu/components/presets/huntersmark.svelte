@@ -46,6 +46,7 @@
 
 </script>
 
+<div class="aaMenu-section">
 <h1>Hunter's Mark Preset</h1>
 <div class="aa-4wide">
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
@@ -91,6 +92,7 @@
     </div>
 </div>
 <SoundSettings audioPath="a01" {flagData} />
+</div>
 
 <style lang="scss">
     .aa-4wide {

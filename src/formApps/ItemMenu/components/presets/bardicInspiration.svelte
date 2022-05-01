@@ -128,8 +128,8 @@
     }
 </script>
 
+<div class="aaMenu-section">
 <h1 style="margin-bottom: 15px">Bardic Inspiration Preset</h1>
-
 <div class="aa-subheader-section">
     <div class="aa-subheader">
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
@@ -185,7 +185,8 @@
         </div>
     </div>
 {/if}
-
+</div>
+<div class="aaMenu-section">
 <div class="aa-subheader-section">
     <div class="aa-subheader">
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
@@ -241,7 +242,8 @@
         </div>
     </div>
 {/if}
-
+</div>
+<div class="aaMenu-section">
 <div class="aa-subheader-section">
     <div class="aa-subheader">
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
@@ -278,7 +280,6 @@
             </select>
         </div>
     </div>
-{/if}
 <h2 style="margin-top:5px;">Options</h2>
 <div class="aa-options">
     <!--Set Z-Index-->
@@ -296,8 +297,9 @@
         />
     </div>
 </div>
+{/if}
 <SoundSettings audioPath="a01" {flagData} />
-
+</div>
 <style lang="scss">
     .aa-3wide {
         display: grid;

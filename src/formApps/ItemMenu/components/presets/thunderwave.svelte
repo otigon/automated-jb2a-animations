@@ -52,6 +52,7 @@
     }
 </script>
 
+<div class="aaMenu-section">
 <h1>Thunderwave 5e Preset</h1>
 <div class="aa-3wide">
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
@@ -116,8 +117,6 @@
     <div
         class="flexcol"
         style="grid-row: 2 / 3; grid-column: 3 / 4;"
-        in:fade={{ duration: 500 }}
-        out:fade={{ duration: 500 }}
     >
         <label for="aaOpacity">{localize("AUTOANIM.opacity")}</label>
         <div class="form-group">
@@ -141,6 +140,7 @@
     </div>
 </div>
 <SoundSettings audioPath="a01" {flagData} />
+</div>
 
 <style lang="scss">
     .aa-3wide {

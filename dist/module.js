@@ -48230,7 +48230,7 @@ function create_each_block_4(ctx) {
 	};
 }
 
-// (204:0) {#if bardTarget}
+// (205:0) {#if bardTarget}
 function create_if_block_1$3(ctx) {
 	let div3;
 	let div0;
@@ -48461,7 +48461,7 @@ function create_if_block_1$3(ctx) {
 	};
 }
 
-// (228:16) {#each Object.entries(aaVariantMenu.static[targetType][targetAnimation]) as [key, name]}
+// (229:16) {#each Object.entries(aaVariantMenu.static[targetType][targetAnimation]) as [key, name]}
 function create_each_block_3(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[45] + "";
@@ -48493,7 +48493,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (237:16) {#each Object.entries(aaColorMenu.static[targetType][targetAnimation][targetVariant]) as [key, name]}
+// (238:16) {#each Object.entries(aaColorMenu.static[targetType][targetAnimation][targetVariant]) as [key, name]}
 function create_each_block_2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[45] + "";
@@ -48525,7 +48525,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (260:0) {#if markerEnable}
+// (262:0) {#if markerEnable}
 function create_if_block$4(ctx) {
 	let div2;
 	let div0;
@@ -48538,6 +48538,20 @@ function create_if_block$4(ctx) {
 	let t4;
 	let select1;
 	let div2_transition;
+	let t5;
+	let h2;
+	let t7;
+	let div5;
+	let div3;
+	let label2;
+	let t9;
+	let button;
+	let t10;
+	let t11;
+	let div4;
+	let label3;
+	let t13;
+	let input;
 	let current;
 	let mounted;
 	let dispose;
@@ -48579,6 +48593,23 @@ function create_if_block$4(ctx) {
 				each_blocks[i].c();
 			}
 
+			t5 = space();
+			h2 = element("h2");
+			h2.textContent = "Options";
+			t7 = space();
+			div5 = element("div");
+			div3 = element("div");
+			label2 = element("label");
+			label2.textContent = "Z-Index";
+			t9 = space();
+			button = element("button");
+			t10 = text(/*aboveBelow*/ ctx[15]);
+			t11 = space();
+			div4 = element("div");
+			label3 = element("label");
+			label3.textContent = `${localize("AUTOANIM.scale")}`;
+			t13 = space();
+			input = element("input");
 			attr(label0, "for", "");
 			attr(label0, "class", "svelte-5ecx6y");
 			attr(select0, "class", "svelte-5ecx6y");
@@ -48594,6 +48625,24 @@ function create_if_block$4(ctx) {
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 4");
 			attr(div2, "class", "aa-3wide svelte-5ecx6y");
+			set_style(h2, "margin-top", "5px");
+			attr(h2, "class", "svelte-5ecx6y");
+			attr(label2, "for", "");
+			attr(label2, "class", "svelte-5ecx6y");
+			attr(button, "class", "oldCheck svelte-5ecx6y");
+			attr(div3, "class", "flexcol");
+			set_style(div3, "grid-row", "1 / 2");
+			set_style(div3, "grid-column", "2 / 3");
+			attr(label3, "for", "");
+			attr(label3, "class", "svelte-5ecx6y");
+			attr(input, "type", "Number");
+			attr(input, "placeholder", "1");
+			attr(input, "step", "0.01");
+			attr(input, "class", "svelte-5ecx6y");
+			attr(div4, "class", "flexcol");
+			set_style(div4, "grid-row", "1 / 2");
+			set_style(div4, "grid-column", "3 / 4");
+			attr(div5, "class", "aa-options svelte-5ecx6y");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -48618,12 +48667,29 @@ function create_if_block$4(ctx) {
 			}
 
 			select_option(select1, /*markerColorTarget*/ ctx[11]);
+			insert(target, t5, anchor);
+			insert(target, h2, anchor);
+			insert(target, t7, anchor);
+			insert(target, div5, anchor);
+			append(div5, div3);
+			append(div3, label2);
+			append(div3, t9);
+			append(div3, button);
+			append(button, t10);
+			append(div5, t11);
+			append(div5, div4);
+			append(div4, label3);
+			append(div4, t13);
+			append(div4, input);
+			set_input_value(input, /*scale*/ ctx[12]);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
 					listen(select0, "change", /*select0_change_handler_2*/ ctx[38]),
-					listen(select1, "change", /*select1_change_handler_2*/ ctx[39])
+					listen(select1, "change", /*select1_change_handler_2*/ ctx[39]),
+					listen(button, "click", /*click_handler_3*/ ctx[40]),
+					listen(input, "input", /*input_input_handler*/ ctx[41])
 				];
 
 				mounted = true;
@@ -48683,6 +48749,12 @@ function create_if_block$4(ctx) {
 			if (dirty[0] & /*markerColorTarget*/ 2048) {
 				select_option(select1, /*markerColorTarget*/ ctx[11]);
 			}
+
+			if (!current || dirty[0] & /*aboveBelow*/ 32768) set_data(t10, /*aboveBelow*/ ctx[15]);
+
+			if (dirty[0] & /*scale*/ 4096) {
+				set_input_value(input, /*scale*/ ctx[12]);
+			}
 		},
 		i(local) {
 			if (current) return;
@@ -48704,13 +48776,17 @@ function create_if_block$4(ctx) {
 			destroy_each(each_blocks_1, detaching);
 			destroy_each(each_blocks, detaching);
 			if (detaching && div2_transition) div2_transition.end();
+			if (detaching) detach(t5);
+			if (detaching) detach(h2);
+			if (detaching) detach(t7);
+			if (detaching) detach(div5);
 			mounted = false;
 			run_all(dispose);
 		}
 	};
 }
 
-// (266:16) {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
+// (268:16) {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
 function create_each_block_1$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[45] + "";
@@ -48735,7 +48811,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (275:16) {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
+// (277:16) {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
 function create_each_block$5(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[45] + "";
@@ -48761,6 +48837,7 @@ function create_each_block$5(ctx) {
 }
 
 function create_fragment$a(ctx) {
+	let div4;
 	let h1;
 	let t1;
 	let div3;
@@ -48772,38 +48849,26 @@ function create_fragment$a(ctx) {
 	let i0_class_value;
 	let t4;
 	let t5;
+	let div9;
+	let div8;
 	let div7;
-	let div6;
-	let div4;
-	let t7;
 	let div5;
+	let t7;
+	let div6;
 	let i1;
 	let i1_class_value;
 	let t8;
 	let t9;
-	let div11;
+	let div14;
+	let div13;
+	let div12;
 	let div10;
-	let div8;
 	let t11;
-	let div9;
+	let div11;
 	let i2;
 	let i2_class_value;
 	let t12;
 	let t13;
-	let h2;
-	let t15;
-	let div14;
-	let div12;
-	let label3;
-	let t17;
-	let button;
-	let t18;
-	let t19;
-	let div13;
-	let label4;
-	let t21;
-	let input;
-	let t22;
 	let soundsettings;
 	let current;
 	let mounted;
@@ -48821,6 +48886,7 @@ function create_fragment$a(ctx) {
 
 	return {
 		c() {
+			div4 = element("div");
 			h1 = element("h1");
 			h1.textContent = "Bardic Inspiration Preset";
 			t1 = space();
@@ -48834,43 +48900,28 @@ function create_fragment$a(ctx) {
 			t4 = space();
 			if (if_block0) if_block0.c();
 			t5 = space();
+			div9 = element("div");
+			div8 = element("div");
 			div7 = element("div");
-			div6 = element("div");
-			div4 = element("div");
-			div4.innerHTML = `<label for="" class="svelte-5ecx6y">Target Animation</label>`;
-			t7 = space();
 			div5 = element("div");
+			div5.innerHTML = `<label for="" class="svelte-5ecx6y">Target Animation</label>`;
+			t7 = space();
+			div6 = element("div");
 			i1 = element("i");
 			t8 = space();
 			if (if_block1) if_block1.c();
 			t9 = space();
-			div11 = element("div");
+			div14 = element("div");
+			div13 = element("div");
+			div12 = element("div");
 			div10 = element("div");
-			div8 = element("div");
-			div8.innerHTML = `<label for="" class="svelte-5ecx6y">Marker Animation</label>`;
+			div10.innerHTML = `<label for="" class="svelte-5ecx6y">Marker Animation</label>`;
 			t11 = space();
-			div9 = element("div");
+			div11 = element("div");
 			i2 = element("i");
 			t12 = space();
 			if (if_block2) if_block2.c();
 			t13 = space();
-			h2 = element("h2");
-			h2.textContent = "Options";
-			t15 = space();
-			div14 = element("div");
-			div12 = element("div");
-			label3 = element("label");
-			label3.textContent = "Z-Index";
-			t17 = space();
-			button = element("button");
-			t18 = text(/*aboveBelow*/ ctx[15]);
-			t19 = space();
-			div13 = element("div");
-			label4 = element("label");
-			label4.textContent = `${localize("AUTOANIM.scale")}`;
-			t21 = space();
-			input = element("input");
-			t22 = space();
 			create_component(soundsettings.$$.fragment);
 			set_style(h1, "margin-bottom", "15px");
 			attr(h1, "class", "svelte-5ecx6y");
@@ -48887,106 +48938,77 @@ function create_fragment$a(ctx) {
 			set_style(div1, "grid-column", "5/6");
 			attr(div2, "class", "aa-subheader svelte-5ecx6y");
 			attr(div3, "class", "aa-subheader-section svelte-5ecx6y");
-			attr(div4, "class", "flexcol");
-			set_style(div4, "grid-row", "1/2");
-			set_style(div4, "grid-column", "3/4");
+			attr(div4, "class", "aaMenu-section");
+			attr(div5, "class", "flexcol");
+			set_style(div5, "grid-row", "1/2");
+			set_style(div5, "grid-column", "3/4");
 
 			attr(i1, "class", i1_class_value = "" + ((/*bardTarget*/ ctx[5]
 			? 'fas fa-minus aa-red'
 			: 'fas fa-plus aa-green') + " aaCenterToggle"));
 
-			attr(div5, "class", "flexcol");
-			set_style(div5, "grid-row", "1/2");
-			set_style(div5, "grid-column", "5/6");
-			attr(div6, "class", "aa-subheader svelte-5ecx6y");
-			attr(div7, "class", "aa-subheader-section svelte-5ecx6y");
-			attr(div8, "class", "flexcol");
-			set_style(div8, "grid-row", "1/2");
-			set_style(div8, "grid-column", "3/4");
+			attr(div6, "class", "flexcol");
+			set_style(div6, "grid-row", "1/2");
+			set_style(div6, "grid-column", "5/6");
+			attr(div7, "class", "aa-subheader svelte-5ecx6y");
+			attr(div8, "class", "aa-subheader-section svelte-5ecx6y");
+			attr(div9, "class", "aaMenu-section");
+			attr(div10, "class", "flexcol");
+			set_style(div10, "grid-row", "1/2");
+			set_style(div10, "grid-column", "3/4");
 
 			attr(i2, "class", i2_class_value = "" + ((/*markerEnable*/ ctx[9]
 			? 'fas fa-minus aa-red'
 			: 'fas fa-plus aa-green') + " aaCenterToggle"));
 
-			attr(div9, "class", "flexcol");
-			set_style(div9, "grid-row", "1/2");
-			set_style(div9, "grid-column", "5/6");
-			attr(div10, "class", "aa-subheader svelte-5ecx6y");
-			attr(div11, "class", "aa-subheader-section svelte-5ecx6y");
-			set_style(h2, "margin-top", "5px");
-			attr(h2, "class", "svelte-5ecx6y");
-			attr(label3, "for", "");
-			attr(label3, "class", "svelte-5ecx6y");
-			attr(button, "class", "oldCheck svelte-5ecx6y");
-			attr(div12, "class", "flexcol");
-			set_style(div12, "grid-row", "1 / 2");
-			set_style(div12, "grid-column", "2 / 3");
-			attr(label4, "for", "");
-			attr(label4, "class", "svelte-5ecx6y");
-			attr(input, "type", "Number");
-			attr(input, "placeholder", "1");
-			attr(input, "step", "0.01");
-			attr(input, "class", "svelte-5ecx6y");
-			attr(div13, "class", "flexcol");
-			set_style(div13, "grid-row", "1 / 2");
-			set_style(div13, "grid-column", "3 / 4");
-			attr(div14, "class", "aa-options svelte-5ecx6y");
+			attr(div11, "class", "flexcol");
+			set_style(div11, "grid-row", "1/2");
+			set_style(div11, "grid-column", "5/6");
+			attr(div12, "class", "aa-subheader svelte-5ecx6y");
+			attr(div13, "class", "aa-subheader-section svelte-5ecx6y");
+			attr(div14, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			insert(target, h1, anchor);
-			insert(target, t1, anchor);
-			insert(target, div3, anchor);
+			insert(target, div4, anchor);
+			append(div4, h1);
+			append(div4, t1);
+			append(div4, div3);
 			append(div3, div2);
 			append(div2, div0);
 			append(div2, t3);
 			append(div2, div1);
 			append(div1, i0);
-			insert(target, t4, anchor);
-			if (if_block0) if_block0.m(target, anchor);
+			append(div4, t4);
+			if (if_block0) if_block0.m(div4, null);
 			insert(target, t5, anchor);
-			insert(target, div7, anchor);
+			insert(target, div9, anchor);
+			append(div9, div8);
+			append(div8, div7);
+			append(div7, div5);
+			append(div7, t7);
 			append(div7, div6);
-			append(div6, div4);
-			append(div6, t7);
-			append(div6, div5);
-			append(div5, i1);
-			insert(target, t8, anchor);
-			if (if_block1) if_block1.m(target, anchor);
+			append(div6, i1);
+			append(div9, t8);
+			if (if_block1) if_block1.m(div9, null);
 			insert(target, t9, anchor);
-			insert(target, div11, anchor);
-			append(div11, div10);
-			append(div10, div8);
-			append(div10, t11);
-			append(div10, div9);
-			append(div9, i2);
-			insert(target, t12, anchor);
-			if (if_block2) if_block2.m(target, anchor);
-			insert(target, t13, anchor);
-			insert(target, h2, anchor);
-			insert(target, t15, anchor);
 			insert(target, div14, anchor);
-			append(div14, div12);
-			append(div12, label3);
-			append(div12, t17);
-			append(div12, button);
-			append(button, t18);
-			append(div14, t19);
 			append(div14, div13);
-			append(div13, label4);
-			append(div13, t21);
-			append(div13, input);
-			set_input_value(input, /*scale*/ ctx[12]);
-			insert(target, t22, anchor);
-			mount_component(soundsettings, target, anchor);
+			append(div13, div12);
+			append(div12, div10);
+			append(div12, t11);
+			append(div12, div11);
+			append(div11, i2);
+			append(div14, t12);
+			if (if_block2) if_block2.m(div14, null);
+			append(div14, t13);
+			mount_component(soundsettings, div14, null);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
 					listen(i0, "click", /*click_handler*/ ctx[25]),
 					listen(i1, "click", /*click_handler_1*/ ctx[31]),
-					listen(i2, "click", /*click_handler_2*/ ctx[37]),
-					listen(button, "click", /*click_handler_3*/ ctx[40]),
-					listen(input, "input", /*input_input_handler*/ ctx[41])
+					listen(i2, "click", /*click_handler_2*/ ctx[37])
 				];
 
 				mounted = true;
@@ -49010,7 +49032,7 @@ function create_fragment$a(ctx) {
 					if_block0 = create_if_block_2$2(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
-					if_block0.m(t5.parentNode, t5);
+					if_block0.m(div4, null);
 				}
 			} else if (if_block0) {
 				group_outros();
@@ -49039,7 +49061,7 @@ function create_fragment$a(ctx) {
 					if_block1 = create_if_block_1$3(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
-					if_block1.m(t9.parentNode, t9);
+					if_block1.m(div9, null);
 				}
 			} else if (if_block1) {
 				group_outros();
@@ -49068,7 +49090,7 @@ function create_fragment$a(ctx) {
 					if_block2 = create_if_block$4(ctx);
 					if_block2.c();
 					transition_in(if_block2, 1);
-					if_block2.m(t13.parentNode, t13);
+					if_block2.m(div14, t13);
 				}
 			} else if (if_block2) {
 				group_outros();
@@ -49078,12 +49100,6 @@ function create_fragment$a(ctx) {
 				});
 
 				check_outros();
-			}
-
-			if (!current || dirty[0] & /*aboveBelow*/ 32768) set_data(t18, /*aboveBelow*/ ctx[15]);
-
-			if (dirty[0] & /*scale*/ 4096) {
-				set_input_value(input, /*scale*/ ctx[12]);
 			}
 
 			const soundsettings_changes = {};
@@ -49106,25 +49122,15 @@ function create_fragment$a(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(h1);
-			if (detaching) detach(t1);
-			if (detaching) detach(div3);
-			if (detaching) detach(t4);
-			if (if_block0) if_block0.d(detaching);
+			if (detaching) detach(div4);
+			if (if_block0) if_block0.d();
 			if (detaching) detach(t5);
-			if (detaching) detach(div7);
-			if (detaching) detach(t8);
-			if (if_block1) if_block1.d(detaching);
+			if (detaching) detach(div9);
+			if (if_block1) if_block1.d();
 			if (detaching) detach(t9);
-			if (detaching) detach(div11);
-			if (detaching) detach(t12);
-			if (if_block2) if_block2.d(detaching);
-			if (detaching) detach(t13);
-			if (detaching) detach(h2);
-			if (detaching) detach(t15);
 			if (detaching) detach(div14);
-			if (detaching) detach(t22);
-			destroy_component(soundsettings, detaching);
+			if (if_block2) if_block2.d();
+			destroy_component(soundsettings);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -49441,6 +49447,7 @@ function create_each_block$4(ctx) {
 }
 
 function create_fragment$9(ctx) {
+	let div8;
 	let h1;
 	let t1;
 	let div1;
@@ -49501,6 +49508,7 @@ function create_fragment$9(ctx) {
 
 	return {
 		c() {
+			div8 = element("div");
 			h1 = element("h1");
 			h1.textContent = "Bless Animation Preset";
 			t1 = space();
@@ -49600,11 +49608,13 @@ function create_fragment$9(ctx) {
 			set_style(div6, "grid-row", "2 / 3");
 			set_style(div6, "grid-column", "3 / 4");
 			attr(div7, "class", "aa-options svelte-ta9sfn");
+			attr(div8, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			insert(target, h1, anchor);
-			insert(target, t1, anchor);
-			insert(target, div1, anchor);
+			insert(target, div8, anchor);
+			append(div8, h1);
+			append(div8, t1);
+			append(div8, div1);
 			append(div1, div0);
 			append(div0, label0);
 			append(div0, t3);
@@ -49615,10 +49625,10 @@ function create_fragment$9(ctx) {
 			}
 
 			select_option(select, /*color*/ ctx[1]);
-			insert(target, t4, anchor);
-			insert(target, h2, anchor);
-			insert(target, t6, anchor);
-			insert(target, div7, anchor);
+			append(div8, t4);
+			append(div8, h2);
+			append(div8, t6);
+			append(div8, div7);
 			append(div7, div2);
 			append(div2, label1);
 			append(div2, t8);
@@ -49648,8 +49658,8 @@ function create_fragment$9(ctx) {
 			append(div6, t24);
 			append(div6, input);
 			set_input_value(input, /*scale*/ ctx[2]);
-			insert(target, t25, anchor);
-			mount_component(soundsettings, target, anchor);
+			append(div8, t25);
+			mount_component(soundsettings, div8, null);
 			current = true;
 
 			if (!mounted) {
@@ -49716,16 +49726,9 @@ function create_fragment$9(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(h1);
-			if (detaching) detach(t1);
-			if (detaching) detach(div1);
+			if (detaching) detach(div8);
 			destroy_each(each_blocks, detaching);
-			if (detaching) detach(t4);
-			if (detaching) detach(h2);
-			if (detaching) detach(t6);
-			if (detaching) detach(div7);
-			if (detaching) detach(t25);
-			destroy_component(soundsettings, detaching);
+			destroy_component(soundsettings);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -49863,13 +49866,13 @@ class Bless extends SvelteComponent {
 /* src\formApps\ItemMenu\components\presets\dualattach.svelte generated by Svelte v3.47.0 */
 
 function create_fragment$8(ctx) {
+	let div7;
 	let div3;
 	let div2;
 	let div0;
 	let t1;
 	let div1;
 	let i;
-	let div1_transition;
 	let t2;
 	let chooseanimation;
 	let updating_menuType;
@@ -49970,6 +49973,7 @@ function create_fragment$8(ctx) {
 
 	return {
 		c() {
+			div7 = element("div");
 			div3 = element("div");
 			div2 = element("div");
 			div0 = element("div");
@@ -50025,20 +50029,22 @@ function create_fragment$8(ctx) {
 			set_style(div5, "grid-row", "1 / 2");
 			set_style(div5, "grid-column", "3 / 4");
 			attr(div6, "class", "aa-options svelte-rs4ck0");
+			attr(div7, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			insert(target, div3, anchor);
+			insert(target, div7, anchor);
+			append(div7, div3);
 			append(div3, div2);
 			append(div2, div0);
 			append(div2, t1);
 			append(div2, div1);
 			append(div1, i);
-			insert(target, t2, anchor);
-			mount_component(chooseanimation, target, anchor);
-			insert(target, t3, anchor);
-			insert(target, h2, anchor);
-			insert(target, t5, anchor);
-			insert(target, div6, anchor);
+			append(div7, t2);
+			mount_component(chooseanimation, div7, null);
+			append(div7, t3);
+			append(div7, h2);
+			append(div7, t5);
+			append(div7, div6);
 			append(div6, div4);
 			append(div4, label1);
 			append(div4, t7);
@@ -50050,8 +50056,8 @@ function create_fragment$8(ctx) {
 			append(div5, t11);
 			append(div5, input);
 			set_input_value(input, /*playbackRate*/ ctx[2]);
-			insert(target, t12, anchor);
-			mount_component(soundsettings, target, anchor);
+			append(div7, t12);
+			mount_component(soundsettings, div7, null);
 			current = true;
 
 			if (!mounted) {
@@ -50118,34 +50124,19 @@ function create_fragment$8(ctx) {
 		},
 		i(local) {
 			if (current) return;
-
-			add_render_callback(() => {
-				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
-				div1_transition.run(1);
-			});
-
 			transition_in(chooseanimation.$$.fragment, local);
 			transition_in(soundsettings.$$.fragment, local);
 			current = true;
 		},
 		o(local) {
-			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
-			div1_transition.run(0);
 			transition_out(chooseanimation.$$.fragment, local);
 			transition_out(soundsettings.$$.fragment, local);
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(div3);
-			if (detaching && div1_transition) div1_transition.end();
-			if (detaching) detach(t2);
-			destroy_component(chooseanimation, detaching);
-			if (detaching) detach(t3);
-			if (detaching) detach(h2);
-			if (detaching) detach(t5);
-			if (detaching) detach(div6);
-			if (detaching) detach(t12);
-			destroy_component(soundsettings, detaching);
+			if (detaching) detach(div7);
+			destroy_component(chooseanimation);
+			destroy_component(soundsettings);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -50653,7 +50644,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (314:0) {#if enableAfterImage}
+// (318:0) {#if enableAfterImage}
 function create_if_block$3(ctx) {
 	let div1;
 	let div0;
@@ -50861,6 +50852,7 @@ function create_if_block$3(ctx) {
 }
 
 function create_fragment$7(ctx) {
+	let div6;
 	let h10;
 	let t1;
 	let chooseanimation0;
@@ -50904,15 +50896,17 @@ function create_fragment$7(ctx) {
 	let t23;
 	let soundsettings0;
 	let t24;
+	let div11;
+	let div10;
 	let div9;
-	let div8;
-	let div6;
-	let t26;
 	let div7;
+	let t26;
+	let div8;
 	let i0;
 	let i0_class_value;
 	let t27;
 	let t28;
+	let div17;
 	let h11;
 	let t30;
 	let chooseanimation1;
@@ -50925,39 +50919,39 @@ function create_fragment$7(ctx) {
 	let t31;
 	let h21;
 	let t33;
-	let div14;
-	let div10;
+	let div16;
+	let div12;
 	let label6;
 	let t35;
 	let button2;
 	let t36;
 	let t37;
-	let div11;
+	let div13;
 	let label7;
 	let t39;
 	let input3;
 	let t40;
-	let div12;
+	let div14;
 	let label8;
 	let t42;
 	let input4;
 	let t43;
-	let div13;
+	let div15;
 	let label9;
 	let t47;
 	let input5;
 	let t48;
 	let soundsettings1;
 	let t49;
+	let div22;
+	let div21;
+	let div20;
 	let div18;
-	let div17;
-	let div15;
 	let t51;
-	let div16;
+	let div19;
 	let i1;
 	let i1_class_value;
 	let t52;
-	let if_block1_anchor;
 	let current;
 	let mounted;
 	let dispose;
@@ -51111,6 +51105,7 @@ function create_fragment$7(ctx) {
 
 	return {
 		c() {
+			div6 = element("div");
 			h10 = element("h1");
 			h10.textContent = "Projectile Animation";
 			t1 = space();
@@ -51154,16 +51149,18 @@ function create_fragment$7(ctx) {
 			t23 = space();
 			create_component(soundsettings0.$$.fragment);
 			t24 = space();
+			div11 = element("div");
+			div10 = element("div");
 			div9 = element("div");
-			div8 = element("div");
-			div6 = element("div");
-			div6.innerHTML = `<label for="" class="svelte-1qldtqk">Pre-Explosion Animation</label>`;
-			t26 = space();
 			div7 = element("div");
+			div7.innerHTML = `<label for="" class="svelte-1qldtqk">Pre-Explosion Animation</label>`;
+			t26 = space();
+			div8 = element("div");
 			i0 = element("i");
 			t27 = space();
 			if (if_block0) if_block0.c();
 			t28 = space();
+			div17 = element("div");
 			h11 = element("h1");
 			h11.textContent = "Primary Explosion Animation";
 			t30 = space();
@@ -51172,27 +51169,27 @@ function create_fragment$7(ctx) {
 			h21 = element("h2");
 			h21.textContent = "Options";
 			t33 = space();
-			div14 = element("div");
-			div10 = element("div");
+			div16 = element("div");
+			div12 = element("div");
 			label6 = element("label");
 			label6.textContent = "Z-Index";
 			t35 = space();
 			button2 = element("button");
 			t36 = text(/*explosion02AboveBelow*/ ctx[38]);
 			t37 = space();
-			div11 = element("div");
+			div13 = element("div");
 			label7 = element("label");
 			label7.textContent = `${localize("AUTOANIM.scale")}`;
 			t39 = space();
 			input3 = element("input");
 			t40 = space();
-			div12 = element("div");
+			div14 = element("div");
 			label8 = element("label");
 			label8.textContent = `${localize("AUTOANIM.repeat")}`;
 			t42 = space();
 			input4 = element("input");
 			t43 = space();
-			div13 = element("div");
+			div15 = element("div");
 			label9 = element("label");
 			label9.textContent = `${localize("AUTOANIM.repeat")}  ${localize("AUTOANIM.delay")}`;
 			t47 = space();
@@ -51200,16 +51197,16 @@ function create_fragment$7(ctx) {
 			t48 = space();
 			create_component(soundsettings1.$$.fragment);
 			t49 = space();
+			div22 = element("div");
+			div21 = element("div");
+			div20 = element("div");
 			div18 = element("div");
-			div17 = element("div");
-			div15 = element("div");
-			div15.innerHTML = `<label for="" class="svelte-1qldtqk">Add After Image/Video</label>`;
+			div18.innerHTML = `<label for="" class="svelte-1qldtqk">Add After Image/Video</label>`;
 			t51 = space();
-			div16 = element("div");
+			div19 = element("div");
 			i1 = element("i");
 			t52 = space();
 			if (if_block1) if_block1.c();
-			if_block1_anchor = empty();
 			set_style(h10, "margin-top", "10px");
 			attr(h10, "class", "svelte-1qldtqk");
 			attr(h20, "class", "svelte-1qldtqk");
@@ -51250,75 +51247,80 @@ function create_fragment$7(ctx) {
 			set_style(div4, "grid-row", "2 / 3");
 			set_style(div4, "grid-column", "4 / 5");
 			attr(div5, "class", "aa-options svelte-1qldtqk");
-			attr(div6, "class", "flexcol");
-			set_style(div6, "grid-row", "1/2");
-			set_style(div6, "grid-column", "2/3");
+			attr(div6, "class", "aaMenu-section");
+			attr(div7, "class", "flexcol");
+			set_style(div7, "grid-row", "1/2");
+			set_style(div7, "grid-column", "2/3");
 
 			attr(i0, "class", i0_class_value = "" + ((/*enablePreExplosion*/ ctx[22]
 			? 'fas fa-minus aa-red'
 			: 'fas fa-plus aa-green') + " aaCenterToggle"));
 
-			attr(div7, "class", "flexcol");
-			set_style(div7, "grid-row", "1/2");
-			set_style(div7, "grid-column", "3/4");
-			attr(div8, "class", "aa-preheader svelte-1qldtqk");
-			attr(div9, "class", "aa-preheader-section svelte-1qldtqk");
+			attr(div8, "class", "flexcol");
+			set_style(div8, "grid-row", "1/2");
+			set_style(div8, "grid-column", "3/4");
+			attr(div9, "class", "aa-preheader svelte-1qldtqk");
+			attr(div10, "class", "aa-preheader-section svelte-1qldtqk");
+			attr(div11, "class", "aaMenu-section");
 			set_style(h11, "margin-top", "10px");
 			attr(h11, "class", "svelte-1qldtqk");
 			attr(h21, "class", "svelte-1qldtqk");
 			attr(label6, "for", "");
 			attr(label6, "class", "svelte-1qldtqk");
 			attr(button2, "class", "oldCheck svelte-1qldtqk");
-			attr(div10, "class", "flexcol");
-			set_style(div10, "grid-row", "1 / 2");
-			set_style(div10, "grid-column", "1 / 2");
+			attr(div12, "class", "flexcol");
+			set_style(div12, "grid-row", "1 / 2");
+			set_style(div12, "grid-column", "1 / 2");
 			attr(label7, "for", "");
 			attr(label7, "class", "svelte-1qldtqk");
 			attr(input3, "type", "Number");
 			attr(input3, "placeholder", "1");
 			attr(input3, "class", "svelte-1qldtqk");
-			attr(div11, "class", "flexcol");
-			set_style(div11, "grid-row", "1 / 2");
-			set_style(div11, "grid-column", "2 / 3");
+			attr(div13, "class", "flexcol");
+			set_style(div13, "grid-row", "1 / 2");
+			set_style(div13, "grid-column", "2 / 3");
 			attr(label8, "for", "");
 			attr(label8, "class", "svelte-1qldtqk");
 			attr(input4, "type", "Number");
 			attr(input4, "placeholder", "1");
 			attr(input4, "class", "svelte-1qldtqk");
-			attr(div12, "class", "flexcol");
-			set_style(div12, "grid-row", "1 / 2");
-			set_style(div12, "grid-column", "3 / 4");
+			attr(div14, "class", "flexcol");
+			set_style(div14, "grid-row", "1 / 2");
+			set_style(div14, "grid-column", "3 / 4");
 			attr(label9, "for", "");
 			attr(label9, "class", "svelte-1qldtqk");
 			attr(input5, "type", "Number");
 			attr(input5, "placeholder", "250");
 			attr(input5, "class", "svelte-1qldtqk");
-			attr(div13, "class", "flexcol");
-			set_style(div13, "grid-row", "1 / 2");
-			set_style(div13, "grid-column", "4 / 5");
-			attr(div14, "class", "aa-options svelte-1qldtqk");
 			attr(div15, "class", "flexcol");
-			set_style(div15, "grid-row", "1/2");
-			set_style(div15, "grid-column", "2/3");
+			set_style(div15, "grid-row", "1 / 2");
+			set_style(div15, "grid-column", "4 / 5");
+			attr(div16, "class", "aa-options svelte-1qldtqk");
+			attr(div17, "class", "aaMenu-section");
+			attr(div18, "class", "flexcol");
+			set_style(div18, "grid-row", "1/2");
+			set_style(div18, "grid-column", "2/3");
 
 			attr(i1, "class", i1_class_value = "" + ((/*enableAfterImage*/ ctx[32]
 			? 'fas fa-minus aa-red'
 			: 'fas fa-plus aa-green') + " aaCenterToggle"));
 
-			attr(div16, "class", "flexcol");
-			set_style(div16, "grid-row", "1/2");
-			set_style(div16, "grid-column", "3/4");
-			attr(div17, "class", "aa-preheader svelte-1qldtqk");
-			attr(div18, "class", "aa-preheader-section svelte-1qldtqk");
+			attr(div19, "class", "flexcol");
+			set_style(div19, "grid-row", "1/2");
+			set_style(div19, "grid-column", "3/4");
+			attr(div20, "class", "aa-preheader svelte-1qldtqk");
+			attr(div21, "class", "aa-preheader-section svelte-1qldtqk");
+			attr(div22, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			insert(target, h10, anchor);
-			insert(target, t1, anchor);
-			mount_component(chooseanimation0, target, anchor);
-			insert(target, t2, anchor);
-			insert(target, h20, anchor);
-			insert(target, t4, anchor);
-			insert(target, div5, anchor);
+			insert(target, div6, anchor);
+			append(div6, h10);
+			append(div6, t1);
+			mount_component(chooseanimation0, div6, null);
+			append(div6, t2);
+			append(div6, h20);
+			append(div6, t4);
+			append(div6, div5);
 			append(div5, div0);
 			append(div0, label0);
 			append(div0, t6);
@@ -51348,60 +51350,62 @@ function create_fragment$7(ctx) {
 			append(div4, t22);
 			append(div4, input2);
 			set_input_value(input2, /*projectileWait*/ ctx[8]);
-			insert(target, t23, anchor);
-			mount_component(soundsettings0, target, anchor);
+			append(div6, t23);
+			mount_component(soundsettings0, div6, null);
 			insert(target, t24, anchor);
-			insert(target, div9, anchor);
+			insert(target, div11, anchor);
+			append(div11, div10);
+			append(div10, div9);
+			append(div9, div7);
+			append(div9, t26);
 			append(div9, div8);
-			append(div8, div6);
-			append(div8, t26);
-			append(div8, div7);
-			append(div7, i0);
-			insert(target, t27, anchor);
-			if (if_block0) if_block0.m(target, anchor);
+			append(div8, i0);
+			append(div11, t27);
+			if (if_block0) if_block0.m(div11, null);
 			insert(target, t28, anchor);
-			insert(target, h11, anchor);
-			insert(target, t30, anchor);
-			mount_component(chooseanimation1, target, anchor);
-			insert(target, t31, anchor);
-			insert(target, h21, anchor);
-			insert(target, t33, anchor);
-			insert(target, div14, anchor);
-			append(div14, div10);
-			append(div10, label6);
-			append(div10, t35);
-			append(div10, button2);
-			append(button2, t36);
-			append(div14, t37);
-			append(div14, div11);
-			append(div11, label7);
-			append(div11, t39);
-			append(div11, input3);
-			set_input_value(input3, /*explosion02Scale*/ ctx[29]);
-			append(div14, t40);
-			append(div14, div12);
-			append(div12, label8);
-			append(div12, t42);
-			append(div12, input4);
-			set_input_value(input4, /*explosion02Repeat*/ ctx[30]);
-			append(div14, t43);
-			append(div14, div13);
-			append(div13, label9);
-			append(div13, t47);
-			append(div13, input5);
-			set_input_value(input5, /*explosion02Delay*/ ctx[31]);
-			insert(target, t48, anchor);
-			mount_component(soundsettings1, target, anchor);
-			insert(target, t49, anchor);
-			insert(target, div18, anchor);
-			append(div18, div17);
-			append(div17, div15);
-			append(div17, t51);
+			insert(target, div17, anchor);
+			append(div17, h11);
+			append(div17, t30);
+			mount_component(chooseanimation1, div17, null);
+			append(div17, t31);
+			append(div17, h21);
+			append(div17, t33);
 			append(div17, div16);
-			append(div16, i1);
-			insert(target, t52, anchor);
-			if (if_block1) if_block1.m(target, anchor);
-			insert(target, if_block1_anchor, anchor);
+			append(div16, div12);
+			append(div12, label6);
+			append(div12, t35);
+			append(div12, button2);
+			append(button2, t36);
+			append(div16, t37);
+			append(div16, div13);
+			append(div13, label7);
+			append(div13, t39);
+			append(div13, input3);
+			set_input_value(input3, /*explosion02Scale*/ ctx[29]);
+			append(div16, t40);
+			append(div16, div14);
+			append(div14, label8);
+			append(div14, t42);
+			append(div14, input4);
+			set_input_value(input4, /*explosion02Repeat*/ ctx[30]);
+			append(div16, t43);
+			append(div16, div15);
+			append(div15, label9);
+			append(div15, t47);
+			append(div15, input5);
+			set_input_value(input5, /*explosion02Delay*/ ctx[31]);
+			append(div17, t48);
+			mount_component(soundsettings1, div17, null);
+			insert(target, t49, anchor);
+			insert(target, div22, anchor);
+			append(div22, div21);
+			append(div21, div20);
+			append(div20, div18);
+			append(div20, t51);
+			append(div20, div19);
+			append(div19, i1);
+			append(div22, t52);
+			if (if_block1) if_block1.m(div22, null);
 			current = true;
 
 			if (!mounted) {
@@ -51504,7 +51508,7 @@ function create_fragment$7(ctx) {
 					if_block0 = create_if_block_1$2(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
-					if_block0.m(t28.parentNode, t28);
+					if_block0.m(div11, null);
 				}
 			} else if (if_block0) {
 				group_outros();
@@ -51592,7 +51596,7 @@ function create_fragment$7(ctx) {
 					if_block1 = create_if_block$3(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
-					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+					if_block1.m(div22, null);
 				}
 			} else if (if_block1) {
 				group_outros();
@@ -51624,34 +51628,19 @@ function create_fragment$7(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(h10);
-			if (detaching) detach(t1);
-			destroy_component(chooseanimation0, detaching);
-			if (detaching) detach(t2);
-			if (detaching) detach(h20);
-			if (detaching) detach(t4);
-			if (detaching) detach(div5);
-			if (detaching) detach(t23);
-			destroy_component(soundsettings0, detaching);
+			if (detaching) detach(div6);
+			destroy_component(chooseanimation0);
+			destroy_component(soundsettings0);
 			if (detaching) detach(t24);
-			if (detaching) detach(div9);
-			if (detaching) detach(t27);
-			if (if_block0) if_block0.d(detaching);
+			if (detaching) detach(div11);
+			if (if_block0) if_block0.d();
 			if (detaching) detach(t28);
-			if (detaching) detach(h11);
-			if (detaching) detach(t30);
-			destroy_component(chooseanimation1, detaching);
-			if (detaching) detach(t31);
-			if (detaching) detach(h21);
-			if (detaching) detach(t33);
-			if (detaching) detach(div14);
-			if (detaching) detach(t48);
-			destroy_component(soundsettings1, detaching);
+			if (detaching) detach(div17);
+			destroy_component(chooseanimation1);
+			destroy_component(soundsettings1);
 			if (detaching) detach(t49);
-			if (detaching) detach(div18);
-			if (detaching) detach(t52);
-			if (if_block1) if_block1.d(detaching);
-			if (detaching) detach(if_block1_anchor);
+			if (detaching) detach(div22);
+			if (if_block1) if_block1.d();
 			mounted = false;
 			run_all(dispose);
 		}
@@ -52271,7 +52260,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-// (62:12) {#each Object.entries(aaColorMenu.static.spell.huntersmark.eye) as [key, name]}
+// (63:12) {#each Object.entries(aaColorMenu.static.spell.huntersmark.eye) as [key, name]}
 function create_each_block$3(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[22] + "";
@@ -52297,6 +52286,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$6(ctx) {
+	let div9;
 	let h1;
 	let t1;
 	let div2;
@@ -52367,6 +52357,7 @@ function create_fragment$6(ctx) {
 
 	return {
 		c() {
+			div9 = element("div");
 			h1 = element("h1");
 			h1.textContent = "Hunter's Mark Preset";
 			t1 = space();
@@ -52496,11 +52487,13 @@ function create_fragment$6(ctx) {
 			set_style(div7, "grid-row", "1 / 2");
 			set_style(div7, "grid-column", "4 / 5");
 			attr(div8, "class", "aa-options svelte-1ftk4m2");
+			attr(div9, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			insert(target, h1, anchor);
-			insert(target, t1, anchor);
-			insert(target, div2, anchor);
+			insert(target, div9, anchor);
+			append(div9, h1);
+			append(div9, t1);
+			append(div9, div2);
 			append(div2, div0);
 			append(div0, label0);
 			append(div0, t3);
@@ -52520,10 +52513,10 @@ function create_fragment$6(ctx) {
 			}
 
 			select_option(select1, /*color*/ ctx[2]);
-			insert(target, t9, anchor);
-			insert(target, h2, anchor);
-			insert(target, t11, anchor);
-			insert(target, div8, anchor);
+			append(div9, t9);
+			append(div9, h2);
+			append(div9, t11);
+			append(div9, div8);
 			append(div8, div3);
 			append(div3, label2);
 			append(div3, t13);
@@ -52553,8 +52546,8 @@ function create_fragment$6(ctx) {
 			append(div7, t27);
 			append(div7, input2);
 			set_input_value(input2, /*anchorY*/ ctx[4]);
-			insert(target, t28, anchor);
-			mount_component(soundsettings, target, anchor);
+			append(div9, t28);
+			mount_component(soundsettings, div9, null);
 			current = true;
 
 			if (!mounted) {
@@ -52648,16 +52641,9 @@ function create_fragment$6(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(h1);
-			if (detaching) detach(t1);
-			if (detaching) detach(div2);
+			if (detaching) detach(div9);
 			destroy_each(each_blocks, detaching);
-			if (detaching) detach(t9);
-			if (detaching) detach(h2);
-			if (detaching) detach(t11);
-			if (detaching) detach(div8);
-			if (detaching) detach(t28);
-			destroy_component(soundsettings, detaching);
+			destroy_component(soundsettings);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -52809,7 +52795,7 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (84:12) {#each Object.entries(aaVariantMenu.static.spell.shieldspell) as [key, name]}
+// (85:12) {#each Object.entries(aaVariantMenu.static.spell.shieldspell) as [key, name]}
 function create_each_block_1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[31] + "";
@@ -52834,7 +52820,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (92:12) {#each Object.entries(aaColorMenu.static.spell.shieldspell[variant]) as [key, name]}
+// (93:12) {#each Object.entries(aaColorMenu.static.spell.shieldspell[variant]) as [key, name]}
 function create_each_block$2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[31] + "";
@@ -52867,6 +52853,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$5(ctx) {
+	let div10;
 	let h1;
 	let t1;
 	let div3;
@@ -52946,6 +52933,7 @@ function create_fragment$5(ctx) {
 
 	return {
 		c() {
+			div10 = element("div");
 			h1 = element("h1");
 			h1.textContent = "Shield Animation Preset";
 			t1 = space();
@@ -53085,11 +53073,13 @@ function create_fragment$5(ctx) {
 			set_style(div8, "grid-row", "2 / 3");
 			set_style(div8, "grid-column", "3 / 4");
 			attr(div9, "class", "aa-options svelte-ta9sfn");
+			attr(div10, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			insert(target, h1, anchor);
-			insert(target, t1, anchor);
-			insert(target, div3, anchor);
+			insert(target, div10, anchor);
+			append(div10, h1);
+			append(div10, t1);
+			append(div10, div3);
 			append(div3, div0);
 			append(div0, label0);
 			append(div0, t3);
@@ -53119,10 +53109,10 @@ function create_fragment$5(ctx) {
 			append(select2, option0);
 			append(select2, option1);
 			select_option(select2, /*shieldVar*/ ctx[3]);
-			insert(target, t12, anchor);
-			insert(target, h2, anchor);
-			insert(target, t14, anchor);
-			insert(target, div9, anchor);
+			append(div10, t12);
+			append(div10, h2);
+			append(div10, t14);
+			append(div10, div9);
 			append(div9, div4);
 			append(div4, label3);
 			append(div4, t16);
@@ -53152,8 +53142,8 @@ function create_fragment$5(ctx) {
 			append(div8, t32);
 			append(div8, input);
 			set_input_value(input, /*scale*/ ctx[4]);
-			insert(target, t33, anchor);
-			mount_component(soundsettings, target, anchor);
+			append(div10, t33);
+			mount_component(soundsettings, div10, null);
 			current = true;
 
 			if (!mounted) {
@@ -53254,17 +53244,10 @@ function create_fragment$5(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(h1);
-			if (detaching) detach(t1);
-			if (detaching) detach(div3);
+			if (detaching) detach(div10);
 			destroy_each(each_blocks_1, detaching);
 			destroy_each(each_blocks, detaching);
-			if (detaching) detach(t12);
-			if (detaching) detach(h2);
-			if (detaching) detach(t14);
-			if (detaching) detach(div9);
-			if (detaching) detach(t33);
-			destroy_component(soundsettings, detaching);
+			destroy_component(soundsettings);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -53446,7 +53429,7 @@ function get_each_context$1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (43:12) {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
+// (44:12) {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
 function create_each_block$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[16] + "";
@@ -53472,6 +53455,7 @@ function create_each_block$1(ctx) {
 }
 
 function create_fragment$4(ctx) {
+	let div7;
 	let h1;
 	let t1;
 	let div1;
@@ -53524,6 +53508,7 @@ function create_fragment$4(ctx) {
 
 	return {
 		c() {
+			div7 = element("div");
 			h1 = element("h1");
 			h1.textContent = "Sneak Attack Animation Preset";
 			t1 = space();
@@ -53614,11 +53599,13 @@ function create_fragment$4(ctx) {
 			set_style(div5, "grid-row", "1 / 2");
 			set_style(div5, "grid-column", "4 / 5");
 			attr(div6, "class", "aa-options svelte-ta9sfn");
+			attr(div7, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			insert(target, h1, anchor);
-			insert(target, t1, anchor);
-			insert(target, div1, anchor);
+			insert(target, div7, anchor);
+			append(div7, h1);
+			append(div7, t1);
+			append(div7, div1);
 			append(div1, div0);
 			append(div0, label0);
 			append(div0, t3);
@@ -53629,10 +53616,10 @@ function create_fragment$4(ctx) {
 			}
 
 			select_option(select, /*color*/ ctx[1]);
-			insert(target, t4, anchor);
-			insert(target, h2, anchor);
-			insert(target, t6, anchor);
-			insert(target, div6, anchor);
+			append(div7, t4);
+			append(div7, h2);
+			append(div7, t6);
+			append(div7, div6);
 			append(div6, div2);
 			append(div2, label1);
 			append(div2, t8);
@@ -53656,8 +53643,8 @@ function create_fragment$4(ctx) {
 			append(div5, t18);
 			append(div5, input2);
 			set_input_value(input2, /*anchorY*/ ctx[3]);
-			insert(target, t19, anchor);
-			mount_component(soundsettings, target, anchor);
+			append(div7, t19);
+			mount_component(soundsettings, div7, null);
 			current = true;
 
 			if (!mounted) {
@@ -53728,16 +53715,9 @@ function create_fragment$4(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(h1);
-			if (detaching) detach(t1);
-			if (detaching) detach(div1);
+			if (detaching) detach(div7);
 			destroy_each(each_blocks, detaching);
-			if (detaching) detach(t4);
-			if (detaching) detach(h2);
-			if (detaching) detach(t6);
-			if (detaching) detach(div6);
-			if (detaching) detach(t19);
-			destroy_component(soundsettings, detaching);
+			destroy_component(soundsettings);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -54072,6 +54052,7 @@ function create_if_block$2(ctx) {
 }
 
 function create_fragment$3(ctx) {
+	let div4;
 	let h10;
 	let t1;
 	let h20;
@@ -54095,8 +54076,8 @@ function create_fragment$3(ctx) {
 	let button0;
 	let t14;
 	let button0_class_value;
-	let div3_transition;
 	let t15;
+	let div8;
 	let h11;
 	let t17;
 	let chooseanimation0;
@@ -54109,27 +54090,29 @@ function create_fragment$3(ctx) {
 	let t18;
 	let h21;
 	let t20;
-	let div6;
-	let div4;
+	let div7;
+	let div5;
 	let label3;
 	let t22;
 	let button1;
 	let t23;
 	let t24;
-	let div5;
+	let div6;
 	let label4;
 	let t26;
 	let input1;
 	let t27;
-	let div10;
+	let div13;
+	let div12;
+	let div11;
 	let div9;
-	let div7;
 	let t29;
-	let div8;
+	let div10;
 	let i;
 	let i_class_value;
 	let t30;
 	let t31;
+	let div18;
 	let h12;
 	let t33;
 	let chooseanimation1;
@@ -54142,19 +54125,19 @@ function create_fragment$3(ctx) {
 	let t34;
 	let h22;
 	let t36;
+	let div17;
 	let div14;
-	let div11;
 	let label6;
 	let t38;
 	let button2;
 	let t39;
 	let t40;
-	let div12;
+	let div15;
 	let label7;
 	let t42;
 	let input2;
 	let t43;
-	let div13;
+	let div16;
 	let label8;
 	let t45;
 	let input3;
@@ -54302,6 +54285,7 @@ function create_fragment$3(ctx) {
 
 	return {
 		c() {
+			div4 = element("div");
 			h10 = element("h1");
 			h10.textContent = "Teleportation Preset";
 			t1 = space();
@@ -54332,6 +54316,7 @@ function create_fragment$3(ctx) {
 			button0 = element("button");
 			t14 = text(/*isHidden*/ ctx[28]);
 			t15 = space();
+			div8 = element("div");
 			h11 = element("h1");
 			h11.textContent = "Start Animation";
 			t17 = space();
@@ -54340,30 +54325,32 @@ function create_fragment$3(ctx) {
 			h21 = element("h2");
 			h21.textContent = "Options";
 			t20 = space();
-			div6 = element("div");
-			div4 = element("div");
+			div7 = element("div");
+			div5 = element("div");
 			label3 = element("label");
 			label3.textContent = "Z-Index";
 			t22 = space();
 			button1 = element("button");
 			t23 = text(/*startAboveBelow*/ ctx[31]);
 			t24 = space();
-			div5 = element("div");
+			div6 = element("div");
 			label4 = element("label");
 			label4.textContent = "Scale";
 			t26 = space();
 			input1 = element("input");
 			t27 = space();
-			div10 = element("div");
+			div13 = element("div");
+			div12 = element("div");
+			div11 = element("div");
 			div9 = element("div");
-			div7 = element("div");
-			div7.innerHTML = `<label for="">Between Animation</label>`;
+			div9.innerHTML = `<label for="">Between Animation</label>`;
 			t29 = space();
-			div8 = element("div");
+			div10 = element("div");
 			i = element("i");
 			t30 = space();
 			if (if_block) if_block.c();
 			t31 = space();
+			div18 = element("div");
 			h12 = element("h1");
 			h12.textContent = "End Animation";
 			t33 = space();
@@ -54372,21 +54359,21 @@ function create_fragment$3(ctx) {
 			h22 = element("h2");
 			h22.textContent = "Options";
 			t36 = space();
+			div17 = element("div");
 			div14 = element("div");
-			div11 = element("div");
 			label6 = element("label");
 			label6.textContent = "Z-Index";
 			t38 = space();
 			button2 = element("button");
 			t39 = text(/*endAboveBelow*/ ctx[30]);
 			t40 = space();
-			div12 = element("div");
+			div15 = element("div");
 			label7 = element("label");
 			label7.textContent = "Scale";
 			t42 = space();
 			input2 = element("input");
 			t43 = space();
-			div13 = element("div");
+			div16 = element("div");
 			label8 = element("label");
 			label8.textContent = "Delay Token Alpha";
 			t45 = space();
@@ -54424,70 +54411,75 @@ function create_fragment$3(ctx) {
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "3 / 4");
 			attr(div3, "class", "aa-3wide svelte-nvwkr7");
+			attr(div4, "class", "aaMenu-section");
 			set_style(h11, "margin-top", "10px");
 			attr(h11, "class", "svelte-nvwkr7");
 			attr(h21, "class", "svelte-nvwkr7");
 			attr(label3, "for", "");
 			attr(label3, "class", "svelte-nvwkr7");
 			attr(button1, "class", "oldCheck svelte-nvwkr7");
-			attr(div4, "class", "flexcol");
-			set_style(div4, "grid-row", "1 / 2");
-			set_style(div4, "grid-column", "2 / 3");
+			attr(div5, "class", "flexcol");
+			set_style(div5, "grid-row", "1 / 2");
+			set_style(div5, "grid-column", "2 / 3");
 			attr(label4, "for", "");
 			attr(label4, "class", "svelte-nvwkr7");
 			attr(input1, "type", "Number");
 			attr(input1, "step", "0.01");
 			attr(input1, "class", "svelte-nvwkr7");
-			attr(div5, "class", "flexcol");
-			set_style(div5, "grid-row", "1 / 2");
-			set_style(div5, "grid-column", "3 / 4");
-			attr(div6, "class", "aa-options svelte-nvwkr7");
-			attr(div7, "class", "flexcol");
-			set_style(div7, "grid-row", "1/2");
-			set_style(div7, "grid-column", "3/4");
+			attr(div6, "class", "flexcol");
+			set_style(div6, "grid-row", "1 / 2");
+			set_style(div6, "grid-column", "3 / 4");
+			attr(div7, "class", "aa-options svelte-nvwkr7");
+			attr(div8, "class", "aaMenu-section");
+			attr(div9, "class", "flexcol");
+			set_style(div9, "grid-row", "1/2");
+			set_style(div9, "grid-column", "3/4");
 
 			attr(i, "class", i_class_value = "" + ((/*enableBetween*/ ctx[27]
 			? 'fas fa-minus aa-red'
 			: 'fas fa-plus aa-green') + " aaCenterToggle"));
 
-			attr(div8, "class", "flexcol");
-			set_style(div8, "grid-row", "1/2");
-			set_style(div8, "grid-column", "5/6");
-			attr(div9, "class", "aa-header");
-			attr(div10, "class", "aa-header-section");
+			attr(div10, "class", "flexcol");
+			set_style(div10, "grid-row", "1/2");
+			set_style(div10, "grid-column", "5/6");
+			attr(div11, "class", "aa-header");
+			attr(div12, "class", "aa-header-section");
+			attr(div13, "class", "aaMenu-section");
 			set_style(h12, "margin-top", "10px");
 			attr(h12, "class", "svelte-nvwkr7");
 			attr(h22, "class", "svelte-nvwkr7");
 			attr(label6, "for", "");
 			attr(label6, "class", "svelte-nvwkr7");
 			attr(button2, "class", "oldCheck svelte-nvwkr7");
-			attr(div11, "class", "flexcol");
-			set_style(div11, "grid-row", "1 / 2");
-			set_style(div11, "grid-column", "2 / 3");
+			attr(div14, "class", "flexcol");
+			set_style(div14, "grid-row", "1 / 2");
+			set_style(div14, "grid-column", "2 / 3");
 			attr(label7, "for", "");
 			attr(label7, "class", "svelte-nvwkr7");
 			attr(input2, "type", "Number");
 			attr(input2, "step", "0.01");
 			attr(input2, "class", "svelte-nvwkr7");
-			attr(div12, "class", "flexcol");
-			set_style(div12, "grid-row", "1 / 2");
-			set_style(div12, "grid-column", "3 / 4");
+			attr(div15, "class", "flexcol");
+			set_style(div15, "grid-row", "1 / 2");
+			set_style(div15, "grid-column", "3 / 4");
 			attr(label8, "for", "");
 			attr(label8, "class", "svelte-nvwkr7");
 			attr(input3, "type", "Number");
 			attr(input3, "step", "0.01");
 			attr(input3, "class", "svelte-nvwkr7");
-			attr(div13, "class", "flexcol");
-			set_style(div13, "grid-row", "1 / 2");
-			set_style(div13, "grid-column", "4 / 5");
-			attr(div14, "class", "aa-options svelte-nvwkr7");
+			attr(div16, "class", "flexcol");
+			set_style(div16, "grid-row", "1 / 2");
+			set_style(div16, "grid-column", "4 / 5");
+			attr(div17, "class", "aa-options svelte-nvwkr7");
+			attr(div18, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			insert(target, h10, anchor);
-			insert(target, t1, anchor);
-			insert(target, h20, anchor);
-			insert(target, t3, anchor);
-			insert(target, div3, anchor);
+			insert(target, div4, anchor);
+			append(div4, h10);
+			append(div4, t1);
+			append(div4, h20);
+			append(div4, t3);
+			append(div4, div3);
 			append(div3, div0);
 			append(div0, label0);
 			append(div0, t5);
@@ -54508,60 +54500,63 @@ function create_fragment$3(ctx) {
 			append(div2, button0);
 			append(button0, t14);
 			insert(target, t15, anchor);
-			insert(target, h11, anchor);
-			insert(target, t17, anchor);
-			mount_component(chooseanimation0, target, anchor);
-			insert(target, t18, anchor);
-			insert(target, h21, anchor);
-			insert(target, t20, anchor);
-			insert(target, div6, anchor);
-			append(div6, div4);
-			append(div4, label3);
-			append(div4, t22);
-			append(div4, button1);
+			insert(target, div8, anchor);
+			append(div8, h11);
+			append(div8, t17);
+			mount_component(chooseanimation0, div8, null);
+			append(div8, t18);
+			append(div8, h21);
+			append(div8, t20);
+			append(div8, div7);
+			append(div7, div5);
+			append(div5, label3);
+			append(div5, t22);
+			append(div5, button1);
 			append(button1, t23);
-			append(div6, t24);
-			append(div6, div5);
-			append(div5, label4);
-			append(div5, t26);
-			append(div5, input1);
+			append(div7, t24);
+			append(div7, div6);
+			append(div6, label4);
+			append(div6, t26);
+			append(div6, input1);
 			set_input_value(input1, /*startScale*/ ctx[11]);
 			insert(target, t27, anchor);
-			insert(target, div10, anchor);
-			append(div10, div9);
-			append(div9, div7);
-			append(div9, t29);
-			append(div9, div8);
-			append(div8, i);
-			insert(target, t30, anchor);
-			if (if_block) if_block.m(target, anchor);
+			insert(target, div13, anchor);
+			append(div13, div12);
+			append(div12, div11);
+			append(div11, div9);
+			append(div11, t29);
+			append(div11, div10);
+			append(div10, i);
+			append(div13, t30);
+			if (if_block) if_block.m(div13, null);
 			insert(target, t31, anchor);
-			insert(target, h12, anchor);
-			insert(target, t33, anchor);
-			mount_component(chooseanimation1, target, anchor);
-			insert(target, t34, anchor);
-			insert(target, h22, anchor);
-			insert(target, t36, anchor);
-			insert(target, div14, anchor);
-			append(div14, div11);
-			append(div11, label6);
-			append(div11, t38);
-			append(div11, button2);
+			insert(target, div18, anchor);
+			append(div18, h12);
+			append(div18, t33);
+			mount_component(chooseanimation1, div18, null);
+			append(div18, t34);
+			append(div18, h22);
+			append(div18, t36);
+			append(div18, div17);
+			append(div17, div14);
+			append(div14, label6);
+			append(div14, t38);
+			append(div14, button2);
 			append(button2, t39);
-			append(div14, t40);
-			append(div14, div12);
-			append(div12, label7);
-			append(div12, t42);
-			append(div12, input2);
+			append(div17, t40);
+			append(div17, div15);
+			append(div15, label7);
+			append(div15, t42);
+			append(div15, input2);
 			set_input_value(input2, /*endScale*/ ctx[18]);
-			append(div14, t43);
-			append(div14, div13);
-			append(div13, label8);
-			append(div13, t45);
-			append(div13, input3);
+			append(div17, t43);
+			append(div17, div16);
+			append(div16, label8);
+			append(div16, t45);
+			append(div16, input3);
 			set_input_value(input3, /*delayAlpha*/ ctx[19]);
-			insert(target, t46, anchor);
-			mount_component(soundsettings, target, anchor);
+			append(div18, t46);
+			mount_component(soundsettings, div18, null);
 			current = true;
 
 			if (!mounted) {
@@ -54659,7 +54654,7 @@ function create_fragment$3(ctx) {
 					if_block = create_if_block$2(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
-					if_block.m(t31.parentNode, t31);
+					if_block.m(div13, null);
 				}
 			} else if (if_block) {
 				group_outros();
@@ -54728,12 +54723,6 @@ function create_fragment$3(ctx) {
 		},
 		i(local) {
 			if (current) return;
-
-			add_render_callback(() => {
-				if (!div3_transition) div3_transition = create_bidirectional_transition(div3, fade, {}, true);
-				div3_transition.run(1);
-			});
-
 			transition_in(chooseanimation0.$$.fragment, local);
 			transition_in(if_block);
 			transition_in(chooseanimation1.$$.fragment, local);
@@ -54741,8 +54730,6 @@ function create_fragment$3(ctx) {
 			current = true;
 		},
 		o(local) {
-			if (!div3_transition) div3_transition = create_bidirectional_transition(div3, fade, {}, false);
-			div3_transition.run(0);
 			transition_out(chooseanimation0.$$.fragment, local);
 			transition_out(if_block);
 			transition_out(chooseanimation1.$$.fragment, local);
@@ -54750,34 +54737,17 @@ function create_fragment$3(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(h10);
-			if (detaching) detach(t1);
-			if (detaching) detach(h20);
-			if (detaching) detach(t3);
-			if (detaching) detach(div3);
-			if (detaching && div3_transition) div3_transition.end();
+			if (detaching) detach(div4);
 			if (detaching) detach(t15);
-			if (detaching) detach(h11);
-			if (detaching) detach(t17);
-			destroy_component(chooseanimation0, detaching);
-			if (detaching) detach(t18);
-			if (detaching) detach(h21);
-			if (detaching) detach(t20);
-			if (detaching) detach(div6);
+			if (detaching) detach(div8);
+			destroy_component(chooseanimation0);
 			if (detaching) detach(t27);
-			if (detaching) detach(div10);
-			if (detaching) detach(t30);
-			if (if_block) if_block.d(detaching);
+			if (detaching) detach(div13);
+			if (if_block) if_block.d();
 			if (detaching) detach(t31);
-			if (detaching) detach(h12);
-			if (detaching) detach(t33);
-			destroy_component(chooseanimation1, detaching);
-			if (detaching) detach(t34);
-			if (detaching) detach(h22);
-			if (detaching) detach(t36);
-			if (detaching) detach(div14);
-			if (detaching) detach(t46);
-			destroy_component(soundsettings, detaching);
+			if (detaching) detach(div18);
+			destroy_component(chooseanimation1);
+			destroy_component(soundsettings);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -55225,7 +55195,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (60:12) {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
+// (61:12) {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
 function create_each_block(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[26] + "";
@@ -55251,6 +55221,7 @@ function create_each_block(ctx) {
 }
 
 function create_fragment$2(ctx) {
+	let div11;
 	let h1;
 	let t1;
 	let div1;
@@ -55302,8 +55273,6 @@ function create_fragment$2(ctx) {
 	let input4;
 	let t33;
 	let input5;
-	let div9_intro;
-	let div9_outro;
 	let t34;
 	let soundsettings;
 	let current;
@@ -55325,6 +55294,7 @@ function create_fragment$2(ctx) {
 
 	return {
 		c() {
+			div11 = element("div");
 			h1 = element("h1");
 			h1.textContent = "Thunderwave 5e Preset";
 			t1 = space();
@@ -55468,11 +55438,13 @@ function create_fragment$2(ctx) {
 			set_style(div9, "grid-row", "2 / 3");
 			set_style(div9, "grid-column", "3 / 4");
 			attr(div10, "class", "aa-options svelte-w93w0q");
+			attr(div11, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			insert(target, h1, anchor);
-			insert(target, t1, anchor);
-			insert(target, div1, anchor);
+			insert(target, div11, anchor);
+			append(div11, h1);
+			append(div11, t1);
+			append(div11, div1);
 			append(div1, div0);
 			append(div0, label0);
 			append(div0, t3);
@@ -55483,10 +55455,10 @@ function create_fragment$2(ctx) {
 			}
 
 			select_option(select, /*color*/ ctx[1]);
-			insert(target, t4, anchor);
-			insert(target, h2, anchor);
-			insert(target, t6, anchor);
-			insert(target, div10, anchor);
+			append(div11, t4);
+			append(div11, h2);
+			append(div11, t6);
+			append(div11, div10);
 			append(div10, div2);
 			append(div2, label1);
 			append(div2, t8);
@@ -55532,8 +55504,8 @@ function create_fragment$2(ctx) {
 			append(div8, t33);
 			append(div8, input5);
 			set_input_value(input5, /*opacity*/ ctx[4]);
-			insert(target, t34, anchor);
-			mount_component(soundsettings, target, anchor);
+			append(div11, t34);
+			mount_component(soundsettings, div11, null);
 			current = true;
 
 			if (!mounted) {
@@ -55618,34 +55590,17 @@ function create_fragment$2(ctx) {
 		},
 		i(local) {
 			if (current) return;
-
-			add_render_callback(() => {
-				if (div9_outro) div9_outro.end(1);
-				div9_intro = create_in_transition(div9, fade, { duration: 500 });
-				div9_intro.start();
-			});
-
 			transition_in(soundsettings.$$.fragment, local);
 			current = true;
 		},
 		o(local) {
-			if (div9_intro) div9_intro.invalidate();
-			div9_outro = create_out_transition(div9, fade, { duration: 500 });
 			transition_out(soundsettings.$$.fragment, local);
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(h1);
-			if (detaching) detach(t1);
-			if (detaching) detach(div1);
+			if (detaching) detach(div11);
 			destroy_each(each_blocks, detaching);
-			if (detaching) detach(t4);
-			if (detaching) detach(h2);
-			if (detaching) detach(t6);
-			if (detaching) detach(div10);
-			if (detaching && div9_outro) div9_outro.end();
-			if (detaching) detach(t34);
-			destroy_component(soundsettings, detaching);
+			destroy_component(soundsettings);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -55812,7 +55767,9 @@ class Thunderwave extends SvelteComponent {
 /* src\formApps\ItemMenu\components\presetShell.svelte generated by Svelte v3.47.0 */
 
 function create_if_block_8$1(ctx) {
+	let div;
 	let bards;
+	let div_transition;
 	let current;
 
 	bards = new BardicInspiration({
@@ -55824,10 +55781,12 @@ function create_if_block_8$1(ctx) {
 
 	return {
 		c() {
+			div = element("div");
 			create_component(bards.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(bards, target, anchor);
+			insert(target, div, anchor);
+			mount_component(bards, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -55839,30 +55798,44 @@ function create_if_block_8$1(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(bards.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
 			current = true;
 		},
 		o(local) {
 			transition_out(bards.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(bards, detaching);
+			if (detaching) detach(div);
+			destroy_component(bards);
+			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
 
-// (26:0) {#if presetType === "bless"}
+// (27:0) {#if presetType === "bless"}
 function create_if_block_7$1(ctx) {
+	let div;
 	let bless;
+	let div_transition;
 	let current;
 	bless = new Bless({ props: { flagData: /*flagData*/ ctx[0] } });
 
 	return {
 		c() {
+			div = element("div");
 			create_component(bless.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(bless, target, anchor);
+			insert(target, div, anchor);
+			mount_component(bless, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -55873,21 +55846,33 @@ function create_if_block_7$1(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(bless.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
 			current = true;
 		},
 		o(local) {
 			transition_out(bless.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(bless, detaching);
+			if (detaching) detach(div);
+			destroy_component(bless);
+			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
 
-// (29:0) {#if presetType === "dualattach"}
+// (32:0) {#if presetType === "dualattach"}
 function create_if_block_6$1(ctx) {
+	let div;
 	let dualattach;
+	let div_transition;
 	let current;
 
 	dualattach = new Dualattach({
@@ -55899,10 +55884,12 @@ function create_if_block_6$1(ctx) {
 
 	return {
 		c() {
+			div = element("div");
 			create_component(dualattach.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(dualattach, target, anchor);
+			insert(target, div, anchor);
+			mount_component(dualattach, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -55914,21 +55901,33 @@ function create_if_block_6$1(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(dualattach.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
 			current = true;
 		},
 		o(local) {
 			transition_out(dualattach.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(dualattach, detaching);
+			if (detaching) detach(div);
+			destroy_component(dualattach);
+			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
 
-// (32:0) {#if presetType === "fireball"}
+// (37:0) {#if presetType === "fireball"}
 function create_if_block_5$1(ctx) {
+	let div;
 	let fireball;
+	let div_transition;
 	let current;
 
 	fireball = new Fireball({
@@ -55940,10 +55939,12 @@ function create_if_block_5$1(ctx) {
 
 	return {
 		c() {
+			div = element("div");
 			create_component(fireball.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(fireball, target, anchor);
+			insert(target, div, anchor);
+			mount_component(fireball, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -55955,21 +55956,33 @@ function create_if_block_5$1(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(fireball.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
 			current = true;
 		},
 		o(local) {
 			transition_out(fireball.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(fireball, detaching);
+			if (detaching) detach(div);
+			destroy_component(fireball);
+			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
 
-// (35:0) {#if presetType === "huntersmark"}
+// (42:0) {#if presetType === "huntersmark"}
 function create_if_block_4$1(ctx) {
+	let div;
 	let huntersmark;
+	let div_transition;
 	let current;
 
 	huntersmark = new Huntersmark({
@@ -55981,10 +55994,12 @@ function create_if_block_4$1(ctx) {
 
 	return {
 		c() {
+			div = element("div");
 			create_component(huntersmark.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(huntersmark, target, anchor);
+			insert(target, div, anchor);
+			mount_component(huntersmark, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -55996,21 +56011,33 @@ function create_if_block_4$1(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(huntersmark.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
 			current = true;
 		},
 		o(local) {
 			transition_out(huntersmark.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(huntersmark, detaching);
+			if (detaching) detach(div);
+			destroy_component(huntersmark);
+			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
 
-// (38:0) {#if presetType === "shieldspell"}
+// (47:0) {#if presetType === "shieldspell"}
 function create_if_block_3$1(ctx) {
+	let div;
 	let shield;
+	let div_transition;
 	let current;
 
 	shield = new Shield({
@@ -56022,10 +56049,12 @@ function create_if_block_3$1(ctx) {
 
 	return {
 		c() {
+			div = element("div");
 			create_component(shield.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(shield, target, anchor);
+			insert(target, div, anchor);
+			mount_component(shield, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -56037,21 +56066,33 @@ function create_if_block_3$1(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(shield.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
 			current = true;
 		},
 		o(local) {
 			transition_out(shield.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(shield, detaching);
+			if (detaching) detach(div);
+			destroy_component(shield);
+			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
 
-// (41:0) {#if presetType === "sneakattack"}
+// (52:0) {#if presetType === "sneakattack"}
 function create_if_block_2$1(ctx) {
+	let div;
 	let sneakattack;
+	let div_transition;
 	let current;
 
 	sneakattack = new SneakAttack({
@@ -56063,10 +56104,12 @@ function create_if_block_2$1(ctx) {
 
 	return {
 		c() {
+			div = element("div");
 			create_component(sneakattack.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(sneakattack, target, anchor);
+			insert(target, div, anchor);
+			mount_component(sneakattack, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -56078,21 +56121,33 @@ function create_if_block_2$1(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(sneakattack.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
 			current = true;
 		},
 		o(local) {
 			transition_out(sneakattack.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(sneakattack, detaching);
+			if (detaching) detach(div);
+			destroy_component(sneakattack);
+			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
 
-// (44:0) {#if presetType === "teleportation"}
+// (57:0) {#if presetType === "teleportation"}
 function create_if_block_1$1(ctx) {
+	let div;
 	let teleportation;
+	let div_transition;
 	let current;
 
 	teleportation = new Teleportation({
@@ -56104,10 +56159,12 @@ function create_if_block_1$1(ctx) {
 
 	return {
 		c() {
+			div = element("div");
 			create_component(teleportation.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(teleportation, target, anchor);
+			insert(target, div, anchor);
+			mount_component(teleportation, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -56119,21 +56176,33 @@ function create_if_block_1$1(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(teleportation.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
 			current = true;
 		},
 		o(local) {
 			transition_out(teleportation.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(teleportation, detaching);
+			if (detaching) detach(div);
+			destroy_component(teleportation);
+			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
 
-// (47:0) {#if presetType === "thunderwave"}
+// (62:0) {#if presetType === "thunderwave"}
 function create_if_block$1(ctx) {
+	let div;
 	let thunderwave;
+	let div_transition;
 	let current;
 
 	thunderwave = new Thunderwave({
@@ -56145,10 +56214,12 @@ function create_if_block$1(ctx) {
 
 	return {
 		c() {
+			div = element("div");
 			create_component(thunderwave.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(thunderwave, target, anchor);
+			insert(target, div, anchor);
+			mount_component(thunderwave, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -56160,14 +56231,24 @@ function create_if_block$1(ctx) {
 		i(local) {
 			if (current) return;
 			transition_in(thunderwave.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
 			current = true;
 		},
 		o(local) {
 			transition_out(thunderwave.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(thunderwave, detaching);
+			if (detaching) detach(div);
+			destroy_component(thunderwave);
+			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
@@ -56576,8 +56657,8 @@ function create_if_block_4(ctx) {
 			if (if_block2) if_block2.c();
 			t3 = space();
 			if (if_block3) if_block3.c();
-			attr(div0, "class", "aaMenu-section svelte-7n0yf9");
-			attr(div1, "class", "aaMidSection svelte-7n0yf9");
+			attr(div0, "class", "aaMenu-section");
+			attr(div1, "class", "aaMidSection svelte-nf15iz");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -56801,7 +56882,7 @@ function create_if_block_11(ctx) {
 			t10 = space();
 			if (if_block) if_block.c();
 			attr(label, "for", "1");
-			attr(label, "class", "svelte-7n0yf9");
+			attr(label, "class", "svelte-nf15iz");
 			option0.__value = "melee";
 			option0.value = option0.__value;
 			option1.__value = "range";
@@ -56817,12 +56898,12 @@ function create_if_block_11(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-7n0yf9");
+			attr(select, "class", "svelte-nf15iz");
 			if (/*animType*/ ctx[7] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[35].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-pickAnim svelte-7n0yf9");
+			attr(div1, "class", "aa-pickAnim svelte-nf15iz");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -56954,7 +57035,7 @@ function create_if_block_12(ctx) {
 			option8 = element("option");
 			option8.textContent = `${localize("autoanimations.presetTypes.thunderwave")} D&D 5e`;
 			attr(label, "for", "1");
-			attr(label, "class", "svelte-7n0yf9");
+			attr(label, "class", "svelte-nf15iz");
 			option0.__value = "bardicinspiration";
 			option0.value = option0.__value;
 			option1.__value = "bless";
@@ -56976,7 +57057,7 @@ function create_if_block_12(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-7n0yf9");
+			attr(select, "class", "svelte-nf15iz");
 			if (/*presetType*/ ctx[8] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[37].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "2 / 3");
@@ -57045,7 +57126,7 @@ function create_if_block_10(ctx) {
 		c() {
 			div = element("div");
 			create_component(macrofield.$$.fragment);
-			attr(div, "class", "aaMenu-section svelte-7n0yf9");
+			attr(div, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -57100,7 +57181,7 @@ function create_if_block_9(ctx) {
 		c() {
 			div = element("div");
 			create_component(soundsettings.$$.fragment);
-			attr(div, "class", "aaMenu-section svelte-7n0yf9");
+			attr(div, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -57139,7 +57220,6 @@ function create_if_block_9(ctx) {
 
 // (329:16) {#if !animationDisabled && isCustomized}
 function create_if_block_5(ctx) {
-	let div;
 	let current_block_type_index;
 	let if_block0;
 	let t0;
@@ -57161,18 +57241,15 @@ function create_if_block_5(ctx) {
 
 	return {
 		c() {
-			div = element("div");
 			if_block0.c();
 			t0 = space();
 			if (if_block1) if_block1.c();
 			t1 = space();
 			if (if_block2) if_block2.c();
 			if_block2_anchor = empty();
-			attr(div, "class", "aaMenu-section svelte-7n0yf9");
 		},
 		m(target, anchor) {
-			insert(target, div, anchor);
-			if_blocks[current_block_type_index].m(div, null);
+			if_blocks[current_block_type_index].m(target, anchor);
 			insert(target, t0, anchor);
 			if (if_block1) if_block1.m(target, anchor);
 			insert(target, t1, anchor);
@@ -57204,7 +57281,7 @@ function create_if_block_5(ctx) {
 				}
 
 				transition_in(if_block0, 1);
-				if_block0.m(div, null);
+				if_block0.m(t0.parentNode, t0);
 			}
 
 			if (/*animType*/ ctx[7] === "melee") {
@@ -57267,8 +57344,7 @@ function create_if_block_5(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(div);
-			if_blocks[current_block_type_index].d();
+			if_blocks[current_block_type_index].d(detaching);
 			if (detaching) detach(t0);
 			if (if_block1) if_block1.d(detaching);
 			if (detaching) detach(t1);
@@ -57278,8 +57354,9 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (333:24) {:else}
+// (332:24) {:else}
 function create_else_block(ctx) {
+	let div;
 	let primarysection;
 	let current;
 
@@ -57293,10 +57370,13 @@ function create_else_block(ctx) {
 
 	return {
 		c() {
+			div = element("div");
 			create_component(primarysection.$$.fragment);
+			attr(div, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
-			mount_component(primarysection, target, anchor);
+			insert(target, div, anchor);
+			mount_component(primarysection, div, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -57316,12 +57396,13 @@ function create_else_block(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(primarysection, detaching);
+			if (detaching) detach(div);
+			destroy_component(primarysection);
 		}
 	};
 }
 
-// (331:24) {#if animType === "preset"}
+// (330:24) {#if animType === "preset"}
 function create_if_block_8(ctx) {
 	let presetmenu;
 	let current;
@@ -57375,7 +57456,7 @@ function create_if_block_7(ctx) {
 		c() {
 			div = element("div");
 			create_component(rangeswitch.$$.fragment);
-			attr(div, "class", "aaMenu-section svelte-7n0yf9");
+			attr(div, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -57414,7 +57495,7 @@ function create_if_block_6(ctx) {
 		c() {
 			div = element("div");
 			create_component(explosionsettings.$$.fragment);
-			attr(div, "class", "aaMenu-section svelte-7n0yf9");
+			attr(div, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -57499,7 +57580,7 @@ function create_if_block_1(ctx) {
 			if (if_block0) if_block0.c();
 			t2 = space();
 			div1 = element("div");
-			div1.innerHTML = `<label for="" class="selected svelte-7n0yf9" style="border: 2px outset #dddddd">Primary</label>`;
+			div1.innerHTML = `<label for="" class="selected svelte-nf15iz" style="border: 2px outset #dddddd">Primary</label>`;
 			t4 = space();
 			if (if_block1) if_block1.c();
 			t5 = space();
@@ -57509,7 +57590,7 @@ function create_if_block_1(ctx) {
 			t7 = space();
 			div4 = element("div");
 
-			div4.innerHTML = `<label for="" style="align-self:center" class="svelte-7n0yf9">Requires use of a Primary Animation, either
+			div4.innerHTML = `<label for="" style="align-self:center" class="svelte-nf15iz">Requires use of a Primary Animation, either
                             Customized or Autorec</label>`;
 
 			t9 = space();
@@ -57519,7 +57600,7 @@ function create_if_block_1(ctx) {
 			div7 = element("div");
 			create_component(extrafx1.$$.fragment);
 			attr(label0, "for", "");
-			attr(label0, "class", label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[5] ? "selected" : "notSelected") + " svelte-7n0yf9"));
+			attr(label0, "class", label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[5] ? "selected" : "notSelected") + " svelte-nf15iz"));
 			set_style(label0, "border", "2px outset #dddddd");
 			attr(div0, "class", "flexcol aa-button-labels");
 			set_style(div0, "grid-row", "1 / 2");
@@ -57528,19 +57609,19 @@ function create_if_block_1(ctx) {
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 4");
 			attr(label2, "for", "");
-			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[6] ? "selected" : "notSelected") + " svelte-7n0yf9"));
+			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[6] ? "selected" : "notSelected") + " svelte-nf15iz"));
 			set_style(label2, "border", "2px outset #dddddd");
 			attr(div2, "class", "flexcol aa-button-labels");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "5 / 6");
-			attr(div3, "class", "aa-5wide svelte-7n0yf9");
-			attr(div4, "class", "flexcol aa-extraFX-hint svelte-7n0yf9");
+			attr(div3, "class", "aa-5wide svelte-nf15iz");
+			attr(div4, "class", "flexcol aa-extraFX-hint svelte-nf15iz");
 			set_style(div4, "grid-row", "2/3");
 			set_style(div4, "grid-column", "1/6");
-			attr(div5, "class", "aaMenu-section svelte-7n0yf9");
-			attr(div6, "class", "aaMenu-section svelte-7n0yf9");
-			attr(div7, "class", "aaMenu-section svelte-7n0yf9");
-			attr(div8, "class", "aaMidSection svelte-7n0yf9");
+			attr(div5, "class", "aaMenu-section");
+			attr(div6, "class", "aaMenu-section");
+			attr(div7, "class", "aaMenu-section");
+			attr(div8, "class", "aaMidSection svelte-nf15iz");
 		},
 		m(target, anchor) {
 			insert(target, div8, anchor);
@@ -57570,7 +57651,7 @@ function create_if_block_1(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if (!current || dirty[0] & /*enableSource*/ 32 && label0_class_value !== (label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[5] ? "selected" : "notSelected") + " svelte-7n0yf9"))) {
+			if (!current || dirty[0] & /*enableSource*/ 32 && label0_class_value !== (label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[5] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
 				attr(label0, "class", label0_class_value);
 			}
 
@@ -57616,7 +57697,7 @@ function create_if_block_1(ctx) {
 				check_outros();
 			}
 
-			if (!current || dirty[0] & /*enableTarget*/ 64 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[6] ? "selected" : "notSelected") + " svelte-7n0yf9"))) {
+			if (!current || dirty[0] & /*enableTarget*/ 64 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[6] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
 				attr(label2, "class", label2_class_value);
 			}
 
@@ -57765,8 +57846,8 @@ function create_if_block(ctx) {
 			div1 = element("div");
 			div0 = element("div");
 			create_component(menu3d.$$.fragment);
-			attr(div0, "class", "aaMenu-section svelte-7n0yf9");
-			attr(div1, "class", "aaMidSection svelte-7n0yf9");
+			attr(div0, "class", "aaMenu-section");
+			attr(div1, "class", "aaMidSection svelte-nf15iz");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -57897,34 +57978,34 @@ function create_default_slot(ctx) {
 			button4 = element("button");
 			button4.textContent = "Close and Submit";
 			attr(i0, "class", "fas fa-bomb");
-			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-7n0yf9"));
+			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-nf15iz"));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(i1, "class", "fas fa-user-plus");
-			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-7n0yf9"));
+			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-nf15iz"));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(i2, "class", "fas fa-vr-cardboard");
-			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-7n0yf9"));
+			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-nf15iz"));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "3 / 4");
-			attr(div3, "class", "aa-tabs svelte-7n0yf9");
-			attr(div4, "class", "aaTopSection svelte-7n0yf9");
+			attr(div3, "class", "aa-tabs svelte-nf15iz");
+			attr(div4, "class", "aaTopSection svelte-nf15iz");
 			set_style(div4, "margin-top", "5px");
-			attr(button3, "class", "footer-button svelte-7n0yf9");
+			attr(button3, "class", "footer-button svelte-nf15iz");
 			attr(button3, "type", "submit");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1/2");
 			set_style(div5, "grid-column", "1/2");
-			attr(button4, "class", "footer-button svelte-7n0yf9");
+			attr(button4, "class", "footer-button svelte-nf15iz");
 			attr(div6, "class", "flexcol");
 			set_style(div6, "grid-row", "1/2");
 			set_style(div6, "grid-column", "2/3");
-			attr(div7, "class", "aa-submit svelte-7n0yf9");
-			attr(div8, "class", "aaBottomSection svelte-7n0yf9");
+			attr(div7, "class", "aa-submit svelte-nf15iz");
+			attr(div8, "class", "aaBottomSection svelte-nf15iz");
 			set_style(div8, "margin-bottom", "5px");
 			attr(form_1, "autocomplete", "off");
 			attr(form_1, "id", "item-menu-aa");
@@ -57985,15 +58066,15 @@ function create_default_slot(ctx) {
 			}
 		},
 		p(ctx, dirty) {
-			if (!current || dirty[0] & /*focusPrimary*/ 16384 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-7n0yf9"))) {
+			if (!current || dirty[0] & /*focusPrimary*/ 16384 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
 				attr(button0, "class", button0_class_value);
 			}
 
-			if (!current || dirty[0] & /*focusExtra*/ 8192 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-7n0yf9"))) {
+			if (!current || dirty[0] & /*focusExtra*/ 8192 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
 				attr(button1, "class", button1_class_value);
 			}
 
-			if (!current || dirty[0] & /*focus3d*/ 4096 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-7n0yf9"))) {
+			if (!current || dirty[0] & /*focus3d*/ 4096 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
 				attr(button2, "class", button2_class_value);
 			}
 
@@ -59142,7 +59223,9 @@ class AAItemMenu extends SvelteApplication {
       title: 'Launch Autorec',
       label: "Autorec Menu",
       styles: {
-        color: 'lightblue'
+        color: 'lightblue',
+        position: "relative",
+        right: "30px"
       },
       onclick: function () {
         if (game.user.isGM) {

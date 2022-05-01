@@ -152,6 +152,7 @@
 
 </script>
 
+<div class="aaMenu-section">
 <h1 style="margin-top:10px;">Projectile Animation</h1>
 <ChooseAnimation
     bind:menuType={projectileMenuType}
@@ -196,7 +197,8 @@
     </div>    
 </div>
 <SoundSettings audioPath="a01" {flagData} />
-
+</div>
+<div class="aaMenu-section">
 <div class="aa-preheader-section">
     <div class="aa-preheader">
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
@@ -256,7 +258,8 @@
 </div>
 <SoundSettings audioPath="e01" {flagData} />
 {/if}
-
+</div>
+<div class="aaMenu-section">
 <h1 style="margin-top:10px;">Primary Explosion Animation</h1>
 <ChooseAnimation
     bind:menuType={explosion02MenuType}
@@ -295,7 +298,8 @@
     </div>
 </div>
 <SoundSettings audioPath="e02" {flagData} />
-
+</div>
+<div class="aaMenu-section">
 <div class="aa-preheader-section">
     <div class="aa-preheader">
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
@@ -357,7 +361,7 @@
     </div>    
 </div>
 {/if}
-
+</div>
 
 <style lang='scss'>
     h1 {

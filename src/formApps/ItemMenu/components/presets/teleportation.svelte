@@ -107,10 +107,10 @@
     $: betweenAboveBelow = betweenBelowToken ? "Below Token" : "Above Token";
     let shouldShowOnlyX = true;
 </script>
-
+<div class="aaMenu-section">
 <h1 style="margin-bottom: 15px">Teleportation Preset</h1>
 <h2 style="margin-top:10px;">Options</h2>
-<div class="aa-3wide" transition:fade>
+<div class="aa-3wide">
     <!--Measurement Type-->
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
         <label for="">{localize("AUTOANIM.animation")}</label>
@@ -131,6 +131,8 @@
         >
     </div>
 </div>
+</div>
+<div class="aaMenu-section">
 <h1 style="margin-top:10px;">Start Animation</h1>
 <ChooseAnimation
     bind:menuType={startMenuType}
@@ -157,7 +159,9 @@
         <input type="Number" bind:value={startScale} step="0.01" />
     </div>
 </div>
-<div class="aa-header-section">
+</div>
+<div class="aaMenu-section">
+    <div class="aa-header-section">
     <div class="aa-header">
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
             <label for="">Between Animation</label>
@@ -205,6 +209,8 @@
     </div>
 </div>
 {/if}
+</div>
+<div class="aaMenu-section">
 <h1 style="margin-top:10px;">End Animation</h1>
 <ChooseAnimation
     bind:menuType={endMenuType}
@@ -236,6 +242,7 @@
     </div>
 </div>
 <SoundSettings audioPath="a01" {flagData} />
+</div>
 
 <style lang="scss">
     h1 {

@@ -71,6 +71,7 @@
     }
 </script>
 
+<div class="aaMenu-section">
 <div class="aa-header-section">
     <div class="aa-header">
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
@@ -79,7 +80,6 @@
         <div
             class="flexcol"
             style="grid-row:1/2; grid-column:1/2"
-            transition:fade
         >
             <i
                 class="fas fa-video aa-video-preview"
@@ -118,6 +118,7 @@
     </div>
 </div>
 <SoundSettings audioPath="a01" {flagData} />
+</div>
 
 <style lang="scss">
     .aa-options {

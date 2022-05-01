@@ -327,17 +327,17 @@
                     </div>
                 {/if}
                 {#if !animationDisabled && isCustomized}
-                    <div class="aaMenu-section">
                         {#if animType === "preset"}
                             <PresetMenu {animTypeSwitched} {flagData} {presetType} />
                         {:else}
+                        <div class="aaMenu-section">
                             <PrimarySection
                                 {animTypeSwitched}
                                 {animType}
                                 {flagData}
                             />
+                        </div>
                         {/if}
-                    </div>
                     {#if animType === "melee"}
                         <div class="aaMenu-section">
                             <RangeSwitch {flagData} />
@@ -503,12 +503,6 @@
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
-    }
-    .aaMenu-section {
-        background: rgba(225, 225, 225, 0.85);
-        border: 2px solid black;
-        border-radius: 10px;
-        margin: 1.5% 3% 1.5% 3%;
     }
     .footer-button {
         border-radius: 5px;
