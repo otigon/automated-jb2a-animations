@@ -24,102 +24,88 @@
         hideFromPlayers = !hideFromPlayers;
     }
 
+    //Set Start Animation variables
     preset.start ? preset.start : preset.start = {};
     const start = preset.start;
-
-    let menuType = start.menuType;
-    $: menuType = start.menuType = menuType;
-
-    let animation = start.animation;
-    $: animation = start.animation = animation;
-
-    let variant = start.variant;
-    $: variant = start.variant = variant;
-
-    let color = start.color;
-    $: color = start.color = color;
-
-    let isCustom = start.enableCustom || false;
-    $: isCustom = start.enableCustom = isCustom;
-
-    let customPath = start.customPath;
-    $: customPath = start.customPath = customPath;
-
-    let scale = start.scale || 1;
-    $: scale = start.scale = scale;
-
-    let belowToken = start.below || false;
-    $: belowToken = start.below = belowToken;
-    function below() {
-        belowToken = !belowToken;
+    let startMenuType = start.menuType;
+    $: startMenuType = start.menuType = startMenuType;
+    let startAnimation = start.animation;
+    $: startAnimation = start.animation = startAnimation;
+    let startVariant = start.variant;
+    $: startVariant = start.variant = startVariant;
+    let startColor = start.color;
+    $: startColor = start.color = startColor;
+    let startIsCustom = start.enableCustom || false;
+    $: startIsCustom = start.enableCustom = startIsCustom;
+    let startCustomPath = start.customPath;
+    $: startCustomPath = start.customPath = startCustomPath;
+    let startScale = start.scale || 1;
+    $: startScale = start.scale = startScale;
+    let startBelowToken = start.below || false;
+    $: startBelowToken = start.below = startBelowToken;
+    function startBelow() {
+        startBelowToken = !startBelowToken;
     }
-    $: aboveBelow = belowToken ? "Below Token" : "Above Token";
+    $: startAboveBelow = startBelowToken ? "Below Token" : "Above Token";
 
 
 
 
-    
-    let belowToken02 = preset.below02 || false;
-    $: belowToken02 = preset.below02 = belowToken02;
-    function below02() {
-        belowToken02 = !belowToken02;
+    //Set End Animation variables
+    preset.end ? preset.end : preset.end = {};
+    const end = preset.end;
+    let endBelowToken = end.below || false;
+    $: endBelowToken = end.below = endBelowToken;
+    function endBelow() {
+        endBelowToken = !endBelowToken;
     }
-    $: aboveBelow02 = belowToken02 ? "Below Token" : "Above Token";
+    $: endAboveBelow = endBelowToken ? "Below Token" : "Above Token";
+    let endMenuType = end.menuType;
+    $: endMenuType = end.menuType = endMenuType;
+    let endAnimation = end.animation;
+    $: endAnimation = end.animation = endAnimation;
+    let endVariant = end.variant;
+    $: endVariant = end.variant = endVariant;
+    let endColor = end.color;
+    $: endColor = end.color = endColor;
+    let endIsCustom = end.enableCustom || false;
+    $: endIsCustom = end.enableCustom = endIsCustom;
+    let endCustomPath = end.customPath;
+    $: endCustomPath = end.customPath = endCustomPath;
+    let endScale = end.scale || 1;
+    $: endScale = end.scale = endScale;
+    let delayAlpha = end.delay || 250;
+    $: delayAlpha = end.delay = delayAlpha;
 
-    let belowToken03 = preset.below03 || false;
-    $: belowToken03 = preset.below03 = belowToken03;
-    function below03() {
-        belowToken03 = !belowToken03;
-    }
-    $: aboveBelow03 = belowToken03 ? "Below Token" : "Above Token";
-
-    let menuType02 = preset.menuType02;
-    $: menuType02 = preset.menuType02 = menuType02;
-
-    let animation02 = preset.animation02;
-    $: animation02 = preset.animation02 = animation02;
-
-    let variant02 = preset.variant02;
-    $: variant02 = preset.variant02 = variant02;
-
-    let color02 = preset.color02;
-    $: color02 = preset.color02 = color02;
-
-    let isCustom02 = preset.enableCustom02 || false;
-    $: isCustom02 = preset.enableCustom02 = isCustom02;
-
-    let customPath02 = preset.customPath02;
-    $: customPath02 = preset.customPath02 = customPath02;
-
-    let delayAlpha = preset.delay || 250;
-    $: delayAlpha = preset.delay = delayAlpha;
-
-    let menuType03 = preset.menuType03;
-    $: menuType03 = preset.menuType03 = menuType03;
-
-    let animation03 = preset.animation03;
-    $: animation03 = preset.animation03 = animation03;
-
-    let variant03 = preset.variant03;
-    $: variant03 = preset.variant03 = variant03;
-
-    let color03 = preset.color03;
-    $: color03 = preset.color03 = color03;
-
-    let isCustom03 = preset.enableCustom03 || false;
-    $: isCustom03 = preset.enableCustom03 = isCustom03;
-
-    let customPath03 = preset.customPath03;
-    $: customPath03 = preset.customPath03 = customPath03;
-
-    let playbackRate03 = preset.playbackRate03 || 1;
-    $: playbackRate03 = preset.playbackRate03 = playbackRate03;
-
-    let enableBetween = preset.enableBetween || false;
-    $: enableBetween = preset.enableBetween = enableBetween;
+    //Set End Animation variables
+    preset.between ? preset.between : preset.between = {};
+    const between = preset.between;
+    let betweenMenuType = between.menuType;
+    $: betweenMenuType = between.menuType = betweenMenuType;
+    let betweenAnimation = between.animation;
+    $: betweenAnimation = between.animation = betweenAnimation;
+    let betweenVariant = between.variant;
+    $: betweenVariant = between.variant = betweenVariant;
+    let betweenColor = between.color;
+    $: betweenColor = between.color = betweenColor;
+    let betweenIsCustom = between.enableCustom || false;
+    $: betweenIsCustom = between.enableCustom = betweenIsCustom;
+    let betweenCustomPath = between.customPath;
+    $: betweenCustomPath = between.customPath = betweenCustomPath;
+    let betweenPlaybackRate = between.playbackRate || 1;
+    $: betweenPlaybackRate = between.playbackRate = betweenPlaybackRate;
+    let enableBetween = between.enableBetween || false;
+    $: enableBetween = between.enableBetween = enableBetween;
     function switchBetween() {
         enableBetween = !enableBetween;
     }
+    let betweenBelowToken = between.below || false;
+    $: betweenBelowToken = between.below = betweenBelowToken;
+    function betweenBelow() {
+        betweenBelowToken = !betweenBelowToken;
+    }
+    $: betweenAboveBelow = betweenBelowToken ? "Below Token" : "Above Token";
+    let shouldShowOnlyX = true;
 </script>
 
 <h1 style="margin-bottom: 15px">Teleportation Preset</h1>
@@ -147,14 +133,14 @@
 </div>
 <h1 style="margin-top:10px;">Start Animation</h1>
 <ChooseAnimation
-    bind:menuType={menuType}
-    bind:animation={animation}
-    bind:variant={variant}
-    bind:color={color}
-    bind:isCustom={isCustom}
-    bind:customPath={customPath}
+    bind:menuType={startMenuType}
+    bind:animation={startAnimation}
+    bind:variant={startVariant}
+    bind:color={startColor}
+    bind:isCustom={startIsCustom}
+    bind:customPath={startCustomPath}
     {presetType}
-    presetSubType="Primary"
+    presetSubType="TeleStart"
     flagPath="preset"
     animType="static"
     {flagData}
@@ -164,11 +150,11 @@
     <!--Set Z-Index-->
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
         <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
+        <button class="oldCheck" on:click={() => startBelow()}>{startAboveBelow}</button>
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">Scale</label>
-        <input type="Number" bind:value={scale} step="0.01" />
+        <input type="Number" bind:value={startScale} step="0.01" />
     </div>
 </div>
 <div class="aa-header-section">
@@ -188,14 +174,15 @@
 </div>
 {#if enableBetween}
 <ChooseAnimation
-    bind:menuType={menuType03}
-    bind:animation={animation03}
-    bind:variant={variant03}
-    bind:color={color03}
-    bind:isCustom={isCustom03}
-    bind:customPath={customPath03}
+    bind:menuType={betweenMenuType}
+    bind:animation={betweenAnimation}
+    bind:variant={betweenVariant}
+    bind:color={betweenColor}
+    bind:isCustom={betweenIsCustom}
+    bind:customPath={betweenCustomPath}
+    {shouldShowOnlyX}
     {presetType}
-    presetSubType="Tertiary"
+    presetSubType="TeleBetween"
     flagPath="preset"
     animType="range"
     {flagData}
@@ -205,13 +192,13 @@
     <!--Set Z-Index-->
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
         <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => below03()}>{aboveBelow03}</button>
+        <button class="oldCheck" on:click={() => betweenBelow()}>{betweenAboveBelow}</button>
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.playbackRate")}</label>
         <input
             type="Number"
-            bind:value={playbackRate03}
+            bind:value={betweenPlaybackRate}
             placeholder="1"
             step="0.01"
         />
@@ -220,14 +207,14 @@
 {/if}
 <h1 style="margin-top:10px;">End Animation</h1>
 <ChooseAnimation
-    bind:menuType={menuType02}
-    bind:animation={animation02}
-    bind:variant={variant02}
-    bind:color={color02}
-    bind:isCustom={isCustom02}
-    bind:customPath={customPath02}
+    bind:menuType={endMenuType}
+    bind:animation={endAnimation}
+    bind:variant={endVariant}
+    bind:color={endColor}
+    bind:isCustom={endIsCustom}
+    bind:customPath={endCustomPath}
     {presetType}
-    presetSubType="Secondary"
+    presetSubType="TeleEnd"
     flagPath="preset"
     animType="static"
     {flagData}
@@ -237,11 +224,11 @@
     <!--Set Z-Index-->
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
         <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => below02()}>{aboveBelow02}</button>
+        <button class="oldCheck" on:click={() => endBelow()}>{endAboveBelow}</button>
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">Scale</label>
-        <input type="Number" bind:value={scale} step="0.01" />
+        <input type="Number" bind:value={endScale} step="0.01" />
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
         <label for="">Delay Token Alpha</label>

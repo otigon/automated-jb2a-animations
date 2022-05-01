@@ -19,6 +19,7 @@
     export let presetType;
     export let presetSubType;
     export let animTypeSwitched = false;
+    export let shouldShowOnlyX;
     $: {
         animType = animType;
     }
@@ -289,7 +290,7 @@
     </div>
     <CustomPicker {flagPath} {presetSubType} {presetType} {flagData} bind:isCustom bind:customPath />
     <div class="aa-3wide">
-        {#if animType === "range" && isCustom && flagPath === "PrimaryAnimation"}
+        {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
             <div
                 class="flexcol aa-button-labels"
                 style="grid-row: 1 / 2; grid-column: 3 / 4;"

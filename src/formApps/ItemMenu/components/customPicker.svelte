@@ -52,6 +52,28 @@
                     enabled = flagData.preset[presetType].enableCustom03;
                     customId = "customPreset03";
                     break;
+
+                case "TeleStart":
+                    root = flagData.preset[presetType].start;
+                    options = flagData.preset[presetType].start;
+                    customPath = flagData.preset[presetType].start.customPath || "";
+                    enabled = flagData.preset[presetType].start.enableCustom;
+                    customId = "customPresetStart";
+                    break;
+                case "TeleBetween":
+                    root = flagData.preset[presetType].between;
+                    options = flagData.preset[presetType].between;
+                    customPath = flagData.preset[presetType].between.customPath || "";
+                    enabled = flagData.preset[presetType].between.enableCustom;
+                    customId = "customPresetBetween";
+                    break;
+                case "TeleEnd":
+                    root = flagData.preset[presetType].end;
+                    options = flagData.preset[presetType].end;
+                    customPath = flagData.preset[presetType].end.customPath || "";
+                    enabled = flagData.preset[presetType].end.enableCustom;
+                    customId = "customPresetEnd";
+                    break;
                 case "FireballProjectile":
                     root = flagData.preset[presetType].projectile;
                     options = flagData.preset[presetType].projectile;
@@ -73,6 +95,8 @@
                     enabled = flagData.preset[presetType].explosion02.enableCustom;
                     customId = "customPresetExplosion02";
                     break;
+
+
                 default:
                     root = flagData.preset[presetType];
                     options = flagData.preset[presetType];

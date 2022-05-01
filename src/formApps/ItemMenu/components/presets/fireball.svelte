@@ -43,7 +43,7 @@
         projectileBelowToken = !projectileBelowToken;
     }
     $: projectileAboveBelow = projectileBelowToken ? "Below Token" : "Above Token";
-
+    let shouldShowOnlyX = true;
 
     // Configure Pre Explosion variables
     preset.explosion01 ? preset.explosion01 : preset.explosion01 = {};
@@ -161,6 +161,7 @@
     bind:isCustom={projectileIsCustom}
     bind:customPath={projectileCustomPath}
     {presetType}
+    {shouldShowOnlyX}
     presetSubType="FireballProjectile"
     flagPath="preset"
     animType="range"

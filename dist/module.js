@@ -38293,6 +38293,27 @@ function instance$r($$self, $$props, $$invalidate) {
 					enabled = flagData.preset[presetType].enableCustom03;
 					customId = "customPreset03";
 					break;
+				case "TeleStart":
+					flagData.preset[presetType].start;
+					flagData.preset[presetType].start;
+					customPath = flagData.preset[presetType].start.customPath || "";
+					enabled = flagData.preset[presetType].start.enableCustom;
+					customId = "customPresetStart";
+					break;
+				case "TeleBetween":
+					flagData.preset[presetType].between;
+					flagData.preset[presetType].between;
+					customPath = flagData.preset[presetType].between.customPath || "";
+					enabled = flagData.preset[presetType].between.enableCustom;
+					customId = "customPresetBetween";
+					break;
+				case "TeleEnd":
+					flagData.preset[presetType].end;
+					flagData.preset[presetType].end;
+					customPath = flagData.preset[presetType].end.customPath || "";
+					enabled = flagData.preset[presetType].end.enableCustom;
+					customId = "customPresetEnd";
+					break;
 				case "FireballProjectile":
 					flagData.preset[presetType].projectile;
 					flagData.preset[presetType].projectile;
@@ -38682,33 +38703,33 @@ class ExplosionApp extends SvelteComponent {
 
 function get_each_context$7(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[34] = list[i][0];
-	child_ctx[35] = list[i][1];
+	child_ctx[35] = list[i][0];
+	child_ctx[36] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_1$3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[34] = list[i][0];
-	child_ctx[35] = list[i][1];
+	child_ctx[35] = list[i][0];
+	child_ctx[36] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_2$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[34] = list[i][0];
-	child_ctx[35] = list[i][1];
+	child_ctx[35] = list[i][0];
+	child_ctx[36] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_3$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[34] = list[i][0];
-	child_ctx[35] = list[i][1];
+	child_ctx[35] = list[i][0];
+	child_ctx[36] = list[i][1];
 	return child_ctx;
 }
 
-// (186:16) {#if animType != ""}
+// (187:16) {#if animType != ""}
 function create_if_block_5$4(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[7]]);
@@ -38764,10 +38785,10 @@ function create_if_block_5$4(ctx) {
 	};
 }
 
-// (187:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (188:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[35] + "";
+	let t_value = /*name*/ ctx[36] + "";
 	let t;
 	let option_value_value;
 
@@ -38775,7 +38796,7 @@ function create_each_block_3$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[34];
+			option.__value = option_value_value = /*key*/ ctx[35];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -38783,9 +38804,9 @@ function create_each_block_3$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection*/ 128 && t_value !== (t_value = /*name*/ ctx[35] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection*/ 128 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection*/ 128 && option_value_value !== (option_value_value = /*key*/ ctx[34])) {
+			if (dirty[0] & /*menuSelection*/ 128 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -38796,7 +38817,7 @@ function create_each_block_3$2(ctx) {
 	};
 }
 
-// (193:8) {#if animType === "static" && flagPath === "PrimaryAnimation"}
+// (194:8) {#if animType === "static" && flagPath === "PrimaryAnimation"}
 function create_if_block_4$4(ctx) {
 	let div;
 	let label;
@@ -38842,7 +38863,7 @@ function create_if_block_4$4(ctx) {
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
 			attr(select, "class", "svelte-j1vmj9");
-			if (/*staticType*/ ctx[13] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[20].call(select));
+			if (/*staticType*/ ctx[14] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[21].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "2 / 3");
 			set_style(div, "grid-column", "3 / 4");
@@ -38856,17 +38877,17 @@ function create_if_block_4$4(ctx) {
 			append(select, option1);
 			append(select, option2);
 			append(select, option3);
-			select_option(select, /*staticType*/ ctx[13]);
+			select_option(select, /*staticType*/ ctx[14]);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(select, "change", /*select_change_handler*/ ctx[20]);
+				dispose = listen(select, "change", /*select_change_handler*/ ctx[21]);
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*staticType*/ 8192) {
-				select_option(select, /*staticType*/ ctx[13]);
+			if (dirty[0] & /*staticType*/ 16384) {
+				select_option(select, /*staticType*/ ctx[14]);
 			}
 		},
 		i(local) {
@@ -38894,7 +38915,7 @@ function create_if_block_4$4(ctx) {
 	};
 }
 
-// (237:16) {#if menuType != ""}
+// (238:16) {#if menuType != ""}
 function create_if_block_3$5(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]]);
@@ -38950,10 +38971,10 @@ function create_if_block_3$5(ctx) {
 	};
 }
 
-// (238:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (239:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[35] + "";
+	let t_value = /*name*/ ctx[36] + "";
 	let t;
 	let option_value_value;
 
@@ -38961,7 +38982,7 @@ function create_each_block_2$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[34];
+			option.__value = option_value_value = /*key*/ ctx[35];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -38969,9 +38990,9 @@ function create_each_block_2$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType*/ 130 && t_value !== (t_value = /*name*/ ctx[35] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType*/ 130 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType*/ 130 && option_value_value !== (option_value_value = /*key*/ ctx[34])) {
+			if (dirty[0] & /*menuSelection, menuType*/ 130 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -38982,7 +39003,7 @@ function create_each_block_2$2(ctx) {
 	};
 }
 
-// (260:16) {#if (menuType != "") & (animation != "")}
+// (261:16) {#if (menuType != "") & (animation != "")}
 function create_if_block_2$6(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
@@ -39038,10 +39059,10 @@ function create_if_block_2$6(ctx) {
 	};
 }
 
-// (261:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (262:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1$3(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[35] + "";
+	let t_value = /*name*/ ctx[36] + "";
 	let t;
 	let option_value_value;
 
@@ -39049,7 +39070,7 @@ function create_each_block_1$3(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[34];
+			option.__value = option_value_value = /*key*/ ctx[35];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -39057,9 +39078,9 @@ function create_each_block_1$3(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && t_value !== (t_value = /*name*/ ctx[35] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && option_value_value !== (option_value_value = /*key*/ ctx[34])) {
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -39070,7 +39091,7 @@ function create_each_block_1$3(ctx) {
 	};
 }
 
-// (282:16) {#if menuType != "" && animation != "" && variant != ""}
+// (283:16) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_1$b(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
@@ -39126,10 +39147,10 @@ function create_if_block_1$b(ctx) {
 	};
 }
 
-// (283:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (284:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block$7(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[35] + "";
+	let t_value = /*name*/ ctx[36] + "";
 	let t;
 	let option_value_value;
 
@@ -39137,7 +39158,7 @@ function create_each_block$7(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[34];
+			option.__value = option_value_value = /*key*/ ctx[35];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -39145,9 +39166,9 @@ function create_each_block$7(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && t_value !== (t_value = /*name*/ ctx[35] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && option_value_value !== (option_value_value = /*key*/ ctx[34])) {
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -39158,7 +39179,7 @@ function create_each_block$7(ctx) {
 	};
 }
 
-// (292:8) {#if animType === "range" && isCustom && flagPath === "PrimaryAnimation"}
+// (293:8) {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
 function create_if_block$d(ctx) {
 	let div;
 	let input;
@@ -39183,7 +39204,7 @@ function create_if_block$d(ctx) {
 			attr(input, "id", "constantY");
 			input.hidden = true;
 			attr(label, "for", "constantY");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[12] ? "selected" : "notSelected") + " svelte-j1vmj9"));
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-j1vmj9"));
 			attr(div, "class", "flexcol aa-button-labels");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "3 / 4");
@@ -39191,23 +39212,23 @@ function create_if_block$d(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			append(div, input);
-			input.checked = /*onlyX*/ ctx[12];
+			input.checked = /*onlyX*/ ctx[13];
 			append(div, t0);
 			append(div, label);
 			append(label, t1);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(input, "change", /*input_change_handler*/ ctx[28]);
+				dispose = listen(input, "change", /*input_change_handler*/ ctx[29]);
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*onlyX*/ 4096) {
-				input.checked = /*onlyX*/ ctx[12];
+			if (dirty[0] & /*onlyX*/ 8192) {
+				input.checked = /*onlyX*/ ctx[13];
 			}
 
-			if (!current || dirty[0] & /*onlyX*/ 4096 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[12] ? "selected" : "notSelected") + " svelte-j1vmj9"))) {
+			if (!current || dirty[0] & /*onlyX*/ 8192 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-j1vmj9"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -39284,11 +39305,11 @@ function create_fragment$o(ctx) {
 	let if_block4 = /*menuType*/ ctx[1] != "" && /*animation*/ ctx[2] != "" && /*variant*/ ctx[3] != "" && create_if_block_1$b(ctx);
 
 	function custompicker_isCustom_binding(value) {
-		/*custompicker_isCustom_binding*/ ctx[26](value);
+		/*custompicker_isCustom_binding*/ ctx[27](value);
 	}
 
 	function custompicker_customPath_binding(value) {
-		/*custompicker_customPath_binding*/ ctx[27](value);
+		/*custompicker_customPath_binding*/ ctx[28](value);
 	}
 
 	let custompicker_props = {
@@ -39309,7 +39330,7 @@ function create_fragment$o(ctx) {
 	custompicker = new CustomPicker({ props: custompicker_props });
 	binding_callbacks.push(() => bind(custompicker, 'isCustom', custompicker_isCustom_binding));
 	binding_callbacks.push(() => bind(custompicker, 'customPath', custompicker_customPath_binding));
-	let if_block5 = /*animType*/ ctx[0] === "range" && /*isCustom*/ ctx[5] && /*flagPath*/ ctx[9] === "PrimaryAnimation" && create_if_block$d(ctx);
+	let if_block5 = /*animType*/ ctx[0] === "range" && /*isCustom*/ ctx[5] && (/*flagPath*/ ctx[9] === "PrimaryAnimation" || /*shouldShowOnlyX*/ ctx[12]) && create_if_block$d(ctx);
 
 	return {
 		c() {
@@ -39359,7 +39380,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-j1vmj9"));
 
-			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[18].call(select0));
+			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[19].call(select0));
 			attr(div0, "class", div0_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
@@ -39373,7 +39394,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-j1vmj9"));
 
-			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[21].call(select1));
+			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[22].call(select1));
 			attr(div1, "class", div1_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
@@ -39387,7 +39408,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-j1vmj9"));
 
-			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[23].call(select2));
+			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[24].call(select2));
 			attr(div2, "class", div2_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
@@ -39401,7 +39422,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-j1vmj9"));
 
-			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[25].call(select3));
+			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[26].call(select3));
 			attr(div3, "class", div3_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
@@ -39449,13 +39470,13 @@ function create_fragment$o(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select0, "change", /*select0_change_handler*/ ctx[18]),
-					listen(select0, "change", /*change_handler*/ ctx[19]),
-					listen(select1, "change", /*select1_change_handler*/ ctx[21]),
-					listen(select1, "change", /*change_handler_1*/ ctx[22]),
-					listen(select2, "change", /*select2_change_handler*/ ctx[23]),
-					listen(select2, "change", /*change_handler_2*/ ctx[24]),
-					listen(select3, "change", /*select3_change_handler*/ ctx[25])
+					listen(select0, "change", /*select0_change_handler*/ ctx[19]),
+					listen(select0, "change", /*change_handler*/ ctx[20]),
+					listen(select1, "change", /*select1_change_handler*/ ctx[22]),
+					listen(select1, "change", /*change_handler_1*/ ctx[23]),
+					listen(select2, "change", /*select2_change_handler*/ ctx[24]),
+					listen(select2, "change", /*change_handler_2*/ ctx[25]),
+					listen(select3, "change", /*select3_change_handler*/ ctx[26])
 				];
 
 				mounted = true;
@@ -39629,11 +39650,11 @@ function create_fragment$o(ctx) {
 
 			custompicker.$set(custompicker_changes);
 
-			if (/*animType*/ ctx[0] === "range" && /*isCustom*/ ctx[5] && /*flagPath*/ ctx[9] === "PrimaryAnimation") {
+			if (/*animType*/ ctx[0] === "range" && /*isCustom*/ ctx[5] && (/*flagPath*/ ctx[9] === "PrimaryAnimation" || /*shouldShowOnlyX*/ ctx[12])) {
 				if (if_block5) {
 					if_block5.p(ctx, dirty);
 
-					if (dirty[0] & /*animType, isCustom, flagPath*/ 545) {
+					if (dirty[0] & /*animType, isCustom, flagPath, shouldShowOnlyX*/ 4641) {
 						transition_in(if_block5, 1);
 					}
 				} else {
@@ -39705,6 +39726,7 @@ function instance$o($$self, $$props, $$invalidate) {
 	let { presetType } = $$props;
 	let { presetSubType } = $$props;
 	let { animTypeSwitched = false } = $$props;
+	let { shouldShowOnlyX } = $$props;
 	console.log(animType);
 
 	// Defines the initial Flag path depending on the Section calling this Component
@@ -39800,7 +39822,7 @@ function instance$o($$self, $$props, $$invalidate) {
 
 	function select_change_handler() {
 		staticType = select_value(this);
-		$$invalidate(13, staticType);
+		$$invalidate(14, staticType);
 	}
 
 	function select1_change_handler() {
@@ -39843,7 +39865,7 @@ function instance$o($$self, $$props, $$invalidate) {
 
 	function input_change_handler() {
 		onlyX = this.checked;
-		$$invalidate(12, onlyX);
+		$$invalidate(13, onlyX);
 	}
 
 	$$self.$$set = $$props => {
@@ -39852,7 +39874,8 @@ function instance$o($$self, $$props, $$invalidate) {
 		if ('animType' in $$props) $$invalidate(0, animType = $$props.animType);
 		if ('presetType' in $$props) $$invalidate(10, presetType = $$props.presetType);
 		if ('presetSubType' in $$props) $$invalidate(11, presetSubType = $$props.presetSubType);
-		if ('animTypeSwitched' in $$props) $$invalidate(17, animTypeSwitched = $$props.animTypeSwitched);
+		if ('animTypeSwitched' in $$props) $$invalidate(18, animTypeSwitched = $$props.animTypeSwitched);
+		if ('shouldShowOnlyX' in $$props) $$invalidate(12, shouldShowOnlyX = $$props.shouldShowOnlyX);
 		if ('menuSelection' in $$props) $$invalidate(7, menuSelection = $$props.menuSelection);
 		if ('menuType' in $$props) $$invalidate(1, menuType = $$props.menuType);
 		if ('animation' in $$props) $$invalidate(2, animation = $$props.animation);
@@ -39869,7 +39892,7 @@ function instance$o($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*animTypeSwitched*/ 131072) {
+		if ($$self.$$.dirty[0] & /*animTypeSwitched*/ 262144) {
 			if (animTypeSwitched) {
 				animTypeChange();
 			}
@@ -39911,16 +39934,16 @@ function instance$o($$self, $$props, $$invalidate) {
 			$$invalidate(6, customPath);
 		}
 
-		if ($$self.$$.dirty[0] & /*onlyX*/ 4096) {
+		if ($$self.$$.dirty[0] & /*onlyX*/ 8192) {
 			{
-				$$invalidate(12, onlyX);
+				$$invalidate(13, onlyX);
 				options.onlyX = onlyX;
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*staticType*/ 8192) {
+		if ($$self.$$.dirty[0] & /*staticType*/ 16384) {
 			{
-				$$invalidate(13, staticType);
+				$$invalidate(14, staticType);
 				options.staticType = staticType;
 			}
 		}
@@ -39939,6 +39962,7 @@ function instance$o($$self, $$props, $$invalidate) {
 		flagPath,
 		presetType,
 		presetSubType,
+		shouldShowOnlyX,
 		onlyX,
 		staticType,
 		menuTypeChange,
@@ -39975,7 +39999,8 @@ class ChooseAnimation extends SvelteComponent {
 				animType: 0,
 				presetType: 10,
 				presetSubType: 11,
-				animTypeSwitched: 17,
+				animTypeSwitched: 18,
+				shouldShowOnlyX: 12,
 				menuSelection: 7,
 				menuType: 1,
 				animation: 2,
@@ -40035,11 +40060,20 @@ class ChooseAnimation extends SvelteComponent {
 	}
 
 	get animTypeSwitched() {
-		return this.$$.ctx[17];
+		return this.$$.ctx[18];
 	}
 
 	set animTypeSwitched(animTypeSwitched) {
 		this.$$set({ animTypeSwitched });
+		flush();
+	}
+
+	get shouldShowOnlyX() {
+		return this.$$.ctx[12];
+	}
+
+	set shouldShowOnlyX(shouldShowOnlyX) {
+		this.$$set({ shouldShowOnlyX });
 		flush();
 	}
 
@@ -50619,7 +50653,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (313:0) {#if enableAfterImage}
+// (314:0) {#if enableAfterImage}
 function create_if_block$3(ctx) {
 	let div1;
 	let div0;
@@ -50954,6 +50988,7 @@ function create_fragment$7(ctx) {
 
 	let chooseanimation0_props = {
 		presetType: /*presetType*/ ctx[1],
+		shouldShowOnlyX: shouldShowOnlyX$1,
 		presetSubType: "FireballProjectile",
 		flagPath: "preset",
 		animType: "range",
@@ -51622,6 +51657,8 @@ function create_fragment$7(ctx) {
 		}
 	};
 }
+
+let shouldShowOnlyX$1 = true;
 
 function instance$7($$self, $$props, $$invalidate) {
 	let isRemove;
@@ -53835,59 +53872,60 @@ function create_if_block$2(ctx) {
 	let dispose;
 
 	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[51](value);
+		/*chooseanimation_menuType_binding*/ ctx[52](value);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[52](value);
+		/*chooseanimation_animation_binding*/ ctx[53](value);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[53](value);
+		/*chooseanimation_variant_binding*/ ctx[54](value);
 	}
 
 	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[54](value);
+		/*chooseanimation_color_binding*/ ctx[55](value);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[55](value);
+		/*chooseanimation_isCustom_binding*/ ctx[56](value);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[56](value);
+		/*chooseanimation_customPath_binding*/ ctx[57](value);
 	}
 
 	let chooseanimation_props = {
+		shouldShowOnlyX,
 		presetType: /*presetType*/ ctx[1],
-		presetSubType: "Tertiary",
+		presetSubType: "TeleBetween",
 		flagPath: "preset",
 		animType: "range",
 		flagData: /*flagData*/ ctx[0]
 	};
 
-	if (/*menuType03*/ ctx[19] !== void 0) {
-		chooseanimation_props.menuType = /*menuType03*/ ctx[19];
+	if (/*betweenMenuType*/ ctx[20] !== void 0) {
+		chooseanimation_props.menuType = /*betweenMenuType*/ ctx[20];
 	}
 
-	if (/*animation03*/ ctx[20] !== void 0) {
-		chooseanimation_props.animation = /*animation03*/ ctx[20];
+	if (/*betweenAnimation*/ ctx[21] !== void 0) {
+		chooseanimation_props.animation = /*betweenAnimation*/ ctx[21];
 	}
 
-	if (/*variant03*/ ctx[21] !== void 0) {
-		chooseanimation_props.variant = /*variant03*/ ctx[21];
+	if (/*betweenVariant*/ ctx[22] !== void 0) {
+		chooseanimation_props.variant = /*betweenVariant*/ ctx[22];
 	}
 
-	if (/*color03*/ ctx[22] !== void 0) {
-		chooseanimation_props.color = /*color03*/ ctx[22];
+	if (/*betweenColor*/ ctx[23] !== void 0) {
+		chooseanimation_props.color = /*betweenColor*/ ctx[23];
 	}
 
-	if (/*isCustom03*/ ctx[23] !== void 0) {
-		chooseanimation_props.isCustom = /*isCustom03*/ ctx[23];
+	if (/*betweenIsCustom*/ ctx[24] !== void 0) {
+		chooseanimation_props.isCustom = /*betweenIsCustom*/ ctx[24];
 	}
 
-	if (/*customPath03*/ ctx[24] !== void 0) {
-		chooseanimation_props.customPath = /*customPath03*/ ctx[24];
+	if (/*betweenCustomPath*/ ctx[25] !== void 0) {
+		chooseanimation_props.customPath = /*betweenCustomPath*/ ctx[25];
 	}
 
 	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
@@ -53911,7 +53949,7 @@ function create_if_block$2(ctx) {
 			label0.textContent = "Z-Index";
 			t4 = space();
 			button = element("button");
-			t5 = text(/*aboveBelow03*/ ctx[28]);
+			t5 = text(/*betweenAboveBelow*/ ctx[29]);
 			t6 = space();
 			div1 = element("div");
 			label1 = element("label");
@@ -53952,13 +53990,13 @@ function create_if_block$2(ctx) {
 			append(div1, label1);
 			append(div1, t8);
 			append(div1, input);
-			set_input_value(input, /*playbackRate03*/ ctx[25]);
+			set_input_value(input, /*betweenPlaybackRate*/ ctx[26]);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
-					listen(button, "click", /*click_handler_3*/ ctx[57]),
-					listen(input, "input", /*input_input_handler*/ ctx[58])
+					listen(button, "click", /*click_handler_3*/ ctx[58]),
+					listen(input, "input", /*input_input_handler*/ ctx[59])
 				];
 
 				mounted = true;
@@ -53969,47 +54007,47 @@ function create_if_block$2(ctx) {
 			if (dirty[0] & /*presetType*/ 2) chooseanimation_changes.presetType = /*presetType*/ ctx[1];
 			if (dirty[0] & /*flagData*/ 1) chooseanimation_changes.flagData = /*flagData*/ ctx[0];
 
-			if (!updating_menuType && dirty[0] & /*menuType03*/ 524288) {
+			if (!updating_menuType && dirty[0] & /*betweenMenuType*/ 1048576) {
 				updating_menuType = true;
-				chooseanimation_changes.menuType = /*menuType03*/ ctx[19];
+				chooseanimation_changes.menuType = /*betweenMenuType*/ ctx[20];
 				add_flush_callback(() => updating_menuType = false);
 			}
 
-			if (!updating_animation && dirty[0] & /*animation03*/ 1048576) {
+			if (!updating_animation && dirty[0] & /*betweenAnimation*/ 2097152) {
 				updating_animation = true;
-				chooseanimation_changes.animation = /*animation03*/ ctx[20];
+				chooseanimation_changes.animation = /*betweenAnimation*/ ctx[21];
 				add_flush_callback(() => updating_animation = false);
 			}
 
-			if (!updating_variant && dirty[0] & /*variant03*/ 2097152) {
+			if (!updating_variant && dirty[0] & /*betweenVariant*/ 4194304) {
 				updating_variant = true;
-				chooseanimation_changes.variant = /*variant03*/ ctx[21];
+				chooseanimation_changes.variant = /*betweenVariant*/ ctx[22];
 				add_flush_callback(() => updating_variant = false);
 			}
 
-			if (!updating_color && dirty[0] & /*color03*/ 4194304) {
+			if (!updating_color && dirty[0] & /*betweenColor*/ 8388608) {
 				updating_color = true;
-				chooseanimation_changes.color = /*color03*/ ctx[22];
+				chooseanimation_changes.color = /*betweenColor*/ ctx[23];
 				add_flush_callback(() => updating_color = false);
 			}
 
-			if (!updating_isCustom && dirty[0] & /*isCustom03*/ 8388608) {
+			if (!updating_isCustom && dirty[0] & /*betweenIsCustom*/ 16777216) {
 				updating_isCustom = true;
-				chooseanimation_changes.isCustom = /*isCustom03*/ ctx[23];
+				chooseanimation_changes.isCustom = /*betweenIsCustom*/ ctx[24];
 				add_flush_callback(() => updating_isCustom = false);
 			}
 
-			if (!updating_customPath && dirty[0] & /*customPath03*/ 16777216) {
+			if (!updating_customPath && dirty[0] & /*betweenCustomPath*/ 33554432) {
 				updating_customPath = true;
-				chooseanimation_changes.customPath = /*customPath03*/ ctx[24];
+				chooseanimation_changes.customPath = /*betweenCustomPath*/ ctx[25];
 				add_flush_callback(() => updating_customPath = false);
 			}
 
 			chooseanimation.$set(chooseanimation_changes);
-			if (!current || dirty[0] & /*aboveBelow03*/ 268435456) set_data(t5, /*aboveBelow03*/ ctx[28]);
+			if (!current || dirty[0] & /*betweenAboveBelow*/ 536870912) set_data(t5, /*betweenAboveBelow*/ ctx[29]);
 
-			if (dirty[0] & /*playbackRate03*/ 33554432) {
-				set_input_value(input, /*playbackRate03*/ ctx[25]);
+			if (dirty[0] & /*betweenPlaybackRate*/ 67108864) {
+				set_input_value(input, /*betweenPlaybackRate*/ ctx[26]);
 			}
 		},
 		i(local) {
@@ -54127,59 +54165,59 @@ function create_fragment$3(ctx) {
 	let dispose;
 
 	function chooseanimation0_menuType_binding(value) {
-		/*chooseanimation0_menuType_binding*/ ctx[42](value);
+		/*chooseanimation0_menuType_binding*/ ctx[43](value);
 	}
 
 	function chooseanimation0_animation_binding(value) {
-		/*chooseanimation0_animation_binding*/ ctx[43](value);
+		/*chooseanimation0_animation_binding*/ ctx[44](value);
 	}
 
 	function chooseanimation0_variant_binding(value) {
-		/*chooseanimation0_variant_binding*/ ctx[44](value);
+		/*chooseanimation0_variant_binding*/ ctx[45](value);
 	}
 
 	function chooseanimation0_color_binding(value) {
-		/*chooseanimation0_color_binding*/ ctx[45](value);
+		/*chooseanimation0_color_binding*/ ctx[46](value);
 	}
 
 	function chooseanimation0_isCustom_binding(value) {
-		/*chooseanimation0_isCustom_binding*/ ctx[46](value);
+		/*chooseanimation0_isCustom_binding*/ ctx[47](value);
 	}
 
 	function chooseanimation0_customPath_binding(value) {
-		/*chooseanimation0_customPath_binding*/ ctx[47](value);
+		/*chooseanimation0_customPath_binding*/ ctx[48](value);
 	}
 
 	let chooseanimation0_props = {
 		presetType: /*presetType*/ ctx[1],
-		presetSubType: "Primary",
+		presetSubType: "TeleStart",
 		flagPath: "preset",
 		animType: "static",
 		flagData: /*flagData*/ ctx[0]
 	};
 
-	if (/*menuType*/ ctx[5] !== void 0) {
-		chooseanimation0_props.menuType = /*menuType*/ ctx[5];
+	if (/*startMenuType*/ ctx[5] !== void 0) {
+		chooseanimation0_props.menuType = /*startMenuType*/ ctx[5];
 	}
 
-	if (/*animation*/ ctx[6] !== void 0) {
-		chooseanimation0_props.animation = /*animation*/ ctx[6];
+	if (/*startAnimation*/ ctx[6] !== void 0) {
+		chooseanimation0_props.animation = /*startAnimation*/ ctx[6];
 	}
 
-	if (/*variant*/ ctx[7] !== void 0) {
-		chooseanimation0_props.variant = /*variant*/ ctx[7];
+	if (/*startVariant*/ ctx[7] !== void 0) {
+		chooseanimation0_props.variant = /*startVariant*/ ctx[7];
 	}
 
-	if (/*color*/ ctx[8] !== void 0) {
-		chooseanimation0_props.color = /*color*/ ctx[8];
+	if (/*startColor*/ ctx[8] !== void 0) {
+		chooseanimation0_props.color = /*startColor*/ ctx[8];
 	}
 
-	if (/*isCustom*/ ctx[9] !== void 0) {
-		chooseanimation0_props.isCustom = /*isCustom*/ ctx[9];
+	if (/*startIsCustom*/ ctx[9] !== void 0) {
+		chooseanimation0_props.isCustom = /*startIsCustom*/ ctx[9];
 	}
 
-	if (/*customPath*/ ctx[10] !== void 0) {
-		chooseanimation0_props.customPath = /*customPath*/ ctx[10];
+	if (/*startCustomPath*/ ctx[10] !== void 0) {
+		chooseanimation0_props.customPath = /*startCustomPath*/ ctx[10];
 	}
 
 	chooseanimation0 = new ChooseAnimation({ props: chooseanimation0_props });
@@ -54189,62 +54227,62 @@ function create_fragment$3(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation0, 'color', chooseanimation0_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'isCustom', chooseanimation0_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'customPath', chooseanimation0_customPath_binding));
-	let if_block = /*enableBetween*/ ctx[26] && create_if_block$2(ctx);
+	let if_block = /*enableBetween*/ ctx[27] && create_if_block$2(ctx);
 
 	function chooseanimation1_menuType_binding(value) {
-		/*chooseanimation1_menuType_binding*/ ctx[59](value);
+		/*chooseanimation1_menuType_binding*/ ctx[60](value);
 	}
 
 	function chooseanimation1_animation_binding(value) {
-		/*chooseanimation1_animation_binding*/ ctx[60](value);
+		/*chooseanimation1_animation_binding*/ ctx[61](value);
 	}
 
 	function chooseanimation1_variant_binding(value) {
-		/*chooseanimation1_variant_binding*/ ctx[61](value);
+		/*chooseanimation1_variant_binding*/ ctx[62](value);
 	}
 
 	function chooseanimation1_color_binding(value) {
-		/*chooseanimation1_color_binding*/ ctx[62](value);
+		/*chooseanimation1_color_binding*/ ctx[63](value);
 	}
 
 	function chooseanimation1_isCustom_binding(value) {
-		/*chooseanimation1_isCustom_binding*/ ctx[63](value);
+		/*chooseanimation1_isCustom_binding*/ ctx[64](value);
 	}
 
 	function chooseanimation1_customPath_binding(value) {
-		/*chooseanimation1_customPath_binding*/ ctx[64](value);
+		/*chooseanimation1_customPath_binding*/ ctx[65](value);
 	}
 
 	let chooseanimation1_props = {
 		presetType: /*presetType*/ ctx[1],
-		presetSubType: "Secondary",
+		presetSubType: "TeleEnd",
 		flagPath: "preset",
 		animType: "static",
 		flagData: /*flagData*/ ctx[0]
 	};
 
-	if (/*menuType02*/ ctx[12] !== void 0) {
-		chooseanimation1_props.menuType = /*menuType02*/ ctx[12];
+	if (/*endMenuType*/ ctx[12] !== void 0) {
+		chooseanimation1_props.menuType = /*endMenuType*/ ctx[12];
 	}
 
-	if (/*animation02*/ ctx[13] !== void 0) {
-		chooseanimation1_props.animation = /*animation02*/ ctx[13];
+	if (/*endAnimation*/ ctx[13] !== void 0) {
+		chooseanimation1_props.animation = /*endAnimation*/ ctx[13];
 	}
 
-	if (/*variant02*/ ctx[14] !== void 0) {
-		chooseanimation1_props.variant = /*variant02*/ ctx[14];
+	if (/*endVariant*/ ctx[14] !== void 0) {
+		chooseanimation1_props.variant = /*endVariant*/ ctx[14];
 	}
 
-	if (/*color02*/ ctx[15] !== void 0) {
-		chooseanimation1_props.color = /*color02*/ ctx[15];
+	if (/*endColor*/ ctx[15] !== void 0) {
+		chooseanimation1_props.color = /*endColor*/ ctx[15];
 	}
 
-	if (/*isCustom02*/ ctx[16] !== void 0) {
-		chooseanimation1_props.isCustom = /*isCustom02*/ ctx[16];
+	if (/*endIsCustom*/ ctx[16] !== void 0) {
+		chooseanimation1_props.isCustom = /*endIsCustom*/ ctx[16];
 	}
 
-	if (/*customPath02*/ ctx[17] !== void 0) {
-		chooseanimation1_props.customPath = /*customPath02*/ ctx[17];
+	if (/*endCustomPath*/ ctx[17] !== void 0) {
+		chooseanimation1_props.customPath = /*endCustomPath*/ ctx[17];
 	}
 
 	chooseanimation1 = new ChooseAnimation({ props: chooseanimation1_props });
@@ -54292,7 +54330,7 @@ function create_fragment$3(ctx) {
 			label2.textContent = `${localize("AUTOANIM.hideBorder")}`;
 			t13 = space();
 			button0 = element("button");
-			t14 = text(/*isHidden*/ ctx[27]);
+			t14 = text(/*isHidden*/ ctx[28]);
 			t15 = space();
 			h11 = element("h1");
 			h11.textContent = "Start Animation";
@@ -54308,7 +54346,7 @@ function create_fragment$3(ctx) {
 			label3.textContent = "Z-Index";
 			t22 = space();
 			button1 = element("button");
-			t23 = text(/*aboveBelow*/ ctx[30]);
+			t23 = text(/*startAboveBelow*/ ctx[31]);
 			t24 = space();
 			div5 = element("div");
 			label4 = element("label");
@@ -54340,7 +54378,7 @@ function create_fragment$3(ctx) {
 			label6.textContent = "Z-Index";
 			t38 = space();
 			button2 = element("button");
-			t39 = text(/*aboveBelow02*/ ctx[29]);
+			t39 = text(/*endAboveBelow*/ ctx[30]);
 			t40 = space();
 			div12 = element("div");
 			label7 = element("label");
@@ -54367,7 +54405,7 @@ function create_fragment$3(ctx) {
 			option1.value = option1.__value;
 			attr(select, "name", "flags.autoanimations.animation");
 			attr(select, "class", "svelte-nvwkr7");
-			if (/*measureType*/ ctx[2] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[39].call(select));
+			if (/*measureType*/ ctx[2] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[40].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
@@ -54408,7 +54446,7 @@ function create_fragment$3(ctx) {
 			set_style(div7, "grid-row", "1/2");
 			set_style(div7, "grid-column", "3/4");
 
-			attr(i, "class", i_class_value = "" + ((/*enableBetween*/ ctx[26]
+			attr(i, "class", i_class_value = "" + ((/*enableBetween*/ ctx[27]
 			? 'fas fa-minus aa-red'
 			: 'fas fa-plus aa-green') + " aaCenterToggle"));
 
@@ -54487,7 +54525,7 @@ function create_fragment$3(ctx) {
 			append(div5, label4);
 			append(div5, t26);
 			append(div5, input1);
-			set_input_value(input1, /*scale*/ ctx[11]);
+			set_input_value(input1, /*startScale*/ ctx[11]);
 			insert(target, t27, anchor);
 			insert(target, div10, anchor);
 			append(div10, div9);
@@ -54515,28 +54553,28 @@ function create_fragment$3(ctx) {
 			append(div12, label7);
 			append(div12, t42);
 			append(div12, input2);
-			set_input_value(input2, /*scale*/ ctx[11]);
+			set_input_value(input2, /*endScale*/ ctx[18]);
 			append(div14, t43);
 			append(div14, div13);
 			append(div13, label8);
 			append(div13, t45);
 			append(div13, input3);
-			set_input_value(input3, /*delayAlpha*/ ctx[18]);
+			set_input_value(input3, /*delayAlpha*/ ctx[19]);
 			insert(target, t46, anchor);
 			mount_component(soundsettings, target, anchor);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
-					listen(select, "change", /*select_change_handler*/ ctx[39]),
-					listen(input0, "input", /*input0_input_handler*/ ctx[40]),
-					listen(button0, "click", /*click_handler*/ ctx[41]),
-					listen(button1, "click", /*click_handler_1*/ ctx[48]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[49]),
-					listen(i, "click", /*click_handler_2*/ ctx[50]),
-					listen(button2, "click", /*click_handler_4*/ ctx[65]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[66]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[67])
+					listen(select, "change", /*select_change_handler*/ ctx[40]),
+					listen(input0, "input", /*input0_input_handler*/ ctx[41]),
+					listen(button0, "click", /*click_handler*/ ctx[42]),
+					listen(button1, "click", /*click_handler_1*/ ctx[49]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[50]),
+					listen(i, "click", /*click_handler_2*/ ctx[51]),
+					listen(button2, "click", /*click_handler_4*/ ctx[66]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[67]),
+					listen(input3, "input", /*input3_input_handler*/ ctx[68])
 				];
 
 				mounted = true;
@@ -54551,7 +54589,7 @@ function create_fragment$3(ctx) {
 				set_input_value(input0, /*teleDist*/ ctx[3]);
 			}
 
-			if (!current || dirty[0] & /*isHidden*/ 134217728) set_data(t14, /*isHidden*/ ctx[27]);
+			if (!current || dirty[0] & /*isHidden*/ 268435456) set_data(t14, /*isHidden*/ ctx[28]);
 
 			if (!current || dirty[0] & /*hideFromPlayers*/ 16 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*hideFromPlayers*/ ctx[4] ? "selected" : "notSelected") + " svelte-nvwkr7"))) {
 				attr(button0, "class", button0_class_value);
@@ -54561,60 +54599,60 @@ function create_fragment$3(ctx) {
 			if (dirty[0] & /*presetType*/ 2) chooseanimation0_changes.presetType = /*presetType*/ ctx[1];
 			if (dirty[0] & /*flagData*/ 1) chooseanimation0_changes.flagData = /*flagData*/ ctx[0];
 
-			if (!updating_menuType && dirty[0] & /*menuType*/ 32) {
+			if (!updating_menuType && dirty[0] & /*startMenuType*/ 32) {
 				updating_menuType = true;
-				chooseanimation0_changes.menuType = /*menuType*/ ctx[5];
+				chooseanimation0_changes.menuType = /*startMenuType*/ ctx[5];
 				add_flush_callback(() => updating_menuType = false);
 			}
 
-			if (!updating_animation && dirty[0] & /*animation*/ 64) {
+			if (!updating_animation && dirty[0] & /*startAnimation*/ 64) {
 				updating_animation = true;
-				chooseanimation0_changes.animation = /*animation*/ ctx[6];
+				chooseanimation0_changes.animation = /*startAnimation*/ ctx[6];
 				add_flush_callback(() => updating_animation = false);
 			}
 
-			if (!updating_variant && dirty[0] & /*variant*/ 128) {
+			if (!updating_variant && dirty[0] & /*startVariant*/ 128) {
 				updating_variant = true;
-				chooseanimation0_changes.variant = /*variant*/ ctx[7];
+				chooseanimation0_changes.variant = /*startVariant*/ ctx[7];
 				add_flush_callback(() => updating_variant = false);
 			}
 
-			if (!updating_color && dirty[0] & /*color*/ 256) {
+			if (!updating_color && dirty[0] & /*startColor*/ 256) {
 				updating_color = true;
-				chooseanimation0_changes.color = /*color*/ ctx[8];
+				chooseanimation0_changes.color = /*startColor*/ ctx[8];
 				add_flush_callback(() => updating_color = false);
 			}
 
-			if (!updating_isCustom && dirty[0] & /*isCustom*/ 512) {
+			if (!updating_isCustom && dirty[0] & /*startIsCustom*/ 512) {
 				updating_isCustom = true;
-				chooseanimation0_changes.isCustom = /*isCustom*/ ctx[9];
+				chooseanimation0_changes.isCustom = /*startIsCustom*/ ctx[9];
 				add_flush_callback(() => updating_isCustom = false);
 			}
 
-			if (!updating_customPath && dirty[0] & /*customPath*/ 1024) {
+			if (!updating_customPath && dirty[0] & /*startCustomPath*/ 1024) {
 				updating_customPath = true;
-				chooseanimation0_changes.customPath = /*customPath*/ ctx[10];
+				chooseanimation0_changes.customPath = /*startCustomPath*/ ctx[10];
 				add_flush_callback(() => updating_customPath = false);
 			}
 
 			chooseanimation0.$set(chooseanimation0_changes);
-			if (!current || dirty[0] & /*aboveBelow*/ 1073741824) set_data(t23, /*aboveBelow*/ ctx[30]);
+			if (!current || dirty[1] & /*startAboveBelow*/ 1) set_data(t23, /*startAboveBelow*/ ctx[31]);
 
-			if (dirty[0] & /*scale*/ 2048) {
-				set_input_value(input1, /*scale*/ ctx[11]);
+			if (dirty[0] & /*startScale*/ 2048) {
+				set_input_value(input1, /*startScale*/ ctx[11]);
 			}
 
-			if (!current || dirty[0] & /*enableBetween*/ 67108864 && i_class_value !== (i_class_value = "" + ((/*enableBetween*/ ctx[26]
+			if (!current || dirty[0] & /*enableBetween*/ 134217728 && i_class_value !== (i_class_value = "" + ((/*enableBetween*/ ctx[27]
 			? 'fas fa-minus aa-red'
 			: 'fas fa-plus aa-green') + " aaCenterToggle"))) {
 				attr(i, "class", i_class_value);
 			}
 
-			if (/*enableBetween*/ ctx[26]) {
+			if (/*enableBetween*/ ctx[27]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*enableBetween*/ 67108864) {
+					if (dirty[0] & /*enableBetween*/ 134217728) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -54637,51 +54675,51 @@ function create_fragment$3(ctx) {
 			if (dirty[0] & /*presetType*/ 2) chooseanimation1_changes.presetType = /*presetType*/ ctx[1];
 			if (dirty[0] & /*flagData*/ 1) chooseanimation1_changes.flagData = /*flagData*/ ctx[0];
 
-			if (!updating_menuType_1 && dirty[0] & /*menuType02*/ 4096) {
+			if (!updating_menuType_1 && dirty[0] & /*endMenuType*/ 4096) {
 				updating_menuType_1 = true;
-				chooseanimation1_changes.menuType = /*menuType02*/ ctx[12];
+				chooseanimation1_changes.menuType = /*endMenuType*/ ctx[12];
 				add_flush_callback(() => updating_menuType_1 = false);
 			}
 
-			if (!updating_animation_1 && dirty[0] & /*animation02*/ 8192) {
+			if (!updating_animation_1 && dirty[0] & /*endAnimation*/ 8192) {
 				updating_animation_1 = true;
-				chooseanimation1_changes.animation = /*animation02*/ ctx[13];
+				chooseanimation1_changes.animation = /*endAnimation*/ ctx[13];
 				add_flush_callback(() => updating_animation_1 = false);
 			}
 
-			if (!updating_variant_1 && dirty[0] & /*variant02*/ 16384) {
+			if (!updating_variant_1 && dirty[0] & /*endVariant*/ 16384) {
 				updating_variant_1 = true;
-				chooseanimation1_changes.variant = /*variant02*/ ctx[14];
+				chooseanimation1_changes.variant = /*endVariant*/ ctx[14];
 				add_flush_callback(() => updating_variant_1 = false);
 			}
 
-			if (!updating_color_1 && dirty[0] & /*color02*/ 32768) {
+			if (!updating_color_1 && dirty[0] & /*endColor*/ 32768) {
 				updating_color_1 = true;
-				chooseanimation1_changes.color = /*color02*/ ctx[15];
+				chooseanimation1_changes.color = /*endColor*/ ctx[15];
 				add_flush_callback(() => updating_color_1 = false);
 			}
 
-			if (!updating_isCustom_1 && dirty[0] & /*isCustom02*/ 65536) {
+			if (!updating_isCustom_1 && dirty[0] & /*endIsCustom*/ 65536) {
 				updating_isCustom_1 = true;
-				chooseanimation1_changes.isCustom = /*isCustom02*/ ctx[16];
+				chooseanimation1_changes.isCustom = /*endIsCustom*/ ctx[16];
 				add_flush_callback(() => updating_isCustom_1 = false);
 			}
 
-			if (!updating_customPath_1 && dirty[0] & /*customPath02*/ 131072) {
+			if (!updating_customPath_1 && dirty[0] & /*endCustomPath*/ 131072) {
 				updating_customPath_1 = true;
-				chooseanimation1_changes.customPath = /*customPath02*/ ctx[17];
+				chooseanimation1_changes.customPath = /*endCustomPath*/ ctx[17];
 				add_flush_callback(() => updating_customPath_1 = false);
 			}
 
 			chooseanimation1.$set(chooseanimation1_changes);
-			if (!current || dirty[0] & /*aboveBelow02*/ 536870912) set_data(t39, /*aboveBelow02*/ ctx[29]);
+			if (!current || dirty[0] & /*endAboveBelow*/ 1073741824) set_data(t39, /*endAboveBelow*/ ctx[30]);
 
-			if (dirty[0] & /*scale*/ 2048) {
-				set_input_value(input2, /*scale*/ ctx[11]);
+			if (dirty[0] & /*endScale*/ 262144) {
+				set_input_value(input2, /*endScale*/ ctx[18]);
 			}
 
-			if (dirty[0] & /*delayAlpha*/ 262144) {
-				set_input_value(input3, /*delayAlpha*/ ctx[18]);
+			if (dirty[0] & /*delayAlpha*/ 524288) {
+				set_input_value(input3, /*delayAlpha*/ ctx[19]);
 			}
 
 			const soundsettings_changes = {};
@@ -54746,10 +54784,12 @@ function create_fragment$3(ctx) {
 	};
 }
 
+let shouldShowOnlyX = true;
+
 function instance$3($$self, $$props, $$invalidate) {
-	let aboveBelow;
-	let aboveBelow02;
-	let aboveBelow03;
+	let startAboveBelow;
+	let endAboveBelow;
+	let betweenAboveBelow;
 	let { flagData } = $$props;
 	let { presetType } = $$props;
 	const root = flagData.preset;
@@ -54768,51 +54808,63 @@ function instance$3($$self, $$props, $$invalidate) {
 		$$invalidate(4, hideFromPlayers = !hideFromPlayers);
 	}
 
+	//Set Start Animation variables
 	preset.start ? preset.start : preset.start = {};
+
 	const start = preset.start;
-	let menuType = start.menuType;
-	let animation = start.animation;
-	let variant = start.variant;
-	let color = start.color;
-	let isCustom = start.enableCustom || false;
-	let customPath = start.customPath;
-	let scale = start.scale || 1;
-	let belowToken = start.below || false;
+	let startMenuType = start.menuType;
+	let startAnimation = start.animation;
+	let startVariant = start.variant;
+	let startColor = start.color;
+	let startIsCustom = start.enableCustom || false;
+	let startCustomPath = start.customPath;
+	let startScale = start.scale || 1;
+	let startBelowToken = start.below || false;
 
-	function below() {
-		$$invalidate(36, belowToken = !belowToken);
+	function startBelow() {
+		$$invalidate(37, startBelowToken = !startBelowToken);
 	}
 
-	let belowToken02 = preset.below02 || false;
+	//Set End Animation variables
+	preset.end ? preset.end : preset.end = {};
 
-	function below02() {
-		$$invalidate(37, belowToken02 = !belowToken02);
+	const end = preset.end;
+	let endBelowToken = end.below || false;
+
+	function endBelow() {
+		$$invalidate(38, endBelowToken = !endBelowToken);
 	}
 
-	let belowToken03 = preset.below03 || false;
+	let endMenuType = end.menuType;
+	let endAnimation = end.animation;
+	let endVariant = end.variant;
+	let endColor = end.color;
+	let endIsCustom = end.enableCustom || false;
+	let endCustomPath = end.customPath;
+	let endScale = end.scale || 1;
+	let delayAlpha = end.delay || 250;
 
-	function below03() {
-		$$invalidate(38, belowToken03 = !belowToken03);
-	}
+	//Set End Animation variables
+	preset.between ? preset.between : preset.between = {};
 
-	let menuType02 = preset.menuType02;
-	let animation02 = preset.animation02;
-	let variant02 = preset.variant02;
-	let color02 = preset.color02;
-	let isCustom02 = preset.enableCustom02 || false;
-	let customPath02 = preset.customPath02;
-	let delayAlpha = preset.delay || 250;
-	let menuType03 = preset.menuType03;
-	let animation03 = preset.animation03;
-	let variant03 = preset.variant03;
-	let color03 = preset.color03;
-	let isCustom03 = preset.enableCustom03 || false;
-	let customPath03 = preset.customPath03;
-	let playbackRate03 = preset.playbackRate03 || 1;
-	let enableBetween = preset.enableBetween || false;
+	const between = preset.between;
+	let betweenMenuType = between.menuType;
+	let betweenAnimation = between.animation;
+	let betweenVariant = between.variant;
+	let betweenColor = between.color;
+	let betweenIsCustom = between.enableCustom || false;
+	let betweenCustomPath = between.customPath;
+	let betweenPlaybackRate = between.playbackRate || 1;
+	let enableBetween = between.enableBetween || false;
 
 	function switchBetween() {
-		$$invalidate(26, enableBetween = !enableBetween);
+		$$invalidate(27, enableBetween = !enableBetween);
+	}
+
+	let betweenBelowToken = between.below || false;
+
+	function betweenBelow() {
+		$$invalidate(39, betweenBelowToken = !betweenBelowToken);
 	}
 
 	function select_change_handler() {
@@ -54828,121 +54880,121 @@ function instance$3($$self, $$props, $$invalidate) {
 	const click_handler = () => switchHide();
 
 	function chooseanimation0_menuType_binding(value) {
-		menuType = value;
-		$$invalidate(5, menuType);
+		startMenuType = value;
+		$$invalidate(5, startMenuType);
 	}
 
 	function chooseanimation0_animation_binding(value) {
-		animation = value;
-		$$invalidate(6, animation);
+		startAnimation = value;
+		$$invalidate(6, startAnimation);
 	}
 
 	function chooseanimation0_variant_binding(value) {
-		variant = value;
-		$$invalidate(7, variant);
+		startVariant = value;
+		$$invalidate(7, startVariant);
 	}
 
 	function chooseanimation0_color_binding(value) {
-		color = value;
-		$$invalidate(8, color);
+		startColor = value;
+		$$invalidate(8, startColor);
 	}
 
 	function chooseanimation0_isCustom_binding(value) {
-		isCustom = value;
-		$$invalidate(9, isCustom);
+		startIsCustom = value;
+		$$invalidate(9, startIsCustom);
 	}
 
 	function chooseanimation0_customPath_binding(value) {
-		customPath = value;
-		$$invalidate(10, customPath);
+		startCustomPath = value;
+		$$invalidate(10, startCustomPath);
 	}
 
-	const click_handler_1 = () => below();
+	const click_handler_1 = () => startBelow();
 
 	function input1_input_handler() {
-		scale = this.value;
-		$$invalidate(11, scale);
+		startScale = this.value;
+		$$invalidate(11, startScale);
 	}
 
 	const click_handler_2 = () => switchBetween();
 
 	function chooseanimation_menuType_binding(value) {
-		menuType03 = value;
-		$$invalidate(19, menuType03);
+		betweenMenuType = value;
+		$$invalidate(20, betweenMenuType);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		animation03 = value;
-		$$invalidate(20, animation03);
+		betweenAnimation = value;
+		$$invalidate(21, betweenAnimation);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		variant03 = value;
-		$$invalidate(21, variant03);
+		betweenVariant = value;
+		$$invalidate(22, betweenVariant);
 	}
 
 	function chooseanimation_color_binding(value) {
-		color03 = value;
-		$$invalidate(22, color03);
+		betweenColor = value;
+		$$invalidate(23, betweenColor);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		isCustom03 = value;
-		$$invalidate(23, isCustom03);
+		betweenIsCustom = value;
+		$$invalidate(24, betweenIsCustom);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		customPath03 = value;
-		$$invalidate(24, customPath03);
+		betweenCustomPath = value;
+		$$invalidate(25, betweenCustomPath);
 	}
 
-	const click_handler_3 = () => below03();
+	const click_handler_3 = () => betweenBelow();
 
 	function input_input_handler() {
-		playbackRate03 = this.value;
-		$$invalidate(25, playbackRate03);
+		betweenPlaybackRate = this.value;
+		$$invalidate(26, betweenPlaybackRate);
 	}
 
 	function chooseanimation1_menuType_binding(value) {
-		menuType02 = value;
-		$$invalidate(12, menuType02);
+		endMenuType = value;
+		$$invalidate(12, endMenuType);
 	}
 
 	function chooseanimation1_animation_binding(value) {
-		animation02 = value;
-		$$invalidate(13, animation02);
+		endAnimation = value;
+		$$invalidate(13, endAnimation);
 	}
 
 	function chooseanimation1_variant_binding(value) {
-		variant02 = value;
-		$$invalidate(14, variant02);
+		endVariant = value;
+		$$invalidate(14, endVariant);
 	}
 
 	function chooseanimation1_color_binding(value) {
-		color02 = value;
-		$$invalidate(15, color02);
+		endColor = value;
+		$$invalidate(15, endColor);
 	}
 
 	function chooseanimation1_isCustom_binding(value) {
-		isCustom02 = value;
-		$$invalidate(16, isCustom02);
+		endIsCustom = value;
+		$$invalidate(16, endIsCustom);
 	}
 
 	function chooseanimation1_customPath_binding(value) {
-		customPath02 = value;
-		$$invalidate(17, customPath02);
+		endCustomPath = value;
+		$$invalidate(17, endCustomPath);
 	}
 
-	const click_handler_4 = () => below02();
+	const click_handler_4 = () => endBelow();
 
 	function input2_input_handler() {
-		scale = this.value;
-		$$invalidate(11, scale);
+		endScale = this.value;
+		$$invalidate(18, endScale);
 	}
 
 	function input3_input_handler() {
 		delayAlpha = this.value;
-		$$invalidate(18, delayAlpha);
+		$$invalidate(19, delayAlpha);
 	}
 
 	$$self.$$set = $$props => {
@@ -54964,119 +55016,123 @@ function instance$3($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty[0] & /*hideFromPlayers*/ 16) {
-			$$invalidate(27, isHidden = hideFromPlayers ? "Hidden" : "Not Hidden");
+			$$invalidate(28, isHidden = hideFromPlayers ? "Hidden" : "Not Hidden");
 		}
 
-		if ($$self.$$.dirty[0] & /*menuType*/ 32) {
-			$$invalidate(5, menuType = start.menuType = menuType);
+		if ($$self.$$.dirty[0] & /*startMenuType*/ 32) {
+			$$invalidate(5, startMenuType = start.menuType = startMenuType);
 		}
 
-		if ($$self.$$.dirty[0] & /*animation*/ 64) {
-			$$invalidate(6, animation = start.animation = animation);
+		if ($$self.$$.dirty[0] & /*startAnimation*/ 64) {
+			$$invalidate(6, startAnimation = start.animation = startAnimation);
 		}
 
-		if ($$self.$$.dirty[0] & /*variant*/ 128) {
-			$$invalidate(7, variant = start.variant = variant);
+		if ($$self.$$.dirty[0] & /*startVariant*/ 128) {
+			$$invalidate(7, startVariant = start.variant = startVariant);
 		}
 
-		if ($$self.$$.dirty[0] & /*color*/ 256) {
-			$$invalidate(8, color = start.color = color);
+		if ($$self.$$.dirty[0] & /*startColor*/ 256) {
+			$$invalidate(8, startColor = start.color = startColor);
 		}
 
-		if ($$self.$$.dirty[0] & /*isCustom*/ 512) {
-			$$invalidate(9, isCustom = start.enableCustom = isCustom);
+		if ($$self.$$.dirty[0] & /*startIsCustom*/ 512) {
+			$$invalidate(9, startIsCustom = start.enableCustom = startIsCustom);
 		}
 
-		if ($$self.$$.dirty[0] & /*customPath*/ 1024) {
-			$$invalidate(10, customPath = start.customPath = customPath);
+		if ($$self.$$.dirty[0] & /*startCustomPath*/ 1024) {
+			$$invalidate(10, startCustomPath = start.customPath = startCustomPath);
 		}
 
-		if ($$self.$$.dirty[0] & /*scale*/ 2048) {
-			$$invalidate(11, scale = start.scale = scale);
+		if ($$self.$$.dirty[0] & /*startScale*/ 2048) {
+			$$invalidate(11, startScale = start.scale = startScale);
 		}
 
-		if ($$self.$$.dirty[1] & /*belowToken*/ 32) {
-			$$invalidate(36, belowToken = start.below = belowToken);
+		if ($$self.$$.dirty[1] & /*startBelowToken*/ 64) {
+			$$invalidate(37, startBelowToken = start.below = startBelowToken);
 		}
 
-		if ($$self.$$.dirty[1] & /*belowToken*/ 32) {
-			$$invalidate(30, aboveBelow = belowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[1] & /*startBelowToken*/ 64) {
+			$$invalidate(31, startAboveBelow = startBelowToken ? "Below Token" : "Above Token");
 		}
 
-		if ($$self.$$.dirty[1] & /*belowToken02*/ 64) {
-			$$invalidate(37, belowToken02 = preset.below02 = belowToken02);
+		if ($$self.$$.dirty[1] & /*endBelowToken*/ 128) {
+			$$invalidate(38, endBelowToken = end.below = endBelowToken);
 		}
 
-		if ($$self.$$.dirty[1] & /*belowToken02*/ 64) {
-			$$invalidate(29, aboveBelow02 = belowToken02 ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[1] & /*endBelowToken*/ 128) {
+			$$invalidate(30, endAboveBelow = endBelowToken ? "Below Token" : "Above Token");
 		}
 
-		if ($$self.$$.dirty[1] & /*belowToken03*/ 128) {
-			$$invalidate(38, belowToken03 = preset.below03 = belowToken03);
+		if ($$self.$$.dirty[0] & /*endMenuType*/ 4096) {
+			$$invalidate(12, endMenuType = end.menuType = endMenuType);
 		}
 
-		if ($$self.$$.dirty[1] & /*belowToken03*/ 128) {
-			$$invalidate(28, aboveBelow03 = belowToken03 ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[0] & /*endAnimation*/ 8192) {
+			$$invalidate(13, endAnimation = end.animation = endAnimation);
 		}
 
-		if ($$self.$$.dirty[0] & /*menuType02*/ 4096) {
-			$$invalidate(12, menuType02 = preset.menuType02 = menuType02);
+		if ($$self.$$.dirty[0] & /*endVariant*/ 16384) {
+			$$invalidate(14, endVariant = end.variant = endVariant);
 		}
 
-		if ($$self.$$.dirty[0] & /*animation02*/ 8192) {
-			$$invalidate(13, animation02 = preset.animation02 = animation02);
+		if ($$self.$$.dirty[0] & /*endColor*/ 32768) {
+			$$invalidate(15, endColor = end.color = endColor);
 		}
 
-		if ($$self.$$.dirty[0] & /*variant02*/ 16384) {
-			$$invalidate(14, variant02 = preset.variant02 = variant02);
+		if ($$self.$$.dirty[0] & /*endIsCustom*/ 65536) {
+			$$invalidate(16, endIsCustom = end.enableCustom = endIsCustom);
 		}
 
-		if ($$self.$$.dirty[0] & /*color02*/ 32768) {
-			$$invalidate(15, color02 = preset.color02 = color02);
+		if ($$self.$$.dirty[0] & /*endCustomPath*/ 131072) {
+			$$invalidate(17, endCustomPath = end.customPath = endCustomPath);
 		}
 
-		if ($$self.$$.dirty[0] & /*isCustom02*/ 65536) {
-			$$invalidate(16, isCustom02 = preset.enableCustom02 = isCustom02);
+		if ($$self.$$.dirty[0] & /*endScale*/ 262144) {
+			$$invalidate(18, endScale = end.scale = endScale);
 		}
 
-		if ($$self.$$.dirty[0] & /*customPath02*/ 131072) {
-			$$invalidate(17, customPath02 = preset.customPath02 = customPath02);
+		if ($$self.$$.dirty[0] & /*delayAlpha*/ 524288) {
+			$$invalidate(19, delayAlpha = end.delay = delayAlpha);
 		}
 
-		if ($$self.$$.dirty[0] & /*delayAlpha*/ 262144) {
-			$$invalidate(18, delayAlpha = preset.delay = delayAlpha);
+		if ($$self.$$.dirty[0] & /*betweenMenuType*/ 1048576) {
+			$$invalidate(20, betweenMenuType = between.menuType = betweenMenuType);
 		}
 
-		if ($$self.$$.dirty[0] & /*menuType03*/ 524288) {
-			$$invalidate(19, menuType03 = preset.menuType03 = menuType03);
+		if ($$self.$$.dirty[0] & /*betweenAnimation*/ 2097152) {
+			$$invalidate(21, betweenAnimation = between.animation = betweenAnimation);
 		}
 
-		if ($$self.$$.dirty[0] & /*animation03*/ 1048576) {
-			$$invalidate(20, animation03 = preset.animation03 = animation03);
+		if ($$self.$$.dirty[0] & /*betweenVariant*/ 4194304) {
+			$$invalidate(22, betweenVariant = between.variant = betweenVariant);
 		}
 
-		if ($$self.$$.dirty[0] & /*variant03*/ 2097152) {
-			$$invalidate(21, variant03 = preset.variant03 = variant03);
+		if ($$self.$$.dirty[0] & /*betweenColor*/ 8388608) {
+			$$invalidate(23, betweenColor = between.color = betweenColor);
 		}
 
-		if ($$self.$$.dirty[0] & /*color03*/ 4194304) {
-			$$invalidate(22, color03 = preset.color03 = color03);
+		if ($$self.$$.dirty[0] & /*betweenIsCustom*/ 16777216) {
+			$$invalidate(24, betweenIsCustom = between.enableCustom = betweenIsCustom);
 		}
 
-		if ($$self.$$.dirty[0] & /*isCustom03*/ 8388608) {
-			$$invalidate(23, isCustom03 = preset.enableCustom03 = isCustom03);
+		if ($$self.$$.dirty[0] & /*betweenCustomPath*/ 33554432) {
+			$$invalidate(25, betweenCustomPath = between.customPath = betweenCustomPath);
 		}
 
-		if ($$self.$$.dirty[0] & /*customPath03*/ 16777216) {
-			$$invalidate(24, customPath03 = preset.customPath03 = customPath03);
+		if ($$self.$$.dirty[0] & /*betweenPlaybackRate*/ 67108864) {
+			$$invalidate(26, betweenPlaybackRate = between.playbackRate = betweenPlaybackRate);
 		}
 
-		if ($$self.$$.dirty[0] & /*playbackRate03*/ 33554432) {
-			$$invalidate(25, playbackRate03 = preset.playbackRate03 = playbackRate03);
+		if ($$self.$$.dirty[0] & /*enableBetween*/ 134217728) {
+			$$invalidate(27, enableBetween = between.enableBetween = enableBetween);
 		}
 
-		if ($$self.$$.dirty[0] & /*enableBetween*/ 67108864) {
-			$$invalidate(26, enableBetween = preset.enableBetween = enableBetween);
+		if ($$self.$$.dirty[1] & /*betweenBelowToken*/ 256) {
+			$$invalidate(39, betweenBelowToken = between.below = betweenBelowToken);
+		}
+
+		if ($$self.$$.dirty[1] & /*betweenBelowToken*/ 256) {
+			$$invalidate(29, betweenAboveBelow = betweenBelowToken ? "Below Token" : "Above Token");
 		}
 	};
 
@@ -55086,40 +55142,41 @@ function instance$3($$self, $$props, $$invalidate) {
 		measureType,
 		teleDist,
 		hideFromPlayers,
-		menuType,
-		animation,
-		variant,
-		color,
-		isCustom,
-		customPath,
-		scale,
-		menuType02,
-		animation02,
-		variant02,
-		color02,
-		isCustom02,
-		customPath02,
+		startMenuType,
+		startAnimation,
+		startVariant,
+		startColor,
+		startIsCustom,
+		startCustomPath,
+		startScale,
+		endMenuType,
+		endAnimation,
+		endVariant,
+		endColor,
+		endIsCustom,
+		endCustomPath,
+		endScale,
 		delayAlpha,
-		menuType03,
-		animation03,
-		variant03,
-		color03,
-		isCustom03,
-		customPath03,
-		playbackRate03,
+		betweenMenuType,
+		betweenAnimation,
+		betweenVariant,
+		betweenColor,
+		betweenIsCustom,
+		betweenCustomPath,
+		betweenPlaybackRate,
 		enableBetween,
 		isHidden,
-		aboveBelow03,
-		aboveBelow02,
-		aboveBelow,
+		betweenAboveBelow,
+		endAboveBelow,
+		startAboveBelow,
 		switchHide,
-		below,
-		below02,
-		below03,
+		startBelow,
+		endBelow,
 		switchBetween,
-		belowToken,
-		belowToken02,
-		belowToken03,
+		betweenBelow,
+		startBelowToken,
+		endBelowToken,
+		betweenBelowToken,
 		select_change_handler,
 		input0_input_handler,
 		click_handler,
