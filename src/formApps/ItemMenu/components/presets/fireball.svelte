@@ -2,11 +2,475 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
     import SoundSettings from "../soundSettings.svelte";
+    import ChooseAnimation from "../chooseAnimation.svelte";
+
+    export let flagData;
+    export let presetType;
+    const root = flagData.preset;
+    root.fireball ? root.fireball : (root.fireball = {});
+    const preset = root.fireball;
+
+    // Configure Projectile variables
+    preset.projectile ? preset.projectile : preset.projectile = {};
+    const projectile = preset.projectile;
+    let projectileMenuType = projectile.menuType;
+    $: projectileMenuType = projectile.menuType = projectileMenuType;
+    let projectileAnimation = projectile.animation;
+    $: projectileAnimation = projectile.animation = projectileAnimation;
+    let projectileVariant = projectile.variant;
+    $: projectileVariant = projectile.variant = projectileVariant;
+    let projectileColor = projectile.color;
+    $: projectileColor = projectile.color = projectileColor;
+    let projectileIsCustom = projectile.enableCustom || false;
+    $: projectileIsCustom = projectile.enableCustom = projectileIsCustom;
+    let projectileCustomPath = projectile.customPath;
+    $: projectileCustomPath = projectile.customPath = projectileCustomPath;
+    let projectileWait = projectile.wait || 0;
+    $: projectileWait = projectile.wait = projectileWait;
+    let projectileRepeat = projectile.repeat || 1;
+    $: projectileRepeat = projectile.repeat = projectileRepeat;
+    let projectileDelay = projectile.delay || 0;
+    $: projectileDelay = projectile.delay = projectileDelay;
+    let removeTemplate = preset.removeTemplate || false;
+    $: removeTemplate = preset.removeTemplate = removeTemplate;
+    $: isRemove = removeTemplate ? "Yes" : "No";
+    function switchRemove() {
+        removeTemplate = !removeTemplate;
+    }
+    let projectileBelowToken = projectile.below || false;
+    $: projectileBelowToken = projectile.below = projectileBelowToken;
+    function projectileBelow() {
+        projectileBelowToken = !projectileBelowToken;
+    }
+    $: projectileAboveBelow = projectileBelowToken ? "Below Token" : "Above Token";
+
+
+    // Configure Pre Explosion variables
+    preset.explosion01 ? preset.explosion01 : preset.explosion01 = {};
+    const explosion01 = preset.explosion01;
+    let explosion01MenuType = explosion01.menuType;
+    $: explosion01MenuType = explosion01.menuType = explosion01MenuType;
+    let explosion01Animation = explosion01.animation;
+    $: explosion01Animation = explosion01.animation = explosion01Animation;
+    let explosion01Variant = explosion01.variant;
+    $: explosion01Variant = explosion01.variant = explosion01Variant;
+    let explosion01Color = explosion01.color;
+    $: explosion01Color = explosion01.color = explosion01Color;
+    let explosion01IsCustom = explosion01.enableCustom || false;
+    $: explosion01IsCustom = explosion01.enableCustom = explosion01IsCustom;
+    let explosion01CustomPath = explosion01.customPath;
+    $: explosion01CustomPath = explosion01.customPath = explosion01CustomPath;
+    let explosion01BelowToken = explosion01.below || false;
+    $: explosion01BelowToken = explosion01.below = explosion01BelowToken;
+    function explosion01Below() {
+        explosion01BelowToken = !explosion01BelowToken;
+    }
+    $: explosion01AboveBelow = explosion01BelowToken ? "Below Token" : "Above Token";
+    let explosion01Scale = explosion01.scale || 1;
+    $: explosion01Scale = explosion01.scale = explosion01Scale;
+    let explosion01Wait = explosion01.wait || 0;
+    $: explosion01Wait = explosion01.wait = explosion01Wait;
+    let explosion01Repeat = explosion01.repeat || 1;
+    $: explosion01Repeat = explosion01.repeat = explosion01Repeat;
+    let explosion01Delay = explosion01.delay || 0;
+    $: explosion01Delay = explosion01.delay = explosion01Delay;
+    let enablePreExplosion = explosion01.enable || false;
+    $: enablePreExplosion = explosion01.enable = enablePreExplosion;
+    function switchPreExplosionEnable() {
+        enablePreExplosion = !enablePreExplosion;
+    }
+
+
+    // Configure Primary Explosion variables
+    preset.explosion02 ? preset.explosion02 : preset.explosion02 = {};
+    const explosion02 = preset.explosion02;
+    let explosion02MenuType = explosion02.menuType;
+    $: explosion02MenuType = explosion02.menuType = explosion02MenuType;
+    let explosion02Animation = explosion02.animation;
+    $: explosion02Animation = explosion02.animation = explosion02Animation;
+    let explosion02Variant = explosion02.variant;
+    $: explosion02Variant = explosion02.variant = explosion02Variant;
+    let explosion02Color = explosion02.color;
+    $: explosion02Color = explosion02.color = explosion02Color;
+    let explosion02IsCustom = explosion02.enableCustom || false;
+    $: explosion02IsCustom = explosion02.enableCustom = explosion02IsCustom;
+    let explosion02CustomPath = explosion02.customPath;
+    $: explosion02CustomPath = explosion02.customPath = explosion02CustomPath;
+    let explosion02BelowToken = explosion02.below || false;
+    $: explosion02BelowToken = explosion02.below = explosion02BelowToken;
+    function explosion02Below() {
+        explosion02BelowToken = !explosion02BelowToken;
+    }
+    $: explosion02AboveBelow = explosion02BelowToken ? "Below Token" : "Above Token";
+    let explosion02Scale = explosion02.scale || 1;
+    $: explosion02Scale = explosion02.scale = explosion02Scale;
+    let explosion02Repeat = explosion02.repeat || 1;
+    $: explosion02Repeat = explosion02.repeat = explosion02Repeat;
+    let explosion02Delay = explosion02.delay || 0;
+    $: explosion02Delay = explosion02.delay = explosion02Delay;
+
+    async function selectCustom() {
+        const current = customPath;
+        const picker = new FilePicker({
+            type: "imagevideo",
+            current,
+            callback: (path) => {
+                customPath = path;
+            },
+        });
+        setTimeout(() => {
+            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+        }, 100);
+        await picker.browse(current);
+    }
+
+    preset.afterImage ? preset.afterImage : preset.afterImage = {};
+    const afterImage = preset.afterImage;
+    let enableAfterImage = afterImage.enable || false;
+    $: enableAfterImage = afterImage.enable = enableAfterImage;
+    function switchAfterImageEnable() {
+        enableAfterImage = !enableAfterImage;
+    }
+    let customPath = afterImage.customPath || "";
+    $: customPath = afterImage.customPath = customPath;
+    let persistent = afterImage.persistent || false;
+    $: persistent = afterImage.persistent = persistent;
+    $: isPersistent = persistent ? "Persistent" : "Not Persistent"
+    function switchPersistence() {
+        persistent = !persistent;
+    }
+    let afterImageBelowToken = afterImage.below || false;
+    $: afterImageBelowToken = afterImage.below = afterImageBelowToken;
+    function afterImageBelow() {
+        afterImageBelowToken = !afterImageBelowToken;
+    }
+    $: afterImageAboveBelow = afterImageBelowToken ? "Below Token" : "Above Token";
+    let afterImageScale = afterImage.scale || 1;
+    $: afterImageScale = afterImage.scale = afterImageScale;
+    let afterImageWait = afterImage.wait || 0;
+    $: afterImageWait = afterImage.wait = afterImageWait;
 
 </script>
 
+<h1 style="margin-top:10px;">Projectile Animation</h1>
+<ChooseAnimation
+    bind:menuType={projectileMenuType}
+    bind:animation={projectileAnimation}
+    bind:variant={projectileVariant}
+    bind:color={projectileColor}
+    bind:isCustom={projectileIsCustom}
+    bind:customPath={projectileCustomPath}
+    {presetType}
+    presetSubType="FireballProjectile"
+    flagPath="preset"
+    animType="range"
+    {flagData}
+/>
+<h2>Options</h2>
+<div class="aa-options">
+    <!--Set Z-Index-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+        <label for="">Z-Index</label>
+        <button class="oldCheck" on:click={() => projectileBelow()}>{projectileAboveBelow}</button>
+    </div>
+    <!--Remove Template option-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+        <label for="">{localize("AUTOANIM.remove")}</label>
+        <button class="{removeTemplate ? "selected" : "notSelected"}" on:click={() => switchRemove()}>{isRemove}</button>
+    </div>        
+    <!--Set Number of times the animation plays-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+        <label for="">{localize("AUTOANIM.repeat")}</label>
+        <input type="Number" bind:value={projectileRepeat} placeholder=1>
+    </div>
+    <!--Set delay between repeats-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+        <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
+        <input type="Number" bind:value={projectileDelay} placeholder=250>
+    </div>
+    <!--Set Delay before Next Explosion-->
+    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
+        <label for="">Wait</label>
+        <input type="Number" bind:value={projectileWait} step="0.01" />
+    </div>    
+</div>
+<SoundSettings audioPath="a01" {flagData} />
+
+<div class="aa-preheader-section">
+    <div class="aa-preheader">
+        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+            <label for="">Pre-Explosion Animation</label>
+        </div>
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
+            <i
+                class="{enablePreExplosion
+                    ? 'fas fa-minus aa-red'
+                    : 'fas fa-plus aa-green'} aaCenterToggle"
+                on:click={() => switchPreExplosionEnable()}
+            />
+        </div>
+    </div>
+</div>
+{#if enablePreExplosion}
+<ChooseAnimation
+    bind:menuType={explosion01MenuType}
+    bind:animation={explosion01Animation}
+    bind:variant={explosion01Variant}
+    bind:color={explosion01Color}
+    bind:isCustom={explosion01IsCustom}
+    bind:customPath={explosion01CustomPath}
+    {presetType}
+    presetSubType="FireballExplosion01"
+    flagPath="preset"
+    animType="static"
+    {flagData}
+/>
+<h2>Options</h2>
+<div class="aa-options">
+    <!--Set Z-Index-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+        <label for="">Z-Index</label>
+        <button class="oldCheck" on:click={() => explosion01Below()}>{explosion01AboveBelow}</button>
+    </div>
+    <!--Set the Scale of the Animation-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+        <label for="">{localize("AUTOANIM.scale")}</label>
+        <input type="Number" bind:value={explosion01Scale} placeholder=1>
+    </div>
+    <!--Set Number of times the animation plays-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+        <label for="">{localize("AUTOANIM.repeat")}</label>
+        <input type="Number" bind:value={explosion01Repeat} placeholder=1>
+    </div>
+    <!--Set delay between repeats-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+        <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
+        <input type="Number" bind:value={explosion01Delay} placeholder=250>
+    </div>
+    <!--Set Delay before Next Explosion-->
+    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
+        <label for="">Wait</label>
+        <input type="Number" bind:value={explosion01Wait} step="0.01" />
+    </div>    
+</div>
+<SoundSettings audioPath="e01" {flagData} />
+{/if}
+
+<h1 style="margin-top:10px;">Primary Explosion Animation</h1>
+<ChooseAnimation
+    bind:menuType={explosion02MenuType}
+    bind:animation={explosion02Animation}
+    bind:variant={explosion02Variant}
+    bind:color={explosion02Color}
+    bind:isCustom={explosion02IsCustom}
+    bind:customPath={explosion02CustomPath}
+    {presetType}
+    presetSubType="FireballExplosion02"
+    flagPath="preset"
+    animType="static"
+    {flagData}
+/>
+<h2>Options</h2>
+<div class="aa-options">
+    <!--Set Z-Index-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+        <label for="">Z-Index</label>
+        <button class="oldCheck" on:click={() => explosion02Below()}>{explosion02AboveBelow}</button>
+    </div>
+    <!--Set the Scale of the Animation-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+        <label for="">{localize("AUTOANIM.scale")}</label>
+        <input type="Number" bind:value={explosion02Scale} placeholder=1>
+    </div>
+    <!--Set Number of times the animation plays-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+        <label for="">{localize("AUTOANIM.repeat")}</label>
+        <input type="Number" bind:value={explosion02Repeat} placeholder=1>
+    </div>
+    <!--Set delay between repeats-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+        <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
+        <input type="Number" bind:value={explosion02Delay} placeholder=250>
+    </div>
+</div>
+<SoundSettings audioPath="e02" {flagData} />
+
+<div class="aa-preheader-section">
+    <div class="aa-preheader">
+        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+            <label for="">Add After Image/Video</label>
+        </div>
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
+            <i
+                class="{enableAfterImage
+                    ? 'fas fa-minus aa-red'
+                    : 'fas fa-plus aa-green'} aaCenterToggle"
+                on:click={() => switchAfterImageEnable()}
+            />
+        </div>
+    </div>
+</div>
+{#if enableAfterImage}
+<div
+    class="aa-customAnim-container"
+    transition:fade
+>
+    <div
+        class="form-group"
+        style="grid-row: 1/2; grid-column: 1/5"
+    >
+        <input
+            type="text"
+            bind:value={customPath}
+            class={customPath !== ""
+                ? "isPopulated"
+                : "isNotPopulated opacityText"}
+        />
+        <button
+            class="file-picker"
+            on:click|preventDefault={() => selectCustom()}
+            ><i class="fas fa-file-import fa-fw" /></button
+        >
+    </div>
+</div>
+<div class="aa-options">
+    <!--Set Z-Index-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+        <label for="">Z-Index</label>
+        <button class="oldCheck" on:click={() => afterImageBelow()}>{afterImageAboveBelow}</button>
+    </div>
+    <!--Persistent Setting-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+        <label for="">Persistence</label>
+        <button on:click={() => switchPersistence()}>{isPersistent}</button>
+    </div>    
+    <!--Set the Scale of the Animation-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+        <label for="">{localize("AUTOANIM.scale")}</label>
+        <input type="Number" bind:value={afterImageScale} placeholder=1>
+    </div>
+    <!--Set Delay before Next Explosion-->
+    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+        <label for="">Wait</label>
+        <input type="Number" bind:value={afterImageWait} step="0.01" />
+    </div>    
+</div>
+{/if}
 
 
 <style lang='scss'>
-    
+    h1 {
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 5%;
+        margin-left: 5%;
+        margin-top: 10px;
+        color: black;
+    }
+    h2 {
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 15%;
+        margin-left: 15%;
+        color: black;
+    }
+    .aa-options button {
+        border-radius: 10px;
+        border: 2px outset #8e8e8e;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+        height: auto;
+    }
+    .selected {
+        background-color: rgba(25, 175, 2, 0.18);
+        transition: background-color 0.5s;
+    }
+    .notSelected {
+        background-color: rgba(219, 132, 2, 0.18);
+        transition: background-color 0.5s;
+    }
+    .aa-options {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-gap: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-right: 8%;
+        margin-left: 5%;
+        font-weight: bold;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        color: black;
+    }
+    .aa-options input {
+        text-align: center;
+        align-self: center;
+        border-radius: 5px;
+        width: 3em;
+        color: black;
+    }
+    .aa-options label {
+        align-self: center;
+    }
+    .aa-customAnim-container {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-gap: 5px;
+        padding: 5px;
+        margin-right: 8%;
+        margin-left: 5%;
+        font-size: small;
+        font-weight: bold;
+    }
+    .aa-customAnim-container button {
+        border-radius: 10px;
+        border: 2px outset #dddddd;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+    }
+    .isPopulated {
+        box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
+        transition: box-shadow 0.5s;
+    }
+    .isNotPopulated {
+        box-shadow: 0 0 6px rgba(219, 132, 2, 0.7);
+        transition: box-shadow 0.5s;
+    }
+    .aa-preheader {
+        display: grid;
+        grid-template-columns: 10% 80% 10%;
+        grid-gap: 5px;
+        padding: 1px;
+        align-items: center;
+        margin-right: 8%;
+        margin-left: 5%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+        color: black;
+    }
+    .aa-preheader label {
+        align-self: center;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 5%;
+        margin-left: 5%;
+        color: black;
+    }
+    .aa-preheader-section {
+        border-bottom: 2px solid rgba(120, 46, 34, 1);
+        margin-right: 5%;
+        margin-left: 5%;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
 </style>

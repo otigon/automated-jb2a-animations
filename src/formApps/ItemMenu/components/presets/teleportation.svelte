@@ -24,34 +24,41 @@
         hideFromPlayers = !hideFromPlayers;
     }
 
-    let menuType = preset.menuType;
-    $: menuType = preset.menuType = menuType;
+    preset.start ? preset.start : preset.start = {};
+    const start = preset.start;
 
-    let animation = preset.animation;
-    $: animation = preset.animation = animation;
+    let menuType = start.menuType;
+    $: menuType = start.menuType = menuType;
 
-    let variant = preset.variant;
-    $: variant = preset.variant = variant;
+    let animation = start.animation;
+    $: animation = start.animation = animation;
 
-    let color = preset.color;
-    $: color = preset.color = color;
+    let variant = start.variant;
+    $: variant = start.variant = variant;
 
-    let isCustom = preset.enableCustom || false;
-    $: isCustom = preset.enableCustom = isCustom;
+    let color = start.color;
+    $: color = start.color = color;
 
-    let customPath = preset.customPath;
-    $: customPath = preset.customPath = customPath;
+    let isCustom = start.enableCustom || false;
+    $: isCustom = start.enableCustom = isCustom;
 
-    let scale = preset.scale || 1;
-    $: scale = preset.scale = scale;
+    let customPath = start.customPath;
+    $: customPath = start.customPath = customPath;
 
-    let belowToken = preset.below || false;
-    $: belowToken = preset.below = belowToken;
+    let scale = start.scale || 1;
+    $: scale = start.scale = scale;
+
+    let belowToken = start.below || false;
+    $: belowToken = start.below = belowToken;
     function below() {
         belowToken = !belowToken;
     }
     $: aboveBelow = belowToken ? "Below Token" : "Above Token";
 
+
+
+
+    
     let belowToken02 = preset.below02 || false;
     $: belowToken02 = preset.below02 = belowToken02;
     function below02() {
@@ -107,6 +114,12 @@
 
     let playbackRate03 = preset.playbackRate03 || 1;
     $: playbackRate03 = preset.playbackRate03 = playbackRate03;
+
+    let enableBetween = preset.enableBetween || false;
+    $: enableBetween = preset.enableBetween = enableBetween;
+    function switchBetween() {
+        enableBetween = !enableBetween;
+    }
 </script>
 
 <h1 style="margin-bottom: 15px">Teleportation Preset</h1>
@@ -158,7 +171,22 @@
         <input type="Number" bind:value={scale} step="0.01" />
     </div>
 </div>
-<h1 style="margin-top:10px;">Between Animation</h1>
+<div class="aa-header-section">
+    <div class="aa-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+            <label for="">Between Animation</label>
+        </div>
+        <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+            <i
+                class="{enableBetween
+                    ? 'fas fa-minus aa-red'
+                    : 'fas fa-plus aa-green'} aaCenterToggle"
+                on:click={() => switchBetween()}
+            />
+        </div>
+    </div>
+</div>
+{#if enableBetween}
 <ChooseAnimation
     bind:menuType={menuType03}
     bind:animation={animation03}
@@ -189,7 +217,7 @@
         />
     </div>
 </div>
-
+{/if}
 <h1 style="margin-top:10px;">End Animation</h1>
 <ChooseAnimation
     bind:menuType={menuType02}

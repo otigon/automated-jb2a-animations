@@ -52,6 +52,27 @@
                     enabled = flagData.preset[presetType].enableCustom03;
                     customId = "customPreset03";
                     break;
+                case "FireballProjectile":
+                    root = flagData.preset[presetType].projectile;
+                    options = flagData.preset[presetType].projectile;
+                    customPath = flagData.preset[presetType].projectile.customPath || "";
+                    enabled = flagData.preset[presetType].projectile.enableCustom;
+                    customId = "customPresetProjectile";
+                    break;
+                case "FireballExplosion01":
+                    root = flagData.preset[presetType].explosion01;
+                    options = flagData.preset[presetType].explosion01;
+                    customPath = flagData.preset[presetType].explosion01.customPath || "";
+                    enabled = flagData.preset[presetType].explosion01.enableCustom;
+                    customId = "customPresetExplosion01";
+                    break;
+                case "FireballExplosion02":
+                    root = flagData.preset[presetType].explosion02;
+                    options = flagData.preset[presetType].explosion02;
+                    customPath = flagData.preset[presetType].explosion02.customPath || "";
+                    enabled = flagData.preset[presetType].explosion02.enableCustom;
+                    customId = "customPresetExplosion02";
+                    break;
                 default:
                     root = flagData.preset[presetType];
                     options = flagData.preset[presetType];

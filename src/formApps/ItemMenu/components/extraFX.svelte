@@ -199,6 +199,7 @@
         bind:color
         bind:isCustom
         bind:customPath
+        animType="static"
         {flagPath}
         {flagData}
     />
