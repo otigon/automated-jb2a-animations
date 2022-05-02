@@ -21,7 +21,7 @@
 }
 .aa-header {
     display: grid;
-    grid-template-columns: 10% 20% 40% 20% 10%;
+    grid-template-columns: 10% 10% 60% 10% 10%;
     grid-gap: 5px;
     padding: 1px;
     align-items: center;
@@ -76,4 +76,7 @@
 }
 #AA-item-settings .window-content {
     border-radius: 5px;
+}
+.aa-info-blue {
+    color: rgba(30, 14, 252, 0.75)
 }

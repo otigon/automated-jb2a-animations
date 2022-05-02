@@ -9,15 +9,12 @@
     let root;
     let options;
     export let customPath;
+    export let isCustom;
     let enabled;
     let customId;
     switch (flagPath) {
         case "explosions":
             console.log("routing to explosions");
-            root = flagData.explosions;
-            options = flagData.explosions;
-            customPath = flagData.explosions.customPath || "";
-            enabled = flagData.explosions.enableCustom || false;
             customId = "customExplosion";
             break;
         case "sourceExtraFX":
@@ -39,67 +36,56 @@
         case "preset":
             switch (presetSubType) {
                 case "Secondary":
-                    root = flagData.preset[presetType];
-                    options = flagData.preset[presetType];
+                    root = options = flagData.preset[presetType];
                     customPath = flagData.preset[presetType].customPath02 || "";
                     enabled = flagData.preset[presetType].enableCustom02;
                     customId = "customPreset02";
                     break;
                 case "Tertiary":
-                    root = flagData.preset[presetType];
-                    options = flagData.preset[presetType];
+                    root = options = flagData.preset[presetType];
                     customPath = flagData.preset[presetType].customPath03 || "";
                     enabled = flagData.preset[presetType].enableCustom03;
                     customId = "customPreset03";
                     break;
 
                 case "TeleStart":
-                    root = flagData.preset[presetType].start;
-                    options = flagData.preset[presetType].start;
+                    root = options = flagData.preset[presetType].start;
                     customPath = flagData.preset[presetType].start.customPath || "";
                     enabled = flagData.preset[presetType].start.enableCustom;
                     customId = "customPresetStart";
                     break;
                 case "TeleBetween":
-                    root = flagData.preset[presetType].between;
-                    options = flagData.preset[presetType].between;
+                    root = options = flagData.preset[presetType].between;
                     customPath = flagData.preset[presetType].between.customPath || "";
                     enabled = flagData.preset[presetType].between.enableCustom;
                     customId = "customPresetBetween";
                     break;
                 case "TeleEnd":
-                    root = flagData.preset[presetType].end;
-                    options = flagData.preset[presetType].end;
+                    root = options = flagData.preset[presetType].end;
                     customPath = flagData.preset[presetType].end.customPath || "";
                     enabled = flagData.preset[presetType].end.enableCustom;
                     customId = "customPresetEnd";
                     break;
                 case "FireballProjectile":
-                    root = flagData.preset[presetType].projectile;
-                    options = flagData.preset[presetType].projectile;
+                    root = options = flagData.preset[presetType].projectile;
                     customPath = flagData.preset[presetType].projectile.customPath || "";
                     enabled = flagData.preset[presetType].projectile.enableCustom;
                     customId = "customPresetProjectile";
                     break;
                 case "FireballExplosion01":
-                    root = flagData.preset[presetType].explosion01;
-                    options = flagData.preset[presetType].explosion01;
+                    root = options = flagData.preset[presetType].explosion01;
                     customPath = flagData.preset[presetType].explosion01.customPath || "";
                     enabled = flagData.preset[presetType].explosion01.enableCustom;
                     customId = "customPresetExplosion01";
                     break;
                 case "FireballExplosion02":
-                    root = flagData.preset[presetType].explosion02;
-                    options = flagData.preset[presetType].explosion02;
+                    root = options = flagData.preset[presetType].explosion02;
                     customPath = flagData.preset[presetType].explosion02.customPath || "";
                     enabled = flagData.preset[presetType].explosion02.enableCustom;
                     customId = "customPresetExplosion02";
                     break;
-
-
                 default:
-                    root = flagData.preset[presetType];
-                    options = flagData.preset[presetType];
+                    root = options = flagData.preset[presetType];
                     customPath = flagData.preset[presetType].customPath || "";
                     enabled = flagData.preset[presetType].enableCustom;
                     customId = "customPreset";
@@ -118,7 +104,6 @@
     //let customPath = options.customPath || "";
     $: customPath = customPath;
 
-    export let isCustom = enabled || false;
     $: isCustom = isCustom;
 
     async function selectCustom() {

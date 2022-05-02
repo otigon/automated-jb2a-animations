@@ -5,6 +5,7 @@
     import { fade, scale } from "svelte/transition";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js"
 
     import ExplosionSettings from "./components/explosions.svelte";
     import GeneralSettings from "./components/generalSettings.svelte";
@@ -19,15 +20,20 @@
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
 
+
     export let elementRoot;
     export let item;
     export let itemFlags;
     export const flags = itemFlags.autoanimations || {};
+
+    const oldName = item.name || item.sourceName;
+    const autoCheck = AutorecFunctions._checkAutoRec(oldName);
+
     const wait = (delay) =>
         new Promise((resolve) => setTimeout(resolve, delay));
 
     let animationDisabled = flags.killAnim;
-    let isCustomized;
+    let isCustomized = flags.override;
     $: isCustomized = isCustomized;
 
     export const flagData = {
@@ -202,6 +208,13 @@
                         bind:enableMacro
                         {flagData}
                     />
+                    {#if autoCheck && !isCustomized && !animationDisabled}
+                    <div class="aa-pickAnim" transition:fade>
+                        <div class="flexcol" style="grid-row:1/2; grid-column:1/4">
+                            <label for="" style="font-size:x-large"><strong>{oldName}</strong> {localize("AUTOANIM.autorecognized")} </label>
+                        </div>
+                    </div>
+                    {/if}
                     {#if isCustomized}
                         <div class="aa-pickAnim" transition:fade>
                             <div

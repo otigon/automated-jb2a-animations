@@ -34,9 +34,7 @@
     switch (flagPath) {
         case "explosions":
             console.log("Routing for Explosions");
-            rootPath = flagData.explosions;
-            customRoot = flagData.explosions;
-            flagOptions = flagData.explosions;
+            rootPath = customRoot = flagOptions = flagData.explosions;
             break;
         case "PrimaryAnimation":
             console.log("Routing for Primary");
@@ -46,15 +44,11 @@
             break;
         case "sourceExtraFX":
             console.log("Routing for Source FX");
-            rootPath = flagData.sourceToken;
-            customRoot = flagData.sourceToken;
-            flagOptions = flagData.sourceToken;
+            rootPath = customRoot = flagOptions = flagData.sourceToken;
             break;
         case "targetExtraFX":
             console.log("Routing for Target FX");
-            rootPath = flagData.targetToken;
-            customRoot = flagData.targetToken;
-            flagOptions = flagData.targetToken;
+            rootPath = customRoot = flagOptions = flagData.targetToken;
             break;
         case "preset":
             console.log("Routing for Preset");
@@ -72,32 +66,24 @@
     console.log(menuSelection)
     export let menuType =
         options.menuType || Object.keys(aaTypeMenu[menuSelection])[0];
-    $: {
-        menuType = menuType;
-    }
+    $: menuType = menuType;
     // Sets Initial animation for Menu - Assigns to Flag when updated
     export let animation =
         rootPath.animation ||
         Object.keys(aaNameMenu[menuSelection][menuType])[0];
-    $: {
-        animation = animation;
-    }
+    $: animation = animation;
     // Sets Initial variant for Menu - Assigns to Flag when updated
     export let variant =
         options.variant ||
         Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0];
-    $: {
-        variant = variant;
-    }
+    $: variant = variant;
     // Sets Initial color for Menu - Assigns to Flag when updated
     export let color =
         rootPath.color ||
         Object.keys(
             aaColorMenu[menuSelection][menuType][animation][variant]
         )[0];
-    $: {
-        color = color;
-    }
+    $: color = color;
     function animTypeChange() {
         if (flagPath !== "PrimaryAnimation") {
             return;

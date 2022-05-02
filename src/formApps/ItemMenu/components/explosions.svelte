@@ -62,7 +62,7 @@
     let isCustom = root.enableCustom || false;
     $: isCustom = root.enableCustom = isCustom;
 
-    let customPath = root.customPath;
+    let customPath = root.customPath || "";
     $: customPath = root.customPath = customPath;
 
     function onClick() {
@@ -98,7 +98,7 @@
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">Boom</label>
+                <label for="">Explosion {enableSection ? "Enabled" : "Disabled"}</label>
             </div>
             {#if enableSection}
                 <div

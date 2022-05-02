@@ -38255,102 +38255,89 @@ function instance$r($$self, $$props, $$invalidate) {
 	let { presetType } = $$props;
 	let { presetSubType } = $$props;
 	let { customPath } = $$props;
-	let enabled;
+	let { isCustom } = $$props;
 	let customId;
 
 	switch (flagPath) {
 		case "explosions":
 			console.log("routing to explosions");
-			customPath = flagData.explosions.customPath || "";
-			enabled = flagData.explosions.enableCustom || false;
 			customId = "customExplosion";
 			break;
 		case "sourceExtraFX":
 			console.log("routing to Source Token");
 			customPath = flagData.sourceToken.customPath || "";
-			enabled = flagData.sourceToken.enableCustom;
+			flagData.sourceToken.enableCustom;
 			customId = "customSource";
 			break;
 		case "targetExtraFX":
 			console.log("routing to Target Token");
 			customPath = flagData.targetToken.customPath || "";
-			enabled = flagData.targetToken.enableCustom;
+			flagData.targetToken.enableCustom;
 			customId = "customTarget";
 			break;
 		case "preset":
 			switch (presetSubType) {
 				case "Secondary":
 					flagData.preset[presetType];
-					flagData.preset[presetType];
 					customPath = flagData.preset[presetType].customPath02 || "";
-					enabled = flagData.preset[presetType].enableCustom02;
+					flagData.preset[presetType].enableCustom02;
 					customId = "customPreset02";
 					break;
 				case "Tertiary":
 					flagData.preset[presetType];
-					flagData.preset[presetType];
 					customPath = flagData.preset[presetType].customPath03 || "";
-					enabled = flagData.preset[presetType].enableCustom03;
+					flagData.preset[presetType].enableCustom03;
 					customId = "customPreset03";
 					break;
 				case "TeleStart":
 					flagData.preset[presetType].start;
-					flagData.preset[presetType].start;
 					customPath = flagData.preset[presetType].start.customPath || "";
-					enabled = flagData.preset[presetType].start.enableCustom;
+					flagData.preset[presetType].start.enableCustom;
 					customId = "customPresetStart";
 					break;
 				case "TeleBetween":
 					flagData.preset[presetType].between;
-					flagData.preset[presetType].between;
 					customPath = flagData.preset[presetType].between.customPath || "";
-					enabled = flagData.preset[presetType].between.enableCustom;
+					flagData.preset[presetType].between.enableCustom;
 					customId = "customPresetBetween";
 					break;
 				case "TeleEnd":
 					flagData.preset[presetType].end;
-					flagData.preset[presetType].end;
 					customPath = flagData.preset[presetType].end.customPath || "";
-					enabled = flagData.preset[presetType].end.enableCustom;
+					flagData.preset[presetType].end.enableCustom;
 					customId = "customPresetEnd";
 					break;
 				case "FireballProjectile":
 					flagData.preset[presetType].projectile;
-					flagData.preset[presetType].projectile;
 					customPath = flagData.preset[presetType].projectile.customPath || "";
-					enabled = flagData.preset[presetType].projectile.enableCustom;
+					flagData.preset[presetType].projectile.enableCustom;
 					customId = "customPresetProjectile";
 					break;
 				case "FireballExplosion01":
 					flagData.preset[presetType].explosion01;
-					flagData.preset[presetType].explosion01;
 					customPath = flagData.preset[presetType].explosion01.customPath || "";
-					enabled = flagData.preset[presetType].explosion01.enableCustom;
+					flagData.preset[presetType].explosion01.enableCustom;
 					customId = "customPresetExplosion01";
 					break;
 				case "FireballExplosion02":
 					flagData.preset[presetType].explosion02;
-					flagData.preset[presetType].explosion02;
 					customPath = flagData.preset[presetType].explosion02.customPath || "";
-					enabled = flagData.preset[presetType].explosion02.enableCustom;
+					flagData.preset[presetType].explosion02.enableCustom;
 					customId = "customPresetExplosion02";
 					break;
 				default:
 					flagData.preset[presetType];
-					flagData.preset[presetType];
 					customPath = flagData.preset[presetType].customPath || "";
-					enabled = flagData.preset[presetType].enableCustom;
+					flagData.preset[presetType].enableCustom;
 					customId = "customPreset";
 			}
 			break;
 		default:
 			console.log("routing to Primary");
 			customPath = flagData.options.customPath || "";
-			enabled = flagData.options.enableCustom || false;
+			flagData.options.enableCustom || false;
 			customId = "customPrimary";
 	}
-
-	let { isCustom = enabled || false } = $$props;
 
 	async function selectCustom() {
 		const current = customPath;
@@ -38729,7 +38716,7 @@ function get_each_context_3$2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (187:16) {#if animType != ""}
+// (173:16) {#if animType != ""}
 function create_if_block_5$4(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[7]]);
@@ -38785,7 +38772,7 @@ function create_if_block_5$4(ctx) {
 	};
 }
 
-// (188:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (174:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3$2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -38817,7 +38804,7 @@ function create_each_block_3$2(ctx) {
 	};
 }
 
-// (194:8) {#if animType === "static" && flagPath === "PrimaryAnimation"}
+// (180:8) {#if animType === "static" && flagPath === "PrimaryAnimation"}
 function create_if_block_4$4(ctx) {
 	let div;
 	let label;
@@ -38915,7 +38902,7 @@ function create_if_block_4$4(ctx) {
 	};
 }
 
-// (238:16) {#if menuType != ""}
+// (224:16) {#if menuType != ""}
 function create_if_block_3$5(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]]);
@@ -38971,7 +38958,7 @@ function create_if_block_3$5(ctx) {
 	};
 }
 
-// (239:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (225:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2$2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -39003,7 +38990,7 @@ function create_each_block_2$2(ctx) {
 	};
 }
 
-// (261:16) {#if (menuType != "") & (animation != "")}
+// (247:16) {#if (menuType != "") & (animation != "")}
 function create_if_block_2$6(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
@@ -39059,7 +39046,7 @@ function create_if_block_2$6(ctx) {
 	};
 }
 
-// (262:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (248:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1$3(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -39091,7 +39078,7 @@ function create_each_block_1$3(ctx) {
 	};
 }
 
-// (283:16) {#if menuType != "" && animation != "" && variant != ""}
+// (269:16) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_1$b(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
@@ -39147,7 +39134,7 @@ function create_if_block_1$b(ctx) {
 	};
 }
 
-// (284:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (270:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block$7(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[36] + "";
@@ -39179,7 +39166,7 @@ function create_each_block$7(ctx) {
 	};
 }
 
-// (293:8) {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
+// (279:8) {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
 function create_if_block$d(ctx) {
 	let div;
 	let input;
@@ -39736,8 +39723,7 @@ function instance$o($$self, $$props, $$invalidate) {
 	switch (flagPath) {
 		case "explosions":
 			console.log("Routing for Explosions");
-			rootPath = flagData.explosions;
-			flagOptions = flagData.explosions;
+			rootPath = flagOptions = flagData.explosions;
 			break;
 		case "PrimaryAnimation":
 			console.log("Routing for Primary");
@@ -39746,13 +39732,11 @@ function instance$o($$self, $$props, $$invalidate) {
 			break;
 		case "sourceExtraFX":
 			console.log("Routing for Source FX");
-			rootPath = flagData.sourceToken;
-			flagOptions = flagData.sourceToken;
+			rootPath = flagOptions = flagData.sourceToken;
 			break;
 		case "targetExtraFX":
 			console.log("Routing for Target FX");
-			rootPath = flagData.targetToken;
-			flagOptions = flagData.targetToken;
+			rootPath = flagOptions = flagData.targetToken;
 			break;
 		case "preset":
 			console.log("Routing for Preset");
@@ -39903,27 +39887,19 @@ function instance$o($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty[0] & /*menuType*/ 2) {
-			{
-				$$invalidate(1, menuType);
-			}
+			$$invalidate(1, menuType);
 		}
 
 		if ($$self.$$.dirty[0] & /*animation*/ 4) {
-			{
-				$$invalidate(2, animation);
-			}
+			$$invalidate(2, animation);
 		}
 
 		if ($$self.$$.dirty[0] & /*variant*/ 8) {
-			{
-				$$invalidate(3, variant);
-			}
+			$$invalidate(3, variant);
 		}
 
 		if ($$self.$$.dirty[0] & /*color*/ 16) {
-			{
-				$$invalidate(4, color);
-			}
+			$$invalidate(4, color);
 		}
 
 		if ($$self.$$.dirty[0] & /*isCustom*/ 32) {
@@ -41043,12 +41019,16 @@ function create_fragment$m(ctx) {
 	let div3;
 	let div2;
 	let div0;
+	let label;
+	let t0;
+	let t1_value = (/*enableSection*/ ctx[3] ? "Enabled" : "Disabled") + "";
 	let t1;
 	let t2;
+	let t3;
 	let div1;
 	let i;
 	let i_class_value;
-	let t3;
+	let t4;
 	let current;
 	let mounted;
 	let dispose;
@@ -41061,14 +41041,17 @@ function create_fragment$m(ctx) {
 			div3 = element("div");
 			div2 = element("div");
 			div0 = element("div");
-			div0.innerHTML = `<label for="">Boom</label>`;
-			t1 = space();
-			if (if_block0) if_block0.c();
+			label = element("label");
+			t0 = text("Explosion ");
+			t1 = text(t1_value);
 			t2 = space();
+			if (if_block0) if_block0.c();
+			t3 = space();
 			div1 = element("div");
 			i = element("i");
-			t3 = space();
+			t4 = space();
 			if (if_block1) if_block1.c();
+			attr(label, "for", "");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "3/4");
@@ -41088,12 +41071,15 @@ function create_fragment$m(ctx) {
 			append(div4, div3);
 			append(div3, div2);
 			append(div2, div0);
-			append(div2, t1);
-			if (if_block0) if_block0.m(div2, null);
+			append(div0, label);
+			append(label, t0);
+			append(label, t1);
 			append(div2, t2);
+			if (if_block0) if_block0.m(div2, null);
+			append(div2, t3);
 			append(div2, div1);
 			append(div1, i);
-			append(div4, t3);
+			append(div4, t4);
 			if (if_block1) if_block1.m(div4, null);
 			current = true;
 
@@ -41103,6 +41089,8 @@ function create_fragment$m(ctx) {
 			}
 		},
 		p(ctx, [dirty]) {
+			if ((!current || dirty & /*enableSection*/ 8) && t1_value !== (t1_value = (/*enableSection*/ ctx[3] ? "Enabled" : "Disabled") + "")) set_data(t1, t1_value);
+
 			if (/*enableSection*/ ctx[3]) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
@@ -41114,7 +41102,7 @@ function create_fragment$m(ctx) {
 					if_block0 = create_if_block_1$9(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
-					if_block0.m(div2, t2);
+					if_block0.m(div2, t3);
 				}
 			} else if (if_block0) {
 				group_outros();
@@ -41201,7 +41189,7 @@ function instance$m($$self, $$props, $$invalidate) {
 	let variant = root.variant;
 	let color = root.color;
 	let isCustom = root.enableCustom || false;
-	let customPath = root.customPath;
+	let customPath = root.customPath || "";
 
 	function onClick() {
 		new TJSDialog({
@@ -56602,23 +56590,24 @@ function create_if_block_4(ctx) {
 	let updating_isCustomized;
 	let updating_enableMacro;
 	let t0;
-	let div0_transition;
 	let t1;
+	let div0_transition;
 	let t2;
 	let t3;
+	let t4;
 	let div1_transition;
 	let current;
 
 	function generalsettings_animationDisabled_binding(value) {
-		/*generalsettings_animationDisabled_binding*/ ctx[32](value);
+		/*generalsettings_animationDisabled_binding*/ ctx[34](value);
 	}
 
 	function generalsettings_isCustomized_binding(value) {
-		/*generalsettings_isCustomized_binding*/ ctx[33](value);
+		/*generalsettings_isCustomized_binding*/ ctx[35](value);
 	}
 
 	function generalsettings_enableMacro_binding(value) {
-		/*generalsettings_enableMacro_binding*/ ctx[34](value);
+		/*generalsettings_enableMacro_binding*/ ctx[36](value);
 	}
 
 	let generalsettings_props = { flagData: /*flagData*/ ctx[1] };
@@ -56639,10 +56628,11 @@ function create_if_block_4(ctx) {
 	binding_callbacks.push(() => bind(generalsettings, 'animationDisabled', generalsettings_animationDisabled_binding));
 	binding_callbacks.push(() => bind(generalsettings, 'isCustomized', generalsettings_isCustomized_binding));
 	binding_callbacks.push(() => bind(generalsettings, 'enableMacro', generalsettings_enableMacro_binding));
-	let if_block0 = /*isCustomized*/ ctx[3] && create_if_block_11(ctx);
-	let if_block1 = /*enableMacro*/ ctx[4] && create_if_block_10(ctx);
-	let if_block2 = /*showSound*/ ctx[9] && create_if_block_9(ctx);
-	let if_block3 = !/*animationDisabled*/ ctx[2] && /*isCustomized*/ ctx[3] && create_if_block_5(ctx);
+	let if_block0 = /*autoCheck*/ ctx[16] && !/*isCustomized*/ ctx[3] && !/*animationDisabled*/ ctx[2] && create_if_block_13(ctx);
+	let if_block1 = /*isCustomized*/ ctx[3] && create_if_block_11(ctx);
+	let if_block2 = /*enableMacro*/ ctx[4] && create_if_block_10(ctx);
+	let if_block3 = /*showSound*/ ctx[9] && create_if_block_9(ctx);
+	let if_block4 = !/*animationDisabled*/ ctx[2] && /*isCustomized*/ ctx[3] && create_if_block_5(ctx);
 
 	return {
 		c() {
@@ -56657,6 +56647,8 @@ function create_if_block_4(ctx) {
 			if (if_block2) if_block2.c();
 			t3 = space();
 			if (if_block3) if_block3.c();
+			t4 = space();
+			if (if_block4) if_block4.c();
 			attr(div0, "class", "aaMenu-section");
 			attr(div1, "class", "aaMidSection svelte-nf15iz");
 		},
@@ -56666,12 +56658,14 @@ function create_if_block_4(ctx) {
 			mount_component(generalsettings, div0, null);
 			append(div0, t0);
 			if (if_block0) if_block0.m(div0, null);
-			append(div1, t1);
-			if (if_block1) if_block1.m(div1, null);
+			append(div0, t1);
+			if (if_block1) if_block1.m(div0, null);
 			append(div1, t2);
 			if (if_block2) if_block2.m(div1, null);
 			append(div1, t3);
 			if (if_block3) if_block3.m(div1, null);
+			append(div1, t4);
+			if (if_block4) if_block4.m(div1, null);
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -56698,18 +56692,18 @@ function create_if_block_4(ctx) {
 
 			generalsettings.$set(generalsettings_changes);
 
-			if (/*isCustomized*/ ctx[3]) {
+			if (/*autoCheck*/ ctx[16] && !/*isCustomized*/ ctx[3] && !/*animationDisabled*/ ctx[2]) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 
-					if (dirty[0] & /*isCustomized*/ 8) {
+					if (dirty[0] & /*isCustomized, animationDisabled*/ 12) {
 						transition_in(if_block0, 1);
 					}
 				} else {
-					if_block0 = create_if_block_11(ctx);
+					if_block0 = create_if_block_13(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
-					if_block0.m(div0, null);
+					if_block0.m(div0, t1);
 				}
 			} else if (if_block0) {
 				group_outros();
@@ -56721,18 +56715,18 @@ function create_if_block_4(ctx) {
 				check_outros();
 			}
 
-			if (/*enableMacro*/ ctx[4]) {
+			if (/*isCustomized*/ ctx[3]) {
 				if (if_block1) {
 					if_block1.p(ctx, dirty);
 
-					if (dirty[0] & /*enableMacro*/ 16) {
+					if (dirty[0] & /*isCustomized*/ 8) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block_10(ctx);
+					if_block1 = create_if_block_11(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
-					if_block1.m(div1, t2);
+					if_block1.m(div0, null);
 				}
 			} else if (if_block1) {
 				group_outros();
@@ -56744,15 +56738,15 @@ function create_if_block_4(ctx) {
 				check_outros();
 			}
 
-			if (/*showSound*/ ctx[9]) {
+			if (/*enableMacro*/ ctx[4]) {
 				if (if_block2) {
 					if_block2.p(ctx, dirty);
 
-					if (dirty[0] & /*showSound*/ 512) {
+					if (dirty[0] & /*enableMacro*/ 16) {
 						transition_in(if_block2, 1);
 					}
 				} else {
-					if_block2 = create_if_block_9(ctx);
+					if_block2 = create_if_block_10(ctx);
 					if_block2.c();
 					transition_in(if_block2, 1);
 					if_block2.m(div1, t3);
@@ -56767,18 +56761,18 @@ function create_if_block_4(ctx) {
 				check_outros();
 			}
 
-			if (!/*animationDisabled*/ ctx[2] && /*isCustomized*/ ctx[3]) {
+			if (/*showSound*/ ctx[9]) {
 				if (if_block3) {
 					if_block3.p(ctx, dirty);
 
-					if (dirty[0] & /*animationDisabled, isCustomized*/ 12) {
+					if (dirty[0] & /*showSound*/ 512) {
 						transition_in(if_block3, 1);
 					}
 				} else {
-					if_block3 = create_if_block_5(ctx);
+					if_block3 = create_if_block_9(ctx);
 					if_block3.c();
 					transition_in(if_block3, 1);
-					if_block3.m(div1, null);
+					if_block3.m(div1, t4);
 				}
 			} else if (if_block3) {
 				group_outros();
@@ -56789,20 +56783,44 @@ function create_if_block_4(ctx) {
 
 				check_outros();
 			}
+
+			if (!/*animationDisabled*/ ctx[2] && /*isCustomized*/ ctx[3]) {
+				if (if_block4) {
+					if_block4.p(ctx, dirty);
+
+					if (dirty[0] & /*animationDisabled, isCustomized*/ 12) {
+						transition_in(if_block4, 1);
+					}
+				} else {
+					if_block4 = create_if_block_5(ctx);
+					if_block4.c();
+					transition_in(if_block4, 1);
+					if_block4.m(div1, null);
+				}
+			} else if (if_block4) {
+				group_outros();
+
+				transition_out(if_block4, 1, 1, () => {
+					if_block4 = null;
+				});
+
+				check_outros();
+			}
 		},
 		i(local) {
 			if (current) return;
 			transition_in(generalsettings.$$.fragment, local);
 			transition_in(if_block0);
+			transition_in(if_block1);
 
 			add_render_callback(() => {
 				if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, {}, true);
 				div0_transition.run(1);
 			});
 
-			transition_in(if_block1);
 			transition_in(if_block2);
 			transition_in(if_block3);
+			transition_in(if_block4);
 
 			add_render_callback(() => {
 				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
@@ -56814,11 +56832,12 @@ function create_if_block_4(ctx) {
 		o(local) {
 			transition_out(generalsettings.$$.fragment, local);
 			transition_out(if_block0);
+			transition_out(if_block1);
 			if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, {}, false);
 			div0_transition.run(0);
-			transition_out(if_block1);
 			transition_out(if_block2);
 			transition_out(if_block3);
+			transition_out(if_block4);
 			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
 			div1_transition.run(0);
 			current = false;
@@ -56827,16 +56846,78 @@ function create_if_block_4(ctx) {
 			if (detaching) detach(div1);
 			destroy_component(generalsettings);
 			if (if_block0) if_block0.d();
-			if (detaching && div0_transition) div0_transition.end();
 			if (if_block1) if_block1.d();
+			if (detaching && div0_transition) div0_transition.end();
 			if (if_block2) if_block2.d();
 			if (if_block3) if_block3.d();
+			if (if_block4) if_block4.d();
 			if (detaching && div1_transition) div1_transition.end();
 		}
 	};
 }
 
-// (205:20) {#if isCustomized}
+// (211:20) {#if autoCheck && !isCustomized && !animationDisabled}
+function create_if_block_13(ctx) {
+	let div1;
+	let div0;
+	let label;
+	let strong;
+	let t1;
+	let t2_value = localize("AUTOANIM.autorecognized") + "";
+	let t2;
+	let div1_transition;
+	let current;
+
+	return {
+		c() {
+			div1 = element("div");
+			div0 = element("div");
+			label = element("label");
+			strong = element("strong");
+			strong.textContent = `${/*oldName*/ ctx[15]}`;
+			t1 = space();
+			t2 = text(t2_value);
+			attr(label, "for", "");
+			set_style(label, "font-size", "x-large");
+			attr(label, "class", "svelte-nf15iz");
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "1/2");
+			set_style(div0, "grid-column", "1/4");
+			attr(div1, "class", "aa-pickAnim svelte-nf15iz");
+		},
+		m(target, anchor) {
+			insert(target, div1, anchor);
+			append(div1, div0);
+			append(div0, label);
+			append(label, strong);
+			append(label, t1);
+			append(label, t2);
+			current = true;
+		},
+		p: noop,
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
+				div1_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
+			div1_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div1);
+			if (detaching && div1_transition) div1_transition.end();
+		}
+	};
+}
+
+// (218:20) {#if isCustomized}
 function create_if_block_11(ctx) {
 	let div1;
 	let div0;
@@ -56899,7 +56980,7 @@ function create_if_block_11(ctx) {
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
 			attr(select, "class", "svelte-nf15iz");
-			if (/*animType*/ ctx[7] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[35].call(select));
+			if (/*animType*/ ctx[7] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[37].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
@@ -56924,8 +57005,8 @@ function create_if_block_11(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select, "change", /*select_change_handler*/ ctx[35]),
-					listen(select, "change", /*change_handler*/ ctx[36])
+					listen(select, "change", /*select_change_handler*/ ctx[37]),
+					listen(select, "change", /*change_handler*/ ctx[38])
 				];
 
 				mounted = true;
@@ -56986,7 +57067,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (253:28) {#if animType === "preset"}
+// (266:28) {#if animType === "preset"}
 function create_if_block_12(ctx) {
 	let div;
 	let label;
@@ -57058,7 +57139,7 @@ function create_if_block_12(ctx) {
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
 			attr(select, "class", "svelte-nf15iz");
-			if (/*presetType*/ ctx[8] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[37].call(select));
+			if (/*presetType*/ ctx[8] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[39].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "2 / 3");
 			set_style(div, "grid-column", "2 / 3");
@@ -57081,7 +57162,7 @@ function create_if_block_12(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(select, "change", /*select_change_handler_1*/ ctx[37]);
+				dispose = listen(select, "change", /*select_change_handler_1*/ ctx[39]);
 				mounted = true;
 			}
 		},
@@ -57114,7 +57195,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (319:16) {#if enableMacro}
+// (332:16) {#if enableMacro}
 function create_if_block_10(ctx) {
 	let div;
 	let macrofield;
@@ -57163,7 +57244,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (324:16) {#if showSound}
+// (337:16) {#if showSound}
 function create_if_block_9(ctx) {
 	let div;
 	let soundsettings;
@@ -57218,7 +57299,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (329:16) {#if !animationDisabled && isCustomized}
+// (342:16) {#if !animationDisabled && isCustomized}
 function create_if_block_5(ctx) {
 	let current_block_type_index;
 	let if_block0;
@@ -57354,7 +57435,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (332:24) {:else}
+// (345:24) {:else}
 function create_else_block(ctx) {
 	let div;
 	let primarysection;
@@ -57402,7 +57483,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (330:24) {#if animType === "preset"}
+// (343:24) {#if animType === "preset"}
 function create_if_block_8(ctx) {
 	let presetmenu;
 	let current;
@@ -57445,7 +57526,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (341:20) {#if animType === "melee"}
+// (354:20) {#if animType === "melee"}
 function create_if_block_7(ctx) {
 	let div;
 	let rangeswitch;
@@ -57484,7 +57565,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (346:20) {#if animType === "melee" || animType === "range" || animType === "static"}
+// (359:20) {#if animType === "melee" || animType === "range" || animType === "static"}
 function create_if_block_6(ctx) {
 	let div;
 	let explosionsettings;
@@ -57523,7 +57604,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (354:8) {#if focusExtra}
+// (367:8) {#if focusExtra}
 function create_if_block_1(ctx) {
 	let div8;
 	let div5;
@@ -57742,7 +57823,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (370:24) {#if enableSource}
+// (383:24) {#if enableSource}
 function create_if_block_3(ctx) {
 	let div;
 	let label;
@@ -57787,7 +57868,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (396:24) {#if enableTarget}
+// (409:24) {#if enableTarget}
 function create_if_block_2(ctx) {
 	let div;
 	let label;
@@ -57832,7 +57913,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (442:8) {#if focus3d}
+// (455:8) {#if focus3d}
 function create_if_block(ctx) {
 	let div1;
 	let div0;
@@ -57885,7 +57966,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (144:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}      stylesApp={{ header: "red" }}  >
+// (150:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}      stylesApp={{ header: "red" }}  >
 function create_default_slot(ctx) {
 	let form_1;
 	let div4;
@@ -58049,17 +58130,17 @@ function create_default_slot(ctx) {
 			append(div7, t16);
 			append(div7, div6);
 			append(div6, button4);
-			/*form_1_binding*/ ctx[38](form_1);
+			/*form_1_binding*/ ctx[40](form_1);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler*/ ctx[29]),
-					listen(button1, "click", /*click_handler_1*/ ctx[30]),
-					listen(button2, "click", /*click_handler_2*/ ctx[31]),
-					listen(button3, "click", prevent_default(/*applyFlags*/ ctx[15])),
-					listen(button4, "click", prevent_default(/*closeApp*/ ctx[16])),
-					listen(form_1, "submit", prevent_default(/*submit_handler*/ ctx[28]))
+					listen(button0, "click", /*click_handler*/ ctx[31]),
+					listen(button1, "click", /*click_handler_1*/ ctx[32]),
+					listen(button2, "click", /*click_handler_2*/ ctx[33]),
+					listen(button3, "click", prevent_default(/*applyFlags*/ ctx[17])),
+					listen(button4, "click", prevent_default(/*closeApp*/ ctx[18])),
+					listen(form_1, "submit", prevent_default(/*submit_handler*/ ctx[30]))
 				];
 
 				mounted = true;
@@ -58174,7 +58255,7 @@ function create_default_slot(ctx) {
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
 			if (if_block2) if_block2.d();
-			/*form_1_binding*/ ctx[38](null);
+			/*form_1_binding*/ ctx[40](null);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -58187,7 +58268,7 @@ function create_fragment(ctx) {
 	let current;
 
 	function applicationshell_elementRoot_binding(value) {
-		/*applicationshell_elementRoot_binding*/ ctx[39](value);
+		/*applicationshell_elementRoot_binding*/ ctx[41](value);
 	}
 
 	let applicationshell_props = {
@@ -58217,7 +58298,7 @@ function create_fragment(ctx) {
 		p(ctx, dirty) {
 			const applicationshell_changes = {};
 
-			if (dirty[0] & /*form, flagData, focus3d, enableTarget, enableSource, focusExtra, animType, animTypeSwitched, presetType, animationDisabled, isCustomized, showSound, enableMacro, focusPrimary*/ 32766 | dirty[1] & /*$$scope*/ 4096) {
+			if (dirty[0] & /*form, flagData, focus3d, enableTarget, enableSource, focusExtra, animType, animTypeSwitched, presetType, animationDisabled, isCustomized, showSound, enableMacro, focusPrimary*/ 32766 | dirty[1] & /*$$scope*/ 16384) {
 				applicationshell_changes.$$scope = { dirty, ctx };
 			}
 
@@ -58252,9 +58333,11 @@ function instance($$self, $$props, $$invalidate) {
 	let { item } = $$props;
 	let { itemFlags } = $$props;
 	const flags = itemFlags.autoanimations || {};
+	const oldName = item.name || item.sourceName;
+	const autoCheck = AutorecFunctions._checkAutoRec(oldName);
 	const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
 	let animationDisabled = flags.killAnim;
-	let isCustomized;
+	let isCustomized = flags.override;
 
 	const flagData = {
 		killAnim: flags.killAnim,
@@ -58307,21 +58390,21 @@ function instance($$self, $$props, $$invalidate) {
 	let tab3d = false;
 
 	function switchPrimary() {
-		$$invalidate(25, primaryTab = !extraTab && !tab3d ? primaryTab : !primaryTab);
-		$$invalidate(26, extraTab = false);
-		$$invalidate(27, tab3d = false);
+		$$invalidate(27, primaryTab = !extraTab && !tab3d ? primaryTab : !primaryTab);
+		$$invalidate(28, extraTab = false);
+		$$invalidate(29, tab3d = false);
 	}
 
 	function switchExtra() {
-		$$invalidate(26, extraTab = !primaryTab && !tab3d ? extraTab : !extraTab);
-		$$invalidate(25, primaryTab = false);
-		$$invalidate(27, tab3d = false);
+		$$invalidate(28, extraTab = !primaryTab && !tab3d ? extraTab : !extraTab);
+		$$invalidate(27, primaryTab = false);
+		$$invalidate(29, tab3d = false);
 	}
 
 	function switch3d() {
-		$$invalidate(27, tab3d = !primaryTab && !extraTab ? tab3d : !tab3d);
-		$$invalidate(25, primaryTab = false);
-		$$invalidate(26, extraTab = false);
+		$$invalidate(29, tab3d = !primaryTab && !extraTab ? tab3d : !tab3d);
+		$$invalidate(27, primaryTab = false);
+		$$invalidate(28, extraTab = false);
 	}
 
 	let enableSource = flagData.sourceToken.enable || false;
@@ -58397,8 +58480,8 @@ function instance($$self, $$props, $$invalidate) {
 
 	$$self.$$set = $$props => {
 		if ('elementRoot' in $$props) $$invalidate(0, elementRoot = $$props.elementRoot);
-		if ('item' in $$props) $$invalidate(21, item = $$props.item);
-		if ('itemFlags' in $$props) $$invalidate(22, itemFlags = $$props.itemFlags);
+		if ('item' in $$props) $$invalidate(23, item = $$props.item);
+		if ('itemFlags' in $$props) $$invalidate(24, itemFlags = $$props.itemFlags);
 	};
 
 	$$self.$$.update = () => {
@@ -58414,19 +58497,19 @@ function instance($$self, $$props, $$invalidate) {
 			$$invalidate(9, showSound = animationDisabled ? true : false);
 		}
 
-		if ($$self.$$.dirty[0] & /*menuType*/ 16777216) {
-			$$invalidate(24, menuType);
+		if ($$self.$$.dirty[0] & /*menuType*/ 67108864) {
+			$$invalidate(26, menuType);
 		}
 
-		if ($$self.$$.dirty[0] & /*primaryTab*/ 33554432) {
+		if ($$self.$$.dirty[0] & /*primaryTab*/ 134217728) {
 			$$invalidate(14, focusPrimary = primaryTab);
 		}
 
-		if ($$self.$$.dirty[0] & /*extraTab*/ 67108864) {
+		if ($$self.$$.dirty[0] & /*extraTab*/ 268435456) {
 			$$invalidate(13, focusExtra = extraTab);
 		}
 
-		if ($$self.$$.dirty[0] & /*tab3d*/ 134217728) {
+		if ($$self.$$.dirty[0] & /*tab3d*/ 536870912) {
 			$$invalidate(12, focus3d = tab3d);
 		}
 
@@ -58466,6 +58549,8 @@ function instance($$self, $$props, $$invalidate) {
 		focus3d,
 		focusExtra,
 		focusPrimary,
+		oldName,
+		autoCheck,
 		applyFlags,
 		closeApp,
 		switchPrimary,
@@ -58506,9 +58591,9 @@ class ItemMenuAppShell extends SvelteComponent {
 			safe_not_equal,
 			{
 				elementRoot: 0,
-				item: 21,
-				itemFlags: 22,
-				flags: 23,
+				item: 23,
+				itemFlags: 24,
+				flags: 25,
 				flagData: 1
 			},
 			null,
@@ -58526,7 +58611,7 @@ class ItemMenuAppShell extends SvelteComponent {
 	}
 
 	get item() {
-		return this.$$.ctx[21];
+		return this.$$.ctx[23];
 	}
 
 	set item(item) {
@@ -58535,7 +58620,7 @@ class ItemMenuAppShell extends SvelteComponent {
 	}
 
 	get itemFlags() {
-		return this.$$.ctx[22];
+		return this.$$.ctx[24];
 	}
 
 	set itemFlags(itemFlags) {
@@ -58544,7 +58629,7 @@ class ItemMenuAppShell extends SvelteComponent {
 	}
 
 	get flags() {
-		return this.$$.ctx[23];
+		return this.$$.ctx[25];
 	}
 
 	get flagData() {
