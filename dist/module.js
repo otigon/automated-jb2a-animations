@@ -19856,7 +19856,7 @@ class AAItemSettings extends FormApplication {
 
     const currentFlagVersion = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     const flags = this.object.data.flags;
-    const patreon = moduleIncludes$2("jb2a_patreon");
+    const patreon = moduleIncludes$1("jb2a_patreon");
     (_this$object$name$toL = (_this$object$name = this.object.name) === null || _this$object$name === void 0 ? void 0 : _this$object$name.toLowerCase()) !== null && _this$object$name$toL !== void 0 ? _this$object$name$toL : "";
     const oldName = this.object.name || this.object.sourceName;
     (_flags$autoanimations = (_flags$autoanimations2 = flags.autoanimations) === null || _flags$autoanimations2 === void 0 ? void 0 : (_flags$autoanimations3 = _flags$autoanimations2.animation) === null || _flags$autoanimations3 === void 0 ? void 0 : _flags$autoanimations3.toLowerCase()) !== null && _flags$autoanimations !== void 0 ? _flags$autoanimations : "";
@@ -20046,190 +20046,6 @@ class AAItemSettings extends FormApplication {
         preventClose: true
       }).then(() => this.render());
     });
-  }
-
-  async _updateObject(event, formData) {
-    formData = expandObject(formData);
-    if (!formData.changes) formData.changes = [];
-    formData.changes = Object.values(formData.changes);
-
-    for (let c of formData.changes) {
-      //@ts-ignore
-      if (Number.isNumeric(c.value)) c.value = parseFloat(c.value);
-    }
-
-    return this.object.update(formData);
-  }
-
-}
-
-function moduleIncludes$2(test) {
-  return !!game.modules.get(test);
-}
-
-class AAActiveEffectMenu extends FormApplication {
-  constructor() {
-    super(...arguments);
-  }
-
-  static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      template: './modules/autoanimations/src/active-effects/aeMenus/ae-central.html',
-      id: 'AA-item-settings',
-      class: 'AA-item-app',
-      title: game.i18n.localize("AUTOANIM.tabTitle"),
-      resizable: true,
-      width: 700,
-      height: "auto",
-      closeOnSubmit: true,
-      tabs: [{
-        navSelector: ".tabs",
-        contentSelector: "form",
-        initial: "animations"
-      }]
-    });
-  }
-
-  getData() {
-    var _this$object$name$toL, _this$object$name, _this$object$data, _flags$autoanimations, _flags$autoanimations2, _flags$autoanimations3, _flags$autoanimations4, _flags$autoanimations5, _flags$autoanimations6, _flags$autoanimations7, _flags$autoanimations8, _flags$autoanimations9, _flags$autoanimations10, _flags$autoanimations11;
-
-    const currentFlagVersion = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
-    const flags = this.object.data.flags;
-    const patreon = moduleIncludes$1("jb2a_patreon");
-    (_this$object$name$toL = (_this$object$name = this.object.name) === null || _this$object$name === void 0 ? void 0 : _this$object$name.toLowerCase()) !== null && _this$object$name$toL !== void 0 ? _this$object$name$toL : "";
-    const oldName = (_this$object$data = this.object.data) === null || _this$object$data === void 0 ? void 0 : _this$object$data.label;
-    (_flags$autoanimations = (_flags$autoanimations2 = flags.autoanimations) === null || _flags$autoanimations2 === void 0 ? void 0 : (_flags$autoanimations3 = _flags$autoanimations2.animation) === null || _flags$autoanimations3 === void 0 ? void 0 : _flags$autoanimations3.toLowerCase()) !== null && _flags$autoanimations !== void 0 ? _flags$autoanimations : "";
-    const override = (_flags$autoanimations4 = flags.autoanimations) === null || _flags$autoanimations4 === void 0 ? void 0 : _flags$autoanimations4.override;
-
-    const animType = (_flags$autoanimations5 = flags.autoanimations) === null || _flags$autoanimations5 === void 0 ? void 0 : _flags$autoanimations5.animType;
-
-    const autoCheck = AutorecFunctions._checkAutoRecAefx(oldName);
-
-    const autoObject = autoCheck ? AutorecFunctions._findObjectFromAefx(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
-    const videoPreview = override ? AATabFunctions._customPreview(flags, patreon) : AutorecFunctions._autoPreviewAefx(oldName, patreon, flags);
-    let content = "";
-
-    switch (true) {
-      case videoPreview === "no preview":
-      case !videoPreview:
-        break;
-
-      default:
-        switch (game.settings.get("autoanimations", "videoLoop")) {
-          case "0":
-            break;
-
-          case "1":
-            content = `<video class="aa-video-previews" src="${videoPreview}" controls loop> </video>`;
-            break;
-
-          case "2":
-            content = `<video class="aa-video-previews" src="${videoPreview}" autoplay="autoplay" controls loop> </video>`;
-            break;
-        }
-
-    }
-
-    return {
-      flags: this.object.data.flags,
-      isActiveEffect: true,
-      OldName: oldName,
-      menuTypes: aaTypeMenu,
-      menuNames: aaNameMenu,
-      menuVariants: aaVariantMenu,
-      menuColors: aaColorMenu,
-      showMacroOption: (_flags$autoanimations6 = flags.autoanimations) !== null && _flags$autoanimations6 !== void 0 && _flags$autoanimations6.killAnim || (_flags$autoanimations7 = flags.autoanimations) !== null && _flags$autoanimations7 !== void 0 && _flags$autoanimations7.override ? true : false,
-      isMacroChecked: (_flags$autoanimations8 = flags.autoanimations) !== null && _flags$autoanimations8 !== void 0 && _flags$autoanimations8.killAnim || (_flags$autoanimations9 = flags.autoanimations) !== null && _flags$autoanimations9 !== void 0 && _flags$autoanimations9.override ? (_flags$autoanimations10 = flags.autoanimations) === null || _flags$autoanimations10 === void 0 ? void 0 : (_flags$autoanimations11 = _flags$autoanimations10.macro) === null || _flags$autoanimations11 === void 0 ? void 0 : _flags$autoanimations11.enable : false,
-      autoObject: autoObject,
-      autoRecognized: autoCheck,
-      autoRecognizedNoOverride: autoCheck && !override,
-      melee: override && animType === "melee",
-      range: override && animType === "range",
-      static: override && animType === "static",
-      template: override && animType === "template",
-      aura: override && animType === "aura",
-      preset: override && animType === "preset",
-      menu3d: override && animType === "menu3d",
-      content: content,
-      //currentVersion: !flags.autoanimations?.version ? this.object.setFlag('autoanimations', 'version', currentFlagVersion) : "",
-      currentVersion: currentFlagVersion,
-      isGM: game.user.isGM ? true : false
-    };
-  }
-
-  activateListeners(html) {
-    super.activateListeners(html);
-    html.find('.kill-animation').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.find('.animation-not-disabled select').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.find('.animation-not-disabled input[type="checkbox"]').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.find('.aa-checkbox-label input[type="checkbox"]').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.find('.aa-itemSection-divider select').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.find('.aa-itemSection-divider input[type="checkbox"]').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    /*
-    html.find('.aa-menus input[type="checkbox"]').change(evt => {
-        this.submit({ preventClose: true }).then(() => this.render());
-    });
-    html.find('.animation-disabled input[type="checkbox"]').change(evt => {
-        this.submit({ preventClose: true }).then(() => this.render());
-    })*/
-
-    html.find('.animation-not-disabled input[type="Number"]').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    /*
-    html.find('.animation-not-disabled input[type="color"]').change(evt => {
-        this.submit({ preventClose: true }).then(() => this.render());
-    })
-    html.find('.pre-post-animations select').change(evt => {
-        this.submit({ preventClose: true }).then(() => this.render());
-    });
-    html.find('.pre-post-animations input[type="Number"]').change(evt => {
-        this.submit({ preventClose: true }).then(() => this.render());
-    });
-    html.find('.pre-post-animations input[type="checkbox"]').change(evt => {
-        this.submit({ preventClose: true }).then(() => this.render());
-    });
-    */
-
-    html.find('.files').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    /*
-    html.find('.aa-audio-checkbox input[type="checkbox"]').click(evt => {
-        this.submit({ preventClose: true }).then(() => this.render());
-    });
-    html.find('.aa-audio-checkbox input[type="Number"]').change(evt => {
-        this.submit({ preventClose: true }).then(() => this.render());
-    });
-    */
   }
 
   async _updateObject(event, formData) {
@@ -35912,7 +35728,7 @@ function get_each_context$8(ctx, list, i) {
 } // (202:29) 
 
 
-function create_if_block_3$6(ctx) {
+function create_if_block_3$7(ctx) {
   let switch_instance;
   let switch_instance_anchor;
   let current;
@@ -36014,7 +35830,7 @@ function create_if_block_3$6(ctx) {
 } // (200:3) {#if typeof content === 'string'}
 
 
-function create_if_block_2$7(ctx) {
+function create_if_block_2$8(ctx) {
   let html_tag;
   let html_anchor;
   return {
@@ -36111,7 +35927,7 @@ function create_if_block$1$1(ctx) {
 } // (214:33) {#if button.icon}
 
 
-function create_if_block_1$c(ctx) {
+function create_if_block_1$d(ctx) {
   let html_tag;
   let raw_value =
   /*button*/
@@ -36161,7 +35977,7 @@ function create_each_block$8(key_1, ctx) {
   let dispose;
   let if_block =
   /*button*/
-  ctx[15].icon && create_if_block_1$c(ctx);
+  ctx[15].icon && create_if_block_1$d(ctx);
 
   function click_handler() {
     return (
@@ -36220,7 +36036,7 @@ function create_each_block$8(key_1, ctx) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
-          if_block = create_if_block_1$c(ctx);
+          if_block = create_if_block_1$d(ctx);
           if_block.c();
           if_block.m(span, t0);
         }
@@ -36288,7 +36104,7 @@ function create_fragment$1$1(ctx) {
   let current;
   let mounted;
   let dispose;
-  const if_block_creators = [create_if_block_2$7, create_if_block_3$6];
+  const if_block_creators = [create_if_block_2$8, create_if_block_3$7];
   const if_blocks = [];
 
   function select_block_type(ctx, dirty) {
@@ -36659,7 +36475,7 @@ class DialogContent extends SvelteComponent {
 /* src\component\core\dialog\DialogShell.svelte generated by Svelte v3.46.0 */
 
 
-function create_else_block$2(ctx) {
+function create_else_block$4(ctx) {
   let applicationshell;
   let updating_elementRoot;
   let updating_elementContent;
@@ -36782,7 +36598,7 @@ function create_else_block$2(ctx) {
 } // (180:0) {#if modal}
 
 
-function create_if_block$e(ctx) {
+function create_if_block$f(ctx) {
   let tjsglasspane;
   let current;
   const tjsglasspane_spread_levels = [{
@@ -36802,7 +36618,7 @@ function create_if_block$e(ctx) {
   }];
   let tjsglasspane_props = {
     $$slots: {
-      default: [create_default_slot$1]
+      default: [create_default_slot$2]
     },
     $$scope: {
       ctx
@@ -37085,7 +36901,7 @@ function create_default_slot_1(ctx) {
 } // (181:3) <TJSGlassPane id={`${application.id}-glasspane`} preventDefault={false} stopPropagation={false} {...modalProps} {zIndex}>
 
 
-function create_default_slot$1(ctx) {
+function create_default_slot$2(ctx) {
   let applicationshell;
   let updating_elementRoot;
   let updating_elementContent;
@@ -37207,12 +37023,12 @@ function create_default_slot$1(ctx) {
   };
 }
 
-function create_fragment$s(ctx) {
+function create_fragment$t(ctx) {
   let current_block_type_index;
   let if_block;
   let if_block_anchor;
   let current;
-  const if_block_creators = [create_if_block$e, create_else_block$2];
+  const if_block_creators = [create_if_block$f, create_else_block$4];
   const if_blocks = [];
 
   function select_block_type(ctx, dirty) {
@@ -37283,7 +37099,7 @@ function create_fragment$s(ctx) {
 
 const s_MODAL_BACKGROUND = '#50505080';
 
-function instance$s($$self, $$props, $$invalidate) {
+function instance$t($$self, $$props, $$invalidate) {
   let {
     elementContent
   } = $$props;
@@ -37545,7 +37361,7 @@ function instance$s($$self, $$props, $$invalidate) {
 class DialogShell extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$s, create_fragment$s, safe_not_equal, {
+    init(this, options, instance$t, create_fragment$t, safe_not_equal, {
       elementContent: 0,
       elementRoot: 1,
       data: 3,
@@ -38042,7 +37858,7 @@ class TJSDialog extends SvelteApplication {
 
 /* src\formApps\ItemMenu\components\customPicker.svelte generated by Svelte v3.47.0 */
 
-function create_fragment$r(ctx) {
+function create_fragment$s(ctx) {
 	let div2;
 	let div0;
 	let input0;
@@ -38196,7 +38012,7 @@ function create_fragment$r(ctx) {
 	};
 }
 
-function instance$r($$self, $$props, $$invalidate) {
+function instance$s($$self, $$props, $$invalidate) {
 	let { customPath } = $$props;
 	let { isCustom } = $$props;
 	let { customId } = $$props;
@@ -38266,7 +38082,7 @@ function instance$r($$self, $$props, $$invalidate) {
 class CustomPicker extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$r, create_fragment$r, safe_not_equal, { customPath: 0, isCustom: 1, customId: 2 });
+		init(this, options, instance$s, create_fragment$s, safe_not_equal, { customPath: 0, isCustom: 1, customId: 2 });
 	}
 }
 
@@ -38305,7 +38121,7 @@ const extraTarget = writable(targetEnabled);
 
 /* src\formApps\ItemMenu\videoPreviews\primaryApp.svelte generated by Svelte v3.47.0 */
 
-function create_fragment$q(ctx) {
+function create_fragment$r(ctx) {
 	let video;
 	let track;
 	let video_src_value;
@@ -38377,7 +38193,7 @@ function getPreviewFile$2(data) {
 	}
 }
 
-function instance$q($$self, $$props, $$invalidate) {
+function instance$r($$self, $$props, $$invalidate) {
 	let databaseFile;
 	let filePath;
 	let dbPath;
@@ -38414,13 +38230,13 @@ function instance$q($$self, $$props, $$invalidate) {
 class PrimaryApp extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$q, create_fragment$q, safe_not_equal, {});
+		init(this, options, instance$r, create_fragment$r, safe_not_equal, {});
 	}
 }
 
 /* src\formApps\ItemMenu\videoPreviews\explosionApp.svelte generated by Svelte v3.47.0 */
 
-function create_fragment$p(ctx) {
+function create_fragment$q(ctx) {
 	let video;
 	let track;
 	let video_src_value;
@@ -38492,7 +38308,7 @@ function getPreviewFile$1(data) {
 	}
 }
 
-function instance$p($$self, $$props, $$invalidate) {
+function instance$q($$self, $$props, $$invalidate) {
 	let databaseFile;
 	let filePath;
 	let dbPath;
@@ -38529,7 +38345,7 @@ function instance$p($$self, $$props, $$invalidate) {
 class ExplosionApp extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$p, create_fragment$p, safe_not_equal, {});
+		init(this, options, instance$q, create_fragment$q, safe_not_equal, {});
 	}
 }
 
@@ -38537,34 +38353,34 @@ class ExplosionApp extends SvelteComponent {
 
 function get_each_context$7(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[36] = list[i][0];
-	child_ctx[37] = list[i][1];
+	child_ctx[37] = list[i][0];
+	child_ctx[38] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_1$3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[36] = list[i][0];
-	child_ctx[37] = list[i][1];
+	child_ctx[37] = list[i][0];
+	child_ctx[38] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_2$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[36] = list[i][0];
-	child_ctx[37] = list[i][1];
+	child_ctx[37] = list[i][0];
+	child_ctx[38] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_3$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[36] = list[i][0];
-	child_ctx[37] = list[i][1];
+	child_ctx[37] = list[i][0];
+	child_ctx[38] = list[i][1];
 	return child_ctx;
 }
 
-// (168:16) {#if animType != ""}
-function create_if_block_5$4(ctx) {
+// (169:16) {#if animType != ""}
+function create_if_block_5$5(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[7]]);
 	let each_blocks = [];
@@ -38619,10 +38435,10 @@ function create_if_block_5$4(ctx) {
 	};
 }
 
-// (169:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (170:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[37] + "";
+	let t_value = /*name*/ ctx[38] + "";
 	let t;
 	let option_value_value;
 
@@ -38630,7 +38446,7 @@ function create_each_block_3$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[36];
+			option.__value = option_value_value = /*key*/ ctx[37];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -38638,9 +38454,9 @@ function create_each_block_3$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection*/ 128 && t_value !== (t_value = /*name*/ ctx[37] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection*/ 128 && t_value !== (t_value = /*name*/ ctx[38] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection*/ 128 && option_value_value !== (option_value_value = /*key*/ ctx[36])) {
+			if (dirty[0] & /*menuSelection*/ 128 && option_value_value !== (option_value_value = /*key*/ ctx[37])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -38651,8 +38467,8 @@ function create_each_block_3$2(ctx) {
 	};
 }
 
-// (175:8) {#if animType === "static" && flagPath === "PrimaryAnimation"}
-function create_if_block_4$4(ctx) {
+// (176:8) {#if animType === "static" && flagPath === "PrimaryAnimation" && !disablePlayOn}
+function create_if_block_4$5(ctx) {
 	let div;
 	let label;
 	let t1;
@@ -38698,7 +38514,7 @@ function create_if_block_4$4(ctx) {
 			set_style(select, "justify-self", "center");
 			set_style(select, "background-color", "rgba(21, 154, 169, 0.4)");
 			attr(select, "class", "svelte-2k3x9f");
-			if (/*staticType*/ ctx[15] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[22].call(select));
+			if (/*staticType*/ ctx[16] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[23].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "2 / 3");
 			set_style(div, "grid-column", "3 / 4");
@@ -38712,17 +38528,17 @@ function create_if_block_4$4(ctx) {
 			append(select, option1);
 			append(select, option2);
 			append(select, option3);
-			select_option(select, /*staticType*/ ctx[15]);
+			select_option(select, /*staticType*/ ctx[16]);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(select, "change", /*select_change_handler*/ ctx[22]);
+				dispose = listen(select, "change", /*select_change_handler*/ ctx[23]);
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*staticType*/ 32768) {
-				select_option(select, /*staticType*/ ctx[15]);
+			if (dirty[0] & /*staticType*/ 65536) {
+				select_option(select, /*staticType*/ ctx[16]);
 			}
 		},
 		i(local) {
@@ -38750,8 +38566,8 @@ function create_if_block_4$4(ctx) {
 	};
 }
 
-// (219:16) {#if menuType != ""}
-function create_if_block_3$5(ctx) {
+// (220:16) {#if menuType != ""}
+function create_if_block_3$6(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]]);
 	let each_blocks = [];
@@ -38806,10 +38622,10 @@ function create_if_block_3$5(ctx) {
 	};
 }
 
-// (220:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (221:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[37] + "";
+	let t_value = /*name*/ ctx[38] + "";
 	let t;
 	let option_value_value;
 
@@ -38817,7 +38633,7 @@ function create_each_block_2$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[36];
+			option.__value = option_value_value = /*key*/ ctx[37];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -38825,9 +38641,9 @@ function create_each_block_2$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType*/ 130 && t_value !== (t_value = /*name*/ ctx[37] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType*/ 130 && t_value !== (t_value = /*name*/ ctx[38] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType*/ 130 && option_value_value !== (option_value_value = /*key*/ ctx[36])) {
+			if (dirty[0] & /*menuSelection, menuType*/ 130 && option_value_value !== (option_value_value = /*key*/ ctx[37])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -38838,8 +38654,8 @@ function create_each_block_2$2(ctx) {
 	};
 }
 
-// (242:16) {#if (menuType != "") & (animation != "")}
-function create_if_block_2$6(ctx) {
+// (243:16) {#if (menuType != "") & (animation != "")}
+function create_if_block_2$7(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
 	let each_blocks = [];
@@ -38894,10 +38710,10 @@ function create_if_block_2$6(ctx) {
 	};
 }
 
-// (243:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (244:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1$3(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[37] + "";
+	let t_value = /*name*/ ctx[38] + "";
 	let t;
 	let option_value_value;
 
@@ -38905,7 +38721,7 @@ function create_each_block_1$3(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[36];
+			option.__value = option_value_value = /*key*/ ctx[37];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -38913,9 +38729,9 @@ function create_each_block_1$3(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && t_value !== (t_value = /*name*/ ctx[37] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && t_value !== (t_value = /*name*/ ctx[38] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && option_value_value !== (option_value_value = /*key*/ ctx[36])) {
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && option_value_value !== (option_value_value = /*key*/ ctx[37])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -38926,8 +38742,8 @@ function create_each_block_1$3(ctx) {
 	};
 }
 
-// (264:16) {#if menuType != "" && animation != "" && variant != ""}
-function create_if_block_1$b(ctx) {
+// (265:16) {#if menuType != "" && animation != "" && variant != ""}
+function create_if_block_1$c(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
 	let each_blocks = [];
@@ -38982,10 +38798,10 @@ function create_if_block_1$b(ctx) {
 	};
 }
 
-// (265:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (266:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block$7(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[37] + "";
+	let t_value = /*name*/ ctx[38] + "";
 	let t;
 	let option_value_value;
 
@@ -38993,7 +38809,7 @@ function create_each_block$7(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[36];
+			option.__value = option_value_value = /*key*/ ctx[37];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -39001,9 +38817,9 @@ function create_each_block$7(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && t_value !== (t_value = /*name*/ ctx[37] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && t_value !== (t_value = /*name*/ ctx[38] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && option_value_value !== (option_value_value = /*key*/ ctx[36])) {
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && option_value_value !== (option_value_value = /*key*/ ctx[37])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -39014,8 +38830,8 @@ function create_each_block$7(ctx) {
 	};
 }
 
-// (274:8) {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
-function create_if_block$d(ctx) {
+// (275:8) {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
+function create_if_block$e(ctx) {
 	let div;
 	let input;
 	let t0;
@@ -39039,7 +38855,7 @@ function create_if_block$d(ctx) {
 			attr(input, "id", "constantY");
 			input.hidden = true;
 			attr(label, "for", "constantY");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[14] ? "selected" : "notSelected") + " svelte-2k3x9f"));
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[15] ? "selected" : "notSelected") + " svelte-2k3x9f"));
 			attr(div, "class", "flexcol aa-button-labels");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "3 / 4");
@@ -39047,23 +38863,23 @@ function create_if_block$d(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			append(div, input);
-			input.checked = /*onlyX*/ ctx[14];
+			input.checked = /*onlyX*/ ctx[15];
 			append(div, t0);
 			append(div, label);
 			append(label, t1);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(input, "change", /*input_change_handler*/ ctx[30]);
+				dispose = listen(input, "change", /*input_change_handler*/ ctx[31]);
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*onlyX*/ 16384) {
-				input.checked = /*onlyX*/ ctx[14];
+			if (dirty[0] & /*onlyX*/ 32768) {
+				input.checked = /*onlyX*/ ctx[15];
 			}
 
-			if (!current || dirty[0] & /*onlyX*/ 16384 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[14] ? "selected" : "notSelected") + " svelte-2k3x9f"))) {
+			if (!current || dirty[0] & /*onlyX*/ 32768 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[15] ? "selected" : "notSelected") + " svelte-2k3x9f"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -39091,7 +38907,7 @@ function create_if_block$d(ctx) {
 	};
 }
 
-function create_fragment$o(ctx) {
+function create_fragment$p(ctx) {
 	let div6;
 	let div4;
 	let div0;
@@ -39133,18 +38949,18 @@ function create_fragment$o(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block0 = /*animType*/ ctx[0] != "" && create_if_block_5$4(ctx);
-	let if_block1 = /*animType*/ ctx[0] === "static" && /*flagPath*/ ctx[9] === "PrimaryAnimation" && create_if_block_4$4(ctx);
-	let if_block2 = /*menuType*/ ctx[1] != "" && create_if_block_3$5(ctx);
-	let if_block3 = /*menuType*/ ctx[1] != "" & /*animation*/ ctx[2] != "" && create_if_block_2$6(ctx);
-	let if_block4 = /*menuType*/ ctx[1] != "" && /*animation*/ ctx[2] != "" && /*variant*/ ctx[3] != "" && create_if_block_1$b(ctx);
+	let if_block0 = /*animType*/ ctx[0] != "" && create_if_block_5$5(ctx);
+	let if_block1 = /*animType*/ ctx[0] === "static" && /*flagPath*/ ctx[9] === "PrimaryAnimation" && !/*disablePlayOn*/ ctx[13] && create_if_block_4$5(ctx);
+	let if_block2 = /*menuType*/ ctx[1] != "" && create_if_block_3$6(ctx);
+	let if_block3 = /*menuType*/ ctx[1] != "" & /*animation*/ ctx[2] != "" && create_if_block_2$7(ctx);
+	let if_block4 = /*menuType*/ ctx[1] != "" && /*animation*/ ctx[2] != "" && /*variant*/ ctx[3] != "" && create_if_block_1$c(ctx);
 
 	function custompicker_isCustom_binding(value) {
-		/*custompicker_isCustom_binding*/ ctx[28](value);
+		/*custompicker_isCustom_binding*/ ctx[29](value);
 	}
 
 	function custompicker_customPath_binding(value) {
-		/*custompicker_customPath_binding*/ ctx[29](value);
+		/*custompicker_customPath_binding*/ ctx[30](value);
 	}
 
 	let custompicker_props = {
@@ -39152,7 +38968,7 @@ function create_fragment$o(ctx) {
 		presetSubType: /*presetSubType*/ ctx[11],
 		presetType: /*presetType*/ ctx[10],
 		flagData: /*flagData*/ ctx[8],
-		customId: /*customId*/ ctx[13]
+		customId: /*customId*/ ctx[14]
 	};
 
 	if (/*isCustom*/ ctx[5] !== void 0) {
@@ -39166,7 +38982,7 @@ function create_fragment$o(ctx) {
 	custompicker = new CustomPicker({ props: custompicker_props });
 	binding_callbacks.push(() => bind(custompicker, 'isCustom', custompicker_isCustom_binding));
 	binding_callbacks.push(() => bind(custompicker, 'customPath', custompicker_customPath_binding));
-	let if_block5 = /*animType*/ ctx[0] === "range" && /*isCustom*/ ctx[5] && (/*flagPath*/ ctx[9] === "PrimaryAnimation" || /*shouldShowOnlyX*/ ctx[12]) && create_if_block$d(ctx);
+	let if_block5 = /*animType*/ ctx[0] === "range" && /*isCustom*/ ctx[5] && (/*flagPath*/ ctx[9] === "PrimaryAnimation" || /*shouldShowOnlyX*/ ctx[12]) && create_if_block$e(ctx);
 
 	return {
 		c() {
@@ -39216,7 +39032,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-2k3x9f"));
 
-			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[20].call(select0));
+			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[21].call(select0));
 			attr(div0, "class", div0_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
@@ -39230,7 +39046,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-2k3x9f"));
 
-			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[23].call(select1));
+			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[24].call(select1));
 			attr(div1, "class", div1_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
@@ -39244,7 +39060,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-2k3x9f"));
 
-			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[25].call(select2));
+			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[26].call(select2));
 			attr(div2, "class", div2_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
@@ -39258,7 +39074,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-2k3x9f"));
 
-			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[27].call(select3));
+			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[28].call(select3));
 			attr(div3, "class", div3_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
@@ -39306,13 +39122,13 @@ function create_fragment$o(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select0, "change", /*select0_change_handler*/ ctx[20]),
-					listen(select0, "change", /*change_handler*/ ctx[21]),
-					listen(select1, "change", /*select1_change_handler*/ ctx[23]),
-					listen(select1, "change", /*change_handler_1*/ ctx[24]),
-					listen(select2, "change", /*select2_change_handler*/ ctx[25]),
-					listen(select2, "change", /*change_handler_2*/ ctx[26]),
-					listen(select3, "change", /*select3_change_handler*/ ctx[27])
+					listen(select0, "change", /*select0_change_handler*/ ctx[21]),
+					listen(select0, "change", /*change_handler*/ ctx[22]),
+					listen(select1, "change", /*select1_change_handler*/ ctx[24]),
+					listen(select1, "change", /*change_handler_1*/ ctx[25]),
+					listen(select2, "change", /*select2_change_handler*/ ctx[26]),
+					listen(select2, "change", /*change_handler_2*/ ctx[27]),
+					listen(select3, "change", /*select3_change_handler*/ ctx[28])
 				];
 
 				mounted = true;
@@ -39323,7 +39139,7 @@ function create_fragment$o(ctx) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 				} else {
-					if_block0 = create_if_block_5$4(ctx);
+					if_block0 = create_if_block_5$5(ctx);
 					if_block0.c();
 					if_block0.m(select0, null);
 				}
@@ -39350,15 +39166,15 @@ function create_fragment$o(ctx) {
 				attr(div0, "class", div0_class_value);
 			}
 
-			if (/*animType*/ ctx[0] === "static" && /*flagPath*/ ctx[9] === "PrimaryAnimation") {
+			if (/*animType*/ ctx[0] === "static" && /*flagPath*/ ctx[9] === "PrimaryAnimation" && !/*disablePlayOn*/ ctx[13]) {
 				if (if_block1) {
 					if_block1.p(ctx, dirty);
 
-					if (dirty[0] & /*animType, flagPath*/ 513) {
+					if (dirty[0] & /*animType, flagPath, disablePlayOn*/ 8705) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block_4$4(ctx);
+					if_block1 = create_if_block_4$5(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
 					if_block1.m(div4, t3);
@@ -39377,7 +39193,7 @@ function create_fragment$o(ctx) {
 				if (if_block2) {
 					if_block2.p(ctx, dirty);
 				} else {
-					if_block2 = create_if_block_3$5(ctx);
+					if_block2 = create_if_block_3$6(ctx);
 					if_block2.c();
 					if_block2.m(select1, null);
 				}
@@ -39408,7 +39224,7 @@ function create_fragment$o(ctx) {
 				if (if_block3) {
 					if_block3.p(ctx, dirty);
 				} else {
-					if_block3 = create_if_block_2$6(ctx);
+					if_block3 = create_if_block_2$7(ctx);
 					if_block3.c();
 					if_block3.m(select2, null);
 				}
@@ -39439,7 +39255,7 @@ function create_fragment$o(ctx) {
 				if (if_block4) {
 					if_block4.p(ctx, dirty);
 				} else {
-					if_block4 = create_if_block_1$b(ctx);
+					if_block4 = create_if_block_1$c(ctx);
 					if_block4.c();
 					if_block4.m(select3, null);
 				}
@@ -39471,7 +39287,7 @@ function create_fragment$o(ctx) {
 			if (dirty[0] & /*presetSubType*/ 2048) custompicker_changes.presetSubType = /*presetSubType*/ ctx[11];
 			if (dirty[0] & /*presetType*/ 1024) custompicker_changes.presetType = /*presetType*/ ctx[10];
 			if (dirty[0] & /*flagData*/ 256) custompicker_changes.flagData = /*flagData*/ ctx[8];
-			if (dirty[0] & /*customId*/ 8192) custompicker_changes.customId = /*customId*/ ctx[13];
+			if (dirty[0] & /*customId*/ 16384) custompicker_changes.customId = /*customId*/ ctx[14];
 
 			if (!updating_isCustom && dirty[0] & /*isCustom*/ 32) {
 				updating_isCustom = true;
@@ -39495,7 +39311,7 @@ function create_fragment$o(ctx) {
 						transition_in(if_block5, 1);
 					}
 				} else {
-					if_block5 = create_if_block$d(ctx);
+					if_block5 = create_if_block$e(ctx);
 					if_block5.c();
 					transition_in(if_block5, 1);
 					if_block5.m(div5, null);
@@ -39556,7 +39372,7 @@ function create_fragment$o(ctx) {
 	};
 }
 
-function instance$o($$self, $$props, $$invalidate) {
+function instance$p($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
 	let { flagPath } = $$props;
 	let { animType } = $$props;
@@ -39564,6 +39380,7 @@ function instance$o($$self, $$props, $$invalidate) {
 	let { presetSubType } = $$props;
 	let { animTypeSwitched = false } = $$props;
 	let { shouldShowOnlyX } = $$props;
+	let { disablePlayOn } = $$props;
 
 	// Defines the initial Flag path depending on the Section calling this Component
 	let rootPath;
@@ -39651,7 +39468,7 @@ function instance$o($$self, $$props, $$invalidate) {
 
 	function select_change_handler() {
 		staticType = select_value(this);
-		$$invalidate(15, staticType);
+		$$invalidate(16, staticType);
 	}
 
 	function select1_change_handler() {
@@ -39694,7 +39511,7 @@ function instance$o($$self, $$props, $$invalidate) {
 
 	function input_change_handler() {
 		onlyX = this.checked;
-		$$invalidate(14, onlyX);
+		$$invalidate(15, onlyX);
 	}
 
 	$$self.$$set = $$props => {
@@ -39703,8 +39520,9 @@ function instance$o($$self, $$props, $$invalidate) {
 		if ('animType' in $$props) $$invalidate(0, animType = $$props.animType);
 		if ('presetType' in $$props) $$invalidate(10, presetType = $$props.presetType);
 		if ('presetSubType' in $$props) $$invalidate(11, presetSubType = $$props.presetSubType);
-		if ('animTypeSwitched' in $$props) $$invalidate(19, animTypeSwitched = $$props.animTypeSwitched);
+		if ('animTypeSwitched' in $$props) $$invalidate(20, animTypeSwitched = $$props.animTypeSwitched);
 		if ('shouldShowOnlyX' in $$props) $$invalidate(12, shouldShowOnlyX = $$props.shouldShowOnlyX);
+		if ('disablePlayOn' in $$props) $$invalidate(13, disablePlayOn = $$props.disablePlayOn);
 		if ('menuSelection' in $$props) $$invalidate(7, menuSelection = $$props.menuSelection);
 		if ('menuType' in $$props) $$invalidate(1, menuType = $$props.menuType);
 		if ('animation' in $$props) $$invalidate(2, animation = $$props.animation);
@@ -39712,7 +39530,7 @@ function instance$o($$self, $$props, $$invalidate) {
 		if ('color' in $$props) $$invalidate(4, color = $$props.color);
 		if ('isCustom' in $$props) $$invalidate(5, isCustom = $$props.isCustom);
 		if ('customPath' in $$props) $$invalidate(6, customPath = $$props.customPath);
-		if ('customId' in $$props) $$invalidate(13, customId = $$props.customId);
+		if ('customId' in $$props) $$invalidate(14, customId = $$props.customId);
 	};
 
 	$$self.$$.update = () => {
@@ -39722,7 +39540,7 @@ function instance$o($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*animTypeSwitched*/ 524288) {
+		if ($$self.$$.dirty[0] & /*animTypeSwitched*/ 1048576) {
 			if (animTypeSwitched) {
 				animTypeChange();
 			}
@@ -39756,16 +39574,16 @@ function instance$o($$self, $$props, $$invalidate) {
 			$$invalidate(6, customPath);
 		}
 
-		if ($$self.$$.dirty[0] & /*onlyX*/ 16384) {
+		if ($$self.$$.dirty[0] & /*onlyX*/ 32768) {
 			{
-				$$invalidate(14, onlyX);
+				$$invalidate(15, onlyX);
 				options.onlyX = onlyX;
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*staticType*/ 32768) {
+		if ($$self.$$.dirty[0] & /*staticType*/ 65536) {
 			{
-				$$invalidate(15, staticType);
+				$$invalidate(16, staticType);
 				options.staticType = staticType;
 			}
 		}
@@ -39785,6 +39603,7 @@ function instance$o($$self, $$props, $$invalidate) {
 		presetType,
 		presetSubType,
 		shouldShowOnlyX,
+		disablePlayOn,
 		customId,
 		onlyX,
 		staticType,
@@ -39813,8 +39632,8 @@ class ChooseAnimation extends SvelteComponent {
 		init(
 			this,
 			options,
-			instance$o,
-			create_fragment$o,
+			instance$p,
+			create_fragment$p,
 			safe_not_equal,
 			{
 				flagData: 8,
@@ -39822,8 +39641,9 @@ class ChooseAnimation extends SvelteComponent {
 				animType: 0,
 				presetType: 10,
 				presetSubType: 11,
-				animTypeSwitched: 19,
+				animTypeSwitched: 20,
 				shouldShowOnlyX: 12,
+				disablePlayOn: 13,
 				menuSelection: 7,
 				menuType: 1,
 				animation: 2,
@@ -39831,7 +39651,7 @@ class ChooseAnimation extends SvelteComponent {
 				color: 4,
 				isCustom: 5,
 				customPath: 6,
-				customId: 13
+				customId: 14
 			},
 			null,
 			[-1, -1]
@@ -39884,7 +39704,7 @@ class ChooseAnimation extends SvelteComponent {
 	}
 
 	get animTypeSwitched() {
-		return this.$$.ctx[19];
+		return this.$$.ctx[20];
 	}
 
 	set animTypeSwitched(animTypeSwitched) {
@@ -39898,6 +39718,15 @@ class ChooseAnimation extends SvelteComponent {
 
 	set shouldShowOnlyX(shouldShowOnlyX) {
 		this.$$set({ shouldShowOnlyX });
+		flush();
+	}
+
+	get disablePlayOn() {
+		return this.$$.ctx[13];
+	}
+
+	set disablePlayOn(disablePlayOn) {
+		this.$$set({ disablePlayOn });
 		flush();
 	}
 
@@ -39965,7 +39794,7 @@ class ChooseAnimation extends SvelteComponent {
 	}
 
 	get customId() {
-		return this.$$.ctx[13];
+		return this.$$.ctx[14];
 	}
 
 	set customId(customId) {
@@ -39976,7 +39805,7 @@ class ChooseAnimation extends SvelteComponent {
 
 /* src\formApps\ItemMenu\components\soundSettings.svelte generated by Svelte v3.47.0 */
 
-function create_if_block_1$a(ctx) {
+function create_if_block_1$b(ctx) {
 	let div;
 	let i;
 	let mounted;
@@ -40010,7 +39839,7 @@ function create_if_block_1$a(ctx) {
 }
 
 // (80:4) {#if soundEnabled}
-function create_if_block$c(ctx) {
+function create_if_block$d(ctx) {
 	let div1;
 	let div0;
 	let input0;
@@ -40227,7 +40056,7 @@ function create_if_block$c(ctx) {
 	};
 }
 
-function create_fragment$n(ctx) {
+function create_fragment$o(ctx) {
 	let div4;
 	let div3;
 	let div2;
@@ -40243,8 +40072,8 @@ function create_fragment$n(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block0 = /*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] && create_if_block_1$a(ctx);
-	let if_block1 = /*soundEnabled*/ ctx[0] && create_if_block$c(ctx);
+	let if_block0 = /*soundEnabled*/ ctx[0] && /*soundPath*/ ctx[4] && create_if_block_1$b(ctx);
+	let if_block1 = /*soundEnabled*/ ctx[0] && create_if_block$d(ctx);
 
 	return {
 		c() {
@@ -40302,7 +40131,7 @@ function create_fragment$n(ctx) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 				} else {
-					if_block0 = create_if_block_1$a(ctx);
+					if_block0 = create_if_block_1$b(ctx);
 					if_block0.c();
 					if_block0.m(div2, t2);
 				}
@@ -40325,7 +40154,7 @@ function create_fragment$n(ctx) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block$c(ctx);
+					if_block1 = create_if_block$d(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
 					if_block1.m(div4, null);
@@ -40368,7 +40197,7 @@ function create_fragment$n(ctx) {
 	};
 }
 
-function instance$n($$self, $$props, $$invalidate) {
+function instance$o($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
 	let { audioPath } = $$props;
 
@@ -40520,13 +40349,13 @@ function instance$n($$self, $$props, $$invalidate) {
 class SoundSettings extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$n, create_fragment$n, safe_not_equal, { flagData: 8, audioPath: 9 });
+		init(this, options, instance$o, create_fragment$o, safe_not_equal, { flagData: 8, audioPath: 9 });
 	}
 }
 
 /* src\formApps\ItemMenu\components\explosions.svelte generated by Svelte v3.47.0 */
 
-function create_if_block_1$9(ctx) {
+function create_if_block_1$a(ctx) {
 	let div;
 	let i;
 	let div_transition;
@@ -40579,7 +40408,7 @@ function create_if_block_1$9(ctx) {
 }
 
 // (126:4) {#if enableSection}
-function create_if_block$b(ctx) {
+function create_if_block$c(ctx) {
 	let chooseanimation;
 	let updating_menuType;
 	let updating_animation;
@@ -40887,7 +40716,7 @@ function create_if_block$b(ctx) {
 	};
 }
 
-function create_fragment$m(ctx) {
+function create_fragment$n(ctx) {
 	let div4;
 	let div3;
 	let div2;
@@ -40905,8 +40734,8 @@ function create_fragment$m(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block0 = /*enableSection*/ ctx[3] && create_if_block_1$9(ctx);
-	let if_block1 = /*enableSection*/ ctx[3] && create_if_block$b(ctx);
+	let if_block0 = /*enableSection*/ ctx[3] && create_if_block_1$a(ctx);
+	let if_block1 = /*enableSection*/ ctx[3] && create_if_block$c(ctx);
 
 	return {
 		c() {
@@ -40972,7 +40801,7 @@ function create_fragment$m(ctx) {
 						transition_in(if_block0, 1);
 					}
 				} else {
-					if_block0 = create_if_block_1$9(ctx);
+					if_block0 = create_if_block_1$a(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
 					if_block0.m(div2, t3);
@@ -41001,7 +40830,7 @@ function create_fragment$m(ctx) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block$b(ctx);
+					if_block1 = create_if_block$c(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
 					if_block1.m(div4, null);
@@ -41037,7 +40866,7 @@ function create_fragment$m(ctx) {
 	};
 }
 
-function instance$m($$self, $$props, $$invalidate) {
+function instance$n($$self, $$props, $$invalidate) {
 	let aboveBelow;
 	let { flagData } = $$props;
 	const root = flagData.explosions;
@@ -41239,13 +41068,13 @@ function instance$m($$self, $$props, $$invalidate) {
 class Explosions extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$m, create_fragment$m, safe_not_equal, { flagData: 0 });
+		init(this, options, instance$n, create_fragment$n, safe_not_equal, { flagData: 0 });
 	}
 }
 
 /* src\formApps\ItemMenu\components\generalSettings.svelte generated by Svelte v3.47.0 */
 
-function create_if_block$a(ctx) {
+function create_if_block$b(ctx) {
 	let div;
 	let input;
 	let t0;
@@ -41293,7 +41122,7 @@ function create_if_block$a(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(input, "change", /*input_change_handler*/ ctx[8]);
+				dispose = listen(input, "change", /*input_change_handler*/ ctx[10]);
 				mounted = true;
 			}
 		},
@@ -41330,7 +41159,7 @@ function create_if_block$a(ctx) {
 	};
 }
 
-function create_fragment$l(ctx) {
+function create_fragment$m(ctx) {
 	let div4;
 	let t0;
 	let div0;
@@ -41374,7 +41203,7 @@ function create_fragment$l(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block = (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]) && create_if_block$a(ctx);
+	let if_block = (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]) && create_if_block$b(ctx);
 
 	return {
 		c() {
@@ -41385,7 +41214,7 @@ function create_fragment$l(ctx) {
 			input0 = element("input");
 			t1 = space();
 			label0 = element("label");
-			t2 = text(/*disabledLabel*/ ctx[3]);
+			t2 = text(/*disabledLabel*/ ctx[5]);
 			t3 = space();
 			div1 = element("div");
 			input1 = element("input");
@@ -41421,12 +41250,12 @@ function create_fragment$l(ctx) {
 			attr(input1, "type", "checkbox");
 			attr(input1, "id", "override");
 			input1.hidden = true;
-			input1.disabled = input1_disabled_value = /*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0];
+			input1.disabled = input1_disabled_value = /*overrideAuto*/ ctx[6] || /*animationDisabled*/ ctx[0];
 			attr(input1, "class", "svelte-1s8zwsq");
 			attr(label1, "for", "override");
 			attr(label1, "class", label1_class_value = "" + (null_to_empty(/*isCustomized*/ ctx[1] ? "selected" : "notSelected") + " svelte-1s8zwsq"));
 
-			attr(div1, "class", div1_class_value = "flexcol button-labels " + (/*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0]
+			attr(div1, "class", div1_class_value = "flexcol button-labels " + (/*overrideAuto*/ ctx[6] || /*animationDisabled*/ ctx[0]
 			? 'aa-disabled'
 			: '') + " svelte-1s8zwsq");
 
@@ -41435,12 +41264,12 @@ function create_fragment$l(ctx) {
 			attr(input2, "type", "checkbox");
 			attr(input2, "id", "overrideAuto");
 			input2.hidden = true;
-			input2.disabled = input2_disabled_value = /*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0];
+			input2.disabled = input2_disabled_value = /*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0] || !/*autoCheck*/ ctx[4];
 			attr(input2, "class", "svelte-1s8zwsq");
 			attr(label2, "for", "overrideAuto");
-			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-1s8zwsq"));
+			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[6] ? "selected" : "notSelected") + " svelte-1s8zwsq"));
 
-			attr(div2, "class", div2_class_value = "flexcol button-labels " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]
+			attr(div2, "class", div2_class_value = "flexcol button-labels " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0] || !/*autoCheck*/ ctx[4]
 			? 'aa-disabled'
 			: '') + " svelte-1s8zwsq");
 
@@ -41449,12 +41278,12 @@ function create_fragment$l(ctx) {
 			attr(input3, "type", "checkbox");
 			attr(input3, "id", "fromAmmo");
 			input3.hidden = true;
-			input3.disabled = input3_disabled_value = /*gameSystem*/ ctx[6] !== "dnd5e" || /*animationDisabled*/ ctx[0];
+			input3.disabled = input3_disabled_value = /*gameSystem*/ ctx[8] !== "dnd5e" || /*animationDisabled*/ ctx[0] || /*disableAmmo*/ ctx[3];
 			attr(input3, "class", "svelte-1s8zwsq");
 			attr(label3, "for", "fromAmmo");
-			attr(label3, "class", label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-1s8zwsq"));
+			attr(label3, "class", label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[7] ? "selected" : "notSelected") + " svelte-1s8zwsq"));
 
-			attr(div3, "class", div3_class_value = "flexcol button-labels " + (/*gameSystem*/ ctx[6] === 'dnd5e' && !/*animationDisabled*/ ctx[0]
+			attr(div3, "class", div3_class_value = "flexcol button-labels " + (/*gameSystem*/ ctx[8] === 'dnd5e' && !/*animationDisabled*/ ctx[0] && !/*disableAmmo*/ ctx[3]
 			? ''
 			: 'aa-disabled') + " svelte-1s8zwsq");
 
@@ -41482,14 +41311,14 @@ function create_fragment$l(ctx) {
 			append(div4, t6);
 			append(div4, div2);
 			append(div2, input2);
-			input2.checked = /*overrideAuto*/ ctx[4];
+			input2.checked = /*overrideAuto*/ ctx[6];
 			append(div2, t7);
 			append(div2, label2);
 			append(label2, t8);
 			append(div4, t9);
 			append(div4, div3);
 			append(div3, input3);
-			input3.checked = /*fromAmmo*/ ctx[5];
+			input3.checked = /*fromAmmo*/ ctx[7];
 			append(div3, t10);
 			append(div3, label3);
 			append(label3, t11);
@@ -41497,10 +41326,10 @@ function create_fragment$l(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(input0, "change", /*input0_change_handler*/ ctx[9]),
-					listen(input1, "change", /*input1_change_handler*/ ctx[10]),
-					listen(input2, "change", /*input2_change_handler*/ ctx[11]),
-					listen(input3, "change", /*input3_change_handler*/ ctx[12])
+					listen(input0, "change", /*input0_change_handler*/ ctx[11]),
+					listen(input1, "change", /*input1_change_handler*/ ctx[12]),
+					listen(input2, "change", /*input2_change_handler*/ ctx[13]),
+					listen(input3, "change", /*input3_change_handler*/ ctx[14])
 				];
 
 				mounted = true;
@@ -41515,7 +41344,7 @@ function create_fragment$l(ctx) {
 						transition_in(if_block, 1);
 					}
 				} else {
-					if_block = create_if_block$a(ctx);
+					if_block = create_if_block$b(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(div4, t0);
@@ -41534,7 +41363,7 @@ function create_fragment$l(ctx) {
 				input0.checked = /*animationDisabled*/ ctx[0];
 			}
 
-			if (!current || dirty & /*disabledLabel*/ 8) set_data(t2, /*disabledLabel*/ ctx[3]);
+			if (!current || dirty & /*disabledLabel*/ 32) set_data(t2, /*disabledLabel*/ ctx[5]);
 
 			if (!current || dirty & /*animationDisabled*/ 1 && label0_class_value !== (label0_class_value = "" + (null_to_empty(!/*animationDisabled*/ ctx[0]
 			? "selected"
@@ -41542,7 +41371,7 @@ function create_fragment$l(ctx) {
 				attr(label0, "class", label0_class_value);
 			}
 
-			if (!current || dirty & /*overrideAuto, animationDisabled*/ 17 && input1_disabled_value !== (input1_disabled_value = /*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0])) {
+			if (!current || dirty & /*overrideAuto, animationDisabled*/ 65 && input1_disabled_value !== (input1_disabled_value = /*overrideAuto*/ ctx[6] || /*animationDisabled*/ ctx[0])) {
 				input1.disabled = input1_disabled_value;
 			}
 
@@ -41554,43 +41383,43 @@ function create_fragment$l(ctx) {
 				attr(label1, "class", label1_class_value);
 			}
 
-			if (!current || dirty & /*overrideAuto, animationDisabled*/ 17 && div1_class_value !== (div1_class_value = "flexcol button-labels " + (/*overrideAuto*/ ctx[4] || /*animationDisabled*/ ctx[0]
+			if (!current || dirty & /*overrideAuto, animationDisabled*/ 65 && div1_class_value !== (div1_class_value = "flexcol button-labels " + (/*overrideAuto*/ ctx[6] || /*animationDisabled*/ ctx[0]
 			? 'aa-disabled'
 			: '') + " svelte-1s8zwsq")) {
 				attr(div1, "class", div1_class_value);
 			}
 
-			if (!current || dirty & /*isCustomized, animationDisabled*/ 3 && input2_disabled_value !== (input2_disabled_value = /*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0])) {
+			if (!current || dirty & /*isCustomized, animationDisabled, autoCheck*/ 19 && input2_disabled_value !== (input2_disabled_value = /*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0] || !/*autoCheck*/ ctx[4])) {
 				input2.disabled = input2_disabled_value;
 			}
 
-			if (dirty & /*overrideAuto*/ 16) {
-				input2.checked = /*overrideAuto*/ ctx[4];
+			if (dirty & /*overrideAuto*/ 64) {
+				input2.checked = /*overrideAuto*/ ctx[6];
 			}
 
-			if (!current || dirty & /*overrideAuto*/ 16 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[4] ? "selected" : "notSelected") + " svelte-1s8zwsq"))) {
+			if (!current || dirty & /*overrideAuto*/ 64 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*overrideAuto*/ ctx[6] ? "selected" : "notSelected") + " svelte-1s8zwsq"))) {
 				attr(label2, "class", label2_class_value);
 			}
 
-			if (!current || dirty & /*isCustomized, animationDisabled*/ 3 && div2_class_value !== (div2_class_value = "flexcol button-labels " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0]
+			if (!current || dirty & /*isCustomized, animationDisabled, autoCheck*/ 19 && div2_class_value !== (div2_class_value = "flexcol button-labels " + (/*isCustomized*/ ctx[1] || /*animationDisabled*/ ctx[0] || !/*autoCheck*/ ctx[4]
 			? 'aa-disabled'
 			: '') + " svelte-1s8zwsq")) {
 				attr(div2, "class", div2_class_value);
 			}
 
-			if (!current || dirty & /*animationDisabled*/ 1 && input3_disabled_value !== (input3_disabled_value = /*gameSystem*/ ctx[6] !== "dnd5e" || /*animationDisabled*/ ctx[0])) {
+			if (!current || dirty & /*animationDisabled, disableAmmo*/ 9 && input3_disabled_value !== (input3_disabled_value = /*gameSystem*/ ctx[8] !== "dnd5e" || /*animationDisabled*/ ctx[0] || /*disableAmmo*/ ctx[3])) {
 				input3.disabled = input3_disabled_value;
 			}
 
-			if (dirty & /*fromAmmo*/ 32) {
-				input3.checked = /*fromAmmo*/ ctx[5];
+			if (dirty & /*fromAmmo*/ 128) {
+				input3.checked = /*fromAmmo*/ ctx[7];
 			}
 
-			if (!current || dirty & /*fromAmmo*/ 32 && label3_class_value !== (label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[5] ? "selected" : "notSelected") + " svelte-1s8zwsq"))) {
+			if (!current || dirty & /*fromAmmo*/ 128 && label3_class_value !== (label3_class_value = "" + (null_to_empty(/*fromAmmo*/ ctx[7] ? "selected" : "notSelected") + " svelte-1s8zwsq"))) {
 				attr(label3, "class", label3_class_value);
 			}
 
-			if (!current || dirty & /*animationDisabled*/ 1 && div3_class_value !== (div3_class_value = "flexcol button-labels " + (/*gameSystem*/ ctx[6] === 'dnd5e' && !/*animationDisabled*/ ctx[0]
+			if (!current || dirty & /*animationDisabled, disableAmmo*/ 9 && div3_class_value !== (div3_class_value = "flexcol button-labels " + (/*gameSystem*/ ctx[8] === 'dnd5e' && !/*animationDisabled*/ ctx[0] && !/*disableAmmo*/ ctx[3]
 			? ''
 			: 'aa-disabled') + " svelte-1s8zwsq")) {
 				attr(div3, "class", div3_class_value);
@@ -41647,8 +41476,10 @@ function create_fragment$l(ctx) {
 	};
 }
 
-function instance$l($$self, $$props, $$invalidate) {
+function instance$m($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
+	let { disableAmmo } = $$props;
+	let { autoCheck } = $$props;
 	const macros = flagData.macro;
 	const autoOverride = flagData.autoOverride;
 	const options = flagData.options;
@@ -41681,16 +41512,18 @@ function instance$l($$self, $$props, $$invalidate) {
 
 	function input2_change_handler() {
 		overrideAuto = this.checked;
-		$$invalidate(4, overrideAuto);
+		$$invalidate(6, overrideAuto);
 	}
 
 	function input3_change_handler() {
 		fromAmmo = this.checked;
-		$$invalidate(5, fromAmmo);
+		$$invalidate(7, fromAmmo);
 	}
 
 	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(7, flagData = $$props.flagData);
+		if ('flagData' in $$props) $$invalidate(9, flagData = $$props.flagData);
+		if ('disableAmmo' in $$props) $$invalidate(3, disableAmmo = $$props.disableAmmo);
+		if ('autoCheck' in $$props) $$invalidate(4, autoCheck = $$props.autoCheck);
 		if ('animationDisabled' in $$props) $$invalidate(0, animationDisabled = $$props.animationDisabled);
 		if ('isCustomized' in $$props) $$invalidate(1, isCustomized = $$props.isCustomized);
 		if ('enableMacro' in $$props) $$invalidate(2, enableMacro = $$props.enableMacro);
@@ -41701,18 +41534,18 @@ function instance$l($$self, $$props, $$invalidate) {
 			{
 				$$invalidate(0, animationDisabled);
 
-				$$invalidate(3, disabledLabel = animationDisabled
+				$$invalidate(5, disabledLabel = animationDisabled
 				? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled")
 				: game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled"));
 			}
 		}
 
 		if ($$self.$$.dirty & /*animationDisabled*/ 1) {
-			$$invalidate(7, flagData.killAnim = animationDisabled, flagData);
+			$$invalidate(9, flagData.killAnim = animationDisabled, flagData);
 		}
 
-		if ($$self.$$.dirty & /*disabledLabel*/ 8) {
-			($$invalidate(3, disabledLabel), $$invalidate(0, animationDisabled));
+		if ($$self.$$.dirty & /*disabledLabel*/ 32) {
+			($$invalidate(5, disabledLabel), $$invalidate(0, animationDisabled));
 		}
 
 		if ($$self.$$.dirty & /*isCustomized*/ 2) {
@@ -41720,22 +41553,22 @@ function instance$l($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty & /*isCustomized*/ 2) {
-			$$invalidate(7, flagData.override = isCustomized, flagData);
+			$$invalidate(9, flagData.override = isCustomized, flagData);
 		}
 
-		if ($$self.$$.dirty & /*overrideAuto*/ 16) {
-			$$invalidate(4, overrideAuto);
+		if ($$self.$$.dirty & /*overrideAuto*/ 64) {
+			$$invalidate(6, overrideAuto);
 		}
 
-		if ($$self.$$.dirty & /*overrideAuto*/ 16) {
+		if ($$self.$$.dirty & /*overrideAuto*/ 64) {
 			autoOverride.enable = overrideAuto;
 		}
 
-		if ($$self.$$.dirty & /*fromAmmo*/ 32) {
-			$$invalidate(5, fromAmmo);
+		if ($$self.$$.dirty & /*fromAmmo*/ 128) {
+			$$invalidate(7, fromAmmo);
 		}
 
-		if ($$self.$$.dirty & /*fromAmmo*/ 32) {
+		if ($$self.$$.dirty & /*fromAmmo*/ 128) {
 			options.ammo = fromAmmo;
 		}
 
@@ -41748,6 +41581,8 @@ function instance$l($$self, $$props, $$invalidate) {
 		animationDisabled,
 		isCustomized,
 		enableMacro,
+		disableAmmo,
+		autoCheck,
 		disabledLabel,
 		overrideAuto,
 		fromAmmo,
@@ -41765,8 +41600,10 @@ class GeneralSettings extends SvelteComponent {
 	constructor(options) {
 		super();
 
-		init(this, options, instance$l, create_fragment$l, safe_not_equal, {
-			flagData: 7,
+		init(this, options, instance$m, create_fragment$m, safe_not_equal, {
+			flagData: 9,
+			disableAmmo: 3,
+			autoCheck: 4,
 			animationDisabled: 0,
 			isCustomized: 1,
 			enableMacro: 2
@@ -41774,1375 +41611,9 @@ class GeneralSettings extends SvelteComponent {
 	}
 }
 
-function getPreviewFile(data) {
-  let seqFiles = Sequencer.Database.getEntry(data);
-
-  if (Array.isArray(seqFiles)) {
-    seqFiles = seqFiles[0].file;
-
-    if (Array.isArray(seqFiles)) {
-      return seqFiles[0].file;
-    }
-
-    if (isObject(seqFiles)) {
-      if (Array.isArray(seqFiles["15ft"])) {
-        seqFiles = seqFiles["15ft"];
-        return seqFiles[0];
-      }
-
-      seqFiles = seqFiles["15ft"];
-      return seqFiles[0];
-    }
-
-    return seqFiles;
-  }
-
-  if (isObject(seqFiles.file)) {
-    if (Array.isArray(seqFiles.file["15ft"])) {
-      seqFiles = seqFiles.file["15ft"];
-      return seqFiles[0];
-    }
-
-    return seqFiles.file["15ft"];
-  }
-
-  return seqFiles.file;
-
-  function isObject(test) {
-    return typeof test === "object";
-  }
-}
-
-/* src\formApps\ItemMenu\videoPreviews\switchApp.svelte generated by Svelte v3.47.0 */
-
-function create_fragment$k(ctx) {
-	let video;
-	let track;
-	let video_src_value;
-
-	return {
-		c() {
-			video = element("video");
-			track = element("track");
-			attr(track, "kind", "captions");
-			attr(video, "class", "aaVideoPreview svelte-9fs2jg");
-			if (!src_url_equal(video.src, video_src_value = /*databaseFile*/ ctx[0])) attr(video, "src", video_src_value);
-			video.autoplay = "autoplay";
-			video.controls = true;
-			video.loop = true;
-		},
-		m(target, anchor) {
-			insert(target, video, anchor);
-			append(video, track);
-		},
-		p(ctx, [dirty]) {
-			if (dirty & /*databaseFile*/ 1 && !src_url_equal(video.src, video_src_value = /*databaseFile*/ ctx[0])) {
-				attr(video, "src", video_src_value);
-			}
-		},
-		i: noop,
-		o: noop,
-		d(detaching) {
-			if (detaching) detach(video);
-		}
-	};
-}
-
-function instance$k($$self, $$props, $$invalidate) {
-	let databaseFile;
-	let dbPath;
-
-	menuDBPathSwitch.subscribe(value => {
-		$$invalidate(1, dbPath = value);
-	});
-
-	/*
-let isCustom;
-customCheckedSourceFX.subscribe((value) => {
-    isCustom = value;
-})
-let customPath;
-customFilePathSourceFX.subscribe((value) => {
-    customPath = value;
-})
-*/
-	console.log(dbPath);
-
-	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*dbPath*/ 2) {
-			$$invalidate(0, databaseFile = getPreviewFile(dbPath));
-		}
-	};
-
-	return [databaseFile, dbPath];
-}
-
-class SwitchApp extends SvelteComponent {
-	constructor(options) {
-		super();
-		init(this, options, instance$k, create_fragment$k, safe_not_equal, {});
-	}
-}
-
-/* src\formApps\ItemMenu\components\meleeRange.svelte generated by Svelte v3.47.0 */
-
-function get_each_context$6(ctx, list, i) {
-	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
-	return child_ctx;
-}
-
-function get_each_context_1$2(ctx, list, i) {
-	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
-	return child_ctx;
-}
-
-function get_each_context_2$1(ctx, list, i) {
-	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
-	return child_ctx;
-}
-
-function get_each_context_3$1(ctx, list, i) {
-	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
-	return child_ctx;
-}
-
-// (137:8) {#if menuType && switchType === "custom"}
-function create_if_block_5$3(ctx) {
-	let div;
-	let i;
-	let mounted;
-	let dispose;
-
-	return {
-		c() {
-			div = element("div");
-			i = element("i");
-			attr(i, "class", "fas fa-video aa-video-preview");
-			attr(div, "class", "flexcol");
-			set_style(div, "grid-row", "1/2");
-			set_style(div, "grid-column", "1/2");
-		},
-		m(target, anchor) {
-			insert(target, div, anchor);
-			append(div, i);
-
-			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler*/ ctx[20]);
-				mounted = true;
-			}
-		},
-		p: noop,
-		d(detaching) {
-			if (detaching) detach(div);
-			mounted = false;
-			dispose();
-		}
-	};
-}
-
-// (177:4) {#if switchType === "custom"}
-function create_if_block_1$8(ctx) {
-	let div0;
-	let label0;
-	let t1;
-	let select0;
-	let select0_class_value;
-	let t2;
-	let div1;
-	let label1;
-	let t4;
-	let select1;
-	let select1_class_value;
-	let t5;
-	let div2;
-	let label2;
-	let t7;
-	let select2;
-	let select2_class_value;
-	let t8;
-	let div3;
-	let label3;
-	let t10;
-	let select3;
-	let select3_class_value;
-	let mounted;
-	let dispose;
-	let each_value_3 = Object.entries(aaTypeMenu.range);
-	let each_blocks = [];
-
-	for (let i = 0; i < each_value_3.length; i += 1) {
-		each_blocks[i] = create_each_block_3$1(get_each_context_3$1(ctx, each_value_3, i));
-	}
-
-	let if_block0 = /*menuType*/ ctx[1] != "" && create_if_block_4$3(ctx);
-	let if_block1 = /*menuType*/ ctx[1] != "" & /*animation*/ ctx[2] != "" && create_if_block_3$4(ctx);
-	let if_block2 = /*menuType*/ ctx[1] != "" && /*animation*/ ctx[2] != "" && /*variant*/ ctx[3] != "" && create_if_block_2$5(ctx);
-
-	return {
-		c() {
-			div0 = element("div");
-			label0 = element("label");
-			label0.textContent = `${localize("AUTOANIM.type")}`;
-			t1 = space();
-			select0 = element("select");
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
-			t2 = space();
-			div1 = element("div");
-			label1 = element("label");
-			label1.textContent = `${localize("AUTOANIM.animation")}`;
-			t4 = space();
-			select1 = element("select");
-			if (if_block0) if_block0.c();
-			t5 = space();
-			div2 = element("div");
-			label2 = element("label");
-			label2.textContent = `${localize("AUTOANIM.variant")}`;
-			t7 = space();
-			select2 = element("select");
-			if (if_block1) if_block1.c();
-			t8 = space();
-			div3 = element("div");
-			label3 = element("label");
-			label3.textContent = `${localize("AUTOANIM.color")}`;
-			t10 = space();
-			select3 = element("select");
-			if (if_block2) if_block2.c();
-			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-1hd0pm2");
-			attr(select0, "name", "flags.autoanimations.options.menuType");
-			attr(select0, "id", "2");
-
-			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
-			? "isPopulated"
-			: "isNotPopulated") + " svelte-1hd0pm2"));
-
-			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[24].call(select0));
-			attr(div0, "class", "flexcol");
-			set_style(div0, "grid-row", "2 / 3");
-			set_style(div0, "grid-column", "2 / 3");
-			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-1hd0pm2");
-			attr(select1, "name", "flags.autoanimations.animation");
-			attr(select1, "id", "3");
-
-			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
-			? "isPopulated"
-			: "isNotPopulated") + " svelte-1hd0pm2"));
-
-			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[26].call(select1));
-			attr(div1, "class", "flexcol");
-			set_style(div1, "grid-row", "3 / 4");
-			set_style(div1, "grid-column", "1 / 2");
-			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-1hd0pm2");
-			attr(select2, "name", "flags.autoanimations.options.variant");
-			attr(select2, "id", "4");
-
-			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
-			? "isPopulated"
-			: "isNotPopulated") + " svelte-1hd0pm2"));
-
-			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[28].call(select2));
-			attr(div2, "class", "flexcol");
-			set_style(div2, "grid-row", "3 / 4");
-			set_style(div2, "grid-column", "2 / 3");
-			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-1hd0pm2");
-			attr(select3, "name", "flags.autoanimations.color");
-			attr(select3, "id", "5");
-
-			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
-			? "isPopulated"
-			: "isNotPopulated") + " svelte-1hd0pm2"));
-
-			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[30].call(select3));
-			attr(div3, "class", "flexcol");
-			set_style(div3, "grid-row", "3 / 4");
-			set_style(div3, "grid-column", "3 / 4");
-		},
-		m(target, anchor) {
-			insert(target, div0, anchor);
-			append(div0, label0);
-			append(div0, t1);
-			append(div0, select0);
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(select0, null);
-			}
-
-			select_option(select0, /*menuType*/ ctx[1]);
-			insert(target, t2, anchor);
-			insert(target, div1, anchor);
-			append(div1, label1);
-			append(div1, t4);
-			append(div1, select1);
-			if (if_block0) if_block0.m(select1, null);
-			select_option(select1, /*animation*/ ctx[2]);
-			insert(target, t5, anchor);
-			insert(target, div2, anchor);
-			append(div2, label2);
-			append(div2, t7);
-			append(div2, select2);
-			if (if_block1) if_block1.m(select2, null);
-			select_option(select2, /*variant*/ ctx[3]);
-			insert(target, t8, anchor);
-			insert(target, div3, anchor);
-			append(div3, label3);
-			append(div3, t10);
-			append(div3, select3);
-			if (if_block2) if_block2.m(select3, null);
-			select_option(select3, /*color*/ ctx[4]);
-
-			if (!mounted) {
-				dispose = [
-					listen(select0, "change", /*select0_change_handler*/ ctx[24]),
-					listen(select0, "change", /*change_handler_1*/ ctx[25]),
-					listen(select1, "change", /*select1_change_handler*/ ctx[26]),
-					listen(select1, "change", /*change_handler_2*/ ctx[27]),
-					listen(select2, "change", /*select2_change_handler*/ ctx[28]),
-					listen(select2, "change", /*change_handler_3*/ ctx[29]),
-					listen(select3, "change", /*select3_change_handler*/ ctx[30])
-				];
-
-				mounted = true;
-			}
-		},
-		p(ctx, dirty) {
-			if (dirty & /*Object, aaTypeMenu*/ 0) {
-				each_value_3 = Object.entries(aaTypeMenu.range);
-				let i;
-
-				for (i = 0; i < each_value_3.length; i += 1) {
-					const child_ctx = get_each_context_3$1(ctx, each_value_3, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(child_ctx, dirty);
-					} else {
-						each_blocks[i] = create_each_block_3$1(child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(select0, null);
-					}
-				}
-
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
-				}
-
-				each_blocks.length = each_value_3.length;
-			}
-
-			if (dirty[0] & /*menuType*/ 2 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
-			? "isPopulated"
-			: "isNotPopulated") + " svelte-1hd0pm2"))) {
-				attr(select0, "class", select0_class_value);
-			}
-
-			if (dirty[0] & /*menuType*/ 2) {
-				select_option(select0, /*menuType*/ ctx[1]);
-			}
-
-			if (/*menuType*/ ctx[1] != "") {
-				if (if_block0) {
-					if_block0.p(ctx, dirty);
-				} else {
-					if_block0 = create_if_block_4$3(ctx);
-					if_block0.c();
-					if_block0.m(select1, null);
-				}
-			} else if (if_block0) {
-				if_block0.d(1);
-				if_block0 = null;
-			}
-
-			if (dirty[0] & /*animation, menuType*/ 6 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
-			? "isPopulated"
-			: "isNotPopulated") + " svelte-1hd0pm2"))) {
-				attr(select1, "class", select1_class_value);
-			}
-
-			if (dirty[0] & /*animation, menuType*/ 6) {
-				select_option(select1, /*animation*/ ctx[2]);
-			}
-
-			if (/*menuType*/ ctx[1] != "" & /*animation*/ ctx[2] != "") {
-				if (if_block1) {
-					if_block1.p(ctx, dirty);
-				} else {
-					if_block1 = create_if_block_3$4(ctx);
-					if_block1.c();
-					if_block1.m(select2, null);
-				}
-			} else if (if_block1) {
-				if_block1.d(1);
-				if_block1 = null;
-			}
-
-			if (dirty[0] & /*variant, menuType, animation*/ 14 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
-			? "isPopulated"
-			: "isNotPopulated") + " svelte-1hd0pm2"))) {
-				attr(select2, "class", select2_class_value);
-			}
-
-			if (dirty[0] & /*variant, menuType, animation*/ 14) {
-				select_option(select2, /*variant*/ ctx[3]);
-			}
-
-			if (/*menuType*/ ctx[1] != "" && /*animation*/ ctx[2] != "" && /*variant*/ ctx[3] != "") {
-				if (if_block2) {
-					if_block2.p(ctx, dirty);
-				} else {
-					if_block2 = create_if_block_2$5(ctx);
-					if_block2.c();
-					if_block2.m(select3, null);
-				}
-			} else if (if_block2) {
-				if_block2.d(1);
-				if_block2 = null;
-			}
-
-			if (dirty[0] & /*color, menuType, animation, variant*/ 30 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
-			? "isPopulated"
-			: "isNotPopulated") + " svelte-1hd0pm2"))) {
-				attr(select3, "class", select3_class_value);
-			}
-
-			if (dirty[0] & /*color, menuType, animation, variant*/ 30) {
-				select_option(select3, /*color*/ ctx[4]);
-			}
-		},
-		d(detaching) {
-			if (detaching) detach(div0);
-			destroy_each(each_blocks, detaching);
-			if (detaching) detach(t2);
-			if (detaching) detach(div1);
-			if (if_block0) if_block0.d();
-			if (detaching) detach(t5);
-			if (detaching) detach(div2);
-			if (if_block1) if_block1.d();
-			if (detaching) detach(t8);
-			if (detaching) detach(div3);
-			if (if_block2) if_block2.d();
-			mounted = false;
-			run_all(dispose);
-		}
-	};
-}
-
-// (188:16) {#each Object.entries(aaTypeMenu.range) as [key, name]}
-function create_each_block_3$1(ctx) {
-	let option;
-	let t_value = /*name*/ ctx[36] + "";
-	let t;
-	let option_value_value;
-
-	return {
-		c() {
-			option = element("option");
-			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
-			option.value = option.__value;
-		},
-		m(target, anchor) {
-			insert(target, option, anchor);
-			append(option, t);
-		},
-		p: noop,
-		d(detaching) {
-			if (detaching) detach(option);
-		}
-	};
-}
-
-// (203:16) {#if menuType != ""}
-function create_if_block_4$3(ctx) {
-	let each_1_anchor;
-	let each_value_2 = Object.entries(aaNameMenu.range[/*menuType*/ ctx[1]]);
-	let each_blocks = [];
-
-	for (let i = 0; i < each_value_2.length; i += 1) {
-		each_blocks[i] = create_each_block_2$1(get_each_context_2$1(ctx, each_value_2, i));
-	}
-
-	return {
-		c() {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
-			each_1_anchor = empty();
-		},
-		m(target, anchor) {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(target, anchor);
-			}
-
-			insert(target, each_1_anchor, anchor);
-		},
-		p(ctx, dirty) {
-			if (dirty[0] & /*menuType*/ 2) {
-				each_value_2 = Object.entries(aaNameMenu.range[/*menuType*/ ctx[1]]);
-				let i;
-
-				for (i = 0; i < each_value_2.length; i += 1) {
-					const child_ctx = get_each_context_2$1(ctx, each_value_2, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(child_ctx, dirty);
-					} else {
-						each_blocks[i] = create_each_block_2$1(child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-					}
-				}
-
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
-				}
-
-				each_blocks.length = each_value_2.length;
-			}
-		},
-		d(detaching) {
-			destroy_each(each_blocks, detaching);
-			if (detaching) detach(each_1_anchor);
-		}
-	};
-}
-
-// (204:20) {#each Object.entries(aaNameMenu.range[menuType]) as [key, name]}
-function create_each_block_2$1(ctx) {
-	let option;
-	let t_value = /*name*/ ctx[36] + "";
-	let t;
-	let option_value_value;
-
-	return {
-		c() {
-			option = element("option");
-			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
-			option.value = option.__value;
-		},
-		m(target, anchor) {
-			insert(target, option, anchor);
-			append(option, t);
-		},
-		p(ctx, dirty) {
-			if (dirty[0] & /*menuType*/ 2 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
-
-			if (dirty[0] & /*menuType*/ 2 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
-				option.__value = option_value_value;
-				option.value = option.__value;
-			}
-		},
-		d(detaching) {
-			if (detaching) detach(option);
-		}
-	};
-}
-
-// (220:16) {#if (menuType != "") & (animation != "")}
-function create_if_block_3$4(ctx) {
-	let each_1_anchor;
-	let each_value_1 = Object.entries(aaVariantMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
-	let each_blocks = [];
-
-	for (let i = 0; i < each_value_1.length; i += 1) {
-		each_blocks[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
-	}
-
-	return {
-		c() {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
-			each_1_anchor = empty();
-		},
-		m(target, anchor) {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(target, anchor);
-			}
-
-			insert(target, each_1_anchor, anchor);
-		},
-		p(ctx, dirty) {
-			if (dirty[0] & /*menuType, animation*/ 6) {
-				each_value_1 = Object.entries(aaVariantMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
-				let i;
-
-				for (i = 0; i < each_value_1.length; i += 1) {
-					const child_ctx = get_each_context_1$2(ctx, each_value_1, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(child_ctx, dirty);
-					} else {
-						each_blocks[i] = create_each_block_1$2(child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-					}
-				}
-
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
-				}
-
-				each_blocks.length = each_value_1.length;
-			}
-		},
-		d(detaching) {
-			destroy_each(each_blocks, detaching);
-			if (detaching) detach(each_1_anchor);
-		}
-	};
-}
-
-// (221:20) {#each Object.entries(aaVariantMenu.range[menuType][animation]) as [key, name]}
-function create_each_block_1$2(ctx) {
-	let option;
-	let t_value = /*name*/ ctx[36] + "";
-	let t;
-	let option_value_value;
-
-	return {
-		c() {
-			option = element("option");
-			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
-			option.value = option.__value;
-		},
-		m(target, anchor) {
-			insert(target, option, anchor);
-			append(option, t);
-		},
-		p(ctx, dirty) {
-			if (dirty[0] & /*menuType, animation*/ 6 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
-
-			if (dirty[0] & /*menuType, animation*/ 6 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
-				option.__value = option_value_value;
-				option.value = option.__value;
-			}
-		},
-		d(detaching) {
-			if (detaching) detach(option);
-		}
-	};
-}
-
-// (236:16) {#if menuType != "" && animation != "" && variant != ""}
-function create_if_block_2$5(ctx) {
-	let each_1_anchor;
-	let each_value = Object.entries(aaColorMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
-	let each_blocks = [];
-
-	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$6(get_each_context$6(ctx, each_value, i));
-	}
-
-	return {
-		c() {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
-			each_1_anchor = empty();
-		},
-		m(target, anchor) {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(target, anchor);
-			}
-
-			insert(target, each_1_anchor, anchor);
-		},
-		p(ctx, dirty) {
-			if (dirty[0] & /*menuType, animation, variant*/ 14) {
-				each_value = Object.entries(aaColorMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
-				let i;
-
-				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$6(ctx, each_value, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(child_ctx, dirty);
-					} else {
-						each_blocks[i] = create_each_block$6(child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-					}
-				}
-
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
-				}
-
-				each_blocks.length = each_value.length;
-			}
-		},
-		d(detaching) {
-			destroy_each(each_blocks, detaching);
-			if (detaching) detach(each_1_anchor);
-		}
-	};
-}
-
-// (237:20) {#each Object.entries(aaColorMenu.range[menuType][animation][variant]) as [key, name]}
-function create_each_block$6(ctx) {
-	let option;
-	let t_value = /*name*/ ctx[36] + "";
-	let t;
-	let option_value_value;
-
-	return {
-		c() {
-			option = element("option");
-			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
-			option.value = option.__value;
-		},
-		m(target, anchor) {
-			insert(target, option, anchor);
-			append(option, t);
-		},
-		p(ctx, dirty) {
-			if (dirty[0] & /*menuType, animation, variant*/ 14 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
-
-			if (dirty[0] & /*menuType, animation, variant*/ 14 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
-				option.__value = option_value_value;
-				option.value = option.__value;
-			}
-		},
-		d(detaching) {
-			if (detaching) detach(option);
-		}
-	};
-}
-
-// (245:0) {#if switchType === "custom"}
-function create_if_block$9(ctx) {
-	let div2;
-	let div0;
-	let label0;
-	let t1;
-	let button;
-	let t2;
-	let t3;
-	let div1;
-	let label1;
-	let t5;
-	let input;
-	let input_disabled_value;
-	let div1_class_value;
-	let div2_transition;
-	let current;
-	let mounted;
-	let dispose;
-
-	return {
-		c() {
-			div2 = element("div");
-			div0 = element("div");
-			label0 = element("label");
-			label0.textContent = `${localize("AUTOANIM.rangeDetect")}`;
-			t1 = space();
-			button = element("button");
-			t2 = text(/*detectLabel*/ ctx[7]);
-			t3 = space();
-			div1 = element("div");
-			label1 = element("label");
-			label1.textContent = `${localize("AUTOANIM.gridSquares")}`;
-			t5 = space();
-			input = element("input");
-			attr(label0, "for", "");
-			attr(label0, "class", "svelte-1hd0pm2");
-			attr(button, "class", "oldCheck svelte-1hd0pm2");
-			attr(div0, "class", "flexcol");
-			set_style(div0, "grid-row", "1/2");
-			set_style(div0, "grid-column", "2/3");
-			attr(label1, "for", "");
-			attr(label1, "class", "svelte-1hd0pm2");
-			input.disabled = input_disabled_value = /*detect*/ ctx[6] === "auto";
-			attr(input, "type", "Number");
-			attr(input, "placeholder", "2");
-			attr(input, "class", "svelte-1hd0pm2");
-			attr(div1, "class", div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1hd0pm2");
-			set_style(div1, "grid-row", "1 / 2");
-			set_style(div1, "grid-column", "3 / 5");
-			attr(div2, "class", "aa-4wide svelte-1hd0pm2");
-		},
-		m(target, anchor) {
-			insert(target, div2, anchor);
-			append(div2, div0);
-			append(div0, label0);
-			append(div0, t1);
-			append(div0, button);
-			append(button, t2);
-			append(div2, t3);
-			append(div2, div1);
-			append(div1, label1);
-			append(div1, t5);
-			append(div1, input);
-			set_input_value(input, /*range*/ ctx[8]);
-			current = true;
-
-			if (!mounted) {
-				dispose = [
-					listen(button, "click", /*click_handler_2*/ ctx[31]),
-					listen(input, "input", /*input_input_handler*/ ctx[32])
-				];
-
-				mounted = true;
-			}
-		},
-		p(ctx, dirty) {
-			if (!current || dirty[0] & /*detectLabel*/ 128) set_data(t2, /*detectLabel*/ ctx[7]);
-
-			if (!current || dirty[0] & /*detect*/ 64 && input_disabled_value !== (input_disabled_value = /*detect*/ ctx[6] === "auto")) {
-				input.disabled = input_disabled_value;
-			}
-
-			if (dirty[0] & /*range*/ 256) {
-				set_input_value(input, /*range*/ ctx[8]);
-			}
-
-			if (!current || dirty[0] & /*detect*/ 64 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
-				attr(div1, "class", div1_class_value);
-			}
-		},
-		i(local) {
-			if (current) return;
-
-			add_render_callback(() => {
-				if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, { duration: 500 }, true);
-				div2_transition.run(1);
-			});
-
-			current = true;
-		},
-		o(local) {
-			if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, { duration: 500 }, false);
-			div2_transition.run(0);
-			current = false;
-		},
-		d(detaching) {
-			if (detaching) detach(div2);
-			if (detaching && div2_transition) div2_transition.end();
-			mounted = false;
-			run_all(dispose);
-		}
-	};
-}
-
-function create_fragment$j(ctx) {
-	let div2;
-	let div1;
-	let div0;
-	let t1;
-	let t2;
-	let div5;
-	let div3;
-	let label1;
-	let t6;
-	let select;
-	let option0;
-	let option1;
-	let option2;
-	let t10;
-	let div4;
-	let label2;
-	let t12;
-	let button;
-	let t13;
-	let button_class_value;
-	let div4_class_value;
-	let t14;
-	let div5_transition;
-	let t15;
-	let if_block2_anchor;
-	let current;
-	let mounted;
-	let dispose;
-	let if_block0 = /*menuType*/ ctx[1] && /*switchType*/ ctx[0] === "custom" && create_if_block_5$3(ctx);
-	let if_block1 = /*switchType*/ ctx[0] === "custom" && create_if_block_1$8(ctx);
-	let if_block2 = /*switchType*/ ctx[0] === "custom" && create_if_block$9(ctx);
-
-	return {
-		c() {
-			div2 = element("div");
-			div1 = element("div");
-			div0 = element("div");
-			div0.innerHTML = `<label for="" class="svelte-1hd0pm2">Melee Range Switch</label>`;
-			t1 = space();
-			if (if_block0) if_block0.c();
-			t2 = space();
-			div5 = element("div");
-			div3 = element("div");
-			label1 = element("label");
-			label1.textContent = `${localize("AUTOANIM.ranged")}  ${localize("AUTOANIM.switch")}`;
-			t6 = space();
-			select = element("select");
-			option0 = element("option");
-			option0.textContent = `${localize("AUTOANIM.enabled")}`;
-			option1 = element("option");
-			option1.textContent = `${localize("AUTOANIM.disabled")}`;
-			option2 = element("option");
-			option2.textContent = `${localize("AUTOANIM.custom")}`;
-			t10 = space();
-			div4 = element("div");
-			label2 = element("label");
-			label2.textContent = "Return Animation";
-			t12 = space();
-			button = element("button");
-			t13 = text(/*returnLabel*/ ctx[9]);
-			t14 = space();
-			if (if_block1) if_block1.c();
-			t15 = space();
-			if (if_block2) if_block2.c();
-			if_block2_anchor = empty();
-			attr(div0, "class", "flexcol");
-			set_style(div0, "grid-row", "1/2");
-			set_style(div0, "grid-column", "2/3");
-			attr(div1, "class", "aa-header svelte-1hd0pm2");
-			attr(div2, "class", "aa-header-section svelte-1hd0pm2");
-			attr(label1, "for", "1");
-			attr(label1, "class", "svelte-1hd0pm2");
-			option0.__value = "on";
-			option0.value = option0.__value;
-			option1.__value = "off";
-			option1.value = option1.__value;
-			option2.__value = "custom";
-			option2.value = option2.__value;
-			attr(select, "name", "flags.autoanimations.animType");
-			attr(select, "id", "1");
-			set_style(select, "text-align", "center");
-			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-1hd0pm2");
-			if (/*switchType*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[21].call(select));
-			attr(div3, "class", "flexcol");
-			set_style(div3, "grid-row", "1 / 2");
-			set_style(div3, "grid-column", "2 / 3");
-			attr(label2, "for", "");
-			attr(label2, "class", "svelte-1hd0pm2");
-			button.disabled = /*isDisabled*/ ctx[10];
-
-			attr(button, "class", button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
-			? 'selected'
-			: 'notSelected') + " svelte-1hd0pm2");
-
-			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1hd0pm2");
-			set_style(div4, "grid-row", "1/2");
-			set_style(div4, "grid-column", "3/4");
-			attr(div5, "class", "aa-select-animation svelte-1hd0pm2");
-		},
-		m(target, anchor) {
-			insert(target, div2, anchor);
-			append(div2, div1);
-			append(div1, div0);
-			append(div1, t1);
-			if (if_block0) if_block0.m(div1, null);
-			insert(target, t2, anchor);
-			insert(target, div5, anchor);
-			append(div5, div3);
-			append(div3, label1);
-			append(div3, t6);
-			append(div3, select);
-			append(select, option0);
-			append(select, option1);
-			append(select, option2);
-			select_option(select, /*switchType*/ ctx[0]);
-			append(div5, t10);
-			append(div5, div4);
-			append(div4, label2);
-			append(div4, t12);
-			append(div4, button);
-			append(button, t13);
-			append(div5, t14);
-			if (if_block1) if_block1.m(div5, null);
-			insert(target, t15, anchor);
-			if (if_block2) if_block2.m(target, anchor);
-			insert(target, if_block2_anchor, anchor);
-			current = true;
-
-			if (!mounted) {
-				dispose = [
-					listen(select, "change", /*select_change_handler*/ ctx[21]),
-					listen(select, "change", /*change_handler*/ ctx[22]),
-					listen(button, "click", /*click_handler_1*/ ctx[23])
-				];
-
-				mounted = true;
-			}
-		},
-		p(ctx, dirty) {
-			if (/*menuType*/ ctx[1] && /*switchType*/ ctx[0] === "custom") {
-				if (if_block0) {
-					if_block0.p(ctx, dirty);
-				} else {
-					if_block0 = create_if_block_5$3(ctx);
-					if_block0.c();
-					if_block0.m(div1, null);
-				}
-			} else if (if_block0) {
-				if_block0.d(1);
-				if_block0 = null;
-			}
-
-			if (dirty[0] & /*switchType*/ 1) {
-				select_option(select, /*switchType*/ ctx[0]);
-			}
-
-			if (!current || dirty[0] & /*returnLabel*/ 512) set_data(t13, /*returnLabel*/ ctx[9]);
-
-			if (!current || dirty[0] & /*isDisabled*/ 1024) {
-				button.disabled = /*isDisabled*/ ctx[10];
-			}
-
-			if (!current || dirty[0] & /*returnEnabled, isDisabled*/ 1056 && button_class_value !== (button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
-			? 'selected'
-			: 'notSelected') + " svelte-1hd0pm2")) {
-				attr(button, "class", button_class_value);
-			}
-
-			if (!current || dirty[0] & /*isDisabled*/ 1024 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
-				attr(div4, "class", div4_class_value);
-			}
-
-			if (/*switchType*/ ctx[0] === "custom") {
-				if (if_block1) {
-					if_block1.p(ctx, dirty);
-				} else {
-					if_block1 = create_if_block_1$8(ctx);
-					if_block1.c();
-					if_block1.m(div5, null);
-				}
-			} else if (if_block1) {
-				if_block1.d(1);
-				if_block1 = null;
-			}
-
-			if (/*switchType*/ ctx[0] === "custom") {
-				if (if_block2) {
-					if_block2.p(ctx, dirty);
-
-					if (dirty[0] & /*switchType*/ 1) {
-						transition_in(if_block2, 1);
-					}
-				} else {
-					if_block2 = create_if_block$9(ctx);
-					if_block2.c();
-					transition_in(if_block2, 1);
-					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
-				}
-			} else if (if_block2) {
-				group_outros();
-
-				transition_out(if_block2, 1, 1, () => {
-					if_block2 = null;
-				});
-
-				check_outros();
-			}
-		},
-		i(local) {
-			if (current) return;
-
-			add_render_callback(() => {
-				if (!div5_transition) div5_transition = create_bidirectional_transition(div5, fade, {}, true);
-				div5_transition.run(1);
-			});
-
-			transition_in(if_block2);
-			current = true;
-		},
-		o(local) {
-			if (!div5_transition) div5_transition = create_bidirectional_transition(div5, fade, {}, false);
-			div5_transition.run(0);
-			transition_out(if_block2);
-			current = false;
-		},
-		d(detaching) {
-			if (detaching) detach(div2);
-			if (if_block0) if_block0.d();
-			if (detaching) detach(t2);
-			if (detaching) detach(div5);
-			if (if_block1) if_block1.d();
-			if (detaching && div5_transition) div5_transition.end();
-			if (detaching) detach(t15);
-			if (if_block2) if_block2.d(detaching);
-			if (detaching) detach(if_block2_anchor);
-			mounted = false;
-			run_all(dispose);
-		}
-	};
-}
-
-function instance$j($$self, $$props, $$invalidate) {
-	let { flagData } = $$props;
-	const returningWeapons = ["chakram", "dagger", "greatsword", "hammer", "javelin", "spear"];
-	let meleeSwitch = flagData.meleeSwitch;
-	let switchType = meleeSwitch.switchType || "on";
-	let menuType = meleeSwitch.menuType || "";
-
-	// Sets Initial animation for Menu - Assigns to Flag when updated
-	let animation = meleeSwitch.animation || "";
-
-	// Sets Initial variant for Menu - Assigns to Flag when updated
-	let variant = meleeSwitch.variant || "";
-
-	// Sets Initial color for Menu - Assigns to Flag when updated
-	let color = meleeSwitch.color || "";
-
-	async function switchChange() {
-		let newSwitchType = switchType;
-
-		if (newSwitchType === "on") {
-			$$invalidate(1, menuType = Object.keys(aaTypeMenu.range)[0]);
-			$$invalidate(2, animation = Object.keys(aaNameMenu.range[menuType])[0]);
-			$$invalidate(3, variant = Object.keys(aaVariantMenu.range[menuType][animation])[0]);
-			$$invalidate(4, color = Object.keys(aaColorMenu.range[menuType][animation][variant])[0]);
-		}
-	}
-
-	async function menuTypeChange() {
-		let newMenuType = menuType;
-		$$invalidate(2, animation = Object.keys(aaNameMenu.range[newMenuType])[0]);
-		$$invalidate(3, variant = Object.keys(aaVariantMenu.range[newMenuType][animation])[0]);
-		$$invalidate(4, color = Object.keys(aaColorMenu.range[newMenuType][animation][variant])[0]);
-	}
-
-	async function animationChange() {
-		let newAnimation = animation;
-		$$invalidate(3, variant = Object.keys(aaVariantMenu.range[menuType][newAnimation])[0]);
-		$$invalidate(4, color = Object.keys(aaColorMenu.range[menuType][newAnimation][variant])[0]);
-	}
-
-	async function variantChange() {
-		let newVariant = variant;
-		$$invalidate(4, color = Object.keys(aaColorMenu.range[menuType][animation][newVariant])[0]);
-	}
-
-	let returnEnabled = meleeSwitch.enable;
-	let returnLabel = returnEnabled ? "Enabled" : "Disabled";
-
-	function switchLabel() {
-		$$invalidate(5, returnEnabled = !returnEnabled);
-		$$invalidate(9, returnLabel = returnEnabled ? "Enabled" : "Disabled");
-	}
-
-	let isDisabled = false;
-	let detect = meleeSwitch.detect || "auto";
-	let detectLabel = detect === "auto" ? "Automatic" : "Manual";
-
-	function switchDetect() {
-		$$invalidate(6, detect = detect === "auto" ? "manual" : "auto");
-		$$invalidate(7, detectLabel = detect === "auto" ? "Automatic" : "Manual");
-	}
-
-	let range = meleeSwitch.range || 2;
-
-	function onClick() {
-		new TJSDialog({
-				modal: false,
-				draggable: true,
-				resizable: true,
-				title: "Range Switch Animation",
-				stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
-				content: { class: SwitchApp }
-			}).render(true);
-	}
-
-	let switchFilePath;
-	const click_handler = () => onClick();
-
-	function select_change_handler() {
-		switchType = select_value(this);
-		$$invalidate(0, switchType);
-	}
-
-	const change_handler = async () => await switchChange();
-	const click_handler_1 = () => switchLabel();
-
-	function select0_change_handler() {
-		menuType = select_value(this);
-		$$invalidate(1, menuType);
-	}
-
-	const change_handler_1 = async () => await menuTypeChange();
-
-	function select1_change_handler() {
-		animation = select_value(this);
-		($$invalidate(2, animation), $$invalidate(1, menuType));
-		$$invalidate(1, menuType);
-	}
-
-	const change_handler_2 = async () => await animationChange();
-
-	function select2_change_handler() {
-		variant = select_value(this);
-		(($$invalidate(3, variant), $$invalidate(1, menuType)), $$invalidate(2, animation));
-		$$invalidate(1, menuType);
-		($$invalidate(2, animation), $$invalidate(1, menuType));
-	}
-
-	const change_handler_3 = async () => await variantChange();
-
-	function select3_change_handler() {
-		color = select_value(this);
-		((($$invalidate(4, color), $$invalidate(1, menuType)), $$invalidate(2, animation)), $$invalidate(3, variant));
-		$$invalidate(1, menuType);
-		($$invalidate(2, animation), $$invalidate(1, menuType));
-		(($$invalidate(3, variant), $$invalidate(1, menuType)), $$invalidate(2, animation));
-	}
-
-	const click_handler_2 = () => switchDetect();
-
-	function input_input_handler() {
-		range = this.value;
-		$$invalidate(8, range);
-	}
-
-	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(18, flagData = $$props.flagData);
-	};
-
-	$$self.$$.update = () => {
-		if ($$self.$$.dirty[0] & /*switchType*/ 1) {
-			$$invalidate(0, switchType);
-		}
-
-		if ($$self.$$.dirty[0] & /*switchType*/ 1) {
-			meleeSwitch.switchType = switchType;
-		}
-
-		if ($$self.$$.dirty[0] & /*menuType*/ 2) {
-			$$invalidate(1, menuType);
-		}
-
-		if ($$self.$$.dirty[0] & /*menuType*/ 2) {
-			meleeSwitch.menuType = menuType;
-		}
-
-		if ($$self.$$.dirty[0] & /*menuType, animation*/ 6) {
-			$$invalidate(2, animation = menuType === "" ? "" : animation);
-		}
-
-		if ($$self.$$.dirty[0] & /*animation*/ 4) {
-			meleeSwitch.animation = animation;
-		}
-
-		if ($$self.$$.dirty[0] & /*menuType, animation, variant*/ 14) {
-			$$invalidate(3, variant = menuType === "" || animation === "" ? "" : variant);
-		}
-
-		if ($$self.$$.dirty[0] & /*variant*/ 8) {
-			meleeSwitch.variant = variant;
-		}
-
-		if ($$self.$$.dirty[0] & /*menuType, animation, variant, color*/ 30) {
-			$$invalidate(4, color = menuType === "" || animation === "" || variant === ""
-			? ""
-			: color);
-		}
-
-		if ($$self.$$.dirty[0] & /*color*/ 16) {
-			meleeSwitch.color = color;
-		}
-
-		if ($$self.$$.dirty[0] & /*returnEnabled*/ 32) {
-			meleeSwitch.returning = returnEnabled;
-		}
-
-		if ($$self.$$.dirty[0] & /*switchType, animation, menuType*/ 7) {
-			$$invalidate(10, isDisabled = switchType === "custom" && returningWeapons.includes(animation) && menuType === "weapon" || switchType === "on"
-			? false
-			: true);
-		}
-
-		if ($$self.$$.dirty[0] & /*detect*/ 64) {
-			meleeSwitch.detect = detect;
-		}
-
-		if ($$self.$$.dirty[0] & /*detectLabel*/ 128) {
-			$$invalidate(7, detectLabel);
-		}
-
-		if ($$self.$$.dirty[0] & /*range*/ 256) {
-			$$invalidate(8, range);
-		}
-
-		if ($$self.$$.dirty[0] & /*range*/ 256) {
-			meleeSwitch.range = range;
-		}
-
-		if ($$self.$$.dirty[0] & /*color, menuType, animation, variant*/ 30) {
-			$$invalidate(19, switchFilePath = color === "random"
-			? `autoanimations.range.${menuType}.${animation}.${variant}`
-			: `autoanimations.range.${menuType}.${animation}.${variant}.${color}`);
-		}
-
-		if ($$self.$$.dirty[0] & /*switchFilePath*/ 524288) {
-			menuDBPathSwitch.set(switchFilePath);
-		}
-	};
-
-	return [
-		switchType,
-		menuType,
-		animation,
-		variant,
-		color,
-		returnEnabled,
-		detect,
-		detectLabel,
-		range,
-		returnLabel,
-		isDisabled,
-		switchChange,
-		menuTypeChange,
-		animationChange,
-		variantChange,
-		switchLabel,
-		switchDetect,
-		onClick,
-		flagData,
-		switchFilePath,
-		click_handler,
-		select_change_handler,
-		change_handler,
-		click_handler_1,
-		select0_change_handler,
-		change_handler_1,
-		select1_change_handler,
-		change_handler_2,
-		select2_change_handler,
-		change_handler_3,
-		select3_change_handler,
-		click_handler_2,
-		input_input_handler
-	];
-}
-
-class MeleeRange extends SvelteComponent {
-	constructor(options) {
-		super();
-		init(this, options, instance$j, create_fragment$j, safe_not_equal, { flagData: 18 }, null, [-1, -1]);
-	}
-}
-
 /* src\formApps\ItemMenu\components\macro.svelte generated by Svelte v3.47.0 */
 
-function create_fragment$i(ctx) {
+function create_fragment$l(ctx) {
 	let div0;
 	let h1;
 	let t1;
@@ -43285,7 +41756,7 @@ function create_fragment$i(ctx) {
 	};
 }
 
-function instance$i($$self, $$props, $$invalidate) {
+function instance$l($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
 	const macros = flagData.macro;
 	let name = macros.name;
@@ -43339,18 +41810,18 @@ function instance$i($$self, $$props, $$invalidate) {
 class Macro extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$i, create_fragment$i, safe_not_equal, { flagData: 3 });
+		init(this, options, instance$l, create_fragment$l, safe_not_equal, { flagData: 3 });
 	}
 }
 
 /* src\formApps\ItemMenu\components\options.svelte generated by Svelte v3.47.0 */
 
-function create_if_block_4$2(ctx) {
+function create_if_block_4$4(ctx) {
 	let if_block_anchor;
 
 	function select_block_type(ctx, dirty) {
-		if (/*animType*/ ctx[0] === "aura") return create_if_block_5$2;
-		return create_else_block$1;
+		if (/*animType*/ ctx[0] === "aura") return create_if_block_5$4;
+		return create_else_block$2;
 	}
 
 	let current_block_type = select_block_type(ctx);
@@ -43386,7 +41857,7 @@ function create_if_block_4$2(ctx) {
 }
 
 // (156:4) {:else}
-function create_else_block$1(ctx) {
+function create_else_block$2(ctx) {
 	let div;
 	let label;
 	let t1;
@@ -43448,7 +41919,7 @@ function create_else_block$1(ctx) {
 }
 
 // (151:4) {#if animType === "aura"}
-function create_if_block_5$2(ctx) {
+function create_if_block_5$4(ctx) {
 	let div;
 	let label;
 	let t1;
@@ -43499,7 +41970,7 @@ function create_if_block_5$2(ctx) {
 }
 
 // (172:4) {#if animType === "templatefx"}
-function create_if_block$8(ctx) {
+function create_if_block$a(ctx) {
 	let div0;
 	let label0;
 	let t2;
@@ -43521,7 +41992,7 @@ function create_if_block$8(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block = /*persistent*/ ctx[7] && create_if_block_1$7(ctx);
+	let if_block = /*persistent*/ ctx[7] && create_if_block_1$9(ctx);
 
 	return {
 		c() {
@@ -43625,7 +42096,7 @@ function create_if_block$8(ctx) {
 						transition_in(if_block, 1);
 					}
 				} else {
-					if_block = create_if_block_1$7(ctx);
+					if_block = create_if_block_1$9(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -43665,7 +42136,7 @@ function create_if_block$8(ctx) {
 }
 
 // (189:4) {#if persistent}
-function create_if_block_1$7(ctx) {
+function create_if_block_1$9(ctx) {
 	let div;
 	let label;
 	let t3;
@@ -43679,8 +42150,8 @@ function create_if_block_1$7(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block0 = (/*menuType*/ ctx[1] === "circle" || /*menuType*/ ctx[1] === "square") && create_if_block_3$3();
-	let if_block1 = /*persistType*/ ctx[11] === "overheadtile" && create_if_block_2$4(ctx);
+	let if_block0 = (/*menuType*/ ctx[1] === "circle" || /*menuType*/ ctx[1] === "square") && create_if_block_3$5();
+	let if_block1 = /*persistType*/ ctx[11] === "overheadtile" && create_if_block_2$6(ctx);
 
 	return {
 		c() {
@@ -43738,7 +42209,7 @@ function create_if_block_1$7(ctx) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 				} else {
-					if_block0 = create_if_block_3$3();
+					if_block0 = create_if_block_3$5();
 					if_block0.c();
 					if_block0.m(select, option0);
 				}
@@ -43759,7 +42230,7 @@ function create_if_block_1$7(ctx) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block_2$4(ctx);
+					if_block1 = create_if_block_2$6(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
 					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
@@ -43806,7 +42277,7 @@ function create_if_block_1$7(ctx) {
 }
 
 // (198:12) {#if menuType === "circle" || menuType === "square"}
-function create_if_block_3$3(ctx) {
+function create_if_block_3$5(ctx) {
 	let option0;
 	let option1;
 
@@ -43834,7 +42305,7 @@ function create_if_block_3$3(ctx) {
 }
 
 // (207:4) {#if persistType === "overheadtile"}
-function create_if_block_2$4(ctx) {
+function create_if_block_2$6(ctx) {
 	let div0;
 	let label0;
 	let t1;
@@ -44001,7 +42472,7 @@ function create_if_block_2$4(ctx) {
 	};
 }
 
-function create_fragment$h(ctx) {
+function create_fragment$k(ctx) {
 	let div9;
 	let h2;
 	let t1;
@@ -44064,8 +42535,8 @@ function create_fragment$h(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block0 = /*animType*/ ctx[0] !== "templatefx" && create_if_block_4$2(ctx);
-	let if_block1 = /*animType*/ ctx[0] === "templatefx" && create_if_block$8(ctx);
+	let if_block0 = /*animType*/ ctx[0] !== "templatefx" && create_if_block_4$4(ctx);
+	let if_block1 = /*animType*/ ctx[0] === "templatefx" && create_if_block$a(ctx);
 
 	return {
 		c() {
@@ -44336,7 +42807,7 @@ function create_fragment$h(ctx) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 				} else {
-					if_block0 = create_if_block_4$2(ctx);
+					if_block0 = create_if_block_4$4(ctx);
 					if_block0.c();
 					if_block0.m(div8, t26);
 				}
@@ -44361,7 +42832,7 @@ function create_fragment$h(ctx) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block$8(ctx);
+					if_block1 = create_if_block$a(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
 					if_block1.m(div8, null);
@@ -44423,7 +42894,7 @@ function create_fragment$h(ctx) {
 	};
 }
 
-function instance$h($$self, $$props, $$invalidate) {
+function instance$k($$self, $$props, $$invalidate) {
 	let isRemove;
 	let aboveBelow;
 	let bindAlpha;
@@ -44776,13 +43247,13 @@ function instance$h($$self, $$props, $$invalidate) {
 class Options extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$h, create_fragment$h, safe_not_equal, { flagData: 26, animType: 0, menuType: 1 }, null, [-1, -1]);
+		init(this, options, instance$k, create_fragment$k, safe_not_equal, { flagData: 26, animType: 0, menuType: 1 }, null, [-1, -1]);
 	}
 }
 
 /* src\formApps\ItemMenu\components\primarySection.svelte generated by Svelte v3.47.0 */
 
-function create_fragment$g(ctx) {
+function create_fragment$j(ctx) {
 	let div3;
 	let div2;
 	let div0;
@@ -44808,66 +43279,67 @@ function create_fragment$g(ctx) {
 	let dispose;
 
 	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[13](value);
+		/*chooseanimation_menuType_binding*/ ctx[14](value);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[14](value);
+		/*chooseanimation_animation_binding*/ ctx[15](value);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[15](value);
+		/*chooseanimation_variant_binding*/ ctx[16](value);
 	}
 
 	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[16](value);
+		/*chooseanimation_color_binding*/ ctx[17](value);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[17](value);
+		/*chooseanimation_isCustom_binding*/ ctx[18](value);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[18](value);
+		/*chooseanimation_customPath_binding*/ ctx[19](value);
 	}
 
 	function chooseanimation_menuSelection_binding(value) {
-		/*chooseanimation_menuSelection_binding*/ ctx[19](value);
+		/*chooseanimation_menuSelection_binding*/ ctx[20](value);
 	}
 
 	let chooseanimation_props = {
 		flagPath: "PrimaryAnimation",
+		disablePlayOn: /*disablePlayOn*/ ctx[3],
 		animTypeSwitched: /*animTypeSwitched*/ ctx[2],
 		animType: /*animType*/ ctx[1],
 		flagData: /*flagData*/ ctx[0]
 	};
 
-	if (/*menuType*/ ctx[3] !== void 0) {
-		chooseanimation_props.menuType = /*menuType*/ ctx[3];
+	if (/*menuType*/ ctx[4] !== void 0) {
+		chooseanimation_props.menuType = /*menuType*/ ctx[4];
 	}
 
-	if (/*animation*/ ctx[4] !== void 0) {
-		chooseanimation_props.animation = /*animation*/ ctx[4];
+	if (/*animation*/ ctx[5] !== void 0) {
+		chooseanimation_props.animation = /*animation*/ ctx[5];
 	}
 
-	if (/*variant*/ ctx[5] !== void 0) {
-		chooseanimation_props.variant = /*variant*/ ctx[5];
+	if (/*variant*/ ctx[6] !== void 0) {
+		chooseanimation_props.variant = /*variant*/ ctx[6];
 	}
 
-	if (/*color*/ ctx[6] !== void 0) {
-		chooseanimation_props.color = /*color*/ ctx[6];
+	if (/*color*/ ctx[7] !== void 0) {
+		chooseanimation_props.color = /*color*/ ctx[7];
 	}
 
-	if (/*isCustom*/ ctx[7] !== void 0) {
-		chooseanimation_props.isCustom = /*isCustom*/ ctx[7];
+	if (/*isCustom*/ ctx[8] !== void 0) {
+		chooseanimation_props.isCustom = /*isCustom*/ ctx[8];
 	}
 
-	if (/*customPath*/ ctx[8] !== void 0) {
-		chooseanimation_props.customPath = /*customPath*/ ctx[8];
+	if (/*customPath*/ ctx[9] !== void 0) {
+		chooseanimation_props.customPath = /*customPath*/ ctx[9];
 	}
 
-	if (/*menuSelection*/ ctx[9] !== void 0) {
-		chooseanimation_props.menuSelection = /*menuSelection*/ ctx[9];
+	if (/*menuSelection*/ ctx[10] !== void 0) {
+		chooseanimation_props.menuSelection = /*menuSelection*/ ctx[10];
 	}
 
 	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
@@ -44882,7 +43354,7 @@ function create_fragment$g(ctx) {
 	options_1 = new Options({
 			props: {
 				animType: /*animType*/ ctx[1],
-				menuType: /*menuType*/ ctx[3],
+				menuType: /*menuType*/ ctx[4],
 				flagData: /*flagData*/ ctx[0]
 			}
 		});
@@ -44935,62 +43407,63 @@ function create_fragment$g(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler*/ ctx[12]);
+				dispose = listen(i, "click", /*click_handler*/ ctx[13]);
 				mounted = true;
 			}
 		},
 		p(ctx, [dirty]) {
 			const chooseanimation_changes = {};
+			if (dirty & /*disablePlayOn*/ 8) chooseanimation_changes.disablePlayOn = /*disablePlayOn*/ ctx[3];
 			if (dirty & /*animTypeSwitched*/ 4) chooseanimation_changes.animTypeSwitched = /*animTypeSwitched*/ ctx[2];
 			if (dirty & /*animType*/ 2) chooseanimation_changes.animType = /*animType*/ ctx[1];
 			if (dirty & /*flagData*/ 1) chooseanimation_changes.flagData = /*flagData*/ ctx[0];
 
-			if (!updating_menuType && dirty & /*menuType*/ 8) {
+			if (!updating_menuType && dirty & /*menuType*/ 16) {
 				updating_menuType = true;
-				chooseanimation_changes.menuType = /*menuType*/ ctx[3];
+				chooseanimation_changes.menuType = /*menuType*/ ctx[4];
 				add_flush_callback(() => updating_menuType = false);
 			}
 
-			if (!updating_animation && dirty & /*animation*/ 16) {
+			if (!updating_animation && dirty & /*animation*/ 32) {
 				updating_animation = true;
-				chooseanimation_changes.animation = /*animation*/ ctx[4];
+				chooseanimation_changes.animation = /*animation*/ ctx[5];
 				add_flush_callback(() => updating_animation = false);
 			}
 
-			if (!updating_variant && dirty & /*variant*/ 32) {
+			if (!updating_variant && dirty & /*variant*/ 64) {
 				updating_variant = true;
-				chooseanimation_changes.variant = /*variant*/ ctx[5];
+				chooseanimation_changes.variant = /*variant*/ ctx[6];
 				add_flush_callback(() => updating_variant = false);
 			}
 
-			if (!updating_color && dirty & /*color*/ 64) {
+			if (!updating_color && dirty & /*color*/ 128) {
 				updating_color = true;
-				chooseanimation_changes.color = /*color*/ ctx[6];
+				chooseanimation_changes.color = /*color*/ ctx[7];
 				add_flush_callback(() => updating_color = false);
 			}
 
-			if (!updating_isCustom && dirty & /*isCustom*/ 128) {
+			if (!updating_isCustom && dirty & /*isCustom*/ 256) {
 				updating_isCustom = true;
-				chooseanimation_changes.isCustom = /*isCustom*/ ctx[7];
+				chooseanimation_changes.isCustom = /*isCustom*/ ctx[8];
 				add_flush_callback(() => updating_isCustom = false);
 			}
 
-			if (!updating_customPath && dirty & /*customPath*/ 256) {
+			if (!updating_customPath && dirty & /*customPath*/ 512) {
 				updating_customPath = true;
-				chooseanimation_changes.customPath = /*customPath*/ ctx[8];
+				chooseanimation_changes.customPath = /*customPath*/ ctx[9];
 				add_flush_callback(() => updating_customPath = false);
 			}
 
-			if (!updating_menuSelection && dirty & /*menuSelection*/ 512) {
+			if (!updating_menuSelection && dirty & /*menuSelection*/ 1024) {
 				updating_menuSelection = true;
-				chooseanimation_changes.menuSelection = /*menuSelection*/ ctx[9];
+				chooseanimation_changes.menuSelection = /*menuSelection*/ ctx[10];
 				add_flush_callback(() => updating_menuSelection = false);
 			}
 
 			chooseanimation.$set(chooseanimation_changes);
 			const options_1_changes = {};
 			if (dirty & /*animType*/ 2) options_1_changes.animType = /*animType*/ ctx[1];
-			if (dirty & /*menuType*/ 8) options_1_changes.menuType = /*menuType*/ ctx[3];
+			if (dirty & /*menuType*/ 16) options_1_changes.menuType = /*menuType*/ ctx[4];
 			if (dirty & /*flagData*/ 1) options_1_changes.flagData = /*flagData*/ ctx[0];
 			options_1.$set(options_1_changes);
 			const soundsettings_changes = {};
@@ -45033,10 +43506,11 @@ function create_fragment$g(ctx) {
 	};
 }
 
-function instance$g($$self, $$props, $$invalidate) {
+function instance$j($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
 	let { animType } = $$props;
 	let { animTypeSwitched } = $$props;
+	let { disablePlayOn } = $$props;
 	const options = flagData.options;
 	let menuType = options.menuType;
 	let animation = flagData.animation;
@@ -45066,81 +43540,82 @@ function instance$g($$self, $$props, $$invalidate) {
 
 	function chooseanimation_menuType_binding(value) {
 		menuType = value;
-		$$invalidate(3, menuType);
+		$$invalidate(4, menuType);
 	}
 
 	function chooseanimation_animation_binding(value) {
 		animation = value;
-		$$invalidate(4, animation);
+		$$invalidate(5, animation);
 	}
 
 	function chooseanimation_variant_binding(value) {
 		variant = value;
-		$$invalidate(5, variant);
+		$$invalidate(6, variant);
 	}
 
 	function chooseanimation_color_binding(value) {
 		color = value;
-		$$invalidate(6, color);
+		$$invalidate(7, color);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
 		isCustom = value;
-		$$invalidate(7, isCustom);
+		$$invalidate(8, isCustom);
 	}
 
 	function chooseanimation_customPath_binding(value) {
 		customPath = value;
-		$$invalidate(8, customPath);
+		$$invalidate(9, customPath);
 	}
 
 	function chooseanimation_menuSelection_binding(value) {
 		menuSelection = value;
-		$$invalidate(9, menuSelection);
+		$$invalidate(10, menuSelection);
 	}
 
 	$$self.$$set = $$props => {
 		if ('flagData' in $$props) $$invalidate(0, flagData = $$props.flagData);
 		if ('animType' in $$props) $$invalidate(1, animType = $$props.animType);
 		if ('animTypeSwitched' in $$props) $$invalidate(2, animTypeSwitched = $$props.animTypeSwitched);
+		if ('disablePlayOn' in $$props) $$invalidate(3, disablePlayOn = $$props.disablePlayOn);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*menuType*/ 8) {
-			$$invalidate(3, menuType = options.menuType = menuType);
+		if ($$self.$$.dirty & /*menuType*/ 16) {
+			$$invalidate(4, menuType = options.menuType = menuType);
 		}
 
-		if ($$self.$$.dirty & /*animation*/ 16) {
-			$$invalidate(4, animation = $$invalidate(0, flagData.animation = animation, flagData));
+		if ($$self.$$.dirty & /*animation*/ 32) {
+			$$invalidate(5, animation = $$invalidate(0, flagData.animation = animation, flagData));
 		}
 
-		if ($$self.$$.dirty & /*variant*/ 32) {
-			$$invalidate(5, variant = options.variant = variant);
+		if ($$self.$$.dirty & /*variant*/ 64) {
+			$$invalidate(6, variant = options.variant = variant);
 		}
 
-		if ($$self.$$.dirty & /*color*/ 64) {
-			$$invalidate(6, color = $$invalidate(0, flagData.color = color, flagData));
+		if ($$self.$$.dirty & /*color*/ 128) {
+			$$invalidate(7, color = $$invalidate(0, flagData.color = color, flagData));
 		}
 
-		if ($$self.$$.dirty & /*isCustom*/ 128) {
-			$$invalidate(7, isCustom = options.enableCustom = isCustom);
+		if ($$self.$$.dirty & /*isCustom*/ 256) {
+			$$invalidate(8, isCustom = options.enableCustom = isCustom);
 		}
 
-		if ($$self.$$.dirty & /*customPath*/ 256) {
-			$$invalidate(8, customPath = options.customPath = customPath);
+		if ($$self.$$.dirty & /*customPath*/ 512) {
+			$$invalidate(9, customPath = options.customPath = customPath);
 		}
 
-		if ($$self.$$.dirty & /*menuSelection*/ 512) {
-			$$invalidate(9, menuSelection);
+		if ($$self.$$.dirty & /*menuSelection*/ 1024) {
+			$$invalidate(10, menuSelection);
 		}
 
-		if ($$self.$$.dirty & /*color, menuSelection, menuType, animation, variant*/ 632) {
-			$$invalidate(11, primaryFilePath = color === "random"
+		if ($$self.$$.dirty & /*color, menuSelection, menuType, animation, variant*/ 1264) {
+			$$invalidate(12, primaryFilePath = color === "random"
 			? `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}`
 			: `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}.${color}`);
 		}
 
-		if ($$self.$$.dirty & /*primaryFilePath, customPath, isCustom*/ 2432) {
+		if ($$self.$$.dirty & /*primaryFilePath, customPath, isCustom*/ 4864) {
 			// Sets Store variables for sending to the Video Previewer
 			{
 				menuDBPath01.set(primaryFilePath);
@@ -45154,6 +43629,7 @@ function instance$g($$self, $$props, $$invalidate) {
 		flagData,
 		animType,
 		animTypeSwitched,
+		disablePlayOn,
 		menuType,
 		animation,
 		variant,
@@ -45178,2625 +43654,39 @@ class PrimarySection extends SvelteComponent {
 	constructor(options) {
 		super();
 
-		init(this, options, instance$g, create_fragment$g, safe_not_equal, {
+		init(this, options, instance$j, create_fragment$j, safe_not_equal, {
 			flagData: 0,
 			animType: 1,
-			animTypeSwitched: 2
+			animTypeSwitched: 2,
+			disablePlayOn: 3
 		});
-	}
-}
-
-/* src\formApps\ItemMenu\videoPreviews\sourceFXApp.svelte generated by Svelte v3.47.0 */
-
-function create_fragment$f(ctx) {
-	let video;
-	let track;
-	let video_src_value;
-
-	return {
-		c() {
-			video = element("video");
-			track = element("track");
-			attr(track, "kind", "captions");
-			attr(video, "class", "aaVideoPreview svelte-9fs2jg");
-			if (!src_url_equal(video.src, video_src_value = /*filePath*/ ctx[0])) attr(video, "src", video_src_value);
-			video.autoplay = "autoplay";
-			video.controls = true;
-			video.loop = true;
-		},
-		m(target, anchor) {
-			insert(target, video, anchor);
-			append(video, track);
-		},
-		p(ctx, [dirty]) {
-			if (dirty & /*filePath*/ 1 && !src_url_equal(video.src, video_src_value = /*filePath*/ ctx[0])) {
-				attr(video, "src", video_src_value);
-			}
-		},
-		i: noop,
-		o: noop,
-		d(detaching) {
-			if (detaching) detach(video);
-		}
-	};
-}
-
-function instance$f($$self, $$props, $$invalidate) {
-	let databaseFile;
-	let filePath;
-	let dbPath;
-
-	menuDBPathSourceFX.subscribe(value => {
-		$$invalidate(1, dbPath = value);
-	});
-
-	let isCustom;
-
-	customCheckedSourceFX.subscribe(value => {
-		$$invalidate(2, isCustom = value);
-	});
-
-	let customPath;
-
-	customFilePathSourceFX.subscribe(value => {
-		$$invalidate(3, customPath = value);
-	});
-
-	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*dbPath*/ 2) {
-			$$invalidate(4, databaseFile = getPreviewFile(dbPath));
-		}
-
-		if ($$self.$$.dirty & /*isCustom, customPath, databaseFile*/ 28) {
-			$$invalidate(0, filePath = isCustom ? customPath : databaseFile);
-		}
-	};
-
-	return [filePath, dbPath, isCustom, customPath, databaseFile];
-}
-
-class SourceFXApp extends SvelteComponent {
-	constructor(options) {
-		super();
-		init(this, options, instance$f, create_fragment$f, safe_not_equal, {});
-	}
-}
-
-/* src\formApps\ItemMenu\videoPreviews\targetFXApp.svelte generated by Svelte v3.47.0 */
-
-function create_fragment$e(ctx) {
-	let video;
-	let track;
-	let video_src_value;
-
-	return {
-		c() {
-			video = element("video");
-			track = element("track");
-			attr(track, "kind", "captions");
-			attr(video, "class", "aaVideoPreview svelte-9fs2jg");
-			if (!src_url_equal(video.src, video_src_value = /*filePath*/ ctx[0])) attr(video, "src", video_src_value);
-			video.autoplay = "autoplay";
-			video.controls = true;
-			video.loop = true;
-		},
-		m(target, anchor) {
-			insert(target, video, anchor);
-			append(video, track);
-		},
-		p(ctx, [dirty]) {
-			if (dirty & /*filePath*/ 1 && !src_url_equal(video.src, video_src_value = /*filePath*/ ctx[0])) {
-				attr(video, "src", video_src_value);
-			}
-		},
-		i: noop,
-		o: noop,
-		d(detaching) {
-			if (detaching) detach(video);
-		}
-	};
-}
-
-function instance$e($$self, $$props, $$invalidate) {
-	let databaseFile;
-	let filePath;
-	let dbPath;
-
-	menuDBPathTargetFX.subscribe(value => {
-		$$invalidate(1, dbPath = value);
-	});
-
-	let isCustom;
-
-	customCheckedTargetFX.subscribe(value => {
-		$$invalidate(2, isCustom = value);
-	});
-
-	let customPath;
-
-	customFilePathTargetFX.subscribe(value => {
-		$$invalidate(3, customPath = value);
-	});
-
-	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*dbPath*/ 2) {
-			$$invalidate(4, databaseFile = getPreviewFile(dbPath));
-		}
-
-		if ($$self.$$.dirty & /*isCustom, customPath, databaseFile*/ 28) {
-			$$invalidate(0, filePath = isCustom ? customPath : databaseFile);
-		}
-	};
-
-	return [filePath, dbPath, isCustom, customPath, databaseFile];
-}
-
-class TargetFXApp extends SvelteComponent {
-	constructor(options) {
-		super();
-		init(this, options, instance$e, create_fragment$e, safe_not_equal, {});
-	}
-}
-
-/* src\formApps\ItemMenu\components\extraFX.svelte generated by Svelte v3.47.0 */
-
-function create_if_block_1$6(ctx) {
-	let div;
-	let i;
-	let div_transition;
-	let current;
-	let mounted;
-	let dispose;
-
-	return {
-		c() {
-			div = element("div");
-			i = element("i");
-			attr(i, "class", "fas fa-video aa-video-preview");
-			attr(div, "class", "flexcol");
-			set_style(div, "grid-row", "1/2");
-			set_style(div, "grid-column", "1/2");
-		},
-		m(target, anchor) {
-			insert(target, div, anchor);
-			append(div, i);
-			current = true;
-
-			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler*/ ctx[32]);
-				mounted = true;
-			}
-		},
-		p: noop,
-		i(local) {
-			if (current) return;
-
-			add_render_callback(() => {
-				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
-				div_transition.run(1);
-			});
-
-			current = true;
-		},
-		o(local) {
-			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
-			div_transition.run(0);
-			current = false;
-		},
-		d(detaching) {
-			if (detaching) detach(div);
-			if (detaching && div_transition) div_transition.end();
-			mounted = false;
-			dispose();
-		}
-	};
-}
-
-// (195:4) {#if enableSection}
-function create_if_block$7(ctx) {
-	let chooseanimation;
-	let updating_menuType;
-	let updating_animation;
-	let updating_variant;
-	let updating_color;
-	let updating_isCustom;
-	let updating_customPath;
-	let updating_customId;
-	let t0;
-	let h2;
-	let h2_transition;
-	let t2;
-	let div9;
-	let div0;
-	let label0;
-	let t4;
-	let button0;
-	let t5;
-	let button0_disabled_value;
-	let div0_class_value;
-	let t6;
-	let div1;
-	let label1;
-	let t8;
-	let button1;
-	let t9;
-	let t10;
-	let div2;
-	let label2;
-	let t12;
-	let button2;
-	let t13;
-	let button2_disabled_value;
-	let div2_class_value;
-	let t14;
-	let div3;
-	let label3;
-	let t16;
-	let button3;
-	let t17;
-	let button3_disabled_value;
-	let div3_class_value;
-	let t18;
-	let div4;
-	let label4;
-	let t20;
-	let input0;
-	let div4_class_value;
-	let t21;
-	let div5;
-	let label5;
-	let t25;
-	let input1;
-	let div5_class_value;
-	let t26;
-	let div6;
-	let label6;
-	let t28;
-	let input2;
-	let t29;
-	let div8;
-	let label7;
-	let t31;
-	let div7;
-	let input3;
-	let t32;
-	let input4;
-	let div8_intro;
-	let div8_outro;
-	let div9_transition;
-	let t33;
-	let soundsettings;
-	let current;
-	let mounted;
-	let dispose;
-
-	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[34](value);
-	}
-
-	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[35](value);
-	}
-
-	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[36](value);
-	}
-
-	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[37](value);
-	}
-
-	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[38](value);
-	}
-
-	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[39](value);
-	}
-
-	function chooseanimation_customId_binding(value) {
-		/*chooseanimation_customId_binding*/ ctx[40](value);
-	}
-
-	let chooseanimation_props = {
-		animType: "static",
-		flagPath: /*flagPath*/ ctx[1],
-		flagData: /*flagData*/ ctx[0]
-	};
-
-	if (/*menuType*/ ctx[8] !== void 0) {
-		chooseanimation_props.menuType = /*menuType*/ ctx[8];
-	}
-
-	if (/*animation*/ ctx[9] !== void 0) {
-		chooseanimation_props.animation = /*animation*/ ctx[9];
-	}
-
-	if (/*variant*/ ctx[10] !== void 0) {
-		chooseanimation_props.variant = /*variant*/ ctx[10];
-	}
-
-	if (/*color*/ ctx[11] !== void 0) {
-		chooseanimation_props.color = /*color*/ ctx[11];
-	}
-
-	if (/*isCustom*/ ctx[12] !== void 0) {
-		chooseanimation_props.isCustom = /*isCustom*/ ctx[12];
-	}
-
-	if (/*customPath*/ ctx[13] !== void 0) {
-		chooseanimation_props.customPath = /*customPath*/ ctx[13];
-	}
-
-	if (/*customId*/ ctx[16] !== void 0) {
-		chooseanimation_props.customId = /*customId*/ ctx[16];
-	}
-
-	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
-	binding_callbacks.push(() => bind(chooseanimation, 'menuType', chooseanimation_menuType_binding));
-	binding_callbacks.push(() => bind(chooseanimation, 'animation', chooseanimation_animation_binding));
-	binding_callbacks.push(() => bind(chooseanimation, 'variant', chooseanimation_variant_binding));
-	binding_callbacks.push(() => bind(chooseanimation, 'color', chooseanimation_color_binding));
-	binding_callbacks.push(() => bind(chooseanimation, 'isCustom', chooseanimation_isCustom_binding));
-	binding_callbacks.push(() => bind(chooseanimation, 'customPath', chooseanimation_customPath_binding));
-	binding_callbacks.push(() => bind(chooseanimation, 'customId', chooseanimation_customId_binding));
-
-	soundsettings = new SoundSettings({
-			props: {
-				audioPath: /*audioPath*/ ctx[14],
-				flagData: /*flagData*/ ctx[0]
-			}
-		});
-
-	return {
-		c() {
-			create_component(chooseanimation.$$.fragment);
-			t0 = space();
-			h2 = element("h2");
-			h2.textContent = "Options";
-			t2 = space();
-			div9 = element("div");
-			div0 = element("div");
-			label0 = element("label");
-			label0.textContent = "Persistence";
-			t4 = space();
-			button0 = element("button");
-			t5 = text(/*isPersistent*/ ctx[17]);
-			t6 = space();
-			div1 = element("div");
-			label1 = element("label");
-			label1.textContent = "Z-Index";
-			t8 = space();
-			button1 = element("button");
-			t9 = text(/*aboveBelow*/ ctx[20]);
-			t10 = space();
-			div2 = element("div");
-			label2 = element("label");
-			label2.textContent = "Visibility";
-			t12 = space();
-			button2 = element("button");
-			t13 = text(/*bindVisibility*/ ctx[18]);
-			t14 = space();
-			div3 = element("div");
-			label3 = element("label");
-			label3.textContent = "Alpha";
-			t16 = space();
-			button3 = element("button");
-			t17 = text(/*bindAlpha*/ ctx[19]);
-			t18 = space();
-			div4 = element("div");
-			label4 = element("label");
-			label4.textContent = `${localize("AUTOANIM.repeat")}`;
-			t20 = space();
-			input0 = element("input");
-			t21 = space();
-			div5 = element("div");
-			label5 = element("label");
-
-			label5.textContent = `${localize("AUTOANIM.repeat")} 
-                ${localize("AUTOANIM.delay")}`;
-
-			t25 = space();
-			input1 = element("input");
-			t26 = space();
-			div6 = element("div");
-			label6 = element("label");
-			label6.textContent = `${localize("AUTOANIM.scale")}`;
-			t28 = space();
-			input2 = element("input");
-			t29 = space();
-			div8 = element("div");
-			label7 = element("label");
-			label7.textContent = `${localize("AUTOANIM.opacity")}`;
-			t31 = space();
-			div7 = element("div");
-			input3 = element("input");
-			t32 = space();
-			input4 = element("input");
-			t33 = space();
-			create_component(soundsettings.$$.fragment);
-			set_style(h2, "margin-top", "5px");
-			attr(h2, "class", "svelte-1w3oi2h");
-			attr(label0, "for", "");
-			attr(label0, "class", "svelte-1w3oi2h");
-			button0.disabled = button0_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX";
-			attr(button0, "class", "svelte-1w3oi2h");
-
-			attr(div0, "class", div0_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
-			? 'aa-opacityButton'
-			: '') + " svelte-1w3oi2h");
-
-			set_style(div0, "grid-row", "1 / 2");
-			set_style(div0, "grid-column", "1 / 2");
-			attr(label1, "for", "");
-			attr(label1, "class", "svelte-1w3oi2h");
-			attr(button1, "class", "oldCheck svelte-1w3oi2h");
-			attr(div1, "class", "flexcol");
-			set_style(div1, "grid-row", "1 / 2");
-			set_style(div1, "grid-column", "2 / 3");
-			attr(label2, "for", "");
-			attr(label2, "class", "svelte-1w3oi2h");
-			button2.disabled = button2_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX";
-			attr(button2, "class", "svelte-1w3oi2h");
-
-			attr(div2, "class", div2_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
-			? 'aa-opacityButton'
-			: '') + " svelte-1w3oi2h");
-
-			set_style(div2, "grid-row", "1 / 2");
-			set_style(div2, "grid-column", "3 / 4");
-			attr(label3, "for", "");
-			attr(label3, "class", "svelte-1w3oi2h");
-			button3.disabled = button3_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX";
-			attr(button3, "class", "svelte-1w3oi2h");
-
-			attr(div3, "class", div3_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
-			? 'aa-opacityButton'
-			: '') + " svelte-1w3oi2h");
-
-			set_style(div3, "grid-row", "1 / 2");
-			set_style(div3, "grid-column", "4 / 5");
-			attr(label4, "for", "aaRepeat");
-			attr(label4, "class", "svelte-1w3oi2h");
-			input0.disabled = /*persistent*/ ctx[6];
-			attr(input0, "id", "aaRepeat");
-			attr(input0, "type", "Number");
-			attr(input0, "placeholder", "1");
-			attr(input0, "class", "svelte-1w3oi2h");
-			attr(div4, "class", div4_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h");
-			set_style(div4, "grid-row", "2 / 3");
-			set_style(div4, "grid-column", "1 / 2");
-			attr(label5, "for", "aaDelay");
-			attr(label5, "class", "svelte-1w3oi2h");
-			input1.disabled = /*persistent*/ ctx[6];
-			attr(input1, "it", "aaDelay");
-			attr(input1, "type", "Number");
-			attr(input1, "placeholder", "250");
-			attr(input1, "class", "svelte-1w3oi2h");
-			attr(div5, "class", div5_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h");
-			set_style(div5, "grid-row", "2 / 3");
-			set_style(div5, "grid-column", "2 / 3");
-			attr(label6, "for", "");
-			attr(label6, "class", "svelte-1w3oi2h");
-			attr(input2, "type", "Number");
-			attr(input2, "placeholder", "1");
-			attr(input2, "step", "0.01");
-			attr(input2, "class", "svelte-1w3oi2h");
-			attr(div6, "class", "flexcol");
-			set_style(div6, "grid-row", "2 / 3");
-			set_style(div6, "grid-column", "3 / 4");
-			attr(label7, "for", "");
-			attr(label7, "class", "svelte-1w3oi2h");
-			attr(input3, "type", "Number");
-			attr(input3, "placeholder", "1");
-			attr(input3, "min", "0");
-			attr(input3, "max", "1");
-			attr(input3, "step", "0.01");
-			attr(input3, "class", "svelte-1w3oi2h");
-			attr(input4, "type", "range");
-			attr(input4, "min", "0");
-			attr(input4, "max", "1");
-			attr(input4, "step", "0.01");
-			attr(input4, "class", "svelte-1w3oi2h");
-			attr(div7, "class", "form-group");
-			attr(div8, "class", "flexcol");
-			set_style(div8, "grid-row", "2 / 3");
-			set_style(div8, "grid-column", "4 / 5");
-			attr(div9, "class", "aa-options svelte-1w3oi2h");
-		},
-		m(target, anchor) {
-			mount_component(chooseanimation, target, anchor);
-			insert(target, t0, anchor);
-			insert(target, h2, anchor);
-			insert(target, t2, anchor);
-			insert(target, div9, anchor);
-			append(div9, div0);
-			append(div0, label0);
-			append(div0, t4);
-			append(div0, button0);
-			append(button0, t5);
-			append(div9, t6);
-			append(div9, div1);
-			append(div1, label1);
-			append(div1, t8);
-			append(div1, button1);
-			append(button1, t9);
-			append(div9, t10);
-			append(div9, div2);
-			append(div2, label2);
-			append(div2, t12);
-			append(div2, button2);
-			append(button2, t13);
-			append(div9, t14);
-			append(div9, div3);
-			append(div3, label3);
-			append(div3, t16);
-			append(div3, button3);
-			append(button3, t17);
-			append(div9, t18);
-			append(div9, div4);
-			append(div4, label4);
-			append(div4, t20);
-			append(div4, input0);
-			set_input_value(input0, /*repeat*/ ctx[2]);
-			append(div9, t21);
-			append(div9, div5);
-			append(div5, label5);
-			append(div5, t25);
-			append(div5, input1);
-			set_input_value(input1, /*delay*/ ctx[3]);
-			append(div9, t26);
-			append(div9, div6);
-			append(div6, label6);
-			append(div6, t28);
-			append(div6, input2);
-			set_input_value(input2, /*scale*/ ctx[4]);
-			append(div9, t29);
-			append(div9, div8);
-			append(div8, label7);
-			append(div8, t31);
-			append(div8, div7);
-			append(div7, input3);
-			set_input_value(input3, /*opacity*/ ctx[5]);
-			append(div7, t32);
-			append(div7, input4);
-			set_input_value(input4, /*opacity*/ ctx[5]);
-			insert(target, t33, anchor);
-			mount_component(soundsettings, target, anchor);
-			current = true;
-
-			if (!mounted) {
-				dispose = [
-					listen(button0, "click", /*click_handler_2*/ ctx[41]),
-					listen(button1, "click", /*click_handler_3*/ ctx[42]),
-					listen(button2, "click", /*click_handler_4*/ ctx[43]),
-					listen(button3, "click", /*click_handler_5*/ ctx[44]),
-					listen(input0, "input", /*input0_input_handler*/ ctx[45]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[46]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[47]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[48]),
-					listen(input4, "change", /*input4_change_input_handler*/ ctx[49]),
-					listen(input4, "input", /*input4_change_input_handler*/ ctx[49])
-				];
-
-				mounted = true;
-			}
-		},
-		p(ctx, dirty) {
-			const chooseanimation_changes = {};
-			if (dirty[0] & /*flagPath*/ 2) chooseanimation_changes.flagPath = /*flagPath*/ ctx[1];
-			if (dirty[0] & /*flagData*/ 1) chooseanimation_changes.flagData = /*flagData*/ ctx[0];
-
-			if (!updating_menuType && dirty[0] & /*menuType*/ 256) {
-				updating_menuType = true;
-				chooseanimation_changes.menuType = /*menuType*/ ctx[8];
-				add_flush_callback(() => updating_menuType = false);
-			}
-
-			if (!updating_animation && dirty[0] & /*animation*/ 512) {
-				updating_animation = true;
-				chooseanimation_changes.animation = /*animation*/ ctx[9];
-				add_flush_callback(() => updating_animation = false);
-			}
-
-			if (!updating_variant && dirty[0] & /*variant*/ 1024) {
-				updating_variant = true;
-				chooseanimation_changes.variant = /*variant*/ ctx[10];
-				add_flush_callback(() => updating_variant = false);
-			}
-
-			if (!updating_color && dirty[0] & /*color*/ 2048) {
-				updating_color = true;
-				chooseanimation_changes.color = /*color*/ ctx[11];
-				add_flush_callback(() => updating_color = false);
-			}
-
-			if (!updating_isCustom && dirty[0] & /*isCustom*/ 4096) {
-				updating_isCustom = true;
-				chooseanimation_changes.isCustom = /*isCustom*/ ctx[12];
-				add_flush_callback(() => updating_isCustom = false);
-			}
-
-			if (!updating_customPath && dirty[0] & /*customPath*/ 8192) {
-				updating_customPath = true;
-				chooseanimation_changes.customPath = /*customPath*/ ctx[13];
-				add_flush_callback(() => updating_customPath = false);
-			}
-
-			if (!updating_customId && dirty[0] & /*customId*/ 65536) {
-				updating_customId = true;
-				chooseanimation_changes.customId = /*customId*/ ctx[16];
-				add_flush_callback(() => updating_customId = false);
-			}
-
-			chooseanimation.$set(chooseanimation_changes);
-			if (!current || dirty[0] & /*isPersistent*/ 131072) set_data(t5, /*isPersistent*/ ctx[17]);
-
-			if (!current || dirty[0] & /*flagPath*/ 2 && button0_disabled_value !== (button0_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX")) {
-				button0.disabled = button0_disabled_value;
-			}
-
-			if (!current || dirty[0] & /*flagPath*/ 2 && div0_class_value !== (div0_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
-			? 'aa-opacityButton'
-			: '') + " svelte-1w3oi2h")) {
-				attr(div0, "class", div0_class_value);
-			}
-
-			if (!current || dirty[0] & /*aboveBelow*/ 1048576) set_data(t9, /*aboveBelow*/ ctx[20]);
-			if (!current || dirty[0] & /*bindVisibility*/ 262144) set_data(t13, /*bindVisibility*/ ctx[18]);
-
-			if (!current || dirty[0] & /*flagPath*/ 2 && button2_disabled_value !== (button2_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX")) {
-				button2.disabled = button2_disabled_value;
-			}
-
-			if (!current || dirty[0] & /*flagPath*/ 2 && div2_class_value !== (div2_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
-			? 'aa-opacityButton'
-			: '') + " svelte-1w3oi2h")) {
-				attr(div2, "class", div2_class_value);
-			}
-
-			if (!current || dirty[0] & /*bindAlpha*/ 524288) set_data(t17, /*bindAlpha*/ ctx[19]);
-
-			if (!current || dirty[0] & /*flagPath*/ 2 && button3_disabled_value !== (button3_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX")) {
-				button3.disabled = button3_disabled_value;
-			}
-
-			if (!current || dirty[0] & /*flagPath*/ 2 && div3_class_value !== (div3_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
-			? 'aa-opacityButton'
-			: '') + " svelte-1w3oi2h")) {
-				attr(div3, "class", div3_class_value);
-			}
-
-			if (!current || dirty[0] & /*persistent*/ 64) {
-				input0.disabled = /*persistent*/ ctx[6];
-			}
-
-			if (dirty[0] & /*repeat*/ 4) {
-				set_input_value(input0, /*repeat*/ ctx[2]);
-			}
-
-			if (!current || dirty[0] & /*persistent*/ 64 && div4_class_value !== (div4_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h")) {
-				attr(div4, "class", div4_class_value);
-			}
-
-			if (!current || dirty[0] & /*persistent*/ 64) {
-				input1.disabled = /*persistent*/ ctx[6];
-			}
-
-			if (dirty[0] & /*delay*/ 8) {
-				set_input_value(input1, /*delay*/ ctx[3]);
-			}
-
-			if (!current || dirty[0] & /*persistent*/ 64 && div5_class_value !== (div5_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h")) {
-				attr(div5, "class", div5_class_value);
-			}
-
-			if (dirty[0] & /*scale*/ 16) {
-				set_input_value(input2, /*scale*/ ctx[4]);
-			}
-
-			if (dirty[0] & /*opacity*/ 32) {
-				set_input_value(input3, /*opacity*/ ctx[5]);
-			}
-
-			if (dirty[0] & /*opacity*/ 32) {
-				set_input_value(input4, /*opacity*/ ctx[5]);
-			}
-
-			const soundsettings_changes = {};
-			if (dirty[0] & /*audioPath*/ 16384) soundsettings_changes.audioPath = /*audioPath*/ ctx[14];
-			if (dirty[0] & /*flagData*/ 1) soundsettings_changes.flagData = /*flagData*/ ctx[0];
-			soundsettings.$set(soundsettings_changes);
-		},
-		i(local) {
-			if (current) return;
-			transition_in(chooseanimation.$$.fragment, local);
-
-			add_render_callback(() => {
-				if (!h2_transition) h2_transition = create_bidirectional_transition(h2, fade, {}, true);
-				h2_transition.run(1);
-			});
-
-			add_render_callback(() => {
-				if (div8_outro) div8_outro.end(1);
-				div8_intro = create_in_transition(div8, fade, { duration: 500 });
-				div8_intro.start();
-			});
-
-			add_render_callback(() => {
-				if (!div9_transition) div9_transition = create_bidirectional_transition(div9, fade, {}, true);
-				div9_transition.run(1);
-			});
-
-			transition_in(soundsettings.$$.fragment, local);
-			current = true;
-		},
-		o(local) {
-			transition_out(chooseanimation.$$.fragment, local);
-			if (!h2_transition) h2_transition = create_bidirectional_transition(h2, fade, {}, false);
-			h2_transition.run(0);
-			if (div8_intro) div8_intro.invalidate();
-			div8_outro = create_out_transition(div8, fade, { duration: 500 });
-			if (!div9_transition) div9_transition = create_bidirectional_transition(div9, fade, {}, false);
-			div9_transition.run(0);
-			transition_out(soundsettings.$$.fragment, local);
-			current = false;
-		},
-		d(detaching) {
-			destroy_component(chooseanimation, detaching);
-			if (detaching) detach(t0);
-			if (detaching) detach(h2);
-			if (detaching && h2_transition) h2_transition.end();
-			if (detaching) detach(t2);
-			if (detaching) detach(div9);
-			if (detaching && div8_outro) div8_outro.end();
-			if (detaching && div9_transition) div9_transition.end();
-			if (detaching) detach(t33);
-			destroy_component(soundsettings, detaching);
-			mounted = false;
-			run_all(dispose);
-		}
-	};
-}
-
-function create_fragment$d(ctx) {
-	let div4;
-	let div3;
-	let div2;
-	let div0;
-	let label;
-	let t0;
-	let t1;
-	let t2;
-	let div1;
-	let i;
-	let i_class_value;
-	let t3;
-	let div4_transition;
-	let current;
-	let mounted;
-	let dispose;
-	let if_block0 = /*enableSection*/ ctx[7] && create_if_block_1$6(ctx);
-	let if_block1 = /*enableSection*/ ctx[7] && create_if_block$7(ctx);
-
-	return {
-		c() {
-			div4 = element("div");
-			div3 = element("div");
-			div2 = element("div");
-			div0 = element("div");
-			label = element("label");
-			t0 = text(/*sectionTitle*/ ctx[15]);
-			t1 = space();
-			if (if_block0) if_block0.c();
-			t2 = space();
-			div1 = element("div");
-			i = element("i");
-			t3 = space();
-			if (if_block1) if_block1.c();
-			attr(label, "for", "");
-			attr(div0, "class", "flexcol");
-			set_style(div0, "grid-row", "1/2");
-			set_style(div0, "grid-column", "3/4");
-
-			attr(i, "class", i_class_value = "" + ((/*enableSection*/ ctx[7]
-			? 'fas fa-minus aa-red'
-			: 'fas fa-plus aa-green') + " aaCenterToggle"));
-
-			attr(div1, "class", "flexcol");
-			set_style(div1, "grid-row", "1/2");
-			set_style(div1, "grid-column", "5/6");
-			attr(div2, "class", "aa-header");
-			attr(div3, "class", "aa-header-section");
-		},
-		m(target, anchor) {
-			insert(target, div4, anchor);
-			append(div4, div3);
-			append(div3, div2);
-			append(div2, div0);
-			append(div0, label);
-			append(label, t0);
-			append(div2, t1);
-			if (if_block0) if_block0.m(div2, null);
-			append(div2, t2);
-			append(div2, div1);
-			append(div1, i);
-			append(div4, t3);
-			if (if_block1) if_block1.m(div4, null);
-			current = true;
-
-			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler_1*/ ctx[33]);
-				mounted = true;
-			}
-		},
-		p(ctx, dirty) {
-			if (!current || dirty[0] & /*sectionTitle*/ 32768) set_data(t0, /*sectionTitle*/ ctx[15]);
-
-			if (/*enableSection*/ ctx[7]) {
-				if (if_block0) {
-					if_block0.p(ctx, dirty);
-
-					if (dirty[0] & /*enableSection*/ 128) {
-						transition_in(if_block0, 1);
-					}
-				} else {
-					if_block0 = create_if_block_1$6(ctx);
-					if_block0.c();
-					transition_in(if_block0, 1);
-					if_block0.m(div2, t2);
-				}
-			} else if (if_block0) {
-				group_outros();
-
-				transition_out(if_block0, 1, 1, () => {
-					if_block0 = null;
-				});
-
-				check_outros();
-			}
-
-			if (!current || dirty[0] & /*enableSection*/ 128 && i_class_value !== (i_class_value = "" + ((/*enableSection*/ ctx[7]
-			? 'fas fa-minus aa-red'
-			: 'fas fa-plus aa-green') + " aaCenterToggle"))) {
-				attr(i, "class", i_class_value);
-			}
-
-			if (/*enableSection*/ ctx[7]) {
-				if (if_block1) {
-					if_block1.p(ctx, dirty);
-
-					if (dirty[0] & /*enableSection*/ 128) {
-						transition_in(if_block1, 1);
-					}
-				} else {
-					if_block1 = create_if_block$7(ctx);
-					if_block1.c();
-					transition_in(if_block1, 1);
-					if_block1.m(div4, null);
-				}
-			} else if (if_block1) {
-				group_outros();
-
-				transition_out(if_block1, 1, 1, () => {
-					if_block1 = null;
-				});
-
-				check_outros();
-			}
-		},
-		i(local) {
-			if (current) return;
-			transition_in(if_block0);
-			transition_in(if_block1);
-
-			add_render_callback(() => {
-				if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, { duration: 500 }, true);
-				div4_transition.run(1);
-			});
-
-			current = true;
-		},
-		o(local) {
-			transition_out(if_block0);
-			transition_out(if_block1);
-			if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, { duration: 500 }, false);
-			div4_transition.run(0);
-			current = false;
-		},
-		d(detaching) {
-			if (detaching) detach(div4);
-			if (if_block0) if_block0.d();
-			if (if_block1) if_block1.d();
-			if (detaching && div4_transition) div4_transition.end();
-			mounted = false;
-			dispose();
-		}
-	};
-}
-
-function instance$d($$self, $$props, $$invalidate) {
-	let aboveBelow;
-	let bindAlpha;
-	let bindVisibility;
-	let isPersistent;
-	let { flagData } = $$props;
-	let { flagPath } = $$props;
-	let root;
-	let audioPath;
-	let sectionTitle;
-
-	switch (flagPath) {
-		case "sourceExtraFX":
-			console.log("Source FX Options");
-			root = flagData.sourceToken;
-			audioPath = "s01";
-			sectionTitle = "Source Effect";
-			break;
-		case "targetExtraFX":
-			console.log("Target FX Options");
-			root = flagData.targetToken;
-			audioPath = "t01";
-			sectionTitle = "Target Effect";
-			break;
-	}
-	let repeat = root.loops || 1;
-	let delay = root.loopDelay;
-	let scale = root.scale || 1;
-	let belowToken = root.animLevel || false;
-	let opacity = root.opacity || 1;
-	let unbindAlpha = root.unbindAlpha || false;
-	let unbindVisbility = root.unbindVisbility || false;
-
-	let persistent = flagPath === "sourceExtraFX"
-	? false
-	: root.persistent || false;
-
-	function below() {
-		$$invalidate(27, belowToken = !belowToken);
-	}
-
-	function switchAlpha() {
-		$$invalidate(28, unbindAlpha = !unbindAlpha);
-	}
-
-	function switchVisibility() {
-		$$invalidate(29, unbindVisbility = !unbindVisbility);
-	}
-
-	function switchPersistence() {
-		$$invalidate(6, persistent = !persistent);
-		let newPersistance = persistent;
-
-		if (newPersistance) {
-			$$invalidate(2, repeat = 1);
-		}
-	}
-
-	let enableSection = root.enable || false;
-
-	function switchEnable() {
-		$$invalidate(7, enableSection = !enableSection);
-		root.enable = enableSection;
-	}
-
-	let menuType = root.menuType;
-	let animation = root.animation;
-	let variant = root.variant;
-	let color = root.color;
-	let isCustom = root.enableCustom || false;
-	let customPath = root.customPath || "";
-
-	function onClick() {
-		new TJSDialog({
-				modal: false,
-				draggable: true,
-				resizable: true,
-				title: flagPath === "sourceExtraFX"
-				? "Extra Source Effect"
-				: "Extra Target Effect",
-				stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
-				content: {
-					class: flagPath === "sourceExtraFX" ? SourceFXApp : TargetFXApp
-				}
-			}).render(true);
-	}
-
-	let sourceFilePath;
-	let targetFilePath;
-
-	let customId = flagPath === "sourceExtraFX"
-	? "customSource"
-	: "customTarget";
-
-	const click_handler = () => onClick();
-	const click_handler_1 = () => switchEnable();
-
-	function chooseanimation_menuType_binding(value) {
-		menuType = value;
-		$$invalidate(8, menuType);
-	}
-
-	function chooseanimation_animation_binding(value) {
-		animation = value;
-		$$invalidate(9, animation);
-	}
-
-	function chooseanimation_variant_binding(value) {
-		variant = value;
-		$$invalidate(10, variant);
-	}
-
-	function chooseanimation_color_binding(value) {
-		color = value;
-		$$invalidate(11, color);
-	}
-
-	function chooseanimation_isCustom_binding(value) {
-		isCustom = value;
-		$$invalidate(12, isCustom);
-	}
-
-	function chooseanimation_customPath_binding(value) {
-		customPath = value;
-		$$invalidate(13, customPath);
-	}
-
-	function chooseanimation_customId_binding(value) {
-		customId = value;
-		$$invalidate(16, customId);
-	}
-
-	const click_handler_2 = () => switchPersistence();
-	const click_handler_3 = () => below();
-	const click_handler_4 = () => switchVisibility();
-	const click_handler_5 = () => switchAlpha();
-
-	function input0_input_handler() {
-		repeat = this.value;
-		$$invalidate(2, repeat);
-	}
-
-	function input1_input_handler() {
-		delay = this.value;
-		$$invalidate(3, delay);
-	}
-
-	function input2_input_handler() {
-		scale = this.value;
-		$$invalidate(4, scale);
-	}
-
-	function input3_input_handler() {
-		opacity = this.value;
-		$$invalidate(5, opacity);
-	}
-
-	function input4_change_input_handler() {
-		opacity = to_number(this.value);
-		$$invalidate(5, opacity);
-	}
-
-	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(0, flagData = $$props.flagData);
-		if ('flagPath' in $$props) $$invalidate(1, flagPath = $$props.flagPath);
-	};
-
-	$$self.$$.update = () => {
-		if ($$self.$$.dirty[0] & /*repeat*/ 4) {
-			$$invalidate(2, repeat = root.loops = repeat);
-		}
-
-		if ($$self.$$.dirty[0] & /*delay*/ 8) {
-			$$invalidate(3, delay = root.loopDelay = delay);
-		}
-
-		if ($$self.$$.dirty[0] & /*scale*/ 16) {
-			$$invalidate(4, scale = root.scale = scale);
-		}
-
-		if ($$self.$$.dirty[0] & /*belowToken*/ 134217728) {
-			$$invalidate(27, belowToken = root.animLevel = belowToken);
-		}
-
-		if ($$self.$$.dirty[0] & /*opacity*/ 32) {
-			$$invalidate(5, opacity = root.opacity = opacity > 1 ? 1 : opacity);
-		}
-
-		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 268435456) {
-			$$invalidate(28, unbindAlpha = root.unbindAlpha = unbindAlpha);
-		}
-
-		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 536870912) {
-			$$invalidate(29, unbindVisbility = root.unbindVisbility = unbindVisbility);
-		}
-
-		if ($$self.$$.dirty[0] & /*persistent*/ 64) {
-			$$invalidate(6, persistent = root.persistent = persistent);
-		}
-
-		if ($$self.$$.dirty[0] & /*belowToken*/ 134217728) {
-			$$invalidate(20, aboveBelow = belowToken ? "Below Token" : "Above Token");
-		}
-
-		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 268435456) {
-			$$invalidate(19, bindAlpha = unbindAlpha ? "Unbound" : "Bound");
-		}
-
-		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 536870912) {
-			$$invalidate(18, bindVisibility = unbindVisbility ? "Unbound" : "Bound");
-		}
-
-		if ($$self.$$.dirty[0] & /*persistent*/ 64) {
-			$$invalidate(17, isPersistent = persistent ? "Persistent" : "Not Persistent");
-		}
-
-		if ($$self.$$.dirty[0] & /*enableSection*/ 128) {
-			$$invalidate(7, enableSection);
-		}
-
-		if ($$self.$$.dirty[0] & /*menuType*/ 256) {
-			$$invalidate(8, menuType = root.menuType = menuType);
-		}
-
-		if ($$self.$$.dirty[0] & /*animation*/ 512) {
-			$$invalidate(9, animation = root.animation = animation);
-		}
-
-		if ($$self.$$.dirty[0] & /*variant*/ 1024) {
-			$$invalidate(10, variant = root.variant = variant);
-		}
-
-		if ($$self.$$.dirty[0] & /*color*/ 2048) {
-			$$invalidate(11, color = root.color = color);
-		}
-
-		if ($$self.$$.dirty[0] & /*isCustom*/ 4096) {
-			$$invalidate(12, isCustom = root.enableCustom = isCustom);
-		}
-
-		if ($$self.$$.dirty[0] & /*customPath*/ 8192) {
-			$$invalidate(13, customPath = root.customPath = customPath);
-		}
-
-		if ($$self.$$.dirty[0] & /*flagPath, color, menuType, animation, variant*/ 3842) {
-			if (flagPath === "sourceExtraFX") {
-				$$invalidate(30, sourceFilePath = color === "random"
-				? `autoanimations.static.${menuType}.${animation}.${variant}`
-				: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`);
-			}
-		}
-
-		if ($$self.$$.dirty[0] & /*flagPath, color, menuType, animation, variant*/ 3842) {
-			if (flagPath === "targetExtraFX") {
-				$$invalidate(31, targetFilePath = color === "random"
-				? `autoanimations.static.${menuType}.${animation}.${variant}`
-				: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`);
-			}
-		}
-
-		if ($$self.$$.dirty[0] & /*flagPath, sourceFilePath, customPath, isCustom*/ 1073754114) {
-			if (flagPath === "sourceExtraFX") {
-				menuDBPathSourceFX.set(sourceFilePath);
-				customFilePathSourceFX.set(customPath);
-				customCheckedSourceFX.set(isCustom);
-			}
-		}
-
-		if ($$self.$$.dirty[0] & /*flagPath, customPath, isCustom*/ 12290 | $$self.$$.dirty[1] & /*targetFilePath*/ 1) {
-			if (flagPath === "targetExtraFX") {
-				menuDBPathTargetFX.set(targetFilePath);
-				customFilePathTargetFX.set(customPath);
-				customCheckedTargetFX.set(isCustom);
-			}
-		}
-
-		if ($$self.$$.dirty[0] & /*flagPath, enableSection*/ 130) {
-			{
-				if (flagPath === "sourceExtraFX") {
-					extraSource.set(enableSection);
-				}
-			}
-		}
-
-		if ($$self.$$.dirty[0] & /*flagPath, enableSection*/ 130) {
-			{
-				if (flagPath === "targetExtraFX") {
-					extraTarget.set(enableSection);
-				}
-			}
-		}
-	};
-
-	return [
-		flagData,
-		flagPath,
-		repeat,
-		delay,
-		scale,
-		opacity,
-		persistent,
-		enableSection,
-		menuType,
-		animation,
-		variant,
-		color,
-		isCustom,
-		customPath,
-		audioPath,
-		sectionTitle,
-		customId,
-		isPersistent,
-		bindVisibility,
-		bindAlpha,
-		aboveBelow,
-		below,
-		switchAlpha,
-		switchVisibility,
-		switchPersistence,
-		switchEnable,
-		onClick,
-		belowToken,
-		unbindAlpha,
-		unbindVisbility,
-		sourceFilePath,
-		targetFilePath,
-		click_handler,
-		click_handler_1,
-		chooseanimation_menuType_binding,
-		chooseanimation_animation_binding,
-		chooseanimation_variant_binding,
-		chooseanimation_color_binding,
-		chooseanimation_isCustom_binding,
-		chooseanimation_customPath_binding,
-		chooseanimation_customId_binding,
-		click_handler_2,
-		click_handler_3,
-		click_handler_4,
-		click_handler_5,
-		input0_input_handler,
-		input1_input_handler,
-		input2_input_handler,
-		input3_input_handler,
-		input4_change_input_handler
-	];
-}
-
-class ExtraFX extends SvelteComponent {
-	constructor(options) {
-		super();
-		init(this, options, instance$d, create_fragment$d, safe_not_equal, { flagData: 0, flagPath: 1 }, null, [-1, -1]);
-	}
-}
-
-/* src\formApps\ItemMenu\components\3dCanvasOptions.svelte generated by Svelte v3.47.0 */
-
-function create_if_block_1$5(ctx) {
-	let div;
-	let label;
-	let t1;
-	let input;
-	let mounted;
-	let dispose;
-
-	return {
-		c() {
-			div = element("div");
-			label = element("label");
-			label.textContent = `${localize("AUTOANIM.arc")}`;
-			t1 = space();
-			input = element("input");
-			attr(label, "for", "");
-			attr(label, "class", "svelte-4h0ulx");
-			attr(input, "type", "Number");
-			attr(input, "step", ".01");
-			attr(input, "placeholder", "2");
-			attr(input, "class", "svelte-4h0ulx");
-			attr(div, "class", "flexcol");
-			set_style(div, "grid-row", "3 / 4");
-			set_style(div, "grid-column", "3 / 4");
-		},
-		m(target, anchor) {
-			insert(target, div, anchor);
-			append(div, label);
-			append(div, t1);
-			append(div, input);
-			set_input_value(input, /*arc*/ ctx[5]);
-
-			if (!mounted) {
-				dispose = listen(input, "input", /*input_input_handler*/ ctx[25]);
-				mounted = true;
-			}
-		},
-		p(ctx, dirty) {
-			if (dirty[0] & /*arc*/ 32) {
-				set_input_value(input, /*arc*/ ctx[5]);
-			}
-		},
-		d(detaching) {
-			if (detaching) detach(div);
-			mounted = false;
-			dispose();
-		}
-	};
-}
-
-// (150:4) {#if type !== "sprite"}
-function create_if_block$6(ctx) {
-	let div0;
-	let label0;
-	let t1;
-	let input0;
-	let t2;
-	let div1;
-	let label1;
-	let t4;
-	let input1;
-	let t5;
-	let div2;
-	let label2;
-	let t7;
-	let input2;
-	let t8;
-	let div3;
-	let label3;
-	let t10;
-	let input3;
-	let t11;
-	let div4;
-	let label4;
-	let t13;
-	let input4;
-	let mounted;
-	let dispose;
-
-	return {
-		c() {
-			div0 = element("div");
-			label0 = element("label");
-			label0.textContent = `${localize("AUTOANIM.gravity")}`;
-			t1 = space();
-			input0 = element("input");
-			t2 = space();
-			div1 = element("div");
-			label1 = element("label");
-			label1.textContent = `${localize("AUTOANIM.mass")}`;
-			t4 = space();
-			input1 = element("input");
-			t5 = space();
-			div2 = element("div");
-			label2 = element("label");
-			label2.textContent = `${localize("AUTOANIM.life")}`;
-			t7 = space();
-			input2 = element("input");
-			t8 = space();
-			div3 = element("div");
-			label3 = element("label");
-			label3.textContent = `${localize("AUTOANIM.emiterSize")}`;
-			t10 = space();
-			input3 = element("input");
-			t11 = space();
-			div4 = element("div");
-			label4 = element("label");
-			label4.textContent = `${localize("AUTOANIM.rate")}`;
-			t13 = space();
-			input4 = element("input");
-			attr(label0, "for", "");
-			attr(label0, "class", "svelte-4h0ulx");
-			attr(input0, "type", "Number");
-			attr(input0, "step", ".01");
-			attr(input0, "placeholder", "0");
-			attr(input0, "class", "svelte-4h0ulx");
-			attr(div0, "class", "flexcol");
-			set_style(div0, "grid-row", "4 / 5");
-			set_style(div0, "grid-column", "2 / 3");
-			attr(label1, "for", "");
-			attr(label1, "class", "svelte-4h0ulx");
-			attr(input1, "type", "Number");
-			attr(input1, "step", ".01");
-			attr(input1, "placeholder", "100");
-			attr(input1, "class", "svelte-4h0ulx");
-			attr(div1, "class", "flexcol");
-			set_style(div1, "grid-row", "4 / 5");
-			set_style(div1, "grid-column", "3 / 4");
-			attr(label2, "for", "");
-			attr(label2, "class", "svelte-4h0ulx");
-			attr(input2, "type", "Number");
-			attr(input2, "step", ".01");
-			attr(input2, "placeholder", "500");
-			attr(input2, "class", "svelte-4h0ulx");
-			attr(div2, "class", "flexcol");
-			set_style(div2, "grid-row", "4 / 5");
-			set_style(div2, "grid-column", "4 / 5");
-			attr(label3, "for", "");
-			attr(label3, "class", "svelte-4h0ulx");
-			attr(input3, "type", "Number");
-			attr(input3, "step", ".0001");
-			attr(input3, "placeholder", ".0001");
-			attr(input3, "class", "svelte-4h0ulx");
-			attr(div3, "class", "flexcol");
-			set_style(div3, "grid-row", "5 / 6");
-			set_style(div3, "grid-column", "2 / 3");
-			attr(label4, "for", "rate");
-			attr(label4, "class", "svelte-4h0ulx");
-			attr(input4, "type", "Number");
-			attr(input4, "step", ".01");
-			attr(input4, "id", "rate");
-			attr(input4, "placeholder", "10");
-			attr(input4, "class", "svelte-4h0ulx");
-			attr(div4, "class", "flexcol");
-			set_style(div4, "grid-row", "5 / 6");
-			set_style(div4, "grid-column", "3 / 4");
-		},
-		m(target, anchor) {
-			insert(target, div0, anchor);
-			append(div0, label0);
-			append(div0, t1);
-			append(div0, input0);
-			set_input_value(input0, /*gravity*/ ctx[9]);
-			insert(target, t2, anchor);
-			insert(target, div1, anchor);
-			append(div1, label1);
-			append(div1, t4);
-			append(div1, input1);
-			set_input_value(input1, /*mass*/ ctx[10]);
-			insert(target, t5, anchor);
-			insert(target, div2, anchor);
-			append(div2, label2);
-			append(div2, t7);
-			append(div2, input2);
-			set_input_value(input2, /*life*/ ctx[11]);
-			insert(target, t8, anchor);
-			insert(target, div3, anchor);
-			append(div3, label3);
-			append(div3, t10);
-			append(div3, input3);
-			set_input_value(input3, /*emittersize*/ ctx[12]);
-			insert(target, t11, anchor);
-			insert(target, div4, anchor);
-			append(div4, label4);
-			append(div4, t13);
-			append(div4, input4);
-			set_input_value(input4, /*rate*/ ctx[13]);
-
-			if (!mounted) {
-				dispose = [
-					listen(input0, "input", /*input0_input_handler_1*/ ctx[29]),
-					listen(input1, "input", /*input1_input_handler_1*/ ctx[30]),
-					listen(input2, "input", /*input2_input_handler_1*/ ctx[31]),
-					listen(input3, "input", /*input3_input_handler_1*/ ctx[32]),
-					listen(input4, "input", /*input4_input_handler_1*/ ctx[33])
-				];
-
-				mounted = true;
-			}
-		},
-		p(ctx, dirty) {
-			if (dirty[0] & /*gravity*/ 512) {
-				set_input_value(input0, /*gravity*/ ctx[9]);
-			}
-
-			if (dirty[0] & /*mass*/ 1024) {
-				set_input_value(input1, /*mass*/ ctx[10]);
-			}
-
-			if (dirty[0] & /*life*/ 2048) {
-				set_input_value(input2, /*life*/ ctx[11]);
-			}
-
-			if (dirty[0] & /*emittersize*/ 4096) {
-				set_input_value(input3, /*emittersize*/ ctx[12]);
-			}
-
-			if (dirty[0] & /*rate*/ 8192) {
-				set_input_value(input4, /*rate*/ ctx[13]);
-			}
-		},
-		d(detaching) {
-			if (detaching) detach(div0);
-			if (detaching) detach(t2);
-			if (detaching) detach(div1);
-			if (detaching) detach(t5);
-			if (detaching) detach(div2);
-			if (detaching) detach(t8);
-			if (detaching) detach(div3);
-			if (detaching) detach(t11);
-			if (detaching) detach(div4);
-			mounted = false;
-			run_all(dispose);
-		}
-	};
-}
-
-function create_fragment$c(ctx) {
-	let div9;
-	let div0;
-	let label0;
-	let t2;
-	let input0;
-	let t3;
-	let div1;
-	let input1;
-	let t4;
-	let div2;
-	let input2;
-	let t5;
-	let div3;
-	let label1;
-	let t8;
-	let input3;
-	let t9;
-	let div4;
-	let label2;
-	let t11;
-	let input4;
-	let t12;
-	let div5;
-	let label3;
-	let t14;
-	let input5;
-	let t15;
-	let t16;
-	let div6;
-	let label4;
-	let t18;
-	let input6;
-	let t19;
-	let div7;
-	let label5;
-	let t21;
-	let input7;
-	let t22;
-	let div8;
-	let label6;
-	let t24;
-	let input8;
-	let t25;
-	let t26;
-	let div11;
-	let div10;
-	let label7;
-	let t28;
-	let input9;
-	let t29;
-	let button;
-	let mounted;
-	let dispose;
-	let if_block0 = (/*type*/ ctx[0] === "projectile" || /*type*/ ctx[0] === "ray") && create_if_block_1$5(ctx);
-	let if_block1 = /*type*/ ctx[0] !== "sprite" && create_if_block$6(ctx);
-
-	return {
-		c() {
-			div9 = element("div");
-			div0 = element("div");
-			label0 = element("label");
-			label0.textContent = `${localize("AUTOANIM.color")} 01`;
-			t2 = space();
-			input0 = element("input");
-			t3 = space();
-			div1 = element("div");
-			input1 = element("input");
-			t4 = space();
-			div2 = element("div");
-			input2 = element("input");
-			t5 = space();
-			div3 = element("div");
-			label1 = element("label");
-			label1.textContent = `${localize("AUTOANIM.color")} 02`;
-			t8 = space();
-			input3 = element("input");
-			t9 = space();
-			div4 = element("div");
-			label2 = element("label");
-			label2.textContent = `${localize("AUTOANIM.speed")}`;
-			t11 = space();
-			input4 = element("input");
-			t12 = space();
-			div5 = element("div");
-			label3 = element("label");
-			label3.textContent = `${localize("AUTOANIM.repeat")}`;
-			t14 = space();
-			input5 = element("input");
-			t15 = space();
-			if (if_block0) if_block0.c();
-			t16 = space();
-			div6 = element("div");
-			label4 = element("label");
-			label4.textContent = `${localize("AUTOANIM.delayMS")}`;
-			t18 = space();
-			input6 = element("input");
-			t19 = space();
-			div7 = element("div");
-			label5 = element("label");
-			label5.textContent = `${localize("AUTOANIM.scale")}`;
-			t21 = space();
-			input7 = element("input");
-			t22 = space();
-			div8 = element("div");
-			label6 = element("label");
-			label6.textContent = `${localize("AUTOANIM.alpha")}`;
-			t24 = space();
-			input8 = element("input");
-			t25 = space();
-			if (if_block1) if_block1.c();
-			t26 = space();
-			div11 = element("div");
-			div10 = element("div");
-			label7 = element("label");
-			label7.textContent = `${localize("AUTOANIM.sprite")}`;
-			t28 = space();
-			input9 = element("input");
-			t29 = space();
-			button = element("button");
-			button.innerHTML = `<i class="fas fa-file-import fa-fw"></i>`;
-			attr(label0, "for", "");
-			attr(label0, "class", "svelte-4h0ulx");
-			attr(input0, "type", "Text");
-			attr(input0, "class", "svelte-4h0ulx");
-			attr(div0, "class", "flexcol");
-			set_style(div0, "grid-row", "2 / 3");
-			set_style(div0, "grid-column", "1 / 2");
-			attr(input1, "type", "color");
-			attr(input1, "data-edit", "color");
-			attr(input1, "id", "tint");
-			attr(input1, "class", "svelte-4h0ulx");
-			attr(div1, "class", "form-group");
-			set_style(div1, "grid-row", "3 / 4");
-			set_style(div1, "grid-column", "1 / 2");
-			attr(input2, "type", "color");
-			attr(input2, "data-edit", "color");
-			attr(input2, "id", "tint");
-			attr(input2, "class", "svelte-4h0ulx");
-			attr(div2, "class", "form-group");
-			set_style(div2, "grid-row", "4 / 5");
-			set_style(div2, "grid-column", "1 / 2");
-			attr(label1, "for", "");
-			attr(label1, "class", "svelte-4h0ulx");
-			attr(input3, "type", "Text");
-			attr(input3, "class", "svelte-4h0ulx");
-			attr(div3, "class", "flexcol");
-			set_style(div3, "grid-row", "5 / 6");
-			set_style(div3, "grid-column", "1 / 2");
-			attr(label2, "for", "");
-			attr(label2, "class", "svelte-4h0ulx");
-			attr(input4, "type", "Number");
-			attr(input4, "step", ".01");
-			attr(input4, "placeholder", "5");
-			attr(input4, "class", "svelte-4h0ulx");
-			attr(div4, "class", "flexcol");
-			set_style(div4, "grid-row", "2 / 3");
-			set_style(div4, "grid-column", "2 / 3");
-			attr(label3, "for", "");
-			attr(label3, "class", "svelte-4h0ulx");
-			attr(input5, "type", "Number");
-			attr(input5, "step", ".01");
-			attr(input5, "placeholder", "1");
-			attr(input5, "class", "svelte-4h0ulx");
-			attr(div5, "class", "flexcol");
-			set_style(div5, "grid-row", "2 / 3");
-			set_style(div5, "grid-column", "3 / 4");
-			attr(label4, "for", "");
-			attr(label4, "class", "svelte-4h0ulx");
-			attr(input6, "type", "Number");
-			attr(input6, "step", ".01");
-			attr(input6, "placeholder", "0");
-			attr(input6, "class", "svelte-4h0ulx");
-			attr(div6, "class", "flexcol");
-			set_style(div6, "grid-row", "2 / 3");
-			set_style(div6, "grid-column", "4 / 5");
-			attr(label5, "for", "");
-			attr(label5, "class", "svelte-4h0ulx");
-			attr(input7, "type", "Number");
-			attr(input7, "step", ".01");
-			attr(input7, "placeholder", "0.7");
-			attr(input7, "class", "svelte-4h0ulx");
-			attr(div7, "class", "flexcol");
-			set_style(div7, "grid-row", "3 / 4");
-			set_style(div7, "grid-column", "2 / 3");
-			attr(label6, "for", "");
-			attr(label6, "class", "svelte-4h0ulx");
-			attr(input8, "type", "Number");
-			attr(input8, "step", ".01");
-			attr(input8, "placeholder", "0.5");
-			attr(input8, "class", "svelte-4h0ulx");
-			attr(div8, "class", "flexcol");
-			set_style(div8, "grid-row", "3 / 4");
-			set_style(div8, "grid-column", "4 / 5");
-			attr(div9, "class", "aa-3d-settings svelte-4h0ulx");
-			attr(label7, "for", "");
-			set_style(label7, "align-self", "end");
-			attr(input9, "type", "text");
-			attr(button, "class", "file-picker svelte-4h0ulx");
-			attr(div10, "class", "form-group");
-			set_style(div10, "grid-row", "1/2");
-			set_style(div10, "grid-column", "1/3");
-			attr(div11, "class", "aa-customAnim-container svelte-4h0ulx");
-		},
-		m(target, anchor) {
-			insert(target, div9, anchor);
-			append(div9, div0);
-			append(div0, label0);
-			append(div0, t2);
-			append(div0, input0);
-			set_input_value(input0, /*color01*/ ctx[1]);
-			append(div9, t3);
-			append(div9, div1);
-			append(div1, input1);
-			set_input_value(input1, /*color01*/ ctx[1]);
-			append(div9, t4);
-			append(div9, div2);
-			append(div2, input2);
-			set_input_value(input2, /*color02*/ ctx[2]);
-			append(div9, t5);
-			append(div9, div3);
-			append(div3, label1);
-			append(div3, t8);
-			append(div3, input3);
-			set_input_value(input3, /*color02*/ ctx[2]);
-			append(div9, t9);
-			append(div9, div4);
-			append(div4, label2);
-			append(div4, t11);
-			append(div4, input4);
-			set_input_value(input4, /*speed*/ ctx[3]);
-			append(div9, t12);
-			append(div9, div5);
-			append(div5, label3);
-			append(div5, t14);
-			append(div5, input5);
-			set_input_value(input5, /*repeat*/ ctx[4]);
-			append(div9, t15);
-			if (if_block0) if_block0.m(div9, null);
-			append(div9, t16);
-			append(div9, div6);
-			append(div6, label4);
-			append(div6, t18);
-			append(div6, input6);
-			set_input_value(input6, /*delay*/ ctx[6]);
-			append(div9, t19);
-			append(div9, div7);
-			append(div7, label5);
-			append(div7, t21);
-			append(div7, input7);
-			set_input_value(input7, /*scale*/ ctx[7]);
-			append(div9, t22);
-			append(div9, div8);
-			append(div8, label6);
-			append(div8, t24);
-			append(div8, input8);
-			set_input_value(input8, /*alpha*/ ctx[8]);
-			append(div9, t25);
-			if (if_block1) if_block1.m(div9, null);
-			insert(target, t26, anchor);
-			insert(target, div11, anchor);
-			append(div11, div10);
-			append(div10, label7);
-			append(div10, t28);
-			append(div10, input9);
-			set_input_value(input9, /*spritePath*/ ctx[14]);
-			append(div10, t29);
-			append(div10, button);
-
-			if (!mounted) {
-				dispose = [
-					listen(input0, "input", /*input0_input_handler*/ ctx[18]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[19]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[20]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[21]),
-					listen(input4, "input", /*input4_input_handler*/ ctx[22]),
-					listen(input4, "change", /*change_handler*/ ctx[23]),
-					listen(input5, "input", /*input5_input_handler*/ ctx[24]),
-					listen(input6, "input", /*input6_input_handler*/ ctx[26]),
-					listen(input7, "input", /*input7_input_handler*/ ctx[27]),
-					listen(input8, "input", /*input8_input_handler*/ ctx[28]),
-					listen(input9, "input", /*input9_input_handler*/ ctx[34]),
-					listen(button, "click", prevent_default(/*click_handler*/ ctx[35]))
-				];
-
-				mounted = true;
-			}
-		},
-		p(ctx, dirty) {
-			if (dirty[0] & /*color01*/ 2) {
-				set_input_value(input0, /*color01*/ ctx[1]);
-			}
-
-			if (dirty[0] & /*color01*/ 2) {
-				set_input_value(input1, /*color01*/ ctx[1]);
-			}
-
-			if (dirty[0] & /*color02*/ 4) {
-				set_input_value(input2, /*color02*/ ctx[2]);
-			}
-
-			if (dirty[0] & /*color02*/ 4) {
-				set_input_value(input3, /*color02*/ ctx[2]);
-			}
-
-			if (dirty[0] & /*speed*/ 8) {
-				set_input_value(input4, /*speed*/ ctx[3]);
-			}
-
-			if (dirty[0] & /*repeat*/ 16) {
-				set_input_value(input5, /*repeat*/ ctx[4]);
-			}
-
-			if (/*type*/ ctx[0] === "projectile" || /*type*/ ctx[0] === "ray") {
-				if (if_block0) {
-					if_block0.p(ctx, dirty);
-				} else {
-					if_block0 = create_if_block_1$5(ctx);
-					if_block0.c();
-					if_block0.m(div9, t16);
-				}
-			} else if (if_block0) {
-				if_block0.d(1);
-				if_block0 = null;
-			}
-
-			if (dirty[0] & /*delay*/ 64) {
-				set_input_value(input6, /*delay*/ ctx[6]);
-			}
-
-			if (dirty[0] & /*scale*/ 128) {
-				set_input_value(input7, /*scale*/ ctx[7]);
-			}
-
-			if (dirty[0] & /*alpha*/ 256) {
-				set_input_value(input8, /*alpha*/ ctx[8]);
-			}
-
-			if (/*type*/ ctx[0] !== "sprite") {
-				if (if_block1) {
-					if_block1.p(ctx, dirty);
-				} else {
-					if_block1 = create_if_block$6(ctx);
-					if_block1.c();
-					if_block1.m(div9, null);
-				}
-			} else if (if_block1) {
-				if_block1.d(1);
-				if_block1 = null;
-			}
-
-			if (dirty[0] & /*spritePath*/ 16384 && input9.value !== /*spritePath*/ ctx[14]) {
-				set_input_value(input9, /*spritePath*/ ctx[14]);
-			}
-		},
-		i: noop,
-		o: noop,
-		d(detaching) {
-			if (detaching) detach(div9);
-			if (if_block0) if_block0.d();
-			if (if_block1) if_block1.d();
-			if (detaching) detach(t26);
-			if (detaching) detach(div11);
-			mounted = false;
-			run_all(dispose);
-		}
-	};
-}
-
-function instance$c($$self, $$props, $$invalidate) {
-	let { flagData } = $$props;
-	let { type } = $$props;
-
-	flagData.levels3d[type]
-	? flagData.levels3d[type]
-	: flagData.levels3d[type] = {};
-
-	const root = flagData.levels3d[type];
-	let spritePath;
-
-	switch (type) {
-		case "projectile":
-			spritePath = root.sprite || "modules/levels-3d-preview/assets/particles/emberssmall.png";
-			break;
-		case "ray":
-			spritePath = root.sprite || "modules/levels-3d-preview/assets/particles/emberssmall.png";
-			break;
-		case "sprite":
-			spritePath = root.sprite || "modules/levels-3d-preview/assets/particles/emberssmall.png";
-			break;
-		case "explosion":
-			spritePath = root.sprite || "modules/levels-3d-preview/assets/particles/dust.png";
-			break;
-	}
-
-	let color01 = root.color01;
-	let color02 = root.color02;
-	let speed = root.speed;
-	let repeat = root.repeat;
-	let arc = root.arc;
-	let delay = root.delay;
-	let scale = root.scale;
-	let alpha = root.alpha;
-	let gravity = root.gravity;
-	let mass = root.mass;
-	let life = root.life;
-	let emittersize = root.emittersize;
-	let rate = root.rate;
-
-	function logFlags() {
-		console.log(flagData);
-	}
-
-	async function selectCustom() {
-		const current = spritePath;
-
-		const picker = new FilePicker({
-				type: "imagevideo",
-				current,
-				callback: path => {
-					$$invalidate(14, spritePath = path);
-				}
-			});
-
-		setTimeout(
-			() => {
-				picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-			},
-			100
-		);
-
-		await picker.browse(current);
-	}
-
-	function input0_input_handler() {
-		color01 = this.value;
-		$$invalidate(1, color01);
-	}
-
-	function input1_input_handler() {
-		color01 = this.value;
-		$$invalidate(1, color01);
-	}
-
-	function input2_input_handler() {
-		color02 = this.value;
-		$$invalidate(2, color02);
-	}
-
-	function input3_input_handler() {
-		color02 = this.value;
-		$$invalidate(2, color02);
-	}
-
-	function input4_input_handler() {
-		speed = this.value;
-		$$invalidate(3, speed);
-	}
-
-	const change_handler = () => logFlags();
-
-	function input5_input_handler() {
-		repeat = this.value;
-		$$invalidate(4, repeat);
-	}
-
-	function input_input_handler() {
-		arc = this.value;
-		$$invalidate(5, arc);
-	}
-
-	function input6_input_handler() {
-		delay = this.value;
-		$$invalidate(6, delay);
-	}
-
-	function input7_input_handler() {
-		scale = this.value;
-		$$invalidate(7, scale);
-	}
-
-	function input8_input_handler() {
-		alpha = this.value;
-		$$invalidate(8, alpha);
-	}
-
-	function input0_input_handler_1() {
-		gravity = this.value;
-		$$invalidate(9, gravity);
-	}
-
-	function input1_input_handler_1() {
-		mass = this.value;
-		$$invalidate(10, mass);
-	}
-
-	function input2_input_handler_1() {
-		life = this.value;
-		$$invalidate(11, life);
-	}
-
-	function input3_input_handler_1() {
-		emittersize = this.value;
-		$$invalidate(12, emittersize);
-	}
-
-	function input4_input_handler_1() {
-		rate = this.value;
-		$$invalidate(13, rate);
-	}
-
-	function input9_input_handler() {
-		spritePath = this.value;
-		$$invalidate(14, spritePath);
-	}
-
-	const click_handler = () => selectCustom();
-
-	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(17, flagData = $$props.flagData);
-		if ('type' in $$props) $$invalidate(0, type = $$props.type);
-	};
-
-	$$self.$$.update = () => {
-		if ($$self.$$.dirty[0] & /*color01*/ 2) {
-			$$invalidate(1, color01 = root.color01 = color01
-			? color01.toString(16).padStart(6, "0").toUpperCase()
-			: "#FFFFFF");
-		}
-
-		if ($$self.$$.dirty[0] & /*color02*/ 4) {
-			$$invalidate(2, color02 = root.color02 = color02
-			? color02.toString(16).padStart(6, "0").toUpperCase()
-			: "#FFFFFF");
-		}
-
-		if ($$self.$$.dirty[0] & /*speed*/ 8) {
-			$$invalidate(3, speed = root.speed = speed);
-		}
-
-		if ($$self.$$.dirty[0] & /*repeat*/ 16) {
-			$$invalidate(4, repeat = root.repeat = repeat);
-		}
-
-		if ($$self.$$.dirty[0] & /*arc*/ 32) {
-			$$invalidate(5, arc = root.arc = arc);
-		}
-
-		if ($$self.$$.dirty[0] & /*delay*/ 64) {
-			$$invalidate(6, delay = root.delay = delay);
-		}
-
-		if ($$self.$$.dirty[0] & /*scale*/ 128) {
-			$$invalidate(7, scale = root.scale = scale);
-		}
-
-		if ($$self.$$.dirty[0] & /*alpha*/ 256) {
-			$$invalidate(8, alpha = root.alpha = alpha);
-		}
-
-		if ($$self.$$.dirty[0] & /*gravity*/ 512) {
-			$$invalidate(9, gravity = root.gravity = gravity);
-		}
-
-		if ($$self.$$.dirty[0] & /*mass*/ 1024) {
-			$$invalidate(10, mass = root.mass = mass);
-		}
-
-		if ($$self.$$.dirty[0] & /*life*/ 2048) {
-			$$invalidate(11, life = root.life = life);
-		}
-
-		if ($$self.$$.dirty[0] & /*emittersize*/ 4096) {
-			$$invalidate(12, emittersize = root.emittersize = emittersize);
-		}
-
-		if ($$self.$$.dirty[0] & /*rate*/ 8192) {
-			$$invalidate(13, rate = root.rate = rate);
-		}
-	};
-
-	return [
-		type,
-		color01,
-		color02,
-		speed,
-		repeat,
-		arc,
-		delay,
-		scale,
-		alpha,
-		gravity,
-		mass,
-		life,
-		emittersize,
-		rate,
-		spritePath,
-		logFlags,
-		selectCustom,
-		flagData,
-		input0_input_handler,
-		input1_input_handler,
-		input2_input_handler,
-		input3_input_handler,
-		input4_input_handler,
-		change_handler,
-		input5_input_handler,
-		input_input_handler,
-		input6_input_handler,
-		input7_input_handler,
-		input8_input_handler,
-		input0_input_handler_1,
-		input1_input_handler_1,
-		input2_input_handler_1,
-		input3_input_handler_1,
-		input4_input_handler_1,
-		input9_input_handler,
-		click_handler
-	];
-}
-
-class _3dCanvasOptions extends SvelteComponent {
-	constructor(options) {
-		super();
-		init(this, options, instance$c, create_fragment$c, safe_not_equal, { flagData: 17, type: 0 }, null, [-1, -1]);
-	}
-}
-
-/* src\formApps\ItemMenu\components\3dMenuShell.svelte generated by Svelte v3.47.0 */
-
-function create_if_block_3$2(ctx) {
-	let options3d;
-	let current;
-
-	options3d = new _3dCanvasOptions({
-			props: {
-				type: "projectile",
-				flagData: /*flagData*/ ctx[0]
-			}
-		});
-
-	return {
-		c() {
-			create_component(options3d.$$.fragment);
-		},
-		m(target, anchor) {
-			mount_component(options3d, target, anchor);
-			current = true;
-		},
-		p(ctx, dirty) {
-			const options3d_changes = {};
-			if (dirty & /*flagData*/ 1) options3d_changes.flagData = /*flagData*/ ctx[0];
-			options3d.$set(options3d_changes);
-		},
-		i(local) {
-			if (current) return;
-			transition_in(options3d.$$.fragment, local);
-			current = true;
-		},
-		o(local) {
-			transition_out(options3d.$$.fragment, local);
-			current = false;
-		},
-		d(detaching) {
-			destroy_component(options3d, detaching);
-		}
-	};
-}
-
-// (33:0) {#if type3d === "sprite"}
-function create_if_block_2$3(ctx) {
-	let options3d;
-	let current;
-
-	options3d = new _3dCanvasOptions({
-			props: {
-				type: "sprite",
-				flagData: /*flagData*/ ctx[0]
-			}
-		});
-
-	return {
-		c() {
-			create_component(options3d.$$.fragment);
-		},
-		m(target, anchor) {
-			mount_component(options3d, target, anchor);
-			current = true;
-		},
-		p(ctx, dirty) {
-			const options3d_changes = {};
-			if (dirty & /*flagData*/ 1) options3d_changes.flagData = /*flagData*/ ctx[0];
-			options3d.$set(options3d_changes);
-		},
-		i(local) {
-			if (current) return;
-			transition_in(options3d.$$.fragment, local);
-			current = true;
-		},
-		o(local) {
-			transition_out(options3d.$$.fragment, local);
-			current = false;
-		},
-		d(detaching) {
-			destroy_component(options3d, detaching);
-		}
-	};
-}
-
-// (36:0) {#if type3d === "ray"}
-function create_if_block_1$4(ctx) {
-	let options3d;
-	let current;
-
-	options3d = new _3dCanvasOptions({
-			props: {
-				type: "ray",
-				flagData: /*flagData*/ ctx[0]
-			}
-		});
-
-	return {
-		c() {
-			create_component(options3d.$$.fragment);
-		},
-		m(target, anchor) {
-			mount_component(options3d, target, anchor);
-			current = true;
-		},
-		p(ctx, dirty) {
-			const options3d_changes = {};
-			if (dirty & /*flagData*/ 1) options3d_changes.flagData = /*flagData*/ ctx[0];
-			options3d.$set(options3d_changes);
-		},
-		i(local) {
-			if (current) return;
-			transition_in(options3d.$$.fragment, local);
-			current = true;
-		},
-		o(local) {
-			transition_out(options3d.$$.fragment, local);
-			current = false;
-		},
-		d(detaching) {
-			destroy_component(options3d, detaching);
-		}
-	};
-}
-
-// (39:0) {#if type3d === "explosion"}
-function create_if_block$5(ctx) {
-	let options3d;
-	let current;
-
-	options3d = new _3dCanvasOptions({
-			props: {
-				type: "explosion",
-				flagData: /*flagData*/ ctx[0]
-			}
-		});
-
-	return {
-		c() {
-			create_component(options3d.$$.fragment);
-		},
-		m(target, anchor) {
-			mount_component(options3d, target, anchor);
-			current = true;
-		},
-		p(ctx, dirty) {
-			const options3d_changes = {};
-			if (dirty & /*flagData*/ 1) options3d_changes.flagData = /*flagData*/ ctx[0];
-			options3d.$set(options3d_changes);
-		},
-		i(local) {
-			if (current) return;
-			transition_in(options3d.$$.fragment, local);
-			current = true;
-		},
-		o(local) {
-			transition_out(options3d.$$.fragment, local);
-			current = false;
-		},
-		d(detaching) {
-			destroy_component(options3d, detaching);
-		}
-	};
-}
-
-function create_fragment$b(ctx) {
-	let h1;
-	let t1;
-	let h3;
-	let t3;
-	let div1;
-	let div0;
-	let label;
-	let t5;
-	let select;
-	let option0;
-	let option1;
-	let option2;
-	let option3;
-	let option4;
-	let t10;
-	let t11;
-	let t12;
-	let t13;
-	let if_block3_anchor;
-	let current;
-	let mounted;
-	let dispose;
-	let if_block0 = /*type3d*/ ctx[1] === "projectile" && create_if_block_3$2(ctx);
-	let if_block1 = /*type3d*/ ctx[1] === "sprite" && create_if_block_2$3(ctx);
-	let if_block2 = /*type3d*/ ctx[1] === "ray" && create_if_block_1$4(ctx);
-	let if_block3 = /*type3d*/ ctx[1] === "explosion" && create_if_block$5(ctx);
-
-	return {
-		c() {
-			h1 = element("h1");
-			h1.textContent = "3D Canvas Particle Animations";
-			t1 = space();
-			h3 = element("h3");
-			h3.textContent = "Requires the 3D Canvas Module by Ripper";
-			t3 = space();
-			div1 = element("div");
-			div0 = element("div");
-			label = element("label");
-			label.textContent = `${localize("AUTOANIM.type")}`;
-			t5 = space();
-			select = element("select");
-			option0 = element("option");
-			option1 = element("option");
-			option1.textContent = `${localize("AUTOANIM.projectile")}`;
-			option2 = element("option");
-			option2.textContent = `${localize("AUTOANIM.sprite")}`;
-			option3 = element("option");
-			option3.textContent = `${localize("AUTOANIM.ray")}`;
-			option4 = element("option");
-			option4.textContent = `${localize("AUTOANIM.explosion")}`;
-			t10 = space();
-			if (if_block0) if_block0.c();
-			t11 = space();
-			if (if_block1) if_block1.c();
-			t12 = space();
-			if (if_block2) if_block2.c();
-			t13 = space();
-			if (if_block3) if_block3.c();
-			if_block3_anchor = empty();
-			attr(h1, "class", "svelte-o9gu52");
-			attr(h3, "class", "svelte-o9gu52");
-			attr(label, "for", "");
-			attr(label, "class", "svelte-o9gu52");
-			option0.__value = "";
-			option0.value = option0.__value;
-			option1.__value = "projectile";
-			option1.value = option1.__value;
-			option2.__value = "sprite";
-			option2.value = option2.__value;
-			option3.__value = "ray";
-			option3.value = option3.__value;
-			option4.__value = "explosion";
-			option4.value = option4.__value;
-			attr(select, "class", "svelte-o9gu52");
-			if (/*type3d*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[2].call(select));
-			attr(div0, "class", "flexcol");
-			set_style(div0, "grid-row", "1 / 2");
-			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-3wide svelte-o9gu52");
-		},
-		m(target, anchor) {
-			insert(target, h1, anchor);
-			insert(target, t1, anchor);
-			insert(target, h3, anchor);
-			insert(target, t3, anchor);
-			insert(target, div1, anchor);
-			append(div1, div0);
-			append(div0, label);
-			append(div0, t5);
-			append(div0, select);
-			append(select, option0);
-			append(select, option1);
-			append(select, option2);
-			append(select, option3);
-			append(select, option4);
-			select_option(select, /*type3d*/ ctx[1]);
-			insert(target, t10, anchor);
-			if (if_block0) if_block0.m(target, anchor);
-			insert(target, t11, anchor);
-			if (if_block1) if_block1.m(target, anchor);
-			insert(target, t12, anchor);
-			if (if_block2) if_block2.m(target, anchor);
-			insert(target, t13, anchor);
-			if (if_block3) if_block3.m(target, anchor);
-			insert(target, if_block3_anchor, anchor);
-			current = true;
-
-			if (!mounted) {
-				dispose = listen(select, "change", /*select_change_handler*/ ctx[2]);
-				mounted = true;
-			}
-		},
-		p(ctx, [dirty]) {
-			if (dirty & /*type3d*/ 2) {
-				select_option(select, /*type3d*/ ctx[1]);
-			}
-
-			if (/*type3d*/ ctx[1] === "projectile") {
-				if (if_block0) {
-					if_block0.p(ctx, dirty);
-
-					if (dirty & /*type3d*/ 2) {
-						transition_in(if_block0, 1);
-					}
-				} else {
-					if_block0 = create_if_block_3$2(ctx);
-					if_block0.c();
-					transition_in(if_block0, 1);
-					if_block0.m(t11.parentNode, t11);
-				}
-			} else if (if_block0) {
-				group_outros();
-
-				transition_out(if_block0, 1, 1, () => {
-					if_block0 = null;
-				});
-
-				check_outros();
-			}
-
-			if (/*type3d*/ ctx[1] === "sprite") {
-				if (if_block1) {
-					if_block1.p(ctx, dirty);
-
-					if (dirty & /*type3d*/ 2) {
-						transition_in(if_block1, 1);
-					}
-				} else {
-					if_block1 = create_if_block_2$3(ctx);
-					if_block1.c();
-					transition_in(if_block1, 1);
-					if_block1.m(t12.parentNode, t12);
-				}
-			} else if (if_block1) {
-				group_outros();
-
-				transition_out(if_block1, 1, 1, () => {
-					if_block1 = null;
-				});
-
-				check_outros();
-			}
-
-			if (/*type3d*/ ctx[1] === "ray") {
-				if (if_block2) {
-					if_block2.p(ctx, dirty);
-
-					if (dirty & /*type3d*/ 2) {
-						transition_in(if_block2, 1);
-					}
-				} else {
-					if_block2 = create_if_block_1$4(ctx);
-					if_block2.c();
-					transition_in(if_block2, 1);
-					if_block2.m(t13.parentNode, t13);
-				}
-			} else if (if_block2) {
-				group_outros();
-
-				transition_out(if_block2, 1, 1, () => {
-					if_block2 = null;
-				});
-
-				check_outros();
-			}
-
-			if (/*type3d*/ ctx[1] === "explosion") {
-				if (if_block3) {
-					if_block3.p(ctx, dirty);
-
-					if (dirty & /*type3d*/ 2) {
-						transition_in(if_block3, 1);
-					}
-				} else {
-					if_block3 = create_if_block$5(ctx);
-					if_block3.c();
-					transition_in(if_block3, 1);
-					if_block3.m(if_block3_anchor.parentNode, if_block3_anchor);
-				}
-			} else if (if_block3) {
-				group_outros();
-
-				transition_out(if_block3, 1, 1, () => {
-					if_block3 = null;
-				});
-
-				check_outros();
-			}
-		},
-		i(local) {
-			if (current) return;
-			transition_in(if_block0);
-			transition_in(if_block1);
-			transition_in(if_block2);
-			transition_in(if_block3);
-			current = true;
-		},
-		o(local) {
-			transition_out(if_block0);
-			transition_out(if_block1);
-			transition_out(if_block2);
-			transition_out(if_block3);
-			current = false;
-		},
-		d(detaching) {
-			if (detaching) detach(h1);
-			if (detaching) detach(t1);
-			if (detaching) detach(h3);
-			if (detaching) detach(t3);
-			if (detaching) detach(div1);
-			if (detaching) detach(t10);
-			if (if_block0) if_block0.d(detaching);
-			if (detaching) detach(t11);
-			if (if_block1) if_block1.d(detaching);
-			if (detaching) detach(t12);
-			if (if_block2) if_block2.d(detaching);
-			if (detaching) detach(t13);
-			if (if_block3) if_block3.d(detaching);
-			if (detaching) detach(if_block3_anchor);
-			mounted = false;
-			dispose();
-		}
-	};
-}
-
-function instance$b($$self, $$props, $$invalidate) {
-	let { flagData } = $$props;
-	const root = flagData.levels3d;
-	let type3d = root.type || "";
-
-	function select_change_handler() {
-		type3d = select_value(this);
-		$$invalidate(1, type3d);
-	}
-
-	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(0, flagData = $$props.flagData);
-	};
-
-	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*type3d*/ 2) {
-			$$invalidate(1, type3d = root.type = type3d);
-		}
-	};
-
-	return [flagData, type3d, select_change_handler];
-}
-
-class _3dMenuShell extends SvelteComponent {
-	constructor(options) {
-		super();
-		init(this, options, instance$b, create_fragment$b, safe_not_equal, { flagData: 0 });
 	}
 }
 
 /* src\formApps\ItemMenu\components\presets\bardicInspiration.svelte generated by Svelte v3.47.0 */
 
-function get_each_context$5(ctx, list, i) {
+function get_each_context$6(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[44] = list[i][0];
 	child_ctx[45] = list[i][1];
 	return child_ctx;
 }
 
-function get_each_context_1$1(ctx, list, i) {
+function get_each_context_1$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[44] = list[i][0];
 	child_ctx[45] = list[i][1];
 	return child_ctx;
 }
 
-function get_each_context_2(ctx, list, i) {
+function get_each_context_2$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[44] = list[i][0];
 	child_ctx[45] = list[i][1];
 	return child_ctx;
 }
 
-function get_each_context_3(ctx, list, i) {
+function get_each_context_3$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[44] = list[i][0];
 	child_ctx[45] = list[i][1];
@@ -47818,7 +43708,7 @@ function get_each_context_5(ctx, list, i) {
 }
 
 // (148:0) {#if bardSelf}
-function create_if_block_2$2(ctx) {
+function create_if_block_2$5(ctx) {
 	let div3;
 	let div0;
 	let label0;
@@ -48113,7 +44003,7 @@ function create_each_block_4(ctx) {
 }
 
 // (205:0) {#if bardTarget}
-function create_if_block_1$3(ctx) {
+function create_if_block_1$8(ctx) {
 	let div3;
 	let div0;
 	let label0;
@@ -48139,14 +44029,14 @@ function create_if_block_1$3(ctx) {
 	let each_blocks_1 = [];
 
 	for (let i = 0; i < each_value_3.length; i += 1) {
-		each_blocks_1[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+		each_blocks_1[i] = create_each_block_3$1(get_each_context_3$1(ctx, each_value_3, i));
 	}
 
 	let each_value_2 = Object.entries(aaColorMenu.static[/*targetType*/ ctx[14]][/*targetAnimation*/ ctx[6]][/*targetVariant*/ ctx[7]]);
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value_2.length; i += 1) {
-		each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+		each_blocks[i] = create_each_block_2$1(get_each_context_2$1(ctx, each_value_2, i));
 	}
 
 	return {
@@ -48268,12 +44158,12 @@ function create_if_block_1$3(ctx) {
 				let i;
 
 				for (i = 0; i < each_value_3.length; i += 1) {
-					const child_ctx = get_each_context_3(ctx, each_value_3, i);
+					const child_ctx = get_each_context_3$1(ctx, each_value_3, i);
 
 					if (each_blocks_1[i]) {
 						each_blocks_1[i].p(child_ctx, dirty);
 					} else {
-						each_blocks_1[i] = create_each_block_3(child_ctx);
+						each_blocks_1[i] = create_each_block_3$1(child_ctx);
 						each_blocks_1[i].c();
 						each_blocks_1[i].m(select1, null);
 					}
@@ -48295,12 +44185,12 @@ function create_if_block_1$3(ctx) {
 				let i;
 
 				for (i = 0; i < each_value_2.length; i += 1) {
-					const child_ctx = get_each_context_2(ctx, each_value_2, i);
+					const child_ctx = get_each_context_2$1(ctx, each_value_2, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 					} else {
-						each_blocks[i] = create_each_block_2(child_ctx);
+						each_blocks[i] = create_each_block_2$1(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(select2, null);
 					}
@@ -48344,7 +44234,7 @@ function create_if_block_1$3(ctx) {
 }
 
 // (229:16) {#each Object.entries(aaVariantMenu.static[targetType][targetAnimation]) as [key, name]}
-function create_each_block_3(ctx) {
+function create_each_block_3$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[45] + "";
 	let t;
@@ -48376,7 +44266,7 @@ function create_each_block_3(ctx) {
 }
 
 // (238:16) {#each Object.entries(aaColorMenu.static[targetType][targetAnimation][targetVariant]) as [key, name]}
-function create_each_block_2(ctx) {
+function create_each_block_2$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[45] + "";
 	let t;
@@ -48408,7 +44298,7 @@ function create_each_block_2(ctx) {
 }
 
 // (262:0) {#if markerEnable}
-function create_if_block$4(ctx) {
+function create_if_block$9(ctx) {
 	let div2;
 	let div0;
 	let label0;
@@ -48441,14 +44331,14 @@ function create_if_block$4(ctx) {
 	let each_blocks_1 = [];
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
-		each_blocks_1[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
+		each_blocks_1[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
 	}
 
 	let each_value = Object.entries(aaColorMenu.static.spell.bardicinspiration.marker);
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$5(get_each_context$5(ctx, each_value, i));
+		each_blocks[i] = create_each_block$6(get_each_context$6(ctx, each_value, i));
 	}
 
 	return {
@@ -48583,12 +44473,12 @@ function create_if_block$4(ctx) {
 				let i;
 
 				for (i = 0; i < each_value_1.length; i += 1) {
-					const child_ctx = get_each_context_1$1(ctx, each_value_1, i);
+					const child_ctx = get_each_context_1$2(ctx, each_value_1, i);
 
 					if (each_blocks_1[i]) {
 						each_blocks_1[i].p(child_ctx, dirty);
 					} else {
-						each_blocks_1[i] = create_each_block_1$1(child_ctx);
+						each_blocks_1[i] = create_each_block_1$2(child_ctx);
 						each_blocks_1[i].c();
 						each_blocks_1[i].m(select0, null);
 					}
@@ -48610,12 +44500,12 @@ function create_if_block$4(ctx) {
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$5(ctx, each_value, i);
+					const child_ctx = get_each_context$6(ctx, each_value, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 					} else {
-						each_blocks[i] = create_each_block$5(child_ctx);
+						each_blocks[i] = create_each_block$6(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(select1, null);
 					}
@@ -48669,7 +44559,7 @@ function create_if_block$4(ctx) {
 }
 
 // (268:16) {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
-function create_each_block_1$1(ctx) {
+function create_each_block_1$2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[45] + "";
 	let t;
@@ -48694,7 +44584,7 @@ function create_each_block_1$1(ctx) {
 }
 
 // (277:16) {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
-function create_each_block$5(ctx) {
+function create_each_block$6(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[45] + "";
 	let t;
@@ -48718,7 +44608,7 @@ function create_each_block$5(ctx) {
 	};
 }
 
-function create_fragment$a(ctx) {
+function create_fragment$i(ctx) {
 	let div4;
 	let h1;
 	let t1;
@@ -48755,9 +44645,9 @@ function create_fragment$a(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block0 = /*bardSelf*/ ctx[1] && create_if_block_2$2(ctx);
-	let if_block1 = /*bardTarget*/ ctx[5] && create_if_block_1$3(ctx);
-	let if_block2 = /*markerEnable*/ ctx[9] && create_if_block$4(ctx);
+	let if_block0 = /*bardSelf*/ ctx[1] && create_if_block_2$5(ctx);
+	let if_block1 = /*bardTarget*/ ctx[5] && create_if_block_1$8(ctx);
+	let if_block2 = /*markerEnable*/ ctx[9] && create_if_block$9(ctx);
 
 	soundsettings = new SoundSettings({
 			props: {
@@ -48911,7 +44801,7 @@ function create_fragment$a(ctx) {
 						transition_in(if_block0, 1);
 					}
 				} else {
-					if_block0 = create_if_block_2$2(ctx);
+					if_block0 = create_if_block_2$5(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
 					if_block0.m(div4, null);
@@ -48940,7 +44830,7 @@ function create_fragment$a(ctx) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block_1$3(ctx);
+					if_block1 = create_if_block_1$8(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
 					if_block1.m(div9, null);
@@ -48969,7 +44859,7 @@ function create_fragment$a(ctx) {
 						transition_in(if_block2, 1);
 					}
 				} else {
-					if_block2 = create_if_block$4(ctx);
+					if_block2 = create_if_block$9(ctx);
 					if_block2.c();
 					transition_in(if_block2, 1);
 					if_block2.m(div14, t13);
@@ -49019,7 +44909,7 @@ function create_fragment$a(ctx) {
 	};
 }
 
-function instance$a($$self, $$props, $$invalidate) {
+function instance$i($$self, $$props, $$invalidate) {
 	let aboveBelow;
 	let { flagData } = $$props;
 	const root = flagData.preset;
@@ -49290,13 +45180,13 @@ function instance$a($$self, $$props, $$invalidate) {
 class BardicInspiration extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$a, create_fragment$a, safe_not_equal, { flagData: 0 }, null, [-1, -1]);
+		init(this, options, instance$i, create_fragment$i, safe_not_equal, { flagData: 0 }, null, [-1, -1]);
 	}
 }
 
 /* src\formApps\ItemMenu\components\presets\bless.svelte generated by Svelte v3.47.0 */
 
-function get_each_context$4(ctx, list, i) {
+function get_each_context$5(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[23] = list[i][0];
 	child_ctx[24] = list[i][1];
@@ -49304,7 +45194,7 @@ function get_each_context$4(ctx, list, i) {
 }
 
 // (63:12) {#each Object.entries(aaColorMenu.static.spell.bless['01']) as [key, name]}
-function create_each_block$4(ctx) {
+function create_each_block$5(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[24] + "";
 	let t;
@@ -49328,7 +45218,7 @@ function create_each_block$4(ctx) {
 	};
 }
 
-function create_fragment$9(ctx) {
+function create_fragment$h(ctx) {
 	let div8;
 	let h1;
 	let t1;
@@ -49378,7 +45268,7 @@ function create_fragment$9(ctx) {
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
+		each_blocks[i] = create_each_block$5(get_each_context$5(ctx, each_value, i));
 	}
 
 	soundsettings = new SoundSettings({
@@ -49563,12 +45453,12 @@ function create_fragment$9(ctx) {
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$4(ctx, each_value, i);
+					const child_ctx = get_each_context$5(ctx, each_value, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 					} else {
-						each_blocks[i] = create_each_block$4(child_ctx);
+						each_blocks[i] = create_each_block$5(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(select, null);
 					}
@@ -49617,7 +45507,7 @@ function create_fragment$9(ctx) {
 	};
 }
 
-function instance$9($$self, $$props, $$invalidate) {
+function instance$h($$self, $$props, $$invalidate) {
 	let bindAlpha;
 	let bindVisibility;
 	let isPersistent;
@@ -49741,13 +45631,13 @@ function instance$9($$self, $$props, $$invalidate) {
 class Bless extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$9, create_fragment$9, safe_not_equal, { flagData: 0 });
+		init(this, options, instance$h, create_fragment$h, safe_not_equal, { flagData: 0 });
 	}
 }
 
 /* src\formApps\ItemMenu\components\presets\dualattach.svelte generated by Svelte v3.47.0 */
 
-function create_fragment$8(ctx) {
+function create_fragment$g(ctx) {
 	let div7;
 	let div3;
 	let div2;
@@ -50044,7 +45934,7 @@ function create_fragment$8(ctx) {
 
 let shouldShowOnlyX$2 = true;
 
-function instance$8($$self, $$props, $$invalidate) {
+function instance$g($$self, $$props, $$invalidate) {
 	let aboveBelow;
 	let { flagData } = $$props;
 	let { presetType } = $$props;
@@ -50212,13 +46102,13 @@ function instance$8($$self, $$props, $$invalidate) {
 class Dualattach extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$8, create_fragment$8, safe_not_equal, { flagData: 0, presetType: 1 });
+		init(this, options, instance$g, create_fragment$g, safe_not_equal, { flagData: 0, presetType: 1 });
 	}
 }
 
 /* src\formApps\ItemMenu\components\presets\fireball.svelte generated by Svelte v3.47.0 */
 
-function create_if_block_1$2(ctx) {
+function create_if_block_1$7(ctx) {
 	let chooseanimation;
 	let updating_menuType;
 	let updating_animation;
@@ -50570,7 +46460,7 @@ function create_if_block_1$2(ctx) {
 }
 
 // (323:0) {#if enableAfterImage}
-function create_if_block$3(ctx) {
+function create_if_block$8(ctx) {
 	let div1;
 	let div0;
 	let input0;
@@ -50776,7 +46666,7 @@ function create_if_block$3(ctx) {
 	};
 }
 
-function create_fragment$7(ctx) {
+function create_fragment$f(ctx) {
 	let div6;
 	let h10;
 	let t1;
@@ -50964,7 +46854,7 @@ function create_fragment$7(ctx) {
 			}
 		});
 
-	let if_block0 = /*enablePreExplosion*/ ctx[22] && create_if_block_1$2(ctx);
+	let if_block0 = /*enablePreExplosion*/ ctx[22] && create_if_block_1$7(ctx);
 
 	function chooseanimation1_menuType_binding(value) {
 		/*chooseanimation1_menuType_binding*/ ctx[84](value);
@@ -51046,7 +46936,7 @@ function create_fragment$7(ctx) {
 			}
 		});
 
-	let if_block1 = /*enableAfterImage*/ ctx[32] && create_if_block$3(ctx);
+	let if_block1 = /*enableAfterImage*/ ctx[32] && create_if_block$8(ctx);
 
 	return {
 		c() {
@@ -51456,7 +47346,7 @@ function create_fragment$7(ctx) {
 						transition_in(if_block0, 1);
 					}
 				} else {
-					if_block0 = create_if_block_1$2(ctx);
+					if_block0 = create_if_block_1$7(ctx);
 					if_block0.c();
 					transition_in(if_block0, 1);
 					if_block0.m(div11, null);
@@ -51550,7 +47440,7 @@ function create_fragment$7(ctx) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block$3(ctx);
+					if_block1 = create_if_block$8(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
 					if_block1.m(div22, null);
@@ -51606,7 +47496,7 @@ function create_fragment$7(ctx) {
 
 let shouldShowOnlyX$1 = true;
 
-function instance$7($$self, $$props, $$invalidate) {
+function instance$f($$self, $$props, $$invalidate) {
 	let isRemove;
 	let projectileAboveBelow;
 	let explosion01AboveBelow;
@@ -52230,13 +48120,13 @@ function instance$7($$self, $$props, $$invalidate) {
 class Fireball extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$7, create_fragment$7, safe_not_equal, { flagData: 0, presetType: 1 }, null, [-1, -1, -1, -1]);
+		init(this, options, instance$f, create_fragment$f, safe_not_equal, { flagData: 0, presetType: 1 }, null, [-1, -1, -1, -1]);
 	}
 }
 
 /* src\formApps\ItemMenu\components\presets\huntersmark.svelte generated by Svelte v3.47.0 */
 
-function get_each_context$3(ctx, list, i) {
+function get_each_context$4(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[21] = list[i][0];
 	child_ctx[22] = list[i][1];
@@ -52244,7 +48134,7 @@ function get_each_context$3(ctx, list, i) {
 }
 
 // (63:12) {#each Object.entries(aaColorMenu.static.spell.huntersmark.eye) as [key, name]}
-function create_each_block$3(ctx) {
+function create_each_block$4(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[22] + "";
 	let t;
@@ -52268,7 +48158,7 @@ function create_each_block$3(ctx) {
 	};
 }
 
-function create_fragment$6(ctx) {
+function create_fragment$e(ctx) {
 	let div9;
 	let h1;
 	let t1;
@@ -52328,7 +48218,7 @@ function create_fragment$6(ctx) {
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
+		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
 	}
 
 	soundsettings = new SoundSettings({
@@ -52557,12 +48447,12 @@ function create_fragment$6(ctx) {
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$3(ctx, each_value, i);
+					const child_ctx = get_each_context$4(ctx, each_value, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 					} else {
-						each_blocks[i] = create_each_block$3(child_ctx);
+						each_blocks[i] = create_each_block$4(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(select1, null);
 					}
@@ -52633,7 +48523,7 @@ function create_fragment$6(ctx) {
 	};
 }
 
-function instance$6($$self, $$props, $$invalidate) {
+function instance$e($$self, $$props, $$invalidate) {
 	let aboveBelow;
 	let isPersistent;
 	let { flagData } = $$props;
@@ -52758,20 +48648,20 @@ function instance$6($$self, $$props, $$invalidate) {
 class Huntersmark extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$6, create_fragment$6, safe_not_equal, { flagData: 0 });
+		init(this, options, instance$e, create_fragment$e, safe_not_equal, { flagData: 0 });
 	}
 }
 
 /* src\formApps\ItemMenu\components\presets\shield.svelte generated by Svelte v3.47.0 */
 
-function get_each_context$2(ctx, list, i) {
+function get_each_context$3(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[30] = list[i][0];
 	child_ctx[31] = list[i][1];
 	return child_ctx;
 }
 
-function get_each_context_1(ctx, list, i) {
+function get_each_context_1$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[30] = list[i][0];
 	child_ctx[31] = list[i][1];
@@ -52779,7 +48669,7 @@ function get_each_context_1(ctx, list, i) {
 }
 
 // (85:12) {#each Object.entries(aaVariantMenu.static.spell.shieldspell) as [key, name]}
-function create_each_block_1(ctx) {
+function create_each_block_1$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[31] + "";
 	let t;
@@ -52804,7 +48694,7 @@ function create_each_block_1(ctx) {
 }
 
 // (93:12) {#each Object.entries(aaColorMenu.static.spell.shieldspell[variant]) as [key, name]}
-function create_each_block$2(ctx) {
+function create_each_block$3(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[31] + "";
 	let t;
@@ -52835,7 +48725,7 @@ function create_each_block$2(ctx) {
 	};
 }
 
-function create_fragment$5(ctx) {
+function create_fragment$d(ctx) {
 	let div10;
 	let h1;
 	let t1;
@@ -52897,14 +48787,14 @@ function create_fragment$5(ctx) {
 	let each_blocks_1 = [];
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
-		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+		each_blocks_1[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
 	}
 
 	let each_value = Object.entries(aaColorMenu.static.spell.shieldspell[/*variant*/ ctx[1]]);
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
+		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
 	}
 
 	soundsettings = new SoundSettings({
@@ -53151,12 +49041,12 @@ function create_fragment$5(ctx) {
 				let i;
 
 				for (i = 0; i < each_value_1.length; i += 1) {
-					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+					const child_ctx = get_each_context_1$1(ctx, each_value_1, i);
 
 					if (each_blocks_1[i]) {
 						each_blocks_1[i].p(child_ctx, dirty);
 					} else {
-						each_blocks_1[i] = create_each_block_1(child_ctx);
+						each_blocks_1[i] = create_each_block_1$1(child_ctx);
 						each_blocks_1[i].c();
 						each_blocks_1[i].m(select0, null);
 					}
@@ -53178,12 +49068,12 @@ function create_fragment$5(ctx) {
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$2(ctx, each_value, i);
+					const child_ctx = get_each_context$3(ctx, each_value, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 					} else {
-						each_blocks[i] = create_each_block$2(child_ctx);
+						each_blocks[i] = create_each_block$3(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(select1, null);
 					}
@@ -53237,7 +49127,7 @@ function create_fragment$5(ctx) {
 	};
 }
 
-function instance$5($$self, $$props, $$invalidate) {
+function instance$d($$self, $$props, $$invalidate) {
 	let bindAlpha;
 	let bindVisibility;
 	let isPersistent;
@@ -53399,13 +49289,13 @@ function instance$5($$self, $$props, $$invalidate) {
 class Shield extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$5, create_fragment$5, safe_not_equal, { flagData: 0 }, null, [-1, -1]);
+		init(this, options, instance$d, create_fragment$d, safe_not_equal, { flagData: 0 }, null, [-1, -1]);
 	}
 }
 
 /* src\formApps\ItemMenu\components\presets\sneakAttack.svelte generated by Svelte v3.47.0 */
 
-function get_each_context$1(ctx, list, i) {
+function get_each_context$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[15] = list[i][0];
 	child_ctx[16] = list[i][1];
@@ -53413,7 +49303,7 @@ function get_each_context$1(ctx, list, i) {
 }
 
 // (44:12) {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
-function create_each_block$1(ctx) {
+function create_each_block$2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[16] + "";
 	let t;
@@ -53437,7 +49327,7 @@ function create_each_block$1(ctx) {
 	};
 }
 
-function create_fragment$4(ctx) {
+function create_fragment$c(ctx) {
 	let div7;
 	let h1;
 	let t1;
@@ -53479,7 +49369,7 @@ function create_fragment$4(ctx) {
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
 	}
 
 	soundsettings = new SoundSettings({
@@ -53648,12 +49538,12 @@ function create_fragment$4(ctx) {
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$1(ctx, each_value, i);
+					const child_ctx = get_each_context$2(ctx, each_value, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 					} else {
-						each_blocks[i] = create_each_block$1(child_ctx);
+						each_blocks[i] = create_each_block$2(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(select, null);
 					}
@@ -53707,7 +49597,7 @@ function create_fragment$4(ctx) {
 	};
 }
 
-function instance$4($$self, $$props, $$invalidate) {
+function instance$c($$self, $$props, $$invalidate) {
 	let aboveBelow;
 	let { flagData } = $$props;
 	const root = flagData.preset;
@@ -53802,13 +49692,13 @@ function instance$4($$self, $$props, $$invalidate) {
 class SneakAttack extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$4, create_fragment$4, safe_not_equal, { flagData: 0 });
+		init(this, options, instance$c, create_fragment$c, safe_not_equal, { flagData: 0 });
 	}
 }
 
 /* src\formApps\ItemMenu\components\presets\teleportation.svelte generated by Svelte v3.47.0 */
 
-function create_if_block$2(ctx) {
+function create_if_block$7(ctx) {
 	let chooseanimation;
 	let updating_menuType;
 	let updating_animation;
@@ -54050,7 +49940,7 @@ function create_if_block$2(ctx) {
 	};
 }
 
-function create_fragment$3(ctx) {
+function create_fragment$b(ctx) {
 	let div4;
 	let h10;
 	let t0;
@@ -54222,7 +50112,7 @@ function create_fragment$3(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation0, 'isCustom', chooseanimation0_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'customPath', chooseanimation0_customPath_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'customId', chooseanimation0_customId_binding));
-	let if_block = /*enableBetween*/ ctx[27] && create_if_block$2(ctx);
+	let if_block = /*enableBetween*/ ctx[27] && create_if_block$7(ctx);
 
 	function chooseanimation1_menuType_binding(value) {
 		/*chooseanimation1_menuType_binding*/ ctx[67](value);
@@ -54683,7 +50573,7 @@ function create_fragment$3(ctx) {
 						transition_in(if_block, 1);
 					}
 				} else {
-					if_block = create_if_block$2(ctx);
+					if_block = create_if_block$7(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(div13, null);
@@ -54794,7 +50684,7 @@ function create_fragment$3(ctx) {
 
 let shouldShowOnlyX = true;
 
-function instance$3($$self, $$props, $$invalidate) {
+function instance$b($$self, $$props, $$invalidate) {
 	let startAboveBelow;
 	let endAboveBelow;
 	let betweenAboveBelow;
@@ -55262,13 +51152,13 @@ function instance$3($$self, $$props, $$invalidate) {
 class Teleportation extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$3, create_fragment$3, safe_not_equal, { flagData: 0, presetType: 1 }, null, [-1, -1, -1]);
+		init(this, options, instance$b, create_fragment$b, safe_not_equal, { flagData: 0, presetType: 1 }, null, [-1, -1, -1]);
 	}
 }
 
 /* src\formApps\ItemMenu\components\presets\thunderwave.svelte generated by Svelte v3.47.0 */
 
-function get_each_context(ctx, list, i) {
+function get_each_context$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[25] = list[i][0];
 	child_ctx[26] = list[i][1];
@@ -55276,7 +51166,7 @@ function get_each_context(ctx, list, i) {
 }
 
 // (61:12) {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
-function create_each_block(ctx) {
+function create_each_block$1(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[26] + "";
 	let t;
@@ -55300,7 +51190,7 @@ function create_each_block(ctx) {
 	};
 }
 
-function create_fragment$2(ctx) {
+function create_fragment$a(ctx) {
 	let div11;
 	let h1;
 	let t1;
@@ -55362,7 +51252,7 @@ function create_fragment$2(ctx) {
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
 	}
 
 	soundsettings = new SoundSettings({
@@ -55611,12 +51501,12 @@ function create_fragment$2(ctx) {
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context(ctx, each_value, i);
+					const child_ctx = get_each_context$1(ctx, each_value, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 					} else {
-						each_blocks[i] = create_each_block(child_ctx);
+						each_blocks[i] = create_each_block$1(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(select, null);
 					}
@@ -55687,7 +51577,7 @@ function create_fragment$2(ctx) {
 	};
 }
 
-function instance$2($$self, $$props, $$invalidate) {
+function instance$a($$self, $$props, $$invalidate) {
 	let aboveBelow;
 	let isRemove;
 	let { flagData } = $$props;
@@ -55840,7 +51730,7 @@ function instance$2($$self, $$props, $$invalidate) {
 class Thunderwave extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$2, create_fragment$2, safe_not_equal, { flagData: 0 });
+		init(this, options, instance$a, create_fragment$a, safe_not_equal, { flagData: 0 });
 	}
 }
 
@@ -55901,7 +51791,7 @@ function create_if_block_8$1(ctx) {
 }
 
 // (27:0) {#if presetType === "bless"}
-function create_if_block_7$1(ctx) {
+function create_if_block_7$2(ctx) {
 	let div;
 	let bless;
 	let div_transition;
@@ -55949,7 +51839,7 @@ function create_if_block_7$1(ctx) {
 }
 
 // (32:0) {#if presetType === "dualattach"}
-function create_if_block_6$1(ctx) {
+function create_if_block_6$2(ctx) {
 	let div;
 	let dualattach;
 	let div_transition;
@@ -56004,7 +51894,7 @@ function create_if_block_6$1(ctx) {
 }
 
 // (37:0) {#if presetType === "fireball"}
-function create_if_block_5$1(ctx) {
+function create_if_block_5$3(ctx) {
 	let div;
 	let fireball;
 	let div_transition;
@@ -56059,7 +51949,7 @@ function create_if_block_5$1(ctx) {
 }
 
 // (42:0) {#if presetType === "huntersmark"}
-function create_if_block_4$1(ctx) {
+function create_if_block_4$3(ctx) {
 	let div;
 	let huntersmark;
 	let div_transition;
@@ -56114,7 +52004,7 @@ function create_if_block_4$1(ctx) {
 }
 
 // (47:0) {#if presetType === "shieldspell"}
-function create_if_block_3$1(ctx) {
+function create_if_block_3$4(ctx) {
 	let div;
 	let shield;
 	let div_transition;
@@ -56169,7 +52059,7 @@ function create_if_block_3$1(ctx) {
 }
 
 // (52:0) {#if presetType === "sneakattack"}
-function create_if_block_2$1(ctx) {
+function create_if_block_2$4(ctx) {
 	let div;
 	let sneakattack;
 	let div_transition;
@@ -56224,7 +52114,7 @@ function create_if_block_2$1(ctx) {
 }
 
 // (57:0) {#if presetType === "teleportation"}
-function create_if_block_1$1(ctx) {
+function create_if_block_1$6(ctx) {
 	let div;
 	let teleportation;
 	let div_transition;
@@ -56279,7 +52169,7 @@ function create_if_block_1$1(ctx) {
 }
 
 // (62:0) {#if presetType === "thunderwave"}
-function create_if_block$1(ctx) {
+function create_if_block$6(ctx) {
 	let div;
 	let thunderwave;
 	let div_transition;
@@ -56333,7 +52223,7 @@ function create_if_block$1(ctx) {
 	};
 }
 
-function create_fragment$1(ctx) {
+function create_fragment$9(ctx) {
 	let t0;
 	let t1;
 	let t2;
@@ -56345,14 +52235,14 @@ function create_fragment$1(ctx) {
 	let if_block8_anchor;
 	let current;
 	let if_block0 = /*presetType*/ ctx[1] === "bardicinspiration" && create_if_block_8$1(ctx);
-	let if_block1 = /*presetType*/ ctx[1] === "bless" && create_if_block_7$1(ctx);
-	let if_block2 = /*presetType*/ ctx[1] === "dualattach" && create_if_block_6$1(ctx);
-	let if_block3 = /*presetType*/ ctx[1] === "fireball" && create_if_block_5$1(ctx);
-	let if_block4 = /*presetType*/ ctx[1] === "huntersmark" && create_if_block_4$1(ctx);
-	let if_block5 = /*presetType*/ ctx[1] === "shieldspell" && create_if_block_3$1(ctx);
-	let if_block6 = /*presetType*/ ctx[1] === "sneakattack" && create_if_block_2$1(ctx);
-	let if_block7 = /*presetType*/ ctx[1] === "teleportation" && create_if_block_1$1(ctx);
-	let if_block8 = /*presetType*/ ctx[1] === "thunderwave" && create_if_block$1(ctx);
+	let if_block1 = /*presetType*/ ctx[1] === "bless" && create_if_block_7$2(ctx);
+	let if_block2 = /*presetType*/ ctx[1] === "dualattach" && create_if_block_6$2(ctx);
+	let if_block3 = /*presetType*/ ctx[1] === "fireball" && create_if_block_5$3(ctx);
+	let if_block4 = /*presetType*/ ctx[1] === "huntersmark" && create_if_block_4$3(ctx);
+	let if_block5 = /*presetType*/ ctx[1] === "shieldspell" && create_if_block_3$4(ctx);
+	let if_block6 = /*presetType*/ ctx[1] === "sneakattack" && create_if_block_2$4(ctx);
+	let if_block7 = /*presetType*/ ctx[1] === "teleportation" && create_if_block_1$6(ctx);
+	let if_block8 = /*presetType*/ ctx[1] === "thunderwave" && create_if_block$6(ctx);
 
 	return {
 		c() {
@@ -56428,7 +52318,7 @@ function create_fragment$1(ctx) {
 						transition_in(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block_7$1(ctx);
+					if_block1 = create_if_block_7$2(ctx);
 					if_block1.c();
 					transition_in(if_block1, 1);
 					if_block1.m(t1.parentNode, t1);
@@ -56451,7 +52341,7 @@ function create_fragment$1(ctx) {
 						transition_in(if_block2, 1);
 					}
 				} else {
-					if_block2 = create_if_block_6$1(ctx);
+					if_block2 = create_if_block_6$2(ctx);
 					if_block2.c();
 					transition_in(if_block2, 1);
 					if_block2.m(t2.parentNode, t2);
@@ -56474,7 +52364,7 @@ function create_fragment$1(ctx) {
 						transition_in(if_block3, 1);
 					}
 				} else {
-					if_block3 = create_if_block_5$1(ctx);
+					if_block3 = create_if_block_5$3(ctx);
 					if_block3.c();
 					transition_in(if_block3, 1);
 					if_block3.m(t3.parentNode, t3);
@@ -56497,7 +52387,7 @@ function create_fragment$1(ctx) {
 						transition_in(if_block4, 1);
 					}
 				} else {
-					if_block4 = create_if_block_4$1(ctx);
+					if_block4 = create_if_block_4$3(ctx);
 					if_block4.c();
 					transition_in(if_block4, 1);
 					if_block4.m(t4.parentNode, t4);
@@ -56520,7 +52410,7 @@ function create_fragment$1(ctx) {
 						transition_in(if_block5, 1);
 					}
 				} else {
-					if_block5 = create_if_block_3$1(ctx);
+					if_block5 = create_if_block_3$4(ctx);
 					if_block5.c();
 					transition_in(if_block5, 1);
 					if_block5.m(t5.parentNode, t5);
@@ -56543,7 +52433,7 @@ function create_fragment$1(ctx) {
 						transition_in(if_block6, 1);
 					}
 				} else {
-					if_block6 = create_if_block_2$1(ctx);
+					if_block6 = create_if_block_2$4(ctx);
 					if_block6.c();
 					transition_in(if_block6, 1);
 					if_block6.m(t6.parentNode, t6);
@@ -56566,7 +52456,7 @@ function create_fragment$1(ctx) {
 						transition_in(if_block7, 1);
 					}
 				} else {
-					if_block7 = create_if_block_1$1(ctx);
+					if_block7 = create_if_block_1$6(ctx);
 					if_block7.c();
 					transition_in(if_block7, 1);
 					if_block7.m(t7.parentNode, t7);
@@ -56589,7 +52479,7 @@ function create_fragment$1(ctx) {
 						transition_in(if_block8, 1);
 					}
 				} else {
-					if_block8 = create_if_block$1(ctx);
+					if_block8 = create_if_block$6(ctx);
 					if_block8.c();
 					transition_in(if_block8, 1);
 					if_block8.m(if_block8_anchor.parentNode, if_block8_anchor);
@@ -56652,7 +52542,7 @@ function create_fragment$1(ctx) {
 	};
 }
 
-function instance$1($$self, $$props, $$invalidate) {
+function instance$9($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
 	const preset = flagData.preset;
 	let { presetType = preset.presetType } = $$props;
@@ -56668,7 +52558,5957 @@ function instance$1($$self, $$props, $$invalidate) {
 class PresetShell extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$1, create_fragment$1, safe_not_equal, { flagData: 0, presetType: 1 });
+		init(this, options, instance$9, create_fragment$9, safe_not_equal, { flagData: 0, presetType: 1 });
+	}
+}
+
+/* src\formApps\ActiveEffects\AEMenuAppShell.svelte generated by Svelte v3.47.0 */
+
+function create_if_block_7$1(ctx) {
+	let div1;
+	let div0;
+	let label;
+	let strong;
+	let t1;
+	let t2_value = localize("AUTOANIM.autorecognized") + "";
+	let t2;
+	let div1_transition;
+	let current;
+
+	return {
+		c() {
+			div1 = element("div");
+			div0 = element("div");
+			label = element("label");
+			strong = element("strong");
+			strong.textContent = `${/*oldName*/ ctx[10]}`;
+			t1 = space();
+			t2 = text(t2_value);
+			attr(label, "for", "");
+			set_style(label, "font-size", "x-large");
+			attr(label, "class", "svelte-1rces1x");
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "1/2");
+			set_style(div0, "grid-column", "1/4");
+			attr(div1, "class", "aa-pickAnim svelte-1rces1x");
+		},
+		m(target, anchor) {
+			insert(target, div1, anchor);
+			append(div1, div0);
+			append(div0, label);
+			append(label, strong);
+			append(label, t1);
+			append(label, t2);
+			current = true;
+		},
+		p: noop,
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
+				div1_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
+			div1_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div1);
+			if (detaching && div1_transition) div1_transition.end();
+		}
+	};
+}
+
+// (156:20) {#if isCustomized}
+function create_if_block_5$2(ctx) {
+	let div1;
+	let div0;
+	let label;
+	let t3;
+	let select;
+	let option0;
+	let option1;
+	let option2;
+	let t7;
+	let div1_transition;
+	let current;
+	let mounted;
+	let dispose;
+	let if_block = /*animType*/ ctx[5] === "preset" && create_if_block_6$1(ctx);
+
+	return {
+		c() {
+			div1 = element("div");
+			div0 = element("div");
+			label = element("label");
+
+			label.textContent = `${localize("AUTOANIM.animation")} 
+                                    ${localize("AUTOANIM.type")}`;
+
+			t3 = space();
+			select = element("select");
+			option0 = element("option");
+			option0.textContent = `${localize("autoanimations.animTypes.onToken")}`;
+			option1 = element("option");
+			option1.textContent = `${localize("autoanimations.animTypes.typeAuras")}`;
+			option2 = element("option");
+			option2.textContent = `${localize("autoanimations.animTypes.presets")}`;
+			t7 = space();
+			if (if_block) if_block.c();
+			attr(label, "for", "1");
+			attr(label, "class", "svelte-1rces1x");
+			option0.__value = "static";
+			option0.value = option0.__value;
+			option1.__value = "aura";
+			option1.value = option1.__value;
+			option2.__value = "preset";
+			option2.value = option2.__value;
+			attr(select, "id", "1");
+			set_style(select, "text-align", "center");
+			set_style(select, "justify-self", "center");
+			set_style(select, "background-color", "rgba(21, 154, 169, 0.4)");
+			attr(select, "class", "svelte-1rces1x");
+			if (/*animType*/ ctx[5] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[23].call(select));
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "1 / 2");
+			set_style(div0, "grid-column", "2 / 3");
+			attr(div1, "class", "aa-pickAnim svelte-1rces1x");
+		},
+		m(target, anchor) {
+			insert(target, div1, anchor);
+			append(div1, div0);
+			append(div0, label);
+			append(div0, t3);
+			append(div0, select);
+			append(select, option0);
+			append(select, option1);
+			append(select, option2);
+			select_option(select, /*animType*/ ctx[5]);
+			append(div1, t7);
+			if (if_block) if_block.m(div1, null);
+			current = true;
+
+			if (!mounted) {
+				dispose = [
+					listen(select, "change", /*select_change_handler*/ ctx[23]),
+					listen(select, "change", /*change_handler*/ ctx[24])
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*animType*/ 32) {
+				select_option(select, /*animType*/ ctx[5]);
+			}
+
+			if (/*animType*/ ctx[5] === "preset") {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+
+					if (dirty[0] & /*animType*/ 32) {
+						transition_in(if_block, 1);
+					}
+				} else {
+					if_block = create_if_block_6$1(ctx);
+					if_block.c();
+					transition_in(if_block, 1);
+					if_block.m(div1, null);
+				}
+			} else if (if_block) {
+				group_outros();
+
+				transition_out(if_block, 1, 1, () => {
+					if_block = null;
+				});
+
+				check_outros();
+			}
+		},
+		i(local) {
+			if (current) return;
+			transition_in(if_block);
+
+			add_render_callback(() => {
+				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
+				div1_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			transition_out(if_block);
+			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
+			div1_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div1);
+			if (if_block) if_block.d();
+			if (detaching && div1_transition) div1_transition.end();
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
+// (189:28) {#if animType === "preset"}
+function create_if_block_6$1(ctx) {
+	let div;
+	let label;
+	let t3;
+	let select;
+	let option0;
+	let option1;
+	let div_transition;
+	let current;
+	let mounted;
+	let dispose;
+
+	return {
+		c() {
+			div = element("div");
+			label = element("label");
+
+			label.textContent = `${localize("AUTOANIM.preset")} 
+                                        ${localize("AUTOANIM.type")}`;
+
+			t3 = space();
+			select = element("select");
+			option0 = element("option");
+			option0.textContent = `${localize("autoanimations.presetTypes.bless")}`;
+			option1 = element("option");
+			option1.textContent = `${localize("autoanimations.presetTypes.shieldspell")}`;
+			attr(label, "for", "1");
+			attr(label, "class", "svelte-1rces1x");
+			option0.__value = "bless";
+			option0.value = option0.__value;
+			option1.__value = "shieldspell";
+			option1.value = option1.__value;
+			attr(select, "id", "1");
+			set_style(select, "text-align", "center");
+			set_style(select, "justify-self", "center");
+			set_style(select, "background-color", "rgba(21, 154, 169, 0.4)");
+			attr(select, "class", "svelte-1rces1x");
+			if (/*presetType*/ ctx[6] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[25].call(select));
+			attr(div, "class", "flexcol");
+			set_style(div, "grid-row", "2 / 3");
+			set_style(div, "grid-column", "2 / 3");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			append(div, label);
+			append(div, t3);
+			append(div, select);
+			append(select, option0);
+			append(select, option1);
+			select_option(select, /*presetType*/ ctx[6]);
+			current = true;
+
+			if (!mounted) {
+				dispose = listen(select, "change", /*select_change_handler_1*/ ctx[25]);
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*presetType*/ 64) {
+				select_option(select, /*presetType*/ ctx[6]);
+			}
+		},
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			if (detaching && div_transition) div_transition.end();
+			mounted = false;
+			dispose();
+		}
+	};
+}
+
+// (220:16) {#if enableMacro}
+function create_if_block_4$2(ctx) {
+	let div;
+	let macrofield;
+	let div_transition;
+	let current;
+	macrofield = new Macro({ props: { flagData: /*flagData*/ ctx[1] } });
+
+	return {
+		c() {
+			div = element("div");
+			create_component(macrofield.$$.fragment);
+			attr(div, "class", "aaMenu-section");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			mount_component(macrofield, div, null);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const macrofield_changes = {};
+			if (dirty[0] & /*flagData*/ 2) macrofield_changes.flagData = /*flagData*/ ctx[1];
+			macrofield.$set(macrofield_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(macrofield.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			transition_out(macrofield.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			destroy_component(macrofield);
+			if (detaching && div_transition) div_transition.end();
+		}
+	};
+}
+
+// (225:16) {#if showSound}
+function create_if_block_3$3(ctx) {
+	let div;
+	let soundsettings;
+	let div_transition;
+	let current;
+
+	soundsettings = new SoundSettings({
+			props: {
+				audioPath: "a01",
+				flagData: /*flagData*/ ctx[1]
+			}
+		});
+
+	return {
+		c() {
+			div = element("div");
+			create_component(soundsettings.$$.fragment);
+			attr(div, "class", "aaMenu-section");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			mount_component(soundsettings, div, null);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const soundsettings_changes = {};
+			if (dirty[0] & /*flagData*/ 2) soundsettings_changes.flagData = /*flagData*/ ctx[1];
+			soundsettings.$set(soundsettings_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(soundsettings.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			transition_out(soundsettings.$$.fragment, local);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			destroy_component(soundsettings);
+			if (detaching && div_transition) div_transition.end();
+		}
+	};
+}
+
+// (230:16) {#if !animationDisabled && isCustomized}
+function create_if_block$5(ctx) {
+	let current_block_type_index;
+	let if_block0;
+	let t;
+	let if_block1_anchor;
+	let current;
+	const if_block_creators = [create_if_block_2$3, create_else_block$1];
+	const if_blocks = [];
+
+	function select_block_type(ctx, dirty) {
+		if (/*animType*/ ctx[5] === "preset") return 0;
+		return 1;
+	}
+
+	current_block_type_index = select_block_type(ctx);
+	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+	let if_block1 = /*animType*/ ctx[5] === "static" && create_if_block_1$5(ctx);
+
+	return {
+		c() {
+			if_block0.c();
+			t = space();
+			if (if_block1) if_block1.c();
+			if_block1_anchor = empty();
+		},
+		m(target, anchor) {
+			if_blocks[current_block_type_index].m(target, anchor);
+			insert(target, t, anchor);
+			if (if_block1) if_block1.m(target, anchor);
+			insert(target, if_block1_anchor, anchor);
+			current = true;
+		},
+		p(ctx, dirty) {
+			let previous_block_index = current_block_type_index;
+			current_block_type_index = select_block_type(ctx);
+
+			if (current_block_type_index === previous_block_index) {
+				if_blocks[current_block_type_index].p(ctx, dirty);
+			} else {
+				group_outros();
+
+				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+					if_blocks[previous_block_index] = null;
+				});
+
+				check_outros();
+				if_block0 = if_blocks[current_block_type_index];
+
+				if (!if_block0) {
+					if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+					if_block0.c();
+				} else {
+					if_block0.p(ctx, dirty);
+				}
+
+				transition_in(if_block0, 1);
+				if_block0.m(t.parentNode, t);
+			}
+
+			if (/*animType*/ ctx[5] === "static") {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+
+					if (dirty[0] & /*animType*/ 32) {
+						transition_in(if_block1, 1);
+					}
+				} else {
+					if_block1 = create_if_block_1$5(ctx);
+					if_block1.c();
+					transition_in(if_block1, 1);
+					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+				}
+			} else if (if_block1) {
+				group_outros();
+
+				transition_out(if_block1, 1, 1, () => {
+					if_block1 = null;
+				});
+
+				check_outros();
+			}
+		},
+		i(local) {
+			if (current) return;
+			transition_in(if_block0);
+			transition_in(if_block1);
+			current = true;
+		},
+		o(local) {
+			transition_out(if_block0);
+			transition_out(if_block1);
+			current = false;
+		},
+		d(detaching) {
+			if_blocks[current_block_type_index].d(detaching);
+			if (detaching) detach(t);
+			if (if_block1) if_block1.d(detaching);
+			if (detaching) detach(if_block1_anchor);
+		}
+	};
+}
+
+// (233:24) {:else}
+function create_else_block$1(ctx) {
+	let div;
+	let primarysection;
+	let current;
+
+	primarysection = new PrimarySection({
+			props: {
+				animTypeSwitched: /*animTypeSwitched*/ ctx[9],
+				animType: /*animType*/ ctx[5],
+				disablePlayOn,
+				flagData: /*flagData*/ ctx[1]
+			}
+		});
+
+	return {
+		c() {
+			div = element("div");
+			create_component(primarysection.$$.fragment);
+			attr(div, "class", "aaMenu-section");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			mount_component(primarysection, div, null);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const primarysection_changes = {};
+			if (dirty[0] & /*animTypeSwitched*/ 512) primarysection_changes.animTypeSwitched = /*animTypeSwitched*/ ctx[9];
+			if (dirty[0] & /*animType*/ 32) primarysection_changes.animType = /*animType*/ ctx[5];
+			if (dirty[0] & /*flagData*/ 2) primarysection_changes.flagData = /*flagData*/ ctx[1];
+			primarysection.$set(primarysection_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(primarysection.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(primarysection.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			destroy_component(primarysection);
+		}
+	};
+}
+
+// (231:24) {#if animType === "preset"}
+function create_if_block_2$3(ctx) {
+	let presetmenu;
+	let current;
+
+	presetmenu = new PresetShell({
+			props: {
+				animTypeSwitched: /*animTypeSwitched*/ ctx[9],
+				flagData: /*flagData*/ ctx[1],
+				presetType: /*presetType*/ ctx[6]
+			}
+		});
+
+	return {
+		c() {
+			create_component(presetmenu.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(presetmenu, target, anchor);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const presetmenu_changes = {};
+			if (dirty[0] & /*animTypeSwitched*/ 512) presetmenu_changes.animTypeSwitched = /*animTypeSwitched*/ ctx[9];
+			if (dirty[0] & /*flagData*/ 2) presetmenu_changes.flagData = /*flagData*/ ctx[1];
+			if (dirty[0] & /*presetType*/ 64) presetmenu_changes.presetType = /*presetType*/ ctx[6];
+			presetmenu.$set(presetmenu_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(presetmenu.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(presetmenu.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(presetmenu, detaching);
+		}
+	};
+}
+
+// (243:20) {#if animType === "static"}
+function create_if_block_1$5(ctx) {
+	let div;
+	let explosionsettings;
+	let current;
+	explosionsettings = new Explosions({ props: { flagData: /*flagData*/ ctx[1] } });
+
+	return {
+		c() {
+			div = element("div");
+			create_component(explosionsettings.$$.fragment);
+			attr(div, "class", "aaMenu-section");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			mount_component(explosionsettings, div, null);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const explosionsettings_changes = {};
+			if (dirty[0] & /*flagData*/ 2) explosionsettings_changes.flagData = /*flagData*/ ctx[1];
+			explosionsettings.$set(explosionsettings_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(explosionsettings.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(explosionsettings.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			destroy_component(explosionsettings);
+		}
+	};
+}
+
+// (111:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
+function create_default_slot$1(ctx) {
+	let form_1;
+	let div2;
+	let div1;
+	let div0;
+	let button0;
+	let i;
+	let t0;
+	let t1_value = localize("AUTOANIM.primary") + "";
+	let t1;
+	let t2;
+	let t3_value = localize("AUTOANIM.animation") + "";
+	let t3;
+	let div2_transition;
+	let t4;
+	let div4;
+	let div3;
+	let generalsettings;
+	let updating_animationDisabled;
+	let updating_isCustomized;
+	let updating_enableMacro;
+	let t5;
+	let t6;
+	let div3_transition;
+	let t7;
+	let t8;
+	let t9;
+	let div4_transition;
+	let t10;
+	let div8;
+	let div7;
+	let div5;
+	let button1;
+	let t12;
+	let div6;
+	let button2;
+	let current;
+	let mounted;
+	let dispose;
+
+	function generalsettings_animationDisabled_binding(value) {
+		/*generalsettings_animationDisabled_binding*/ ctx[20](value);
+	}
+
+	function generalsettings_isCustomized_binding(value) {
+		/*generalsettings_isCustomized_binding*/ ctx[21](value);
+	}
+
+	function generalsettings_enableMacro_binding(value) {
+		/*generalsettings_enableMacro_binding*/ ctx[22](value);
+	}
+
+	let generalsettings_props = {
+		autoCheck: /*autoCheck*/ ctx[11],
+		disableAmmo,
+		flagData: /*flagData*/ ctx[1]
+	};
+
+	if (/*animationDisabled*/ ctx[2] !== void 0) {
+		generalsettings_props.animationDisabled = /*animationDisabled*/ ctx[2];
+	}
+
+	if (/*isCustomized*/ ctx[3] !== void 0) {
+		generalsettings_props.isCustomized = /*isCustomized*/ ctx[3];
+	}
+
+	if (/*enableMacro*/ ctx[4] !== void 0) {
+		generalsettings_props.enableMacro = /*enableMacro*/ ctx[4];
+	}
+
+	generalsettings = new GeneralSettings({ props: generalsettings_props });
+	binding_callbacks.push(() => bind(generalsettings, 'animationDisabled', generalsettings_animationDisabled_binding));
+	binding_callbacks.push(() => bind(generalsettings, 'isCustomized', generalsettings_isCustomized_binding));
+	binding_callbacks.push(() => bind(generalsettings, 'enableMacro', generalsettings_enableMacro_binding));
+	let if_block0 = /*autoCheck*/ ctx[11] && !/*isCustomized*/ ctx[3] && !/*animationDisabled*/ ctx[2] && create_if_block_7$1(ctx);
+	let if_block1 = /*isCustomized*/ ctx[3] && create_if_block_5$2(ctx);
+	let if_block2 = /*enableMacro*/ ctx[4] && create_if_block_4$2(ctx);
+	let if_block3 = /*showSound*/ ctx[7] && create_if_block_3$3(ctx);
+	let if_block4 = !/*animationDisabled*/ ctx[2] && /*isCustomized*/ ctx[3] && create_if_block$5(ctx);
+
+	return {
+		c() {
+			form_1 = element("form");
+			div2 = element("div");
+			div1 = element("div");
+			div0 = element("div");
+			button0 = element("button");
+			i = element("i");
+			t0 = space();
+			t1 = text(t1_value);
+			t2 = space();
+			t3 = text(t3_value);
+			t4 = space();
+			div4 = element("div");
+			div3 = element("div");
+			create_component(generalsettings.$$.fragment);
+			t5 = space();
+			if (if_block0) if_block0.c();
+			t6 = space();
+			if (if_block1) if_block1.c();
+			t7 = space();
+			if (if_block2) if_block2.c();
+			t8 = space();
+			if (if_block3) if_block3.c();
+			t9 = space();
+			if (if_block4) if_block4.c();
+			t10 = space();
+			div8 = element("div");
+			div7 = element("div");
+			div5 = element("div");
+			button1 = element("button");
+			button1.textContent = "Submit";
+			t12 = space();
+			div6 = element("div");
+			button2 = element("button");
+			button2.textContent = "Close and Submit";
+			attr(i, "class", "fas fa-bomb");
+			attr(button0, "class", "selected svelte-1rces1x");
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "1 / 2");
+			set_style(div0, "grid-column", "2 / 3");
+			attr(div1, "class", "aa-tabs svelte-1rces1x");
+			attr(div2, "class", "aaTopSection svelte-1rces1x");
+			set_style(div2, "margin-top", "5px");
+			attr(div3, "class", "aaMenu-section");
+			attr(div4, "class", "aaMidSection svelte-1rces1x");
+			attr(button1, "class", "footer-button svelte-1rces1x");
+			attr(button1, "type", "submit");
+			attr(div5, "class", "flexcol");
+			set_style(div5, "grid-row", "1/2");
+			set_style(div5, "grid-column", "1/2");
+			attr(button2, "class", "footer-button svelte-1rces1x");
+			attr(div6, "class", "flexcol");
+			set_style(div6, "grid-row", "1/2");
+			set_style(div6, "grid-column", "2/3");
+			attr(div7, "class", "aa-submit svelte-1rces1x");
+			attr(div8, "class", "aaBottomSection svelte-1rces1x");
+			set_style(div8, "margin-bottom", "5px");
+			attr(form_1, "autocomplete", "off");
+			attr(form_1, "id", "item-menu-aa");
+			attr(form_1, "class", "overview");
+		},
+		m(target, anchor) {
+			insert(target, form_1, anchor);
+			append(form_1, div2);
+			append(div2, div1);
+			append(div1, div0);
+			append(div0, button0);
+			append(button0, i);
+			append(button0, t0);
+			append(button0, t1);
+			append(button0, t2);
+			append(button0, t3);
+			append(form_1, t4);
+			append(form_1, div4);
+			append(div4, div3);
+			mount_component(generalsettings, div3, null);
+			append(div3, t5);
+			if (if_block0) if_block0.m(div3, null);
+			append(div3, t6);
+			if (if_block1) if_block1.m(div3, null);
+			append(div4, t7);
+			if (if_block2) if_block2.m(div4, null);
+			append(div4, t8);
+			if (if_block3) if_block3.m(div4, null);
+			append(div4, t9);
+			if (if_block4) if_block4.m(div4, null);
+			append(form_1, t10);
+			append(form_1, div8);
+			append(div8, div7);
+			append(div7, div5);
+			append(div5, button1);
+			append(div7, t12);
+			append(div7, div6);
+			append(div6, button2);
+			/*form_1_binding*/ ctx[26](form_1);
+			current = true;
+
+			if (!mounted) {
+				dispose = [
+					listen(button1, "click", prevent_default(/*applyFlags*/ ctx[12])),
+					listen(button2, "click", prevent_default(/*closeApp*/ ctx[13])),
+					listen(form_1, "submit", prevent_default(/*submit_handler*/ ctx[19]))
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			const generalsettings_changes = {};
+			if (dirty[0] & /*flagData*/ 2) generalsettings_changes.flagData = /*flagData*/ ctx[1];
+
+			if (!updating_animationDisabled && dirty[0] & /*animationDisabled*/ 4) {
+				updating_animationDisabled = true;
+				generalsettings_changes.animationDisabled = /*animationDisabled*/ ctx[2];
+				add_flush_callback(() => updating_animationDisabled = false);
+			}
+
+			if (!updating_isCustomized && dirty[0] & /*isCustomized*/ 8) {
+				updating_isCustomized = true;
+				generalsettings_changes.isCustomized = /*isCustomized*/ ctx[3];
+				add_flush_callback(() => updating_isCustomized = false);
+			}
+
+			if (!updating_enableMacro && dirty[0] & /*enableMacro*/ 16) {
+				updating_enableMacro = true;
+				generalsettings_changes.enableMacro = /*enableMacro*/ ctx[4];
+				add_flush_callback(() => updating_enableMacro = false);
+			}
+
+			generalsettings.$set(generalsettings_changes);
+
+			if (/*autoCheck*/ ctx[11] && !/*isCustomized*/ ctx[3] && !/*animationDisabled*/ ctx[2]) {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+
+					if (dirty[0] & /*isCustomized, animationDisabled*/ 12) {
+						transition_in(if_block0, 1);
+					}
+				} else {
+					if_block0 = create_if_block_7$1(ctx);
+					if_block0.c();
+					transition_in(if_block0, 1);
+					if_block0.m(div3, t6);
+				}
+			} else if (if_block0) {
+				group_outros();
+
+				transition_out(if_block0, 1, 1, () => {
+					if_block0 = null;
+				});
+
+				check_outros();
+			}
+
+			if (/*isCustomized*/ ctx[3]) {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+
+					if (dirty[0] & /*isCustomized*/ 8) {
+						transition_in(if_block1, 1);
+					}
+				} else {
+					if_block1 = create_if_block_5$2(ctx);
+					if_block1.c();
+					transition_in(if_block1, 1);
+					if_block1.m(div3, null);
+				}
+			} else if (if_block1) {
+				group_outros();
+
+				transition_out(if_block1, 1, 1, () => {
+					if_block1 = null;
+				});
+
+				check_outros();
+			}
+
+			if (/*enableMacro*/ ctx[4]) {
+				if (if_block2) {
+					if_block2.p(ctx, dirty);
+
+					if (dirty[0] & /*enableMacro*/ 16) {
+						transition_in(if_block2, 1);
+					}
+				} else {
+					if_block2 = create_if_block_4$2(ctx);
+					if_block2.c();
+					transition_in(if_block2, 1);
+					if_block2.m(div4, t8);
+				}
+			} else if (if_block2) {
+				group_outros();
+
+				transition_out(if_block2, 1, 1, () => {
+					if_block2 = null;
+				});
+
+				check_outros();
+			}
+
+			if (/*showSound*/ ctx[7]) {
+				if (if_block3) {
+					if_block3.p(ctx, dirty);
+
+					if (dirty[0] & /*showSound*/ 128) {
+						transition_in(if_block3, 1);
+					}
+				} else {
+					if_block3 = create_if_block_3$3(ctx);
+					if_block3.c();
+					transition_in(if_block3, 1);
+					if_block3.m(div4, t9);
+				}
+			} else if (if_block3) {
+				group_outros();
+
+				transition_out(if_block3, 1, 1, () => {
+					if_block3 = null;
+				});
+
+				check_outros();
+			}
+
+			if (!/*animationDisabled*/ ctx[2] && /*isCustomized*/ ctx[3]) {
+				if (if_block4) {
+					if_block4.p(ctx, dirty);
+
+					if (dirty[0] & /*animationDisabled, isCustomized*/ 12) {
+						transition_in(if_block4, 1);
+					}
+				} else {
+					if_block4 = create_if_block$5(ctx);
+					if_block4.c();
+					transition_in(if_block4, 1);
+					if_block4.m(div4, null);
+				}
+			} else if (if_block4) {
+				group_outros();
+
+				transition_out(if_block4, 1, 1, () => {
+					if_block4 = null;
+				});
+
+				check_outros();
+			}
+		},
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, {}, true);
+				div2_transition.run(1);
+			});
+
+			transition_in(generalsettings.$$.fragment, local);
+			transition_in(if_block0);
+			transition_in(if_block1);
+
+			add_render_callback(() => {
+				if (!div3_transition) div3_transition = create_bidirectional_transition(div3, fade, {}, true);
+				div3_transition.run(1);
+			});
+
+			transition_in(if_block2);
+			transition_in(if_block3);
+			transition_in(if_block4);
+
+			add_render_callback(() => {
+				if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, {}, true);
+				div4_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, {}, false);
+			div2_transition.run(0);
+			transition_out(generalsettings.$$.fragment, local);
+			transition_out(if_block0);
+			transition_out(if_block1);
+			if (!div3_transition) div3_transition = create_bidirectional_transition(div3, fade, {}, false);
+			div3_transition.run(0);
+			transition_out(if_block2);
+			transition_out(if_block3);
+			transition_out(if_block4);
+			if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, {}, false);
+			div4_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(form_1);
+			if (detaching && div2_transition) div2_transition.end();
+			destroy_component(generalsettings);
+			if (if_block0) if_block0.d();
+			if (if_block1) if_block1.d();
+			if (detaching && div3_transition) div3_transition.end();
+			if (if_block2) if_block2.d();
+			if (if_block3) if_block3.d();
+			if (if_block4) if_block4.d();
+			if (detaching && div4_transition) div4_transition.end();
+			/*form_1_binding*/ ctx[26](null);
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
+function create_fragment$8(ctx) {
+	let applicationshell;
+	let updating_elementRoot;
+	let current;
+
+	function applicationshell_elementRoot_binding(value) {
+		/*applicationshell_elementRoot_binding*/ ctx[27](value);
+	}
+
+	let applicationshell_props = {
+		transition: scale,
+		transitionOptions: { duration: 500 },
+		stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+		$$slots: { default: [create_default_slot$1] },
+		$$scope: { ctx }
+	};
+
+	if (/*elementRoot*/ ctx[0] !== void 0) {
+		applicationshell_props.elementRoot = /*elementRoot*/ ctx[0];
+	}
+
+	applicationshell = new ApplicationShell({ props: applicationshell_props });
+	binding_callbacks.push(() => bind(applicationshell, 'elementRoot', applicationshell_elementRoot_binding));
+
+	return {
+		c() {
+			create_component(applicationshell.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(applicationshell, target, anchor);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const applicationshell_changes = {};
+
+			if (dirty[0] & /*form, flagData, animType, animTypeSwitched, presetType, animationDisabled, isCustomized, showSound, enableMacro*/ 1022 | dirty[1] & /*$$scope*/ 1) {
+				applicationshell_changes.$$scope = { dirty, ctx };
+			}
+
+			if (!updating_elementRoot && dirty[0] & /*elementRoot*/ 1) {
+				updating_elementRoot = true;
+				applicationshell_changes.elementRoot = /*elementRoot*/ ctx[0];
+				add_flush_callback(() => updating_elementRoot = false);
+			}
+
+			applicationshell.$set(applicationshell_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(applicationshell.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(applicationshell.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(applicationshell, detaching);
+		}
+	};
+}
+
+const disableAmmo = true;
+const disablePlayOn = true;
+
+function instance$8($$self, $$props, $$invalidate) {
+	let { elementRoot } = $$props;
+	let { item } = $$props;
+	let { itemFlags } = $$props;
+	const flags = itemFlags.autoanimations || {};
+	const oldName = item.name || item.sourceName;
+	const autoCheck = AutorecFunctions._checkAutoRec(oldName);
+	const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
+	let animationDisabled = flags.killAnim;
+	let isCustomized = flags.override;
+
+	const flagData = {
+		killAnim: flags.killAnim,
+		animLevel: flags.animLevel,
+		override: flags.override,
+		animType: flags.animType,
+		animation: flags.animation,
+		color: flags.color,
+		version: flags.version
+		? flags.version
+		: Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0],
+		options: flags.options || {},
+		explosions: flags.explosions || {},
+		audio: flags.audio || {},
+		autoOverride: flags.autoOverride || {},
+		macro: flags.macro || {},
+		levels3d: flags.levels3d || {},
+		sourceToken: flags.sourceToken || {},
+		targetToken: flags.targetToken || {},
+		meleeSwitch: flags.meleeSwitch || {},
+		preset: flags.preset || {}
+	};
+
+	const preset = flagData.preset;
+	let enableMacro;
+	let showSound;
+	let menuType;
+	let form = void 0;
+	const { application } = getContext("external");
+
+	async function applyFlags() {
+		const updatedFlags = {
+			data: { flags: { autoanimations: flagData } }
+		};
+
+		await item.update(updatedFlags.data);
+	}
+
+	async function closeApp() {
+		const updatedFlags = {
+			data: { flags: { autoanimations: flagData } }
+		};
+
+		await item.update(updatedFlags.data);
+		application.close();
+	}
+
+	// Sets Initial animType for Menu - Assigns to Flag when updated
+	let animType = flagData.animType || "static";
+
+	let presetType = preset.presetType;
+	let animTypeSwitched = false;
+
+	async function typeSwitch() {
+		$$invalidate(9, animTypeSwitched = true);
+		await wait(150);
+		$$invalidate(9, animTypeSwitched = false);
+	}
+
+	function submit_handler(event) {
+		bubble.call(this, $$self, event);
+	}
+
+	function generalsettings_animationDisabled_binding(value) {
+		animationDisabled = value;
+		$$invalidate(2, animationDisabled);
+	}
+
+	function generalsettings_isCustomized_binding(value) {
+		isCustomized = value;
+		$$invalidate(3, isCustomized);
+	}
+
+	function generalsettings_enableMacro_binding(value) {
+		enableMacro = value;
+		$$invalidate(4, enableMacro);
+	}
+
+	function select_change_handler() {
+		animType = select_value(this);
+		$$invalidate(5, animType);
+	}
+
+	const change_handler = () => typeSwitch();
+
+	function select_change_handler_1() {
+		presetType = select_value(this);
+		$$invalidate(6, presetType);
+	}
+
+	function form_1_binding($$value) {
+		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+			form = $$value;
+			$$invalidate(8, form);
+		});
+	}
+
+	function applicationshell_elementRoot_binding(value) {
+		elementRoot = value;
+		$$invalidate(0, elementRoot);
+	}
+
+	$$self.$$set = $$props => {
+		if ('elementRoot' in $$props) $$invalidate(0, elementRoot = $$props.elementRoot);
+		if ('item' in $$props) $$invalidate(15, item = $$props.item);
+		if ('itemFlags' in $$props) $$invalidate(16, itemFlags = $$props.itemFlags);
+	};
+
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty[0] & /*isCustomized*/ 8) {
+			$$invalidate(3, isCustomized);
+		}
+
+		if ($$self.$$.dirty[0] & /*enableMacro*/ 16) {
+			$$invalidate(4, enableMacro);
+		}
+
+		if ($$self.$$.dirty[0] & /*animationDisabled*/ 4) {
+			$$invalidate(7, showSound = animationDisabled ? true : false);
+		}
+
+		if ($$self.$$.dirty[0] & /*menuType*/ 262144) {
+			$$invalidate(18, menuType);
+		}
+
+		if ($$self.$$.dirty[0] & /*animType*/ 32) {
+			{
+				$$invalidate(5, animType);
+				$$invalidate(1, flagData.animType = animType, flagData);
+			}
+		}
+
+		if ($$self.$$.dirty[0] & /*presetType*/ 64) {
+			$$invalidate(6, presetType = preset.presetType = presetType);
+		}
+	};
+
+	return [
+		elementRoot,
+		flagData,
+		animationDisabled,
+		isCustomized,
+		enableMacro,
+		animType,
+		presetType,
+		showSound,
+		form,
+		animTypeSwitched,
+		oldName,
+		autoCheck,
+		applyFlags,
+		closeApp,
+		typeSwitch,
+		item,
+		itemFlags,
+		flags,
+		menuType,
+		submit_handler,
+		generalsettings_animationDisabled_binding,
+		generalsettings_isCustomized_binding,
+		generalsettings_enableMacro_binding,
+		select_change_handler,
+		change_handler,
+		select_change_handler_1,
+		form_1_binding,
+		applicationshell_elementRoot_binding
+	];
+}
+
+class AEMenuAppShell extends SvelteComponent {
+	constructor(options) {
+		super();
+
+		init(
+			this,
+			options,
+			instance$8,
+			create_fragment$8,
+			safe_not_equal,
+			{
+				elementRoot: 0,
+				item: 15,
+				itemFlags: 16,
+				flags: 17,
+				flagData: 1
+			},
+			null,
+			[-1, -1]
+		);
+	}
+
+	get elementRoot() {
+		return this.$$.ctx[0];
+	}
+
+	set elementRoot(elementRoot) {
+		this.$$set({ elementRoot });
+		flush();
+	}
+
+	get item() {
+		return this.$$.ctx[15];
+	}
+
+	set item(item) {
+		this.$$set({ item });
+		flush();
+	}
+
+	get itemFlags() {
+		return this.$$.ctx[16];
+	}
+
+	set itemFlags(itemFlags) {
+		this.$$set({ itemFlags });
+		flush();
+	}
+
+	get flags() {
+		return this.$$.ctx[17];
+	}
+
+	get flagData() {
+		return this.$$.ctx[1];
+	}
+}
+
+class aaAutoRecognition extends FormApplication {
+  constructor(object = {}, options) {
+    super(object, options);
+  }
+
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      template: './modules/autoanimations/src/custom-recognition/settings.html',
+      id: 'automatic-recognition',
+      title: "Automatic Recognition Settings",
+      resizable: true,
+      width: 700,
+      height: "auto",
+      closeOnSubmit: true,
+      tabs: [{
+        navSelector: ".tabs",
+        contentSelector: "form",
+        initial: "name"
+      }]
+    });
+  }
+
+  getSettingsData() {
+    let settingsData = {
+      "aaAutorec": game.settings.get("autoanimations", "aaAutorec")
+    };
+    return settingsData;
+  }
+
+  getData() {
+    let data = super.getData();
+    data.menuTypes = aaTypeMenu, data.menuNames = aaNameMenu, data.menuVariants = aaVariantMenu, data.menuColors = aaColorMenu, data.currentAutoVersion = Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
+    data.settings = this.getSettingsData();
+    data.show = false;
+    data.system = {
+      id: game.system.id,
+      title: game.system.data.title
+    };
+    return data;
+  }
+
+  activateListeners(html) {
+    var _this = this;
+
+    super.activateListeners(html);
+    html.find('button.add-autorecog-melee').click(this._addMelee.bind(this));
+    html.find('button.add-autorecog-range').click(this._addRange.bind(this));
+    html.find('button.add-autorecog-static').click(this._addStatic.bind(this));
+    html.find('button.add-autorecog-templates').click(this._addTemplate.bind(this));
+    html.find('button.add-autorecog-auras').click(this._addAura.bind(this));
+    html.find('button.add-autorecog-preset').click(this._addPreset.bind(this));
+    html.find('button.add-autorecog-aefx').click(this._addAefx.bind(this));
+    html.find('.duplicate-melee').click(this._duplicateMelee.bind(this));
+    html.find('.duplicate-range').click(this._duplicateRange.bind(this));
+    html.find('.duplicate-static').click(this._duplicateStatic.bind(this));
+    html.find('.duplicate-templates').click(this._duplicateTemplate.bind(this));
+    html.find('.duplicate-auras').click(this._duplicateAura.bind(this));
+    html.find('.duplicate-preset').click(this._duplicatePreset.bind(this));
+    html.find('.duplicate-aefx').click(this._duplicateAefx.bind(this)); //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
+
+    html.find('.aa-autorecognition input[type="checkbox"]').change(evt => {
+      this.submit({
+        preventClose: true
+      }).then(() => this.render());
+    });
+    html.find('.aa-autorec-submit-open').click(evt => {
+      this.submit({
+        preventClose: true
+      }).then(() => this.render());
+    }); //html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
+
+    html.find('.remove-autorecog').click(this._onRemoveOverride.bind(this));
+    html.on('click', '.enableMacro', evt => {
+      var change = $(evt.currentTarget).closest('.form-fields').find('.showMacro').is(":checked");
+
+      if (change === true) {
+        $(evt.currentTarget).closest('.form-fields').find('.showMacro').prop('checked', false);
+      } else {
+        $(evt.currentTarget).closest('.form-fields').find('.showMacro').prop('checked', true);
+      }
+
+      this.submit({
+        preventClose: true
+      }).then(() => this.render());
+    });
+    html.on('click', '.showSoundOnly', evt => {
+      var change = $(evt.currentTarget).closest('.form-fields').find('.showSound').is(":checked");
+
+      if (change === true) {
+        $(evt.currentTarget).closest('.form-fields').find('.showSound').prop('checked', false);
+      } else {
+        $(evt.currentTarget).closest('.form-fields').find('.showSound').prop('checked', true);
+      }
+
+      this.submit({
+        preventClose: true
+      }).then(() => this.render());
+    });
+    html.find('.aa-autorecognition select').change(evt => {
+      this.submit({
+        preventClose: true
+      }).then(() => this.render());
+    });
+    html.on('click', '.collapse-button', evt => {
+      var change = $(evt.currentTarget).closest('.form-fields').find('.hideme').is(":checked");
+
+      if (change === true) {
+        $(evt.currentTarget).closest('.form-fields').find('.hideme').prop('checked', false);
+      } else {
+        $(evt.currentTarget).closest('.form-fields').find('.hideme').prop('checked', true);
+      }
+
+      this.submit({
+        preventClose: true
+      }).then(() => this.render());
+    });
+    html.on('click', '.button-2d', evt => {
+      var change = $(evt.currentTarget).closest('.form-fields').find('.anim2d').is(":checked");
+
+      if (change === true) {
+        $(evt.currentTarget).closest('.form-fields').find('.anim2d').prop('checked', false);
+      } else {
+        $(evt.currentTarget).closest('.form-fields').find('.anim2d').prop('checked', true);
+      }
+
+      this.submit({
+        preventClose: true
+      }).then(() => this.render());
+    });
+    html.on('keyup', '#aatest', this._onSearch.bind(this)); //html.on('focus', '.aa-autorecognition', this._loadSearch.bind(this))
+
+    html.on(this._loadSearch());
+    html.on('open', '#aatest', evt => {
+      evt.preventDefault();
+    });
+    html.find("#aa-autorec-export").click(AutorecFunctions._exportAutorecToJSON);
+    html.find("#aa-autorec-import").on("click", async function () {
+      if (await importFromJSONDialog()) {
+        _this.close();
+      }
+    });
+    html.find("#aa-autorec-merge").on("click", async function () {
+      if (await importJSONAndMerge()) {
+        _this.close();
+      }
+    });
+    html.find('.particles input[type="color"]').change(evt => {
+      this.submit({
+        preventClose: true
+      }).then(() => this.render());
+    });
+    html.find('.particles input[type="checkbox"]').change(evt => {
+      this.submit({
+        preventClose: true
+      }).then(() => this.render());
+    });
+    html.on('click', '.sort-menu', async function (evt) {
+      evt.preventDefault();
+      await _this.sortAutorec();
+
+      _this.render();
+    });
+  }
+
+  _loadSearch(evt) {
+    var _settings$aaAutorec, _settings$aaAutorec$s;
+
+    //debugger
+    const settings = this.getSettingsData();
+    const search = (_settings$aaAutorec = settings.aaAutorec) === null || _settings$aaAutorec === void 0 ? void 0 : (_settings$aaAutorec$s = _settings$aaAutorec.search) === null || _settings$aaAutorec$s === void 0 ? void 0 : _settings$aaAutorec$s.toLowerCase();
+    this.element.find('.aa-search').each((index, element) => {
+      const text = $(element).find('.auto-name').val().toLowerCase();
+
+      if (text.includes(search)) {
+        $(element).show(250);
+      } else {
+        $(element).hide();
+      }
+    });
+  }
+
+  _onSearch(evt) {
+    const search = $(evt.currentTarget).val().toLowerCase();
+    this.element.find('.aa-search').each((index, element) => {
+      const text = $(element).find('.auto-name').val().toLowerCase();
+
+      if (text.includes(search)) {
+        $(element).show(250);
+      } else {
+        $(element).hide();
+      }
+    });
+  }
+
+  async _addMelee(event) {
+    event.preventDefault();
+    let idx = 0;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
+    const last = entries[entries.length - 1];
+
+    if (last) {
+      idx = last.dataset.idx + 1;
+    }
+
+    let updateData = {}; //updateData[`aaAutorec.melee.${idx}.repeat`] = 1;
+    //updateData[`aaAutorec.melee.${idx}.delay`] = 500;
+    //updateData[`aaAutorec.melee.${idx}.scale`] = 1;
+
+    updateData[`aaAutorec.melee.${idx}.below`] = false;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _addRange(event) {
+    event.preventDefault();
+    let idx = 0;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.range-settings');
+    const last = entries[entries.length - 1];
+
+    if (last) {
+      idx = last.dataset.idx + 1;
+    }
+
+    let updateData = {}; //updateData[`aaAutorec.range.${idx}.repeat`] = 1;
+    //updateData[`aaAutorec.range.${idx}.delay`] = 500;
+
+    updateData[`aaAutorec.range.${idx}.below`] = false;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _addStatic(event) {
+    event.preventDefault();
+    let idx = 0;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.static-settings');
+    const last = entries[entries.length - 1];
+
+    if (last) {
+      idx = last.dataset.idx + 1;
+    }
+
+    let updateData = {}; //updateData[`aaAutorec.static.${idx}.repeat`] = 1;
+    //updateData[`aaAutorec.static.${idx}.delay`] = 500;
+    //updateData[`aaAutorec.static.${idx}.scale`] = 1;
+
+    updateData[`aaAutorec.static.${idx}.below`] = false;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _addTemplate(event) {
+    event.preventDefault();
+    let idx = 0;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.templates-settings');
+    const last = entries[entries.length - 1];
+
+    if (last) {
+      idx = last.dataset.idx + 1;
+    }
+
+    let updateData = {}; //updateData[`aaAutorec.templates.${idx}.repeat`] = 1;
+    //updateData[`aaAutorec.templates.${idx}.delay`] = 500;
+
+    updateData[`aaAutorec.templates.${idx}.below`] = false; //updateData[`aaAutorec.templates.${idx}.opacity`] = 0.75;
+
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _addAura(event) {
+    event.preventDefault();
+    let idx = 0;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.auras-settings');
+    const last = entries[entries.length - 1];
+
+    if (last) {
+      idx = last.dataset.idx + 1;
+    }
+
+    let updateData = {};
+    updateData[`aaAutorec.auras.${idx}.tint`] = '#ffffff'; //updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
+    //updateData[`aaAutorec.auras.${idx}.scale`] = 1;
+
+    updateData[`aaAutorec.auras.${idx}.below`] = true;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _addPreset(event) {
+    event.preventDefault();
+    let idx = 0;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.preset-settings');
+    const last = entries[entries.length - 1];
+
+    if (last) {
+      idx = last.dataset.idx + 1;
+    }
+
+    let updateData = {}; //updateData[`aaAutorec.preset.${idx}.scale`] = 1;
+
+    updateData[`aaAutorec.preset.${idx}.below`] = false; //updateData[`aaAutorec.preset.${idx}.anchorX`] = 0.5;
+    //updateData[`aaAutorec.preset.${idx}.anchorY`] = 0.5;
+
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _addAefx(event) {
+    event.preventDefault();
+    let idx = 0;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.aefx-settings');
+    const last = entries[entries.length - 1];
+
+    if (last) {
+      idx = last.dataset.idx + 1;
+    }
+
+    let updateData = {};
+    updateData[`aaAutorec.aefx.${idx}.below`] = false;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _onRemoveOverride(event) {
+    event.preventDefault();
+    const data = await game.settings.get('autoanimations', 'aaAutorec');
+    let idx = event.target.dataset.idx;
+    delete data[event.target.classList[3]][idx];
+    const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset', 'aefx'];
+
+    for (let i = 0; i < menuType.length; i++) {
+      let compacted = {};
+
+      try {
+        Object.values(data[menuType[i]]);
+      } catch (exception) {
+        continue;
+      }
+
+      Object.values(data[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
+      data[menuType[i]] = compacted;
+    }
+
+    await game.settings.set('autoanimations', "aaAutorec", data);
+    this.render();
+  }
+
+  async _duplicateMelee(event) {
+    event.preventDefault();
+    let currentIDX = event.target.dataset.idx;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
+    const last = entries[entries.length - 1];
+    let idx = last.dataset.idx + 1;
+    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    let newSet = autorecSettings.melee[currentIDX];
+    newSet.name = newSet.name + " (COPY)";
+    let updateData = {};
+    updateData[`aaAutorec.melee.${idx}`] = newSet;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _duplicateRange(event) {
+    event.preventDefault();
+    let currentIDX = event.target.dataset.idx;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.range-settings');
+    const last = entries[entries.length - 1];
+    let idx = last.dataset.idx + 1;
+    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    let newSet = autorecSettings.range[currentIDX];
+    newSet.name = newSet.name + " (COPY)";
+    let updateData = {};
+    updateData[`aaAutorec.range.${idx}`] = newSet;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _duplicateStatic(event) {
+    event.preventDefault();
+    let currentIDX = event.target.dataset.idx;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.static-settings');
+    const last = entries[entries.length - 1];
+    let idx = last.dataset.idx + 1;
+    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    let newSet = autorecSettings.static[currentIDX];
+    newSet.name = newSet.name + " (COPY)";
+    let updateData = {};
+    updateData[`aaAutorec.static.${idx}`] = newSet;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _duplicateTemplate(event) {
+    event.preventDefault();
+    let currentIDX = event.target.dataset.idx;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.templates-settings');
+    const last = entries[entries.length - 1];
+    let idx = last.dataset.idx + 1;
+    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    let newSet = autorecSettings.templates[currentIDX];
+    newSet.name = newSet.name + " (COPY)";
+    let updateData = {};
+    updateData[`aaAutorec.templates.${idx}`] = newSet;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _duplicateAura(event) {
+    event.preventDefault();
+    let currentIDX = event.target.dataset.idx;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.auras-settings');
+    const last = entries[entries.length - 1];
+    let idx = last.dataset.idx + 1;
+    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    let newSet = autorecSettings.auras[currentIDX];
+    newSet.name = newSet.name + " (COPY)";
+    let updateData = {};
+    updateData[`aaAutorec.auras.${idx}`] = newSet;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _duplicatePreset(event) {
+    event.preventDefault();
+    let currentIDX = event.target.dataset.idx;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.preset-settings');
+    const last = entries[entries.length - 1];
+    let idx = last.dataset.idx + 1;
+    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    let newSet = autorecSettings.preset[currentIDX];
+    newSet.name = newSet.name + " (COPY)";
+    let updateData = {};
+    updateData[`aaAutorec.preset.${idx}`] = newSet;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+
+  async _duplicateAefx(event) {
+    event.preventDefault();
+    let currentIDX = event.target.dataset.idx;
+    const entries = event.target.closest('div.tab').querySelectorAll('div.aefx-settings');
+    const last = entries[entries.length - 1];
+    let idx = last.dataset.idx + 1;
+    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+    let newSet = autorecSettings.aefx[currentIDX];
+    newSet.name = newSet.name + " (COPY)";
+    let updateData = {};
+    updateData[`aaAutorec.aefx.${idx}`] = newSet;
+    await this._onSubmit(event, {
+      updateData: updateData,
+      preventClose: true
+    });
+    this.render();
+  }
+  /** @override */
+
+
+  async _updateObject(_, formData) {
+    const data = expandObject(formData).aaAutorec;
+    const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset', 'aefx'];
+
+    for (let i = 0; i < menuType.length; i++) {
+      let compacted = {};
+
+      try {
+        Object.values(data[menuType[i]]);
+      } catch (exception) {
+        continue;
+      }
+
+      Object.values(data[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
+      data[menuType[i]] = compacted;
+    }
+
+    const oldData = await game.settings.get('autoanimations', 'aaAutorec');
+    const newData = mergeObject(oldData, data);
+    await game.settings.set('autoanimations', "aaAutorec", newData);
+  }
+
+  async sortAutorec() {
+    const autoRec = await game.settings.get('autoanimations', 'aaAutorec');
+    const sortedMenu = {};
+    sortedMenu.version = autoRec.version;
+    sortedMenu.search = autoRec.search;
+    sortedMenu.melee = autoRec.melee ? await this.sortMenu(autoRec.melee) : {};
+    sortedMenu.range = autoRec.range ? await this.sortMenu(autoRec.range) : {};
+    sortedMenu.static = autoRec.static ? await this.sortMenu(autoRec.static) : {};
+    sortedMenu.templates = autoRec.templates ? await this.sortMenu(autoRec.templates) : {};
+    sortedMenu.auras = autoRec.auras ? await this.sortMenu(autoRec.auras) : {};
+    sortedMenu.preset = autoRec.preset ? await this.sortMenu(autoRec.preset) : {};
+    sortedMenu.aefx = autoRec.aefx ? await this.sortMenu(autoRec.aefx) : {};
+    await game.settings.set("autoanimations", "aaAutorec", sortedMenu);
+  }
+
+  async sortMenu(data) {
+    const mergedArray = [];
+    const keys = Object.keys(data);
+    const keyLength = keys.length;
+
+    for (var i = 0; i < keyLength; i++) {
+      var currentObject = data[keys[i]];
+
+      if (!currentObject.name) {
+        break;
+      }
+
+      currentObject.menuSection = keys[i];
+      mergedArray.push(currentObject);
+    }
+
+    mergedArray.sort((a, b) => b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 1);
+    const sortedMenu = {};
+    const newLength = mergedArray.length;
+
+    for (var i = 0; i < newLength; i++) {
+      var currentKey = i.toString();
+      sortedMenu[currentKey] = mergedArray[currentKey];
+    }
+
+    return sortedMenu;
+  }
+
+} // Credit to Tim Poseny of Midi-QOL for the import/export functions for settings
+
+async function importFromJSONDialog() {
+  const content = await renderTemplate("modules/autoanimations/src/custom-recognition/import-data.html", {
+    entity: "autoanimations",
+    name: "aaAutorec"
+  });
+  let dialog = new Promise((resolve, reject) => {
+    new Dialog({
+      title: game.i18n.format("AUTOANIM.menuImport"),
+      content: content,
+      buttons: {
+        import: {
+          icon: '<i class="fas fa-file-import"></i>',
+          label: game.i18n.format("AUTOANIM.overwrite"),
+          callback: html => {
+            var _ui$notifications;
+
+            //@ts-ignore
+            const form = html.find("form")[0];
+            if (!form.data.files.length) return (_ui$notifications = ui.notifications) === null || _ui$notifications === void 0 ? void 0 : _ui$notifications.error("You did not upload a data file!");
+            readTextFromFile(form.data.files[0]).then(json => {
+              AutorecFunctions._importAutorecFromJSON(json);
+
+              resolve(true);
+            });
+          }
+        },
+        merge: {
+          icon: '<i class="fas fa-file-import"></i>',
+          label: game.i18n.format("AUTOANIM.merge"),
+          callback: html => {
+            var _ui$notifications2;
+
+            //@ts-ignore
+            const form = html.find("form")[0];
+            if (!form.data.files.length) return (_ui$notifications2 = ui.notifications) === null || _ui$notifications2 === void 0 ? void 0 : _ui$notifications2.error("You did not upload a data file!");
+            readTextFromFile(form.data.files[0]).then(json => {
+              AutorecFunctions._mergeAutorecFile(json);
+
+              resolve(true);
+            });
+          }
+        },
+        no: {
+          icon: '<i class="fas fa-times"></i>',
+          label: "Cancel",
+          callback: html => resolve(false)
+        }
+      },
+      default: "import"
+    }, {
+      width: 600
+    }).render(true);
+  });
+  return await dialog;
+}
+
+class AAActiveEffectMenu extends SvelteApplication {
+  //constructor(options = {}) { super(options); }
+  constructor(item) {
+    //console.log(Object.entries(aaNameMenu.melee.weapon))
+    super({
+      title: `A-A Active Effect Settings`,
+      id: `AA-ae-settings`,
+      zIndex: 102,
+      svelte: {
+        class: AEMenuAppShell,
+        target: document.body,
+        props: {
+          item: item,
+          itemFlags: item.data.flags
+        }
+      } //close: () => this.options.reject(),
+      //...options
+
+    });
+    /*
+    this.hookId = Hooks.on('updateActor', (changedActor) => {
+        if (changedActor !== actor) return;
+        setTimeout(() => {
+            this.svelte.applicationShell.updateHealthBar();
+        }, 100);
+    });
+    */
+  }
+  /**
+   * 
+   */
+
+
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      resizable: true,
+      minimizable: true,
+      width: 600,
+      height: 650,
+      closeOnSubmit: true
+    });
+  }
+
+  _getHeaderButtons() {
+    const buttons = super._getHeaderButtons();
+
+    buttons.unshift({
+      class: 'autorec-shortcut',
+      icon: 'fas fa-globe',
+      title: 'Launch Autorec',
+      label: "Autorec Menu",
+      styles: {
+        color: 'lightblue',
+        position: "relative",
+        right: "30px"
+      },
+      onclick: function () {
+        if (game.user.isGM) {
+          new aaAutoRecognition().render(true);
+        }
+      }
+    });
+    return buttons;
+  }
+
+}
+
+function getPreviewFile(data) {
+  let seqFiles = Sequencer.Database.getEntry(data);
+
+  if (Array.isArray(seqFiles)) {
+    seqFiles = seqFiles[0].file;
+
+    if (Array.isArray(seqFiles)) {
+      return seqFiles[0].file;
+    }
+
+    if (isObject(seqFiles)) {
+      if (Array.isArray(seqFiles["15ft"])) {
+        seqFiles = seqFiles["15ft"];
+        return seqFiles[0];
+      }
+
+      seqFiles = seqFiles["15ft"];
+      return seqFiles[0];
+    }
+
+    return seqFiles;
+  }
+
+  if (isObject(seqFiles.file)) {
+    if (Array.isArray(seqFiles.file["15ft"])) {
+      seqFiles = seqFiles.file["15ft"];
+      return seqFiles[0];
+    }
+
+    return seqFiles.file["15ft"];
+  }
+
+  return seqFiles.file;
+
+  function isObject(test) {
+    return typeof test === "object";
+  }
+}
+
+/* src\formApps\ItemMenu\videoPreviews\switchApp.svelte generated by Svelte v3.47.0 */
+
+function create_fragment$7(ctx) {
+	let video;
+	let track;
+	let video_src_value;
+
+	return {
+		c() {
+			video = element("video");
+			track = element("track");
+			attr(track, "kind", "captions");
+			attr(video, "class", "aaVideoPreview svelte-9fs2jg");
+			if (!src_url_equal(video.src, video_src_value = /*databaseFile*/ ctx[0])) attr(video, "src", video_src_value);
+			video.autoplay = "autoplay";
+			video.controls = true;
+			video.loop = true;
+		},
+		m(target, anchor) {
+			insert(target, video, anchor);
+			append(video, track);
+		},
+		p(ctx, [dirty]) {
+			if (dirty & /*databaseFile*/ 1 && !src_url_equal(video.src, video_src_value = /*databaseFile*/ ctx[0])) {
+				attr(video, "src", video_src_value);
+			}
+		},
+		i: noop,
+		o: noop,
+		d(detaching) {
+			if (detaching) detach(video);
+		}
+	};
+}
+
+function instance$7($$self, $$props, $$invalidate) {
+	let databaseFile;
+	let dbPath;
+
+	menuDBPathSwitch.subscribe(value => {
+		$$invalidate(1, dbPath = value);
+	});
+
+	/*
+let isCustom;
+customCheckedSourceFX.subscribe((value) => {
+    isCustom = value;
+})
+let customPath;
+customFilePathSourceFX.subscribe((value) => {
+    customPath = value;
+})
+*/
+	console.log(dbPath);
+
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty & /*dbPath*/ 2) {
+			$$invalidate(0, databaseFile = getPreviewFile(dbPath));
+		}
+	};
+
+	return [databaseFile, dbPath];
+}
+
+class SwitchApp extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$7, create_fragment$7, safe_not_equal, {});
+	}
+}
+
+/* src\formApps\ItemMenu\components\meleeRange.svelte generated by Svelte v3.47.0 */
+
+function get_each_context(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[35] = list[i][0];
+	child_ctx[36] = list[i][1];
+	return child_ctx;
+}
+
+function get_each_context_1(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[35] = list[i][0];
+	child_ctx[36] = list[i][1];
+	return child_ctx;
+}
+
+function get_each_context_2(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[35] = list[i][0];
+	child_ctx[36] = list[i][1];
+	return child_ctx;
+}
+
+function get_each_context_3(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[35] = list[i][0];
+	child_ctx[36] = list[i][1];
+	return child_ctx;
+}
+
+// (137:8) {#if menuType && switchType === "custom"}
+function create_if_block_5$1(ctx) {
+	let div;
+	let i;
+	let mounted;
+	let dispose;
+
+	return {
+		c() {
+			div = element("div");
+			i = element("i");
+			attr(i, "class", "fas fa-video aa-video-preview");
+			attr(div, "class", "flexcol");
+			set_style(div, "grid-row", "1/2");
+			set_style(div, "grid-column", "1/2");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			append(div, i);
+
+			if (!mounted) {
+				dispose = listen(i, "click", /*click_handler*/ ctx[20]);
+				mounted = true;
+			}
+		},
+		p: noop,
+		d(detaching) {
+			if (detaching) detach(div);
+			mounted = false;
+			dispose();
+		}
+	};
+}
+
+// (177:4) {#if switchType === "custom"}
+function create_if_block_1$4(ctx) {
+	let div0;
+	let label0;
+	let t1;
+	let select0;
+	let select0_class_value;
+	let t2;
+	let div1;
+	let label1;
+	let t4;
+	let select1;
+	let select1_class_value;
+	let t5;
+	let div2;
+	let label2;
+	let t7;
+	let select2;
+	let select2_class_value;
+	let t8;
+	let div3;
+	let label3;
+	let t10;
+	let select3;
+	let select3_class_value;
+	let mounted;
+	let dispose;
+	let each_value_3 = Object.entries(aaTypeMenu.range);
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_3.length; i += 1) {
+		each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+	}
+
+	let if_block0 = /*menuType*/ ctx[1] != "" && create_if_block_4$1(ctx);
+	let if_block1 = /*menuType*/ ctx[1] != "" & /*animation*/ ctx[2] != "" && create_if_block_3$2(ctx);
+	let if_block2 = /*menuType*/ ctx[1] != "" && /*animation*/ ctx[2] != "" && /*variant*/ ctx[3] != "" && create_if_block_2$2(ctx);
+
+	return {
+		c() {
+			div0 = element("div");
+			label0 = element("label");
+			label0.textContent = `${localize("AUTOANIM.type")}`;
+			t1 = space();
+			select0 = element("select");
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			t2 = space();
+			div1 = element("div");
+			label1 = element("label");
+			label1.textContent = `${localize("AUTOANIM.animation")}`;
+			t4 = space();
+			select1 = element("select");
+			if (if_block0) if_block0.c();
+			t5 = space();
+			div2 = element("div");
+			label2 = element("label");
+			label2.textContent = `${localize("AUTOANIM.variant")}`;
+			t7 = space();
+			select2 = element("select");
+			if (if_block1) if_block1.c();
+			t8 = space();
+			div3 = element("div");
+			label3 = element("label");
+			label3.textContent = `${localize("AUTOANIM.color")}`;
+			t10 = space();
+			select3 = element("select");
+			if (if_block2) if_block2.c();
+			attr(label0, "for", "2");
+			attr(label0, "class", "svelte-1hd0pm2");
+			attr(select0, "name", "flags.autoanimations.options.menuType");
+			attr(select0, "id", "2");
+
+			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
+			? "isPopulated"
+			: "isNotPopulated") + " svelte-1hd0pm2"));
+
+			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[24].call(select0));
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "2 / 3");
+			set_style(div0, "grid-column", "2 / 3");
+			attr(label1, "for", "3");
+			attr(label1, "class", "svelte-1hd0pm2");
+			attr(select1, "name", "flags.autoanimations.animation");
+			attr(select1, "id", "3");
+
+			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
+			? "isPopulated"
+			: "isNotPopulated") + " svelte-1hd0pm2"));
+
+			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[26].call(select1));
+			attr(div1, "class", "flexcol");
+			set_style(div1, "grid-row", "3 / 4");
+			set_style(div1, "grid-column", "1 / 2");
+			attr(label2, "for", "4");
+			attr(label2, "class", "svelte-1hd0pm2");
+			attr(select2, "name", "flags.autoanimations.options.variant");
+			attr(select2, "id", "4");
+
+			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
+			? "isPopulated"
+			: "isNotPopulated") + " svelte-1hd0pm2"));
+
+			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[28].call(select2));
+			attr(div2, "class", "flexcol");
+			set_style(div2, "grid-row", "3 / 4");
+			set_style(div2, "grid-column", "2 / 3");
+			attr(label3, "for", "5");
+			attr(label3, "class", "svelte-1hd0pm2");
+			attr(select3, "name", "flags.autoanimations.color");
+			attr(select3, "id", "5");
+
+			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
+			? "isPopulated"
+			: "isNotPopulated") + " svelte-1hd0pm2"));
+
+			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[30].call(select3));
+			attr(div3, "class", "flexcol");
+			set_style(div3, "grid-row", "3 / 4");
+			set_style(div3, "grid-column", "3 / 4");
+		},
+		m(target, anchor) {
+			insert(target, div0, anchor);
+			append(div0, label0);
+			append(div0, t1);
+			append(div0, select0);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(select0, null);
+			}
+
+			select_option(select0, /*menuType*/ ctx[1]);
+			insert(target, t2, anchor);
+			insert(target, div1, anchor);
+			append(div1, label1);
+			append(div1, t4);
+			append(div1, select1);
+			if (if_block0) if_block0.m(select1, null);
+			select_option(select1, /*animation*/ ctx[2]);
+			insert(target, t5, anchor);
+			insert(target, div2, anchor);
+			append(div2, label2);
+			append(div2, t7);
+			append(div2, select2);
+			if (if_block1) if_block1.m(select2, null);
+			select_option(select2, /*variant*/ ctx[3]);
+			insert(target, t8, anchor);
+			insert(target, div3, anchor);
+			append(div3, label3);
+			append(div3, t10);
+			append(div3, select3);
+			if (if_block2) if_block2.m(select3, null);
+			select_option(select3, /*color*/ ctx[4]);
+
+			if (!mounted) {
+				dispose = [
+					listen(select0, "change", /*select0_change_handler*/ ctx[24]),
+					listen(select0, "change", /*change_handler_1*/ ctx[25]),
+					listen(select1, "change", /*select1_change_handler*/ ctx[26]),
+					listen(select1, "change", /*change_handler_2*/ ctx[27]),
+					listen(select2, "change", /*select2_change_handler*/ ctx[28]),
+					listen(select2, "change", /*change_handler_3*/ ctx[29]),
+					listen(select3, "change", /*select3_change_handler*/ ctx[30])
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (dirty & /*Object, aaTypeMenu*/ 0) {
+				each_value_3 = Object.entries(aaTypeMenu.range);
+				let i;
+
+				for (i = 0; i < each_value_3.length; i += 1) {
+					const child_ctx = get_each_context_3(ctx, each_value_3, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+					} else {
+						each_blocks[i] = create_each_block_3(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(select0, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+
+				each_blocks.length = each_value_3.length;
+			}
+
+			if (dirty[0] & /*menuType*/ 2 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
+			? "isPopulated"
+			: "isNotPopulated") + " svelte-1hd0pm2"))) {
+				attr(select0, "class", select0_class_value);
+			}
+
+			if (dirty[0] & /*menuType*/ 2) {
+				select_option(select0, /*menuType*/ ctx[1]);
+			}
+
+			if (/*menuType*/ ctx[1] != "") {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+				} else {
+					if_block0 = create_if_block_4$1(ctx);
+					if_block0.c();
+					if_block0.m(select1, null);
+				}
+			} else if (if_block0) {
+				if_block0.d(1);
+				if_block0 = null;
+			}
+
+			if (dirty[0] & /*animation, menuType*/ 6 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
+			? "isPopulated"
+			: "isNotPopulated") + " svelte-1hd0pm2"))) {
+				attr(select1, "class", select1_class_value);
+			}
+
+			if (dirty[0] & /*animation, menuType*/ 6) {
+				select_option(select1, /*animation*/ ctx[2]);
+			}
+
+			if (/*menuType*/ ctx[1] != "" & /*animation*/ ctx[2] != "") {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+				} else {
+					if_block1 = create_if_block_3$2(ctx);
+					if_block1.c();
+					if_block1.m(select2, null);
+				}
+			} else if (if_block1) {
+				if_block1.d(1);
+				if_block1 = null;
+			}
+
+			if (dirty[0] & /*variant, menuType, animation*/ 14 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
+			? "isPopulated"
+			: "isNotPopulated") + " svelte-1hd0pm2"))) {
+				attr(select2, "class", select2_class_value);
+			}
+
+			if (dirty[0] & /*variant, menuType, animation*/ 14) {
+				select_option(select2, /*variant*/ ctx[3]);
+			}
+
+			if (/*menuType*/ ctx[1] != "" && /*animation*/ ctx[2] != "" && /*variant*/ ctx[3] != "") {
+				if (if_block2) {
+					if_block2.p(ctx, dirty);
+				} else {
+					if_block2 = create_if_block_2$2(ctx);
+					if_block2.c();
+					if_block2.m(select3, null);
+				}
+			} else if (if_block2) {
+				if_block2.d(1);
+				if_block2 = null;
+			}
+
+			if (dirty[0] & /*color, menuType, animation, variant*/ 30 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
+			? "isPopulated"
+			: "isNotPopulated") + " svelte-1hd0pm2"))) {
+				attr(select3, "class", select3_class_value);
+			}
+
+			if (dirty[0] & /*color, menuType, animation, variant*/ 30) {
+				select_option(select3, /*color*/ ctx[4]);
+			}
+		},
+		d(detaching) {
+			if (detaching) detach(div0);
+			destroy_each(each_blocks, detaching);
+			if (detaching) detach(t2);
+			if (detaching) detach(div1);
+			if (if_block0) if_block0.d();
+			if (detaching) detach(t5);
+			if (detaching) detach(div2);
+			if (if_block1) if_block1.d();
+			if (detaching) detach(t8);
+			if (detaching) detach(div3);
+			if (if_block2) if_block2.d();
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
+// (188:16) {#each Object.entries(aaTypeMenu.range) as [key, name]}
+function create_each_block_3(ctx) {
+	let option;
+	let t_value = /*name*/ ctx[36] + "";
+	let t;
+	let option_value_value;
+
+	return {
+		c() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = /*key*/ ctx[35];
+			option.value = option.__value;
+		},
+		m(target, anchor) {
+			insert(target, option, anchor);
+			append(option, t);
+		},
+		p: noop,
+		d(detaching) {
+			if (detaching) detach(option);
+		}
+	};
+}
+
+// (203:16) {#if menuType != ""}
+function create_if_block_4$1(ctx) {
+	let each_1_anchor;
+	let each_value_2 = Object.entries(aaNameMenu.range[/*menuType*/ ctx[1]]);
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_2.length; i += 1) {
+		each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+	}
+
+	return {
+		c() {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			each_1_anchor = empty();
+		},
+		m(target, anchor) {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(target, anchor);
+			}
+
+			insert(target, each_1_anchor, anchor);
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*menuType*/ 2) {
+				each_value_2 = Object.entries(aaNameMenu.range[/*menuType*/ ctx[1]]);
+				let i;
+
+				for (i = 0; i < each_value_2.length; i += 1) {
+					const child_ctx = get_each_context_2(ctx, each_value_2, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+					} else {
+						each_blocks[i] = create_each_block_2(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+
+				each_blocks.length = each_value_2.length;
+			}
+		},
+		d(detaching) {
+			destroy_each(each_blocks, detaching);
+			if (detaching) detach(each_1_anchor);
+		}
+	};
+}
+
+// (204:20) {#each Object.entries(aaNameMenu.range[menuType]) as [key, name]}
+function create_each_block_2(ctx) {
+	let option;
+	let t_value = /*name*/ ctx[36] + "";
+	let t;
+	let option_value_value;
+
+	return {
+		c() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = /*key*/ ctx[35];
+			option.value = option.__value;
+		},
+		m(target, anchor) {
+			insert(target, option, anchor);
+			append(option, t);
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*menuType*/ 2 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+
+			if (dirty[0] & /*menuType*/ 2 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+				option.__value = option_value_value;
+				option.value = option.__value;
+			}
+		},
+		d(detaching) {
+			if (detaching) detach(option);
+		}
+	};
+}
+
+// (220:16) {#if (menuType != "") & (animation != "")}
+function create_if_block_3$2(ctx) {
+	let each_1_anchor;
+	let each_value_1 = Object.entries(aaVariantMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_1.length; i += 1) {
+		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+	}
+
+	return {
+		c() {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			each_1_anchor = empty();
+		},
+		m(target, anchor) {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(target, anchor);
+			}
+
+			insert(target, each_1_anchor, anchor);
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*menuType, animation*/ 6) {
+				each_value_1 = Object.entries(aaVariantMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
+				let i;
+
+				for (i = 0; i < each_value_1.length; i += 1) {
+					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+					} else {
+						each_blocks[i] = create_each_block_1(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+
+				each_blocks.length = each_value_1.length;
+			}
+		},
+		d(detaching) {
+			destroy_each(each_blocks, detaching);
+			if (detaching) detach(each_1_anchor);
+		}
+	};
+}
+
+// (221:20) {#each Object.entries(aaVariantMenu.range[menuType][animation]) as [key, name]}
+function create_each_block_1(ctx) {
+	let option;
+	let t_value = /*name*/ ctx[36] + "";
+	let t;
+	let option_value_value;
+
+	return {
+		c() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = /*key*/ ctx[35];
+			option.value = option.__value;
+		},
+		m(target, anchor) {
+			insert(target, option, anchor);
+			append(option, t);
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*menuType, animation*/ 6 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+
+			if (dirty[0] & /*menuType, animation*/ 6 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+				option.__value = option_value_value;
+				option.value = option.__value;
+			}
+		},
+		d(detaching) {
+			if (detaching) detach(option);
+		}
+	};
+}
+
+// (236:16) {#if menuType != "" && animation != "" && variant != ""}
+function create_if_block_2$2(ctx) {
+	let each_1_anchor;
+	let each_value = Object.entries(aaColorMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value.length; i += 1) {
+		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+	}
+
+	return {
+		c() {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			each_1_anchor = empty();
+		},
+		m(target, anchor) {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(target, anchor);
+			}
+
+			insert(target, each_1_anchor, anchor);
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*menuType, animation, variant*/ 14) {
+				each_value = Object.entries(aaColorMenu.range[/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
+				let i;
+
+				for (i = 0; i < each_value.length; i += 1) {
+					const child_ctx = get_each_context(ctx, each_value, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+					} else {
+						each_blocks[i] = create_each_block(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+
+				each_blocks.length = each_value.length;
+			}
+		},
+		d(detaching) {
+			destroy_each(each_blocks, detaching);
+			if (detaching) detach(each_1_anchor);
+		}
+	};
+}
+
+// (237:20) {#each Object.entries(aaColorMenu.range[menuType][animation][variant]) as [key, name]}
+function create_each_block(ctx) {
+	let option;
+	let t_value = /*name*/ ctx[36] + "";
+	let t;
+	let option_value_value;
+
+	return {
+		c() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = /*key*/ ctx[35];
+			option.value = option.__value;
+		},
+		m(target, anchor) {
+			insert(target, option, anchor);
+			append(option, t);
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*menuType, animation, variant*/ 14 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+
+			if (dirty[0] & /*menuType, animation, variant*/ 14 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+				option.__value = option_value_value;
+				option.value = option.__value;
+			}
+		},
+		d(detaching) {
+			if (detaching) detach(option);
+		}
+	};
+}
+
+// (245:0) {#if switchType === "custom"}
+function create_if_block$4(ctx) {
+	let div2;
+	let div0;
+	let label0;
+	let t1;
+	let button;
+	let t2;
+	let t3;
+	let div1;
+	let label1;
+	let t5;
+	let input;
+	let input_disabled_value;
+	let div1_class_value;
+	let div2_transition;
+	let current;
+	let mounted;
+	let dispose;
+
+	return {
+		c() {
+			div2 = element("div");
+			div0 = element("div");
+			label0 = element("label");
+			label0.textContent = `${localize("AUTOANIM.rangeDetect")}`;
+			t1 = space();
+			button = element("button");
+			t2 = text(/*detectLabel*/ ctx[7]);
+			t3 = space();
+			div1 = element("div");
+			label1 = element("label");
+			label1.textContent = `${localize("AUTOANIM.gridSquares")}`;
+			t5 = space();
+			input = element("input");
+			attr(label0, "for", "");
+			attr(label0, "class", "svelte-1hd0pm2");
+			attr(button, "class", "oldCheck svelte-1hd0pm2");
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "1/2");
+			set_style(div0, "grid-column", "2/3");
+			attr(label1, "for", "");
+			attr(label1, "class", "svelte-1hd0pm2");
+			input.disabled = input_disabled_value = /*detect*/ ctx[6] === "auto";
+			attr(input, "type", "Number");
+			attr(input, "placeholder", "2");
+			attr(input, "class", "svelte-1hd0pm2");
+			attr(div1, "class", div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1hd0pm2");
+			set_style(div1, "grid-row", "1 / 2");
+			set_style(div1, "grid-column", "3 / 5");
+			attr(div2, "class", "aa-4wide svelte-1hd0pm2");
+		},
+		m(target, anchor) {
+			insert(target, div2, anchor);
+			append(div2, div0);
+			append(div0, label0);
+			append(div0, t1);
+			append(div0, button);
+			append(button, t2);
+			append(div2, t3);
+			append(div2, div1);
+			append(div1, label1);
+			append(div1, t5);
+			append(div1, input);
+			set_input_value(input, /*range*/ ctx[8]);
+			current = true;
+
+			if (!mounted) {
+				dispose = [
+					listen(button, "click", /*click_handler_2*/ ctx[31]),
+					listen(input, "input", /*input_input_handler*/ ctx[32])
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (!current || dirty[0] & /*detectLabel*/ 128) set_data(t2, /*detectLabel*/ ctx[7]);
+
+			if (!current || dirty[0] & /*detect*/ 64 && input_disabled_value !== (input_disabled_value = /*detect*/ ctx[6] === "auto")) {
+				input.disabled = input_disabled_value;
+			}
+
+			if (dirty[0] & /*range*/ 256) {
+				set_input_value(input, /*range*/ ctx[8]);
+			}
+
+			if (!current || dirty[0] & /*detect*/ 64 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
+				attr(div1, "class", div1_class_value);
+			}
+		},
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, { duration: 500 }, true);
+				div2_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, { duration: 500 }, false);
+			div2_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div2);
+			if (detaching && div2_transition) div2_transition.end();
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
+function create_fragment$6(ctx) {
+	let div2;
+	let div1;
+	let div0;
+	let t1;
+	let t2;
+	let div5;
+	let div3;
+	let label1;
+	let t6;
+	let select;
+	let option0;
+	let option1;
+	let option2;
+	let t10;
+	let div4;
+	let label2;
+	let t12;
+	let button;
+	let t13;
+	let button_class_value;
+	let div4_class_value;
+	let t14;
+	let div5_transition;
+	let t15;
+	let if_block2_anchor;
+	let current;
+	let mounted;
+	let dispose;
+	let if_block0 = /*menuType*/ ctx[1] && /*switchType*/ ctx[0] === "custom" && create_if_block_5$1(ctx);
+	let if_block1 = /*switchType*/ ctx[0] === "custom" && create_if_block_1$4(ctx);
+	let if_block2 = /*switchType*/ ctx[0] === "custom" && create_if_block$4(ctx);
+
+	return {
+		c() {
+			div2 = element("div");
+			div1 = element("div");
+			div0 = element("div");
+			div0.innerHTML = `<label for="" class="svelte-1hd0pm2">Melee Range Switch</label>`;
+			t1 = space();
+			if (if_block0) if_block0.c();
+			t2 = space();
+			div5 = element("div");
+			div3 = element("div");
+			label1 = element("label");
+			label1.textContent = `${localize("AUTOANIM.ranged")}  ${localize("AUTOANIM.switch")}`;
+			t6 = space();
+			select = element("select");
+			option0 = element("option");
+			option0.textContent = `${localize("AUTOANIM.enabled")}`;
+			option1 = element("option");
+			option1.textContent = `${localize("AUTOANIM.disabled")}`;
+			option2 = element("option");
+			option2.textContent = `${localize("AUTOANIM.custom")}`;
+			t10 = space();
+			div4 = element("div");
+			label2 = element("label");
+			label2.textContent = "Return Animation";
+			t12 = space();
+			button = element("button");
+			t13 = text(/*returnLabel*/ ctx[9]);
+			t14 = space();
+			if (if_block1) if_block1.c();
+			t15 = space();
+			if (if_block2) if_block2.c();
+			if_block2_anchor = empty();
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "1/2");
+			set_style(div0, "grid-column", "2/3");
+			attr(div1, "class", "aa-header svelte-1hd0pm2");
+			attr(div2, "class", "aa-header-section svelte-1hd0pm2");
+			attr(label1, "for", "1");
+			attr(label1, "class", "svelte-1hd0pm2");
+			option0.__value = "on";
+			option0.value = option0.__value;
+			option1.__value = "off";
+			option1.value = option1.__value;
+			option2.__value = "custom";
+			option2.value = option2.__value;
+			attr(select, "name", "flags.autoanimations.animType");
+			attr(select, "id", "1");
+			set_style(select, "text-align", "center");
+			set_style(select, "justify-self", "center");
+			attr(select, "class", "svelte-1hd0pm2");
+			if (/*switchType*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[21].call(select));
+			attr(div3, "class", "flexcol");
+			set_style(div3, "grid-row", "1 / 2");
+			set_style(div3, "grid-column", "2 / 3");
+			attr(label2, "for", "");
+			attr(label2, "class", "svelte-1hd0pm2");
+			button.disabled = /*isDisabled*/ ctx[10];
+
+			attr(button, "class", button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
+			? 'selected'
+			: 'notSelected') + " svelte-1hd0pm2");
+
+			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1hd0pm2");
+			set_style(div4, "grid-row", "1/2");
+			set_style(div4, "grid-column", "3/4");
+			attr(div5, "class", "aa-select-animation svelte-1hd0pm2");
+		},
+		m(target, anchor) {
+			insert(target, div2, anchor);
+			append(div2, div1);
+			append(div1, div0);
+			append(div1, t1);
+			if (if_block0) if_block0.m(div1, null);
+			insert(target, t2, anchor);
+			insert(target, div5, anchor);
+			append(div5, div3);
+			append(div3, label1);
+			append(div3, t6);
+			append(div3, select);
+			append(select, option0);
+			append(select, option1);
+			append(select, option2);
+			select_option(select, /*switchType*/ ctx[0]);
+			append(div5, t10);
+			append(div5, div4);
+			append(div4, label2);
+			append(div4, t12);
+			append(div4, button);
+			append(button, t13);
+			append(div5, t14);
+			if (if_block1) if_block1.m(div5, null);
+			insert(target, t15, anchor);
+			if (if_block2) if_block2.m(target, anchor);
+			insert(target, if_block2_anchor, anchor);
+			current = true;
+
+			if (!mounted) {
+				dispose = [
+					listen(select, "change", /*select_change_handler*/ ctx[21]),
+					listen(select, "change", /*change_handler*/ ctx[22]),
+					listen(button, "click", /*click_handler_1*/ ctx[23])
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (/*menuType*/ ctx[1] && /*switchType*/ ctx[0] === "custom") {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+				} else {
+					if_block0 = create_if_block_5$1(ctx);
+					if_block0.c();
+					if_block0.m(div1, null);
+				}
+			} else if (if_block0) {
+				if_block0.d(1);
+				if_block0 = null;
+			}
+
+			if (dirty[0] & /*switchType*/ 1) {
+				select_option(select, /*switchType*/ ctx[0]);
+			}
+
+			if (!current || dirty[0] & /*returnLabel*/ 512) set_data(t13, /*returnLabel*/ ctx[9]);
+
+			if (!current || dirty[0] & /*isDisabled*/ 1024) {
+				button.disabled = /*isDisabled*/ ctx[10];
+			}
+
+			if (!current || dirty[0] & /*returnEnabled, isDisabled*/ 1056 && button_class_value !== (button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
+			? 'selected'
+			: 'notSelected') + " svelte-1hd0pm2")) {
+				attr(button, "class", button_class_value);
+			}
+
+			if (!current || dirty[0] & /*isDisabled*/ 1024 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
+				attr(div4, "class", div4_class_value);
+			}
+
+			if (/*switchType*/ ctx[0] === "custom") {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+				} else {
+					if_block1 = create_if_block_1$4(ctx);
+					if_block1.c();
+					if_block1.m(div5, null);
+				}
+			} else if (if_block1) {
+				if_block1.d(1);
+				if_block1 = null;
+			}
+
+			if (/*switchType*/ ctx[0] === "custom") {
+				if (if_block2) {
+					if_block2.p(ctx, dirty);
+
+					if (dirty[0] & /*switchType*/ 1) {
+						transition_in(if_block2, 1);
+					}
+				} else {
+					if_block2 = create_if_block$4(ctx);
+					if_block2.c();
+					transition_in(if_block2, 1);
+					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
+				}
+			} else if (if_block2) {
+				group_outros();
+
+				transition_out(if_block2, 1, 1, () => {
+					if_block2 = null;
+				});
+
+				check_outros();
+			}
+		},
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (!div5_transition) div5_transition = create_bidirectional_transition(div5, fade, {}, true);
+				div5_transition.run(1);
+			});
+
+			transition_in(if_block2);
+			current = true;
+		},
+		o(local) {
+			if (!div5_transition) div5_transition = create_bidirectional_transition(div5, fade, {}, false);
+			div5_transition.run(0);
+			transition_out(if_block2);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div2);
+			if (if_block0) if_block0.d();
+			if (detaching) detach(t2);
+			if (detaching) detach(div5);
+			if (if_block1) if_block1.d();
+			if (detaching && div5_transition) div5_transition.end();
+			if (detaching) detach(t15);
+			if (if_block2) if_block2.d(detaching);
+			if (detaching) detach(if_block2_anchor);
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
+function instance$6($$self, $$props, $$invalidate) {
+	let { flagData } = $$props;
+	const returningWeapons = ["chakram", "dagger", "greatsword", "hammer", "javelin", "spear"];
+	let meleeSwitch = flagData.meleeSwitch;
+	let switchType = meleeSwitch.switchType || "on";
+	let menuType = meleeSwitch.menuType || "";
+
+	// Sets Initial animation for Menu - Assigns to Flag when updated
+	let animation = meleeSwitch.animation || "";
+
+	// Sets Initial variant for Menu - Assigns to Flag when updated
+	let variant = meleeSwitch.variant || "";
+
+	// Sets Initial color for Menu - Assigns to Flag when updated
+	let color = meleeSwitch.color || "";
+
+	async function switchChange() {
+		let newSwitchType = switchType;
+
+		if (newSwitchType === "on") {
+			$$invalidate(1, menuType = Object.keys(aaTypeMenu.range)[0]);
+			$$invalidate(2, animation = Object.keys(aaNameMenu.range[menuType])[0]);
+			$$invalidate(3, variant = Object.keys(aaVariantMenu.range[menuType][animation])[0]);
+			$$invalidate(4, color = Object.keys(aaColorMenu.range[menuType][animation][variant])[0]);
+		}
+	}
+
+	async function menuTypeChange() {
+		let newMenuType = menuType;
+		$$invalidate(2, animation = Object.keys(aaNameMenu.range[newMenuType])[0]);
+		$$invalidate(3, variant = Object.keys(aaVariantMenu.range[newMenuType][animation])[0]);
+		$$invalidate(4, color = Object.keys(aaColorMenu.range[newMenuType][animation][variant])[0]);
+	}
+
+	async function animationChange() {
+		let newAnimation = animation;
+		$$invalidate(3, variant = Object.keys(aaVariantMenu.range[menuType][newAnimation])[0]);
+		$$invalidate(4, color = Object.keys(aaColorMenu.range[menuType][newAnimation][variant])[0]);
+	}
+
+	async function variantChange() {
+		let newVariant = variant;
+		$$invalidate(4, color = Object.keys(aaColorMenu.range[menuType][animation][newVariant])[0]);
+	}
+
+	let returnEnabled = meleeSwitch.enable;
+	let returnLabel = returnEnabled ? "Enabled" : "Disabled";
+
+	function switchLabel() {
+		$$invalidate(5, returnEnabled = !returnEnabled);
+		$$invalidate(9, returnLabel = returnEnabled ? "Enabled" : "Disabled");
+	}
+
+	let isDisabled = false;
+	let detect = meleeSwitch.detect || "auto";
+	let detectLabel = detect === "auto" ? "Automatic" : "Manual";
+
+	function switchDetect() {
+		$$invalidate(6, detect = detect === "auto" ? "manual" : "auto");
+		$$invalidate(7, detectLabel = detect === "auto" ? "Automatic" : "Manual");
+	}
+
+	let range = meleeSwitch.range || 2;
+
+	function onClick() {
+		new TJSDialog({
+				modal: false,
+				draggable: true,
+				resizable: true,
+				title: "Range Switch Animation",
+				stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+				content: { class: SwitchApp }
+			}).render(true);
+	}
+
+	let switchFilePath;
+	const click_handler = () => onClick();
+
+	function select_change_handler() {
+		switchType = select_value(this);
+		$$invalidate(0, switchType);
+	}
+
+	const change_handler = async () => await switchChange();
+	const click_handler_1 = () => switchLabel();
+
+	function select0_change_handler() {
+		menuType = select_value(this);
+		$$invalidate(1, menuType);
+	}
+
+	const change_handler_1 = async () => await menuTypeChange();
+
+	function select1_change_handler() {
+		animation = select_value(this);
+		($$invalidate(2, animation), $$invalidate(1, menuType));
+		$$invalidate(1, menuType);
+	}
+
+	const change_handler_2 = async () => await animationChange();
+
+	function select2_change_handler() {
+		variant = select_value(this);
+		(($$invalidate(3, variant), $$invalidate(1, menuType)), $$invalidate(2, animation));
+		$$invalidate(1, menuType);
+		($$invalidate(2, animation), $$invalidate(1, menuType));
+	}
+
+	const change_handler_3 = async () => await variantChange();
+
+	function select3_change_handler() {
+		color = select_value(this);
+		((($$invalidate(4, color), $$invalidate(1, menuType)), $$invalidate(2, animation)), $$invalidate(3, variant));
+		$$invalidate(1, menuType);
+		($$invalidate(2, animation), $$invalidate(1, menuType));
+		(($$invalidate(3, variant), $$invalidate(1, menuType)), $$invalidate(2, animation));
+	}
+
+	const click_handler_2 = () => switchDetect();
+
+	function input_input_handler() {
+		range = this.value;
+		$$invalidate(8, range);
+	}
+
+	$$self.$$set = $$props => {
+		if ('flagData' in $$props) $$invalidate(18, flagData = $$props.flagData);
+	};
+
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty[0] & /*switchType*/ 1) {
+			$$invalidate(0, switchType);
+		}
+
+		if ($$self.$$.dirty[0] & /*switchType*/ 1) {
+			meleeSwitch.switchType = switchType;
+		}
+
+		if ($$self.$$.dirty[0] & /*menuType*/ 2) {
+			$$invalidate(1, menuType);
+		}
+
+		if ($$self.$$.dirty[0] & /*menuType*/ 2) {
+			meleeSwitch.menuType = menuType;
+		}
+
+		if ($$self.$$.dirty[0] & /*menuType, animation*/ 6) {
+			$$invalidate(2, animation = menuType === "" ? "" : animation);
+		}
+
+		if ($$self.$$.dirty[0] & /*animation*/ 4) {
+			meleeSwitch.animation = animation;
+		}
+
+		if ($$self.$$.dirty[0] & /*menuType, animation, variant*/ 14) {
+			$$invalidate(3, variant = menuType === "" || animation === "" ? "" : variant);
+		}
+
+		if ($$self.$$.dirty[0] & /*variant*/ 8) {
+			meleeSwitch.variant = variant;
+		}
+
+		if ($$self.$$.dirty[0] & /*menuType, animation, variant, color*/ 30) {
+			$$invalidate(4, color = menuType === "" || animation === "" || variant === ""
+			? ""
+			: color);
+		}
+
+		if ($$self.$$.dirty[0] & /*color*/ 16) {
+			meleeSwitch.color = color;
+		}
+
+		if ($$self.$$.dirty[0] & /*returnEnabled*/ 32) {
+			meleeSwitch.returning = returnEnabled;
+		}
+
+		if ($$self.$$.dirty[0] & /*switchType, animation, menuType*/ 7) {
+			$$invalidate(10, isDisabled = switchType === "custom" && returningWeapons.includes(animation) && menuType === "weapon" || switchType === "on"
+			? false
+			: true);
+		}
+
+		if ($$self.$$.dirty[0] & /*detect*/ 64) {
+			meleeSwitch.detect = detect;
+		}
+
+		if ($$self.$$.dirty[0] & /*detectLabel*/ 128) {
+			$$invalidate(7, detectLabel);
+		}
+
+		if ($$self.$$.dirty[0] & /*range*/ 256) {
+			$$invalidate(8, range);
+		}
+
+		if ($$self.$$.dirty[0] & /*range*/ 256) {
+			meleeSwitch.range = range;
+		}
+
+		if ($$self.$$.dirty[0] & /*color, menuType, animation, variant*/ 30) {
+			$$invalidate(19, switchFilePath = color === "random"
+			? `autoanimations.range.${menuType}.${animation}.${variant}`
+			: `autoanimations.range.${menuType}.${animation}.${variant}.${color}`);
+		}
+
+		if ($$self.$$.dirty[0] & /*switchFilePath*/ 524288) {
+			menuDBPathSwitch.set(switchFilePath);
+		}
+	};
+
+	return [
+		switchType,
+		menuType,
+		animation,
+		variant,
+		color,
+		returnEnabled,
+		detect,
+		detectLabel,
+		range,
+		returnLabel,
+		isDisabled,
+		switchChange,
+		menuTypeChange,
+		animationChange,
+		variantChange,
+		switchLabel,
+		switchDetect,
+		onClick,
+		flagData,
+		switchFilePath,
+		click_handler,
+		select_change_handler,
+		change_handler,
+		click_handler_1,
+		select0_change_handler,
+		change_handler_1,
+		select1_change_handler,
+		change_handler_2,
+		select2_change_handler,
+		change_handler_3,
+		select3_change_handler,
+		click_handler_2,
+		input_input_handler
+	];
+}
+
+class MeleeRange extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$6, create_fragment$6, safe_not_equal, { flagData: 18 }, null, [-1, -1]);
+	}
+}
+
+/* src\formApps\ItemMenu\videoPreviews\sourceFXApp.svelte generated by Svelte v3.47.0 */
+
+function create_fragment$5(ctx) {
+	let video;
+	let track;
+	let video_src_value;
+
+	return {
+		c() {
+			video = element("video");
+			track = element("track");
+			attr(track, "kind", "captions");
+			attr(video, "class", "aaVideoPreview svelte-9fs2jg");
+			if (!src_url_equal(video.src, video_src_value = /*filePath*/ ctx[0])) attr(video, "src", video_src_value);
+			video.autoplay = "autoplay";
+			video.controls = true;
+			video.loop = true;
+		},
+		m(target, anchor) {
+			insert(target, video, anchor);
+			append(video, track);
+		},
+		p(ctx, [dirty]) {
+			if (dirty & /*filePath*/ 1 && !src_url_equal(video.src, video_src_value = /*filePath*/ ctx[0])) {
+				attr(video, "src", video_src_value);
+			}
+		},
+		i: noop,
+		o: noop,
+		d(detaching) {
+			if (detaching) detach(video);
+		}
+	};
+}
+
+function instance$5($$self, $$props, $$invalidate) {
+	let databaseFile;
+	let filePath;
+	let dbPath;
+
+	menuDBPathSourceFX.subscribe(value => {
+		$$invalidate(1, dbPath = value);
+	});
+
+	let isCustom;
+
+	customCheckedSourceFX.subscribe(value => {
+		$$invalidate(2, isCustom = value);
+	});
+
+	let customPath;
+
+	customFilePathSourceFX.subscribe(value => {
+		$$invalidate(3, customPath = value);
+	});
+
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty & /*dbPath*/ 2) {
+			$$invalidate(4, databaseFile = getPreviewFile(dbPath));
+		}
+
+		if ($$self.$$.dirty & /*isCustom, customPath, databaseFile*/ 28) {
+			$$invalidate(0, filePath = isCustom ? customPath : databaseFile);
+		}
+	};
+
+	return [filePath, dbPath, isCustom, customPath, databaseFile];
+}
+
+class SourceFXApp extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$5, create_fragment$5, safe_not_equal, {});
+	}
+}
+
+/* src\formApps\ItemMenu\videoPreviews\targetFXApp.svelte generated by Svelte v3.47.0 */
+
+function create_fragment$4(ctx) {
+	let video;
+	let track;
+	let video_src_value;
+
+	return {
+		c() {
+			video = element("video");
+			track = element("track");
+			attr(track, "kind", "captions");
+			attr(video, "class", "aaVideoPreview svelte-9fs2jg");
+			if (!src_url_equal(video.src, video_src_value = /*filePath*/ ctx[0])) attr(video, "src", video_src_value);
+			video.autoplay = "autoplay";
+			video.controls = true;
+			video.loop = true;
+		},
+		m(target, anchor) {
+			insert(target, video, anchor);
+			append(video, track);
+		},
+		p(ctx, [dirty]) {
+			if (dirty & /*filePath*/ 1 && !src_url_equal(video.src, video_src_value = /*filePath*/ ctx[0])) {
+				attr(video, "src", video_src_value);
+			}
+		},
+		i: noop,
+		o: noop,
+		d(detaching) {
+			if (detaching) detach(video);
+		}
+	};
+}
+
+function instance$4($$self, $$props, $$invalidate) {
+	let databaseFile;
+	let filePath;
+	let dbPath;
+
+	menuDBPathTargetFX.subscribe(value => {
+		$$invalidate(1, dbPath = value);
+	});
+
+	let isCustom;
+
+	customCheckedTargetFX.subscribe(value => {
+		$$invalidate(2, isCustom = value);
+	});
+
+	let customPath;
+
+	customFilePathTargetFX.subscribe(value => {
+		$$invalidate(3, customPath = value);
+	});
+
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty & /*dbPath*/ 2) {
+			$$invalidate(4, databaseFile = getPreviewFile(dbPath));
+		}
+
+		if ($$self.$$.dirty & /*isCustom, customPath, databaseFile*/ 28) {
+			$$invalidate(0, filePath = isCustom ? customPath : databaseFile);
+		}
+	};
+
+	return [filePath, dbPath, isCustom, customPath, databaseFile];
+}
+
+class TargetFXApp extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$4, create_fragment$4, safe_not_equal, {});
+	}
+}
+
+/* src\formApps\ItemMenu\components\extraFX.svelte generated by Svelte v3.47.0 */
+
+function create_if_block_1$3(ctx) {
+	let div;
+	let i;
+	let div_transition;
+	let current;
+	let mounted;
+	let dispose;
+
+	return {
+		c() {
+			div = element("div");
+			i = element("i");
+			attr(i, "class", "fas fa-video aa-video-preview");
+			attr(div, "class", "flexcol");
+			set_style(div, "grid-row", "1/2");
+			set_style(div, "grid-column", "1/2");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			append(div, i);
+			current = true;
+
+			if (!mounted) {
+				dispose = listen(i, "click", /*click_handler*/ ctx[32]);
+				mounted = true;
+			}
+		},
+		p: noop,
+		i(local) {
+			if (current) return;
+
+			add_render_callback(() => {
+				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+				div_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+			div_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			if (detaching && div_transition) div_transition.end();
+			mounted = false;
+			dispose();
+		}
+	};
+}
+
+// (195:4) {#if enableSection}
+function create_if_block$3(ctx) {
+	let chooseanimation;
+	let updating_menuType;
+	let updating_animation;
+	let updating_variant;
+	let updating_color;
+	let updating_isCustom;
+	let updating_customPath;
+	let updating_customId;
+	let t0;
+	let h2;
+	let h2_transition;
+	let t2;
+	let div9;
+	let div0;
+	let label0;
+	let t4;
+	let button0;
+	let t5;
+	let button0_disabled_value;
+	let div0_class_value;
+	let t6;
+	let div1;
+	let label1;
+	let t8;
+	let button1;
+	let t9;
+	let t10;
+	let div2;
+	let label2;
+	let t12;
+	let button2;
+	let t13;
+	let button2_disabled_value;
+	let div2_class_value;
+	let t14;
+	let div3;
+	let label3;
+	let t16;
+	let button3;
+	let t17;
+	let button3_disabled_value;
+	let div3_class_value;
+	let t18;
+	let div4;
+	let label4;
+	let t20;
+	let input0;
+	let div4_class_value;
+	let t21;
+	let div5;
+	let label5;
+	let t25;
+	let input1;
+	let div5_class_value;
+	let t26;
+	let div6;
+	let label6;
+	let t28;
+	let input2;
+	let t29;
+	let div8;
+	let label7;
+	let t31;
+	let div7;
+	let input3;
+	let t32;
+	let input4;
+	let div8_intro;
+	let div8_outro;
+	let div9_transition;
+	let t33;
+	let soundsettings;
+	let current;
+	let mounted;
+	let dispose;
+
+	function chooseanimation_menuType_binding(value) {
+		/*chooseanimation_menuType_binding*/ ctx[34](value);
+	}
+
+	function chooseanimation_animation_binding(value) {
+		/*chooseanimation_animation_binding*/ ctx[35](value);
+	}
+
+	function chooseanimation_variant_binding(value) {
+		/*chooseanimation_variant_binding*/ ctx[36](value);
+	}
+
+	function chooseanimation_color_binding(value) {
+		/*chooseanimation_color_binding*/ ctx[37](value);
+	}
+
+	function chooseanimation_isCustom_binding(value) {
+		/*chooseanimation_isCustom_binding*/ ctx[38](value);
+	}
+
+	function chooseanimation_customPath_binding(value) {
+		/*chooseanimation_customPath_binding*/ ctx[39](value);
+	}
+
+	function chooseanimation_customId_binding(value) {
+		/*chooseanimation_customId_binding*/ ctx[40](value);
+	}
+
+	let chooseanimation_props = {
+		animType: "static",
+		flagPath: /*flagPath*/ ctx[1],
+		flagData: /*flagData*/ ctx[0]
+	};
+
+	if (/*menuType*/ ctx[8] !== void 0) {
+		chooseanimation_props.menuType = /*menuType*/ ctx[8];
+	}
+
+	if (/*animation*/ ctx[9] !== void 0) {
+		chooseanimation_props.animation = /*animation*/ ctx[9];
+	}
+
+	if (/*variant*/ ctx[10] !== void 0) {
+		chooseanimation_props.variant = /*variant*/ ctx[10];
+	}
+
+	if (/*color*/ ctx[11] !== void 0) {
+		chooseanimation_props.color = /*color*/ ctx[11];
+	}
+
+	if (/*isCustom*/ ctx[12] !== void 0) {
+		chooseanimation_props.isCustom = /*isCustom*/ ctx[12];
+	}
+
+	if (/*customPath*/ ctx[13] !== void 0) {
+		chooseanimation_props.customPath = /*customPath*/ ctx[13];
+	}
+
+	if (/*customId*/ ctx[16] !== void 0) {
+		chooseanimation_props.customId = /*customId*/ ctx[16];
+	}
+
+	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
+	binding_callbacks.push(() => bind(chooseanimation, 'menuType', chooseanimation_menuType_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'animation', chooseanimation_animation_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'variant', chooseanimation_variant_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'color', chooseanimation_color_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'isCustom', chooseanimation_isCustom_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'customPath', chooseanimation_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'customId', chooseanimation_customId_binding));
+
+	soundsettings = new SoundSettings({
+			props: {
+				audioPath: /*audioPath*/ ctx[14],
+				flagData: /*flagData*/ ctx[0]
+			}
+		});
+
+	return {
+		c() {
+			create_component(chooseanimation.$$.fragment);
+			t0 = space();
+			h2 = element("h2");
+			h2.textContent = "Options";
+			t2 = space();
+			div9 = element("div");
+			div0 = element("div");
+			label0 = element("label");
+			label0.textContent = "Persistence";
+			t4 = space();
+			button0 = element("button");
+			t5 = text(/*isPersistent*/ ctx[17]);
+			t6 = space();
+			div1 = element("div");
+			label1 = element("label");
+			label1.textContent = "Z-Index";
+			t8 = space();
+			button1 = element("button");
+			t9 = text(/*aboveBelow*/ ctx[20]);
+			t10 = space();
+			div2 = element("div");
+			label2 = element("label");
+			label2.textContent = "Visibility";
+			t12 = space();
+			button2 = element("button");
+			t13 = text(/*bindVisibility*/ ctx[18]);
+			t14 = space();
+			div3 = element("div");
+			label3 = element("label");
+			label3.textContent = "Alpha";
+			t16 = space();
+			button3 = element("button");
+			t17 = text(/*bindAlpha*/ ctx[19]);
+			t18 = space();
+			div4 = element("div");
+			label4 = element("label");
+			label4.textContent = `${localize("AUTOANIM.repeat")}`;
+			t20 = space();
+			input0 = element("input");
+			t21 = space();
+			div5 = element("div");
+			label5 = element("label");
+
+			label5.textContent = `${localize("AUTOANIM.repeat")} 
+                ${localize("AUTOANIM.delay")}`;
+
+			t25 = space();
+			input1 = element("input");
+			t26 = space();
+			div6 = element("div");
+			label6 = element("label");
+			label6.textContent = `${localize("AUTOANIM.scale")}`;
+			t28 = space();
+			input2 = element("input");
+			t29 = space();
+			div8 = element("div");
+			label7 = element("label");
+			label7.textContent = `${localize("AUTOANIM.opacity")}`;
+			t31 = space();
+			div7 = element("div");
+			input3 = element("input");
+			t32 = space();
+			input4 = element("input");
+			t33 = space();
+			create_component(soundsettings.$$.fragment);
+			set_style(h2, "margin-top", "5px");
+			attr(h2, "class", "svelte-1w3oi2h");
+			attr(label0, "for", "");
+			attr(label0, "class", "svelte-1w3oi2h");
+			button0.disabled = button0_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX";
+			attr(button0, "class", "svelte-1w3oi2h");
+
+			attr(div0, "class", div0_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
+			? 'aa-opacityButton'
+			: '') + " svelte-1w3oi2h");
+
+			set_style(div0, "grid-row", "1 / 2");
+			set_style(div0, "grid-column", "1 / 2");
+			attr(label1, "for", "");
+			attr(label1, "class", "svelte-1w3oi2h");
+			attr(button1, "class", "oldCheck svelte-1w3oi2h");
+			attr(div1, "class", "flexcol");
+			set_style(div1, "grid-row", "1 / 2");
+			set_style(div1, "grid-column", "2 / 3");
+			attr(label2, "for", "");
+			attr(label2, "class", "svelte-1w3oi2h");
+			button2.disabled = button2_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX";
+			attr(button2, "class", "svelte-1w3oi2h");
+
+			attr(div2, "class", div2_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
+			? 'aa-opacityButton'
+			: '') + " svelte-1w3oi2h");
+
+			set_style(div2, "grid-row", "1 / 2");
+			set_style(div2, "grid-column", "3 / 4");
+			attr(label3, "for", "");
+			attr(label3, "class", "svelte-1w3oi2h");
+			button3.disabled = button3_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX";
+			attr(button3, "class", "svelte-1w3oi2h");
+
+			attr(div3, "class", div3_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
+			? 'aa-opacityButton'
+			: '') + " svelte-1w3oi2h");
+
+			set_style(div3, "grid-row", "1 / 2");
+			set_style(div3, "grid-column", "4 / 5");
+			attr(label4, "for", "aaRepeat");
+			attr(label4, "class", "svelte-1w3oi2h");
+			input0.disabled = /*persistent*/ ctx[6];
+			attr(input0, "id", "aaRepeat");
+			attr(input0, "type", "Number");
+			attr(input0, "placeholder", "1");
+			attr(input0, "class", "svelte-1w3oi2h");
+			attr(div4, "class", div4_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h");
+			set_style(div4, "grid-row", "2 / 3");
+			set_style(div4, "grid-column", "1 / 2");
+			attr(label5, "for", "aaDelay");
+			attr(label5, "class", "svelte-1w3oi2h");
+			input1.disabled = /*persistent*/ ctx[6];
+			attr(input1, "it", "aaDelay");
+			attr(input1, "type", "Number");
+			attr(input1, "placeholder", "250");
+			attr(input1, "class", "svelte-1w3oi2h");
+			attr(div5, "class", div5_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h");
+			set_style(div5, "grid-row", "2 / 3");
+			set_style(div5, "grid-column", "2 / 3");
+			attr(label6, "for", "");
+			attr(label6, "class", "svelte-1w3oi2h");
+			attr(input2, "type", "Number");
+			attr(input2, "placeholder", "1");
+			attr(input2, "step", "0.01");
+			attr(input2, "class", "svelte-1w3oi2h");
+			attr(div6, "class", "flexcol");
+			set_style(div6, "grid-row", "2 / 3");
+			set_style(div6, "grid-column", "3 / 4");
+			attr(label7, "for", "");
+			attr(label7, "class", "svelte-1w3oi2h");
+			attr(input3, "type", "Number");
+			attr(input3, "placeholder", "1");
+			attr(input3, "min", "0");
+			attr(input3, "max", "1");
+			attr(input3, "step", "0.01");
+			attr(input3, "class", "svelte-1w3oi2h");
+			attr(input4, "type", "range");
+			attr(input4, "min", "0");
+			attr(input4, "max", "1");
+			attr(input4, "step", "0.01");
+			attr(input4, "class", "svelte-1w3oi2h");
+			attr(div7, "class", "form-group");
+			attr(div8, "class", "flexcol");
+			set_style(div8, "grid-row", "2 / 3");
+			set_style(div8, "grid-column", "4 / 5");
+			attr(div9, "class", "aa-options svelte-1w3oi2h");
+		},
+		m(target, anchor) {
+			mount_component(chooseanimation, target, anchor);
+			insert(target, t0, anchor);
+			insert(target, h2, anchor);
+			insert(target, t2, anchor);
+			insert(target, div9, anchor);
+			append(div9, div0);
+			append(div0, label0);
+			append(div0, t4);
+			append(div0, button0);
+			append(button0, t5);
+			append(div9, t6);
+			append(div9, div1);
+			append(div1, label1);
+			append(div1, t8);
+			append(div1, button1);
+			append(button1, t9);
+			append(div9, t10);
+			append(div9, div2);
+			append(div2, label2);
+			append(div2, t12);
+			append(div2, button2);
+			append(button2, t13);
+			append(div9, t14);
+			append(div9, div3);
+			append(div3, label3);
+			append(div3, t16);
+			append(div3, button3);
+			append(button3, t17);
+			append(div9, t18);
+			append(div9, div4);
+			append(div4, label4);
+			append(div4, t20);
+			append(div4, input0);
+			set_input_value(input0, /*repeat*/ ctx[2]);
+			append(div9, t21);
+			append(div9, div5);
+			append(div5, label5);
+			append(div5, t25);
+			append(div5, input1);
+			set_input_value(input1, /*delay*/ ctx[3]);
+			append(div9, t26);
+			append(div9, div6);
+			append(div6, label6);
+			append(div6, t28);
+			append(div6, input2);
+			set_input_value(input2, /*scale*/ ctx[4]);
+			append(div9, t29);
+			append(div9, div8);
+			append(div8, label7);
+			append(div8, t31);
+			append(div8, div7);
+			append(div7, input3);
+			set_input_value(input3, /*opacity*/ ctx[5]);
+			append(div7, t32);
+			append(div7, input4);
+			set_input_value(input4, /*opacity*/ ctx[5]);
+			insert(target, t33, anchor);
+			mount_component(soundsettings, target, anchor);
+			current = true;
+
+			if (!mounted) {
+				dispose = [
+					listen(button0, "click", /*click_handler_2*/ ctx[41]),
+					listen(button1, "click", /*click_handler_3*/ ctx[42]),
+					listen(button2, "click", /*click_handler_4*/ ctx[43]),
+					listen(button3, "click", /*click_handler_5*/ ctx[44]),
+					listen(input0, "input", /*input0_input_handler*/ ctx[45]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[46]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[47]),
+					listen(input3, "input", /*input3_input_handler*/ ctx[48]),
+					listen(input4, "change", /*input4_change_input_handler*/ ctx[49]),
+					listen(input4, "input", /*input4_change_input_handler*/ ctx[49])
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			const chooseanimation_changes = {};
+			if (dirty[0] & /*flagPath*/ 2) chooseanimation_changes.flagPath = /*flagPath*/ ctx[1];
+			if (dirty[0] & /*flagData*/ 1) chooseanimation_changes.flagData = /*flagData*/ ctx[0];
+
+			if (!updating_menuType && dirty[0] & /*menuType*/ 256) {
+				updating_menuType = true;
+				chooseanimation_changes.menuType = /*menuType*/ ctx[8];
+				add_flush_callback(() => updating_menuType = false);
+			}
+
+			if (!updating_animation && dirty[0] & /*animation*/ 512) {
+				updating_animation = true;
+				chooseanimation_changes.animation = /*animation*/ ctx[9];
+				add_flush_callback(() => updating_animation = false);
+			}
+
+			if (!updating_variant && dirty[0] & /*variant*/ 1024) {
+				updating_variant = true;
+				chooseanimation_changes.variant = /*variant*/ ctx[10];
+				add_flush_callback(() => updating_variant = false);
+			}
+
+			if (!updating_color && dirty[0] & /*color*/ 2048) {
+				updating_color = true;
+				chooseanimation_changes.color = /*color*/ ctx[11];
+				add_flush_callback(() => updating_color = false);
+			}
+
+			if (!updating_isCustom && dirty[0] & /*isCustom*/ 4096) {
+				updating_isCustom = true;
+				chooseanimation_changes.isCustom = /*isCustom*/ ctx[12];
+				add_flush_callback(() => updating_isCustom = false);
+			}
+
+			if (!updating_customPath && dirty[0] & /*customPath*/ 8192) {
+				updating_customPath = true;
+				chooseanimation_changes.customPath = /*customPath*/ ctx[13];
+				add_flush_callback(() => updating_customPath = false);
+			}
+
+			if (!updating_customId && dirty[0] & /*customId*/ 65536) {
+				updating_customId = true;
+				chooseanimation_changes.customId = /*customId*/ ctx[16];
+				add_flush_callback(() => updating_customId = false);
+			}
+
+			chooseanimation.$set(chooseanimation_changes);
+			if (!current || dirty[0] & /*isPersistent*/ 131072) set_data(t5, /*isPersistent*/ ctx[17]);
+
+			if (!current || dirty[0] & /*flagPath*/ 2 && button0_disabled_value !== (button0_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX")) {
+				button0.disabled = button0_disabled_value;
+			}
+
+			if (!current || dirty[0] & /*flagPath*/ 2 && div0_class_value !== (div0_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
+			? 'aa-opacityButton'
+			: '') + " svelte-1w3oi2h")) {
+				attr(div0, "class", div0_class_value);
+			}
+
+			if (!current || dirty[0] & /*aboveBelow*/ 1048576) set_data(t9, /*aboveBelow*/ ctx[20]);
+			if (!current || dirty[0] & /*bindVisibility*/ 262144) set_data(t13, /*bindVisibility*/ ctx[18]);
+
+			if (!current || dirty[0] & /*flagPath*/ 2 && button2_disabled_value !== (button2_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX")) {
+				button2.disabled = button2_disabled_value;
+			}
+
+			if (!current || dirty[0] & /*flagPath*/ 2 && div2_class_value !== (div2_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
+			? 'aa-opacityButton'
+			: '') + " svelte-1w3oi2h")) {
+				attr(div2, "class", div2_class_value);
+			}
+
+			if (!current || dirty[0] & /*bindAlpha*/ 524288) set_data(t17, /*bindAlpha*/ ctx[19]);
+
+			if (!current || dirty[0] & /*flagPath*/ 2 && button3_disabled_value !== (button3_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX")) {
+				button3.disabled = button3_disabled_value;
+			}
+
+			if (!current || dirty[0] & /*flagPath*/ 2 && div3_class_value !== (div3_class_value = "flexcol " + (/*flagPath*/ ctx[1] === 'sourceExtraFX'
+			? 'aa-opacityButton'
+			: '') + " svelte-1w3oi2h")) {
+				attr(div3, "class", div3_class_value);
+			}
+
+			if (!current || dirty[0] & /*persistent*/ 64) {
+				input0.disabled = /*persistent*/ ctx[6];
+			}
+
+			if (dirty[0] & /*repeat*/ 4) {
+				set_input_value(input0, /*repeat*/ ctx[2]);
+			}
+
+			if (!current || dirty[0] & /*persistent*/ 64 && div4_class_value !== (div4_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h")) {
+				attr(div4, "class", div4_class_value);
+			}
+
+			if (!current || dirty[0] & /*persistent*/ 64) {
+				input1.disabled = /*persistent*/ ctx[6];
+			}
+
+			if (dirty[0] & /*delay*/ 8) {
+				set_input_value(input1, /*delay*/ ctx[3]);
+			}
+
+			if (!current || dirty[0] & /*persistent*/ 64 && div5_class_value !== (div5_class_value = "flexcol " + (/*persistent*/ ctx[6] ? 'aa-opacityButton' : '') + " svelte-1w3oi2h")) {
+				attr(div5, "class", div5_class_value);
+			}
+
+			if (dirty[0] & /*scale*/ 16) {
+				set_input_value(input2, /*scale*/ ctx[4]);
+			}
+
+			if (dirty[0] & /*opacity*/ 32) {
+				set_input_value(input3, /*opacity*/ ctx[5]);
+			}
+
+			if (dirty[0] & /*opacity*/ 32) {
+				set_input_value(input4, /*opacity*/ ctx[5]);
+			}
+
+			const soundsettings_changes = {};
+			if (dirty[0] & /*audioPath*/ 16384) soundsettings_changes.audioPath = /*audioPath*/ ctx[14];
+			if (dirty[0] & /*flagData*/ 1) soundsettings_changes.flagData = /*flagData*/ ctx[0];
+			soundsettings.$set(soundsettings_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(chooseanimation.$$.fragment, local);
+
+			add_render_callback(() => {
+				if (!h2_transition) h2_transition = create_bidirectional_transition(h2, fade, {}, true);
+				h2_transition.run(1);
+			});
+
+			add_render_callback(() => {
+				if (div8_outro) div8_outro.end(1);
+				div8_intro = create_in_transition(div8, fade, { duration: 500 });
+				div8_intro.start();
+			});
+
+			add_render_callback(() => {
+				if (!div9_transition) div9_transition = create_bidirectional_transition(div9, fade, {}, true);
+				div9_transition.run(1);
+			});
+
+			transition_in(soundsettings.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(chooseanimation.$$.fragment, local);
+			if (!h2_transition) h2_transition = create_bidirectional_transition(h2, fade, {}, false);
+			h2_transition.run(0);
+			if (div8_intro) div8_intro.invalidate();
+			div8_outro = create_out_transition(div8, fade, { duration: 500 });
+			if (!div9_transition) div9_transition = create_bidirectional_transition(div9, fade, {}, false);
+			div9_transition.run(0);
+			transition_out(soundsettings.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(chooseanimation, detaching);
+			if (detaching) detach(t0);
+			if (detaching) detach(h2);
+			if (detaching && h2_transition) h2_transition.end();
+			if (detaching) detach(t2);
+			if (detaching) detach(div9);
+			if (detaching && div8_outro) div8_outro.end();
+			if (detaching && div9_transition) div9_transition.end();
+			if (detaching) detach(t33);
+			destroy_component(soundsettings, detaching);
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
+function create_fragment$3(ctx) {
+	let div4;
+	let div3;
+	let div2;
+	let div0;
+	let label;
+	let t0;
+	let t1;
+	let t2;
+	let div1;
+	let i;
+	let i_class_value;
+	let t3;
+	let div4_transition;
+	let current;
+	let mounted;
+	let dispose;
+	let if_block0 = /*enableSection*/ ctx[7] && create_if_block_1$3(ctx);
+	let if_block1 = /*enableSection*/ ctx[7] && create_if_block$3(ctx);
+
+	return {
+		c() {
+			div4 = element("div");
+			div3 = element("div");
+			div2 = element("div");
+			div0 = element("div");
+			label = element("label");
+			t0 = text(/*sectionTitle*/ ctx[15]);
+			t1 = space();
+			if (if_block0) if_block0.c();
+			t2 = space();
+			div1 = element("div");
+			i = element("i");
+			t3 = space();
+			if (if_block1) if_block1.c();
+			attr(label, "for", "");
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "1/2");
+			set_style(div0, "grid-column", "3/4");
+
+			attr(i, "class", i_class_value = "" + ((/*enableSection*/ ctx[7]
+			? 'fas fa-minus aa-red'
+			: 'fas fa-plus aa-green') + " aaCenterToggle"));
+
+			attr(div1, "class", "flexcol");
+			set_style(div1, "grid-row", "1/2");
+			set_style(div1, "grid-column", "5/6");
+			attr(div2, "class", "aa-header");
+			attr(div3, "class", "aa-header-section");
+		},
+		m(target, anchor) {
+			insert(target, div4, anchor);
+			append(div4, div3);
+			append(div3, div2);
+			append(div2, div0);
+			append(div0, label);
+			append(label, t0);
+			append(div2, t1);
+			if (if_block0) if_block0.m(div2, null);
+			append(div2, t2);
+			append(div2, div1);
+			append(div1, i);
+			append(div4, t3);
+			if (if_block1) if_block1.m(div4, null);
+			current = true;
+
+			if (!mounted) {
+				dispose = listen(i, "click", /*click_handler_1*/ ctx[33]);
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (!current || dirty[0] & /*sectionTitle*/ 32768) set_data(t0, /*sectionTitle*/ ctx[15]);
+
+			if (/*enableSection*/ ctx[7]) {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+
+					if (dirty[0] & /*enableSection*/ 128) {
+						transition_in(if_block0, 1);
+					}
+				} else {
+					if_block0 = create_if_block_1$3(ctx);
+					if_block0.c();
+					transition_in(if_block0, 1);
+					if_block0.m(div2, t2);
+				}
+			} else if (if_block0) {
+				group_outros();
+
+				transition_out(if_block0, 1, 1, () => {
+					if_block0 = null;
+				});
+
+				check_outros();
+			}
+
+			if (!current || dirty[0] & /*enableSection*/ 128 && i_class_value !== (i_class_value = "" + ((/*enableSection*/ ctx[7]
+			? 'fas fa-minus aa-red'
+			: 'fas fa-plus aa-green') + " aaCenterToggle"))) {
+				attr(i, "class", i_class_value);
+			}
+
+			if (/*enableSection*/ ctx[7]) {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+
+					if (dirty[0] & /*enableSection*/ 128) {
+						transition_in(if_block1, 1);
+					}
+				} else {
+					if_block1 = create_if_block$3(ctx);
+					if_block1.c();
+					transition_in(if_block1, 1);
+					if_block1.m(div4, null);
+				}
+			} else if (if_block1) {
+				group_outros();
+
+				transition_out(if_block1, 1, 1, () => {
+					if_block1 = null;
+				});
+
+				check_outros();
+			}
+		},
+		i(local) {
+			if (current) return;
+			transition_in(if_block0);
+			transition_in(if_block1);
+
+			add_render_callback(() => {
+				if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, { duration: 500 }, true);
+				div4_transition.run(1);
+			});
+
+			current = true;
+		},
+		o(local) {
+			transition_out(if_block0);
+			transition_out(if_block1);
+			if (!div4_transition) div4_transition = create_bidirectional_transition(div4, fade, { duration: 500 }, false);
+			div4_transition.run(0);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div4);
+			if (if_block0) if_block0.d();
+			if (if_block1) if_block1.d();
+			if (detaching && div4_transition) div4_transition.end();
+			mounted = false;
+			dispose();
+		}
+	};
+}
+
+function instance$3($$self, $$props, $$invalidate) {
+	let aboveBelow;
+	let bindAlpha;
+	let bindVisibility;
+	let isPersistent;
+	let { flagData } = $$props;
+	let { flagPath } = $$props;
+	let root;
+	let audioPath;
+	let sectionTitle;
+
+	switch (flagPath) {
+		case "sourceExtraFX":
+			console.log("Source FX Options");
+			root = flagData.sourceToken;
+			audioPath = "s01";
+			sectionTitle = "Source Effect";
+			break;
+		case "targetExtraFX":
+			console.log("Target FX Options");
+			root = flagData.targetToken;
+			audioPath = "t01";
+			sectionTitle = "Target Effect";
+			break;
+	}
+	let repeat = root.loops || 1;
+	let delay = root.loopDelay;
+	let scale = root.scale || 1;
+	let belowToken = root.animLevel || false;
+	let opacity = root.opacity || 1;
+	let unbindAlpha = root.unbindAlpha || false;
+	let unbindVisbility = root.unbindVisbility || false;
+
+	let persistent = flagPath === "sourceExtraFX"
+	? false
+	: root.persistent || false;
+
+	function below() {
+		$$invalidate(27, belowToken = !belowToken);
+	}
+
+	function switchAlpha() {
+		$$invalidate(28, unbindAlpha = !unbindAlpha);
+	}
+
+	function switchVisibility() {
+		$$invalidate(29, unbindVisbility = !unbindVisbility);
+	}
+
+	function switchPersistence() {
+		$$invalidate(6, persistent = !persistent);
+		let newPersistance = persistent;
+
+		if (newPersistance) {
+			$$invalidate(2, repeat = 1);
+		}
+	}
+
+	let enableSection = root.enable || false;
+
+	function switchEnable() {
+		$$invalidate(7, enableSection = !enableSection);
+		root.enable = enableSection;
+	}
+
+	let menuType = root.menuType;
+	let animation = root.animation;
+	let variant = root.variant;
+	let color = root.color;
+	let isCustom = root.enableCustom || false;
+	let customPath = root.customPath || "";
+
+	function onClick() {
+		new TJSDialog({
+				modal: false,
+				draggable: true,
+				resizable: true,
+				title: flagPath === "sourceExtraFX"
+				? "Extra Source Effect"
+				: "Extra Target Effect",
+				stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+				content: {
+					class: flagPath === "sourceExtraFX" ? SourceFXApp : TargetFXApp
+				}
+			}).render(true);
+	}
+
+	let sourceFilePath;
+	let targetFilePath;
+
+	let customId = flagPath === "sourceExtraFX"
+	? "customSource"
+	: "customTarget";
+
+	const click_handler = () => onClick();
+	const click_handler_1 = () => switchEnable();
+
+	function chooseanimation_menuType_binding(value) {
+		menuType = value;
+		$$invalidate(8, menuType);
+	}
+
+	function chooseanimation_animation_binding(value) {
+		animation = value;
+		$$invalidate(9, animation);
+	}
+
+	function chooseanimation_variant_binding(value) {
+		variant = value;
+		$$invalidate(10, variant);
+	}
+
+	function chooseanimation_color_binding(value) {
+		color = value;
+		$$invalidate(11, color);
+	}
+
+	function chooseanimation_isCustom_binding(value) {
+		isCustom = value;
+		$$invalidate(12, isCustom);
+	}
+
+	function chooseanimation_customPath_binding(value) {
+		customPath = value;
+		$$invalidate(13, customPath);
+	}
+
+	function chooseanimation_customId_binding(value) {
+		customId = value;
+		$$invalidate(16, customId);
+	}
+
+	const click_handler_2 = () => switchPersistence();
+	const click_handler_3 = () => below();
+	const click_handler_4 = () => switchVisibility();
+	const click_handler_5 = () => switchAlpha();
+
+	function input0_input_handler() {
+		repeat = this.value;
+		$$invalidate(2, repeat);
+	}
+
+	function input1_input_handler() {
+		delay = this.value;
+		$$invalidate(3, delay);
+	}
+
+	function input2_input_handler() {
+		scale = this.value;
+		$$invalidate(4, scale);
+	}
+
+	function input3_input_handler() {
+		opacity = this.value;
+		$$invalidate(5, opacity);
+	}
+
+	function input4_change_input_handler() {
+		opacity = to_number(this.value);
+		$$invalidate(5, opacity);
+	}
+
+	$$self.$$set = $$props => {
+		if ('flagData' in $$props) $$invalidate(0, flagData = $$props.flagData);
+		if ('flagPath' in $$props) $$invalidate(1, flagPath = $$props.flagPath);
+	};
+
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty[0] & /*repeat*/ 4) {
+			$$invalidate(2, repeat = root.loops = repeat);
+		}
+
+		if ($$self.$$.dirty[0] & /*delay*/ 8) {
+			$$invalidate(3, delay = root.loopDelay = delay);
+		}
+
+		if ($$self.$$.dirty[0] & /*scale*/ 16) {
+			$$invalidate(4, scale = root.scale = scale);
+		}
+
+		if ($$self.$$.dirty[0] & /*belowToken*/ 134217728) {
+			$$invalidate(27, belowToken = root.animLevel = belowToken);
+		}
+
+		if ($$self.$$.dirty[0] & /*opacity*/ 32) {
+			$$invalidate(5, opacity = root.opacity = opacity > 1 ? 1 : opacity);
+		}
+
+		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 268435456) {
+			$$invalidate(28, unbindAlpha = root.unbindAlpha = unbindAlpha);
+		}
+
+		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 536870912) {
+			$$invalidate(29, unbindVisbility = root.unbindVisbility = unbindVisbility);
+		}
+
+		if ($$self.$$.dirty[0] & /*persistent*/ 64) {
+			$$invalidate(6, persistent = root.persistent = persistent);
+		}
+
+		if ($$self.$$.dirty[0] & /*belowToken*/ 134217728) {
+			$$invalidate(20, aboveBelow = belowToken ? "Below Token" : "Above Token");
+		}
+
+		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 268435456) {
+			$$invalidate(19, bindAlpha = unbindAlpha ? "Unbound" : "Bound");
+		}
+
+		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 536870912) {
+			$$invalidate(18, bindVisibility = unbindVisbility ? "Unbound" : "Bound");
+		}
+
+		if ($$self.$$.dirty[0] & /*persistent*/ 64) {
+			$$invalidate(17, isPersistent = persistent ? "Persistent" : "Not Persistent");
+		}
+
+		if ($$self.$$.dirty[0] & /*enableSection*/ 128) {
+			$$invalidate(7, enableSection);
+		}
+
+		if ($$self.$$.dirty[0] & /*menuType*/ 256) {
+			$$invalidate(8, menuType = root.menuType = menuType);
+		}
+
+		if ($$self.$$.dirty[0] & /*animation*/ 512) {
+			$$invalidate(9, animation = root.animation = animation);
+		}
+
+		if ($$self.$$.dirty[0] & /*variant*/ 1024) {
+			$$invalidate(10, variant = root.variant = variant);
+		}
+
+		if ($$self.$$.dirty[0] & /*color*/ 2048) {
+			$$invalidate(11, color = root.color = color);
+		}
+
+		if ($$self.$$.dirty[0] & /*isCustom*/ 4096) {
+			$$invalidate(12, isCustom = root.enableCustom = isCustom);
+		}
+
+		if ($$self.$$.dirty[0] & /*customPath*/ 8192) {
+			$$invalidate(13, customPath = root.customPath = customPath);
+		}
+
+		if ($$self.$$.dirty[0] & /*flagPath, color, menuType, animation, variant*/ 3842) {
+			if (flagPath === "sourceExtraFX") {
+				$$invalidate(30, sourceFilePath = color === "random"
+				? `autoanimations.static.${menuType}.${animation}.${variant}`
+				: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`);
+			}
+		}
+
+		if ($$self.$$.dirty[0] & /*flagPath, color, menuType, animation, variant*/ 3842) {
+			if (flagPath === "targetExtraFX") {
+				$$invalidate(31, targetFilePath = color === "random"
+				? `autoanimations.static.${menuType}.${animation}.${variant}`
+				: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`);
+			}
+		}
+
+		if ($$self.$$.dirty[0] & /*flagPath, sourceFilePath, customPath, isCustom*/ 1073754114) {
+			if (flagPath === "sourceExtraFX") {
+				menuDBPathSourceFX.set(sourceFilePath);
+				customFilePathSourceFX.set(customPath);
+				customCheckedSourceFX.set(isCustom);
+			}
+		}
+
+		if ($$self.$$.dirty[0] & /*flagPath, customPath, isCustom*/ 12290 | $$self.$$.dirty[1] & /*targetFilePath*/ 1) {
+			if (flagPath === "targetExtraFX") {
+				menuDBPathTargetFX.set(targetFilePath);
+				customFilePathTargetFX.set(customPath);
+				customCheckedTargetFX.set(isCustom);
+			}
+		}
+
+		if ($$self.$$.dirty[0] & /*flagPath, enableSection*/ 130) {
+			{
+				if (flagPath === "sourceExtraFX") {
+					extraSource.set(enableSection);
+				}
+			}
+		}
+
+		if ($$self.$$.dirty[0] & /*flagPath, enableSection*/ 130) {
+			{
+				if (flagPath === "targetExtraFX") {
+					extraTarget.set(enableSection);
+				}
+			}
+		}
+	};
+
+	return [
+		flagData,
+		flagPath,
+		repeat,
+		delay,
+		scale,
+		opacity,
+		persistent,
+		enableSection,
+		menuType,
+		animation,
+		variant,
+		color,
+		isCustom,
+		customPath,
+		audioPath,
+		sectionTitle,
+		customId,
+		isPersistent,
+		bindVisibility,
+		bindAlpha,
+		aboveBelow,
+		below,
+		switchAlpha,
+		switchVisibility,
+		switchPersistence,
+		switchEnable,
+		onClick,
+		belowToken,
+		unbindAlpha,
+		unbindVisbility,
+		sourceFilePath,
+		targetFilePath,
+		click_handler,
+		click_handler_1,
+		chooseanimation_menuType_binding,
+		chooseanimation_animation_binding,
+		chooseanimation_variant_binding,
+		chooseanimation_color_binding,
+		chooseanimation_isCustom_binding,
+		chooseanimation_customPath_binding,
+		chooseanimation_customId_binding,
+		click_handler_2,
+		click_handler_3,
+		click_handler_4,
+		click_handler_5,
+		input0_input_handler,
+		input1_input_handler,
+		input2_input_handler,
+		input3_input_handler,
+		input4_change_input_handler
+	];
+}
+
+class ExtraFX extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$3, create_fragment$3, safe_not_equal, { flagData: 0, flagPath: 1 }, null, [-1, -1]);
+	}
+}
+
+/* src\formApps\ItemMenu\components\3dCanvasOptions.svelte generated by Svelte v3.47.0 */
+
+function create_if_block_1$2(ctx) {
+	let div;
+	let label;
+	let t1;
+	let input;
+	let mounted;
+	let dispose;
+
+	return {
+		c() {
+			div = element("div");
+			label = element("label");
+			label.textContent = `${localize("AUTOANIM.arc")}`;
+			t1 = space();
+			input = element("input");
+			attr(label, "for", "");
+			attr(label, "class", "svelte-4h0ulx");
+			attr(input, "type", "Number");
+			attr(input, "step", ".01");
+			attr(input, "placeholder", "2");
+			attr(input, "class", "svelte-4h0ulx");
+			attr(div, "class", "flexcol");
+			set_style(div, "grid-row", "3 / 4");
+			set_style(div, "grid-column", "3 / 4");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			append(div, label);
+			append(div, t1);
+			append(div, input);
+			set_input_value(input, /*arc*/ ctx[5]);
+
+			if (!mounted) {
+				dispose = listen(input, "input", /*input_input_handler*/ ctx[25]);
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*arc*/ 32) {
+				set_input_value(input, /*arc*/ ctx[5]);
+			}
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			mounted = false;
+			dispose();
+		}
+	};
+}
+
+// (150:4) {#if type !== "sprite"}
+function create_if_block$2(ctx) {
+	let div0;
+	let label0;
+	let t1;
+	let input0;
+	let t2;
+	let div1;
+	let label1;
+	let t4;
+	let input1;
+	let t5;
+	let div2;
+	let label2;
+	let t7;
+	let input2;
+	let t8;
+	let div3;
+	let label3;
+	let t10;
+	let input3;
+	let t11;
+	let div4;
+	let label4;
+	let t13;
+	let input4;
+	let mounted;
+	let dispose;
+
+	return {
+		c() {
+			div0 = element("div");
+			label0 = element("label");
+			label0.textContent = `${localize("AUTOANIM.gravity")}`;
+			t1 = space();
+			input0 = element("input");
+			t2 = space();
+			div1 = element("div");
+			label1 = element("label");
+			label1.textContent = `${localize("AUTOANIM.mass")}`;
+			t4 = space();
+			input1 = element("input");
+			t5 = space();
+			div2 = element("div");
+			label2 = element("label");
+			label2.textContent = `${localize("AUTOANIM.life")}`;
+			t7 = space();
+			input2 = element("input");
+			t8 = space();
+			div3 = element("div");
+			label3 = element("label");
+			label3.textContent = `${localize("AUTOANIM.emiterSize")}`;
+			t10 = space();
+			input3 = element("input");
+			t11 = space();
+			div4 = element("div");
+			label4 = element("label");
+			label4.textContent = `${localize("AUTOANIM.rate")}`;
+			t13 = space();
+			input4 = element("input");
+			attr(label0, "for", "");
+			attr(label0, "class", "svelte-4h0ulx");
+			attr(input0, "type", "Number");
+			attr(input0, "step", ".01");
+			attr(input0, "placeholder", "0");
+			attr(input0, "class", "svelte-4h0ulx");
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "4 / 5");
+			set_style(div0, "grid-column", "2 / 3");
+			attr(label1, "for", "");
+			attr(label1, "class", "svelte-4h0ulx");
+			attr(input1, "type", "Number");
+			attr(input1, "step", ".01");
+			attr(input1, "placeholder", "100");
+			attr(input1, "class", "svelte-4h0ulx");
+			attr(div1, "class", "flexcol");
+			set_style(div1, "grid-row", "4 / 5");
+			set_style(div1, "grid-column", "3 / 4");
+			attr(label2, "for", "");
+			attr(label2, "class", "svelte-4h0ulx");
+			attr(input2, "type", "Number");
+			attr(input2, "step", ".01");
+			attr(input2, "placeholder", "500");
+			attr(input2, "class", "svelte-4h0ulx");
+			attr(div2, "class", "flexcol");
+			set_style(div2, "grid-row", "4 / 5");
+			set_style(div2, "grid-column", "4 / 5");
+			attr(label3, "for", "");
+			attr(label3, "class", "svelte-4h0ulx");
+			attr(input3, "type", "Number");
+			attr(input3, "step", ".0001");
+			attr(input3, "placeholder", ".0001");
+			attr(input3, "class", "svelte-4h0ulx");
+			attr(div3, "class", "flexcol");
+			set_style(div3, "grid-row", "5 / 6");
+			set_style(div3, "grid-column", "2 / 3");
+			attr(label4, "for", "rate");
+			attr(label4, "class", "svelte-4h0ulx");
+			attr(input4, "type", "Number");
+			attr(input4, "step", ".01");
+			attr(input4, "id", "rate");
+			attr(input4, "placeholder", "10");
+			attr(input4, "class", "svelte-4h0ulx");
+			attr(div4, "class", "flexcol");
+			set_style(div4, "grid-row", "5 / 6");
+			set_style(div4, "grid-column", "3 / 4");
+		},
+		m(target, anchor) {
+			insert(target, div0, anchor);
+			append(div0, label0);
+			append(div0, t1);
+			append(div0, input0);
+			set_input_value(input0, /*gravity*/ ctx[9]);
+			insert(target, t2, anchor);
+			insert(target, div1, anchor);
+			append(div1, label1);
+			append(div1, t4);
+			append(div1, input1);
+			set_input_value(input1, /*mass*/ ctx[10]);
+			insert(target, t5, anchor);
+			insert(target, div2, anchor);
+			append(div2, label2);
+			append(div2, t7);
+			append(div2, input2);
+			set_input_value(input2, /*life*/ ctx[11]);
+			insert(target, t8, anchor);
+			insert(target, div3, anchor);
+			append(div3, label3);
+			append(div3, t10);
+			append(div3, input3);
+			set_input_value(input3, /*emittersize*/ ctx[12]);
+			insert(target, t11, anchor);
+			insert(target, div4, anchor);
+			append(div4, label4);
+			append(div4, t13);
+			append(div4, input4);
+			set_input_value(input4, /*rate*/ ctx[13]);
+
+			if (!mounted) {
+				dispose = [
+					listen(input0, "input", /*input0_input_handler_1*/ ctx[29]),
+					listen(input1, "input", /*input1_input_handler_1*/ ctx[30]),
+					listen(input2, "input", /*input2_input_handler_1*/ ctx[31]),
+					listen(input3, "input", /*input3_input_handler_1*/ ctx[32]),
+					listen(input4, "input", /*input4_input_handler_1*/ ctx[33])
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*gravity*/ 512) {
+				set_input_value(input0, /*gravity*/ ctx[9]);
+			}
+
+			if (dirty[0] & /*mass*/ 1024) {
+				set_input_value(input1, /*mass*/ ctx[10]);
+			}
+
+			if (dirty[0] & /*life*/ 2048) {
+				set_input_value(input2, /*life*/ ctx[11]);
+			}
+
+			if (dirty[0] & /*emittersize*/ 4096) {
+				set_input_value(input3, /*emittersize*/ ctx[12]);
+			}
+
+			if (dirty[0] & /*rate*/ 8192) {
+				set_input_value(input4, /*rate*/ ctx[13]);
+			}
+		},
+		d(detaching) {
+			if (detaching) detach(div0);
+			if (detaching) detach(t2);
+			if (detaching) detach(div1);
+			if (detaching) detach(t5);
+			if (detaching) detach(div2);
+			if (detaching) detach(t8);
+			if (detaching) detach(div3);
+			if (detaching) detach(t11);
+			if (detaching) detach(div4);
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
+function create_fragment$2(ctx) {
+	let div9;
+	let div0;
+	let label0;
+	let t2;
+	let input0;
+	let t3;
+	let div1;
+	let input1;
+	let t4;
+	let div2;
+	let input2;
+	let t5;
+	let div3;
+	let label1;
+	let t8;
+	let input3;
+	let t9;
+	let div4;
+	let label2;
+	let t11;
+	let input4;
+	let t12;
+	let div5;
+	let label3;
+	let t14;
+	let input5;
+	let t15;
+	let t16;
+	let div6;
+	let label4;
+	let t18;
+	let input6;
+	let t19;
+	let div7;
+	let label5;
+	let t21;
+	let input7;
+	let t22;
+	let div8;
+	let label6;
+	let t24;
+	let input8;
+	let t25;
+	let t26;
+	let div11;
+	let div10;
+	let label7;
+	let t28;
+	let input9;
+	let t29;
+	let button;
+	let mounted;
+	let dispose;
+	let if_block0 = (/*type*/ ctx[0] === "projectile" || /*type*/ ctx[0] === "ray") && create_if_block_1$2(ctx);
+	let if_block1 = /*type*/ ctx[0] !== "sprite" && create_if_block$2(ctx);
+
+	return {
+		c() {
+			div9 = element("div");
+			div0 = element("div");
+			label0 = element("label");
+			label0.textContent = `${localize("AUTOANIM.color")} 01`;
+			t2 = space();
+			input0 = element("input");
+			t3 = space();
+			div1 = element("div");
+			input1 = element("input");
+			t4 = space();
+			div2 = element("div");
+			input2 = element("input");
+			t5 = space();
+			div3 = element("div");
+			label1 = element("label");
+			label1.textContent = `${localize("AUTOANIM.color")} 02`;
+			t8 = space();
+			input3 = element("input");
+			t9 = space();
+			div4 = element("div");
+			label2 = element("label");
+			label2.textContent = `${localize("AUTOANIM.speed")}`;
+			t11 = space();
+			input4 = element("input");
+			t12 = space();
+			div5 = element("div");
+			label3 = element("label");
+			label3.textContent = `${localize("AUTOANIM.repeat")}`;
+			t14 = space();
+			input5 = element("input");
+			t15 = space();
+			if (if_block0) if_block0.c();
+			t16 = space();
+			div6 = element("div");
+			label4 = element("label");
+			label4.textContent = `${localize("AUTOANIM.delayMS")}`;
+			t18 = space();
+			input6 = element("input");
+			t19 = space();
+			div7 = element("div");
+			label5 = element("label");
+			label5.textContent = `${localize("AUTOANIM.scale")}`;
+			t21 = space();
+			input7 = element("input");
+			t22 = space();
+			div8 = element("div");
+			label6 = element("label");
+			label6.textContent = `${localize("AUTOANIM.alpha")}`;
+			t24 = space();
+			input8 = element("input");
+			t25 = space();
+			if (if_block1) if_block1.c();
+			t26 = space();
+			div11 = element("div");
+			div10 = element("div");
+			label7 = element("label");
+			label7.textContent = `${localize("AUTOANIM.sprite")}`;
+			t28 = space();
+			input9 = element("input");
+			t29 = space();
+			button = element("button");
+			button.innerHTML = `<i class="fas fa-file-import fa-fw"></i>`;
+			attr(label0, "for", "");
+			attr(label0, "class", "svelte-4h0ulx");
+			attr(input0, "type", "Text");
+			attr(input0, "class", "svelte-4h0ulx");
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "2 / 3");
+			set_style(div0, "grid-column", "1 / 2");
+			attr(input1, "type", "color");
+			attr(input1, "data-edit", "color");
+			attr(input1, "id", "tint");
+			attr(input1, "class", "svelte-4h0ulx");
+			attr(div1, "class", "form-group");
+			set_style(div1, "grid-row", "3 / 4");
+			set_style(div1, "grid-column", "1 / 2");
+			attr(input2, "type", "color");
+			attr(input2, "data-edit", "color");
+			attr(input2, "id", "tint");
+			attr(input2, "class", "svelte-4h0ulx");
+			attr(div2, "class", "form-group");
+			set_style(div2, "grid-row", "4 / 5");
+			set_style(div2, "grid-column", "1 / 2");
+			attr(label1, "for", "");
+			attr(label1, "class", "svelte-4h0ulx");
+			attr(input3, "type", "Text");
+			attr(input3, "class", "svelte-4h0ulx");
+			attr(div3, "class", "flexcol");
+			set_style(div3, "grid-row", "5 / 6");
+			set_style(div3, "grid-column", "1 / 2");
+			attr(label2, "for", "");
+			attr(label2, "class", "svelte-4h0ulx");
+			attr(input4, "type", "Number");
+			attr(input4, "step", ".01");
+			attr(input4, "placeholder", "5");
+			attr(input4, "class", "svelte-4h0ulx");
+			attr(div4, "class", "flexcol");
+			set_style(div4, "grid-row", "2 / 3");
+			set_style(div4, "grid-column", "2 / 3");
+			attr(label3, "for", "");
+			attr(label3, "class", "svelte-4h0ulx");
+			attr(input5, "type", "Number");
+			attr(input5, "step", ".01");
+			attr(input5, "placeholder", "1");
+			attr(input5, "class", "svelte-4h0ulx");
+			attr(div5, "class", "flexcol");
+			set_style(div5, "grid-row", "2 / 3");
+			set_style(div5, "grid-column", "3 / 4");
+			attr(label4, "for", "");
+			attr(label4, "class", "svelte-4h0ulx");
+			attr(input6, "type", "Number");
+			attr(input6, "step", ".01");
+			attr(input6, "placeholder", "0");
+			attr(input6, "class", "svelte-4h0ulx");
+			attr(div6, "class", "flexcol");
+			set_style(div6, "grid-row", "2 / 3");
+			set_style(div6, "grid-column", "4 / 5");
+			attr(label5, "for", "");
+			attr(label5, "class", "svelte-4h0ulx");
+			attr(input7, "type", "Number");
+			attr(input7, "step", ".01");
+			attr(input7, "placeholder", "0.7");
+			attr(input7, "class", "svelte-4h0ulx");
+			attr(div7, "class", "flexcol");
+			set_style(div7, "grid-row", "3 / 4");
+			set_style(div7, "grid-column", "2 / 3");
+			attr(label6, "for", "");
+			attr(label6, "class", "svelte-4h0ulx");
+			attr(input8, "type", "Number");
+			attr(input8, "step", ".01");
+			attr(input8, "placeholder", "0.5");
+			attr(input8, "class", "svelte-4h0ulx");
+			attr(div8, "class", "flexcol");
+			set_style(div8, "grid-row", "3 / 4");
+			set_style(div8, "grid-column", "4 / 5");
+			attr(div9, "class", "aa-3d-settings svelte-4h0ulx");
+			attr(label7, "for", "");
+			set_style(label7, "align-self", "end");
+			attr(input9, "type", "text");
+			attr(button, "class", "file-picker svelte-4h0ulx");
+			attr(div10, "class", "form-group");
+			set_style(div10, "grid-row", "1/2");
+			set_style(div10, "grid-column", "1/3");
+			attr(div11, "class", "aa-customAnim-container svelte-4h0ulx");
+		},
+		m(target, anchor) {
+			insert(target, div9, anchor);
+			append(div9, div0);
+			append(div0, label0);
+			append(div0, t2);
+			append(div0, input0);
+			set_input_value(input0, /*color01*/ ctx[1]);
+			append(div9, t3);
+			append(div9, div1);
+			append(div1, input1);
+			set_input_value(input1, /*color01*/ ctx[1]);
+			append(div9, t4);
+			append(div9, div2);
+			append(div2, input2);
+			set_input_value(input2, /*color02*/ ctx[2]);
+			append(div9, t5);
+			append(div9, div3);
+			append(div3, label1);
+			append(div3, t8);
+			append(div3, input3);
+			set_input_value(input3, /*color02*/ ctx[2]);
+			append(div9, t9);
+			append(div9, div4);
+			append(div4, label2);
+			append(div4, t11);
+			append(div4, input4);
+			set_input_value(input4, /*speed*/ ctx[3]);
+			append(div9, t12);
+			append(div9, div5);
+			append(div5, label3);
+			append(div5, t14);
+			append(div5, input5);
+			set_input_value(input5, /*repeat*/ ctx[4]);
+			append(div9, t15);
+			if (if_block0) if_block0.m(div9, null);
+			append(div9, t16);
+			append(div9, div6);
+			append(div6, label4);
+			append(div6, t18);
+			append(div6, input6);
+			set_input_value(input6, /*delay*/ ctx[6]);
+			append(div9, t19);
+			append(div9, div7);
+			append(div7, label5);
+			append(div7, t21);
+			append(div7, input7);
+			set_input_value(input7, /*scale*/ ctx[7]);
+			append(div9, t22);
+			append(div9, div8);
+			append(div8, label6);
+			append(div8, t24);
+			append(div8, input8);
+			set_input_value(input8, /*alpha*/ ctx[8]);
+			append(div9, t25);
+			if (if_block1) if_block1.m(div9, null);
+			insert(target, t26, anchor);
+			insert(target, div11, anchor);
+			append(div11, div10);
+			append(div10, label7);
+			append(div10, t28);
+			append(div10, input9);
+			set_input_value(input9, /*spritePath*/ ctx[14]);
+			append(div10, t29);
+			append(div10, button);
+
+			if (!mounted) {
+				dispose = [
+					listen(input0, "input", /*input0_input_handler*/ ctx[18]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[19]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[20]),
+					listen(input3, "input", /*input3_input_handler*/ ctx[21]),
+					listen(input4, "input", /*input4_input_handler*/ ctx[22]),
+					listen(input4, "change", /*change_handler*/ ctx[23]),
+					listen(input5, "input", /*input5_input_handler*/ ctx[24]),
+					listen(input6, "input", /*input6_input_handler*/ ctx[26]),
+					listen(input7, "input", /*input7_input_handler*/ ctx[27]),
+					listen(input8, "input", /*input8_input_handler*/ ctx[28]),
+					listen(input9, "input", /*input9_input_handler*/ ctx[34]),
+					listen(button, "click", prevent_default(/*click_handler*/ ctx[35]))
+				];
+
+				mounted = true;
+			}
+		},
+		p(ctx, dirty) {
+			if (dirty[0] & /*color01*/ 2) {
+				set_input_value(input0, /*color01*/ ctx[1]);
+			}
+
+			if (dirty[0] & /*color01*/ 2) {
+				set_input_value(input1, /*color01*/ ctx[1]);
+			}
+
+			if (dirty[0] & /*color02*/ 4) {
+				set_input_value(input2, /*color02*/ ctx[2]);
+			}
+
+			if (dirty[0] & /*color02*/ 4) {
+				set_input_value(input3, /*color02*/ ctx[2]);
+			}
+
+			if (dirty[0] & /*speed*/ 8) {
+				set_input_value(input4, /*speed*/ ctx[3]);
+			}
+
+			if (dirty[0] & /*repeat*/ 16) {
+				set_input_value(input5, /*repeat*/ ctx[4]);
+			}
+
+			if (/*type*/ ctx[0] === "projectile" || /*type*/ ctx[0] === "ray") {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+				} else {
+					if_block0 = create_if_block_1$2(ctx);
+					if_block0.c();
+					if_block0.m(div9, t16);
+				}
+			} else if (if_block0) {
+				if_block0.d(1);
+				if_block0 = null;
+			}
+
+			if (dirty[0] & /*delay*/ 64) {
+				set_input_value(input6, /*delay*/ ctx[6]);
+			}
+
+			if (dirty[0] & /*scale*/ 128) {
+				set_input_value(input7, /*scale*/ ctx[7]);
+			}
+
+			if (dirty[0] & /*alpha*/ 256) {
+				set_input_value(input8, /*alpha*/ ctx[8]);
+			}
+
+			if (/*type*/ ctx[0] !== "sprite") {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+				} else {
+					if_block1 = create_if_block$2(ctx);
+					if_block1.c();
+					if_block1.m(div9, null);
+				}
+			} else if (if_block1) {
+				if_block1.d(1);
+				if_block1 = null;
+			}
+
+			if (dirty[0] & /*spritePath*/ 16384 && input9.value !== /*spritePath*/ ctx[14]) {
+				set_input_value(input9, /*spritePath*/ ctx[14]);
+			}
+		},
+		i: noop,
+		o: noop,
+		d(detaching) {
+			if (detaching) detach(div9);
+			if (if_block0) if_block0.d();
+			if (if_block1) if_block1.d();
+			if (detaching) detach(t26);
+			if (detaching) detach(div11);
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+}
+
+function instance$2($$self, $$props, $$invalidate) {
+	let { flagData } = $$props;
+	let { type } = $$props;
+
+	flagData.levels3d[type]
+	? flagData.levels3d[type]
+	: flagData.levels3d[type] = {};
+
+	const root = flagData.levels3d[type];
+	let spritePath;
+
+	switch (type) {
+		case "projectile":
+			spritePath = root.sprite || "modules/levels-3d-preview/assets/particles/emberssmall.png";
+			break;
+		case "ray":
+			spritePath = root.sprite || "modules/levels-3d-preview/assets/particles/emberssmall.png";
+			break;
+		case "sprite":
+			spritePath = root.sprite || "modules/levels-3d-preview/assets/particles/emberssmall.png";
+			break;
+		case "explosion":
+			spritePath = root.sprite || "modules/levels-3d-preview/assets/particles/dust.png";
+			break;
+	}
+
+	let color01 = root.color01;
+	let color02 = root.color02;
+	let speed = root.speed;
+	let repeat = root.repeat;
+	let arc = root.arc;
+	let delay = root.delay;
+	let scale = root.scale;
+	let alpha = root.alpha;
+	let gravity = root.gravity;
+	let mass = root.mass;
+	let life = root.life;
+	let emittersize = root.emittersize;
+	let rate = root.rate;
+
+	function logFlags() {
+		console.log(flagData);
+	}
+
+	async function selectCustom() {
+		const current = spritePath;
+
+		const picker = new FilePicker({
+				type: "imagevideo",
+				current,
+				callback: path => {
+					$$invalidate(14, spritePath = path);
+				}
+			});
+
+		setTimeout(
+			() => {
+				picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+			},
+			100
+		);
+
+		await picker.browse(current);
+	}
+
+	function input0_input_handler() {
+		color01 = this.value;
+		$$invalidate(1, color01);
+	}
+
+	function input1_input_handler() {
+		color01 = this.value;
+		$$invalidate(1, color01);
+	}
+
+	function input2_input_handler() {
+		color02 = this.value;
+		$$invalidate(2, color02);
+	}
+
+	function input3_input_handler() {
+		color02 = this.value;
+		$$invalidate(2, color02);
+	}
+
+	function input4_input_handler() {
+		speed = this.value;
+		$$invalidate(3, speed);
+	}
+
+	const change_handler = () => logFlags();
+
+	function input5_input_handler() {
+		repeat = this.value;
+		$$invalidate(4, repeat);
+	}
+
+	function input_input_handler() {
+		arc = this.value;
+		$$invalidate(5, arc);
+	}
+
+	function input6_input_handler() {
+		delay = this.value;
+		$$invalidate(6, delay);
+	}
+
+	function input7_input_handler() {
+		scale = this.value;
+		$$invalidate(7, scale);
+	}
+
+	function input8_input_handler() {
+		alpha = this.value;
+		$$invalidate(8, alpha);
+	}
+
+	function input0_input_handler_1() {
+		gravity = this.value;
+		$$invalidate(9, gravity);
+	}
+
+	function input1_input_handler_1() {
+		mass = this.value;
+		$$invalidate(10, mass);
+	}
+
+	function input2_input_handler_1() {
+		life = this.value;
+		$$invalidate(11, life);
+	}
+
+	function input3_input_handler_1() {
+		emittersize = this.value;
+		$$invalidate(12, emittersize);
+	}
+
+	function input4_input_handler_1() {
+		rate = this.value;
+		$$invalidate(13, rate);
+	}
+
+	function input9_input_handler() {
+		spritePath = this.value;
+		$$invalidate(14, spritePath);
+	}
+
+	const click_handler = () => selectCustom();
+
+	$$self.$$set = $$props => {
+		if ('flagData' in $$props) $$invalidate(17, flagData = $$props.flagData);
+		if ('type' in $$props) $$invalidate(0, type = $$props.type);
+	};
+
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty[0] & /*color01*/ 2) {
+			$$invalidate(1, color01 = root.color01 = color01
+			? color01.toString(16).padStart(6, "0").toUpperCase()
+			: "#FFFFFF");
+		}
+
+		if ($$self.$$.dirty[0] & /*color02*/ 4) {
+			$$invalidate(2, color02 = root.color02 = color02
+			? color02.toString(16).padStart(6, "0").toUpperCase()
+			: "#FFFFFF");
+		}
+
+		if ($$self.$$.dirty[0] & /*speed*/ 8) {
+			$$invalidate(3, speed = root.speed = speed);
+		}
+
+		if ($$self.$$.dirty[0] & /*repeat*/ 16) {
+			$$invalidate(4, repeat = root.repeat = repeat);
+		}
+
+		if ($$self.$$.dirty[0] & /*arc*/ 32) {
+			$$invalidate(5, arc = root.arc = arc);
+		}
+
+		if ($$self.$$.dirty[0] & /*delay*/ 64) {
+			$$invalidate(6, delay = root.delay = delay);
+		}
+
+		if ($$self.$$.dirty[0] & /*scale*/ 128) {
+			$$invalidate(7, scale = root.scale = scale);
+		}
+
+		if ($$self.$$.dirty[0] & /*alpha*/ 256) {
+			$$invalidate(8, alpha = root.alpha = alpha);
+		}
+
+		if ($$self.$$.dirty[0] & /*gravity*/ 512) {
+			$$invalidate(9, gravity = root.gravity = gravity);
+		}
+
+		if ($$self.$$.dirty[0] & /*mass*/ 1024) {
+			$$invalidate(10, mass = root.mass = mass);
+		}
+
+		if ($$self.$$.dirty[0] & /*life*/ 2048) {
+			$$invalidate(11, life = root.life = life);
+		}
+
+		if ($$self.$$.dirty[0] & /*emittersize*/ 4096) {
+			$$invalidate(12, emittersize = root.emittersize = emittersize);
+		}
+
+		if ($$self.$$.dirty[0] & /*rate*/ 8192) {
+			$$invalidate(13, rate = root.rate = rate);
+		}
+	};
+
+	return [
+		type,
+		color01,
+		color02,
+		speed,
+		repeat,
+		arc,
+		delay,
+		scale,
+		alpha,
+		gravity,
+		mass,
+		life,
+		emittersize,
+		rate,
+		spritePath,
+		logFlags,
+		selectCustom,
+		flagData,
+		input0_input_handler,
+		input1_input_handler,
+		input2_input_handler,
+		input3_input_handler,
+		input4_input_handler,
+		change_handler,
+		input5_input_handler,
+		input_input_handler,
+		input6_input_handler,
+		input7_input_handler,
+		input8_input_handler,
+		input0_input_handler_1,
+		input1_input_handler_1,
+		input2_input_handler_1,
+		input3_input_handler_1,
+		input4_input_handler_1,
+		input9_input_handler,
+		click_handler
+	];
+}
+
+class _3dCanvasOptions extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$2, create_fragment$2, safe_not_equal, { flagData: 17, type: 0 }, null, [-1, -1]);
+	}
+}
+
+/* src\formApps\ItemMenu\components\3dMenuShell.svelte generated by Svelte v3.47.0 */
+
+function create_if_block_3$1(ctx) {
+	let options3d;
+	let current;
+
+	options3d = new _3dCanvasOptions({
+			props: {
+				type: "projectile",
+				flagData: /*flagData*/ ctx[0]
+			}
+		});
+
+	return {
+		c() {
+			create_component(options3d.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(options3d, target, anchor);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const options3d_changes = {};
+			if (dirty & /*flagData*/ 1) options3d_changes.flagData = /*flagData*/ ctx[0];
+			options3d.$set(options3d_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(options3d.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(options3d.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(options3d, detaching);
+		}
+	};
+}
+
+// (33:0) {#if type3d === "sprite"}
+function create_if_block_2$1(ctx) {
+	let options3d;
+	let current;
+
+	options3d = new _3dCanvasOptions({
+			props: {
+				type: "sprite",
+				flagData: /*flagData*/ ctx[0]
+			}
+		});
+
+	return {
+		c() {
+			create_component(options3d.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(options3d, target, anchor);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const options3d_changes = {};
+			if (dirty & /*flagData*/ 1) options3d_changes.flagData = /*flagData*/ ctx[0];
+			options3d.$set(options3d_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(options3d.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(options3d.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(options3d, detaching);
+		}
+	};
+}
+
+// (36:0) {#if type3d === "ray"}
+function create_if_block_1$1(ctx) {
+	let options3d;
+	let current;
+
+	options3d = new _3dCanvasOptions({
+			props: {
+				type: "ray",
+				flagData: /*flagData*/ ctx[0]
+			}
+		});
+
+	return {
+		c() {
+			create_component(options3d.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(options3d, target, anchor);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const options3d_changes = {};
+			if (dirty & /*flagData*/ 1) options3d_changes.flagData = /*flagData*/ ctx[0];
+			options3d.$set(options3d_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(options3d.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(options3d.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(options3d, detaching);
+		}
+	};
+}
+
+// (39:0) {#if type3d === "explosion"}
+function create_if_block$1(ctx) {
+	let options3d;
+	let current;
+
+	options3d = new _3dCanvasOptions({
+			props: {
+				type: "explosion",
+				flagData: /*flagData*/ ctx[0]
+			}
+		});
+
+	return {
+		c() {
+			create_component(options3d.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(options3d, target, anchor);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const options3d_changes = {};
+			if (dirty & /*flagData*/ 1) options3d_changes.flagData = /*flagData*/ ctx[0];
+			options3d.$set(options3d_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(options3d.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(options3d.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(options3d, detaching);
+		}
+	};
+}
+
+function create_fragment$1(ctx) {
+	let h1;
+	let t1;
+	let h3;
+	let t3;
+	let div1;
+	let div0;
+	let label;
+	let t5;
+	let select;
+	let option0;
+	let option1;
+	let option2;
+	let option3;
+	let option4;
+	let t10;
+	let t11;
+	let t12;
+	let t13;
+	let if_block3_anchor;
+	let current;
+	let mounted;
+	let dispose;
+	let if_block0 = /*type3d*/ ctx[1] === "projectile" && create_if_block_3$1(ctx);
+	let if_block1 = /*type3d*/ ctx[1] === "sprite" && create_if_block_2$1(ctx);
+	let if_block2 = /*type3d*/ ctx[1] === "ray" && create_if_block_1$1(ctx);
+	let if_block3 = /*type3d*/ ctx[1] === "explosion" && create_if_block$1(ctx);
+
+	return {
+		c() {
+			h1 = element("h1");
+			h1.textContent = "3D Canvas Particle Animations";
+			t1 = space();
+			h3 = element("h3");
+			h3.textContent = "Requires the 3D Canvas Module by Ripper";
+			t3 = space();
+			div1 = element("div");
+			div0 = element("div");
+			label = element("label");
+			label.textContent = `${localize("AUTOANIM.type")}`;
+			t5 = space();
+			select = element("select");
+			option0 = element("option");
+			option1 = element("option");
+			option1.textContent = `${localize("AUTOANIM.projectile")}`;
+			option2 = element("option");
+			option2.textContent = `${localize("AUTOANIM.sprite")}`;
+			option3 = element("option");
+			option3.textContent = `${localize("AUTOANIM.ray")}`;
+			option4 = element("option");
+			option4.textContent = `${localize("AUTOANIM.explosion")}`;
+			t10 = space();
+			if (if_block0) if_block0.c();
+			t11 = space();
+			if (if_block1) if_block1.c();
+			t12 = space();
+			if (if_block2) if_block2.c();
+			t13 = space();
+			if (if_block3) if_block3.c();
+			if_block3_anchor = empty();
+			attr(h1, "class", "svelte-o9gu52");
+			attr(h3, "class", "svelte-o9gu52");
+			attr(label, "for", "");
+			attr(label, "class", "svelte-o9gu52");
+			option0.__value = "";
+			option0.value = option0.__value;
+			option1.__value = "projectile";
+			option1.value = option1.__value;
+			option2.__value = "sprite";
+			option2.value = option2.__value;
+			option3.__value = "ray";
+			option3.value = option3.__value;
+			option4.__value = "explosion";
+			option4.value = option4.__value;
+			attr(select, "class", "svelte-o9gu52");
+			if (/*type3d*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[2].call(select));
+			attr(div0, "class", "flexcol");
+			set_style(div0, "grid-row", "1 / 2");
+			set_style(div0, "grid-column", "2 / 3");
+			attr(div1, "class", "aa-3wide svelte-o9gu52");
+		},
+		m(target, anchor) {
+			insert(target, h1, anchor);
+			insert(target, t1, anchor);
+			insert(target, h3, anchor);
+			insert(target, t3, anchor);
+			insert(target, div1, anchor);
+			append(div1, div0);
+			append(div0, label);
+			append(div0, t5);
+			append(div0, select);
+			append(select, option0);
+			append(select, option1);
+			append(select, option2);
+			append(select, option3);
+			append(select, option4);
+			select_option(select, /*type3d*/ ctx[1]);
+			insert(target, t10, anchor);
+			if (if_block0) if_block0.m(target, anchor);
+			insert(target, t11, anchor);
+			if (if_block1) if_block1.m(target, anchor);
+			insert(target, t12, anchor);
+			if (if_block2) if_block2.m(target, anchor);
+			insert(target, t13, anchor);
+			if (if_block3) if_block3.m(target, anchor);
+			insert(target, if_block3_anchor, anchor);
+			current = true;
+
+			if (!mounted) {
+				dispose = listen(select, "change", /*select_change_handler*/ ctx[2]);
+				mounted = true;
+			}
+		},
+		p(ctx, [dirty]) {
+			if (dirty & /*type3d*/ 2) {
+				select_option(select, /*type3d*/ ctx[1]);
+			}
+
+			if (/*type3d*/ ctx[1] === "projectile") {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+
+					if (dirty & /*type3d*/ 2) {
+						transition_in(if_block0, 1);
+					}
+				} else {
+					if_block0 = create_if_block_3$1(ctx);
+					if_block0.c();
+					transition_in(if_block0, 1);
+					if_block0.m(t11.parentNode, t11);
+				}
+			} else if (if_block0) {
+				group_outros();
+
+				transition_out(if_block0, 1, 1, () => {
+					if_block0 = null;
+				});
+
+				check_outros();
+			}
+
+			if (/*type3d*/ ctx[1] === "sprite") {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+
+					if (dirty & /*type3d*/ 2) {
+						transition_in(if_block1, 1);
+					}
+				} else {
+					if_block1 = create_if_block_2$1(ctx);
+					if_block1.c();
+					transition_in(if_block1, 1);
+					if_block1.m(t12.parentNode, t12);
+				}
+			} else if (if_block1) {
+				group_outros();
+
+				transition_out(if_block1, 1, 1, () => {
+					if_block1 = null;
+				});
+
+				check_outros();
+			}
+
+			if (/*type3d*/ ctx[1] === "ray") {
+				if (if_block2) {
+					if_block2.p(ctx, dirty);
+
+					if (dirty & /*type3d*/ 2) {
+						transition_in(if_block2, 1);
+					}
+				} else {
+					if_block2 = create_if_block_1$1(ctx);
+					if_block2.c();
+					transition_in(if_block2, 1);
+					if_block2.m(t13.parentNode, t13);
+				}
+			} else if (if_block2) {
+				group_outros();
+
+				transition_out(if_block2, 1, 1, () => {
+					if_block2 = null;
+				});
+
+				check_outros();
+			}
+
+			if (/*type3d*/ ctx[1] === "explosion") {
+				if (if_block3) {
+					if_block3.p(ctx, dirty);
+
+					if (dirty & /*type3d*/ 2) {
+						transition_in(if_block3, 1);
+					}
+				} else {
+					if_block3 = create_if_block$1(ctx);
+					if_block3.c();
+					transition_in(if_block3, 1);
+					if_block3.m(if_block3_anchor.parentNode, if_block3_anchor);
+				}
+			} else if (if_block3) {
+				group_outros();
+
+				transition_out(if_block3, 1, 1, () => {
+					if_block3 = null;
+				});
+
+				check_outros();
+			}
+		},
+		i(local) {
+			if (current) return;
+			transition_in(if_block0);
+			transition_in(if_block1);
+			transition_in(if_block2);
+			transition_in(if_block3);
+			current = true;
+		},
+		o(local) {
+			transition_out(if_block0);
+			transition_out(if_block1);
+			transition_out(if_block2);
+			transition_out(if_block3);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(h1);
+			if (detaching) detach(t1);
+			if (detaching) detach(h3);
+			if (detaching) detach(t3);
+			if (detaching) detach(div1);
+			if (detaching) detach(t10);
+			if (if_block0) if_block0.d(detaching);
+			if (detaching) detach(t11);
+			if (if_block1) if_block1.d(detaching);
+			if (detaching) detach(t12);
+			if (if_block2) if_block2.d(detaching);
+			if (detaching) detach(t13);
+			if (if_block3) if_block3.d(detaching);
+			if (detaching) detach(if_block3_anchor);
+			mounted = false;
+			dispose();
+		}
+	};
+}
+
+function instance$1($$self, $$props, $$invalidate) {
+	let { flagData } = $$props;
+	const root = flagData.levels3d;
+	let type3d = root.type || "";
+
+	function select_change_handler() {
+		type3d = select_value(this);
+		$$invalidate(1, type3d);
+	}
+
+	$$self.$$set = $$props => {
+		if ('flagData' in $$props) $$invalidate(0, flagData = $$props.flagData);
+	};
+
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty & /*type3d*/ 2) {
+			$$invalidate(1, type3d = root.type = type3d);
+		}
+	};
+
+	return [flagData, type3d, select_change_handler];
+}
+
+class _3dMenuShell extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$1, create_fragment$1, safe_not_equal, { flagData: 0 });
 	}
 }
 
@@ -56702,7 +58542,10 @@ function create_if_block_4(ctx) {
 		/*generalsettings_enableMacro_binding*/ ctx[36](value);
 	}
 
-	let generalsettings_props = { flagData: /*flagData*/ ctx[1] };
+	let generalsettings_props = {
+		autoCheck: /*autoCheck*/ ctx[16],
+		flagData: /*flagData*/ ctx[1]
+	};
 
 	if (/*animationDisabled*/ ctx[2] !== void 0) {
 		generalsettings_props.animationDisabled = /*animationDisabled*/ ctx[2];
@@ -56948,7 +58791,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (210:20) {#if autoCheck && !isCustomized && !animationDisabled}
+// (211:20) {#if autoCheck && !isCustomized && !animationDisabled}
 function create_if_block_13(ctx) {
 	let div1;
 	let div0;
@@ -57009,7 +58852,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (217:20) {#if isCustomized}
+// (218:20) {#if isCustomized}
 function create_if_block_11(ctx) {
 	let div1;
 	let div0;
@@ -57160,7 +59003,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (265:28) {#if animType === "preset"}
+// (266:28) {#if animType === "preset"}
 function create_if_block_12(ctx) {
 	let div;
 	let label;
@@ -57289,7 +59132,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (331:16) {#if enableMacro}
+// (332:16) {#if enableMacro}
 function create_if_block_10(ctx) {
 	let div;
 	let macrofield;
@@ -57338,7 +59181,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (336:16) {#if showSound}
+// (337:16) {#if showSound}
 function create_if_block_9(ctx) {
 	let div;
 	let soundsettings;
@@ -57393,7 +59236,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (341:16) {#if !animationDisabled && isCustomized}
+// (342:16) {#if !animationDisabled && isCustomized}
 function create_if_block_5(ctx) {
 	let current_block_type_index;
 	let if_block0;
@@ -57529,7 +59372,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (344:24) {:else}
+// (345:24) {:else}
 function create_else_block(ctx) {
 	let div;
 	let primarysection;
@@ -57577,7 +59420,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (342:24) {#if animType === "preset"}
+// (343:24) {#if animType === "preset"}
 function create_if_block_8(ctx) {
 	let presetmenu;
 	let current;
@@ -57620,7 +59463,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (353:20) {#if animType === "melee"}
+// (354:20) {#if animType === "melee"}
 function create_if_block_7(ctx) {
 	let div;
 	let rangeswitch;
@@ -57659,7 +59502,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (358:20) {#if animType === "melee" || animType === "range" || animType === "static"}
+// (359:20) {#if animType === "melee" || animType === "range" || animType === "static"}
 function create_if_block_6(ctx) {
 	let div;
 	let explosionsettings;
@@ -57698,7 +59541,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (366:8) {#if focusExtra}
+// (367:8) {#if focusExtra}
 function create_if_block_1(ctx) {
 	let div8;
 	let div5;
@@ -57917,7 +59760,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (382:24) {#if enableSource}
+// (383:24) {#if enableSource}
 function create_if_block_3(ctx) {
 	let div;
 	let label;
@@ -57962,7 +59805,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (408:24) {#if enableTarget}
+// (409:24) {#if enableTarget}
 function create_if_block_2(ctx) {
 	let div;
 	let label;
@@ -58007,7 +59850,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (454:8) {#if focus3d}
+// (455:8) {#if focus3d}
 function create_if_block(ctx) {
 	let div1;
 	let div0;
@@ -58728,625 +60571,6 @@ class ItemMenuAppShell extends SvelteComponent {
 	get flagData() {
 		return this.$$.ctx[1];
 	}
-}
-
-class aaAutoRecognition extends FormApplication {
-  constructor(object = {}, options) {
-    super(object, options);
-  }
-
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      template: './modules/autoanimations/src/custom-recognition/settings.html',
-      id: 'automatic-recognition',
-      title: "Automatic Recognition Settings",
-      resizable: true,
-      width: 700,
-      height: "auto",
-      closeOnSubmit: true,
-      tabs: [{
-        navSelector: ".tabs",
-        contentSelector: "form",
-        initial: "name"
-      }]
-    });
-  }
-
-  getSettingsData() {
-    let settingsData = {
-      "aaAutorec": game.settings.get("autoanimations", "aaAutorec")
-    };
-    return settingsData;
-  }
-
-  getData() {
-    let data = super.getData();
-    data.menuTypes = aaTypeMenu, data.menuNames = aaNameMenu, data.menuVariants = aaVariantMenu, data.menuColors = aaColorMenu, data.currentAutoVersion = Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
-    data.settings = this.getSettingsData();
-    data.show = false;
-    data.system = {
-      id: game.system.id,
-      title: game.system.data.title
-    };
-    return data;
-  }
-
-  activateListeners(html) {
-    var _this = this;
-
-    super.activateListeners(html);
-    html.find('button.add-autorecog-melee').click(this._addMelee.bind(this));
-    html.find('button.add-autorecog-range').click(this._addRange.bind(this));
-    html.find('button.add-autorecog-static').click(this._addStatic.bind(this));
-    html.find('button.add-autorecog-templates').click(this._addTemplate.bind(this));
-    html.find('button.add-autorecog-auras').click(this._addAura.bind(this));
-    html.find('button.add-autorecog-preset').click(this._addPreset.bind(this));
-    html.find('button.add-autorecog-aefx').click(this._addAefx.bind(this));
-    html.find('.duplicate-melee').click(this._duplicateMelee.bind(this));
-    html.find('.duplicate-range').click(this._duplicateRange.bind(this));
-    html.find('.duplicate-static').click(this._duplicateStatic.bind(this));
-    html.find('.duplicate-templates').click(this._duplicateTemplate.bind(this));
-    html.find('.duplicate-auras').click(this._duplicateAura.bind(this));
-    html.find('.duplicate-preset').click(this._duplicatePreset.bind(this));
-    html.find('.duplicate-aefx').click(this._duplicateAefx.bind(this)); //html.find('button.add-autorecog-template').click(this._addTemplate.bind(this));
-
-    html.find('.aa-autorecognition input[type="checkbox"]').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.find('.aa-autorec-submit-open').click(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    }); //html.find('button.remove-autorecog').click(this._onRemoveOverride.bind(this));
-
-    html.find('.remove-autorecog').click(this._onRemoveOverride.bind(this));
-    html.on('click', '.enableMacro', evt => {
-      var change = $(evt.currentTarget).closest('.form-fields').find('.showMacro').is(":checked");
-
-      if (change === true) {
-        $(evt.currentTarget).closest('.form-fields').find('.showMacro').prop('checked', false);
-      } else {
-        $(evt.currentTarget).closest('.form-fields').find('.showMacro').prop('checked', true);
-      }
-
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.on('click', '.showSoundOnly', evt => {
-      var change = $(evt.currentTarget).closest('.form-fields').find('.showSound').is(":checked");
-
-      if (change === true) {
-        $(evt.currentTarget).closest('.form-fields').find('.showSound').prop('checked', false);
-      } else {
-        $(evt.currentTarget).closest('.form-fields').find('.showSound').prop('checked', true);
-      }
-
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.find('.aa-autorecognition select').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.on('click', '.collapse-button', evt => {
-      var change = $(evt.currentTarget).closest('.form-fields').find('.hideme').is(":checked");
-
-      if (change === true) {
-        $(evt.currentTarget).closest('.form-fields').find('.hideme').prop('checked', false);
-      } else {
-        $(evt.currentTarget).closest('.form-fields').find('.hideme').prop('checked', true);
-      }
-
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.on('click', '.button-2d', evt => {
-      var change = $(evt.currentTarget).closest('.form-fields').find('.anim2d').is(":checked");
-
-      if (change === true) {
-        $(evt.currentTarget).closest('.form-fields').find('.anim2d').prop('checked', false);
-      } else {
-        $(evt.currentTarget).closest('.form-fields').find('.anim2d').prop('checked', true);
-      }
-
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.on('keyup', '#aatest', this._onSearch.bind(this)); //html.on('focus', '.aa-autorecognition', this._loadSearch.bind(this))
-
-    html.on(this._loadSearch());
-    html.on('open', '#aatest', evt => {
-      evt.preventDefault();
-    });
-    html.find("#aa-autorec-export").click(AutorecFunctions._exportAutorecToJSON);
-    html.find("#aa-autorec-import").on("click", async function () {
-      if (await importFromJSONDialog()) {
-        _this.close();
-      }
-    });
-    html.find("#aa-autorec-merge").on("click", async function () {
-      if (await importJSONAndMerge()) {
-        _this.close();
-      }
-    });
-    html.find('.particles input[type="color"]').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.find('.particles input[type="checkbox"]').change(evt => {
-      this.submit({
-        preventClose: true
-      }).then(() => this.render());
-    });
-    html.on('click', '.sort-menu', async function (evt) {
-      evt.preventDefault();
-      await _this.sortAutorec();
-
-      _this.render();
-    });
-  }
-
-  _loadSearch(evt) {
-    var _settings$aaAutorec, _settings$aaAutorec$s;
-
-    //debugger
-    const settings = this.getSettingsData();
-    const search = (_settings$aaAutorec = settings.aaAutorec) === null || _settings$aaAutorec === void 0 ? void 0 : (_settings$aaAutorec$s = _settings$aaAutorec.search) === null || _settings$aaAutorec$s === void 0 ? void 0 : _settings$aaAutorec$s.toLowerCase();
-    this.element.find('.aa-search').each((index, element) => {
-      const text = $(element).find('.auto-name').val().toLowerCase();
-
-      if (text.includes(search)) {
-        $(element).show(250);
-      } else {
-        $(element).hide();
-      }
-    });
-  }
-
-  _onSearch(evt) {
-    const search = $(evt.currentTarget).val().toLowerCase();
-    this.element.find('.aa-search').each((index, element) => {
-      const text = $(element).find('.auto-name').val().toLowerCase();
-
-      if (text.includes(search)) {
-        $(element).show(250);
-      } else {
-        $(element).hide();
-      }
-    });
-  }
-
-  async _addMelee(event) {
-    event.preventDefault();
-    let idx = 0;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
-    const last = entries[entries.length - 1];
-
-    if (last) {
-      idx = last.dataset.idx + 1;
-    }
-
-    let updateData = {}; //updateData[`aaAutorec.melee.${idx}.repeat`] = 1;
-    //updateData[`aaAutorec.melee.${idx}.delay`] = 500;
-    //updateData[`aaAutorec.melee.${idx}.scale`] = 1;
-
-    updateData[`aaAutorec.melee.${idx}.below`] = false;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _addRange(event) {
-    event.preventDefault();
-    let idx = 0;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.range-settings');
-    const last = entries[entries.length - 1];
-
-    if (last) {
-      idx = last.dataset.idx + 1;
-    }
-
-    let updateData = {}; //updateData[`aaAutorec.range.${idx}.repeat`] = 1;
-    //updateData[`aaAutorec.range.${idx}.delay`] = 500;
-
-    updateData[`aaAutorec.range.${idx}.below`] = false;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _addStatic(event) {
-    event.preventDefault();
-    let idx = 0;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.static-settings');
-    const last = entries[entries.length - 1];
-
-    if (last) {
-      idx = last.dataset.idx + 1;
-    }
-
-    let updateData = {}; //updateData[`aaAutorec.static.${idx}.repeat`] = 1;
-    //updateData[`aaAutorec.static.${idx}.delay`] = 500;
-    //updateData[`aaAutorec.static.${idx}.scale`] = 1;
-
-    updateData[`aaAutorec.static.${idx}.below`] = false;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _addTemplate(event) {
-    event.preventDefault();
-    let idx = 0;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.templates-settings');
-    const last = entries[entries.length - 1];
-
-    if (last) {
-      idx = last.dataset.idx + 1;
-    }
-
-    let updateData = {}; //updateData[`aaAutorec.templates.${idx}.repeat`] = 1;
-    //updateData[`aaAutorec.templates.${idx}.delay`] = 500;
-
-    updateData[`aaAutorec.templates.${idx}.below`] = false; //updateData[`aaAutorec.templates.${idx}.opacity`] = 0.75;
-
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _addAura(event) {
-    event.preventDefault();
-    let idx = 0;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.auras-settings');
-    const last = entries[entries.length - 1];
-
-    if (last) {
-      idx = last.dataset.idx + 1;
-    }
-
-    let updateData = {};
-    updateData[`aaAutorec.auras.${idx}.tint`] = '#ffffff'; //updateData[`aaAutorec.auras.${idx}.opacity`] = 0.75;
-    //updateData[`aaAutorec.auras.${idx}.scale`] = 1;
-
-    updateData[`aaAutorec.auras.${idx}.below`] = true;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _addPreset(event) {
-    event.preventDefault();
-    let idx = 0;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.preset-settings');
-    const last = entries[entries.length - 1];
-
-    if (last) {
-      idx = last.dataset.idx + 1;
-    }
-
-    let updateData = {}; //updateData[`aaAutorec.preset.${idx}.scale`] = 1;
-
-    updateData[`aaAutorec.preset.${idx}.below`] = false; //updateData[`aaAutorec.preset.${idx}.anchorX`] = 0.5;
-    //updateData[`aaAutorec.preset.${idx}.anchorY`] = 0.5;
-
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _addAefx(event) {
-    event.preventDefault();
-    let idx = 0;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.aefx-settings');
-    const last = entries[entries.length - 1];
-
-    if (last) {
-      idx = last.dataset.idx + 1;
-    }
-
-    let updateData = {};
-    updateData[`aaAutorec.aefx.${idx}.below`] = false;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _onRemoveOverride(event) {
-    event.preventDefault();
-    const data = await game.settings.get('autoanimations', 'aaAutorec');
-    let idx = event.target.dataset.idx;
-    delete data[event.target.classList[3]][idx];
-    const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset', 'aefx'];
-
-    for (let i = 0; i < menuType.length; i++) {
-      let compacted = {};
-
-      try {
-        Object.values(data[menuType[i]]);
-      } catch (exception) {
-        continue;
-      }
-
-      Object.values(data[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
-      data[menuType[i]] = compacted;
-    }
-
-    await game.settings.set('autoanimations', "aaAutorec", data);
-    this.render();
-  }
-
-  async _duplicateMelee(event) {
-    event.preventDefault();
-    let currentIDX = event.target.dataset.idx;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.melee-settings');
-    const last = entries[entries.length - 1];
-    let idx = last.dataset.idx + 1;
-    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    let newSet = autorecSettings.melee[currentIDX];
-    newSet.name = newSet.name + " (COPY)";
-    let updateData = {};
-    updateData[`aaAutorec.melee.${idx}`] = newSet;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _duplicateRange(event) {
-    event.preventDefault();
-    let currentIDX = event.target.dataset.idx;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.range-settings');
-    const last = entries[entries.length - 1];
-    let idx = last.dataset.idx + 1;
-    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    let newSet = autorecSettings.range[currentIDX];
-    newSet.name = newSet.name + " (COPY)";
-    let updateData = {};
-    updateData[`aaAutorec.range.${idx}`] = newSet;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _duplicateStatic(event) {
-    event.preventDefault();
-    let currentIDX = event.target.dataset.idx;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.static-settings');
-    const last = entries[entries.length - 1];
-    let idx = last.dataset.idx + 1;
-    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    let newSet = autorecSettings.static[currentIDX];
-    newSet.name = newSet.name + " (COPY)";
-    let updateData = {};
-    updateData[`aaAutorec.static.${idx}`] = newSet;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _duplicateTemplate(event) {
-    event.preventDefault();
-    let currentIDX = event.target.dataset.idx;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.templates-settings');
-    const last = entries[entries.length - 1];
-    let idx = last.dataset.idx + 1;
-    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    let newSet = autorecSettings.templates[currentIDX];
-    newSet.name = newSet.name + " (COPY)";
-    let updateData = {};
-    updateData[`aaAutorec.templates.${idx}`] = newSet;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _duplicateAura(event) {
-    event.preventDefault();
-    let currentIDX = event.target.dataset.idx;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.auras-settings');
-    const last = entries[entries.length - 1];
-    let idx = last.dataset.idx + 1;
-    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    let newSet = autorecSettings.auras[currentIDX];
-    newSet.name = newSet.name + " (COPY)";
-    let updateData = {};
-    updateData[`aaAutorec.auras.${idx}`] = newSet;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _duplicatePreset(event) {
-    event.preventDefault();
-    let currentIDX = event.target.dataset.idx;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.preset-settings');
-    const last = entries[entries.length - 1];
-    let idx = last.dataset.idx + 1;
-    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    let newSet = autorecSettings.preset[currentIDX];
-    newSet.name = newSet.name + " (COPY)";
-    let updateData = {};
-    updateData[`aaAutorec.preset.${idx}`] = newSet;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-
-  async _duplicateAefx(event) {
-    event.preventDefault();
-    let currentIDX = event.target.dataset.idx;
-    const entries = event.target.closest('div.tab').querySelectorAll('div.aefx-settings');
-    const last = entries[entries.length - 1];
-    let idx = last.dataset.idx + 1;
-    let autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
-    let newSet = autorecSettings.aefx[currentIDX];
-    newSet.name = newSet.name + " (COPY)";
-    let updateData = {};
-    updateData[`aaAutorec.aefx.${idx}`] = newSet;
-    await this._onSubmit(event, {
-      updateData: updateData,
-      preventClose: true
-    });
-    this.render();
-  }
-  /** @override */
-
-
-  async _updateObject(_, formData) {
-    const data = expandObject(formData).aaAutorec;
-    const menuType = ['melee', 'range', 'static', 'templates', 'auras', 'preset', 'aefx'];
-
-    for (let i = 0; i < menuType.length; i++) {
-      let compacted = {};
-
-      try {
-        Object.values(data[menuType[i]]);
-      } catch (exception) {
-        continue;
-      }
-
-      Object.values(data[menuType[i]]).forEach((val, idx) => compacted[idx] = val);
-      data[menuType[i]] = compacted;
-    }
-
-    const oldData = await game.settings.get('autoanimations', 'aaAutorec');
-    const newData = mergeObject(oldData, data);
-    await game.settings.set('autoanimations', "aaAutorec", newData);
-  }
-
-  async sortAutorec() {
-    const autoRec = await game.settings.get('autoanimations', 'aaAutorec');
-    const sortedMenu = {};
-    sortedMenu.version = autoRec.version;
-    sortedMenu.search = autoRec.search;
-    sortedMenu.melee = autoRec.melee ? await this.sortMenu(autoRec.melee) : {};
-    sortedMenu.range = autoRec.range ? await this.sortMenu(autoRec.range) : {};
-    sortedMenu.static = autoRec.static ? await this.sortMenu(autoRec.static) : {};
-    sortedMenu.templates = autoRec.templates ? await this.sortMenu(autoRec.templates) : {};
-    sortedMenu.auras = autoRec.auras ? await this.sortMenu(autoRec.auras) : {};
-    sortedMenu.preset = autoRec.preset ? await this.sortMenu(autoRec.preset) : {};
-    sortedMenu.aefx = autoRec.aefx ? await this.sortMenu(autoRec.aefx) : {};
-    await game.settings.set("autoanimations", "aaAutorec", sortedMenu);
-  }
-
-  async sortMenu(data) {
-    const mergedArray = [];
-    const keys = Object.keys(data);
-    const keyLength = keys.length;
-
-    for (var i = 0; i < keyLength; i++) {
-      var currentObject = data[keys[i]];
-
-      if (!currentObject.name) {
-        break;
-      }
-
-      currentObject.menuSection = keys[i];
-      mergedArray.push(currentObject);
-    }
-
-    mergedArray.sort((a, b) => b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 1);
-    const sortedMenu = {};
-    const newLength = mergedArray.length;
-
-    for (var i = 0; i < newLength; i++) {
-      var currentKey = i.toString();
-      sortedMenu[currentKey] = mergedArray[currentKey];
-    }
-
-    return sortedMenu;
-  }
-
-} // Credit to Tim Poseny of Midi-QOL for the import/export functions for settings
-
-async function importFromJSONDialog() {
-  const content = await renderTemplate("modules/autoanimations/src/custom-recognition/import-data.html", {
-    entity: "autoanimations",
-    name: "aaAutorec"
-  });
-  let dialog = new Promise((resolve, reject) => {
-    new Dialog({
-      title: game.i18n.format("AUTOANIM.menuImport"),
-      content: content,
-      buttons: {
-        import: {
-          icon: '<i class="fas fa-file-import"></i>',
-          label: game.i18n.format("AUTOANIM.overwrite"),
-          callback: html => {
-            var _ui$notifications;
-
-            //@ts-ignore
-            const form = html.find("form")[0];
-            if (!form.data.files.length) return (_ui$notifications = ui.notifications) === null || _ui$notifications === void 0 ? void 0 : _ui$notifications.error("You did not upload a data file!");
-            readTextFromFile(form.data.files[0]).then(json => {
-              AutorecFunctions._importAutorecFromJSON(json);
-
-              resolve(true);
-            });
-          }
-        },
-        merge: {
-          icon: '<i class="fas fa-file-import"></i>',
-          label: game.i18n.format("AUTOANIM.merge"),
-          callback: html => {
-            var _ui$notifications2;
-
-            //@ts-ignore
-            const form = html.find("form")[0];
-            if (!form.data.files.length) return (_ui$notifications2 = ui.notifications) === null || _ui$notifications2 === void 0 ? void 0 : _ui$notifications2.error("You did not upload a data file!");
-            readTextFromFile(form.data.files[0]).then(json => {
-              AutorecFunctions._mergeAutorecFile(json);
-
-              resolve(true);
-            });
-          }
-        },
-        no: {
-          icon: '<i class="fas fa-times"></i>',
-          label: "Cancel",
-          callback: html => resolve(false)
-        }
-      },
-      default: "import"
-    }, {
-      width: 600
-    }).render(true);
-  });
-  return await dialog;
 }
 
 class AAItemMenu extends SvelteApplication {

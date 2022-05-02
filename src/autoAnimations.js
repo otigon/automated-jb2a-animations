@@ -11,7 +11,8 @@ import { createActiveEffectsPF2e, deleteActiveEffectsPF2e } from "./active-effec
 import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects/pf1/aePF1.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
-import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
+import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
+
 import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
 import aaSettings from "./settings.js";
 import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js"

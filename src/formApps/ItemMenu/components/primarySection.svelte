@@ -15,7 +15,7 @@
     export let flagData;
     export let animType;
     export let animTypeSwitched;
-
+    export let disablePlayOn;
     const options = flagData.options;
 
     let menuType = options.menuType;
@@ -89,6 +89,7 @@
     bind:customPath
     bind:menuSelection
     flagPath="PrimaryAnimation"
+    {disablePlayOn}
     {animTypeSwitched}
     {animType}
     {flagData}

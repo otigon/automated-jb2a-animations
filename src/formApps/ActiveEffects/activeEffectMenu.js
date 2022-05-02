@@ -3,7 +3,7 @@ import AEMenuAppShell from './AEMenuAppShell.svelte';
 import { aaAutoRecognition } from '../../custom-recognition/auto-recognition';
 
 
-export default class AAItemMenu extends SvelteApplication {
+export default class AAActiveEffectMenu extends SvelteApplication {
     
     //constructor(options = {}) { super(options); }
     constructor(item) {

@@ -20,6 +20,7 @@
     export let presetSubType;
     export let animTypeSwitched = false;
     export let shouldShowOnlyX;
+    export let disablePlayOn;
     $: {
         animType = animType;
     }
@@ -172,7 +173,7 @@
                 {/if}
             </select>
         </div>
-        {#if animType === "static" && flagPath === "PrimaryAnimation"}
+        {#if animType === "static" && flagPath === "PrimaryAnimation" && !disablePlayOn}
             <!--"Play On" select for the Static option-->
             <div
                 class="flexcol"

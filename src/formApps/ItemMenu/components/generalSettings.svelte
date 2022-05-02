@@ -6,6 +6,8 @@
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
 
     export let flagData;
+    export let disableAmmo;
+    export let autoCheck;
     const macros = flagData.macro;
     const autoOverride = flagData.autoOverride;
     const options = flagData.options;
@@ -118,7 +120,7 @@
         >
     </div>
     <div
-        class="flexcol button-labels {isCustomized || animationDisabled
+        class="flexcol button-labels {isCustomized || animationDisabled || !autoCheck
             ? 'aa-disabled'
             : ''}"
         style="grid-row: 2 / 3; grid-column: 2 / 3;"
@@ -129,7 +131,7 @@
             id="overrideAuto"
             hidden
             bind:checked={overrideAuto}
-            disabled={isCustomized || animationDisabled}
+            disabled={isCustomized || animationDisabled || !autoCheck}
         />
         <label
             for="overrideAuto"
@@ -138,8 +140,8 @@
         >
     </div>
     <div
-        class="flexcol button-labels {gameSystem === 'dnd5e' &&
-        !animationDisabled
+        class="flexcol button-labels {(gameSystem === 'dnd5e' &&
+        !animationDisabled) && !disableAmmo
             ? ''
             : 'aa-disabled'}"
         style="grid-row: 2 / 3; grid-column: 3 / 4;"
@@ -150,7 +152,7 @@
             id="fromAmmo"
             hidden
             bind:checked={fromAmmo}
-            disabled={gameSystem !== "dnd5e" || animationDisabled}
+            disabled={gameSystem !== "dnd5e" || animationDisabled || disableAmmo}
         />
         <label for="fromAmmo" class={fromAmmo ? "selected" : "notSelected"}
             >Animate from Ammo</label

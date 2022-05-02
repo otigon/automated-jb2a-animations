@@ -205,6 +205,7 @@
                         bind:animationDisabled
                         bind:isCustomized
                         bind:enableMacro
+                        {autoCheck}
                         {flagData}
                     />
                     {#if autoCheck && !isCustomized && !animationDisabled}
