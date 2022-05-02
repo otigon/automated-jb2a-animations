@@ -5,7 +5,7 @@
     import { fade, scale } from "svelte/transition";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js"
+    import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js";
 
     import ExplosionSettings from "./components/explosions.svelte";
     import GeneralSettings from "./components/generalSettings.svelte";
@@ -16,10 +16,18 @@
     import ExtraFX from "./components/extraFX.svelte";
     import Menu3d from "./components/3dMenuShell.svelte";
     import PresetMenu from "./components/presetShell.svelte";
-    import { extraSource, extraTarget } from "./menuStore.js";
+    import {
+        extraSource,
+        extraTarget,
+        menuDBPathSourceFX,
+        customFilePathSourceFX,
+        customCheckedSourceFX,
+        menuDBPathTargetFX,
+        customFilePathTargetFX,
+        customCheckedTargetFX,
+    } from "./menuStore.js";
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
-
 
     export let elementRoot;
     export let item;
@@ -58,7 +66,7 @@
         sourceToken: flags.sourceToken || {},
         targetToken: flags.targetToken || {},
         meleeSwitch: flags.meleeSwitch || {},
-        preset: flags.preset || {}
+        preset: flags.preset || {},
     };
     const preset = flagData.preset;
     let enableMacro;
@@ -121,12 +129,14 @@
 
     let enableSource = flagData.sourceToken.enable || false;
     $: enableSource = enableSource;
+    extraSource.set(flagData.sourceToken.enable)
     extraSource.subscribe((value) => {
         enableSource = value;
     });
 
     let enableTarget = flagData.targetToken.enable || false;
     $: enableTarget = enableTarget;
+    extraTarget.set(flagData.targetToken.enable)
     extraTarget.subscribe((value) => {
         enableTarget = value;
     });
@@ -145,6 +155,28 @@
         await wait(150);
         animTypeSwitched = false;
     }
+
+    let sourceFilePath;
+    if (flagData.sourceToken.enable) {
+        sourceFilePath =
+            flagData.sourceToken.color === "random"
+                ? `autoanimations.static.${flagData.sourceToken.menuType}.${flagData.sourceToken.animation}.${flagData.sourceToken.variant}`
+                : `autoanimations.static.${flagData.sourceToken.menuType}.${flagData.sourceToken.animation}.${flagData.sourceToken.variant}.${flagData.sourceToken.color}`;
+    }
+    let targetFilePath;
+    if (flagData.targetToken.enable) {
+        targetFilePath =
+            flagData.targetToken.color === "random"
+                ? `autoanimations.static.${flagData.targetToken.menuType}.${flagData.targetToken.animation}.${flagData.targetToken.variant}`
+                : `autoanimations.static.${flagData.targetToken.menuType}.${flagData.targetToken.animation}.${flagData.targetToken.variant}.${flagData.targetToken.color}`;
+    }
+
+    menuDBPathSourceFX.set(sourceFilePath);
+    customFilePathSourceFX.set(flagData.sourceToken.customPath);
+    customCheckedSourceFX.set(flagData.sourceToken.enableCustom);
+    menuDBPathTargetFX.set(targetFilePath);
+    customFilePathTargetFX.set(flagData.targetToken.customPath);
+    customCheckedTargetFX.set(flagData.targetToken.enableCustom);
 </script>
 
 <ApplicationShell
@@ -209,11 +241,17 @@
                         {flagData}
                     />
                     {#if autoCheck && !isCustomized && !animationDisabled}
-                    <div class="aa-pickAnim" transition:fade>
-                        <div class="flexcol" style="grid-row:1/2; grid-column:1/4">
-                            <label for="" style="font-size:x-large"><strong>{oldName}</strong> {localize("AUTOANIM.autorecognized")} </label>
+                        <div class="aa-pickAnim" transition:fade>
+                            <div
+                                class="flexcol"
+                                style="grid-row:1/2; grid-column:1/4"
+                            >
+                                <label for="" style="font-size:x-large"
+                                    ><strong>{oldName}</strong>
+                                    {localize("AUTOANIM.autorecognized")}
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     {/if}
                     {#if isCustomized}
                         <div class="aa-pickAnim" transition:fade>
@@ -340,9 +378,13 @@
                     </div>
                 {/if}
                 {#if !animationDisabled && isCustomized}
-                        {#if animType === "preset"}
-                            <PresetMenu {animTypeSwitched} {flagData} {presetType} />
-                        {:else}
+                    {#if animType === "preset"}
+                        <PresetMenu
+                            {animTypeSwitched}
+                            {flagData}
+                            {presetType}
+                        />
+                    {:else}
                         <div class="aaMenu-section">
                             <PrimarySection
                                 {animTypeSwitched}
@@ -350,7 +392,7 @@
                                 {flagData}
                             />
                         </div>
-                        {/if}
+                    {/if}
                     {#if animType === "melee"}
                         <div class="aaMenu-section">
                             <RangeSwitch {flagData} />
@@ -377,7 +419,8 @@
                                 class={enableSource
                                     ? "selected"
                                     : "notSelected"}
-                                style="border: 2px outset #dddddd">Source</label
+                                style="border: 1px outset black; border-radius: 10px 20px"
+                                >Source</label
                             >
                         </div>
                         {#if enableSource}
@@ -402,8 +445,7 @@
                             <label
                                 for=""
                                 class="selected"
-                                style="border: 2px outset #dddddd"
-                                >Primary</label
+                                style="border: 1px outset black">Primary</label
                             >
                         </div>
                         {#if enableTarget}
@@ -430,7 +472,8 @@
                                 class={enableTarget
                                     ? "selected"
                                     : "notSelected"}
-                                style="border: 2px outset #dddddd">Target</label
+                                style="border: 1px outset black; border-radius: 20px 10px"
+                                >Target</label
                             >
                         </div>
                     </div>

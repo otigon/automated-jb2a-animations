@@ -1,17 +1,16 @@
 
 import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
-import ExplosionApp from "./explosionApp.svelte";
+import FullVideoPreview from "./fullPreviewApp.svelte";
 
-export default class ExplosionPreview extends TJSDialog {
+export default class TotalPreview extends TJSDialog {
     constructor(data) {
         super({
-            title: 'A-A Video Preview',
-            id: `AA-Video-Preview`,
+            title: 'A-A Full Preview',
+            id: `AA-Full-Video-Preview`,
             draggable: true,
             modal: false,
-            classes: ["PrimaryPreview"],
             content: {
-                class: ExplosionApp,
+                class: FullVideoPreview,
                 props: {
                     ...data
                 }
@@ -23,7 +22,6 @@ export default class ExplosionPreview extends TJSDialog {
 
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            resizable: true,
             minimizable: true,
             width: "auto",
             height: "auto",

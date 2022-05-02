@@ -10,6 +10,7 @@
         menuDBPath02,
         customFilePath02,
         customChecked02,
+        explosionEnabled
     } from "../menuStore.js";
 
     export let flagData;
@@ -41,7 +42,7 @@
 
     let enableSection = root.enable || false;
     $: enableSection = enableSection;
-
+    $: explosionEnabled.set(enableSection)
     function switchEnable() {
         enableSection = !enableSection;
         root.enable = enableSection;

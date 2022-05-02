@@ -144,12 +144,15 @@
         menuDBPathSourceFX.set(sourceFilePath);
         customFilePathSourceFX.set(customPath);
         customCheckedSourceFX.set(isCustom);
+        extraSource.set(enableSection);
     }
     $: if (flagPath === "targetExtraFX") {
         menuDBPathTargetFX.set(targetFilePath);
         customFilePathTargetFX.set(customPath);
         customCheckedTargetFX.set(isCustom);
+        extraTarget.set(enableSection);
     }
+    /*
     $: {
         if (flagPath === "sourceExtraFX") {
             extraSource.set(enableSection);
@@ -161,6 +164,7 @@
             extraTarget.set(enableSection);
         }
     }
+    */
     let customId = flagPath === "sourceExtraFX" ? "customSource" : "customTarget";
 </script>
 

@@ -18,6 +18,8 @@ let isCustom02;
 export const customChecked02 = writable(isCustom02);
 let fileData02;
 export const menuDBPath02 = writable(fileData02);
+let enabled02;
+export const explosionEnabled = writable(enabled02);
 
 let customPathSourceFX;
 export const customFilePathSourceFX = writable(customPathSourceFX);

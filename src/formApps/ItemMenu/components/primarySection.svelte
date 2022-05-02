@@ -6,6 +6,9 @@
     import Options from "./options.svelte";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import PrimaryApp from "../videoPreviews/primaryApp.svelte";
+    //import FullPreview from "../videoPreviews/fullPreviewApp.svelte";
+    import TotalPreview from "../videoPreviews/fullPreview.js"
+
     import {
         menuDBPath01,
         customFilePath01,
@@ -61,6 +64,12 @@
             },
         }).render(true);
     }
+    function fullPreview() {
+        console.log(TJSDialog)
+        
+        new TotalPreview().render(true);
+    }
+
 </script>
 
 <div class="aa-header-section">
@@ -78,6 +87,16 @@
                 on:click={() => onClick()}
             />
         </div>
+        <div
+        class="flexcol"
+        style="grid-row:1/2; grid-column:5/6"
+        transition:fade
+    >
+        <i
+            class="fas fa-film aa-video-preview"
+            on:click={() => fullPreview()}
+        />
+    </div>
     </div>
 </div>
 <ChooseAnimation
