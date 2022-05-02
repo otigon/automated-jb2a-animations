@@ -827,33 +827,33 @@ let _$1 = t => t,
     _t617$1,
     _t618$1,
     _t619$1,
-    _t620$1,
-    _t621$1,
-    _t622$1,
-    _t623$1,
-    _t624$1,
-    _t625$1,
-    _t626$1,
-    _t627$1,
-    _t628$1,
-    _t629$1,
-    _t630$1,
-    _t631$1,
-    _t632$1,
-    _t633$1,
-    _t634$1,
-    _t635$1,
-    _t636$1,
-    _t637$1,
-    _t638$1,
-    _t639$1,
-    _t640$1,
-    _t641$1,
-    _t642$1,
-    _t643$1,
-    _t644$1,
-    _t645$1,
-    _t646$1,
+    _t620,
+    _t621,
+    _t622,
+    _t623,
+    _t624,
+    _t625,
+    _t626,
+    _t627,
+    _t628,
+    _t629,
+    _t630,
+    _t631,
+    _t632,
+    _t633,
+    _t634,
+    _t635,
+    _t636,
+    _t637,
+    _t638,
+    _t639,
+    _t640,
+    _t641,
+    _t642,
+    _t643,
+    _t644,
+    _t645,
+    _t646,
     _t647,
     _t648,
     _t649,
@@ -4845,45 +4845,45 @@ async function jb2aAAPatreonDatabase(path) {
             '90ft': [l6(_t619$1 || (_t619$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Orange_90ft_Primary_4000x400.webm`))]
           },
           purple: {
-            '05ft': [l6(_t620$1 || (_t620$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_05ft_Primary_600x400.webm`))],
-            '15ft': [l6(_t621$1 || (_t621$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_15ft_Primary_1000x400.webm`))],
-            '30ft': [l6(_t622$1 || (_t622$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_30ft_Primary_1600x400.webm`))],
-            '60ft': [l6(_t623$1 || (_t623$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_60ft_Primary_2800x400.webm`))],
-            '90ft': [l6(_t624$1 || (_t624$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_90ft_Primary_4000x400.webm`))]
+            '05ft': [l6(_t620 || (_t620 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_05ft_Primary_600x400.webm`))],
+            '15ft': [l6(_t621 || (_t621 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_15ft_Primary_1000x400.webm`))],
+            '30ft': [l6(_t622 || (_t622 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_30ft_Primary_1600x400.webm`))],
+            '60ft': [l6(_t623 || (_t623 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_60ft_Primary_2800x400.webm`))],
+            '90ft': [l6(_t624 || (_t624 = _$1`Chain_Lightning/ChainLightning_01_Regular_Purple_90ft_Primary_4000x400.webm`))]
           },
           red: {
-            '05ft': [l6(_t625$1 || (_t625$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_05ft_Primary_600x400.webm`))],
-            '15ft': [l6(_t626$1 || (_t626$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_15ft_Primary_1000x400.webm`))],
-            '30ft': [l6(_t627$1 || (_t627$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_30ft_Primary_1600x400.webm`))],
-            '60ft': [l6(_t628$1 || (_t628$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_60ft_Primary_2800x400.webm`))],
-            '90ft': [l6(_t629$1 || (_t629$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_90ft_Primary_4000x400.webm`))]
+            '05ft': [l6(_t625 || (_t625 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_05ft_Primary_600x400.webm`))],
+            '15ft': [l6(_t626 || (_t626 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_15ft_Primary_1000x400.webm`))],
+            '30ft': [l6(_t627 || (_t627 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_30ft_Primary_1600x400.webm`))],
+            '60ft': [l6(_t628 || (_t628 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_60ft_Primary_2800x400.webm`))],
+            '90ft': [l6(_t629 || (_t629 = _$1`Chain_Lightning/ChainLightning_01_Regular_Red_90ft_Primary_4000x400.webm`))]
           },
           yellow: {
-            '05ft': [l6(_t630$1 || (_t630$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_05ft_Primary_600x400.webm`))],
-            '15ft': [l6(_t631$1 || (_t631$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_15ft_Primary_1000x400.webm`))],
-            '30ft': [l6(_t632$1 || (_t632$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_30ft_Primary_1600x400.webm`))],
-            '60ft': [l6(_t633$1 || (_t633$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_60ft_Primary_2800x400.webm`))],
-            '90ft': [l6(_t634$1 || (_t634$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_90ft_Primary_4000x400.webm`))]
+            '05ft': [l6(_t630 || (_t630 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_05ft_Primary_600x400.webm`))],
+            '15ft': [l6(_t631 || (_t631 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_15ft_Primary_1000x400.webm`))],
+            '30ft': [l6(_t632 || (_t632 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_30ft_Primary_1600x400.webm`))],
+            '60ft': [l6(_t633 || (_t633 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_60ft_Primary_2800x400.webm`))],
+            '90ft': [l6(_t634 || (_t634 = _$1`Chain_Lightning/ChainLightning_01_Regular_Yellow_90ft_Primary_4000x400.webm`))]
           }
         },
         secondary: {
           blue: {
-            '05ft': [l6(_t635$1 || (_t635$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_05ft_Secondary_600x400.webm`))],
-            '15ft': [l6(_t636$1 || (_t636$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_15ft_Secondary_1000x400.webm`))],
-            '30ft': [l6(_t637$1 || (_t637$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_30ft_Secondary_1600x400.webm`))],
-            '60ft': [l6(_t638$1 || (_t638$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_60ft_Secondary_2800x400.webm`))],
-            '90ft': [l6(_t639$1 || (_t639$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_90ft_Secondary_4000x400.webm`))]
+            '05ft': [l6(_t635 || (_t635 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_05ft_Secondary_600x400.webm`))],
+            '15ft': [l6(_t636 || (_t636 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_15ft_Secondary_1000x400.webm`))],
+            '30ft': [l6(_t637 || (_t637 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_30ft_Secondary_1600x400.webm`))],
+            '60ft': [l6(_t638 || (_t638 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_60ft_Secondary_2800x400.webm`))],
+            '90ft': [l6(_t639 || (_t639 = _$1`Chain_Lightning/ChainLightning_01_Regular_Blue_90ft_Secondary_4000x400.webm`))]
           },
           darkgreen: {
-            '05ft': [l6(_t640$1 || (_t640$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_05ft_Secondary_600x400.webm`))],
-            '15ft': [l6(_t641$1 || (_t641$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_15ft_Secondary_1000x400.webm`))],
-            '30ft': [l6(_t642$1 || (_t642$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_30ft_Secondary_1600x400.webm`))],
-            '60ft': [l6(_t643$1 || (_t643$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_60ft_Secondary_2800x400.webm`))],
-            '90ft': [l6(_t644$1 || (_t644$1 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_90ft_Secondary_4000x400.webm`))]
+            '05ft': [l6(_t640 || (_t640 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_05ft_Secondary_600x400.webm`))],
+            '15ft': [l6(_t641 || (_t641 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_15ft_Secondary_1000x400.webm`))],
+            '30ft': [l6(_t642 || (_t642 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_30ft_Secondary_1600x400.webm`))],
+            '60ft': [l6(_t643 || (_t643 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_60ft_Secondary_2800x400.webm`))],
+            '90ft': [l6(_t644 || (_t644 = _$1`Chain_Lightning/ChainLightning_01_Regular_Green02_90ft_Secondary_4000x400.webm`))]
           },
           darkpurple: {
-            '05ft': [l6(_t645$1 || (_t645$1 = _$1`Chain_Lightning/ChainLightning_01_Dark_Purple_05ft_Secondary_600x400.webm`))],
-            '15ft': [l6(_t646$1 || (_t646$1 = _$1`Chain_Lightning/ChainLightning_01_Dark_Purple_15ft_Secondary_1000x400.webm`))],
+            '05ft': [l6(_t645 || (_t645 = _$1`Chain_Lightning/ChainLightning_01_Dark_Purple_05ft_Secondary_600x400.webm`))],
+            '15ft': [l6(_t646 || (_t646 = _$1`Chain_Lightning/ChainLightning_01_Dark_Purple_15ft_Secondary_1000x400.webm`))],
             '30ft': [l6(_t647 || (_t647 = _$1`Chain_Lightning/ChainLightning_01_Dark_Purple_30ft_Secondary_1600x400.webm`))],
             '60ft': [l6(_t648 || (_t648 = _$1`Chain_Lightning/ChainLightning_01_Dark_Purple_60ft_Secondary_2800x400.webm`))],
             '90ft': [l6(_t649 || (_t649 = _$1`Chain_Lightning/ChainLightning_01_Dark_Purple_90ft_Secondary_4000x400.webm`))]
@@ -9279,34 +9279,7 @@ let _ = t => t,
     _t616,
     _t617,
     _t618,
-    _t619,
-    _t620,
-    _t621,
-    _t622,
-    _t623,
-    _t624,
-    _t625,
-    _t626,
-    _t627,
-    _t628,
-    _t629,
-    _t630,
-    _t631,
-    _t632,
-    _t633,
-    _t634,
-    _t635,
-    _t636,
-    _t637,
-    _t638,
-    _t639,
-    _t640,
-    _t641,
-    _t642,
-    _t643,
-    _t644,
-    _t645,
-    _t646;
+    _t619;
 
 const JB2AFREEDB = {};
 async function jb2aAAFreeDatabase(path) {
@@ -9630,18 +9603,18 @@ async function jb2aAAFreeDatabase(path) {
         },
         '02': {
           blue: {
-            '15ft': [lg(_t157 || (_t157 = _`Energy/EnergyBeam_02_Regular_Blue_15ft_1000x400.webm`))],
-            '30ft': [lg(_t158 || (_t158 = _`Energy/EnergyBeam_02_Regular_Blue_30ft_1600x400.webm`))],
-            '60ft': [lg(_t159 || (_t159 = _`Energy/EnergyBeam_02_Regular_Blue_60ft_2800x400.webm`))],
-            '90ft': [lg(_t160 || (_t160 = _`Energy/EnergyBeam_02_Regular_Blue_90ft_4000x400.webm`))]
+            '15ft': [lg(_t157 || (_t157 = _`Energy/EnergyBeam_02_Regular_BluePink_15ft_1000x400.webm`))],
+            '30ft': [lg(_t158 || (_t158 = _`Energy/EnergyBeam_02_Regular_BluePink_30ft_1600x400.webm`))],
+            '60ft': [lg(_t159 || (_t159 = _`Energy/EnergyBeam_02_Regular_BluePink_60ft_2800x400.webm`))],
+            '90ft': [lg(_t160 || (_t160 = _`Energy/EnergyBeam_02_Regular_BluePink_90ft_4000x400.webm`))]
           }
         },
         '03': {
           blue: {
-            '15ft': [lg(_t161 || (_t161 = _`Energy/EnergyBeam_03_Regular_Blue_15ft_1000x400.webm`))],
-            '30ft': [lg(_t162 || (_t162 = _`Energy/EnergyBeam_03_Regular_Blue_30ft_1600x400.webm`))],
-            '60ft': [lg(_t163 || (_t163 = _`Energy/EnergyBeam_03_Regular_Blue_60ft_2800x400.webm`))],
-            '90ft': [lg(_t164 || (_t164 = _`Energy/EnergyBeam_03_Regular_Blue_90ft_4000x400.webm`))]
+            '15ft': [lg(_t161 || (_t161 = _`Energy/EnergyBeam_03_Regular_BluePink_15ft_1000x400.webm`))],
+            '30ft': [lg(_t162 || (_t162 = _`Energy/EnergyBeam_03_Regular_BluePink_30ft_1600x400.webm`))],
+            '60ft': [lg(_t163 || (_t163 = _`Energy/EnergyBeam_03_Regular_BluePink_60ft_2800x400.webm`))],
+            '90ft': [lg(_t164 || (_t164 = _`Energy/EnergyBeam_03_Regular_BluePink_90ft_4000x400.webm`))]
           }
         }
       },
@@ -10057,167 +10030,168 @@ async function jb2aAAFreeDatabase(path) {
     cone: {
       breathweapon: {
         'cold': {
-          blue: [lg(_t353 || (_t353 = _`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Blue_30ft_Cone_Burst_600x600.webm`))],
-          green: [lg(_t354 || (_t354 = _`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Green_30ft_Cone_Burst_600x600.webm`))],
-          orange: [lg(_t355 || (_t355 = _`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Orange_30ft_Cone_Burst_600x600.webm`))],
-          purple: [lg(_t356 || (_t356 = _`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Purple_30ft_Cone_Burst_600x600.webm`))]
+          blue: [lg(_t353 || (_t353 = _`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Blue_30ft_Cone_Burst_600x600.webm`))]
         },
         'fire01': {
-          blue: [lg(_t357 || (_t357 = _`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Blue_30ft_Cone_Burst_600x600.webm`))],
-          green: [lg(_t358 || (_t358 = _`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Green_30ft_Cone_Burst_600x600.webm`))],
-          orange: [lg(_t359 || (_t359 = _`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Cone_Burst_600x600.webm`))],
-          purple: [lg(_t360 || (_t360 = _`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Purple_30ft_Cone_Burst_600x600.webm`))]
+          orange: [lg(_t354 || (_t354 = _`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Cone_Burst_600x600.webm`))]
         },
         'poison': {
-          blue: [lg(_t361 || (_t361 = _`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Blue_30ft_Cone_Burst_600x600.webm`))],
-          green: [lg(_t362 || (_t362 = _`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Green_30ft_Cone_Burst_600x600.webm`))],
-          orange: [lg(_t363 || (_t363 = _`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Orange_30ft_Cone_Burst_600x600.webm`))],
-          purple: [lg(_t364 || (_t364 = _`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Purple_30ft_Cone_Burst_600x600.webm`))]
+          green: [lg(_t355 || (_t355 = _`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Green_30ft_Cone_Burst_600x600.webm`))]
+        }
+      },
+      breathweaponspray01: {
+        burst: {
+          orange: [lg(_t356 || (_t356 = _`Template/Cone/Breath_Weapon/Breathweapon02_Fire01_Regular_Orange_Cone_Burst_800x800.webm`))]
+        },
+        loop: {
+          orange: [lg(_t357 || (_t357 = _`Template/Cone/Breath_Weapon/Breathweapon02_Fire01_Regular_Orange_Cone_Loop_800x800.webm`))]
+        }
+      },
+      breathweaponspray02: {
+        burst: {
+          orange: [lg(_t358 || (_t358 = _`Template/Cone/Breath_Weapon/Breathweapon02_Fire02_Regular_Orange_Cone_Burst_800x800.webm`))]
+        },
+        loop: {
+          orange: [lg(_t359 || (_t359 = _`Template/Cone/Breath_Weapon/Breathweapon02_Fire02_Regular_Orange_Cone_Loop_800x800.webm`))]
         }
       },
       coneofcold: {
         '01': {
-          blue: [l5(_t365 || (_t365 = _`Cone_Of_Cold/ConeOfCold_01_Regular_Blue_600x600.webm`))],
-          green: [l5(_t366 || (_t366 = _`Cone_Of_Cold/ConeOfCold_01_Regular_Green_600x600.webm`))],
-          orange: [l5(_t367 || (_t367 = _`Cone_Of_Cold/ConeOfCold_01_Regular_Orange_600x600.webm`))],
-          purple: [l5(_t368 || (_t368 = _`Cone_Of_Cold/ConeOfCold_01_Regular_Purple_600x600.webm`))]
+          blue: [l5(_t360 || (_t360 = _`Cone_Of_Cold/ConeOfCold_01_Regular_Blue_600x600.webm`))]
         }
       },
       burninghands: {
         '01': {
-          orange: [l1(_t369 || (_t369 = _`Burning_Hands/BurningHands_01_Regular_Orange_600x600.webm`))]
-        },
-        '02': {
-          orange: [l1(_t370 || (_t370 = _`Burning_Hands/BurningHands_02_Regular_Orange_600x600.webm`))]
+          orange: [l1(_t361 || (_t361 = _`Burning_Hands/BurningHands_01_Regular_Orange_600x600.webm`))]
         }
       }
     },
     ray: {
       breathweapon: {
         acid: {
-          green: [lg(_t371 || (_t371 = _`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Green_30ft_Line_Burst_1200x200.webm`))]
+          green: [lg(_t362 || (_t362 = _`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Green_30ft_Line_Burst_1200x200.webm`))]
         },
         fire: {
-          orange: [lg(_t372 || (_t372 = _`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Line_Burst_1200x200.webm`))]
+          orange: [lg(_t363 || (_t363 = _`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Line_Burst_1200x200.webm`))]
         },
         lightning: {
-          blue: [lg(_t373 || (_t373 = _`Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Blue_30ft_Line_Burst_1200x200.webm`))]
+          blue: [lg(_t364 || (_t364 = _`Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Blue_30ft_Line_Burst_1200x200.webm`))]
         }
       },
       lightningbolt: {
         '01': {
-          blue: [l3(_t374 || (_t374 = _`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x200.webm`))]
+          blue: [l3(_t365 || (_t365 = _`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x200.webm`))]
         },
         '02': {
-          blue: [l3(_t375 || (_t375 = _`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x400.webm`))]
+          blue: [l3(_t366 || (_t366 = _`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x400.webm`))]
         }
       },
       gustofwind: {
         slow: {
-          white: [l2(_t376 || (_t376 = _`Gust_Of_Wind/GustOfWind_01_White_1200x200.webm`))]
+          white: [l2(_t367 || (_t367 = _`Gust_Of_Wind/GustOfWind_01_White_1200x200.webm`))]
         },
         fast: {
-          white: [l2(_t377 || (_t377 = _`Gust_Of_Wind/GustOfWind_01_White_VeryFast_1200x200.webm`))]
+          white: [l2(_t368 || (_t368 = _`Gust_Of_Wind/GustOfWind_01_White_VeryFast_1200x200.webm`))]
         }
       }
     },
     square: {
       armsofhadar: {
         '01': {
-          darkpurple: [l1(_t378 || (_t378 = _`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`))]
+          darkpurple: [l1(_t369 || (_t369 = _`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`))]
         }
       },
       blacktentacles: {
         '01': {
-          darkpurple: [l4(_t379 || (_t379 = _`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`))]
+          darkpurple: [l4(_t370 || (_t370 = _`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`))]
         }
       },
       crackedshield: {
         '01': {
-          darkpurple: [lg(_t380 || (_t380 = _`Template/Square/TemplateShieldCrackedSquare_01_Regular_Purple_600x600.webm`))]
+          darkpurple: [lg(_t371 || (_t371 = _`Template/Square/TemplateShieldCrackedSquare_01_Regular_Purple_600x600.webm`))]
         }
       },
       drop: {
         '01': {
-          red: [lg(_t381 || (_t381 = _`Template/Square/TemplateDropSquare_01_Regular_Red_600x600.webm`))]
+          red: [lg(_t372 || (_t372 = _`Template/Square/TemplateDropSquare_01_Regular_Red_600x600.webm`))]
         }
       },
       entangle: {
         '01': {
-          brown: [l1(_t382 || (_t382 = _`Entangle/Entangle_01_Brown_400x400.webm`))],
-          green: [l1(_t383 || (_t383 = _`Entangle/Entangle_01_Green_400x400.webm`))],
-          yellow: [l1(_t384 || (_t384 = _`Entangle/Entangle_01_Yellow_400x400.webm`))]
+          brown: [l1(_t373 || (_t373 = _`Entangle/Entangle_01_Brown_400x400.webm`))],
+          green: [l1(_t374 || (_t374 = _`Entangle/Entangle_01_Green_400x400.webm`))],
+          yellow: [l1(_t375 || (_t375 = _`Entangle/Entangle_01_Yellow_400x400.webm`))]
         }
       },
       fear: {
         '01': {
-          darkpurple: [lg(_t385 || (_t385 = _`Template/Square/TemplateFearSquare_01_Dark_Purple_600x600.webm`))]
+          darkpurple: [lg(_t376 || (_t376 = _`Template/Square/TemplateFearSquare_01_Dark_Purple_600x600.webm`))]
         }
       },
       grease: {
         "01": {
-          brown: [l1(_t386 || (_t386 = _`Grease/Grease_Dark_Brown_600x600.webm`))]
+          brown: [l1(_t377 || (_t377 = _`Grease/Grease_Dark_Brown_600x600.webm`))]
         }
       },
       heart: {
         '01': {
-          pink: [lg(_t387 || (_t387 = _`Template/Square/TemplateHeartSquare_01_Regular_Pink_600x600.webm`))]
+          pink: [lg(_t378 || (_t378 = _`Template/Square/TemplateHeartSquare_01_Regular_Pink_600x600.webm`))]
         }
       },
       horror: {
         '01': {
-          purple: [lg(_t388 || (_t388 = _`Template/Square/TemplateHorrorSquare_01_Regular_Purple_600x600.webm`))]
+          purple: [lg(_t379 || (_t379 = _`Template/Square/TemplateHorrorSquare_01_Regular_Purple_600x600.webm`))]
         }
       },
       musicnote: {
         '01': {
-          blue: [lg(_t389 || (_t389 = _`Template/Circle/TemplateMusicNoteCircle_01_Regular_Blue_800x800.webm`))]
+          blue: [lg(_t380 || (_t380 = _`Template/Circle/TemplateMusicNoteCircle_01_Regular_Blue_800x800.webm`))]
         }
       },
       poison: {
         '01': {
-          darkgreen: [lg(_t390 || (_t390 = _`Template/Square/TemplatePoisonSquare_01_Dark_Green_600x600.webm`))]
+          darkgreen: [lg(_t381 || (_t381 = _`Template/Square/TemplatePoisonSquare_01_Dark_Green_600x600.webm`))]
         }
       },
       runes: {
         '01': {
-          orange: [lg(_t391 || (_t391 = _`Template/Square/TemplateRunesSquare_01_Regular_Orange_600x600.webm`))]
+          orange: [lg(_t382 || (_t382 = _`Template/Square/TemplateRunesSquare_01_Regular_Orange_600x600.webm`))]
         }
       },
       shields: {
         '01': {
-          green: [lg(_t392 || (_t392 = _`Template/Square/TemplateShieldSquare_01_Regular_Green_600x600.webm`))]
+          green: [lg(_t383 || (_t383 = _`Template/Square/TemplateShieldSquare_01_Regular_Green_600x600.webm`))]
         }
       },
       snowflakes: {
         '01': {
-          blue: [lg(_t393 || (_t393 = _`Template/Square/TemplateSnowflakeSquare_01_Regular_Blue_600x600.webm`))]
+          blue: [lg(_t384 || (_t384 = _`Template/Square/TemplateSnowflakeSquare_01_Regular_Blue_600x600.webm`))]
         }
       },
       skull: {
         '01': {
-          purple: [lg(_t394 || (_t394 = _`Template/Square/TemplateSkullSquare_01_Regular_Purple_600x600.webm`))]
+          purple: [lg(_t385 || (_t385 = _`Template/Square/TemplateSkullSquare_01_Regular_Purple_600x600.webm`))]
         }
       },
       stun: {
         '01': {
-          purple: [lg(_t395 || (_t395 = _`Template/Square/TemplateStunSquare_01_Regular_Purple_600x600.webm`))]
+          purple: [lg(_t386 || (_t386 = _`Template/Square/TemplateStunSquare_01_Regular_Purple_600x600.webm`))]
         }
       },
       thunderwave: {
         left: {
-          blue: [l1(_t396 || (_t396 = _`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`))]
+          blue: [l1(_t387 || (_t387 = _`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`))]
         },
         mid: {
-          blue: [l1(_t397 || (_t397 = _`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`))]
+          blue: [l1(_t388 || (_t388 = _`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`))]
         },
         center: {
-          blue: [l1(_t398 || (_t398 = _`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`))]
+          blue: [l1(_t389 || (_t389 = _`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`))]
         }
       },
       web: {
         '01': {
-          white: [l2(_t399 || (_t399 = _`Web/Web_01_White_01_400x400.webm`))]
+          white: [l2(_t390 || (_t390 = _`Web/Web_01_White_01_400x400.webm`))]
         }
       }
     }
@@ -10247,432 +10221,412 @@ async function jb2aAAFreeDatabase(path) {
     conditions: {
       drop: {
         '02': {
-          red: [lg(_t400 || (_t400 = _`Marker/MarkerDrop_02_Regular_Red_400x400.webm`))]
+          red: [lg(_t391 || (_t391 = _`Marker/MarkerDrop_02_Regular_Red_400x400.webm`))]
         },
         '03': {
-          red: [lg(_t401 || (_t401 = _`Marker/MarkerDrop_03_Regular_Red_400x400.webm`))]
+          red: [lg(_t392 || (_t392 = _`Marker/MarkerDrop_03_Regular_Red_400x400.webm`))]
         }
       },
       fear: {
         '01': {
-          darkpurple: [lg(_t402 || (_t402 = _`Marker/MarkerFear_01_Dark_Purple_400x400.webm`))]
+          darkpurple: [lg(_t393 || (_t393 = _`Marker/MarkerFear_01_Dark_Purple_400x400.webm`))]
         },
         '02': {
-          darkpurple: [lg(_t403 || (_t403 = _`Marker/MarkerFear_02_Dark_Purple_400x400.webm`))]
+          darkpurple: [lg(_t394 || (_t394 = _`Marker/MarkerFear_02_Dark_Purple_400x400.webm`))]
         },
         '03': {
-          darkpurple: [lg(_t404 || (_t404 = _`Marker/MarkerFear_03_Dark_Purple_400x400.webm`))]
+          darkpurple: [lg(_t395 || (_t395 = _`Marker/MarkerFear_03_Dark_Purple_400x400.webm`))]
         }
       },
       heart: {
         '01': {
-          pink: [lg(_t405 || (_t405 = _`Marker/MarkerHeart_01_Regular_Pink_400x400.webm`))]
+          pink: [lg(_t396 || (_t396 = _`Marker/MarkerHeart_01_Regular_Pink_400x400.webm`))]
         },
         '02': {
-          pink: [lg(_t406 || (_t406 = _`Marker/MarkerHeart_02_Regular_Pink_400x400.webm`))]
+          pink: [lg(_t397 || (_t397 = _`Marker/MarkerHeart_02_Regular_Pink_400x400.webm`))]
         },
         '03': {
-          pink: [lg(_t407 || (_t407 = _`Marker/MarkerHeart_03_Regular_Pink_400x400.webm`))]
+          pink: [lg(_t398 || (_t398 = _`Marker/MarkerHeart_03_Regular_Pink_400x400.webm`))]
         }
       },
       horror: {
         '01': {
-          purple: [lg(_t408 || (_t408 = _`Marker/MarkerHorror_01_Regular_Purple_400x400.webm`))]
+          purple: [lg(_t399 || (_t399 = _`Marker/MarkerHorror_01_Regular_Purple_400x400.webm`))]
         },
         '02': {
-          purple: [lg(_t409 || (_t409 = _`Marker/MarkerHorror_02_Regular_Purple_400x400.webm`))]
+          purple: [lg(_t400 || (_t400 = _`Marker/MarkerHorror_02_Regular_Purple_400x400.webm`))]
         },
         '03': {
-          purple: [lg(_t410 || (_t410 = _`Marker/MarkerHorror_03_Dark_Teal_400x400.webm`))]
+          purple: [lg(_t401 || (_t401 = _`Marker/MarkerHorror_03_Regular_Purple_400x400.webm`))]
         }
       },
       light: {
         pulse: {
-          blue: [lg(_t411 || (_t411 = _`Marker/MarkerLight_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t402 || (_t402 = _`Marker/MarkerLight_01_Regular_Blue_400x400.webm`))]
         },
         nopulse: {
-          blue: [lg(_t412 || (_t412 = _`Marker/MarkerLightNoPulse_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t403 || (_t403 = _`Marker/MarkerLightNoPulse_01_Regular_Blue_400x400.webm`))]
         }
       },
       poison: {
         '02': {
-          darkgreen: [lg(_t413 || (_t413 = _`Marker/MarkerPoison_02_Dark_Green_400x400.webm`))]
+          darkgreen: [lg(_t404 || (_t404 = _`Marker/MarkerPoison_02_Dark_Green_400x400.webm`))]
         },
         '03': {
-          darkgreen: [lg(_t414 || (_t414 = _`Marker/MarkerPoison_03_Dark_Green_400x400.webm`))]
+          darkgreen: [lg(_t405 || (_t405 = _`Marker/MarkerPoison_03_Dark_Green_400x400.webm`))]
         }
       },
       runes: {
         '01': {
-          darkorange: [lg(_t415 || (_t415 = _`Marker/MarkerRunes_01_Dark_Orange_400x400.webm`))]
+          darkorange: [lg(_t406 || (_t406 = _`Marker/MarkerRunes_01_Dark_Orange_400x400.webm`))]
         },
         '02': {
-          orange: [lg(_t416 || (_t416 = _`Marker/MarkerRunes_02_Regular_Orange_400x400.webm`))]
+          orange: [lg(_t407 || (_t407 = _`Marker/MarkerRunes_02_Regular_Orange_400x400.webm`))]
         },
         '03': {
-          orange: [lg(_t417 || (_t417 = _`Marker/MarkerRunes_03_Regular_Orange_400x400.webm`))]
+          orange: [lg(_t408 || (_t408 = _`Marker/MarkerRunes_03_Regular_Orange_400x400.webm`))]
         }
       },
       shields: {
         '02': {
-          green: [lg(_t418 || (_t418 = _`Marker/MarkerShield_02_Regular_Green_400x400.webm`))]
+          green: [lg(_t409 || (_t409 = _`Marker/MarkerShield_02_Regular_Green_400x400.webm`))]
         },
         '03': {
-          green: [lg(_t419 || (_t419 = _`Marker/MarkerShield_03_Regular_Green_400x400.webm`))]
+          green: [lg(_t410 || (_t410 = _`Marker/MarkerShield_03_Regular_Green_400x400.webm`))]
         }
       },
       crackedshield: {
         '02': {
-          purple: [lg(_t420 || (_t420 = _`Marker/MarkerShieldCracked_02_Regular_Purple_400x400.webm`))]
+          purple: [lg(_t411 || (_t411 = _`Marker/MarkerShieldCracked_02_Regular_Purple_400x400.webm`))]
         },
         '03': {
-          purple: [lg(_t421 || (_t421 = _`Marker/MarkerShieldCracked_03_Regular_Purple_400x400.webm`))]
+          purple: [lg(_t412 || (_t412 = _`Marker/MarkerShieldCracked_03_Regular_Purple_400x400.webm`))]
         }
       },
       skull: {
         '01': {
-          darkorange: [lg(_t422 || (_t422 = _`Marker/MarkerSkull_01_Dark_Orange_400x400.webm`))]
+          darkorange: [lg(_t413 || (_t413 = _`Marker/MarkerSkull_01_Dark_Orange_400x400.webm`))]
         },
         '02': {
-          purple: [lg(_t423 || (_t423 = _`Marker/MarkerSkull_02_Regular_Purple_400x400.webm`))]
+          purple: [lg(_t414 || (_t414 = _`Marker/MarkerSkull_02_Regular_Purple_400x400.webm`))]
         },
         '03': {
-          purple: [lg(_t424 || (_t424 = _`Marker/MarkerSkull_03_Regular_Purple_400x400.webm`))]
+          purple: [lg(_t415 || (_t415 = _`Marker/MarkerSkull_03_Regular_Purple_400x400.webm`))]
         }
       },
       snowflakes: {
         '02': {
-          blue: [lg(_t425 || (_t425 = _`Marker/MarkerSnowflake_02_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t416 || (_t416 = _`Marker/MarkerSnowflake_02_Regular_Blue_400x400.webm`))]
         },
         '03': {
-          blue: [lg(_t426 || (_t426 = _`Marker/MarkerSnowflake_03_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t417 || (_t417 = _`Marker/MarkerSnowflake_03_Regular_Blue_400x400.webm`))]
         }
       },
       stun: {
         '02': {
-          purple: [lg(_t427 || (_t427 = _`Marker/MarkerStun_02_Regular_Purple_400x400.webm`))]
+          purple: [lg(_t418 || (_t418 = _`Marker/MarkerStun_02_Regular_Purple_400x400.webm`))]
         },
         '03': {
-          purple: [lg(_t428 || (_t428 = _`Marker/MarkerStun_03_Regular_Purple_400x400.webm`))]
+          purple: [lg(_t419 || (_t419 = _`Marker/MarkerStun_03_Regular_Purple_400x400.webm`))]
         }
       },
       dizzystars: {
         '01': {
-          blueorange: [lg(_t429 || (_t429 = _`Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm`))]
+          blueorange: [lg(_t420 || (_t420 = _`Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm`))]
         }
       }
     },
     creature: {
       bite: {
         '01': {
-          red: [lg(_t430 || (_t430 = _`Creature/Bite_01_Regular_Red_400x400.webm`))]
+          red: [lg(_t421 || (_t421 = _`Creature/Bite_01_Regular_Red_400x400.webm`))]
         }
       },
       claw: {
         '01': {
-          red: [lg(_t431 || (_t431 = _`Creature/Claws_01_Regular_Red_400x400.webm`))]
+          red: [lg(_t422 || (_t422 = _`Creature/Claws_01_Regular_Red_400x400.webm`))]
         }
       }
     },
     energy: {
       energyfield: {
         '01': {
-          blue: [lg(_t432 || (_t432 = _`Energy/EnergyField_01_Regular_Blue_600x600.webm`))]
-        }
-      },
-      dodecahedron: {
-        simple: {
-          blue: [lg(_t433 || (_t433 = _`Energy/Dodecahedron_01_Regular_Blue_600x600.webm`))]
-        },
-        rolled: {
-          blue: [lg(_t434 || (_t434 = _`Energy/DodecahedronRoll_01_Regular_Blue_600x600.webm`))]
-        },
-        runeabove: {
-          yellowblue: [lg(_t435 || (_t435 = _`Energy/DodecahedronRuneAbove_01_Regular_BlueYellow_600x600.webm`))]
-        },
-        runebelow: {
-          yellowblue: [lg(_t436 || (_t436 = _`Energy/DodecahedronRuneBelow_01_Regular_BlueYellow_600x600.webm`))]
-        },
-        starabove: {
-          yellowblue: [lg(_t437 || (_t437 = _`Energy/DodecahedronStarAbove_01_Regular_BlueYellow_600x600.webm`))]
-        },
-        starbelow: {
-          yellowblue: [lg(_t438 || (_t438 = _`Energy/DodecahedronStarBelow_01_Regular_BlueYellow_600x600.webm`))]
+          blue: [lg(_t423 || (_t423 = _`Energy/EnergyField_01_Regular_Blue_600x600.webm`))]
         }
       },
       shimmer: {
         '01': {
-          blue: [lg(_t439 || (_t439 = _`Energy/Shimmer01_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t424 || (_t424 = _`Energy/Shimmer01_01_Regular_Blue_400x400.webm`))]
         }
       },
       sparkles: {
         '01': {
-          blue: [lg(_t440 || (_t440 = _`Energy/SwirlingSparkles_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t425 || (_t425 = _`Energy/SwirlingSparkles_01_Regular_Blue_400x400.webm`))]
         }
       }
     },
     fire: {
       eruption: {
         '01': {
-          orange: [lg(_t441 || (_t441 = _`Fire/Eruption_01_Regular_Orange_600x600.webm`))]
+          orange: [lg(_t426 || (_t426 = _`Fire/Eruption_01_Regular_Orange_600x600.webm`))]
         }
       },
       groundcrack: {
         '01': {
-          orange: [lg(_t442 || (_t442 = _`Fire/GroundCrackLoop_01_Regular_Orange_600x600.webm`))]
+          orange: [lg(_t427 || (_t427 = _`Fire/GroundCrackLoop_01_Regular_Orange_600x600.webm`))]
         },
         '02': {
-          orange: [lg(_t443 || (_t443 = _`Fire/GroundCrackLoop_02_Regular_Orange_600x600.webm`))]
+          orange: [lg(_t428 || (_t428 = _`Fire/GroundCrackLoop_02_Regular_Orange_600x600.webm`))]
         },
         '03': {
-          orange: [lg(_t444 || (_t444 = _`Fire/GroundCrackLoop_03_Regular_Orange_600x600.webm`))]
+          orange: [lg(_t429 || (_t429 = _`Fire/GroundCrackLoop_03_Regular_Orange_600x600.webm`))]
         }
       },
       fireworks: {
         '01': {
-          orangeyellow: [lg(_t445 || (_t445 = _`Fireworks/Firework01_01_Regular_OrangeYellow_600x600.webm`)), lg(_t446 || (_t446 = _`Fireworks/Firework03_01_Regular_OrangeYellow_600x600.webm`))],
-          yellow: [lg(_t447 || (_t447 = _`Fireworks/Firework02_01_Regular_Yellow_600x600.webm`))]
+          orangeyellow: [lg(_t430 || (_t430 = _`Fireworks/Firework01_01_Regular_OrangeYellow_600x600.webm`)), lg(_t431 || (_t431 = _`Fireworks/Firework03_01_Regular_OrangeYellow_600x600.webm`))],
+          yellow: [lg(_t432 || (_t432 = _`Fireworks/Firework02_01_Regular_Yellow_600x600.webm`))]
         },
         '02': {
-          orangeyellow: [lg(_t448 || (_t448 = _`Fireworks/Firework01_02_Regular_OrangeYellow_600x600.webm`)), lg(_t449 || (_t449 = _`Fireworks/Firework03_02_Regular_OrangeYellow_600x600.webm`))],
-          yellow: [lg(_t450 || (_t450 = _`Fireworks/Firework02_02_Regular_Yellow_600x600.webm`))]
+          orangeyellow: [lg(_t433 || (_t433 = _`Fireworks/Firework01_02_Regular_OrangeYellow_600x600.webm`)), lg(_t434 || (_t434 = _`Fireworks/Firework03_02_Regular_OrangeYellow_600x600.webm`))],
+          yellow: [lg(_t435 || (_t435 = _`Fireworks/Firework02_02_Regular_Yellow_600x600.webm`))]
         }
       }
     },
     generic: {
       explosion: {
         '01': {
-          blue: [lg(_t451 || (_t451 = _`Explosion/Explosion_02_Blue_400x400.webm`)), lg(_t452 || (_t452 = _`Explosion/Explosion_04_Regular_Blue_400x400.webm`))],
-          orange: [lg(_t453 || (_t453 = _`Explosion/Explosion_01_Orange_400x400.webm`))],
-          yellowblue: [lg(_t454 || (_t454 = _`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`))]
+          blue: [lg(_t436 || (_t436 = _`Explosion/Explosion_02_Blue_400x400.webm`)), lg(_t437 || (_t437 = _`Explosion/Explosion_04_Regular_Blue_400x400.webm`))],
+          orange: [lg(_t438 || (_t438 = _`Explosion/Explosion_01_Orange_400x400.webm`))],
+          yellowblue: [lg(_t439 || (_t439 = _`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`))]
         }
       },
       impact: {
         "01": {
-          blue: [lg(_t455 || (_t455 = _`Impact/Impact_01_Regular_Blue_400x400.webm`)), lg(_t456 || (_t456 = _`Impact/Impact_02_Regular_Blue_400x400.webm`)), lg(_t457 || (_t457 = _`Impact/Impact_03_Regular_Blue_400x400.webm`)), lg(_t458 || (_t458 = _`Impact/Impact_04_Regular_Blue_400x400.webm`)), lg(_t459 || (_t459 = _`Impact/Impact_11_Regular_Blue_400x400.webm`)), lg(_t460 || (_t460 = _`Impact/Impact_12_Regular_Blue_400x400.webm`))],
-          orange: [lg(_t461 || (_t461 = _`Impact/Impact_05_Regular_Orange_400x400.webm`)), lg(_t462 || (_t462 = _`Impact/Impact_07_Regular_Orange_400x400.webm`)), lg(_t463 || (_t463 = _`Impact/Impact_08_Regular_Orange_400x400.webm`)), lg(_t464 || (_t464 = _`Impact/Impact_09_Regular_Orange_400x400.webm`)), lg(_t465 || (_t465 = _`Impact/Impact_10_Regular_Orange_400x400.webm`))],
-          yellow: [lg(_t466 || (_t466 = _`Impact/Impact_06_Regular_Yellow_400x400.webm`)), lg(_t467 || (_t467 = _`Impact/Impact_07_Regular_Yellow_400x400.webm`))]
+          blue: [lg(_t440 || (_t440 = _`Impact/Impact_01_Regular_Blue_400x400.webm`)), lg(_t441 || (_t441 = _`Impact/Impact_02_Regular_Blue_400x400.webm`)), lg(_t442 || (_t442 = _`Impact/Impact_03_Regular_Blue_400x400.webm`)), lg(_t443 || (_t443 = _`Impact/Impact_04_Regular_Blue_400x400.webm`)), lg(_t444 || (_t444 = _`Impact/Impact_11_Regular_Blue_400x400.webm`)), lg(_t445 || (_t445 = _`Impact/Impact_12_Regular_Blue_400x400.webm`))],
+          orange: [lg(_t446 || (_t446 = _`Impact/Impact_05_Regular_Orange_400x400.webm`)), lg(_t447 || (_t447 = _`Impact/Impact_07_Regular_Orange_400x400.webm`)), lg(_t448 || (_t448 = _`Impact/Impact_08_Regular_Orange_400x400.webm`)), lg(_t449 || (_t449 = _`Impact/Impact_09_Regular_Orange_400x400.webm`)), lg(_t450 || (_t450 = _`Impact/Impact_10_Regular_Orange_400x400.webm`))],
+          yellow: [lg(_t451 || (_t451 = _`Impact/Impact_06_Regular_Yellow_400x400.webm`)), lg(_t452 || (_t452 = _`Impact/Impact_07_Regular_Yellow_400x400.webm`))]
         }
       },
       indicator: {
         chevron: {
-          yellow: [lg(_t468 || (_t468 = _`UI/3Chevrons_01_Regular_Yellow_200x200.webm`))]
+          yellow: [lg(_t453 || (_t453 = _`UI/3Chevrons_01_Regular_Yellow_200x200.webm`))]
         },
         '01': {
-          yellow: [lg(_t469 || (_t469 = _`UI/Indicator_01_Regular_Yellow_200x200.webm`))]
+          yellow: [lg(_t454 || (_t454 = _`UI/Indicator_01_Regular_Yellow_200x200.webm`))]
         },
         '02': {
-          green: [lg(_t470 || (_t470 = _`UI/Indicator01_02_Regular_BlueGreen_400x400.webm`))]
+          green: [lg(_t455 || (_t455 = _`UI/Indicator01_02_Regular_BlueGreen_400x400.webm`))]
         },
         '03': {
-          green: [lg(_t471 || (_t471 = _`UI/Indicator01_03_Regular_BlueGreen_200x200.webm`))]
+          green: [lg(_t456 || (_t456 = _`UI/Indicator01_03_Regular_BlueGreen_200x200.webm`))]
         },
         '04': {
-          green: [lg(_t472 || (_t472 = _`UI/Indicator02_02_Regular_BlueGreen_400x400.webm`))]
+          green: [lg(_t457 || (_t457 = _`UI/Indicator02_02_Regular_BlueGreen_400x400.webm`))]
         },
         '05': {
-          green: [lg(_t473 || (_t473 = _`UI/Indicator02_03_Regular_BlueGreen_200x200.webm`))]
+          green: [lg(_t458 || (_t458 = _`UI/Indicator02_03_Regular_BlueGreen_200x200.webm`))]
         }
       },
       outpulse: {
         "01": {
-          whiteblue: [lg(_t474 || (_t474 = _`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`))]
+          whiteblue: [lg(_t459 || (_t459 = _`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`))]
         },
         "02": {
-          whiteblue: [lg(_t475 || (_t475 = _`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`))]
+          whiteblue: [lg(_t460 || (_t460 = _`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`))]
         }
       },
       smoke: {
         '01': {
-          grey: [lg(_t476 || (_t476 = _`Smoke/SmokePuff01_01_Regular_Grey_400x400.webm`))]
+          grey: [lg(_t461 || (_t461 = _`Smoke/SmokePuff01_01_Regular_Grey_400x400.webm`))]
         },
         '02': {
-          grey: [lg(_t477 || (_t477 = _`Smoke/SmokePuff01_02_Regular_Grey_400x400.webm`))]
+          grey: [lg(_t462 || (_t462 = _`Smoke/SmokePuff01_02_Regular_Grey_400x400.webm`))]
         },
         '03': {
-          grey: [lg(_t478 || (_t478 = _`Smoke/SmokePuff01_03_Regular_Grey_400x400.webm`))]
+          grey: [lg(_t463 || (_t463 = _`Smoke/SmokePuff01_03_Regular_Grey_400x400.webm`))]
         }
       },
       ui: {
         drop: {
-          red: [lg(_t479 || (_t479 = _`UI/IconDrop_01_Regular_Red_200x200.webm`))]
+          red: [lg(_t464 || (_t464 = _`UI/IconDrop_01_Regular_Red_200x200.webm`))]
         },
         fear: {
-          darkpurple: [lg(_t480 || (_t480 = _`UI/IconFear_01_Dark_Purple_200x200.webm`))]
+          darkpurple: [lg(_t465 || (_t465 = _`UI/IconFear_01_Dark_Purple_200x200.webm`))]
         },
         heart: {
-          pink: [lg(_t481 || (_t481 = _`UI/IconHeart_01_Regular_Pink_200x200.webm`))]
+          pink: [lg(_t466 || (_t466 = _`UI/IconHeart_01_Regular_Pink_200x200.webm`))]
         },
         horror: {
-          purple: [lg(_t482 || (_t482 = _`UI/IconHorror_01_Regular_Purple_200x200.webm`))]
+          purple: [lg(_t467 || (_t467 = _`UI/IconHorror_01_Regular_Purple_200x200.webm`))]
         },
         music: {
-          blue: [lg(_t483 || (_t483 = _`UI/IconMusicNote_01_Regular_Blue_200x200.webm`))]
+          blue: [lg(_t468 || (_t468 = _`UI/IconMusicNote_01_Regular_Blue_200x200.webm`))]
         },
         poison: {
-          darkgreen: [lg(_t484 || (_t484 = _`UI/IconPoison_01_Dark_Green_200x200.webm`))]
+          darkgreen: [lg(_t469 || (_t469 = _`UI/IconPoison_01_Dark_Green_200x200.webm`))]
         },
         rune01: {
-          orange: [lg(_t485 || (_t485 = _`UI/IconRunes_01_Regular_Orange_200x200.webm`))]
+          orange: [lg(_t470 || (_t470 = _`UI/IconRunes_01_Regular_Orange_200x200.webm`))]
         },
         rune02: {
-          orange: [lg(_t486 || (_t486 = _`UI/IconRunes02_01_Regular_Orange_200x200.webm`))]
+          orange: [lg(_t471 || (_t471 = _`UI/IconRunes02_01_Regular_Orange_200x200.webm`))]
         },
         rune03: {
-          orange: [lg(_t487 || (_t487 = _`UI/IconRunes03_01_Regular_Orange_200x200.webm`))]
+          orange: [lg(_t472 || (_t472 = _`UI/IconRunes03_01_Regular_Orange_200x200.webm`))]
         },
         shields: {
-          green: [lg(_t488 || (_t488 = _`UI/IconShield_01_Regular_Green_200x200.webm`))]
+          green: [lg(_t473 || (_t473 = _`UI/IconShield_01_Regular_Green_200x200.webm`))]
         },
         crackedshield: {
-          purple: [lg(_t489 || (_t489 = _`UI/IconShieldCracked_01_Regular_Purple_200x200.webm`))]
+          purple: [lg(_t474 || (_t474 = _`UI/IconShieldCracked_01_Regular_Purple_200x200.webm`))]
         },
         skull: {
-          purple: [lg(_t490 || (_t490 = _`UI/IconSkull_01_Regular_Purple_200x200.webm`))]
+          purple: [lg(_t475 || (_t475 = _`UI/IconSkull_01_Regular_Purple_200x200.webm`))]
         },
         snowflake: {
-          blue: [lg(_t491 || (_t491 = _`UI/IconSnowflake_01_Regular_Blue_200x200.webm`))]
+          blue: [lg(_t476 || (_t476 = _`UI/IconSnowflake_01_Regular_Blue_200x200.webm`))]
         },
         stun: {
-          purple: [lg(_t492 || (_t492 = _`UI/IconStun_01_Regular_Purple_200x200.webm`))]
+          purple: [lg(_t477 || (_t477 = _`UI/IconStun_01_Regular_Purple_200x200.webm`))]
         }
       },
       vortex: {
         loop: {
-          blue: [lg(_t493 || (_t493 = _`Template/Circle/Vortex_01_Regular_Blue_600x600.webm`))]
+          blue: [lg(_t478 || (_t478 = _`Template/Circle/Vortex_01_Regular_Blue_600x600.webm`))]
         },
         intro: {
-          blue: [lg(_t494 || (_t494 = _`Template/Circle/VortexIntro_01_Regular_Blue_600x600.webm`))]
+          blue: [lg(_t479 || (_t479 = _`Template/Circle/VortexIntro_01_Regular_Blue_600x600.webm`))]
         },
         outro: {
-          blue: [lg(_t495 || (_t495 = _`Template/Circle/VortexOutro_01_Regular_Blue_600x600.webm`))]
+          blue: [lg(_t480 || (_t480 = _`Template/Circle/VortexOutro_01_Regular_Blue_600x600.webm`))]
         }
       },
       whirl: {
         loop: {
-          blue: [lg(_t496 || (_t496 = _`Template/Circle/Whirl_01_Regular_Blue_600x600.webm`))]
+          blue: [lg(_t481 || (_t481 = _`Template/Circle/Whirl_01_Regular_Blue_600x600.webm`))]
         },
         intro: {
-          blue: [lg(_t497 || (_t497 = _`Template/Circle/WhirlIntro_01_Regular_Blue_600x600.webm`))]
+          blue: [lg(_t482 || (_t482 = _`Template/Circle/WhirlIntro_01_Regular_Blue_600x600.webm`))]
         },
         outro: {
-          blue: [lg(_t498 || (_t498 = _`Template/Circle/WhirlOutro_01_Regular_Blue_600x600.webm`))]
+          blue: [lg(_t483 || (_t483 = _`Template/Circle/WhirlOutro_01_Regular_Blue_600x600.webm`))]
         }
       }
     },
     ice: {
       icespikes: {
         '01': {
-          white: [lg(_t499 || (_t499 = _`Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm`))]
+          white: [lg(_t484 || (_t484 = _`Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm`))]
         }
       },
       snowflake: {
         "01": {
-          whiteblue: [lg(_t500 || (_t500 = _`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`))]
+          whiteblue: [lg(_t485 || (_t485 = _`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`))]
         }
       }
     },
     lightning: {
       ball: {
         '01': {
-          blue: [lg(_t501 || (_t501 = _`Lightning/LightningBall_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t486 || (_t486 = _`Lightning/LightningBall_01_Regular_Blue_400x400.webm`))]
         }
       },
       staticelectricity: {
         '01': {
-          blue: [lg(_t502 || (_t502 = _`Lightning/StaticElectricity_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t487 || (_t487 = _`Lightning/StaticElectricity_01_Regular_Blue_400x400.webm`))]
         },
         '02': {
-          blue: [lg(_t503 || (_t503 = _`Lightning/StaticElectricity_02_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t488 || (_t488 = _`Lightning/StaticElectricity_02_Regular_Blue_400x400.webm`))]
         }
       }
     },
     liquid: {
       splash: {
         '01': {
-          blue: [lg(_t504 || (_t504 = _`Liquid/LiquidSplash01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t489 || (_t489 = _`Liquid/LiquidSplash01_Regular_Blue_400x400.webm`))]
         }
       }
     },
     magicsign: {
       abjuration: {
         '01': {
-          blue: [lg(_t505 || (_t505 = _`Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm`))]
+          blue: [lg(_t490 || (_t490 = _`Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm`))]
         },
         '02': {
-          blue: [lg(_t506 || (_t506 = _`Magic_Signs/AbjurationCircleLoop_02_Regular_Blue_800x800.webm`))]
+          blue: [lg(_t491 || (_t491 = _`Magic_Signs/AbjurationCircleLoop_02_Regular_Blue_800x800.webm`))]
         }
       },
       conjuration: {
         '01': {
-          yellow: [lg(_t507 || (_t507 = _`Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm`))]
+          yellow: [lg(_t492 || (_t492 = _`Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm`))]
         },
         '02': {
-          yellow: [lg(_t508 || (_t508 = _`Magic_Signs/ConjurationCircleLoop_02_Regular_Yellow_800x800.webm`))]
+          yellow: [lg(_t493 || (_t493 = _`Magic_Signs/ConjurationCircleLoop_02_Regular_Yellow_800x800.webm`))]
         }
       },
       divination: {
         '01': {
-          lightblue: [lg(_t509 || (_t509 = _`Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm`))]
+          lightblue: [lg(_t494 || (_t494 = _`Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm`))]
         },
         '02': {
-          blue: [lg(_t510 || (_t510 = _`Magic_Signs/DivinationCircleLoop_02_Regular_Blue_800x800.webm`))]
+          blue: [lg(_t495 || (_t495 = _`Magic_Signs/DivinationCircleLoop_02_Regular_Blue_800x800.webm`))]
         }
       },
       enchantment: {
         '02': {
-          pink: [lg(_t511 || (_t511 = _`Magic_Signs/EnchantmentCircleLoop_02_Regular_Pink_800x800.webm`))]
+          pink: [lg(_t496 || (_t496 = _`Magic_Signs/EnchantmentCircleLoop_02_Regular_Pink_800x800.webm`))]
         }
       },
       evocation: {
         '02': {
-          red: [lg(_t512 || (_t512 = _`Magic_Signs/EvocationCircleLoop_02_Regular_Red_800x800.webm`))]
+          red: [lg(_t497 || (_t497 = _`Magic_Signs/EvocationCircleLoop_02_Regular_Red_800x800.webm`))]
         }
       },
       illusion: {
         '02': {
-          purple: [lg(_t513 || (_t513 = _`Magic_Signs/IllusionCircleLoop_02_Regular_Purple_800x800.webm`))]
+          purple: [lg(_t498 || (_t498 = _`Magic_Signs/IllusionCircleLoop_02_Regular_Purple_800x800.webm`))]
         }
       },
       necromancy: {
         '02': {
-          green: [lg(_t514 || (_t514 = _`Magic_Signs/NecromancyCircleLoop_02_Regular_Green_800x800.webm`))]
+          green: [lg(_t499 || (_t499 = _`Magic_Signs/NecromancyCircleLoop_02_Regular_Green_800x800.webm`))]
         }
       },
       transmutation: {
         '02': {
-          yellow: [lg(_t515 || (_t515 = _`Magic_Signs/TransmutationCircleLoop_02_Regular_Yellow_800x800.webm`))]
+          yellow: [lg(_t500 || (_t500 = _`Magic_Signs/TransmutationCircleLoop_02_Regular_Yellow_800x800.webm`))]
         }
       }
     },
     marker: {
       bubble: {
         '01': {
-          blue: [lg(_t516 || (_t516 = _`Marker/MarkerBubble_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t501 || (_t501 = _`Marker/MarkerBubble_01_Regular_Blue_400x400.webm`))]
         }
       },
       circleofstars: {
         '01': {
-          blue: [lg(_t517 || (_t517 = _`Marker/MarkerCircleOfStars_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t502 || (_t502 = _`Marker/MarkerCircleOfStars_Regular_Blue_400x400.webm`))]
         }
       },
       energystrands: {
         '01': {
-          blue: [lg(_t518 || (_t518 = _`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`))]
+          blue: [lg(_t503 || (_t503 = _`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`))]
         }
       },
       music: {
         '01': {
-          greenorange: [lg(_t519 || (_t519 = _`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`))]
+          greenorange: [lg(_t504 || (_t504 = _`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`))]
         }
       },
       standard: {
         '01': {
           marker01: {
-            "blueyellow": [lg(_t520 || (_t520 = _`Marker/Marker_01_Regular_BlueYellow_400x400.webm`))]
+            "blueyellow": [lg(_t505 || (_t505 = _`Marker/Marker_01_Regular_BlueYellow_400x400.webm`))]
           },
           musicMarker: {
-            "greenorange": [lg(_t521 || (_t521 = _`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`))]
+            "greenorange": [lg(_t506 || (_t506 = _`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`))]
           }
         }
       }
@@ -10680,58 +10634,58 @@ async function jb2aAAFreeDatabase(path) {
     music: {
       notes: {
         '01': {
-          blue: [lg(_t522 || (_t522 = _`Music_Notation/BassClef_01_Regular_Blue_200x200.webm`)), lg(_t523 || (_t523 = _`Music_Notation/BeamedQuavers_01_Regular_Blue_200x200.webm`)), lg(_t524 || (_t524 = _`Music_Notation/Crotchet_01_Regular_Blue_200x200.webm`)), lg(_t525 || (_t525 = _`Music_Notation/Flat_01_Regular_Blue_200x200.webm`)), lg(_t526 || (_t526 = _`Music_Notation/Quaver_01_Regular_Blue_200x200.webm`)), lg(_t527 || (_t527 = _`Music_Notation/Sharp_01_Regular_Blue_200x200.webm`)), lg(_t528 || (_t528 = _`Music_Notation/TrebleClef_01_Regular_Blue_200x200.webm`))]
+          blue: [lg(_t507 || (_t507 = _`Music_Notation/BassClef_01_Regular_Blue_200x200.webm`)), lg(_t508 || (_t508 = _`Music_Notation/BeamedQuavers_01_Regular_Blue_200x200.webm`)), lg(_t509 || (_t509 = _`Music_Notation/Crotchet_01_Regular_Blue_200x200.webm`)), lg(_t510 || (_t510 = _`Music_Notation/Flat_01_Regular_Blue_200x200.webm`)), lg(_t511 || (_t511 = _`Music_Notation/Quaver_01_Regular_Blue_200x200.webm`)), lg(_t512 || (_t512 = _`Music_Notation/Sharp_01_Regular_Blue_200x200.webm`)), lg(_t513 || (_t513 = _`Music_Notation/TrebleClef_01_Regular_Blue_200x200.webm`))]
         }
       }
     },
     particles: {
       dots: {
         '01': {
-          green: [lg(_t529 || (_t529 = _`Particles/ParticlesOutward01_01_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t514 || (_t514 = _`Particles/ParticlesOutward01_01_Regular_GreenYellow_400x400.webm`))]
         },
         '02': {
-          green: [lg(_t530 || (_t530 = _`Particles/ParticlesOutward01_02_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t515 || (_t515 = _`Particles/ParticlesOutward01_02_Regular_GreenYellow_400x400.webm`))]
         },
         '03': {
-          green: [lg(_t531 || (_t531 = _`Particles/ParticlesOutward01_03_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t516 || (_t516 = _`Particles/ParticlesOutward01_03_Regular_GreenYellow_400x400.webm`))]
         },
         '04': {
-          green: [lg(_t532 || (_t532 = _`Particles/ParticlesOutward01_04_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t517 || (_t517 = _`Particles/ParticlesOutward01_04_Regular_GreenYellow_400x400.webm`))]
         },
         '05': {
-          green: [lg(_t533 || (_t533 = _`Particles/ParticlesOutward01_05_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t518 || (_t518 = _`Particles/ParticlesOutward01_05_Regular_GreenYellow_400x400.webm`))]
         }
       },
       stars: {
         '01': {
-          green: [lg(_t534 || (_t534 = _`Particles/ParticlesOutward02_01_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t519 || (_t519 = _`Particles/ParticlesOutward02_01_Regular_GreenYellow_400x400.webm`))]
         },
         '02': {
-          green: [lg(_t535 || (_t535 = _`Particles/ParticlesOutward02_02_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t520 || (_t520 = _`Particles/ParticlesOutward02_02_Regular_GreenYellow_400x400.webm`))]
         },
         '03': {
-          green: [lg(_t536 || (_t536 = _`Particles/ParticlesOutward02_03_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t521 || (_t521 = _`Particles/ParticlesOutward02_03_Regular_GreenYellow_400x400.webm`))]
         },
         '04': {
-          green: [lg(_t537 || (_t537 = _`Particles/ParticlesOutward02_04_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t522 || (_t522 = _`Particles/ParticlesOutward02_04_Regular_GreenYellow_400x400.webm`))]
         },
         '05': {
-          green: [lg(_t538 || (_t538 = _`Particles/ParticlesOutward02_05_Regular_GreenYellow_400x400.webm`))]
+          green: [lg(_t523 || (_t523 = _`Particles/ParticlesOutward02_05_Regular_GreenYellow_400x400.webm`))]
         }
       },
       swirl: {
         '01': {
-          greenyellow: [lg(_t539 || (_t539 = _`Particles/ParticlesSwirl01_01_Regular_GreenYellow_400x400.webm`))]
+          greenyellow: [lg(_t524 || (_t524 = _`Particles/ParticlesSwirl01_01_Regular_GreenYellow_400x400.webm`))]
         },
         '02': {
-          greenyellow: [lg(_t540 || (_t540 = _`Particles/ParticlesSwirl02_01_Regular_GreenYellow_400x400.webm`))]
+          greenyellow: [lg(_t525 || (_t525 = _`Particles/ParticlesSwirl02_01_Regular_GreenYellow_400x400.webm`))]
         }
       }
     },
     shieldfx: {
       eldritchweb: {
         '01': {
-          darkpurple: [lg(_t541 || (_t541 = _`Energy/ShieldEldritchWebAbove01_01_Dark_Purple_400x400.webm`))]
+          darkpurple: [lg(_t526 || (_t526 = _`Energy/ShieldEldritchWebAbove01_01_Dark_Purple_400x400.webm`))]
         }
       },
 
@@ -10744,7 +10698,7 @@ async function jb2aAAFreeDatabase(path) {
       */
       fire: {
         '01': {
-          orange: [lg(_t542 || (_t542 = _`Fire/ShieldFireAbove01_01_Regular_Orange_400x400.webm`))]
+          orange: [lg(_t527 || (_t527 = _`Fire/ShieldFireAbove01_01_Regular_Orange_400x400.webm`))]
         }
       },
 
@@ -10757,7 +10711,7 @@ async function jb2aAAFreeDatabase(path) {
       */
       earth: {
         '01': {
-          orange: [lg(_t543 || (_t543 = _`Fire/ShieldMoltenEarthAbove01_01_Regular_Orange_400x400.webm`))]
+          orange: [lg(_t528 || (_t528 = _`Fire/ShieldMoltenEarthAbove01_01_Regular_Orange_400x400.webm`))]
         }
       },
 
@@ -10770,7 +10724,7 @@ async function jb2aAAFreeDatabase(path) {
       */
       energyfield: {
         '01': {
-          blue: [lg(_t544 || (_t544 = _`Energy/EnergyFieldTop_02_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t529 || (_t529 = _`Energy/EnergyFieldTop_02_Regular_Blue_400x400.webm`))]
         }
       },
 
@@ -10783,7 +10737,7 @@ async function jb2aAAFreeDatabase(path) {
       */
       ice: {
         '01': {
-          blue: [lg(_t545 || (_t545 = _`Ice/ShieldIceAbove01_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t530 || (_t530 = _`Ice/ShieldIceAbove01_01_Regular_Blue_400x400.webm`))]
         }
       }
       /*
@@ -10798,337 +10752,304 @@ async function jb2aAAFreeDatabase(path) {
     spell: {
       antilifeshell: {
         '01': {
-          blue: [l5(_t546 || (_t546 = _`Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm`))]
+          blue: [l5(_t531 || (_t531 = _`Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm`))]
         }
       },
       armsofhadar: {
         '01': {
-          darkpurple: [l1(_t547 || (_t547 = _`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`))]
+          darkpurple: [l1(_t532 || (_t532 = _`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`))]
         }
       },
       bardicinspiration: {
         'inspire': {
-          greenorange: [l1(_t548 || (_t548 = _`Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm`))]
+          greenorange: [l1(_t533 || (_t533 = _`Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm`))]
         },
         'marker': {
-          greenorange: [lg(_t549 || (_t549 = _`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`))]
+          greenorange: [lg(_t534 || (_t534 = _`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`))]
         }
       },
       blacktentacles: {
         '01': {
-          darkpurple: [l4(_t550 || (_t550 = _`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`))]
+          darkpurple: [l4(_t535 || (_t535 = _`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`))]
         }
       },
       bless: {
         '01': {
           yellow: {
-            'intro': l1(_t551 || (_t551 = _`Bless/Bless_01_Regular_Yellow_Intro_400x400.webm`)),
-            'loop': l1(_t552 || (_t552 = _`Bless/Bless_01_Regular_Yellow_Loop_400x400.webm`))
+            'intro': l1(_t536 || (_t536 = _`Bless/Bless_01_Regular_Yellow_Intro_400x400.webm`)),
+            'loop': l1(_t537 || (_t537 = _`Bless/Bless_01_Regular_Yellow_Loop_400x400.webm`))
           }
         }
       },
       calllightning: {
         '01': {
-          blue: [l3(_t553 || (_t553 = _`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`))],
-          blueorange: [l3(_t554 || (_t554 = _`Call_Lightning/CallLightning_01_BlueOrange_1000x1000.webm`))],
-          green: [l3(_t555 || (_t555 = _`Call_Lightning/CallLightning_01_Green_1000x1000.webm`))],
-          pinkyellow: [l3(_t556 || (_t556 = _`Call_Lightning/CallLightning_01_PinkYellow_1000x1000.webm`))],
-          purple: [l3(_t557 || (_t557 = _`Call_Lightning/CallLightning_01_Purple_1000x1000.webm`))],
-          red: [l3(_t558 || (_t558 = _`Call_Lightning/CallLightning_01_Red_1000x1000.webm`))],
-          yellow: [l3(_t559 || (_t559 = _`Call_Lightning/CallLightning_01_Yellow_1000x1000.webm`))]
+          blue: [l3(_t538 || (_t538 = _`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`))],
+          blueorange: [l3(_t539 || (_t539 = _`Call_Lightning/CallLightning_01_BlueOrange_1000x1000.webm`))],
+          green: [l3(_t540 || (_t540 = _`Call_Lightning/CallLightning_01_Green_1000x1000.webm`))],
+          pinkyellow: [l3(_t541 || (_t541 = _`Call_Lightning/CallLightning_01_PinkYellow_1000x1000.webm`))],
+          purple: [l3(_t542 || (_t542 = _`Call_Lightning/CallLightning_01_Purple_1000x1000.webm`))],
+          red: [l3(_t543 || (_t543 = _`Call_Lightning/CallLightning_01_Red_1000x1000.webm`))],
+          yellow: [l3(_t544 || (_t544 = _`Call_Lightning/CallLightning_01_Yellow_1000x1000.webm`))]
         }
       },
       cloudofdaggers: {
         '01': {
-          blue: [l2(_t560 || (_t560 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Blue_400x400.webm`))],
-          green: [l2(_t561 || (_t561 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Green_400x400.webm`))],
-          orange: [l2(_t562 || (_t562 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Orange_400x400.webm`))],
-          purple: [l2(_t563 || (_t563 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Purple_400x400.webm`))],
-          red: [l2(_t564 || (_t564 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Red_400x400.webm`))],
-          yellow: [l2(_t565 || (_t565 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Yellow_400x400.webm`))]
+          blue: [l2(_t545 || (_t545 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Blue_400x400.webm`))],
+          green: [l2(_t546 || (_t546 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Green_400x400.webm`))],
+          orange: [l2(_t547 || (_t547 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Orange_400x400.webm`))],
+          purple: [l2(_t548 || (_t548 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Purple_400x400.webm`))],
+          red: [l2(_t549 || (_t549 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Red_400x400.webm`))],
+          yellow: [l2(_t550 || (_t550 = _`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Yellow_400x400.webm`))]
         }
       },
       curewounds: {
         '01': {
-          blue: [l1(_t566 || (_t566 = _`Cure_Wounds/CureWounds_01_Blue_400x400.webm`))]
+          blue: [l1(_t551 || (_t551 = _`Cure_Wounds/CureWounds_01_Blue_400x400.webm`))]
         }
       },
       darkness: {
         '01': {
-          black: [l2(_t567 || (_t567 = _`Darkness/Darkness_01_Black_600x600.webm`))],
-          green: [l2(_t568 || (_t568 = _`Darkness/Darkness_01_Green_600x600.webm`))]
+          black: [l2(_t552 || (_t552 = _`Darkness/Darkness_01_Black_600x600.webm`))],
+          green: [l2(_t553 || (_t553 = _`Darkness/Darkness_01_Green_600x600.webm`))]
         }
       },
       detectmagic: {
         '01': {
-          blue: [l1(_t569 || (_t569 = _`Detect_Magic/DetectMagicCircle_01_Regular_Blue_1200x1200.webm`))]
+          blue: [l1(_t554 || (_t554 = _`Detect_Magic/DetectMagicCircle_01_Regular_Blue_1200x1200.webm`))]
         }
       },
       divinesmite: {
         'source': {
-          yellowblue: [l2(_t570 || (_t570 = _`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`))]
+          yellowblue: [l2(_t555 || (_t555 = _`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`))]
         },
         'target': {
-          yellowblue: [l2(_t571 || (_t571 = _`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`))]
+          yellowblue: [l2(_t556 || (_t556 = _`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`))]
         }
       },
       entangle: {
         '01': {
-          brown: [l1(_t572 || (_t572 = _`Entangle/Entangle_01_Brown_400x400.webm`))],
-          green: [l1(_t573 || (_t573 = _`Entangle/Entangle_01_Green_400x400.webm`))],
-          yellow: [l1(_t574 || (_t574 = _`Entangle/Entangle_01_Yellow_400x400.webm`))]
+          brown: [l1(_t557 || (_t557 = _`Entangle/Entangle_01_Brown_400x400.webm`))],
+          green: [l1(_t558 || (_t558 = _`Entangle/Entangle_01_Green_400x400.webm`))],
+          yellow: [l1(_t559 || (_t559 = _`Entangle/Entangle_01_Yellow_400x400.webm`))]
         }
       },
       fireball: {
         loop: {
-          orange: [l3(_t575 || (_t575 = _`Fireball/FireballLoop_01_Orange_800x800.webm`))]
+          orange: [l3(_t560 || (_t560 = _`Fireball/FireballLoop_01_Orange_800x800.webm`))]
         },
         explode: {
-          orange: [l3(_t576 || (_t576 = _`Fireball/FireballExplosion_01_Orange_800x800.webm`))]
+          orange: [l3(_t561 || (_t561 = _`Fireball/FireballExplosion_01_Orange_800x800.webm`))]
         },
         nodebris: {
-          orange: [l3(_t577 || (_t577 = _`Fireball/FireballLoopNoDebris_01_Orange_800x800.webm`))]
+          orange: [l3(_t562 || (_t562 = _`Fireball/FireballLoopNoDebris_01_Orange_800x800.webm`))]
         }
       },
       fogcloud: {
         '01': {
-          white: [l1(_t578 || (_t578 = _`Fog_Cloud/FogCloud_01_White_800x800.webm`))]
+          white: [l1(_t563 || (_t563 = _`Fog_Cloud/FogCloud_01_White_800x800.webm`))]
         }
       },
       generichealing: {
         '01': {
-          blue: [lg(_t579 || (_t579 = _`Healing/HealingAbility_01_Blue_400x400.webm`))],
-          green: [lg(_t580 || (_t580 = _`Healing/HealingAbility_01_Green_400x400.webm`))],
-          purple: [lg(_t581 || (_t581 = _`Healing/HealingAbility_01_Purple_400x400.webm`))],
-          yellow: [lg(_t582 || (_t582 = _`Healing/HealingAbility_01_Yellow_400x400.webm`))]
+          blue: [lg(_t564 || (_t564 = _`Healing/HealingAbility_01_Blue_400x400.webm`))],
+          green: [lg(_t565 || (_t565 = _`Healing/HealingAbility_01_Green_400x400.webm`))],
+          purple: [lg(_t566 || (_t566 = _`Healing/HealingAbility_01_Purple_400x400.webm`))],
+          yellow: [lg(_t567 || (_t567 = _`Healing/HealingAbility_01_Yellow_400x400.webm`))]
         },
         '02': {
-          greenorange: [lg(_t583 || (_t583 = _`Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm`))]
+          greenorange: [lg(_t568 || (_t568 = _`Healing/HealingAbility_02_Regular_GreenOrange_Burst_600x600.webm`))]
         }
       },
       grease: {
         "01": {
-          brown: [l1(_t584 || (_t584 = _`Grease/Grease_Dark_Brown_600x600.webm`))]
+          brown: [l1(_t569 || (_t569 = _`Grease/Grease_Dark_Brown_600x600.webm`))]
         }
       },
       huntersmark: {
         'eye': {
-          green: [l1(_t585 || (_t585 = _`Hunters_Mark/HuntersMark_01_Regular_Green_Pulse_200x200.webm`))]
+          green: [l1(_t570 || (_t570 = _`Hunters_Mark/HuntersMark_01_Regular_Green_Pulse_200x200.webm`))]
         },
         'eyeloop': {
-          green: [l1(_t586 || (_t586 = _`Hunters_Mark/HuntersMark_01_Regular_Green_Loop_200x200.webm`))]
+          green: [l1(_t571 || (_t571 = _`Hunters_Mark/HuntersMark_01_Regular_Green_Loop_200x200.webm`))]
         }
       },
       mistystep: {
         "01": {
-          blue: [l2(_t587 || (_t587 = _`Misty_Step/MistyStep_01_Regular_Blue_400x400.webm`))]
+          blue: [l2(_t572 || (_t572 = _`Misty_Step/MistyStep_01_Regular_Blue_400x400.webm`))]
         },
         "02": {
-          blue: [l2(_t588 || (_t588 = _`Misty_Step/MistyStep_02_Regular_Blue_400x400.webm`))]
+          blue: [l2(_t573 || (_t573 = _`Misty_Step/MistyStep_02_Regular_Blue_400x400.webm`))]
         }
       },
       moonbeam: {
         loop: {
-          blue: [l2(_t589 || (_t589 = _`Moonbeam/Moonbeam_01_Regular_Blue_400x400.webm`))]
+          blue: [l2(_t574 || (_t574 = _`Moonbeam/Moonbeam_01_Regular_Blue_400x400.webm`))]
         },
         nopulse: {
-          blue: [l2(_t590 || (_t590 = _`Moonbeam/MoonbeamNoPulse_01_Regular_Blue_400x400.webm`))]
+          blue: [l2(_t575 || (_t575 = _`Moonbeam/MoonbeamNoPulse_01_Regular_Blue_400x400.webm`))]
         },
         intro: {
-          blue: [l2(_t591 || (_t591 = _`Moonbeam/MoonbeamIntro_01_Regular_Blue_400x400.webm`))]
+          blue: [l2(_t576 || (_t576 = _`Moonbeam/MoonbeamIntro_01_Regular_Blue_400x400.webm`))]
         },
         outro: {
-          blue: [l2(_t592 || (_t592 = _`Moonbeam/MoonbeamOutro_01_Regular_Blue_400x400.webm`))]
+          blue: [l2(_t577 || (_t577 = _`Moonbeam/MoonbeamOutro_01_Regular_Blue_400x400.webm`))]
         }
       },
       shatter: {
         '01': {
-          blue: [l2(_t593 || (_t593 = _`Shatter/Shatter_01_Blue_400x400.webm`))]
+          blue: [l2(_t578 || (_t578 = _`Shatter/Shatter_01_Blue_400x400.webm`))]
         }
       },
       shieldspell: {
         '01': {
           blue: {
-            'intro': [l1(_t594 || (_t594 = _`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`))],
-            'loop': [l1(_t595 || (_t595 = _`Shield/Shield_01_Regular_Blue_Loop_400x400.webm`))],
-            'outro_explode': [l1(_t596 || (_t596 = _`Shield/Shield_01_Regular_Blue_OutroExplode_400x400.webm`))],
-            'outro_fade': [l1(_t597 || (_t597 = _`Shield/Shield_01_Regular_Blue_OutroFade_400x400.webm`))]
+            'intro': [l1(_t579 || (_t579 = _`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`))],
+            'loop': [l1(_t580 || (_t580 = _`Shield/Shield_01_Regular_Blue_Loop_400x400.webm`))],
+            'outro_explode': [l1(_t581 || (_t581 = _`Shield/Shield_01_Regular_Blue_OutroExplode_400x400.webm`))],
+            'outro_fade': [l1(_t582 || (_t582 = _`Shield/Shield_01_Regular_Blue_OutroFade_400x400.webm`))]
           }
         }
       },
       sleep: {
         '01': {
-          pink: [l1(_t598 || (_t598 = _`Sleep/Cloud01_01_Regular_Pink_400x400.webm`))]
+          pink: [l1(_t583 || (_t583 = _`Sleep/Cloud01_01_Regular_Pink_400x400.webm`))]
         },
         '02': {
-          pink: [l1(_t599 || (_t599 = _`Sleep/Cloud01_02_Regular_Pink_400x400.webm`))]
+          pink: [l1(_t584 || (_t584 = _`Sleep/Cloud01_02_Regular_Pink_400x400.webm`))]
         },
         marker: {
-          pink: [l1(_t600 || (_t600 = _`Sleep/SleepMarker01_01_Regular_Pink_400x400.webm`))]
+          pink: [l1(_t585 || (_t585 = _`Sleep/SleepMarker01_01_Regular_Pink_400x400.webm`))]
         },
         symbol: {
-          pink: [l1(_t601 || (_t601 = _`Sleep/SleepSymbol01_01_Regular_Pink_400x400.webm`))]
+          pink: [l1(_t586 || (_t586 = _`Sleep/SleepSymbol01_01_Regular_Pink_400x400.webm`))]
         }
       },
       sleetstorm: {
         '01': {
-          blue: [l3(_t602 || (_t602 = _`Sleet_Storm/SleetStorm_01_Blue_800x800.webm`))]
+          blue: [l3(_t587 || (_t587 = _`Sleet_Storm/SleetStorm_01_Blue_800x800.webm`))]
         }
       },
       spiritguardians: {
         '01': {
-          yellowblue: [l3(_t603 || (_t603 = _`Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm`))]
+          yellowblue: [l3(_t588 || (_t588 = _`Spirit_Guardians/SpiritGuardians_01_Light_BlueYellow_600x600.webm`))]
         }
       },
       sneakattack: {
         '01': {
-          'dark green': [l1(_t604 || (_t604 = _`Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm`))]
+          'dark green': [l1(_t589 || (_t589 = _`Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm`))]
         }
       },
       thunderwave: {
         left: {
-          blue: [l1(_t605 || (_t605 = _`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`))]
+          blue: [l1(_t590 || (_t590 = _`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`))]
         },
         mid: {
-          blue: [l1(_t606 || (_t606 = _`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`))]
+          blue: [l1(_t591 || (_t591 = _`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`))]
         },
         center: {
-          blue: [l1(_t607 || (_t607 = _`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`))]
+          blue: [l1(_t592 || (_t592 = _`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`))]
         }
       },
       tollthedead: {
         bell: {
-          green: [l0(_t608 || (_t608 = _`Toll_The_Dead/TollTheDeadBell_01_Regular_Green_400x400.webm`))]
+          green: [l0(_t593 || (_t593 = _`Toll_The_Dead/TollTheDeadBell_01_Regular_Green_400x400.webm`))]
         },
         complete: {
-          green: [l0(_t609 || (_t609 = _`Toll_The_Dead/TollTheDead_01_Regular_Green_400x400.webm`))]
+          green: [l0(_t594 || (_t594 = _`Toll_The_Dead/TollTheDead_01_Regular_Green_400x400.webm`))]
         },
         shockwave: {
-          green: [l0(_t610 || (_t610 = _`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Green_400x400.webm`))]
+          green: [l0(_t595 || (_t595 = _`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Green_400x400.webm`))]
         },
         skull: {
-          green: [l0(_t611 || (_t611 = _`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`))]
+          green: [l0(_t596 || (_t596 = _`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`))]
         }
       },
       wallofforce: {
         '01': {
-          grey: [l5(_t612 || (_t612 = _`Wall_Of_Force/WallOfForce_01_Grey_Sphere_400x400.webm`))]
+          grey: [l5(_t597 || (_t597 = _`Wall_Of_Force/WallOfForce_01_Grey_Sphere_400x400.webm`))]
         }
       },
       web: {
         '01': {
-          white: [l2(_t613 || (_t613 = _`Web/Web_01_White_01_400x400.webm`))]
+          white: [l2(_t598 || (_t598 = _`Web/Web_01_White_01_400x400.webm`))]
         }
       },
       whirlwind: {
         '01': {
-          bluegrey: [l7(_t614 || (_t614 = _`Whirlwind/Whirlwind_01_BlueGrey_400x400.webm`))]
+          bluegrey: [l7(_t599 || (_t599 = _`Whirlwind/Whirlwind_01_BlueGrey_01_400x400.webm`))]
         }
       }
     },
     tokenborder: {
       static: {
         '01': {
-          blue: [lg(_t615 || (_t615 = _`Token_Border/TokenBorderCircle_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t600 || (_t600 = _`Token_Border/TokenBorderCircle_01_Regular_Blue_400x400.webm`))]
         },
         '02': {
-          blue: [lg(_t616 || (_t616 = _`Token_Border/TokenBorderCircle_02_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t601 || (_t601 = _`Token_Border/TokenBorderCircle_02_Regular_Blue_400x400.webm`))]
         },
         '03': {
-          blue: [lg(_t617 || (_t617 = _`Token_Border/TokenBorderCircle_03_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t602 || (_t602 = _`Token_Border/TokenBorderCircle_03_Regular_Blue_400x400.webm`))]
         },
         '04': {
-          blue: [lg(_t618 || (_t618 = _`Token_Border/TokenBorderCircle_04_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t603 || (_t603 = _`Token_Border/TokenBorderCircle_04_Regular_Blue_400x400.webm`))]
         },
         '05': {
-          blue: [lg(_t619 || (_t619 = _`Token_Border/TokenBorderCircle_05_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t604 || (_t604 = _`Token_Border/TokenBorderCircle_05_Regular_Blue_400x400.webm`))]
         },
         '06': {
-          blue: [lg(_t620 || (_t620 = _`Token_Border/TokenBorderCircle_06_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t605 || (_t605 = _`Token_Border/TokenBorderCircle_06_Regular_Blue_400x400.webm`))]
         },
         '07': {
-          blue: [lg(_t621 || (_t621 = _`Token_Border/TokenBorderCircle_07_Regular_Blue_400x400.webm`))]
-        },
-        '08': {
-          blue: [lg(_t622 || (_t622 = _`Token_Border/TokenBorderCircle_08_Regular_Blue_400x400.webm`))]
-        },
-        '09': {
-          blue: [lg(_t623 || (_t623 = _`Token_Border/TokenBorderCircle_09_Regular_Blue_400x400.webm`))]
-        },
-        '10': {
-          blue: [lg(_t624 || (_t624 = _`Token_Border/TokenBorderCircle_10_Regular_Blue_400x400.webm`))]
-        },
-        '11': {
-          blue: [lg(_t625 || (_t625 = _`Token_Border/TokenBorderCircle_11_Regular_Blue_400x400.webm`))]
-        },
-        '12': {
-          blue: [lg(_t626 || (_t626 = _`Token_Border/TokenBorderCircle_12_Regular_Blue_400x400.webm`))]
-        },
-        '13': {
-          blue: [lg(_t627 || (_t627 = _`Token_Border/TokenBorderCircle_13_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t606 || (_t606 = _`Token_Border/TokenBorderCircle_07_Regular_Blue_400x400.webm`))]
         }
       },
       spinning: {
         '01': {
-          blue: [lg(_t628 || (_t628 = _`Token_Border/TokenBorderCircleSpin_01_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t607 || (_t607 = _`Token_Border/TokenBorderCircleSpin_01_Regular_Blue_400x400.webm`))]
         },
         '02': {
-          blue: [lg(_t629 || (_t629 = _`Token_Border/TokenBorderCircleSpin_02_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t608 || (_t608 = _`Token_Border/TokenBorderCircleSpin_02_Regular_Blue_400x400.webm`))]
         },
         '03': {
-          blue: [lg(_t630 || (_t630 = _`Token_Border/TokenBorderCircleSpin_03_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t609 || (_t609 = _`Token_Border/TokenBorderCircleSpin_03_Regular_Blue_400x400.webm`))]
         },
         '04': {
-          blue: [lg(_t631 || (_t631 = _`Token_Border/TokenBorderCircleSpin_04_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t610 || (_t610 = _`Token_Border/TokenBorderCircleSpin_04_Regular_Blue_400x400.webm`))]
         },
         '05': {
-          blue: [lg(_t632 || (_t632 = _`Token_Border/TokenBorderCircleSpin_05_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t611 || (_t611 = _`Token_Border/TokenBorderCircleSpin_05_Regular_Blue_400x400.webm`))]
         },
         '06': {
-          blue: [lg(_t633 || (_t633 = _`Token_Border/TokenBorderCircleSpin_06_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t612 || (_t612 = _`Token_Border/TokenBorderCircleSpin_06_Regular_Blue_400x400.webm`))]
         },
         '07': {
-          blue: [lg(_t634 || (_t634 = _`Token_Border/TokenBorderCircleSpin_07_Regular_Blue_400x400.webm`))]
-        },
-        '08': {
-          blue: [lg(_t635 || (_t635 = _`Token_Border/TokenBorderCircleSpin_08_Regular_Blue_400x400.webm`))]
-        },
-        '09': {
-          blue: [lg(_t636 || (_t636 = _`Token_Border/TokenBorderCircleSpin_09_Regular_Blue_400x400.webm`))]
-        },
-        '10': {
-          blue: [lg(_t637 || (_t637 = _`Token_Border/TokenBorderCircleSpin_10_Regular_Blue_400x400.webm`))]
-        },
-        '11': {
-          blue: [lg(_t638 || (_t638 = _`Token_Border/TokenBorderCircleSpin_11_Regular_Blue_400x400.webm`))]
-        },
-        '12': {
-          blue: [lg(_t639 || (_t639 = _`Token_Border/TokenBorderCircleSpin_12_Regular_Blue_400x400.webm`))]
-        },
-        '13': {
-          blue: [lg(_t640 || (_t640 = _`Token_Border/TokenBorderCircleSpin_13_Regular_Blue_400x400.webm`))]
+          blue: [lg(_t613 || (_t613 = _`Token_Border/TokenBorderCircleSpin_07_Regular_Blue_400x400.webm`))]
         }
       }
     },
     trap: {
       fire: {
         single: {
-          orange: [lg(_t641 || (_t641 = _`Traps/FireTrap02_01_Regular_Orange_1400x1400.webm`))]
+          orange: [lg(_t614 || (_t614 = _`Traps/FireTrap02_01_Regular_Orange_1400x1400.webm`))]
         },
         double: {
-          orange: [lg(_t642 || (_t642 = _`Traps/FireTrapDual02_01_Regular_Orange_1400x1400.webm`))]
+          orange: [lg(_t615 || (_t615 = _`Traps/FireTrapDual02_01_Regular_Orange_1400x1400.webm`))]
         }
       }
     }
   };
   JB2AFREEDB.return = {
-    dagger: {
-      '01': {
-        white: {
-          '15ft': [lg(_t643 || (_t643 = _`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm`))],
-          '30ft': [lg(_t644 || (_t644 = _`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm`))],
-          '60ft': [lg(_t645 || (_t645 = _`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm`))],
-          '90ft': [lg(_t646 || (_t646 = _`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm`))]
+    _template: 'ranged',
+    weapon: {
+      dagger: {
+        '01': {
+          white: {
+            '15ft': [lg(_t616 || (_t616 = _`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_15ft_1000x400.webm`))],
+            '30ft': [lg(_t617 || (_t617 = _`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_30ft_1600x400.webm`))],
+            '60ft': [lg(_t618 || (_t618 = _`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_60ft_2800x400.webm`))],
+            '90ft': [lg(_t619 || (_t619 = _`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_Return_90ft_4000x400.webm`))]
+          }
         }
       }
     }
@@ -11185,7 +11106,7 @@ async function buildFile(getMeta, dbType, name, animationType, animationVariant,
     //let file = color === "random" ? `autoanimations.${type}.${path}.${variant}` : `autoanimations.${type}.${path}.${variant}.${color}`;
     //let msFile = color === "random" ? `autoanimations.${type}.${path}.02` : `autoanimations.${type}.${path}.02.${color}`;
 
-    const returnArray = Object.keys(jb2a.return);
+    const returnArray = Object.keys(jb2a.return.weapon);
     returnFile = returnArray.some(el => path === el) ? `autoanimations.return.weapon.${path}.${variant}.${color}` : "";
 
     if (getMeta) {
@@ -11452,7 +11373,7 @@ class AAanimationData {
       data.playSwitchSound = data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off" ? true : false;
       return data;
     } else {
-      var _flags$animation, _flags$color$toLowerC, _flags$color, _flags$color02$toLowe, _flags$color2, _options$removeTempla, _options$occlusionMod, _options$occlusionAlp, _options$onlyX, _flags$audio, _flags$audio$a, _flags$audio2, _flags$audio2$a, _flags$audio3, _flags$audio3$a, _flags$audio4, _flags$audio4$a, _flags$audio5, _flags$audio5$a, _meleeSwitch$detect, _meleeSwitch$variant, _meleeSwitch$range, _flags$audio6, _flags$audio6$a, _flags$audio7, _flags$audio7$a, _flags$audio8, _flags$audio8$a, _flags$audio9, _flags$audio9$a, _flags$audio10, _flags$audio10$a, _flags$macro$enable, _flags$macro, _flags$macro$name, _flags$macro2, _flags$macro3, _flags$macro$playWhen, _flags$macro4, _data$itemAudio3, _data$itemAudio4;
+      var _flags$animation, _flags$color$toLowerC, _flags$color, _flags$color02$toLowe, _flags$color2, _options$removeTempla, _options$occlusionMod, _options$occlusionAlp, _options$onlyX, _flags$audio, _flags$audio$a, _flags$audio2, _flags$audio2$a, _flags$audio3, _flags$audio3$a, _flags$audio4, _flags$audio4$a, _flags$audio5, _flags$audio5$a, _meleeSwitch$detect, _meleeSwitch$range, _flags$audio6, _flags$audio6$a, _flags$audio7, _flags$audio7$a, _flags$audio8, _flags$audio8$a, _flags$audio9, _flags$audio9$a, _flags$audio10, _flags$audio10$a, _flags$macro$enable, _flags$macro, _flags$macro$name, _flags$macro2, _flags$macro3, _flags$macro$playWhen, _flags$macro4, _data$itemAudio3, _data$itemAudio4;
 
       const flags = handler.flags;
       const meleeSwitch = flags.meleeSwitch || {};
@@ -11510,10 +11431,10 @@ class AAanimationData {
         },
         switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation || "" : flags.animation || "",
         switchType: meleeSwitch.switchType || "on",
-        switchColor: meleeSwitch.color || "white",
+        switchColor: meleeSwitch.switchType === 'custom' ? meleeSwitch.color || "white" : flags.color || "",
         detect: (_meleeSwitch$detect = meleeSwitch.detect) !== null && _meleeSwitch$detect !== void 0 ? _meleeSwitch$detect : "auto",
         return: meleeSwitch.returning || false,
-        switchVariant: (_meleeSwitch$variant = meleeSwitch.variant) !== null && _meleeSwitch$variant !== void 0 ? _meleeSwitch$variant : "01",
+        switchVariant: meleeSwitch.switchType === 'custom' ? meleeSwitch.variant || "01" : options.variant || '01',
         switchMenuType: meleeSwitch.menuType || "weapon",
         range: (_meleeSwitch$range = meleeSwitch.range) !== null && _meleeSwitch$range !== void 0 ? _meleeSwitch$range : 2,
         switchAudio: {
@@ -12224,6 +12145,7 @@ async function meleeAnimation(handler, animationData) {
 
   const attack = await buildFile(false, data.menuType, data.animation, "melee", data.variant, data.color, data.customPath);
   const range = await buildFile(false, data.switchMenuType, data.switchAnimation, "range", data.switchVariant, data.switchColor);
+  console.log(range);
 
   if (handler.debug) {
     aaDebugger("Melee Animation Start", animationData, attack);
@@ -12466,7 +12388,7 @@ async function teleportation(handler, animationData) {
       }));
     }
 
-    aaSeq.effect().file(onToken.file).atLocation(sourceToken).scale(Scale).randomRotation();
+    aaSeq.effect().file(onToken.file).atLocation(sourceToken).belowTokens(data.below).scale(Scale).randomRotation();
     aaSeq.wait(250);
     aaSeq.animation().on(sourceToken).opacity(0).teleportTo({
       x: gridPos[0],
@@ -12475,7 +12397,7 @@ async function teleportation(handler, animationData) {
     aaSeq.effect().file(onToken02.file).atLocation({
       x: centerPos[0],
       y: centerPos[1]
-    }).scale(Scale02).randomRotation();
+    }).belowTokens(data.below).scale(Scale02).randomRotation();
     aaSeq.wait(1250 + data.delay);
     aaSeq.animation().on(sourceToken).opacity(1);
 
@@ -13881,12 +13803,12 @@ async function auras(handler, animationData) {
       }).length > 0;
 
       if (!checkAnim) {
-        aaSeq.effect().attachTo(target, {
+        aaSeq.effect().persist().origin(handler.itemUuid).size(data.size, {
+          gridUnits: true
+        }).belowTokens(data.below).file(aura.file).attachTo(target, {
           bindAlpha: data.unbindAlpha,
           bindVisibility: data.unbindVisibility
-        }).persist().origin(handler.itemUuid).name(`${target.name}-${handler.itemName}`).size(data.size, {
-          gridUnits: true
-        }).belowTokens(data.below).file(aura.file).animateProperty("sprite", "width", {
+        }).name(`${target.name}-${handler.itemName}`).opacity(data.opacity).animateProperty("sprite", "width", {
           from: 0,
           to: data.size,
           duration: 2500,
@@ -18588,6 +18510,9 @@ class systemData {
 async function createActiveEffects5e(effect) {
   var _effect$data, _effect$data2, _effect$data2$flags, _effect$data3, _effect$data3$flags, _effect$data3$flags$a;
 
+  const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
+
+  await wait(150);
   const aaDebug = game.settings.get("autoanimations", "debug");
 
 
@@ -18658,10 +18583,10 @@ async function createActiveEffects5e(effect) {
 
     const aeDelay = handler.isCustomized ? ((_handler$flags = handler.flags) === null || _handler$flags === void 0 ? void 0 : (_handler$flags$option = _handler$flags.options) === null || _handler$flags$option === void 0 ? void 0 : _handler$flags$option.aeDelay) || "noDelay" : handler.autorecObject.aeDelay || "noDelay";
 
-    const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
+    const _wait = delay => new Promise(resolve => setTimeout(resolve, delay));
 
     if (aeDelay === "noDelay") ; else {
-      await wait(aeDelay);
+      await _wait(aeDelay);
     }
   } // Sends the data to begin the animation Sequence
 
@@ -18873,6 +18798,9 @@ async function checkConcentration(effect) {
 async function createActiveEffectsPF2e(item) {
   var _item$data, _item$data$data, _item$data$data$refer, _item$data2, _item$data2$flags, _item$data3, _item$data3$flags, _item$data3$flags$aut;
 
+  const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
+
+  await wait(150);
   const aePF2eTypes = ['condition', 'effect', 'feat'];
   const aaDebug = game.settings.get("autoanimations", "debug");
 
@@ -19098,6 +19026,9 @@ async function deleteActiveEffectsPF2e(item) {
 async function createActiveEffectsPF1(effect) {
   var _effect$data, _originatingItem$data, _originatingItem$data2, _originatingItem$data3, _originatingItem$data4;
 
+  const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
+
+  await wait(150);
   const aaDebug = game.settings.get("autoanimations", "debug");
   /*
   // Sets data for the System Handler
