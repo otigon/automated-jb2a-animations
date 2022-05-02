@@ -1248,6 +1248,17 @@ export async function jb2aAAFreeDatabase(path) {
                     blue: [lg`Energy/SwirlingSparkles_01_Regular_Blue_400x400.webm`],
                 }
             },
+            strands: {
+                '01': {
+                    green: [lg`Energy/EnergyStrandIN01_01_Regular_Green_600x600.webm`],
+                },
+                '02': {
+                    green: [lg`Energy/EnergyStrandIN01_02_Regular_Green_600x600.webm`],
+                },
+                '03': {
+                    green: [lg`Energy/EnergyStrandIN01_03_Regular_Green_600x600.webm`],
+                },
+            },    
         },
         fire: {
             eruption: {
@@ -1823,6 +1834,14 @@ export async function jb2aAAFreeDatabase(path) {
                     blue: [l2`Moonbeam/MoonbeamOutro_01_Regular_Blue_400x400.webm`],
                 },
             },
+            sacredflame: {
+                source: {
+                    yellow: [l0`Sacred_Flame/SacredFlameSource_01_Regular_Yellow_400x400.webm`],
+                },
+                target: {
+                    yellow: [l0`Sacred_Flame/SacredFlameTarget_01_Regular_Yellow_400x400.webm`],
+                },
+            },    
             shatter: {
                 '01': {
                     blue: [l2`Shatter/Shatter_01_Blue_400x400.webm`]

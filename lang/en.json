@@ -663,6 +663,11 @@
     "AUTOANIM.disableNestedHint": "Prevents Animations for Conditions (Rulesets) created by other Conditions",
 
     "AUTOANIM.unbindAlphaTip": "Default: Animation matches Object Alpha",
-    "AUTOANIM.unbindVisibilityTip": "Default: Animation Hides with Object"
+    "AUTOANIM.unbindVisibilityTip": "Default: Animation Hides with Object",
 
+    "AUTOANIM.ring": "Ring",
+    "AUTOANIM.dart": "Dart",
+    "AUTOANIM.sacredflame": "Sacred Flame",
+    "AUTOANIM.strands": "Strands",
+    "AUTOANIM.in": "In"
 }
